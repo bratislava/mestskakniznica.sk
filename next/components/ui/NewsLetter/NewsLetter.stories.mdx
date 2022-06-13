@@ -1,0 +1,47 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { withDesign } from 'storybook-addon-designs';
+import { NewsLetter } from './NewsLetter';
+
+<Meta title="components/molecules/NewsLetter" decorators={[withDesign]} />
+
+# NewsLetter
+
+NewsLetter
+
+## Props
+
+NewsLetter accepts custom Props that are as follows:
+
+- <b>className</b>: modifies or extends the styles for the component
+- <b>title</b>: String that represents the title of the newsletter
+- <b>inputPlaceholder</b>: Placeholder for Input element
+- <b>buttonContent</b>: String that is written inside the button
+- <b>checkboxContent</b>: String that is written inside the Checkbox component
+
+<Canvas>
+  <Story
+    name="NewsLetter"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{
+      className: '',
+      title: 'Odoberajte novinky z knižnice',
+      buttonContent: 'Subscribe',
+      inputPlaceholder: 'Your e-mail',
+      checkboxContent: (
+        <p>
+          I agree with <span className="underline">Privacy policy</span> and
+          want to receive Marketing announcements.
+        </p>
+      ),
+    }}
+  >
+    {NewsLetter.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={NewsLetter} />

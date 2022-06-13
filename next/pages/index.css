@@ -1,0 +1,161 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import '@bratislava/common-frontend-themes/themes/city-library.css';
+
+@layer base {
+  @font-face {
+    font-family: BeausiteMedium;
+    font-weight: 400;
+    src: url(/fonts/Medium/BeausiteClassicWeb-Medium.woff2) format('woff2');
+    src: url(/fonts/Medium/BeausiteClassicWeb-Medium.woff) format('woff');
+  }
+  @font-face {
+    font-family: BeausiteRegular;
+    font-weight: 400;
+    src: url(/fonts/Regular/BeausiteClassicWeb-Regular.woff2) format('woff2');
+    src: url(/fonts/Regular/BeausiteClassicWeb-Regular.woff) format('woff');
+  }
+  @font-face {
+    font-family: BeausiteBold;
+    font-weight: 700;
+    src: url(/fonts/Bold/BeausiteClassicWeb-Bold.woff2) format('woff2');
+    src: url(/fonts/Bold/BeausiteClassicWeb-Bold.woff) format('woff');
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .base-button {
+    @apply appearance-none inline-flex items-center justify-center text-center;
+    @apply text-xs uppercase tracking-wider;
+  }
+  .base-input {
+    @apply appearance-none box-border inline-block border px-3 py-2 text-gray-universal-100 bg-input-nav-bg text-base;
+    @apply border-input-stroke focus:outline-none focus:border-gray-universal-100 hover:border-gray-universal-100 placeholder:text-gray-500;
+  }
+  .base-input--with-error {
+    @apply border-error;
+  }
+  .base-radio {
+    @apply border-gray-universal-100 w-5 h-5 rounded-full border-2 flex items-center;
+    @apply justify-center box-border overflow-hidden;
+  }
+}
+
+.chq-atc--button > svg {
+  vertical-align: text-bottom;
+  display: none;
+}
+
+.chq-atc--button {
+  background: transparent;
+  border: 0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+  outline: none;
+  padding: 0;
+}
+
+.chq-atc--button path {
+  fill: #2f2f2f;
+}
+
+.chq-atc--dropdown a {
+  font-size: 14px;
+  line-height: 22.4px;
+  text-align: center;
+  color: #2f2f2f;
+  display: block;
+  padding: 8px 15px;
+  text-decoration: none;
+}
+
+.chq-atc {
+  display: inline-block;
+  position: relative;
+}
+
+.chq-atc--dropdown {
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #eaeaea;
+  box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  position: absolute;
+  text-align: center;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 1;
+}
+
+.chq-atc--dropdown a:hover {
+  color: rgb(193, 199, 209);
+}
+
+.sr-only {
+  position: absolute;
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
+}
+
+/* Override date picker styles */
+.react-datepicker__header {
+  background-color: white !important;
+}
+.react-datepicker__day-names {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  margin-top: 5px;
+}
+.react-datepicker__day {
+  color: gray !important;
+}
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__day--keyboard-selected {
+  background-color: lightgray !important;
+  color: black !important;
+  border-radius: 0px !important;
+}
+.react-datepicker__day--range-start,
+.react-datepicker__day--range-end,
+.react-datepicker__day--selecting-range-start,
+.react-datepicker__day--selecting-range-end,
+.react-datepicker__day--keyboard-selected {
+  background-color: black !important;
+  color: white !important;
+}
+.react-datepicker__navigation-icon::before {
+  border-color: black !important;
+}
+.react-datepicker {
+  border: 1px solid black !important;
+  border-radius: 0px !important;
+}
+.react-datepicker__triangle {
+  display: none;
+}
+@media (max-width: 1024px) {
+  .react-datepicker__month-container {
+    float: unset !important;
+  }
+}

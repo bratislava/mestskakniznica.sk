@@ -1,0 +1,30 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { withDesign } from 'storybook-addon-designs';
+import SectionContainer from './SectionContainer';
+
+<Meta title="components/SectionContainer" decorators={[withDesign]} />
+
+# SectionContainer
+
+This is our SectionContainer
+
+## Single SectionContainer
+
+TODO: Write Docs
+
+<Canvas>
+  <Story
+    name="Single SectionContainer"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{}}
+  >
+    {SectionContainer.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={SectionContainer} />

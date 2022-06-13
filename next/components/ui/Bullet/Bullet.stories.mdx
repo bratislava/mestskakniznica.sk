@@ -1,0 +1,33 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { withDesign } from 'storybook-addon-designs';
+import { Bullet } from './Bullet';
+
+<Meta title="components/atoms/Bullet" decorators={[withDesign]} />
+
+# Bullet
+
+This is our Bullet
+
+## Single Bullet
+
+TODO: Write Docs
+
+<Canvas>
+  <Story
+    name="Bullet"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{
+      content: 'Benefit benefit benefit',
+      className: '',
+    }}
+  >
+    {Bullet.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Bullet} />

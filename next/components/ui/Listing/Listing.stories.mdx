@@ -1,0 +1,32 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { withDesign } from 'storybook-addon-designs';
+import Listing from './Listing';
+
+<Meta title="components/sections/Listing" decorators={[withDesign]} />
+
+# Listing
+
+This is our Listing
+
+<Canvas>
+  <Story
+    name="Listing"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{
+      title: 'Čítanie',
+      moreLinkTitle: 'Viac',
+      url: '#',
+      hasDivider: true,
+      pages: [{ title: 'Lorem Ipsum', url: '#' }],
+    }}
+  >
+    {Listing.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Listing} />
