@@ -1,13 +1,13 @@
-import React from 'react';
-import Consent, { Cookies } from 'react-cookie-consent';
-import Modal from 'react-modal';
-import { ReactComponent as Close } from '@bratislava/ui-bratislava/assets/images/hamburger-close.svg';
-import cx from 'classnames';
-import { ReactComponent as ChevronDown } from '../../assets/images/chevron-down.svg';
-import { ReactComponent as ChevronUp } from '../../assets/images/chevron-up.svg';
-import * as ReactGA from 'react-ga';
-import { useTranslation } from 'react-i18next';
-import Link from 'next/link';
+import React from 'react'
+import Consent, { Cookies } from 'react-cookie-consent'
+import Modal from 'react-modal'
+import Close from '@assets/images/hamburger-close.svg'
+import cx from 'classnames'
+import ChevronDown from '@assets/images/chevron-down.svg'
+import ChevronUp from '@assets/images/chevron-up.svg'
+import * as ReactGA from 'react-ga'
+import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
 
 const CUSTOM_STYLES = {
   content: {
@@ -20,71 +20,67 @@ const CUSTOM_STYLES = {
     left: '50%',
     transform: 'translate(-50%,-50%)',
   },
-};
+}
 
 const CookieConsent = () => {
-  const { t } = useTranslation(['common']);
-  const [showModal, setShowModal] = React.useState(false);
-  const [isConsentSubmitted, setConsent] = React.useState(false);
-  const [securityCookies] = React.useState<boolean>(true);
-  const [performanceCookies, setPerformanceCookies] =
-    React.useState<boolean>(true);
-  const [advertisingCookies, setAdvertisingCookies] =
-    React.useState<boolean>(true);
-  const [openPanel, setPanel] = React.useState<string>(
-    t('cookie_consent_security_essential_titile')
-  );
-  ReactGA.initialize(process.env.GOOGLE_ANALYTICS_ID ?? '');
+  const { t } = useTranslation(['common'])
+  const [showModal, setShowModal] = React.useState(false)
+  const [isConsentSubmitted, setConsent] = React.useState(false)
+  const [securityCookies] = React.useState<boolean>(true)
+  const [performanceCookies, setPerformanceCookies] = React.useState<boolean>(true)
+  const [advertisingCookies, setAdvertisingCookies] = React.useState<boolean>(true)
+  const [openPanel, setPanel] = React.useState<string>(t('cookie_consent_security_essential_titile'))
+  ReactGA.initialize(process.env.GOOGLE_ANALYTICS_ID ?? '')
   const closeModal = () => {
-    setShowModal(false);
-  };
+    setShowModal(false)
+  }
 
   const saveSettings = () => {
     Cookies.set('city-library-gdpr', {
       security_cookies: securityCookies,
       performance_cookies: performanceCookies,
       advertising_and_targeting_cookies: advertisingCookies,
-    });
+    })
     ReactGA.set({
       security_cookies: securityCookies,
       performance_cookies: performanceCookies,
       advertising_and_targeting_cookies: advertisingCookies,
-    });
-    setShowModal(false);
-    setConsent(true);
-  };
+    })
+    setShowModal(false)
+    setConsent(true)
+  }
   const acceptAllCookies = () => {
     Cookies.set('city-library-gdpr', {
       security_cookies: true,
       performance_cookies: true,
       advertising_and_targeting_cookies: true,
-    });
+    })
     ReactGA.set({
       security_cookies: true,
       performance_cookies: true,
       advertising_and_targeting_cookies: true,
-    });
-    setShowModal(false);
-    setConsent(true);
-  };
+    })
+    setShowModal(false)
+    setConsent(true)
+  }
   const declineCookies = () => {
-    setPerformanceCookies(false);
-    setAdvertisingCookies(false);
+    setPerformanceCookies(false)
+    setAdvertisingCookies(false)
     Cookies.set('city-library-gdpr', {
       security_cookies: true,
       performance_cookies: false,
       advertising_and_targeting_cookies: false,
-    });
+    })
     ReactGA.set({
       security_cookies: true,
       performance_cookies: false,
       advertising_and_targeting_cookies: false,
-    });
+    })
     setTimeout(() => {
-      setShowModal(false);
-      setConsent(true);
-    }, 300);
-  };
+      setShowModal(false)
+      setConsent(true)
+    }, 300)
+  }
   return (
     <div>
       <Modal
@@ -109,9 +105,7 @@ const CookieConsent = () => {
           <div className="p-5">
             <div className="h-full max-h-[400px] overflow-y-scroll">
               <div>
-                <div className="font-medium mb-2">
-                  {t('cookie_consent_modal_content_title')}
-                </div>
+                <div className="font-medium mb-2">{t('cookie_consent_modal_content_title')}</div>
                 <p
                   className="text-sm"
                   dangerouslySetInnerHTML={{
@@ -124,9 +118,7 @@ const CookieConsent = () => {
                 content={<>{t('cookie_consent_security_essential_content')}</>}
                 value={securityCookies}
                 onValueChange={() => null}
-                isOpen={
-                  openPanel === t('cookie_consent_security_essential_titile')
-                }
+                isOpen={openPanel === t('cookie_consent_security_essential_titile')}
                 setPanel={setPanel}
               />
               <Panel
@@ -139,22 +131,15 @@ const CookieConsent = () => {
               />
               <Panel
                 title={t('cookie_consent_advertising_targeting_title')}
-                content={
-                  <>{t('cookie_consent_advertising_targeting_content')}</>
-                }
+                content={<>{t('cookie_consent_advertising_targeting_content')}</>}
                 value={advertisingCookies}
                 onValueChange={(val) => setAdvertisingCookies(val)}
-                isOpen={
-                  openPanel === t('cookie_consent_advertising_targeting_title')
-                }
+                isOpen={openPanel === t('cookie_consent_advertising_targeting_title')}
                 setPanel={setPanel}
               />
             </div>
             <div className="mt-5 flex gap-1 justify-between flex-col md:flex-row">
-              <button
-                className="px-3 py-1 text-sm rounded-sm bg-gray-900 text-white"
-                onClick={saveSettings}
-              >
+              <button className="px-3 py-1 text-sm rounded-sm bg-gray-900 text-white" onClick={saveSettings}>
                 {t('cookie_consent_save_settings')}
               </button>
               <div className="flex gap-1 flex-col md:flex-row">
@@ -177,7 +162,7 @@ const CookieConsent = () => {
       </Modal>
       <Consent
         onAccept={() => {
-          acceptAllCookies();
+          acceptAllCookies()
         }}
         buttonText={t('cookie_consent_acceptall')}
         ariaAcceptLabel={t('cookie_consent_accept_aria_label')}
@@ -211,89 +196,68 @@ const CookieConsent = () => {
         <div className="text-sm" tabIndex={1}>
           {t('cookie_consent_body')}{' '}
           <Link href={'javascript:void(0)'}>
-            <a
-              className="text-red-600 underline cursor-pointer"
-              onClick={() => setShowModal(true)}
-              tabIndex={2}
-            >
+            <a className="text-red-600 underline cursor-pointer" onClick={() => setShowModal(true)} tabIndex={2}>
               {t('cookie_consent_setting')}
             </a>
           </Link>
         </div>
       </Consent>
     </div>
-  );
-};
+  )
+}
 
 interface SwitchProps {
-  value: boolean;
-  onValueChange: (value: boolean) => void;
-  disabled?: boolean;
+  value: boolean
+  onValueChange: (value: boolean) => void
+  disabled?: boolean
 }
 
 const Switch = ({ value, onValueChange, disabled }: SwitchProps) => {
-  const { t } = useTranslation(['common']);
+  const { t } = useTranslation(['common'])
   return (
     <button
       disabled={disabled}
-      className={cx(
-        'w-25 h-6 flex items-center border border-gray-900 rounded-full mx-3 px-0.5',
-        {
-          'justify-end bg-red-600': value,
-          'bg-gray-400': !value,
-          'cursor-not-allowed border-gray-100 bg-gray-300': disabled,
-        }
-      )}
+      className={cx('w-25 h-6 flex items-center border border-gray-900 rounded-full mx-3 px-0.5', {
+        'justify-end bg-red-600': value,
+        'bg-gray-400': !value,
+        'cursor-not-allowed border-gray-100 bg-gray-300': disabled,
+      })}
       onClick={(e) => {
-        e.stopPropagation();
-        onValueChange(!value);
+        e.stopPropagation()
+        onValueChange(!value)
       }}
     >
       {value && (
-        <span className="w-full pl-[5px] text-center text-[10px] font-bold">
-          {t('cookie_consent_switch_accept')}
-        </span>
+        <span className="w-full pl-[5px] text-center text-[10px] font-bold">{t('cookie_consent_switch_accept')}</span>
       )}
       <div
         onClick={(e) => {
-          if (disabled) e.stopPropagation();
+          if (disabled) e.stopPropagation()
         }}
         className={cx('w-3.5 h-3.5 bg-white rounded-full shadow-md')}
         aria-hidden="true"
       />
       {!value && (
-        <span className="w-full pr-[5px] text-center text-[10px] font-bold">
-          {t('cookie_consent_switch_decline')}
-        </span>
+        <span className="w-full pr-[5px] text-center text-[10px] font-bold">{t('cookie_consent_switch_decline')}</span>
       )}
     </button>
-  );
-};
+  )
+}
 interface PanelProps {
-  title: string;
-  content: React.ReactNode;
-  value: boolean;
-  onValueChange: (value: boolean) => void;
-  isOpen: boolean;
-  setPanel: (value: string) => void;
+  title: string
+  content: React.ReactNode
+  value: boolean
+  onValueChange: (value: boolean) => void
+  isOpen: boolean
+  setPanel: (value: string) => void
 }
 
-const Panel = ({
-  title,
-  content,
-  value,
-  onValueChange,
-  isOpen,
-  setPanel,
-}: PanelProps) => {
-  const { t } = useTranslation(['common']);
+const Panel = ({ title, content, value, onValueChange, isOpen, setPanel }: PanelProps) => {
+  const { t } = useTranslation(['common'])
   return (
     <>
       <div className="mt-2 flex justify-between items-center bg-gray-200 px-2 py-3">
-        <button
-          className="flex items-center gap-2"
-          onClick={() => setPanel(isOpen ? '' : title)}
-        >
+        <button className="flex items-center gap-2" onClick={() => setPanel(isOpen ? '' : title)}>
           <span>{isOpen ? <ChevronUp /> : <ChevronDown />}</span>
           {title}
         </button>
@@ -304,18 +268,15 @@ const Panel = ({
         />
       </div>
       <div
-        className={cx(
-          'text-base text-gray-universal-70 transform transition-all duration-200 ease-linear',
-          {
-            'h-0 hidden': !isOpen,
-            'h-full mt-1 pb-8': isOpen,
-          }
-        )}
+        className={cx('text-base text-gray-universal-70 transform transition-all duration-200 ease-linear', {
+          'h-0 hidden': !isOpen,
+          'h-full mt-1 pb-8': isOpen,
+        })}
       >
         {content}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CookieConsent;
+export default CookieConsent

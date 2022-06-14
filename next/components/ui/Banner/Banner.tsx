@@ -1,21 +1,15 @@
-import cx from 'classnames';
-import { ReactComponent as Calendar } from '../../assets/images/calendar.svg';
+import cx from 'classnames'
+import Calendar from '@assets/images/calendar.svg'
 
 export interface BannerProps {
-  className?: string;
-  onBannerClick: () => void;
-  title?: string;
-  description?: string;
-  buttonContent?: string;
+  className?: string
+  onBannerClick: () => void
+  title?: string
+  description?: string
+  buttonContent?: string
 }
 
-export const Banner = ({
-  className,
-  onBannerClick,
-  title,
-  description,
-  buttonContent,
-}: BannerProps) => (
+export const Banner = ({ className, onBannerClick, title, description, buttonContent }: BannerProps) => (
   <div
     className={cx(
       'bg-gray-universal-100 flex flex-col gap-y-6 lg:gap-y-0 lg:flex-row text-center lg:text-left items-center justify-between p-4 lg:p-10',
@@ -34,4 +28,4 @@ export const Banner = ({
       <p>{buttonContent}</p>
     </button>
   </div>
-);
+)

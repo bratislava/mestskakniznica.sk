@@ -1,39 +1,34 @@
-import { Button, Input } from '@bratislava/ui-city-library';
-import cx from 'classnames';
-import React, { FormEvent } from 'react';
-import {
-  Controller,
-  useFieldArray,
-  useFormContext,
-  useFormState,
-} from 'react-hook-form';
-import { useTranslation } from 'next-i18next';
-import { ReactComponent as ClearCircle } from '../../../assets/images/clear-circle.svg';
-import { ReactComponent as PlusIcon } from '../../../assets/images/plus.svg';
+import { Button, Input } from '@bratislava/ui-city-library'
+import cx from 'classnames'
+import React, { FormEvent } from 'react'
+import { Controller, useFieldArray, useFormContext, useFormState } from 'react-hook-form'
+import { useTranslation } from 'next-i18next'
+import ClearCircle from '@assets/images/clear-circle.svg'
+import PlusIcon from '@assets/images/plus.svg'
 
 interface Props {
-  className?: string;
+  className?: string
 }
 
 const BookList = ({ className }: Props) => {
-  const methods = useFormContext();
-  const { errors } = useFormState();
-  const { t } = useTranslation(['forms', 'common']);
+  const methods = useFormContext()
+  const { errors } = useFormState()
+  const { t } = useTranslation(['forms', 'common'])
 
   const { fields, append, remove } = useFieldArray({
     control: methods.control,
     name: 'books',
-  });
+  })
 
   const handleAddBook = (e: FormEvent) => {
-    e.preventDefault();
-    append({ bookId: '', author: '', title: '' });
-  };
+    e.preventDefault()
+    append({ bookId: '', author: '', title: '' })
+  }
 
   const handleRemoveBook = (e: FormEvent, idx: number) => {
-    e.preventDefault();
-    remove(idx);
-  };
+    e.preventDefault()
+    remove(idx)
+  }
 
   return (
     <div className={className}>
@@ -68,9 +63,7 @@ const BookList = ({ className }: Props) => {
                   />
                 )}
               />
-              <div className="text-xs text-gray-universal-70">
-                {t('common:or')}
-              </div>
+              <div className="text-xs text-gray-universal-70">{t('common:or')}</div>
               <Controller
                 control={methods.control}
                 name={`books[${index}].author` as const}
@@ -126,7 +119,7 @@ const BookList = ({ className }: Props) => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BookList;
+export default BookList

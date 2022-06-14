@@ -1,18 +1,18 @@
-import HeaderNavigationItem from './HeaderNavigationItem';
-import { ReactComponent as Accessibility } from '../../../assets/images/accessibility.svg';
-import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
-import { Time24To12Format } from 'apps/next/city-library/utils/utils';
+import HeaderNavigationItem from './HeaderNavigationItem'
+import Accessibility from '@assets/images/accessibility.svg'
+import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+import { Time24To12Format } from '@utils/utils'
 
 interface HeaderNavigationProps {}
 
 const HeaderNavigation = (_props: HeaderNavigationProps) => {
-  const { localizations, locale } = usePageWrapperContext();
-  const otherLocaleData = otherLocale(locale ?? 'sk', localizations);
-  const { t } = useTranslation('common');
+  const { localizations, locale } = usePageWrapperContext()
+  const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
+  const { t } = useTranslation('common')
 
-  const openingHours = t('openHoursInfo');
+  const openingHours = t('openHoursInfo')
   // TODO load opening hours
   // const openingHours = mainLocality?.isCurrentlyOpen
   //   ? t('openingHours') +
@@ -27,9 +27,7 @@ const HeaderNavigation = (_props: HeaderNavigationProps) => {
       {/*</div>*/}
       <div className="group border-l border-gray-900">
         <HeaderNavigationItem url={t('openingHoursPageLink')}>
-          <div className="font-normal px-[12px] text-gray-900 hover:underline">
-            {openingHours}
-          </div>
+          <div className="font-normal px-[12px] text-gray-900 hover:underline">{openingHours}</div>
           {/* TODO show he div below again once the one above contains dynami opening hours */}
           {/* <div className="mt-2 absolute w-40 bg-white text-center py-5 px-3 border z-50 transform scale-0 focus-within:scale-100 group-hover:scale-100 cursor-default">
               {t('openHoursInfo')}
@@ -45,11 +43,7 @@ const HeaderNavigation = (_props: HeaderNavigationProps) => {
           </Link>
         </div>
       </div>
-      <Link
-        href={otherLocaleData.path}
-        locale={otherLocaleData.locale}
-        passHref
-      >
+      <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
         <a
           aria-label={t('otherLocaleAriaLabel')}
           className="pl-[12px] font-normal text-sm border-gray-900 border-l py-[10px] leading-[19.6px]"
@@ -58,7 +52,7 @@ const HeaderNavigation = (_props: HeaderNavigationProps) => {
         </a>
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default HeaderNavigation;
+export default HeaderNavigation

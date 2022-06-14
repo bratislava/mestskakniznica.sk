@@ -1,21 +1,18 @@
-import NewsListing from '../Molecules/NewsListingCard';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { Link } from '@bratislava/ui-city-library';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ComponentHomepageNewsSection } from '@bratislava/strapi-sdk-city-library';
-import { useTranslation } from 'next-i18next';
-import { IEvent } from '../../utils/types';
+import NewsListing from '../Molecules/NewsListingCard'
+
+import { Link } from '@bratislava/ui-city-library'
+
+import { ComponentHomepageNewsSection } from '@bratislava/strapi-sdk-city-library'
+import { useTranslation } from 'next-i18next'
+import { IEvent } from '../../utils/types'
 
 interface LibraryNewsProps {
-  news: IEvent[];
-  newsSection: ComponentHomepageNewsSection;
+  news: IEvent[]
+  newsSection: ComponentHomepageNewsSection
 }
 
-export default function SectionLibraryNews({
-  news,
-  newsSection,
-}: LibraryNewsProps) {
-  const { t } = useTranslation('homepage');
+export default function SectionLibraryNews({ news, newsSection }: LibraryNewsProps) {
+  const { t } = useTranslation('homepage')
   return (
     <div className="relative flex flex-col space-y-12 py-12">
       <h2 className="text-lg text-center md:text-left">{newsSection.title}</h2>
@@ -37,5 +34,5 @@ export default function SectionLibraryNews({
         </Link>
       </div>
     </div>
-  );
+  )
 }

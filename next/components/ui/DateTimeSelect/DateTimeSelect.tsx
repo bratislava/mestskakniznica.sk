@@ -1,18 +1,14 @@
-import cx from 'classnames';
-import { Input, InputProps } from '../Input/Input';
-import { ReactComponent as CalendarIcon } from '../../assets/images/calendar.svg';
-import { ReactComponent as ClockIcon } from '../../assets/images/clock.svg';
+import cx from 'classnames'
+import { Input, InputProps } from '../Input/Input'
+import CalendarIcon from '@assets/images/calendar.svg'
+import ClockIcon from '@assets/images/clock.svg'
 
 export interface DateTimeSelectProps extends InputProps {
-  type: 'date' | 'time';
+  type: 'date' | 'time'
 }
 
-export function DateTimeSelect({
-  type,
-  inputClassName,
-  ...props
-}: DateTimeSelectProps) {
-  const Icon = type === 'date' ? <CalendarIcon /> : <ClockIcon />;
+export function DateTimeSelect({ type, inputClassName, ...props }: DateTimeSelectProps) {
+  const Icon = type === 'date' ? <CalendarIcon /> : <ClockIcon />
 
   return (
     <Input
@@ -23,5 +19,5 @@ export function DateTimeSelect({
       inputClassName={cx('h-[42px]', inputClassName)}
       {...props}
     />
-  );
+  )
 }

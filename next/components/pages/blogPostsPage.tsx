@@ -1,67 +1,48 @@
-import * as React from 'react';
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  ArticleCard,
-  PageTitle,
-  Pagination,
-  SectionContainer,
-} from '@bratislava/ui-city-library';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  BlogPostFragment,
-  PageFragment,
-} from '@bratislava/strapi-sdk-city-library';
-import { BlogPostResponse } from '../../pages/api/blog-posts';
-import { useTranslation } from 'next-i18next';
-import { formatDateToLocal } from '../../utils/utils';
-import { usePageWrapperContext } from '../layouts/PageWrapper';
+import * as React from 'react'
+import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
+
+import { ArticleCard, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
+
+import { BlogPostFragment, PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostResponse } from '../../pages/api/blog-posts'
+import { useTranslation } from 'next-i18next'
+import { formatDateToLocal } from '../../utils/utils'
+import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface BlogPostsPageProps {
-  page: PageFragment;
+  page: PageFragment
 }
 
-const LIMIT = 16;
+const LIMIT = 16
 
 const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
-  const { t } = useTranslation('common');
-  const { locale } = usePageWrapperContext();
+  const { t } = useTranslation('common')
+  const { locale } = usePageWrapperContext()
 
-  const [relatedBlogPosts, setRelatedBlogPosts] = React.useState<
-    BlogPostFragment[]
-  >(page.relatedBlogPosts ?? []);
+  const [relatedBlogPosts, setRelatedBlogPosts] = React.useState<BlogPostFragment[]>(page.relatedBlogPosts ?? [])
 
-  const [noOfPages, setNoOfPages] = React.useState(
-    Math.ceil((page.relatedBlogPostsCount ?? 1) / LIMIT) ?? 1
-  );
+  const [noOfPages, setNoOfPages] = React.useState(Math.ceil((page.relatedBlogPostsCount ?? 1) / LIMIT) ?? 1)
 
-  const [offsetPage, setOffsetPage] = React.useState(1);
+  const [offsetPage, setOffsetPage] = React.useState(1)
 
-  if (!page) return null;
+  if (!page) return null
 
   const fetchBlogPosts = async (offset: number) => {
-    const res = await fetch(
-      `/api/blog-posts?id=${page.id}&offset=${
-        (offset - 1) * LIMIT
-      }&limit=${LIMIT}`
-    );
-    const data: BlogPostResponse = await res.json();
-    setRelatedBlogPosts(data.posts);
-    setNoOfPages(Math.ceil(data.count / LIMIT));
-  };
+    const res = await fetch(`/api/blog-posts?id=${page.id}&offset=${(offset - 1) * LIMIT}&limit=${LIMIT}`)
+    const data: BlogPostResponse = await res.json()
+    setRelatedBlogPosts(data.posts)
+    setNoOfPages(Math.ceil(data.count / LIMIT))
+  }
 
   const handleChangeOffsetPage = (num: number) => {
-    if (num > 0 && num <= noOfPages) setOffsetPage(num);
-  };
+    if (num > 0 && num <= noOfPages) setOffsetPage(num)
+  }
 
   return (
     <>
       <SectionContainer>
         <PageBreadcrumbs page={page} />
-        <PageTitle
-          title={page.title ?? ''}
-          description={page.description ?? ''}
-        />
+        <PageTitle title={page.title ?? ''} description={page.description ?? ''} />
 
         {relatedBlogPosts?.length > 0 && (
           <div className="grid mt-8 grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-5 md:grid-cols-3 md:gap-y-10 lg:grid-cols-4">
@@ -71,10 +52,7 @@ const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
                   title={blogPost.title ?? ''}
                   media={blogPost.coverMedia?.url || ''}
                   mediaType={blogPost.coverMedia?.mime?.split('/')[0] ?? ''}
-                  publishedDate={formatDateToLocal(
-                    blogPost.created_at ?? '',
-                    locale
-                  )}
+                  publishedDate={formatDateToLocal(blogPost.created_at ?? '', locale)}
                   pageLink={{
                     title: t('showMore'),
                     url: `${t('blog_slug') + blogPost.slug}`,
@@ -90,8 +68,8 @@ const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
             max={noOfPages}
             value={offsetPage}
             onChangeNumber={(num) => {
-              handleChangeOffsetPage(num);
-              fetchBlogPosts(num);
+              handleChangeOffsetPage(num)
+              fetchBlogPosts(num)
             }}
             previousButtonAriaLabel={t('previousPage')}
             nextButtonAriaLabel={t('nextPage')}
@@ -100,7 +78,7 @@ const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
         </div>
       </SectionContainer>
     </>
-  );
-};
+  )
+}
 
-export default BlogPostsPage;
+export default BlogPostsPage

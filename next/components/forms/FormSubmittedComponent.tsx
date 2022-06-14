@@ -1,18 +1,17 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { Button } from '@bratislava/ui-city-library';
-import React from 'react';
-import cx from 'classnames';
-import { ReactComponent as CheckMark } from '../../assets/images/check-mark.svg';
-import { ReactComponent as CloseMark } from '../../assets/images/close.svg';
-import { useTranslation } from 'next-i18next';
+import { Button } from '@bratislava/ui-city-library'
+import React from 'react'
+import cx from 'classnames'
+import CheckMark from '@assets/images/check-mark.svg'
+import CloseMark from '@assets/images/close.svg'
+import { useTranslation } from 'next-i18next'
 
 type IProps = {
-  className?: string;
-  onBackToFormClick?: () => void;
-  successTitle?: string;
-  successMessage?: string;
-  errorMessage?: string;
-};
+  className?: string
+  onBackToFormClick?: () => void
+  successTitle?: string
+  successMessage?: string
+  errorMessage?: string
+}
 
 const FormSubmittedComponent = ({
   className,
@@ -21,7 +20,7 @@ const FormSubmittedComponent = ({
   successMessage,
   errorMessage,
 }: IProps) => {
-  const { t } = useTranslation('forms');
+  const { t } = useTranslation('forms')
 
   return (
     <div className={cx('py-4', className)}>
@@ -30,23 +29,15 @@ const FormSubmittedComponent = ({
           <CheckMark />
         </span>
         <div className="space-y-4">
-          <h5 className="text-gray-universal-100">
-            {successTitle || t('generic_success_title')}
-          </h5>
-          <p className="text-gray-universal-70 text-base">
-            {successMessage || t('generic_success_message')}
-          </p>
+          <h5 className="text-gray-universal-100">{successTitle || t('generic_success_title')}</h5>
+          <p className="text-gray-universal-70 text-base">{successMessage || t('generic_success_message')}</p>
         </div>
-        <Button
-          className="py-[9px] px-5"
-          variant="secondary"
-          onClick={onBackToFormClick}
-        >
+        <Button className="py-[9px] px-5" variant="secondary" onClick={onBackToFormClick}>
           {t('thank_you_button_content')}
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FormSubmittedComponent;
+export default FormSubmittedComponent

@@ -1,29 +1,29 @@
-import Link from 'next/link';
-import SearchBox from '../Navigation/SearchBox';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { MenusQuery } from '@bratislava/strapi-sdk-city-library';
-import { useEffect, useState } from 'react';
-import SkipNavigation from '../SkipNavigation';
-import cx from 'classnames';
-import { MobileNavigation } from './MobileNavigation';
-import { ReactComponent as Burger } from '../../../assets/images/Burger.svg';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import Link from 'next/link'
+import SearchBox from '../Navigation/SearchBox'
+
+import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { useEffect, useState } from 'react'
+import SkipNavigation from '../SkipNavigation'
+import cx from 'classnames'
+import { MobileNavigation } from './MobileNavigation'
+import Burger from '@assets/images/Burger.svg'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 interface HeaderProps {
-  menus: NonNullable<MenusQuery['menus']>;
+  menus: NonNullable<MenusQuery['menus']>
 }
 
 const MobilHeader = ({ menus }: HeaderProps) => {
-  const [isOpen, setOpen] = useState(false);
-  const router = useRouter();
-  const { t } = useTranslation('common');
+  const [isOpen, setOpen] = useState(false)
+  const router = useRouter()
+  const { t } = useTranslation('common')
 
   //close mobile header on route change
   useEffect(() => {
-    router.events.on('routeChangeStart', () => setOpen(false));
-    return () => router.events.off('routeChangeStart', () => setOpen(false));
-  }, [router]);
+    router.events.on('routeChangeStart', () => setOpen(false))
+    return () => router.events.off('routeChangeStart', () => setOpen(false))
+  }, [router])
 
   return (
     <>
@@ -37,13 +37,10 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                   .map((word, index) => (
                     <span
                       key={word}
-                      className={cx(
-                        'border-r border-gray-900 h-[30px] px-[7px] py-[2px] flex items-center min-w-fit',
-                        {
-                          'col-span-1': word.length <= 4,
-                          'col-span-5': word.length > 4,
-                        }
-                      )}
+                      className={cx('border-r border-gray-900 h-[30px] px-[7px] py-[2px] flex items-center min-w-fit', {
+                        'col-span-1': word.length <= 4,
+                        'col-span-5': word.length > 4,
+                      })}
                     >
                       {word}
                     </span>
@@ -91,13 +88,8 @@ const MobilHeader = ({ menus }: HeaderProps) => {
           <SkipNavigation />
 
           <div className="border-l border-gray-900">
-            <Burger
-              onClick={() => setOpen(true)}
-              className="m-4 cursor-pointer"
-            />
-            {isOpen && (
-              <MobileNavigation menus={menus} onClose={() => setOpen(false)} />
-            )}
+            <Burger onClick={() => setOpen(true)} className="m-4 cursor-pointer" />
+            {isOpen && <MobileNavigation menus={menus} onClose={() => setOpen(false)} />}
           </div>
         </div>
       </div>
@@ -110,7 +102,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default MobilHeader;
+export default MobilHeader

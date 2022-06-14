@@ -1,217 +1,179 @@
-import DatePicker, { registerLocale } from 'react-datepicker';
-import { useMemo, useState } from 'react';
-import { usePageWrapperContext } from '../layouts/PageWrapper';
-import 'react-datepicker/dist/react-datepicker.css';
-import sk from 'date-fns/locale/sk';
-import enUs from 'date-fns/locale/en-US';
-import Section from '../../components/AppLayout/Section';
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs';
-import { ReactComponent as CloseIcon } from '../../assets/images/close.svg';
-import { ReactComponent as DropdownIcon } from '../../assets/images/dropdown.svg';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  Accordion,
-  Banner,
-  Pagination,
-  SectionContainer,
-  Select,
-} from '@bratislava/ui-city-library';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  EventPropertiesQuery,
-  PageFragment,
-} from '@bratislava/strapi-sdk-city-library';
-import { IEvent } from '../../utils/types';
-import SectionPromos from '../../components/HomePage/SectionPromos';
-import EventListingCard from '../../components/Molecules/EventListingCard';
-import { useTranslation } from 'next-i18next';
-import { FilterModal } from '../../components/Molecules/FilterModal';
-import EventFilters from '../Molecules/EventFilters';
+import DatePicker, { registerLocale } from 'react-datepicker'
+import { useMemo, useState } from 'react'
+import { usePageWrapperContext } from '../layouts/PageWrapper'
+import 'react-datepicker/dist/react-datepicker.css'
+import sk from 'date-fns/locale/sk'
+import enUs from 'date-fns/locale/en-US'
+import Section from '../../components/AppLayout/Section'
+import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
+import CloseIcon from '@assets/images/close.svg'
+import DropdownIcon from '@assets/images/dropdown.svg'
 
-registerLocale('en', enUs);
-registerLocale('sk', sk);
+import { Accordion, Banner, Pagination, SectionContainer, Select } from '@bratislava/ui-city-library'
+
+import { EventPropertiesQuery, PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { IEvent } from '../../utils/types'
+import SectionPromos from '../../components/HomePage/SectionPromos'
+import EventListingCard from '../../components/Molecules/EventListingCard'
+import { useTranslation } from 'next-i18next'
+import { FilterModal } from '../../components/Molecules/FilterModal'
+import EventFilters from '../Molecules/EventFilters'
+
+registerLocale('en', enUs)
+registerLocale('sk', sk)
 
 interface KeyTitlePair {
-  key: string;
-  title: string;
+  key: string
+  title: string
 }
 export interface PageProps {
-  page: PageFragment;
-  promotedEvents: IEvent[];
-  events: IEvent[];
-  eventCategories: NonNullable<EventPropertiesQuery['eventCategories']>;
-  eventTags: NonNullable<EventPropertiesQuery['eventTags']>;
-  eventLocalities: NonNullable<EventPropertiesQuery['eventLocalities']>;
+  page: PageFragment
+  promotedEvents: IEvent[]
+  events: IEvent[]
+  eventCategories: NonNullable<EventPropertiesQuery['eventCategories']>
+  eventTags: NonNullable<EventPropertiesQuery['eventTags']>
+  eventLocalities: NonNullable<EventPropertiesQuery['eventLocalities']>
 }
 
-const MAX_EVENTS_PER_PAGE = 16;
+const MAX_EVENTS_PER_PAGE = 16
 
-const Events = ({
-  page,
-  promotedEvents,
-  events,
-  eventCategories,
-  eventTags,
-  eventLocalities,
-}: PageProps) => {
-  const { t } = useTranslation('common');
-  const [startDate, setStartDate] = useState<Date>(null);
-  const [endDate, setEndDate] = useState<Date>(null);
-  const [filteredEvents, setFilteredEvents] = useState<IEvent[]>(events);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [openFilterModal, setOpenFilterModal] = useState(false);
-  const [bodyStyle, setBodyStyle] = useState('');
-  const { locale } = usePageWrapperContext();
+const Events = ({ page, promotedEvents, events, eventCategories, eventTags, eventLocalities }: PageProps) => {
+  const { t } = useTranslation('common')
+  const [startDate, setStartDate] = useState<Date>(null)
+  const [endDate, setEndDate] = useState<Date>(null)
+  const [filteredEvents, setFilteredEvents] = useState<IEvent[]>(events)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [openFilterModal, setOpenFilterModal] = useState(false)
+  const [bodyStyle, setBodyStyle] = useState('')
+  const { locale } = usePageWrapperContext()
 
   const toggleFilterModal = () => {
     if (openFilterModal) {
-      document.body.style.overflow = bodyStyle;
+      document.body.style.overflow = bodyStyle
     } else {
-      const originalStyle = window.getComputedStyle(document.body).overflow;
-      setBodyStyle(originalStyle);
-      document.body.style.overflow = 'hidden';
+      const originalStyle = window.getComputedStyle(document.body).overflow
+      setBodyStyle(originalStyle)
+      document.body.style.overflow = 'hidden'
     }
-    setOpenFilterModal(!openFilterModal);
-  };
+    setOpenFilterModal(!openFilterModal)
+  }
 
   const onStartChange = (dates) => {
-    setStartDate(dates);
-  };
+    setStartDate(dates)
+  }
 
   const onEndChange = (dates) => {
-    setEndDate(dates);
-  };
+    setEndDate(dates)
+  }
 
   const tags = useMemo(() => {
-    const defaultType = { key: '', title: t('eventType'), disabled: true };
+    const defaultType = { key: '', title: t('eventType'), disabled: true }
     const parsedTypes = eventTags.map((type) => ({
       key: type?.id || '',
       title: type?.title || '',
-    }));
-    return [defaultType, ...parsedTypes];
-  }, [eventTags]);
+    }))
+    return [defaultType, ...parsedTypes]
+  }, [eventTags])
 
   const categories = useMemo(() => {
     const defaultCategory = {
       key: '',
       title: t('eventCategory'),
       disabled: true,
-    };
+    }
     const parsedCategories = eventCategories.map((cat) => ({
       key: cat?.id || '',
       title: cat?.title || '',
-    }));
-    return [defaultCategory, ...parsedCategories];
-  }, [eventCategories]);
+    }))
+    return [defaultCategory, ...parsedCategories]
+  }, [eventCategories])
 
   const localities = useMemo(() => {
     const defaultLocality = {
       key: '',
       title: t('eventLocality'),
       disabled: true,
-    };
+    }
     const parsedLocalities = eventLocalities.map((loc) => ({
       key: loc?.id || '',
       title: loc?.title || '',
-    }));
-    return [defaultLocality, ...parsedLocalities];
-  }, [eventLocalities]);
+    }))
+    return [defaultLocality, ...parsedLocalities]
+  }, [eventLocalities])
 
-  const [selectedEventTags, setSelectedEventTags] =
-    useState<KeyTitlePair | null>();
-  const [selectedCategory, setSelectedCategory] =
-    useState<KeyTitlePair | null>();
-  const [selectedLocality, setSelectedLocality] =
-    useState<KeyTitlePair | null>();
+  const [selectedEventTags, setSelectedEventTags] = useState<KeyTitlePair | null>()
+  const [selectedCategory, setSelectedCategory] = useState<KeyTitlePair | null>()
+  const [selectedLocality, setSelectedLocality] = useState<KeyTitlePair | null>()
 
   const resetFilters = () => {
-    setStartDate(null);
-    setEndDate(null);
-    setSelectedEventTags(null);
-    setSelectedCategory(null);
-    setSelectedLocality(null);
-    setFilteredEvents(events);
-    openFilterModal && toggleFilterModal();
-  };
+    setStartDate(null)
+    setEndDate(null)
+    setSelectedEventTags(null)
+    setSelectedCategory(null)
+    setSelectedLocality(null)
+    setFilteredEvents(events)
+    openFilterModal && toggleFilterModal()
+  }
 
   const filterEvents = () => {
     const filterDate = (event: IEvent) => {
-      const filterFrom = startDate && startDate.getTime();
-      const filterTo = endDate && endDate.getTime();
-      const eventFrom = new Date(event?.dateFrom || '').setHours(0);
-      const eventTo = new Date(event?.dateTo || '').setHours(0);
+      const filterFrom = startDate && startDate.getTime()
+      const filterTo = endDate && endDate.getTime()
+      const eventFrom = new Date(event?.dateFrom || '').setHours(0)
+      const eventTo = new Date(event?.dateTo || '').setHours(0)
 
       // Complicated if to handle all possible date usecases
       if (filterFrom) {
         if (filterTo) {
-          if (eventTo >= filterFrom && eventFrom <= filterTo) return event;
+          if (eventTo >= filterFrom && eventFrom <= filterTo) return event
         }
         // If NOT filterTO
         else {
-          if (
-            eventFrom >= filterFrom ||
-            (filterFrom >= eventFrom && filterFrom <= eventTo)
-          )
-            return event;
+          if (eventFrom >= filterFrom || (filterFrom >= eventFrom && filterFrom <= eventTo)) return event
         }
       } else {
-        return event;
+        return event
       }
-    };
+    }
 
     const filterType = (event: IEvent) => {
-      if (selectedEventTags)
-        return event.eventTags?.find(
-          (tag) => tag.id === selectedEventTags?.key
-        );
+      if (selectedEventTags) return event.eventTags?.find((tag) => tag.id === selectedEventTags?.key)
 
-      return event;
-    };
+      return event
+    }
 
     const filterCategory = (event: IEvent) => {
-      if (selectedCategory)
-        return event.eventCategory?.id === selectedCategory?.key;
+      if (selectedCategory) return event.eventCategory?.id === selectedCategory?.key
 
-      return event;
-    };
+      return event
+    }
 
     const filterLocality = (event: IEvent) => {
-      if (selectedLocality)
-        return event.eventLocality?.id === selectedLocality?.key;
+      if (selectedLocality) return event.eventLocality?.id === selectedLocality?.key
 
-      return event;
-    };
+      return event
+    }
 
     // move to page 1 after filter change
-    setCurrentPage(1);
+    setCurrentPage(1)
 
-    const eventsFiltered = events
-      .filter(filterDate)
-      .filter(filterType)
-      .filter(filterCategory)
-      .filter(filterLocality);
-    setFilteredEvents(eventsFiltered);
-  };
+    const eventsFiltered = events.filter(filterDate).filter(filterType).filter(filterCategory).filter(filterLocality)
+    setFilteredEvents(eventsFiltered)
+  }
 
   const filteredEventsPaginated = useMemo(() => {
-    return filteredEvents.slice(
-      (currentPage - 1) * MAX_EVENTS_PER_PAGE,
-      MAX_EVENTS_PER_PAGE * currentPage
-    );
-  }, [filteredEvents, currentPage]);
+    return filteredEvents.slice((currentPage - 1) * MAX_EVENTS_PER_PAGE, MAX_EVENTS_PER_PAGE * currentPage)
+  }, [filteredEvents, currentPage])
 
-  const pagesCount = useMemo(
-    () => Math.ceil(filteredEvents.length / MAX_EVENTS_PER_PAGE),
-    [filteredEvents]
-  );
+  const pagesCount = useMemo(() => Math.ceil(filteredEvents.length / MAX_EVENTS_PER_PAGE), [filteredEvents])
 
   const handleEventSubscription = async () => {
-    const res = await fetch(`/api/calendar-auth-link`);
-    const data = await res.json();
+    const res = await fetch(`/api/calendar-auth-link`)
+    const data = await res.json()
     if (typeof window !== 'undefined') {
-      window.open(data.authorizationUrl, '_blank');
+      window.open(data.authorizationUrl, '_blank')
     }
-  };
+  }
 
   return (
     <>
@@ -227,18 +189,12 @@ const Events = ({
           <div className="lg:block mt-4 lg:mt-6 lg:p-6 lg:border lg:border-gray-universal-100">
             {/* Mobile */}
             <div className="flex lg:hidden items-center justify-between p-4 w-full border border-gray-universal-100">
-              <button
-                className="flex items-center justify-between gap-y-5 z-10 w-full"
-                onClick={toggleFilterModal}
-              >
+              <button className="flex items-center justify-between gap-y-5 z-10 w-full" onClick={toggleFilterModal}>
                 {t('eventsFilter')}
                 <DropdownIcon />
               </button>
               {openFilterModal && (
-                <FilterModal
-                  onClose={toggleFilterModal}
-                  title={t('eventsFilter')}
-                >
+                <FilterModal onClose={toggleFilterModal} title={t('eventsFilter')}>
                   <EventFilters
                     startDate={startDate}
                     endDate={endDate}
@@ -311,18 +267,14 @@ const Events = ({
             </div>
           </div>
         </div>
-        {!startDate &&
-          !endDate &&
-          !selectedCategory &&
-          !selectedLocality &&
-          !selectedEventTags && (
-            <Section>
-              <div className="text-md2">{t('eventsPromoted')}</div>
-              <div className="pb-10">
-                <SectionPromos events={promotedEvents} />
-              </div>
-            </Section>
-          )}
+        {!startDate && !endDate && !selectedCategory && !selectedLocality && !selectedEventTags && (
+          <Section>
+            <div className="text-md2">{t('eventsPromoted')}</div>
+            <div className="pb-10">
+              <SectionPromos events={promotedEvents} />
+            </div>
+          </Section>
+        )}
 
         <div className="py-6 lg:py-16">
           <div className="text-md2">{t('eventsAll')}</div>
@@ -350,7 +302,7 @@ const Events = ({
         /> */}
       </SectionContainer>
     </>
-  );
-};
+  )
+}
 
-export default Events;
+export default Events

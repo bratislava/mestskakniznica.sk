@@ -1,21 +1,21 @@
-import HeaderNavigation from './Navigation/HeaderNavigation';
-import Link from 'next/link';
-import SearchBox from './Navigation/SearchBox';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { MenusQuery } from '@bratislava/strapi-sdk-city-library';
-import NavigationItem from './Navigation/NavigationItem';
-import SkipNavigation from './SkipNavigation';
-import { useTranslation } from 'next-i18next';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { IEvent } from '../../utils/types';
+import HeaderNavigation from './Navigation/HeaderNavigation'
+import Link from 'next/link'
+import SearchBox from './Navigation/SearchBox'
+
+import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import NavigationItem from './Navigation/NavigationItem'
+import SkipNavigation from './SkipNavigation'
+import { useTranslation } from 'next-i18next'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import { IEvent } from '../../utils/types'
 
 interface HeaderProps {
-  menus: NonNullable<MenusQuery['menus']>;
-  latestEvents?: IEvent[];
+  menus: NonNullable<MenusQuery['menus']>
+  latestEvents?: IEvent[]
 }
 
 const Header = ({ menus, latestEvents }: HeaderProps) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common')
   return (
     <>
       <div className="m-auto max-w-[1180px]">
@@ -47,12 +47,7 @@ const Header = ({ menus, latestEvents }: HeaderProps) => {
           <NavigationMenu.Root aria-label={t('navAriaLabel')}>
             <NavigationMenu.List className="flex">
               {menus?.map((menu, index) => (
-                <NavigationItem
-                  latestEvents={latestEvents}
-                  index={index}
-                  menu={menu}
-                  key={index}
-                />
+                <NavigationItem latestEvents={latestEvents} index={index} menu={menu} key={index} />
               ))}
             </NavigationMenu.List>
 
@@ -63,7 +58,7 @@ const Header = ({ menus, latestEvents }: HeaderProps) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

@@ -1,28 +1,27 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { ReactComponent as CloseIcon } from '../../assets/images/close.svg';
-import FormSubmittedComponent from './FormSubmittedComponent';
-import useLockedBodyScroll from '../../hooks/useLockedBodyScroll';
-import useWindowSize from '../../hooks/useWindowSize';
-import { useTranslation } from 'next-i18next';
-import cx from 'classnames';
+import React, { ReactNode, useEffect, useState } from 'react'
+import CloseIcon from '@assets/images/close.svg'
+import FormSubmittedComponent from './FormSubmittedComponent'
+import useLockedBodyScroll from '../../hooks/useLockedBodyScroll'
+import useWindowSize from '../../hooks/useWindowSize'
+import { useTranslation } from 'next-i18next'
+import cx from 'classnames'
 
-export const phoneRegex = /(^(\+[\d]{1,3}|0) ?[0-9]{3} ?[0-9]{3} ?[0-9]{3}$)/;
-export const phoneRegexOrEmpty =
-  /(^(\+[\d]{1,3}|0) ?[0-9]{3} ?[0-9]{3} ?[0-9]{3}$)|^$/;
-export const postalCodeRegex = /^[0-9]{5}(?:-[0-9]{4})?$/;
-export const IBANRegex = /^[A-Z]{2}(?:[ ]?[0-9]){13,30}$/;
+export const phoneRegex = /(^(\+[\d]{1,3}|0) ?[0-9]{3} ?[0-9]{3} ?[0-9]{3}$)/
+export const phoneRegexOrEmpty = /(^(\+[\d]{1,3}|0) ?[0-9]{3} ?[0-9]{3} ?[0-9]{3}$)|^$/
+export const postalCodeRegex = /^[0-9]{5}(?:-[0-9]{4})?$/
+export const IBANRegex = /^[A-Z]{2}(?:[ ]?[0-9]){13,30}$/
 
 interface FormContainerProps {
-  children: ReactNode;
-  buttonText: string;
-  title: string;
-  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
-  isSubmitted: boolean;
-  onReset?: () => void;
-  successTitle?: string;
-  successMessage?: string;
-  errorMessage?: string;
-  wrapperClass?: string;
+  children: ReactNode
+  buttonText: string
+  title: string
+  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
+  isSubmitted: boolean
+  onReset?: () => void
+  successTitle?: string
+  successMessage?: string
+  errorMessage?: string
+  wrapperClass?: string
 }
 
 const FormContainer = ({
@@ -37,38 +36,33 @@ const FormContainer = ({
   errorMessage,
   wrapperClass,
 }: FormContainerProps) => {
-  const [isFormOpen, setFormOpen] = useState(false);
-  const { t } = useTranslation('forms');
+  const [isFormOpen, setFormOpen] = useState(false)
+  const { t } = useTranslation('forms')
 
-  const { width }: any = useWindowSize();
+  const { width }: any = useWindowSize()
 
-  const [lockedBodyScroll, setLockedBodyScroll] = useLockedBodyScroll();
-
-  useEffect(() => {
-    setFormOpen(isFormOpen && width > 767);
-  }, [width]);
+  const [lockedBodyScroll, setLockedBodyScroll] = useLockedBodyScroll()
 
   useEffect(() => {
-    setLockedBodyScroll(!isSubmitted && isFormOpen && width <= 768);
-  }, [isFormOpen, setLockedBodyScroll, width, isSubmitted]);
+    setFormOpen(isFormOpen && width > 767)
+  }, [width])
+
+  useEffect(() => {
+    setLockedBodyScroll(!isSubmitted && isFormOpen && width <= 768)
+  }, [isFormOpen, setLockedBodyScroll, width, isSubmitted])
 
   const listener = (event: any) => {
     if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-      event.preventDefault();
+      event.preventDefault()
       // onSubmit(event);
     }
-  };
+  }
 
   return (
-    <div
-      className={cx('flex flex-col border border-gray-900 p-4', wrapperClass)}
-    >
+    <div className={cx('flex flex-col border border-gray-900 p-4', wrapperClass)}>
       {!isSubmitted ? (
         <>
-          <div
-            className="text-md mb-4 md:text-lg md:px-4 md:pt-4"
-            id="form-title"
-          >
+          <div className="text-md mb-4 md:text-lg md:px-4 md:pt-4" id="form-title">
             {title}
           </div>
           <button
@@ -116,7 +110,7 @@ const FormContainer = ({
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default FormContainer;
+export default FormContainer

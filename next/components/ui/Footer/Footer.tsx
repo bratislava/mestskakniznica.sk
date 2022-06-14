@@ -1,46 +1,40 @@
-import { FooterQuery } from '@bratislava/strapi-sdk-city-library';
-import cx from 'classnames';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ReactComponent as FbLogo } from '../../assets/images/fb-logo.svg';
-import { ReactComponent as IgLogo } from '../../assets/images/ig-logo.svg';
-import { ReactComponent as YtLogo } from '../../assets/images/yt-logo.svg';
-import { Accordion } from '../Accordion/Accordion';
-import { Link } from '../Link/Link';
+import { FooterQuery } from '@bratislava/strapi-sdk-city-library'
+import cx from 'classnames'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import FbLogo from '@assets/images/fb-logo.svg'
+import IgLogo from '@assets/images/ig-logo.svg'
+import YtLogo from '@assets/images/yt-logo.svg'
+import { Accordion } from '../Accordion/Accordion'
+import { Link } from '../Link/Link'
 
 export interface IFooterColumn {
-  id: string;
-  title: string;
+  id: string
+  title: string
   footerLink: {
-    id: string;
-    title: string;
-    otherSite: string;
+    id: string
+    title: string
+    otherSite: string
     redirectTo: {
-      id: string;
-      title: string;
-      slug: string;
-    };
-  }[];
+      id: string
+      title: string
+      slug: string
+    }
+  }[]
 }
 export interface FooterProps {
-  className?: string;
-  facebookUrl: string;
-  instagramUrl: string;
-  youtubeUrl: string;
-  siteMap?: { title: string; href: string };
-  footerColumns: FooterQuery['footer']['footerColumns'];
-  gdpr: { title: string; href: string };
-  VOP: { title: string; href: string };
-  copyrightText?: string;
+  className?: string
+  facebookUrl: string
+  instagramUrl: string
+  youtubeUrl: string
+  siteMap?: { title: string; href: string }
+  footerColumns: FooterQuery['footer']['footerColumns']
+  gdpr: { title: string; href: string }
+  VOP: { title: string; href: string }
+  copyrightText?: string
 }
 
-const FooterSection = ({
-  col,
-  i,
-}: {
-  col: FooterQuery['footer']['footerColumns'][0];
-  i: number;
-}) => (
+const FooterSection = ({ col, i }: { col: FooterQuery['footer']['footerColumns'][0]; i: number }) => (
   <div
     key={col.title}
     className={cx('pt-6 pb-40', {
@@ -53,11 +47,7 @@ const FooterSection = ({
     <div className="mt-6 flex flex-col gap-y-3">
       {col.footerLink?.map((link) =>
         link.otherSite && link.otherSite !== '' ? (
-          <a
-            href={link.otherSite}
-            className="text-gray-universal-70 text-base hover:underline"
-            key={link.id}
-          >
+          <a href={link.otherSite} className="text-gray-universal-70 text-base hover:underline" key={link.id}>
             {link.title}
           </a>
         ) : (
@@ -74,7 +64,7 @@ const FooterSection = ({
       )}
     </div>
   </div>
-);
+)
 
 export const Footer = ({
   className,
@@ -87,12 +77,12 @@ export const Footer = ({
   footerColumns,
   copyrightText,
 }: FooterProps) => {
-  const { t } = useTranslation('common');
-  const [openFooter, setOpenFooter] = useState('');
+  const { t } = useTranslation('common')
+  const [openFooter, setOpenFooter] = useState('')
 
   const listenAccordionState = (id: string, state: boolean) => {
-    setOpenFooter(state ? id : '');
-  };
+    setOpenFooter(state ? id : '')
+  }
 
   return (
     <div className={className}>
@@ -131,12 +121,7 @@ export const Footer = ({
             content={
               <div className="flex flex-col gap-y-2">
                 {col.footerLink.map((item) => (
-                  <Link
-                    key={item.title}
-                    uppercase={false}
-                    variant="plain"
-                    href={item.redirectTo.slug}
-                  >
+                  <Link key={item.title} uppercase={false} variant="plain" href={item.redirectTo.slug}>
                     {item.title}
                   </Link>
                 ))}
@@ -156,10 +141,7 @@ export const Footer = ({
 
       <div className="lg:container lg:p-6 pb-4 lg:pb-0 text-gray-universal-70 text-xs flex flex-col lg:flex-row lg:justify-between lg:items-center">
         <p className="py-4 lg:py-0">
-          &copy;{' '}
-          {copyrightText
-            ? copyrightText
-            : `${new Date().getFullYear()} ${t('pageTitle')}`}
+          &copy; {copyrightText ? copyrightText : `${new Date().getFullYear()} ${t('pageTitle')}`}
         </p>
         <div className="flex flex-col lg:flex-row lg:items-center gap-x-8">
           {siteMap && (
@@ -176,5 +158,5 @@ export const Footer = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

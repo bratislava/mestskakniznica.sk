@@ -1,20 +1,17 @@
-import cx from 'classnames';
-import { ReactComponent as ErrorOutline } from '../../assets/images/error-outline.svg';
+import cx from 'classnames'
+import ErrorOutline from '@assets/images/error-outline.svg'
 
 export interface InputProps
-  extends React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {
-  hasError?: boolean;
-  errorMessage?: string;
-  iconLeft?: React.ReactNode;
-  iconRight?: React.ReactNode;
-  iconClassName?: string;
-  labelContent?: React.ReactNode;
-  labelClassName?: string;
-  helpText?: string;
-  inputClassName?: string;
+  extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+  hasError?: boolean
+  errorMessage?: string
+  iconLeft?: React.ReactNode
+  iconRight?: React.ReactNode
+  iconClassName?: string
+  labelContent?: React.ReactNode
+  labelClassName?: string
+  helpText?: string
+  inputClassName?: string
 }
 
 export const Input = ({
@@ -36,10 +33,7 @@ export const Input = ({
     {/* Label */}
     {labelContent && (
       <label
-        className={cx(
-          labelClassName,
-          'text-xs text-gray-universal-100 mb-0.5 opacity-80'
-        )}
+        className={cx(labelClassName, 'text-xs text-gray-universal-100 mb-0.5 opacity-80')}
         id={id + '_label'}
         htmlFor={id}
       >
@@ -51,22 +45,14 @@ export const Input = ({
     {/* LeftIcon Accessory */}
     <div className="flex items-center relative w-full">
       {!!iconLeft && (
-        <span
-          className={cx(
-            'absolute left-4.5 z-10 text-gray-universal-100',
-            iconClassName
-          )}
-        >
-          {iconLeft}
-        </span>
+        <span className={cx('absolute left-4.5 z-10 text-gray-universal-100', iconClassName)}>{iconLeft}</span>
       )}
 
       {/* BaseInput */}
       <input
         id={id}
         className={cx('base-input', inputClassName, {
-          'base-input--disabled cursor-not-allowed text-gray-universal-60':
-            props.disabled,
+          'base-input--disabled cursor-not-allowed text-gray-universal-60': props.disabled,
           'base-input--with-error': hasError,
         })}
         aria-invalid={hasError}
@@ -81,9 +67,7 @@ export const Input = ({
           (hasError ? (
             <ErrorOutline className="absolute right-4.5 text-error" />
           ) : (
-            <span className={cx('absolute right-4.5', iconClassName)}>
-              {iconRight}
-            </span>
+            <span className={cx('absolute right-4.5', iconClassName)}>{iconRight}</span>
           )))}
     </div>
 
@@ -111,4 +95,4 @@ export const Input = ({
       </p>
     )}
   </div>
-);
+)

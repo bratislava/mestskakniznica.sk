@@ -1,40 +1,30 @@
-import * as React from 'react';
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  PageFragment,
-  PartnerFragment,
-} from '@bratislava/strapi-sdk-city-library';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  Partner,
-  PageTitle,
-  SectionContainer,
-} from '@bratislava/ui-city-library';
-import { useTranslation } from 'next-i18next';
+import * as React from 'react'
+import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
+
+import { PageFragment, PartnerFragment } from '@bratislava/strapi-sdk-city-library'
+
+import { Partner, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
+import { useTranslation } from 'next-i18next'
 
 export type TSortedPartners = {
-  featuredPartners: PartnerFragment[];
-  notFeaturedPartners: PartnerFragment[];
-};
+  featuredPartners: PartnerFragment[]
+  notFeaturedPartners: PartnerFragment[]
+}
 
 export interface PartnersPageProps {
-  page: PageFragment;
-  partners: TSortedPartners;
+  page: PageFragment
+  partners: TSortedPartners
 }
 
 const PartnersPage = ({ page, partners }: PartnersPageProps) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common')
   return (
     <>
       <SectionContainer>
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle
-          title={page?.title ?? ''}
-          description={page?.description ?? ''}
-        />
+        <PageTitle title={page?.title ?? ''} description={page?.description ?? ''} />
 
         {partners.featuredPartners.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
@@ -71,7 +61,7 @@ const PartnersPage = ({ page, partners }: PartnersPageProps) => {
         )}
       </SectionContainer>
     </>
-  );
-};
+  )
+}
 
-export default PartnersPage;
+export default PartnersPage

@@ -1,26 +1,20 @@
-import * as React from 'react';
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  Listing,
-  PageTitle,
-  SectionContainer,
-} from '@bratislava/ui-city-library';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { PageFragment } from '@bratislava/strapi-sdk-city-library';
-import { parsePages } from '../../utils/page';
-import { useTranslation } from 'next-i18next';
+import * as React from 'react'
+import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
+
+import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
+
+import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { parsePages } from '../../utils/page'
+import { useTranslation } from 'next-i18next'
 
 export interface SublistingPageProps {
-  page: PageFragment;
+  page: PageFragment
 }
 
 const SublistingPage = ({ page }: SublistingPageProps) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common')
 
-  const pages = page?.pageCategory?.pages
-    ? parsePages(page?.pageCategory?.pages)
-    : undefined;
+  const pages = page?.pageCategory?.pages ? parsePages(page?.pageCategory?.pages) : undefined
 
   return (
     <>
@@ -28,10 +22,7 @@ const SublistingPage = ({ page }: SublistingPageProps) => {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle
-          title={page?.title ?? ''}
-          description={page?.description ?? ''}
-        />
+        <PageTitle title={page?.title ?? ''} description={page?.description ?? ''} />
 
         {/* Subcategory Pages */}
         {pages && (
@@ -47,7 +38,7 @@ const SublistingPage = ({ page }: SublistingPageProps) => {
         )}
       </SectionContainer>
     </>
-  );
-};
+  )
+}
 
-export default SublistingPage;
+export default SublistingPage

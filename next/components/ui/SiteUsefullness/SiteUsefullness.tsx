@@ -1,16 +1,16 @@
-import React, { MouseEvent } from 'react';
-import cx from 'classnames';
-import { ReactComponent as ThumbUp } from '../../assets/images/thumb-up.svg';
-import { ReactComponent as ThumbDown } from '../../assets/images/thumb-down.svg';
-import { Button } from '../Button/Button';
+import React, { MouseEvent } from 'react'
+import cx from 'classnames'
+import ThumbUp from '@assets/images/thumb-up.svg'
+import ThumbDown from '@assets/images/thumb-down.svg'
+import { Button } from '../Button/Button'
 
 export interface SiteUsefullnessProps {
-  className?: string;
-  title: string;
-  thankYouMessage: string;
-  onButtonClick: (e: React.MouseEvent) => void;
-  firstOption?: string;
-  secondOption?: string;
+  className?: string
+  title: string
+  thankYouMessage: string
+  onButtonClick: (e: React.MouseEvent) => void
+  firstOption?: string
+  secondOption?: string
 }
 
 export const SiteUsefullness = ({
@@ -21,12 +21,12 @@ export const SiteUsefullness = ({
   secondOption,
   onButtonClick,
 }: SiteUsefullnessProps) => {
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [isSubmitted, setIsSubmitted] = React.useState(false)
 
   const handleClick = (e: MouseEvent) => {
-    setIsSubmitted(true);
-    onButtonClick(e);
-  };
+    setIsSubmitted(true)
+    onButtonClick(e)
+  }
 
   return (
     <div
@@ -69,5 +69,5 @@ export const SiteUsefullness = ({
         </>
       )}
     </div>
-  );
-};
+  )
+}

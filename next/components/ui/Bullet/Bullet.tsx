@@ -1,10 +1,10 @@
-import cx from 'classnames';
-import { ReactComponent as DotIcon } from '../../assets/images/dot.svg';
+import cx from 'classnames'
+import DotIcon from '@assets/images/dot.svg'
 
 export interface BulletProps {
-  icon?: React.ReactNode;
-  className?: string;
-  children: React.ReactNode;
+  icon?: React.ReactNode
+  className?: string
+  children: React.ReactNode
 }
 
 export const Bullet = ({ className, children, icon }: BulletProps) => (
@@ -12,4 +12,4 @@ export const Bullet = ({ className, children, icon }: BulletProps) => (
     <span className="flex justify-center w-9">{icon ? icon : <DotIcon />}</span>
     <span className="text-base">{children}</span>
   </div>
-);
+)

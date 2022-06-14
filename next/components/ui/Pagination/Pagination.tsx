@@ -1,16 +1,16 @@
-import { useCallback, useState, useEffect } from 'react';
-import { ReactComponent as ChevronRight } from '../../assets/images/chevron-right.svg';
-import { ReactComponent as ChevronLeft } from '../../assets/images/chevron-left.svg';
-import { Input } from '@bratislava/ui-city-library';
-import cx from 'classnames';
+import { useCallback, useState, useEffect } from 'react'
+import ChevronRight from '@assets/images/chevron-right.svg'
+import ChevronLeft from '@assets/images/chevron-left.svg'
+import { Input } from '@bratislava/ui-city-library'
+import cx from 'classnames'
 
 export interface PaginationProps {
-  max: number;
-  value: number;
-  onChangeNumber: (num: number) => void;
-  previousButtonAriaLabel?: string;
-  nextButtonAriaLabel?: string;
-  currentInputAriaLabel?: string;
+  max: number
+  value: number
+  onChangeNumber: (num: number) => void
+  previousButtonAriaLabel?: string
+  nextButtonAriaLabel?: string
+  currentInputAriaLabel?: string
 }
 
 export const Pagination = ({
@@ -21,38 +21,38 @@ export const Pagination = ({
   nextButtonAriaLabel,
   currentInputAriaLabel,
 }: PaginationProps) => {
-  const [displayValue, setDisplayValue] = useState(value.toString());
+  const [displayValue, setDisplayValue] = useState(value.toString())
 
   useEffect(() => {
-    setDisplayValue(value.toString());
-  }, [value]);
+    setDisplayValue(value.toString())
+  }, [value])
 
   const handleChange = useCallback(
     (ev) => {
       if (parseInt(ev.target.value) <= 0) {
-        onChangeNumber(1);
-        return;
+        onChangeNumber(1)
+        return
       }
 
       if (parseInt(ev.target.value) > max) {
-        onChangeNumber(max);
-        return;
+        onChangeNumber(max)
+        return
       }
 
       if (parseInt(ev.target.value)) {
-        onChangeNumber(parseInt(ev.target.value));
-        return;
+        onChangeNumber(parseInt(ev.target.value))
+        return
       }
     },
     [onChangeNumber]
-  );
+  )
 
   return (
     <div className="flex gap-x-6 items-center">
       <button
         className="p-1 cursor-pointer flex"
         onClick={() => {
-          if (value - 1 > 0) onChangeNumber(value - 1);
+          if (value - 1 > 0) onChangeNumber(value - 1)
         }}
         aria-label={previousButtonAriaLabel}
       >
@@ -79,12 +79,12 @@ export const Pagination = ({
       <button
         className="p-1 cursor-pointer flex"
         onClick={() => {
-          if (value + 1 <= max) onChangeNumber(value + 1);
+          if (value + 1 <= max) onChangeNumber(value + 1)
         }}
         aria-label={nextButtonAriaLabel}
       >
         <ChevronRight className="w-2" />
       </button>
     </div>
-  );
-};
+  )
+}

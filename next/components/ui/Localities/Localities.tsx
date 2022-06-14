@@ -1,84 +1,73 @@
-import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import cx from 'classnames';
+import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+import cx from 'classnames'
 // import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
-import Mapbox, { MapRef, Marker } from 'react-map-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import { ReactComponent as MarkerIcon } from '../../assets/images/marker.svg';
-import { maxBy, minBy } from 'lodash';
+import Mapbox, { MapRef, Marker } from 'react-map-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import MarkerIcon from '@assets/images/marker.svg'
+import { maxBy, minBy } from 'lodash'
 import {
   ComponentAddressAddressInput,
   ComponentLocalityPartsLocalityOpeningHourInput,
-} from '@bratislava/strapi-sdk-city-library';
-import { useTranslation } from 'react-i18next';
+} from '@bratislava/strapi-sdk-city-library'
+import { useTranslation } from 'react-i18next'
 
 export interface ILocality {
-  localityTitle?: string;
-  localitySections?: ComponentLocalityPartsLocalityOpeningHourInput[];
-  localityAddress: ComponentAddressAddressInput;
-  localitySlug?: string;
-  localityOpenFrom: string;
-  localityOpenTo: string;
-  localityLongitude?: number;
-  localityLatitude?: number;
-  localityOpeningHours?: ILocalityOpeningHours[];
-  isMainLocality?: boolean;
-  isCurrentlyOpen?: boolean;
-  hideOpeningHours?: boolean;
+  localityTitle?: string
+  localitySections?: ComponentLocalityPartsLocalityOpeningHourInput[]
+  localityAddress: ComponentAddressAddressInput
+  localitySlug?: string
+  localityOpenFrom: string
+  localityOpenTo: string
+  localityLongitude?: number
+  localityLatitude?: number
+  localityOpeningHours?: ILocalityOpeningHours[]
+  isMainLocality?: boolean
+  isCurrentlyOpen?: boolean
+  hideOpeningHours?: boolean
 }
 
 export interface ILocalityOpeningHours {
-  localityOpenFrom?: string;
-  localityOpenTo?: string;
-  localityOpenDay?: number;
-  localityIsOpenThisDay?: boolean;
-  localityOpenDayText?: string;
+  localityOpenFrom?: string
+  localityOpenTo?: string
+  localityOpenDay?: number
+  localityIsOpenThisDay?: boolean
+  localityOpenDayText?: string
 }
 
 export interface LocalitiesProps {
-  localities: ILocality[];
-  mapboxAccessToken: string | undefined | null;
-  altDesign?: boolean; // alternative design
+  localities: ILocality[]
+  mapboxAccessToken: string | undefined | null
+  altDesign?: boolean // alternative design
 }
 
-export function Localities({
-  localities,
-  mapboxAccessToken,
-  altDesign = false,
-}: LocalitiesProps) {
-  const { t } = useTranslation('homepage');
-  const [bounds, setBounds] =
-    useState<[[number, number], [number, number]]>(null);
-  const [isBrowser, setBrowser] = useState(false);
+export function Localities({ localities, mapboxAccessToken, altDesign = false }: LocalitiesProps) {
+  const { t } = useTranslation('homepage')
+  const [bounds, setBounds] = useState<[[number, number], [number, number]]>(null)
+  const [isBrowser, setBrowser] = useState(false)
 
-  const mapRef = useRef<MapRef>();
+  const mapRef = useRef<MapRef>()
 
   useEffect(() => {
     setBounds([
       [
-        minBy(localities, ({ localityLongitude }) => localityLongitude)
-          ?.localityLongitude ?? 17.107748,
-        minBy(localities, ({ localityLatitude }) => localityLatitude)
-          ?.localityLatitude ?? 48.148598,
+        minBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ?? 17.107748,
+        minBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ?? 48.148598,
       ],
       [
-        maxBy(localities, ({ localityLongitude }) => localityLongitude)
-          ?.localityLongitude ?? 17.107748,
-        maxBy(localities, ({ localityLatitude }) => localityLatitude)
-          ?.localityLatitude ?? 48.148598,
+        maxBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ?? 17.107748,
+        maxBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ?? 48.148598,
       ],
-    ] as [[number, number], [number, number]]);
-  }, [localities]);
+    ] as [[number, number], [number, number]])
+  }, [localities])
 
   useEffect(() => {
-    setBrowser((process as any).browser);
-  }, []);
+    setBrowser((process as any).browser)
+  }, [])
 
   return localities.length ? (
     <section className="">
-      <h2 className="text-lg text-center md:text-left py-12">
-        {t('localitiesTitle')}
-      </h2>
+      <h2 className="text-lg text-center md:text-left py-12">{t('localitiesTitle')}</h2>
 
       <div className={cx({ 'lg:border border-gray-900': !altDesign })}>
         <div className="w-full h-60 mb-4 lg:mb-8 text-black">
@@ -101,43 +90,30 @@ export function Localities({
                     left: 24,
                   },
                   duration: 0,
-                });
+                })
               }}
               cooperativeGestures={true}
             >
               {localities
-                .filter(
-                  (locality) =>
-                    locality.localityLatitude && locality.localityLongitude
-                )
-                .map(
-                  (
-                    { localityTitle, localityLatitude, localityLongitude },
-                    index
-                  ) => (
-                    <Marker
-                      key={index}
-                      anchor="bottom"
-                      longitude={localityLongitude}
-                      latitude={localityLatitude}
-                    >
-                      <div className="group flex flex-col items-center">
-                        <MarkerIcon
-                          onClick={() => {
-                            window.location.href = `https://www.google.com/maps/@${localityLatitude},${localityLongitude},16z`;
-                          }}
-                          width={48}
-                          height={48}
-                        />
-                        {localityTitle && (
-                          <div className="bg-primary rounded px-2 invisible group-hover:visible absolute z-30 top-1/3 whitespace-nowrap">
-                            {localityTitle}
-                          </div>
-                        )}
-                      </div>
-                    </Marker>
-                  )
-                )}
+                .filter((locality) => locality.localityLatitude && locality.localityLongitude)
+                .map(({ localityTitle, localityLatitude, localityLongitude }, index) => (
+                  <Marker key={index} anchor="bottom" longitude={localityLongitude} latitude={localityLatitude}>
+                    <div className="group flex flex-col items-center">
+                      <MarkerIcon
+                        onClick={() => {
+                          window.location.href = `https://www.google.com/maps/@${localityLatitude},${localityLongitude},16z`
+                        }}
+                        width={48}
+                        height={48}
+                      />
+                      {localityTitle && (
+                        <div className="bg-primary rounded px-2 invisible group-hover:visible absolute z-30 top-1/3 whitespace-nowrap">
+                          {localityTitle}
+                        </div>
+                      )}
+                    </div>
+                  </Marker>
+                ))}
             </Mapbox>
           )}
         </div>
@@ -176,19 +152,14 @@ export function Localities({
                           <div className="text-md2">{localityTitle}</div>
                           <div className="pt-8 text-sm">
                             {localitySections?.map((section) => (
-                              <div
-                                key={section.localitySectionTitle}
-                                className="pt-1 text-gray-universal-70"
-                              >
+                              <div key={section.localitySectionTitle} className="pt-1 text-gray-universal-70">
                                 {section.localitySectionTitle}
                               </div>
                             ))}
                           </div>
                           {!hideOpeningHours && (
                             <>
-                              <p className="text-sm pt-8">
-                                {t('localityOpeningText')}
-                              </p>
+                              <p className="text-sm pt-8">{t('localityOpeningText')}</p>
                               <p className="text-sm">
                                 {localityOpenFrom} - {localityOpenTo}
                               </p>
@@ -204,13 +175,13 @@ export function Localities({
                     </a>
                   </Link>
                 </div>
-              );
+              )
             }
           )}
         </div>
       </div>
     </section>
-  ) : null;
+  ) : null
 }
 
-export default Localities;
+export default Localities

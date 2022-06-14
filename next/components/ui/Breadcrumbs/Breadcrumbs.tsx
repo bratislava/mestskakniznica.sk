@@ -1,23 +1,20 @@
-import cx from 'classnames';
-import { Link } from '../Link/Link';
-import { ReactComponent as Home } from '../../assets/images/home.svg';
-import { ReactComponent as ChevronRight } from '../../assets/images/chevron-right.svg';
-import { Fragment } from 'react';
+import cx from 'classnames'
+import { Link } from '../Link/Link'
+import Home from '@assets/images/home.svg'
+import ChevronRight from '@assets/images/chevron-right.svg'
+import { Fragment } from 'react'
 
 export interface BreadcrumbsProps {
-  homeLabel?: string;
-  items: IBreadcrumb[];
+  homeLabel?: string
+  items: IBreadcrumb[]
 }
 
 interface IBreadcrumb {
-  title: string;
-  url: string;
+  title: string
+  url: string
 }
 
-export const Breadcrumbs = ({
-  items,
-  homeLabel = 'Home',
-}: BreadcrumbsProps) => (
+export const Breadcrumbs = ({ items, homeLabel = 'Home' }: BreadcrumbsProps) => (
   <div className=" flex text-sm h-[56px]">
     <Link href="/" className="py-4">
       <Home />
@@ -31,12 +28,7 @@ export const Breadcrumbs = ({
               <ChevronRight />
             </div>
             {item.url && item.url !== null ? (
-              <Link
-                href={item.url}
-                className="py-4 pl-3 cursor-pointer"
-                uppercase={false}
-                size="large"
-              >
+              <Link href={item.url} className="py-4 pl-3 cursor-pointer" uppercase={false} size="large">
                 <a href={item.url} className="">
                   {item.title}
                 </a>
@@ -47,8 +39,8 @@ export const Breadcrumbs = ({
               </div>
             )}
           </Fragment>
-        );
+        )
       })}
     </div>
   </div>
-);
+)

@@ -1,28 +1,26 @@
-import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { BookNewsDetail, Link } from '@bratislava/ui-city-library';
-import { useTranslation } from 'next-i18next';
-import Section from '../AppLayout/Section';
-import { OpacBook } from '../../utils/opac';
+import React, { useState, useEffect } from 'react'
 
-const LIMIT = 6;
-const OFFSET = 1;
+import { BookNewsDetail, Link } from '@bratislava/ui-city-library'
+import { useTranslation } from 'next-i18next'
+import Section from '../AppLayout/Section'
+import { OpacBook } from '../../utils/opac'
+
+const LIMIT = 6
+const OFFSET = 1
 
 interface SectionOpacBookNewsProps {
-  books: OpacBook[];
+  books: OpacBook[]
 }
 
 const SectionOpacBookNews = ({ books }: SectionOpacBookNewsProps) => {
-  const { t } = useTranslation('homepage');
+  const { t } = useTranslation('homepage')
 
   return (
     <>
       {books.length ? (
         <Section>
           <section className="relative flex flex-col py-10 w-full">
-            <h2 className="text-center md:text-left text-lg">
-              {t('newBooksTitle')}
-            </h2>
+            <h2 className="text-center md:text-left text-lg">{t('newBooksTitle')}</h2>
             <div className="overflow-x-auto ">
               <div className="w-fit min-w-full  flex justify-between py-6 gap-4 sm:gap-6 lg:gap-6 items-stretch">
                 {books
@@ -65,12 +63,10 @@ const SectionOpacBookNews = ({ books }: SectionOpacBookNewsProps) => {
           </section>
         </Section>
       ) : (
-        <div className="flex justify-center items-center mt-4">
-          Book news from opac have not initialized
-        </div>
+        <div className="flex justify-center items-center mt-4">Book news from opac have not initialized</div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default SectionOpacBookNews;
+export default SectionOpacBookNews

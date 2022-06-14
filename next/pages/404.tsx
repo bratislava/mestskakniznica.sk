@@ -1,28 +1,28 @@
-import { SearchBar } from '@bratislava/ui-city-library';
-import { useRouter } from 'next/router';
-import { FormEvent, useState } from 'react';
-import { useTranslation } from 'next-i18next';
-import { ReactComponent as ClearCircle } from '../assets/images/clear-circle.svg';
-import { ReactComponent as SearchIcon } from '../assets/images/search-404.svg';
-import ErrorPage from '../components/pages/ErrorPage';
-import PageWrapper from '../components/layouts/PageWrapper';
-import { GetStaticProps } from 'next';
-import { ssrTranslations } from '../utils/translations';
+import { SearchBar } from '@bratislava/ui-city-library'
+import { useRouter } from 'next/router'
+import { FormEvent, useState } from 'react'
+import { useTranslation } from 'next-i18next'
+import ClearCircle from '@assets/images/clear-circle.svg'
+import SearchIcon from '@assets/images/search-404.svg'
+import ErrorPage from '../components/pages/ErrorPage'
+import PageWrapper from '../components/layouts/PageWrapper'
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 interface ICustomProps {
-  locale: string;
+  locale: string
 }
 
 const Custom404 = ({ locale }: ICustomProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const [searchedTerm, setSearchedTerm] = useState('');
+  const [searchedTerm, setSearchedTerm] = useState('')
 
   const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     //TODO: search redirect
-  };
-  const { asPath } = useRouter();
+  }
+  const { asPath } = useRouter()
 
   return (
     <PageWrapper locale={locale ?? 'sk'} slug={'/404'}>
@@ -38,11 +38,7 @@ const Custom404 = ({ locale }: ICustomProps) => {
         <form onSubmit={onSubmit}>
           <SearchBar
             iconLeft={<SearchIcon onClick={onSubmit} />}
-            iconRight={
-              searchedTerm.length > 0 && (
-                <ClearCircle onClick={() => setSearchedTerm('')} />
-              )
-            }
+            iconRight={searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />}
             placeholder={t('whatAreYouLookingFor')}
             className="pt-10"
             inputClassName="w-full h-14"
@@ -52,19 +48,19 @@ const Custom404 = ({ locale }: ICustomProps) => {
         </form>
       </ErrorPage>
     </PageWrapper>
-  );
-};
+  )
+}
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const locale = ctx.locale ?? 'sk';
-  const pageTranslations = ['common'];
+  const locale = ctx.locale ?? 'sk'
+  const pageTranslations = ['common']
 
   return {
     props: {
       locale,
-      ...(await ssrTranslations(ctx, pageTranslations)),
+      ...(await serverSideTranslations(locale, pageTranslations)),
     },
-  };
-};
+  }
+}
 
-export default Custom404;
+export default Custom404

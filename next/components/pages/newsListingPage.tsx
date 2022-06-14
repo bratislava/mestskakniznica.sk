@@ -1,35 +1,35 @@
-import { useMemo, useState } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
-import { ReactComponent as ArrowLeft } from '../../assets/images/arrow-left.svg';
-import { ReactComponent as ChevronRight } from '../../assets/images/chevron-right.svg';
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { Pagination, SectionContainer } from '@bratislava/ui-city-library';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { PageFragment } from '@bratislava/strapi-sdk-city-library';
-import NewsListingCard from '../../components/Molecules/NewsListingCard';
-import { IEvent } from '../../utils/types';
-import { useTranslation } from 'next-i18next';
+import { useMemo, useState } from 'react'
+import 'react-datepicker/dist/react-datepicker.css'
+import ArrowLeft from '@assets/images/arrow-left.svg'
+import ChevronRight from '@assets/images/chevron-right.svg'
+import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
+
+import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
+
+import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import NewsListingCard from '../../components/Molecules/NewsListingCard'
+import { IEvent } from '../../utils/types'
+import { useTranslation } from 'next-i18next'
 
 export interface PageProps {
-  page: PageFragment;
-  news: IEvent[];
+  page: PageFragment
+  news: IEvent[]
 }
 
 const NewsListingPage = ({ page, news }: PageProps) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common')
 
-  const [noOfPages, setNoOfPages] = useState(Math.ceil(news.length / 12));
+  const [noOfPages, setNoOfPages] = useState(Math.ceil(news.length / 12))
 
-  const [offsetPage, setOffsetPage] = useState(1);
+  const [offsetPage, setOffsetPage] = useState(1)
 
   const paginatedNews = useMemo(() => {
-    return news.slice((offsetPage - 1) * 12, 12 * offsetPage);
-  }, [offsetPage, news]);
+    return news.slice((offsetPage - 1) * 12, 12 * offsetPage)
+  }, [offsetPage, news])
 
   const handleChangeOffsetPage = (num: number) => {
-    if (num > 0 && num <= noOfPages) setOffsetPage(num);
-  };
+    if (num > 0 && num <= noOfPages) setOffsetPage(num)
+  }
 
   return (
     <>
@@ -55,7 +55,7 @@ const NewsListingPage = ({ page, news }: PageProps) => {
             max={noOfPages}
             value={offsetPage}
             onChangeNumber={(num) => {
-              handleChangeOffsetPage(num);
+              handleChangeOffsetPage(num)
             }}
             previousButtonAriaLabel={t('previousPage')}
             nextButtonAriaLabel={t('nextPage')}
@@ -64,7 +64,7 @@ const NewsListingPage = ({ page, news }: PageProps) => {
         </div>
       </SectionContainer>
     </>
-  );
-};
+  )
+}
 
-export default NewsListingPage;
+export default NewsListingPage

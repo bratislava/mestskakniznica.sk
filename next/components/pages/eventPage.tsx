@@ -1,25 +1,25 @@
-import NewsListingCard from '../../components/Molecules/NewsListingCard';
-import Section from '../../components/AppLayout/Section';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { PageFragment } from '@bratislava/strapi-sdk-city-library';
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs';
-import Sections from '../../components/Molecules/Sections';
-import { useTranslation } from 'next-i18next';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { Link, SectionContainer } from '@bratislava/ui-city-library';
-import { IEvent } from '../../utils/types';
-import Head from 'next/head';
-import { convertPageToEventDisplay } from '../../utils/utils';
+import NewsListingCard from '../../components/Molecules/NewsListingCard'
+import Section from '../../components/AppLayout/Section'
+
+import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
+import Sections from '../../components/Molecules/Sections'
+import { useTranslation } from 'next-i18next'
+
+import { Link, SectionContainer } from '@bratislava/ui-city-library'
+import { IEvent } from '../../utils/types'
+import Head from 'next/head'
+import { convertPageToEventDisplay } from '../../utils/utils'
 
 export interface PageProps {
-  page: PageFragment;
-  events: IEvent[];
-  allNewsLink: string;
+  page: PageFragment
+  events: IEvent[]
+  allNewsLink: string
 }
 
 const EventPage = ({ page, events, allNewsLink }: PageProps) => {
-  const { t } = useTranslation(['common', 'homepage']);
-  const event = convertPageToEventDisplay(page);
+  const { t } = useTranslation(['common', 'homepage'])
+  const event = convertPageToEventDisplay(page)
 
   return (
     <>
@@ -27,21 +27,11 @@ const EventPage = ({ page, events, allNewsLink }: PageProps) => {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <div className="pt-16 pb-16">
-          {page?.sections && (
-            <Sections sections={page.sections} events={[event]} />
-          )}
-        </div>
+        <div className="pt-16 pb-16">{page?.sections && <Sections sections={page.sections} events={[event]} />}</div>
         <Section>
           <div className="inline-flex pt-10 w-full">
             <h2 className="text-lg">{t('otherEvents')}</h2>
-            <Link
-              href={allNewsLink}
-              hasIcon={true}
-              title={t('eventsAll')}
-              size="large"
-              className="ml-auto"
-            >
+            <Link href={allNewsLink} hasIcon={true} title={t('eventsAll')} size="large" className="ml-auto">
               {t('eventsAll')}
             </Link>
           </div>
@@ -55,7 +45,7 @@ const EventPage = ({ page, events, allNewsLink }: PageProps) => {
         </Section>
       </SectionContainer>
     </>
-  );
-};
+  )
+}
 
-export default EventPage;
+export default EventPage

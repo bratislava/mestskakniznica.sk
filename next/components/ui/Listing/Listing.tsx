@@ -1,28 +1,21 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context';
-import cx from 'classnames';
-import { ReactComponent as ChevronRight } from '../../assets/images/chevron-right.svg';
-import { CallToAction } from '../CallToAction/CallToAction';
-import { Link } from '../Link/Link';
-import { RowSubcategory } from '../RowSubcategory/RowSubcategory';
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import cx from 'classnames'
+import ChevronRight from '@assets/images/chevron-right.svg'
+import { CallToAction } from '../CallToAction/CallToAction'
+import { Link } from '../Link/Link'
+import { RowSubcategory } from '../RowSubcategory/RowSubcategory'
 
 export interface ListingProps {
-  className?: string;
-  title?: string;
-  url?: string;
-  moreLinkTitle?: string;
-  pages: { title: string; url: string; moreLinkTitle: string }[];
-  hasDivider?: boolean;
+  className?: string
+  title?: string
+  url?: string
+  moreLinkTitle?: string
+  pages: { title: string; url: string; moreLinkTitle: string }[]
+  hasDivider?: boolean
 }
 
-export function Listing({
-  className,
-  title,
-  url,
-  moreLinkTitle,
-  pages,
-  hasDivider,
-}: ListingProps) {
-  const { Link: UILink } = useUIContext();
+export function Listing({ className, title, url, moreLinkTitle, pages, hasDivider }: ListingProps) {
+  const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className)}>
       {moreLinkTitle && url && (
@@ -52,19 +45,13 @@ export function Listing({
               }
             />
 
-            <RowSubcategory
-              className="md:hidden"
-              title={page.title}
-              icon={<ChevronRight />}
-            />
+            <RowSubcategory className="md:hidden" title={page.title} icon={<ChevronRight />} />
           </UILink>
         ))}
       </div>
-      {hasDivider && (
-        <div className="hidden mt-16 border-b-[1px] border-gray-700 w-full md:flex" />
-      )}
+      {hasDivider && <div className="hidden mt-16 border-b-[1px] border-gray-700 w-full md:flex" />}
     </div>
-  );
+  )
 }
 
-export default Listing;
+export default Listing

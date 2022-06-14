@@ -1,15 +1,14 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { EventTags } from '@bratislava/strapi-sdk-city-library';
+import { EventTags } from '@bratislava/strapi-sdk-city-library'
 
 interface TagsDisplayProps {
-  tags?: Array<EventTags | null>;
-  category: string;
-  tagsCount: number;
+  tags?: Array<EventTags | null>
+  category: string
+  tagsCount: number
 }
 
 const TagsDisplay = ({ tags = [], category, tagsCount }: TagsDisplayProps) => {
-  const lower = Math.min(tagsCount, tags?.length);
-  const slicedTags = tags?.slice(0, lower);
+  const lower = Math.min(tagsCount, tags?.length)
+  const slicedTags = tags?.slice(0, lower)
 
   return (
     <div className="flex flex-wrap">
@@ -30,7 +29,7 @@ const TagsDisplay = ({ tags = [], category, tagsCount }: TagsDisplayProps) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default TagsDisplay;
+export default TagsDisplay

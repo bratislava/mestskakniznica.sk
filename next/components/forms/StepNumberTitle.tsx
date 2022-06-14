@@ -1,26 +1,19 @@
-import React from 'react';
-import cx from 'classnames';
-import { ReactComponent as CheckMark } from '../../assets/images/check-mark.svg';
+import React from 'react'
+import cx from 'classnames'
+import CheckMark from '@assets/images/check-mark.svg'
 
 interface IProps {
-  num: number;
-  title: string;
-  activeStep: number;
-  onClick: () => void;
-  className?: string;
-  children?: React.ReactNode;
+  num: number
+  title: string
+  activeStep: number
+  onClick: () => void
+  className?: string
+  children?: React.ReactNode
 }
 
-const StepNumberTitle = ({
-  num,
-  title,
-  activeStep,
-  onClick,
-  className,
-  children,
-}: IProps) => {
-  const active = activeStep === num;
-  const finished = activeStep > num;
+const StepNumberTitle = ({ num, title, activeStep, onClick, className, children }: IProps) => {
+  const active = activeStep === num
+  const finished = activeStep > num
 
   return (
     <div
@@ -51,13 +44,11 @@ const StepNumberTitle = ({
         >
           {finished ? <CheckMark className="-m-6" /> : num}
         </span>
-        <p className="text-gray-universal-100 text-default text-left">
-          {title}
-        </p>
+        <p className="text-gray-universal-100 text-default text-left">{title}</p>
       </button>
       {active && children}
     </div>
-  );
-};
+  )
+}
 
-export default StepNumberTitle;
+export default StepNumberTitle

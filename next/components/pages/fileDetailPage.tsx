@@ -1,40 +1,30 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  BasicDocumentFragment,
-  FooterQuery,
-  MenusQuery,
-} from '@bratislava/strapi-sdk-city-library';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  Button,
-  FileIcon,
-  Link,
-  SectionContainer,
-} from '@bratislava/ui-city-library';
-import truncate from 'lodash/truncate';
-import React from 'react';
-import { useTranslation } from 'next-i18next';
-import { ReactComponent as ChevronRight } from '../../assets/images/chevron-right.svg';
-import { ReactComponent as SingleDot } from '../../assets/images/dot.svg';
-import { ReactComponent as Download } from '../../assets/images/download.svg';
-import { ReactComponent as ExternalLink } from '../../assets/images/external-link.svg';
-import { ReactComponent as Home } from '../../assets/images/home.svg';
-import { formatDateToLocal } from '../../utils/utils';
-import DefaultPageLayout from '../layouts/DefaultPageLayout';
+import { BasicDocumentFragment, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+
+import { Button, FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
+import truncate from 'lodash/truncate'
+import React from 'react'
+import { useTranslation } from 'next-i18next'
+import ChevronRight from '@assets/images/chevron-right.svg'
+import SingleDot from '@assets/images/dot.svg'
+import Download from '@assets/images/download.svg'
+import ExternalLink from '@assets/images/external-link.svg'
+import Home from '@assets/images/home.svg'
+import { formatDateToLocal } from '../../utils/utils'
+import DefaultPageLayout from '../layouts/DefaultPageLayout'
 
 interface IProps {
-  file: BasicDocumentFragment;
-  locale?: string;
-  menus: NonNullable<MenusQuery['menus']>;
-  footer: FooterQuery['footer'];
+  file: BasicDocumentFragment
+  locale?: string
+  menus: NonNullable<MenusQuery['menus']>
+  footer: FooterQuery['footer']
 }
 
 interface FileMetadata {
-  key: string;
-  content: React.ReactNode;
+  key: string
+  content: React.ReactNode
 }
 
-const DESCRIPTION_LIMIT = 100;
+const DESCRIPTION_LIMIT = 100
 
 const CustomPageBreadcrumbs = ({ file }: IProps) => (
   <div className="flex items-center gap-x-4 mt-4.5">
@@ -45,17 +35,15 @@ const CustomPageBreadcrumbs = ({ file }: IProps) => (
 
     <span className="text-xs">{file.title}</span>
   </div>
-);
+)
 
 const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
-  const dateAddedString = formatDateToLocal(file.date_added, locale);
-  const { t } = useTranslation('common');
+  const dateAddedString = formatDateToLocal(file.date_added, locale)
+  const { t } = useTranslation('common')
 
-  const [expandDescription, setExpandDescription] = React.useState(false);
-  const description = file.description;
-  const showExpandButton = description
-    ? description.length > DESCRIPTION_LIMIT
-    : false;
+  const [expandDescription, setExpandDescription] = React.useState(false)
+  const description = file.description
+  const showExpandButton = description ? description.length > DESCRIPTION_LIMIT : false
 
   const Metadata: FileMetadata[] = [
     {
@@ -117,57 +105,45 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
         </>
       ) : null,
     },
-  ];
+  ]
 
   const transformedMetadata: Array<FileMetadata> =
     file && file.metadata && file.metadata[0]
       ? Object.entries(file.metadata[0])
           .filter(
             (entry) =>
-              (entry[0] !== '__typename' &&
-                entry[0] !== 'id' &&
-                entry[0] !== 'attachment') ||
-              entry[0] === 'attachment'
+              (entry[0] !== '__typename' && entry[0] !== 'id' && entry[0] !== 'attachment') || entry[0] === 'attachment'
           )
           .map((entry) => {
-            if (
-              entry[0] !== '__typename' &&
-              entry[0] !== 'id' &&
-              entry[0] !== 'attachment'
-            ) {
+            if (entry[0] !== '__typename' && entry[0] !== 'id' && entry[0] !== 'attachment') {
               return {
                 key: `${t(entry[0])}:`,
                 content: entry[1],
-              };
+              }
             } else {
               return {
                 key: 'Attachment',
                 content: entry[1].name,
-              };
+              }
             }
           })
-      : [];
+      : []
 
-  const fullMetadata = Metadata?.concat(transformedMetadata);
+  const fullMetadata = Metadata?.concat(transformedMetadata)
 
   return (
     <DefaultPageLayout title={file.title} menus={menus} footer={footer}>
       <SectionContainer>
         <CustomPageBreadcrumbs file={file} menus={menus} footer={footer} />
         <div className="flex gap-x-8 mt-6 lg:mt-16 border-b border-gray-universal-100 pb-10 lg:pb-32">
-          <FileIcon
-            className="hidden lg:flex"
-            type={file.attachment?.ext?.toUpperCase().replace('.', '')}
-          />
+          <FileIcon className="hidden lg:flex" type={file.attachment?.ext?.toUpperCase().replace('.', '')} />
           <div className="w-full">
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
               {/* Header */}
               <span className="lg:hidden flex border border-gray-universal-100 rounded-full h-14 w-14 text-[12px] justify-center items-center">
                 {file.attachment?.ext?.toUpperCase().replace('.', '')}
               </span>
-              <h1 className="text-md2 mt-8 lg:mt-0 lg:text-2xl">
-                {file.title}
-              </h1>
+              <h1 className="text-md2 mt-8 lg:mt-0 lg:text-2xl">{file.title}</h1>
               <div className="mt-2 lg:flex items-center lg:gap-x-3 text-gray-universal-70 text-sm">
                 <p className="hidden lg:block">{file.author}</p>
                 <SingleDot className="hidden lg:block" />
@@ -175,12 +151,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
               </div>
               {file.attachment && (
                 <div className="flex w-full flex-col lg:flex-row gap-y-3 lg:gap-y-0 lg:gap-x-4 items-center mt-6 mb-6 lg:mb-10">
-                  <a
-                    className="w-full lg:w-auto"
-                    href={file.attachment.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <a className="w-full lg:w-auto" href={file.attachment.url} target="_blank" rel="noreferrer">
                     <Button
                       className="py-[9px] px-5 w-full"
                       aria-label={`${t('open')} ${file.title}`}
@@ -189,11 +160,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
                       {t('open')}
                     </Button>
                   </a>
-                  <a
-                    className="w-full lg:w-auto"
-                    href={file.attachment.url}
-                    download={file.attachment.name}
-                  >
+                  <a className="w-full lg:w-auto" href={file.attachment.url} download={file.attachment.name}>
                     <Button
                       variant="secondary"
                       className="py-[9px] px-5 w-full"
@@ -212,9 +179,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
               <h3 className="text-default lg:text-md2">{t('description')}</h3>
               <p className="text-xs lg:text-sm text-gray-universal-70">
                 {truncate(description || undefined, {
-                  length: expandDescription
-                    ? description?.length
-                    : DESCRIPTION_LIMIT,
+                  length: expandDescription ? description?.length : DESCRIPTION_LIMIT,
                 })}
               </p>
 
@@ -245,7 +210,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
         </div>
       </SectionContainer>
     </DefaultPageLayout>
-  );
-};
+  )
+}
 
-export default FileDetailPage;
+export default FileDetailPage

@@ -1,33 +1,28 @@
-import { Button, Input } from '@bratislava/ui-city-library';
-import cx from 'classnames';
-import React, { FormEvent } from 'react';
-import {
-  Controller,
-  useFieldArray,
-  useFormContext,
-  useFormState,
-} from 'react-hook-form';
-import { useTranslation } from 'next-i18next';
-import { ReactComponent as ClearCircle } from '../../../assets/images/clear-circle.svg';
-import { ReactComponent as PlusIcon } from '../../../assets/images/plus.svg';
+import { Button, Input } from '@bratislava/ui-city-library'
+import cx from 'classnames'
+import React, { FormEvent } from 'react'
+import { Controller, useFieldArray, useFormContext, useFormState } from 'react-hook-form'
+import { useTranslation } from 'next-i18next'
+import ClearCircle from '@assets/images/clear-circle.svg'
+import PlusIcon from '@assets/images/plus.svg'
 
 interface Props {
-  className?: string;
-  showLinkInput?: boolean;
+  className?: string
+  showLinkInput?: boolean
 }
 
 const BookListExtended = ({ className, showLinkInput = false }: Props) => {
-  const methods = useFormContext();
-  const { errors } = useFormState();
-  const { t } = useTranslation('forms');
+  const methods = useFormContext()
+  const { errors } = useFormState()
+  const { t } = useTranslation('forms')
 
   const { fields, append, remove } = useFieldArray({
     control: methods.control,
     name: 'books',
-  });
+  })
 
   const handleAddBook = (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     append({
       author: '',
       title: '',
@@ -37,26 +32,23 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
       packageNumber: '',
       issueDate: '',
       ISBN: '',
-    });
-  };
+    })
+  }
 
   const handleRemoveBook = (e: FormEvent, idx: number) => {
-    e.preventDefault();
-    remove(idx);
-  };
+    e.preventDefault()
+    remove(idx)
+  }
 
   return (
     <div className={className}>
       {fields.map((field, index) => (
         <div
           key={field.id}
-          className={cx(
-            'flex flex-col gap-y-6 w-full border p-6 mb-6 relative',
-            {
-              'border-input-stroke': !errors?.['books']?.[index],
-              'base-input--with-error': errors?.['books']?.[index],
-            }
-          )}
+          className={cx('flex flex-col gap-y-6 w-full border p-6 mb-6 relative', {
+            'border-input-stroke': !errors?.['books']?.[index],
+            'base-input--with-error': errors?.['books']?.[index],
+          })}
         >
           {fields.length > 1 && (
             <ClearCircle
@@ -88,9 +80,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
                 inputClassName="px-3 w-full"
                 required
                 hasError={errors.books && !!errors.books[index]?.author}
-                errorMessage={
-                  (errors.books && errors.books[index]?.author?.message) ?? ''
-                }
+                errorMessage={(errors.books && errors.books[index]?.author?.message) ?? ''}
                 {...field}
               />
             )}
@@ -105,9 +95,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
                 inputClassName="px-3 w-full"
                 required
                 hasError={errors.books && !!errors.books[index]?.title}
-                errorMessage={
-                  (errors.books && errors.books[index]?.title?.message) ?? ''
-                }
+                errorMessage={(errors.books && errors.books[index]?.title?.message) ?? ''}
                 {...field}
               />
             )}
@@ -197,7 +185,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BookListExtended;
+export default BookListExtended

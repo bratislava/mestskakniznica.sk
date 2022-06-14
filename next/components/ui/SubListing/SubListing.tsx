@@ -1,17 +1,17 @@
-import { CallToAction } from '@bratislava/ui-city-library/components/CallToAction/CallToAction';
-import { ReactComponent as ChevronRight } from '@bratislava/ui-city-library/assets/images/chevron-right.svg';
-import { RowSubcategory } from '@bratislava/ui-city-library/components/RowSubcategory/RowSubcategory';
-import { useUIContext } from '@bratislava/common-frontend-ui-context';
-import React from 'react';
+import { CallToAction } from '@bratislava/ui-city-library/components/CallToAction/CallToAction'
+import ChevronRight from '@assets/images/chevron-right.svg'
+import { RowSubcategory } from '@bratislava/ui-city-library/components/RowSubcategory/RowSubcategory'
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import React from 'react'
 
 export interface SubListingProps {
-  title?: string;
-  url?: string;
-  linkTitle?: string;
+  title?: string
+  url?: string
+  linkTitle?: string
 }
 
 export const SubListing = ({ title, url, linkTitle }: SubListingProps) => {
-  const { Link: UILink } = useUIContext();
+  const { Link: UILink } = useUIContext()
   return (
     <UILink key={title} href={url}>
       <CallToAction
@@ -29,20 +29,16 @@ export const SubListing = ({ title, url, linkTitle }: SubListingProps) => {
         }
       />
 
-      <RowSubcategory
-        className="md:hidden"
-        title={title}
-        icon={<ChevronRight />}
-      />
+      <RowSubcategory className="md:hidden" title={title} icon={<ChevronRight />} />
     </UILink>
-  );
-};
+  )
+}
 
-export default SubListing;
+export default SubListing
 function otherLocale(arg0: any, localizations: any) {
-  throw new Error('Function not implemented.');
+  throw new Error('Function not implemented.')
 }
 
 function usePageWrapperContext(): { localizations: any; locale: any } {
-  throw new Error('Function not implemented.');
+  throw new Error('Function not implemented.')
 }

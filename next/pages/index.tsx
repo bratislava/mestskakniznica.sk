@@ -1,38 +1,24 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  BookTagsQuery,
-  FooterQuery,
-  HomePageQuery,
-  MenusQuery,
-} from '@bratislava/strapi-sdk-city-library';
-import React from 'react';
-import Section from '../components/AppLayout/Section';
-import SectionFaq from '../components/HomePage/SectionFaq';
-import SectionLibraryNews from '../components/HomePage/SectionLibraryNews';
-import SectionOpacBookNews from '../components/HomePage/SectionOpacBookNews';
-import SectionPromos from '../components/HomePage/SectionPromos';
-import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationInfo';
-import SectionTags from '../components/HomePage/SectionTags';
-import ErrorDisplay, {
-  getError,
-  IDisplayError,
-} from '../components/Molecules/ErrorDisplay';
-import ErrorPage from '../components/pages/ErrorPage';
-import { client } from '../utils/gql';
-import { ssrTranslations } from '../utils/translations';
-import { IEvent, ILocality } from '../utils/types';
-import {
-  convertPagesToEvents,
-  convertPagesToLocalities,
-  isPresent,
-  shouldSkipStaticPaths,
-} from '../utils/utils';
-import DefaultPageLayout from '../components/layouts/DefaultPageLayout';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { Localities, SectionContainer } from '@bratislava/ui-city-library';
-import { getOpacBooks, OpacBook } from '../utils/opac';
-import { swrCacheGet } from '../utils/cache';
-import PageWrapper from '../components/layouts/PageWrapper';
+import { BookTagsQuery, FooterQuery, HomePageQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import React from 'react'
+import Section from '../components/AppLayout/Section'
+import SectionFaq from '../components/HomePage/SectionFaq'
+import SectionLibraryNews from '../components/HomePage/SectionLibraryNews'
+import SectionOpacBookNews from '../components/HomePage/SectionOpacBookNews'
+import SectionPromos from '../components/HomePage/SectionPromos'
+import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationInfo'
+import SectionTags from '../components/HomePage/SectionTags'
+import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
+import ErrorPage from '../components/pages/ErrorPage'
+import { client } from '../utils/gql'
+import { IEvent, ILocality } from '../utils/types'
+import { convertPagesToEvents, convertPagesToLocalities, isPresent, shouldSkipStaticPaths } from '../utils/utils'
+import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
+
+import { Localities, SectionContainer } from '@bratislava/ui-city-library'
+import { getOpacBooks, OpacBook } from '../utils/opac'
+import { swrCacheGet } from '../utils/cache'
+import PageWrapper from '../components/layouts/PageWrapper'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export function Index({
   locale,
@@ -65,7 +51,7 @@ export function Index({
           <ErrorDisplay error={error} />
         </ErrorPage>
       </PageWrapper>
-    );
+    )
   }
 
   return (
@@ -77,12 +63,7 @@ export function Index({
         // add empty slug because it's expected in wrapper and index page does not have slug
         .map((l: any) => ({ ...l, slug: '' }))}
     >
-      <DefaultPageLayout
-        Seo={Seo}
-        menus={menus}
-        footer={footer}
-        latestEvents={latestEvents}
-      >
+      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} latestEvents={latestEvents}>
         {promotedEvents.length > 0 && (
           <SectionContainer>
             <Section>
@@ -106,9 +87,7 @@ export function Index({
         {registrationInfoSection !== null && (
           <SectionContainer>
             <Section>
-              <SectionRegistrationInfo
-                registrationInfoSection={registrationInfoSection}
-              />
+              <SectionRegistrationInfo registrationInfoSection={registrationInfoSection} />
             </Section>
           </SectionContainer>
         )}
@@ -129,48 +108,37 @@ export function Index({
 
         <SectionContainer>
           <Section noBorder>
-            <Localities
-              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY}
-              localities={localities}
-            />
+            <Localities mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY} localities={localities} />
           </Section>
         </SectionContainer>
       </DefaultPageLayout>
     </PageWrapper>
-  );
+  )
 }
 
 interface IProps {
-  locale?: string;
-  localizations?: NonNullable<
-    NonNullable<HomePageQuery['homePage']>['localizations']
-  >;
-  news: IEvent[];
-  latestEvents: IEvent[];
-  opacBookNews: OpacBook[];
-  promotedEvents: IEvent[];
-  bookTags: NonNullable<BookTagsQuery['bookTags']>;
-  faqSection: NonNullable<NonNullable<HomePageQuery['homePage']>['faqSection']>;
-  newsSection: NonNullable<
-    NonNullable<HomePageQuery['homePage']>['newsSection']
-  >;
-  registrationInfoSection: NonNullable<
-    NonNullable<HomePageQuery['homePage']>['registrationInfoSection']
-  >;
-  localities: ILocality[];
-  error?: IDisplayError;
-  Seo?: NonNullable<NonNullable<HomePageQuery['homePage']>['Seo']>;
-  menus: NonNullable<MenusQuery['menus']>;
-  footer: FooterQuery['footer'];
+  locale?: string
+  localizations?: NonNullable<NonNullable<HomePageQuery['homePage']>['localizations']>
+  news: IEvent[]
+  latestEvents: IEvent[]
+  opacBookNews: OpacBook[]
+  promotedEvents: IEvent[]
+  bookTags: NonNullable<BookTagsQuery['bookTags']>
+  faqSection: NonNullable<NonNullable<HomePageQuery['homePage']>['faqSection']>
+  newsSection: NonNullable<NonNullable<HomePageQuery['homePage']>['newsSection']>
+  registrationInfoSection: NonNullable<NonNullable<HomePageQuery['homePage']>['registrationInfoSection']>
+  localities: ILocality[]
+  error?: IDisplayError
+  Seo?: NonNullable<NonNullable<HomePageQuery['homePage']>['Seo']>
+  menus: NonNullable<MenusQuery['menus']>
+  footer: FooterQuery['footer']
 }
 
 // trigger redeployment :)
 
-export async function getServerSideProps(
-  ctx: { locale?: string | undefined } | undefined
-) {
-  const locale = ctx?.locale ?? 'sk';
-  const ssr = await ssrTranslations(ctx, ['common', 'newsletter', 'homepage']);
+export async function getServerSideProps(ctx: { locale?: string | undefined } | undefined) {
+  const locale = ctx?.locale ?? 'sk'
+  const ssr = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
   try {
     // running all requests parallel
     // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
@@ -201,38 +169,36 @@ export async function getServerSideProps(
           locale,
         }),
       ])
-    );
+    )
 
     interface eventProps {
-      dateTo?: any | null | undefined;
-      dateFrom?: any | null | undefined;
+      dateTo?: any | null | undefined
+      dateFrom?: any | null | undefined
     }
 
     const latestEvents = convertPagesToEvents(eventPages.pages)
       .filter((event: eventProps) => {
-        return new Date(event.dateTo) >= new Date();
+        return new Date(event.dateTo) >= new Date()
       })
       .sort((a: eventProps, b: eventProps) => {
-        if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1;
-        if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1;
-        return 0;
+        if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
+        if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
+        return 0
       })
-      .slice(0, 4);
+      .slice(0, 4)
 
     const news = convertPagesToEvents(newsPages.pages)
       .sort((a: eventProps, b: eventProps) => {
-        if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1;
-        if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1;
-        return 0;
+        if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
+        if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
+        return 0
       })
-      .slice(0, 4);
-    const promotedEvents = convertPagesToEvents(promotedPages.pages);
-    const localities = convertPagesToLocalities(localityPages.pages, true).map(
-      (locality) => ({
-        ...locality,
-        hideOpeningHours: true,
-      })
-    );
+      .slice(0, 4)
+    const promotedEvents = convertPagesToEvents(promotedPages.pages)
+    const localities = convertPagesToLocalities(localityPages.pages, true).map((locality) => ({
+      ...locality,
+      hideOpeningHours: true,
+    }))
     return {
       props: {
         locale,
@@ -251,18 +217,18 @@ export async function getServerSideProps(
         localities,
         ...ssr,
       },
-    };
+    }
   } catch (iError) {
-    console.error(iError);
-    const error = getError(iError);
+    console.error(iError)
+    const error = getError(iError)
 
     return {
       props: {
         error,
         ...ssr,
       },
-    };
+    }
   }
 }
 
-export default Index;
+export default Index

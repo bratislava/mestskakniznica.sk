@@ -12,15 +12,6 @@
       }
     },
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "@next/next/no-html-link-for-pages": [
-          "error",
-          "apps/next/city-library/pages"
-        ]
-      }
-    },
-    {
       "files": ["*.ts", "*.tsx"],
       "rules": {
         "jsx-a11y/anchor-is-valid": [

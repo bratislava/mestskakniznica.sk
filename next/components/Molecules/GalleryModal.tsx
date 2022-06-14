@@ -1,8 +1,8 @@
-import React from 'react';
-import Modal from 'react-modal';
-import { ReactComponent as Close } from '@bratislava/ui-bratislava/assets/images/hamburger-close.svg';
-import GalleryCarousel from './GalleryCarousel';
-import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library';
+import React from 'react'
+import Modal from 'react-modal'
+import Close from '@assets/images/hamburger-close.svg'
+import GalleryCarousel from './GalleryCarousel'
+import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library'
 
 const CUSTOM_STYLES = {
   content: {
@@ -12,12 +12,12 @@ const CUSTOM_STYLES = {
     borderRadius: '0',
     padding: '0',
   },
-};
+}
 
 export interface PageProps {
-  showModal: boolean;
-  closeModal: () => void;
-  gallery: Array<ComponentLocalityPartsGalleryParts | null | undefined>;
+  showModal: boolean
+  closeModal: () => void
+  gallery: Array<ComponentLocalityPartsGalleryParts | null | undefined>
 }
 
 const GalleryModal = ({ showModal, closeModal, gallery }: PageProps) => {
@@ -30,7 +30,7 @@ const GalleryModal = ({ showModal, closeModal, gallery }: PageProps) => {
         <GalleryCarousel gallery={gallery} />
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default GalleryModal;
+export default GalleryModal

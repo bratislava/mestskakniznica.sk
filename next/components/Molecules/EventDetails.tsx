@@ -1,52 +1,45 @@
-import { ReactComponent as Calendar } from '../../assets/images/calendar.svg';
-import { ReactComponent as SmCalendar } from '../../assets/images/calendar-sm.svg';
-import { ReactComponent as Navigate } from '../../assets/images/navigate.svg';
-import { ReactComponent as Directions } from '../../assets/images/directions.svg';
-import { ReactComponent as Euro } from '../../assets/images/euro-symbol.svg';
-import { ReactComponent as QrLogo } from '../../assets/images/camera.svg';
-import { ReactComponent as Share } from '../../assets/images/share.svg';
-import { ComponentSectionsEventDetails } from '@bratislava/strapi-sdk-city-library';
-import TagsDisplay from '../Atoms/TagsDisplay';
-import { useTranslation } from 'next-i18next';
-import { dateTimeString, isEventPast } from '../../utils/utils';
-import DateCardDisplay from '../Atoms/DateCardDispaly';
-import Clickable from '../Atoms/EventClickable';
-import DetailsRow from '../Atoms/EventDetailsRow';
-import { useRouter } from 'next/router';
-import QRCode from 'qrcode.react';
-import AddToCalendar from '@culturehq/add-to-calendar';
-import { useUIContext } from '@bratislava/common-frontend-ui-context';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import React from 'react';
-import { usePageWrapperContext } from '../layouts/PageWrapper';
+import Calendar from '@assets/images/calendar.svg'
+import SmCalendar from '@assets/images/calendar-sm.svg'
+import Navigate from '@assets/images/navigate.svg'
+import Directions from '@assets/images/directions.svg'
+import Euro from '@assets/images/euro-symbol.svg'
+import QrLogo from '@assets/images/camera.svg'
+import Share from '@assets/images/share.svg'
+import { ComponentSectionsEventDetails } from '@bratislava/strapi-sdk-city-library'
+import TagsDisplay from '../Atoms/TagsDisplay'
+import { useTranslation } from 'next-i18next'
+import { dateTimeString, isEventPast } from '../../utils/utils'
+import DateCardDisplay from '../Atoms/DateCardDispaly'
+import Clickable from '../Atoms/EventClickable'
+import DetailsRow from '../Atoms/EventDetailsRow'
+import { useRouter } from 'next/router'
+import QRCode from 'qrcode.react'
+import AddToCalendar from '@culturehq/add-to-calendar'
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import React from 'react'
+import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface PageProps {
-  eventDetails?: ComponentSectionsEventDetails;
+  eventDetails?: ComponentSectionsEventDetails
 }
 
 const EventDetails = ({ eventDetails }: PageProps) => {
-  const { t } = useTranslation('common');
-  const { asPath } = useRouter();
-  const { Markdown: UIMarkdown } = useUIContext();
-  const [isEventInThePast, setIsEventInThePast] = React.useState(false);
-  const { locale } = usePageWrapperContext();
+  const { t } = useTranslation('common')
+  const { asPath } = useRouter()
+  const { Markdown: UIMarkdown } = useUIContext()
+  const [isEventInThePast, setIsEventInThePast] = React.useState(false)
+  const { locale } = usePageWrapperContext()
 
   const copyToClipBoard = () => {
-    navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`);
-  };
+    navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
+  }
 
   const fireSwal = () => {
-    const withContent = withReactContent(Swal);
+    const withContent = withReactContent(Swal)
     withContent.fire({
-      html: (
-        <QRCode
-          value={eventDetails?.eventTitle || ''}
-          className="m-auto"
-          renderAs="svg"
-          size={240}
-        />
-      ),
+      html: <QRCode value={eventDetails?.eventTitle || ''} className="m-auto" renderAs="svg" size={240} />,
       position: 'center',
       width: 350,
       confirmButtonText: t('close'),
@@ -55,12 +48,12 @@ const EventDetails = ({ eventDetails }: PageProps) => {
         popup: 'rounded-none',
         confirmButton: 'rounded-none',
       },
-    });
-  };
+    })
+  }
 
   React.useMemo(() => {
-    setIsEventInThePast(isEventPast(eventDetails?.dateTo));
-  }, [eventDetails]);
+    setIsEventInThePast(isEventPast(eventDetails?.dateTo))
+  }, [eventDetails])
 
   return (
     <>
@@ -73,11 +66,7 @@ const EventDetails = ({ eventDetails }: PageProps) => {
       />
       <div className="block lg:grid grid-cols-9 pt-10 gap-x-16">
         <div className="col-span-1 h-[108px] w-[108px] bg-promo-yellow text-center lg:flex hidden">
-          <DateCardDisplay
-            dateFrom={eventDetails?.dateFrom}
-            dateTo={eventDetails?.dateTo}
-            textSize="text-lg"
-          />
+          <DateCardDisplay dateFrom={eventDetails?.dateFrom} dateTo={eventDetails?.dateTo} textSize="text-lg" />
         </div>
         <div className="col-span-5">
           <div className="text-xs">
@@ -89,11 +78,7 @@ const EventDetails = ({ eventDetails }: PageProps) => {
           </div>
           <h1 className="text-[32px] py-[12px]">{eventDetails?.eventTitle}</h1>
           <div className="text-[14px] text-gray-500">
-            {dateTimeString(
-              eventDetails?.dateFrom,
-              eventDetails?.dateTo,
-              locale
-            )}
+            {dateTimeString(eventDetails?.dateFrom, eventDetails?.dateTo, locale)}
           </div>
         </div>
       </div>
@@ -156,9 +141,7 @@ const EventDetails = ({ eventDetails }: PageProps) => {
                   <AddToCalendar
                     event={{
                       name: eventDetails?.eventTitle || '',
-                      details:
-                        eventDetails?.eventDescription.replace(/\n/g, ' ') ||
-                        null,
+                      details: eventDetails?.eventDescription.replace(/\n/g, ' ') || null,
                       location: eventDetails?.eventLocality?.title || null,
                       startsAt: new Date(eventDetails?.dateFrom).toISOString(),
                       endsAt: new Date(eventDetails?.dateTo).toISOString(),
@@ -200,26 +183,16 @@ const EventDetails = ({ eventDetails }: PageProps) => {
                   <DetailsRow
                     classWrapper="flex"
                     svgIcon={<Calendar />}
-                    text={dateTimeString(
-                      eventDetails?.dateFrom,
-                      eventDetails?.dateTo,
-                      locale
-                    )}
+                    text={dateTimeString(eventDetails?.dateFrom, eventDetails?.dateTo, locale)}
                   />
                   {!isEventInThePast && (
                     <div className="pl-9 pt-3">
                       <AddToCalendar
                         event={{
                           name: eventDetails?.eventTitle || '',
-                          details:
-                            eventDetails?.eventDescription.replace(
-                              /\n/g,
-                              ' '
-                            ) || null,
+                          details: eventDetails?.eventDescription.replace(/\n/g, ' ') || null,
                           location: eventDetails?.eventLocality?.title || null,
-                          startsAt: new Date(
-                            eventDetails?.dateFrom
-                          ).toISOString(),
+                          startsAt: new Date(eventDetails?.dateFrom).toISOString(),
                           endsAt: new Date(eventDetails?.dateTo).toISOString(),
                         }}
                         filename="library-event"
@@ -237,9 +210,7 @@ const EventDetails = ({ eventDetails }: PageProps) => {
                     classWrapper="flex"
                     svgIcon={<Navigate />}
                     text={`${eventDetails?.eventLocality?.title}${
-                      eventDetails?.eventLocality?.eventAddress
-                        ? `, ${eventDetails?.eventLocality?.eventAddress}`
-                        : ``
+                      eventDetails?.eventLocality?.eventAddress ? `, ${eventDetails?.eventLocality?.eventAddress}` : ``
                     }`}
                   />
                   <Clickable
@@ -254,11 +225,7 @@ const EventDetails = ({ eventDetails }: PageProps) => {
                 <DetailsRow
                   classWrapper="flex pt-5"
                   svgIcon={<Euro />}
-                  text={
-                    eventDetails?.price == 0
-                      ? t('noCharge').toString()
-                      : eventDetails?.price.toString() || ''
-                  }
+                  text={eventDetails?.price == 0 ? t('noCharge').toString() : eventDetails?.price.toString() || ''}
                 />
               </div>
             </div>
@@ -266,7 +233,7 @@ const EventDetails = ({ eventDetails }: PageProps) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default EventDetails;
+export default EventDetails

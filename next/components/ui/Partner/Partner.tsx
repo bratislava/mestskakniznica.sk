@@ -1,45 +1,29 @@
-import cx from 'classnames';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { useUIContext } from '@bratislava/common-frontend-ui-context';
-import { ReactComponent as Globe } from '../../assets/images/language.svg';
+import cx from 'classnames'
+
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import Globe from '@assets/images/language.svg'
 
 export interface PartnerProps {
-  className?: string;
-  title?: string;
-  pageLink?: { title?: string; url?: string };
-  logo?: string;
-  alt?: string;
-  featured?: boolean | null | undefined;
+  className?: string
+  title?: string
+  pageLink?: { title?: string; url?: string }
+  logo?: string
+  alt?: string
+  featured?: boolean | null | undefined
 }
 
-export const Partner = ({
-  className,
-  title,
-  pageLink,
-  logo,
-  alt,
-  featured,
-}: PartnerProps) => {
-  const { Link: UILink, Image: UIImage } = useUIContext();
+export const Partner = ({ className, title, pageLink, logo, alt, featured }: PartnerProps) => {
+  const { Link: UILink, Image: UIImage } = useUIContext()
   return (
     <div
-      className={cx(
-        className,
-        'flex p-4 w-full lg:p-5 border-gray-universal-100',
-        {
-          'flex-col items-center min-h-[199px] justify-end border': featured,
-          'flex-row justify-between border-b last:border-0 lg:border lg:last:border':
-            !featured,
-        }
-      )}
+      className={cx(className, 'flex p-4 w-full lg:p-5 border-gray-universal-100', {
+        'flex-col items-center min-h-[199px] justify-end border': featured,
+        'flex-row justify-between border-b last:border-0 lg:border lg:last:border': !featured,
+      })}
     >
       {featured && (
         <div className="h-24">
-          <img
-            className="max-w-[250px] w-full h-full object-contain"
-            src={logo ?? ''}
-            alt={alt ?? ''}
-          />
+          <img className="max-w-[250px] w-full h-full object-contain" src={logo ?? ''} alt={alt ?? ''} />
         </div>
       )}
       <h5
@@ -68,7 +52,7 @@ export const Partner = ({
         </span>
       </UILink>
     </div>
-  );
-};
+  )
+}
 
-export default Partner;
+export default Partner

@@ -1,25 +1,25 @@
-import Link from 'next/link';
-import { ReactComponent as Arrow } from '../../assets/images/arrow-right.svg';
-import React, { useState } from 'react';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { Accordion, CallToAction } from '@bratislava/ui-city-library';
-import { useTranslation } from 'next-i18next';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { HomePageQuery } from '@bratislava/strapi-sdk-city-library';
-import { useUIContext } from '@bratislava/common-frontend-ui-context';
+import Link from 'next/link'
+import Arrow from '@assets/images/arrow-right.svg'
+import React, { useState } from 'react'
+
+import { Accordion, CallToAction } from '@bratislava/ui-city-library'
+import { useTranslation } from 'next-i18next'
+
+import { HomePageQuery } from '@bratislava/strapi-sdk-city-library'
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
 
 interface SectionFaqProps {
-  faqSection: NonNullable<HomePageQuery['homePage']>['faqSection'];
+  faqSection: NonNullable<HomePageQuery['homePage']>['faqSection']
 }
 
 const SectionFaq = ({ faqSection }: SectionFaqProps) => {
-  const { t } = useTranslation(['homepage', 'common']);
-  const [openFaq, setOpenFaq] = useState('');
-  const { Markdown: UIMarkdown } = useUIContext();
+  const { t } = useTranslation(['homepage', 'common'])
+  const [openFaq, setOpenFaq] = useState('')
+  const { Markdown: UIMarkdown } = useUIContext()
 
   const listenAccordionState = (id: string, state: boolean) => {
-    setOpenFaq(state ? id : '');
-  };
+    setOpenFaq(state ? id : '')
+  }
 
   return (
     <section className="py-12">
@@ -53,19 +53,14 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
               size="big"
               stateListener={listenAccordionState}
               defaultState={openFaq === faq?.id}
-              ariaLabelPrefix={
-                openFaq === faq?.id ? t('openAccordian') : t('closeAccordian')
-              }
+              ariaLabelPrefix={openFaq === faq?.id ? t('openAccordian') : t('closeAccordian')}
               label={faq?.question || ''}
               content={<UIMarkdown content={faq?.answer || ''} />}
             />
           ))}
           <div className="pt-6 font-serif cursor-pointer text-xs">
             <Link href={faqSection?.faqSectionRedirectTo?.slug ?? '#'} passHref>
-              <a
-                href={faqSection?.faqSectionRedirectTo?.slug ?? '#'}
-                className="uppercase"
-              >
+              <a href={faqSection?.faqSectionRedirectTo?.slug ?? '#'} className="uppercase">
                 {t('showMore', { ns: 'common' })} {'>'}
               </a>
             </Link>
@@ -73,7 +68,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default SectionFaq;
+export default SectionFaq

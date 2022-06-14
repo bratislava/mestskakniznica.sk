@@ -1,32 +1,32 @@
-import MobileNavigationItem from './MobileNavigationItem';
-import { ReactComponent as Accessibility } from '../../../assets/images/accessibility.svg';
-import { useEffect } from 'react';
-import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper';
-import Link from 'next/link';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { MenusQuery } from '@bratislava/strapi-sdk-city-library';
-import { useTranslation } from 'next-i18next';
+import MobileNavigationItem from './MobileNavigationItem'
+import Accessibility from '@assets/images/accessibility.svg'
+import { useEffect } from 'react'
+import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
+import Link from 'next/link'
+
+import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { useTranslation } from 'next-i18next'
 
 interface MobileNavigationProps {
-  onClose: () => void;
-  menus: NonNullable<MenusQuery['menus']>;
+  onClose: () => void
+  menus: NonNullable<MenusQuery['menus']>
 }
 
 export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
-  const { t } = useTranslation(['common', 'homepage']);
+  const { t } = useTranslation(['common', 'homepage'])
 
   useEffect(() => {
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-    document.body.style.overflow = 'hidden';
+    const originalStyle = window.getComputedStyle(document.body).overflow
+    document.body.style.overflow = 'hidden'
     return () => {
-      document.body.style.overflow = originalStyle;
-    };
-  }, []);
+      document.body.style.overflow = originalStyle
+    }
+  }, [])
 
-  const { localizations, locale } = usePageWrapperContext();
-  const otherLocaleData = otherLocale(locale ?? 'sk', localizations);
+  const { localizations, locale } = usePageWrapperContext()
+  const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
 
-  const openingHours = t('openHoursInfo');
+  const openingHours = t('openHoursInfo')
   // TODO load opening hours
   // const openingHours = mainLocality?.isCurrentlyOpen
   //   ? t('openingHours') +
@@ -39,11 +39,7 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
       <div className="flex justify-between border-b h-[61px] border-gray-900">
         <div className="flex h-full">
           <div className="px-5 h-full flex items-center">
-            <Link
-              href={otherLocaleData.path}
-              locale={otherLocaleData.locale}
-              passHref
-            >
+            <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
               <a className="font-normal text-sm border-gray-900 leading-[19.6px]">
                 {otherLocaleData.locale.toUpperCase()}
               </a>
@@ -76,5 +72,5 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,42 +1,42 @@
-import cx from 'classnames';
-import React, { FormEvent } from 'react';
-import { ReactComponent as Accessibility } from '../../assets/images/accessibility.svg';
-import { ReactComponent as SearchIcon } from '../../assets/images/search.svg';
-import { ReactComponent as ClearCircle } from '../../assets/images/clear-circle.svg';
-import { Link } from '../Link/Link';
-import { SearchBar } from '../SearchBar/SearchBar';
-import { ChevronRight } from '@bratislava/ui-bratislava/assets/images';
+import cx from 'classnames'
+import React, { FormEvent } from 'react'
+import Accessibility from '@assets/images/accessibility.svg'
+import SearchIcon from '@assets/images/search.svg'
+import ClearCircle from '@assets/images/clear-circle.svg'
+import { Link } from '../Link/Link'
+import { SearchBar } from '../SearchBar/SearchBar'
+import { ChevronRight } from '@bratislava/ui-bratislava/assets/images'
 
 export interface IProps extends LanguageSelectProps {
-  className?: string;
-  logoTitle: string;
-  openingHours: string;
-  menuItems: ISubMenuItem[];
+  className?: string
+  logoTitle: string
+  openingHours: string
+  menuItems: ISubMenuItem[]
 }
 
 export interface ISubMenuItem {
-  title: string;
-  url: string;
+  title: string
+  url: string
   elements: {
-    title: string;
-    align: string;
+    title: string
+    align: string
     items: {
-      title: string;
-      url: string;
-    }[];
-  }[];
+      title: string
+      url: string
+    }[]
+  }[]
 }
 
 interface LanguageSelectProps {
-  className?: string;
-  languages?: LanguageOption[];
-  currentLanguage?: string;
-  onLanguageChange?: (language: LanguageOption) => void;
+  className?: string
+  languages?: LanguageOption[]
+  currentLanguage?: string
+  onLanguageChange?: (language: LanguageOption) => void
 }
 
 interface LanguageOption {
-  key: string;
-  title: string;
+  key: string
+  title: string
 }
 
 const Logo = ({ logoTitle }: { logoTitle: string }) => (
@@ -53,7 +53,7 @@ const Logo = ({ logoTitle }: { logoTitle: string }) => (
       </span>
     ))}
   </div>
-);
+)
 
 const LanguageSelect = ({
   className,
@@ -62,14 +62,14 @@ const LanguageSelect = ({
   onLanguageChange: onChange,
 }: LanguageSelectProps) => {
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    if (!onChange) return;
+    if (!onChange) return
 
-    const selectedKey = e.target.value;
-    const selectedOption = options?.find((opt) => opt.key === selectedKey);
-    if (selectedOption) onChange(selectedOption);
-  };
+    const selectedKey = e.target.value
+    const selectedOption = options?.find((opt) => opt.key === selectedKey)
+    if (selectedOption) onChange(selectedOption)
+  }
 
-  if (!options) return null;
+  if (!options) return null
 
   return (
     <select className={className} value={current} onChange={handleChange}>
@@ -79,15 +79,10 @@ const LanguageSelect = ({
         </option>
       ))}
     </select>
-  );
-};
+  )
+}
 
-const HeaderTopItems = ({
-  openingHours,
-  ...languageSelectProps
-}: {
-  openingHours: string;
-}) => (
+const HeaderTopItems = ({ openingHours, ...languageSelectProps }: { openingHours: string }) => (
   <div className="flex">
     <span className="px-3 border-l border-gray-universal-100 h-full flex items-center">
       <Accessibility className="cursor-pointer" />
@@ -95,11 +90,7 @@ const HeaderTopItems = ({
     <p className="text-xs border-l border-gray-universal-100 px-3 h-full flex items-center cursor-default">
       {openingHours}
     </p>
-    <Link
-      uppercase={false}
-      href="#"
-      className="border-l border-gray-universal-100 px-3 h-full flex items-center"
-    >
+    <Link uppercase={false} href="#" className="border-l border-gray-universal-100 px-3 h-full flex items-center">
       Prihlásenie
     </Link>
     <LanguageSelect
@@ -107,46 +98,32 @@ const HeaderTopItems = ({
       {...languageSelectProps}
     />
   </div>
-);
+)
 
 const SearchBox = () => {
-  const [searchedTerm, setSearchedTerm] = React.useState('');
-  const baseUrl = 'https://opac.mestskakniznica.sk/opac';
+  const [searchedTerm, setSearchedTerm] = React.useState('')
+  const baseUrl = 'https://opac.mestskakniznica.sk/opac'
 
   const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (searchedTerm === '') window.open(baseUrl, '_blank');
-    else
-      window.open(
-        `${baseUrl}?fn=searchform&extSrchTitle=${searchedTerm}`,
-        '_blank'
-      );
-  };
+    e.preventDefault()
+    if (searchedTerm === '') window.open(baseUrl, '_blank')
+    else window.open(`${baseUrl}?fn=searchform&extSrchTitle=${searchedTerm}`, '_blank')
+  }
 
   return (
     <form onSubmit={onSubmit} className="self-center">
       <SearchBar
         iconLeft={<SearchIcon onClick={onSubmit} className="cursor-pointer" />}
-        iconRight={
-          searchedTerm.length > 0 && (
-            <ClearCircle onClick={() => setSearchedTerm('')} />
-          )
-        }
+        iconRight={searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />}
         onChange={(e) => setSearchedTerm(e.target.value)}
         value={searchedTerm}
         inputClassName="rounded-full w-[440px]"
       />
     </form>
-  );
-};
+  )
+}
 
-export const Header = ({
-  className,
-  logoTitle,
-  menuItems,
-  openingHours,
-  ...languageSelectProps
-}: IProps) => (
+export const Header = ({ className, logoTitle, menuItems, openingHours, ...languageSelectProps }: IProps) => (
   <div className={cx(className, 'w-full relative')}>
     <div className="flex justify-between border-b border-gray-universal-100">
       <Logo logoTitle={logoTitle} />
@@ -173,9 +150,7 @@ export const Header = ({
               <div className="flex flex-col h-[410px] flex-wrap gap-10 py-8">
                 {item.elements.map((el) => (
                   <div key={el.title}>
-                    <p className="text-default text-gray-universal-100 mb-4">
-                      {el.title}
-                    </p>
+                    <p className="text-default text-gray-universal-100 mb-4">{el.title}</p>
                     <div className="flex flex-col gap-y-4">
                       {el.items.map((item, idx) => (
                         <Link
@@ -191,10 +166,7 @@ export const Header = ({
                   </div>
                 ))}
               </div>
-              <Link
-                href="#"
-                className="flex items-center gap-x-[13px] border-t border-gray-universal-100 py-5"
-              >
+              <Link href="#" className="flex items-center gap-x-[13px] border-t border-gray-universal-100 py-5">
                 Zobraziť všetko
                 <ChevronRight />
               </Link>
@@ -205,4 +177,4 @@ export const Header = ({
       <SearchBox />
     </div>
   </div>
-);
+)

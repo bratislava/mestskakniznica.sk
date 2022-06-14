@@ -1,20 +1,17 @@
-import cx from 'classnames';
-import React from 'react';
-import { ReactComponent as CheckMark } from '../../assets/images/check-mark.svg';
-import { Checkbox, CheckboxIndicator } from '@radix-ui/react-checkbox';
+import cx from 'classnames'
+import React from 'react'
+import CheckMark from '@assets/images/check-mark.svg'
+import { Checkbox, CheckboxIndicator } from '@radix-ui/react-checkbox'
 
 export type CheckBoxProps = Omit<
-  React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >,
+  React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
   'onChange'
 > & {
-  id?: string;
-  className?: string;
-  required?: boolean;
-  onChange?: (value: boolean) => void;
-};
+  id?: string
+  className?: string
+  required?: boolean
+  onChange?: (value: boolean) => void
+}
 
 export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
   return (
@@ -46,5 +43,5 @@ export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
         {children}
       </label>
     </div>
-  );
-};
+  )
+}

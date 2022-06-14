@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react'
 // import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
-import Mapbox, { MapRef, Marker } from 'react-map-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import { ReactComponent as MarkerIcon } from '../../assets/images/marker.svg';
+import Mapbox, { MapRef, Marker } from 'react-map-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import MarkerIcon from '@assets/images/marker.svg'
 
 export interface LocalityMapProps {
-  localityName?: string;
-  localityLongitude?: number;
-  localityLatitude?: number;
-  mapboxAccessToken: string;
+  localityName?: string
+  localityLongitude?: number
+  localityLatitude?: number
+  mapboxAccessToken: string
 }
 
 export function LocalityMap({
@@ -17,13 +17,13 @@ export function LocalityMap({
   localityLatitude,
   mapboxAccessToken,
 }: LocalityMapProps) {
-  const [isBrowser, setBrowser] = useState(false);
+  const [isBrowser, setBrowser] = useState(false)
 
-  const mapRef = useRef<MapRef>();
+  const mapRef = useRef<MapRef>()
 
   useEffect(() => {
-    setBrowser(!!typeof window);
-  }, []);
+    setBrowser(!!typeof window)
+  }, [])
 
   return localityLongitude && localityLatitude ? (
     <div className="w-full h-full mb-4 lg:mb-8 text-black">
@@ -40,19 +40,15 @@ export function LocalityMap({
           onLoad={() => {
             mapRef.current.getMap().jumpTo({
               center: [localityLongitude, localityLatitude],
-            });
+            })
           }}
           cooperativeGestures={true}
         >
-          <Marker
-            anchor="bottom"
-            longitude={localityLongitude}
-            latitude={localityLatitude}
-          >
+          <Marker anchor="bottom" longitude={localityLongitude} latitude={localityLatitude}>
             <div className="group flex flex-col items-center">
               <MarkerIcon
                 onClick={() => {
-                  window.location.href = `https://www.google.com/maps/search/?api=1&query=${localityLatitude},${localityLongitude}`;
+                  window.location.href = `https://www.google.com/maps/search/?api=1&query=${localityLatitude},${localityLongitude}`
                   // https: window.location.href = `https://www.google.com/maps/@${localityLatitude},${localityLongitude},16z`;
                 }}
                 width={48}
@@ -68,7 +64,7 @@ export function LocalityMap({
         </Mapbox>
       )}
     </div>
-  ) : null;
+  ) : null
 }
 
-export default LocalityMap;
+export default LocalityMap
