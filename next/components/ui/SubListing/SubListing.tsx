@@ -1,6 +1,6 @@
-import { CallToAction } from '@bratislava/ui-city-library/components/CallToAction/CallToAction'
+import { CallToAction } from '@bratislava/ui-city-library/CallToAction/CallToAction'
 import ChevronRight from '@assets/images/chevron-right.svg'
-import { RowSubcategory } from '@bratislava/ui-city-library/components/RowSubcategory/RowSubcategory'
+import { RowSubcategory } from '@bratislava/ui-city-library/RowSubcategory/RowSubcategory'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import React from 'react'
 

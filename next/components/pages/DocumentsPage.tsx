@@ -19,7 +19,7 @@ import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
 import { DocumentResponse, DOCUMENTS_LIMIT } from '../../pages/api/documents'
 import { formatDateToLocal } from '../../utils/utils'
 import Metadata from '../Molecules/Metadata'
-import { LoadingSpinner } from '@bratislava/ui-bratislava'
+import { LoadingSpinner } from '@bratislava/ui-city-library'
 
 export interface PageProps {
   page: PageFragment

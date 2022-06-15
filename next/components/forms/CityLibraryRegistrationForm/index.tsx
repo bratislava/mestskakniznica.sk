@@ -1,34 +1,26 @@
-import {
-  Button,
-  CheckBox,
-  DateTimeSelect,
-  Input,
-} from '@bratislava/ui-city-library';
-import { LocalDate } from '@js-joda/core';
-import React from 'react';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import FormFooter from '../FormFooter';
-import { useTranslation } from 'next-i18next';
-import StepNumberTitle from '../StepNumberTitle';
-import cx from 'classnames';
-import isEmpty from 'lodash/isEmpty';
-import FormContainer, { phoneRegex, postalCodeRegex } from '../FormContainer';
-import RadioGroup from '@bratislava/ui-city-library/components/RadioGroup/RadioGroup';
-import {
-  convertDataToBody,
-  useGetFormOptions,
-} from '../../../utils/form-constants';
-import { options } from './options';
-import { useRouter } from 'next/router';
+import { Button, CheckBox, DateTimeSelect, Input } from '@bratislava/ui-city-library'
+import { LocalDate } from '@js-joda/core'
+import React from 'react'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import FormFooter from '../FormFooter'
+import { useTranslation } from 'next-i18next'
+import StepNumberTitle from '../StepNumberTitle'
+import cx from 'classnames'
+import isEmpty from 'lodash/isEmpty'
+import FormContainer, { phoneRegex, postalCodeRegex } from '../FormContainer'
+import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
+import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
+import { options } from './options'
+import { useRouter } from 'next/router'
 
 const CityLibraryRegistrationForm = () => {
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
-  const [step, setStep] = React.useState(1);
-  const [showTempAddress, setShowTempAddress] = React.useState(false);
-  const { t } = useTranslation(['forms', 'common']);
-  const router = useRouter();
+  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [step, setStep] = React.useState(1)
+  const [showTempAddress, setShowTempAddress] = React.useState(false)
+  const { t } = useTranslation(['forms', 'common'])
+  const router = useRouter()
 
   yup.setLocale({
     mixed: {
@@ -45,23 +37,17 @@ const CityLibraryRegistrationForm = () => {
     number: {
       min: t('validation_error_number_gt_zero'),
     },
-  });
+  })
 
   const schema = yup
     .object({
       fName: yup.string().required(),
       lName: yup.string().required(),
       email: yup.string().email().required(),
-      phone: yup
-        .string()
-        .matches(phoneRegex, t('validation_error_phone'))
-        .required(),
+      phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       address: yup.string().required(),
       city: yup.string().required(),
-      postalCode: yup
-        .string()
-        .matches(postalCodeRegex, t('validation_error_zipcode'))
-        .required(),
+      postalCode: yup.string().matches(postalCodeRegex, t('validation_error_zipcode')).required(),
       useTempAddress: yup.boolean(),
       tempAddress: yup.string().when('useTempAddress', {
         is: true,
@@ -75,10 +61,7 @@ const CityLibraryRegistrationForm = () => {
       }),
       tempPostalCode: yup.string().when('useTempAddress', {
         is: true,
-        then: yup
-          .string()
-          .matches(postalCodeRegex, t('validation_error_zipcode'))
-          .required(),
+        then: yup.string().matches(postalCodeRegex, t('validation_error_zipcode')).required(),
         otherwise: yup.string(),
       }),
       IDType: yup.string().required(),
@@ -87,9 +70,9 @@ const CityLibraryRegistrationForm = () => {
       acceptFormTerms: yup.boolean().isTrue(),
       authorizedToUseBlindDepartment: yup.boolean(),
     })
-    .required();
+    .required()
 
-  const selectOptions = useGetFormOptions(options, false);
+  const selectOptions = useGetFormOptions(options, false)
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -110,11 +93,11 @@ const CityLibraryRegistrationForm = () => {
       IDNumber: '',
       authorizedToUseBlindDepartment: false,
     },
-  });
-  const { errors } = methods.formState;
+  })
+  const { errors } = methods.formState
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    const temp = convertDataToBody(data, t);
+    const temp = convertDataToBody(data, t)
 
     // additional params
     const body = {
@@ -125,27 +108,27 @@ const CityLibraryRegistrationForm = () => {
         meta_sent_from: router.asPath,
         meta_locale: router.locale,
       },
-    };
+    }
 
-    console.log('body: ', body);
+    console.log('body: ', body)
 
     // send email
     const res = await fetch(`/api/submit-form`, {
       method: 'POST',
       // @ts-ignore
       body: JSON.stringify(body),
-    });
+    })
 
     // catch error
-    const { error } = await res.json();
+    const { error } = await res.json()
     if (error) {
-      console.log('error sending form', error);
-      return;
+      console.log('error sending form', error)
+      return
     }
 
     // show thank you message
-    setIsSubmitted(true);
-  });
+    setIsSubmitted(true)
+  })
 
   const triggerFirstStep = () => {
     methods
@@ -166,19 +149,15 @@ const CityLibraryRegistrationForm = () => {
       ])
       .then((fulfillment) => {
         if (fulfillment) {
-          methods.clearErrors();
-          setStep(2);
+          methods.clearErrors()
+          setStep(2)
         }
-      });
-  };
+      })
+  }
 
-  const stepOneErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'IDType')
-  );
+  const stepOneErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'IDType'))
 
-  const stepTwoErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms')
-  );
+  const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
 
   return (
     <FormProvider {...methods}>
@@ -331,8 +310,8 @@ const CityLibraryRegistrationForm = () => {
                 <CheckBox
                   id="addTempAddress_input"
                   onChange={(e) => {
-                    onChange(e);
-                    setShowTempAddress(e);
+                    onChange(e)
+                    setShowTempAddress(e)
                   }}
                   name="useTempAddress"
                   checked={value}
@@ -437,11 +416,7 @@ const CityLibraryRegistrationForm = () => {
             />
           </div>
 
-          {stepOneErrors && (
-            <p className="text-base text-error pb-4">
-              {t('please_fill_required_fields')}
-            </p>
-          )}
+          {stepOneErrors && <p className="text-base text-error pb-4">{t('please_fill_required_fields')}</p>}
           <Button onClick={() => triggerFirstStep()} className="w-36 h-10">
             {t('common:continue')}
           </Button>
@@ -474,11 +449,7 @@ const CityLibraryRegistrationForm = () => {
               />
             )}
           />
-          {stepTwoErrors && (
-            <p className="text-base text-error pb-4">
-              {t('please_fill_required_fields')}
-            </p>
-          )}
+          {stepTwoErrors && <p className="text-base text-error pb-4">{t('please_fill_required_fields')}</p>}
           <Controller
             control={methods.control}
             name="authorizedToUseBlindDepartment"
@@ -489,9 +460,7 @@ const CityLibraryRegistrationForm = () => {
                 name={name}
                 onChange={onChange} // send value to hook form
                 checked={value}
-                aria-invalid={
-                  errors.authorizedToUseBlindDepartment ? 'true' : 'false'
-                }
+                aria-invalid={errors.authorizedToUseBlindDepartment ? 'true' : 'false'}
               >
                 <div className="text-xs">{t('form_city_auth_blind_dep')}</div>
               </CheckBox>
@@ -502,7 +471,7 @@ const CityLibraryRegistrationForm = () => {
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>
-  );
-};
+  )
+}
 
-export default CityLibraryRegistrationForm;
+export default CityLibraryRegistrationForm

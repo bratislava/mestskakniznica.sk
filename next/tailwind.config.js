@@ -16,36 +16,16 @@ const scrollBarHide = plugin(function ({ addUtilities }) {
 })
 
 module.exports = {
-  content: [join(__dirname, 'pages/**/*.{js,jsx,ts,tsx}'), join(__dirname, 'components/**/*.{js,jsx,ts,tsx}')],
-  darkMode: 'media', // or 'class'
+  content: [join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'), join(__dirname, 'components/**/*.{js,ts,jsx,tsx}')],
   theme: {
-    fontSize: {
-      xxl: ['var(--font-size-xxl)', 'var(--line-height-xxl)'],
-      xl: ['var(--font-size-xl)', 'var(--line-height-xl)'],
-      lg: ['var(--font-size-lg)', 'var(--line-height-lg)'],
-      md: ['var(--font-size-md)', 'var(--line-height-mg)'],
-      sm: ['var(--font-size-sm)', 'var(--line-height-sm)'],
-      xs: ['var(--font-size-xs)', 'var(--line-height-xs)'],
-      nav: ['var(--font-size-nav)', 'var(--line-height-nav)'],
-      btn: ['var(--font-size-btn)', 'var(--line-height-btn)'],
-    },
-    fontWeight: {
-      light: '300',
-      regular: '400',
-      medium: '500',
-      semibold: '600',
-      bold: '700',
-      heavy: '900',
-    },
     screens: {
       xs: '360px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
-      '1.5lg': '1110px',
-      xl: '1280px',
-      '2xl': '1536px',
-      '3xl': '1920px',
+      xl: '1300px',
+      '1.5xl': '1440px',
+      '2xl': '1650px',
     },
     container: {
       xs: '360px',
@@ -64,6 +44,7 @@ module.exports = {
       none: 'none',
     },
     fontFamily: {
+      beausite: "'BeausiteMedium','BeausiteRegular', 'BeausiteBold'",
       sans: [
         'Public Sans',
         'ui-sans-serif',
@@ -83,7 +64,26 @@ module.exports = {
       ],
     },
     extend: {
+      width: {
+        1180: '1180px',
+      },
+      minHeight: {
+        232: '232px',
+      },
+      padding: {
+        400: '400px',
+        800: '800px',
+        850: '850px',
+        900: '900px',
+        930: '930px',
+        950: '950px',
+      },
+      margin: {
+        60: '60px',
+        185: '185px',
+      },
       fontSize: {
+        27: '27px',
         xs: ['14px', '22.4px'],
         sm: ['16px', '24px'],
         default: ['20px', '24.2px'],
@@ -110,10 +110,9 @@ module.exports = {
         },
         gray: {
           universal: {
-            100: 'var(--universal-gray-100)',
-            200: 'var(--universal-gray-200)',
-            500: 'var(--universal-gray-500)',
-            800: 'var(--universal-gray-800)',
+            60: '#787878',
+            70: '#565656',
+            80: '#3D3D3D',
           },
           dark: 'var(--dark-gray-color)',
           semilight: 'var(--semilight-gray-color)',
@@ -142,6 +141,9 @@ module.exports = {
         warning: 'var(--warning-color)',
         success: 'var(--success-color)',
         error: 'var(--error-color)',
+        brown: '#873C35',
+        'promo-yellow': '#FFE95C',
+        'promo-orange': '#FDD1A8',
       },
       borderWidth: {
         3: '3px',
@@ -156,6 +158,7 @@ module.exports = {
         9: 'repeat(9, minmax(0, 1fr))',
       },
       spacing: {
+        auto: 'auto',
         4.25: '17px',
         4.5: '18px',
         5.5: '22px',
@@ -171,6 +174,7 @@ module.exports = {
         41: '165px',
         41.5: '166px',
         44.5: '178px',
+        45.5: '190px',
         57: '228px',
         61: '244px',
         65: '260px',
@@ -186,19 +190,13 @@ module.exports = {
         112: '450px',
         157.5: '630px',
         175: '700px',
-        xStandard: 'var(--padding-x)',
-        yStandard: 'var(--padding-y)',
-        yHigh: 'var(--padding-y-high)',
-        nav: 'var(--height-nav)',
-        sidepanel: 'var(--sidepanel-width)',
-        logoHeight: 'var(--logo-height)',
-        logoWidth: 'var(--logo-width)',
       },
       letterSpacing: {
         wider: '.08em',
       },
       minWidth: {
         39: '156px',
+        70: '280px',
       },
       maxWidth: {
         61: '244px',
@@ -206,8 +204,5 @@ module.exports = {
       },
     },
   },
-  corePlugins: {
-    container: false,
-  },
-  mode: 'jit',
+  plugins: [scrollBarHide],
 }

@@ -2,7 +2,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import '@bratislava/common-frontend-themes/themes/city-library.css';
+@import './city-library.css';
 
 @layer base {
   @font-face {

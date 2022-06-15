@@ -1,16 +1,16 @@
-import { usePageWrapperContext } from '../components/layouts/PageWrapper';
-import { IRadioOption } from '@bratislava/ui-city-library/components/RadioGroup/RadioGroup';
-import _ from 'lodash';
+import { usePageWrapperContext } from '../components/layouts/PageWrapper'
+import { IRadioOption } from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
+import _ from 'lodash'
 
 export interface IFormOption {
-  key: string;
-  label: IFormLabelOption[];
-  price?: string;
+  key: string
+  label: IFormLabelOption[]
+  price?: string
 }
 
 interface IFormLabelOption {
-  locale: string;
-  label: string;
+  locale: string
+  label: string
 }
 
 const getMailTranslationKey = (key: string): string => {
@@ -74,14 +74,14 @@ const getMailTranslationKey = (key: string): string => {
     { key: 'placeOfIssue', value: 'place_of_issue' },
     { key: 'packageNumber', value: 'package_number' },
     { key: 'issueDate', value: 'issue_date' },
-  ];
+  ]
 
-  return translationMap.find((item) => item.key == key)?.value ?? key;
-};
+  return translationMap.find((item) => item.key == key)?.value ?? key
+}
 
 const key = (k: string, t: (arg0: string, args1: any) => string): string => {
-  return t(getMailTranslationKey(k), { lng: 'sk' });
-};
+  return t(getMailTranslationKey(k), { lng: 'sk' })
+}
 
 function flattenObject(
   o: any,
@@ -90,63 +90,51 @@ function flattenObject(
   result: { [key: string]: any } = {},
   keepNull = true
 ) {
-  if (
-    _.isString(o) ||
-    _.isNumber(o) ||
-    _.isBoolean(o) ||
-    _.isDate(o) ||
-    (keepNull && _.isNull(o))
-  ) {
-    result[key(prefix, t)] = convertValue(o);
-    return result;
+  if (_.isString(o) || _.isNumber(o) || _.isBoolean(o) || _.isDate(o) || (keepNull && _.isNull(o))) {
+    result[key(prefix, t)] = convertValue(o)
+    return result
   }
 
   if (_.isArray(o) || _.isPlainObject(o)) {
     for (const i in o) {
-      let pref = key(prefix, t);
+      let pref = key(prefix, t)
       if (_.isArray(o)) {
-        pref = `${pref} (${Number(i) + 1})`;
+        pref = `${pref} (${Number(i) + 1})`
       } else {
         if (_.isEmpty(prefix)) {
-          pref = i;
+          pref = i
         } else {
-          pref = key(prefix, t) + '. ' + key(i, t);
+          pref = key(prefix, t) + '. ' + key(i, t)
         }
       }
-      flattenObject(o[i], t, pref, result, keepNull);
+      flattenObject(o[i], t, pref, result, keepNull)
     }
-    return result;
+    return result
   }
-  return result;
+  return result
 }
 
 const convertValue = (value: any) => {
   if (_.isBoolean(value)) {
-    return value ? 'Áno' : 'Nie';
+    return value ? 'Áno' : 'Nie'
   }
   if (_.isDate(value)) {
     return value.toLocaleDateString('sk', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
-    });
+    })
   }
-  return String(value);
-};
+  return String(value)
+}
 
-export const convertDataToBody = (
-  data: object,
-  t: (arg0: string, args1: any) => string
-) => {
-  return flattenObject(data, t);
-};
+export const convertDataToBody = (data: object, t: (arg0: string, args1: any) => string) => {
+  return flattenObject(data, t)
+}
 
-export const useGetFormOptions = (
-  options: IFormOption[],
-  showPrice = true
-): IRadioOption[] => {
-  const temp: IRadioOption[] = [];
-  const { locale } = usePageWrapperContext();
+export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRadioOption[] => {
+  const temp: IRadioOption[] = []
+  const { locale } = usePageWrapperContext()
 
   options.forEach((item) =>
     temp.push({
@@ -157,6 +145,6 @@ export const useGetFormOptions = (
         (showPrice ? item.price ?? '' : ''),
       price: item.price ?? null,
     } as IRadioOption)
-  );
-  return temp;
-};
+  )
+  return temp
+}

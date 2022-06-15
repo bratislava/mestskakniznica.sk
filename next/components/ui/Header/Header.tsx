@@ -5,7 +5,7 @@ import SearchIcon from '@assets/images/search.svg'
 import ClearCircle from '@assets/images/clear-circle.svg'
 import { Link } from '../Link/Link'
 import { SearchBar } from '../SearchBar/SearchBar'
-import { ChevronRight } from '@bratislava/ui-bratislava/assets/images'
+import ChevronRight from '@assets/images/chevron-right.svg'
 
 export interface IProps extends LanguageSelectProps {
   className?: string

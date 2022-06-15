@@ -1,25 +1,21 @@
-import { useState } from 'react';
-import { useUIContext } from '@bratislava/common-frontend-ui-context';
-import cx from 'classnames';
-import Accordion from '../../components/Accordion/Accordion';
+import { useState } from 'react'
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import cx from 'classnames'
+import Accordion from '../Accordion/Accordion'
 
 export interface FaqProps {
-  className?: string;
-  title?: string;
-  questions?: (
-    | { label?: string | undefined | null; content?: string | undefined | null }
-    | undefined
-    | null
-  )[];
+  className?: string
+  title?: string
+  questions?: ({ label?: string | undefined | null; content?: string | undefined | null } | undefined | null)[]
 }
 
 export const Faq = ({ className, title, questions }: FaqProps) => {
-  const { Markdown: UIMarkdown } = useUIContext();
-  const [openFaqIndex, setOpenFaqIndex] = useState('');
+  const { Markdown: UIMarkdown } = useUIContext()
+  const [openFaqIndex, setOpenFaqIndex] = useState('')
 
   const listenAccordionState = (id: string, state: boolean) => {
-    setOpenFaqIndex(state ? id : '');
-  };
+    setOpenFaqIndex(state ? id : '')
+  }
 
   return (
     <div className={cx(className)}>
@@ -32,19 +28,14 @@ export const Faq = ({ className, title, questions }: FaqProps) => {
             id={question.label ?? ''}
             defaultState={question.label === openFaqIndex}
             stateListener={listenAccordionState}
-            content={
-              <UIMarkdown
-                paragraphClassName="text-sm"
-                content={question.content ?? ''}
-              />
-            }
+            content={<UIMarkdown paragraphClassName="text-sm" content={question.content ?? ''} />}
             size="small"
             type="divider"
           />
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Faq;
+export default Faq
