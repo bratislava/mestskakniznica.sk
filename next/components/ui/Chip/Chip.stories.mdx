@@ -1,0 +1,47 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
+import { withDesign } from 'storybook-addon-designs'
+import { Chip } from './Chip'
+
+<Meta title="components/atoms/Chip" decorators={[withDesign]} />
+
+# Chip
+
+This is our Chip
+
+## Single Chip
+
+TODO: Write Docs
+
+<Canvas>
+  <Story
+    name="Chip"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    argTypes={{
+      type: {
+        control: {
+          type: 'radio',
+          options: ['default', 'delete'],
+        },
+      },
+      size: {
+        control: {
+          type: 'radio',
+          options: ['big', 'medium', 'small'],
+        },
+      },
+    }}
+    args={{
+      className: '',
+      content: 'Tag Label',
+    }}
+  >
+    {Chip.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Chip} />
