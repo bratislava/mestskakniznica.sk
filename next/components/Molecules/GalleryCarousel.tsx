@@ -1,20 +1,21 @@
-import React from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
+
 import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library'
+import React from 'react'
+import { Navigation } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 interface PageProps {
   gallery: Array<ComponentLocalityPartsGalleryParts | null | undefined>
 }
 
-const GalleryCarousel = ({ gallery }: PageProps) => {
+function GalleryCarousel({ gallery }: PageProps) {
   const prevRef = React.useRef(null)
   const nextRef = React.useRef(null)
   return (
     <div className="w-full max-w-6xl mx-auto bg-black">
-      <Swiper navigation={true} autoHeight={true} modules={[Navigation]}>
+      <Swiper navigation autoHeight modules={[Navigation]}>
         {gallery &&
           gallery.length > 0 &&
           gallery.map((galleryItem) => (

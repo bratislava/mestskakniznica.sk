@@ -1,17 +1,17 @@
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
-
 import { Localities, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
-import { ILocality } from '../../utils/types'
-import Sections from '../../components/Molecules/Sections'
 import { useTranslation } from 'next-i18next'
+
+import { ILocality } from '../../utils/types'
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import Sections from "../Molecules/Sections"
 
 export interface LocalityPageProps {
   localities: ILocality[]
   page: PageFragment
 }
 
-const LocalitiesListingPage = ({ page, localities }: LocalityPageProps) => {
+function LocalitiesListingPage({ page, localities }: LocalityPageProps) {
   const { t } = useTranslation(['common', 'homepage'])
   return (
     <>

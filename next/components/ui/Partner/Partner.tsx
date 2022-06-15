@@ -1,7 +1,6 @@
-import cx from 'classnames'
-
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import Globe from '@assets/images/language.svg'
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import cx from 'classnames'
 
 export interface PartnerProps {
   className?: string
@@ -12,7 +11,7 @@ export interface PartnerProps {
   featured?: boolean | null | undefined
 }
 
-export const Partner = ({ className, title, pageLink, logo, alt, featured }: PartnerProps) => {
+export function Partner({ className, title, pageLink, logo, alt, featured }: PartnerProps) {
   const { Link: UILink, Image: UIImage } = useUIContext()
   return (
     <div

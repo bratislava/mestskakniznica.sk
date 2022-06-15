@@ -1,15 +1,16 @@
-import React, { ReactNode, useEffect, useState } from 'react'
 import CloseIcon from '@assets/images/close.svg'
-import FormSubmittedComponent from './FormSubmittedComponent'
+import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
+import React, { ReactNode, useEffect, useState } from 'react'
+
 import useLockedBodyScroll from '../../hooks/useLockedBodyScroll'
 import useWindowSize from '../../hooks/useWindowSize'
-import { useTranslation } from 'next-i18next'
-import cx from 'classnames'
+import FormSubmittedComponent from './FormSubmittedComponent'
 
-export const phoneRegex = /(^(\+[\d]{1,3}|0) ?[0-9]{3} ?[0-9]{3} ?[0-9]{3}$)/
-export const phoneRegexOrEmpty = /(^(\+[\d]{1,3}|0) ?[0-9]{3} ?[0-9]{3} ?[0-9]{3}$)|^$/
-export const postalCodeRegex = /^[0-9]{5}(?:-[0-9]{4})?$/
-export const IBANRegex = /^[A-Z]{2}(?:[ ]?[0-9]){13,30}$/
+export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
+export const phoneRegexOrEmpty = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)|^$/
+export const postalCodeRegex = /^\d{5}(?:-\d{4})?$/
+export const IBANRegex = /^[A-Z]{2}(?: ?\d){13,30}$/
 
 interface FormContainerProps {
   children: ReactNode
@@ -24,7 +25,7 @@ interface FormContainerProps {
   wrapperClass?: string
 }
 
-const FormContainer = ({
+function FormContainer({
   children,
   buttonText,
   title,
@@ -35,7 +36,7 @@ const FormContainer = ({
   successMessage,
   errorMessage,
   wrapperClass,
-}: FormContainerProps) => {
+}: FormContainerProps) {
   const [isFormOpen, setFormOpen] = useState(false)
   const { t } = useTranslation('forms')
 

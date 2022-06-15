@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-
 import { BookNewsDetail, Link } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
-import Section from '../AppLayout/Section'
+import React, { useEffect,useState } from 'react'
+
 import { OpacBook } from '../../utils/opac'
+import Section from '../AppLayout/Section'
 
 const LIMIT = 6
 const OFFSET = 1
@@ -12,12 +12,12 @@ interface SectionOpacBookNewsProps {
   books: OpacBook[]
 }
 
-const SectionOpacBookNews = ({ books }: SectionOpacBookNewsProps) => {
+function SectionOpacBookNews({ books }: SectionOpacBookNewsProps) {
   const { t } = useTranslation('homepage')
 
   return (
     <>
-      {books.length ? (
+      {books.length > 0 ? (
         <Section>
           <section className="relative flex flex-col py-10 w-full">
             <h2 className="text-center md:text-left text-lg">{t('newBooksTitle')}</h2>
@@ -51,11 +51,11 @@ const SectionOpacBookNews = ({ books }: SectionOpacBookNewsProps) => {
             <div className="flex justify-center md:absolute md:w-fit top-12 pt-1 right-0">
               <Link
                 href="https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchNews=30"
-                hasIcon={true}
+                hasIcon
                 title={t('newBooksAll')}
                 size="large"
                 className="text-center"
-                target={'_blank'}
+                target="_blank"
               >
                 {t('newBooksAll')}
               </Link>

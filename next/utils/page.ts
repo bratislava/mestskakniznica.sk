@@ -11,6 +11,7 @@ import {
 import { SidebarProps, SubpageItemProps, TableRowProps, TExternalLinksSection } from '@bratislava/ui-city-library'
 import { groupBy } from 'lodash'
 import orderBy from 'lodash/orderBy'
+
 import { TSortedPartners } from '../components/pages/partnersPage'
 import { isPresent } from './utils'
 
@@ -99,8 +100,8 @@ export const parseSubpages = (subpages: SubpagesFragment): SubpageItemProps[] =>
 export const sortPartners = (allPartners: PartnerFragment[]): TSortedPartners => {
   const grouped = groupBy(allPartners, 'featured')
   return {
-    featuredPartners: orderBy(grouped['true'], ['priority'], ['asc']),
-    notFeaturedPartners: orderBy(grouped['false'], ['priority'], ['asc']),
+    featuredPartners: orderBy(grouped.true, ['priority'], ['asc']),
+    notFeaturedPartners: orderBy(grouped.false, ['priority'], ['asc']),
   }
 }
 
@@ -109,12 +110,10 @@ export const groupByAccordionCategory = (
   tableRows: (TableRowFragment | undefined | null)[]
 ): { title: string; tables: { title: string; rows: TableRowProps[] }[] }[] => {
   const groupedItems = groupBy(tableRows, 'accordionCategory')
-  const groupedByAccordion = Object.keys(groupedItems).map((key) => ({
+  return Object.keys(groupedItems).map((key) => ({
     title: key,
     tables: groupByTableCategory(groupedItems[key]),
   }))
-
-  return groupedByAccordion
 }
 
 export const groupByTableCategory = (
@@ -126,7 +125,7 @@ export const groupByTableCategory = (
     rows: grouped[key],
   }))
 
-  const rows = groupedRows.map((groupedRow) => ({
+  return groupedRows.map((groupedRow) => ({
     title: groupedRow.title,
     rows:
       groupedRow.rows?.map((row) => ({
@@ -135,18 +134,15 @@ export const groupByTableCategory = (
         valueAlign: row?.valueAlign ?? 'start',
       })) ?? [],
   }))
-
-  return rows
 }
 
 // Page Accordion Items
 export const groupByCategory = <T>(items: T[]) => {
   const grouped = groupBy(items, 'category')
-  const groupedItems = Object.keys(grouped).map((key) => ({
+  return Object.keys(grouped).map((key) => ({
     category: key,
     items: grouped[key],
   }))
-  return groupedItems
 }
 
 // Page external links sections
@@ -157,13 +153,11 @@ export const groupByLinksCategory = (
   const groupedLinks = links ? groupByCategory(links) : []
   const groupedDescriptions = descriptions ? groupByCategory(descriptions) : []
 
-  const externalLinks = groupedLinks.map((link) => ({
+  return groupedLinks.map((link) => ({
     description: groupedDescriptions.find((d) => d.category === link.category)?.items[0]?.content ?? undefined,
     links: link.items?.map((item) => ({
       title: item?.title ?? '',
       url: item?.url ?? '#',
     })),
   }))
-
-  return externalLinks
 }

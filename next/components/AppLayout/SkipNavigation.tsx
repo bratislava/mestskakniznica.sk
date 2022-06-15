@@ -1,11 +1,11 @@
 import { useTranslation } from 'next-i18next'
 
-const SkipNavigation = () => {
+function SkipNavigation() {
   const { t } = useTranslation(['common'])
   return (
     <button
       onClick={() => {
-        const contentElement = document.getElementById('content-anchor')
+        const contentElement = document.querySelector('#content-anchor')
         if (contentElement) {
           contentElement.setAttribute('tabindex', '0')
           contentElement.focus()

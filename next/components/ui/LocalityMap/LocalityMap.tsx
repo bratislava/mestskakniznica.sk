@@ -1,8 +1,9 @@
+import 'mapbox-gl/dist/mapbox-gl.css'
+
+import MarkerIcon from '@assets/images/marker.svg'
 import { useEffect, useRef, useState } from 'react'
 // import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
-import MarkerIcon from '@assets/images/marker.svg'
 
 export interface LocalityMapProps {
   localityName?: string
@@ -42,7 +43,7 @@ export function LocalityMap({
               center: [localityLongitude, localityLatitude],
             })
           }}
-          cooperativeGestures={true}
+          cooperativeGestures
         >
           <Marker anchor="bottom" longitude={localityLongitude} latitude={localityLatitude}>
             <div className="group flex flex-col items-center">

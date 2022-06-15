@@ -25,10 +25,8 @@ interface IComponents {
   }>
 }
 
-export const UIContextProvider = ({ children, components }: { children: React.ReactNode; components: IComponents }) => {
+export function UIContextProvider({ children, components }: { children: React.ReactNode; components: IComponents }) {
   return <UIContext.Provider value={components}>{children}</UIContext.Provider>
 }
 
-export const useUIContext = () => {
-  return React.useContext(UIContext)
-}
+export const useUIContext = () => React.useContext(UIContext)

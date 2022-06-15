@@ -1,6 +1,7 @@
-import { usePageWrapperContext } from '../components/layouts/PageWrapper'
 import { IRadioOption } from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
 import _ from 'lodash'
+
+import { usePageWrapperContext } from '../components/layouts/PageWrapper'
 
 export interface IFormOption {
   key: string
@@ -79,9 +80,7 @@ const getMailTranslationKey = (key: string): string => {
   return translationMap.find((item) => item.key == key)?.value ?? key
 }
 
-const key = (k: string, t: (arg0: string, args1: any) => string): string => {
-  return t(getMailTranslationKey(k), { lng: 'sk' })
-}
+const key = (k: string, t: (arg0: string, args1: any) => string): string => t(getMailTranslationKey(k), { lng: 'sk' })
 
 function flattenObject(
   o: any,
@@ -100,13 +99,11 @@ function flattenObject(
       let pref = key(prefix, t)
       if (_.isArray(o)) {
         pref = `${pref} (${Number(i) + 1})`
-      } else {
-        if (_.isEmpty(prefix)) {
+      } else if (_.isEmpty(prefix)) {
           pref = i
         } else {
-          pref = key(prefix, t) + '. ' + key(i, t)
+          pref = `${key(prefix, t)  }. ${  key(i, t)}`
         }
-      }
       flattenObject(o[i], t, pref, result, keepNull)
     }
     return result
@@ -128,9 +125,7 @@ const convertValue = (value: any) => {
   return String(value)
 }
 
-export const convertDataToBody = (data: object, t: (arg0: string, args1: any) => string) => {
-  return flattenObject(data, t)
-}
+export const convertDataToBody = (data: object, t: (arg0: string, args1: any) => string) => flattenObject(data, t)
 
 export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRadioOption[] => {
   const temp: IRadioOption[] = []
@@ -140,9 +135,9 @@ export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRa
     temp.push({
       key: item.key,
       title:
-        (item.label.find((l) => l.locale == (locale ?? 'sk'))?.label ?? '-') +
-        ' ' +
-        (showPrice ? item.price ?? '' : ''),
+        `${item.label.find((l) => l.locale == (locale ?? 'sk'))?.label ?? '-' 
+        } ${ 
+        showPrice ? item.price ?? '' : ''}`,
       price: item.price ?? null,
     } as IRadioOption)
   )

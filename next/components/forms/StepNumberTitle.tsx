@@ -1,6 +1,6 @@
-import React from 'react'
-import cx from 'classnames'
 import CheckMark from '@assets/images/check-mark.svg'
+import cx from 'classnames'
+import React from 'react'
 
 interface IProps {
   num: number
@@ -11,7 +11,7 @@ interface IProps {
   children?: React.ReactNode
 }
 
-const StepNumberTitle = ({ num, title, activeStep, onClick, className, children }: IProps) => {
+function StepNumberTitle({ num, title, activeStep, onClick, className, children }: IProps) {
   const active = activeStep === num
   const finished = activeStep > num
 

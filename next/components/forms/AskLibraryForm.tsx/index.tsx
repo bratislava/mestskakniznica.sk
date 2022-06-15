@@ -1,16 +1,17 @@
-import React from 'react'
 import { Input, TextArea } from '@bratislava/ui-city-library'
-import { Controller, FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import { useTranslation } from 'next-i18next'
-import FormFooter from '../FormFooter'
-import FormContainer, { phoneRegexOrEmpty } from '../FormContainer'
 import isEmpty from 'lodash/isEmpty'
-import { convertDataToBody } from '../../../utils/form-constants'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
-const AskLibraryForm = () => {
+import { convertDataToBody } from '../../../utils/form-constants'
+import FormContainer, { phoneRegexOrEmpty } from '../FormContainer'
+import FormFooter from '../FormFooter'
+
+function AskLibraryForm() {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
@@ -63,12 +64,12 @@ const AskLibraryForm = () => {
     // additional params
     const body = {
       ...temp,
-      ...{
+      
         mg_subject: null,
         mg_email_to: 'info@mestskakniznica.sk',
         meta_sent_from: router.asPath,
-        meta_locale: router.locale,
-      },
+        meta_locale: router.locale
+      ,
     }
 
     // send email

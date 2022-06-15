@@ -1,12 +1,12 @@
 import { Enum_Page_Layout, MenuSectionFragment } from '@bratislava/strapi-sdk-city-library'
-import { convertPageToEventDisplay, dateTimeString } from '../../../utils/utils'
-import cx from 'classnames'
-
-import Link from 'next/link'
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
-import { IEvent } from '@utils/types'
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import { IEvent } from '@utils/types'
+import cx from 'classnames'
+import Link from 'next/link'
+
+import { convertPageToEventDisplay, dateTimeString } from '../../../utils/utils'
+import DateCardDisplay from '../../Atoms/DateCardDispaly'
+import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
 interface ColumnProps {
   section: MenuSectionFragment
@@ -14,7 +14,7 @@ interface ColumnProps {
   classNames?: string
 }
 
-const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
+function Column({ section, latestEvents, classNames }: ColumnProps) {
   // TODO optionally load latestEvents here if needed
   const containsEvents = section?.sectionLinks?.some(
     (sectionLink) => sectionLink?.sectionLinkPage?.layout === Enum_Page_Layout.Event
@@ -44,7 +44,7 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
           if (sectionLink?.sectionLinkTitle === 'latestEvents') {
             if (latestEvents && latestEvents?.length > 0) {
               return (
-                <div className={'grid grid-rows-2 grid-flow-col'}>
+                <div className="grid grid-rows-2 grid-flow-col">
                   {latestEvents.map((event: any) => (
                     <div key={event.slug}>
                       <div className="w-[380px] pt-5 pb-5 h-23 cursor-pointer">

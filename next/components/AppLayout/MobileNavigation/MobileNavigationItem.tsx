@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { Menu, MenuFragment, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
+import React, { useState } from 'react'
 
-import { Menu, MenuFragment, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import MobileSubnavigation from './MobileSubnavigation'
 
 interface navItemProps {
@@ -10,7 +10,7 @@ interface navItemProps {
   menus: NonNullable<MenusQuery['menus']>
 }
 
-const MobileNavigationItem = ({ menu, menus }: navItemProps) => {
+function MobileNavigationItem({ menu, menus }: navItemProps) {
   const router = useRouter()
   const [isOpen, setOpen] = useState(false)
   const menuSections: any = menu?.menuSections

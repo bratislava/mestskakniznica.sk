@@ -1,10 +1,11 @@
-import * as React from 'react'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
 import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
-import { parseSubCategories } from '../../utils/page'
 import { useTranslation } from 'next-i18next'
+import * as React from 'react'
+
+import { parseSubCategories } from '../../utils/page'
 import { IEvent } from '../../utils/types'
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface PageProps {
   page: PageFragment
@@ -12,7 +13,7 @@ export interface PageProps {
   news: IEvent[]
 }
 
-const ListingPage = ({ page, allEvents, news }: PageProps) => {
+function ListingPage({ page, allEvents, news }: PageProps) {
   const { t } = useTranslation('common')
 
   const subCategories = parseSubCategories(page?.pageCategory?.subCategories ?? [])

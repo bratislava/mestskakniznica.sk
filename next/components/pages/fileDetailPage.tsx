@@ -1,14 +1,14 @@
-import { BasicDocumentFragment, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
-
-import { Button, FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
-import truncate from 'lodash/truncate'
-import React from 'react'
-import { useTranslation } from 'next-i18next'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import SingleDot from '@assets/images/dot.svg'
 import Download from '@assets/images/download.svg'
 import ExternalLink from '@assets/images/external-link.svg'
 import Home from '@assets/images/home.svg'
+import { BasicDocumentFragment, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { Button, FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
+import truncate from 'lodash/truncate'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+
 import { formatDateToLocal } from '../../utils/utils'
 import DefaultPageLayout from '../layouts/DefaultPageLayout'
 
@@ -26,8 +26,8 @@ interface FileMetadata {
 
 const DESCRIPTION_LIMIT = 100
 
-const CustomPageBreadcrumbs = ({ file }: IProps) => (
-  <div className="flex items-center gap-x-4 mt-4.5">
+function CustomPageBreadcrumbs({ file }: IProps) {
+  return <div className="flex items-center gap-x-4 mt-4.5">
     <Link variant="plain" href="/">
       <Home className="cursor-pointer" />
     </Link>
@@ -35,14 +35,14 @@ const CustomPageBreadcrumbs = ({ file }: IProps) => (
 
     <span className="text-xs">{file.title}</span>
   </div>
-)
+}
 
-const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
+function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
   const dateAddedString = formatDateToLocal(file.date_added, locale)
   const { t } = useTranslation('common')
 
   const [expandDescription, setExpandDescription] = React.useState(false)
-  const description = file.description
+  const {description} = file
   const showExpandButton = description ? description.length > DESCRIPTION_LIMIT : false
 
   const Metadata: FileMetadata[] = [
@@ -120,12 +120,12 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
                 key: `${t(entry[0])}:`,
                 content: entry[1],
               }
-            } else {
+            } 
               return {
                 key: 'Attachment',
                 content: entry[1].name,
               }
-            }
+            
           })
       : []
 

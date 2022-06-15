@@ -6,7 +6,7 @@ interface AccouncementProps {
   slug: string
 }
 
-const AnnouncementCard = ({ title, slug }: AccouncementProps) => {
+function AnnouncementCard({ title, slug }: AccouncementProps) {
   const { t } = useTranslation('common')
   return (
     <Link key={slug} href={slug} passHref>

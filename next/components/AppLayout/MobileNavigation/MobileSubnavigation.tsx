@@ -7,7 +7,7 @@ interface SubnavigationProps {
   onClose: () => void
 }
 
-const MobileSubnavigation = ({ menuSections, onClose }: SubnavigationProps) => {
+function MobileSubnavigation({ menuSections, onClose }: SubnavigationProps) {
   return (
     <div className="m-auto inset-x-0 top-0 absolute bg-white z-40 h-screen overflow-y-scroll">
       <div className="text-default cursor-default">
@@ -16,24 +16,20 @@ const MobileSubnavigation = ({ menuSections, onClose }: SubnavigationProps) => {
             {'<'}
           </div>
         </div>
-        {menuSections.map((mobilMenu) => {
-          return (
+        {menuSections.map((mobilMenu) => (
             <div key={`mobil-menu-${mobilMenu.sectionTitle}`} className="text-default pb-4 pl-4 pt-4 text-[20px]">
               <Link href={`/${mobilMenu?.sectionPage?.slug}`} passHref>
                 <a href={`/${mobilMenu?.sectionPage?.slug}`}>{mobilMenu.sectionTitle}</a>
               </Link>
-              {mobilMenu.sectionLinks?.map((mobilSubMenu) => {
-                return (
+              {mobilMenu.sectionLinks?.map((mobilSubMenu) => (
                   <div key={mobilSubMenu?.sectionLinkPage?.slug} className="text-gray-universal-70 pt-3 text-[16px]">
                     <Link href={`/${mobilSubMenu?.sectionLinkPage?.slug}`} passHref>
                       <a>{mobilSubMenu?.sectionLinkPage?.title}</a>
                     </Link>
                   </div>
-                )
-              })}
+                ))}
             </div>
-          )
-        })}
+          ))}
       </div>
     </div>
   )

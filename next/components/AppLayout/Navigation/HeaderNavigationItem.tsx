@@ -1,14 +1,14 @@
-import React, { ReactNode } from 'react'
 import cx from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import React, { ReactNode } from 'react'
 
 export interface INavigationItemProps {
   url: string
   children: ReactNode
 }
 
-const HeaderNavigationItem = ({ url, children }: INavigationItemProps) => {
+function HeaderNavigationItem({ url, children }: INavigationItemProps) {
   const router = useRouter()
 
   return (

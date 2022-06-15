@@ -1,14 +1,9 @@
-//frontend/utils.js
+// frontend/utils.js
 const baseUrl = process.env.BASE_URL
 async function fetchQuery(path, params = null) {
   let url
-  if (params !== null) {
-    url = `${baseUrl}/${path}/${params}`
-  } else {
-    url = `${baseUrl}/${path}`
-  }
+  url = params !== null ? `${baseUrl}/${path}/${params}` : `${baseUrl}/${path}`;
   const response = await fetch(`${url}`)
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 export { baseUrl, fetchQuery }

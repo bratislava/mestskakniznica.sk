@@ -1,16 +1,16 @@
-import { Button, Input } from '@bratislava/ui-city-library'
-import cx from 'classnames'
-import React, { FormEvent } from 'react'
-import { Controller, useFieldArray, useFormContext, useFormState } from 'react-hook-form'
-import { useTranslation } from 'next-i18next'
 import ClearCircle from '@assets/images/clear-circle.svg'
 import PlusIcon from '@assets/images/plus.svg'
+import { Button, Input } from '@bratislava/ui-city-library'
+import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
+import React, { FormEvent } from 'react'
+import { Controller, useFieldArray, useFormContext, useFormState } from 'react-hook-form'
 
 interface Props {
   className?: string
 }
 
-const BookList = ({ className }: Props) => {
+function BookList({ className }: Props) {
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation(['forms', 'common'])
@@ -37,8 +37,8 @@ const BookList = ({ className }: Props) => {
           <div
             key={field.id}
             className={cx('p-6 relative w-full border', {
-              'border-input-stroke': !errors?.['books']?.[index],
-              'base-input--with-error': errors?.['books']?.[index],
+              'border-input-stroke': !errors?.books?.[index],
+              'base-input--with-error': errors?.books?.[index],
             })}
           >
             {fields.length > 1 && (
@@ -99,7 +99,7 @@ const BookList = ({ className }: Props) => {
             {/* Error Message */}
             <p
               className={cx('text-xs text-error mt-2', {
-                hidden: !(errors['books'] && errors['books'][index]) ?? false,
+                hidden: !(errors.books && errors.books[index]) ?? false,
               })}
             >
               {t('validation_error_booklist')}

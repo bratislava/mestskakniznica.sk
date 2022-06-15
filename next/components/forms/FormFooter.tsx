@@ -1,8 +1,9 @@
 import { Button, CheckBox, Link } from '@bratislava/ui-city-library'
-import React from 'react'
 import cx from 'classnames'
-import { Controller, useFormContext, useFormState } from 'react-hook-form'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { Controller, useFormContext, useFormState } from 'react-hook-form'
+
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 interface IProps {
@@ -11,7 +12,7 @@ interface IProps {
   hasDivider?: boolean
 }
 
-const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) => {
+function FormFooter({ className, buttonContent, hasDivider = false }: IProps) {
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation('forms')

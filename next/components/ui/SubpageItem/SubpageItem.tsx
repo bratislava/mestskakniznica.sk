@@ -1,6 +1,6 @@
-import cx from 'classnames'
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import ArrowRight from '@assets/images/arrow-right-strong.svg'
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import cx from 'classnames'
 
 export interface SubpageItemProps {
   className?: string
@@ -9,7 +9,7 @@ export interface SubpageItemProps {
   url?: string
 }
 
-export const SubpageItem = ({ className, title, description, url }: SubpageItemProps) => {
+export function SubpageItem({ className, title, description, url }: SubpageItemProps) {
   const { Link: UILink, Markdown: UIMarkdown } = useUIContext()
 
   return (

@@ -1,5 +1,5 @@
-import NextLink from 'next/link'
 import cx from 'classnames'
+import NextLink from 'next/link'
 
 export interface LinkButtonProps
   extends React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {
@@ -11,7 +11,7 @@ export interface LinkButtonProps
   variant?: 'primary' | 'secondary' | 'tertiary' | 'plain-primary' | 'plain-secondary' | 'plain-white'
 }
 
-export const LinkButton = ({
+export function LinkButton({
   href,
   children,
   className,
@@ -21,8 +21,8 @@ export const LinkButton = ({
   shape = 'default',
   variant = 'primary',
   ...props
-}: LinkButtonProps) => (
-  <NextLink href={href} passHref>
+}: LinkButtonProps) {
+  return <NextLink href={href} passHref>
     <a
       href={href}
       className={cx('base-button', className, {
@@ -63,4 +63,4 @@ export const LinkButton = ({
       </span>
     </a>
   </NextLink>
-)
+}

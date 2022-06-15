@@ -1,6 +1,7 @@
-import { useState } from 'react'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import cx from 'classnames'
+import { useState } from 'react'
+
 import Accordion from '../Accordion/Accordion'
 
 export interface FaqProps {
@@ -9,7 +10,7 @@ export interface FaqProps {
   questions?: ({ label?: string | undefined | null; content?: string | undefined | null } | undefined | null)[]
 }
 
-export const Faq = ({ className, title, questions }: FaqProps) => {
+export function Faq({ className, title, questions }: FaqProps) {
   const { Markdown: UIMarkdown } = useUIContext()
   const [openFaqIndex, setOpenFaqIndex] = useState('')
 

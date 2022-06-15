@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import { IEvent } from '../../utils/types'
 import { dateTimeString } from '../../utils/utils'
 import TagsDisplay from '../Atoms/TagsDisplay'
@@ -8,7 +9,7 @@ interface EventListingProps {
   event: IEvent
 }
 
-const EventListingCard = ({ event }: EventListingProps) => {
+function EventListingCard({ event }: EventListingProps) {
   const { locale } = usePageWrapperContext()
 
   return (

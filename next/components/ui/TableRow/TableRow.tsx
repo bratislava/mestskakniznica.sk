@@ -7,7 +7,7 @@ export interface TableRowProps {
   valueAlign?: string | undefined | null
 }
 
-export const TableRow = ({ className, label, value, valueAlign = 'start' }: TableRowProps) => {
+export function TableRow({ className, label, value, valueAlign = 'start' }: TableRowProps) {
   return (
     <tr
       className={cx(

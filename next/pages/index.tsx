@@ -1,5 +1,8 @@
 import { BookTagsQuery, FooterQuery, HomePageQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { Localities, SectionContainer } from '@bratislava/ui-city-library'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
+
 import Section from '../components/AppLayout/Section'
 import SectionFaq from '../components/HomePage/SectionFaq'
 import SectionLibraryNews from '../components/HomePage/SectionLibraryNews'
@@ -7,18 +10,15 @@ import SectionOpacBookNews from '../components/HomePage/SectionOpacBookNews'
 import SectionPromos from '../components/HomePage/SectionPromos'
 import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationInfo'
 import SectionTags from '../components/HomePage/SectionTags'
+import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
+import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
+import { swrCacheGet } from '../utils/cache'
 import { client } from '../utils/gql'
+import { getOpacBooks, OpacBook } from '../utils/opac'
 import { IEvent, ILocality } from '../utils/types'
 import { convertPagesToEvents, convertPagesToLocalities, isPresent, shouldSkipStaticPaths } from '../utils/utils'
-import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
-
-import { Localities, SectionContainer } from '@bratislava/ui-city-library'
-import { getOpacBooks, OpacBook } from '../utils/opac'
-import { swrCacheGet } from '../utils/cache'
-import PageWrapper from '../components/layouts/PageWrapper'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export function Index({
   locale,
@@ -41,7 +41,7 @@ export function Index({
     return (
       <PageWrapper
         locale={locale ?? 'sk'}
-        slug={'/'}
+        slug="/"
         localizations={localizations
           ?.filter(isPresent)
           // add empty slug because it's expected in wrapper and index page does not have slug
@@ -57,7 +57,7 @@ export function Index({
   return (
     <PageWrapper
       locale={locale ?? 'sk'}
-      slug={'/'}
+      slug="/"
       localizations={localizations
         ?.filter(isPresent)
         // add empty slug because it's expected in wrapper and index page does not have slug
@@ -177,9 +177,7 @@ export async function getServerSideProps(ctx: { locale?: string | undefined } | 
     }
 
     const latestEvents = convertPagesToEvents(eventPages.pages)
-      .filter((event: eventProps) => {
-        return new Date(event.dateTo) >= new Date()
-      })
+      .filter((event: eventProps) => new Date(event.dateTo) >= new Date())
       .sort((a: eventProps, b: eventProps) => {
         if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
         if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1

@@ -1,31 +1,32 @@
 import Calendar from '@assets/images/calendar.svg'
 import SmCalendar from '@assets/images/calendar-sm.svg'
-import Navigate from '@assets/images/navigate.svg'
+import QrLogo from '@assets/images/camera.svg'
 import Directions from '@assets/images/directions.svg'
 import Euro from '@assets/images/euro-symbol.svg'
-import QrLogo from '@assets/images/camera.svg'
+import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { ComponentSectionsEventDetails } from '@bratislava/strapi-sdk-city-library'
-import TagsDisplay from '../Atoms/TagsDisplay'
+import AddToCalendar from '@culturehq/add-to-calendar'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import QRCode from 'qrcode.react'
+import React from 'react'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 import { dateTimeString, isEventPast } from '../../utils/utils'
 import DateCardDisplay from '../Atoms/DateCardDispaly'
 import Clickable from '../Atoms/EventClickable'
 import DetailsRow from '../Atoms/EventDetailsRow'
-import { useRouter } from 'next/router'
-import QRCode from 'qrcode.react'
-import AddToCalendar from '@culturehq/add-to-calendar'
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
-import React from 'react'
+import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface PageProps {
   eventDetails?: ComponentSectionsEventDetails
 }
 
-const EventDetails = ({ eventDetails }: PageProps) => {
+function EventDetails({ eventDetails }: PageProps) {
   const { t } = useTranslation('common')
   const { asPath } = useRouter()
   const { Markdown: UIMarkdown } = useUIContext()
@@ -122,7 +123,7 @@ const EventDetails = ({ eventDetails }: PageProps) => {
                       src={partner?.image?.url}
                       width={partner?.image?.width || 0}
                       height={partner?.image?.height || 0}
-                      alt={'partner'}
+                      alt="partner"
                       className="rounded-full h-12 w-12 flex items-center justify-center object-cover"
                     />
                     <span className="m-auto text-[16px]">{partner?.title}</span>
@@ -133,9 +134,9 @@ const EventDetails = ({ eventDetails }: PageProps) => {
           )}
           <div className="pt-10">
             <div className="border-t border-b h-auto py-3 block lg:border border-gray-900 lg:h-[70px] lg:flex lg:p-0">
-              {/*<div className="hidden lg:block pl-6 w-[169px] text-sm m-auto">*/}
-              {/*  {t('eventShareAndSave')}*/}
-              {/*</div>*/}
+              {/* <div className="hidden lg:block pl-6 w-[169px] text-sm m-auto"> */}
+              {/*  {t('eventShareAndSave')} */}
+              {/* </div> */}
               {!isEventInThePast && (
                 <div className="my-3 lg:m-auto">
                   <AddToCalendar
@@ -162,7 +163,7 @@ const EventDetails = ({ eventDetails }: PageProps) => {
                 classDiv="my-3 lg:m-auto"
                 svgIcon={<Share />}
                 text={t('eventShare')}
-                copyText={true}
+                copyText
               />
               <Clickable
                 actionLink={fireSwal}

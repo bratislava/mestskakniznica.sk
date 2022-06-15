@@ -1,6 +1,6 @@
+import UploadIcon from '@assets/images/upload.svg'
 import cx from 'classnames'
 import React from 'react'
-import UploadIcon from '@assets/images/upload.svg'
 
 export interface UploadProps
   extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
@@ -8,7 +8,7 @@ export interface UploadProps
   hasError?: boolean
 }
 
-export const Upload = ({ className, children, labelContent, hasError, required, ...props }: UploadProps) => {
+export function Upload({ className, children, labelContent, hasError, required, ...props }: UploadProps) {
   const [isInArea, setIsInArea] = React.useState(false)
   const fileInputRef: React.LegacyRef<HTMLInputElement> = React.useRef(null)
 

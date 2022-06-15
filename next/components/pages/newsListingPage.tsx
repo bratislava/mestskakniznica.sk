@@ -1,31 +1,29 @@
-import { useMemo, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
+
 import ArrowLeft from '@assets/images/arrow-left.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
-
-import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
-
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
-import NewsListingCard from '../../components/Molecules/NewsListingCard'
-import { IEvent } from '../../utils/types'
+import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
+import { useMemo, useState } from 'react'
+
+import { IEvent } from '../../utils/types'
+import NewsListingCard from "../Molecules/NewsListingCard"
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface PageProps {
   page: PageFragment
   news: IEvent[]
 }
 
-const NewsListingPage = ({ page, news }: PageProps) => {
+function NewsListingPage({ page, news }: PageProps) {
   const { t } = useTranslation('common')
 
   const [noOfPages, setNoOfPages] = useState(Math.ceil(news.length / 12))
 
   const [offsetPage, setOffsetPage] = useState(1)
 
-  const paginatedNews = useMemo(() => {
-    return news.slice((offsetPage - 1) * 12, 12 * offsetPage)
-  }, [offsetPage, news])
+  const paginatedNews = useMemo(() => news.slice((offsetPage - 1) * 12, 12 * offsetPage), [offsetPage, news])
 
   const handleChangeOffsetPage = (num: number) => {
     if (num > 0 && num <= noOfPages) setOffsetPage(num)

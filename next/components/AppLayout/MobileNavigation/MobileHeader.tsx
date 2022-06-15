@@ -1,25 +1,25 @@
-import Link from 'next/link'
-import SearchBox from '../Navigation/SearchBox'
-
-import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
-import { useEffect, useState } from 'react'
-import SkipNavigation from '../SkipNavigation'
-import cx from 'classnames'
-import { MobileNavigation } from './MobileNavigation'
 import Burger from '@assets/images/Burger.svg'
+import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import cx from 'classnames'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { useEffect, useState } from 'react'
+
+import SearchBox from '../Navigation/SearchBox'
+import SkipNavigation from '../SkipNavigation'
+import { MobileNavigation } from './MobileNavigation'
 
 interface HeaderProps {
   menus: NonNullable<MenusQuery['menus']>
 }
 
-const MobilHeader = ({ menus }: HeaderProps) => {
+function MobilHeader({ menus }: HeaderProps) {
   const [isOpen, setOpen] = useState(false)
   const router = useRouter()
   const { t } = useTranslation('common')
 
-  //close mobile header on route change
+  // close mobile header on route change
   useEffect(() => {
     router.events.on('routeChangeStart', () => setOpen(false))
     return () => router.events.off('routeChangeStart', () => setOpen(false))
@@ -45,7 +45,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                       {word}
                     </span>
                   ))}
-                <div className="absolute w-full border-b border-gray-900 -z-10 top-1/2"></div>
+                <div className="absolute w-full border-b border-gray-900 -z-10 top-1/2" />
               </a>
               <Link href="/" passHref>
                 <a className="w-full flex flex-col justify-center">
@@ -63,7 +63,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                           {word}
                         </span>
                       ))}
-                    <div className="absolute w-full border-b border-gray-900 -z-10 bottom-0"></div>
+                    <div className="absolute w-full border-b border-gray-900 -z-10 bottom-0" />
                   </div>
                   <div className="relative w-full uppercase flex flex-wrap lg:hidden items-center pr-8">
                     {t('pageTitle')

@@ -1,20 +1,20 @@
-import HeaderNavigation from './Navigation/HeaderNavigation'
-import Link from 'next/link'
-import SearchBox from './Navigation/SearchBox'
-
 import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
-import NavigationItem from './Navigation/NavigationItem'
-import SkipNavigation from './SkipNavigation'
-import { useTranslation } from 'next-i18next'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+
 import { IEvent } from '../../utils/types'
+import HeaderNavigation from './Navigation/HeaderNavigation'
+import NavigationItem from './Navigation/NavigationItem'
+import SearchBox from './Navigation/SearchBox'
+import SkipNavigation from './SkipNavigation'
 
 interface HeaderProps {
   menus: NonNullable<MenusQuery['menus']>
   latestEvents?: IEvent[]
 }
 
-const Header = ({ menus, latestEvents }: HeaderProps) => {
+function Header({ menus, latestEvents }: HeaderProps) {
   const { t } = useTranslation('common')
   return (
     <>

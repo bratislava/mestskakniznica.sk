@@ -8,7 +8,7 @@ interface PremiseCardProps {
   image: any
 }
 
-const PremiseCard = ({ title, address, url, image }: PremiseCardProps) => {
+function PremiseCard({ title, address, url, image }: PremiseCardProps) {
   const { t } = useTranslation('common')
   return (
     <Link href={url} passHref>

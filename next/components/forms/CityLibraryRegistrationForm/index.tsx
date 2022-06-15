@@ -1,21 +1,22 @@
 import { Button, CheckBox, DateTimeSelect, Input } from '@bratislava/ui-city-library'
-import { LocalDate } from '@js-joda/core'
-import React from 'react'
-import { Controller, FormProvider, useForm } from 'react-hook-form'
+import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import FormFooter from '../FormFooter'
-import { useTranslation } from 'next-i18next'
-import StepNumberTitle from '../StepNumberTitle'
+import { LocalDate } from '@js-joda/core'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
-import FormContainer, { phoneRegex, postalCodeRegex } from '../FormContainer'
-import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
-import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
-import { options } from './options'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
-const CityLibraryRegistrationForm = () => {
+import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
+import FormContainer, { phoneRegex, postalCodeRegex } from '../FormContainer'
+import FormFooter from '../FormFooter'
+import StepNumberTitle from '../StepNumberTitle'
+import { options } from './options'
+
+function CityLibraryRegistrationForm() {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const [step, setStep] = React.useState(1)
   const [showTempAddress, setShowTempAddress] = React.useState(false)
@@ -102,15 +103,15 @@ const CityLibraryRegistrationForm = () => {
     // additional params
     const body = {
       ...temp,
-      ...{
+      
         mg_subject: null,
         mg_email_to: 'registracia@mestskakniznica.sk',
         meta_sent_from: router.asPath,
-        meta_locale: router.locale,
-      },
+        meta_locale: router.locale
+      ,
     }
 
-    console.log('body: ', body)
+    console.log('body:', body)
 
     // send email
     const res = await fetch(`/api/submit-form`, {

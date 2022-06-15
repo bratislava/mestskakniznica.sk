@@ -6,7 +6,7 @@ interface TagsDisplayProps {
   tagsCount: number
 }
 
-const TagsDisplay = ({ tags = [], category, tagsCount }: TagsDisplayProps) => {
+function TagsDisplay({ tags = [], category, tagsCount }: TagsDisplayProps) {
   const lower = Math.min(tagsCount, tags?.length)
   const slicedTags = tags?.slice(0, lower)
 
@@ -25,7 +25,7 @@ const TagsDisplay = ({ tags = [], category, tagsCount }: TagsDisplayProps) => {
       {slicedTags?.length < tags.length && (
         <div>
           &nbsp;
-          {' + ' + (tags.length - slicedTags.length).toString()}
+          {` + ${  (tags.length - slicedTags.length).toString()}`}
         </div>
       )}
     </div>

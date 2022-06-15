@@ -1,6 +1,7 @@
-import cx from 'classnames'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import SingleDot from '@assets/images/dot.svg'
+import cx from 'classnames'
+
 import { FileIcon } from '../FileIcon/FileIcon'
 
 export interface RowFileProps {
@@ -12,7 +13,7 @@ export interface RowFileProps {
   fileType?: string
 }
 
-export const RowFile = ({ className, type, title, metadata, dateAdded, fileType }: RowFileProps) => {
+export function RowFile({ className, type, title, metadata, dateAdded, fileType }: RowFileProps) {
   return (
     <div
       className={cx(

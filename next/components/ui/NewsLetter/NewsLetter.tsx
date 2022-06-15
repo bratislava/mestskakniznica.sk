@@ -1,9 +1,10 @@
-import React from 'react'
 import cx from 'classnames'
+import React from 'react'
+import { Controller, useFormContext, useFormState } from 'react-hook-form'
+
 import { Button } from '../Button/Button'
 import { CheckBox } from '../CheckBox/CheckBox'
 import { Input } from '../Input/Input'
-import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 interface IProps {
   className?: string
@@ -17,7 +18,7 @@ interface IProps {
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
 }
 
-export const NewsLetter = ({
+export function NewsLetter({
   className,
   title,
   buttonContent,
@@ -27,7 +28,7 @@ export const NewsLetter = ({
   respondMessage,
   resStatus,
   onSubmit,
-}: IProps) => {
+}: IProps) {
   const methods = useFormContext()
   const { errors } = useFormState()
 

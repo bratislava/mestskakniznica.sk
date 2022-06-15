@@ -10,7 +10,7 @@ describe('CallToAction Element', () => {
         title="Odkaz na inu podstranku"
         className="h-[180px] w-[280px]"
         bottomText="Viac"
-        hasIcon={true}
+        hasIcon
       />
     )
     expect(baseElement).toBeTruthy()

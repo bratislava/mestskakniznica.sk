@@ -1,5 +1,6 @@
-import cx from 'classnames'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import cx from 'classnames'
+
 import { Video } from '../Video/Video'
 
 export interface FlatTextProps {
@@ -10,7 +11,7 @@ export interface FlatTextProps {
   content?: string
 }
 
-export const FlatText = ({ className, media, alt, mediaType, content }: FlatTextProps) => {
+export function FlatText({ className, media, alt, mediaType, content }: FlatTextProps) {
   const { Markdown: UIMarkdown } = useUIContext()
   return (
     <div className={cx(className, 'space-y-10 ')}>

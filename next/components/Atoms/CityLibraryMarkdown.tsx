@@ -1,6 +1,6 @@
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import cx from 'classnames'
 import ReactMarkdown from 'react-markdown'
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
 
 export interface HomepageMarkdownProps {
   className?: string
@@ -8,7 +8,7 @@ export interface HomepageMarkdownProps {
   content?: string
 }
 
-export const CityLibraryMarkdown = ({ className, paragraphClassName, content }: HomepageMarkdownProps) => {
+export function CityLibraryMarkdown({ className, paragraphClassName, content }: HomepageMarkdownProps) {
   const { Link: UILink, Image: UIImage } = useUIContext()
   return (
     <ReactMarkdown

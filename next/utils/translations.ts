@@ -1,4 +1,5 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import cfg from '../next.config'
 import { shouldSkipStaticPaths } from './utils'
 
@@ -45,12 +46,12 @@ export const ssrTranslations = async (ctx: { locale?: string } | undefined, name
   for (const locale in cachedSsrTranslations) {
     await Promise.all(
       preCachedNamespaces.map((arr) => {
-        console.log('Caching translations: ', arr)
+        console.log('Caching translations:', arr)
         return ssrTranslations({ locale }, arr)
       })
     )
   }
-})().catch((e) => {
+})().catch((error) => {
   console.log('Error caching translations - will fall back')
-  console.log(e)
+  console.log(error)
 })

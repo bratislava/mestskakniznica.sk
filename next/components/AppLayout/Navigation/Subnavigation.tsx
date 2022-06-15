@@ -1,11 +1,12 @@
-import Link from 'next/link'
-import cx from 'classnames'
-import { useMemo } from 'react'
-import Column from './SubnavigationColumn'
 import { MenuSectionFragment } from '@bratislava/strapi-sdk-city-library'
-import { useTranslation } from 'next-i18next'
-import { IEvent } from '@utils/types'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import { IEvent } from '@utils/types'
+import cx from 'classnames'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import Column from './SubnavigationColumn'
 
 interface SubnavigationProps {
   menuSlug: string | undefined | null
@@ -14,7 +15,7 @@ interface SubnavigationProps {
   latestEvents?: IEvent[]
 }
 
-const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: SubnavigationProps) => {
+function Subnavigation({ latestEvents, menuTotalColumns, menuSections }: SubnavigationProps) {
   const { t } = useTranslation('common')
 
   const columns = useMemo(() => {
@@ -45,7 +46,7 @@ const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: Subnavi
       {columns?.map((column, index) => {
         if (!Array.isArray(column.sections)) {
           return <Column latestEvents={latestEvents} section={column.sections} key={index} />
-        } else {
+        } 
           return (
             <div key={`merged-column-${index}`}>
               {column.sections?.map((section, index) => (
@@ -58,7 +59,7 @@ const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: Subnavi
               ))}
             </div>
           )
-        }
+        
       })}
     </div>
   )

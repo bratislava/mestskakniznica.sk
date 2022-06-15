@@ -1,13 +1,13 @@
+import ClearCircle from '@assets/images/clear-circle.svg'
+import SearchIcon from '@assets/images/search.svg'
 import { SearchBar } from '@bratislava/ui-city-library'
 import React, { FormEvent, useState } from 'react'
-import SearchIcon from '@assets/images/search.svg'
-import ClearCircle from '@assets/images/clear-circle.svg'
 
 interface SearchBoxProps {
   text: string
 }
 
-const SearchBox = ({ text }: SearchBoxProps) => {
+function SearchBox({ text }: SearchBoxProps) {
   const [searchedTerm, setSearchedTerm] = useState('')
   const baseUrl = 'https://opac.mestskakniznica.sk/opac'
 

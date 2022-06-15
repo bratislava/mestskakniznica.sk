@@ -1,26 +1,27 @@
 import { DateTimeSelect, Input, TextArea } from '@bratislava/ui-city-library'
+import NumberSwitcher from '@bratislava/ui-city-library/NumberSwitcher/NumberSwitcher'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { LocalDate } from '@js-joda/core'
+import isEmpty from 'lodash/isEmpty'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import FormFooter from '../FormFooter'
-import { useTranslation } from 'next-i18next'
-import { IEvent } from '../../../utils/types'
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
-import { dateTimeString, dayForDifferentDateTo, isEventPast } from '../../../utils/utils'
-import NumberSwitcher from '@bratislava/ui-city-library/NumberSwitcher/NumberSwitcher'
-import FormContainer, { phoneRegex } from '../FormContainer'
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
-import isEmpty from 'lodash/isEmpty'
+
 import { convertDataToBody } from '../../../utils/form-constants'
-import { useRouter } from 'next/router'
+import { IEvent } from '../../../utils/types'
+import { dateTimeString, dayForDifferentDateTo, isEventPast } from '../../../utils/utils'
+import DateCardDisplay from '../../Atoms/DateCardDispaly'
+import { usePageWrapperContext } from '../../layouts/PageWrapper'
+import FormContainer, { phoneRegex } from '../FormContainer'
+import FormFooter from '../FormFooter'
 
 interface Props {
   eventDetail?: IEvent | any
 }
 
-const EventReservationForm = ({ eventDetail }: Props) => {
+function EventReservationForm({ eventDetail }: Props) {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
   const [isDateEditDisabled, setIsDateEditDisabled] = React.useState(false)
@@ -72,7 +73,7 @@ const EventReservationForm = ({ eventDetail }: Props) => {
     message: yup.string(),
     acceptFormTerms: yup.boolean().isTrue(),
   }
-  let schema = yup.object(schemaBase).required()
+  const schema = yup.object(schemaBase).required()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -136,12 +137,12 @@ const EventReservationForm = ({ eventDetail }: Props) => {
     // additional params
     const body = {
       ...temp,
-      ...{
+      
         mg_subject: null,
         mg_email_to: 'ivo.dobrovodsky@mestskakniznica.sk',
         meta_sent_from: router.asPath,
-        meta_locale: router.locale,
-      },
+        meta_locale: router.locale
+      ,
     }
 
     // send email
@@ -265,7 +266,7 @@ const EventReservationForm = ({ eventDetail }: Props) => {
                       <div className="pl-5">
                         <div className="leading-[19px] text-black-universal ">
                           {eventDetail?.eventTitle?.length > 50
-                            ? eventDetail?.eventTitle?.substring(0, 50) + '...'
+                            ? `${eventDetail?.eventTitle?.slice(0, 50)  }...`
                             : eventDetail?.eventTitle}
                         </div>
                         <div className="leading-[20px] text-xs text-gray-universal-70 pt-[5px]">

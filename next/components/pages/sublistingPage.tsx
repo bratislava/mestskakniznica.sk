@@ -1,17 +1,16 @@
-import * as React from 'react'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
-
-import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
-
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
-import { parsePages } from '../../utils/page'
+import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
+import * as React from 'react'
+
+import { parsePages } from '../../utils/page'
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface SublistingPageProps {
   page: PageFragment
 }
 
-const SublistingPage = ({ page }: SublistingPageProps) => {
+function SublistingPage({ page }: SublistingPageProps) {
   const { t } = useTranslation('common')
 
   const pages = page?.pageCategory?.pages ? parsePages(page?.pageCategory?.pages) : undefined

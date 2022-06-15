@@ -1,32 +1,29 @@
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import { BlogPostWithParentPageFragment, ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
+import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
+import { useTranslation } from 'next-i18next'
 import * as React from 'react'
 
-import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
-
-import { BlogPostWithParentPageFragment, ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
-import Sections from '../Molecules/Sections'
 import { getNumericLocalDate } from '../../utils/local-date'
-import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-import { useTranslation } from 'next-i18next'
-import DefaultPageLayout from '../layouts/DefaultPageLayout'
-
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { formatDateToLocal } from '../../utils/utils'
+import DefaultPageLayout from '../layouts/DefaultPageLayout'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
+import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
+import Sections from '../Molecules/Sections'
 
 export interface BlogPostPageProps {
   blogPost: BlogPostWithParentPageFragment
   Seo?: ComponentSeoSeo
 }
 
-const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
+function BlogPostPage({ blogPost }: BlogPostPageProps) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
   const mediaType = blogPost.coverMedia?.mime?.split('/')[0] ?? ''
   const { Image: UIImage } = useUIContext()
 
   return (
-    <>
-      <SectionContainer>
+    <SectionContainer>
         {blogPost.parentPage && <PageBreadcrumbs page={blogPost.parentPage} blogPost={blogPost} />}
 
         <PageTitle title={blogPost?.title ?? ''} hasDivider={false} />
@@ -57,7 +54,6 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
           </div>
         </div>
       </SectionContainer>
-    </>
   )
 }
 

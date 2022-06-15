@@ -1,8 +1,9 @@
-import cx from 'classnames'
-import { Link } from '../Link/Link'
-import Home from '@assets/images/home.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
+import Home from '@assets/images/home.svg'
+import cx from 'classnames'
 import { Fragment } from 'react'
+
+import { Link } from '../Link/Link'
 
 export interface BreadcrumbsProps {
   homeLabel?: string
@@ -14,15 +15,14 @@ interface IBreadcrumb {
   url: string
 }
 
-export const Breadcrumbs = ({ items, homeLabel = 'Home' }: BreadcrumbsProps) => (
-  <div className=" flex text-sm h-[56px]">
+export function Breadcrumbs({ items, homeLabel = 'Home' }: BreadcrumbsProps) {
+  return <div className=" flex text-sm h-[56px]">
     <Link href="/" className="py-4">
       <Home />
       <span className="sr-only">{homeLabel}</span>
     </Link>
     <div className="flex">
-      {items.map((item) => {
-        return (
+      {items.map((item) => (
           <Fragment key={item.url}>
             <div className="pl-[18px] py-6">
               <ChevronRight />
@@ -39,8 +39,7 @@ export const Breadcrumbs = ({ items, homeLabel = 'Home' }: BreadcrumbsProps) => 
               </div>
             )}
           </Fragment>
-        )
-      })}
+        ))}
     </div>
   </div>
-)
+}

@@ -1,5 +1,5 @@
-import React from 'react'
 import cx from 'classnames'
+import React from 'react'
 
 interface IVideo {
   id?: string
@@ -9,7 +9,7 @@ interface IVideo {
   size?: 'default' | 'custom'
 }
 
-export const Video = ({ id, className, youTubeUrl, mediaUrl, size = 'default' }: IVideo) => {
+export function Video({ id, className, youTubeUrl, mediaUrl, size = 'default' }: IVideo) {
   const [embedUrl, setEmbedUrl] = React.useState('')
 
   React.useEffect(() => {

@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import mailchimp from '@mailchimp/mailchimp_marketing'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 mailchimp.setConfig({
   apiKey: process.env.MAILCHIMP_API_KEY,
@@ -21,9 +21,9 @@ const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
       })
 
       return res.status(201).json({ error: '' })
-    } else {
+    } 
       throw new Error('Invalid audience.')
-    }
+    
   } catch (error: any) {
     return res.status(500).json({ error: error.message || error.toString() })
   }

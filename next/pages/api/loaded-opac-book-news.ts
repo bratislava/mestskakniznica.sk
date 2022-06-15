@@ -1,5 +1,6 @@
 import { BlogPostFragment } from '@bratislava/strapi-sdk-city-library'
 import { NextApiRequest, NextApiResponse } from 'next'
+
 import OpacClient from '../../utils/opac-old'
 import { arrayify } from '../../utils/utils'
 

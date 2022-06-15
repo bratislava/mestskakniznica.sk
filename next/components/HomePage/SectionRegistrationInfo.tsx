@@ -1,17 +1,16 @@
-import { HomePageQuery } from '@bratislava/strapi-sdk-city-library'
-
-import { Button } from '@bratislava/ui-city-library'
-import Link from 'next/link'
-import React from 'react'
-import { useTranslation } from 'next-i18next'
 import Check from '@assets/images/check-done.svg'
 import RegisterToLibrary from '@assets/images/register-to-library.svg'
+import { HomePageQuery } from '@bratislava/strapi-sdk-city-library'
+import { Button } from '@bratislava/ui-city-library'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 interface RegistrationInfoProps {
   registrationInfoSection: NonNullable<HomePageQuery['homePage']>['registrationInfoSection']
 }
 
-const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) => {
+function RegistrationInfo({ registrationInfoSection }: RegistrationInfoProps) {
   const { t } = useTranslation('homepage')
 
   return (

@@ -1,15 +1,17 @@
-import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import sk from 'date-fns/locale/sk'
-import enUs from 'date-fns/locale/en-US'
+
 import { Select } from '@bratislava/ui-city-library'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
+import enUs from 'date-fns/locale/en-US'
+import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
+import DatePicker, { registerLocale } from 'react-datepicker'
+
+import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 registerLocale('en', enUs)
 registerLocale('sk', sk)
 
-const EventFilters = ({
+function EventFilters({
   startDate,
   endDate,
   onStartChange,
@@ -23,16 +25,14 @@ const EventFilters = ({
   setSelectedEventTags,
   setSelectedCategory,
   setSelectedLocality,
-}) => {
+}) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
   return (
     <>
       <div
-        className={
-          'h-auto lg:py-2 px-3 text-sm lg:w-[268px] lg:border lg:border-gray-universal-200 border-b-[1px] border-b-[#000] text-[#000] w-full'
-        }
+        className="h-auto lg:py-2 px-3 text-sm lg:w-[268px] lg:border lg:border-gray-universal-200 border-b-[1px] border-b-[#000] text-[#000] w-full"
       >
         <DatePicker
           onChange={onStartChange}
@@ -47,9 +47,7 @@ const EventFilters = ({
         />
       </div>
       <div
-        className={
-          'h-auto lg:py-2 px-3 text-sm lg:w-[268px] lg:border lg:border-gray-universal-200 border-b-[1px] border-b-[#000] text-[#000] w-full'
-        }
+        className="h-auto lg:py-2 px-3 text-sm lg:w-[268px] lg:border lg:border-gray-universal-200 border-b-[1px] border-b-[#000] text-[#000] w-full"
       >
         <DatePicker
           onChange={onEndChange}
@@ -64,22 +62,22 @@ const EventFilters = ({
         />
       </div>
       <Select
-        className={'py-3 w-full border-b-[1px] border-b-[#000] lg:border-gray-universal-200 lg:border-0 lg:w-[268px]'}
-        selectClassName={'border-0 lg:border'}
+        className="py-3 w-full border-b-[1px] border-b-[#000] lg:border-gray-universal-200 lg:border-0 lg:w-[268px]"
+        selectClassName="border-0 lg:border"
         options={tags}
         value={selectedEventTags ?? tags[0].title}
         onChange={(ev) => setSelectedEventTags(ev)}
       />
       <Select
-        className={'py-3 w-full border-b-[1px] border-b-[#000] lg:border-gray-universal-200 lg:border-0 lg:w-[268px]'}
-        selectClassName={'border-0 lg:border'}
+        className="py-3 w-full border-b-[1px] border-b-[#000] lg:border-gray-universal-200 lg:border-0 lg:w-[268px]"
+        selectClassName="border-0 lg:border"
         options={categories}
         value={selectedCategory ?? categories[0].title}
         onChange={(ev) => setSelectedCategory(ev)}
       />
       <Select
-        className={'py-3 w-full border-b-[1px] border-b-[#000] lg:border-gray-universal-200 lg:border-0 lg:w-[268px]'}
-        selectClassName={'border-0 lg:border'}
+        className="py-3 w-full border-b-[1px] border-b-[#000] lg:border-gray-universal-200 lg:border-0 lg:w-[268px]"
+        selectClassName="border-0 lg:border"
         options={localities}
         value={selectedLocality ?? localities[0].title}
         onChange={(ev) => setSelectedLocality(ev)}

@@ -1,3 +1,8 @@
+import ArrowLeft from '@assets/images/arrow-left.svg'
+import ChevronDown from '@assets/images/chevron-down.svg'
+import ChevronRight from '@assets/images/chevron-right.svg'
+import ChevronUp from '@assets/images/chevron-up.svg'
+import Home from '@assets/images/home.svg'
 import {
   BlogPostFragment,
   DocumentCategoryFragment,
@@ -7,13 +12,9 @@ import {
 } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import Link from 'next/link'
-import * as React from 'react'
 import { useTranslation } from 'next-i18next'
-import ArrowLeft from '@assets/images/arrow-left.svg'
-import ChevronDown from '@assets/images/chevron-down.svg'
-import ChevronRight from '@assets/images/chevron-right.svg'
-import ChevronUp from '@assets/images/chevron-up.svg'
-import Home from '@assets/images/home.svg'
+import * as React from 'react'
+
 import { pagePath } from '../../utils/page'
 
 interface PageBreadcrumbsProps {
@@ -27,8 +28,8 @@ interface BreadcrumbsProps {
   homeLabel?: string
 }
 
-const BreadCrumbs = ({ crumbs, homeLabel = 'Home' }: BreadcrumbsProps) => (
-  <>
+function BreadCrumbs({ crumbs, homeLabel = 'Home' }: BreadcrumbsProps) {
+  return <>
     {crumbs.map((crumb, i) => {
       const last = i === crumbs.length - 1
       const first = i === 0
@@ -69,24 +70,24 @@ const BreadCrumbs = ({ crumbs, homeLabel = 'Home' }: BreadcrumbsProps) => (
       )
     })}
   </>
-)
+}
 
 // Mobile version
-const MobilePageBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
+function MobilePageBreadcrumbs({ crumbs }: BreadcrumbsProps) {
   const [isOpen, setOpen] = React.useState(false)
   const { t } = useTranslation('common')
 
   const primaryBreadcrumbs: { title: string; url: string | null }[] = []
   const secondaryBreadcrumbs: { title: string; url: string | null }[] = []
 
-  //homepage
+  // homepage
   primaryBreadcrumbs.push({ title: '', url: '/' })
   secondaryBreadcrumbs.push({ title: t('homepage'), url: '/' })
 
   // homepage > link1 > link2
   if (crumbs.length > 2) {
     primaryBreadcrumbs.push({ title: '...', url: '' })
-    crumbs.slice(1, crumbs.length - 1).map((crumb) => secondaryBreadcrumbs.push(crumb))
+    crumbs.slice(1, - 1).map((crumb) => secondaryBreadcrumbs.push(crumb))
   }
 
   // homepage > link1
@@ -130,7 +131,7 @@ const MobilePageBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
 }
 
 // Desktop version
-const PageBreadcrumbs = ({ page, blogPost, documentCategory }: PageBreadcrumbsProps) => {
+function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsProps) {
   const { t } = useTranslation('common')
 
   const crumbs: { title: string; url: string | null }[] = []

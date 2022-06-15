@@ -1,4 +1,5 @@
 import cx from 'classnames'
+
 import { TableRow, TableRowProps } from '../TableRow/TableRow'
 
 export interface TableProps {
@@ -8,7 +9,7 @@ export interface TableProps {
   rows?: (TableRowProps | undefined | null)[]
 }
 
-export const Table = ({ className, primaryTitle, secondaryTitle, rows }: TableProps) => {
+export function Table({ className, primaryTitle, secondaryTitle, rows }: TableProps) {
   return (
     <div className={cx(className)}>
       {primaryTitle && (

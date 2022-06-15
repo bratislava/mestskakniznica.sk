@@ -1,20 +1,16 @@
 import ScrollIcon from '@assets/images/scroll-icon.svg'
 import { useTranslation } from 'next-i18next'
 
-const ScrollToTop = () => {
+function ScrollToTop() {
   const { t } = useTranslation('common')
   const scrollTop = () => {
     window?.scrollTo(0, 0)
   }
 
   const checkScrollTop = () => {
-    let btn = document.getElementById('backToTopBtn')
+    const btn = document.querySelector('#backToTopBtn')
     if (btn) {
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        btn.style.display = 'block'
-      } else {
-        btn.style.display = 'none'
-      }
+      btn.style.display = document.body.scrollTop > 300 || document.documentElement.scrollTop > 300 ? 'block' : 'none';
     }
   }
   if (typeof window !== 'undefined') {

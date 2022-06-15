@@ -10,26 +10,16 @@ import {
   PartnerFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
+
+import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
+import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
 import BlogPostsPage from '../components/pages/blogPostsPage'
+import BookNewsPage from '../components/pages/bookNewsPage'
 import DocumentsPage from '../components/pages/DocumentsPage'
 import ErrorPage from '../components/pages/ErrorPage'
-import PartnersPage from '../components/pages/partnersPage'
-import PageWrapper from '../components/layouts/PageWrapper'
-import { buildUrl, client } from '../utils/gql'
-import { sortPartners } from '../utils/page'
-import { IEvent, ILocality, IPremises } from '../utils/types'
-import { getOpacBooks, OpacBook } from '../utils/opac'
-import {
-  arrayify,
-  convertPagesToEvents,
-  convertPagesToLocalities,
-  shouldSkipStaticPaths,
-  isPresent,
-  convertPagesEventsToEvents,
-} from '../utils/utils'
-import BookNewsPage from '../components/pages/bookNewsPage'
 import EventPage from '../components/pages/eventPage'
 import EventsListingPage from '../components/pages/eventsListingPage'
 import FullContentPage from '../components/pages/fullContentPage'
@@ -37,11 +27,22 @@ import ListingPage from '../components/pages/listingPage'
 import LocalitiesListingPage from '../components/pages/localitiesListingPage'
 import LocalityPage from '../components/pages/localityPage'
 import NewsListingPage from '../components/pages/newsListingPage'
+import PartnersPage from '../components/pages/partnersPage'
 import Premises from '../components/pages/premises'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
 import SublistingPage from '../components/pages/sublistingPage'
-import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { buildUrl, client } from '../utils/gql'
+import { getOpacBooks, OpacBook } from '../utils/opac'
+import { sortPartners } from '../utils/page'
+import { IEvent, ILocality, IPremises } from '../utils/types'
+import {
+  arrayify,
+  convertPagesEventsToEvents,
+  convertPagesToEvents,
+  convertPagesToLocalities,
+  isPresent,
+  shouldSkipStaticPaths,
+} from '../utils/utils'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   let paths: any = []
@@ -50,7 +51,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
   const pathArraysForLocales = await Promise.all(locales.map((locale) => client.PagesStaticPaths({ locale })))
   const pages = pathArraysForLocales.flatMap(({ pages }) => pages || [])
-  if (pages.length) {
+  if (pages.length > 0) {
     paths = pages.map((page) => ({
       params: {
         slug: page?.slug ? page.slug.split('/') : [],
@@ -97,7 +98,7 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
 
     if (pageBySlug && pageBySlug.layout === 'partners') {
       const { allPartners } = await client.AllPartners({ locale })
-      partners['allPartners'] = allPartners
+      partners.allPartners = allPartners
     }
 
     if (pageBySlug?.layout === Enum_Page_Layout.BookNews) {
@@ -125,9 +126,7 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
     }
 
     latestEvents = convertPagesToEvents(allEventPages)
-      .filter((event: eventProps) => {
-        return new Date(event.dateTo) >= new Date()
-      })
+      .filter((event: eventProps) => new Date(event.dateTo) >= new Date())
       .sort((a: eventProps, b: eventProps) => {
         if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
         if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
@@ -176,9 +175,7 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
       pageBySlug.layout === Enum_Page_Layout.Listing
     ) {
       allEvents = convertPagesToEvents(allEventPages)
-        .filter((event: eventProps) => {
-          return new Date(event.dateTo) >= new Date()
-        })
+        .filter((event: eventProps) => new Date(event.dateTo) >= new Date())
         .sort((a: eventProps, b: eventProps) => {
           if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
           if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
@@ -277,7 +274,7 @@ interface PageProps {
   footer: FooterQuery['footer']
 }
 
-const Page = ({
+function Page({
   error,
   page,
   partners,
@@ -294,7 +291,7 @@ const Page = ({
   allNewsLink,
   menus,
   footer,
-}: PageProps) => {
+}: PageProps) {
   if (error) {
     return (
       <ErrorPage code={500}>
@@ -311,27 +308,35 @@ const Page = ({
     case Enum_Page_Layout.Listing:
       pageComponentByLayout = <ListingPage allEvents={allEvents} page={page} news={news} />
       break
+
     case Enum_Page_Layout.Sublisting:
       pageComponentByLayout = <SublistingPage page={page} />
       break
+
     case Enum_Page_Layout.Announcement:
       break
+
     case Enum_Page_Layout.News:
     case Enum_Page_Layout.FullContent:
       pageComponentByLayout = <FullContentPage page={page} />
       break
+
     case Enum_Page_Layout.ContentWithSidebar:
       pageComponentByLayout = <SidebarContentPage page={page} />
       break
+
     case Enum_Page_Layout.Partners:
       pageComponentByLayout = <PartnersPage page={page} partners={sortedPartners} />
       break
+
     case Enum_Page_Layout.BlogPosts:
       pageComponentByLayout = <BlogPostsPage page={page} />
       break
+
     case Enum_Page_Layout.Documents:
       pageComponentByLayout = <DocumentsPage page={page} />
       break
+
     case Enum_Page_Layout.EventsListing:
       pageComponentByLayout = (
         <EventsListingPage
@@ -344,21 +349,27 @@ const Page = ({
         />
       )
       break
+
     case Enum_Page_Layout.Event:
       pageComponentByLayout = <EventPage page={page} events={allEvents} allNewsLink={allNewsLink} />
       break
+
     case Enum_Page_Layout.Premises:
       pageComponentByLayout = <Premises page={page} premises={premises} />
       break
+
     case Enum_Page_Layout.LocalitiesListing:
       pageComponentByLayout = <LocalitiesListingPage page={page} localities={localities} />
       break
+
     case Enum_Page_Layout.NewsListing:
       pageComponentByLayout = <NewsListingPage page={page} news={news} />
       break
+
     case Enum_Page_Layout.Locality:
       pageComponentByLayout = <LocalityPage page={page} events={allEvents} eventsListingUrl={allNewsLink} />
       break
+
     case Enum_Page_Layout.BookNews:
       pageComponentByLayout = <BookNewsPage books={opacBookNews} page={page} />
       break

@@ -1,8 +1,8 @@
-import { useCallback, useState, useEffect } from 'react'
-import ChevronRight from '@assets/images/chevron-right.svg'
 import ChevronLeft from '@assets/images/chevron-left.svg'
+import ChevronRight from '@assets/images/chevron-right.svg'
 import { Input } from '@bratislava/ui-city-library'
 import cx from 'classnames'
+import { useCallback, useEffect,useState } from 'react'
 
 export interface PaginationProps {
   max: number
@@ -13,14 +13,14 @@ export interface PaginationProps {
   currentInputAriaLabel?: string
 }
 
-export const Pagination = ({
+export function Pagination({
   max,
   value,
   onChangeNumber,
   previousButtonAriaLabel,
   nextButtonAriaLabel,
   currentInputAriaLabel,
-}: PaginationProps) => {
+}: PaginationProps) {
   const [displayValue, setDisplayValue] = useState(value.toString())
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const Pagination = ({
 
       if (parseInt(ev.target.value)) {
         onChangeNumber(parseInt(ev.target.value))
-        return
+        
       }
     },
     [onChangeNumber]

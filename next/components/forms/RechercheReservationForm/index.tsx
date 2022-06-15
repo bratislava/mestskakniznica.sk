@@ -1,18 +1,19 @@
 import { Button, Input, TextArea } from '@bratislava/ui-city-library'
-import React from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
-import { Controller, FormProvider, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import StepNumberTitle from '../StepNumberTitle'
-import FormFooter from '../FormFooter'
-import { useTranslation } from 'next-i18next'
-import FormContainer, { phoneRegex } from '../FormContainer'
-import { convertDataToBody } from '../../../utils/form-constants'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
-const RechercheReservationForm = () => {
+import { convertDataToBody } from '../../../utils/form-constants'
+import FormContainer, { phoneRegex } from '../FormContainer'
+import FormFooter from '../FormFooter'
+import StepNumberTitle from '../StepNumberTitle'
+
+function RechercheReservationForm() {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
@@ -78,12 +79,12 @@ const RechercheReservationForm = () => {
     // additional params
     const body = {
       ...temp,
-      ...{
+      
         mg_subject: null,
         mg_email_to: 'miroslava.porubska@mestskakniznica.sk',
         meta_sent_from: router.asPath,
-        meta_locale: router.locale,
-      },
+        meta_locale: router.locale
+      ,
     }
 
     // send email

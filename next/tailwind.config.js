@@ -1,7 +1,7 @@
 const { join } = require('path')
 const plugin = require('tailwindcss/plugin')
 
-const scrollBarHide = plugin(function ({ addUtilities }) {
+const scrollBarHide = plugin(({ addUtilities }) => {
   addUtilities({
     '.scrollbar-hide': {
       /* Firefox */

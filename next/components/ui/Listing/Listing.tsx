@@ -1,6 +1,7 @@
+import ChevronRight from '@assets/images/chevron-right.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import cx from 'classnames'
-import ChevronRight from '@assets/images/chevron-right.svg'
+
 import { CallToAction } from '../CallToAction/CallToAction'
 import { Link } from '../Link/Link'
 import { RowSubcategory } from '../RowSubcategory/RowSubcategory'
@@ -19,7 +20,7 @@ export function Listing({ className, title, url, moreLinkTitle, pages, hasDivide
   return (
     <div className={cx(className)}>
       {moreLinkTitle && url && (
-        <Link href={url} hasIcon={true}>
+        <Link href={url} hasIcon>
           <div className="flex w-full justify-between items-center">
             <h2 className="text-md lg:text-lg normal-case">{title}</h2>
             {moreLinkTitle}

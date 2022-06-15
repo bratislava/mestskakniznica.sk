@@ -1,10 +1,9 @@
-import * as React from 'react'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
-
 import { PageFragment, PartnerFragment } from '@bratislava/strapi-sdk-city-library'
-
-import { Partner, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
+import { PageTitle, Partner, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
+import * as React from 'react'
+
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export type TSortedPartners = {
   featuredPartners: PartnerFragment[]
@@ -16,7 +15,7 @@ export interface PartnersPageProps {
   partners: TSortedPartners
 }
 
-const PartnersPage = ({ page, partners }: PartnersPageProps) => {
+function PartnersPage({ page, partners }: PartnersPageProps) {
   const { t } = useTranslation('common')
   return (
     <>

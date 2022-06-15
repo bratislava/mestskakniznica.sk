@@ -1,13 +1,16 @@
 import {
+  ComponentLocalityPartsLocalityOpeningHours,
+  ComponentSectionsLocalityDetails,
   Enum_Page_Layout,
   Page,
-  PageFragment,
   PageEventFragment,
-  ComponentLocalityPartsLocalityOpeningHours,
+  PageFragment,
   SectionLinkPageFragment,
-  ComponentSectionsLocalityDetails,
 } from '@bratislava/strapi-sdk-city-library'
-export const dateTimeString = (date: Date | string, dateTo: Date | string, locale: string = 'sk') => {
+
+import { IEvent, ILocality } from './types'
+
+export const dateTimeString = (date: Date | string, dateTo: Date | string, locale = 'sk') => {
   const newDate = new Date(date)
   const dayFrom = newDate.toLocaleString('en-US', { day: 'numeric' })
   const monthFrom = newDate.toLocaleString('en-US', { month: 'numeric' })
@@ -28,27 +31,17 @@ export const dateTimeString = (date: Date | string, dateTo: Date | string, local
   })
 
   if (dayFrom === dayTo && monthFrom === monthTo)
-    if (locale == 'sk') {
-      return `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime} - ${toTime}`
-    } else {
-      return `${monthFrom}. ${dayFrom}. ${yearTo}, ${fromTime} - ${toTime}`
-    }
-  else if (monthFrom === monthTo)
-    if (locale == 'sk') {
-      return `${dayFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
-    } else {
-      return `${monthFrom}. ${dayFrom}. - ${monthTo}. ${dayTo}. ${yearTo}, ${fromTime} - ${toTime}`
-    }
-  else {
+    return locale == 'sk' ? `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime} - ${toTime}` : `${monthFrom}. ${dayFrom}. ${yearTo}, ${fromTime} - ${toTime}`;
+  if (monthFrom === monthTo)
+    return locale == 'sk' ? `${dayFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}` : `${monthFrom}. ${dayFrom}. - ${monthTo}. ${dayTo}. ${yearTo}, ${fromTime} - ${toTime}`;
+  
     if (locale == 'sk') {
       return `${dayFrom}. ${monthFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
-    } else {
+    } 
       return `${monthFrom}. ${dayFrom}. - ${monthTo}. ${dayTo}. ${yearTo}, ${fromTime} - ${toTime}`
-    }
-  }
+    
+  
 }
-
-import { IEvent, ILocality } from './types'
 
 export const arrayify = (input: string | string[] | undefined | null) => {
   if (input === undefined || input === null) {
@@ -63,7 +56,7 @@ export const isPresent = <U>(a: U | null | undefined | void): a is U => {
   return true
 }
 
-export const formatDateToLocal = (date: Date | string, locale: string = 'sk') => {
+export const formatDateToLocal = (date: Date | string, locale = 'sk') => {
   const newDate = new Date(date)
   const day = newDate.toLocaleString('en-US', { day: 'numeric' })
   const month = newDate.toLocaleString('en-US', { month: 'numeric' })
@@ -83,12 +76,12 @@ export const Time24To12Format = (time: any, locale: string) => {
       time = time[0] + time[5]
     }
     return time // return adjusted time or original string
-  } else {
+  } 
     return time
-  }
+  
 }
 
-export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit: boolean = false) => {
+export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = false) => {
   const today = new Date()
   const dFrom = new Date(dateFrom)
   const dTo = new Date(dateTo)
@@ -112,7 +105,7 @@ export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit: bo
     return { day: todayDay, month: todayMonth, year: todayYear, date: today }
 
     // display last event day if its in the past
-  } else if (today > dTo) {
+  } if (today > dTo) {
     const toDay = dTo.toLocaleString('en-US', {
       day: twoDigit ? '2-digit' : 'numeric',
     })
@@ -174,14 +167,14 @@ export const convertPageToEventDisplay = (
       eventCategory:
         eventDetails && eventDetails.__typename === 'ComponentSectionsEventDetails' ? eventDetails.eventCategory : null,
     }
-  } else if (page.layout === Enum_Page_Layout.Announcement) {
+  } if (page.layout === Enum_Page_Layout.Announcement) {
     return {
       eventTitle: page.title || '',
       listingImage: page.listingImage || undefined,
       eventCustomType: 'announcement',
       slug: page.slug || '',
     }
-  } else if (page.layout === Enum_Page_Layout.News) {
+  } if (page.layout === Enum_Page_Layout.News) {
     return {
       eventTitle: page.title,
       date_added: page.date_added,
@@ -243,8 +236,8 @@ const getMainOpeningHours = (sections: ComponentLocalityPartsLocalityOpeningHour
       isCurrentlyOpen: false,
     }
 
-  //find day when the section is open for the most time
-  //opening hours are like this, because strapi did not allow another nested custom component
+  // find day when the section is open for the most time
+  // opening hours are like this, because strapi did not allow another nested custom component
   let openFrom = '00:00'
   let openTo = '00:00'
   const customArray = [
@@ -323,9 +316,7 @@ export const getIsCurrentlyOpen = (
     from: { minutes: number; hours: number }
     to: { minutes: number; hours: number }
   }
-): boolean => {
-  return today.getHours() < time.to.hours && today.getHours() > time.from.hours
-}
+): boolean => today.getHours() < time.to.hours && today.getHours() > time.from.hours
 
 // method for determining if event already happened
 export const isEventPast = (dateTo: Date | string | null): boolean => {

@@ -1,5 +1,5 @@
-import cx from 'classnames'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import cx from 'classnames'
 
 export interface PageTitleProps {
   className?: string
@@ -8,7 +8,7 @@ export interface PageTitleProps {
   hasDivider?: boolean
 }
 
-export const PageTitle = ({ className, title, description, hasDivider = true }: PageTitleProps) => {
+export function PageTitle({ className, title, description, hasDivider = true }: PageTitleProps) {
   const { Markdown: UIMarkdown } = useUIContext()
   return (
     <div className={cx(className)}>

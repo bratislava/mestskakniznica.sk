@@ -1,17 +1,18 @@
 import { Input, Select } from '@bratislava/ui-city-library'
-import React from 'react'
-import { Controller, FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import FormFooter from '../FormFooter'
-import { useTranslation } from 'next-i18next'
-import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
-import { options } from './options'
-import FormContainer, { phoneRegex } from '../FormContainer'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
-const GiftCardReservationForm = () => {
+import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
+import FormContainer, { phoneRegex } from '../FormContainer'
+import FormFooter from '../FormFooter'
+import { options } from './options'
+
+function GiftCardReservationForm() {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
@@ -66,12 +67,12 @@ const GiftCardReservationForm = () => {
     // additional params
     const body = {
       ...temp,
-      ...{
+      
         mg_subject: null,
         mg_email_to: 'registracia@mestskakniznica.sk',
         meta_sent_from: router.asPath,
-        meta_locale: router.locale,
-      },
+        meta_locale: router.locale
+      ,
     }
 
     // send email

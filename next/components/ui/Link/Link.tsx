@@ -1,6 +1,6 @@
-import NextLink from 'next/link'
-import cx from 'classnames'
 import ChevronRight from '@assets/images/chevron-right.svg'
+import cx from 'classnames'
+import NextLink from 'next/link'
 
 export interface LinkProps
   extends React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {
@@ -11,7 +11,7 @@ export interface LinkProps
   uppercase?: boolean
 }
 
-export const Link = ({
+export function Link({
   className,
   href,
   children,
@@ -20,8 +20,8 @@ export const Link = ({
   size = 'default',
   uppercase = true,
   ...props
-}: LinkProps) => (
-  <NextLink href={href}>
+}: LinkProps) {
+  return <NextLink href={href}>
     <a
       href={href}
       className={cx('hover:underline', className, {
@@ -29,7 +29,7 @@ export const Link = ({
         'text-[16px]': size === 'large',
         'text-[14px]': size === 'default',
         'text-[12px]': size === 'small',
-        uppercase: uppercase,
+        uppercase,
       })}
       {...props}
     >
@@ -37,4 +37,4 @@ export const Link = ({
       {hasIcon && <ChevronRight />}
     </a>
   </NextLink>
-)
+}

@@ -1,7 +1,7 @@
-import { ReactNode, useEffect, useState } from 'react'
 import cx from 'classnames'
-import ReactTooltip from 'react-tooltip'
+import { ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import ReactTooltip from 'react-tooltip'
 
 interface ClickableProps {
   text: string
@@ -9,10 +9,10 @@ interface ClickableProps {
   actionLink: string | (() => void)
   classA: string
   classDiv: string
-  copyText?: Boolean
+  copyText?: boolean
 }
 
-const Clickable = ({ text, svgIcon, actionLink, classA, classDiv, copyText }: ClickableProps) => {
+function Clickable({ text, svgIcon, actionLink, classA, classDiv, copyText }: ClickableProps) {
   const [copied, setCopied] = useState(false)
   const { t } = useTranslation('common')
 
@@ -32,8 +32,7 @@ const Clickable = ({ text, svgIcon, actionLink, classA, classDiv, copyText }: Cl
         </a>
       </div>
     )
-  else
-    return (
+  return (
       <div className={cx(classDiv)}>
         {copyText && copied ? (
           <a data-for="main" data-delay-hide="3000" data-tip={t('linkCopied')} data-iscapture="true">
@@ -43,7 +42,7 @@ const Clickable = ({ text, svgIcon, actionLink, classA, classDiv, copyText }: Cl
                 &nbsp; {text}
               </div>
             </button>
-            <ReactTooltip id="main" place={'top'} type={'dark'} effect={'solid'} multiline={true} />
+            <ReactTooltip id="main" place="top" type="dark" effect="solid" multiline />
           </a>
         ) : (
           <button

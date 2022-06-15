@@ -1,5 +1,6 @@
-import { dayForDifferentDateTo } from '../../utils/utils'
 import cx from 'classnames'
+
+import { dayForDifferentDateTo } from '../../utils/utils'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 interface DateCardProps {
@@ -9,7 +10,7 @@ interface DateCardProps {
   wrapperClass?: string
 }
 
-const DateCardDisplay = ({ dateFrom, dateTo, textSize, wrapperClass }: DateCardProps) => {
+function DateCardDisplay({ dateFrom, dateTo, textSize, wrapperClass }: DateCardProps) {
   const { locale } = usePageWrapperContext()
   const { day, month } = dayForDifferentDateTo(new Date(dateFrom), new Date(dateTo))
 
@@ -18,7 +19,7 @@ const DateCardDisplay = ({ dateFrom, dateTo, textSize, wrapperClass }: DateCardP
   return (
     <div className={cx('m-auto text-center', wrapperClass)}>
       <div className={cx(textSize)}>{text}</div>
-      {/*<div className="text-xs capitalize">{month}</div>*/}
+      {/* <div className="text-xs capitalize">{month}</div> */}
     </div>
   )
 }

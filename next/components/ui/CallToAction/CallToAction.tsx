@@ -1,4 +1,5 @@
 import cx from 'classnames'
+
 import { Link } from '../Link/Link'
 
 export interface CtaProps {
@@ -11,7 +12,7 @@ export interface CtaProps {
   uppercase?: boolean
 }
 
-export const CallToAction = ({
+export function CallToAction({
   className,
   title,
   href,
@@ -19,7 +20,7 @@ export const CallToAction = ({
   customIcon,
   hasIcon = true,
   uppercase = true,
-}: CtaProps) => {
+}: CtaProps) {
   return (
     <div className="border border-gray-900">
       <Link href={href} hasIcon={hasIcon} uppercase={uppercase}>

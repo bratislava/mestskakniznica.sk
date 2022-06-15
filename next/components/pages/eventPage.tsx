@@ -1,15 +1,14 @@
-import NewsListingCard from '../../components/Molecules/NewsListingCard'
-import Section from '../../components/AppLayout/Section'
-
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
-import Sections from '../../components/Molecules/Sections'
+import { Link, SectionContainer } from '@bratislava/ui-city-library'
+import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 
-import { Link, SectionContainer } from '@bratislava/ui-city-library'
 import { IEvent } from '../../utils/types'
-import Head from 'next/head'
 import { convertPageToEventDisplay } from '../../utils/utils'
+import Section from "../AppLayout/Section"
+import NewsListingCard from "../Molecules/NewsListingCard"
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import Sections from "../Molecules/Sections"
 
 export interface PageProps {
   page: PageFragment
@@ -17,7 +16,7 @@ export interface PageProps {
   allNewsLink: string
 }
 
-const EventPage = ({ page, events, allNewsLink }: PageProps) => {
+function EventPage({ page, events, allNewsLink }: PageProps) {
   const { t } = useTranslation(['common', 'homepage'])
   const event = convertPageToEventDisplay(page)
 
@@ -31,7 +30,7 @@ const EventPage = ({ page, events, allNewsLink }: PageProps) => {
         <Section>
           <div className="inline-flex pt-10 w-full">
             <h2 className="text-lg">{t('otherEvents')}</h2>
-            <Link href={allNewsLink} hasIcon={true} title={t('eventsAll')} size="large" className="ml-auto">
+            <Link href={allNewsLink} hasIcon title={t('eventsAll')} size="large" className="ml-auto">
               {t('eventsAll')}
             </Link>
           </div>

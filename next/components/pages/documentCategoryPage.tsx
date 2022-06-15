@@ -1,14 +1,14 @@
+import SearchIcon from '@assets/images/search.svg'
 import { DocumentCategoryFragment } from '@bratislava/strapi-sdk-city-library'
-
 import { PageTitle, Pagination, RowFile, SearchBar, SectionContainer, Select } from '@bratislava/ui-city-library'
 import NextLink from 'next/link'
+import { useTranslation } from 'next-i18next'
 import * as React from 'react'
-import SearchIcon from '@assets/images/search.svg'
+
 import { DocumentResponse, DOCUMENTS_LIMIT } from '../../pages/api/documents'
 import { formatDateToLocal } from '../../utils/utils'
 import Metadata from '../Molecules/Metadata'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-import { useTranslation } from 'next-i18next'
 
 export interface PageProps {
   documentCategory: DocumentCategoryFragment
@@ -20,7 +20,7 @@ export interface SortOption {
   title: string
 }
 
-const DocumentCategoryPage = ({ documentCategory, locale = 'sk' }: PageProps) => {
+function DocumentCategoryPage({ documentCategory, locale = 'sk' }: PageProps) {
   const { t } = useTranslation('common')
   const [documentData, setDocumentData] = React.useState<DocumentResponse>({
     documents: [],
@@ -58,8 +58,7 @@ const DocumentCategoryPage = ({ documentCategory, locale = 'sk' }: PageProps) =>
   }
 
   return (
-    <>
-      <SectionContainer>
+    <SectionContainer>
         <PageBreadcrumbs page={documentCategory.page} documentCategory={documentCategory} />
         <PageTitle title={documentCategory.name ?? ''} hasDivider={false} />
         <SearchBar
@@ -102,7 +101,6 @@ const DocumentCategoryPage = ({ documentCategory, locale = 'sk' }: PageProps) =>
           </div>
         </div>
       </SectionContainer>
-    </>
   )
 }
 

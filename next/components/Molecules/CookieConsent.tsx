@@ -1,13 +1,13 @@
-import React from 'react'
-import Consent, { Cookies } from 'react-cookie-consent'
-import Modal from 'react-modal'
-import Close from '@assets/images/hamburger-close.svg'
-import cx from 'classnames'
 import ChevronDown from '@assets/images/chevron-down.svg'
 import ChevronUp from '@assets/images/chevron-up.svg'
+import Close from '@assets/images/hamburger-close.svg'
+import cx from 'classnames'
+import Link from 'next/link'
+import React from 'react'
+import Consent, { Cookies } from 'react-cookie-consent'
 import * as ReactGA from 'react-ga'
 import { useTranslation } from 'react-i18next'
-import Link from 'next/link'
+import Modal from 'react-modal'
 
 const CUSTOM_STYLES = {
   content: {
@@ -22,7 +22,7 @@ const CUSTOM_STYLES = {
   },
 }
 
-const CookieConsent = () => {
+function CookieConsent() {
   const { t } = useTranslation(['common'])
   const [showModal, setShowModal] = React.useState(false)
   const [isConsentSubmitted, setConsent] = React.useState(false)
@@ -93,7 +93,7 @@ const CookieConsent = () => {
         <div>
           <div className="flex w-full justify-between items-center mb-[10px] px-5 md:p-5 border-b">
             <div>{t('cookie_consent_modal_title')}</div>
-            <Link href={'javascript:void(0)'}>
+            <Link href="javascript:void(0)">
               <a
                 className="cursor-pointer p-1 m-3 md:m-0 md:p-2 rounded-md border-2 border-gray-900"
                 onClick={closeModal}
@@ -195,7 +195,7 @@ const CookieConsent = () => {
       >
         <div className="text-sm" tabIndex={1}>
           {t('cookie_consent_body')}{' '}
-          <Link href={'javascript:void(0)'}>
+          <Link href="javascript:void(0)">
             <a className="text-red-600 underline cursor-pointer" onClick={() => setShowModal(true)} tabIndex={2}>
               {t('cookie_consent_setting')}
             </a>
@@ -212,7 +212,7 @@ interface SwitchProps {
   disabled?: boolean
 }
 
-const Switch = ({ value, onValueChange, disabled }: SwitchProps) => {
+function Switch({ value, onValueChange, disabled }: SwitchProps) {
   const { t } = useTranslation(['common'])
   return (
     <button
@@ -252,7 +252,7 @@ interface PanelProps {
   setPanel: (value: string) => void
 }
 
-const Panel = ({ title, content, value, onValueChange, isOpen, setPanel }: PanelProps) => {
+function Panel({ title, content, value, onValueChange, isOpen, setPanel }: PanelProps) {
   const { t } = useTranslation(['common'])
   return (
     <>

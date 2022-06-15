@@ -1,7 +1,8 @@
-import React, { MouseEvent } from 'react'
-import cx from 'classnames'
-import ThumbUp from '@assets/images/thumb-up.svg'
 import ThumbDown from '@assets/images/thumb-down.svg'
+import ThumbUp from '@assets/images/thumb-up.svg'
+import cx from 'classnames'
+import React, { MouseEvent } from 'react'
+
 import { Button } from '../Button/Button'
 
 export interface SiteUsefullnessProps {
@@ -13,14 +14,14 @@ export interface SiteUsefullnessProps {
   secondOption?: string
 }
 
-export const SiteUsefullness = ({
+export function SiteUsefullness({
   className,
   title,
   thankYouMessage,
   firstOption,
   secondOption,
   onButtonClick,
-}: SiteUsefullnessProps) => {
+}: SiteUsefullnessProps) {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
 
   const handleClick = (e: MouseEvent) => {

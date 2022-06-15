@@ -1,5 +1,5 @@
-import cx from 'classnames'
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
+import cx from 'classnames'
 import React from 'react'
 
 export interface IRadioOption {
@@ -23,7 +23,7 @@ interface RadioGroupProps<T extends IRadioOption> {
   required?: boolean | undefined
 }
 
-export const RadioGroup = <T extends IRadioOption>({
+export function RadioGroup<T extends IRadioOption>({
   id,
   wrapperClassName,
   className,
@@ -35,7 +35,7 @@ export const RadioGroup = <T extends IRadioOption>({
   onChange,
   value,
   required,
-}: RadioGroupProps<T>) => {
+}: RadioGroupProps<T>) {
   return (
     <div className={wrapperClassName}>
       {/* Label */}
@@ -50,7 +50,7 @@ export const RadioGroup = <T extends IRadioOption>({
         <RadioGroupPrimitive.Root
           aria-label={labelContent}
           aria-invalid={hasError}
-          aria-errormessage={errorMessage ? id + '_err' : null}
+          aria-errormessage={errorMessage ? `${id  }_err` : null}
           className={className}
           onValueChange={onChange}
           value={value}
@@ -90,7 +90,7 @@ export const RadioGroup = <T extends IRadioOption>({
 
         {/* Error Message */}
         {hasError && errorMessage && (
-          <p id={id + '_err'} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
+          <p id={`${id  }_err`} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
             {errorMessage}
           </p>
         )}

@@ -1,10 +1,11 @@
+import FbLogo from '@assets/images/fb-logo.svg'
+import IgLogo from '@assets/images/ig-logo.svg'
+import YtLogo from '@assets/images/yt-logo.svg'
 import { FooterQuery } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import FbLogo from '@assets/images/fb-logo.svg'
-import IgLogo from '@assets/images/ig-logo.svg'
-import YtLogo from '@assets/images/yt-logo.svg'
+
 import { Accordion } from '../Accordion/Accordion'
 import { Link } from '../Link/Link'
 
@@ -34,8 +35,8 @@ export interface FooterProps {
   copyrightText?: string
 }
 
-const FooterSection = ({ col, i }: { col: FooterQuery['footer']['footerColumns'][0]; i: number }) => (
-  <div
+function FooterSection({ col, i }: { col: FooterQuery['footer']['footerColumns'][0]; i: number }) {
+  return <div
     key={col.title}
     className={cx('pt-6 pb-40', {
       'border-l border-gray-universal-100 pl-8': i !== 0,
@@ -64,9 +65,9 @@ const FooterSection = ({ col, i }: { col: FooterQuery['footer']['footerColumns']
       )}
     </div>
   </div>
-)
+}
 
-export const Footer = ({
+export function Footer({
   className,
   siteMap,
   gdpr,
@@ -76,7 +77,7 @@ export const Footer = ({
   youtubeUrl,
   footerColumns,
   copyrightText,
-}: FooterProps) => {
+}: FooterProps) {
   const { t } = useTranslation('common')
   const [openFooter, setOpenFooter] = useState('')
 
@@ -141,7 +142,7 @@ export const Footer = ({
 
       <div className="lg:container lg:p-6 pb-4 lg:pb-0 text-gray-universal-70 text-xs flex flex-col lg:flex-row lg:justify-between lg:items-center">
         <p className="py-4 lg:py-0">
-          &copy; {copyrightText ? copyrightText : `${new Date().getFullYear()} ${t('pageTitle')}`}
+          &copy; {copyrightText || `${new Date().getFullYear()} ${t('pageTitle')}`}
         </p>
         <div className="flex flex-col lg:flex-row lg:items-center gap-x-8">
           {siteMap && (

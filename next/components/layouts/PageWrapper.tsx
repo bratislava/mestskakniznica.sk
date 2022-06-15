@@ -23,7 +23,7 @@ interface IProps {
   slug?: string
 }
 
-const PageWrapper = ({ children, locale, localizations = [], slug }: IProps) => {
+function PageWrapper({ children, locale, localizations = [], slug }: IProps) {
   const [_, { language }] = useTranslation()
 
   const pageLocalizations: PageLocalization[] = useMemo(() => {
@@ -67,9 +67,9 @@ export const otherLocale = (locale: string, localizations: PageLocalization[]): 
 
   if (targetLocalization) {
     return { locale: targetLocale, path: targetLocalization.slug || '' }
-  } else {
+  } 
     return { locale: targetLocale, path: localePath(targetLocale, '') }
-  }
+  
 }
 
 export default PageWrapper

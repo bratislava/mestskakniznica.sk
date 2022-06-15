@@ -1,7 +1,8 @@
-import cx from 'classnames'
-import { Input, InputProps } from '../Input/Input'
 import CalendarIcon from '@assets/images/calendar.svg'
 import ClockIcon from '@assets/images/clock.svg'
+import cx from 'classnames'
+
+import { Input, InputProps } from '../Input/Input'
 
 export interface DateTimeSelectProps extends InputProps {
   type: 'date' | 'time'

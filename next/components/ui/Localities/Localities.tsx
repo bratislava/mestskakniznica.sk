@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
-import cx from 'classnames'
-// import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
-import Mapbox, { MapRef, Marker } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+
 import MarkerIcon from '@assets/images/marker.svg'
-import { maxBy, minBy } from 'lodash'
 import {
   ComponentAddressAddressInput,
   ComponentLocalityPartsLocalityOpeningHourInput,
 } from '@bratislava/strapi-sdk-city-library'
+import cx from 'classnames'
+import { maxBy, minBy } from 'lodash'
+import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+// import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
+import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
 export interface ILocality {
   localityTitle?: string
@@ -51,12 +52,12 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
   useEffect(() => {
     setBounds([
       [
-        minBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ?? 17.107748,
-        minBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ?? 48.148598,
+        minBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ?? 17.107_748,
+        minBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ?? 48.148_598,
       ],
       [
-        maxBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ?? 17.107748,
-        maxBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ?? 48.148598,
+        maxBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ?? 17.107_748,
+        maxBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ?? 48.148_598,
       ],
     ] as [[number, number], [number, number]])
   }, [localities])
@@ -65,7 +66,7 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
     setBrowser((process as any).browser)
   }, [])
 
-  return localities.length ? (
+  return localities.length > 0 ? (
     <section className="">
       <h2 className="text-lg text-center md:text-left py-12">{t('localitiesTitle')}</h2>
 
@@ -92,7 +93,7 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
                   duration: 0,
                 })
               }}
-              cooperativeGestures={true}
+              cooperativeGestures
             >
               {localities
                 .filter((locality) => locality.localityLatitude && locality.localityLongitude)
@@ -134,8 +135,7 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
                 hideOpeningHours = true,
               },
               index
-            ) => {
-              return (
+            ) => (
                 <div
                   className={cx({
                     'lg:border-l-0': index === 0 && !altDesign,
@@ -176,7 +176,6 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
                   </Link>
                 </div>
               )
-            }
           )}
         </div>
       </div>

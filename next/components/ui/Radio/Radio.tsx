@@ -3,8 +3,8 @@ import React from 'react'
 
 type RadioProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-export const Radio = ({ className, children, ...props }: RadioProps) => (
-  <label className={cx('cursor-pointer flex items-center gap-3.5 text-base', className)}>
+export function Radio({ className, children, ...props }: RadioProps) {
+  return <label className={cx('cursor-pointer flex items-center gap-3.5 text-base', className)}>
     <input type="radio" className="hidden" {...props} />
     <div
       className={cx(
@@ -25,4 +25,4 @@ export const Radio = ({ className, children, ...props }: RadioProps) => (
       {children}
     </p>
   </label>
-)
+}

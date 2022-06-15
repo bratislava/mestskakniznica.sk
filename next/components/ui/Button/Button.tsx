@@ -8,7 +8,7 @@ type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButton
   variant?: 'primary' | 'secondary' | 'tertiary' | 'plain-primary' | 'plain-secondary' | 'plain-white'
 }
 
-export const Button = ({
+export function Button({
   children,
   className,
   icon,
@@ -17,8 +17,8 @@ export const Button = ({
   shape = 'default',
   variant = 'primary',
   ...props
-}: ButtonProps) => (
-  <button
+}: ButtonProps) {
+  return <button
     className={cx('base-button focus:outline outline-offset-2 outline-1', className, {
       'space-x-3': !!icon,
 
@@ -57,6 +57,6 @@ export const Button = ({
     </span>
     {iconPosition === 'right' && icon}
   </button>
-)
+}
 
 export default Button

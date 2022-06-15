@@ -1,18 +1,18 @@
-import MobileNavigationItem from './MobileNavigationItem'
 import Accessibility from '@assets/images/accessibility.svg'
-import { useEffect } from 'react'
-import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
-import Link from 'next/link'
-
 import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+import { useEffect } from 'react'
+
+import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
+import MobileNavigationItem from './MobileNavigationItem'
 
 interface MobileNavigationProps {
   onClose: () => void
   menus: NonNullable<MenusQuery['menus']>
 }
 
-export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
+export function MobileNavigation({ onClose, menus }: MobileNavigationProps) {
   const { t } = useTranslation(['common', 'homepage'])
 
   useEffect(() => {
@@ -45,9 +45,9 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
               </a>
             </Link>
           </div>
-          {/*<div className="px-5 h-full flex items-center cursor-pointer">*/}
-          {/*  <Accessibility />*/}
-          {/*</div>*/}
+          {/* <div className="px-5 h-full flex items-center cursor-pointer"> */}
+          {/*  <Accessibility /> */}
+          {/* </div> */}
         </div>
         <button className="px-5" onClick={onClose}>
           X

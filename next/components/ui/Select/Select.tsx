@@ -1,6 +1,6 @@
+import ChevronDown from '@assets/images/chevron-down.svg'
 import cx from 'classnames'
 import * as React from 'react'
-import ChevronDown from '@assets/images/chevron-down.svg'
 
 export interface ISelectOption {
   key: string
@@ -23,7 +23,7 @@ interface IProps<T extends ISelectOption> {
   required?: boolean
 }
 
-export const Select = <T extends ISelectOption>({
+export function Select<T extends ISelectOption>({
   id,
   className,
   selectClassName,
@@ -37,7 +37,7 @@ export const Select = <T extends ISelectOption>({
   helpText,
   required,
   ...rest
-}: IProps<T>) => {
+}: IProps<T>) {
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     if (!onChange) return
 
@@ -67,7 +67,7 @@ export const Select = <T extends ISelectOption>({
           value={value}
           placeholder={placeholder ?? placeholder}
           aria-invalid={hasError}
-          aria-errormessage={errorMessage ? id + '_err' : null}
+          aria-errormessage={errorMessage ? `${id  }_err` : null}
           {...rest}
         >
           {options.map((option) => (
@@ -81,7 +81,7 @@ export const Select = <T extends ISelectOption>({
 
       {/* Error Message */}
       {hasError && errorMessage && (
-        <p id={id + '_err'} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
+        <p id={`${id  }_err`} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
           {errorMessage}
         </p>
       )}

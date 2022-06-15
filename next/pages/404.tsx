@@ -1,31 +1,32 @@
-import { SearchBar } from '@bratislava/ui-city-library'
-import { useRouter } from 'next/router'
-import { FormEvent, useState } from 'react'
-import { useTranslation } from 'next-i18next'
 import ClearCircle from '@assets/images/clear-circle.svg'
 import SearchIcon from '@assets/images/search-404.svg'
-import ErrorPage from '../components/pages/ErrorPage'
-import PageWrapper from '../components/layouts/PageWrapper'
+import { SearchBar } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { FormEvent, useState } from 'react'
+
+import PageWrapper from '../components/layouts/PageWrapper'
+import ErrorPage from '../components/pages/ErrorPage'
 
 interface ICustomProps {
   locale: string
 }
 
-const Custom404 = ({ locale }: ICustomProps) => {
+function Custom404({ locale }: ICustomProps) {
   const { t } = useTranslation()
 
   const [searchedTerm, setSearchedTerm] = useState('')
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
-    //TODO: search redirect
+    // TODO: search redirect
   }
   const { asPath } = useRouter()
 
   return (
-    <PageWrapper locale={locale ?? 'sk'} slug={'/404'}>
+    <PageWrapper locale={locale ?? 'sk'} slug="/404">
       <ErrorPage code={404}>
         <header className="text-xl mb-6">
           <h1>{t('pageNotFound')}</h1>

@@ -1,8 +1,8 @@
-import cx from 'classnames'
 import MinusIcon from '@assets/images/minus.svg'
 import PlusIcon from '@assets/images/plus.svg'
-import * as React from 'react'
 import { InputProps } from '@bratislava/ui-city-library'
+import cx from 'classnames'
+import * as React from 'react'
 
 interface NumberSwitcherProps extends InputProps {
   id?: string
@@ -19,7 +19,7 @@ interface NumberSwitcherProps extends InputProps {
 
 const clampValue = (n: number) => Math.max(1, n)
 
-export const NumberSwitcher = ({
+export function NumberSwitcher({
   className,
   value,
   hasError,
@@ -30,7 +30,7 @@ export const NumberSwitcher = ({
   required,
   inputClassName,
   ...props
-}: NumberSwitcherProps) => {
+}: NumberSwitcherProps) {
   return (
     <div className={className}>
       {/* Label */}
@@ -64,7 +64,7 @@ export const NumberSwitcher = ({
             value={value}
             aria-invalid={hasError}
             aria-required={required}
-            aria-errormessage={errorMessage ? id + '_err' : null}
+            aria-errormessage={errorMessage ? `${id  }_err` : null}
             {...props}
           />
         </div>
@@ -82,7 +82,7 @@ export const NumberSwitcher = ({
 
       {/* Error Message */}
       {hasError && errorMessage && (
-        <p id={id + '_err'} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
+        <p id={`${id  }_err`} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
           {labelContent} {errorMessage}
         </p>
       )}

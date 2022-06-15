@@ -1,5 +1,5 @@
-import cx from 'classnames'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import cx from 'classnames'
 
 export interface FlatTextCenterProps {
   className?: string
@@ -8,7 +8,7 @@ export interface FlatTextCenterProps {
   content?: string
 }
 
-export const FlatTextCenter = ({ className, imgSrc, alt, content }: FlatTextCenterProps) => {
+export function FlatTextCenter({ className, imgSrc, alt, content }: FlatTextCenterProps) {
   const { Markdown: UIMarkdown } = useUIContext()
   return (
     <div className={cx(className, 'space-y-10 max-w-[780px] m-auto float-none')}>

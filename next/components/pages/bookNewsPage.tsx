@@ -1,10 +1,10 @@
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
-
 import { BookNewsDetail, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import * as React from 'react'
-import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-import { OpacBook } from '../../utils/opac'
 import { useTranslation } from 'react-i18next'
+
+import { OpacBook } from '../../utils/opac'
+import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface BookNewsPageProps {
   page: PageFragment
@@ -13,7 +13,7 @@ export interface BookNewsPageProps {
 
 export const BOOKS_PER_PAGE = 24
 
-const BookNewsPage = ({ page, books }: BookNewsPageProps) => {
+function BookNewsPage({ page, books }: BookNewsPageProps) {
   const { t } = useTranslation('common')
   const [displayedBooks, setDisplayedBooks] = React.useState<OpacBook[]>(books.slice(0, BOOKS_PER_PAGE))
   const [pageNumber, setPageNumber] = React.useState(1)
@@ -39,7 +39,7 @@ const BookNewsPage = ({ page, books }: BookNewsPageProps) => {
       <SectionContainer>
         <PageTitle title={page?.title ?? ''} description={page?.description ?? ''} />
 
-        {displayedBooks.length ? (
+        {displayedBooks.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-8 mt-8">
             {displayedBooks.map(
               (

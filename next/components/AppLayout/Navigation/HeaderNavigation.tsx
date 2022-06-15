@@ -1,13 +1,14 @@
-import HeaderNavigationItem from './HeaderNavigationItem'
 import Accessibility from '@assets/images/accessibility.svg'
-import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
+import { Time24To12Format } from '@utils/utils'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import { Time24To12Format } from '@utils/utils'
+
+import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
+import HeaderNavigationItem from './HeaderNavigationItem'
 
 interface HeaderNavigationProps {}
 
-const HeaderNavigation = (_props: HeaderNavigationProps) => {
+function HeaderNavigation(_props: HeaderNavigationProps) {
   const { localizations, locale } = usePageWrapperContext()
   const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
   const { t } = useTranslation('common')
@@ -22,9 +23,9 @@ const HeaderNavigation = (_props: HeaderNavigationProps) => {
 
   return (
     <div className="container flex flex-wrap border-gray-900 pr-0">
-      {/*<div className="border-gray-900 border-l w-10 p-2.5">*/}
-      {/*  <Accessibility />*/}
-      {/*</div>*/}
+      {/* <div className="border-gray-900 border-l w-10 p-2.5"> */}
+      {/*  <Accessibility /> */}
+      {/* </div> */}
       <div className="group border-l border-gray-900">
         <HeaderNavigationItem url={t('openingHoursPageLink')}>
           <div className="font-normal px-[12px] text-gray-900 hover:underline">{openingHours}</div>

@@ -1,16 +1,16 @@
 import BookReader from '@assets/images/book-reader.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import Home from '@assets/images/home.svg'
-import book_reader from '../../assets/images/book-reader.png'
-
 import { SectionContainer } from '@bratislava/ui-city-library'
+
+import book_reader from '../../assets/images/book-reader.png'
 
 interface IProps {
   code: number
   children?: React.ReactNode
 }
 
-const ErrorPage = ({ code, children }: IProps) => {
+function ErrorPage({ code, children }: IProps) {
   return (
     <SectionContainer>
       <div className="border-gray-700">
@@ -27,7 +27,7 @@ const ErrorPage = ({ code, children }: IProps) => {
         </div>
         <div className="flex flex-col md:grid grid-cols-2 py-12 items-center">
           <div>{children}</div>
-          <img src={book_reader.src} alt={'book_readers'} height={book_reader.height} width={book_reader.width} />
+          <img src={book_reader.src} alt="book_readers" height={book_reader.height} width={book_reader.width} />
         </div>
       </div>
     </SectionContainer>

@@ -1,12 +1,13 @@
 import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library'
-import React from 'react'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
+
 import GalleryModal from './GalleryModal'
 
 export interface PageProps {
   gallery?: Array<ComponentLocalityPartsGalleryParts | null | undefined>
 }
-const GalleryBanner = ({ gallery }: PageProps) => {
+function GalleryBanner({ gallery }: PageProps) {
   const [showModal, setShowModal] = React.useState(false)
   const closeModal = () => {
     setShowModal(false)

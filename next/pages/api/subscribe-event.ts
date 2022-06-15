@@ -1,5 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { google } from 'googleapis'
+import { NextApiRequest, NextApiResponse } from 'next'
+
 import { client } from '../../utils/gql'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -23,8 +24,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       email: info.data.email,
     })
     res.send({ success: true })
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
     res.status(500).json({})
   }
 }

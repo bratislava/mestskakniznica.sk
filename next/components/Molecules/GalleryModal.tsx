@@ -1,8 +1,9 @@
+import Close from '@assets/images/hamburger-close.svg'
+import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library'
 import React from 'react'
 import Modal from 'react-modal'
-import Close from '@assets/images/hamburger-close.svg'
+
 import GalleryCarousel from './GalleryCarousel'
-import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library'
 
 const CUSTOM_STYLES = {
   content: {
@@ -20,7 +21,7 @@ export interface PageProps {
   gallery: Array<ComponentLocalityPartsGalleryParts | null | undefined>
 }
 
-const GalleryModal = ({ showModal, closeModal, gallery }: PageProps) => {
+function GalleryModal({ showModal, closeModal, gallery }: PageProps) {
   return (
     <Modal isOpen={showModal} onRequestClose={closeModal} style={CUSTOM_STYLES}>
       <div className="absolute top-4 right-4 flex w-full justify-end mb-[10px] cursor-pointer ">

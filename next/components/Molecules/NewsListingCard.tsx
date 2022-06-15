@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import { IEvent } from '../../utils/types'
 import { useTranslation } from 'next-i18next'
+
+import { IEvent } from '../../utils/types'
 import { formatDateToLocal } from '../../utils/utils'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
@@ -8,7 +9,7 @@ interface NewsProps {
   event: IEvent
 }
 
-const NewsListingCard = ({ event }: NewsProps) => {
+function NewsListingCard({ event }: NewsProps) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 

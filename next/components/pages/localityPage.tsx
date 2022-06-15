@@ -1,9 +1,9 @@
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
-import Sections from '../../components/Molecules/Sections'
-import { IEvent } from '../../utils/types'
-
 import { SectionContainer } from '@bratislava/ui-city-library'
+
+import { IEvent } from '../../utils/types'
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import Sections from "../Molecules/Sections"
 
 export interface PageProps {
   page: PageFragment
@@ -11,7 +11,7 @@ export interface PageProps {
   eventsListingUrl: string
 }
 
-const LocalityPage = ({ page, events, eventsListingUrl }: PageProps) => {
+function LocalityPage({ page, events, eventsListingUrl }: PageProps) {
   return (
     <>
       <SectionContainer>

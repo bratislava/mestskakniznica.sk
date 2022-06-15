@@ -1,5 +1,5 @@
-import cx from 'classnames'
 import ClearCircle from '@assets/images/clear-circle.svg'
+import cx from 'classnames'
 
 export interface ChipProps {
   className?: string
@@ -8,8 +8,8 @@ export interface ChipProps {
   onDelete?: () => void
 }
 
-export const Chip = ({ size, children, className, onDelete }: ChipProps) => (
-  <div
+export function Chip({ size, children, className, onDelete }: ChipProps) {
+  return <div
     className={cx('flex gap-x-1.5 items-center justify-center border border-input-stroke rounded-full', className, {
       'px-4 py-2': size === 'big',
       'px-3 py-1.5': size === 'medium',
@@ -26,4 +26,4 @@ export const Chip = ({ size, children, className, onDelete }: ChipProps) => (
     </div>
     {!!onDelete && <ClearCircle onClick={onDelete} className="text-black/60 cursor-pointer" />}
   </div>
-)
+}

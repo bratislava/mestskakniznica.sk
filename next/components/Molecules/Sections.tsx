@@ -14,7 +14,9 @@ import {
   Table,
   Video,
 } from '@bratislava/ui-city-library'
+import { TFunction, useTranslation } from 'next-i18next'
 import * as React from 'react'
+
 import {
   groupByAccordionCategory,
   groupByCategory,
@@ -38,15 +40,14 @@ import ReaderReservationForm from '../forms/ReaderReservationForm'
 import RechercheReservationForm from '../forms/RechercheReservationForm'
 import ServiceReservationForm from '../forms/ServiceReservationForm'
 import SpaceReservationForm from '../forms/SpaceReservationForm'
+import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm from '../forms/VenueRentalForm'
-import EventDetails from './EventDetails'
-import LocalityDetails from './LocalityDetails'
-import { TFunction, useTranslation } from 'next-i18next'
-import Metadata from './Metadata'
-import GalleryBanner from './GalleryBanner'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-import TabletReservationForm from '../forms/TabletReservationForm'
+import EventDetails from './EventDetails'
+import GalleryBanner from './GalleryBanner'
+import LocalityDetails from './LocalityDetails'
+import Metadata from './Metadata'
 
 interface dynamicObject {
   [key: string]: any
@@ -72,7 +73,9 @@ const FORM: dynamicObject = {
   aka_kniha_vam_v_kniznici_chyba: BookNotInLibraryForm,
 }
 
-const NullComponent = () => null
+function NullComponent() {
+  return null
+}
 
 export const getForm = (formType: string, key?: string, eventDetail?: IEvent) => {
   if (!formType) return NullComponent
@@ -90,7 +93,7 @@ export const getForm = (formType: string, key?: string, eventDetail?: IEvent) =>
   )
 }
 
-const Sections = ({
+function Sections({
   sections,
   events,
   eventsListingUrl,
@@ -100,7 +103,7 @@ const Sections = ({
   events?: IEvent[] | undefined
   eventsListingUrl?: string | undefined
   className?: string | undefined
-}) => {
+}) {
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
       {sections.map((section: any, index: any) => (
@@ -110,7 +113,7 @@ const Sections = ({
   )
 }
 
-const Section = ({
+function Section({
   section,
   events,
   eventsListingUrl,
@@ -118,7 +121,7 @@ const Section = ({
   section: SectionsFragment | null
   events: IEvent[] | undefined
   eventsListingUrl: string | undefined
-}) => {
+}) {
   const [openAccordion, setOpenAccordion] = React.useState('')
   const { t } = useTranslation(['common', 'homepage'])
   const { locale } = usePageWrapperContext()
@@ -153,8 +156,10 @@ const sectionContent = (
           mediaType={section.media?.mime?.split('/')[0] ?? ''}
         />
       )
+
     case 'ComponentSectionsGallery':
       return <GalleryBanner gallery={section.Gallery || undefined} />
+
     case 'ComponentSectionsFlatTextCenter':
       return (
         <FlatTextCenter
@@ -163,8 +168,10 @@ const sectionContent = (
           alt={section.image?.alternativeText || ''}
         />
       )
+
     case 'ComponentSectionsSubListing':
       return <SubListing title={section?.title || undefined} url={section.url || undefined} linkTitle={t('more')} />
+
     case 'ComponentSectionsFaq':
       return <Faq title={section.title ?? ''} questions={section?.questions ?? []} />
 
@@ -183,6 +190,7 @@ const sectionContent = (
 
     case 'ComponentSectionsSubpages':
       return <Subpages title={section.title ?? ''} subpages={parseSubpages(section)} />
+
     case 'ComponentSectionsTable':
       return (
         <Table
@@ -191,6 +199,7 @@ const sectionContent = (
           rows={section.rows ?? []}
         />
       )
+
     case 'ComponentSectionsAccordion':
       return (
         <>
@@ -246,8 +255,10 @@ const sectionContent = (
             ))}
         </>
       )
+
     case 'ComponentSectionsForm':
       return getForm(section.type || '', undefined, eventDetail || undefined)
+
     case 'ComponentSectionsEventDetails':
       return <EventDetails eventDetails={section} />
 
@@ -307,6 +318,7 @@ const sectionContent = (
           }))}
         />
       )
+
     default:
       return null
   }

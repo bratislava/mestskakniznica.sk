@@ -1,13 +1,14 @@
-import React from 'react'
+import { DocumentCategoryBySlugQuery, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import React from 'react'
+
+import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
+import PageWrapper from '../../components/layouts/PageWrapper'
 import DocumentCategoryPage from '../../components/pages/documentCategoryPage'
 import { client } from '../../utils/gql'
 import { AsyncServerProps } from '../../utils/types'
-import PageWrapper from '../../components/layouts/PageWrapper'
-import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
 import { shouldSkipStaticPaths } from '../../utils/utils'
-import { DocumentCategoryBySlugQuery, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 interface DocumentPageProps {
   slug: string
@@ -17,7 +18,7 @@ interface DocumentPageProps {
   documentCategory: NonNullable<DocumentCategoryBySlugQuery['documentCategoryBySlug']>
 }
 
-const Page = ({ documentCategory, locale, slug, menus, footer }: DocumentPageProps) => {
+function Page({ documentCategory, locale, slug, menus, footer }: DocumentPageProps) {
   return (
     <PageWrapper locale={locale ?? 'sk'} slug={slug ?? ''}>
       <DefaultPageLayout

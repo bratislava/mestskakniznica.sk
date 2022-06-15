@@ -1,7 +1,8 @@
+import Open from '@assets/images/open-in-new.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import cx from 'classnames'
+
 import FlatText from '../FlatText/FlatText'
-import Open from '@assets/images/open-in-new.svg'
 
 export type TExternalLinksSection = {
   description?: string
@@ -14,7 +15,7 @@ export interface ExternalLinksProps {
   sections?: TExternalLinksSection[]
 }
 
-export const ExternalLinks = ({ className, title, sections }: ExternalLinksProps) => {
+export function ExternalLinks({ className, title, sections }: ExternalLinksProps) {
   const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className, '')}>

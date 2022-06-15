@@ -1,19 +1,20 @@
 import { DateTimeSelect, Input } from '@bratislava/ui-city-library'
-import { LocalDate } from '@js-joda/core'
-import React from 'react'
-import { Controller, useForm, FormProvider } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import FormFooter from '../FormFooter'
-import { useTranslation } from 'next-i18next'
 import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
-import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
-import { options } from './options'
-import FormContainer, { phoneRegex } from '../FormContainer'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { LocalDate } from '@js-joda/core'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { Controller, FormProvider,useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
-const ReaderReservationForm = () => {
+import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
+import FormContainer, { phoneRegex } from '../FormContainer'
+import FormFooter from '../FormFooter'
+import { options } from './options'
+
+function ReaderReservationForm() {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
@@ -77,12 +78,12 @@ const ReaderReservationForm = () => {
     // additional params
     const body = {
       ...temp,
-      ...{
+      
         mg_subject: null,
         mg_email_to: 'info@mestskakniznica.sk',
         meta_sent_from: router.asPath,
-        meta_locale: router.locale,
-      },
+        meta_locale: router.locale
+      ,
     }
 
     // send email

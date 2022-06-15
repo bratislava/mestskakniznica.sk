@@ -1,5 +1,6 @@
 import { BasicDocumentFragment, FileCategory } from '@bratislava/strapi-sdk-city-library'
 import { NextApiRequest, NextApiResponse } from 'next'
+
 import { fetchDocuments, fetchFileCategories, getDocumentCount } from '../../utils/document'
 import { arrayify } from '../../utils/utils'
 

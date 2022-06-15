@@ -1,16 +1,17 @@
 import { Input, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
+import isEmpty from 'lodash/isEmpty'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import FormFooter from '../FormFooter'
-import FormContainer from '../FormContainer'
-import isEmpty from 'lodash/isEmpty'
-import { convertDataToBody } from '../../../utils/form-constants'
-import { useRouter } from 'next/router'
 
-const BookNotInLibraryForm = () => {
+import { convertDataToBody } from '../../../utils/form-constants'
+import FormContainer from '../FormContainer'
+import FormFooter from '../FormFooter'
+
+function BookNotInLibraryForm() {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
@@ -57,12 +58,12 @@ const BookNotInLibraryForm = () => {
     // additional params
     const body = {
       ...temp,
-      ...{
+      
         mg_subject: null,
         mg_email_to: 'info@mestskakniznica.sk',
         meta_sent_from: router.asPath,
-        meta_locale: router.locale,
-      },
+        meta_locale: router.locale
+      ,
     }
 
     // send email

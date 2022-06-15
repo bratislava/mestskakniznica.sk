@@ -18,12 +18,12 @@ class OpacClient {
 
   getLoadedBookNews = async (limit: any, offset: any) => {
     if (this._cache) return this._getBooks(limit, offset)
-    else return null
+    return null
   }
 
   fetchOpacBookNews = async () => {
     console.log('fetchOpacBookNews')
-    return await this._fetchData()
+    return this._fetchData()
   }
 
   private _getBooks = (limit: any, offset: any) => {
@@ -31,7 +31,7 @@ class OpacClient {
     const books = this._cache?.slice(offset, offset + limit)
 
     return {
-      books: books,
+      books,
       count: this._cache?.length,
     }
   }
@@ -87,13 +87,12 @@ class OpacClient {
     // !!!
     const newBooks: IBook[] = await page.evaluate(() => {
       const parsedBooks = []
-      const bookElements = document.getElementsByClassName('col-12 border-top-default')
+      const bookElements = document.querySelectorAll('.col-12.border-top-default')
 
-      for (let i = 0; i < bookElements.length; i++) {
-        const book = bookElements[i]
+      for (const book of bookElements) {
         const titleElement = book.querySelector('div .header-default')
         let title = titleElement?.textContent
-        if (title && title.length > 15) title = title.substring(0, 20) + '...'
+        if (title && title.length > 15) title = `${title.slice(0, 20)  }...`
 
         const bookPath = book.querySelector('div .header-default')?.getAttribute('href')
         const detailLink = `https://opac.mestskakniznica.sk/opac${bookPath}`

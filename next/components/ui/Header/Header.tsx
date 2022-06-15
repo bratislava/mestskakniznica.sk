@@ -1,11 +1,12 @@
+import Accessibility from '@assets/images/accessibility.svg'
+import ChevronRight from '@assets/images/chevron-right.svg'
+import ClearCircle from '@assets/images/clear-circle.svg'
+import SearchIcon from '@assets/images/search.svg'
 import cx from 'classnames'
 import React, { FormEvent } from 'react'
-import Accessibility from '@assets/images/accessibility.svg'
-import SearchIcon from '@assets/images/search.svg'
-import ClearCircle from '@assets/images/clear-circle.svg'
+
 import { Link } from '../Link/Link'
 import { SearchBar } from '../SearchBar/SearchBar'
-import ChevronRight from '@assets/images/chevron-right.svg'
 
 export interface IProps extends LanguageSelectProps {
   className?: string
@@ -39,8 +40,8 @@ interface LanguageOption {
   title: string
 }
 
-const Logo = ({ logoTitle }: { logoTitle: string }) => (
-  <div className="flex uppercase text-gray-universal-100 text-[27px]">
+function Logo({ logoTitle }: { logoTitle: string }) {
+  return <div className="flex uppercase text-gray-universal-100 text-[27px]">
     {logoTitle.split(' ').map((part, index) => (
       <span
         key={index}
@@ -53,14 +54,14 @@ const Logo = ({ logoTitle }: { logoTitle: string }) => (
       </span>
     ))}
   </div>
-)
+}
 
-const LanguageSelect = ({
+function LanguageSelect({
   className,
   languages: options,
   currentLanguage: current,
   onLanguageChange: onChange,
-}: LanguageSelectProps) => {
+}: LanguageSelectProps) {
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     if (!onChange) return
 
@@ -82,8 +83,8 @@ const LanguageSelect = ({
   )
 }
 
-const HeaderTopItems = ({ openingHours, ...languageSelectProps }: { openingHours: string }) => (
-  <div className="flex">
+function HeaderTopItems({ openingHours, ...languageSelectProps }: { openingHours: string }) {
+  return <div className="flex">
     <span className="px-3 border-l border-gray-universal-100 h-full flex items-center">
       <Accessibility className="cursor-pointer" />
     </span>
@@ -98,9 +99,9 @@ const HeaderTopItems = ({ openingHours, ...languageSelectProps }: { openingHours
       {...languageSelectProps}
     />
   </div>
-)
+}
 
-const SearchBox = () => {
+function SearchBox() {
   const [searchedTerm, setSearchedTerm] = React.useState('')
   const baseUrl = 'https://opac.mestskakniznica.sk/opac'
 
@@ -123,8 +124,8 @@ const SearchBox = () => {
   )
 }
 
-export const Header = ({ className, logoTitle, menuItems, openingHours, ...languageSelectProps }: IProps) => (
-  <div className={cx(className, 'w-full relative')}>
+export function Header({ className, logoTitle, menuItems, openingHours, ...languageSelectProps }: IProps) {
+  return <div className={cx(className, 'w-full relative')}>
     <div className="flex justify-between border-b border-gray-universal-100">
       <Logo logoTitle={logoTitle} />
       <HeaderTopItems openingHours={openingHours} {...languageSelectProps} />
@@ -177,4 +178,4 @@ export const Header = ({ className, logoTitle, menuItems, openingHours, ...langu
       <SearchBox />
     </div>
   </div>
-)
+}

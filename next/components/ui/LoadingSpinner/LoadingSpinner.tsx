@@ -6,8 +6,8 @@ interface IProps {
   size?: 'small' | 'default' | 'medium'
 }
 
-export const LoadingSpinner = ({ className, size = 'default', text }: IProps) => (
-  <div className={cx('flex flex-col gap-20 items-center text-center', className)}>
+export function LoadingSpinner({ className, size = 'default', text }: IProps) {
+  return <div className={cx('flex flex-col gap-20 items-center text-center', className)}>
     <div
       style={{
         borderTopColor: 'currentColor',
@@ -20,6 +20,6 @@ export const LoadingSpinner = ({ className, size = 'default', text }: IProps) =>
     />
     {text && <p className="text-primary text-lg font-medium w-52">{text}</p>}
   </div>
-)
+}
 
 export default LoadingSpinner

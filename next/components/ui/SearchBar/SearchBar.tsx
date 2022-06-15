@@ -1,19 +1,20 @@
 import cx from 'classnames'
+
 import { Input, InputProps } from '../Input/Input'
 
 export interface SearchBarProps
   extends InputProps,
     React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {}
 
-export const SearchBar = ({
+export function SearchBar({
   className,
   inputClassName,
   value = '',
   iconRight,
   placeholder,
   ...props
-}: SearchBarProps) => (
-  <div className={className}>
+}: SearchBarProps) {
+  return <div className={className}>
     <Input
       placeholder={placeholder}
       labelContent={placeholder}
@@ -24,6 +25,6 @@ export const SearchBar = ({
       {...props}
     />
   </div>
-)
+}
 
 export default SearchBar

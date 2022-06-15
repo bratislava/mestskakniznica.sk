@@ -1,7 +1,7 @@
-import { CallToAction } from '@bratislava/ui-city-library/CallToAction/CallToAction'
 import ChevronRight from '@assets/images/chevron-right.svg'
-import { RowSubcategory } from '@bratislava/ui-city-library/RowSubcategory/RowSubcategory'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import { CallToAction } from '@bratislava/ui-city-library/CallToAction/CallToAction'
+import { RowSubcategory } from '@bratislava/ui-city-library/RowSubcategory/RowSubcategory'
 import React from 'react'
 
 export interface SubListingProps {
@@ -10,7 +10,7 @@ export interface SubListingProps {
   linkTitle?: string
 }
 
-export const SubListing = ({ title, url, linkTitle }: SubListingProps) => {
+export function SubListing({ title, url, linkTitle }: SubListingProps) {
   const { Link: UILink } = useUIContext()
   return (
     <UILink key={title} href={url}>

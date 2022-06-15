@@ -1,25 +1,23 @@
+import CloseIcon from '@assets/images/close.svg'
+import SearchIcon from '@assets/images/search.svg'
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
-
 import {
   Link,
-  PageTitle,
+ LoadingSpinner,  PageTitle,
   Pagination,
   RowFile,
   RowSubcategory,
   SearchBar,
   SectionContainer,
-  Select,
-} from '@bratislava/ui-city-library'
+  Select } from '@bratislava/ui-city-library'
 import NextLink from 'next/link'
-import * as React from 'react'
 import { useTranslation } from 'next-i18next'
-import SearchIcon from '@assets/images/search.svg'
-import CloseIcon from '@assets/images/close.svg'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
+import * as React from 'react'
+
 import { DocumentResponse, DOCUMENTS_LIMIT } from '../../pages/api/documents'
 import { formatDateToLocal } from '../../utils/utils'
 import Metadata from '../Molecules/Metadata'
-import { LoadingSpinner } from '@bratislava/ui-city-library'
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface PageProps {
   page: PageFragment
@@ -30,7 +28,7 @@ export interface SortOption {
   title: string
 }
 
-const DocumentsPage = ({ page }: PageProps) => {
+function DocumentsPage({ page }: PageProps) {
   const { t } = useTranslation('common')
   const [documentData, setDocumentData] = React.useState<DocumentResponse>({
     documents: [],

@@ -1,17 +1,17 @@
-import { Button, Input } from '@bratislava/ui-city-library'
-import cx from 'classnames'
-import React, { FormEvent } from 'react'
-import { Controller, useFieldArray, useFormContext, useFormState } from 'react-hook-form'
-import { useTranslation } from 'next-i18next'
 import ClearCircle from '@assets/images/clear-circle.svg'
 import PlusIcon from '@assets/images/plus.svg'
+import { Button, Input } from '@bratislava/ui-city-library'
+import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
+import React, { FormEvent } from 'react'
+import { Controller, useFieldArray, useFormContext, useFormState } from 'react-hook-form'
 
 interface Props {
   className?: string
   showLinkInput?: boolean
 }
 
-const BookListExtended = ({ className, showLinkInput = false }: Props) => {
+function BookListExtended({ className, showLinkInput = false }: Props) {
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation('forms')
@@ -46,8 +46,8 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
         <div
           key={field.id}
           className={cx('flex flex-col gap-y-6 w-full border p-6 mb-6 relative', {
-            'border-input-stroke': !errors?.['books']?.[index],
-            'base-input--with-error': errors?.['books']?.[index],
+            'border-input-stroke': !errors?.books?.[index],
+            'base-input--with-error': errors?.books?.[index],
           })}
         >
           {fields.length > 1 && (

@@ -1,9 +1,9 @@
-import { Button } from '@bratislava/ui-city-library'
-import React from 'react'
-import cx from 'classnames'
 import CheckMark from '@assets/images/check-mark.svg'
 import CloseMark from '@assets/images/close.svg'
+import { Button } from '@bratislava/ui-city-library'
+import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 type IProps = {
   className?: string
@@ -13,13 +13,13 @@ type IProps = {
   errorMessage?: string
 }
 
-const FormSubmittedComponent = ({
+function FormSubmittedComponent({
   className,
   onBackToFormClick,
   successTitle,
   successMessage,
   errorMessage,
-}: IProps) => {
+}: IProps) {
   const { t } = useTranslation('forms')
 
   return (

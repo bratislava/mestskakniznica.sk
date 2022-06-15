@@ -1,5 +1,5 @@
-import cx from 'classnames'
 import ErrorOutline from '@assets/images/error-outline.svg'
+import cx from 'classnames'
 
 export interface InputProps
   extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
@@ -14,7 +14,7 @@ export interface InputProps
   inputClassName?: string
 }
 
-export const Input = ({
+export function Input({
   className,
   id,
   required,
@@ -28,13 +28,13 @@ export const Input = ({
   inputClassName,
   labelClassName,
   ...props
-}: InputProps) => (
-  <div className={className}>
+}: InputProps) {
+  return <div className={className}>
     {/* Label */}
     {labelContent && (
       <label
         className={cx(labelClassName, 'text-xs text-gray-universal-100 mb-0.5 opacity-80')}
-        id={id + '_label'}
+        id={`${id  }_label`}
         htmlFor={id}
       >
         {labelContent}
@@ -57,7 +57,7 @@ export const Input = ({
         })}
         aria-invalid={hasError}
         aria-required={required}
-        aria-errormessage={errorMessage ? id + '_err' : null}
+        aria-errormessage={errorMessage ? `${id  }_err` : null}
         {...props}
       />
 
@@ -74,9 +74,9 @@ export const Input = ({
     {/* Error Message */}
     {hasError && errorMessage && (
       <p
-        id={id + '_err'}
+        id={`${id  }_err`}
         className={cx('text-xs text-error mt-2', { hidden: !hasError })}
-        aria-labelledby={id + '_label'}
+        aria-labelledby={`${id  }_label`}
       >
         {labelContent} {errorMessage}
       </p>
@@ -95,4 +95,4 @@ export const Input = ({
       </p>
     )}
   </div>
-)
+}

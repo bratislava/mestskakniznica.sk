@@ -1,5 +1,6 @@
 import { BlogPostFragment } from '@bratislava/strapi-sdk-city-library'
 import { NextApiRequest, NextApiResponse } from 'next'
+
 import { fetchBlogPosts, getBlogPostsCount } from '../../utils/blogpost'
 import { arrayify } from '../../utils/utils'
 
@@ -15,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const posts = await fetchBlogPosts(id, limit, offset)
   const postsCount = await getBlogPostsCount()
   return res.json({
-    posts: posts,
+    posts,
     count: postsCount,
   })
 }

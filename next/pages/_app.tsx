@@ -1,16 +1,16 @@
-import { AppProps } from 'next/app'
-import Script from 'next/script'
 import './index.css'
-import React from 'react'
 
 import { UIContextProvider } from '@bratislava/common-frontend-ui-context'
+import { AppProps } from 'next/app'
 import Link from 'next/link'
-import { CityLibraryMarkdown } from '../components/Atoms/CityLibraryMarkdown'
+import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next'
+import React from 'react'
 
+import { CityLibraryMarkdown } from '../components/Atoms/CityLibraryMarkdown'
+import CookieConsent from '../components/Molecules/CookieConsent'
 import ErrorDisplay from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
-import CookieConsent from '../components/Molecules/CookieConsent'
 
 function CustomApp({ Component, pageProps, router }: AppProps): JSX.Element {
   if (pageProps.error) {

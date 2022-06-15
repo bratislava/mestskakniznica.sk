@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import puppeteer from 'puppeteer'
+
 import { newBookOpac } from '../../utils/types'
 
 const opacBooks = async (req: NextApiRequest, res: NextApiResponse) => {
-  //TODO: caching
+  // TODO: caching
 
   try {
     const browser = await puppeteer.launch({ headless: true })
@@ -13,12 +14,12 @@ const opacBooks = async (req: NextApiRequest, res: NextApiResponse) => {
     const newBooks: newBookOpac[] = await page.evaluate(async (): Promise<newBookOpac[]> => {
       try {
         return await new Promise((resolve) => {
-          const books = Array.from(document.getElementsByClassName('col-12 border-top-default'))
+          const books = [...document.querySelectorAll('.col-12.border-top-default')]
             .slice(0, 6)
             .filter((book) => !!book)
             .map((book) => {
               let title = book.querySelector('div .header-default')?.textContent || ''
-              if (title && title.length > 15) title = title.substring(0, 20) + '...'
+              if (title && title.length > 15) title = `${title.slice(0, 20)  }...`
 
               const imgSrc = book.querySelector('img')?.src || ''
               const authors: string[] = []

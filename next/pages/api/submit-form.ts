@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import mg from 'mailgun-js'
 import _ from 'lodash'
+import mg from 'mailgun-js'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 // TODO get domain and set based on that
 // TODO set to library email, edit to whatever for testing
@@ -22,7 +22,7 @@ const messenger = new mg({
   host: process.env.MAILGUN_HOST || '',
 })
 
-const available_emails = [
+const available_emails = new Set([
   'info@mestskakniznica.sk',
   'registracia@mestskakniznica.sk',
   'ivo.dobrovodsky@mestskakniznica.sk',
@@ -34,7 +34,7 @@ const available_emails = [
   // todo remove after testing
   'francviktor@gmail.com',
   'martin.pinter@bratislava.sk',
-]
+])
 
 // To send results of any form on the page to the email of city library,
 // simply use this endpoint, serializing the results of the form into a
@@ -44,7 +44,7 @@ const available_emails = [
 // TODO captcha ?
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    if (req.method !== 'POST' /*|| typeof req.body !== 'object'*/) {
+    if (req.method !== 'POST' /* || typeof req.body !== 'object' */) {
       return res.status(400).json({})
     }
 
@@ -52,7 +52,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { mg_subject, mg_email_to, meta_sent_from, meta_locale, ...rest } = body
 
-    if (!available_emails.includes(mg_email_to)) {
+    if (!available_emails.has(mg_email_to)) {
       console.log('email is not in whitelist')
       return res.status(500).json({})
     }
@@ -74,8 +74,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await messenger.messages().send(dataToSend)
 
     return res.status(200).json({})
-  } catch (e) {
-    console.error(e)
+  } catch (error) {
+    console.error(error)
     return res.status(500).json({})
   }
 }

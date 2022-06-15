@@ -1,20 +1,21 @@
-import { ReactComponent as Phone, ReactComponent as PhoneSvg } from '../../assets/images/phone.svg'
-import { ReactComponent as Mail, ReactComponent as MailSvg } from '../../assets/images/mail.svg'
-import SectionSvg from '@assets/images/section.svg'
 import ChevronRightSvg from '@assets/images/chevron-right.svg'
-import { Accordion, Button, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
+import SectionSvg from '@assets/images/section.svg'
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import {
   ComponentLocalityPartsLocalityOpeningHours,
   ComponentSectionsLocalityDetails,
 } from '@bratislava/strapi-sdk-city-library'
-import { useTranslation } from 'next-i18next'
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import { IEvent } from '../../utils/types'
+import { Accordion, Button, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
 import Link from 'next/link'
-import DateCardDisplay from '../Atoms/DateCardDispaly'
-import { dateTimeString } from '../../utils/utils'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
+import { useTranslation } from 'next-i18next'
 import React, { useMemo, useState } from 'react'
+
+import { ReactComponent as Mail, ReactComponent as MailSvg } from '../../assets/images/mail.svg'
+import { ReactComponent as Phone, ReactComponent as PhoneSvg } from '../../assets/images/phone.svg'
+import { IEvent } from '../../utils/types'
+import { dateTimeString } from '../../utils/utils'
+import DateCardDisplay from '../Atoms/DateCardDispaly'
+import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface PageProps {
   localityDetails: ComponentSectionsLocalityDetails
@@ -22,7 +23,7 @@ export interface PageProps {
   eventsListingUrl: string | undefined
 }
 
-const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProps) => {
+function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProps) {
   const { locale } = usePageWrapperContext()
   const { Markdown: UIMarkdown } = useUIContext()
   const { t } = useTranslation('common')
@@ -31,9 +32,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
   const listenAccordionState = (id: string, state: boolean) => {
     setOpenLocality(state ? id : '')
   }
-  const mainSection = useMemo(() => {
-    return localityDetails?.localitySections?.find((section) => section?.isMainSection)
-  }, [localityDetails?.localitySections])
+  const mainSection = useMemo(() => localityDetails?.localitySections?.find((section) => section?.isMainSection), [localityDetails?.localitySections])
 
   const dayString = (day: string, from: string | null, to: string | null) => {
     if (from === to || from == null || to == null)
@@ -56,8 +55,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
     section: ComponentLocalityPartsLocalityOpeningHours,
     onlyOpeningHours: boolean,
     showContactInfo: boolean
-  ) => {
-    return (
+  ) => (
       <div className="h-full">
         {showContactInfo && (
           <div className="mb-3">
@@ -133,19 +131,15 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
         )}
       </div>
     )
-  }
 
-  const scrollButton = (anchor: string, text: string) => {
-    return (
+  const scrollButton = (anchor: string, text: string) => (
       <a href={anchor} className="hover:underline cursor-pointer uppercase whitespace-nowrap">
         {text}
       </a>
     )
-  }
 
   return (
-    <>
-      <div className="flex flex-col lg:flex-row gap-16 pt-12">
+    <div className="flex flex-col lg:flex-row gap-16 pt-12">
         <div className="w-full lg:w-2/3">
           <div className="border-b border-gray-700 pb-10">
             <div className="text-[32px] py-[12px]">
@@ -312,7 +306,6 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           </div>
         </div>
       </div>
-    </>
   )
 }
 

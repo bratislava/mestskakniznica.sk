@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { google } from 'googleapis'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const oauth2Client = new google.auth.OAuth2(

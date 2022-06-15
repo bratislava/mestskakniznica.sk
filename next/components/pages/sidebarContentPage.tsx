@@ -1,19 +1,17 @@
-import * as React from 'react'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
-import Sections from '../../components/Molecules/Sections'
-
-import { PageFragment } from '@bratislava/strapi-sdk-city-library'
-import { parsePageLink, parseSidebar } from '../../utils/page'
-
-import { SectionContainer, Sidebar } from '@bratislava/ui-city-library'
-
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { SectionContainer, Sidebar } from '@bratislava/ui-city-library'
+import * as React from 'react'
+
+import { parsePageLink, parseSidebar } from '../../utils/page'
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import Sections from "../Molecules/Sections"
 
 export interface SidebarContentProps {
   page: PageFragment
 }
 
-const SidebarContentPage = ({ page }: SidebarContentProps) => {
+function SidebarContentPage({ page }: SidebarContentProps) {
   const { Markdown: UIMarkdown } = useUIContext()
   const sideBar = parseSidebar(page?.pageCategory ?? undefined, page?.slug ?? '')
 
@@ -40,7 +38,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
           <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-gray-700" />
           {/* Title */}
           <h1 className="col-span-12 mt-16 text-2xl md:col-span-7 row-start-1 md:col-start-6">{page?.title ?? ''}</h1>
-          {/* Description*/}
+          {/* Description */}
           <div className="col-span-12 md:col-span-7 mt-8">
             {page?.description && (
               <UIMarkdown paragraphClassName="text-sm" className="w-full text-sm" content={page.description ?? ''} />
@@ -51,7 +49,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
           </div>
         </div>
 
-        <div className="flex mt-8"></div>
+        <div className="flex mt-8" />
       </SectionContainer>
     </>
   )

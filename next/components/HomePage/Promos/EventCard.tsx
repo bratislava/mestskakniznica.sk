@@ -1,12 +1,13 @@
-import { dateTimeString } from '../../../utils/utils'
-import Link from 'next/link'
-import { IEvent } from '../../../utils/types'
-import TagsDisplay from '../../Atoms/TagsDisplay'
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import Image from 'next/image'
+import Link from 'next/link'
+
+import { IEvent } from '../../../utils/types'
+import { dateTimeString } from '../../../utils/utils'
+import DateCardDisplay from '../../Atoms/DateCardDispaly'
+import TagsDisplay from '../../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
-const EventCard = ({
+function EventCard({
   dateFrom,
   dateTo,
   eventTitle,
@@ -15,7 +16,7 @@ const EventCard = ({
   slug,
   eventLocality,
   eventCategory,
-}: IEvent) => {
+}: IEvent) {
   const { locale } = usePageWrapperContext()
 
   return (

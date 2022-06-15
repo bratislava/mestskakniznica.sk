@@ -1,9 +1,9 @@
 import {
   ComponentAddressAddressInput,
   ComponentGuestsGuest,
+  ComponentLocalityPartsLocalityOpeningHourInput,
   EventTags,
   Menu,
-  ComponentLocalityPartsLocalityOpeningHourInput,
 } from '@bratislava/strapi-sdk-city-library'
 
 export type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T

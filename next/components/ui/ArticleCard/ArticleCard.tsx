@@ -1,6 +1,6 @@
-import cx from 'classnames'
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import ChevronRight from '@assets/images/chevron-right.svg'
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import cx from 'classnames'
 
 export interface ArticleCardProps {
   className?: string
@@ -11,7 +11,7 @@ export interface ArticleCardProps {
   publishedDate?: string
 }
 
-export const ArticleCard = ({ className, title, pageLink, media, mediaType, publishedDate }: ArticleCardProps) => {
+export function ArticleCard({ className, title, pageLink, media, mediaType, publishedDate }: ArticleCardProps) {
   const { Link: UILink } = useUIContext()
 
   return (

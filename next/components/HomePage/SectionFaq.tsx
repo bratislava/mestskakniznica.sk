@@ -1,18 +1,16 @@
-import Link from 'next/link'
 import Arrow from '@assets/images/arrow-right.svg'
-import React, { useState } from 'react'
-
-import { Accordion, CallToAction } from '@bratislava/ui-city-library'
-import { useTranslation } from 'next-i18next'
-
-import { HomePageQuery } from '@bratislava/strapi-sdk-city-library'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import { HomePageQuery } from '@bratislava/strapi-sdk-city-library'
+import { Accordion, CallToAction } from '@bratislava/ui-city-library'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+import React, { useState } from 'react'
 
 interface SectionFaqProps {
   faqSection: NonNullable<HomePageQuery['homePage']>['faqSection']
 }
 
-const SectionFaq = ({ faqSection }: SectionFaqProps) => {
+function SectionFaq({ faqSection }: SectionFaqProps) {
   const { t } = useTranslation(['homepage', 'common'])
   const [openFaq, setOpenFaq] = useState('')
   const { Markdown: UIMarkdown } = useUIContext()
@@ -41,7 +39,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
             </div>
           ))}
         </div>
-        <div className="border-l border-gray-700"></div>
+        <div className="border-l border-gray-700" />
         <div className="w-full">
           <h2 className="text-md mb-8">{faqSection?.title ?? t('faqTitle')}</h2>
           {faqSection?.faqs?.map((faq) => (

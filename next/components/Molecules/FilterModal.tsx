@@ -6,7 +6,7 @@ interface FilterModalProps {
   children: React.ReactNode
 }
 
-export const FilterModal = ({ onClose, children, title }: FilterModalProps) => {
+export function FilterModal({ onClose, children, title }: FilterModalProps) {
   return (
     <div className="m-auto max-w-1180 fixed bg-white h-screen inset-x-0 top-0 z-30 border-gray-900 overflow-auto">
       <div className="flex justify-between items-center border-b h-[61px] border-gray-900 px-3">

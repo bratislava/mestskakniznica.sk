@@ -1,6 +1,7 @@
-import cx from 'classnames'
-import ChevronRight from '@assets/images/chevron-right.svg'
 import ArrowLeft from '@assets/images/arrow-left.svg'
+import ChevronRight from '@assets/images/chevron-right.svg'
+import cx from 'classnames'
+
 import { Link } from '../Link/Link'
 
 export interface SidebarProps {
@@ -16,8 +17,8 @@ export interface ICategory {
   href: string
 }
 
-export const Sidebar = ({ className, title, href, categories, activeCategory }: SidebarProps) => (
-  <div className={className}>
+export function Sidebar({ className, title, href, categories, activeCategory }: SidebarProps) {
+  return <div className={className}>
     <Link href={href} variant="plain" className="text-base flex items-center gap-x-4">
       <ArrowLeft />
       {title}
@@ -42,4 +43,4 @@ export const Sidebar = ({ className, title, href, categories, activeCategory }: 
       })}
     </div>
   </div>
-)
+}

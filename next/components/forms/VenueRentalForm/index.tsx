@@ -1,19 +1,20 @@
 import { DateTimeSelect, Input, Select, TextArea } from '@bratislava/ui-city-library'
-import { LocalDate } from '@js-joda/core'
-import React from 'react'
-import { Controller, useForm, FormProvider } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import FormFooter from '../FormFooter'
-import { useTranslation } from 'next-i18next'
-import FormContainer, { phoneRegex } from '../FormContainer'
-import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
 import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
-import { options, types } from './options'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { LocalDate } from '@js-joda/core'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { Controller, FormProvider,useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
-const VenueRentalForm = () => {
+import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
+import FormContainer, { phoneRegex } from '../FormContainer'
+import FormFooter from '../FormFooter'
+import { options, types } from './options'
+
+function VenueRentalForm() {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
@@ -81,12 +82,12 @@ const VenueRentalForm = () => {
     // additional params
     const body = {
       ...temp,
-      ...{
+      
         mg_subject: null,
         mg_email_to: 'ivo.dobrovodsky@mestskakniznica.sk',
         meta_sent_from: router.asPath,
-        meta_locale: router.locale,
-      },
+        meta_locale: router.locale
+      ,
     }
 
     // send email

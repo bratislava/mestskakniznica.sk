@@ -10,7 +10,7 @@ export interface TextAreaProps
   textAreaClassname?: string
 }
 
-export const TextArea = ({
+export function TextArea({
   className,
   children,
   labelContent,
@@ -21,7 +21,7 @@ export const TextArea = ({
   textAreaClassname,
   required,
   ...props
-}: TextAreaProps) => {
+}: TextAreaProps) {
   return (
     <div className={className}>
       {/* Label */}
@@ -39,7 +39,7 @@ export const TextArea = ({
           })}
           aria-invalid={hasError}
           aria-required={required}
-          aria-errormessage={errorMessage ? id + '_err' : null}
+          aria-errormessage={errorMessage ? `${id  }_err` : null}
           {...props}
         >
           {children}
@@ -48,7 +48,7 @@ export const TextArea = ({
 
       {/* Error Message */}
       {errorMessage && (
-        <p id={id + '_err'} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
+        <p id={`${id  }_err`} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
           {labelContent} {errorMessage}
         </p>
       )}

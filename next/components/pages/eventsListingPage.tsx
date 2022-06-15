@@ -1,23 +1,23 @@
-import DatePicker, { registerLocale } from 'react-datepicker'
-import { useMemo, useState } from 'react'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 import 'react-datepicker/dist/react-datepicker.css'
-import sk from 'date-fns/locale/sk'
-import enUs from 'date-fns/locale/en-US'
-import Section from '../../components/AppLayout/Section'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
+
 import CloseIcon from '@assets/images/close.svg'
 import DropdownIcon from '@assets/images/dropdown.svg'
-
-import { Accordion, Banner, Pagination, SectionContainer, Select } from '@bratislava/ui-city-library'
-
 import { EventPropertiesQuery, PageFragment } from '@bratislava/strapi-sdk-city-library'
-import { IEvent } from '../../utils/types'
-import SectionPromos from '../../components/HomePage/SectionPromos'
-import EventListingCard from '../../components/Molecules/EventListingCard'
+import { Accordion, Banner, Pagination, SectionContainer, Select } from '@bratislava/ui-city-library'
+import enUs from 'date-fns/locale/en-US'
+import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
-import { FilterModal } from '../../components/Molecules/FilterModal'
+import { useMemo, useState } from 'react'
+import DatePicker, { registerLocale } from 'react-datepicker'
+
+import { IEvent } from '../../utils/types'
+import Section from "../AppLayout/Section"
+import SectionPromos from "../HomePage/SectionPromos"
+import { usePageWrapperContext } from '../layouts/PageWrapper'
 import EventFilters from '../Molecules/EventFilters'
+import EventListingCard from "../Molecules/EventListingCard"
+import { FilterModal } from "../Molecules/FilterModal"
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 registerLocale('en', enUs)
 registerLocale('sk', sk)
@@ -37,7 +37,7 @@ export interface PageProps {
 
 const MAX_EVENTS_PER_PAGE = 16
 
-const Events = ({ page, promotedEvents, events, eventCategories, eventTags, eventLocalities }: PageProps) => {
+function Events({ page, promotedEvents, events, eventCategories, eventTags, eventLocalities }: PageProps) {
   const { t } = useTranslation('common')
   const [startDate, setStartDate] = useState<Date>(null)
   const [endDate, setEndDate] = useState<Date>(null)
@@ -128,9 +128,7 @@ const Events = ({ page, promotedEvents, events, eventCategories, eventTags, even
           if (eventTo >= filterFrom && eventFrom <= filterTo) return event
         }
         // If NOT filterTO
-        else {
-          if (eventFrom >= filterFrom || (filterFrom >= eventFrom && filterFrom <= eventTo)) return event
-        }
+        else if (eventFrom >= filterFrom || (filterFrom >= eventFrom && filterFrom <= eventTo)) return event
       } else {
         return event
       }
@@ -161,9 +159,7 @@ const Events = ({ page, promotedEvents, events, eventCategories, eventTags, even
     setFilteredEvents(eventsFiltered)
   }
 
-  const filteredEventsPaginated = useMemo(() => {
-    return filteredEvents.slice((currentPage - 1) * MAX_EVENTS_PER_PAGE, MAX_EVENTS_PER_PAGE * currentPage)
-  }, [filteredEvents, currentPage])
+  const filteredEventsPaginated = useMemo(() => filteredEvents.slice((currentPage - 1) * MAX_EVENTS_PER_PAGE, MAX_EVENTS_PER_PAGE * currentPage), [filteredEvents, currentPage])
 
   const pagesCount = useMemo(() => Math.ceil(filteredEvents.length / MAX_EVENTS_PER_PAGE), [filteredEvents])
 

@@ -1,9 +1,9 @@
 import { NewsLetter } from '@bratislava/ui-city-library'
-import React, { useState } from 'react'
-import * as yup from 'yup'
-import { FormProvider, useForm } from 'react-hook-form'
-import { useTranslation } from 'next-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useTranslation } from 'next-i18next'
+import React, { useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
 const schema = yup
   .object({
@@ -12,7 +12,7 @@ const schema = yup
   })
   .required()
 
-const NewsletterSection = () => {
+function NewsletterSection() {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -44,7 +44,7 @@ const NewsletterSection = () => {
       } else {
         setRespondMessage(t('subscribe_error_message'))
       }
-      //TODO: duplicate email gives error 500
+      // TODO: duplicate email gives error 500
       return
     }
 
@@ -53,9 +53,9 @@ const NewsletterSection = () => {
     setResStatus(true)
     methods.setValue('email', '')
     setRespondMessage(t('subscribe_success_message'))
-    //setSubscribed(true);
-    //TODO: after success remove email from input
-    //TODO: this would be better as hook or in component
+    // setSubscribed(true);
+    // TODO: after success remove email from input
+    // TODO: this would be better as hook or in component
   })
 
   return (

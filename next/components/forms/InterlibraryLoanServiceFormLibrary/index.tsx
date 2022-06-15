@@ -2,19 +2,20 @@ import { Button, CheckBox, Input, Link, TextArea } from '@bratislava/ui-city-lib
 import { yupResolver } from '@hookform/resolvers/yup'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
-import { useTranslation } from 'next-i18next'
 import * as yup from 'yup'
+
+import { convertDataToBody } from '../../../utils/form-constants'
+import { usePageWrapperContext } from '../../layouts/PageWrapper'
 import BookListExtended from '../BookList/BookListExtended'
+import FormContainer, { IBANRegex, phoneRegexOrEmpty } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
-import FormContainer, { IBANRegex, phoneRegexOrEmpty } from '../FormContainer'
-import { convertDataToBody } from '../../../utils/form-constants'
-import { useRouter } from 'next/router'
 
-const InterlibraryLoanServiceFormLibrary = () => {
+function InterlibraryLoanServiceFormLibrary() {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
@@ -100,12 +101,12 @@ const InterlibraryLoanServiceFormLibrary = () => {
     // additional params
     const body = {
       ...temp,
-      ...{
+      
         mg_subject: null,
         mg_email_to: 'info@mestskakniznica.sk',
         meta_sent_from: router.asPath,
-        meta_locale: router.locale,
-      },
+        meta_locale: router.locale
+      ,
     }
 
     // send email

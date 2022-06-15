@@ -1,5 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { google } from 'googleapis'
+import { NextApiRequest, NextApiResponse } from 'next'
+
 import { client } from '../../utils/gql'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -27,13 +28,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             end: { dateTime: eventSection.dateTo },
           },
         })
-        .catch((err) => {
-          console.log(err)
+        .catch((error) => {
+          console.log(error)
         })
     })
   }
   res.send('hey')
-  return
+  
 }
 
 export default handler

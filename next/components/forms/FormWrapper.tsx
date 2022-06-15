@@ -1,12 +1,13 @@
-import cx from 'classnames'
-import React from 'react'
-import FormSubmittedComponent from './FormSubmittedComponent'
 import CloseIcon from '@assets/images/close.svg'
+import cx from 'classnames'
 import Link from 'next/link'
+import React from 'react'
 
-export const phoneRegex = /(^(\+[\d]{1,3}|0) ?[0-9]{3} ?[0-9]{3} ?[0-9]{3}$)/
-export const postalCodeRegex = /^[0-9]{5}(?:-[0-9]{4})?$/
-export const IBANRegex = /^[A-Z]{2}(?:[ ]?[0-9]){13,30}$/
+import FormSubmittedComponent from './FormSubmittedComponent'
+
+export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
+export const postalCodeRegex = /^\d{5}(?:-\d{4})?$/
+export const IBANRegex = /^[A-Z]{2}(?: ?\d){13,30}$/
 
 interface IProps {
   className?: string
@@ -16,7 +17,7 @@ interface IProps {
   isSubmitted: boolean
 }
 
-const FormWrapper = ({ className, children, title, onSubmit, isSubmitted }: IProps) => {
+function FormWrapper({ className, children, title, onSubmit, isSubmitted }: IProps) {
   return (
     <div
       className={cx(className, 'lg:px-8 lg:pt-8 w-72 lg:w-full max-w-[680px] lg:border lg:border-gray-universal-100')}

@@ -1,10 +1,9 @@
-import NewsListing from '../Molecules/NewsListingCard'
-
-import { Link } from '@bratislava/ui-city-library'
-
 import { ComponentHomepageNewsSection } from '@bratislava/strapi-sdk-city-library'
+import { Link } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
+
 import { IEvent } from '../../utils/types'
+import NewsListing from '../Molecules/NewsListingCard'
 
 interface LibraryNewsProps {
   news: IEvent[]
@@ -26,7 +25,7 @@ export default function SectionLibraryNews({ news, newsSection }: LibraryNewsPro
       <div className="flex justify-center">
         <Link
           href={newsSection.newsSectionRedirectTo?.slug ?? '#'}
-          hasIcon={true}
+          hasIcon
           title={t('libraryNewsAll')}
           size="large"
         >

@@ -1,12 +1,13 @@
 import { BlogPostBySlugQuery, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
 import PageWrapper from '../../components/layouts/PageWrapper'
 import BlogPostPage from '../../components/pages/blogPostPage'
 import { client } from '../../utils/gql'
-import { shouldSkipStaticPaths, isPresent } from '../../utils/utils'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { isPresent,shouldSkipStaticPaths } from '../../utils/utils'
 
 interface BlogPostPageProps {
   slug: string
@@ -16,14 +17,12 @@ interface BlogPostPageProps {
   footer: FooterQuery['footer']
 }
 
-const Page = ({ post, slug, locale, menus, footer }: BlogPostPageProps) => {
+function Page({ post, slug, locale, menus, footer }: BlogPostPageProps) {
   const { t } = useTranslation('common')
-  const postData = post.localizations?.map((data) => {
-    return {
+  const postData = post.localizations?.map((data) => ({
       slug: t('mutation_blog_slug') + data.slug,
       locale: data.locale,
-    }
-  })
+    }))
   return (
     <PageWrapper locale={post.locale ?? 'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
       <DefaultPageLayout title={post.title} menus={menus} footer={footer}>

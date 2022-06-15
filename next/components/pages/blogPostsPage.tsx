@@ -1,13 +1,12 @@
-import * as React from 'react'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
-
-import { ArticleCard, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
-
 import { BlogPostFragment, PageFragment } from '@bratislava/strapi-sdk-city-library'
-import { BlogPostResponse } from '../../pages/api/blog-posts'
+import { ArticleCard, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
+import * as React from 'react'
+
+import { BlogPostResponse } from '../../pages/api/blog-posts'
 import { formatDateToLocal } from '../../utils/utils'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface BlogPostsPageProps {
   page: PageFragment
@@ -15,7 +14,7 @@ export interface BlogPostsPageProps {
 
 const LIMIT = 16
 
-const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
+function BlogPostsPage({ page }: BlogPostsPageProps) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
@@ -39,8 +38,7 @@ const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
   }
 
   return (
-    <>
-      <SectionContainer>
+    <SectionContainer>
         <PageBreadcrumbs page={page} />
         <PageTitle title={page.title ?? ''} description={page.description ?? ''} />
 
@@ -77,7 +75,6 @@ const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
           />
         </div>
       </SectionContainer>
-    </>
   )
 }
 

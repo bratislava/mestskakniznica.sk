@@ -1446,8 +1446,7 @@ const nextConfig = {
   },
 }
 
-module.exports = (phase, { defaultConfig }) => {
-  return {
+module.exports = (phase, { defaultConfig }) => ({
     ...defaultConfig,
     ...nextConfig,
     webpack(config) {
@@ -1458,5 +1457,4 @@ module.exports = (phase, { defaultConfig }) => {
 
       return config
     },
-  }
-}
+  })

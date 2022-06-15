@@ -1,14 +1,15 @@
 import { ComponentSeoSeo, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { Footer, SectionContainer } from '@bratislava/ui-city-library'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
-import NewsletterSection from '../HomePage/NewsletterSection'
+
 import favicon from '../../assets/images/mkb_favicon.png'
-import { otherLocale, usePageWrapperContext } from './PageWrapper'
-import ScrollToTop from '../ScrollToTop'
-import { Footer, SectionContainer } from '@bratislava/ui-city-library'
+import { IEvent } from '../../utils/types'
 import Header from '../AppLayout/Header'
 import MobileHeader from '../AppLayout/MobileNavigation/MobileHeader'
-import { IEvent } from '../../utils/types'
+import NewsletterSection from '../HomePage/NewsletterSection'
+import ScrollToTop from '../ScrollToTop'
+import { otherLocale, usePageWrapperContext } from './PageWrapper'
 
 interface IProps {
   children?: React.ReactNode
@@ -19,7 +20,7 @@ interface IProps {
   latestEvents?: IEvent[]
 }
 
-const DefaultPageLayout = ({ children, title, Seo, menus, footer, latestEvents }: IProps) => {
+function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }: IProps) {
   const { localizations, locale } = usePageWrapperContext()
   const otherLangData = otherLocale(locale ?? 'sk', localizations)
   const currentLangData = otherLocale(otherLangData.locale, localizations)

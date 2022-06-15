@@ -1,7 +1,7 @@
-import cx from 'classnames'
-import React, { useEffect } from 'react'
 import ChevronDown from '@assets/images/chevron-down.svg'
 import ChevronUp from '@assets/images/chevron-up.svg'
+import cx from 'classnames'
+import React, { useEffect } from 'react'
 
 export interface AccordionProps {
   id?: string

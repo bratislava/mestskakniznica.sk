@@ -1,13 +1,13 @@
 import { MetadataFragment } from '@bratislava/strapi-sdk-city-library'
 import React from 'react'
 
-const Metadata = ({ metadata }: { metadata: (MetadataFragment | null | undefined)[] | null | undefined }) => {
+function Metadata({ metadata }: { metadata: (MetadataFragment | null | undefined)[] | null | undefined }) {
   return <>{metadata?.map((meta) => meta && <MetadataComponent key={meta?.__typename} metadata={meta} />)}</>
 }
 
 const buildMetadata = (data: (string | number | undefined | null)[]) => data.filter((d) => !!d).join(', ')
 
-const MetadataComponent = ({ metadata }: { metadata: MetadataFragment | null }) => {
+function MetadataComponent({ metadata }: { metadata: MetadataFragment | null }) {
   if (!metadata) return null
 
   return <div>{metadataContent(metadata)}</div>

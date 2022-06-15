@@ -27,11 +27,11 @@ interface IProps {
   error: IDisplayError
 }
 
-const ErrorDisplay = ({ error }: IProps) => {
+function ErrorDisplay({ error }: IProps) {
   const [open, setOpen] = React.useState(false)
 
   return (
-    <React.Fragment>
+    <>
       <header className="text-[40px] h-[73px] leading-[48px]">
         <h1>Na stránke sa vyskytla chyba...</h1>
       </header>
@@ -48,7 +48,7 @@ const ErrorDisplay = ({ error }: IProps) => {
           {error.description}
         </pre>
       )}
-    </React.Fragment>
+    </>
   )
 }
 

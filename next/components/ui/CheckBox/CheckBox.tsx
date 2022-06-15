@@ -1,7 +1,7 @@
-import cx from 'classnames'
-import React from 'react'
 import CheckMark from '@assets/images/check-mark.svg'
 import { Checkbox, CheckboxIndicator } from '@radix-ui/react-checkbox'
+import cx from 'classnames'
+import React from 'react'
 
 export type CheckBoxProps = Omit<
   React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
@@ -13,7 +13,7 @@ export type CheckBoxProps = Omit<
   onChange?: (value: boolean) => void
 }
 
-export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
+export function CheckBox({ className, children, ...props }: CheckBoxProps) {
   return (
     <div className={cx('flex items-center gap-3.5', className)}>
       <Checkbox

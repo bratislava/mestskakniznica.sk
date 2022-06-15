@@ -1,17 +1,17 @@
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
-
 import { PageTitle, SectionContainer } from '@bratislava/ui-city-library'
-import PageBreadcrumbs from '../../components/Molecules/PageBreadcrumbs'
+
 import { IPremises } from '../../utils/types'
-import Sections from '../../components/Molecules/Sections'
-import PremiseCard from '../../components/Molecules/PremiseCard'
+import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import PremiseCard from "../Molecules/PremiseCard"
+import Sections from "../Molecules/Sections"
 
 export interface PremisesPageProps {
   premises: IPremises[]
   page: PageFragment
 }
 
-const Premises = ({ page, premises }: PremisesPageProps) => {
+function Premises({ page, premises }: PremisesPageProps) {
   return (
     <>
       <SectionContainer>

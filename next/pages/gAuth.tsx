@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-const LoadingPage = () => {
+function LoadingPage() {
   const [message, setMessage] = useState('')
   const router = useRouter()
   const { code } = router.query
@@ -9,10 +9,10 @@ const LoadingPage = () => {
   useEffect(() => {
     const subscribe = async () => {
       const response = await fetch('/api/subscribe-event', {
-        body: JSON.stringify({ code: code }),
+        body: JSON.stringify({ code }),
         method: 'POST',
       })
-      return await response.json()
+      return response.json()
     }
     try {
       if (code) {

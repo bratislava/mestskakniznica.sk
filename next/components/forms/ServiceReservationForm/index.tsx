@@ -1,16 +1,17 @@
-import React from 'react'
 import { Input, TextArea, Upload } from '@bratislava/ui-city-library'
-import { Controller, useForm, FormProvider, useController, useFormState } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import FormFooter from '../FormFooter'
-import { useTranslation } from 'next-i18next'
-import FormContainer, { phoneRegex } from '../FormContainer'
 import isEmpty from 'lodash/isEmpty'
-import { convertDataToBody } from '../../../utils/form-constants'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { Controller, FormProvider, useController, useForm, useFormState } from 'react-hook-form'
+import * as yup from 'yup'
 
-const FileInput = ({ control, name }: any) => {
+import { convertDataToBody } from '../../../utils/form-constants'
+import FormContainer, { phoneRegex } from '../FormContainer'
+import FormFooter from '../FormFooter'
+
+function FileInput({ control, name }: any) {
   const { errors } = useFormState()
   const { t } = useTranslation('forms')
 
@@ -23,7 +24,7 @@ const FileInput = ({ control, name }: any) => {
       required
       onChange={(e) => {
         if (e.target.files) {
-          setFiles(Array.from(e.target.files))
+          setFiles([...e.target.files])
           field.onChange(e.target.files)
         }
       }}
@@ -47,7 +48,7 @@ const FileInput = ({ control, name }: any) => {
   )
 }
 
-const ServiceReservationForm = () => {
+function ServiceReservationForm() {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
@@ -103,12 +104,12 @@ const ServiceReservationForm = () => {
     // additional params
     const body = {
       ...temp,
-      ...{
+      
         mg_subject: null,
         mg_email_to: 'diplomovky@mestskakniznica.sk',
         meta_sent_from: router.asPath,
-        meta_locale: router.locale,
-      },
+        meta_locale: router.locale
+      ,
     }
 
     // send email

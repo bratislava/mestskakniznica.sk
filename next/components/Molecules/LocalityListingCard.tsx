@@ -1,15 +1,16 @@
 import Link from 'next/link'
-import { ILocality } from '../../utils/types'
 import { useTranslation } from 'next-i18next'
 
-const LocalityCard = ({
+import { ILocality } from '../../utils/types'
+
+function LocalityCard({
   localityTitle,
   localityAddress,
   localitySections,
   localitySlug,
   localityOpenFrom,
   localityOpenTo,
-}: ILocality) => {
+}: ILocality) {
   const { t } = useTranslation('homepage')
   return (
     <div key={localityTitle} className="w-[280px] relative pb-5">

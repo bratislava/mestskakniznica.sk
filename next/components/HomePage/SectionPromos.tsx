@@ -1,13 +1,14 @@
 import React from 'react'
-import EventCard from './Promos/EventCard'
-import AnnouncementCard from './Promos/AnnouncementCard'
+
 import { IEvent } from '../../utils/types'
+import AnnouncementCard from './Promos/AnnouncementCard'
+import EventCard from './Promos/EventCard'
 
 interface SectionPromosProps {
   events: IEvent[]
 }
 
-const SectionPromos = ({ events }: SectionPromosProps) => {
+function SectionPromos({ events }: SectionPromosProps) {
   return (
     <section className="overflow-x-auto -mx-4">
       <div className="w-fit px-4 flex sm:grid sm:grid-cols-2 py-10 gap-4 lg:gap-8 lg:grid-cols-3 h-auto">
@@ -31,6 +32,7 @@ const SectionPromos = ({ events }: SectionPromosProps) => {
                   />
                 </div>
               )
+
             case 'news':
             case 'announcement':
               return (
@@ -38,6 +40,7 @@ const SectionPromos = ({ events }: SectionPromosProps) => {
                   <AnnouncementCard key={event.slug} title={event.eventTitle || ''} slug={event.slug || ''} />
                 </div>
               )
+
             default:
               return null
               break

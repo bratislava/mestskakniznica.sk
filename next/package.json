@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "eslint": "eslint --color --ext .html,.js,.json,.jsx,.md,.ts,.tsx *.* src",
+    "eslint": "eslint --color --ext .html,.js,.json,.jsx,.md,.ts,.tsx *.* components pages utils hooks",
     "eslint:fix": "npm run eslint -- --fix",
     "gen": "graphql-codegen"
   },
