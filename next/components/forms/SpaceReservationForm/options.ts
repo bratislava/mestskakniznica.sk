@@ -1,4 +1,4 @@
-import { IFormOption } from '../../../utils/form-constants';
+import { IFormOption } from '../../../utils/form-constants'
 
 export const options: IFormOption[] = [
   {
@@ -15,4 +15,4 @@ export const options: IFormOption[] = [
       { locale: 'en', label: 'Music Studio, Kapucínska 1' },
     ],
   },
-];
+]

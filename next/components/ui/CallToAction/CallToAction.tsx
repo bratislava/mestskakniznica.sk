@@ -1,14 +1,14 @@
-import cx from 'classnames';
-import { Link } from '../Link/Link';
+import cx from 'classnames'
+import { Link } from '../Link/Link'
 
 export interface CtaProps {
-  className?: string;
-  title: string;
-  href: string;
-  bottomText?: string;
-  customIcon?: React.ReactNode;
-  hasIcon: boolean;
-  uppercase?: boolean;
+  className?: string
+  title: string
+  href: string
+  bottomText?: string
+  customIcon?: React.ReactNode
+  hasIcon: boolean
+  uppercase?: boolean
 }
 
 export const CallToAction = ({
@@ -32,5 +32,5 @@ export const CallToAction = ({
         </div>
       </Link>
     </div>
-  );
-};
+  )
+}

@@ -1,22 +1,17 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context';
-import cx from 'classnames';
-import { Link } from '../Link/Link';
-import { RowFile, RowFileProps } from '../RowFile/RowFile';
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import cx from 'classnames'
+import { Link } from '../Link/Link'
+import { RowFile, RowFileProps } from '../RowFile/RowFile'
 
 export interface DocumentsProps {
-  className?: string;
-  title?: string;
-  moreLink?: { title?: string; url?: string };
-  files?: { url?: string; content?: RowFileProps }[];
+  className?: string
+  title?: string
+  moreLink?: { title?: string; url?: string }
+  files?: { url?: string; content?: RowFileProps }[]
 }
 
-export const Documents = ({
-  className,
-  title,
-  moreLink,
-  files,
-}: DocumentsProps) => {
-  const { Link: UILink } = useUIContext();
+export const Documents = ({ className, title, moreLink, files }: DocumentsProps) => {
+  const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className, 'flex flex-col')}>
       <h3 className="text-md2">{title}</h3>
@@ -42,5 +37,5 @@ export const Documents = ({
         </Link>
       )}
     </div>
-  );
-};
+  )
+}

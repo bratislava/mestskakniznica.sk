@@ -1,35 +1,34 @@
-import { Button } from '@bratislava/ui-city-library';
-import * as React from 'react';
+import { Button } from '@bratislava/ui-city-library'
+import * as React from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getError = (iError: any) => {
-  let errorMessage = iError.response?.errors?.[0]?.message;
-  if (!errorMessage) errorMessage = iError.message;
-  if (!errorMessage) errorMessage = 'Could not load data from APi';
+  let errorMessage = iError.response?.errors?.[0]?.message
+  if (!errorMessage) errorMessage = iError.message
+  if (!errorMessage) errorMessage = 'Could not load data from APi'
 
-  let error = iError.response?.errors?.[0];
-  if (!error) error = iError.response;
-  if (!error) error = iError.message;
-  if (!error) error = iError;
+  let error = iError.response?.errors?.[0]
+  if (!error) error = iError.response
+  if (!error) error = iError.message
+  if (!error) error = iError
 
   return {
     message: errorMessage,
-    description:
-      JSON.stringify(error, null, 2) ?? 'Could not load data from API',
-  };
-};
+    description: JSON.stringify(error, null, 2) ?? 'Could not load data from API',
+  }
+}
 
 export interface IDisplayError {
-  message?: string;
-  description?: string;
+  message?: string
+  description?: string
 }
 
 interface IProps {
-  error: IDisplayError;
+  error: IDisplayError
 }
 
 const ErrorDisplay = ({ error }: IProps) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
   return (
     <React.Fragment>
@@ -37,8 +36,7 @@ const ErrorDisplay = ({ error }: IProps) => {
         <h1>Na stránke sa vyskytla chyba...</h1>
       </header>
       <p className="text-base">
-        Ľutujeme, ale na tejto stránke sa vyskytla chyba. Skúste opäť neskôr
-        alebo použite vyhľadávanie.
+        Ľutujeme, ale na tejto stránke sa vyskytla chyba. Skúste opäť neskôr alebo použite vyhľadávanie.
       </p>
       <Button className="mt-4 p-4" onClick={() => setOpen((o) => !o)}>
         Zobraziť {open ? 'menej' : 'viac'}
@@ -51,7 +49,7 @@ const ErrorDisplay = ({ error }: IProps) => {
         </pre>
       )}
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default ErrorDisplay;
+export default ErrorDisplay

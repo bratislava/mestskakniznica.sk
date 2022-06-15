@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import ArticleCard from './ArticleCard';
+import ArticleCard from './ArticleCard'
 
 describe('ArticleCard', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<ArticleCard />);
-    expect(baseElement).toBeTruthy();
-  });
-});
+    const { baseElement } = render(<ArticleCard />)
+    expect(baseElement).toBeTruthy()
+  })
+})

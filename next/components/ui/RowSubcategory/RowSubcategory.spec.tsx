@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import { RowSubcategory } from './RowSubcategory';
+import { RowSubcategory } from './RowSubcategory'
 
 describe('RowSubcategory', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<RowSubcategory />);
-    expect(baseElement).toBeTruthy();
-  });
-});
+    const { baseElement } = render(<RowSubcategory />)
+    expect(baseElement).toBeTruthy()
+  })
+})

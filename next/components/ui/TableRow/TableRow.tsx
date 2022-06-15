@@ -1,18 +1,13 @@
-import cx from 'classnames';
+import cx from 'classnames'
 
 export interface TableRowProps {
-  className?: string;
-  label?: string | undefined | null;
-  value?: string | undefined | null;
-  valueAlign?: string | undefined | null;
+  className?: string
+  label?: string | undefined | null
+  value?: string | undefined | null
+  valueAlign?: string | undefined | null
 }
 
-export const TableRow = ({
-  className,
-  label,
-  value,
-  valueAlign = 'start',
-}: TableRowProps) => {
+export const TableRow = ({ className, label, value, valueAlign = 'start' }: TableRowProps) => {
   return (
     <tr
       className={cx(
@@ -34,7 +29,7 @@ export const TableRow = ({
         </>
       )}
     </tr>
-  );
-};
+  )
+}
 
-export default TableRow;
+export default TableRow

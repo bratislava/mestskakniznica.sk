@@ -1,14 +1,14 @@
 //frontend/utils.js
-const baseUrl = process.env.BASE_URL;
+const baseUrl = process.env.BASE_URL
 async function fetchQuery(path, params = null) {
-  let url;
+  let url
   if (params !== null) {
-    url = `${baseUrl}/${path}/${params}`;
+    url = `${baseUrl}/${path}/${params}`
   } else {
-    url = `${baseUrl}/${path}`;
+    url = `${baseUrl}/${path}`
   }
-  const response = await fetch(`${url}`);
-  const data = await response.json();
-  return data;
+  const response = await fetch(`${url}`)
+  const data = await response.json()
+  return data
 }
-export { baseUrl, fetchQuery };
+export { baseUrl, fetchQuery }

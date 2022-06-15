@@ -1,28 +1,19 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { google } from 'googleapis';
-import { client } from '../../utils/gql';
+import { NextApiRequest, NextApiResponse } from 'next'
+import { google } from 'googleapis'
+import { client } from '../../utils/gql'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { model, entry } = req.body;
+  const { model, entry } = req.body
   if (model === 'page' && entry.layout === 'event') {
-    const eventSection = entry.sections.find(
-      (ele) => ele.__component === 'sections.event-details'
-    );
-    if (
-      !eventSection.eventTitle ||
-      !eventSection.dateFrom ||
-      !eventSection.dateTo
-    ) {
-      res.send({ message: 'Not a valid event to add.' });
-      return;
+    const eventSection = entry.sections.find((ele) => ele.__component === 'sections.event-details')
+    if (!eventSection.eventTitle || !eventSection.dateFrom || !eventSection.dateTo) {
+      res.send({ message: 'Not a valid event to add.' })
+      return
     }
-    const subscriberList = await client.EventSubscribers();
+    const subscriberList = await client.EventSubscribers()
     subscriberList.eventSubscriptions.map((user: any) => {
-      const gAuthClient = new google.auth.OAuth2(
-        process.env.GOOGLE_CLIENT_ID,
-        process.env.GOOGLE_CLIENT_SECRET
-      );
-      gAuthClient.setCredentials({ refresh_token: user.refreshToken });
+      const gAuthClient = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET)
+      gAuthClient.setCredentials({ refresh_token: user.refreshToken })
       return google
         .calendar('v3')
         .events.insert({
@@ -37,12 +28,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           },
         })
         .catch((err) => {
-          console.log(err);
-        });
-    });
+          console.log(err)
+        })
+    })
   }
-  res.send('hey');
-  return;
-};
+  res.send('hey')
+  return
+}
 
-export default handler;
+export default handler

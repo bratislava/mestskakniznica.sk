@@ -1,31 +1,25 @@
-import {
-  Button,
-  CheckBox,
-  Input,
-  Link,
-  TextArea,
-} from '@bratislava/ui-city-library';
-import React from 'react';
-import cx from 'classnames';
-import isEmpty from 'lodash/isEmpty';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import StepNumberTitle from '../StepNumberTitle';
-import FormFooter from '../FormFooter';
-import { useTranslation } from 'next-i18next';
-import BookListExtended from '../BookList/BookListExtended';
-import { usePageWrapperContext } from '../../layouts/PageWrapper';
-import FormContainer, { phoneRegexOrEmpty } from '../FormContainer';
-import { convertDataToBody } from '../../../utils/form-constants';
-import { useRouter } from 'next/router';
+import { Button, CheckBox, Input, Link, TextArea } from '@bratislava/ui-city-library'
+import React from 'react'
+import cx from 'classnames'
+import isEmpty from 'lodash/isEmpty'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import StepNumberTitle from '../StepNumberTitle'
+import FormFooter from '../FormFooter'
+import { useTranslation } from 'next-i18next'
+import BookListExtended from '../BookList/BookListExtended'
+import { usePageWrapperContext } from '../../layouts/PageWrapper'
+import FormContainer, { phoneRegexOrEmpty } from '../FormContainer'
+import { convertDataToBody } from '../../../utils/form-constants'
+import { useRouter } from 'next/router'
 
 const InterlibraryLoanServiceFormReader = () => {
-  const [step, setStep] = React.useState(1);
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
-  const { t } = useTranslation(['forms', 'common']);
-  const { locale } = usePageWrapperContext();
-  const router = useRouter();
+  const [step, setStep] = React.useState(1)
+  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const { t } = useTranslation(['forms', 'common'])
+  const { locale } = usePageWrapperContext()
+  const router = useRouter()
 
   yup.setLocale({
     mixed: {
@@ -42,7 +36,7 @@ const InterlibraryLoanServiceFormReader = () => {
     number: {
       min: t('validation_error_number_gt_zero'),
     },
-  });
+  })
 
   const schema = yup
     .object({
@@ -50,10 +44,7 @@ const InterlibraryLoanServiceFormReader = () => {
       lName: yup.string().required(),
       email: yup.string().email().required(),
       readerCardNumber: yup.string().required(),
-      phone: yup
-        .string()
-        .matches(phoneRegexOrEmpty, t('validation_error_phone'))
-        .required(),
+      phone: yup.string().matches(phoneRegexOrEmpty, t('validation_error_phone')).required(),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
       acceptFeesTerms: yup.boolean().isTrue(),
@@ -72,7 +63,7 @@ const InterlibraryLoanServiceFormReader = () => {
         )
         .required(),
     })
-    .required();
+    .required()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -97,11 +88,11 @@ const InterlibraryLoanServiceFormReader = () => {
       ],
       acceptFeesTerms: false,
     },
-  });
-  const { errors } = methods.formState;
+  })
+  const { errors } = methods.formState
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    const temp = convertDataToBody(data, t);
+    const temp = convertDataToBody(data, t)
 
     // additional params
     const body = {
@@ -112,49 +103,41 @@ const InterlibraryLoanServiceFormReader = () => {
         meta_sent_from: router.asPath,
         meta_locale: router.locale,
       },
-    };
-    console.log('body: ', body);
+    }
+    console.log('body: ', body)
 
     // send email
     const res = await fetch(`/api/submit-form`, {
       method: 'POST',
       // @ts-ignore
       body: JSON.stringify(body),
-    });
+    })
 
     // catch error
-    const { error } = await res.json();
+    const { error } = await res.json()
     if (error) {
-      console.log('error sending form', error);
-      return;
+      console.log('error sending form', error)
+      return
     }
 
     // show thank you message
-    setIsSubmitted(true);
-  });
+    setIsSubmitted(true)
+  })
 
   const triggerFirstStep = () => {
-    methods
-      .trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone'])
-      .then((fulfillment) => {
-        if (fulfillment) {
-          methods.clearErrors();
-          setStep(2);
-        }
-      });
-  };
+    methods.trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone']).then((fulfillment) => {
+      if (fulfillment) {
+        methods.clearErrors()
+        setStep(2)
+      }
+    })
+  }
 
   const stepOneErrors = !isEmpty(
-    Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms'
-    )
-  );
+    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms')
+  )
 
-  const stepTwoErrors = !isEmpty(
-    Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && k !== 'acceptFeesTerms'
-    )
-  );
+  const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'acceptFeesTerms'))
 
   return (
     <FormProvider {...methods}>
@@ -264,11 +247,7 @@ const InterlibraryLoanServiceFormReader = () => {
               />
             </div>
 
-            {stepOneErrors && (
-              <p className="text-base text-error">
-                {t('please_fill_required_fields')}
-              </p>
-            )}
+            {stepOneErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
 
             <Button onClick={() => triggerFirstStep()} className="w-36 h-10">
               {t('common:continue')}
@@ -299,11 +278,7 @@ const InterlibraryLoanServiceFormReader = () => {
               />
             )}
           />
-          {stepTwoErrors && (
-            <p className="text-base text-error pt-4">
-              {t('please_fill_required_fields')}
-            </p>
-          )}
+          {stepTwoErrors && <p className="text-base text-error pt-4">{t('please_fill_required_fields')}</p>}
 
           <div className="border-t border-gray-universal-200 pt-6 mt-6 pb-3">
             <Controller
@@ -323,9 +298,7 @@ const InterlibraryLoanServiceFormReader = () => {
                       {t('interlibrary_accept_fees')}{' '}
                       <Link
                         href={
-                          locale == 'sk'
-                            ? '/file/cennik-poplatkov-a-sluzieb'
-                            : '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
+                          locale == 'sk' ? '/file/cennik-poplatkov-a-sluzieb' : '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
                         }
                         variant="plain"
                         uppercase={false}
@@ -336,11 +309,7 @@ const InterlibraryLoanServiceFormReader = () => {
                       .
                     </div>
                   </CheckBox>
-                  {!!errors.acceptFeesTerms && (
-                    <p className="text-error text-base my-6">
-                      {t('terms_error')}
-                    </p>
-                  )}
+                  {!!errors.acceptFeesTerms && <p className="text-error text-base my-6">{t('terms_error')}</p>}
                 </>
               )}
               rules={{ required: true }}
@@ -350,7 +319,7 @@ const InterlibraryLoanServiceFormReader = () => {
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>
-  );
-};
+  )
+}
 
-export default InterlibraryLoanServiceFormReader;
+export default InterlibraryLoanServiceFormReader

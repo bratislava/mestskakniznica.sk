@@ -1,27 +1,21 @@
-import React from 'react';
-import { Input, TextArea, Upload } from '@bratislava/ui-city-library';
-import {
-  Controller,
-  useForm,
-  FormProvider,
-  useController,
-  useFormState,
-} from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import FormFooter from '../FormFooter';
-import { useTranslation } from 'next-i18next';
-import FormContainer, { phoneRegex } from '../FormContainer';
-import isEmpty from 'lodash/isEmpty';
-import { convertDataToBody } from '../../../utils/form-constants';
-import { useRouter } from 'next/router';
+import React from 'react'
+import { Input, TextArea, Upload } from '@bratislava/ui-city-library'
+import { Controller, useForm, FormProvider, useController, useFormState } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import FormFooter from '../FormFooter'
+import { useTranslation } from 'next-i18next'
+import FormContainer, { phoneRegex } from '../FormContainer'
+import isEmpty from 'lodash/isEmpty'
+import { convertDataToBody } from '../../../utils/form-constants'
+import { useRouter } from 'next/router'
 
 const FileInput = ({ control, name }: any) => {
-  const { errors } = useFormState();
-  const { t } = useTranslation('forms');
+  const { errors } = useFormState()
+  const { t } = useTranslation('forms')
 
-  const { field } = useController({ control, name });
-  const [files, setFiles] = React.useState<File[]>([]);
+  const { field } = useController({ control, name })
+  const [files, setFiles] = React.useState<File[]>([])
   return (
     <Upload
       labelContent={t('attachments')}
@@ -29,8 +23,8 @@ const FileInput = ({ control, name }: any) => {
       required
       onChange={(e) => {
         if (e.target.files) {
-          setFiles(Array.from(e.target.files));
-          field.onChange(e.target.files);
+          setFiles(Array.from(e.target.files))
+          field.onChange(e.target.files)
         }
       }}
       accept=".pdf, .jpg, .jpeg, .png"
@@ -39,10 +33,7 @@ const FileInput = ({ control, name }: any) => {
       {files.length > 0 ? (
         <>
           <p>
-            {`${files.length} ${
-              files.length > 1 ? t('upload_files') : t('upload_file')
-            }`}{' '}
-            {t('upload_success')}:
+            {`${files.length} ${files.length > 1 ? t('upload_files') : t('upload_file')}`} {t('upload_success')}:
           </p>
           <p>{`[${files.map((file) => file.name).join(', ')}]`}</p>
         </>
@@ -53,13 +44,13 @@ const FileInput = ({ control, name }: any) => {
         </>
       )}
     </Upload>
-  );
-};
+  )
+}
 
 const ServiceReservationForm = () => {
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
-  const { t } = useTranslation(['forms', 'common']);
-  const router = useRouter();
+  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const { t } = useTranslation(['forms', 'common'])
+  const router = useRouter()
 
   yup.setLocale({
     mixed: {
@@ -76,22 +67,19 @@ const ServiceReservationForm = () => {
     number: {
       min: t('validation_error_number_gt_zero'),
     },
-  });
+  })
 
   const schema = yup
     .object({
       fName: yup.string().required(),
       lName: yup.string().required(),
       email: yup.string().email().required(),
-      phone: yup
-        .string()
-        .matches(phoneRegex, t('validation_error_phone'))
-        .required(),
+      phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       message: yup.string().required(),
       attachment: yup.mixed().required(),
       acceptFormTerms: yup.boolean().isTrue(),
     })
-    .required();
+    .required()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -103,16 +91,14 @@ const ServiceReservationForm = () => {
       message: '',
       attachment: undefined,
     },
-  });
-  const { errors } = methods.formState;
+  })
+  const { errors } = methods.formState
 
-  const hasErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms')
-  );
+  const hasErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
 
   const handleSubmit = methods.handleSubmit(async (data) => {
     // todo files
-    const temp = convertDataToBody(data, t);
+    const temp = convertDataToBody(data, t)
 
     // additional params
     const body = {
@@ -123,25 +109,25 @@ const ServiceReservationForm = () => {
         meta_sent_from: router.asPath,
         meta_locale: router.locale,
       },
-    };
+    }
 
     // send email
     const res = await fetch(`/api/submit-form`, {
       method: 'POST',
       // @ts-ignore
       body: JSON.stringify(body),
-    });
+    })
 
     // catch error
-    const { error } = await res.json();
+    const { error } = await res.json()
     if (error) {
-      console.log('error sending form', error);
-      return;
+      console.log('error sending form', error)
+      return
     }
 
     // show thank you message
-    setIsSubmitted(true);
-  });
+    setIsSubmitted(true)
+  })
 
   return (
     <FormProvider {...methods}>
@@ -239,16 +225,12 @@ const ServiceReservationForm = () => {
             )}
           />
           <FileInput name="attachment" control={methods.control} />
-          {hasErrors && (
-            <p className="text-base text-error ">
-              {t('please_fill_required_fields')}
-            </p>
-          )}
+          {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
           <FormFooter buttonContent={t('send')} />
         </div>
       </FormContainer>
     </FormProvider>
-  );
-};
+  )
+}
 
-export default ServiceReservationForm;
+export default ServiceReservationForm

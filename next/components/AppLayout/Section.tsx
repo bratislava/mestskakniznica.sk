@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
-import cx from 'classnames';
+import { ReactNode } from 'react'
+import cx from 'classnames'
 
 export interface SectionProps {
-  children: ReactNode;
-  noBorder?: boolean;
+  children: ReactNode
+  noBorder?: boolean
 }
 
 export default function Section({ children, noBorder = false }: SectionProps) {
@@ -15,5 +15,5 @@ export default function Section({ children, noBorder = false }: SectionProps) {
     >
       {children}
     </div>
-  );
+  )
 }

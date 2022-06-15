@@ -1,13 +1,13 @@
-import cx from 'classnames';
-import { useUIContext } from '@bratislava/common-frontend-ui-context';
+import cx from 'classnames'
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
 
 export interface BookNewsDetailProps {
-  className?: string;
-  title: string;
-  imgSrc?: string;
-  author?: string;
-  detailLink?: string;
-  linkClassName?: string;
+  className?: string
+  title: string
+  imgSrc?: string
+  author?: string
+  detailLink?: string
+  linkClassName?: string
 }
 
 export const BookNewsDetail = ({
@@ -18,22 +18,15 @@ export const BookNewsDetail = ({
   detailLink,
   linkClassName,
 }: BookNewsDetailProps) => {
-  const { Link: UILink, Image: UIImage } = useUIContext();
+  const { Link: UILink, Image: UIImage } = useUIContext()
   return (
     <div className={cx(className, 'flex flex-col group pt-4 hover:pt-0')}>
       {imgSrc && (
-        <UILink
-          target={'_blank'}
-          className={cx(linkClassName, 'flex')}
-          href={detailLink ?? ''}
-        >
+        <UILink target={'_blank'} className={cx(linkClassName, 'flex')} href={detailLink ?? ''}>
           <UIImage src={imgSrc} shadow={false} alt={title} />
         </UILink>
       )}
-      <h6
-        className="mt-4 text-sm max-h-12 overflow-hidden group-hover:underline"
-        title={title}
-      >
+      <h6 className="mt-4 text-sm max-h-12 overflow-hidden group-hover:underline" title={title}>
         <UILink target={'_blank'} href={detailLink ?? ''}>
           {title.length > 35 ? title.substring(0, 35) + '...' : title}
         </UILink>
@@ -44,7 +37,7 @@ export const BookNewsDetail = ({
       {/*  </span>*/}
       {/*)}*/}
     </div>
-  );
-};
+  )
+}
 
-export default BookNewsDetail;
+export default BookNewsDetail

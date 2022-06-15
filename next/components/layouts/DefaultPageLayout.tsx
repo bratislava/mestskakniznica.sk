@@ -1,41 +1,30 @@
-import {
-  ComponentSeoSeo,
-  FooterQuery,
-  MenusQuery,
-} from '@bratislava/strapi-sdk-city-library';
-import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import NewsletterSection from '../HomePage/NewsletterSection';
-import favicon from '../../assets/images/mkb_favicon.png';
-import { otherLocale, usePageWrapperContext } from './PageWrapper';
-import ScrollToTop from '../ScrollToTop';
-import { Footer, SectionContainer } from '@bratislava/ui-city-library';
-import Header from '../AppLayout/Header';
-import MobileHeader from '../AppLayout/MobileNavigation/MobileHeader';
-import { IEvent } from '../../utils/types';
+import { ComponentSeoSeo, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import Head from 'next/head'
+import { useTranslation } from 'next-i18next'
+import NewsletterSection from '../HomePage/NewsletterSection'
+import favicon from '../../assets/images/mkb_favicon.png'
+import { otherLocale, usePageWrapperContext } from './PageWrapper'
+import ScrollToTop from '../ScrollToTop'
+import { Footer, SectionContainer } from '@bratislava/ui-city-library'
+import Header from '../AppLayout/Header'
+import MobileHeader from '../AppLayout/MobileNavigation/MobileHeader'
+import { IEvent } from '../../utils/types'
 
 interface IProps {
-  children?: React.ReactNode;
-  title?: string | undefined | null;
-  Seo?: ComponentSeoSeo | undefined | null;
-  menus: NonNullable<MenusQuery['menus']>;
-  footer: FooterQuery['footer'];
-  latestEvents?: IEvent[];
+  children?: React.ReactNode
+  title?: string | undefined | null
+  Seo?: ComponentSeoSeo | undefined | null
+  menus: NonNullable<MenusQuery['menus']>
+  footer: FooterQuery['footer']
+  latestEvents?: IEvent[]
 }
 
-const DefaultPageLayout = ({
-  children,
-  title,
-  Seo,
-  menus,
-  footer,
-  latestEvents,
-}: IProps) => {
-  const { localizations, locale } = usePageWrapperContext();
-  const otherLangData = otherLocale(locale ?? 'sk', localizations);
-  const currentLangData = otherLocale(otherLangData.locale, localizations);
+const DefaultPageLayout = ({ children, title, Seo, menus, footer, latestEvents }: IProps) => {
+  const { localizations, locale } = usePageWrapperContext()
+  const otherLangData = otherLocale(locale ?? 'sk', localizations)
+  const currentLangData = otherLocale(otherLangData.locale, localizations)
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common')
 
   return (
     <>
@@ -45,26 +34,14 @@ const DefaultPageLayout = ({
         {Seo && (
           <>
             <meta name="title" content={Seo.metaTitle ?? title ?? ''} />
-            <meta
-              name="description"
-              content={Seo.metaDescription ?? t('chooseYourBook')}
-            />
+            <meta name="description" content={Seo.metaDescription ?? t('chooseYourBook')} />
             <meta name="keywords" content={Seo.keywords ?? ''} />
-            <meta
-              name="viewport"
-              content={
-                Seo.metaViewport ?? 'width=device-width, initial-scale=1'
-              }
-            />
+            <meta name="viewport" content={Seo.metaViewport ?? 'width=device-width, initial-scale=1'} />
             <meta name="robots" content={Seo.metaRobots ?? ''} />
             <meta name="canonical" content={Seo.canonicalURL ?? ''} />
           </>
         )}
-        <link
-          rel="alternate"
-          href={process.env.ORIGIN_ROOT_URL + currentLangData.path}
-          hrefLang={`${locale}-sk`}
-        />
+        <link rel="alternate" href={process.env.ORIGIN_ROOT_URL + currentLangData.path} hrefLang={`${locale}-sk`} />
         <link
           rel="alternate"
           href={process.env.ORIGIN_ROOT_URL + otherLangData.path}
@@ -98,10 +75,7 @@ const DefaultPageLayout = ({
               gdpr={{
                 title: t('privacy'),
                 // href: footer?.privacyLink?.slug ?? '#',
-                href:
-                  locale == 'sk'
-                    ? '/o-nas/ochrana-osobnych-udajov'
-                    : '/en/about-us/privacy-terms-and-conditions',
+                href: locale == 'sk' ? '/o-nas/ochrana-osobnych-udajov' : '/en/about-us/privacy-terms-and-conditions',
               }}
               VOP={{
                 title: t('VOP'),
@@ -116,7 +90,7 @@ const DefaultPageLayout = ({
         </footer>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default DefaultPageLayout;
+export default DefaultPageLayout

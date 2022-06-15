@@ -1,15 +1,15 @@
-import React, { ReactNode } from 'react';
-import cx from 'classnames';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import React, { ReactNode } from 'react'
+import cx from 'classnames'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export interface INavigationItemProps {
-  url: string;
-  children: ReactNode;
+  url: string
+  children: ReactNode
 }
 
 const HeaderNavigationItem = ({ url, children }: INavigationItemProps) => {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <div className="cursor-pointer font-normal md:flex text-xs leading-[19.6px] py-[10px] border-gray-900">
@@ -23,7 +23,7 @@ const HeaderNavigationItem = ({ url, children }: INavigationItemProps) => {
         </Link>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HeaderNavigationItem;
+export default HeaderNavigationItem

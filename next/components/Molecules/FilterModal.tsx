@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 interface FilterModalProps {
-  onClose: () => void;
-  title: React.ReactNode;
-  children: React.ReactNode;
+  onClose: () => void
+  title: React.ReactNode
+  children: React.ReactNode
 }
 
 export const FilterModal = ({ onClose, children, title }: FilterModalProps) => {
@@ -15,5 +15,5 @@ export const FilterModal = ({ onClose, children, title }: FilterModalProps) => {
       </div>
       {children}
     </div>
-  );
-};
+  )
+}

@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { ILocality } from '../../utils/types';
-import { useTranslation } from 'next-i18next';
+import Link from 'next/link'
+import { ILocality } from '../../utils/types'
+import { useTranslation } from 'next-i18next'
 
 const LocalityCard = ({
   localityTitle,
@@ -10,19 +10,14 @@ const LocalityCard = ({
   localityOpenFrom,
   localityOpenTo,
 }: ILocality) => {
-  const { t } = useTranslation('homepage');
+  const { t } = useTranslation('homepage')
   return (
     <div key={localityTitle} className="w-[280px] relative pb-5">
       <div className="h-[400px] w-[580px] border-[1px] border-gray-900 pb-16 pl-8">
         <div className="pt-6 hover:underline text-[28px]">{localityTitle}</div>
-        <div className="text-sm pt-3 leading-[19.6px] text-gray-universal-70 pb-8">
-          {localityAddress.navigateTo}
-        </div>
+        <div className="text-sm pt-3 leading-[19.6px] text-gray-universal-70 pb-8">{localityAddress.navigateTo}</div>
         {localitySections?.map((item) => (
-          <div
-            key={item.localitySectionTitle}
-            className="text-[14px] leading-[19.6px] text-gray-universal-70 pb-2"
-          >
+          <div key={item.localitySectionTitle} className="text-[14px] leading-[19.6px] text-gray-universal-70 pb-2">
             {item.localitySectionTitle}
           </div>
         ))}
@@ -41,7 +36,7 @@ const LocalityCard = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LocalityCard;
+export default LocalityCard

@@ -1,4 +1,4 @@
-import { SectionsFragment } from '@bratislava/strapi-sdk-city-library';
+import { SectionsFragment } from '@bratislava/strapi-sdk-city-library'
 import {
   Accordion,
   ColumnedText,
@@ -13,43 +13,43 @@ import {
   Subpages,
   Table,
   Video,
-} from '@bratislava/ui-city-library';
-import * as React from 'react';
+} from '@bratislava/ui-city-library'
+import * as React from 'react'
 import {
   groupByAccordionCategory,
   groupByCategory,
   groupByLinksCategory,
   parsePageLink,
   parseSubpages,
-} from '../../utils/page';
-import { IEvent } from '../../utils/types';
-import { formatDateToLocal } from '../../utils/utils';
-import AskLibraryForm from '../forms/AskLibraryForm.tsx';
-import BookNotInLibraryForm from '../forms/BookNotInLibraryForm';
-import CityLibraryRegistrationForm from '../forms/CityLibraryRegistrationForm';
-import CycleDeliveryReservationForm from '../forms/CycleDeliveryReservationForm';
-import EventReservationForm from '../forms/EventReservationForm';
-import ExcursionReservationForm from '../forms/ExcursionReservationForm';
-import GiftCardReservationForm from '../forms/GiftCardReservationForm';
-import InterlibraryLoanServiceFormLibrary from '../forms/InterlibraryLoanServiceFormLibrary';
-import InterlibraryLoanServiceFormReader from '../forms/InterlibraryLoanServiceFormReader';
-import MusicalInstrumentReservationForm from '../forms/MusicalInstrumentReservationForm';
-import ReaderReservationForm from '../forms/ReaderReservationForm';
-import RechercheReservationForm from '../forms/RechercheReservationForm';
-import ServiceReservationForm from '../forms/ServiceReservationForm';
-import SpaceReservationForm from '../forms/SpaceReservationForm';
-import TheaterTechReservationForm from '../forms/TheaterTechReservationForm';
-import VenueRentalForm from '../forms/VenueRentalForm';
-import EventDetails from './EventDetails';
-import LocalityDetails from './LocalityDetails';
-import { TFunction, useTranslation } from 'next-i18next';
-import Metadata from './Metadata';
-import GalleryBanner from './GalleryBanner';
-import { usePageWrapperContext } from '../layouts/PageWrapper';
-import TabletReservationForm from '../forms/TabletReservationForm';
+} from '../../utils/page'
+import { IEvent } from '../../utils/types'
+import { formatDateToLocal } from '../../utils/utils'
+import AskLibraryForm from '../forms/AskLibraryForm.tsx'
+import BookNotInLibraryForm from '../forms/BookNotInLibraryForm'
+import CityLibraryRegistrationForm from '../forms/CityLibraryRegistrationForm'
+import CycleDeliveryReservationForm from '../forms/CycleDeliveryReservationForm'
+import EventReservationForm from '../forms/EventReservationForm'
+import ExcursionReservationForm from '../forms/ExcursionReservationForm'
+import GiftCardReservationForm from '../forms/GiftCardReservationForm'
+import InterlibraryLoanServiceFormLibrary from '../forms/InterlibraryLoanServiceFormLibrary'
+import InterlibraryLoanServiceFormReader from '../forms/InterlibraryLoanServiceFormReader'
+import MusicalInstrumentReservationForm from '../forms/MusicalInstrumentReservationForm'
+import ReaderReservationForm from '../forms/ReaderReservationForm'
+import RechercheReservationForm from '../forms/RechercheReservationForm'
+import ServiceReservationForm from '../forms/ServiceReservationForm'
+import SpaceReservationForm from '../forms/SpaceReservationForm'
+import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
+import VenueRentalForm from '../forms/VenueRentalForm'
+import EventDetails from './EventDetails'
+import LocalityDetails from './LocalityDetails'
+import { TFunction, useTranslation } from 'next-i18next'
+import Metadata from './Metadata'
+import GalleryBanner from './GalleryBanner'
+import { usePageWrapperContext } from '../layouts/PageWrapper'
+import TabletReservationForm from '../forms/TabletReservationForm'
 
 interface dynamicObject {
-  [key: string]: any;
+  [key: string]: any
 }
 
 const FORM: dynamicObject = {
@@ -70,29 +70,25 @@ const FORM: dynamicObject = {
   kniharska_dielna: ServiceReservationForm,
   bibliografia_a_resers: RechercheReservationForm,
   aka_kniha_vam_v_kniznici_chyba: BookNotInLibraryForm,
-};
+}
 
-const NullComponent = () => null;
+const NullComponent = () => null
 
-export const getForm = (
-  formType: string,
-  key?: string,
-  eventDetail?: IEvent
-) => {
-  if (!formType) return NullComponent;
+export const getForm = (formType: string, key?: string, eventDetail?: IEvent) => {
+  if (!formType) return NullComponent
 
-  let Comp: (arg: any) => any = FORM[formType];
+  let Comp: (arg: any) => any = FORM[formType]
 
   if (!Comp) {
-    Comp = NullComponent;
+    Comp = NullComponent
   }
 
   return (
     <div key={key} id={formType}>
       <Comp eventDetail={eventDetail} />
     </div>
-  );
-};
+  )
+}
 
 const Sections = ({
   sections,
@@ -100,58 +96,41 @@ const Sections = ({
   eventsListingUrl,
   className,
 }: {
-  sections: (SectionsFragment | null | undefined)[] | any;
-  events?: IEvent[] | undefined;
-  eventsListingUrl?: string | undefined;
-  className?: string | undefined;
+  sections: (SectionsFragment | null | undefined)[] | any
+  events?: IEvent[] | undefined
+  eventsListingUrl?: string | undefined
+  className?: string | undefined
 }) => {
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
       {sections.map((section: any, index: any) => (
-        <Section
-          key={index}
-          section={section || null}
-          events={events}
-          eventsListingUrl={eventsListingUrl}
-        />
+        <Section key={index} section={section || null} events={events} eventsListingUrl={eventsListingUrl} />
       ))}
     </div>
-  );
-};
+  )
+}
 
 const Section = ({
   section,
   events,
   eventsListingUrl,
 }: {
-  section: SectionsFragment | null;
-  events: IEvent[] | undefined;
-  eventsListingUrl: string | undefined;
+  section: SectionsFragment | null
+  events: IEvent[] | undefined
+  eventsListingUrl: string | undefined
 }) => {
-  const [openAccordion, setOpenAccordion] = React.useState('');
-  const { t } = useTranslation(['common', 'homepage']);
-  const { locale } = usePageWrapperContext();
+  const [openAccordion, setOpenAccordion] = React.useState('')
+  const { t } = useTranslation(['common', 'homepage'])
+  const { locale } = usePageWrapperContext()
 
   const listenAccordionState = (id: string, state: boolean) => {
-    setOpenAccordion(state ? id : '');
-  };
+    setOpenAccordion(state ? id : '')
+  }
 
-  if (!section) return null;
+  if (!section) return null
 
-  return (
-    <div>
-      {sectionContent(
-        section,
-        events,
-        eventsListingUrl,
-        t,
-        openAccordion,
-        listenAccordionState,
-        locale
-      )}
-    </div>
-  );
-};
+  return <div>{sectionContent(section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}</div>
+}
 
 const sectionContent = (
   section: SectionsFragment,
@@ -162,7 +141,7 @@ const sectionContent = (
   listenAccordionState: (id: string, state: boolean) => unknown,
   locale: any
 ) => {
-  const eventDetail = events?.length ? events[0] : null;
+  const eventDetail = events?.length ? events[0] : null
 
   switch (section.__typename) {
     case 'ComponentSectionsFlatText':
@@ -173,9 +152,9 @@ const sectionContent = (
           alt={section.media?.alternativeText || ''}
           mediaType={section.media?.mime?.split('/')[0] ?? ''}
         />
-      );
+      )
     case 'ComponentSectionsGallery':
-      return <GalleryBanner gallery={section.Gallery || undefined} />;
+      return <GalleryBanner gallery={section.Gallery || undefined} />
     case 'ComponentSectionsFlatTextCenter':
       return (
         <FlatTextCenter
@@ -183,19 +162,11 @@ const sectionContent = (
           imgSrc={section.image?.url ?? ''}
           alt={section.image?.alternativeText || ''}
         />
-      );
+      )
     case 'ComponentSectionsSubListing':
-      return (
-        <SubListing
-          title={section?.title || undefined}
-          url={section.url || undefined}
-          linkTitle={t('more')}
-        />
-      );
+      return <SubListing title={section?.title || undefined} url={section.url || undefined} linkTitle={t('more')} />
     case 'ComponentSectionsFaq':
-      return (
-        <Faq title={section.title ?? ''} questions={section?.questions ?? []} />
-      );
+      return <Faq title={section.title ?? ''} questions={section?.questions ?? []} />
 
     case 'ComponentSectionsSiteUsefullness':
       return (
@@ -205,18 +176,13 @@ const sectionContent = (
           firstOption={t('answer_yes')}
           secondOption={t('answer_no')}
           onButtonClick={() => {
-            console.log('// TODO');
+            console.log('// TODO')
           }}
         />
-      );
+      )
 
     case 'ComponentSectionsSubpages':
-      return (
-        <Subpages
-          title={section.title ?? ''}
-          subpages={parseSubpages(section)}
-        />
-      );
+      return <Subpages title={section.title ?? ''} subpages={parseSubpages(section)} />
     case 'ComponentSectionsTable':
       return (
         <Table
@@ -224,38 +190,30 @@ const sectionContent = (
           secondaryTitle={section.secondaryTitle ?? ''}
           rows={section.rows ?? []}
         />
-      );
+      )
     case 'ComponentSectionsAccordion':
       return (
         <>
-          {section.title && (
-            <h2 className="flex font-normal text-md pb-6">{section.title}</h2>
-          )}
+          {section.title && <h2 className="flex font-normal text-md pb-6">{section.title}</h2>}
           {section.tableRows &&
-            groupByAccordionCategory(section.tableRows ?? []).map(
-              (item, index) => (
-                <Accordion
-                  key={index}
-                  label={item.title}
-                  id={item.title}
-                  defaultState={item.title === openAccordion}
-                  stateListener={listenAccordionState}
-                  content={
-                    <div key={index} className="flex flex-col space-y-6">
-                      {item.tables.map((table, index) => (
-                        <Table
-                          key={index}
-                          secondaryTitle={table.title}
-                          rows={table.rows}
-                        />
-                      ))}
-                    </div>
-                  }
-                  size="big"
-                  type="divider"
-                />
-              )
-            )}
+            groupByAccordionCategory(section.tableRows ?? []).map((item, index) => (
+              <Accordion
+                key={index}
+                label={item.title}
+                id={item.title}
+                defaultState={item.title === openAccordion}
+                stateListener={listenAccordionState}
+                content={
+                  <div key={index} className="flex flex-col space-y-6">
+                    {item.tables.map((table, index) => (
+                      <Table key={index} secondaryTitle={table.title} rows={table.rows} />
+                    ))}
+                  </div>
+                }
+                size="big"
+                type="divider"
+              />
+            ))}
           {section.flatText &&
             groupByCategory(section.flatText).map((flatText, index) => (
               <Accordion
@@ -265,10 +223,7 @@ const sectionContent = (
                 defaultState={flatText.category === openAccordion}
                 stateListener={listenAccordionState}
                 content={flatText.items.map((item, index) => (
-                  <FlatText
-                    key={`${item?.category} ${index}`}
-                    content={item?.content ?? ''}
-                  />
+                  <FlatText key={`${item?.category} ${index}`} content={item?.content ?? ''} />
                 ))}
                 size="big"
                 type="divider"
@@ -283,82 +238,54 @@ const sectionContent = (
                 defaultState={form.category === openAccordion}
                 stateListener={listenAccordionState}
                 content={form.items.map((item, index) =>
-                  getForm(
-                    item?.type || '',
-                    index.toString(),
-                    eventDetail || undefined
-                  )
+                  getForm(item?.type || '', index.toString(), eventDetail || undefined)
                 )}
                 size="big"
                 type="divider"
               />
             ))}
         </>
-      );
+      )
     case 'ComponentSectionsForm':
-      return getForm(section.type || '', undefined, eventDetail || undefined);
+      return getForm(section.type || '', undefined, eventDetail || undefined)
     case 'ComponentSectionsEventDetails':
-      return <EventDetails eventDetails={section} />;
+      return <EventDetails eventDetails={section} />
 
     case 'ComponentSectionsDivider':
-      return (
-        section.shown && <div className="border-b border-gray-universal-100" />
-      );
+      return section.shown && <div className="border-b border-gray-universal-100" />
 
     case 'ComponentSectionsColumnedText':
-      return (
-        <ColumnedText
-          title={section.title ?? ''}
-          content={section.content ?? ''}
-        />
-      );
+      return <ColumnedText title={section.title ?? ''} content={section.content ?? ''} />
 
     case 'ComponentSectionsCta':
       return (
         <div className="w-full flex justify-center">
-          <LinkButton
-            href={section.url || ''}
-            target="_blank"
-            className="py-[9px] px-5"
-          >
+          <LinkButton href={section.url || ''} target="_blank" className="py-[9px] px-5">
             {section.title}
           </LinkButton>
         </div>
-      );
+      )
 
     case 'ComponentSectionsLocalityDetails':
-      return (
-        <LocalityDetails
-          localityDetails={section}
-          events={events}
-          eventsListingUrl={eventsListingUrl}
-        />
-      );
+      return <LocalityDetails localityDetails={section} events={events} eventsListingUrl={eventsListingUrl} />
 
     case 'ComponentSectionsExternalLinks':
       return (
         <ExternalLinks
           title={section.title ?? ''}
-          sections={groupByLinksCategory(
-            section.descriptions || undefined,
-            section.externalLinks || undefined
-          )}
+          sections={groupByLinksCategory(section.descriptions || undefined, section.externalLinks || undefined)}
         />
-      );
+      )
 
     case 'ComponentSectionsVideo':
       return (
         section.media?.url ||
         (section.youtube_url && (
           <div className="flex justify-center w-full">
-            <Video
-              id={section.id}
-              mediaUrl={section.media?.url ?? ''}
-              youTubeUrl={section.youtube_url ?? ''}
-            />
+            <Video id={section.id} mediaUrl={section.media?.url ?? ''} youTubeUrl={section.youtube_url ?? ''} />
           </div>
         ))
-      );
+      )
 
     case 'ComponentSectionsDocuments':
       return (
@@ -366,8 +293,7 @@ const sectionContent = (
           title={section.title || undefined}
           moreLink={{
             url: parsePageLink(section.moreLink)?.url ?? '',
-            title:
-              section.moreLink?.title ?? section.moreLink?.page?.title ?? '',
+            title: section.moreLink?.title ?? section.moreLink?.page?.title ?? '',
           }}
           files={section.basicDocuments?.map((document) => ({
             url: `/file/${document?.slug}`,
@@ -375,21 +301,15 @@ const sectionContent = (
               type: document?.file_category?.name ?? '',
               title: document?.title ?? '',
               metadata: <Metadata metadata={document?.metadata || []} /> ?? '',
-              dateAdded: document?.date_added
-                ? `${t('added')} ${formatDateToLocal(
-                    document?.date_added,
-                    locale
-                  )}`
-                : '',
-              fileType:
-                document?.attachment?.ext?.toUpperCase().replace('.', '') ?? '',
+              dateAdded: document?.date_added ? `${t('added')} ${formatDateToLocal(document?.date_added, locale)}` : '',
+              fileType: document?.attachment?.ext?.toUpperCase().replace('.', '') ?? '',
             },
           }))}
         />
-      );
+      )
     default:
-      return null;
+      return null
   }
-};
+}
 
-export default Sections;
+export default Sections

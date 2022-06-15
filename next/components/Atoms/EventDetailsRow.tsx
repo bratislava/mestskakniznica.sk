@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
-import cx from 'classnames';
+import { ReactNode } from 'react'
+import cx from 'classnames'
 
 interface DetailsRowProps {
-  classWrapper: string;
-  text: string;
-  svgIcon: ReactNode;
+  classWrapper: string
+  text: string
+  svgIcon: ReactNode
 }
 
 const DetailsRow = ({ classWrapper, text, svgIcon }: DetailsRowProps) => {
@@ -13,7 +13,7 @@ const DetailsRow = ({ classWrapper, text, svgIcon }: DetailsRowProps) => {
       <div className="align-top">{svgIcon}</div>
       <div className="pl-[15px]">{text}</div>
     </div>
-  );
-};
+  )
+}
 
-export default DetailsRow;
+export default DetailsRow

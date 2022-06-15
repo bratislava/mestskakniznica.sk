@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import SubpageItem from './SubpageItem';
+import SubpageItem from './SubpageItem'
 
 describe('SubpageItem', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<SubpageItem />);
-    expect(baseElement).toBeTruthy();
-  });
-});
+    const { baseElement } = render(<SubpageItem />)
+    expect(baseElement).toBeTruthy()
+  })
+})

@@ -1,19 +1,19 @@
-import { Input, TextArea } from '@bratislava/ui-city-library';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useTranslation } from 'next-i18next';
-import React from 'react';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import FormFooter from '../FormFooter';
-import FormContainer from '../FormContainer';
-import isEmpty from 'lodash/isEmpty';
-import { convertDataToBody } from '../../../utils/form-constants';
-import { useRouter } from 'next/router';
+import { Input, TextArea } from '@bratislava/ui-city-library'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import FormFooter from '../FormFooter'
+import FormContainer from '../FormContainer'
+import isEmpty from 'lodash/isEmpty'
+import { convertDataToBody } from '../../../utils/form-constants'
+import { useRouter } from 'next/router'
 
 const BookNotInLibraryForm = () => {
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
-  const { t } = useTranslation(['forms', 'common']);
-  const router = useRouter();
+  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const { t } = useTranslation(['forms', 'common'])
+  const router = useRouter()
 
   yup.setLocale({
     mixed: {
@@ -30,7 +30,7 @@ const BookNotInLibraryForm = () => {
     number: {
       min: t('validation_error_number_gt_zero'),
     },
-  });
+  })
 
   const schema = yup
     .object({
@@ -38,7 +38,7 @@ const BookNotInLibraryForm = () => {
       message: yup.string().required(),
       acceptFormTerms: yup.boolean().isTrue(),
     })
-    .required();
+    .required()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -46,15 +46,13 @@ const BookNotInLibraryForm = () => {
       email: '',
       message: '',
     },
-  });
-  const { errors } = methods.formState;
+  })
+  const { errors } = methods.formState
 
-  const hasErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms')
-  );
+  const hasErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    const temp = convertDataToBody(data, t);
+    const temp = convertDataToBody(data, t)
 
     // additional params
     const body = {
@@ -65,25 +63,25 @@ const BookNotInLibraryForm = () => {
         meta_sent_from: router.asPath,
         meta_locale: router.locale,
       },
-    };
+    }
 
     // send email
     const res = await fetch(`/api/submit-form`, {
       method: 'POST',
       // @ts-ignore
       body: JSON.stringify(body),
-    });
+    })
 
     // catch error
-    const { error } = await res.json();
+    const { error } = await res.json()
     if (error) {
-      console.log('error sending form', error);
-      return;
+      console.log('error sending form', error)
+      return
     }
 
     // show thank you message
-    setIsSubmitted(true);
-  });
+    setIsSubmitted(true)
+  })
 
   return (
     <FormProvider {...methods}>
@@ -130,16 +128,12 @@ const BookNotInLibraryForm = () => {
               />
             )}
           />
-          {hasErrors && (
-            <p className="text-base text-error ">
-              {t('please_fill_required_fields')}
-            </p>
-          )}
+          {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
           <FormFooter buttonContent={t('send')} />
         </div>
       </FormContainer>
     </FormProvider>
-  );
-};
+  )
+}
 
-export default BookNotInLibraryForm;
+export default BookNotInLibraryForm

@@ -1,23 +1,14 @@
-import NextLink from 'next/link';
-import cx from 'classnames';
+import NextLink from 'next/link'
+import cx from 'classnames'
 
 export interface LinkButtonProps
-  extends React.DetailedHTMLProps<
-    React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {
-  href: string;
-  icon?: React.ReactNode;
-  iconClassName?: string;
-  iconPosition?: 'left' | 'center';
-  shape?: 'default' | 'circle';
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'tertiary'
-    | 'plain-primary'
-    | 'plain-secondary'
-    | 'plain-white';
+  extends React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {
+  href: string
+  icon?: React.ReactNode
+  iconClassName?: string
+  iconPosition?: 'left' | 'center'
+  shape?: 'default' | 'circle'
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'plain-primary' | 'plain-secondary' | 'plain-white'
 }
 
 export const LinkButton = ({
@@ -39,19 +30,14 @@ export const LinkButton = ({
 
         // text colors
         'text-white': variant === 'primary' || variant === 'plain-white',
-        'text-gray-universal-100':
-          variant === 'secondary' ||
-          variant === 'plain-primary' ||
-          variant === 'tertiary',
+        'text-gray-universal-100': variant === 'secondary' || variant === 'plain-primary' || variant === 'tertiary',
         'text-gray-universal-60': variant === 'plain-secondary',
 
         // bg and border
-        'bg-gray-universal-100 hover:bg-gray-universal-80 border border-gray-universal-100':
-          variant === 'primary',
+        'bg-gray-universal-100 hover:bg-gray-universal-80 border border-gray-universal-100': variant === 'primary',
         'border border-gray-universal-100 hover:border-gray-universal-80 hover:text-gray-universal-80':
           variant === 'secondary',
-        'border border-gray-universal-200 hover:text-gray-universal-80':
-          variant === 'tertiary',
+        'border border-gray-universal-200 hover:text-gray-universal-80': variant === 'tertiary',
 
         // hover bg and border
         'hover:bg-gray-universal-80': variant === 'primary',
@@ -77,4 +63,4 @@ export const LinkButton = ({
       </span>
     </a>
   </NextLink>
-);
+)

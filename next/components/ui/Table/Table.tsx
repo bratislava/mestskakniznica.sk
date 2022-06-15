@@ -1,31 +1,20 @@
-import cx from 'classnames';
-import { TableRow, TableRowProps } from '../TableRow/TableRow';
+import cx from 'classnames'
+import { TableRow, TableRowProps } from '../TableRow/TableRow'
 
 export interface TableProps {
-  className?: string;
-  primaryTitle?: string;
-  secondaryTitle?: string;
-  rows?: (TableRowProps | undefined | null)[];
+  className?: string
+  primaryTitle?: string
+  secondaryTitle?: string
+  rows?: (TableRowProps | undefined | null)[]
 }
 
-export const Table = ({
-  className,
-  primaryTitle,
-  secondaryTitle,
-  rows,
-}: TableProps) => {
+export const Table = ({ className, primaryTitle, secondaryTitle, rows }: TableProps) => {
   return (
     <div className={cx(className)}>
       {primaryTitle && (
-        <h3 className="text-default mb-4 lg:text-md2 lg:mb-6 text-universal-gray-100">
-          {primaryTitle}
-        </h3>
+        <h3 className="text-default mb-4 lg:text-md2 lg:mb-6 text-universal-gray-100">{primaryTitle}</h3>
       )}
-      {secondaryTitle && (
-        <h6 className="text-sm mb-4 text-universal-gray-100">
-          {secondaryTitle}
-        </h6>
-      )}
+      {secondaryTitle && <h6 className="text-sm mb-4 text-universal-gray-100">{secondaryTitle}</h6>}
 
       <table className={cx(className, 'table-fixed w-full border-collapse')}>
         <tbody>
@@ -40,7 +29,7 @@ export const Table = ({
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default Table;
+export default Table

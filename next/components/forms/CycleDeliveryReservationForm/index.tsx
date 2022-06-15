@@ -1,23 +1,23 @@
-import { Button, Input, TextArea } from '@bratislava/ui-city-library';
-import React from 'react';
-import cx from 'classnames';
-import isEmpty from 'lodash/isEmpty';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
-import BookList from '../BookList/BookList';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import StepNumberTitle from '../StepNumberTitle';
-import FormFooter from '../FormFooter';
-import { useTranslation } from 'next-i18next';
-import FormContainer, { phoneRegex, postalCodeRegex } from '../FormContainer';
-import { convertDataToBody } from '../../../utils/form-constants';
-import { useRouter } from 'next/router';
+import { Button, Input, TextArea } from '@bratislava/ui-city-library'
+import React from 'react'
+import cx from 'classnames'
+import isEmpty from 'lodash/isEmpty'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
+import BookList from '../BookList/BookList'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import StepNumberTitle from '../StepNumberTitle'
+import FormFooter from '../FormFooter'
+import { useTranslation } from 'next-i18next'
+import FormContainer, { phoneRegex, postalCodeRegex } from '../FormContainer'
+import { convertDataToBody } from '../../../utils/form-constants'
+import { useRouter } from 'next/router'
 
 const CycleDeliveryReservationForm = () => {
-  const [step, setStep] = React.useState(1);
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
-  const { t } = useTranslation(['forms', 'common']);
-  const router = useRouter();
+  const [step, setStep] = React.useState(1)
+  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const { t } = useTranslation(['forms', 'common'])
+  const router = useRouter()
 
   yup.setLocale({
     mixed: {
@@ -34,7 +34,7 @@ const CycleDeliveryReservationForm = () => {
     number: {
       min: t('validation_error_number_gt_zero'),
     },
-  });
+  })
 
   const schema = yup
     .object({
@@ -43,15 +43,9 @@ const CycleDeliveryReservationForm = () => {
       readerCardNumber: yup.string().required(),
       address: yup.string().required(),
       city: yup.string().required(),
-      postalCode: yup
-        .string()
-        .matches(postalCodeRegex, t('validation_error_zipcode'))
-        .required(),
+      postalCode: yup.string().matches(postalCodeRegex, t('validation_error_zipcode')).required(),
       email: yup.string().email().required(),
-      phone: yup
-        .string()
-        .matches(phoneRegex, t('validation_error_phone'))
-        .required(),
+      phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
       books: yup
@@ -73,7 +67,7 @@ const CycleDeliveryReservationForm = () => {
         )
         .required(),
     })
-    .required();
+    .required()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -89,11 +83,11 @@ const CycleDeliveryReservationForm = () => {
       message: '',
       books: [{ bookId: '', author: '', title: '' }],
     },
-  });
-  const { errors } = methods.formState;
+  })
+  const { errors } = methods.formState
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    const temp = convertDataToBody(data, t);
+    const temp = convertDataToBody(data, t)
 
     // additional params
     const body = {
@@ -104,53 +98,40 @@ const CycleDeliveryReservationForm = () => {
         meta_sent_from: router.asPath,
         meta_locale: router.locale,
       },
-    };
+    }
 
     // send email
     const res = await fetch(`/api/submit-form`, {
       method: 'POST',
       // @ts-ignore
       body: JSON.stringify(body),
-    });
+    })
 
     // catch error
-    const { error } = await res.json();
+    const { error } = await res.json()
     if (error) {
-      console.log('error sending form', error);
-      return;
+      console.log('error sending form', error)
+      return
     }
 
     // show thank you message
-    setIsSubmitted(true);
-  });
+    setIsSubmitted(true)
+  })
 
   const triggerFirstStep = () => {
     methods
-      .trigger([
-        'fName',
-        'lName',
-        'readerCardNumber',
-        'address',
-        'city',
-        'postalCode',
-        'email',
-        'phone',
-      ])
+      .trigger(['fName', 'lName', 'readerCardNumber', 'address', 'city', 'postalCode', 'email', 'phone'])
       .then((fulfillment) => {
         if (fulfillment) {
-          methods.clearErrors();
-          setStep(2);
+          methods.clearErrors()
+          setStep(2)
         }
-      });
-  };
+      })
+  }
 
-  const stepOneErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'books')
-  );
+  const stepOneErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'books'))
 
-  const stepTwoErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms')
-  );
+  const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
 
   return (
     <FormProvider {...methods}>
@@ -342,16 +323,12 @@ const CycleDeliveryReservationForm = () => {
               />
             )}
           />
-          {stepTwoErrors && (
-            <p className="text-base text-error pb-4">
-              {t('please_fill_required_fields')}
-            </p>
-          )}
+          {stepTwoErrors && <p className="text-base text-error pb-4">{t('please_fill_required_fields')}</p>}
           <FormFooter hasDivider buttonContent={t('send')} />
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>
-  );
-};
+  )
+}
 
-export default CycleDeliveryReservationForm;
+export default CycleDeliveryReservationForm

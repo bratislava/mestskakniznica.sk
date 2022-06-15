@@ -161,4 +161,3 @@ fragment BlogPostLink on ComponentBlocksBlogPostLink {
   title
   url
 }
-

@@ -1,10 +1,10 @@
-import React from 'react';
-import EventCard from './Promos/EventCard';
-import AnnouncementCard from './Promos/AnnouncementCard';
-import { IEvent } from '../../utils/types';
+import React from 'react'
+import EventCard from './Promos/EventCard'
+import AnnouncementCard from './Promos/AnnouncementCard'
+import { IEvent } from '../../utils/types'
 
 interface SectionPromosProps {
-  events: IEvent[];
+  events: IEvent[]
 }
 
 const SectionPromos = ({ events }: SectionPromosProps) => {
@@ -30,26 +30,22 @@ const SectionPromos = ({ events }: SectionPromosProps) => {
                     eventCustomType={event.eventCustomType}
                   />
                 </div>
-              );
+              )
             case 'news':
             case 'announcement':
               return (
                 <div className="w-[80vw] sm:w-full flex-shrink-0">
-                  <AnnouncementCard
-                    key={event.slug}
-                    title={event.eventTitle || ''}
-                    slug={event.slug || ''}
-                  />
+                  <AnnouncementCard key={event.slug} title={event.eventTitle || ''} slug={event.slug || ''} />
                 </div>
-              );
+              )
             default:
-              return null;
-              break;
+              return null
+              break
           }
         })}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default SectionPromos;
+export default SectionPromos

@@ -1,22 +1,22 @@
-import { Button, Input, TextArea } from '@bratislava/ui-city-library';
-import React from 'react';
-import cx from 'classnames';
-import isEmpty from 'lodash/isEmpty';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import StepNumberTitle from '../StepNumberTitle';
-import FormFooter from '../FormFooter';
-import { useTranslation } from 'next-i18next';
-import FormContainer, { phoneRegex } from '../FormContainer';
-import { convertDataToBody } from '../../../utils/form-constants';
-import { useRouter } from 'next/router';
+import { Button, Input, TextArea } from '@bratislava/ui-city-library'
+import React from 'react'
+import cx from 'classnames'
+import isEmpty from 'lodash/isEmpty'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import StepNumberTitle from '../StepNumberTitle'
+import FormFooter from '../FormFooter'
+import { useTranslation } from 'next-i18next'
+import FormContainer, { phoneRegex } from '../FormContainer'
+import { convertDataToBody } from '../../../utils/form-constants'
+import { useRouter } from 'next/router'
 
 const RechercheReservationForm = () => {
-  const [step, setStep] = React.useState(1);
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
-  const { t } = useTranslation(['forms', 'common']);
-  const router = useRouter();
+  const [step, setStep] = React.useState(1)
+  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const { t } = useTranslation(['forms', 'common'])
+  const router = useRouter()
 
   yup.setLocale({
     mixed: {
@@ -33,7 +33,7 @@ const RechercheReservationForm = () => {
     number: {
       min: t('validation_error_number_gt_zero'),
     },
-  });
+  })
 
   const schema = yup
     .object({
@@ -41,10 +41,7 @@ const RechercheReservationForm = () => {
       lName: yup.string().required(),
       readerCardNumber: yup.string().required(),
       email: yup.string().email().required(),
-      phone: yup
-        .string()
-        .matches(phoneRegex, t('validation_error_phone'))
-        .required(),
+      phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
       rechercheTopic: yup.string().required(),
@@ -54,7 +51,7 @@ const RechercheReservationForm = () => {
       rechercheDocumentsType: yup.string().required(),
       rechercheDemandedLanguages: yup.string().required(),
     })
-    .required();
+    .required()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -72,11 +69,11 @@ const RechercheReservationForm = () => {
       rechercheDocumentsType: '',
       rechercheDemandedLanguages: '',
     },
-  });
-  const { errors } = methods.formState;
+  })
+  const { errors } = methods.formState
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    const temp = convertDataToBody(data, t);
+    const temp = convertDataToBody(data, t)
 
     // additional params
     const body = {
@@ -87,46 +84,40 @@ const RechercheReservationForm = () => {
         meta_sent_from: router.asPath,
         meta_locale: router.locale,
       },
-    };
+    }
 
     // send email
     const res = await fetch(`/api/submit-form`, {
       method: 'POST',
       // @ts-ignore
       body: JSON.stringify(body),
-    });
+    })
 
     // catch error
-    const { error } = await res.json();
+    const { error } = await res.json()
     if (error) {
-      console.log('error sending form', error);
-      return;
+      console.log('error sending form', error)
+      return
     }
 
     // show thank you message
-    setIsSubmitted(true);
-  });
+    setIsSubmitted(true)
+  })
 
   const triggerFirstStep = () => {
-    methods
-      .trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone'])
-      .then((fulfillment) => {
-        if (fulfillment) {
-          methods.clearErrors();
-          setStep(2);
-        }
-      });
-  };
+    methods.trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone']).then((fulfillment) => {
+      if (fulfillment) {
+        methods.clearErrors()
+        setStep(2)
+      }
+    })
+  }
 
   const stepOneErrors = !isEmpty(
-    Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && !k.startsWith('recherche')
-    )
-  );
+    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && !k.startsWith('recherche'))
+  )
 
-  const stepTwoErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms')
-  );
+  const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
 
   return (
     <FormProvider {...methods}>
@@ -238,11 +229,7 @@ const RechercheReservationForm = () => {
               />
             </div>
 
-            {stepOneErrors && (
-              <p className="text-base text-error">
-                {t('please_fill_required_fields')}
-              </p>
-            )}
+            {stepOneErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
             <Button onClick={() => triggerFirstStep()} className="w-36 h-10">
               {t('common:continue')}
             </Button>
@@ -368,17 +355,13 @@ const RechercheReservationForm = () => {
                 />
               )}
             />
-            {stepTwoErrors && (
-              <p className="text-base text-error">
-                {t('please_fill_required_fields')}
-              </p>
-            )}
+            {stepTwoErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
             <FormFooter hasDivider buttonContent={t('send')} />
           </div>
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>
-  );
-};
+  )
+}
 
-export default RechercheReservationForm;
+export default RechercheReservationForm

@@ -1,4 +1,4 @@
-import { IFormOption } from '../../../utils/form-constants';
+import { IFormOption } from '../../../utils/form-constants'
 
 export const options: IFormOption[] = [
   {
@@ -14,13 +14,11 @@ export const options: IFormOption[] = [
     label: [
       {
         locale: 'sk',
-        label:
-          'Zrakovo a inak zdravotne postihnutý v rozsahu odôvodnenom jeho zdravotným postihnutím',
+        label: 'Zrakovo a inak zdravotne postihnutý v rozsahu odôvodnenom jeho zdravotným postihnutím',
       },
       {
         locale: 'en',
-        label:
-          'Visually and otherwise disabled to the extent justified by the disability',
+        label: 'Visually and otherwise disabled to the extent justified by the disability',
       },
     ],
     price: '0,00 €',
@@ -62,8 +60,7 @@ export const options: IFormOption[] = [
     label: [
       {
         locale: 'sk',
-        label:
-          'študent/ka strednej alebo vysokej školy denného štúdia do 26 rokov',
+        label: 'študent/ka strednej alebo vysokej školy denného štúdia do 26 rokov',
       },
       {
         locale: 'en',
@@ -88,4 +85,4 @@ export const options: IFormOption[] = [
     ],
     price: '8,00 €',
   },
-];
+]

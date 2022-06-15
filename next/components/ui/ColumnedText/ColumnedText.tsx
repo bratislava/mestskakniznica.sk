@@ -1,22 +1,18 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context';
-import cx from 'classnames';
+import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import cx from 'classnames'
 
 export interface ColumnedTextProps {
-  className?: string;
-  content?: string;
-  title?: string;
+  className?: string
+  content?: string
+  title?: string
 }
 
-export const ColumnedText = ({
-  className,
-  content,
-  title,
-}: ColumnedTextProps) => {
-  const breakWord = '<break>';
-  const columns = content.split(breakWord);
-  const { Markdown: UIMarkdown } = useUIContext();
+export const ColumnedText = ({ className, content, title }: ColumnedTextProps) => {
+  const breakWord = '<break>'
+  const columns = content.split(breakWord)
+  const { Markdown: UIMarkdown } = useUIContext()
 
-  if (!content) return null;
+  if (!content) return null
 
   return (
     <div
@@ -40,5 +36,5 @@ export const ColumnedText = ({
         </div>
       ))}
     </div>
-  );
-};
+  )
+}

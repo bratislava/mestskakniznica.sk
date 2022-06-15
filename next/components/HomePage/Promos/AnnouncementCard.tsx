@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 interface AccouncementProps {
-  title: string;
-  slug: string;
+  title: string
+  slug: string
 }
 
 const AnnouncementCard = ({ title, slug }: AccouncementProps) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common')
   return (
     <Link key={slug} href={slug} passHref>
       <a href={slug}>
@@ -28,7 +28,7 @@ const AnnouncementCard = ({ title, slug }: AccouncementProps) => {
         </div>
       </a>
     </Link>
-  );
-};
+  )
+}
 
-export default AnnouncementCard;
+export default AnnouncementCard

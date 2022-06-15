@@ -1,15 +1,15 @@
-import Link from 'next/link';
-import { IEvent } from '../../utils/types';
-import { dateTimeString } from '../../utils/utils';
-import TagsDisplay from '../Atoms/TagsDisplay';
-import { usePageWrapperContext } from '../layouts/PageWrapper';
+import Link from 'next/link'
+import { IEvent } from '../../utils/types'
+import { dateTimeString } from '../../utils/utils'
+import TagsDisplay from '../Atoms/TagsDisplay'
+import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 interface EventListingProps {
-  event: IEvent;
+  event: IEvent
 }
 
 const EventListingCard = ({ event }: EventListingProps) => {
-  const { locale } = usePageWrapperContext();
+  const { locale } = usePageWrapperContext()
 
   return (
     <Link key={event.slug} href={event.slug || ''} passHref>
@@ -23,28 +23,20 @@ const EventListingCard = ({ event }: EventListingProps) => {
           />
 
           <div className="flex pt-4 text-xs">
-            <TagsDisplay
-              tags={event.eventTags}
-              category={event.eventCategory?.title || ''}
-              tagsCount={2}
-            />
+            <TagsDisplay tags={event.eventTags} category={event.eventCategory?.title || ''} tagsCount={2} />
           </div>
 
-          <div className="text-default pt-2 justify-end hover:underline">
-            {event.eventTitle}
-          </div>
+          <div className="text-default pt-2 justify-end hover:underline">{event.eventTitle}</div>
           <div className="text-xs text-gray-600 pt-2">
             {dateTimeString(event.dateFrom || '', event.dateTo || '', locale)}
           </div>
           {event.eventLocality?.title && (
-            <div className="text-xs text-gray-600 pt-2">
-              &#9679; {event.eventLocality.title}
-            </div>
+            <div className="text-xs text-gray-600 pt-2">&#9679; {event.eventLocality.title}</div>
           )}
         </div>
       </a>
     </Link>
-  );
-};
+  )
+}
 
-export default EventListingCard;
+export default EventListingCard

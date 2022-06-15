@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import Subpages from './Subpages';
+import Subpages from './Subpages'
 
 describe('Subpages', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Subpages />);
-    expect(baseElement).toBeTruthy();
-  });
-});
+    const { baseElement } = render(<Subpages />)
+    expect(baseElement).toBeTruthy()
+  })
+})

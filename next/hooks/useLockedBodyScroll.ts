@@ -1,45 +1,45 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
-import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
 
-type ReturnType = [boolean, (locked: boolean) => void];
+type ReturnType = [boolean, (locked: boolean) => void]
 
 function useLockedBody(initialLocked = false): ReturnType {
-  const [locked, setLocked] = useState(initialLocked);
+  const [locked, setLocked] = useState(initialLocked)
 
   useIsomorphicLayoutEffect(() => {
     if (!locked) {
-      return;
+      return
     }
-    const originalOverflow = document.body.style.overflow;
-    const originalPaddingRight = document.body.style.paddingRight;
+    const originalOverflow = document.body.style.overflow
+    const originalPaddingRight = document.body.style.paddingRight
 
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'
 
-    const root = document.getElementById('___gatsby'); // or root
-    const scrollBarWidth = root ? root.offsetWidth - root.scrollWidth : 0;
+    const root = document.getElementById('___gatsby') // or root
+    const scrollBarWidth = root ? root.offsetWidth - root.scrollWidth : 0
 
     if (scrollBarWidth) {
-      document.body.style.paddingRight = `${scrollBarWidth}px`;
+      document.body.style.paddingRight = `${scrollBarWidth}px`
     }
 
     return () => {
-      document.body.style.overflow = originalOverflow;
+      document.body.style.overflow = originalOverflow
 
       if (scrollBarWidth) {
-        document.body.style.paddingRight = originalPaddingRight;
+        document.body.style.paddingRight = originalPaddingRight
       }
-    };
-  }, [locked]);
+    }
+  }, [locked])
 
   useEffect(() => {
     if (locked !== initialLocked) {
-      setLocked(initialLocked);
+      setLocked(initialLocked)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialLocked]);
+  }, [initialLocked])
 
-  return [locked, setLocked];
+  return [locked, setLocked]
 }
 
-export default useLockedBody;
+export default useLockedBody

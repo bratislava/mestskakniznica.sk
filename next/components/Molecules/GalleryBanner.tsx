@@ -1,25 +1,21 @@
-import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library';
-import React from 'react';
-import { useTranslation } from 'next-i18next';
-import GalleryModal from './GalleryModal';
+import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library'
+import React from 'react'
+import { useTranslation } from 'next-i18next'
+import GalleryModal from './GalleryModal'
 
 export interface PageProps {
-  gallery?: Array<ComponentLocalityPartsGalleryParts | null | undefined>;
+  gallery?: Array<ComponentLocalityPartsGalleryParts | null | undefined>
 }
 const GalleryBanner = ({ gallery }: PageProps) => {
-  const [showModal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false)
   const closeModal = () => {
-    setShowModal(false);
-  };
-  const { t } = useTranslation('homepage');
+    setShowModal(false)
+  }
+  const { t } = useTranslation('homepage')
 
   return (
     <>
-      <GalleryModal
-        gallery={gallery || []}
-        showModal={showModal}
-        closeModal={closeModal}
-      />
+      <GalleryModal gallery={gallery || []} showModal={showModal} closeModal={closeModal} />
       {gallery && gallery.length > 0 && (
         <div className="flex flex-col lg:flex-row items-center">
           <div className="w-full lg:w-8/12">
@@ -110,7 +106,7 @@ const GalleryBanner = ({ gallery }: PageProps) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default GalleryBanner;
+export default GalleryBanner

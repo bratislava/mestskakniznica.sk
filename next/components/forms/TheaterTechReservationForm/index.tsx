@@ -1,20 +1,20 @@
-import { DateTimeSelect, Input, Select } from '@bratislava/ui-city-library';
-import { LocalDate } from '@js-joda/core';
-import React from 'react';
-import { Controller, useForm, FormProvider } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import FormFooter from '../FormFooter';
-import { useTranslation } from 'next-i18next';
-import FormContainer, { phoneRegex } from '../FormContainer';
-import isEmpty from 'lodash/isEmpty';
-import { convertDataToBody } from '../../../utils/form-constants';
-import { useRouter } from 'next/router';
+import { DateTimeSelect, Input, Select } from '@bratislava/ui-city-library'
+import { LocalDate } from '@js-joda/core'
+import React from 'react'
+import { Controller, useForm, FormProvider } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import FormFooter from '../FormFooter'
+import { useTranslation } from 'next-i18next'
+import FormContainer, { phoneRegex } from '../FormContainer'
+import isEmpty from 'lodash/isEmpty'
+import { convertDataToBody } from '../../../utils/form-constants'
+import { useRouter } from 'next/router'
 
 const TheaterTechReservationForm = () => {
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
-  const { t } = useTranslation(['forms', 'common']);
-  const router = useRouter();
+  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const { t } = useTranslation(['forms', 'common'])
+  const router = useRouter()
 
   yup.setLocale({
     mixed: {
@@ -31,22 +31,19 @@ const TheaterTechReservationForm = () => {
     number: {
       min: t('validation_error_number_gt_zero'),
     },
-  });
+  })
 
   const schema = yup
     .object({
       fName: yup.string().required(),
       lName: yup.string().required(),
       email: yup.string().email().required(),
-      phone: yup
-        .string()
-        .matches(phoneRegex, t('validation_error_phone'))
-        .required(),
+      phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       techType: yup.string().required(),
       term: yup.date().min(LocalDate.now().toString()).required(),
       acceptFormTerms: yup.boolean().isTrue(),
     })
-    .required();
+    .required()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -58,15 +55,13 @@ const TheaterTechReservationForm = () => {
       techType: '',
       term: '',
     },
-  });
-  const { errors } = methods.formState;
+  })
+  const { errors } = methods.formState
 
-  const hasErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms')
-  );
+  const hasErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    const temp = convertDataToBody(data, t);
+    const temp = convertDataToBody(data, t)
 
     // additional params
     const body = {
@@ -77,25 +72,25 @@ const TheaterTechReservationForm = () => {
         meta_sent_from: router.asPath,
         meta_locale: router.locale,
       },
-    };
+    }
 
     // send email
     const res = await fetch(`/api/submit-form`, {
       method: 'POST',
       // @ts-ignore
       body: JSON.stringify(body),
-    });
+    })
 
     // catch error
-    const { error } = await res.json();
+    const { error } = await res.json()
     if (error) {
-      console.log('error sending form', error);
-      return;
+      console.log('error sending form', error)
+      return
     }
 
     // show thank you message
-    setIsSubmitted(true);
-  });
+    setIsSubmitted(true)
+  })
 
   return (
     <FormProvider {...methods}>
@@ -187,7 +182,7 @@ const TheaterTechReservationForm = () => {
                     { key: 'key2', title: 'Title2' },
                   ]}
                   onChange={(opt) => {
-                    onChange(opt.key);
+                    onChange(opt.key)
                   }}
                   hasError={!!errors.techType}
                   errorMessage={t('validation_error_radiogroup')}
@@ -212,16 +207,12 @@ const TheaterTechReservationForm = () => {
               )}
             />
           </div>
-          {hasErrors && (
-            <p className="text-base text-error ">
-              {t('please_fill_required_fields')}
-            </p>
-          )}
+          {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
           <FormFooter buttonContent={t('send')} />
         </div>
       </FormContainer>
     </FormProvider>
-  );
-};
+  )
+}
 
-export default TheaterTechReservationForm;
+export default TheaterTechReservationForm

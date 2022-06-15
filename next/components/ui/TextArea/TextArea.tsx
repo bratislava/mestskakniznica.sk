@@ -1,16 +1,13 @@
-import cx from 'classnames';
-import { DetailedHTMLProps, TextareaHTMLAttributes } from 'react';
+import cx from 'classnames'
+import { DetailedHTMLProps, TextareaHTMLAttributes } from 'react'
 
 export interface TextAreaProps
-  extends DetailedHTMLProps<
-    TextareaHTMLAttributes<HTMLTextAreaElement>,
-    HTMLTextAreaElement
-  > {
-  labelContent?: string;
-  helpText?: string;
-  hasError?: boolean;
-  errorMessage?: string;
-  textAreaClassname?: string;
+  extends DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> {
+  labelContent?: string
+  helpText?: string
+  hasError?: boolean
+  errorMessage?: string
+  textAreaClassname?: string
 }
 
 export const TextArea = ({
@@ -29,10 +26,7 @@ export const TextArea = ({
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label
-          className={cx('text-xs text-gray-universal-100 mb-0.5 opacity-80')}
-          htmlFor={id}
-        >
+        <label className={cx('text-xs text-gray-universal-100 mb-0.5 opacity-80')} htmlFor={id}>
           {labelContent}
           {required && <span className="text-error pl-1">*</span>}
         </label>
@@ -54,11 +48,7 @@ export const TextArea = ({
 
       {/* Error Message */}
       {errorMessage && (
-        <p
-          id={id + '_err'}
-          className={cx('text-xs text-error mt-2', { hidden: !hasError })}
-          aria-labelledby={id}
-        >
+        <p id={id + '_err'} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
           {labelContent} {errorMessage}
         </p>
       )}
@@ -75,5 +65,5 @@ export const TextArea = ({
         </p>
       )}
     </div>
-  );
-};
+  )
+}

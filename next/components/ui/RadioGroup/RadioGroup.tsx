@@ -1,26 +1,26 @@
-import cx from 'classnames';
-import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
-import React from 'react';
+import cx from 'classnames'
+import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
+import React from 'react'
 
 export interface IRadioOption {
-  key: string;
-  title: string;
-  disabled?: boolean;
-  price?: string;
+  key: string
+  title: string
+  disabled?: boolean
+  price?: string
 }
 
 interface RadioGroupProps<T extends IRadioOption> {
-  id?: string;
-  className?: string;
-  wrapperClassName?: string;
-  radioClassName?: string;
-  labelContent?: string;
-  hasError?: boolean;
-  errorMessage?: string;
-  options: T[];
-  onChange?: (value: string) => void;
-  value?: string;
-  required?: boolean | undefined;
+  id?: string
+  className?: string
+  wrapperClassName?: string
+  radioClassName?: string
+  labelContent?: string
+  hasError?: boolean
+  errorMessage?: string
+  options: T[]
+  onChange?: (value: string) => void
+  value?: string
+  required?: boolean | undefined
 }
 
 export const RadioGroup = <T extends IRadioOption>({
@@ -40,12 +40,7 @@ export const RadioGroup = <T extends IRadioOption>({
     <div className={wrapperClassName}>
       {/* Label */}
       {labelContent && (
-        <label
-          className={cx(
-            'text-xs text-gray-universal-100 mb-1 block opacity-80 '
-          )}
-          htmlFor={id}
-        >
+        <label className={cx('text-xs text-gray-universal-100 mb-1 block opacity-80 ')} htmlFor={id}>
           {labelContent}
           {required && <span className="text-error pl-1">*</span>}
         </label>
@@ -86,9 +81,7 @@ export const RadioGroup = <T extends IRadioOption>({
               >
                 <div className="flex justify-between">
                   <span>{opt.title}</span>
-                  {opt.price && (
-                    <span className="w-24 text-right">{opt.price}</span>
-                  )}
+                  {opt.price && <span className="w-24 text-right">{opt.price}</span>}
                 </div>
               </label>
             </div>
@@ -97,17 +90,13 @@ export const RadioGroup = <T extends IRadioOption>({
 
         {/* Error Message */}
         {hasError && errorMessage && (
-          <p
-            id={id + '_err'}
-            className={cx('text-xs text-error mt-2', { hidden: !hasError })}
-            aria-labelledby={id}
-          >
+          <p id={id + '_err'} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
             {errorMessage}
           </p>
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default RadioGroup;
+export default RadioGroup

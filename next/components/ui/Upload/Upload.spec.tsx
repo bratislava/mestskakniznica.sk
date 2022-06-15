@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import { Upload } from './Upload';
+import { Upload } from './Upload'
 
 describe('Upload', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Upload />);
-    expect(baseElement).toBeTruthy();
-  });
-});
+    const { baseElement } = render(<Upload />)
+    expect(baseElement).toBeTruthy()
+  })
+})

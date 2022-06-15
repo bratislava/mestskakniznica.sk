@@ -1,12 +1,9 @@
-import cx from 'classnames';
-import { Input, InputProps } from '../Input/Input';
+import cx from 'classnames'
+import { Input, InputProps } from '../Input/Input'
 
 export interface SearchBarProps
   extends InputProps,
-    React.DetailedHTMLProps<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
-    > {}
+    React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {}
 
 export const SearchBar = ({
   className,
@@ -23,16 +20,10 @@ export const SearchBar = ({
       labelClassName="sr-only"
       inputClassName={cx('px-12', inputClassName)}
       value={value}
-      iconRight={
-        !!iconRight && (
-          <span className="-ml-9 cursor-pointer text-gray-universal-100">
-            {iconRight}
-          </span>
-        )
-      }
+      iconRight={!!iconRight && <span className="-ml-9 cursor-pointer text-gray-universal-100">{iconRight}</span>}
       {...props}
     />
   </div>
-);
+)
 
-export default SearchBar;
+export default SearchBar

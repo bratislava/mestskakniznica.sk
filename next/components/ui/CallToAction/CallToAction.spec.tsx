@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import { CallToAction } from './CallToAction';
+import { CallToAction } from './CallToAction'
 
 describe('CallToAction Element', () => {
   it('should render successfully', () => {
@@ -12,7 +12,7 @@ describe('CallToAction Element', () => {
         bottomText="Viac"
         hasIcon={true}
       />
-    );
-    expect(baseElement).toBeTruthy();
-  });
-});
+    )
+    expect(baseElement).toBeTruthy()
+  })
+})

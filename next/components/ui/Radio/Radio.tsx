@@ -1,18 +1,10 @@
-import cx from 'classnames';
-import React from 'react';
+import cx from 'classnames'
+import React from 'react'
 
-type RadioProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->;
+type RadioProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 export const Radio = ({ className, children, ...props }: RadioProps) => (
-  <label
-    className={cx(
-      'cursor-pointer flex items-center gap-3.5 text-base',
-      className
-    )}
-  >
+  <label className={cx('cursor-pointer flex items-center gap-3.5 text-base', className)}>
     <input type="radio" className="hidden" {...props} />
     <div
       className={cx(
@@ -23,9 +15,7 @@ export const Radio = ({ className, children, ...props }: RadioProps) => (
         className
       )}
     >
-      {props.checked && (
-        <div className="bg-gray-universal-100 w-3 h-3 rounded-full" />
-      )}
+      {props.checked && <div className="bg-gray-universal-100 w-3 h-3 rounded-full" />}
     </div>
     <p
       className={cx('flex-1 text-gray-universal-70', {
@@ -35,4 +25,4 @@ export const Radio = ({ className, children, ...props }: RadioProps) => (
       {children}
     </p>
   </label>
-);
+)
