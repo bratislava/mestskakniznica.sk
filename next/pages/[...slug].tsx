@@ -9,6 +9,7 @@ import {
   PageBySlugQuery,
   PartnerFragment,
 } from '@bratislava/strapi-sdk-city-library'
+import * as Sentry from "@sentry/nextjs"
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
@@ -293,6 +294,8 @@ function Page({
   footer,
 }: PageProps) {
   if (error) {
+    Sentry.captureException(error);
+
     return (
       <ErrorPage code={500}>
         <ErrorDisplay error={error} />

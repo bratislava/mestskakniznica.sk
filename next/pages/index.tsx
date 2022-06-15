@@ -1,5 +1,6 @@
 import { BookTagsQuery, FooterQuery, HomePageQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
+import * as Sentry from '@sentry/nextjs';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 
@@ -38,6 +39,7 @@ export function Index({
   footer,
 }: IProps) {
   if (error) {
+    Sentry.captureException(error);
     return (
       <PageWrapper
         locale={locale ?? 'sk'}

@@ -1,9 +1,7 @@
 // TODO use @ts-check
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require('path')
-const fs = require('fs')
-const { i18n } = require('./next-i18next.config')
+const { withSentryConfig } = require('@sentry/nextjs')
 
 /**
  * @type {import('next').NextConfig}
@@ -1446,15 +1444,19 @@ const nextConfig = {
   },
 }
 
-module.exports = (phase, { defaultConfig }) => ({
-    ...defaultConfig,
-    ...nextConfig,
-    webpack(config) {
-      config.module.rules.push({
-        test: /\.svg$/,
-        use: ['@svgr/webpack'],
-      })
 
-      return config
-    },
-  })
+module.exports = (phase, { defaultConfig }) => withSentryConfig(
+      {
+        ...defaultConfig,
+        ...nextConfig,
+        webpack(config) {
+          config.module.rules.push({
+            test: /\.svg$/,
+            use: ['@svgr/webpack'],
+          })
+
+          return config
+        }
+      },
+      { silent: true }
+    )

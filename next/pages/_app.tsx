@@ -1,6 +1,7 @@
 import './index.css'
 
 import { UIContextProvider } from '@bratislava/common-frontend-ui-context'
+import * as Sentry from '@sentry/nextjs';
 import { AppProps } from 'next/app'
 import Link from 'next/link'
 import Script from 'next/script'
@@ -13,7 +14,9 @@ import ErrorDisplay from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
 
 function CustomApp({ Component, pageProps, router }: AppProps): JSX.Element {
-  if (pageProps.error) {
+  if (pageProps?.error) {
+    Sentry.captureException(pageProps?.error);
+
     return (
       <ErrorPage code={500}>
         <ErrorDisplay error={pageProps.error} />
