@@ -10,7 +10,7 @@ import { appWithTranslation } from 'next-i18next'
 
 import ErrorDisplay from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
-// import CookieConsent from '../components/Molecules/CookieConsent'
+import CookieConsent from '../components/Molecules/CookieConsent'
 
 function CustomApp({ Component, pageProps, router }: AppProps): JSX.Element {
   if (pageProps.error) {
@@ -43,7 +43,7 @@ function CustomApp({ Component, pageProps, router }: AppProps): JSX.Element {
       >
         <Component {...pageProps} />
       </UIContextProvider>
-      {/* <CookieConsent /> */}
+      <CookieConsent />
     </div>
   )
 }
