@@ -10,7 +10,7 @@ export interface AccordionProps {
   type: 'boxed' | 'divider' | 'sublocation'
   size: 'small' | 'big'
   label: string
-  content: React.ReactNode
+  content: React.ReactNode | any
   stateListener?: (id: string, state: boolean) => unknown
   defaultState?: boolean
   ariaLabelPrefix?: string

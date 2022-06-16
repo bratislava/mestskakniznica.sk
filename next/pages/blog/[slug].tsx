@@ -1,5 +1,5 @@
 import { BlogPostBySlugQuery, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -47,7 +47,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<BlogPostPageProps> = async (ctx) => {
+export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
   const locale = ctx.locale ?? 'sk'
   if (!ctx?.params?.slug || typeof ctx.params.slug !== 'string') return { notFound: true }
   const { slug } = ctx.params

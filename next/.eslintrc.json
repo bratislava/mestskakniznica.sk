@@ -1,5 +1,19 @@
 {
-  "extends": ["auto"],
+  "extends": ["next/core-web-vitals","plugin:prettier/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:jsx-a11y/recommended"],
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": "off",
+    "import/no-unresolved": "off",
+    "jsx-a11y/no-onchange": "off",
+    "import/no-named-as-default": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-unsafe-assignment":"off"
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
