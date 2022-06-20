@@ -24,7 +24,11 @@ function FileInput({ control, name }: any) {
       required
       onChange={(e) => {
         if (e.target.files) {
-          setFiles([...e.target.files])
+          let newArray = [];
+          for(let i=0; i < e.target.files.length; i++) {
+            newArray.push(e.target.files.item(i))
+          }
+          setFiles(newArray)
           field.onChange(e.target.files)
         }
       }}

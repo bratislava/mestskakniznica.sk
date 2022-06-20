@@ -160,7 +160,7 @@ export const convertPageToEventDisplay = (
     return {
       ...page.sections?.find((section) => section?.__typename === 'ComponentSectionsEventDetails'),
       slug: page.slug || '',
-      listingImage: page.listingImage || undefined,
+      listingImage: page.listingImage || null,
       eventCustomType: 'event',
       eventLocality:
         eventDetails && eventDetails.__typename === 'ComponentSectionsEventDetails' ? eventDetails.eventLocality : null,
@@ -170,7 +170,7 @@ export const convertPageToEventDisplay = (
   } if (page.layout === Enum_Page_Layout.Announcement) {
     return {
       eventTitle: page.title || '',
-      listingImage: page.listingImage || undefined,
+      listingImage: page.listingImage || null,
       eventCustomType: 'announcement',
       slug: page.slug || '',
     }

@@ -91,9 +91,9 @@ function HeaderTopItems({ openingHours, ...languageSelectProps }: { openingHours
     <p className="text-xs border-l border-gray-universal-100 px-3 h-full flex items-center cursor-default">
       {openingHours}
     </p>
-    <Link uppercase={false} href="#" className="border-l border-gray-universal-100 px-3 h-full flex items-center">
+    <div className="border-l border-gray-universal-100 px-3 h-full flex items-center">
       Prihlásenie
-    </Link>
+    </div>
     <LanguageSelect
       className="appearance-none border-l border-gray-universal-100 bg-white px-3 text-xs h-full flex items-center cursor-pointer focus:outline-none"
       {...languageSelectProps}
@@ -167,10 +167,10 @@ export function Header({ className, logoTitle, menuItems, openingHours, ...langu
                   </div>
                 ))}
               </div>
-              <Link href="#" className="flex items-center gap-x-[13px] border-t border-gray-universal-100 py-5">
+              <div className="flex items-center gap-x-[13px] border-t border-gray-universal-100 py-5">
                 Zobraziť všetko
                 <ChevronRight />
-              </Link>
+              </div>
             </div>
           </div>
         ))}

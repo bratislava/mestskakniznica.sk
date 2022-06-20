@@ -7,7 +7,6 @@ import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { ComponentSectionsEventDetails } from '@bratislava/strapi-sdk-city-library'
-import AddToCalendar from '@culturehq/add-to-calendar'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
@@ -21,6 +20,7 @@ import Clickable from '../Atoms/EventClickable'
 import DetailsRow from '../Atoms/EventDetailsRow'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
+import AddToCalendar from '@culturehq/add-to-calendar'
 
 export interface PageProps {
   eventDetails?: ComponentSectionsEventDetails
