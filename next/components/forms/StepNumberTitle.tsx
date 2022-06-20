@@ -1,6 +1,7 @@
 import CheckMark from '@assets/images/check-mark.svg'
 import cx from 'classnames'
 import React from 'react'
+import { useTranslation } from 'next-i18next'
 
 interface IProps {
   num: number
@@ -14,6 +15,7 @@ interface IProps {
 function StepNumberTitle({ num, title, activeStep, onClick, className, children }: IProps) {
   const active = activeStep === num
   const finished = activeStep > num
+  const { t } = useTranslation(['homepage'])
 
   return (
     <div
@@ -32,6 +34,7 @@ function StepNumberTitle({ num, title, activeStep, onClick, className, children 
         className={cx('flex items-center gap-x-6 cursor-pointer ', {
           'mb-6': active || finished,
         })}
+        aria-label={`${active ? t('openAccordian') : t('closeAccordian')} ${title}`}
       >
         <span
           className={cx(
