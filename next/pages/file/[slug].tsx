@@ -1,9 +1,9 @@
 import { GetServerSidePropsContext } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../../components/layouts/PageWrapper'
 import FileDetailPage from '../../components/pages/fileDetailPage'
 import { client } from '../../utils/gql'
-import { ssrTranslations } from '../../utils/translations'
 import { AsyncServerProps } from '../../utils/types'
 import { arrayify } from '../../utils/utils'
 
@@ -32,7 +32,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       menus,
       footer,
       basicDocument: basicDocumentBySlug,
-      ...(await ssrTranslations(ctx, ['common', 'newsletter'])),
+      ...(await serverSideTranslations(locale, ['common', 'newsletter'])),
     },
   }
 }

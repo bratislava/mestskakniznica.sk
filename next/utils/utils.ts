@@ -31,16 +31,18 @@ export const dateTimeString = (date: Date | string, dateTo: Date | string, local
   })
 
   if (dayFrom === dayTo && monthFrom === monthTo)
-    return locale == 'sk' ? `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime} - ${toTime}` : `${monthFrom}. ${dayFrom}. ${yearTo}, ${fromTime} - ${toTime}`;
+    return locale == 'sk'
+      ? `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime} - ${toTime}`
+      : `${monthFrom}. ${dayFrom}. ${yearTo}, ${fromTime} - ${toTime}`
   if (monthFrom === monthTo)
-    return locale == 'sk' ? `${dayFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}` : `${monthFrom}. ${dayFrom}. - ${monthTo}. ${dayTo}. ${yearTo}, ${fromTime} - ${toTime}`;
-  
-    if (locale == 'sk') {
-      return `${dayFrom}. ${monthFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
-    } 
-      return `${monthFrom}. ${dayFrom}. - ${monthTo}. ${dayTo}. ${yearTo}, ${fromTime} - ${toTime}`
-    
-  
+    return locale == 'sk'
+      ? `${dayFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
+      : `${monthFrom}. ${dayFrom}. - ${monthTo}. ${dayTo}. ${yearTo}, ${fromTime} - ${toTime}`
+
+  if (locale == 'sk') {
+    return `${dayFrom}. ${monthFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
+  }
+  return `${monthFrom}. ${dayFrom}. - ${monthTo}. ${dayTo}. ${yearTo}, ${fromTime} - ${toTime}`
 }
 
 export const arrayify = (input: string | string[] | undefined | null) => {
@@ -76,9 +78,8 @@ export const Time24To12Format = (time: any, locale: string) => {
       time = time[0] + time[5]
     }
     return time // return adjusted time or original string
-  } 
-    return time
-  
+  }
+  return time
 }
 
 export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = false) => {
@@ -105,7 +106,8 @@ export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = f
     return { day: todayDay, month: todayMonth, year: todayYear, date: today }
 
     // display last event day if its in the past
-  } if (today > dTo) {
+  }
+  if (today > dTo) {
     const toDay = dTo.toLocaleString('en-US', {
       day: twoDigit ? '2-digit' : 'numeric',
     })
@@ -167,14 +169,16 @@ export const convertPageToEventDisplay = (
       eventCategory:
         eventDetails && eventDetails.__typename === 'ComponentSectionsEventDetails' ? eventDetails.eventCategory : null,
     }
-  } if (page.layout === Enum_Page_Layout.Announcement) {
+  }
+  if (page.layout === Enum_Page_Layout.Announcement) {
     return {
       eventTitle: page.title || '',
       listingImage: page.listingImage || undefined,
       eventCustomType: 'announcement',
       slug: page.slug || '',
     }
-  } if (page.layout === Enum_Page_Layout.News) {
+  }
+  if (page.layout === Enum_Page_Layout.News) {
     return {
       eventTitle: page.title,
       date_added: page.date_added,
@@ -330,7 +334,7 @@ export const isEventPast = (dateTo: Date | string | null): boolean => {
 }
 
 // TEMP fix for build step where tokenized var isn't replaced until we figure out a better way
-export const shouldSkipStaticPaths = () => process.env.NODE_ENV === 'development' || tokenizedSrapiUrlNoAvailable()
+export const shouldSkipStaticPaths = () => true
 
 // this happens in build environment because token replacement happens only once dockerized
 export const tokenizedSrapiUrlNoAvailable = () => process.env.STRAPI_URL === '%{STRAPI_URL}%'
