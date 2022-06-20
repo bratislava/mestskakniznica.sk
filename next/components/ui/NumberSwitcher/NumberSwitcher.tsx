@@ -49,7 +49,7 @@ export function NumberSwitcher({
         <button
           onClick={(e) => {
             e.preventDefault()
-            onClickChange(clampValue(Number(value) - 1))
+            onClickChange && onClickChange(clampValue(Number(value) - 1))
           }}
           className="cursor-pointer py-2 text-black-universal h-full"
         >
@@ -64,7 +64,7 @@ export function NumberSwitcher({
             value={value}
             aria-invalid={hasError}
             aria-required={required}
-            aria-errormessage={errorMessage ? `${id  }_err` : null}
+            aria-errormessage={errorMessage ? `${id  }_err` : ''}
             {...props}
           />
         </div>
@@ -72,7 +72,7 @@ export function NumberSwitcher({
         <button
           onClick={(e) => {
             e.preventDefault()
-            onClickChange(clampValue(Number(value) + 1))
+            onClickChange && onClickChange(clampValue(Number(value) + 1))
           }}
           className="cursor-pointer py-2 text-black-universal h-full"
         >

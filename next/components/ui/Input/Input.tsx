@@ -57,7 +57,7 @@ export function Input({
         })}
         aria-invalid={hasError}
         aria-required={required}
-        aria-errormessage={errorMessage ? `${id  }_err` : null}
+        aria-errormessage={errorMessage ? `${id  }_err` : ''}
         {...props}
       />
 

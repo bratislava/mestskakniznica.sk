@@ -29,37 +29,37 @@ export interface FooterProps {
   instagramUrl: string
   youtubeUrl: string
   siteMap?: { title: string; href: string }
-  footerColumns: FooterQuery['footer']['footerColumns']
+  footerColumns: NonNullable<FooterQuery['footer']>['footerColumns']
   gdpr: { title: string; href: string }
   VOP: { title: string; href: string }
   copyrightText?: string
 }
 
-function FooterSection({ col, i }: { col: FooterQuery['footer']['footerColumns'][0]; i: number }) {
+function FooterSection({ col, i }: { col: NonNullable<NonNullable<FooterQuery['footer']>['footerColumns']>[0]; i: number }) {
   return <div
-    key={col.title}
+    key={col?.title}
     className={cx('pt-6 pb-40', {
       'border-l border-gray-universal-100 pl-8': i !== 0,
     })}
   >
-    <h6 className="text-default cursor-default" aria-label={col.title}>
-      {col.title}
+    <h6 className="text-default cursor-default" aria-label={col?.title || "Title"}>
+      {col?.title}
     </h6>
     <div className="mt-6 flex flex-col gap-y-3">
-      {col.footerLink?.map((link) =>
-        link.otherSite && link.otherSite !== '' ? (
+      {col?.footerLink?.map((link) =>
+        link?.otherSite && link.otherSite !== '' ? (
           <a href={link.otherSite} className="text-gray-universal-70 text-base hover:underline" key={link.id}>
             {link.title}
           </a>
         ) : (
           <Link
-            key={link.id}
+            key={link?.id}
             variant="plain"
             uppercase={false}
-            href={link.redirectTo?.slug}
+            href={link?.redirectTo?.slug || ''}
             className="text-gray-universal-70 text-base hover:underline"
           >
-            {link.title}
+            {link?.title}
           </Link>
         )
       )}
@@ -115,15 +115,15 @@ export function Footer({
           <Accordion
             type="divider"
             size="small"
-            label={col.title}
-            id={col.title}
+            label={col?.title || ''}
+            id={col?.title || ''}
             stateListener={listenAccordionState}
-            defaultState={openFooter === col.title}
+            defaultState={openFooter === col?.title}
             content={
               <div className="flex flex-col gap-y-2">
-                {col.footerLink.map((item) => (
-                  <Link key={item.title} uppercase={false} variant="plain" href={item.redirectTo.slug}>
-                    {item.title}
+                {col?.footerLink?.map((item) => (
+                  <Link key={item?.title} uppercase={false} variant="plain" href={item?.redirectTo?.slug || ''}>
+                    {item?.title}
                   </Link>
                 ))}
               </div>

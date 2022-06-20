@@ -41,7 +41,7 @@ export function Accordion({
   }, [defaultState])
 
   const toggleState = () => {
-    if (stateListener) {
+    if (stateListener && id) {
       stateListener(id, !isOpen)
     } else {
       setOpen((prevVal) => !prevVal)

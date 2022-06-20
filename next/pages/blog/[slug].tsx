@@ -20,8 +20,8 @@ interface BlogPostPageProps {
 function Page({ post, slug, locale, menus, footer }: BlogPostPageProps) {
   const { t } = useTranslation('common')
   const postData = post.localizations?.map((data) => ({
-      slug: t('mutation_blog_slug') + data.slug,
-      locale: data.locale,
+      slug: t('mutation_blog_slug') + data?.slug,
+      locale: data?.locale,
     }))
   return (
     <PageWrapper locale={post.locale ?? 'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>

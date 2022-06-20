@@ -9,7 +9,7 @@ export interface ColumnedTextProps {
 
 export function ColumnedText({ className, content, title }: ColumnedTextProps) {
   const breakWord = '<break>'
-  const columns = content.split(breakWord)
+  const columns = content?.split(breakWord) || []
   const { Markdown: UIMarkdown } = useUIContext()
 
   if (!content) return null

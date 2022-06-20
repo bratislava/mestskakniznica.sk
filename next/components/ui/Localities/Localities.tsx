@@ -44,10 +44,10 @@ export interface LocalitiesProps {
 
 export function Localities({ localities, mapboxAccessToken, altDesign = false }: LocalitiesProps) {
   const { t } = useTranslation('homepage')
-  const [bounds, setBounds] = useState<[[number, number], [number, number]]>(null)
+  const [bounds, setBounds] = useState<[[number, number], [number, number]]>([[0,0], [0,0]])
   const [isBrowser, setBrowser] = useState(false)
 
-  const mapRef = useRef<MapRef>()
+  const mapRef = useRef<MapRef | any>()
 
   useEffect(() => {
     setBounds([
@@ -75,7 +75,7 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
           {isBrowser && (
             <Mapbox
               ref={mapRef}
-              mapboxAccessToken={mapboxAccessToken}
+              mapboxAccessToken={mapboxAccessToken || undefined}
               // eslint-disable-next-line react/style-prop-object
               mapStyle="mapbox://styles/bratislava01/ckzrbqd6300ps14p8gpyoq3wr"
               style={{
@@ -83,7 +83,7 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
                 width: '100%',
               }}
               onLoad={() => {
-                mapRef.current.getMap().fitBounds(bounds, {
+                mapRef?.current?.getMap().fitBounds(bounds, {
                   padding: {
                     top: 54,
                     right: 24,
@@ -145,7 +145,7 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
                   })}
                   key={index}
                 >
-                  <Link href={localitySlug} passHref>
+                  <Link href={localitySlug || ''} passHref>
                     <a href={localitySlug}>
                       <div className="flex flex-col h-full gap-4 justify-between w-full p-6 lg:py-0">
                         <div>

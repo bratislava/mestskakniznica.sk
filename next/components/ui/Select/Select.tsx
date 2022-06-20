@@ -67,7 +67,7 @@ export function Select<T extends ISelectOption>({
           value={value}
           placeholder={placeholder ?? placeholder}
           aria-invalid={hasError}
-          aria-errormessage={errorMessage ? `${id  }_err` : null}
+          aria-errormessage={errorMessage ? `${id  }_err` : ''}
           {...rest}
         >
           {options.map((option) => (

@@ -4,7 +4,7 @@ import BookNewsDetail from './BookNewsDetail'
 
 describe('BookNewsDetail', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<BookNewsDetail />)
+    const { baseElement } = render(<BookNewsDetail title="" />)
     expect(baseElement).toBeTruthy()
   })
 })
