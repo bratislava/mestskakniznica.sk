@@ -1,0 +1,56 @@
+{
+  "collectionName": "components_sections_event_details",
+  "info": {
+    "displayName": "eventDetails",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "dateFrom": {
+      "type": "datetime"
+    },
+    "dateTo": {
+      "type": "datetime"
+    },
+    "price": {
+      "type": "float"
+    },
+    "guests": {
+      "type": "component",
+      "repeatable": true,
+      "component": "guests.guest"
+    },
+    "eventDescription": {
+      "type": "richtext"
+    },
+    "eventTitle": {
+      "type": "string"
+    },
+    "eventCoverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "eventTags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event-tag.event-tag"
+    },
+    "eventCategory": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "eventLocality": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::event-locality.event-locality"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_menu_items_subsections",
+  "info": {
+    "displayName": "subsection",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "subsectionTitle": {
+      "type": "string"
+    },
+    "columnSpan": {
+      "type": "integer"
+    },
+    "subsectionLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "menu.subsection-links"
+    }
+  }
+}

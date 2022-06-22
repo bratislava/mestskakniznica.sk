@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_sections_site_usefullnesses",
+  "info": {
+    "displayName": "siteUsefullness"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "thankYouMessage": {
+      "type": "string"
+    }
+  }
+}

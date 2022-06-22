@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_menu_items_section_links",
+  "info": {
+    "displayName": "sectionLinks",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "sectionLinkTitle": {
+      "type": "string"
+    },
+    "sectionLinkPage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

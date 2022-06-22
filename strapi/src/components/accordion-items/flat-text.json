@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_accordion_items_flat_texts",
+  "info": {
+    "displayName": "flatText"
+  },
+  "options": {},
+  "attributes": {
+    "category": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

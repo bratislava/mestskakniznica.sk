@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_homepage_registration_infos",
+  "info": {
+    "displayName": "registrationInfo",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "registrationBenefits": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.benefits"
+    },
+    "redirectTo": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

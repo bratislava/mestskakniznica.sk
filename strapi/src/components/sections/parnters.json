@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_parnters",
+  "info": {
+    "displayName": "parnters"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}
