@@ -6,7 +6,8 @@ import Euro from '@assets/images/euro-symbol.svg'
 import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import { ComponentSectionsEventDetails } from '@bratislava/strapi-sdk-city-library'
+import { ComponentSectionsEventDetails, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
+import {  } from '@bratislava/strapi-sdk-city-library'
 import AddToCalendar from '@culturehq/add-to-calendar'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -24,9 +25,10 @@ import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface PageProps {
   eventDetails?: ComponentSectionsEventDetails
+  sections?: (SectionsFragment | null)[];
 }
 
-function EventDetails({ eventDetails }: PageProps) {
+function EventDetails({ eventDetails, sections }: PageProps) {
   const { t } = useTranslation('common')
   const { asPath } = useRouter()
   const { Markdown: UIMarkdown } = useUIContext()
@@ -81,6 +83,17 @@ function EventDetails({ eventDetails }: PageProps) {
           <div className="text-[14px] text-gray-500">
             {dateTimeString(eventDetails?.dateFrom, eventDetails?.dateTo, locale)}
           </div>
+        </div>
+        <div className="col-span-3 mt-4 lg:m-auto w-full">
+          {sections?.map((section: any) => (
+            (section?.type) == 'detail_podujatia' && !isEventInThePast &&(
+              <a
+              href="#detail_podujatia"
+              className="w-full h-12 base-button text-white bg-gray-universal-100 hover:bg-gray-universal-80 border border-gray-universal-100">
+                {t('eventReservation')}
+              </a>
+            )
+          ))}
         </div>
       </div>
 

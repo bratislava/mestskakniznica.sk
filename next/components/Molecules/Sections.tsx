@@ -107,17 +107,19 @@ function Sections({
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
       {sections.map((section: any, index: any) => (
-        <Section key={index} section={section || null} events={events} eventsListingUrl={eventsListingUrl} />
+        <Section sections={sections} key={index} section={section || null} events={events} eventsListingUrl={eventsListingUrl} />
       ))}
     </div>
   )
 }
 
 function Section({
+  sections,
   section,
   events,
   eventsListingUrl,
 }: {
+  sections: (SectionsFragment | null | undefined)[] | any;
   section: SectionsFragment | null
   events: IEvent[] | undefined
   eventsListingUrl: string | undefined
@@ -132,10 +134,11 @@ function Section({
 
   if (!section) return null
 
-  return <div>{sectionContent(section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}</div>
+  return <div>{sectionContent(sections, section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}</div>
 }
 
 const sectionContent = (
+  sections: (SectionsFragment | null | undefined)[] | any,
   section: SectionsFragment,
   events: IEvent[] | undefined,
   eventsListingUrl: string | undefined,
@@ -260,7 +263,7 @@ const sectionContent = (
       return getForm(section.type || '', undefined, eventDetail || undefined)
 
     case 'ComponentSectionsEventDetails':
-      return <EventDetails eventDetails={section} />
+      return <EventDetails sections={sections} eventDetails={section} />
 
     case 'ComponentSectionsDivider':
       return section.shown && <div className="border-b border-gray-universal-100" />
