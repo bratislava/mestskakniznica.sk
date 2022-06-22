@@ -307,7 +307,7 @@ const sectionContent = (
             title: section.moreLink?.title ?? section.moreLink?.page?.title ?? '',
           }}
           files={section.basicDocuments?.map((document) => ({
-            url: `/file/${document?.slug}`,
+            url: `${t('documents_category_slug')}${document?.file_category?.slug}/${document?.slug}`,
             content: {
               type: document?.file_category?.name ?? '',
               title: document?.title ?? '',

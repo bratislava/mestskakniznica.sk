@@ -76,7 +76,7 @@ function DocumentCategoryPage({ documentCategory, locale = 'sk' }: PageProps) {
 
           {/* Documents */}
           {documentData.documents.map((document) => (
-            <NextLink key={document.id} href={`/file/${document.slug}`} passHref>
+            <NextLink key={document.id} href={`${t('documents_category_slug')}${document.file_category?.slug}/${document.slug}`} passHref>
               <a href={document.slug || ''}>
                 <RowFile
                   className="cursor-pointer"
