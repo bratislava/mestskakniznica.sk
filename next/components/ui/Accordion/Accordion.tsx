@@ -10,7 +10,7 @@ export interface AccordionProps {
   type: 'boxed' | 'divider' | 'sublocation'
   size: 'small' | 'big'
   label: string
-  content: React.ReactNode
+  content: React.ReactNode | any
   stateListener?: (id: string, state: boolean) => unknown
   defaultState?: boolean
   ariaLabelPrefix?: string
@@ -41,7 +41,7 @@ export function Accordion({
   }, [defaultState])
 
   const toggleState = () => {
-    if (stateListener) {
+    if (stateListener && id) {
       stateListener(id, !isOpen)
     } else {
       setOpen((prevVal) => !prevVal)

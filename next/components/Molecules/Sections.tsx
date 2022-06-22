@@ -143,7 +143,7 @@ const sectionContent = (
   openAccordion: any,
   listenAccordionState: (id: string, state: boolean) => unknown,
   locale: any
-) => {
+) : React.ReactNode | any => {
   const eventDetail = events?.length ? events[0] : null
 
   switch (section.__typename) {

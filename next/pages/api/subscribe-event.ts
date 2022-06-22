@@ -20,8 +20,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const info = await google.oauth2('v2').userinfo.get({ auth: oauth2Client })
 
     await client.SubscribeToEvent({
-      token: tokens.refresh_token,
-      email: info.data.email,
+      token: tokens.refresh_token || null,
+      email: info.data.email || null,
     })
     res.send({ success: true })
   } catch (error) {

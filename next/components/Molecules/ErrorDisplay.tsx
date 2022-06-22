@@ -1,7 +1,6 @@
 import { Button } from '@bratislava/ui-city-library'
 import * as React from 'react'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getError = (iError: any) => {
   let errorMessage = iError.response?.errors?.[0]?.message
   if (!errorMessage) errorMessage = iError.message

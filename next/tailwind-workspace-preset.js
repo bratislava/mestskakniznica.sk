@@ -1,5 +1,4 @@
-const { join } = require('path')
-const plugin = require('tailwindcss/plugin')
+const plugin = require('tailwindcss/plugin');
 
 const scrollBarHide = plugin(({ addUtilities }) => {
   addUtilities({
@@ -12,12 +11,10 @@ const scrollBarHide = plugin(({ addUtilities }) => {
         display: 'none',
       },
     },
-  })
-})
+  });
+});
 
 module.exports = {
-  presets: [require('./tailwind-workspace-preset.js')],
-  content: [join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'), join(__dirname, 'components/**/*.{js,ts,jsx,tsx}')],
   theme: {
     screens: {
       xs: '360px',
@@ -45,7 +42,6 @@ module.exports = {
       none: 'none',
     },
     fontFamily: {
-      beausite: "'BeausiteMedium','BeausiteRegular', 'BeausiteBold'",
       sans: [
         'Public Sans',
         'ui-sans-serif',
@@ -65,26 +61,7 @@ module.exports = {
       ],
     },
     extend: {
-      width: {
-        1180: '1180px',
-      },
-      minHeight: {
-        232: '232px',
-      },
-      padding: {
-        400: '400px',
-        800: '800px',
-        850: '850px',
-        900: '900px',
-        930: '930px',
-        950: '950px',
-      },
-      margin: {
-        60: '60px',
-        185: '185px',
-      },
       fontSize: {
-        27: '27px',
         xs: ['14px', '22.4px'],
         sm: ['16px', '24px'],
         default: ['20px', '24.2px'],
@@ -111,9 +88,10 @@ module.exports = {
         },
         gray: {
           universal: {
-            60: '#787878',
-            70: '#565656',
-            80: '#3D3D3D',
+            100: 'var(--universal-gray-100)',
+            200: 'var(--universal-gray-200)',
+            500: 'var(--universal-gray-500)',
+            800: 'var(--universal-gray-800)',
           },
           dark: 'var(--dark-gray-color)',
           semilight: 'var(--semilight-gray-color)',
@@ -143,8 +121,6 @@ module.exports = {
         success: 'var(--success-color)',
         error: 'var(--error-color)',
         brown: '#873C35',
-        'promo-yellow': '#FFE95C',
-        'promo-orange': '#FDD1A8',
       },
       borderWidth: {
         3: '3px',
@@ -206,4 +182,4 @@ module.exports = {
     },
   },
   plugins: [scrollBarHide],
-}
+};

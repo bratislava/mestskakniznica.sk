@@ -18,7 +18,7 @@ const nextConfig = {
   images: {
     domains: ['localhost', 'cdn-api.bratislava.sk'],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   async rewrites() {
     return {
       beforeFiles: [

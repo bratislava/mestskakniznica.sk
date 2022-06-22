@@ -2,7 +2,7 @@ import ChevronLeft from '@assets/images/chevron-left.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import { Input } from '@bratislava/ui-city-library'
 import cx from 'classnames'
-import { useCallback, useEffect,useState } from 'react'
+import React, { useCallback, useEffect,useState } from 'react'
 
 export interface PaginationProps {
   max: number
@@ -28,7 +28,7 @@ export function Pagination({
   }, [value])
 
   const handleChange = useCallback(
-    (ev) => {
+    (ev: React.BaseSyntheticEvent) => {
       if (parseInt(ev.target.value) <= 0) {
         onChangeNumber(1)
         return

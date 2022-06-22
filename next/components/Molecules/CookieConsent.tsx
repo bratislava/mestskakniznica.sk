@@ -93,14 +93,12 @@ function CookieConsent() {
         <div>
           <div className="flex w-full justify-between items-center mb-[10px] px-5 md:p-5 border-b">
             <div>{t('cookie_consent_modal_title')}</div>
-            <Link href="javascript:void(0)">
-              <a
+              <button
                 className="cursor-pointer p-1 m-3 md:m-0 md:p-2 rounded-md border-2 border-gray-900"
                 onClick={closeModal}
               >
                 <Close />
-              </a>
-            </Link>
+              </button>
           </div>
           <div className="p-5">
             <div className="h-full max-h-[400px] overflow-y-scroll">
@@ -193,13 +191,11 @@ function CookieConsent() {
         expires={365}
         cookieName="city-library-gdpr"
       >
-        <div className="text-sm" tabIndex={1}>
+        <div className="text-sm" tabIndex={-1}>
           {t('cookie_consent_body')}{' '}
-          <Link href="javascript:void(0)">
-            <a className="text-red-600 underline cursor-pointer" onClick={() => setShowModal(true)} tabIndex={2}>
+            <button className="text-red-600 underline cursor-pointer" onClick={() => setShowModal(true)} tabIndex={-1}>
               {t('cookie_consent_setting')}
-            </a>
-          </Link>
+            </button>
         </div>
       </Consent>
     </div>

@@ -39,8 +39,8 @@ const MAX_EVENTS_PER_PAGE = 16
 
 function Events({ page, promotedEvents, events, eventCategories, eventTags, eventLocalities }: PageProps) {
   const { t } = useTranslation('common')
-  const [startDate, setStartDate] = useState<Date>(null)
-  const [endDate, setEndDate] = useState<Date>(null)
+  const [startDate, setStartDate] = useState<Date | null>(null)
+  const [endDate, setEndDate] = useState<Date | null>(null)
   const [filteredEvents, setFilteredEvents] = useState<IEvent[]>(events)
   const [currentPage, setCurrentPage] = useState(1)
   const [openFilterModal, setOpenFilterModal] = useState(false)
@@ -58,11 +58,11 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
     setOpenFilterModal(!openFilterModal)
   }
 
-  const onStartChange = (dates) => {
+  const onStartChange = (dates: Date | null) => {
     setStartDate(dates)
   }
 
-  const onEndChange = (dates) => {
+  const onEndChange = (dates: Date | null) => {
     setEndDate(dates)
   }
 
