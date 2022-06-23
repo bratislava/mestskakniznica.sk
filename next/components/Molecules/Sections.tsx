@@ -94,13 +94,13 @@ export const getForm = (formType: string, key?: string, eventDetail?: IEvent) =>
 }
 
 function Sections({
-  page_title,
+  pageTitle,
   sections,
   events,
   eventsListingUrl,
   className,
 }: {
-  page_title?: string | null | undefined;
+  pageTitle?: string | null | undefined;
   sections: (SectionsFragment | null | undefined)[] | any
   events?: IEvent[] | undefined
   eventsListingUrl?: string | undefined
@@ -109,19 +109,19 @@ function Sections({
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
       {sections.map((section: any, index: any) => (
-        <Section page_title={page_title} key={index} section={section || null} events={events} eventsListingUrl={eventsListingUrl} />
+        <Section pageTitle={pageTitle} key={index} section={section || null} events={events} eventsListingUrl={eventsListingUrl} />
       ))}
     </div>
   )
 }
 
 function Section({
-  page_title,
+  pageTitle,
   section,
   events,
   eventsListingUrl,
 }: {
-  page_title?: string | null | undefined;
+  pageTitle?: string | null | undefined;
   section: SectionsFragment | null
   events: IEvent[] | undefined
   eventsListingUrl: string | undefined
@@ -136,11 +136,11 @@ function Section({
 
   if (!section) return null
 
-  return <div>{sectionContent(page_title, section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}</div>
+  return <div>{sectionContent(pageTitle, section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}</div>
 }
 
 const sectionContent = (
-  page_title: string | undefined,
+  pageTitle: string | undefined,
   section: SectionsFragment,
   events: IEvent[] | undefined,
   eventsListingUrl: string | undefined,
@@ -262,7 +262,7 @@ const sectionContent = (
       )
 
     case 'ComponentSectionsForm':
-      return getForm(section.type || '', page_title, eventDetail || undefined)
+      return getForm(section.type || '', pageTitle, eventDetail || undefined)
 
     case 'ComponentSectionsEventDetails':
       return <EventDetails eventDetails={section} />

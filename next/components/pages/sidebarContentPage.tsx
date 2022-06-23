@@ -45,7 +45,7 @@ function SidebarContentPage({ page }: SidebarContentProps) {
             )}
 
             {/* Sections */}
-            {page?.sections && <Sections page_title={page?.title} sections={page.sections} />}
+            {page?.sections && <Sections pageTitle={page?.title} sections={page.sections} />}
           </div>
         </div>
 

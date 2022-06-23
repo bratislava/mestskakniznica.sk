@@ -14,8 +14,12 @@ import FormContainer, { phoneRegex } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import { options, types } from './options'
 
-function VenueRentalForm(props){
-  const page_title = props?.slug.trim()
+export interface VenueRentalFormProps {
+  slug: string
+}
+
+function VenueRentalForm(props: VenueRentalFormProps){
+  const pageTitle = props?.slug.trim()
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
@@ -58,7 +62,7 @@ function VenueRentalForm(props){
   const typeOptions = useGetFormOptions(types)
   
   let optionsKey = selectOptions.find(
-    (options) => options.title.split(',')[0].trim() == page_title
+    (options) => options.title.split(',')[0].trim() == pageTitle
   );
 
   const methods = useForm({
