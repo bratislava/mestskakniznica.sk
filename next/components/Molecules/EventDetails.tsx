@@ -77,7 +77,7 @@ function EventDetails({ eventDetails }: PageProps) {
               tagsCount={5}
             />
           </div>
-          <h1 className="text-[32px] py-[12px]">{eventDetails?.eventTitle}</h1>
+          <h1 className="text-[32px] py-[12px] leading-[38px]">{eventDetails?.eventTitle}</h1>
           <div className="text-[14px] text-gray-500">
             {dateTimeString(eventDetails?.dateFrom, eventDetails?.dateTo, locale)}
           </div>
