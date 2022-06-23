@@ -9,7 +9,7 @@ const {
 } = require("./helpers/relationHelpers");
 
 var relations = [];
-const skipAttributes = ["created_by", "updated_by"];
+const skipAttributes = [];
 
 async function migrateModels(tables) {
   console.log("Migrating Models");
