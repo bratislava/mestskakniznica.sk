@@ -1,23 +1,22 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
-import CloseIcon from '@assets/images/close.svg'
 import DropdownIcon from '@assets/images/dropdown.svg'
 import { EventPropertiesQuery, PageFragment } from '@bratislava/strapi-sdk-city-library'
-import { Accordion, Banner, Pagination, SectionContainer, Select } from '@bratislava/ui-city-library'
+import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import enUs from 'date-fns/locale/en-US'
 import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
-import DatePicker, { registerLocale } from 'react-datepicker'
+import { registerLocale } from 'react-datepicker'
 
 import { IEvent } from '../../utils/types'
-import Section from "../AppLayout/Section"
-import SectionPromos from "../HomePage/SectionPromos"
+import Section from '../AppLayout/Section'
+import SectionPromos from '../HomePage/SectionPromos'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 import EventFilters from '../Molecules/EventFilters'
-import EventListingCard from "../Molecules/EventListingCard"
-import { FilterModal } from "../Molecules/FilterModal"
-import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import EventListingCard from '../Molecules/EventListingCard'
+import { FilterModal } from '../Molecules/FilterModal'
+import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 registerLocale('en', enUs)
 registerLocale('sk', sk)
@@ -73,7 +72,7 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
       title: type?.title || '',
     }))
     return [defaultType, ...parsedTypes]
-  }, [eventTags])
+  }, [eventTags, t])
 
   const categories = useMemo(() => {
     const defaultCategory = {
@@ -86,7 +85,7 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
       title: cat?.title || '',
     }))
     return [defaultCategory, ...parsedCategories]
-  }, [eventCategories])
+  }, [eventCategories, t])
 
   const localities = useMemo(() => {
     const defaultLocality = {
@@ -99,7 +98,7 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
       title: loc?.title || '',
     }))
     return [defaultLocality, ...parsedLocalities]
-  }, [eventLocalities])
+  }, [eventLocalities, t])
 
   const [selectedEventTags, setSelectedEventTags] = useState<KeyTitlePair | null>()
   const [selectedCategory, setSelectedCategory] = useState<KeyTitlePair | null>()
@@ -159,7 +158,10 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
     setFilteredEvents(eventsFiltered)
   }
 
-  const filteredEventsPaginated = useMemo(() => filteredEvents.slice((currentPage - 1) * MAX_EVENTS_PER_PAGE, MAX_EVENTS_PER_PAGE * currentPage), [filteredEvents, currentPage])
+  const filteredEventsPaginated = useMemo(
+    () => filteredEvents.slice((currentPage - 1) * MAX_EVENTS_PER_PAGE, MAX_EVENTS_PER_PAGE * currentPage),
+    [filteredEvents, currentPage]
+  )
 
   const pagesCount = useMemo(() => Math.ceil(filteredEvents.length / MAX_EVENTS_PER_PAGE), [filteredEvents])
 

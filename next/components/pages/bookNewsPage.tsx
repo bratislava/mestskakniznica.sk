@@ -1,7 +1,7 @@
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
 import { BookNewsDetail, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
+import { useTranslation } from 'next-i18next'
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { OpacBook } from '../../utils/opac'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'

@@ -1,7 +1,7 @@
 import { BookTagsQuery, FooterQuery, HomePageQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
+import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React from 'react'
 
 import Section from '../components/AppLayout/Section'
 import SectionFaq from '../components/HomePage/SectionFaq'
@@ -14,11 +14,11 @@ import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
-import { swrCacheGet } from '../utils/cache'
 import { client } from '../utils/gql'
+import { isDefined } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
 import { IEvent, ILocality } from '../utils/types'
-import { convertPagesToEvents, convertPagesToLocalities, isPresent, shouldSkipStaticPaths } from '../utils/utils'
+import { convertPagesToEvents, convertPagesToLocalities, isPresent } from '../utils/utils'
 
 export function Index({
   locale,
@@ -136,9 +136,9 @@ interface IProps {
 
 // trigger redeployment :)
 
-export async function getServerSideProps(ctx: { locale?: string | undefined } | undefined) {
-  const locale = ctx?.locale ?? 'sk'
-  const ssr = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
+export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
+  const translations = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
+
   try {
     // running all requests parallel
     // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
@@ -150,33 +150,34 @@ export async function getServerSideProps(ctx: { locale?: string | undefined } | 
       localityPages,
       { bookTags },
       eventPages,
-    ]: any = await swrCacheGet(`homepage-${locale}`, () =>
-      Promise.all([
-        getOpacBooks(),
-        client.PagesByLayout({
-          layout: 'news',
-          locale,
-        }),
-        client.HomePage({ locale }),
-        client.PromotedPages({ locale }),
-        client.PagesByLayout({
-          layout: 'locality',
-          locale,
-        }),
-        client.BookTags(),
-        client.PagesByLayout({
-          layout: 'event',
-          locale,
-        }),
-      ])
-    )
+    ] = await Promise.all([
+      getOpacBooks(),
+      client.PagesByLayout({
+        layout: 'news',
+        locale,
+      }),
+      client.HomePage({ locale }),
+      client.PromotedPages({ locale }),
+      client.PagesByLayout({
+        layout: 'locality',
+        locale,
+      }),
+      client.BookTags(),
+      client.PagesByLayout({
+        layout: 'event',
+        locale,
+      }),
+    ])
 
+    if (!homePage || !bookTags) {
+      return { notFound: true }
+    }
     interface eventProps {
       dateTo?: any | null | undefined
       dateFrom?: any | null | undefined
     }
 
-    const latestEvents = convertPagesToEvents(eventPages.pages)
+    const latestEvents = convertPagesToEvents(eventPages.pages?.filter(isDefined) ?? [])
       .filter((event: eventProps) => new Date(event.dateTo) >= new Date())
       .sort((a: eventProps, b: eventProps) => {
         if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
@@ -185,22 +186,23 @@ export async function getServerSideProps(ctx: { locale?: string | undefined } | 
       })
       .slice(0, 4)
 
-    const news = convertPagesToEvents(newsPages.pages)
+    const news = convertPagesToEvents(newsPages.pages?.filter(isDefined) ?? [])
       .sort((a: eventProps, b: eventProps) => {
         if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
         if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
         return 0
       })
       .slice(0, 4)
-    const promotedEvents = convertPagesToEvents(promotedPages.pages)
-    const localities = convertPagesToLocalities(localityPages.pages, true).map((locality) => ({
+    const promotedEvents = convertPagesToEvents(promotedPages.pages?.filter(isDefined) ?? [])
+    const localities = convertPagesToLocalities(localityPages.pages?.filter(isDefined) ?? [], true).map((locality) => ({
       ...locality,
       hideOpeningHours: true,
     }))
+
     return {
       props: {
         locale,
-        localizations: homePage?.localizations ?? null,
+        localizations: homePage?.localizations,
         news,
         latestEvents,
         promotedEvents,
@@ -208,12 +210,12 @@ export async function getServerSideProps(ctx: { locale?: string | undefined } | 
         opacBookNews,
         menus,
         footer,
-        faqSection: homePage?.faqSection ?? null,
-        newsSection: homePage?.newsSection ?? null,
-        Seo: homePage?.Seo ?? null,
-        registrationInfoSection: homePage?.registrationInfoSection ?? null,
+        faqSection: homePage?.faqSection,
+        newsSection: homePage?.newsSection,
+        Seo: homePage?.Seo,
+        registrationInfoSection: homePage?.registrationInfoSection,
         localities,
-        ...ssr,
+        ...translations,
       },
     }
   } catch (iError) {
@@ -223,7 +225,7 @@ export async function getServerSideProps(ctx: { locale?: string | undefined } | 
     return {
       props: {
         error,
-        ...ssr,
+        ...translations,
       },
     }
   }

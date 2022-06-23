@@ -11,6 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       res.send({ message: 'Not a valid event to add.' })
       return
     }
+    // @ts-ignore TODO remove
     const subscriberList = await client.EventSubscribers()
     subscriberList.eventSubscriptions?.map((user: any) => {
       const gAuthClient = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET)
@@ -34,7 +35,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     })
   }
   res.send('hey')
-  
 }
 
 export default handler
