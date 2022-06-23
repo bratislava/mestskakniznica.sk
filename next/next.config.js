@@ -44,6 +44,14 @@ const nextConfig = {
           source: '/services/education/articles/:slug',
           destination: '/blog/:slug',
         },
+        {
+          source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug/:slug',
+          destination: '/file/:slug',
+        },
+        {
+          source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
+          destination: '/documents/:slug',
+        }
       ],
     }
   },
