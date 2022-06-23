@@ -38,8 +38,8 @@ body {
     @apply text-xs uppercase tracking-wider;
   }
   .base-input {
-    @apply appearance-none box-border inline-block border px-3 py-2 bg-input-nav-bg text-base;
-    @apply border-input-stroke focus:outline-none placeholder:text-gray-500;
+    @apply appearance-none box-border inline-block border px-3 py-2 text-gray-universal-100 bg-input-nav-bg text-base;
+    @apply border-input-stroke focus:outline-none focus:border-gray-universal-100 hover:border-gray-universal-100 placeholder:text-gray-500;
   }
   .base-input--with-error {
     @apply border-error;
