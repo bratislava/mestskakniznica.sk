@@ -14,7 +14,12 @@ import FormContainer, { phoneRegex } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import { options, types } from './options'
 
-function VenueRentalForm() {
+export interface VenueRentalFormProps {
+  slug: string
+}
+
+function VenueRentalForm(props: VenueRentalFormProps){
+  const pageTitle = props?.slug.trim()
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
@@ -55,6 +60,10 @@ function VenueRentalForm() {
 
   const selectOptions = useGetFormOptions(options)
   const typeOptions = useGetFormOptions(types)
+  
+  let optionsKey = selectOptions.find(
+    (options) => options.title.split(',')[0].trim() == pageTitle
+  );
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -63,7 +72,7 @@ function VenueRentalForm() {
       lName: '',
       email: '',
       phone: '',
-      venue: selectOptions[0].key,
+      venue: optionsKey?.key || selectOptions[0].key,
       eventType: typeOptions[0].key,
       dateFrom: '',
       timeFrom: '',

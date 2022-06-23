@@ -88,17 +88,19 @@ export const getForm = (formType: string, key?: string, eventDetail?: IEvent) =>
 
   return (
     <div key={key} id={formType}>
-      <Comp eventDetail={eventDetail} />
+      <Comp slug={key} eventDetail={eventDetail} />
     </div>
   )
 }
 
 function Sections({
+  pageTitle,
   sections,
   events,
   eventsListingUrl,
   className,
 }: {
+  pageTitle?: string | null | undefined;
   sections: (SectionsFragment | null | undefined)[] | any
   events?: IEvent[] | undefined
   eventsListingUrl?: string | undefined
@@ -107,17 +109,19 @@ function Sections({
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
       {sections.map((section: any, index: any) => (
-        <Section key={index} section={section || null} events={events} eventsListingUrl={eventsListingUrl} />
+        <Section pageTitle={pageTitle} key={index} section={section || null} events={events} eventsListingUrl={eventsListingUrl} />
       ))}
     </div>
   )
 }
 
 function Section({
+  pageTitle,
   section,
   events,
   eventsListingUrl,
 }: {
+  pageTitle?: string | null | undefined;
   section: SectionsFragment | null
   events: IEvent[] | undefined
   eventsListingUrl: string | undefined
@@ -132,10 +136,11 @@ function Section({
 
   if (!section) return null
 
-  return <div>{sectionContent(section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}</div>
+  return <div>{sectionContent(pageTitle, section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}</div>
 }
 
 const sectionContent = (
+  pageTitle: string | undefined,
   section: SectionsFragment,
   events: IEvent[] | undefined,
   eventsListingUrl: string | undefined,
@@ -257,7 +262,7 @@ const sectionContent = (
       )
 
     case 'ComponentSectionsForm':
-      return getForm(section.type || '', undefined, eventDetail || undefined)
+      return getForm(section.type || '', pageTitle, eventDetail || undefined)
 
     case 'ComponentSectionsEventDetails':
       return <EventDetails eventDetails={section} />
