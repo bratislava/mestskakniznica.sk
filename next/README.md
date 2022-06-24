@@ -26,6 +26,6 @@ Strapi V4 does not export schema.graphql by default - instead, you'll need a run
 
 ```bash
 # to update queries or mutations, modify *.graphql files in /graphql/queries directory
-# have the strapi server running locally on port 1337 and run the following
+# have the strapi server running locally on port 1338 and run the following
 yarn gen
 ```
