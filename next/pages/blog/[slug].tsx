@@ -1,5 +1,5 @@
 import { BlogPostBySlugQuery, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -7,24 +7,40 @@ import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
 import PageWrapper from '../../components/layouts/PageWrapper'
 import BlogPostPage from '../../components/pages/blogPostPage'
 import { client } from '../../utils/gql'
-import { isPresent,shouldSkipStaticPaths } from '../../utils/utils'
+import { isDefined } from '../../utils/isDefined'
+import { isPresent, shouldSkipStaticPaths } from '../../utils/utils'
 
-interface BlogPostPageProps {
+interface IBlogPostPageProps {
   slug: string
-  locale: string
-  post: NonNullable<BlogPostBySlugQuery['blogPostBySlug']>
-  menus: NonNullable<MenusQuery['menus']>
+  post: BlogPostBySlugQuery['blogPostBySlug']
+  menus: MenusQuery['menus']
   footer: FooterQuery['footer']
 }
 
-function Page({ post, slug, locale, menus, footer }: BlogPostPageProps) {
+function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
   const { t } = useTranslation('common')
-  const postData = post.localizations?.map((data) => ({
-      slug: t('mutation_blog_slug') + data?.slug,
-      locale: data?.locale,
-    }))
+
+  if (!menus || !post) {
+    return null
+  }
+
+  // TEMP fix for not localized blog posts
+
+  // const postData = post.localizations?.map((data) => ({
+  //   slug: t('mutation_blog_slug') + data?.slug,
+  //   locale: data?.locale,
+  // }))
+
+  const postData = [
+    {
+      slug: t('mutation_blog_slug') + post?.slug,
+      locale: 'sk',
+    },
+  ]
+
   return (
-    <PageWrapper locale={post.locale ?? 'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
+    // <PageWrapper locale={post.locale ?? 'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
+    <PageWrapper locale={'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
       <DefaultPageLayout title={post.title} menus={menus} footer={footer}>
         <BlogPostPage blogPost={post} />
       </DefaultPageLayout>
@@ -35,45 +51,41 @@ function Page({ post, slug, locale, menus, footer }: BlogPostPageProps) {
 export const getStaticPaths: GetStaticPaths = async () => {
   let paths: any = []
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
-  const { blogPosts } = await client.BlogPostStaticPaths()
-  if (blogPosts) {
-    paths = blogPosts.map((blog) => ({
-      params: {
-        slug: blog?.slug || '',
-      },
-    }))
-  }
 
+  const { blogPosts } = await client.BlogPostStaticPaths()
+
+  if (blogPosts) {
+    paths = blogPosts
+      .filter(isDefined)
+      .filter((blog) => blog.slug)
+      .map((blog) => ({
+        params: {
+          slug: blog?.slug || '',
+        },
+      }))
+  }
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) => {
   const locale = ctx.locale ?? 'sk'
   if (!ctx?.params?.slug || typeof ctx.params.slug !== 'string') return { notFound: true }
   const { slug } = ctx.params
 
-  const { blogPostBySlug } = await client.BlogPostBySlug({
-    slug,
-    locale,
-  })
-  const { menus } = await client.Menus({
-    locale,
-  })
-  const { footer } = await client.Footer({
-    locale,
-  })
+  const { blogPostBySlug } = await client.BlogPostBySlug({ slug })
+  const { menus } = await client.Menus({ locale })
+  const { footer } = await client.Footer({ locale })
+  const translations = (await serverSideTranslations(locale, ['common', 'forms', 'newsletter'])) as any
 
-  if (!blogPostBySlug) return { notFound: true }
-
-  const pageTranslations = ['common', 'forms', 'newsletter']
+  if (!blogPostBySlug && !menus) return { notFound: true }
 
   return {
     props: {
       slug,
-      menus,
+      menus: menus,
       footer,
       post: blogPostBySlug,
-      ...(await serverSideTranslations(locale, pageTranslations)),
+      ...translations,
     },
     revalidate: 900, // revalidade every 5 minutes - TODO change for prod
   }
