@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_sections_documents",
+  "info": {
+    "displayName": "documents",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "moreLink": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.page-link"
+    },
+    "basicDocuments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::basic-document.basic-document"
+    }
+  }
+}

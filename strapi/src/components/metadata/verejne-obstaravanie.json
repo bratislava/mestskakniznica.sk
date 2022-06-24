@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_metadata_verejne_obstaravanies",
+  "info": {
+    "displayName": "Verejné Obstarávanie"
+  },
+  "options": {},
+  "attributes": {
+    "subject": {
+      "type": "string"
+    },
+    "date_added": {
+      "type": "date"
+    },
+    "number": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "attachment": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "amount": {
+      "type": "string"
+    }
+  }
+}

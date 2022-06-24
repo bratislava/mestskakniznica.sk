@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_locality_parts_gallery_parts",
+  "info": {
+    "displayName": "gallery-parts"
+  },
+  "options": {},
+  "attributes": {
+    "Photo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "Description": {
+      "type": "text"
+    }
+  }
+}

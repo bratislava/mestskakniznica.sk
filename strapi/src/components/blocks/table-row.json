@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_blocks_table_rows",
+  "info": {
+    "displayName": "tableRow"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "valueAlign": {
+      "type": "enumeration",
+      "enum": [
+        "start",
+        "center"
+      ]
+    }
+  }
+}

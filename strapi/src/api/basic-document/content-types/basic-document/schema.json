@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "basic_documents",
+  "info": {
+    "singularName": "basic-document",
+    "pluralName": "basic-documents",
+    "displayName": "Basic Document",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "date_added": {
+      "type": "date"
+    },
+    "author": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "attachment": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "file_category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::file-category.file-category"
+    },
+    "metadata": {
+      "type": "dynamiczone",
+      "components": [
+        "metadata.faktury",
+        "metadata.metadata",
+        "metadata.zmluvy",
+        "metadata.obchodna-verejna-sutaz",
+        "metadata.objednavky",
+        "metadata.verejne-obstaravanie"
+      ]
+    }
+  }
+}

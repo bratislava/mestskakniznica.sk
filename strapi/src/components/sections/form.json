@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_sections_forms",
+  "info": {
+    "displayName": "form"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "napiste_nam",
+        "ako_sa_prihlasit_do_kniznice",
+        "cyklodonaska",
+        "detail_podujatia",
+        "pre_skoly",
+        "darcekova_poukazka",
+        "medzikniznicna_vypozicna_sluzba_citatel",
+        "medzikniznicna_vypozicna_sluzba_kniznica",
+        "hra_na_hudobne_nastroje",
+        "tablety_a_citacky",
+        "tablety",
+        "pracujte_v_priestoroch_kniznice",
+        "divadelna_technika",
+        "prenajmite_si_priestor",
+        "kniharska_dielna",
+        "bibliografia_a_resers",
+        "aka_kniha_vam_v_kniznici_chyba"
+      ]
+    }
+  }
+}
