@@ -1,13 +1,12 @@
-query BlogPostStaticPaths($locale: String!) {
-  blogPosts(locale: $locale) {
+query BlogPostStaticPaths {
+  blogPosts {
     id
     slug
-    locale
   }
 }
 
-query BlogPostBySlug($slug: String!, $locale: String!) {
-  blogPostBySlug(slug: $slug, locale: $locale) {
+query BlogPostBySlug($slug: String!) {
+  blogPostBySlug(slug: $slug) {
     ...BlogPostWithParentPage
   }
 }
@@ -16,7 +15,6 @@ fragment BlogPost on BlogPost {
   id
   slug
   title
-  date_added
   created_at
   sections {
     ...Sections
@@ -25,11 +23,6 @@ fragment BlogPost on BlogPost {
     url
     mime
     alternativeText
-  }
-  locale
-  localizations {
-    slug
-    locale
   }
 }
 

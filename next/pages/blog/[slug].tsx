@@ -24,12 +24,23 @@ function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
     return null
   }
 
-  const postData = post.localizations?.map((data) => ({
-    slug: t('mutation_blog_slug') + data?.slug,
-    locale: data?.locale,
-  }))
+  // TEMP fix for not localized blog posts
+
+  // const postData = post.localizations?.map((data) => ({
+  //   slug: t('mutation_blog_slug') + data?.slug,
+  //   locale: data?.locale,
+  // }))
+
+  const postData = [
+    {
+      slug: t('mutation_blog_slug') + post?.slug,
+      locale: 'sk',
+    },
+  ]
+
   return (
-    <PageWrapper locale={post.locale ?? 'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
+    // <PageWrapper locale={post.locale ?? 'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
+    <PageWrapper locale={'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
       <DefaultPageLayout title={post.title} menus={menus} footer={footer}>
         <BlogPostPage blogPost={post} />
       </DefaultPageLayout>
@@ -37,28 +48,21 @@ function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   let paths: any = []
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
 
-  const pathArraysForLocales = await Promise.all(locales.map((locale) => client.BlogPostStaticPaths({ locale })))
-  const blogPosts = pathArraysForLocales.flatMap(({ blogPosts }) => blogPosts || []).filter(isDefined)
+  const { blogPosts } = await client.BlogPostStaticPaths()
 
   if (blogPosts) {
-    paths =
-      blogPosts
-        .filter((blogPost) => blogPost.slug)
-        .map((blog) => {
-          if (blog.slug) {
-            return {
-              params: {
-                slug: blog?.slug,
-                locale: blog?.locale || '',
-              },
-            }
-          }
-        })
-        .filter(isDefined) || []
+    paths = blogPosts
+      .filter(isDefined)
+      .filter((blog) => blog.slug)
+      .map((blog) => ({
+        params: {
+          slug: blog?.slug || '',
+        },
+      }))
   }
   return { paths, fallback: 'blocking' }
 }
@@ -68,7 +72,7 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
   if (!ctx?.params?.slug || typeof ctx.params.slug !== 'string') return { notFound: true }
   const { slug } = ctx.params
 
-  const { blogPostBySlug } = await client.BlogPostBySlug({ slug, locale })
+  const { blogPostBySlug } = await client.BlogPostBySlug({ slug })
   const { menus } = await client.Menus({ locale })
   const { footer } = await client.Footer({ locale })
   const translations = (await serverSideTranslations(locale, ['common', 'forms', 'newsletter'])) as any
