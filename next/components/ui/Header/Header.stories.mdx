@@ -1,0 +1,26 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
+import { withDesign } from 'storybook-addon-designs'
+import { Header } from './Header'
+
+<Meta title="components/layout/Header" decorators={[withDesign]} />
+
+# Header
+
+This is our Header
+
+<Canvas>
+  <Story
+    name="Header"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{}}
+  >
+    {Header.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Header} />

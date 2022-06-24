@@ -1,0 +1,38 @@
+{
+  "extends": ["next/core-web-vitals",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:jsx-a11y/recommended"],
+  "rules": {
+    "import/no-unresolved": "off",
+    "jsx-a11y/no-onchange": "off",
+    "jsx-a11y/no-noninteractive-tabindex": "off",
+    "import/no-named-as-default": "off",
+    "jsx-a11y/media-has-caption": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@next/next/no-img-element": "off"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "jsx-a11y/anchor-is-valid": [
+          "error",
+          {
+            "components": ["Link"],
+            "specialLink": ["hrefLeft", "hrefRight"],
+            "aspects": ["invalidHref", "preferButton"]
+          }
+        ]
+      }
+    }
+  ],
+  "env": {
+    "jest": true
+  }
+}
