@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React from 'react'
 import Consent, { Cookies } from 'react-cookie-consent'
 import * as ReactGA from 'react-ga'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import Modal from 'react-modal'
 
 const CUSTOM_STYLES = {
@@ -93,12 +93,12 @@ function CookieConsent() {
         <div>
           <div className="flex w-full justify-between items-center mb-[10px] px-5 md:p-5 border-b">
             <div>{t('cookie_consent_modal_title')}</div>
-              <button
-                className="cursor-pointer p-1 m-3 md:m-0 md:p-2 rounded-md border-2 border-gray-900"
-                onClick={closeModal}
-              >
-                <Close />
-              </button>
+            <button
+              className="cursor-pointer p-1 m-3 md:m-0 md:p-2 rounded-md border-2 border-gray-900"
+              onClick={closeModal}
+            >
+              <Close />
+            </button>
           </div>
           <div className="p-5">
             <div className="h-full max-h-[400px] overflow-y-scroll">
@@ -193,9 +193,9 @@ function CookieConsent() {
       >
         <div className="text-sm" tabIndex={-1}>
           {t('cookie_consent_body')}{' '}
-            <button className="text-red-600 underline cursor-pointer" onClick={() => setShowModal(true)} tabIndex={-1}>
-              {t('cookie_consent_setting')}
-            </button>
+          <button className="text-red-600 underline cursor-pointer" onClick={() => setShowModal(true)} tabIndex={-1}>
+            {t('cookie_consent_setting')}
+          </button>
         </div>
       </Consent>
     </div>

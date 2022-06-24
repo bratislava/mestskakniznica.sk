@@ -7,9 +7,9 @@ import {
 } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { maxBy, minBy } from 'lodash'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 // import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
@@ -44,7 +44,10 @@ export interface LocalitiesProps {
 
 export function Localities({ localities, mapboxAccessToken, altDesign = false }: LocalitiesProps) {
   const { t } = useTranslation('homepage')
-  const [bounds, setBounds] = useState<[[number, number], [number, number]]>([[0,0], [0,0]])
+  const [bounds, setBounds] = useState<[[number, number], [number, number]]>([
+    [0, 0],
+    [0, 0],
+  ])
   const [isBrowser, setBrowser] = useState(false)
 
   const mapRef = useRef<MapRef | any>()
@@ -136,46 +139,46 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
               },
               index
             ) => (
-                <div
-                  className={cx({
-                    'lg:border-l-0': index === 0 && !altDesign,
-                    'relative flex-shrink-0 w-70 lg:w-auto lg:flex-1 border border-gray-900 lg:border-r-0 lg:border-t-0 lg:border-b-0 lg:mb-8':
-                      !altDesign,
-                    'relative w-full border border-gray-900 py-4': altDesign,
-                  })}
-                  key={index}
-                >
-                  <Link href={localitySlug || ''} passHref>
-                    <a href={localitySlug}>
-                      <div className="flex flex-col h-full gap-4 justify-between w-full p-6 lg:py-0">
-                        <div>
-                          <div className="text-md2">{localityTitle}</div>
-                          <div className="pt-8 text-sm">
-                            {localitySections?.map((section) => (
-                              <div key={section.localitySectionTitle} className="pt-1 text-gray-universal-70">
-                                {section.localitySectionTitle}
-                              </div>
-                            ))}
-                          </div>
-                          {!hideOpeningHours && (
-                            <>
-                              <p className="text-sm pt-8">{t('localityOpeningText')}</p>
-                              <p className="text-sm">
-                                {localityOpenFrom} - {localityOpenTo}
-                              </p>
-                            </>
-                          )}
+              <div
+                className={cx({
+                  'lg:border-l-0': index === 0 && !altDesign,
+                  'relative flex-shrink-0 w-70 lg:w-auto lg:flex-1 border border-gray-900 lg:border-r-0 lg:border-t-0 lg:border-b-0 lg:mb-8':
+                    !altDesign,
+                  'relative w-full border border-gray-900 py-4': altDesign,
+                })}
+                key={index}
+              >
+                <Link href={localitySlug || ''} passHref>
+                  <a href={localitySlug}>
+                    <div className="flex flex-col h-full gap-4 justify-between w-full p-6 lg:py-0">
+                      <div>
+                        <div className="text-md2">{localityTitle}</div>
+                        <div className="pt-8 text-sm">
+                          {localitySections?.map((section) => (
+                            <div key={section.localitySectionTitle} className="pt-1 text-gray-universal-70">
+                              {section.localitySectionTitle}
+                            </div>
+                          ))}
                         </div>
-                        <div className="text-sm hover:underline">
-                          <div className="relative uppercase">
-                            {t('localityDetailText')} {'>'}
-                          </div>
+                        {!hideOpeningHours && (
+                          <>
+                            <p className="text-sm pt-8">{t('localityOpeningText')}</p>
+                            <p className="text-sm">
+                              {localityOpenFrom} - {localityOpenTo}
+                            </p>
+                          </>
+                        )}
+                      </div>
+                      <div className="text-sm hover:underline">
+                        <div className="relative uppercase">
+                          {t('localityDetailText')} {'>'}
                         </div>
                       </div>
-                    </a>
-                  </Link>
-                </div>
-              )
+                    </div>
+                  </a>
+                </Link>
+              </div>
+            )
           )}
         </div>
       </div>

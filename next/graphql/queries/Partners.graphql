@@ -1,0 +1,16 @@
+query AllPartners($locale: String!) {
+  allPartners(locale: $locale) {
+    ...Partner
+  }
+}
+
+fragment Partner on Partner {
+  title
+  url
+  logo {
+    url
+    alternativeText
+  }
+  priority
+  featured
+}

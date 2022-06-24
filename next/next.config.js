@@ -1455,14 +1455,15 @@ const nextConfig = {
 }
 
 module.exports = (phase, { defaultConfig }) => ({
-    ...defaultConfig,
-    ...nextConfig,
-    webpack(config) {
-      config.module.rules.push({
-        test: /\.svg$/,
-        use: ['@svgr/webpack'],
-      })
+  ...defaultConfig,
+  ...nextConfig,
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
 
-      return config
-    },
-  })
+    return config
+  },
+})
