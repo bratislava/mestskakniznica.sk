@@ -10,8 +10,8 @@ import {
   PartnerFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
-
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'

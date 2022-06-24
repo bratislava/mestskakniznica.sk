@@ -61,7 +61,7 @@ function VenueRentalForm(props: VenueRentalFormProps){
   const selectOptions = useGetFormOptions(options)
   const typeOptions = useGetFormOptions(types)
   
-  let optionsKey = selectOptions.find(
+  const optionsKey = selectOptions.find(
     (options) => options.title.split(',')[0].trim() == pageTitle
   );
 
