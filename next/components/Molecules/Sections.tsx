@@ -77,7 +77,7 @@ function NullComponent() {
   return null
 }
 
-export const getForm = (formType: string, key?: string, eventDetail?: IEvent) => {
+export const getForm = (formType: string, key?: string | null, eventDetail?: IEvent) => {
   if (!formType) return NullComponent
 
   let Comp: (arg: any) => any = FORM[formType]
@@ -100,7 +100,7 @@ function Sections({
   eventsListingUrl,
   className,
 }: {
-  pageTitle?: string | null | undefined;
+  pageTitle?: string | null | undefined
   sections: (SectionsFragment | null | undefined)[] | any
   events?: IEvent[] | undefined
   eventsListingUrl?: string | undefined
@@ -109,7 +109,13 @@ function Sections({
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
       {sections.map((section: any, index: any) => (
-        <Section pageTitle={pageTitle} key={index} section={section || null} events={events} eventsListingUrl={eventsListingUrl} />
+        <Section
+          pageTitle={pageTitle}
+          key={index}
+          section={section || null}
+          events={events}
+          eventsListingUrl={eventsListingUrl}
+        />
       ))}
     </div>
   )
@@ -121,7 +127,7 @@ function Section({
   events,
   eventsListingUrl,
 }: {
-  pageTitle?: string | null | undefined;
+  pageTitle?: string | null | undefined
   section: SectionsFragment | null
   events: IEvent[] | undefined
   eventsListingUrl: string | undefined
@@ -136,11 +142,15 @@ function Section({
 
   if (!section) return null
 
-  return <div>{sectionContent(pageTitle, section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}</div>
+  return (
+    <div>
+      {sectionContent(pageTitle, section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}
+    </div>
+  )
 }
 
 const sectionContent = (
-  pageTitle: string | undefined,
+  pageTitle: string | null | undefined,
   section: SectionsFragment,
   events: IEvent[] | undefined,
   eventsListingUrl: string | undefined,
@@ -148,7 +158,7 @@ const sectionContent = (
   openAccordion: any,
   listenAccordionState: (id: string, state: boolean) => unknown,
   locale: any
-) : React.ReactNode | any => {
+): React.ReactNode | any => {
   const eventDetail = events?.length ? events[0] : null
 
   switch (section.__typename) {
