@@ -114,7 +114,7 @@ export function Index({
         <SectionContainer>
           <Section noBorder>
             <Localities
-              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY}
+              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
               localities={localities}
             />
           </Section>
