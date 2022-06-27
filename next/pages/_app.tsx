@@ -1,11 +1,10 @@
 import './index.css'
 
 import { UIContextProvider } from '@bratislava/common-frontend-ui-context'
+import { appWithTranslation } from 'next-i18next'
 import { AppProps } from 'next/app'
 import Link from 'next/link'
 import Script from 'next/script'
-import { appWithTranslation } from 'next-i18next'
-import React from 'react'
 
 import { CityLibraryMarkdown } from '../components/Atoms/CityLibraryMarkdown'
 import CookieConsent from '../components/Molecules/CookieConsent'
@@ -37,7 +36,11 @@ function CustomApp({ Component, pageProps, router }: AppProps): JSX.Element {
           },
           Image: ({ alt, src }) => <img alt={alt} src={src} />,
           Markdown: ({ className, paragraphClassName, content }) => (
-            <CityLibraryMarkdown className={className} paragraphClassName={paragraphClassName} content={content} />
+            <CityLibraryMarkdown
+              className={className}
+              paragraphClassName={paragraphClassName}
+              content={content}
+            />
           ),
         }}
       >

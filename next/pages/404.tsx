@@ -28,18 +28,20 @@ function Custom404({ locale }: ICustomProps) {
   return (
     <PageWrapper locale={locale ?? 'sk'} slug="/404">
       <ErrorPage code={404}>
-        <header className="text-xl mb-6">
+        <header className="mb-6 text-xl">
           <h1>{t('pageNotFound')}</h1>
         </header>
         <p className="text-base">{t('pageNotFoundSorry')}</p>
-        <p className="underline text-base pt-10">
+        <p className="pt-10 text-base underline">
           https://www.mestskakniznica.sk/{locale ?? 'sk'}
           {asPath}
         </p>
         <form onSubmit={onSubmit}>
           <SearchBar
             iconLeft={<SearchIcon onClick={onSubmit} />}
-            iconRight={searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />}
+            iconRight={
+              searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />
+            }
             placeholder={t('whatAreYouLookingFor')}
             className="pt-10"
             inputClassName="w-full h-14"
