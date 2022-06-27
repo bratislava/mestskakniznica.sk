@@ -75,7 +75,11 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
   const { blogPostBySlug } = await client.BlogPostBySlug({ slug })
   const { menus } = await client.Menus({ locale })
   const { footer } = await client.Footer({ locale })
-  const translations = (await serverSideTranslations(locale, ['common', 'forms', 'newsletter'])) as any
+  const translations = (await serverSideTranslations(locale, [
+    'common',
+    'forms',
+    'newsletter',
+  ])) as any
 
   if (!blogPostBySlug && !menus) return { notFound: true }
 

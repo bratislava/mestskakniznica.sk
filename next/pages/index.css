@@ -34,19 +34,19 @@ body {
 
 @layer components {
   .base-button {
-    @apply appearance-none inline-flex items-center justify-center text-center;
+    @apply inline-flex appearance-none items-center justify-center text-center;
     @apply text-xs uppercase tracking-wider;
   }
   .base-input {
-    @apply appearance-none box-border inline-block border px-3 py-2 text-gray-universal-100 bg-input-nav-bg text-base;
-    @apply border-input-stroke focus:outline-none focus:border-gray-universal-100 hover:border-gray-universal-100 placeholder:text-gray-500;
+    @apply box-border inline-block appearance-none border bg-input-nav-bg px-3 py-2 text-base text-gray-universal-100;
+    @apply border-input-stroke placeholder:text-gray-500 hover:border-gray-universal-100 focus:border-gray-universal-100 focus:outline-none;
   }
   .base-input--with-error {
     @apply border-error;
   }
   .base-radio {
-    @apply border-gray-universal-100 w-5 h-5 rounded-full border-2 flex items-center;
-    @apply justify-center box-border overflow-hidden;
+    @apply flex h-5 w-5 items-center rounded-full border-2 border-gray-universal-100;
+    @apply box-border justify-center overflow-hidden;
   }
 }
 
