@@ -120,5 +120,6 @@
   "nextPage": "Next page",
   "currentPage": "Current page",
   "navAriaLabel": "Main",
-  "goToTopAriaLabel": "Go to top header"
+  "goToTopAriaLabel": "Go to top header",
+  "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/"
 }

@@ -4,7 +4,7 @@ import { Chip } from './Chip'
 
 describe('Chip', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Chip />)
+    const { baseElement } = render(<Chip size="medium" />)
     expect(baseElement).toBeTruthy()
   })
 })

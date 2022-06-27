@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_flat_text_centers",
+  "info": {
+    "displayName": "flatTextCenter"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

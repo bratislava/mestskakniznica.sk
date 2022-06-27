@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_menu_items_sections",
+  "info": {
+    "displayName": "sections",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "sectionTitle": {
+      "type": "string"
+    },
+    "sectionColumnSpan": {
+      "type": "integer"
+    },
+    "sectionLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "menu.section-links"
+    },
+    "sectionPage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

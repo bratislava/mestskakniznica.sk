@@ -50,7 +50,7 @@ export function RadioGroup<T extends IRadioOption>({
         <RadioGroupPrimitive.Root
           aria-label={labelContent}
           aria-invalid={hasError}
-          aria-errormessage={errorMessage ? `${id  }_err` : null}
+          aria-errormessage={errorMessage ? `${id  }_err` : ''}
           className={className}
           onValueChange={onChange}
           value={value}

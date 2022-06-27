@@ -1,0 +1,132 @@
+query BasicDocumentBySlug($slug: String!) {
+  basicDocumentBySlug(slug: $slug) {
+    ...BasicDocument
+  }
+}
+
+query AllBasicDocuments($limit: Int, $offset: Int, $sort: String, $categoryId: Int, $query: String) {
+  allBasicDocuments(limit: $limit, offset: $offset, sort: $sort, categoryId: $categoryId, query: $query) {
+    ...BasicDocument
+  }
+}
+
+query BasicDocumentsCount {
+  basicDocumentCount
+}
+
+query FileCategories {
+  fileCategories {
+    id
+    name
+    slug
+  }
+}
+
+query DocumentCategoryBySlug($slug: String!) {
+  documentCategoryBySlug(slug: $slug) {
+    ...DocumentCategory
+  }
+}
+
+fragment DocumentCategory on FileCategory {
+  id
+  name
+  slug
+  page {
+    ...Page
+  }
+}
+
+fragment BasicDocumentFile on UploadFile {
+  id
+  url
+  name
+  ext
+}
+
+fragment BasicDocument on BasicDocument {
+  id
+  slug
+  title
+  description
+  metadata {
+    ...Metadata
+  }
+  date_added
+  author
+  link
+  file_category {
+    id
+    name
+    slug
+  }
+  attachment {
+    ...BasicDocumentFile
+  }
+}
+
+fragment Metadata on BasicDocumentMetadataDynamicZone {
+  __typename
+
+  ... on ComponentMetadataFaktury {
+    id
+    name
+    date
+    attachment {
+      ...BasicDocumentFile
+    }
+  }
+
+  ... on ComponentMetadataZmluvy {
+    id
+    date
+    number
+    amount
+    supplier
+    subject
+  }
+
+  ... on ComponentMetadataMetadata {
+    id
+    provider
+    year
+    grant_name
+    grant_number
+    amount
+    description
+  }
+
+  ... on ComponentMetadataObjednavky {
+    id
+    title
+    date_period
+    date_added
+    attachment {
+      ...BasicDocumentFile
+    }
+  }
+
+  ... on ComponentMetadataObchodnaVerejnaSutaz {
+    id
+    subject
+    description
+    number
+    date_added
+    amount
+    attachment {
+      ...BasicDocumentFile
+    }
+  }
+
+  ... on ComponentMetadataVerejneObstaravanie {
+    id
+    subject
+    description
+    number
+    date_added
+    amount
+    attachment {
+      ...BasicDocumentFile
+    }
+  }
+}

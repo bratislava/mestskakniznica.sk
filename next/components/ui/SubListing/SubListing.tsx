@@ -13,12 +13,12 @@ export interface SubListingProps {
 export function SubListing({ title, url, linkTitle }: SubListingProps) {
   const { Link: UILink } = useUIContext()
   return (
-    <UILink key={title} href={url}>
+    <UILink key={title} href={url || ''}>
       <CallToAction
         className="hidden md:flex w-full h-[180px] mt-0"
         key={title}
-        title={title}
-        href={url}
+        title={title || ''}
+        href={url || ''}
         bottomText={linkTitle}
         hasIcon={false}
         uppercase={false}
@@ -29,7 +29,7 @@ export function SubListing({ title, url, linkTitle }: SubListingProps) {
         }
       />
 
-      <RowSubcategory className="md:hidden" title={title} icon={<ChevronRight />} />
+      <RowSubcategory className="md:hidden" title={title || ''} icon={<ChevronRight />} />
     </UILink>
   )
 }

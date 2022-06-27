@@ -22,6 +22,7 @@ function Header({ menus, latestEvents }: HeaderProps) {
         <div className="mx-auto flex justify-between items-center border-b border-gray-900">
           <Link href="/" passHref>
             <a className="uppercase flex flex-row items-center h-[40px] cursor-pointer">
+              <h1>
               {t('pageTitle')
                 .split(' ')
                 .map((word) => (
@@ -32,6 +33,7 @@ function Header({ menus, latestEvents }: HeaderProps) {
                     {word}
                   </span>
                 ))}
+              </h1>
             </a>
           </Link>
 

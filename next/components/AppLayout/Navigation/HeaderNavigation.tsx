@@ -1,14 +1,10 @@
-import Accessibility from '@assets/images/accessibility.svg'
-import { Time24To12Format } from '@utils/utils'
-import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 
 import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
 import HeaderNavigationItem from './HeaderNavigationItem'
 
-interface HeaderNavigationProps {}
-
-function HeaderNavigation(_props: HeaderNavigationProps) {
+function HeaderNavigation() {
   const { localizations, locale } = usePageWrapperContext()
   const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
   const { t } = useTranslation('common')
@@ -28,17 +24,17 @@ function HeaderNavigation(_props: HeaderNavigationProps) {
       {/* </div> */}
       <div className="group border-l border-gray-900">
         <HeaderNavigationItem url={t('openingHoursPageLink')}>
-          <div className="font-normal px-[12px] text-gray-900 hover:underline">{openingHours}</div>
+          <div className="px-[12px] font-normal text-gray-900 hover:underline">{openingHours}</div>
           {/* TODO show he div below again once the one above contains dynami opening hours */}
           {/* <div className="mt-2 absolute w-40 bg-white text-center py-5 px-3 border z-50 transform scale-0 focus-within:scale-100 group-hover:scale-100 cursor-default">
               {t('openHoursInfo')}
             </div> */}
         </HeaderNavigationItem>
       </div>
-      <div className="border-gray-900 border-l">
-        <div className="cursor-pointer font-normal md:flex text-xs leading-[19.6px] py-[10px] border-gray-900">
+      <div className="border-l border-gray-900">
+        <div className="cursor-pointer border-gray-900 py-[10px] text-xs font-normal leading-[19.6px] md:flex">
           <Link href="https://opac.mestskakniznica.sk/opac" passHref>
-            <a target="_blank" className="font-normal px-[12px]">
+            <a target="_blank" className="px-[12px] font-normal">
               {t('onlineCatalog')}
             </a>
           </Link>
@@ -47,7 +43,7 @@ function HeaderNavigation(_props: HeaderNavigationProps) {
       <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
         <a
           aria-label={t('otherLocaleAriaLabel')}
-          className="pl-[12px] font-normal text-sm border-gray-900 border-l py-[10px] leading-[19.6px]"
+          className="border-l border-gray-900 py-[10px] pl-[12px] text-sm font-normal leading-[19.6px]"
         >
           {otherLocaleData.locale.toUpperCase()}
         </a>

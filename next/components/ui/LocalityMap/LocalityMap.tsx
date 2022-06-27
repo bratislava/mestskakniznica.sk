@@ -20,7 +20,7 @@ export function LocalityMap({
 }: LocalityMapProps) {
   const [isBrowser, setBrowser] = useState(false)
 
-  const mapRef = useRef<MapRef>()
+  const mapRef = useRef<MapRef | any>()
 
   useEffect(() => {
     setBrowser(!!typeof window)

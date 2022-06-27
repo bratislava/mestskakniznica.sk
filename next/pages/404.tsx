@@ -2,9 +2,9 @@ import ClearCircle from '@assets/images/clear-circle.svg'
 import SearchIcon from '@assets/images/search-404.svg'
 import { SearchBar } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
 
 import PageWrapper from '../components/layouts/PageWrapper'
@@ -54,12 +54,13 @@ function Custom404({ locale }: ICustomProps) {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const locale = ctx.locale ?? 'sk'
-  const pageTranslations = ['common']
+
+  const translations = await serverSideTranslations(locale, ['common'])
 
   return {
     props: {
       locale,
-      ...(await serverSideTranslations(locale, pageTranslations)),
+      ...translations,
     },
   }
 }

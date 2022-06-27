@@ -4,7 +4,7 @@ import { LinkButton } from './LinkButton'
 
 describe('LinkButton', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<LinkButton />)
+    const { baseElement } = render(<LinkButton href='/' />)
     expect(baseElement).toBeTruthy()
   })
 })

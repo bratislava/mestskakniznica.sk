@@ -52,7 +52,7 @@ function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
         <>
           {/* Mobile */}
           <Link
-            href={`/documents/${file.file_category?.slug}`}
+            href={`${t('documents_category_slug')}${file.file_category?.slug}`}
             variant="plain"
             uppercase={false}
             className="lg:hidden underline"
@@ -62,7 +62,7 @@ function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
           </Link>
           {/* Desktop */}
           <Link
-            href={`/documents/${file.file_category?.slug}`}
+            href={`${t('documents_category_slug')}${file.file_category?.slug}`}
             variant="plain"
             uppercase={false}
             className="hidden lg:block underline"
