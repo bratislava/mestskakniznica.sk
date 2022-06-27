@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 
-import ColumnedText from './ColumnedText'
+import {ColumnedText} from './ColumnedText'
 
 describe('ColumnedText', () => {
   it('should render successfully', () => {

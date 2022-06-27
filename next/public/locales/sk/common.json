@@ -120,5 +120,6 @@
   "nextPage": "Nasledujúca stránka",
   "currentPage": "Aktuálna stránka",
   "navAriaLabel": "Hlavná navigácia",
-  "goToTopAriaLabel": "Vrátiť sa na začiatok stránky"
+  "goToTopAriaLabel": "Vrátiť sa na začiatok stránky",
+  "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/"
 }

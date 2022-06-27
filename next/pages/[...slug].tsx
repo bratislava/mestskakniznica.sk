@@ -9,9 +9,8 @@ import {
   PageBySlugQuery,
   PartnerFragment,
 } from '@bratislava/strapi-sdk-city-library'
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React from 'react'
 
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
@@ -32,6 +31,7 @@ import Premises from '../components/pages/premises'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
 import SublistingPage from '../components/pages/sublistingPage'
 import { buildUrl, client } from '../utils/gql'
+import { isDefined } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
 import { sortPartners } from '../utils/page'
 import { IEvent, ILocality, IPremises } from '../utils/types'
@@ -44,32 +44,167 @@ import {
   shouldSkipStaticPaths,
 } from '../utils/utils'
 
-export const getStaticPaths: GetStaticPaths = async () => {
+interface IPageProps {
+  error?: IDisplayError
+  slug: string
+  page: NonNullable<PageBySlugQuery['pageBySlug']>
+  partners: PartnerFragment[]
+  promotedEvents: IEvent[]
+  allEvents: IEvent[]
+  latestEvents: IEvent[]
+  premises: IPremises[]
+  opacBookNews: OpacBook[]
+  localities: ILocality[]
+  news: IEvent[]
+  eventCategories: NonNullable<EventPropertiesQuery['eventCategories']>
+  eventTags: NonNullable<EventPropertiesQuery['eventTags']>
+  eventLocalities: NonNullable<EventPropertiesQuery['eventLocalities']>
+  allNewsLink: string
+  menus: NonNullable<MenusQuery['menus']>
+  footer: FooterQuery['footer']
+}
+
+function Page({
+  error,
+  page,
+  partners,
+  promotedEvents,
+  allEvents,
+  latestEvents,
+  opacBookNews,
+  premises,
+  localities,
+  news,
+  eventCategories,
+  eventTags,
+  eventLocalities,
+  allNewsLink,
+  menus,
+  footer,
+}: IPageProps) {
+  if (error) {
+    return (
+      <ErrorPage code={500}>
+        <ErrorDisplay error={error} />
+      </ErrorPage>
+    )
+  }
+
+  const sortedPartners = sortPartners(partners)
+
+  let pageComponentByLayout = null
+
+  switch (page.layout) {
+    case Enum_Page_Layout.Listing:
+      pageComponentByLayout = <ListingPage allEvents={allEvents} page={page} news={news} />
+      break
+
+    case Enum_Page_Layout.Sublisting:
+      pageComponentByLayout = <SublistingPage page={page} />
+      break
+
+    case Enum_Page_Layout.Announcement:
+      break
+
+    case Enum_Page_Layout.News:
+    case Enum_Page_Layout.FullContent:
+      pageComponentByLayout = <FullContentPage page={page} />
+      break
+
+    case Enum_Page_Layout.ContentWithSidebar:
+      pageComponentByLayout = <SidebarContentPage page={page} />
+      break
+
+    case Enum_Page_Layout.Partners:
+      pageComponentByLayout = <PartnersPage page={page} partners={sortedPartners} />
+      break
+
+    case Enum_Page_Layout.BlogPosts:
+      pageComponentByLayout = <BlogPostsPage page={page} />
+      break
+
+    case Enum_Page_Layout.Documents:
+      pageComponentByLayout = <DocumentsPage page={page} />
+      break
+
+    case Enum_Page_Layout.EventsListing:
+      pageComponentByLayout = (
+        <EventsListingPage
+          page={page}
+          promotedEvents={promotedEvents}
+          events={allEvents}
+          eventCategories={eventCategories}
+          eventTags={eventTags}
+          eventLocalities={eventLocalities}
+        />
+      )
+      break
+
+    case Enum_Page_Layout.Event:
+      pageComponentByLayout = <EventPage page={page} events={allEvents} allNewsLink={allNewsLink} />
+      break
+
+    case Enum_Page_Layout.Premises:
+      pageComponentByLayout = <Premises page={page} premises={premises} />
+      break
+
+    case Enum_Page_Layout.LocalitiesListing:
+      pageComponentByLayout = <LocalitiesListingPage page={page} localities={localities} />
+      break
+
+    case Enum_Page_Layout.NewsListing:
+      pageComponentByLayout = <NewsListingPage page={page} news={news} />
+      break
+
+    case Enum_Page_Layout.Locality:
+      pageComponentByLayout = <LocalityPage page={page} events={allEvents} eventsListingUrl={allNewsLink} />
+      break
+
+    case Enum_Page_Layout.BookNews:
+      pageComponentByLayout = <BookNewsPage books={opacBookNews} page={page} />
+      break
+  }
+
+  return (
+    <PageWrapper
+      locale={page.locale ?? 'sk'}
+      slug={page.slug ?? ''}
+      localizations={page.localizations?.filter(isPresent)}
+    >
+      <DefaultPageLayout title={page?.title} Seo={page?.Seo} menus={menus} footer={footer} latestEvents={latestEvents}>
+        {pageComponentByLayout}
+      </DefaultPageLayout>
+    </PageWrapper>
+  )
+}
+
+export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
   let paths: any = []
-  // TODO consider grabbing this from CMS somehow
-  const locales = ['sk', 'en']
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
+
   const pathArraysForLocales = await Promise.all(locales.map((locale) => client.PagesStaticPaths({ locale })))
-  const pages = pathArraysForLocales.flatMap(({ pages }) => pages || [])
+  const pages = pathArraysForLocales.flatMap(({ pages }) => pages || []).filter(isDefined)
   if (pages.length > 0) {
-    paths = pages.map((page) => ({
-      params: {
-        slug: page?.slug ? page.slug.split('/') : [],
-        locale: page?.locale || '',
-      },
-    }))
+    paths = pages
+      .filter((page) => page.slug)
+      .map((page) => ({
+        params: {
+          slug: page?.slug ? page.slug.split('/') : [],
+          locale: page?.locale || '',
+        },
+      }))
   }
 
   console.log(`GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
-  const locale = arrayify(ctx?.params?.locale)[0] ?? ctx.locale ?? 'sk'
+export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
+  const locale = ctx.locale ?? 'sk'
   const slug = arrayify(ctx?.params?.slug).join('/')
-  const pageTranslations = ['common', 'forms', 'newsletter', 'homepage']
+
   console.log(`Static gen: ${locale} ${slug}`)
-  const ssr = await serverSideTranslations(locale, pageTranslations)
+  const translations = (await serverSideTranslations(locale, ['common', 'forms', 'newsletter', 'homepage'])) as any
 
   try {
     let promotedEvents: IEvent[] = []
@@ -221,7 +356,7 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
       props: {
         slug,
         page: pageBySlug,
-        partners: partners.allPartners,
+        partners: partners.allPartners ?? [],
         promotedEvents,
         allEvents,
         latestEvents,
@@ -233,9 +368,9 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
         premises,
         localities,
         news,
-        menus,
+        menus: menus ?? [],
         footer,
-        ...ssr,
+        ...translations,
       },
       revalidate: 900, // revalidade every 5 minutes - TODO change for prod
     }
@@ -247,145 +382,11 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
     return {
       props: {
         error,
-        ...ssr,
+        ...translations,
       },
       revalidate: 900, // revalidade every 5 minutes - TODO change for prod
     }
   }
-}
-
-interface PageProps {
-  error?: IDisplayError
-  slug: string
-  page: NonNullable<PageBySlugQuery['pageBySlug']>
-  partners: PartnerFragment[]
-  promotedEvents: IEvent[]
-  allEvents: IEvent[]
-  latestEvents: IEvent[]
-  premises: IPremises[]
-  opacBookNews: OpacBook[]
-  localities: ILocality[]
-  news: IEvent[]
-  eventCategories: NonNullable<EventPropertiesQuery['eventCategories']>
-  eventTags: NonNullable<EventPropertiesQuery['eventTags']>
-  eventLocalities: NonNullable<EventPropertiesQuery['eventLocalities']>
-  allNewsLink: string
-  menus: NonNullable<MenusQuery['menus']>
-  footer: FooterQuery['footer']
-}
-
-function Page({
-  error,
-  page,
-  partners,
-  promotedEvents,
-  allEvents,
-  latestEvents,
-  opacBookNews,
-  premises,
-  localities,
-  news,
-  eventCategories,
-  eventTags,
-  eventLocalities,
-  allNewsLink,
-  menus,
-  footer,
-}: PageProps) {
-  if (error) {
-    return (
-      <ErrorPage code={500}>
-        <ErrorDisplay error={error} />
-      </ErrorPage>
-    )
-  }
-
-  const sortedPartners = sortPartners(partners)
-
-  let pageComponentByLayout = null
-
-  switch (page.layout) {
-    case Enum_Page_Layout.Listing:
-      pageComponentByLayout = <ListingPage allEvents={allEvents} page={page} news={news} />
-      break
-
-    case Enum_Page_Layout.Sublisting:
-      pageComponentByLayout = <SublistingPage page={page} />
-      break
-
-    case Enum_Page_Layout.Announcement:
-      break
-
-    case Enum_Page_Layout.News:
-    case Enum_Page_Layout.FullContent:
-      pageComponentByLayout = <FullContentPage page={page} />
-      break
-
-    case Enum_Page_Layout.ContentWithSidebar:
-      pageComponentByLayout = <SidebarContentPage page={page} />
-      break
-
-    case Enum_Page_Layout.Partners:
-      pageComponentByLayout = <PartnersPage page={page} partners={sortedPartners} />
-      break
-
-    case Enum_Page_Layout.BlogPosts:
-      pageComponentByLayout = <BlogPostsPage page={page} />
-      break
-
-    case Enum_Page_Layout.Documents:
-      pageComponentByLayout = <DocumentsPage page={page} />
-      break
-
-    case Enum_Page_Layout.EventsListing:
-      pageComponentByLayout = (
-        <EventsListingPage
-          page={page}
-          promotedEvents={promotedEvents}
-          events={allEvents}
-          eventCategories={eventCategories}
-          eventTags={eventTags}
-          eventLocalities={eventLocalities}
-        />
-      )
-      break
-
-    case Enum_Page_Layout.Event:
-      pageComponentByLayout = <EventPage page={page} events={allEvents} allNewsLink={allNewsLink} />
-      break
-
-    case Enum_Page_Layout.Premises:
-      pageComponentByLayout = <Premises page={page} premises={premises} />
-      break
-
-    case Enum_Page_Layout.LocalitiesListing:
-      pageComponentByLayout = <LocalitiesListingPage page={page} localities={localities} />
-      break
-
-    case Enum_Page_Layout.NewsListing:
-      pageComponentByLayout = <NewsListingPage page={page} news={news} />
-      break
-
-    case Enum_Page_Layout.Locality:
-      pageComponentByLayout = <LocalityPage page={page} events={allEvents} eventsListingUrl={allNewsLink} />
-      break
-
-    case Enum_Page_Layout.BookNews:
-      pageComponentByLayout = <BookNewsPage books={opacBookNews} page={page} />
-      break
-  }
-
-  return (
-    <PageWrapper
-      locale={page.locale ?? 'sk'}
-      slug={page.slug ?? ''}
-      localizations={page.localizations?.filter(isPresent)}
-    >
-      <DefaultPageLayout title={page?.title} Seo={page?.Seo} menus={menus} footer={footer} latestEvents={latestEvents}>
-        {pageComponentByLayout}
-      </DefaultPageLayout>
-    </PageWrapper>
-  )
 }
 
 export default Page

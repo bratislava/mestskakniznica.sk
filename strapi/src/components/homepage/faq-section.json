@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_homepage_faq_sections",
+  "info": {
+    "displayName": "faqSection",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "ctas": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.cta"
+    },
+    "faqs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.faqs"
+    },
+    "title": {
+      "type": "string"
+    },
+    "redirectTo": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

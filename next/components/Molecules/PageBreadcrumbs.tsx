@@ -140,7 +140,7 @@ function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsPr
   if (documentCategory) {
     crumbs.push({
       title: documentCategory.name ?? '',
-      url: `/documents/${documentCategory.slug}` ?? '#',
+      url: `${t('documents_category_slug')}${documentCategory.slug}` ?? '#',
     })
   }
   // blog post page

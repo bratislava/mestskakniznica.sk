@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_address_addresses",
+  "info": {
+    "displayName": "address"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "navigateTo": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_sections_sub_listings",
+  "info": {
+    "displayName": "SubListing"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

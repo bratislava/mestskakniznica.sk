@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_homepage_news_sections",
+  "info": {
+    "displayName": "newsSection",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "redirectTo": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

@@ -1,0 +1,789 @@
+# Write your query or mutation here
+# TODO refactor - move footer to fragment and get rid of unused data
+query Footer($locale: String!) {
+  footer(locale: $locale) {
+    id
+    footerColumns {
+      id
+      title
+      footerLink {
+        id
+        redirectTo {
+          ...BasePageFields
+        }
+        title
+        otherSite
+      }
+    }
+    siteMapLink {
+      ...BasePageFields
+    }
+    privacyLink {
+      ...BasePageFields
+    }
+    copyrightText
+  }
+}
+
+query HomePage($locale: String!) {
+  homePage(locale: $locale) {
+    faqSection {
+      id
+      title
+      faqSectionRedirectTo {
+        ...BasePageFields
+      }
+      faqs {
+        id
+        question
+        answer
+      }
+      ctas {
+        id
+        title
+        ctaRedirectTo {
+          ...BasePageFields
+        }
+      }
+    }
+    registrationInfoSection {
+      id
+      title
+      description
+      registrationInfoSectionRedirectTo {
+        ...BasePageFields
+      }
+      registrationBenefits {
+        id
+        benefit
+      }
+    }
+    newsSection {
+      id
+      title
+      newsSectionRedirectTo {
+        ...BasePageFields
+      }
+    }
+    localizations {
+      locale
+    }
+    Seo {
+      id
+      metaTitle
+      metaDescription
+      keywords
+      metaRobots
+      metaViewport
+      canonicalURL
+    }
+  }
+  menus(locale: $locale, sort: "order:asc") {
+    ...Menu
+  }
+  footer(locale: $locale) {
+    id
+    footerColumns {
+      id
+      title
+      footerLink {
+        id
+        redirectTo {
+          ...BasePageFields
+        }
+        title
+        otherSite
+      }
+    }
+    siteMapLink {
+      ...BasePageFields
+    }
+    privacyLink {
+      ...BasePageFields
+    }
+    copyrightText
+  }
+}
+
+query EventProperties($locale: String!) {
+  eventCategories(locale: $locale) {
+    id
+    title
+    created_at
+    updated_at
+  }
+  eventLocalities(locale: $locale) {
+    id
+    title
+    navigateTo
+    created_at
+    updated_at
+  }
+  eventTags(locale: $locale) {
+    id
+    title
+    slug
+    created_at
+    published_at
+    updated_at
+  }
+}
+
+query BookTags {
+  bookTags {
+    displayName
+    slug
+  }
+}
+
+query Premises($locale: String!) {
+  premises(locale: $locale) {
+    title
+    address
+    url
+    image {
+      width
+      height
+      url
+      alternativeText
+    }
+  }
+}
+
+query Menus($locale: String!) {
+  menus(locale: $locale, sort: "order:asc") {
+    ...Menu
+  }
+}
+
+fragment Menu on Menu {
+  id
+  menuTitle
+  menuSlug
+  menuTotalColumns
+  order
+  menuSections {
+    ...MenuSection
+  }
+  created_at
+  updated_at
+}
+
+fragment MenuSection on ComponentMenuSections {
+  id
+  sectionTitle
+  sectionColumnSpan
+  sectionPage {
+    ...BasePageFields
+  }
+  sectionLinks {
+    id
+    sectionLinkTitle
+    sectionLinkPage {
+      ...SectionLinkPage
+    }
+  }
+}
+
+query PromotedPages($locale: String!) {
+  pages(
+    where: { promoted: true, _or: [{ layout: "event" }, { layout: "announcement" }, { layout: "news" }] }
+    locale: $locale
+  ) {
+    ...Page
+  }
+}
+
+query PromotedEvents($locale: String!) {
+  pages(where: { promoted: true, layout: "event" }, locale: $locale) {
+    ...Page
+  }
+}
+
+query ListEvents($locale: String!, $start: Int, $limit: Int) {
+  pages(where: { layout: "event" }, locale: $locale, start: $start, limit: $limit) {
+    ...PageEvent
+  }
+}
+
+query PagesByLayout($layout: String!, $locale: String!, $start: Int, $limit: Int) {
+  pages(where: { layout: $layout }, locale: $locale, start: $start, limit: $limit) {
+    ...Page
+  }
+}
+
+query PageBySlug($slug: String!, $locale: String!) {
+  pageBySlug(slug: $slug, locale: $locale) {
+    ...Page
+  }
+  menus(locale: $locale, sort: "order:asc") {
+    ...Menu
+  }
+  footer(locale: $locale) {
+    id
+    footerColumns {
+      id
+      title
+      footerLink {
+        id
+        redirectTo {
+          ...BasePageFields
+        }
+        title
+        otherSite
+      }
+    }
+    siteMapLink {
+      ...BasePageFields
+    }
+    privacyLink {
+      ...BasePageFields
+    }
+    copyrightText
+  }
+}
+
+# strapi returns just the default locale if no locale is provided
+# easiest way to get all static paths is to ask for all locales sequentially
+query PagesStaticPaths($locale: String) {
+  pages(locale: $locale) {
+    id
+    slug
+    locale
+  }
+}
+
+fragment Page on Page {
+  id
+  slug
+  title
+  created_at
+  updated_at
+  date_added
+  listingImage {
+    name
+    width
+    height
+    url
+    created_at
+    hash
+    id
+    mime
+    provider
+    size
+    updated_at
+  }
+  layout
+  description
+  pageCategory {
+    ...PageCategory
+  }
+  sections {
+    ...Sections
+  }
+  relatedBlogPosts {
+    ...BlogPost
+  }
+  relatedBlogPostsCount
+
+  locale
+  localizations {
+    ...Localization
+  }
+  Seo {
+    id
+    metaTitle
+    metaDescription
+    keywords
+    metaRobots
+    metaViewport
+    canonicalURL
+  }
+}
+
+fragment PageCategory on Category {
+  ...Category
+
+  subCategories {
+    ...Category
+  }
+
+  parentCategory {
+    ...Category
+    parentCategory {
+      ...Category
+    }
+  }
+}
+
+fragment Category on Category {
+  title
+  priority
+  pages {
+    ...PageLink
+  }
+  pageLink {
+    ...PageLink
+  }
+  id
+  created_at
+  updated_at
+}
+
+fragment Sections on PageSectionsDynamicZone {
+  __typename
+  ... on ComponentSectionsSubListing {
+    id
+    title
+    url
+  }
+
+  ... on ComponentSectionsFaq {
+    id
+    title
+    questions {
+      ...AccordionItem
+    }
+  }
+  ... on ComponentSectionsFlatTextCenter {
+    id
+    content
+    image {
+      name
+      width
+      height
+      url
+      created_at
+      hash
+      id
+      mime
+      provider
+      size
+      updated_at
+      alternativeText
+    }
+  }
+  ... on ComponentSectionsFlatText {
+    id
+    content
+    media {
+      name
+      width
+      height
+      url
+      created_at
+      hash
+      id
+      mime
+      provider
+      size
+      updated_at
+      alternativeText
+    }
+  }
+  ... on ComponentSectionsSiteUsefullness {
+    id
+    title
+    thankYouMessage
+  }
+  ... on ComponentSectionsForm {
+    id
+    type
+  }
+  ... on ComponentSectionsSubpages {
+    id
+    ...Subpages
+  }
+  ... on ComponentSectionsTable {
+    ...Table
+  }
+  ... on ComponentSectionsAccordion {
+    title
+    flatText {
+      ...FlatText
+    }
+    tableRows {
+      ...TableRow
+    }
+    forms {
+      category
+      type
+    }
+  }
+  ... on ComponentSectionsEventDetails {
+    ...EventDetails
+  }
+  ... on ComponentSectionsDivider {
+    shown
+  }
+  ... on ComponentSectionsColumnedText {
+    title
+    content
+  }
+  ... on ComponentSectionsExternalLinks {
+    title
+    externalLinks {
+      ...ExternalLink
+    }
+    descriptions {
+      ...FlatText
+    }
+  }
+  ... on ComponentSectionsCta {
+    title
+    url
+  }
+
+  ... on ComponentSectionsVideo {
+    id
+    youtube_url
+    media {
+      url
+    }
+  }
+
+  ... on ComponentSectionsDocuments {
+    title
+    basicDocuments {
+      ...BasicDocument
+    }
+    moreLink {
+      ...PageLink
+    }
+  }
+
+  ... on ComponentSectionsGallery {
+    id
+    Gallery {
+      id
+      Photo {
+        name
+        width
+        height
+        url
+        created_at
+        hash
+        id
+        mime
+        provider
+        size
+        updated_at
+      }
+      Description
+    }
+  }
+
+  ... on ComponentSectionsLocalityDetails {
+    id
+    localityTitle
+    localityDescription
+    localityLongitude
+    localityLatitude
+    displayOnHomePage
+    isMainLocality
+    localityCoverImage {
+      name
+      width
+      height
+      url
+      created_at
+      hash
+      id
+      mime
+      provider
+      size
+      updated_at
+    }
+    localityMap {
+      name
+      width
+      height
+      url
+      created_at
+      hash
+      id
+      mime
+      provider
+      size
+      updated_at
+    }
+    localityAddress {
+      id
+      title
+      navigateTo
+    }
+    localitySections {
+      id
+      localitySectionTitle
+      localitySectionPhone
+      localitySectionEmail
+      localitySectionDescription
+      isMainSection
+      openingHoursMondayFrom
+      openingHoursMondayTo
+      openingHoursTuesdayFrom
+      openingHoursTuesdayTo
+      openingHoursWednesdayFrom
+      openingHoursWednesdayTo
+      openingHoursThursdayFrom
+      openingHoursThursdayTo
+      openingHoursFridayFrom
+      openingHoursFridayTo
+      openingHoursSaturdayFrom
+      openingHoursSaturdayTo
+      openingHoursSundayFrom
+      openingHoursSundayTo
+    }
+    localityServices {
+      id
+      localityServicesPage {
+        ...BasePageFields
+      }
+    }
+  }
+}
+
+fragment FlatText on ComponentAccordionItemsFlatText {
+  category
+  content
+}
+
+fragment TableRow on ComponentAccordionItemsTableRow {
+  accordionCategory
+  tableCategory
+  label
+  value
+  valueAlign
+}
+
+fragment Table on ComponentSectionsTable {
+  primaryTitle
+  secondaryTitle
+  rows {
+    label
+    value
+    valueAlign
+  }
+}
+
+fragment Subpages on ComponentSectionsSubpages {
+  title
+  subpages {
+    id
+    title
+    description
+    url
+    page {
+      ...BasePageFields
+    }
+  }
+}
+
+fragment ExternalLink on ComponentBlocksExternalLink {
+  category
+  title
+  url
+}
+
+fragment AccordionItem on ComponentBlocksAccordionItem {
+  id
+  label
+  content
+}
+
+fragment PageLink on ComponentBlocksPageLink {
+  id
+  title
+  url
+  page {
+    ...BasePageFields
+  }
+}
+
+fragment Localization on Page {
+  slug
+  locale
+}
+
+fragment BasePageFields on Page {
+  id
+  title
+  slug
+  created_at
+  updated_at
+}
+
+fragment EventDetails on ComponentSectionsEventDetails {
+  id
+  eventTitle
+  eventDescription
+  eventCategory {
+    id
+    title
+    created_at
+    updated_at
+  }
+  eventLocality {
+    id
+    title
+    navigateTo
+    eventAddress
+    created_at
+    updated_at
+  }
+  dateFrom
+  dateTo
+  price
+  guests {
+    id
+    name
+    surname
+    avatar {
+      name
+      width
+      height
+      url
+      created_at
+      hash
+      id
+      mime
+      provider
+      size
+      updated_at
+      alternativeText
+    }
+  }
+  partners {
+    id
+    title
+    image {
+      name
+      width
+      height
+      url
+      created_at
+      hash
+      id
+      mime
+      provider
+      size
+      updated_at
+      alternativeText
+    }
+  }
+  eventTags {
+    id
+    title
+    slug
+    created_at
+    published_at
+    updated_at
+  }
+  eventCoverImage {
+    name
+    width
+    height
+    url
+    created_at
+    hash
+    id
+    mime
+    provider
+    size
+    updated_at
+    alternativeText
+  }
+}
+
+fragment SectionLinkPage on Page {
+  id
+  layout
+  title
+  slug
+  created_at
+  updated_at
+  date_added
+  listingImage {
+    name
+    width
+    height
+    url
+    created_at
+    hash
+    id
+    mime
+    provider
+    size
+    updated_at
+  }
+  sections {
+    __typename
+    ... on ComponentSectionsEventDetails {
+      ...EventDetails
+    }
+  }
+}
+fragment PageEvent on Page {
+  id
+  slug
+  title
+  created_at
+  updated_at
+  date_added
+  listingImage {
+    name
+    url
+    created_at
+  }
+  layout
+  sections {
+    ...SectionsEvent
+  }
+  locale
+  Seo {
+    id
+    metaTitle
+    metaDescription
+    keywords
+    metaRobots
+    metaViewport
+    canonicalURL
+  }
+}
+
+fragment SectionsEvent on PageSectionsDynamicZone {
+  __typename
+  ... on ComponentSectionsEventDetails {
+    ...EventDetailsEvent
+  }
+}
+
+fragment EventDetailsEvent on ComponentSectionsEventDetails {
+  id
+  eventTitle
+  eventCategory {
+    id
+    title
+    created_at
+    updated_at
+  }
+  eventLocality {
+    id
+    title
+    navigateTo
+    eventAddress
+    created_at
+    updated_at
+  }
+  dateFrom
+  dateTo
+  price
+  eventTags {
+    id
+    title
+    slug
+    created_at
+    published_at
+    updated_at
+  }
+}
