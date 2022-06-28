@@ -30,7 +30,7 @@ export function Listing({ className, title, url, moreLinkTitle, pages, hasDivide
 
       <div className="grid grid-cols-1 gap-y-2 mt-4 md:mt-6 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
         {pages?.map((page) => (
-          <UILink href={page.url}>
+          <UILink href={page.url} key={page.title}>
             <CallToAction
               className="hidden md:flex w-full h-[180px] mt-0"
               key={page.title}

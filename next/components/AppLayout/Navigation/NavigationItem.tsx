@@ -1,4 +1,4 @@
-import { MenuFragment, MenuSectionFragment } from '@bratislava/strapi-sdk-city-library'
+import { MenuFragment } from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { IEvent } from '@utils/types'
 import cx from 'classnames'
@@ -28,7 +28,7 @@ function NavigationItem({ index, menu, latestEvents }: navItemProps) {
     }
   }, [router])
 
-  const isCurrentLink = useMemo(() => router.asPath.includes(menu?.menuSlug ?? ''), [router])
+  const isCurrentLink = useMemo(() => router.asPath.includes(menu?.menuSlug ?? ''), [menu?.menuSlug, router.asPath])
 
   return (
     <NavigationMenu.Item className="border-gray-900 border-r last:border-r-0 pl-3 first:pl-0 pt-[28px] pb-1 h-14 w-[160px]">

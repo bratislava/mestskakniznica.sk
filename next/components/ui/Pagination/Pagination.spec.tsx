@@ -4,7 +4,11 @@ import { Pagination } from './Pagination'
 
 describe('Pagination', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Pagination />)
+    const { baseElement } = render(<Pagination
+      max={0}
+      value={0}
+      onChangeNumber={(num: number) => null}
+    />)
     expect(baseElement).toBeTruthy()
   })
 })

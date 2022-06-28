@@ -24,9 +24,9 @@ function FormWrapper({ className, children, title, onSubmit, isSubmitted }: IPro
     >
       <div className="flex justify-between -mx-4 px-4 border-b border-gray-universal-100 py-4.5 lg:py-0 lg:border-none">
         <h4 className="text-base lg:text-md font-normal">{title}</h4>
-        <Link href="#" passHref>
+        <button>
           <CloseIcon className="lg:hidden" />
-        </Link>
+        </button>
       </div>
       <form className="mt-6 flex flex-col gap-y-8" onSubmit={onSubmit}>
         {/* Here are the children of each form if unsubmitted, otherwise default SubmittedFormComponent */}

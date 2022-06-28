@@ -16,7 +16,7 @@ const nextConfig = {
   images: {
     domains: ['localhost', 'cdn-api.bratislava.sk'],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   async rewrites() {
     return {
       beforeFiles: [
@@ -42,6 +42,14 @@ const nextConfig = {
           source: '/services/education/articles/:slug',
           destination: '/blog/:slug',
         },
+        {
+          source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug/:slug',
+          destination: '/file/:slug',
+        },
+        {
+          source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
+          destination: '/documents/:slug',
+        }
       ],
     }
   },
@@ -1444,19 +1452,17 @@ const nextConfig = {
   },
 }
 
+module.exports = (phase, { defaultConfig }) => ({
+  ...defaultConfig,
+  ...nextConfig,
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
 
-module.exports = (phase, { defaultConfig }) => withSentryConfig(
-      {
-        ...defaultConfig,
-        ...nextConfig,
-        webpack(config) {
-          config.module.rules.push({
-            test: /\.svg$/,
-            use: ['@svgr/webpack'],
-          })
-
-          return config
-        }
-      },
-      { silent: true }
-    )
+    return config
+  },
+  { silent: true }
+})

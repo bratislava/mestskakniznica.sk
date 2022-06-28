@@ -1,163 +1,54 @@
-query BlogPostBySlug($slug: String!, $locale: I18NLocaleCode!) {
-  blogPosts(filters: { slug: { eq: $slug } }, locale: $locale) {
-    ...BlogPost
-  }
-
-  # TODO: make it seprate query for both
-  # footer(locale: $locale) {
-  #   ...Footer
-  # }
-
-  # mainMenu: pageCategories(locale: $locale) {
-  #   ...MainMenuItem
-  # }
-}
-
-# TODO: still unclear the logic
-# query RelatedPostsBySlug($slug: String!, $locale: String!) {
-#   relatedPostsBySlug(slug: $slug, locale: $locale) {
-#     ...BlogPost
-#   }
-# }
-
-query LatestPostsByTags($tags: [String], $limit: Int, $start: Int) {
-  blogPosts(
-    filters: { tag: { title: { in: $tags } } }
-    pagination: { limit: $limit, start: $start }
-    sort: "published_at:desc"
-  ) {
-    ...BlogPost
-  }
-}
-
-query BlogPostsStaticPaths($locale: I18NLocaleCode) {
-  blogPosts(locale: $locale) {
-    data {
-      id
-      attributes {
-        slug
-      }
-    }
-  }
-}
-
-query LatestBlogsWithTags($sort: [String], $limit: Int, $start: Int, $filters: BlogPostFiltersInput) {
-  blogPosts(sort: $sort, pagination: { limit: $limit, start: $start }, filters: $filters) {
-    data {
-      id
-      attributes {
-        slug
-        title
-        excerpt
-        coverImage {
-          data {
-            attributes {
-              url
-            }
-          }
-        }
-        tag {
-          data {
-            attributes {
-              title
-              publishedAt
-              pageCategory {
-                data {
-                  attributes {
-                    title
-                    color
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-query TotalPostsCount($where: BlogPostFiltersInput) {
-  blogPosts(filters: $where) {
-    meta {
-      pagination {
-        total
-      }
-    }
-  }
-}
-
-query RelatedTags($where: TagFiltersInput) {
-  tags(filters: $where) {
-    data {
-      attributes {
-        title
-        pageCategory {
-          data {
-            attributes {
-              title
-              color
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-fragment BlogPost on BlogPostEntityResponseCollection {
-  data {
+query BlogPostStaticPaths {
+  blogPosts {
     id
-    attributes {
-      excerpt
-      title
-      updatedAt
-      date_added
-      tag {
-        data {
-          attributes {
-            title
-            pageCategory {
-              data {
-                attributes {
-                  title
-                  color
-                }
-                id
-              }
-            }
-          }
-          id
-        }
-      }
-      coverImage {
-        data {
-          attributes {
-            url
-          }
-        }
-      }
-      moreLink {
-        ...BlogPostLink
-      }
-      createdAt
-      sections {
-        ...PageSections
-      }
-    }
+    slug
   }
 }
 
-fragment BlogPostLink on ComponentBlocksBlogPostLink {
-  blogPost {
-    data {
-      id
-      attributes {
-        title
-        slug
-      }
-    }
+query BlogPostBySlug($slug: String!) {
+  blogPostBySlug(slug: $slug) {
+    ...BlogPostWithParentPage
   }
+}
+
+fragment BlogPost on BlogPost {
+  id
+  slug
   title
-  url
+  created_at
+  sections {
+    ...Sections
+  }
+  coverMedia {
+    url
+    mime
+    alternativeText
+  }
+}
+
+fragment BlogPostWithParentPage on BlogPost {
+  ...BlogPost
+  parentPage {
+    ...ParentPage
+  }
+}
+
+fragment ParentPage on Page {
+  id
+  title
+  slug
+  layout
+  pageCategory {
+    ...PageCategory
+  }
+}
+
+query FetchBlogPosts($id: Int, $limit: Int, $offset: Int) {
+  fetchBlogPosts(id: $id, limit: $limit, offset: $offset) {
+    ...BlogPost
+  }
+}
+
+query BlogPostsCount {
+  blogPostsCount
 }

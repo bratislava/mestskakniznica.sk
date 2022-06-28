@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_footer_footer_links",
+  "info": {
+    "displayName": "footerLink",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "otherSite": {
+      "type": "string"
+    },
+    "redirectTo": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

@@ -39,7 +39,7 @@ export function TextArea({
           })}
           aria-invalid={hasError}
           aria-required={required}
-          aria-errormessage={errorMessage ? `${id  }_err` : null}
+          aria-errormessage={errorMessage ? `${id  }_err` : ''}
           {...props}
         >
           {children}

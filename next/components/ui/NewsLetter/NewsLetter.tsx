@@ -65,10 +65,11 @@ export function NewsLetter({
                 <CheckBox
                   id="acceptTerms"
                   name={name}
-                  children={checkboxContent}
                   onChange={onChange} // send value to hook form
                   checked={value}
-                />
+                >
+                  {checkboxContent}
+                </CheckBox>
                 {!!errors.acceptTerms && <p className="text-error text-base mt-2">{errorMessage}</p>}
                 <p className={`text-base mt-2 ${resStatus ? 'text-green-600' : 'text-error'}`}>{respondMessage}</p>
               </>

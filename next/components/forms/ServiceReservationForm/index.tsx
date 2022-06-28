@@ -16,7 +16,7 @@ function FileInput({ control, name }: any) {
   const { t } = useTranslation('forms')
 
   const { field } = useController({ control, name })
-  const [files, setFiles] = React.useState<File[]>([])
+  const [files, setFiles] = React.useState<Array<File | null>>([])
   return (
     <Upload
       labelContent={t('attachments')}
@@ -24,7 +24,13 @@ function FileInput({ control, name }: any) {
       required
       onChange={(e) => {
         if (e.target.files) {
-          setFiles([...e.target.files])
+          const newArray = [];
+          for(let i=0; i < e.target.files.length; i+=1) {
+            if(e.target.files.item(i) !== null) {
+              newArray.push(e.target.files.item(i))
+            }
+          }
+          setFiles(newArray)
           field.onChange(e.target.files)
         }
       }}
@@ -36,7 +42,7 @@ function FileInput({ control, name }: any) {
           <p>
             {`${files.length} ${files.length > 1 ? t('upload_files') : t('upload_file')}`} {t('upload_success')}:
           </p>
-          <p>{`[${files.map((file) => file.name).join(', ')}]`}</p>
+          <p>{`[${files.map((file) => file?.name).join(', ')}]`}</p>
         </>
       ) : (
         <>

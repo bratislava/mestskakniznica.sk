@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_metadata_objednavky",
+  "info": {
+    "displayName": "Objednávky"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "date_period": {
+      "type": "date"
+    },
+    "date_added": {
+      "type": "date"
+    },
+    "attachment": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

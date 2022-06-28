@@ -25,7 +25,7 @@ export function Documents({ className, title, moreLink, files }: DocumentsProps)
               type={file.content?.type ?? ''}
               title={file.content?.title ?? ''}
               metadata={file.content?.metadata}
-              dateAdded={file.content?.dateAdded}
+              dateAdded={file.content?.dateAdded ||''}
               fileType={file.content?.fileType}
             />
           </UILink>
