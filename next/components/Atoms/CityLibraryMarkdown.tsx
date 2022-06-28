@@ -34,7 +34,7 @@ export function CityLibraryMarkdown({ className, paragraphClassName, content }: 
         ),
         strong: ({ children }) => <strong>{children}</strong>,
         a: ({ href, children }) => (
-          <UILink href={href ?? '#'} className="underline" target={['#', '/'].includes(href?.[0]) ? '_self' : '_blank'}>
+          <UILink href={href ?? '#'} className="underline" target={['#', '/'].includes(href?.[0] || '') ? '_self' : '_blank'}>
             {children[0]}
           </UILink>
         ),

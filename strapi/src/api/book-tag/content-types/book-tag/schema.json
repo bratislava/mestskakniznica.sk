@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "book_tags",
+  "info": {
+    "singularName": "book-tag",
+    "pluralName": "book-tags",
+    "displayName": "Book Tags"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "displayName": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    }
+  }
+}

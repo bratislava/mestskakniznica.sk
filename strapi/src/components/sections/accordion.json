@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_sections_accordions",
+  "info": {
+    "displayName": "Accordion"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "flatText": {
+      "type": "component",
+      "repeatable": true,
+      "component": "accordion-items.flat-text"
+    },
+    "tableRows": {
+      "type": "component",
+      "repeatable": true,
+      "component": "accordion-items.table-row"
+    },
+    "forms": {
+      "type": "component",
+      "repeatable": true,
+      "component": "accordion-items.form"
+    }
+  }
+}

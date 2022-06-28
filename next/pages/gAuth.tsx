@@ -17,7 +17,11 @@ function LoadingPage() {
     try {
       if (code) {
         subscribe().then((res) => {
-          setMessage(res.success ? 'Subscribed to events successfully.' : 'Some error occured, please try again later.')
+          setMessage(
+            res.success
+              ? 'Subscribed to events successfully.'
+              : 'Some error occured, please try again later.'
+          )
         })
       } else {
         setMessage('Some error occured, please try again later.')

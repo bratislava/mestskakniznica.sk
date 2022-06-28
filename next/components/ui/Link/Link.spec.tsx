@@ -4,7 +4,7 @@ import { Link } from './Link'
 
 describe('Link', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Link href="#" />)
+    const { baseElement } = render(<Link href="/" />)
     expect(baseElement).toBeTruthy()
   })
 })

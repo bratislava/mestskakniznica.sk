@@ -4,7 +4,7 @@ import YtLogo from '@assets/images/yt-logo.svg'
 import { FooterQuery } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { Accordion } from '../Accordion/Accordion'
 import { Link } from '../Link/Link'
@@ -29,42 +29,50 @@ export interface FooterProps {
   instagramUrl: string
   youtubeUrl: string
   siteMap?: { title: string; href: string }
-  footerColumns: FooterQuery['footer']['footerColumns']
+  footerColumns: NonNullable<FooterQuery['footer']>['footerColumns']
   gdpr: { title: string; href: string }
   VOP: { title: string; href: string }
   copyrightText?: string
 }
 
-function FooterSection({ col, i }: { col: FooterQuery['footer']['footerColumns'][0]; i: number }) {
-  return <div
-    key={col.title}
-    className={cx('pt-6 pb-40', {
-      'border-l border-gray-universal-100 pl-8': i !== 0,
-    })}
-  >
-    <h6 className="text-default cursor-default" aria-label={col.title}>
-      {col.title}
-    </h6>
-    <div className="mt-6 flex flex-col gap-y-3">
-      {col.footerLink?.map((link) =>
-        link.otherSite && link.otherSite !== '' ? (
-          <a href={link.otherSite} className="text-gray-universal-70 text-base hover:underline" key={link.id}>
-            {link.title}
-          </a>
-        ) : (
-          <Link
-            key={link.id}
-            variant="plain"
-            uppercase={false}
-            href={link.redirectTo?.slug}
-            className="text-gray-universal-70 text-base hover:underline"
-          >
-            {link.title}
-          </Link>
-        )
-      )}
+function FooterSection({
+  col,
+  i,
+}: {
+  col: NonNullable<NonNullable<FooterQuery['footer']>['footerColumns']>[0]
+  i: number
+}) {
+  return (
+    <div
+      key={col?.title}
+      className={cx('pt-6 pb-40', {
+        'border-l border-gray-universal-100 pl-8': i !== 0,
+      })}
+    >
+      <h6 className="text-default cursor-default" aria-label={col?.title || 'Title'}>
+        {col?.title}
+      </h6>
+      <div className="mt-6 flex flex-col gap-y-3">
+        {col?.footerLink?.map((link) =>
+          link?.otherSite && link.otherSite !== '' ? (
+            <a href={link.otherSite} className="text-gray-universal-70 text-base hover:underline" key={link.id}>
+              {link.title}
+            </a>
+          ) : (
+            <Link
+              key={link?.id}
+              variant="plain"
+              uppercase={false}
+              href={link?.redirectTo?.slug || ''}
+              className="text-gray-universal-70 text-base hover:underline"
+            >
+              {link?.title}
+            </Link>
+          )
+        )}
+      </div>
     </div>
-  </div>
+  )
 }
 
 export function Footer({
@@ -115,15 +123,15 @@ export function Footer({
           <Accordion
             type="divider"
             size="small"
-            label={col.title}
-            id={col.title}
+            label={col?.title || ''}
+            id={col?.title || ''}
             stateListener={listenAccordionState}
-            defaultState={openFooter === col.title}
+            defaultState={openFooter === col?.title}
             content={
               <div className="flex flex-col gap-y-2">
-                {col.footerLink.map((item) => (
-                  <Link key={item.title} uppercase={false} variant="plain" href={item.redirectTo.slug}>
-                    {item.title}
+                {col?.footerLink?.map((item) => (
+                  <Link key={item?.title} uppercase={false} variant="plain" href={item?.redirectTo?.slug || ''}>
+                    {item?.title}
                   </Link>
                 ))}
               </div>
@@ -141,9 +149,7 @@ export function Footer({
       </div>
 
       <div className="lg:container lg:p-6 pb-4 lg:pb-0 text-gray-universal-70 text-xs flex flex-col lg:flex-row lg:justify-between lg:items-center">
-        <p className="py-4 lg:py-0">
-          &copy; {copyrightText || `${new Date().getFullYear()} ${t('pageTitle')}`}
-        </p>
+        <p className="py-4 lg:py-0">&copy; {copyrightText || `${new Date().getFullYear()} ${t('pageTitle')}`}</p>
         <div className="flex flex-col lg:flex-row lg:items-center gap-x-8">
           {siteMap && (
             <Link variant="plain" uppercase={false} href={siteMap.href}>

@@ -24,12 +24,12 @@ export function Faq({ className, title, questions }: FaqProps) {
       <div className="mt-6">
         {questions?.map((question, index) => (
           <Accordion
-            key={question.label ?? ''}
-            label={question.label ?? ''}
-            id={question.label ?? ''}
-            defaultState={question.label === openFaqIndex}
+            key={question?.label ?? ''}
+            label={question?.label ?? ''}
+            id={question?.label ?? ''}
+            defaultState={question?.label === openFaqIndex}
             stateListener={listenAccordionState}
-            content={<UIMarkdown paragraphClassName="text-sm" content={question.content ?? ''} />}
+            content={<UIMarkdown paragraphClassName="text-sm" content={question?.content ?? ''} />}
             size="small"
             type="divider"
           />

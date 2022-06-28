@@ -11,6 +11,27 @@ import { usePageWrapperContext } from '../layouts/PageWrapper'
 registerLocale('en', enUs)
 registerLocale('sk', sk)
 
+interface IEventOptionItem {
+  key: string;
+  title: string;
+}
+
+interface IEventFilters {
+  startDate: Date | null;
+  endDate: Date | null;
+  onStartChange: (date: Date | null) => void;
+  onEndChange: (date: Date | null) => void;
+  tags: IEventOptionItem[];
+  categories: IEventOptionItem[];
+  localities: IEventOptionItem[];
+  selectedEventTags: IEventOptionItem | null | undefined;
+  selectedCategory: IEventOptionItem | null | undefined;
+  selectedLocality: IEventOptionItem | null | undefined;
+  setSelectedEventTags: (data: IEventOptionItem | null | undefined) => void;
+  setSelectedCategory: (data: IEventOptionItem | null | undefined) => void;
+  setSelectedLocality: (data: IEventOptionItem | null | undefined) => void;
+}
+
 function EventFilters({
   startDate,
   endDate,
@@ -25,7 +46,7 @@ function EventFilters({
   setSelectedEventTags,
   setSelectedCategory,
   setSelectedLocality,
-}) {
+}: IEventFilters) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 

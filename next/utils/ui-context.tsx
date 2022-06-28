@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 const UIContext = React.createContext<IComponents>({
-  Link: ({ ...props }) => <a {...props} />,
-  Image: ({ ...props }) => <img {...props} />,
+  Link: ({ children, ...props }) => <a {...props}>{children}</a>,
+  Image: ({ alt, ...props }) => <img alt="Markdown content" {...props} />,
   Markdown: ({ ...props }) => <div {...props}>{props.content}</div>,
 })
 

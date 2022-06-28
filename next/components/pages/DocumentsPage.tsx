@@ -132,7 +132,7 @@ function DocumentsPage({ page }: PageProps) {
         ) : (
           <div className="flex flex-col gap-y-2 lg:grid lg:grid-cols-4 lg:gap-5 mt-6">
             {documentData.fileCategories.map((category) => (
-              <Link key={category.id} href={`/documents/${category.slug}`} variant="plain" uppercase={false}>
+              <Link key={category.id} href={`${t('documents_category_slug')}${category.slug}`} variant="plain" uppercase={false}>
                 <RowSubcategory title={category.name || ''} />
               </Link>
             ))}
@@ -149,7 +149,7 @@ function DocumentsPage({ page }: PageProps) {
             <LoadingSpinner size="medium" className="mt-[30px]" />
           ) : (
             documentData.documents.map((document) => (
-              <NextLink key={document.id} href={`/file/${document.slug}`} passHref>
+              <NextLink key={document.id} href={`${t('documents_category_slug')}${document.file_category?.slug}/${document.slug}`} passHref>
                 <a href={document.slug || ''}>
                   <RowFile
                     className="cursor-pointer"
