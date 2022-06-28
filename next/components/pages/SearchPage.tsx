@@ -120,7 +120,7 @@ const SearchPage = ({ page }: PageProps) => {
 
   const handleSearch = React.useCallback(() => {
     scrollToResults();
-  }, [visibleQuery, scrollToResults]);
+  }, [scrollToResults]);
 
   const handleSearchReset = React.useCallback(() => {
     setVisibleQuery('');
