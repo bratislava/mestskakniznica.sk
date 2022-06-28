@@ -76,7 +76,7 @@
   "localityWhereToFind": "Where to find us",
   "address": "Address",
   "pageNotFound": "Page not found...",
-  "pageNotFoundSorry": "We are sorry, but this page was not found. Check URL address or use search.",
+  "pageNotFoundSorry": "Sorry, but there is an error on this page. Please try again later.",
   "skipNavigation": "Skip navigation",
   "type": "Type",
   "author": "Author",
