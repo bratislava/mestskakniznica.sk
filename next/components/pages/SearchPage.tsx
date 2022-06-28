@@ -1,6 +1,4 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import {
   PageTitle,
   Pagination,
@@ -24,7 +22,7 @@ export interface PageProps {
   page: PageFragment | undefined;
 }
 
-export interface MetaDataCategories {
+export interface MetaDataCategory {
   key: string;
   title: string;
 }
@@ -32,16 +30,16 @@ export interface MetaDataCategories {
 const SearchPage = ({ page }: PageProps) => {
   const { t } = useTranslation('common');
 
-  const resultsRef: any = React.useRef<HTMLDivElement>();
+  const resultsRef = React.useRef<HTMLDivElement>(null);
 
-  const MetaData_Categories: MetaDataCategories[] = [
+  const metaDataCategories: MetaDataCategory[] = [
     { key: 'Na Webe', title: 'Na Webe' },
     { key: 'Na Webe 1', title: 'Na Webe 1' },
   ];
 
   const [offsetPage, setOffsetPage] = React.useState(1);
   const [visibleQuery, setVisibleQuery] = React.useState('');
-  const [categories, setCategories] = React.useState(MetaData_Categories[0]);
+  const [categories, setCategories] = React.useState(metaDataCategories[0]);
 
   const pageData = [
     {
@@ -161,7 +159,7 @@ const SearchPage = ({ page }: PageProps) => {
           <Select
             className="lg:w-auto"
             selectClassName="lg:w-auto py-[9px] lg:py-5"
-            options={MetaData_Categories}
+            options={metaDataCategories}
             value={categories}
             onChange={(s) => setCategories(s)}
           />
