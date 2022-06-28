@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
+    "downlevelIteration": true,
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -16,11 +17,11 @@
     "incremental": true,
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
-    "plugins": [
-      {
-        "name": "typescript-strict-plugin"
-      }
-    ],
+    // "plugins": [
+    //   {
+    //     "name": "typescript-strict-plugin"
+    //   }
+    // ],
     "baseUrl": "./",
     "paths": {
       "@bratislava/ui-city-library": ["./components/ui/"],
@@ -29,9 +30,10 @@
       "@utils/*": ["./utils/*"],
       "@assets/images": ["./assets/images/index.ts"],
       "@assets/images/*": ["./assets/images/*"],
-      "@bratislava/strapi-sdk-city-library": ["./graphql/index.ts"]
+      "@bratislava/strapi-sdk-city-library": ["./graphql/index.ts"],
+      "@culturehq/add-to-calendar": ["./customTypes/@culturehq/add-to-calendar"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "customTypes"]
 }

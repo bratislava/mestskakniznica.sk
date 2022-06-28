@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_blocks_external_links",
+  "info": {
+    "displayName": "externalLink"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    }
+  }
+}

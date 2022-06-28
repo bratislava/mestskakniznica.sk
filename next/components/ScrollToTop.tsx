@@ -8,7 +8,7 @@ function ScrollToTop() {
   }
 
   const checkScrollTop = () => {
-    const btn = document.querySelector('#backToTopBtn')
+    const btn = document.querySelector('#backToTopBtn') as HTMLElement | null;
     if (btn) {
       btn.style.display = document.body.scrollTop > 300 || document.documentElement.scrollTop > 300 ? 'block' : 'none';
     }

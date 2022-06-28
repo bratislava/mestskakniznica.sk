@@ -77,7 +77,7 @@ function NullComponent() {
   return null
 }
 
-export const getForm = (formType: string, key?: string, eventDetail?: IEvent) => {
+export const getForm = (formType: string, key?: string | null, eventDetail?: IEvent) => {
   if (!formType) return NullComponent
 
   let Comp: (arg: any) => any = FORM[formType]
@@ -88,17 +88,19 @@ export const getForm = (formType: string, key?: string, eventDetail?: IEvent) =>
 
   return (
     <div key={key} id={formType}>
-      <Comp eventDetail={eventDetail} />
+      <Comp slug={key} eventDetail={eventDetail} />
     </div>
   )
 }
 
 function Sections({
+  pageTitle,
   sections,
   events,
   eventsListingUrl,
   className,
 }: {
+  pageTitle?: string | null | undefined
   sections: (SectionsFragment | null | undefined)[] | any
   events?: IEvent[] | undefined
   eventsListingUrl?: string | undefined
@@ -107,7 +109,14 @@ function Sections({
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
       {sections.map((section: any, index: any) => (
-        <Section sections={sections} key={index} section={section || null} events={events} eventsListingUrl={eventsListingUrl} />
+        <Section
+          sections={sections}
+          pageTitle={pageTitle}
+          key={index}
+          section={section || null}
+          events={events}
+          eventsListingUrl={eventsListingUrl}
+        />
       ))}
     </div>
   )
@@ -115,11 +124,13 @@ function Sections({
 
 function Section({
   sections,
+  pageTitle,
   section,
   events,
   eventsListingUrl,
 }: {
   sections: (SectionsFragment | null | undefined)[] | any;
+  pageTitle?: string | null | undefined
   section: SectionsFragment | null
   events: IEvent[] | undefined
   eventsListingUrl: string | undefined
@@ -134,11 +145,16 @@ function Section({
 
   if (!section) return null
 
-  return <div>{sectionContent(sections, section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}</div>
+  return (
+    <div>
+      {sectionContent(sections, pageTitle, section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}
+    </div>
+  )
 }
 
 const sectionContent = (
   sections: (SectionsFragment | null | undefined)[] | any,
+  pageTitle: string | null | undefined,
   section: SectionsFragment,
   events: IEvent[] | undefined,
   eventsListingUrl: string | undefined,
@@ -146,7 +162,7 @@ const sectionContent = (
   openAccordion: any,
   listenAccordionState: (id: string, state: boolean) => unknown,
   locale: any
-) => {
+): React.ReactNode | any => {
   const eventDetail = events?.length ? events[0] : null
 
   switch (section.__typename) {
@@ -260,7 +276,7 @@ const sectionContent = (
       )
 
     case 'ComponentSectionsForm':
-      return getForm(section.type || '', undefined, eventDetail || undefined)
+      return getForm(section.type || '', pageTitle, eventDetail || undefined)
 
     case 'ComponentSectionsEventDetails':
       return <EventDetails sections={sections} eventDetails={section} />
@@ -310,7 +326,7 @@ const sectionContent = (
             title: section.moreLink?.title ?? section.moreLink?.page?.title ?? '',
           }}
           files={section.basicDocuments?.map((document) => ({
-            url: `/file/${document?.slug}`,
+            url: `${t('documents_category_slug')}${document?.file_category?.slug}/${document?.slug}`,
             content: {
               type: document?.file_category?.name ?? '',
               title: document?.title ?? '',

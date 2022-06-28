@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_metadata_obchodna_verejna_sutaz",
+  "info": {
+    "displayName": "Obchodná Verejná Súťaž"
+  },
+  "options": {},
+  "attributes": {
+    "subject": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "number": {
+      "type": "string"
+    },
+    "date_added": {
+      "type": "date"
+    },
+    "attachment": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "amount": {
+      "type": "string"
+    }
+  }
+}

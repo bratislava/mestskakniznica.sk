@@ -76,7 +76,7 @@
   "localityWhereToFind": "Kde nás nájdete",
   "address": "Adresa",
   "pageNotFound": "Stránka sa nenašla...",
-  "pageNotFoundSorry": "Ľutujeme, ale túto stránku sa nám nepodarilo nájsť. Skontrolujte zadanú adresu alebo použite vyhľadávanie.",
+  "pageNotFoundSorry": "Ľutujeme, ale na tejto stránke sa vyskytla chyba. Skúste to, prosím, opäť neskôr.",
   "skipNavigation": "Preskočiť navigáciu",
   "type": "Typ",
   "author": "Autor",
@@ -103,7 +103,7 @@
   "cookie_consent_rejectall": "Odmietnuť všetky",
   "cookie_consent_modal_title": "Podrobné nastavenia cookies",
   "cookie_consent_modal_content_title": "Používanie cookies",
-  "cookie_consent_modal_conent_body": "Používame cookies na zabezpečenie základných funkcionalít webovej stránky a na zlepšenie vášho online zážitku. Pre každú kategóriu si môžete vybrať,či sa chcete prihlásiť/odhlásiť.Ďalšie podrobnosti týkajúce sa súborov cookies a iných citlivých údajov nájdete v úplnom znení v zásadách <a href='/o-nas/ochrana-osobnych-udajov' class='hover:underline'><b>ochrany osobných údajov.</b></a>",
+  "cookie_consent_modal_conent_body": "Používame cookies na zabezpečenie základných funkcionalít webovej stránky a na zlepšenie vášho online zážitku. Pre každú kategóriu si môžete vybrať, či sa chcete prihlásiť/odhlásiť. Ďalšie podrobnosti týkajúce sa súborov cookies a iných citlivých údajov nájdete v úplnom znení v zásadách <a href='/o-nas/ochrana-osobnych-udajov' class='hover:underline'><b>ochrany osobných údajov.</b></a>",
   "cookie_consent_security_essential_titile": "Bezpodmienečne nevyhnutné cookies",
   "cookie_consent_security_essential_content": "Tieto cookies sú nevyhnutné pre správne fungovanie webovej stránky. Bez nich by webstránka nefungovala správne.",
   "cookie_consent_performance_title": "Cookies pre výkonnosť a analýzu",
@@ -120,5 +120,6 @@
   "nextPage": "Nasledujúca stránka",
   "currentPage": "Aktuálna stránka",
   "navAriaLabel": "Hlavná navigácia",
-  "goToTopAriaLabel": "Vrátiť sa na začiatok stránky"
+  "goToTopAriaLabel": "Vrátiť sa na začiatok stránky",
+  "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/"
 }

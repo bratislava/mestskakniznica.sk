@@ -7,8 +7,6 @@ import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { ComponentSectionsEventDetails, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
-import {  } from '@bratislava/strapi-sdk-city-library'
-import AddToCalendar from '@culturehq/add-to-calendar'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
@@ -22,6 +20,7 @@ import Clickable from '../Atoms/EventClickable'
 import DetailsRow from '../Atoms/EventDetailsRow'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
+import AddToCalendar from '@culturehq/add-to-calendar'
 
 export interface PageProps {
   eventDetails?: ComponentSectionsEventDetails
@@ -79,7 +78,7 @@ function EventDetails({ eventDetails, sections }: PageProps) {
               tagsCount={5}
             />
           </div>
-          <h1 className="text-[32px] py-[12px]">{eventDetails?.eventTitle}</h1>
+          <h1 className="text-[32px] py-[12px] leading-[38px]">{eventDetails?.eventTitle}</h1>
           <div className="text-[14px] text-gray-500">
             {dateTimeString(eventDetails?.dateFrom, eventDetails?.dateTo, locale)}
           </div>

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_galleries",
+  "info": {
+    "displayName": "Gallery"
+  },
+  "options": {},
+  "attributes": {
+    "Gallery": {
+      "type": "component",
+      "repeatable": true,
+      "component": "locality-parts.gallery-parts"
+    }
+  }
+}

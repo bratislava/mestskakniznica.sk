@@ -4,7 +4,7 @@ import Localities from './Localities'
 
 describe('Localities', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Localities />)
+    const { baseElement } = render(<Localities localities={[]} mapboxAccessToken="" />)
     expect(baseElement).toBeTruthy()
   })
 })

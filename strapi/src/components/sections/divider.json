@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_blocks_dividers",
+  "info": {
+    "displayName": "divider"
+  },
+  "options": {},
+  "attributes": {
+    "shown": {
+      "type": "boolean"
+    }
+  }
+}

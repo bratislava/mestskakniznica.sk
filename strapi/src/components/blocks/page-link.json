@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_blocks_page_links",
+  "info": {
+    "displayName": "pageLink",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "text"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

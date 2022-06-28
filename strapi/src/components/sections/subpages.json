@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_subpages",
+  "info": {
+    "displayName": "subpages"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subpages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.subpage"
+    }
+  }
+}

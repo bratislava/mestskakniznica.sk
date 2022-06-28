@@ -46,7 +46,7 @@ function FormContainer({
 
   useEffect(() => {
     setFormOpen(isFormOpen && width > 767)
-  }, [width])
+  }, [isFormOpen, width])
 
   useEffect(() => {
     setLockedBodyScroll(!isSubmitted && isFormOpen && width <= 768)

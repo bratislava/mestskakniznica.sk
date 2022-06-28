@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_metadata_zmluvy",
+  "info": {
+    "displayName": "Zmluvy"
+  },
+  "options": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "type": {
+      "type": "string"
+    },
+    "number": {
+      "type": "string"
+    },
+    "supplier": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "string"
+    }
+  }
+}

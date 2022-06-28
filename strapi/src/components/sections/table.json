@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_blocks_tables",
+  "info": {
+    "displayName": "table"
+  },
+  "options": {},
+  "attributes": {
+    "primaryTitle": {
+      "type": "string"
+    },
+    "rows": {
+      "type": "component",
+      "repeatable": true,
+      "component": "accordion-items.table-row"
+    },
+    "secondaryTitle": {
+      "type": "string"
+    }
+  }
+}

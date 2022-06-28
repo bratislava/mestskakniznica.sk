@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "file_category",
+  "info": {
+    "singularName": "file-category",
+    "pluralName": "file-categories",
+    "displayName": "File Category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

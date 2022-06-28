@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_metadata_granty",
+  "info": {
+    "name": "Granty",
+    "icon": "folder",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "provider": {
+      "type": "string"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "grant_name": {
+      "type": "string"
+    },
+    "grant_number": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "amount": {
+      "type": "string"
+    }
+  }
+}

@@ -2,9 +2,9 @@ import ClearCircle from '@assets/images/clear-circle.svg'
 import SearchIcon from '@assets/images/search-404.svg'
 import { SearchBar } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
 
 import PageWrapper from '../components/layouts/PageWrapper'
@@ -28,18 +28,20 @@ function Custom404({ locale }: ICustomProps) {
   return (
     <PageWrapper locale={locale ?? 'sk'} slug="/404">
       <ErrorPage code={404}>
-        <header className="text-xl mb-6">
+        <header className="mb-6 text-xl">
           <h1>{t('pageNotFound')}</h1>
         </header>
         <p className="text-base">{t('pageNotFoundSorry')}</p>
-        <p className="underline text-base pt-10">
+        <p className="pt-10 text-base underline">
           https://www.mestskakniznica.sk/{locale ?? 'sk'}
           {asPath}
         </p>
         <form onSubmit={onSubmit}>
           <SearchBar
             iconLeft={<SearchIcon onClick={onSubmit} />}
-            iconRight={searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />}
+            iconRight={
+              searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />
+            }
             placeholder={t('whatAreYouLookingFor')}
             className="pt-10"
             inputClassName="w-full h-14"
@@ -54,12 +56,13 @@ function Custom404({ locale }: ICustomProps) {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const locale = ctx.locale ?? 'sk'
-  const pageTranslations = ['common']
+
+  const translations = await serverSideTranslations(locale, ['common'])
 
   return {
     props: {
       locale,
-      ...(await serverSideTranslations(locale, pageTranslations)),
+      ...translations,
     },
   }
 }

@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "event_subscriptions",
+  "info": {
+    "singularName": "event-subscription",
+    "pluralName": "event-subscriptions",
+    "displayName": "Event Subscriptions"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "refreshToken": {
+      "type": "string"
+    },
+    "userMail": {
+      "type": "email"
+    }
+  }
+}

@@ -5,7 +5,7 @@ function SkipNavigation() {
   return (
     <button
       onClick={() => {
-        const contentElement = document.querySelector('#content-anchor')
+        const contentElement = document.querySelector('#content-anchor') as HTMLElement | null;
         if (contentElement) {
           contentElement.setAttribute('tabindex', '0')
           contentElement.focus()
