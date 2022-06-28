@@ -157,7 +157,9 @@ function Page({
       break
 
     case Enum_Page_Layout.Locality:
-      pageComponentByLayout = <LocalityPage page={page} events={allEvents} eventsListingUrl={allNewsLink} />
+      pageComponentByLayout = (
+        <LocalityPage page={page} events={allEvents} eventsListingUrl={allNewsLink} />
+      )
       break
 
     case Enum_Page_Layout.BookNews:
@@ -171,7 +173,13 @@ function Page({
       slug={page.slug ?? ''}
       localizations={page.localizations?.filter(isPresent)}
     >
-      <DefaultPageLayout title={page?.title} Seo={page?.Seo} menus={menus} footer={footer} latestEvents={latestEvents}>
+      <DefaultPageLayout
+        title={page?.title}
+        Seo={page?.Seo}
+        menus={menus}
+        footer={footer}
+        latestEvents={latestEvents}
+      >
         {pageComponentByLayout}
       </DefaultPageLayout>
     </PageWrapper>
@@ -182,7 +190,9 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
   let paths: any = []
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
 
-  const pathArraysForLocales = await Promise.all(locales.map((locale) => client.PagesStaticPaths({ locale })))
+  const pathArraysForLocales = await Promise.all(
+    locales.map((locale) => client.PagesStaticPaths({ locale }))
+  )
   const pages = pathArraysForLocales.flatMap(({ pages }) => pages || []).filter(isDefined)
   if (pages.length > 0) {
     paths = pages
@@ -204,7 +214,12 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
   const slug = arrayify(ctx?.params?.slug).join('/')
 
   console.log(`Static gen: ${locale} ${slug}`)
-  const translations = (await serverSideTranslations(locale, ['common', 'forms', 'newsletter', 'homepage'])) as any
+  const translations = (await serverSideTranslations(locale, [
+    'common',
+    'forms',
+    'newsletter',
+    'homepage',
+  ])) as any
 
   try {
     let promotedEvents: IEvent[] = []
@@ -325,7 +340,10 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       allNewsLink = pages[0]?.slug ?? ''
     }
 
-    if (pageBySlug.layout === Enum_Page_Layout.NewsListing || pageBySlug.layout === Enum_Page_Layout.Listing) {
+    if (
+      pageBySlug.layout === Enum_Page_Layout.NewsListing ||
+      pageBySlug.layout === Enum_Page_Layout.Listing
+    ) {
       const newsPages: any = await client.PagesByLayout({
         layout: 'news',
         locale,

@@ -1,4 +1,9 @@
-import { BookTagsQuery, FooterQuery, HomePageQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import {
+  BookTagsQuery,
+  FooterQuery,
+  HomePageQuery,
+  MenusQuery,
+} from '@bratislava/strapi-sdk-city-library'
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -108,7 +113,10 @@ export function Index({
 
         <SectionContainer>
           <Section noBorder>
-            <Localities mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY} localities={localities} />
+            <Localities
+              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
+              localities={localities}
+            />
           </Section>
         </SectionContainer>
       </DefaultPageLayout>
@@ -126,7 +134,9 @@ interface IProps {
   bookTags: NonNullable<BookTagsQuery['bookTags']>
   faqSection: NonNullable<NonNullable<HomePageQuery['homePage']>['faqSection']>
   newsSection: NonNullable<NonNullable<HomePageQuery['homePage']>['newsSection']>
-  registrationInfoSection: NonNullable<NonNullable<HomePageQuery['homePage']>['registrationInfoSection']>
+  registrationInfoSection: NonNullable<
+    NonNullable<HomePageQuery['homePage']>['registrationInfoSection']
+  >
   localities: ILocality[]
   error?: IDisplayError
   Seo?: NonNullable<NonNullable<HomePageQuery['homePage']>['Seo']>
@@ -194,7 +204,10 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       })
       .slice(0, 4)
     const promotedEvents = convertPagesToEvents(promotedPages.pages?.filter(isDefined) ?? [])
-    const localities = convertPagesToLocalities(localityPages.pages?.filter(isDefined) ?? [], true).map((locality) => ({
+    const localities = convertPagesToLocalities(
+      localityPages.pages?.filter(isDefined) ?? [],
+      true
+    ).map((locality) => ({
       ...locality,
       hideOpeningHours: true,
     }))
@@ -217,6 +230,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         localities,
         ...translations,
       },
+      revalidate: 180,
     }
   } catch (iError) {
     console.error(iError)
@@ -227,6 +241,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         error,
         ...translations,
       },
+      revalidate: 180,
     }
   }
 }
