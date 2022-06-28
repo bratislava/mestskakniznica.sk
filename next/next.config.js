@@ -49,7 +49,7 @@ const nextConfig = {
         {
           source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
           destination: '/documents/:slug',
-        }
+        },
       ],
     }
   },
@@ -605,7 +605,8 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/ochrana-osobnych-udajov-v-zmysle-zakona-c.-182018-v-podmienkach-mestskej-kniznice-v-bratislave',
+        source:
+          '/ochrana-osobnych-udajov-v-zmysle-zakona-c.-182018-v-podmienkach-mestskej-kniznice-v-bratislave',
         destination: '/o-nas/ochrana-osobnych-udajov',
         permanent: true,
       },
@@ -1452,17 +1453,19 @@ const nextConfig = {
   },
 }
 
-module.exports = (phase, { defaultConfig }) => ({
-  ...defaultConfig,
-  ...nextConfig,
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    })
+module.exports = (phase, { defaultConfig }) => (
+  {
+    ...defaultConfig,
+    ...nextConfig,
+    webpack(config) {
+      config.module.rules.push({
+        test: /\.svg$/,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack'],
+      })
 
-    return config
+      return config
+    },
   },
   { silent: true }
-})
+)
