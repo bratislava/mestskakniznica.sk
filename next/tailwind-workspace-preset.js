@@ -1,3 +1,4 @@
+/* eslint-disable */
 const plugin = require('tailwindcss/plugin');
 
 const scrollBarHide = plugin(({ addUtilities }) => {

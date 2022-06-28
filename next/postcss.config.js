@@ -1,4 +1,5 @@
-const { join } = require('path')
+/* eslint-disable */
+const { join } = require('path');
 
 module.exports = {
   plugins: {

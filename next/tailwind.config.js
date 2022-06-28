@@ -1,3 +1,4 @@
+/* eslint-disable */
 const { join } = require('path')
 const plugin = require('tailwindcss/plugin')
 

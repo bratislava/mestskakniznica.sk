@@ -6,7 +6,7 @@ import {
   SectionContainer,
   Select,
   Button,
-} from '@bratislava/ui-city-library';
+ LoadingSpinner } from '@bratislava/ui-city-library';
 import Link from 'next/link';
 import * as React from 'react';
 import { useTranslation } from 'next-i18next';
@@ -15,7 +15,6 @@ import SearchIcon from '@assets/images/search.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
-import { LoadingSpinner } from '@bratislava/ui-city-library'
 import cx from 'classnames';
 
 export interface PageProps {

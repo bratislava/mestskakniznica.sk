@@ -2,6 +2,7 @@ import CloseIcon from '@assets/images/close.svg'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode, useEffect, useState } from 'react'
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 import useLockedBodyScroll from '../../hooks/useLockedBodyScroll'
 import useWindowSize from '../../hooks/useWindowSize'
@@ -39,6 +40,7 @@ function FormContainer({
 }: FormContainerProps) {
   const [isFormOpen, setFormOpen] = useState(false)
   const { t } = useTranslation('forms')
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const { width }: any = useWindowSize()
 
@@ -59,6 +61,12 @@ function FormContainer({
     }
   }
 
+  const interceptedSubmit = async (e: React.BaseSyntheticEvent) => {
+    e.preventDefault();
+    const token = await executeRecaptcha('submit');
+    onSubmit(e);
+  };
+
   return (
     <div className={cx('flex flex-col border border-gray-900 p-4', wrapperClass)}>
       {!isSubmitted ? (
@@ -78,7 +86,7 @@ function FormContainer({
           </button>
           {isFormOpen && (
             <form
-              onSubmit={onSubmit}
+              onSubmit={interceptedSubmit}
               className="fixed flex flex-col top-0 right-0 bottom-0 left-0 bg-white z-40 md:z-0 md:relative"
               onKeyDown={listener}
               tabIndex={0}
