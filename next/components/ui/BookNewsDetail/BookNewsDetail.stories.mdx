@@ -1,0 +1,30 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
+import { withDesign } from 'storybook-addon-designs'
+import BookNewsDetail from './BookNewsDetail'
+
+<Meta title="components/molecules/BookNewsDetail" decorators={[withDesign]} />
+
+# BookNewsDetail
+
+This is our BookNewsDetail
+
+<Canvas>
+  <Story
+    name="BookNewsDetail"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{
+      title: 'Lorem Ipsum',
+      detailLink: '#',
+      author: 'Lorem Ipsum',
+    }}
+  >
+    {BookNewsDetail.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={BookNewsDetail} />

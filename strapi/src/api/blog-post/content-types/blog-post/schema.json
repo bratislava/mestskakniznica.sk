@@ -32,6 +32,7 @@
           "localized": true
         }
       }
+
     },
     "coverMedia": {
       "type": "media",
@@ -56,6 +57,7 @@
           "localized": true
         }
       }
+
     },
     "parentPage": {
       "type": "relation",
@@ -88,6 +90,7 @@
         "sections.documents",
         "sections.video",
         "sections.flat-text"
+
       ]
     },
     "Seo": {
@@ -98,6 +101,7 @@
           "localized": true
         }
       },
+
       "component": "seo.seo"
     }
   }

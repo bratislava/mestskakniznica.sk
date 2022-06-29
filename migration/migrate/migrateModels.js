@@ -62,6 +62,7 @@ async function migrateModels(tables) {
     //   }
     // }
     );
+
   }
   await migrateRelations(tables, relations);
 }

@@ -1,0 +1,36 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
+import { withDesign } from 'storybook-addon-designs'
+import { CallToAction } from './CallToAction'
+
+<Meta title="components/atoms/CallToAction" decorators={[withDesign]} />
+
+# Call to Action Element
+
+This is Call to Action Element
+
+## Simple CTA
+
+TODO: Write Docs
+
+<Canvas>
+  <Story
+    name="CallToAction"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{
+      title: 'Odkaz na inu podstranku',
+      href: '/link-do-neznama',
+      className: 'h-40 w-40',
+      bottomText: 'Viac',
+      hasIcon: true,
+    }}
+  >
+    {CallToAction.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={CallToAction} />

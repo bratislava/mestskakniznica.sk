@@ -1,0 +1,30 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
+import { withDesign } from 'storybook-addon-designs'
+import Documents from './Documents'
+
+<Meta title="components/Documents" decorators={[withDesign]} />
+
+# Documents
+
+This is our Documents
+
+## Single Documents
+
+TODO: Write Docs
+
+<Canvas>
+  <Story
+    name="Single Documents"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{}}
+  >
+    {Documents.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Documents} />
