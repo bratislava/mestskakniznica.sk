@@ -118,7 +118,7 @@
   "otherLocaleAriaLabel": "Bratislava City Library in Slovak",
   "previousPage": "Previous page",
   "nextPage": "Next page",
-  "currentPage": "Current page",
+  "currentPage": "Please enter a current page number",
   "navAriaLabel": "Main",
   "goToTopAriaLabel": "Go to top header",
   "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/"

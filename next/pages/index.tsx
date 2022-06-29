@@ -2,12 +2,11 @@ import {
   BookTagsQuery,
   FooterQuery,
   HomePageQuery,
-  MenusQuery,
+  MenusQuery
 } from '@bratislava/strapi-sdk-city-library'
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import Section from '../components/AppLayout/Section'
 import SectionFaq from '../components/HomePage/SectionFaq'
 import SectionLibraryNews from '../components/HomePage/SectionLibraryNews'
@@ -24,6 +23,7 @@ import { isDefined } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
 import { IEvent, ILocality } from '../utils/types'
 import { convertPagesToEvents, convertPagesToLocalities, isPresent } from '../utils/utils'
+
 
 export function Index({
   locale,
@@ -159,7 +159,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       promotedPages,
       localityPages,
       { bookTags },
-      eventPages,
     ] = await Promise.all([
       getOpacBooks(),
       client.PagesByLayout({
@@ -173,10 +172,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         locale,
       }),
       client.BookTags(),
-      client.PagesByLayout({
-        layout: 'event',
-        locale,
-      }),
     ])
 
     if (!homePage || !bookTags) {
@@ -187,7 +182,20 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       dateFrom?: any | null | undefined
     }
 
-    const latestEvents = convertPagesToEvents(eventPages.pages?.filter(isDefined) ?? [])
+    let allEventPages: any[] = [];
+    for (let i = 0; i <= 15; i++) {
+      const eventPages = await client.PagesByLayout({
+        layout: 'event',
+        locale,
+        start: i * 250,
+        limit: 250,
+      });
+      const length = eventPages.pages?.length;
+      if (!length || length === 0) break;
+      allEventPages = allEventPages.concat(eventPages.pages);
+    }
+
+    const latestEvents = convertPagesToEvents(allEventPages)
       .filter((event: eventProps) => new Date(event.dateTo) >= new Date())
       .sort((a: eventProps, b: eventProps) => {
         if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
