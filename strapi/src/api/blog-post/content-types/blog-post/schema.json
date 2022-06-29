@@ -12,9 +12,6 @@
     "timestamps": true
   },
   "pluginOptions": {
-    "i18n": {
-      "localized": true
-    }
   },
   "attributes": {
     "title": {
@@ -28,9 +25,7 @@
     "slug": {
       "type": "string",
       "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
+
       }
     },
     "coverMedia": {
@@ -44,17 +39,13 @@
         "audios"
       ],
       "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
+
       }
     },
     "date_added": {
       "type": "date",
       "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
+
       }
     },
     "parentPage": {
@@ -65,9 +56,7 @@
     },
     "sections": {
       "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
+
       },
       "type": "dynamiczone",
       "components": [
@@ -94,9 +83,7 @@
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
+      
       },
       "component": "seo.seo"
     }
