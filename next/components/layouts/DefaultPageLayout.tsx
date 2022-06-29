@@ -1,8 +1,7 @@
 import { ComponentSeoSeo, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import { Footer, SectionContainer } from '@bratislava/ui-city-library'
-import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
-
+import Head from 'next/head'
 import favicon from '../../assets/images/mkb_favicon.png'
 import { IEvent } from '../../utils/types'
 import Header from '../AppLayout/Header'
@@ -10,6 +9,7 @@ import MobileHeader from '../AppLayout/MobileNavigation/MobileHeader'
 import NewsletterSection from '../HomePage/NewsletterSection'
 import ScrollToTop from '../ScrollToTop'
 import { otherLocale, usePageWrapperContext } from './PageWrapper'
+
 
 interface IProps {
   children?: React.ReactNode
@@ -31,10 +31,10 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }
     <>
       <Head>
         <link rel="icon" type="image/x-icon" href={favicon.src} />
-        <title>{title ?? t('pageTitle')}</title>
+        <title>{(title ?? t('pageTitle') ?? '') + ((title || t('pageTitle')) && " | ") + location.hostname}</title>
         {Seo && (
           <>
-            <meta name="title" content={Seo.metaTitle ?? title ?? ''} />
+            <meta name="title" content={(Seo.metaTitle ?? title ?? '') + ((Seo.metaTitle || title) && " | ") + location.hostname} />
             <meta name="description" content={Seo.metaDescription ?? t('chooseYourBook')} />
             <meta name="keywords" content={Seo.keywords ?? ''} />
             <meta name="viewport" content={Seo.metaViewport ?? 'width=device-width, initial-scale=1'} />
