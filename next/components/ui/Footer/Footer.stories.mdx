@@ -1,0 +1,38 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
+import { withDesign } from 'storybook-addon-designs'
+import { Footer } from './Footer'
+
+<Meta title="components/layout/Footer" decorators={[withDesign]} />
+
+# Footer
+
+This is our Footer
+
+## Single Footer
+
+TODO: Write Docs
+
+<Canvas>
+  <Story
+    name="Footer"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{
+      copyrightText: '2021 Mestská knižnica v Bratislave',
+      siteMap: { title: 'Mapa stránok', href: '#' },
+      gdpr: { title: 'Ochrana osobnych udajov', href: '#' },
+      facebookUrl: 'https://facebook.com',
+      instagramUrl: 'https://instagram.com',
+      youtubeUrl: 'https://youtube.com',
+      items: [],
+    }}
+  >
+    {Footer.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Footer} />

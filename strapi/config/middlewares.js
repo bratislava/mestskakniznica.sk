@@ -1,6 +1,19 @@
 module.exports = [
   'strapi::errors',
-  'strapi::security',
+
+  {
+    name: 'strapi::security',
+    config: {
+      contentSecurityPolicy: {
+        directives: {
+          'connect-src': ["'self'", 'https:'],
+          'img-src': ["'self'", 'data:', 'blob:', 'cdn-api.bratislava.sk'],
+          'media-src': ["'self'", 'data:', 'blob:', 'cdn-api.bratislava.sk'],
+          upgradeInsecureRequests: null,
+        },
+      },
+    },
+  },
   'strapi::cors',
   'strapi::poweredBy',
   'strapi::logger',
@@ -10,3 +23,4 @@ module.exports = [
   'strapi::favicon',
   'strapi::public',
 ];
+

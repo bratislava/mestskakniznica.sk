@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "downlevelIteration": true,
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "plugins": [
+    //   {
+    //     "name": "typescript-strict-plugin"
+    //   }
+    // ],
+    "baseUrl": "./",
+    "paths": {
+      "@bratislava/ui-city-library": ["./components/ui/"],
+      "@bratislava/ui-city-library/*": ["./components/ui/*"],
+      "@bratislava/common-frontend-ui-context": ["utils/ui-context.tsx"],
+      "@utils/*": ["./utils/*"],
+      "@assets/images": ["./assets/images/index.ts"],
+      "@assets/images/*": ["./assets/images/*"],
+      "@bratislava/strapi-sdk-city-library": ["./graphql/index.ts"],
+      "@culturehq/add-to-calendar": ["./customTypes/@culturehq/add-to-calendar"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
+  "exclude": ["node_modules", "customTypes"]
+}

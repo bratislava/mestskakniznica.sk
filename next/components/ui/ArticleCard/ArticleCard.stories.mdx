@@ -1,0 +1,30 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
+import { withDesign } from 'storybook-addon-designs'
+import ArticleCard from './ArticleCard'
+
+<Meta title="components/molecules/ArticleCard" decorators={[withDesign]} />
+
+# ArticleCard
+
+This is our ArticleCard
+
+<Canvas>
+  <Story
+    name="ArticleCard"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{
+      title: 'Lorem Ipsum',
+      publishedDate: 'FEB 2022',
+      pageLink: { title: 'Viac', url: '#' },
+    }}
+  >
+    {ArticleCard.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={ArticleCard} />

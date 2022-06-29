@@ -1,0 +1,28 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
+import { withDesign } from 'storybook-addon-designs'
+import FileIcon from './FileIcon'
+
+<Meta title="components/atoms/FileIcon" decorators={[withDesign]} />
+
+# FileIcon
+
+This is our FileIcon
+
+<Canvas>
+  <Story
+    name="FileIcon"
+    parameters={{
+      design: {
+        type: 'figma',
+        url: '',
+      },
+    }}
+    args={{
+      type: 'pdf',
+    }}
+  >
+    {FileIcon.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable of={FileIcon} />
