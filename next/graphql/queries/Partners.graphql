@@ -1,26 +1,26 @@
 query AllPartners($locale: String!) {
   partners(filters: {locale: {eq: $locale}}){
     data {
-      id
-      attributes {
-        ...Partner
-      }
+      ...Partner
     }
   }
 }
 
-fragment Partner on Partner {
-  title
-  url
-  logo {
-    data {
-      id
-      attributes {
-        url
-        alternativeText
+fragment Partner on PartnerEntity {
+  id
+  attributes {
+    title
+    url
+    logo {
+      data {
+        id
+        attributes {
+          url
+          alternativeText
+        }
       }
     }
+    priority
+    featured
   }
-  priority
-  featured
 }

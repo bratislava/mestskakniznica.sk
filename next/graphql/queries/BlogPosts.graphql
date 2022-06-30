@@ -11,7 +11,9 @@ query BlogPostStaticPaths {
 
 query BlogPostBySlug($slug: String!) {
   blogPosts(filters: {slug: {eq: $slug}}) {
-    ...BlogPostWithParentPage
+    data {
+      ...BlogPostWithParentPage
+    }
   }
 }
 
@@ -33,37 +35,34 @@ fragment BlogPost on BlogPost {
   # }
 }
 
-fragment BlogPostWithParentPage on BlogPostEntityResponseCollection {
-  data {
-    id
-    attributes {
-      ...BlogPost
-      parentPage {
+fragment BlogPostWithParentPage on BlogPostEntity {
+  id
+  attributes {
+    ...BlogPost
+    parentPage {
+      data {
         ...ParentPage
       }
     }
   }
 }
 
-fragment ParentPage on PageEntityResponse {
-  data {
-    id
-    attributes {
-      title
-      slug
-      layout
-      pageCategory {
-        data {
-          attributes {
-            ...PageCategory
-          }
-        }
+fragment ParentPage on PageEntity {
+  id
+  attributes {
+    title
+    slug
+    layout
+    pageCategory {
+      data {
+        ...PageCategory
       }
     }
   }
 }
 
-fragment PageCategory on Category {
+fragment PageCategory on CategoryEntity {
+  attributes {
     ...Category
     subCategories {
       data {
@@ -91,6 +90,7 @@ fragment PageCategory on Category {
         id
       }
     }
+  }
 }
 
 fragment Category on Category {
@@ -111,19 +111,19 @@ fragment PageLink on ComponentBlocksPageLink {
   title
   url
   page {
-    ...BasePageFields
+    data{
+      ...BasePageFields
+    }
   }
 }
 
-fragment BasePageFields on PageEntityResponse {
-  data {
-    id
-    attributes {
-      title
-      slug
-      createdAt
-      updatedAt
-    }
+fragment BasePageFields on PageEntity {
+  id
+  attributes {
+    title
+    slug
+    createdAt
+    updatedAt
   }
 }
 
