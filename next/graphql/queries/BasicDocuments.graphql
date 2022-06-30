@@ -1,67 +1,83 @@
 query BasicDocumentBySlug($slug: String!) {
-  basicDocumentBySlug(slug: $slug) {
+  basicDocuments(filters: {slug: {eq: $slug}}) {
     ...BasicDocument
   }
 }
 
-query AllBasicDocuments($limit: Int, $offset: Int, $sort: String, $categoryId: Int, $query: String) {
-  allBasicDocuments(limit: $limit, offset: $offset, sort: $sort, categoryId: $categoryId, query: $query) {
-    ...BasicDocument
-  }
-}
+# query AllBasicDocuments($limit: Int, $offset: Int, $sort: String, $categoryId: Int, $query: String) {
+#   allBasicDocuments(limit: $limit, offset: $offset, sort: $sort, categoryId: $categoryId, query: $query) {
+#     ...BasicDocument
+#   }
+# }
 
-query BasicDocumentsCount {
-  basicDocumentCount
-}
+# query BasicDocumentsCount {
+#   basicDocumentCount
+# }
 
 query FileCategories {
   fileCategories {
+    data {
+      id
+      attributes {
+        name
+        slug
+      }
+    }
+  }
+}
+
+# query DocumentCategoryBySlug($slug: String!) {
+#   documentCategoryBySlug(slug: $slug) {
+#     ...DocumentCategory
+#   }
+# }
+
+# fragment DocumentCategory on FileCategory {
+#   id
+#   name
+#   slug
+#   page {
+#     ...Page
+#   }
+# }
+
+fragment BasicDocumentFile on UploadFileEntityResponse {
+  data {
     id
-    name
-    slug
+    attributes {
+      url
+      name
+      ext
+    }
   }
 }
 
-query DocumentCategoryBySlug($slug: String!) {
-  documentCategoryBySlug(slug: $slug) {
-    ...DocumentCategory
-  }
-}
-
-fragment DocumentCategory on FileCategory {
-  id
-  name
-  slug
-  page {
-    ...Page
-  }
-}
-
-fragment BasicDocumentFile on UploadFile {
-  id
-  url
-  name
-  ext
-}
-
-fragment BasicDocument on BasicDocument {
-  id
-  slug
-  title
-  description
-  metadata {
-    ...Metadata
-  }
-  date_added
-  author
-  link
-  file_category {
+fragment BasicDocument on BasicDocumentEntityResponseCollection {
+  data {
+    attributes {
+      slug
+      title
+      description
+      date_added
+      author
+      link
+      file_category {
+        data {
+          id
+          attributes {
+            name
+            slug
+          }
+        }
+      }
+      metadata {
+        ...Metadata
+      }
+      attachment {
+        ...BasicDocumentFile
+      }
+    }
     id
-    name
-    slug
-  }
-  attachment {
-    ...BasicDocumentFile
   }
 }
 
@@ -76,16 +92,6 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
       ...BasicDocumentFile
     }
   }
-
-  ... on ComponentMetadataZmluvy {
-    id
-    date
-    number
-    amount
-    supplier
-    subject
-  }
-
   ... on ComponentMetadataMetadata {
     id
     provider
@@ -95,17 +101,14 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     amount
     description
   }
-
-  ... on ComponentMetadataObjednavky {
+  ... on ComponentMetadataZmluvy {
     id
-    title
-    date_period
-    date_added
-    attachment {
-      ...BasicDocumentFile
-    }
+    date
+    number
+    amount
+    supplier
+    subject
   }
-
   ... on ComponentMetadataObchodnaVerejnaSutaz {
     id
     subject
@@ -117,7 +120,15 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
       ...BasicDocumentFile
     }
   }
-
+  ... on ComponentMetadataObjednavky {
+    id
+    title
+    date_period
+    date_added
+    attachment {
+      ...BasicDocumentFile
+    }
+  }
   ... on ComponentMetadataVerejneObstaravanie {
     id
     subject
