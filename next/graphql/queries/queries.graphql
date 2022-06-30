@@ -1,163 +1,169 @@
 # Write your query or mutation here
 # TODO refactor - move footer to fragment and get rid of unused data
-query Footer($locale: String!) {
+query Footer($locale: I18NLocaleCode!) {
   footer(locale: $locale) {
-    id
-    footerColumns {
+    data {
       id
-      title
-      footerLink {
-        id
-        redirectTo {
-          ...BasePageFields
+      attributes {
+        footerColumns {
+          id
+          title
+          footerLink {
+            id
+            title
+            otherSite
+            redirectTo {
+              data {
+                attributes {
+                  ...BasePageFields
+                }
+              }
+            }
+          }
         }
-        title
-        otherSite
+        siteMapLink {
+          data {
+            attributes {
+              ...BasePageFields
+            }
+          }
+        }
+        privacyLink {
+          data {
+            attributes {
+              ...BasePageFields
+            }
+          }
+        }
+        copyrightText
       }
     }
-    siteMapLink {
-      ...BasePageFields
-    }
-    privacyLink {
-      ...BasePageFields
-    }
-    copyrightText
   }
 }
 
-query HomePage($locale: String!) {
+query HomePage($locale: I18NLocaleCode!) {
   homePage(locale: $locale) {
-    faqSection {
-      id
-      title
-      faqSectionRedirectTo {
-        ...BasePageFields
-      }
-      faqs {
-        id
-        question
-        answer
-      }
-      ctas {
-        id
-        title
-        ctaRedirectTo {
-          ...BasePageFields
+    data {
+      attributes {
+        faqSection {
+          id
+          title
+          redirectTo {
+            data {
+              attributes {
+                ...BasePageFields
+              }
+            }
+          }
+          faqs {
+            id
+            question
+            answer
+          }
+          ctas {
+            id
+            title
+            ctaRedirectTo {
+              data {
+                attributes {
+                  ...BasePageFields
+                }
+              }
+            }
+          }
+        }
+        registrationInfoSection {
+          id
+          title
+          description
+          redirectTo {
+            data {
+              attributes {
+                ...BasePageFields
+              }
+            }
+          }
+          registrationBenefits {
+            id
+            benefit
+          }
+        }
+        newsSection {
+          id
+          title
+          redirectTo {
+            data {
+              attributes {
+                ...BasePageFields
+              }
+            }
+          }
+        }
+        localizations {
+          data {
+            attributes {
+              locale
+            }
+          }
+        }
+        Seo {
+          id
+          metaTitle
+          metaDescription
+          keywords
+          metaRobots
+          metaViewport
+          canonicalURL
         }
       }
     }
-    registrationInfoSection {
-      id
-      title
-      description
-      registrationInfoSectionRedirectTo {
-        ...BasePageFields
-      }
-      registrationBenefits {
-        id
-        benefit
-      }
-    }
-    newsSection {
-      id
-      title
-      newsSectionRedirectTo {
-        ...BasePageFields
-      }
-    }
-    localizations {
-      locale
-    }
-    Seo {
-      id
-      metaTitle
-      metaDescription
-      keywords
-      metaRobots
-      metaViewport
-      canonicalURL
-    }
-  }
-  menus(locale: $locale, sort: "order:asc") {
-    ...Menu
-  }
-  footer(locale: $locale) {
-    id
-    footerColumns {
-      id
-      title
-      footerLink {
-        id
-        redirectTo {
-          ...BasePageFields
-        }
-        title
-        otherSite
-      }
-    }
-    siteMapLink {
-      ...BasePageFields
-    }
-    privacyLink {
-      ...BasePageFields
-    }
-    copyrightText
-  }
-}
-
-query EventProperties($locale: String!) {
-  eventCategories(locale: $locale) {
-    id
-    title
-    created_at
-    updated_at
-  }
-  eventLocalities(locale: $locale) {
-    id
-    title
-    navigateTo
-    created_at
-    updated_at
-  }
-  eventTags(locale: $locale) {
-    id
-    title
-    slug
-    created_at
-    published_at
-    updated_at
   }
 }
 
 query BookTags {
   bookTags {
-    displayName
-    slug
-  }
-}
-
-query Premises($locale: String!) {
-  premises(locale: $locale) {
-    title
-    address
-    url
-    image {
-      width
-      height
-      url
-      alternativeText
+    data {
+      attributes {
+        displayName
+        slug
+      }
     }
   }
 }
 
-query Menus($locale: String!) {
-  menus(locale: $locale, sort: "order:asc") {
-    ...Menu
+query Premises($locale: I18NLocaleCode!) {
+  premises(locale: $locale) {
+    data {
+      attributes {
+        title
+        address
+        url
+        image {
+          data {
+            attributes {
+              width
+              height
+              url
+              alternativeText
+            }
+          }
+        }
+      }
+      }
+    }
+}
+
+query Menus($locale: I18NLocaleCode!) {
+  menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      attributes {
+        ...Menu
+      }
+    }
   }
 }
 
 fragment Menu on Menu {
-  id
   menuTitle
   menuSlug
   menuTotalColumns
@@ -165,8 +171,8 @@ fragment Menu on Menu {
   menuSections {
     ...MenuSection
   }
-  created_at
-  updated_at
+  createdAt
+  updatedAt
 }
 
 fragment MenuSection on ComponentMenuSections {
@@ -174,121 +180,142 @@ fragment MenuSection on ComponentMenuSections {
   sectionTitle
   sectionColumnSpan
   sectionPage {
-    ...BasePageFields
+    data {
+      attributes {
+        ...BasePageFields
+      }
+    }
   }
   sectionLinks {
     id
     sectionLinkTitle
     sectionLinkPage {
-      ...SectionLinkPage
-    }
-  }
-}
-
-query PromotedPages($locale: String!) {
-  pages(
-    where: { promoted: true, _or: [{ layout: "event" }, { layout: "announcement" }, { layout: "news" }] }
-    locale: $locale
-  ) {
-    ...Page
-  }
-}
-
-query PromotedEvents($locale: String!) {
-  pages(where: { promoted: true, layout: "event" }, locale: $locale) {
-    ...Page
-  }
-}
-
-query ListEvents($locale: String!, $start: Int, $limit: Int) {
-  pages(where: { layout: "event" }, locale: $locale, start: $start, limit: $limit) {
-    ...PageEvent
-  }
-}
-
-query PagesByLayout($layout: String!, $locale: String!, $start: Int, $limit: Int) {
-  pages(where: { layout: $layout }, locale: $locale, start: $start, limit: $limit) {
-    ...Page
-  }
-}
-
-query PageBySlug($slug: String!, $locale: String!) {
-  pageBySlug(slug: $slug, locale: $locale) {
-    ...Page
-  }
-  menus(locale: $locale, sort: "order:asc") {
-    ...Menu
-  }
-  footer(locale: $locale) {
-    id
-    footerColumns {
-      id
-      title
-      footerLink {
-        id
-        redirectTo {
-          ...BasePageFields
+      data {
+        attributes {
+          ...SectionLinkPage
         }
-        title
-        otherSite
       }
     }
-    siteMapLink {
-      ...BasePageFields
+  }
+}
+
+query PromotedPages($locale: I18NLocaleCode!) {
+  pages(
+    filters: { promoted: {eq: true}, or: [{ layout: {eq: "event"} }, { layout: {eq: "announcement"} }, { layout: {eq: "news"} }] }
+    locale: $locale
+  ) {
+    data {
+      attributes {
+        ...Page
+      }
     }
-    privacyLink {
-      ...BasePageFields
+  }
+}
+
+query PromotedEvents($locale: I18NLocaleCode!) {
+  pages(filters: { promoted: {eq: true}, layout: {eq: "event"} }, locale: $locale) {
+    data {
+      attributes {
+        ...Page
+      }
     }
-    copyrightText
+  }
+}
+
+query ListEvents($locale: I18NLocaleCode!, $start: Int, $limit: Int) {
+  pages(filters: { layout: {eq: "event"} }, locale: $locale, pagination: { start: $start, limit: $limit }) {
+    data {
+      attributes {
+        ...PageEvent
+      }
+    }
+  }
+}
+
+query PagesByLayout($layout: String!, $locale: I18NLocaleCode!, $start: Int, $limit: Int) {
+  pages(filters: { layout: { eq: $layout } }, locale: $locale, pagination: { start: $start, limit: $limit }) {
+    data {
+      attributes {
+        ...Page
+      }
+    }
+  }
+}
+
+query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  pages(filters: { slug: {eq: $slug} }, locale: $locale) {
+    data {
+      id
+      attributes {
+        ...Page
+      }
+    }
   }
 }
 
 # strapi returns just the default locale if no locale is provided
 # easiest way to get all static paths is to ask for all locales sequentially
-query PagesStaticPaths($locale: String) {
+query PagesStaticPaths($locale: I18NLocaleCode) {
   pages(locale: $locale) {
-    id
-    slug
-    locale
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
   }
 }
 
 fragment Page on Page {
-  id
   slug
   title
-  created_at
-  updated_at
+  createdAt
+  updatedAt
   date_added
   listingImage {
-    name
-    width
-    height
-    url
-    created_at
-    hash
-    id
-    mime
-    provider
-    size
-    updated_at
+    data {
+      attributes {
+        name
+        width
+        height
+        url
+        createdAt
+        hash
+        mime
+        provider
+        size
+        updatedAt
+      }
+    }
   }
   layout
   description
   pageCategory {
-    ...PageCategory
+    data {
+      attributes {
+        ...PageCategory
+      }
+    }
   }
   sections {
     ...Sections
   }
-  relatedBlogPosts {
-    ...BlogPost
+  blogPosts {
+    data {
+      attributes {
+        ...BlogPost
+      }
+    }
   }
-  relatedBlogPostsCount
 
   locale
   localizations {
-    ...Localization
+    data {
+      attributes {
+        ...Localization
+      }
+    }
   }
   Seo {
     id
@@ -305,13 +332,28 @@ fragment PageCategory on Category {
   ...Category
 
   subCategories {
-    ...Category
+    data {
+      id
+      attributes {
+        ...Category
+      }
+    }
   }
 
   parentCategory {
-    ...Category
-    parentCategory {
-      ...Category
+    data {
+      id
+      attributes {
+        ...Category
+        parentCategory {
+          data {
+            id
+            attributes {
+              ...Category
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -325,9 +367,8 @@ fragment Category on Category {
   pageLink {
     ...PageLink
   }
-  id
-  created_at
-  updated_at
+  createdAt
+  updatedAt
 }
 
 fragment Sections on PageSectionsDynamicZone {
@@ -349,36 +390,44 @@ fragment Sections on PageSectionsDynamicZone {
     id
     content
     image {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
-      alternativeText
+      data {
+        id
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+          alternativeText
+        }
+      }
     }
   }
   ... on ComponentSectionsFlatText {
     id
     content
     media {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
-      alternativeText
+      data {
+        id
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+          alternativeText
+        }
+      }
     }
   }
   ... on ComponentSectionsSiteUsefullness {
@@ -438,38 +487,25 @@ fragment Sections on PageSectionsDynamicZone {
     id
     youtube_url
     media {
-      url
+      data {
+        attributes {
+          url
+        }
+      }
     }
   }
 
   ... on ComponentSectionsDocuments {
     title
     basicDocuments {
-      ...BasicDocument
+      data {
+        attributes {
+          ...BasicDocument
+        }
+      }
     }
     moreLink {
       ...PageLink
-    }
-  }
-
-  ... on ComponentSectionsGallery {
-    id
-    Gallery {
-      id
-      Photo {
-        name
-        width
-        height
-        url
-        created_at
-        hash
-        id
-        mime
-        provider
-        size
-        updated_at
-      }
-      Description
     }
   }
 
@@ -482,30 +518,38 @@ fragment Sections on PageSectionsDynamicZone {
     displayOnHomePage
     isMainLocality
     localityCoverImage {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
+      data {
+        id
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+        }
+      }
     }
     localityMap {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
+      data {
+        id
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+        }
+      }
     }
     localityAddress {
       id
@@ -536,13 +580,59 @@ fragment Sections on PageSectionsDynamicZone {
     }
     localityServices {
       id
-      localityServicesPage {
-        ...BasePageFields
+      page {
+        data {
+          id
+          attributes {
+            ...BasePageFields
+          }
+        }
+      }
+    }
+  }
+
+  # ... on ComponentSectionsGallery {
+  #   id
+  #   Gallery {
+  #     id
+  #     Description
+  #     Photo {
+  #       data {
+  #         id
+  #         attributes {
+  #           name
+  #           width
+  #           height
+  #           url
+  #           createdAt
+  #           hash
+  #           mime
+  #           provider
+  #           size
+  #           updatedAt
+  #         }
+  #       }
+  #     }
+  #   }
+  # }
+}
+fragment BlogPost on BlogPost {
+  slug
+  title
+  createdAt
+  sections {
+    ...Sections
+  }
+  coverMedia {
+    data {
+      attributes {
+        url
+        mime
+        alternativeText
       }
     }
   }
 }
-
 fragment FlatText on ComponentAccordionItemsFlatText {
   category
   content
@@ -574,7 +664,12 @@ fragment Subpages on ComponentSectionsSubpages {
     description
     url
     page {
-      ...BasePageFields
+      data {
+        id
+        attributes {
+          ...BasePageFields
+        }
+      }
     }
   }
 }
@@ -592,11 +687,14 @@ fragment AccordionItem on ComponentBlocksAccordionItem {
 }
 
 fragment PageLink on ComponentBlocksPageLink {
-  id
   title
   url
   page {
-    ...BasePageFields
+    data {
+      attributes {
+        ...BasePageFields
+      }
+    }
   }
 }
 
@@ -606,11 +704,10 @@ fragment Localization on Page {
 }
 
 fragment BasePageFields on Page {
-  id
   title
   slug
-  created_at
-  updated_at
+  createdAt
+  updatedAt
 }
 
 fragment EventDetails on ComponentSectionsEventDetails {
@@ -618,18 +715,26 @@ fragment EventDetails on ComponentSectionsEventDetails {
   eventTitle
   eventDescription
   eventCategory {
-    id
-    title
-    created_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        createdAt
+        updatedAt
+      }
+    }
   }
   eventLocality {
-    id
-    title
-    navigateTo
-    eventAddress
-    created_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        navigateTo
+        eventAddress
+        createdAt
+        updatedAt
+      }
+    }
   }
   dateFrom
   dateTo
@@ -639,82 +744,95 @@ fragment EventDetails on ComponentSectionsEventDetails {
     name
     surname
     avatar {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
-      alternativeText
+      data {
+        id
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+          alternativeText
+        }
+      }
     }
   }
-  partners {
-    id
-    title
-    image {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
-      alternativeText
-    }
-  }
+  # partners {
+  #   id
+  #   title
+  #   image {
+  #     name
+  #     width
+  #     height
+  #     url
+  #     createdAt
+  #     hash
+  #     id
+  #     mime
+  #     provider
+  #     size
+  #     updatedAt
+  #     alternativeText
+  #   }
+  # }
   eventTags {
-    id
-    title
-    slug
-    created_at
-    published_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        slug
+        createdAt
+        publishedAt
+        updatedAt
+      }
+    }
   }
   eventCoverImage {
-    name
-    width
-    height
-    url
-    created_at
-    hash
-    id
-    mime
-    provider
-    size
-    updated_at
-    alternativeText
+    data {
+      attributes {
+        name
+        width
+        height
+        url
+        createdAt
+        hash
+        mime
+        provider
+        size
+        updatedAt
+        alternativeText
+      }
+    }
   }
 }
 
 fragment SectionLinkPage on Page {
-  id
   layout
   title
   slug
-  created_at
-  updated_at
+  createdAt
+  updatedAt
   date_added
   listingImage {
-    name
-    width
-    height
-    url
-    created_at
-    hash
-    id
-    mime
-    provider
-    size
-    updated_at
+    data {
+      attributes {
+        name
+        width
+        height
+        url
+        createdAt
+        hash
+        mime
+        provider
+        size
+        updatedAt
+      }
+    }
   }
   sections {
     __typename
@@ -724,16 +842,19 @@ fragment SectionLinkPage on Page {
   }
 }
 fragment PageEvent on Page {
-  id
   slug
   title
-  created_at
-  updated_at
+  createdAt
+  updatedAt
   date_added
   listingImage {
-    name
-    url
-    created_at
+    data {
+      attributes {
+        name
+        url
+        createdAt
+      }
+    }
   }
   layout
   sections {
@@ -762,28 +883,40 @@ fragment EventDetailsEvent on ComponentSectionsEventDetails {
   id
   eventTitle
   eventCategory {
-    id
-    title
-    created_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        createdAt
+        updatedAt
+      }
+    }
   }
   eventLocality {
-    id
-    title
-    navigateTo
-    eventAddress
-    created_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        navigateTo
+        eventAddress
+        createdAt
+        updatedAt
+      }
+    }
   }
   dateFrom
   dateTo
   price
   eventTags {
-    id
-    title
-    slug
-    created_at
-    published_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        slug
+        createdAt
+        publishedAt
+        updatedAt
+      }
+    }
   }
 }
