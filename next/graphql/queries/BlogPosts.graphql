@@ -1,54 +1,149 @@
 query BlogPostStaticPaths {
   blogPosts {
-    id
-    slug
+    data {
+      id
+      attributes {
+        slug
+      }
+    }
   }
 }
 
 query BlogPostBySlug($slug: String!) {
-  blogPostBySlug(slug: $slug) {
+  blogPosts(filters: {slug: {eq: $slug}}) {
     ...BlogPostWithParentPage
   }
 }
 
 fragment BlogPost on BlogPost {
-  id
   slug
   title
-  created_at
-  sections {
-    ...Sections
-  }
+  createdAt
   coverMedia {
-    url
-    mime
-    alternativeText
+    data {
+      attributes {
+        url
+        mime
+        alternativeText
+      }
+    }
+  }
+  # sections {
+  #   ...Sections
+  # }
+}
+
+fragment BlogPostWithParentPage on BlogPostEntityResponseCollection {
+  data {
+    id
+    attributes {
+      ...BlogPost
+      parentPage {
+        ...ParentPage
+      }
+    }
   }
 }
 
-fragment BlogPostWithParentPage on BlogPost {
-  ...BlogPost
-  parentPage {
-    ...ParentPage
+fragment ParentPage on PageEntityResponse {
+  data {
+    id
+    attributes {
+      title
+      slug
+      layout
+      pageCategory {
+        data {
+          attributes {
+            ...PageCategory
+          }
+        }
+      }
+    }
   }
 }
 
-fragment ParentPage on Page {
+fragment PageCategory on Category {
+    ...Category
+    subCategories {
+      data {
+        attributes {
+          ...Category
+        }
+        id
+      }
+    }
+
+    parentCategory {
+      data {
+        attributes {
+          ...Category
+       
+          parentCategory {
+            data {
+              attributes {
+                ...Category
+              }
+              id
+            }
+          }
+        }
+        id
+      }
+    }
+}
+
+fragment Category on Category {
+  title
+  priority
+  pages {
+    ...PageLink
+  }
+  pageLink {
+    ...PageLink
+  }
+  createdAt
+  updatedAt
+}
+
+fragment PageLink on ComponentBlocksPageLink {
   id
   title
-  slug
-  layout
-  pageCategory {
-    ...PageCategory
+  url
+  page {
+    ...BasePageFields
   }
 }
 
-query FetchBlogPosts($id: Int, $limit: Int, $offset: Int) {
-  fetchBlogPosts(id: $id, limit: $limit, offset: $offset) {
-    ...BlogPost
+fragment BasePageFields on PageEntityResponse {
+  data {
+    id
+    attributes {
+      title
+      slug
+      createdAt
+      updatedAt
+    }
+  }
+}
+
+query FetchBlogPosts($id: ID, $limit: Int, $offset: Int) {
+  blogPosts(filters: {id: {eq: $id}}, pagination: {limit: $limit, start: $offset}){
+    data {
+      id
+      attributes {
+        ...BlogPost
+      }
+    }
   }
 }
 
 query BlogPostsCount {
-  blogPostsCount
+  blogPosts {
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
 }
