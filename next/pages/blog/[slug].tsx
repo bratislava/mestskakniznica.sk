@@ -91,7 +91,7 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
       post: blogPostBySlug,
       ...translations,
     },
-    revalidate: 900, // revalidade every 5 minutes - TODO change for prod
+    // revalidate: 900, // revalidade every 5 minutes - TODO change for prod
   }
 }
 

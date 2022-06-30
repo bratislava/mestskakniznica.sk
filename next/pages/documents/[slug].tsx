@@ -78,7 +78,7 @@ export const getStaticProps: GetStaticProps<IDocumentPageProps> = async (ctx) =>
       documentCategory: documentCategoryBySlug,
       ...translations,
     },
-    revalidate: 900,
+    // revalidate: 900,
   }
 }
 
