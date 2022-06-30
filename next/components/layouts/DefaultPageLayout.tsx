@@ -10,7 +10,6 @@ import NewsletterSection from '../HomePage/NewsletterSection'
 import ScrollToTop from '../ScrollToTop'
 import { otherLocale, usePageWrapperContext } from './PageWrapper'
 
-
 interface IProps {
   children?: React.ReactNode
   title?: string | undefined | null
@@ -31,25 +30,43 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }
     <>
       <Head>
         <link rel="icon" type="image/x-icon" href={favicon.src} />
-        <title>{(title ?? t('pageTitle') ?? '') + ((title || t('pageTitle')) && " | ") + location.hostname}</title>
+        <title>
+          {(title ?? t('pageTitle') ?? '') +
+            ((title || t('pageTitle')) && ' | ') +
+            window.location.hostname}
+        </title>
         {Seo && (
           <>
-            <meta name="title" content={(Seo.metaTitle ?? title ?? '') + ((Seo.metaTitle || title) && " | ") + location.hostname} />
+            <meta
+              name="title"
+              content={
+                (Seo.metaTitle ?? title ?? '') +
+                ((Seo.metaTitle || title) && ' | ') +
+                window.location.hostname
+              }
+            />
             <meta name="description" content={Seo.metaDescription ?? t('chooseYourBook')} />
             <meta name="keywords" content={Seo.keywords ?? ''} />
-            <meta name="viewport" content={Seo.metaViewport ?? 'width=device-width, initial-scale=1'} />
+            <meta
+              name="viewport"
+              content={Seo.metaViewport ?? 'width=device-width, initial-scale=1'}
+            />
             <meta name="robots" content={Seo.metaRobots ?? ''} />
             <meta name="canonical" content={Seo.canonicalURL ?? ''} />
           </>
         )}
-        <link rel="alternate" href={process.env.ORIGIN_ROOT_URL + currentLangData.path} hrefLang={`${locale}-sk`} />
+        <link
+          rel="alternate"
+          href={process.env.ORIGIN_ROOT_URL + currentLangData.path}
+          hrefLang={`${locale}-sk`}
+        />
         <link
           rel="alternate"
           href={process.env.ORIGIN_ROOT_URL + otherLangData.path}
           hrefLang={`${otherLangData.locale}-sk`}
         />
       </Head>
-      <div className="flex flex-1 flex-col justify-self-stretch min-h-screen">
+      <div className="flex min-h-screen flex-1 flex-col justify-self-stretch">
         <header>
           <div className="hidden lg:block lg:px-8">
             <Header menus={menus} latestEvents={latestEvents} />
@@ -76,7 +93,10 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }
               gdpr={{
                 title: t('privacy'),
                 // href: footer?.privacyLink?.slug ?? '#',
-                href: locale == 'sk' ? '/o-nas/ochrana-osobnych-udajov' : '/en/about-us/privacy-terms-and-conditions',
+                href:
+                  locale == 'sk'
+                    ? '/o-nas/ochrana-osobnych-udajov'
+                    : '/en/about-us/privacy-terms-and-conditions',
               }}
               VOP={{
                 title: t('VOP'),
