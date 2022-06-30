@@ -33,7 +33,7 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }
         <title>
           {(title ?? t('pageTitle') ?? '') +
             ((title || t('pageTitle')) && ' | ') +
-            window.location.hostname}
+            'mestskakniznica.sk'}
         </title>
         {Seo && (
           <>
@@ -42,7 +42,7 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }
               content={
                 (Seo.metaTitle ?? title ?? '') +
                 ((Seo.metaTitle || title) && ' | ') +
-                window.location.hostname
+                'mestskakniznica.sk'
               }
             />
             <meta name="description" content={Seo.metaDescription ?? t('chooseYourBook')} />
