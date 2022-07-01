@@ -2,7 +2,7 @@ import {
   BookTagsQuery,
   FooterQuery,
   HomePageQuery,
-  MenusQuery
+  MenusQuery,
 } from '@bratislava/strapi-sdk-city-library'
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
@@ -23,7 +23,6 @@ import { isDefined } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
 import { IEvent, ILocality } from '../utils/types'
 import { convertPagesToEvents, convertPagesToLocalities, isPresent } from '../utils/utils'
-
 
 export function Index({
   locale,
@@ -182,17 +181,17 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       dateFrom?: any | null | undefined
     }
 
-    let allEventPages: any[] = [];
+    let allEventPages: any[] = []
     for (let i = 0; i <= 15; i++) {
       const eventPages = await client.PagesByLayout({
         layout: 'event',
         locale,
         start: i * 250,
         limit: 250,
-      });
-      const length = eventPages.pages?.length;
-      if (!length || length === 0) break;
-      allEventPages = allEventPages.concat(eventPages.pages);
+      })
+      const length = eventPages.pages?.length
+      if (!length || length === 0) break
+      allEventPages = allEventPages.concat(eventPages.pages)
     }
 
     const latestEvents = convertPagesToEvents(allEventPages)
@@ -238,7 +237,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         localities,
         ...translations,
       },
-      revalidate: 180,
+      // revalidate: 180,
     }
   } catch (iError) {
     console.error(iError)
@@ -249,7 +248,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         error,
         ...translations,
       },
-      revalidate: 180,
+      // revalidate: 180,
     }
   }
 }

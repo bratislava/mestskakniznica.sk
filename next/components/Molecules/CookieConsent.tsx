@@ -40,7 +40,7 @@ function CookieConsent() {
       security_cookies: securityCookies,
       performance_cookies: performanceCookies,
       advertising_and_targeting_cookies: advertisingCookies,
-    })
+    },{path: '/', expires: 365})
     ReactGA.set({
       security_cookies: securityCookies,
       performance_cookies: performanceCookies,
@@ -54,7 +54,7 @@ function CookieConsent() {
       security_cookies: true,
       performance_cookies: true,
       advertising_and_targeting_cookies: true,
-    })
+    },{path: '/', expires: 365})
     ReactGA.set({
       security_cookies: true,
       performance_cookies: true,
@@ -70,7 +70,7 @@ function CookieConsent() {
       security_cookies: true,
       performance_cookies: false,
       advertising_and_targeting_cookies: false,
-    })
+    },{path: '/', expires: 365})
     ReactGA.set({
       security_cookies: true,
       performance_cookies: false,

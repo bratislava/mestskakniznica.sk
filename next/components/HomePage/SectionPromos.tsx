@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { IEvent } from '../../utils/types'
 import AnnouncementCard from './Promos/AnnouncementCard'
 import EventCard from './Promos/EventCard'
@@ -10,15 +8,14 @@ interface SectionPromosProps {
 
 function SectionPromos({ events }: SectionPromosProps) {
   return (
-    <section className="overflow-x-auto -mx-4">
-      <div className="w-fit px-4 flex sm:grid sm:grid-cols-2 py-10 gap-4 lg:gap-8 lg:grid-cols-3 h-auto">
+    <section className="-mx-4 overflow-x-auto">
+      <div className="flex h-auto w-fit gap-4 px-4 py-10 sm:grid sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         {events?.map((event) => {
           switch (event.eventCustomType) {
             case 'event':
               return (
-                <div className="w-[80vw] sm:w-full flex-shrink-0">
+                <div key={event.slug} className="w-[80vw] flex-shrink-0 sm:w-full">
                   <EventCard
-                    key={event.slug}
                     dateFrom={event.dateFrom}
                     dateTo={event.dateTo}
                     eventTitle={event.eventTitle}
@@ -36,8 +33,8 @@ function SectionPromos({ events }: SectionPromosProps) {
             case 'news':
             case 'announcement':
               return (
-                <div className="w-[80vw] sm:w-full flex-shrink-0">
-                  <AnnouncementCard key={event.slug} title={event.eventTitle || ''} slug={event.slug || ''} />
+                <div key={event.slug} className="w-[80vw] flex-shrink-0 sm:w-full">
+                  <AnnouncementCard title={event.eventTitle || ''} slug={event.slug || ''} />
                 </div>
               )
 

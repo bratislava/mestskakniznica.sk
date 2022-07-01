@@ -1,0 +1,16 @@
+query LatestEvents($locale: I18NLocaleCode!, $today: DateTime!, $count: Int = 4) {
+  events(
+    locale: $locale
+    sort: "dateFrom:asc"
+    filters: { dateFrom: { gte: $today } }
+    pagination: { limit: $count }
+  ) {
+    data {
+      attributes {
+        dateFrom
+        title
+        # TODO add more attributes as fragment
+      }
+    }
+  }
+}
