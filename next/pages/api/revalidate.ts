@@ -10,29 +10,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const payload = req.body
 
+    const reqUrl = req.query.url
     // Check if url is provided
-    if (req.query.url) {
-      if (typeof req.query.url === 'string') {
-        const urlToRevalidate = `/${req.query.url}`
+    if (reqUrl) {
+      if (typeof reqUrl === 'string') {
+        const urlToRevalidate = `${reqUrl.startsWith('/') ? '' : '/'}${reqUrl}`
         console.log(`Revalidating ${urlToRevalidate}`)
         await res.unstable_revalidate(urlToRevalidate)
-      } else if (req.query.url[0]) {
-        const urlToRevalidate = `/${req.query.url[0]}`
+      } else if (reqUrl[0]) {
+        const urlToRevalidate = `/${reqUrl[0]}`
         console.log(`Revalidating ${urlToRevalidate}`)
         await res.unstable_revalidate(urlToRevalidate)
       }
     } else {
-      // If not, always revalidate homepage
+      // If no custom url provided, always revalidate homepage
       console.log(`Revalidating /`)
-
       await res.unstable_revalidate('/')
     }
 
     // Check model
     if (payload?.model === 'blog-post') {
       const urlToRevalidate = `/blog/${payload?.entry?.slug}`
+      const isEn = payload?.entry?.locale === 'en'
+
       console.log(`Revalidating ${urlToRevalidate}`)
       await res.unstable_revalidate(urlToRevalidate)
+
+      if (isEn) {
+        console.log(
+          `Revalidating /en/services/education/articles due to change in ${urlToRevalidate}`
+        )
+        await res.unstable_revalidate('/en/services/education/articles')
+      } else {
+        console.log(`Revalidating /sluzby/vzdelavanie/clanky due to change in ${urlToRevalidate}`)
+        await res.unstable_revalidate('/sluzby/vzdelavanie/clanky')
+      }
     }
 
     if (payload?.model === 'basic-document') {
@@ -43,8 +55,55 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (payload?.model === 'page') {
       const urlToRevalidate = `/${payload?.entry?.slug}`
+      const isEn = payload?.entry?.locale === 'en'
+      const layout = payload?.entry?.layout as string
+
       console.log(`Revalidating ${urlToRevalidate}`)
       await res.unstable_revalidate(urlToRevalidate)
+
+      if (layout === 'event') {
+        if (isEn) {
+          console.log(
+            `Revalidating /en/experience/events, /en/experience due to change in ${urlToRevalidate}`
+          )
+          await res.unstable_revalidate('/en/experience/events')
+          await res.unstable_revalidate('/en/experience')
+        } else {
+          console.log(`Revalidating /zazite/podujatia, /zazite due to change in ${urlToRevalidate}`)
+          await res.unstable_revalidate('/zazite/podujatia')
+          await res.unstable_revalidate('/zazite')
+        }
+      }
+
+      if (layout === 'news') {
+        if (isEn) {
+          console.log(
+            `Revalidating /en/experience/news, /en/experience due to change in ${urlToRevalidate}`
+          )
+          await res.unstable_revalidate('/en/experience/news')
+          await res.unstable_revalidate('/en/experience')
+        } else {
+          console.log(`Revalidating /zazite/aktuality, /zazite due to change in ${urlToRevalidate}`)
+          await res.unstable_revalidate('/zazite/aktuality')
+          await res.unstable_revalidate('/zazite')
+        }
+      }
+
+      if (layout === 'locality') {
+        if (isEn) {
+          console.log(
+            `Revalidating /en/visit/our-locations, /en/visit due to change in ${urlToRevalidate}`
+          )
+          await res.unstable_revalidate('/en/visit/our-locations')
+          await res.unstable_revalidate('/en/visit')
+        } else {
+          console.log(
+            `Revalidating /navstivte/nase-lokality, /navstivte due to change in ${urlToRevalidate}`
+          )
+          await res.unstable_revalidate('/navstivte/nase-lokality')
+          await res.unstable_revalidate('/navstivte')
+        }
+      }
     }
 
     return res.json({ revalidated: true })

@@ -22,26 +22,34 @@ function EventCard({
   return (
     <Link key={eventTitle} href={slug || ''} passHref>
       <a href={slug}>
-        <div className="w-full h-full">
-          <div className="bg-promo-yellow h-full m-auto cursor-pointer relative flex flex-col justify-between">
+        <div className="h-full w-full">
+          <div className="relative m-auto flex h-full cursor-pointer flex-col justify-between bg-promo-yellow">
             <div className="flex flex-wrap pl-5 pt-4 text-sm">
-              <TagsDisplay tags={eventTags || []} category={eventCategory?.title || ''} tagsCount={3} />
+              <TagsDisplay
+                tags={eventTags || []}
+                category={eventCategory?.title || ''}
+                tagsCount={3}
+              />
             </div>
 
-            <div className="text-black w-full mt-3 pl-5 justify-end text-lg m-auto hover:underline pr-[19px]">
+            <div className="text-black m-auto mt-3 w-full justify-end pl-5 pr-[19px] text-lg line-clamp-3 hover:underline">
               {eventTitle}
             </div>
             <div>
-              <div className="px-5 pb-6 flex overflow-hidden space-x-4 pt-3">
-                <div className="text-center h-[62px] w-[60px] flex bg-white min-w-[60px]">
-                  <DateCardDisplay dateFrom={dateFrom || ''} dateTo={dateTo || ''} textSize="text-[18px]" />
+              <div className="flex space-x-4 overflow-hidden px-5 pb-6 pt-3">
+                <div className="flex h-[62px] w-[60px] min-w-[60px] bg-white text-center">
+                  <DateCardDisplay
+                    dateFrom={dateFrom || ''}
+                    dateTo={dateTo || ''}
+                    textSize="text-[18px]"
+                  />
                 </div>
                 <div className="m-auto overflow-hidden">
-                  <div className="text-xs whitespace-pre overflow-hidden text-ellipsis">
+                  <div className="overflow-hidden text-ellipsis whitespace-pre text-xs">
                     {dateTimeString(dateFrom || '', dateTo || '', locale)}
                   </div>
                   {eventLocality?.title && (
-                    <div className="text-xs whitespace-pre overflow-hidden text-ellipsis">
+                    <div className="overflow-hidden text-ellipsis whitespace-pre text-xs">
                       &#9679; {eventLocality.title}
                     </div>
                   )}

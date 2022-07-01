@@ -25,7 +25,6 @@ function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
   }
 
   // TEMP fix for not localized blog posts
-
   // const postData = post.localizations?.map((data) => ({
   //   slug: t('mutation_blog_slug') + data?.slug,
   //   locale: data?.locale,
@@ -39,6 +38,7 @@ function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
   ]
 
   return (
+    // TODO revert this back when blog posts are localized
     // <PageWrapper locale={post.locale ?? 'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
     <PageWrapper locale={'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
       <DefaultPageLayout title={post.title} menus={menus} footer={footer}>
@@ -91,7 +91,7 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
       post: blogPostBySlug,
       ...translations,
     },
-    // revalidate: 900, // revalidade every 5 minutes - TODO change for prod
+    revalidate: 86400,
   }
 }
 
