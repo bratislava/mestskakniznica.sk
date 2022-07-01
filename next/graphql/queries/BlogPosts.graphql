@@ -17,24 +17,6 @@ query BlogPostBySlug($slug: String!) {
   }
 }
 
-fragment BlogPost on BlogPost {
-  slug
-  title
-  createdAt
-  coverMedia {
-    data {
-      attributes {
-        url
-        mime
-        alternativeText
-      }
-    }
-  }
-  # sections {
-  #   ...Sections
-  # }
-}
-
 fragment BlogPostWithParentPage on BlogPostEntity {
   id
   attributes {
@@ -58,72 +40,6 @@ fragment ParentPage on PageEntity {
         ...PageCategory
       }
     }
-  }
-}
-
-fragment PageCategory on CategoryEntity {
-  attributes {
-    ...Category
-    subCategories {
-      data {
-        attributes {
-          ...Category
-        }
-        id
-      }
-    }
-
-    parentCategory {
-      data {
-        attributes {
-          ...Category
-       
-          parentCategory {
-            data {
-              attributes {
-                ...Category
-              }
-              id
-            }
-          }
-        }
-        id
-      }
-    }
-  }
-}
-
-fragment Category on Category {
-  title
-  priority
-  pages {
-    ...PageLink
-  }
-  pageLink {
-    ...PageLink
-  }
-  createdAt
-  updatedAt
-}
-
-fragment PageLink on ComponentBlocksPageLink {
-  id
-  title
-  url
-  page {
-    data{
-      ...BasePageFields
-    }
-  }
-}
-
-fragment BasePageFields on PageEntity {
-  id
-  attributes {
-    title
-    slug
-    createdAt
-    updatedAt
   }
 }
 
