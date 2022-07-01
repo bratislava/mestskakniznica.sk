@@ -33,10 +33,10 @@ export function NewsLetter({
   const { errors } = useFormState()
 
   return (
-    <div className={cx('container flex flex-col items-center justify-center', className)}>
-      <h2 className="text-center pt-10 lg:pt-24 text-md lg:text-lg">{title}</h2>
-      <form className="pt-4 lg:pt-6 pb-10 lg:pb-24" onSubmit={onSubmit}>
-        <div className="flex flex-col lg:flex-row lg:gap-x-4 gap-y-4 lg:gap-y-0">
+    <div className={cx('flex flex-col items-center justify-center', className)}>
+      <h2 className="pt-10 text-center text-md lg:pt-24 lg:text-lg">{title}</h2>
+      <form className="pt-4 pb-10 lg:pt-6 lg:pb-24" onSubmit={onSubmit}>
+        <div className="flex flex-col gap-y-4 lg:flex-row lg:gap-x-4 lg:gap-y-0">
           <Controller
             control={methods.control}
             name="email"
@@ -53,7 +53,9 @@ export function NewsLetter({
             )}
           />
 
-          <Button className="w-full lg:w-auto py-[9px] lg:py-4.25 lg:px-8 text-xs">{buttonContent}</Button>
+          <Button className="w-full py-[9px] text-xs lg:w-auto lg:py-4.25 lg:px-8">
+            {buttonContent}
+          </Button>
         </div>
         <div className="pl-0.5 pt-4.5 pb-8">
           <Controller
@@ -70,8 +72,12 @@ export function NewsLetter({
                 >
                   {checkboxContent}
                 </CheckBox>
-                {!!errors.acceptTerms && <p className="text-error text-base mt-2">{errorMessage}</p>}
-                <p className={`text-base mt-2 ${resStatus ? 'text-green-600' : 'text-error'}`}>{respondMessage}</p>
+                {!!errors.acceptTerms && (
+                  <p className="mt-2 text-base text-error">{errorMessage}</p>
+                )}
+                <p className={`mt-2 text-base ${resStatus ? 'text-green-600' : 'text-error'}`}>
+                  {respondMessage}
+                </p>
               </>
             )}
           />

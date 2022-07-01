@@ -9,7 +9,7 @@ function HeaderNavigation() {
   const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
   const { t } = useTranslation('common')
 
-  const openingHours = t('openHoursInfo')
+  const openingHours = t('openingHours2')
   // TODO load opening hours
   // const openingHours = mainLocality?.isCurrentlyOpen
   //   ? t('openingHours') +

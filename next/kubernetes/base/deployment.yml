@@ -28,6 +28,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: ${BUILD_REPOSITORY_NAME}-env
+            - secretRef:
+                name: ${BUILD_REPOSITORY_NAME}-general-secret
           readinessProbe:
             httpGet:
               path: /api/healthcheck
