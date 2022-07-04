@@ -3,6 +3,7 @@ resources:
   - service-app.yml
   - ingress.yml
   # Comment-out these lines if no database is used
+  - stateful-set.yml
   - stateful-set-meilisearch.yml
   - service-database.yml
   - service-meilisearch.yml
