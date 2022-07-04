@@ -17,7 +17,7 @@ COPY . ./
 
 RUN yarn build
 
-EXPOSE 1337
+EXPOSE 1338
 CMD ["yarn", "develop"]
 
 # production
@@ -45,5 +45,5 @@ COPY . ./
 
 RUN yarn build
 
-EXPOSE 1337
+EXPOSE 1338
 CMD ["yarn", "start"]
