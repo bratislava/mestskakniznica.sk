@@ -25,7 +25,12 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "files", "videos", "audios"],
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
       "pluginOptions": {}
     },
     "date_added": {
@@ -42,30 +47,29 @@
       "pluginOptions": {},
       "type": "dynamiczone",
       "components": [
-        "sections.form",
-        "sections.subpages",
-        "sections.faq",
-        "sections.table",
-        "sections.site-usefullness",
         "sections.accordion",
-        "sections.event-details",
-        "sections.divider",
         "sections.columned-text",
         "sections.cta",
-        "sections.sub-listing",
-        "sections.external-links",
-        "sections.flat-text-center",
-        "sections.locality-details",
+        "sections.divider",
         "sections.documents",
-        "sections.video",
-        "sections.flat-text"
+        "sections.event-details",
+        "sections.external-links",
+        "sections.faq",
+        "sections.flat-text",
+        "sections.flat-text-center",
+        "sections.form",
+        "sections.locality-details",
+        "sections.site-usefullness",
+        "sections.sub-listing",
+        "sections.subpages",
+        "sections.table",
+        "sections.video"
       ]
     },
     "Seo": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {},
-
       "component": "seo.seo"
     }
   }
