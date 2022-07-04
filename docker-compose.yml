@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: postgres4
+      POSTGRES_DB: library_v4
       PGPORT: 5432
     expose:
       - '5432'
