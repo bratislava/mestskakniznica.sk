@@ -1,8 +1,6 @@
 import { PageFragment } from '@bratislava/strapi-sdk-city-library'
 import { Link, SectionContainer } from '@bratislava/ui-city-library'
-import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
-
 import { IEvent } from '../../utils/types'
 import { convertPageToEventDisplay } from '../../utils/utils'
 import Section from "../AppLayout/Section"

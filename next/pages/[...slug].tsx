@@ -1,17 +1,12 @@
 import {
   Enum_Page_Layout,
-  EventCategories,
-  EventLocalities,
-  EventPropertiesQuery,
-  EventTags,
-  FooterQuery,
-  MenusQuery,
-  PageBySlugQuery,
-  PartnerFragment,
+  EventCategoryEntity,
+  EventLocalityEntity,
+  EventTagEntity, FooterQuery,
+  MenusQuery, PageEntity, PartnerFragment
 } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
@@ -41,13 +36,14 @@ import {
   convertPagesToEvents,
   convertPagesToLocalities,
   isPresent,
-  shouldSkipStaticPaths,
+  shouldSkipStaticPaths
 } from '../utils/utils'
+
 
 interface IPageProps {
   error?: IDisplayError
   slug: string
-  page: NonNullable<PageBySlugQuery['pageBySlug']>
+  page: PageEntity
   partners: PartnerFragment[]
   promotedEvents: IEvent[]
   allEvents: IEvent[]
@@ -56,9 +52,9 @@ interface IPageProps {
   opacBookNews: OpacBook[]
   localities: ILocality[]
   news: IEvent[]
-  eventCategories: NonNullable<EventPropertiesQuery['eventCategories']>
-  eventTags: NonNullable<EventPropertiesQuery['eventTags']>
-  eventLocalities: NonNullable<EventPropertiesQuery['eventLocalities']>
+  eventCategories: EventCategoryEntity[]
+  eventTags: EventTagEntity[]
+  eventLocalities: EventLocalityEntity[]
   allNewsLink: string
   menus: NonNullable<MenusQuery['menus']>
   footer: FooterQuery['footer']
@@ -94,7 +90,7 @@ function Page({
 
   let pageComponentByLayout = null
 
-  switch (page.layout) {
+  switch (page?.attributes?.layout) {
     case Enum_Page_Layout.Listing:
       pageComponentByLayout = <ListingPage allEvents={allEvents} page={page} news={news} />
       break
@@ -169,13 +165,13 @@ function Page({
 
   return (
     <PageWrapper
-      locale={page.locale ?? 'sk'}
-      slug={page.slug ?? ''}
-      localizations={page.localizations?.filter(isPresent)}
+      locale={page.attributes?.locale ?? 'sk'}
+      slug={page.attributes?.slug ?? ''}
+      localizations={page.attributes?.localizations?.data.filter(isPresent)}
     >
       <DefaultPageLayout
-        title={page?.title}
-        Seo={page?.Seo}
+        title={page?.attributes?.title}
+        Seo={page?.attributes?.Seo}
         menus={menus}
         footer={footer}
         latestEvents={latestEvents}
@@ -228,17 +224,18 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     let latestEvents: IEvent[] = []
     let premises: IPremises[] = []
     let localities: ILocality[] = []
-    let eventCategories: EventCategories[] = []
-    let eventTags: EventTags[] = []
-    let eventLocalities: EventLocalities[] = []
+    let eventCategories: EventCategoryEntity[] = []
+    let eventTags: EventTagEntity[] = []
+    let eventLocalities: EventLocalityEntity[] = []
     let opacBookNews: OpacBook[] = []
     let allNewsLink = ''
 
-    const { pageBySlug, menus, footer } = await client.PageBySlug({
+    const queryResponse = await client.PageBySlug({
       slug,
       locale,
     })
-
+    // menus, footer
+    const pageBySlug = queryResponse.pages?.data[0].attributes;
     if (!pageBySlug) return { notFound: true } as { notFound: true }
 
     // all partners for about us partners page
@@ -247,8 +244,8 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     }
 
     if (pageBySlug && pageBySlug.layout === 'partners') {
-      const { allPartners } = await client.AllPartners({ locale })
-      partners.allPartners = allPartners
+      const partnerResponse = await client.AllPartners({ locale })
+      partners.allPartners = partnerResponse.partners?.data || null
     }
 
     if (pageBySlug?.layout === Enum_Page_Layout.BookNews) {
@@ -264,7 +261,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         start: i * 250,
         limit: 250,
       })
-      const length = eventPages.pages?.length
+      const length = eventPages.pages?.data.length
       if (!length || length === 0) break
       allEventPages = allEventPages.concat(eventPages.pages)
     }

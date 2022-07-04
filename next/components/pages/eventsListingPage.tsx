@@ -1,14 +1,12 @@
-import 'react-datepicker/dist/react-datepicker.css'
-
 import DropdownIcon from '@assets/images/dropdown.svg'
-import { EventPropertiesQuery, PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { EventCategoryEntity, EventLocalityEntity, EventTagEntity, PageFragment } from '@bratislava/strapi-sdk-city-library'
 import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import enUs from 'date-fns/locale/en-US'
 import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
 import { registerLocale } from 'react-datepicker'
-
+import 'react-datepicker/dist/react-datepicker.css'
 import { IEvent } from '../../utils/types'
 import Section from '../AppLayout/Section'
 import SectionPromos from '../HomePage/SectionPromos'
@@ -17,6 +15,8 @@ import EventFilters from '../Molecules/EventFilters'
 import EventListingCard from '../Molecules/EventListingCard'
 import { FilterModal } from '../Molecules/FilterModal'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
+
+
 
 registerLocale('en', enUs)
 registerLocale('sk', sk)
@@ -29,9 +29,9 @@ export interface PageProps {
   page: PageFragment
   promotedEvents: IEvent[]
   events: IEvent[]
-  eventCategories: NonNullable<EventPropertiesQuery['eventCategories']>
-  eventTags: NonNullable<EventPropertiesQuery['eventTags']>
-  eventLocalities: NonNullable<EventPropertiesQuery['eventLocalities']>
+  eventCategories: NonNullable<EventCategoryEntity[]>
+  eventTags: EventTagEntity[]
+  eventLocalities: EventLocalityEntity[]
 }
 
 const MAX_EVENTS_PER_PAGE = 16
@@ -67,9 +67,9 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
 
   const tags = useMemo(() => {
     const defaultType = { key: '', title: t('eventType'), disabled: true }
-    const parsedTypes = eventTags.map((type) => ({
-      key: type?.id || '',
-      title: type?.title || '',
+    const parsedTypes = eventTags.map(({ attributes, id }) => ({
+      key: id || '',
+      title: attributes?.title || '',
     }))
     return [defaultType, ...parsedTypes]
   }, [eventTags, t])
@@ -80,9 +80,9 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
       title: t('eventCategory'),
       disabled: true,
     }
-    const parsedCategories = eventCategories.map((cat) => ({
-      key: cat?.id || '',
-      title: cat?.title || '',
+    const parsedCategories = eventCategories.map(({ attributes, id }) => ({
+      key: id || '',
+      title: attributes?.title || '',
     }))
     return [defaultCategory, ...parsedCategories]
   }, [eventCategories, t])
@@ -93,9 +93,9 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
       title: t('eventLocality'),
       disabled: true,
     }
-    const parsedLocalities = eventLocalities.map((loc) => ({
-      key: loc?.id || '',
-      title: loc?.title || '',
+    const parsedLocalities = eventLocalities.map(({ attributes, id }) => ({
+      key: id || '',
+      title: attributes?.title || '',
     }))
     return [defaultLocality, ...parsedLocalities]
   }, [eventLocalities, t])
