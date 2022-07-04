@@ -45,43 +45,6 @@ const queries = [
   ALTER TABLE IF EXISTS public.file_category
   ADD COLUMN document_category integer;
 `,
-`
-ALTER TABLE IF EXISTS public.file_category
-    ADD COLUMN page integer;
-`,
-`
-ALTER TABLE IF EXISTS public.footers
-    ADD COLUMN "privacy_link" integer;
-`,
-,
-`
-ALTER TABLE IF EXISTS public.footers
-    ADD COLUMN "site_map_link" integer;
-`,
-`
-ALTER TABLE IF EXISTS public.pages
-    ADD COLUMN "page_category" integer;
-`,
-
-`
-ALTER TABLE IF EXISTS public.basic_documents
-    ADD COLUMN "file_category" integer;
-`,
-`
-ALTER TABLE IF EXISTS public.categories
-    ADD COLUMN "parent_category" integer;
-`,
-`
-ALTER TABLE IF EXISTS public.blog_posts
-    ADD COLUMN "parent_page" integer;
-`,
-`
-ALTER TABLE IF EXISTS public.blog_posts
-    ADD COLUMN locale character varying(255) COLLATE pg_catalog."default";
-`,
-
-
-
 ]
 
 async function addAdditionalColumns() {
