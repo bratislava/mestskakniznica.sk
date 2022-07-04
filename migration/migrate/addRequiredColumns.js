@@ -75,6 +75,12 @@ ALTER TABLE IF EXISTS public.categories
 ALTER TABLE IF EXISTS public.blog_posts
     ADD COLUMN "parent_page" integer;
 `,
+`
+ALTER TABLE IF EXISTS public.blog_posts
+    ADD COLUMN locale character varying(255) COLLATE pg_catalog."default";
+`,
+
+
 
 ]
 
