@@ -45,7 +45,7 @@
     "eventCategory": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::category.category"
+      "target": "api::event-category.event-category"
     },
     "eventLocality": {
       "type": "relation",
