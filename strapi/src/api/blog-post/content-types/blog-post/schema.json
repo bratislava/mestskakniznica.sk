@@ -62,7 +62,8 @@
         "sections.sub-listing",
         "sections.subpages",
         "sections.table",
-        "sections.video"
+        "sections.video",
+        "sections.gallery"
       ]
     },
     "Seo": {

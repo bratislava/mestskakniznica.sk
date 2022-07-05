@@ -1,4 +1,5 @@
 import {
+  CategoryEntity,
   CategoryFragment,
   ExternalLinkFragment,
   FlatTextFragment,
@@ -55,7 +56,7 @@ export const parsePages = (
 
 // Listing categories in listing and sublisting page
 export const parseSubCategories = (
-  subCategories: (CategoryFragment | undefined | null)[]
+  subCategories: (CategoryEntity | undefined | null)[]
 ): {
   title: string
   url: string

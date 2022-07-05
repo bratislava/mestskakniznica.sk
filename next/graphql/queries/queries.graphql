@@ -557,30 +557,30 @@ fragment Sections on PageSectionsDynamicZone {
     }
   }
 
-  # ... on ComponentSectionsGallery {
-  #   id
-  #   Gallery {
-  #     id
-  #     Description
-  #     Photo {
-  #       data {
-  #         id
-  #         attributes {
-  #           name
-  #           width
-  #           height
-  #           url
-  #           createdAt
-  #           hash
-  #           mime
-  #           provider
-  #           size
-  #           updatedAt
-  #         }
-  #       }
-  #     }
-  #   }
-  # }
+  ... on ComponentSectionsGallery {
+    id
+    Gallery {
+      id
+      Description
+      Photo {
+        data {
+          id
+          attributes {
+            name
+            width
+            height
+            url
+            createdAt
+            hash
+            mime
+            provider
+            size
+            updatedAt
+          }
+        }
+      }
+    }
+  }
 }
 
 fragment FlatText on ComponentAccordionItemsFlatText {
