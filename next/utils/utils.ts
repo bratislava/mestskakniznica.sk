@@ -2,8 +2,8 @@ import {
   ComponentLocalityPartsLocalityOpeningHours,
   ComponentSectionsLocalityDetails,
   Enum_Page_Layout,
+  PageEntity,
   PageEventFragment,
-  PageFragment,
   SectionLinkPageFragment,
 } from '@bratislava/strapi-sdk-city-library'
 
@@ -133,7 +133,7 @@ export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = f
   return { day, month, year, date: dFrom }
 }
 
-export const convertPagesToEvents = (pages: PageFragment[]) => {
+export const convertPagesToEvents = (pages: PageEntity[]) => {
   const events: IEvent[] = []
 
   pages.forEach((page) => {
@@ -154,14 +154,14 @@ export const convertPagesEventsToEvents = (pages: PageEventFragment[]) => {
 }
 
 export const convertPageToEventDisplay = (
-  page: PageFragment | SectionLinkPageFragment | PageEventFragment
+  page: PageEntity | SectionLinkPageFragment | PageEventFragment
 ): IEvent | any => {
-  if (page.layout === Enum_Page_Layout.Event) {
-    const eventDetails = page.sections?.find((section) => section?.__typename === 'ComponentSectionsEventDetails')
+  if (page?.attributes?.layout === Enum_Page_Layout.Event) {
+    const eventDetails = page?.attributes?.sections?.find((section) => section?.__typename === 'ComponentSectionsEventDetails')
     return {
-      ...page.sections?.find((section) => section?.__typename === 'ComponentSectionsEventDetails'),
-      slug: page.slug || '',
-      listingImage: page.listingImage || null,
+      ...page?.attributes?.sections?.find((section) => section?.__typename === 'ComponentSectionsEventDetails'),
+      slug: page?.attributes?.slug || '',
+      listingImage: page?.attributes?.listingImage || null,
       eventCustomType: 'event',
       eventLocality:
         eventDetails && eventDetails.__typename === 'ComponentSectionsEventDetails' ? eventDetails.eventLocality : null,
@@ -169,31 +169,31 @@ export const convertPageToEventDisplay = (
         eventDetails && eventDetails.__typename === 'ComponentSectionsEventDetails' ? eventDetails.eventCategory : null,
     }
   }
-  if (page.layout === Enum_Page_Layout.Announcement) {
+  if (page?.attributes?.layout === Enum_Page_Layout.Announcement) {
     return {
-      eventTitle: page.title || '',
-      listingImage: page.listingImage || null,
+      eventTitle: page?.attributes?.title || '',
+      listingImage: page?.attributes?.listingImage || null,
       eventCustomType: 'announcement',
-      slug: page.slug || '',
+      slug: page?.attributes?.slug || '',
     }
   }
-  if (page.layout === Enum_Page_Layout.News) {
+  if (page?.attributes?.layout === Enum_Page_Layout.News) {
     return {
-      eventTitle: page.title,
-      date_added: page.date_added,
-      listingImage: page.listingImage,
+      eventTitle: page?.attributes?.title,
+      date_added: page?.attributes?.date_added,
+      listingImage: page?.attributes?.listingImage,
       eventCustomType: 'news',
-      slug: page.slug,
-      dateFrom: page.created_at,
+      slug: page?.attributes?.slug,
+      dateFrom: page?.attributes?.createdAt,
     }
   }
 }
 
-export const convertPagesToLocalities = (pages: PageFragment[], onlyForHomepage = false): ILocality[] => {
+export const convertPagesToLocalities = (pages: PageEntity[], onlyForHomepage = false): ILocality[] => {
   const localities: ILocality[] = []
 
   pages.forEach((page) => {
-    const localityDetails = page.sections?.find((section) => section?.__typename === 'ComponentSectionsLocalityDetails')
+    const localityDetails = page?.attributes?.sections?.find((section) => section?.__typename === 'ComponentSectionsLocalityDetails')
 
     if (localityDetails?.__typename === 'ComponentSectionsLocalityDetails') {
       if (localityDetails.displayOnHomePage && onlyForHomepage) {
@@ -208,17 +208,17 @@ export const convertPagesToLocalities = (pages: PageFragment[], onlyForHomepage 
 }
 
 export const convertPageToLocality = (
-  page: PageFragment,
+  page: PageEntity,
   localityDetails: ComponentSectionsLocalityDetails | any
 ): ILocality | any => {
-  if (page.layout === Enum_Page_Layout.Locality) {
+  if (page?.attributes?.layout === Enum_Page_Layout.Locality) {
     const { localityOpenFrom, localityOpenTo, isCurrentlyOpen } = getMainOpeningHours(localityDetails.localitySections)
 
     return {
       localityOpenFrom,
       localityOpenTo,
       localityTitle: localityDetails.localityTitle,
-      localitySlug: page.slug,
+      localitySlug: page?.attributes?.slug,
       localitySections: localityDetails.localitySections,
       localityAddress: localityDetails.localityAddress,
       localityLatitude: localityDetails.localityLatitude,

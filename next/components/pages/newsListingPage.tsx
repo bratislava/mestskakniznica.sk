@@ -2,7 +2,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 import ArrowLeft from '@assets/images/arrow-left.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
-import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
@@ -12,7 +12,7 @@ import NewsListingCard from "../Molecules/NewsListingCard"
 import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface PageProps {
-  page: PageFragment
+  page: PageEntity
   news: IEvent[]
 }
 

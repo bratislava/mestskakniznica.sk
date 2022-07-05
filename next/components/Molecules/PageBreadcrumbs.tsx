@@ -4,10 +4,10 @@ import ChevronRight from '@assets/images/chevron-right.svg'
 import ChevronUp from '@assets/images/chevron-up.svg'
 import Home from '@assets/images/home.svg'
 import {
-  BlogPostFragment,
-  DocumentCategoryFragment,
+  BlogPostEntity,
+  FileCategoryEntity,
   PageCategoryFragment,
-  PageFragment,
+  PageEntity,
   ParentPageFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
@@ -18,9 +18,9 @@ import * as React from 'react'
 import { pagePath } from '../../utils/page'
 
 interface PageBreadcrumbsProps {
-  page: PageFragment | ParentPageFragment | null | undefined
-  blogPost?: BlogPostFragment
-  documentCategory?: DocumentCategoryFragment
+  page: PageEntity | ParentPageFragment | null | undefined
+  blogPost?: BlogPostEntity
+  documentCategory?: FileCategoryEntity
 }
 
 interface BreadcrumbsProps {
@@ -139,21 +139,21 @@ function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsPr
   // document category pagee
   if (documentCategory) {
     crumbs.push({
-      title: documentCategory.name ?? '',
-      url: `${t('documents_category_slug')}${documentCategory.slug}` ?? '#',
+      title: documentCategory?.attributes?.name ?? '',
+      url: `${t('documents_category_slug')}${documentCategory?.attributes?.slug}` ?? '#',
     })
   }
   // blog post page
-  if (page?.layout === 'blog_posts' && blogPost) {
+  if (page?.attributes?.layout === 'blog_posts' && blogPost) {
     crumbs.push({
-      title: blogPost.title ?? '',
+      title: blogPost?.attributes?.title ?? '',
       url: `${t('blog_slug') + pagePath(blogPost)}`,
     })
   }
 
   // self, if is only subpage and not pagecategory, to avoid mutliple appearance
-  if (page?.pageCategory?.pageLink?.page?.slug !== page?.slug) {
-    crumbs.push({ title: page?.title ?? '', url: `/${pagePath(page)}` })
+  if (page?.attributes?.pageCategory?.data?.attributes?.pageLink?.page?.data?.attributes?.slug !== page?.attributes?.slug) {
+    crumbs.push({ title: page?.attributes?.title ?? '', url: `/${pagePath(page)}` })
   }
 
   // get parent pagecategory

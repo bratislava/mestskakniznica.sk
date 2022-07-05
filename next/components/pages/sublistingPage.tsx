@@ -1,4 +1,4 @@
-import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
@@ -7,13 +7,13 @@ import { parsePages } from '../../utils/page'
 import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface SublistingPageProps {
-  page: PageFragment
+  page: PageEntity
 }
 
 function SublistingPage({ page }: SublistingPageProps) {
   const { t } = useTranslation('common')
 
-  const pages = page?.pageCategory?.pages ? parsePages(page?.pageCategory?.pages) : undefined
+  const pages = page?.attributes?.pageCategory?.data?.attributes?.pages ? parsePages(page?.attributes?.pageCategory?.data?.attributes?.pages) : undefined
 
   return (
     <>
@@ -21,13 +21,13 @@ function SublistingPage({ page }: SublistingPageProps) {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={page?.title ?? ''} description={page?.description ?? ''} />
+        <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} />
 
         {/* Subcategory Pages */}
         {pages && (
           <Listing
             className="mt-8 md:mt-16"
-            title={page?.title ?? ''}
+            title={page?.attributes?.title ?? ''}
             pages={pages.map((page) => ({
               title: page.title ?? '',
               url: page.url ?? '',

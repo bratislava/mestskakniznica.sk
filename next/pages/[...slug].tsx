@@ -295,7 +295,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
           start: i * 250,
           limit: 250,
         })
-        const length = eventPages.pages?.length
+        const length = eventPages.pages?.data.length
         if (!length || length === 0) break
         eventListingPages = eventListingPages.concat(eventPages.pages)
       }

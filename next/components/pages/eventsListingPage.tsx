@@ -1,5 +1,5 @@
 import DropdownIcon from '@assets/images/dropdown.svg'
-import { EventCategoryEntity, EventLocalityEntity, EventTagEntity, PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { EventCategoryEntity, EventLocalityEntity, EventTagEntity, PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import enUs from 'date-fns/locale/en-US'
 import sk from 'date-fns/locale/sk'
@@ -26,7 +26,7 @@ interface KeyTitlePair {
   title: string
 }
 export interface PageProps {
-  page: PageFragment
+  page: PageEntity
   promotedEvents: IEvent[]
   events: IEvent[]
   eventCategories: NonNullable<EventCategoryEntity[]>

@@ -1,4 +1,4 @@
-import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { Localities, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 
@@ -8,7 +8,7 @@ import Sections from '../Molecules/Sections'
 
 export interface LocalityPageProps {
   localities: ILocality[]
-  page: PageFragment
+  page: PageEntity
 }
 
 function LocalitiesListingPage({ page, localities }: LocalityPageProps) {
@@ -20,7 +20,7 @@ function LocalitiesListingPage({ page, localities }: LocalityPageProps) {
       </SectionContainer>
       <SectionContainer>
         <div className="border-b border-gray-900">
-          <PageTitle title={page?.title ?? ''} description={page?.description ?? ''} />
+          <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} />
 
           <Localities
             altDesign
@@ -31,7 +31,7 @@ function LocalitiesListingPage({ page, localities }: LocalityPageProps) {
           <div className="pt-12">
             <div className="mb-8 text-[32px]">{t('moreInformation')}</div>
             <Sections
-              sections={page.sections}
+              sections={page?.attributes?.sections}
               className="grid gap-4 pb-16 md:grid-cols-2 lg:grid-cols-4"
             />
           </div>

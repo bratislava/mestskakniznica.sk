@@ -1,12 +1,12 @@
-import { BasicDocumentFragment, FileCategory } from '@bratislava/strapi-sdk-city-library'
+import { BasicDocumentEntity, FileCategoryEntity } from '@bratislava/strapi-sdk-city-library'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { fetchDocuments, fetchFileCategories, getDocumentCount } from '../../utils/document'
 import { arrayify } from '../../utils/utils'
 
 export interface DocumentResponse {
-  documents: BasicDocumentFragment[]
-  fileCategories: FileCategory[]
+  documents: BasicDocumentEntity[]
+  fileCategories: FileCategoryEntity[]
   count: number
 }
 

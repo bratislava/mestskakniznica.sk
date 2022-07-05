@@ -1,4 +1,4 @@
-import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { Link, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import { IEvent } from '../../utils/types'
@@ -9,7 +9,7 @@ import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 import Sections from "../Molecules/Sections"
 
 export interface PageProps {
-  page: PageFragment
+  page: PageEntity
   events: IEvent[]
   allNewsLink: string
 }
@@ -24,7 +24,7 @@ function EventPage({ page, events, allNewsLink }: PageProps) {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <div className="pt-16 pb-16">{page?.sections && <Sections sections={page.sections} events={[event]} />}</div>
+        <div className="pt-16 pb-16">{page?.attributes?.sections && <Sections sections={page?.attributes?.sections} events={[event]} />}</div>
         <Section>
           <div className="inline-flex pt-10 w-full">
             <h2 className="text-lg">{t('otherEvents')}</h2>

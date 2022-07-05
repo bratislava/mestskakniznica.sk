@@ -3,7 +3,7 @@ import SingleDot from '@assets/images/dot.svg'
 import Download from '@assets/images/download.svg'
 import ExternalLink from '@assets/images/external-link.svg'
 import Home from '@assets/images/home.svg'
-import { BasicDocumentFragment, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { BasicDocumentEntity, BasicDocumentFragment, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import { Button, FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
 import truncate from 'lodash/truncate'
 import { useTranslation } from 'next-i18next'
@@ -13,7 +13,7 @@ import { formatDateToLocal } from '../../utils/utils'
 import DefaultPageLayout from '../layouts/DefaultPageLayout'
 
 interface IProps {
-  file: BasicDocumentFragment
+  file: BasicDocumentEntity
   locale?: string
   menus: NonNullable<MenusQuery['menus']>
   footer: FooterQuery['footer']
@@ -33,12 +33,12 @@ function CustomPageBreadcrumbs({ file }: IProps) {
     </Link>
     <ChevronRight className="ml-1" />
 
-    <span className="text-xs">{file.title}</span>
+    <span className="text-xs">{file?.attributes?.title}</span>
   </div>
 }
 
 function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
-  const dateAddedString = formatDateToLocal(file.date_added, locale)
+  const dateAddedString = formatDateToLocal(file?.attributes?.date_added, locale)
   const { t } = useTranslation('common')
 
   const [expandDescription, setExpandDescription] = React.useState(false)
@@ -52,55 +52,55 @@ function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
         <>
           {/* Mobile */}
           <Link
-            href={`${t('documents_category_slug')}${file.file_category?.slug}`}
+            href={`${t('documents_category_slug')}${file?.attributes?.file_category?.data?.attributes?.slug}`}
             variant="plain"
             uppercase={false}
             className="lg:hidden underline"
             size="default"
           >
-            {file.file_category?.name}
+            {file?.attributes?.file_category?.data?.attributes?.name}
           </Link>
           {/* Desktop */}
           <Link
-            href={`${t('documents_category_slug')}${file.file_category?.slug}`}
+            href={`${t('documents_category_slug')}${file?.attributes?.file_category?.data?.attributes?.slug}`}
             variant="plain"
             uppercase={false}
             className="hidden lg:block underline"
             size="large"
           >
-            {file.file_category?.name}
+            {file?.attributes?.file_category?.data?.attributes?.name}
           </Link>
         </>
       ),
     },
-    { key: `${t('author')}:`, content: file.author },
+    { key: `${t('author')}:`, content: file?.attributes?.author },
     {
       key: `${t('createdAt')}:`,
       content: dateAddedString,
     },
     {
       key: `${t('link')}:`,
-      content: file.link ? (
+      content: file?.attributes?.link ? (
         <>
           {/* Mobile */}
           <Link
-            href={file.link ?? '#'}
+            href={file?.attributes?.link ?? '#'}
             uppercase={false}
             className="lg:hidden underline text-gray-universal-70"
             variant="plain"
             size="default"
           >
-            {file.link}
+            {file?.attributes?.link}
           </Link>
           {/* Desktop */}
           <Link
-            href={file.link ?? '#'}
+            href={file?.attributes?.link ?? '#'}
             uppercase={false}
             className="hidden lg:block underline text-gray-universal-70"
             variant="plain"
             size="large"
           >
-            {file.link}
+            {file?.attributes?.link}
           </Link>
         </>
       ) : null,
@@ -108,8 +108,8 @@ function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
   ]
 
   const transformedMetadata: Array<FileMetadata> =
-    file && file.metadata && file.metadata[0]
-      ? Object.entries(file.metadata[0])
+    file && file?.attributes?.metadata && file?.attributes?.metadata[0]
+      ? Object.entries(file?.attributes?.metadata[0])
           .filter(
             (entry) =>
               (entry[0] !== '__typename' && entry[0] !== 'id' && entry[0] !== 'attachment') || entry[0] === 'attachment'
@@ -132,39 +132,39 @@ function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
   const fullMetadata = Metadata?.concat(transformedMetadata)
 
   return (
-    <DefaultPageLayout title={file.title} menus={menus} footer={footer}>
+    <DefaultPageLayout title={file?.attributes?.title} menus={menus} footer={footer}>
       <SectionContainer>
         <CustomPageBreadcrumbs file={file} menus={menus} footer={footer} />
         <div className="flex gap-x-8 mt-6 lg:mt-16 border-b border-gray-universal-100 pb-10 lg:pb-32">
-          <FileIcon className="hidden lg:flex" type={file.attachment?.ext?.toUpperCase().replace('.', '')} />
+          <FileIcon className="hidden lg:flex" type={file?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '')} />
           <div className="w-full">
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
               {/* Header */}
               <span className="lg:hidden flex border border-gray-universal-100 rounded-full h-14 w-14 text-[12px] justify-center items-center">
-                {file.attachment?.ext?.toUpperCase().replace('.', '')}
+                {file?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '')}
               </span>
-              <h1 className="text-md2 mt-8 lg:mt-0 lg:text-2xl">{file.title}</h1>
+              <h1 className="text-md2 mt-8 lg:mt-0 lg:text-2xl">{file?.attributes?.title}</h1>
               <div className="mt-2 lg:flex items-center lg:gap-x-3 text-gray-universal-70 text-sm">
-                <p className="hidden lg:block">{file.author}</p>
+                <p className="hidden lg:block">{file?.attributes?.author}</p>
                 <SingleDot className="hidden lg:block" />
                 <p>{`${t('added')} ${dateAddedString}`}</p>
               </div>
-              {file.attachment && (
+              {file?.attributes?.attachment && (
                 <div className="flex w-full flex-col lg:flex-row gap-y-3 lg:gap-y-0 lg:gap-x-4 items-center mt-6 mb-6 lg:mb-10">
-                  <a className="w-full lg:w-auto" href={file.attachment.url} target="_blank" rel="noreferrer">
+                  <a className="w-full lg:w-auto" href={file?.attributes?.attachment?.data?.attributes?.url} target="_blank" rel="noreferrer">
                     <Button
                       className="py-[9px] px-5 w-full"
-                      aria-label={`${t('open')} ${file.title}`}
+                      aria-label={`${t('open')} ${file?.attributes?.title}`}
                       icon={<ExternalLink />}
                     >
                       {t('open')}
                     </Button>
                   </a>
-                  <a className="w-full lg:w-auto" href={file.attachment.url} download={file.attachment.name}>
+                  <a className="w-full lg:w-auto" href={file?.attributes?.attachment?.data?.attributes?.url} download={file?.attributes?.attachment?.data?.attributes?.name}>
                     <Button
                       variant="secondary"
                       className="py-[9px] px-5 w-full"
-                      aria-label={`${t('download')} ${file.title}`}
+                      aria-label={`${t('download')} ${file?.attributes?.title}`}
                       icon={<Download />}
                     >
                       {t('download')}
