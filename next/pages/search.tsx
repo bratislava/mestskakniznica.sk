@@ -1,8 +1,8 @@
 import {
-  FooterQuery,
-  HomePageQuery,
-  MenusQuery,
-  PageBySlugQuery,
+  ComponentSeoSeo,
+  FooterEntity,
+  MenuEntity,
+  PageEntity,
 } from '@bratislava/strapi-sdk-city-library';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
@@ -61,14 +61,12 @@ export function Search({
 
 interface IProps {
   locale?: string;
-  localizations?: NonNullable<
-    NonNullable<HomePageQuery['homePage']>['localizations']
-  >;
+  localizations?: Partial<PageEntity>[];
   error?: IDisplayError;
-  Seo?: NonNullable<NonNullable<HomePageQuery['homePage']>['Seo']>;
-  page?: NonNullable<PageBySlugQuery['pageBySlug']>;
-  menus: NonNullable<MenusQuery['menus']>;
-  footer: FooterQuery['footer'];
+  Seo?: ComponentSeoSeo;
+  page?: PageEntity;
+  menus: MenuEntity[];
+  footer: FooterEntity;
 }
 
 // trigger redeployment :)
@@ -87,7 +85,7 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
       () => Promise.all([client.HomePage({ locale })])
     );
 
-    const { pageBySlug } = await client.PageBySlug({
+    const pageBySlugResponse = await client.PageBySlug({
       slug,
       locale,
     });
@@ -96,7 +94,7 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
       props: {
         locale,
         localizations: homePage?.localizations ?? null,
-        page: pageBySlug,
+        page: pageBySlugResponse.pages,
         menus,
         footer,
         Seo: homePage?.Seo ?? null,

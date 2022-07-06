@@ -1,4 +1,4 @@
-import { ComponentSeoSeo, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { ComponentSeoSeo, FooterEntity, MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import { Footer, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
@@ -15,8 +15,8 @@ interface IProps {
   children?: React.ReactNode
   title?: string | undefined | null
   Seo?: ComponentSeoSeo | undefined | null
-  menus: NonNullable<MenusQuery['menus']>
-  footer: FooterQuery['footer']
+  menus: MenuEntity[]
+  footer: FooterEntity
   latestEvents?: IEvent[]
 }
 
@@ -68,7 +68,7 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }
         <footer>
           <SectionContainer>
             <Footer
-              footerColumns={footer?.footerColumns}
+              footerColumns={footer?.attributes?.footerColumns}
               // siteMap={{
               //   title: t('siteMap'),
               //   href: footer?.siteMapLink?.slug ?? '#',

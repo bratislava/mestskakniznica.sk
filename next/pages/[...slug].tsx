@@ -2,8 +2,8 @@ import {
   Enum_Page_Layout,
   EventCategoryEntity,
   EventLocalityEntity,
-  EventTagEntity, FooterQuery,
-  MenusQuery, PageEntity, PartnerFragment
+  EventTagEntity, FooterEntity,
+  MenuEntity, PageEntity, PartnerFragment
 } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -56,8 +56,8 @@ interface IPageProps {
   eventTags: EventTagEntity[]
   eventLocalities: EventLocalityEntity[]
   allNewsLink: string
-  menus: NonNullable<MenusQuery['menus']>
-  footer: FooterQuery['footer']
+  menus: MenuEntity[]
+  footer: FooterEntity
 }
 
 function Page({
@@ -189,14 +189,14 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
   const pathArraysForLocales = await Promise.all(
     locales.map((locale) => client.PagesStaticPaths({ locale }))
   )
-  const pages = pathArraysForLocales.flatMap(({ pages }) => pages || []).filter(isDefined)
+  const pages = pathArraysForLocales.flatMap(({ pages }) => pages?.data || []).filter(isDefined)
   if (pages.length > 0) {
     paths = pages
-      .filter((page) => page.slug)
+      .filter((page) => page.attributes?.slug)
       .map((page) => ({
         params: {
-          slug: page?.slug ? page.slug.split('/') : [],
-          locale: page?.locale || '',
+          slug: page?.attributes?.slug ? page.attributes?.slug.split('/') : [],
+          locale: page?.attributes?.locale || '',
         },
       }))
   }
@@ -236,6 +236,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     })
     // menus, footer
     const pageBySlug = queryResponse.pages?.data[0].attributes;
+    const { menus, footer } = queryResponse;
     if (!pageBySlug) return { notFound: true } as { notFound: true }
 
     // all partners for about us partners page
@@ -383,8 +384,8 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         premises,
         localities,
         news,
-        menus: menus ?? [],
-        footer,
+        menus: menus?.data ?? [],
+        footer: footer?.data,
         ...translations,
       },
       revalidate: 900, // revalidade every 5 minutes - TODO change for prod

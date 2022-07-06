@@ -1,4 +1,4 @@
-import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { MenuEntity, MenuEntityResponseCollection } from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
@@ -10,7 +10,7 @@ import SearchBox from './Navigation/SearchBox'
 import SkipNavigation from './SkipNavigation'
 
 interface HeaderProps {
-  menus: NonNullable<MenusQuery['menus']>
+  menus: MenuEntity[]
   latestEvents?: IEvent[]
 }
 
@@ -49,7 +49,7 @@ function Header({ menus, latestEvents }: HeaderProps) {
           <NavigationMenu.Root aria-label={t('navAriaLabel')}>
             <NavigationMenu.List className="flex">
               {menus?.map((menu, index) => (
-                <NavigationItem latestEvents={latestEvents} index={index} menu={menu} key={index} />
+                <NavigationItem latestEvents={latestEvents} index={index} menu={menu.attributes} key={index} />
               ))}
             </NavigationMenu.List>
 

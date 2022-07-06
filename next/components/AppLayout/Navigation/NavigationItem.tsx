@@ -1,4 +1,4 @@
-import { MenuFragment } from '@bratislava/strapi-sdk-city-library'
+import { ComponentMenuSections, Maybe, Menu } from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { IEvent } from '@utils/types'
 import cx from 'classnames'
@@ -9,14 +9,14 @@ import React, { useMemo } from 'react'
 import Subnavigation from './Subnavigation'
 
 interface navItemProps {
-  menu: MenuFragment | undefined | null
+  menu: Menu | undefined | null
   latestEvents?: IEvent[]
   index: number
 }
 
-function NavigationItem({ index, menu, latestEvents }: navItemProps) {
+function NavigationItem({ menu, latestEvents }: navItemProps) {
   const [panelHidden, setPanelHidden] = React.useState(false)
-  const menuSections: any = menu?.menuSections
+  const menuSections: Maybe<ComponentMenuSections>[] = menu?.menuSections || []
   const router = useRouter()
 
   React.useEffect(() => {
@@ -43,14 +43,14 @@ function NavigationItem({ index, menu, latestEvents }: navItemProps) {
           </a>
         </Link>
       </NavigationMenu.Trigger>
-      <NavigationMenu.Content>
+      {menuSections && <NavigationMenu.Content>
         <Subnavigation
           menuSections={menuSections}
           latestEvents={latestEvents}
           menuTotalColumns={menu?.menuTotalColumns}
           menuSlug={menu?.menuSlug}
         />
-      </NavigationMenu.Content>
+      </NavigationMenu.Content>}
     </NavigationMenu.Item>
   )
 }

@@ -1,5 +1,5 @@
 import Burger from '@assets/images/Burger.svg'
-import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -11,7 +11,7 @@ import SkipNavigation from '../SkipNavigation'
 import { MobileNavigation } from './MobileNavigation'
 
 interface HeaderProps {
-  menus: NonNullable<MenusQuery['menus']>
+  menus: MenuEntity[]
 }
 
 function MobilHeader({ menus }: HeaderProps) {
