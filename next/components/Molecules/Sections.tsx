@@ -309,10 +309,10 @@ const sectionContent = (
 
     case 'ComponentSectionsVideo':
       return (
-        section.media?.url ||
+        section.media?.data?.attributes?.url ||
         (section.youtube_url && (
           <div className="flex justify-center w-full">
-            <Video id={section.id} mediaUrl={section.media?.url ?? ''} youTubeUrl={section.youtube_url ?? ''} />
+            <Video id={section.id} mediaUrl={section.media?.data?.attributes?.url ?? ''} youTubeUrl={section.youtube_url ?? ''} />
           </div>
         ))
       )
@@ -325,14 +325,14 @@ const sectionContent = (
             url: parsePageLink(section.moreLink)?.url ?? '',
             title: section.moreLink?.title ?? section.moreLink?.page?.title ?? '',
           }}
-          files={section.basicDocuments?.map((document) => ({
-            url: `${t('documents_category_slug')}${document?.file_category?.slug}/${document?.slug}`,
+          files={section.basicDocuments?.data?.map((document) => ({
+            url: `${t('documents_category_slug')}${document?.attributes?.file_category?.data?.attributes?.slug}/${document?.attributes?.slug}`,
             content: {
-              type: document?.file_category?.name ?? '',
-              title: document?.title ?? '',
-              metadata: <Metadata metadata={document?.metadata || []} /> ?? '',
-              dateAdded: document?.date_added ? `${t('added')} ${formatDateToLocal(document?.date_added, locale)}` : '',
-              fileType: document?.attachment?.ext?.toUpperCase().replace('.', '') ?? '',
+              type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
+              title: document?.attributes?.title ?? '',
+              metadata: <Metadata metadata={document?.attributes?.metadata || []} /> ?? '',
+              dateAdded: document?.attributes?.date_added ? `${t('added')} ${formatDateToLocal(document?.attributes?.date_added, locale)}` : '',
+              fileType: document?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
             },
           }))}
         />
