@@ -17,7 +17,7 @@ interface ColumnProps {
 function Column({ section, latestEvents, classNames }: ColumnProps) {
   // TODO optionally load latestEvents here if needed
   const containsEvents = section?.sectionLinks?.some(
-    (sectionLink) => sectionLink?.sectionLinkPage?.layout === Enum_Page_Layout.Event
+    (sectionLink) => sectionLink?.sectionLinkPage?.data?.attributes?.layout === Enum_Page_Layout.Event
   )
   const isLengthy = section?.sectionLinks ? section.sectionLinks.length >= 8 : false
   const { locale } = usePageWrapperContext()
@@ -31,7 +31,7 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
     >
       {section.sectionTitle && section.sectionPage !== null && (
         <NavigationMenu.Link className="text-default hover:underline" tabIndex={-1}>
-          <Link href={`/${section?.sectionPage?.slug}`}>{section.sectionTitle}</Link>
+          <Link href={`/${section?.sectionPage?.data?.attributes?.slug}`}>{section.sectionTitle}</Link>
         </NavigationMenu.Link>
       )}
 
@@ -88,11 +88,11 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
                   'h-[45px]': !containsEvents && isLengthy,
                 })}
                 tabIndex={-1}
-                key={sectionLink.sectionLinkPage.slug}
+                key={sectionLink.sectionLinkPage?.data?.attributes?.slug}
               >
-                <Link href={`/${sectionLink.sectionLinkPage.slug}`} passHref>
-                  <a href={`/${sectionLink.sectionLinkPage.slug}`} className="hover:underline">
-                    {sectionLink.sectionLinkPage.title}
+                <Link href={`/${sectionLink.sectionLinkPage?.data?.attributes?.slug}`} passHref>
+                  <a href={`/${sectionLink.sectionLinkPage?.data?.attributes?.slug}`} className="hover:underline">
+                    {sectionLink.sectionLinkPage?.data?.attributes?.title}
                   </a>
                 </Link>
               </NavigationMenu.Link>

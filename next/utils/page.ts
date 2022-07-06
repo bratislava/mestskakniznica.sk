@@ -41,8 +41,8 @@ export const parsePageLink = (
   if (!pageLink) return null
 
   return {
-    title: pageLink.page?.title || '',
-    url: pageLink.url ?? pagePath(pageLink.page) ?? '',
+    title: pageLink.page?.data?.attributes?.title || '',
+    url: pageLink.url ?? pagePath(pageLink?.page?.data?.attributes) ?? '',
   }
 }
 
@@ -64,28 +64,28 @@ export const parseSubCategories = (
   pages: { title: string; url: string }[]
 }[] =>
   orderBy(subCategories ?? [], ['priority'], ['asc']).map((subCategory) => ({
-    title: parsePageLink(subCategory?.pageLink)?.title ?? '',
-    url: parsePageLink(subCategory?.pageLink)?.url ?? '',
-    moreLinkTitle: subCategory?.pageLink?.title ?? 'VIAC',
-    pages: parsePages(subCategory?.pages?.filter(isPresent) ?? []),
+    title: parsePageLink(subCategory?.attributes?.pageLink)?.title ?? '',
+    url: parsePageLink(subCategory?.attributes?.pageLink)?.url ?? '',
+    moreLinkTitle: subCategory?.attributes?.pageLink?.title ?? 'VIAC',
+    pages: parsePages(subCategory?.attributes?.pages?.filter(isPresent) ?? []),
   }))
 
 // SideBar for content with sidebar
 export const parseSidebar = (
-  pageCategory: PageCategoryFragment | undefined,
+  pageCategory: CategoryEntity | undefined,
   pageSlug?: string
 ): SidebarProps | undefined => {
   if (!pageCategory) return undefined
 
   return {
-    title: parsePageLink(pageCategory.pageLink)?.title ?? '',
-    href: parsePageLink(pageCategory.pageLink)?.url ?? '#',
+    title: parsePageLink(pageCategory?.attributes?.pageLink)?.title ?? '',
+    href: parsePageLink(pageCategory?.attributes?.pageLink)?.url ?? '#',
     categories:
-      pageCategory.pages?.map((p) => ({
+      pageCategory?.attributes?.pages?.map((p) => ({
         title: parsePageLink(p)?.title ?? '',
         href: parsePageLink(p)?.url ?? '',
       })) ?? [],
-    activeCategory: pageCategory.pages?.findIndex((x) => x?.page?.slug === pageSlug) ?? 0,
+    activeCategory: pageCategory?.attributes?.pages?.findIndex((x) => x?.page?.data?.attributes?.slug === pageSlug) ?? 0,
   }
 }
 

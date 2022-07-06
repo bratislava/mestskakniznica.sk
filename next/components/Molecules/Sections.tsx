@@ -170,9 +170,9 @@ const sectionContent = (
       return (
         <FlatText
           content={section?.content ?? ''}
-          media={section.media?.url || ''}
-          alt={section.media?.alternativeText || ''}
-          mediaType={section.media?.mime?.split('/')[0] ?? ''}
+          media={section.media?.data?.attributes?.url || ''}
+          alt={section.media?.data?.attributes?.alternativeText || ''}
+          mediaType={section.media?.data?.attributes?.mime?.split('/')[0] ?? ''}
         />
       )
 
@@ -183,8 +183,8 @@ const sectionContent = (
       return (
         <FlatTextCenter
           content={section?.content ?? ''}
-          imgSrc={section.image?.url ?? ''}
-          alt={section.image?.alternativeText || ''}
+          imgSrc={section.image?.data?.attributes?.url ?? ''}
+          alt={section.image?.data?.attributes?.alternativeText || ''}
         />
       )
 

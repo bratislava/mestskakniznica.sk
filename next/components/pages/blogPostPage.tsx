@@ -1,5 +1,5 @@
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import { BlogPostWithParentPageFragment, ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostEntity, BlogPostWithParentPageFragment, ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 
@@ -9,38 +9,38 @@ import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import Sections from '../Molecules/Sections'
 
 export interface BlogPostPageProps {
-  blogPost: BlogPostWithParentPageFragment
+  blogPost: BlogPostEntity
   Seo?: ComponentSeoSeo
 }
 
 function BlogPostPage({ blogPost }: BlogPostPageProps) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
-  const mediaType = blogPost.coverMedia?.mime?.split('/')[0] ?? ''
+  const mediaType = blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
   const { Image: UIImage } = useUIContext()
 
   return (
     <SectionContainer>
-      {blogPost.parentPage && <PageBreadcrumbs page={blogPost.parentPage} blogPost={blogPost} />}
+      {blogPost?.attributes?.parentPage && <PageBreadcrumbs page={blogPost?.attributes?.parentPage?.data} blogPost={blogPost} />}
 
-      <PageTitle title={blogPost?.title ?? ''} hasDivider={false} />
+      <PageTitle title={blogPost?.attributes?.title ?? ''} hasDivider={false} />
       <div className="mt-2 lg:mt-4 text-sm text-gray-universal-70">{`${t('added')} ${formatDateToLocal(
         // blogPost.date_added ? blogPost.date_added : blogPost.created_at, // TEMP fix for not localized blog posts
-        blogPost.created_at,
+        blogPost?.attributes?.createdAt,
         locale
       )}`}</div>
 
       <div className="flex mt-6 lg:mt-10 -mx-7.5 md:mx-0">
-        {blogPost.coverMedia && mediaType === 'image' && (
+        {blogPost?.attributes?.coverMedia && mediaType === 'image' && (
           <img
-            src={blogPost.coverMedia.url ?? ''}
-            alt={blogPost.title || ''}
+            src={blogPost?.attributes?.coverMedia?.data?.attributes?.url ?? ''}
+            alt={blogPost?.attributes?.title || ''}
             className="w-full md:h-[300px] lg:h-[400px] object-cover object-center"
           />
         )}
-        {blogPost.coverMedia && mediaType === 'video' && (
+        {blogPost?.attributes?.coverMedia && mediaType === 'video' && (
           <div className="w-full flex justify-center">
-            <Video mediaUrl={blogPost.coverMedia.url} />
+            <Video mediaUrl={blogPost?.attributes?.coverMedia?.data?.attributes?.url} />
           </div>
         )}
       </div>
@@ -48,7 +48,7 @@ function BlogPostPage({ blogPost }: BlogPostPageProps) {
       {/* Sections */}
       <div className="flex">
         <div className="w-full lg:mx-auto lg:w-8/12 mt-10">
-          {blogPost.sections && <Sections sections={blogPost.sections} />}
+          {blogPost?.attributes?.sections && <Sections sections={blogPost?.attributes?.sections} />}
         </div>
       </div>
     </SectionContainer>

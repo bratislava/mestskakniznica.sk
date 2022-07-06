@@ -23,8 +23,8 @@ function GalleryBanner({ gallery }: PageProps) {
             <img
               onClick={() => setShowModal(true)}
               className="w-full h-auto lg:h-87 object-cover cursor-pointer"
-              src={gallery[0]?.Photo?.url || ''}
-              alt={gallery[0]?.Photo?.alternativeText || 'Gallery'}
+              src={gallery[0]?.Photo?.data?.attributes?.url || ''}
+              alt={gallery[0]?.Photo?.data?.attributes?.alternativeText || 'Gallery'}
               aria-hidden="true"
             />
           </div>
@@ -34,8 +34,8 @@ function GalleryBanner({ gallery }: PageProps) {
                 <img
                   onClick={() => setShowModal(true)}
                   className="w-full h-full pr-2 pt-2 lg:pt-0 lg:pl-2 lg:pr-0 pb-2 object-cover cursor-pointer"
-                  src={gallery[1].Photo.url}
-                  alt={gallery[1].Photo?.alternativeText || 'Gallery'}
+                  src={gallery[1].Photo?.data?.attributes?.url}
+                  alt={gallery[1].Photo?.data?.attributes?.alternativeText || 'Gallery'}
                   aria-hidden="true"
                 />
               ) : (
@@ -53,8 +53,8 @@ function GalleryBanner({ gallery }: PageProps) {
                 <img
                   onClick={() => setShowModal(true)}
                   className="w-full h-full pb-2 pt-2 lg:pt-0 lg:pl-2 object-cover cursor-pointer"
-                  src={gallery[2].Photo.url}
-                  alt={gallery[2].Photo?.alternativeText || 'Gallery'}
+                  src={gallery[2].Photo?.data?.attributes?.url}
+                  alt={gallery[2].Photo?.data?.attributes?.alternativeText || 'Gallery'}
                   aria-hidden="true"
                 />
               ) : (
@@ -72,8 +72,8 @@ function GalleryBanner({ gallery }: PageProps) {
                 <img
                   onClick={() => setShowModal(true)}
                   className="w-full h-full pr-2 lg:pr-0 lg:pl-2 object-cover cursor-pointer"
-                  src={gallery[3].Photo.url}
-                  alt={gallery[3].Photo?.alternativeText || 'Gallery'}
+                  src={gallery[3].Photo?.data?.attributes?.url}
+                  alt={gallery[3].Photo?.data?.attributes?.alternativeText || 'Gallery'}
                   aria-hidden="true"
                 />
               ) : (

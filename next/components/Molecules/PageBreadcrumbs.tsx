@@ -5,6 +5,8 @@ import ChevronUp from '@assets/images/chevron-up.svg'
 import Home from '@assets/images/home.svg'
 import {
   BlogPostEntity,
+  Category,
+  CategoryEntity,
   FileCategoryEntity,
   PageCategoryFragment,
   PageEntity,
@@ -18,7 +20,7 @@ import * as React from 'react'
 import { pagePath } from '../../utils/page'
 
 interface PageBreadcrumbsProps {
-  page: PageEntity | ParentPageFragment | null | undefined
+  page: PageEntity | null | undefined
   blogPost?: BlogPostEntity
   documentCategory?: FileCategoryEntity
 }
@@ -147,23 +149,23 @@ function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsPr
   if (page?.attributes?.layout === 'blog_posts' && blogPost) {
     crumbs.push({
       title: blogPost?.attributes?.title ?? '',
-      url: `${t('blog_slug') + pagePath(blogPost)}`,
+      url: `${t('blog_slug') + pagePath(blogPost?.attributes)}`,
     })
   }
 
   // self, if is only subpage and not pagecategory, to avoid mutliple appearance
   if (page?.attributes?.pageCategory?.data?.attributes?.pageLink?.page?.data?.attributes?.slug !== page?.attributes?.slug) {
-    crumbs.push({ title: page?.attributes?.title ?? '', url: `/${pagePath(page)}` })
+    crumbs.push({ title: page?.attributes?.title ?? '', url: `/${pagePath(page?.attributes)}` })
   }
 
   // get parent pagecategory
-  let current: Pick<PageCategoryFragment, 'parentCategory' | 'title' | 'pageLink'> | undefined | null =
-    page?.pageCategory || null
+  let current: Pick<CategoryEntity, 'parentCategory' | 'title' | 'pageLink'> | undefined | null =
+    page?.attributes?.pageCategory || null
 
   while (current) {
     crumbs.push({
-      title: current.pageLink?.page?.title ?? '',
-      url: current === page ? null : `/${pagePath(current.pageLink?.page)}`,
+      title: current.pageLink?.page?.data?.attributes?.title ?? '',
+      url: current === page ? null : `/${pagePath(current.pageLink?.page?.data?.attributes)}`,
     })
     current = current.parentCategory
   }

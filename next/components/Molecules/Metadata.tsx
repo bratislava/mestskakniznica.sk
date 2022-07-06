@@ -16,7 +16,7 @@ function MetadataComponent({ metadata }: { metadata: MetadataFragment | null }) 
 const metadataContent = (meta: MetadataFragment) => {
   switch (meta.__typename) {
     case 'ComponentMetadataFaktury':
-      return <div>{buildMetadata([meta.name, meta?.attachment?.name])}</div>
+      return <div>{buildMetadata([meta.name, meta?.attachment?.data?.attributes?.name])}</div>
 
     case 'ComponentMetadataZmluvy':
       return <div>{buildMetadata([meta.subject, meta.supplier, meta.number, meta.amount])}</div>
@@ -25,13 +25,13 @@ const metadataContent = (meta: MetadataFragment) => {
       return <div>{buildMetadata([meta.grant_name, meta.grant_number, meta.provider, meta.amount])}</div>
 
     case 'ComponentMetadataObjednavky':
-      return <div>{buildMetadata([meta.title, meta.date_period, meta?.attachment?.name])}</div>
+      return <div>{buildMetadata([meta.title, meta.date_period, meta?.attachment?.data?.attributes?.name])}</div>
 
     case 'ComponentMetadataObchodnaVerejnaSutaz':
-      return <div>{buildMetadata([meta.subject, meta.number, meta.amount, meta?.attachment?.name])}</div>
+      return <div>{buildMetadata([meta.subject, meta.number, meta.amount, meta?.attachment?.data?.attributes?.name])}</div>
 
     case 'ComponentMetadataVerejneObstaravanie':
-      return <div>{buildMetadata([meta.subject, meta.number, meta.amount, meta?.attachment?.name])}</div>
+      return <div>{buildMetadata([meta.subject, meta.number, meta.amount, meta?.attachment?.data?.attributes?.name])}</div>
 
     default:
       return null

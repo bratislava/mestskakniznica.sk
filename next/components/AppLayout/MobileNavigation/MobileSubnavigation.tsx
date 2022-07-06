@@ -18,13 +18,13 @@ function MobileSubnavigation({ menuSections, onClose }: SubnavigationProps) {
         </div>
         {menuSections.map((mobilMenu) => (
             <div key={`mobil-menu-${mobilMenu.sectionTitle}`} className="text-default pb-4 pl-4 pt-4 text-[20px]">
-              <Link href={`/${mobilMenu?.sectionPage?.slug}`} passHref>
-                <a href={`/${mobilMenu?.sectionPage?.slug}`}>{mobilMenu.sectionTitle}</a>
+              <Link href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`} passHref>
+                <a href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`}>{mobilMenu.sectionTitle}</a>
               </Link>
               {mobilMenu.sectionLinks?.map((mobilSubMenu) => (
-                  <div key={mobilSubMenu?.sectionLinkPage?.slug} className="text-gray-universal-70 pt-3 text-[16px]">
-                    <Link href={`/${mobilSubMenu?.sectionLinkPage?.slug}`} passHref>
-                      <a>{mobilSubMenu?.sectionLinkPage?.title}</a>
+                  <div key={mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug} className="text-gray-universal-70 pt-3 text-[16px]">
+                    <Link href={`/${mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug}`} passHref>
+                      <a>{mobilSubMenu?.sectionLinkPage?.data?.attributes?.title}</a>
                     </Link>
                   </div>
                 ))}
