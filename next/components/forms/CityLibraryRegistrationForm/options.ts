@@ -14,7 +14,7 @@ export const options: IFormOption[] = [
     label: [
       {
         locale: 'sk',
-        label: 'Zrakovo a inak zdravotne postihnutý v rozsahu odôvodnenom jeho zdravotným postihnutím',
+        label: 'Zrakovo znevýhodnený',
       },
       {
         locale: 'en',
@@ -42,7 +42,7 @@ export const options: IFormOption[] = [
   {
     key: 'Osoba s ťažkým zdravotným postihnutím',
     label: [
-      { locale: 'sk', label: 'Osoba s ťažkým zdravotným postihnutím' },
+      { locale: 'sk', label: 'Osoba s preukazom ŤZP' },
       { locale: 'en', label: 'Person with a severe disability' },
     ],
     price: '1,00 €',
@@ -50,7 +50,7 @@ export const options: IFormOption[] = [
   {
     key: 'Osoba v starobnom dôchodku',
     label: [
-      { locale: 'sk', label: 'Osoba v starobnom dôchodku' },
+      { locale: 'sk', label: 'Starobný dôchodca (62+)' },
       { locale: 'en', label: 'Recipient of old-age pension' },
     ],
     price: '2,00 €',
@@ -60,7 +60,7 @@ export const options: IFormOption[] = [
     label: [
       {
         locale: 'sk',
-        label: 'študent/ka strednej alebo vysokej školy denného štúdia do 26 rokov',
+        label: 'Študent strednej alebo vysokej školy (do 26 rokov)',
       },
       {
         locale: 'en',
@@ -72,7 +72,7 @@ export const options: IFormOption[] = [
   {
     key: 'Dospelá osoba',
     label: [
-      { locale: 'sk', label: 'Dospelá osoba' },
+      { locale: 'sk', label: 'Dospelý' },
       { locale: 'en', label: 'Adult' },
     ],
     price: '4,00 €',
