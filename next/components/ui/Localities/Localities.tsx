@@ -10,7 +10,6 @@ import { maxBy, minBy } from 'lodash'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-// import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
 export interface ILocality {

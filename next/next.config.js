@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // TODO use @ts-check
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path')
 const fs = require('fs')
 const { i18n } = require('./next-i18next.config')
@@ -51,7 +51,7 @@ const nextConfig = {
         {
           source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
           destination: '/documents/:slug',
-        }
+        },
       ],
     }
   },
@@ -607,7 +607,8 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/ochrana-osobnych-udajov-v-zmysle-zakona-c.-182018-v-podmienkach-mestskej-kniznice-v-bratislave',
+        source:
+          '/ochrana-osobnych-udajov-v-zmysle-zakona-c.-182018-v-podmienkach-mestskej-kniznice-v-bratislave',
         destination: '/o-nas/ochrana-osobnych-udajov',
         permanent: true,
       },

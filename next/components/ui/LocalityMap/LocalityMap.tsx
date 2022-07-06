@@ -2,7 +2,6 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import MarkerIcon from '@assets/images/marker.svg'
 import { useEffect, useRef, useState } from 'react'
-// import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
 export interface LocalityMapProps {
@@ -27,7 +26,7 @@ export function LocalityMap({
   }, [])
 
   return localityLongitude && localityLatitude ? (
-    <div className="w-full h-full mb-4 lg:mb-8 text-black">
+    <div className="text-black mb-4 h-full w-full lg:mb-8">
       {isBrowser && (
         <Mapbox
           ref={mapRef}
@@ -56,7 +55,7 @@ export function LocalityMap({
                 height={48}
               />
               {localityName && (
-                <div className="bg-primary rounded px-2 invisible group-hover:visible absolute z-30 top-1/3 whitespace-nowrap">
+                <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-primary px-2 group-hover:visible">
                   {localityName}
                 </div>
               )}
