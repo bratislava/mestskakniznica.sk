@@ -99,19 +99,19 @@ export function Footer({
         <div className="grid grid-cols-3 items-center">
           <div className="flex items-center justify-center">
             <a href={facebookUrl} target="_blank" rel="noreferrer">
-              <FbLogo className="p-0.5 lg:p-0 cursor-pointer" />
+              <FbLogo className="lg:p-0 cursor-pointer" />
               <span className="sr-only">Facebook</span>
             </a>
           </div>
           <div className="flex items-center justify-center py-5 lg:py-6 border-l border-r border-gray-universal-100">
             <a href={instagramUrl} target="_blank" rel="noreferrer">
-              <IgLogo className="p-0.5 lg:p-0 cursor-pointer" />
+              <IgLogo className="lg:p-0 cursor-pointer" />
               <span className="sr-only">Instagram</span>
             </a>
           </div>
           <div className="flex items-center justify-center">
             <a href={youtubeUrl} target="_blank" rel="noreferrer">
-              <YtLogo className="p-0.5 lg:p-0 cursor-pointer" />
+              <YtLogo className="lg:p-0 cursor-pointer" />
               <span className="sr-only">Youtube</span>
             </a>
           </div>
