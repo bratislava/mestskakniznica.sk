@@ -188,27 +188,41 @@ const SearchPage = ({ page }: PageProps) => {
           </Button>
         </div>
         <div className="mt-4 flex flex-wrap gap-x-3 gap-y-3">
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Stranka
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Pracovisko
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Podujatie
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Aktualita
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Zamestnanec
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Dokument
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Subor
-          </span>
+          <Link href={'#'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Stranka
+            </a>
+          </Link>
+          <Link href={'#'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Pracovisko
+            </a>
+          </Link>
+          <Link href={'#'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Podujatie
+            </a>
+          </Link>
+          <Link href={'#'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Aktualita
+            </a>
+          </Link>
+          <Link href={'#'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Zamestnanec
+            </a>
+          </Link>
+          <Link href={'#'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Dokument
+            </a>
+          </Link>
+          <Link href={'#'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Subor
+            </a>
+          </Link>
         </div>
 
         <p className="mt-5 text-[16px] text-gray-600">
