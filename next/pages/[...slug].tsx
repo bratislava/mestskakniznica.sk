@@ -388,7 +388,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         footer: footer?.data,
         ...translations,
       },
-      revalidate: 900, // revalidade every 5 minutes - TODO change for prod
+      revalidate: 86400,
     }
   } catch (iError) {
     console.log(buildUrl('/graphql'))
@@ -400,7 +400,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         error,
         ...translations,
       },
-      revalidate: 900, // revalidade every 5 minutes - TODO change for prod
+      revalidate: 86400,
     }
   }
 }

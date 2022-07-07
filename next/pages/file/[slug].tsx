@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageWrapper from '../../components/layouts/PageWrapper'
 import FileDetailPage from '../../components/pages/fileDetailPage'
-import { BasicDocumentEntity, BasicDocumentFragment, FooterQuery, MenusQuery } from '../../graphql'
+import { BasicDocumentEntity, BasicDocumentFragment, FooterQuery, MenuEntity, MenusQuery } from '../../graphql'
 import { client } from '../../utils/gql'
 import { arrayify } from '../../utils/utils'
 
@@ -10,14 +10,14 @@ interface IFilePageProps {
   basicDocument: BasicDocumentEntity
   locale: string
   slug: string
-  menus: NonNullable<MenusQuery['menus']>
+  menus: MenuEntity[]
   footer: FooterQuery['footer']
 }
 
 function Page({ basicDocument, locale, menus, footer, slug }: IFilePageProps) {
   return (
     <PageWrapper locale={locale ?? 'sk'} slug={slug}>
-      <FileDetailPage locale={locale} file={basicDocument} menus={menus.data} footer={footer?.data || {}} />
+      <FileDetailPage locale={locale} file={basicDocument} menus={menus} footer={footer?.data || {}} />
     </PageWrapper>
   )
 }

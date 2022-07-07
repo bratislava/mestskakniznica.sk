@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { join } = require('path')
 const plugin = require('tailwindcss/plugin')
+const pluginLineClamp = require('@tailwindcss/line-clamp')
+
 
 const scrollBarHide = plugin(({ addUtilities }) => {
   addUtilities({
@@ -205,5 +208,5 @@ module.exports = {
       },
     },
   },
-  plugins: [scrollBarHide],
+  plugins: [scrollBarHide, pluginLineClamp],
 }
