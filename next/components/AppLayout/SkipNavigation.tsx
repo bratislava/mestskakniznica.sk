@@ -5,14 +5,14 @@ function SkipNavigation() {
   return (
     <button
       onClick={() => {
-        const contentElement = document.querySelector('#content-anchor') as HTMLElement | null;
+        const contentElement = document.querySelector('#content-anchor') as HTMLElement | null
         if (contentElement) {
           contentElement.setAttribute('tabindex', '0')
           contentElement.focus()
           contentElement.removeAttribute('tabindex')
         }
       }}
-      className="transform text-base bg-gray-900 text-white fixed left-0 top-5 md:top-8 focus:translate-x-0 -translate-x-100 transition-transform"
+      className="fixed left-0 top-5 -translate-x-100 transform bg-gray-900 text-base text-white transition-transform focus:translate-x-0 md:top-8"
     >
       {t('skipNavigation')}
     </button>
