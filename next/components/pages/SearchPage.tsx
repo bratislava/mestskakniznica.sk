@@ -188,37 +188,37 @@ const SearchPage = ({ page }: PageProps) => {
           </Button>
         </div>
         <div className="mt-4 flex flex-wrap gap-x-3 gap-y-3">
-          <Link href={'#'} passHref>
+          <Link href={'/'} passHref>
             <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
               Stranka
             </a>
           </Link>
-          <Link href={'#'} passHref>
+          <Link href={'/'} passHref>
             <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
               Pracovisko
             </a>
           </Link>
-          <Link href={'#'} passHref>
+          <Link href={'/'} passHref>
             <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
               Podujatie
             </a>
           </Link>
-          <Link href={'#'} passHref>
+          <Link href={'/'} passHref>
             <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
               Aktualita
             </a>
           </Link>
-          <Link href={'#'} passHref>
+          <Link href={'/'} passHref>
             <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
               Zamestnanec
             </a>
           </Link>
-          <Link href={'#'} passHref>
+          <Link href={'/'} passHref>
             <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
               Dokument
             </a>
           </Link>
-          <Link href={'#'} passHref>
+          <Link href={'/'} passHref>
             <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
               Subor
             </a>
