@@ -25,7 +25,7 @@ function EventCard({
         <div className="h-full w-full">
           <div className="relative m-auto flex h-full cursor-pointer flex-col justify-between bg-promo-yellow">
             <div className="flex flex-wrap pl-5 pt-4 text-sm">
-              <TagsDisplay tags={eventTags || []} category={eventCategory?.attributes?.title || ''} tagsCount={3} />
+              <TagsDisplay tags={eventTags?.data || []} category={eventCategory?.attributes?.title || ''} tagsCount={3} />
             </div>
 
             <div className="text-black m-auto mt-3 w-full justify-end pl-5 pr-[19px] text-lg line-clamp-3 hover:underline">

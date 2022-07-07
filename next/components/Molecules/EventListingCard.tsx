@@ -24,7 +24,7 @@ function EventListingCard({ event }: EventListingProps) {
           />
 
           <div className="flex pt-4 text-xs">
-            <TagsDisplay tags={event.eventTags} category={event.eventCategory?.attributes?.title || ''} tagsCount={2} />
+            <TagsDisplay tags={event?.eventTags?.data} category={event?.eventCategory?.attributes?.title || ''} tagsCount={2} />
           </div>
 
           <div className="text-default pt-2 justify-end hover:underline">{event.eventTitle}</div>

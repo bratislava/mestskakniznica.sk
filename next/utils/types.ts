@@ -5,6 +5,7 @@ import {
   ComponentLocalityPartsLocalitySection,
   EventLocalityEntity,
   EventTagEntity,
+  EventTagRelationResponseCollection,
   Maybe,
   Menu,
   UploadFile,
@@ -43,7 +44,7 @@ export interface IEvent {
   eventTitle?: string
   eventDescription?: string
   guests?: ComponentGuestsGuest[]
-  eventTags?: EventTagEntity[]
+  eventTags?: Maybe<EventTagRelationResponseCollection>
   listingImage?: UploadFile
   eventCustomType: string
   eventType?: {

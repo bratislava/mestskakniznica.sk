@@ -80,9 +80,9 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
     return {
       props: {
         locale,
-        localizations: homePage?.data?.attributes?.localizations ?? null,
+        localizations: homePage?.data?.attributes?.localizations?.data ?? null,
         page: pageBySlugResponse.pages,
-        menus,
+        menus: menus?.data,
         footer,
         Seo: homePage?.data?.attributes?.Seo ?? null,
         ...translations,

@@ -193,7 +193,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       })
       const length = eventPages?.pages?.data?.length
       if (!length || length === 0) break
-      allEventPages = allEventPages.concat(eventPages.pages)
+      allEventPages = allEventPages.concat(eventPages?.pages?.data)
     }
 
     const latestEvents = convertPagesToEvents(allEventPages)
@@ -224,7 +224,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     return {
       props: {
         locale,
-        localizations: homePage?.data?.attributes?.localizations,
+        localizations: homePage?.data?.attributes?.localizations?.data,
         news,
         latestEvents,
         promotedEvents,
