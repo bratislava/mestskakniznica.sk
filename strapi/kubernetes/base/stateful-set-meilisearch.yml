@@ -43,7 +43,9 @@ spec:
             initialDelaySeconds: 60
           volumeMounts:
             - name: ${BUILD_REPOSITORY_NAME}-meilisearch-data-storage
-              mountPath: /data.ms
+              mountPath: /meili_data
+          resources:
+            {}
   volumeClaimTemplates:
     - metadata:
         name: ${BUILD_REPOSITORY_NAME}-meilisearch-data-storage
