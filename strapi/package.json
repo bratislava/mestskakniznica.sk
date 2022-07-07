@@ -19,6 +19,7 @@
     "@strapi/strapi": "4.2.0",
     "better-sqlite3": "7.4.6",
     "pg": "^8.7.3",
+    "strapi-plugin-meilisearch": "^0.6.6",
     "strapi-provider-upload-ts-minio": "^3.1.0"
   },
   "author": {
