@@ -27,7 +27,7 @@ function RegistrationInfo({ registrationInfoSection }: RegistrationInfoProps) {
             <ul>
               {registrationInfoSection?.registrationBenefits?.map((benefit) => (
                 <li className="pt-3 text-sm" key={benefit?.id}>
-                  <Check className="w-[15px] inline-flex text-sm" /> {benefit?.benefit}
+                  <Check className="transform scale-75 md:scale-100 inline-flex text-sm" /> {benefit?.benefit}
                 </li>
               ))}
             </ul>
