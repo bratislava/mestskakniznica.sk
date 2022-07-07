@@ -1,7 +1,7 @@
 import FbLogo from '@assets/images/fb-logo.svg'
 import IgLogo from '@assets/images/ig-logo.svg'
 import YtLogo from '@assets/images/yt-logo.svg'
-import { FooterQuery } from '@bratislava/strapi-sdk-city-library'
+import { ComponentFooterFooterColumn, FooterQuery, Maybe } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
@@ -29,7 +29,7 @@ export interface FooterProps {
   instagramUrl: string
   youtubeUrl: string
   siteMap?: { title: string; href: string }
-  footerColumns: NonNullable<FooterQuery['footer']>['footerColumns']
+  footerColumns: Maybe<ComponentFooterFooterColumn>[]
   gdpr: { title: string; href: string }
   VOP: { title: string; href: string }
   copyrightText?: string
@@ -39,7 +39,7 @@ function FooterSection({
   col,
   i,
 }: {
-  col: NonNullable<NonNullable<FooterQuery['footer']>['footerColumns']>[0]
+  col: ComponentFooterFooterColumn
   i: number
 }) {
   return (
@@ -63,7 +63,7 @@ function FooterSection({
               key={link?.id}
               variant="plain"
               uppercase={false}
-              href={link?.redirectTo?.slug || ''}
+              href={link?.redirectTo?.data?.attributes?.slug || ''}
               className="text-gray-universal-70 text-base hover:underline"
             >
               {link?.title}
@@ -119,8 +119,8 @@ export function Footer({
       </div>
       {/* Mobile */}
       <div className="lg:hidden">
-        {footerColumns?.map((col, i) => (
-          <Accordion
+        {footerColumns?.map((col: Maybe<ComponentFooterFooterColumn>, i) => (
+           col && <Accordion
             type="divider"
             size="small"
             label={col?.title || ''}
@@ -130,7 +130,7 @@ export function Footer({
             content={
               <div className="flex flex-col gap-y-2">
                 {col?.footerLink?.map((item) => (
-                  <Link key={item?.title} uppercase={false} variant="plain" href={item?.redirectTo?.slug || ''}>
+                  <Link key={item?.title} uppercase={false} variant="plain" href={item?.redirectTo?.data?.attributes?.slug || ''}>
                     {item?.title}
                   </Link>
                 ))}
@@ -144,7 +144,7 @@ export function Footer({
       {/* Desktop */}
       <div className="hidden lg:grid lg:container grid-cols-4 border-b border-gray-universal-100">
         {footerColumns?.map((col, i) => (
-          <FooterSection col={col} i={i} key={i} />
+          col && <FooterSection col={col} i={i} key={i} />
         ))}
       </div>
 

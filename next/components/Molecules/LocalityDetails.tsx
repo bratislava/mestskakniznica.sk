@@ -207,9 +207,9 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
                           <div className="leading-[20px] text-xs text-gray-universal-70 pt-[5px]">
                             {dateTimeString(event.dateFrom || '', event.dateTo || '', locale)}
                           </div>
-                          {event.eventLocality?.title && (
+                          {event.eventLocality?.attributes?.title && (
                             <div className="leading-[20px] text-xs text-gray-universal-70 md:w-52 overflow-hidden whitespace-pre text-ellipsis">
-                              &#9679; {event.eventLocality.title}
+                              &#9679; {event.eventLocality.attributes.title}
                             </div>
                           )}
                         </div>

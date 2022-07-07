@@ -25,7 +25,7 @@ function EventCard({
         <div className="w-full h-full">
           <div className="bg-promo-yellow h-full m-auto cursor-pointer relative flex flex-col justify-between">
             <div className="flex flex-wrap pl-5 pt-4 text-sm">
-              <TagsDisplay tags={eventTags || []} category={eventCategory?.title || ''} tagsCount={3} />
+              <TagsDisplay tags={eventTags || []} category={eventCategory?.attributes?.title || ''} tagsCount={3} />
             </div>
 
             <div className="text-black w-full mt-3 pl-5 justify-end text-lg m-auto hover:underline pr-[19px]">
@@ -40,9 +40,9 @@ function EventCard({
                   <div className="text-xs whitespace-pre overflow-hidden text-ellipsis">
                     {dateTimeString(dateFrom || '', dateTo || '', locale)}
                   </div>
-                  {eventLocality?.title && (
+                  {eventLocality?.attributes?.title && (
                     <div className="text-xs whitespace-pre overflow-hidden text-ellipsis">
-                      &#9679; {eventLocality.title}
+                      &#9679; {eventLocality.attributes.title}
                     </div>
                   )}
                 </div>

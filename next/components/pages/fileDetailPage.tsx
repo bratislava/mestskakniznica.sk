@@ -3,7 +3,7 @@ import SingleDot from '@assets/images/dot.svg'
 import Download from '@assets/images/download.svg'
 import ExternalLink from '@assets/images/external-link.svg'
 import Home from '@assets/images/home.svg'
-import { BasicDocumentEntity, BasicDocumentFragment, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { BasicDocumentEntity, BasicDocumentFragment, FooterEntity, FooterQuery, MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import { Button, FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
 import truncate from 'lodash/truncate'
 import { useTranslation } from 'next-i18next'
@@ -15,8 +15,8 @@ import DefaultPageLayout from '../layouts/DefaultPageLayout'
 interface IProps {
   file: BasicDocumentEntity
   locale?: string
-  menus: NonNullable<MenusQuery['menus']>
-  footer: FooterQuery['footer']
+  menus: MenuEntity[]
+  footer: FooterEntity
 }
 
 interface FileMetadata {
@@ -42,7 +42,7 @@ function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
   const { t } = useTranslation('common')
 
   const [expandDescription, setExpandDescription] = React.useState(false)
-  const {description} = file
+  const description = file?.attributes?.description
   const showExpandButton = description ? description.length > DESCRIPTION_LIMIT : false
 
   const Metadata: FileMetadata[] = [

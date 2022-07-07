@@ -1,4 +1,4 @@
-import { BlogPostFragment, PageEntity } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostEntity, BlogPostFragment, PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { ArticleCard, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
@@ -18,9 +18,9 @@ function BlogPostsPage({ page }: BlogPostsPageProps) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
-  const [relatedBlogPosts, setRelatedBlogPosts] = React.useState<BlogPostFragment[]>(page?.relatedBlogPosts ?? [])
+  const [relatedBlogPosts, setRelatedBlogPosts] = React.useState<BlogPostEntity[]>(page?.attributes?.blogPosts?.data ?? [])
 
-  const [noOfPages, setNoOfPages] = React.useState(Math.ceil((page.relatedBlogPostsCount ?? 1) / LIMIT) ?? 1)
+  const [noOfPages, setNoOfPages] = React.useState(Math.ceil((page?.attributes?.blogPosts?.data.length ?? 1) / LIMIT) ?? 1)
 
   const [offsetPage, setOffsetPage] = React.useState(1)
 

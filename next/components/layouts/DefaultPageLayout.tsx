@@ -68,7 +68,7 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }
         <footer>
           <SectionContainer>
             <Footer
-              footerColumns={footer?.attributes?.footerColumns}
+              footerColumns={footer?.attributes?.footerColumns|| []}
               // siteMap={{
               //   title: t('siteMap'),
               //   href: footer?.siteMapLink?.slug ?? '#',

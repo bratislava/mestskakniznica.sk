@@ -59,7 +59,7 @@ function DocumentCategoryPage({ documentCategory, locale = 'sk' }: PageProps) {
 
   return (
     <SectionContainer>
-        <PageBreadcrumbs page={documentCategory?.attributes?.page} documentCategory={documentCategory} />
+        <PageBreadcrumbs page={documentCategory?.attributes?.page?.data} documentCategory={documentCategory} />
         <PageTitle title={documentCategory?.attributes?.name ?? ''} hasDivider={false} />
         <SearchBar
           placeholder={t('whatAreYouLookingFor')}

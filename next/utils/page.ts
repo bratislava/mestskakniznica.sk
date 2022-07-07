@@ -1,6 +1,7 @@
 import {
   CategoryEntity,
   CategoryFragment,
+  ComponentBlocksPageLink,
   ExternalLinkFragment,
   FlatTextFragment,
   PageCategoryFragment,
@@ -36,7 +37,7 @@ export const pagePath = (
 }
 
 export const parsePageLink = (
-  pageLink?: Omit<PageLinkFragment, '__typename'> | null
+  pageLink?: Omit<ComponentBlocksPageLink, '__typename'> | null
 ): { title: string; url: string } | null => {
   if (!pageLink) return null
 
@@ -48,7 +49,7 @@ export const parsePageLink = (
 
 // Pages (PageLinks)
 export const parsePages = (
-  pages: (Omit<PageLinkFragment, '__typename'> | undefined | null)[] | undefined | null
+  pages: (Omit<ComponentBlocksPageLink, '__typename'> | undefined | null)[] | undefined | null
 ): {
   title: string
   url: string

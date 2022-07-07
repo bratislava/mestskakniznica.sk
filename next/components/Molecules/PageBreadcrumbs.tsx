@@ -159,15 +159,15 @@ function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsPr
   }
 
   // get parent pagecategory
-  let current: Pick<CategoryEntity, 'parentCategory' | 'title' | 'pageLink'> | undefined | null =
-    page?.attributes?.pageCategory || null
+  let current: Pick<Category, 'parentCategory' | 'title' | 'pageLink'> | undefined | null =
+    page?.attributes?.pageCategory?.data?.attributes || null
 
   while (current) {
     crumbs.push({
       title: current.pageLink?.page?.data?.attributes?.title ?? '',
       url: current === page ? null : `/${pagePath(current.pageLink?.page?.data?.attributes)}`,
     })
-    current = current.parentCategory
+    current = current.parentCategory?.data?.attributes
   }
 
   // homepage

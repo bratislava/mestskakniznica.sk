@@ -539,6 +539,7 @@ fragment Sections on PageSectionsDynamicZone {
   }
 
   ... on ComponentSectionsDocuments {
+    id
     title
     basicDocuments {
       data {

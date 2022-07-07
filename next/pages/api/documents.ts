@@ -22,15 +22,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const documentsCount = getDocumentCount()
   const fetchFileCategoriesP = fetchFileCategories()
 
-  const [{ allBasicDocuments }, { basicDocumentCount }, { fileCategories }] = await Promise.all([
+  const [allBasicDocumentsResponse, basicDocumentCount, { fileCategories }] = await Promise.all([
     documents,
     documentsCount,
     fetchFileCategoriesP,
   ])
 
   return res.json({
-    documents: allBasicDocuments,
-    count: basicDocumentCount,
+    documents: allBasicDocumentsResponse.basicDocuments?.data,
+    count: basicDocumentCount.basicDocuments?.meta.pagination.total,
     fileCategories,
   })
 }

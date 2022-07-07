@@ -31,7 +31,7 @@ function LocalitiesListingPage({ page, localities }: LocalityPageProps) {
           <div className="pt-12">
             <div className="mb-8 text-[32px]">{t('moreInformation')}</div>
             <Sections
-              sections={page?.attributes?.sections}
+              sections={page?.attributes?.sections || []}
               className="grid gap-4 pb-16 md:grid-cols-2 lg:grid-cols-4"
             />
           </div>

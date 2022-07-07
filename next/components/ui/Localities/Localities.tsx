@@ -2,8 +2,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import MarkerIcon from '@assets/images/marker.svg'
 import {
-  ComponentAddressAddressInput,
-  ComponentLocalityPartsLocalityOpeningHourInput,
+  ComponentAddressAddress, ComponentLocalityPartsLocalitySection
 } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { maxBy, minBy } from 'lodash'
@@ -15,8 +14,8 @@ import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
 export interface ILocality {
   localityTitle?: string
-  localitySections?: ComponentLocalityPartsLocalityOpeningHourInput[]
-  localityAddress: ComponentAddressAddressInput
+  localitySections?: ComponentLocalityPartsLocalitySection[]
+  localityAddress: ComponentAddressAddress
   localitySlug?: string
   localityOpenFrom: string
   localityOpenTo: string

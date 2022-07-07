@@ -1,19 +1,19 @@
-import { MetadataFragment } from '@bratislava/strapi-sdk-city-library'
+import { BasicDocumentMetadataDynamicZone } from '@bratislava/strapi-sdk-city-library'
 import React from 'react'
 
-function Metadata({ metadata }: { metadata: (MetadataFragment | null | undefined)[] | null | undefined }) {
+function Metadata({ metadata }: { metadata: (BasicDocumentMetadataDynamicZone | null | undefined)[] | null | undefined }) {
   return <>{metadata?.map((meta) => meta && <MetadataComponent key={meta?.__typename} metadata={meta} />)}</>
 }
 
 const buildMetadata = (data: (string | number | undefined | null)[]) => data.filter((d) => !!d).join(', ')
 
-function MetadataComponent({ metadata }: { metadata: MetadataFragment | null }) {
+function MetadataComponent({ metadata }: { metadata: BasicDocumentMetadataDynamicZone | null }) {
   if (!metadata) return null
 
   return <div>{metadataContent(metadata)}</div>
 }
 
-const metadataContent = (meta: MetadataFragment) => {
+const metadataContent = (meta: BasicDocumentMetadataDynamicZone) => {
   switch (meta.__typename) {
     case 'ComponentMetadataFaktury':
       return <div>{buildMetadata([meta.name, meta?.attachment?.data?.attributes?.name])}</div>

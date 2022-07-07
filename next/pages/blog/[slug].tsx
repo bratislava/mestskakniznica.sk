@@ -1,4 +1,4 @@
-import { BlogPostBySlugQuery, FooterQuery, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostBySlugQuery, BlogPostEntity, FooterEntity, FooterQuery, MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -12,9 +12,9 @@ import { isPresent, shouldSkipStaticPaths } from '../../utils/utils'
 
 interface IBlogPostPageProps {
   slug: string
-  post: BlogPostBySlugQuery['blogPostBySlug']
-  menus: MenusQuery['menus']
-  footer: FooterQuery['footer']
+  post: BlogPostEntity
+  menus: MenuEntity[]
+  footer: FooterEntity
 }
 
 function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
@@ -33,7 +33,7 @@ function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
 
   const postData = [
     {
-      slug: t('mutation_blog_slug') + post?.slug,
+      slug: t('mutation_blog_slug') + post?.attributes?.slug,
       locale: 'sk',
     },
   ]
@@ -41,7 +41,7 @@ function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
   return (
     // <PageWrapper locale={post.locale ?? 'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
     <PageWrapper locale={'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
-      <DefaultPageLayout title={post.title} menus={menus} footer={footer}>
+      <DefaultPageLayout title={post?.attributes?.title} menus={menus} footer={footer}>
         <BlogPostPage blogPost={post} />
       </DefaultPageLayout>
     </PageWrapper>
@@ -55,12 +55,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const { blogPosts } = await client.BlogPostStaticPaths()
 
   if (blogPosts) {
-    paths = blogPosts
+    paths = blogPosts.data
       .filter(isDefined)
-      .filter((blog) => blog.slug)
+      .filter((blog) => blog?.attributes?.slug)
       .map((blog) => ({
         params: {
-          slug: blog?.slug || '',
+          slug: blog?.attributes?.slug || '',
         },
       }))
   }
@@ -72,7 +72,8 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
   if (!ctx?.params?.slug || typeof ctx.params.slug !== 'string') return { notFound: true }
   const { slug } = ctx.params
 
-  const { blogPostBySlug } = await client.BlogPostBySlug({ slug })
+  const blogPostResponse = await client.BlogPostBySlug({ slug })
+  const blogPostBySlug = blogPostResponse.blogPosts?.data;
   const { menus } = await client.Menus({ locale })
   const { footer } = await client.Footer({ locale })
   const translations = (await serverSideTranslations(locale, [
@@ -86,8 +87,8 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
   return {
     props: {
       slug,
-      menus: menus,
-      footer,
+      menus: menus?.data ?? [],
+      footer: footer?.data,
       post: blogPostBySlug,
       ...translations,
     },

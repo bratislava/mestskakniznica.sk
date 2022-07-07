@@ -167,7 +167,7 @@ function Page({
     <PageWrapper
       locale={page.attributes?.locale ?? 'sk'}
       slug={page.attributes?.slug ?? ''}
-      localizations={page.attributes?.localizations?.data.filter(isPresent)}
+      localizations={page.attributes?.localizations?.data.filter(isPresent).map(ele => ({locale: ele.attributes?.locale, slug: ele.attributes?.slug}))}
     >
       <DefaultPageLayout
         title={page?.attributes?.title}

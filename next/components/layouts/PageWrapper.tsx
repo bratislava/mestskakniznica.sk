@@ -20,7 +20,7 @@ const PageWrapperContext = createContext<IPageWrapperContext>({
 interface IProps {
   children?: React.ReactNode
   locale?: string | undefined | null
-  localizations?: Partial<PageEntity>[] | undefined | null
+  localizations?: Partial<PageLocalization>[] | undefined | null
   slug?: string
 }
 
@@ -34,7 +34,7 @@ function PageWrapper({ children, locale, localizations = [], slug }: IProps) {
       base.push({ locale, slug: localePath(locale, slug) })
     }
 
-    localizations?.forEach(({ attributes }) => {
+    localizations?.forEach((attributes) => {
       if (!attributes?.locale || !attributes?.slug) return
       base.push({
         locale: attributes?.locale,
