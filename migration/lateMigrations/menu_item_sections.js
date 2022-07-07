@@ -12,6 +12,7 @@ async function migrateTables() {
     }
     return toApply
   })
+  
   await migrate('components_menu_items_sections', 'components_menu_items_sections_section_page_links',(role) => {
     const toApply={
       sections_id: role['id'],
