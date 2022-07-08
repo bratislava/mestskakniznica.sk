@@ -235,7 +235,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       locale,
     })
     // menus, footer
-    const pageBySlug = queryResponse.pages?.data[0].attributes;
+    const pageBySlug = queryResponse?.pages?.data[0];
     const { menus, footer } = queryResponse;
     if (!pageBySlug) return { notFound: true } as { notFound: true }
 
@@ -244,12 +244,12 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       allPartners: null,
     }
 
-    if (pageBySlug && pageBySlug.layout === 'partners') {
+    if (pageBySlug && pageBySlug?.attributes?.layout === 'partners') {
       const partnerResponse = await client.AllPartners({ locale })
       partners.allPartners = partnerResponse.partners?.data || null
     }
 
-    if (pageBySlug?.layout === Enum_Page_Layout.BookNews) {
+    if (pageBySlug?.attributes?.layout === Enum_Page_Layout.BookNews) {
       opacBookNews = (await getOpacBooks()) || []
     }
 
@@ -282,7 +282,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       })
       .slice(0, 4)
 
-    if (pageBySlug.layout === Enum_Page_Layout.EventsListing) {
+    if (pageBySlug?.attributes?.layout === Enum_Page_Layout.EventsListing) {
       const [promotedPagesResponse, eventProperties]: any = await Promise.all([
         client.PromotedEvents({ locale }),
         client.EventProperties({ locale }),
@@ -318,9 +318,9 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     }
 
     if (
-      pageBySlug.layout === Enum_Page_Layout.Event ||
-      pageBySlug.layout === Enum_Page_Layout.Locality ||
-      pageBySlug.layout === Enum_Page_Layout.Listing
+      pageBySlug?.attributes?.layout === Enum_Page_Layout.Event ||
+      pageBySlug?.attributes?.layout === Enum_Page_Layout.Locality ||
+      pageBySlug?.attributes?.layout === Enum_Page_Layout.Listing
     ) {
       allEvents = convertPagesToEvents(allEventPages?.filter(isDefined) ?? [])
         .filter((event: eventProps) => event.dateTo && new Date(event.dateTo) >= new Date())
@@ -339,8 +339,8 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     }
 
     if (
-      pageBySlug.layout === Enum_Page_Layout.NewsListing ||
-      pageBySlug.layout === Enum_Page_Layout.Listing
+      pageBySlug?.attributes?.layout === Enum_Page_Layout.NewsListing ||
+      pageBySlug?.attributes?.layout === Enum_Page_Layout.Listing
     ) {
       const newsPages: any = await client.PagesByLayout({
         layout: 'news',
@@ -356,12 +356,12 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         }) || []
     }
 
-    if (pageBySlug.layout === Enum_Page_Layout.Premises) {
+    if (pageBySlug?.attributes?.layout === Enum_Page_Layout.Premises) {
       const premisesPages: any = await client.Premises({ locale })
       premises = premisesPages.premises || []
     }
 
-    if (pageBySlug.layout === Enum_Page_Layout.LocalitiesListing) {
+    if (pageBySlug?.attributes?.layout === Enum_Page_Layout.LocalitiesListing) {
       const localitiesPages: any = await client.PagesByLayout({
         layout: 'locality',
         locale,
