@@ -52,7 +52,7 @@ function FormContainer({
     setLockedBodyScroll(!isSubmitted && isFormOpen && width <= 768)
   }, [isFormOpen, setLockedBodyScroll, width, isSubmitted])
 
-  const listener = (event: any) => {
+  const listener = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === 'Enter' || event.code === 'NumpadEnter') {
       event.preventDefault()
       // onSubmit(event);
@@ -80,7 +80,7 @@ function FormContainer({
             <form
               onSubmit={onSubmit}
               className="fixed flex flex-col top-0 right-0 bottom-0 left-0 bg-white z-40 md:z-0 md:relative"
-              onKeyDown={listener}
+              onKeyDown={() => listener}
               tabIndex={0}
             >
               {/* HEADER */}

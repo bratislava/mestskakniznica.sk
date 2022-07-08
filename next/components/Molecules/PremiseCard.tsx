@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+import { Image } from '../../utils/types'
 
 interface PremiseCardProps {
   title: string
   address: string
   url: string
-  image: any
+  image: Image | undefined
 }
 
 function PremiseCard({ title, address, url, image }: PremiseCardProps) {

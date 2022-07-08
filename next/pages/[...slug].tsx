@@ -268,16 +268,16 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     }
 
     interface eventProps {
-      dateTo?: any | null | undefined
-      dateFrom?: any | null | undefined
-      date_added?: any | null | undefined
+      dateTo?: string | Date
+      dateFrom?: string | Date
+      date_added?: string | Date
     }
 
-    latestEvents = convertPagesToEvents(allEventPages)
-      .filter((event: eventProps) => new Date(event.dateTo) >= new Date())
+    latestEvents = convertPagesToEvents(allEventPages?.filter(isDefined) ?? [])
+      .filter((event: eventProps) => event.dateTo && new Date(event.dateTo) >= new Date())
       .sort((a: eventProps, b: eventProps) => {
-        if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-        if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
+        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
+        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
         return 0
       })
       .slice(0, 4)
@@ -302,10 +302,10 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       }
 
       promotedEvents = convertPagesEventsToEvents(promotedPagesResponse.pages.slice(0, 3)) || []
-      convertPagesEventsToEvents(eventListingPages)
+      convertPagesEventsToEvents(eventListingPages?.filter(isDefined) ?? [])
         .sort((a: eventProps, b: eventProps) => {
-          if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-          if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
+          if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
+          if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
           return 0
         })
         .forEach((event) => {
@@ -322,11 +322,11 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       pageBySlug.layout === Enum_Page_Layout.Locality ||
       pageBySlug.layout === Enum_Page_Layout.Listing
     ) {
-      allEvents = convertPagesToEvents(allEventPages)
-        .filter((event: eventProps) => new Date(event.dateTo) >= new Date())
+      allEvents = convertPagesToEvents(allEventPages?.filter(isDefined) ?? [])
+        .filter((event: eventProps) => event.dateTo && new Date(event.dateTo) >= new Date())
         .sort((a: eventProps, b: eventProps) => {
-          if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-          if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
+          if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
+          if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
           return 0
         })
         .slice(0, 4)
@@ -335,7 +335,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         layout: 'eventsListing',
         locale,
       })
-      allNewsLink = pages[0]?.slug ?? ''
+      allNewsLink = pages ? pages[0]?.slug ?? '' : ''
     }
 
     if (
@@ -350,8 +350,8 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         convertPagesToEvents(newsPages?.pages?.data).sort((a: eventProps, b: eventProps) => {
           const a_date = a.date_added ?? a.dateFrom
           const b_date = b.date_added ?? b.dateFrom
-          if (new Date(a_date) < new Date(b_date)) return 1
-          if (new Date(a_date) > new Date(b_date)) return -1
+          if (a_date && b_date && new Date(a_date) < new Date(b_date)) return 1
+          if (a_date && b_date && new Date(a_date) > new Date(b_date)) return -1
           return 0
         }) || []
     }

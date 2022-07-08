@@ -108,7 +108,7 @@ function Sections({
 }) {
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
-      {sections.map((section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined, index: any) => (
+      {sections.map((section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined, index) => (
         <Section
           sections={sections}
           pageTitle={pageTitle}

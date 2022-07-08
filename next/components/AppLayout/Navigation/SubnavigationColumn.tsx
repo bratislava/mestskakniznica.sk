@@ -45,7 +45,7 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
             if (latestEvents && latestEvents?.length > 0) {
               return (
                 <div className="grid grid-rows-2 grid-flow-col">
-                  {latestEvents.map((event: any) => (
+                  {latestEvents.map((event) => (
                     <div key={event.slug}>
                       <div className="w-[380px] pt-5 pb-5 h-23 cursor-pointer">
                         <NavigationMenu.Link className="pt-4 h-10 text-gray-universal-70" tabIndex={-1}>
@@ -53,22 +53,22 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
                             <a href={`/${event.slug}`} className="flex">
                               <div className="text-center flex w-20 h-16 bg-yellow-promo">
                                 <DateCardDisplay
-                                  dateFrom={event.dateFrom}
-                                  dateTo={event.dateTo}
+                                  dateFrom={event.dateFrom || ''}
+                                  dateTo={event.dateTo || ''}
                                   textSize="text-[18px]"
                                 />
                               </div>
 
                               <div className="pl-5 w-full">
                                 <div className="leading-[19px] text-black-universal hover:underline">
-                                  {event.eventTitle}
+                                  {event?.eventTitle}
                                 </div>
                                 <div className="leading-[20px] text-xs text-gray-universal-70">
-                                  {dateTimeString(event.dateFrom, event.dateTo, locale)}
+                                  {dateTimeString(event.dateFrom || '', event.dateTo || '', locale)}
                                 </div>
-                                {event.eventLocality?.title && (
+                                {event?.eventLocality?.attributes?.title && (
                                   <div className="leading-[20px] text-xs text-gray-universal-70 max-w-[250px]">
-                                    &#9679; {event.eventLocality.title}
+                                    &#9679; {event?.eventLocality?.attributes?.title}
                                   </div>
                                 )}
                               </div>

@@ -41,7 +41,7 @@ function DocumentsPage({ page }: PageProps) {
     { key: 'asc', title: t('sort_asc') },
   ]
 
-  const resultsRef: any = React.useRef<HTMLDivElement>()
+  const resultsRef = React.useRef<HTMLDivElement>(null)
 
   const [fetchingData, setFetchingData] = React.useState(true)
   const [offsetPage, setOffsetPage] = React.useState(1)

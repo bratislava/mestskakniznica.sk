@@ -44,7 +44,7 @@ function Page({ documentCategory, locale, slug, menus, footer }: IDocumentPagePr
 }
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  let paths: any = []
+  let paths: { params: { slug: string } }[] = []
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
 
   const fileCategories = await client.FileCategories()

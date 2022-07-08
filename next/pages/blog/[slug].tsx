@@ -49,7 +49,7 @@ function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let paths: any = []
+  let paths: { params: { slug: string } }[] = []
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
 
   const { blogPosts } = await client.BlogPostStaticPaths()

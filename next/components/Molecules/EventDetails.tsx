@@ -6,7 +6,7 @@ import Euro from '@assets/images/euro-symbol.svg'
 import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import { ComponentSectionsEventDetails, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostSectionsDynamicZone, ComponentSectionsEventDetails, ComponentSectionsForm, PageSectionsDynamicZone, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
 import AddToCalendar from '@culturehq/add-to-calendar'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -24,7 +24,7 @@ import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface PageProps {
   eventDetails?: ComponentSectionsEventDetails
-  sections?: (SectionsFragment | null)[];
+  sections?: ComponentSectionsForm[];
 }
 
 function EventDetails({ eventDetails, sections }: PageProps) {
@@ -84,7 +84,7 @@ function EventDetails({ eventDetails, sections }: PageProps) {
           </div>
         </div>
         <div className="col-span-3 mt-4 lg:m-auto w-full">
-          {sections?.map((section: any) => (
+          {sections?.map((section) => (
             (section?.type) == 'detail_podujatia' && !isEventInThePast &&(
               <a
               href="#detail_podujatia"

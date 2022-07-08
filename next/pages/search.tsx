@@ -24,7 +24,7 @@ export function Search({ locale, localizations, error, Seo, page, menus, footer 
         localizations={localizations
           ?.filter(isPresent)
           // add empty slug because it's expected in wrapper and index page does not have slug
-          .map((l: any) => ({ ...l, slug: '' }))}
+          .map((l) => ({ ...l, slug: '' }))}
       >
         <ErrorPage code={500}>
           <ErrorDisplay error={error} />
@@ -40,7 +40,7 @@ export function Search({ locale, localizations, error, Seo, page, menus, footer 
       localizations={localizations
         ?.filter(isPresent)
         // add empty slug because it's expected in wrapper and index page does not have slug
-        .map((l: any) => ({ ...l, slug: '' }))}
+        .map((l) => ({ ...l, slug: '' }))}
     >
       <DefaultPageLayout Seo={Seo} menus={menus} footer={footer}>
         <SearchPage page={page} />

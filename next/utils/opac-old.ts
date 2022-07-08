@@ -16,7 +16,7 @@ class OpacClient {
     this._cache = null
   }
 
-  getLoadedBookNews = async (limit: any, offset: any) => {
+  getLoadedBookNews = async (limit: number, offset: number) => {
     if (this._cache) return this._getBooks(limit, offset)
     return null
   }
@@ -26,7 +26,7 @@ class OpacClient {
     return this._fetchData()
   }
 
-  private _getBooks = (limit: any, offset: any) => {
+  private _getBooks = (limit: number, offset: number) => {
     console.log('_getBooks', { limit, offset })
     const books = this._cache?.slice(offset, offset + limit)
 

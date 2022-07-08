@@ -134,7 +134,7 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
     }
 
     const filterType = (event: IEvent) => {
-      if (selectedEventTags) return event.eventTags?.find((tag) => tag.id === selectedEventTags?.key)
+      if (selectedEventTags) return event.eventTags?.data?.find((tag) => tag.id === selectedEventTags?.key)
 
       return event
     }
