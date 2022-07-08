@@ -20,7 +20,7 @@ function Subnavigation({ latestEvents, menuTotalColumns, menuSections }: Subnavi
 
   const columns = useMemo(() => {
     const columns = []
-    const temp: any = []
+    const temp: ComponentMenuSections[] = []
     menuSections?.map((section) => {
       if (section && section.sectionColumnSpan) {
         columns.push({ sections: section })

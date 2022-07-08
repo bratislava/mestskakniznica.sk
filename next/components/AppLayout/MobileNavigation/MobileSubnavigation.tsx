@@ -1,9 +1,9 @@
-import { ComponentMenuSections, MenuSectionFragment } from '@bratislava/strapi-sdk-city-library'
+import { ComponentMenuSections, Maybe, MenuSectionFragment } from '@bratislava/strapi-sdk-city-library'
 import Link from 'next/link'
 import { useEffect } from 'react'
 
 interface SubnavigationProps {
-  menuSections: ComponentMenuSections[] | MenuSectionFragment[]
+  menuSections: Maybe<ComponentMenuSections>[] | MenuSectionFragment[]
   onClose: () => void
 }
 
@@ -17,11 +17,11 @@ function MobileSubnavigation({ menuSections, onClose }: SubnavigationProps) {
           </div>
         </div>
         {menuSections.map((mobilMenu) => (
-            <div key={`mobil-menu-${mobilMenu.sectionTitle}`} className="text-default pb-4 pl-4 pt-4 text-[20px]">
+            <div key={`mobil-menu-${mobilMenu?.sectionTitle}`} className="text-default pb-4 pl-4 pt-4 text-[20px]">
               <Link href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`} passHref>
-                <a href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`}>{mobilMenu.sectionTitle}</a>
+                <a href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`}>{mobilMenu?.sectionTitle}</a>
               </Link>
-              {mobilMenu.sectionLinks?.map((mobilSubMenu) => (
+              {mobilMenu?.sectionLinks?.map((mobilSubMenu) => (
                   <div key={mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug} className="text-gray-universal-70 pt-3 text-[16px]">
                     <Link href={`/${mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug}`} passHref>
                       <a>{mobilSubMenu?.sectionLinkPage?.data?.attributes?.title}</a>

@@ -264,7 +264,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       })
       const length = eventPages.pages?.data.length
       if (!length || length === 0) break
-      allEventPages = allEventPages.concat(eventPages.pages)
+      allEventPages = allEventPages.concat(eventPages?.pages?.data)
     }
 
     interface eventProps {
@@ -298,7 +298,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         })
         const length = eventPages.pages?.data.length
         if (!length || length === 0) break
-        eventListingPages = eventListingPages.concat(eventPages.pages)
+        eventListingPages = eventListingPages.concat(eventPages?.pages?.data)
       }
 
       promotedEvents = convertPagesEventsToEvents(promotedPagesResponse.pages.slice(0, 3)) || []
@@ -347,7 +347,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         locale,
       })
       news =
-        convertPagesToEvents(newsPages.pages).sort((a: eventProps, b: eventProps) => {
+        convertPagesToEvents(newsPages?.pages?.data).sort((a: eventProps, b: eventProps) => {
           const a_date = a.date_added ?? a.dateFrom
           const b_date = b.date_added ?? b.dateFrom
           if (new Date(a_date) < new Date(b_date)) return 1
@@ -366,7 +366,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         layout: 'locality',
         locale,
       })
-      localities = convertPagesToLocalities(localitiesPages.pages, true) || []
+      localities = convertPagesToLocalities(localitiesPages?.pages?.data, true) || []
     }
     return {
       props: {
