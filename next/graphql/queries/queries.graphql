@@ -253,6 +253,19 @@ query PagesByLayout($layout: String!, $locale: I18NLocaleCode!, $start: Int, $li
   }
 }
 
+query PagesByLayoutWithFieldPagination($layout: String!, $locale: I18NLocaleCode!, $start: Int, $limit: Int, $sort: String!) {
+  pages(filters: { layout: { eq: $layout } }, locale: $locale, pagination: { start: $start, limit: $limit }, sort: [$sort]) {
+    data {
+      ...Page
+    }
+    meta {
+      pagination {
+        ...Pagination
+      }
+    }
+  }
+}
+
 query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
   pages(filters: { slug: {eq: $slug} }, locale: $locale) {
     data {
@@ -985,4 +998,11 @@ query EventProperties($locale: I18NLocaleCode!) {
       }
     }
   }
+}
+
+fragment Pagination on Pagination {
+  total
+  page
+  pageSize
+  pageCount
 }

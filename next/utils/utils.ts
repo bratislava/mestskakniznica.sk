@@ -145,7 +145,7 @@ export const convertPagesToEvents = (pages: PageEntity[] | any[]) => {
   return events
 }
 
-export const convertPagesEventsToEvents = (pages: PageEntity[]) => {
+export const convertPagesEventsToEvents = (pages: PageEntity[] | any[]) => {
   const events: IEvent[] = []
 
   pages.forEach((page) => {
@@ -163,7 +163,7 @@ export const convertPageToEventDisplay = (
     return {
       ...page?.attributes?.sections?.find((section) => section?.__typename === 'ComponentSectionsEventDetails'),
       slug: page?.attributes?.slug || '',
-      listingImage: page?.attributes?.listingImage?.data?.attributes || undefined,
+      listingImage: page?.attributes?.listingImage?.data?.attributes || null,
       eventCustomType: 'event',
       eventLocality:
         eventDetails && eventDetails.__typename === 'ComponentSectionsEventDetails' ? eventDetails.eventLocality?.data : undefined,
@@ -174,7 +174,7 @@ export const convertPageToEventDisplay = (
   if (page?.attributes?.layout === Enum_Page_Layout.Announcement) {
     return {
       eventTitle: page?.attributes?.title || '',
-      listingImage: page?.attributes?.listingImage || null,
+      listingImage: page?.attributes?.listingImage?.data?.attributes || null,
       eventCustomType: 'announcement',
       slug: page?.attributes?.slug || '',
     }
@@ -183,7 +183,7 @@ export const convertPageToEventDisplay = (
     return {
       eventTitle: page?.attributes?.title,
       date_added: page?.attributes?.date_added,
-      listingImage: page?.attributes?.listingImage,
+      listingImage: page?.attributes?.listingImage?.data?.attributes,
       eventCustomType: 'news',
       slug: page?.attributes?.slug,
       dateFrom: page?.attributes?.createdAt,

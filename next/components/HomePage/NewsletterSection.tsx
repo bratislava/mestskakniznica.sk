@@ -48,8 +48,6 @@ function NewsletterSection() {
       return
     }
 
-    console.log(res)
-    console.log('Success')
     setResStatus(true)
     methods.setValue('email', '')
     setRespondMessage(t('subscribe_success_message'))
