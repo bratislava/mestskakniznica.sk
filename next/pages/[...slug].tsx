@@ -3,7 +3,7 @@ import {
   EventCategoryEntity,
   EventLocalityEntity,
   EventTagEntity, FooterEntity,
-  MenuEntity, PageEntity, Pagination, PartnerEntity, PartnerFragment
+  MenuEntity, PageEntity, Pagination, PartnerEntity, PartnerFragment, PremiseEntity
 } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -48,7 +48,7 @@ interface IPageProps {
   promotedEvents: IEvent[]
   allEvents: IEvent[]
   latestEvents: IEvent[]
-  premises: IPremises[]
+  premises: PremiseEntity[]
   opacBookNews: OpacBook[]
   localities: ILocality[]
   news: IEvent[]
@@ -224,7 +224,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     let allEvents: IEvent[] = []
     let news: IEvent[] = []
     let latestEvents: IEvent[] = []
-    let premises: IPremises[] = []
+    let premises: PremiseEntity[] = []
     let localities: ILocality[] = []
     let eventCategories: EventCategoryEntity[] = []
     let eventTags: EventTagEntity[] = []
@@ -355,8 +355,8 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     }
 
     if (pageBySlug?.attributes?.layout === Enum_Page_Layout.Premises) {
-      const premisesPages: any = await client.Premises({ locale })
-      premises = premisesPages.premises || []
+      const premisesPages : any = await client.Premises({ locale })
+      premises = premisesPages?.premises?.data
     }
 
     if (pageBySlug?.attributes?.layout === Enum_Page_Layout.LocalitiesListing) {

@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
   const { slug } = ctx.params
 
   const blogPostResponse = await client.BlogPostBySlug({ slug })
-  const blogPostBySlug = blogPostResponse.blogPosts?.data;
+  const blogPostBySlug = blogPostResponse.blogPosts?.data[0];
   const { menus } = await client.Menus({ locale })
   const { footer } = await client.Footer({ locale })
   const translations = (await serverSideTranslations(locale, [
