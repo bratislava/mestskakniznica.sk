@@ -6,7 +6,7 @@ const path = require("path");
 
 const customMigrations = [];
 
-const MIGRATION_FOLDERS = __dirname + "/../customMigrations";
+const MIGRATION_FOLDERS = __dirname + "/../lateMigrations";
 const files = fs.readdirSync(MIGRATION_FOLDERS);
 
 files.forEach((file) => {
@@ -23,17 +23,17 @@ files.forEach((file) => {
 // Custom migration function, handles DB reads and writes
 async function migrateTables() {
   for (const customMigration of customMigrations) {
-    console.log("Migration custom ", customMigration.name);
+    console.log("Migration Late ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ", customMigration.name);
     await customMigration.migrateTables();
     processedTables.push(...customMigration.processedTables);
   }
 }
 
-const migrateCustom = {
+const migrateLate = {
   processedTables,
   migrateTables,
 };
 
 module.exports = {
-  migrateCustom,
+  migrateLate,
 };

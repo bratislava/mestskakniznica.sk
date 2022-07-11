@@ -6,6 +6,7 @@ const {
   isMYSQL,
 } = require("../config/database");
 const { migrateCustom } = require("./migrateCustom");
+const { migrateLate } = require("./migrateLate");
 const { migrateAdmin } = require("./migrateAdmin");
 const { migrateCoreStore } = require("./migrateCoreStore");
 const { migrateModels } = require("./migrateModels");
@@ -25,7 +26,7 @@ const migrations = [
   migrateI18n,
   migrateFiles,
 ];
-
+const lateMigrates=[migrateLate,]
 async function migrate() {
   if (isPGSQL) {
     await dbV4.raw("set session_replication_role to replica;");
@@ -74,7 +75,9 @@ async function migrate() {
   await migrateModels(
     tables.filter((table) => !processedTables.includes(table))
   );
-
+  for (const migration of lateMigrates) {
+    await migration.migrateTables();
+  }
   if (isPGSQL) {
     await dbV4.raw("set session_replication_role to DEFAULT;");
   }
