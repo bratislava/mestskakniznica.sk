@@ -11,41 +11,26 @@
     "draftAndPublish": true,
     "timestamps": true
   },
-  "pluginOptions": {
-  },
+  "pluginOptions": {},
   "attributes": {
     "title": {
       "type": "text",
-      "pluginOptions": {
-      }
+      "pluginOptions": {}
     },
     "slug": {
       "type": "string",
-      "pluginOptions": {
-
-      }
-
+      "pluginOptions": {}
     },
     "coverMedia": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "pluginOptions": {
-
-      }
+      "allowedTypes": ["images", "files", "videos", "audios"],
+      "pluginOptions": {}
     },
     "date_added": {
       "type": "date",
-      "pluginOptions": {
-
-      }
-
+      "pluginOptions": {}
     },
     "parentPage": {
       "type": "relation",
@@ -54,9 +39,7 @@
       "inversedBy": "blogPosts"
     },
     "sections": {
-      "pluginOptions": {
-
-      },
+      "pluginOptions": {},
       "type": "dynamiczone",
       "components": [
         "sections.form",
@@ -76,16 +59,12 @@
         "sections.documents",
         "sections.video",
         "sections.flat-text"
-
       ]
     },
     "Seo": {
       "type": "component",
       "repeatable": false,
-      "pluginOptions": {
-
-      },
-
+      "pluginOptions": {},
       "component": "seo.seo"
     }
   }
