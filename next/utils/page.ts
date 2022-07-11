@@ -6,6 +6,7 @@ import {
   FlatTextFragment,
   PageCategoryFragment,
   PageLinkFragment,
+  PartnerEntity,
   PartnerFragment,
   SubpagesFragment,
   TableRowFragment,
@@ -99,8 +100,8 @@ export const parseSubpages = (subpages: SubpagesFragment): SubpageItemProps[] =>
   })) ?? []
 
 // PartnersPage
-export const sortPartners = (allPartners: PartnerFragment[]): TSortedPartners => {
-  const grouped = groupBy(allPartners, 'featured')
+export const sortPartners = (allPartners: PartnerEntity[]): TSortedPartners => {
+  const grouped = groupBy(allPartners, 'attributes.featured')
   return {
     featuredPartners: orderBy(grouped.true, ['priority'], ['asc']),
     notFeaturedPartners: orderBy(grouped.false, ['priority'], ['asc']),

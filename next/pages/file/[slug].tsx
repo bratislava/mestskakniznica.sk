@@ -38,8 +38,8 @@ export const getServerSideProps: GetServerSideProps<IFilePageProps> = async ({ l
     props: {
       slug,
       locale,
-      menus,
-      footer,
+      menus: menus?.data,
+      footer: footer?.data,
       basicDocument: basicDocumentBySlug.basicDocuments?.data,
       ...translations,
     },

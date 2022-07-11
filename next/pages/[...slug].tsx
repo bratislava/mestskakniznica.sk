@@ -3,7 +3,7 @@ import {
   EventCategoryEntity,
   EventLocalityEntity,
   EventTagEntity, FooterEntity,
-  MenuEntity, PageEntity, Pagination, PartnerFragment
+  MenuEntity, PageEntity, Pagination, PartnerEntity, PartnerFragment
 } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -44,7 +44,7 @@ interface IPageProps {
   error?: IDisplayError
   slug: string
   page: PageEntity
-  partners: PartnerFragment[]
+  partners: PartnerEntity[]
   promotedEvents: IEvent[]
   allEvents: IEvent[]
   latestEvents: IEvent[]
