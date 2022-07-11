@@ -5,7 +5,7 @@ export const options: IFormOption[] = [
     key: 'Dieťa do 15 rokov',
     label: [
       { locale: 'sk', label: 'Dieťa do 15 rokov' },
-      { locale: 'en', label: 'Child under 15' },
+      { locale: 'en', label: 'Child under 15 years' },
     ],
     price: '0,00 €',
   },
@@ -14,11 +14,11 @@ export const options: IFormOption[] = [
     label: [
       {
         locale: 'sk',
-        label: 'Zrakovo a inak zdravotne postihnutý v rozsahu odôvodnenom jeho zdravotným postihnutím',
+        label: 'Zrakovo znevýhodnený',
       },
       {
         locale: 'en',
-        label: 'Visually and otherwise disabled to the extent justified by the disability',
+        label: 'Visually impaired user',
       },
     ],
     price: '0,00 €',
@@ -35,23 +35,23 @@ export const options: IFormOption[] = [
     key: 'Osoba registrovaná v partnerskej knižnici',
     label: [
       { locale: 'sk', label: 'Osoba registrovaná v partnerskej knižnici' },
-      { locale: 'en', label: 'Person registered at a partner library' },
+      { locale: 'en', label: 'Person registered in the partner library' },
     ],
     price: '0,00 €',
   },
   {
     key: 'Osoba s ťažkým zdravotným postihnutím',
     label: [
-      { locale: 'sk', label: 'Osoba s ťažkým zdravotným postihnutím' },
-      { locale: 'en', label: 'Person with a severe disability' },
+      { locale: 'sk', label: 'Osoba s preukazom ŤZP' },
+      { locale: 'en', label: 'Person with the disability card' },
     ],
     price: '1,00 €',
   },
   {
     key: 'Osoba v starobnom dôchodku',
     label: [
-      { locale: 'sk', label: 'Osoba v starobnom dôchodku' },
-      { locale: 'en', label: 'Recipient of old-age pension' },
+      { locale: 'sk', label: 'Starobný dôchodca (62+)' },
+      { locale: 'en', label: 'Senior (age 62+)' },
     ],
     price: '2,00 €',
   },
@@ -60,11 +60,11 @@ export const options: IFormOption[] = [
     label: [
       {
         locale: 'sk',
-        label: 'študent/ka strednej alebo vysokej školy denného štúdia do 26 rokov',
+        label: 'Študent strednej alebo vysokej školy (do 26 rokov)',
       },
       {
         locale: 'en',
-        label: 'Full-time high school or university student under 26',
+        label: 'High school or university student (until age 26)',
       },
     ],
     price: '2,80 €',
@@ -72,7 +72,7 @@ export const options: IFormOption[] = [
   {
     key: 'Dospelá osoba',
     label: [
-      { locale: 'sk', label: 'Dospelá osoba' },
+      { locale: 'sk', label: 'Dospelý' },
       { locale: 'en', label: 'Adult' },
     ],
     price: '4,00 €',
@@ -81,7 +81,7 @@ export const options: IFormOption[] = [
     key: 'Právnická osoba',
     label: [
       { locale: 'sk', label: 'Právnická osoba' },
-      { locale: 'en', label: 'Legal entity' },
+      { locale: 'en', label: 'Corporation' },
     ],
     price: '8,00 €',
   },
