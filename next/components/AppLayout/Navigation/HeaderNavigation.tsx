@@ -32,9 +32,9 @@ function HeaderNavigation() {
         </HeaderNavigationItem>
       </div>
       <div className="border-l border-gray-900">
-        <div className="cursor-pointer border-gray-900 py-[10px] text-xs font-normal leading-[19.6px] md:flex">
+        <div className="border-gray-900 py-[10px] text-xs font-normal leading-[19.6px] md:flex">
           <Link href="https://opac.mestskakniznica.sk/opac" passHref>
-            <a target="_blank" className="px-[12px] font-normal">
+            <a target="_blank" className="px-[12px] font-normal hover:underline">
               {t('onlineCatalog')}
             </a>
           </Link>

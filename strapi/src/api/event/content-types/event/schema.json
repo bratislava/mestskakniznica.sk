@@ -83,9 +83,13 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
+    },
+    "listingImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
     },
     "eventTags": {
       "type": "relation",
@@ -95,7 +99,7 @@
     "eventCategory": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::category.category"
+      "target": "api::event-category.event-category"
     },
     "eventLocality": {
       "type": "relation",
