@@ -4,7 +4,7 @@ import { IEvent } from '@utils/types'
 import cx from 'classnames'
 import Link from 'next/link'
 
-import { convertPageToEventDisplay, dateTimeString } from '../../../utils/utils'
+import { dateTimeString } from '../../../utils/utils'
 import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
@@ -37,21 +37,24 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
 
       <div
         className={cx('grid', {
-          'grid-rows-8 gap-x-10 grid-flow-col': !containsEvents && isLengthy,
+          'grid-flow-col grid-rows-8 gap-x-10': !containsEvents && isLengthy,
         })}
       >
         {section.sectionLinks?.map((sectionLink) => {
           if (sectionLink?.sectionLinkTitle === 'latestEvents') {
             if (latestEvents && latestEvents?.length > 0) {
               return (
-                <div className="grid grid-rows-2 grid-flow-col">
+                <div className="grid grid-flow-col grid-rows-2">
                   {latestEvents.map((event: any) => (
                     <div key={event.slug}>
-                      <div className="w-[380px] pt-5 pb-5 h-23 cursor-pointer">
-                        <NavigationMenu.Link className="pt-4 h-10 text-gray-universal-70" tabIndex={-1}>
+                      <div className="h-23 w-[380px] cursor-pointer pt-5 pb-5">
+                        <NavigationMenu.Link
+                          className="h-10 pt-4 text-gray-universal-70"
+                          tabIndex={-1}
+                        >
                           <Link href={`/${event.slug}`} passHref>
                             <a href={`/${event.slug}`} className="flex">
-                              <div className="text-center flex w-20 h-16 bg-yellow-promo">
+                              <div className="flex h-16 w-20 bg-yellow-promo text-center">
                                 <DateCardDisplay
                                   dateFrom={event.dateFrom}
                                   dateTo={event.dateTo}
@@ -59,15 +62,15 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
                                 />
                               </div>
 
-                              <div className="pl-5 w-full">
+                              <div className="w-full pl-5">
                                 <div className="leading-[19px] text-black-universal hover:underline">
                                   {event.eventTitle}
                                 </div>
-                                <div className="leading-[20px] text-xs text-gray-universal-70">
+                                <div className="text-xs leading-[20px] text-gray-universal-70">
                                   {dateTimeString(event.dateFrom, event.dateTo, locale)}
                                 </div>
                                 {event.eventLocality?.title && (
-                                  <div className="leading-[20px] text-xs text-gray-universal-70 max-w-[250px]">
+                                  <div className="max-w-[250px] text-xs leading-[20px] text-gray-universal-70">
                                     &#9679; {event.eventLocality.title}
                                   </div>
                                 )}
@@ -84,7 +87,7 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
           } else if (sectionLink?.sectionLinkPage)
             return (
               <NavigationMenu.Link
-                className={cx('pt-4 cursor-pointer text-gray-universal-70 h-auto', {
+                className={cx('h-auto cursor-pointer pt-4 text-gray-universal-70', {
                   'h-[45px]': !containsEvents && isLengthy,
                 })}
                 tabIndex={-1}
