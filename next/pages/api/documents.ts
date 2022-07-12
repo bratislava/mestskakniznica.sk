@@ -14,7 +14,7 @@ export const DOCUMENTS_LIMIT = 20
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const offset = Number(arrayify(req.query.offset)[0] ?? 0)
-  const sort = arrayify(req.query.sort)[0] ?? 'desc'
+  const sort = arrayify(req.query.sort)[0] ?? 'name:desc'
   const categoryId = Number(req.query.categoryId) ?? null
   const query = arrayify(req.query.query)[0] ?? ''
 
@@ -22,7 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const documentsCount = getDocumentCount()
   const fetchFileCategoriesP = fetchFileCategories()
 
-  const [allBasicDocumentsResponse, basicDocumentCount, { fileCategories }] = await Promise.all([
+  const [allBasicDocumentsResponse, basicDocumentCount, fileCategories] = await Promise.all([
     documents,
     documentsCount,
     fetchFileCategoriesP,
@@ -31,7 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   return res.json({
     documents: allBasicDocumentsResponse.basicDocuments?.data,
     count: basicDocumentCount.basicDocuments?.meta.pagination.total,
-    fileCategories,
+    fileCategories: fileCategories.fileCategories?.data,
   })
 }
 

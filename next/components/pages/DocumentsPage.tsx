@@ -62,7 +62,7 @@ function DocumentsPage({ page }: PageProps) {
   React.useEffect(() => {
     const fetchDocuments = async () => {
       const res = await fetch(
-        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=${sort.key}&query=${query}`
+        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=date_added:${sort.key}&query=${query}`
       )
       const data: DocumentResponse = await res.json()
 
@@ -131,7 +131,7 @@ function DocumentsPage({ page }: PageProps) {
           <LoadingSpinner size="medium" className="mt-[30px]" />
         ) : (
           <div className="flex flex-col gap-y-2 lg:grid lg:grid-cols-4 lg:gap-5 mt-6">
-            {documentData.fileCategories.map((category) => (
+            {documentData.fileCategories && documentData.fileCategories.map((category) => (
               <Link key={category.id} href={`${t('documents_category_slug')}${category?.attributes?.slug}`} variant="plain" uppercase={false}>
                 <RowSubcategory title={category?.attributes?.name || ''} />
               </Link>

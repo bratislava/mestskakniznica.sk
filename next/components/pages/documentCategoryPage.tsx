@@ -43,7 +43,7 @@ function DocumentCategoryPage({ documentCategory, locale = 'sk' }: PageProps) {
   React.useEffect(() => {
     const fetchDocuments = async () => {
       const res = await fetch(
-        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=${sort.key}&categoryId=${id}&query=${query}`
+        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=date_added:${sort.key}&categoryId=${id}&query=${query}`
       )
       const data: DocumentResponse = await res.json()
 

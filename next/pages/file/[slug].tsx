@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps<IFilePageProps> = async ({ l
       locale,
       menus: menus?.data,
       footer: footer?.data,
-      basicDocument: basicDocumentBySlug.basicDocuments?.data,
+      basicDocument: basicDocumentBySlug.basicDocuments?.data[0],
       ...translations,
     },
   }

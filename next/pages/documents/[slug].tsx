@@ -78,7 +78,7 @@ export const getStaticProps: GetStaticProps<IDocumentPageProps> = async (ctx) =>
       locale,
       menus: menus?.data,
       footer: footer?.data,
-      documentCategory: documentCategoryBySlug.fileCategories?.data,
+      documentCategory: documentCategoryBySlug.fileCategories?.data[0],
       ...translations,
     },
     revalidate: 86400,

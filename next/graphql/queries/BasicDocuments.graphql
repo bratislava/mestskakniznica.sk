@@ -6,8 +6,8 @@ query BasicDocumentBySlug($slug: String!) {
   }
 }
 
-query AllBasicDocuments($limit: Int, $offset: Int, $sort: [String], $categoryId: ID, $query: String) {
-  basicDocuments(sort: $sort, pagination: {limit: $limit, start: $offset}, filters: {title: {contains: $query}, file_category: {id: {eq: $categoryId}}}) {
+query AllBasicDocuments($limit: Int, $offset: Int, $sort: String, $categoryId: ID, $query: String) {
+  basicDocuments(sort: [$sort], pagination: {limit: $limit, start: $offset}, filters: {title: {contains: $query}, file_category: {id: {eq: $categoryId}}}) {
     data {
       ...BasicDocument
     }
