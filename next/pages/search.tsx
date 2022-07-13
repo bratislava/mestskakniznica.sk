@@ -3,7 +3,7 @@ import {
   FooterEntity,
   MenuEntity,
   PageEntity,
-} from '@bratislava/strapi-sdk-city-library';
+} from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -81,7 +81,7 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
       props: {
         locale,
         localizations: homePage?.data?.attributes?.localizations?.data ?? null,
-        page: pageBySlugResponse.pages,
+        page: pageBySlugResponse?.pages?.data[0] ?? [],
         menus: menus?.data,
         footer,
         Seo: homePage?.data?.attributes?.Seo ?? null,

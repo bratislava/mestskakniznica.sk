@@ -119,7 +119,7 @@ export function Footer({
       </div>
       {/* Mobile */}
       <div className="lg:hidden">
-        {footerColumns?.map((col: Maybe<ComponentFooterFooterColumn>, i) => (
+        {footerColumns?.map((col, i) => (
            col && <Accordion
             type="divider"
             size="small"

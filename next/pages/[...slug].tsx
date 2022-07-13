@@ -169,7 +169,7 @@ function Page({
     <PageWrapper
       locale={page.attributes?.locale ?? 'sk'}
       slug={page.attributes?.slug ?? ''}
-      localizations={page.attributes?.localizations?.data.filter(isPresent).map(ele => ({locale: ele.attributes?.locale, slug: ele.attributes?.slug}))}
+      localizations={page.attributes?.localizations?.data.filter(isPresent).map(localisation => ({locale: localisation.attributes?.locale, slug: localisation.attributes?.slug}))}
     >
       <DefaultPageLayout
         title={page?.attributes?.title}
@@ -338,7 +338,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         layout: 'eventsListing',
         locale,
       })
-      allNewsLink = pages ? pages[0]?.slug ?? '' : ''
+      allNewsLink = pages && pages[0]?.slug ? pages[0].slug : ''
     }
 
     if (
