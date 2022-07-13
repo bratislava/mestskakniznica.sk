@@ -191,9 +191,9 @@ function CookieConsent() {
         expires={365}
         cookieName="city-library-gdpr"
       >
-        <div className="text-sm" tabIndex={-1}>
+        <div className="text-sm" tabIndex={1}>
           {t('cookie_consent_body')}{' '}
-          <button className="text-red-600 underline cursor-pointer" onClick={() => setShowModal(true)} tabIndex={-1}>
+          <button className="text-red-600 underline cursor-pointer" onClick={() => setShowModal(true)} tabIndex={2}>
             {t('cookie_consent_setting')}
           </button>
         </div>
