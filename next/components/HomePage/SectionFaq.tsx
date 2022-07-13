@@ -1,13 +1,13 @@
 import Arrow from '@assets/images/arrow-right.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import { HomePageQuery } from '@bratislava/strapi-sdk-city-library'
+import { ComponentHomepageFaqSection } from '@bratislava/strapi-sdk-city-library'
 import { Accordion, CallToAction } from '@bratislava/ui-city-library'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 
 interface SectionFaqProps {
-  faqSection: NonNullable<HomePageQuery['homePage']>['faqSection']
+  faqSection: ComponentHomepageFaqSection
 }
 
 function SectionFaq({ faqSection }: SectionFaqProps) {
@@ -25,10 +25,10 @@ function SectionFaq({ faqSection }: SectionFaqProps) {
         <div className="w-full md:w-96 space-y-4">
           {faqSection?.ctas?.map((cta) => (
             <div key={cta?.title}>
-              {cta?.ctaRedirectTo?.slug && (
+              {cta?.ctaRedirectTo?.data?.attributes?.slug && (
                 <CallToAction
-                  title={cta?.title}
-                  href={cta?.ctaRedirectTo.slug}
+                  title={cta?.title || ''}
+                  href={cta?.ctaRedirectTo?.data?.attributes.slug}
                   bottomText=""
                   className="w-full h-[222px] p-4 hover:underline text-md2"
                   customIcon={<Arrow />}
@@ -57,8 +57,8 @@ function SectionFaq({ faqSection }: SectionFaqProps) {
             />
           ))}
           <div className="pt-6 font-serif cursor-pointer text-xs">
-            <Link href={faqSection?.faqSectionRedirectTo?.slug ?? '#'} passHref>
-              <a href={faqSection?.faqSectionRedirectTo?.slug ?? '#'} className="uppercase">
+            <Link href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'} passHref>
+              <a href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'} className="uppercase">
                 {t('showMore', { ns: 'common' })} {'>'}
               </a>
             </Link>

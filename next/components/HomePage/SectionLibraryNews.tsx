@@ -24,7 +24,7 @@ export default function SectionLibraryNews({ news, newsSection }: LibraryNewsPro
       </div>
       <div className="flex justify-center">
         <Link
-          href={newsSection.newsSectionRedirectTo?.slug ?? '#'}
+          href={newsSection?.redirectTo?.data?.attributes?.slug ?? '#'}
           hasIcon
           title={t('libraryNewsAll')}
           size="large"

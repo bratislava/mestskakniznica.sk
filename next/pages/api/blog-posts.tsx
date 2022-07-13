@@ -1,11 +1,11 @@
-import { BlogPostFragment } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostEntity, BlogPostFragment } from '@bratislava/strapi-sdk-city-library'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { fetchBlogPosts, getBlogPostsCount } from '../../utils/blogpost'
 import { arrayify } from '../../utils/utils'
 
 export interface BlogPostResponse {
-  posts: BlogPostFragment[]
+  posts: BlogPostEntity[]
   count: number
 }
 

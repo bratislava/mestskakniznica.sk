@@ -1,4 +1,4 @@
-import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import {
   PageTitle,
   Pagination,
@@ -19,7 +19,7 @@ import { LoadingSpinner } from '@bratislava/ui-city-library'
 import cx from 'classnames';
 
 export interface PageProps {
-  page: PageFragment | undefined;
+  page: PageEntity | undefined;
 }
 
 export interface MetaDataCategory {
@@ -151,8 +151,8 @@ const SearchPage = ({ page }: PageProps) => {
       </SectionContainer>
       <SectionContainer>
         <PageTitle
-          title={page?.title ?? 'Výsledky vyhľadávania'}
-          description={page?.description ?? ''}
+          title={page?.attributes?.title ?? 'Výsledky vyhľadávania'}
+          description={page?.attributes?.description ?? ''}
           hasDivider={false}
         />
         <div className="mt-6 flex flex-col lg:flex-row gap-y-4 lg:gap-y-0">

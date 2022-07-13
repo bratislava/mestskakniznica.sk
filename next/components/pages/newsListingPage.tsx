@@ -2,7 +2,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 import ArrowLeft from '@assets/images/arrow-left.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
-import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity, PagesByLayoutWithFieldPaginationQuery, Pagination as MetaPagination } from '@bratislava/strapi-sdk-city-library'
 import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
@@ -10,23 +10,27 @@ import { useMemo, useState } from 'react'
 import { IEvent } from '../../utils/types'
 import NewsListingCard from "../Molecules/NewsListingCard"
 import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import { convertPagesToEvents } from '@utils/utils'
+import { usePageWrapperContext } from 'components/layouts/PageWrapper'
 
 export interface PageProps {
-  page: PageFragment
+  page: PageEntity
   news: IEvent[]
+  pagination: MetaPagination
 }
 
-function NewsListingPage({ page, news }: PageProps) {
+function NewsListingPage({ page, news, pagination }: PageProps) {
   const { t } = useTranslation('common')
+  const { locale } = usePageWrapperContext()
+  const [paginatedNews, setPaginatedNews] = useState(news);
+  const [paginationData, setPaginationData] = useState(pagination);
 
-  const [noOfPages, setNoOfPages] = useState(Math.ceil(news.length / 12))
-
-  const [offsetPage, setOffsetPage] = useState(1)
-
-  const paginatedNews = useMemo(() => news.slice((offsetPage - 1) * 12, 12 * offsetPage), [offsetPage, news])
-
-  const handleChangeOffsetPage = (num: number) => {
-    if (num > 0 && num <= noOfPages) setOffsetPage(num)
+  const handleChangeOffsetPage = async (num: number) => {
+    const res = await fetch(`/api/paginated-news?layout=news&locale=${locale}&sort=createdAt:desc&limit=10&start=${(num-1) * 10}`)
+    const result: PagesByLayoutWithFieldPaginationQuery = await res.json()
+    
+    result.pages?.data && setPaginatedNews(convertPagesToEvents(result.pages?.data))
+    result.pages?.meta.pagination && setPaginationData(result.pages?.meta.pagination)
   }
 
   return (
@@ -50,8 +54,8 @@ function NewsListingPage({ page, news }: PageProps) {
         </div>
         <div className="flex md:mr-0 w-fit m-auto">
           <Pagination
-            max={noOfPages}
-            value={offsetPage}
+            max={paginationData.pageCount}
+            value={paginationData.page}
             onChangeNumber={(num) => {
               handleChangeOffsetPage(num)
             }}

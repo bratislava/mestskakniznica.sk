@@ -1,6 +1,7 @@
-import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
-import { useTranslation } from 'next-i18next'
+import Accessibility from '@assets/images/accessibility.svg'
+import { MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
 
 import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
@@ -8,7 +9,7 @@ import MobileNavigationItem from './MobileNavigationItem'
 
 interface MobileNavigationProps {
   onClose: () => void
-  menus: NonNullable<MenusQuery['menus']>
+  menus: MenuEntity[]
 }
 
 export function MobileNavigation({ onClose, menus }: MobileNavigationProps) {

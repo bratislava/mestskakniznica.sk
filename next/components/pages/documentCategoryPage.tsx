@@ -1,5 +1,5 @@
 import SearchIcon from '@assets/images/search.svg'
-import { DocumentCategoryFragment } from '@bratislava/strapi-sdk-city-library'
+import { FileCategoryEntity } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, Pagination, RowFile, SearchBar, SectionContainer, Select } from '@bratislava/ui-city-library'
 import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
@@ -11,7 +11,7 @@ import Metadata from '../Molecules/Metadata'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface PageProps {
-  documentCategory: DocumentCategoryFragment
+  documentCategory: FileCategoryEntity
   locale?: string
 }
 
@@ -43,7 +43,7 @@ function DocumentCategoryPage({ documentCategory, locale = 'sk' }: PageProps) {
   React.useEffect(() => {
     const fetchDocuments = async () => {
       const res = await fetch(
-        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=${sort.key}&categoryId=${id}&query=${query}`
+        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=date_added:${sort.key}&categoryId=${id}&query=${query}`
       )
       const data: DocumentResponse = await res.json()
 
@@ -59,8 +59,8 @@ function DocumentCategoryPage({ documentCategory, locale = 'sk' }: PageProps) {
 
   return (
     <SectionContainer>
-        <PageBreadcrumbs page={documentCategory.page} documentCategory={documentCategory} />
-        <PageTitle title={documentCategory.name ?? ''} hasDivider={false} />
+        <PageBreadcrumbs page={documentCategory?.attributes?.page?.data} documentCategory={documentCategory} />
+        <PageTitle title={documentCategory?.attributes?.name ?? ''} hasDivider={false} />
         <SearchBar
           placeholder={t('whatAreYouLookingFor')}
           className="mt-6"
@@ -76,15 +76,15 @@ function DocumentCategoryPage({ documentCategory, locale = 'sk' }: PageProps) {
 
           {/* Documents */}
           {documentData.documents.map((document) => (
-            <NextLink key={document.id} href={`${t('documents_category_slug')}${document.file_category?.slug}/${document.slug}`} passHref>
-              <a href={document.slug || ''}>
+            <NextLink key={document.id} href={`${t('documents_category_slug')}${document?.attributes?.file_category?.data?.attributes?.slug}/${document?.attributes?.slug}`} passHref>
+              <a href={document?.attributes?.slug || ''}>
                 <RowFile
                   className="cursor-pointer"
-                  type={document.file_category?.name || ''}
-                  title={document.title || ''}
-                  metadata={<Metadata metadata={document.metadata} />}
-                  dateAdded={`${t('added')} ${formatDateToLocal(document.date_added, locale)}`}
-                  fileType={document.attachment?.ext?.toUpperCase().replace('.', '')}
+                  type={document?.attributes?.file_category?.data?.attributes?.name || ''}
+                  title={document?.attributes?.title || ''}
+                  metadata={<Metadata metadata={document?.attributes?.metadata} />}
+                  dateAdded={`${t('added')} ${formatDateToLocal(document?.attributes?.date_added, locale)}`}
+                  fileType={document?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '')}
                 />
               </a>
             </NextLink>

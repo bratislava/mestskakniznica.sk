@@ -1,4 +1,4 @@
-import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity, PageFragment } from '@bratislava/strapi-sdk-city-library'
 import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
@@ -8,7 +8,7 @@ import { IEvent } from '../../utils/types'
 import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface PageProps {
-  page: PageFragment
+  page: PageEntity
   allEvents: IEvent[]
   news: IEvent[]
 }
@@ -16,14 +16,14 @@ export interface PageProps {
 function ListingPage({ page, allEvents, news }: PageProps) {
   const { t } = useTranslation('common')
 
-  const subCategories = parseSubCategories(page?.pageCategory?.subCategories ?? [])
+  const subCategories = parseSubCategories(page?.attributes?.pageCategory?.data?.attributes?.subCategories?.data ?? [])
   return (
     <>
       <SectionContainer>
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={page?.title ?? ''} description={page?.description ?? ''} />
+        <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} />
 
         {/* Subcategories */}
         {subCategories.map((subCategory, index) => (

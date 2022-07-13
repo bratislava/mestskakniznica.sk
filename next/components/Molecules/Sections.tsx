@@ -1,4 +1,4 @@
-import { SectionsFragment } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostSectionsDynamicZone, PageSectionsDynamicZone, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
 import {
   Accordion,
   ColumnedText,
@@ -101,14 +101,14 @@ function Sections({
   className,
 }: {
   pageTitle?: string | null | undefined
-  sections: (SectionsFragment | null | undefined)[] | any
+  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
   events?: IEvent[] | undefined
   eventsListingUrl?: string | undefined
   className?: string | undefined
 }) {
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
-      {sections.map((section: any, index: any) => (
+      {sections.map((section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined, index) => (
         <Section
           sections={sections}
           pageTitle={pageTitle}
@@ -129,9 +129,9 @@ function Section({
   events,
   eventsListingUrl,
 }: {
-  sections: (SectionsFragment | null | undefined)[] | any;
+  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[];
   pageTitle?: string | null | undefined
-  section: SectionsFragment | null
+  section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
   events: IEvent[] | undefined
   eventsListingUrl: string | undefined
 }) {
@@ -153,15 +153,15 @@ function Section({
 }
 
 const sectionContent = (
-  sections: (SectionsFragment | null | undefined)[] | any,
+  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[] | any,
   pageTitle: string | null | undefined,
-  section: SectionsFragment,
+  section: BlogPostSectionsDynamicZone,
   events: IEvent[] | undefined,
   eventsListingUrl: string | undefined,
   t: TFunction,
-  openAccordion: any,
+  openAccordion: string,
   listenAccordionState: (id: string, state: boolean) => unknown,
-  locale: any
+  locale: string | undefined
 ): React.ReactNode | any => {
   const eventDetail = events?.length ? events[0] : null
 
@@ -170,9 +170,9 @@ const sectionContent = (
       return (
         <FlatText
           content={section?.content ?? ''}
-          media={section.media?.url || ''}
-          alt={section.media?.alternativeText || ''}
-          mediaType={section.media?.mime?.split('/')[0] ?? ''}
+          media={section.media?.data?.attributes?.url || ''}
+          alt={section.media?.data?.attributes?.alternativeText || ''}
+          mediaType={section.media?.data?.attributes?.mime?.split('/')[0] ?? ''}
         />
       )
 
@@ -183,8 +183,8 @@ const sectionContent = (
       return (
         <FlatTextCenter
           content={section?.content ?? ''}
-          imgSrc={section.image?.url ?? ''}
-          alt={section.image?.alternativeText || ''}
+          imgSrc={section.image?.data?.attributes?.url ?? ''}
+          alt={section.image?.data?.attributes?.alternativeText || ''}
         />
       )
 
@@ -309,10 +309,10 @@ const sectionContent = (
 
     case 'ComponentSectionsVideo':
       return (
-        section.media?.url ||
+        section.media?.data?.attributes?.url ||
         (section.youtube_url && (
           <div className="flex justify-center w-full">
-            <Video id={section.id} mediaUrl={section.media?.url ?? ''} youTubeUrl={section.youtube_url ?? ''} />
+            <Video id={section.id} mediaUrl={section.media?.data?.attributes?.url ?? ''} youTubeUrl={section.youtube_url ?? ''} />
           </div>
         ))
       )
@@ -322,17 +322,17 @@ const sectionContent = (
         <Documents
           title={section.title || undefined}
           moreLink={{
-            url: parsePageLink(section.moreLink)?.url ?? '',
-            title: section.moreLink?.title ?? section.moreLink?.page?.title ?? '',
+            url: parsePageLink(section?.moreLink?.[0])?.url ?? '',
+            title: section.moreLink?.[0]?.title ?? section.moreLink?.[0]?.page?.data?.attributes?.title ?? '',
           }}
-          files={section.basicDocuments?.map((document) => ({
-            url: `${t('documents_category_slug')}${document?.file_category?.slug}/${document?.slug}`,
+          files={section.basicDocuments?.data?.map((document) => ({
+            url: `${t('documents_category_slug')}${document?.attributes?.file_category?.data?.attributes?.slug}/${document?.attributes?.slug}`,
             content: {
-              type: document?.file_category?.name ?? '',
-              title: document?.title ?? '',
-              metadata: <Metadata metadata={document?.metadata || []} /> ?? '',
-              dateAdded: document?.date_added ? `${t('added')} ${formatDateToLocal(document?.date_added, locale)}` : '',
-              fileType: document?.attachment?.ext?.toUpperCase().replace('.', '') ?? '',
+              type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
+              title: document?.attributes?.title ?? '',
+              metadata: <Metadata metadata={document?.attributes?.metadata || []} /> ?? '',
+              dateAdded: document?.attributes?.date_added ? `${t('added')} ${formatDateToLocal(document?.attributes?.date_added, locale)}` : '',
+              fileType: document?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
             },
           }))}
         />

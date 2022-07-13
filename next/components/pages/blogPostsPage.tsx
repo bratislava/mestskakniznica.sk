@@ -1,4 +1,4 @@
-import { BlogPostFragment, PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostEntity, BlogPostFragment, PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { ArticleCard, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
@@ -9,7 +9,7 @@ import { usePageWrapperContext } from '../layouts/PageWrapper'
 import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface BlogPostsPageProps {
-  page: PageFragment
+  page: PageEntity
 }
 
 const LIMIT = 16
@@ -18,9 +18,9 @@ function BlogPostsPage({ page }: BlogPostsPageProps) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
-  const [relatedBlogPosts, setRelatedBlogPosts] = React.useState<BlogPostFragment[]>(page.relatedBlogPosts ?? [])
+  const [relatedBlogPosts, setRelatedBlogPosts] = React.useState<BlogPostEntity[]>(page?.attributes?.blogPosts?.data ?? [])
 
-  const [noOfPages, setNoOfPages] = React.useState(Math.ceil((page.relatedBlogPostsCount ?? 1) / LIMIT) ?? 1)
+  const [noOfPages, setNoOfPages] = React.useState(Math.ceil((page?.attributes?.blogPosts?.data.length ?? 1) / LIMIT) ?? 1)
 
   const [offsetPage, setOffsetPage] = React.useState(1)
 
@@ -40,20 +40,20 @@ function BlogPostsPage({ page }: BlogPostsPageProps) {
   return (
     <SectionContainer>
         <PageBreadcrumbs page={page} />
-        <PageTitle title={page.title ?? ''} description={page.description ?? ''} />
+        <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} />
 
         {relatedBlogPosts?.length > 0 && (
           <div className="grid mt-8 grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-5 md:grid-cols-3 md:gap-y-10 lg:grid-cols-4">
             {relatedBlogPosts.map((blogPost, index) => (
               <div key={index}>
                 <ArticleCard
-                  title={blogPost.title ?? ''}
-                  media={blogPost.coverMedia?.url || ''}
-                  mediaType={blogPost.coverMedia?.mime?.split('/')[0] ?? ''}
-                  publishedDate={formatDateToLocal(blogPost.created_at ?? '', locale)}
+                  title={blogPost?.attributes?.title ?? ''}
+                  media={blogPost?.attributes?.coverMedia?.data?.attributes?.url || ''}
+                  mediaType={blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''}
+                  publishedDate={formatDateToLocal(blogPost?.attributes?.createdAt ?? '', locale)}
                   pageLink={{
                     title: t('showMore'),
-                    url: `${t('blog_slug') + blogPost.slug}`,
+                    url: `${t('blog_slug') + blogPost?.attributes?.slug}`,
                   }}
                 />
               </div>

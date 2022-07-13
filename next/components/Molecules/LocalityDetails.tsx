@@ -1,6 +1,6 @@
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import {
-  ComponentLocalityPartsLocalityOpeningHours,
+  ComponentLocalityPartsLocalitySection,
   ComponentSectionsLocalityDetails,
 } from '@bratislava/strapi-sdk-city-library'
 import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
@@ -55,7 +55,7 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
   }
 
   const createContent = (
-    section: ComponentLocalityPartsLocalityOpeningHours,
+    section: ComponentLocalityPartsLocalitySection,
     onlyOpeningHours: boolean,
     showContactInfo: boolean
   ) => (
@@ -165,8 +165,8 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
             <div className="grid sm:grid-cols-2 gap-4 flex-wrap pt-5">
               {localityDetails.localityServices?.map((service) => (
                 <CallToAction
-                  title={service?.localityServicesPage?.title ?? ''}
-                  href={service?.localityServicesPage?.slug ?? ''}
+                  title={service?.page?.data?.attributes?.title ?? ''}
+                  href={service?.page?.data?.attributes?.slug ?? ''}
                   bottomText={t('more')}
                   className="flex pr-[24px] h-[180px]"
                   hasIcon={false}
@@ -176,7 +176,7 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
                       <ChevronRightSvg />
                     </span>
                   }
-                  key={service?.localityServicesPage?.id ?? ''}
+                  key={service?.page?.data?.id ?? ''}
                 />
               ))}
             </div>
@@ -207,9 +207,9 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
                           <div className="leading-[20px] text-xs text-gray-universal-70 pt-[5px]">
                             {dateTimeString(event.dateFrom || '', event.dateTo || '', locale)}
                           </div>
-                          {event.eventLocality?.title && (
+                          {event.eventLocality?.attributes?.title && (
                             <div className="leading-[20px] text-xs text-gray-universal-70 md:w-52 overflow-hidden whitespace-pre text-ellipsis">
-                              &#9679; {event.eventLocality.title}
+                              &#9679; {event.eventLocality.attributes.title}
                             </div>
                           )}
                         </div>

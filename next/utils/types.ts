@@ -1,9 +1,14 @@
 import {
-  ComponentAddressAddressInput,
+  CategoryEntity,
+  ComponentAddressAddress,
   ComponentGuestsGuest,
-  ComponentLocalityPartsLocalityOpeningHourInput,
-  EventTags,
+  ComponentLocalityPartsLocalitySection,
+  EventLocalityEntity,
+  EventTagEntity,
+  EventTagRelationResponseCollection,
+  Maybe,
   Menu,
+  UploadFile,
 } from '@bratislava/strapi-sdk-city-library'
 
 export type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T
@@ -39,26 +44,18 @@ export interface IEvent {
   eventTitle?: string
   eventDescription?: string
   guests?: ComponentGuestsGuest[]
-  eventTags?: EventTags[]
-  listingImage?: Image
+  eventTags?: Maybe<EventTagRelationResponseCollection>
+  listingImage?: UploadFile
   eventCustomType: string
   eventType?: {
     id: string
     title: string
   }
-  eventLocality?: {
-    id: string
-    title: string
-    eventAddress?: string
-    navigateTo: string
-  }
+  eventLocality?: Maybe<EventLocalityEntity>
   slug?: string
   id?: string
   price?: number
-  eventCategory?: {
-    id: string
-    title: string
-  }
+  eventCategory?: Maybe<CategoryEntity>
 }
 export interface IPremises {
   address?: string
@@ -69,8 +66,8 @@ export interface IPremises {
 
 export interface ILocality {
   localityTitle?: string
-  localitySections?: ComponentLocalityPartsLocalityOpeningHourInput[]
-  localityAddress: ComponentAddressAddressInput
+  localitySections?: ComponentLocalityPartsLocalitySection[]
+  localityAddress: ComponentAddressAddress
   localitySlug?: string
   localityOpenFrom: string
   localityOpenTo: string
@@ -91,7 +88,7 @@ export interface Image {
   url: string
   width?: number
   height?: number
-  name?: string
+  name: string
 }
 
 export interface IMenus {

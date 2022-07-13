@@ -1,9 +1,12 @@
 import {
+  CategoryEntity,
   CategoryFragment,
+  ComponentBlocksPageLink,
   ExternalLinkFragment,
   FlatTextFragment,
   PageCategoryFragment,
   PageLinkFragment,
+  PartnerEntity,
   PartnerFragment,
   SubpagesFragment,
   TableRowFragment,
@@ -35,19 +38,19 @@ export const pagePath = (
 }
 
 export const parsePageLink = (
-  pageLink?: Omit<PageLinkFragment, '__typename'> | null
+  pageLink?: Omit<ComponentBlocksPageLink, '__typename'> | null
 ): { title: string; url: string } | null => {
   if (!pageLink) return null
 
   return {
-    title: pageLink.page?.title || '',
-    url: pageLink.url ?? pagePath(pageLink.page) ?? '',
+    title: pageLink.page?.data?.attributes?.title || '',
+    url: pageLink.url ?? pagePath(pageLink?.page?.data?.attributes) ?? '',
   }
 }
 
 // Pages (PageLinks)
 export const parsePages = (
-  pages: (Omit<PageLinkFragment, '__typename'> | undefined | null)[] | undefined | null
+  pages: (Omit<ComponentBlocksPageLink, '__typename'> | undefined | null)[] | undefined | null
 ): {
   title: string
   url: string
@@ -55,7 +58,7 @@ export const parsePages = (
 
 // Listing categories in listing and sublisting page
 export const parseSubCategories = (
-  subCategories: (CategoryFragment | undefined | null)[]
+  subCategories: (CategoryEntity | undefined | null)[]
 ): {
   title: string
   url: string
@@ -63,28 +66,28 @@ export const parseSubCategories = (
   pages: { title: string; url: string }[]
 }[] =>
   orderBy(subCategories ?? [], ['priority'], ['asc']).map((subCategory) => ({
-    title: parsePageLink(subCategory?.pageLink)?.title ?? '',
-    url: parsePageLink(subCategory?.pageLink)?.url ?? '',
-    moreLinkTitle: subCategory?.pageLink?.title ?? 'VIAC',
-    pages: parsePages(subCategory?.pages?.filter(isPresent) ?? []),
+    title: parsePageLink(subCategory?.attributes?.pageLink)?.title ?? '',
+    url: parsePageLink(subCategory?.attributes?.pageLink)?.url ?? '',
+    moreLinkTitle: subCategory?.attributes?.pageLink?.title ?? 'VIAC',
+    pages: parsePages(subCategory?.attributes?.pages?.filter(isPresent) ?? []),
   }))
 
 // SideBar for content with sidebar
 export const parseSidebar = (
-  pageCategory: PageCategoryFragment | undefined,
+  pageCategory: CategoryEntity | undefined,
   pageSlug?: string
 ): SidebarProps | undefined => {
   if (!pageCategory) return undefined
 
   return {
-    title: parsePageLink(pageCategory.pageLink)?.title ?? '',
-    href: parsePageLink(pageCategory.pageLink)?.url ?? '#',
+    title: parsePageLink(pageCategory?.attributes?.pageLink)?.title ?? '',
+    href: parsePageLink(pageCategory?.attributes?.pageLink)?.url ?? '#',
     categories:
-      pageCategory.pages?.map((p) => ({
+      pageCategory?.attributes?.pages?.map((p) => ({
         title: parsePageLink(p)?.title ?? '',
         href: parsePageLink(p)?.url ?? '',
       })) ?? [],
-    activeCategory: pageCategory.pages?.findIndex((x) => x?.page?.slug === pageSlug) ?? 0,
+    activeCategory: pageCategory?.attributes?.pages?.findIndex((x) => x?.page?.data?.attributes?.slug === pageSlug) ?? 0,
   }
 }
 
@@ -97,8 +100,8 @@ export const parseSubpages = (subpages: SubpagesFragment): SubpageItemProps[] =>
   })) ?? []
 
 // PartnersPage
-export const sortPartners = (allPartners: PartnerFragment[]): TSortedPartners => {
-  const grouped = groupBy(allPartners, 'featured')
+export const sortPartners = (allPartners: PartnerEntity[]): TSortedPartners => {
+  const grouped = groupBy(allPartners, 'attributes.featured')
   return {
     featuredPartners: orderBy(grouped.true, ['priority'], ['asc']),
     notFeaturedPartners: orderBy(grouped.false, ['priority'], ['asc']),

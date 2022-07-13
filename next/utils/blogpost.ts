@@ -1,17 +1,17 @@
 import { client } from './gql'
 
 export const getBlogPostsCount = async () => {
-  const { blogPostsCount } = await client.BlogPostsCount()
+  const countResponse = await client.BlogPostsCount()
 
-  return blogPostsCount
+  return countResponse.blogPosts?.meta.pagination.total
 }
 
-export const fetchBlogPosts = async (id: number, limit: number, offset: number) => {
-  const { fetchBlogPosts } = await client.FetchBlogPosts({
+export const fetchBlogPosts = async (id: any, limit: number, offset: number) => {
+  const blogPostResponse = await client.FetchBlogPosts({
     id,
     limit,
     offset,
   })
 
-  return fetchBlogPosts
+  return blogPostResponse.blogPosts?.data
 }
