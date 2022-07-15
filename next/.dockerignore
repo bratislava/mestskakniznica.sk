@@ -16,3 +16,4 @@ misc
 build/
 data/
 .next
+.manifest*
