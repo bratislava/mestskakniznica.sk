@@ -16,9 +16,10 @@ import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 import FormContainer, { phoneRegex } from '../FormContainer'
 import FormFooter from '../FormFooter'
+import { EventCardFragment } from '@bratislava/strapi-sdk-city-library'
 
 interface Props {
-  eventDetail?: IEvent | any
+  eventDetail?: EventCardFragment
 }
 
 function EventReservationForm({ eventDetail }: Props) {
@@ -56,8 +57,8 @@ function EventReservationForm({ eventDetail }: Props) {
     spaceCount: yup.number().min(1).required(),
     eventDate: yup.lazy(() => {
       if (eventDetail) {
-        const dateFrom = new Date(eventDetail.dateFrom)
-        const dateTo = new Date(eventDetail.dateTo)
+        const dateFrom = new Date(eventDetail.attributes?.dateFrom)
+        const dateTo = new Date(eventDetail.attributes?.dateTo)
 
         const { date } = dayForDifferentDateTo(dateFrom, dateTo, true)
         return yup
@@ -95,8 +96,8 @@ function EventReservationForm({ eventDetail }: Props) {
   React.useMemo(() => {
     // prefill event date and time
     if (eventDetail) {
-      const dateFrom = new Date(eventDetail.dateFrom)
-      const dateTo = new Date(eventDetail.dateTo)
+      const dateFrom = new Date(eventDetail.attributes?.dateFrom)
+      const dateTo = new Date(eventDetail.attributes?.dateTo)
 
       const { day, month, year } = dayForDifferentDateTo(dateFrom, dateTo, true)
       // "yyyy-MM-dd"
@@ -128,7 +129,7 @@ function EventReservationForm({ eventDetail }: Props) {
     }
 
     // disable showing form if is in the past
-    setIsEventInThePast(isEventPast(eventDetail?.dateTo))
+    setIsEventInThePast(isEventPast(eventDetail?.attributes?.dateTo))
   }, [eventDetail, methods])
 
   const handleSubmit = methods.handleSubmit(async (data) => {
@@ -257,28 +258,28 @@ function EventReservationForm({ eventDetail }: Props) {
                     <div className="flex">
                       <div className="text-center flex w-16 h-16 bg-yellow-promo">
                         <DateCardDisplay
-                          dateFrom={eventDetail?.dateFrom ?? '1-1-1970'}
-                          dateTo={eventDetail?.dateTo ?? '1-1-1970'}
+                          dateFrom={eventDetail?.attributes?.dateFrom ?? '1-1-1970'}
+                          dateTo={eventDetail?.attributes?.dateTo ?? '1-1-1970'}
                           textSize="text-[18px]"
                         />
                       </div>
 
                       <div className="pl-5">
                         <div className="leading-[19px] text-black-universal ">
-                          {eventDetail?.eventTitle?.length > 50
-                            ? `${eventDetail?.eventTitle?.slice(0, 50)  }...`
-                            : eventDetail?.eventTitle}
+                          {(eventDetail?.attributes?.title?.length || 0) > 50
+                            ? `${eventDetail?.attributes?.title?.slice(0, 50)  }...`
+                            : eventDetail?.attributes?.title}
                         </div>
                         <div className="leading-[20px] text-xs text-gray-universal-70 pt-[5px]">
                           {dateTimeString(
-                            eventDetail?.dateFrom ?? new Date(),
-                            eventDetail?.dateTo ?? new Date(),
+                            eventDetail?.attributes?.dateFrom ?? new Date(),
+                            eventDetail?.attributes?.dateTo ?? new Date(),
                             locale
                           )}
                         </div>
-                        {eventDetail?.eventLocality?.title && (
+                        {eventDetail?.attributes?.eventLocality?.data?.attributes?.title && (
                           <div className="leading-[20px] text-xs text-gray-universal-70">
-                            &#9679; {eventDetail?.eventLocality.title}
+                            &#9679; {eventDetail?.attributes?.eventLocality.data.attributes?.title}
                           </div>
                         )}
                       </div>

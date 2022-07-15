@@ -2,11 +2,9 @@ import {
   ComponentLocalityPartsLocalitySection,
   ComponentSectionsLocalityDetails,
   Enum_Page_Layout,
+  EventCardFragment,
   Maybe,
   PageEntity,
-  PageEventFragment,
-  PageSectionsDynamicZone,
-  SectionLinkPageFragment,
 } from '@bratislava/strapi-sdk-city-library'
 
 import { IEvent, ILocality } from './types'
@@ -153,6 +151,20 @@ export const convertPagesEventsToEvents = (pages: PageEntity[] | any[]) => {
   })
 
   return events
+}
+
+export const convertEventToPromotedType = (events: EventCardFragment[]): IEvent[] => {
+  return events.map(event => ({
+    dateFrom: event.attributes?.dateFrom,
+    dateTo: event.attributes?.dateTo,
+    eventTitle: event.attributes?.title || '',
+    eventTags: event.attributes?.eventTags,
+    listingImage: event.attributes?.listingImage?.data?.attributes || undefined,
+    slug: event.attributes?.slug || undefined,
+    eventLocality: event.attributes?.eventLocality?.data || undefined,
+    eventCustomType: 'event',
+    eventCategory: event.attributes?.eventCategory?.data || undefined
+  }))
 }
 
 export const convertPageToEventDisplay = (

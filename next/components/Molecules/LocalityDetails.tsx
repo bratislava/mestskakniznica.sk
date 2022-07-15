@@ -2,6 +2,7 @@ import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import {
   ComponentLocalityPartsLocalitySection,
   ComponentSectionsLocalityDetails,
+  EventCardFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
@@ -19,7 +20,7 @@ import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface PageProps {
   localityDetails: ComponentSectionsLocalityDetails
-  events: IEvent[] | undefined
+  events: EventCardFragment[] | undefined
   eventsListingUrl: string | undefined
 }
 
@@ -189,12 +190,12 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
               {events?.map((event) => (
                 <div className="w-full h-23 cursor-pointer" key={event.id}>
                   <div className="pt-4 h-10 text-gray-universal-70">
-                    <Link href={event.slug || ''} passHref>
-                      <a href={event.slug} className="flex">
+                    <Link href={event.attributes?.slug || ''} passHref>
+                      <a href={event.attributes?.slug || ''} className="flex">
                         <div className="flex w-16 h-16 bg-yellow-promo">
                           <DateCardDisplay
-                            dateFrom={event.dateFrom || ''}
-                            dateTo={event.dateTo || ''}
+                            dateFrom={event.attributes?.dateFrom || ''}
+                            dateTo={event.attributes?.dateTo || ''}
                             textSize="text-[18px]"
                             wrapperClass="w-16"
                           />
@@ -202,14 +203,14 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
 
                         <div className="pl-5 overflow-hidden">
                           <div className="leading-[21px] md:w-52 whitespace-pre text-ellipsis overflow-hidden text-black-universal hover:underline">
-                            {event.eventTitle}
+                            {event.attributes?.title}
                           </div>
                           <div className="leading-[20px] text-xs text-gray-universal-70 pt-[5px]">
-                            {dateTimeString(event.dateFrom || '', event.dateTo || '', locale)}
+                            {dateTimeString(event.attributes?.dateFrom || '', event.attributes?.dateTo || '', locale)}
                           </div>
-                          {event.eventLocality?.attributes?.title && (
+                          {event.attributes?.eventLocality?.data?.attributes?.title && (
                             <div className="leading-[20px] text-xs text-gray-universal-70 md:w-52 overflow-hidden whitespace-pre text-ellipsis">
-                              &#9679; {event.eventLocality.attributes.title}
+                              &#9679; {event.attributes?.eventLocality.data.attributes.title}
                             </div>
                           )}
                         </div>

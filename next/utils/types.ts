@@ -3,8 +3,8 @@ import {
   ComponentAddressAddress,
   ComponentGuestsGuest,
   ComponentLocalityPartsLocalitySection,
+  EventCategoryEntity,
   EventLocalityEntity,
-  EventTagEntity,
   EventTagRelationResponseCollection,
   Maybe,
   Menu,
@@ -55,7 +55,7 @@ export interface IEvent {
   slug?: string
   id?: string
   price?: number
-  eventCategory?: Maybe<CategoryEntity>
+  eventCategory?: Maybe<CategoryEntity> | Maybe<EventCategoryEntity>
 }
 export interface IPremises {
   address?: string

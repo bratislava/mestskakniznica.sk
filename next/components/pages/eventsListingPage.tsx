@@ -1,13 +1,13 @@
 import DropdownIcon from '@assets/images/dropdown.svg'
-import { EventCategoryEntity, EventLocalityEntity, EventTagEntity, PageEntity } from '@bratislava/strapi-sdk-city-library'
+import { EventCardFragment, EventCategoryEntity, EventLocalityEntity, EventTagEntity, PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
+import { IEvent } from '@utils/types'
 import enUs from 'date-fns/locale/en-US'
 import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
 import { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { IEvent } from '../../utils/types'
 import Section from '../AppLayout/Section'
 import SectionPromos from '../HomePage/SectionPromos'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
@@ -28,7 +28,7 @@ interface KeyTitlePair {
 export interface PageProps {
   page: PageEntity
   promotedEvents: IEvent[]
-  events: IEvent[]
+  events: EventCardFragment[]
   eventCategories: NonNullable<EventCategoryEntity[]>
   eventTags: EventTagEntity[]
   eventLocalities: EventLocalityEntity[]
@@ -40,7 +40,7 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
   const { t } = useTranslation('common')
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
-  const [filteredEvents, setFilteredEvents] = useState<IEvent[]>(events)
+  const [filteredEvents, setFilteredEvents] = useState<EventCardFragment[]>(events)
   const [currentPage, setCurrentPage] = useState(1)
   const [openFilterModal, setOpenFilterModal] = useState(false)
   const [bodyStyle, setBodyStyle] = useState('')
@@ -115,11 +115,11 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
   }
 
   const filterEvents = () => {
-    const filterDate = (event: IEvent) => {
+    const filterDate = (event: EventCardFragment) => {
       const filterFrom = startDate && startDate.getTime()
       const filterTo = endDate && endDate.getTime()
-      const eventFrom = new Date(event?.dateFrom || '').setHours(0)
-      const eventTo = new Date(event?.dateTo || '').setHours(0)
+      const eventFrom = new Date(event?.attributes?.dateFrom || '').setHours(0)
+      const eventTo = new Date(event?.attributes?.dateTo || '').setHours(0)
 
       // Complicated if to handle all possible date usecases
       if (filterFrom) {
@@ -133,20 +133,20 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
       }
     }
 
-    const filterType = (event: IEvent) => {
-      if (selectedEventTags) return event.eventTags?.data?.find((tag) => tag.id === selectedEventTags?.key)
+    const filterType = (event: EventCardFragment) => {
+      if (selectedEventTags) return event.attributes?.eventTags?.data?.find((tag) => tag.id === selectedEventTags?.key)
 
       return event
     }
 
-    const filterCategory = (event: IEvent) => {
-      if (selectedCategory) return event.eventCategory?.id === selectedCategory?.key
+    const filterCategory = (event: EventCardFragment) => {
+      if (selectedCategory) return event.attributes?.eventCategory?.data?.id === selectedCategory?.key
 
       return event
     }
 
-    const filterLocality = (event: IEvent) => {
-      if (selectedLocality) return event.eventLocality?.id === selectedLocality?.key
+    const filterLocality = (event: EventCardFragment) => {
+      if (selectedLocality) return event.attributes?.eventLocality?.data?.id === selectedLocality?.key
 
       return event
     }
@@ -278,7 +278,7 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
           <div className="text-md2">{t('eventsAll')}</div>
           <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 gap-y-4 lg:gap-y-10">
             {filteredEventsPaginated?.map((event) => (
-              <EventListingCard event={event} key={event.slug} />
+              <EventListingCard event={event} key={event.attributes?.slug} />
             ))}
           </div>
           <div className="flex justify-center lg:justify-end pt-6">

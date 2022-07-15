@@ -1,13 +1,12 @@
-import { PageEntity } from '@bratislava/strapi-sdk-city-library'
+import { EventCardFragment, PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { SectionContainer } from '@bratislava/ui-city-library'
 
-import { IEvent } from '../../utils/types'
 import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 import Sections from "../Molecules/Sections"
 
 export interface PageProps {
   page: PageEntity
-  events: IEvent[]
+  events: EventCardFragment[]
   eventsListingUrl: string
 }
 

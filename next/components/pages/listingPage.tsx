@@ -1,4 +1,4 @@
-import { PageEntity, PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { EventCardFragment, PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
@@ -9,7 +9,7 @@ import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface PageProps {
   page: PageEntity
-  allEvents: IEvent[]
+  allEvents: EventCardFragment[]
   news: IEvent[]
 }
 
@@ -42,8 +42,8 @@ function ListingPage({ page, allEvents, news }: PageProps) {
                       moreLinkTitle: t('more'),
                     }))
                   : allEvents.slice(0, 4).map((event) => ({
-                      title: event.eventTitle ?? '',
-                      url: event.slug ?? '',
+                      title: event.attributes?.title ?? '',
+                      url: event.attributes?.slug ?? '',
                       moreLinkTitle: t('more'),
                     }))
                 : subCategory.pages.map((page) => ({

@@ -1,4 +1,4 @@
-import { BlogPostSectionsDynamicZone, PageSectionsDynamicZone, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostSectionsDynamicZone, EventCardFragment, PageSectionsDynamicZone, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
 import {
   Accordion,
   ColumnedText,
@@ -77,7 +77,7 @@ function NullComponent() {
   return null
 }
 
-export const getForm = (formType: string, key?: string | null, eventDetail?: IEvent) => {
+export const getForm = (formType: string, key?: string | null, eventDetail?: EventCardFragment) => {
   if (!formType) return NullComponent
 
   let Comp: (arg: any) => any = FORM[formType]
@@ -102,7 +102,7 @@ function Sections({
 }: {
   pageTitle?: string | null | undefined
   sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
-  events?: IEvent[] | undefined
+  events?: EventCardFragment[] | undefined
   eventsListingUrl?: string | undefined
   className?: string | undefined
 }) {
@@ -132,7 +132,7 @@ function Section({
   sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[];
   pageTitle?: string | null | undefined
   section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
-  events: IEvent[] | undefined
+  events: EventCardFragment[] | undefined
   eventsListingUrl: string | undefined
 }) {
   const [openAccordion, setOpenAccordion] = React.useState('')
@@ -156,7 +156,7 @@ const sectionContent = (
   sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[] | any,
   pageTitle: string | null | undefined,
   section: BlogPostSectionsDynamicZone,
-  events: IEvent[] | undefined,
+  events: EventCardFragment[] | undefined,
   eventsListingUrl: string | undefined,
   t: TFunction,
   openAccordion: string,

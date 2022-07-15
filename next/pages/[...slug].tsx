@@ -1,6 +1,8 @@
 import {
   Enum_Page_Layout,
+  EventCardFragment,
   EventCategoryEntity,
+  EventEntity,
   EventLocalityEntity,
   EventTagEntity, FooterEntity,
   MenuEntity, PageEntity, Pagination, PartnerEntity, PartnerFragment, PremiseEntity
@@ -25,14 +27,14 @@ import PartnersPage from '../components/pages/partnersPage'
 import Premises from '../components/pages/premises'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
 import SublistingPage from '../components/pages/sublistingPage'
-import { buildUrl, client } from '../utils/gql'
+import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
 import { sortPartners } from '../utils/page'
-import { IEvent, ILocality, IPremises } from '../utils/types'
+import { IEvent, ILocality } from '../utils/types'
 import {
   arrayify,
-  convertPagesEventsToEvents,
+  convertEventToPromotedType,
   convertPagesToEvents,
   convertPagesToLocalities,
   isPresent,
@@ -46,8 +48,10 @@ interface IPageProps {
   page: PageEntity
   partners: PartnerEntity[]
   promotedEvents: IEvent[]
-  allEvents: IEvent[]
-  latestEvents: IEvent[]
+  eventDetail: EventEntity
+  allEvents: EventCardFragment[]
+  eventListEvents: EventCardFragment[]
+  latestEvents: EventCardFragment[]
   premises: PremiseEntity[]
   opacBookNews: OpacBook[]
   localities: ILocality[]
@@ -66,7 +70,9 @@ function Page({
   page,
   partners,
   promotedEvents,
+  eventDetail,
   allEvents,
+  eventListEvents,
   latestEvents,
   opacBookNews,
   premises,
@@ -130,16 +136,12 @@ function Page({
         <EventsListingPage
           page={page}
           promotedEvents={promotedEvents}
-          events={allEvents}
+          events={eventListEvents}
           eventCategories={eventCategories}
           eventTags={eventTags}
           eventLocalities={eventLocalities}
         />
       )
-      break
-
-    case Enum_Page_Layout.Event:
-      pageComponentByLayout = <EventPage page={page} events={allEvents} allNewsLink={allNewsLink} />
       break
 
     case Enum_Page_Layout.Premises:
@@ -165,11 +167,15 @@ function Page({
       break
   }
 
+  if(!pageComponentByLayout && eventDetail) {
+    pageComponentByLayout = <EventPage page={page} eventDetail={eventDetail} events={allEvents} allNewsLink={allNewsLink} />
+  }
+
   return (
     <PageWrapper
-      locale={page.attributes?.locale ?? 'sk'}
-      slug={page.attributes?.slug ?? ''}
-      localizations={page.attributes?.localizations?.data.filter(isPresent).map(localisation => ({locale: localisation.attributes?.locale, slug: localisation.attributes?.slug}))}
+      locale={page?.attributes?.locale ?? ''}
+      slug={page?.attributes?.slug ?? ''}
+      localizations={page?.attributes?.localizations?.data.filter(isPresent).map(localisation => ({locale: localisation.attributes?.locale, slug: localisation.attributes?.slug}))}
     >
       <DefaultPageLayout
         title={page?.attributes?.title}
@@ -221,9 +227,10 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
 
   try {
     let promotedEvents: IEvent[] = []
-    let allEvents: IEvent[] = []
+    let allEvents: EventCardFragment[] = []
+    let eventListEvents: EventCardFragment[] = []
     let news: IEvent[] = []
-    let latestEvents: IEvent[] = []
+    let latestEvents: EventCardFragment[] = []
     let premises: PremiseEntity[] = []
     let localities: ILocality[] = []
     let eventCategories: EventCategoryEntity[] = []
@@ -239,8 +246,29 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     })
     // menus, footer
     const pageBySlug = queryResponse?.pages?.data[0];
+    let eventDetail: EventEntity | null = null
     const { menus, footer } = queryResponse;
-    if (!pageBySlug) return { notFound: true } as { notFound: true }
+    
+    if (!pageBySlug) {
+      const eventDetailResponse = await client.GetEventDetail({ slug })
+      if(eventDetailResponse.events?.data[0]) {
+        eventDetail = eventDetailResponse.events.data[0]
+      } else {
+        return { notFound: true } as { notFound: true }
+      }
+    }
+
+    // For all page in header
+    let allEventPages: EventCardFragment[] = []
+    const today = new Date();
+    const futureEvents = await client.FutureEventList({
+      locale,
+      start: 0,
+      limit: 10,
+      today: today.toISOString()
+    })
+    allEventPages = futureEvents.events?.data || []
+    latestEvents = futureEvents.events?.data || []
 
     // all partners for about us partners page
     const partners: { allPartners: PartnerFragment[] | null } = {
@@ -256,83 +284,31 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       opacBookNews = (await getOpacBooks()) || []
     }
 
-    // TODO temp fix, collect all events when amountLimit is 250
-    let allEventPages: any = []
-    for (let i = 0; i <= 15; i++) {
-      const eventPages = await client.PagesByLayout({
-        layout: 'event',
-        locale,
-        start: i * 250,
-        limit: 250,
-      })
-      const length = eventPages.pages?.data.length
-      if (!length || length === 0) break
-      allEventPages = allEventPages.concat(eventPages?.pages?.data)
-    }
-
-    interface eventProps {
-      dateTo?: string | Date
-      dateFrom?: string | Date
-      date_added?: string | Date
-    }
-
-    latestEvents = convertPagesToEvents(allEventPages?.filter(isDefined) ?? [])
-      .filter((event: eventProps) => event.dateTo && new Date(event.dateTo) >= new Date())
-      .sort((a: eventProps, b: eventProps) => {
-        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
-        return 0
-      })
-      .slice(0, 4)
-
     if (pageBySlug?.attributes?.layout === Enum_Page_Layout.EventsListing) {
       const [promotedPagesResponse, eventProperties] = await Promise.all([
-        client.PromotedEvents({ locale }),
+        client.PromotedEvents({ locale, start: 0, limit: 4 }),
         client.EventProperties({ locale }),
       ])
 
-      // TODO temp fix, collect all events when amountLimit is 250
-      let eventListingPages: any = []
-      for (let i = 0; i <= 15; i++) {
-        const eventPages = await client.ListEvents({
-          locale,
-          start: i * 250,
-          limit: 250,
-        })
-        const length = eventPages.pages?.data.length
-        if (!length || length === 0) break
-        eventListingPages = eventListingPages.concat(eventPages?.pages?.data)
-      }
+      const eventPages = await client.EventList({
+        locale,
+        start: 0,
+        limit: 10,
+      })
       
-      promotedEvents = convertPagesEventsToEvents(promotedPagesResponse.pages?.data.slice(0, 3) || []) || []
-      convertPagesEventsToEvents(eventListingPages?.filter(isDefined) ?? [])
-        .sort((a: eventProps, b: eventProps) => {
-          if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-          if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
-          return 0
-        })
-        .forEach((event) => {
-          allEvents.push(event)
-        })
+      promotedEvents = convertEventToPromotedType(promotedPagesResponse.events?.data || [])
+      eventListEvents = eventPages.events?.data || []
 
       eventCategories = eventProperties.eventCategories?.data || []
       eventTags = eventProperties.eventTags?.data || []
       eventLocalities = eventProperties.eventLocalities?.data || []
-    }
-
+    }    
     if (
       pageBySlug?.attributes?.layout === Enum_Page_Layout.Event ||
       pageBySlug?.attributes?.layout === Enum_Page_Layout.Locality ||
       pageBySlug?.attributes?.layout === Enum_Page_Layout.Listing
     ) {
-      allEvents = convertPagesToEvents(allEventPages?.filter(isDefined) ?? [])
-        .filter((event: eventProps) => event.dateTo && new Date(event.dateTo) >= new Date())
-        .sort((a: eventProps, b: eventProps) => {
-          if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-          if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
-          return 0
-        })
-        .slice(0, 4)
+      allEvents = allEventPages
 
       const { pages }: any = await client.PagesByLayout({
         layout: 'eventsListing',
@@ -370,10 +346,12 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     return {
       props: {
         slug,
-        page: pageBySlug,
+        page: pageBySlug || null,
         partners: partners.allPartners ?? [],
+        eventDetail,
         promotedEvents,
         allEvents,
+        eventListEvents,
         latestEvents,
         allNewsLink,
         opacBookNews,

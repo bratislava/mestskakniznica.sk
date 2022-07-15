@@ -21,7 +21,7 @@ function EventCard({
 
   return (
     <Link key={eventTitle} href={slug || ''} passHref>
-      <a href={slug}>
+      <a href={slug || ''}>
         <div className="h-full w-full">
           <div className="relative m-auto flex h-full cursor-pointer flex-col justify-between bg-promo-yellow">
             <div className="flex flex-wrap pl-5 pt-4 text-sm">
@@ -58,7 +58,7 @@ function EventCard({
                     width={600}
                     height={360}
                     objectFit="cover"
-                    src={listingImage.url}
+                    src={listingImage?.url || ''}
                     alt={listingImage?.alternativeText || `Cover for ${eventTitle}`}
                   />
                 </div>

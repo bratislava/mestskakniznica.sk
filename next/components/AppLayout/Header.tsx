@@ -1,9 +1,8 @@
-import { MenuEntity, MenuEntityResponseCollection } from '@bratislava/strapi-sdk-city-library'
+import { EventCardFragment, MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 
-import { IEvent } from '../../utils/types'
 import HeaderNavigation from './Navigation/HeaderNavigation'
 import NavigationItem from './Navigation/NavigationItem'
 import SearchBox from './Navigation/SearchBox'
@@ -11,7 +10,7 @@ import SkipNavigation from './SkipNavigation'
 
 interface HeaderProps {
   menus: MenuEntity[]
-  latestEvents?: IEvent[]
+  latestEvents?: EventCardFragment[]
 }
 
 function Header({ menus, latestEvents }: HeaderProps) {

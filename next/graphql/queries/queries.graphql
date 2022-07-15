@@ -229,22 +229,6 @@ query PromotedPages($locale: I18NLocaleCode!) {
   }
 }
 
-query PromotedEvents($locale: I18NLocaleCode!) {
-  pages(filters: { promoted: {eq: true}, layout: {eq: "event"} }, locale: $locale) {
-    data {
-      ...Page
-    }
-  }
-}
-
-query ListEvents($locale: I18NLocaleCode!, $start: Int, $limit: Int) {
-  pages(filters: { layout: {eq: "event"} }, locale: $locale, pagination: { start: $start, limit: $limit }) {
-    data {
-      ...PageEvent
-    }
-  }
-}
-
 query PagesByLayout($layout: String!, $locale: I18NLocaleCode!, $start: Int, $limit: Int) {
   pages(filters: { layout: { eq: $layout } }, locale: $locale, pagination: { start: $start, limit: $limit }) {
     data {
@@ -344,6 +328,7 @@ fragment Page on PageEntity {
           mime
           provider
           size
+          alternativeText
           updatedAt
         }
       }
@@ -870,6 +855,7 @@ fragment SectionLinkPage on PageEntity {
           provider
           size
           updatedAt
+          alternativeText
         }
       }
     }
@@ -877,88 +863,6 @@ fragment SectionLinkPage on PageEntity {
       __typename
       ... on ComponentSectionsEventDetails {
         ...EventDetails
-      }
-    }
-  }
-}
-fragment PageEvent on PageEntity {
-  id
-  attributes {
-    slug
-    title
-    createdAt
-    updatedAt
-    date_added
-    listingImage {
-      data {
-        attributes {
-          name
-          url
-          createdAt
-        }
-      }
-    }
-    layout
-    sections {
-      ...SectionsEvent
-    }
-    locale
-    Seo {
-      id
-      metaTitle
-      metaDescription
-      keywords
-      metaRobots
-      metaViewport
-      canonicalURL
-    }
-  }
-}
-
-fragment SectionsEvent on PageSectionsDynamicZone {
-  __typename
-  ... on ComponentSectionsEventDetails {
-    ...EventDetailsEvent
-  }
-}
-
-fragment EventDetailsEvent on ComponentSectionsEventDetails {
-  id
-  eventTitle
-  eventCategory {
-    data {
-      id
-      attributes {
-        title
-        createdAt
-        updatedAt
-      }
-    }
-  }
-  eventLocality {
-    data {
-      id
-      attributes {
-        title
-        navigateTo
-        eventAddress
-        createdAt
-        updatedAt
-      }
-    }
-  }
-  dateFrom
-  dateTo
-  price
-  eventTags {
-    data {
-      id
-      attributes {
-        title
-        slug
-        createdAt
-        publishedAt
-        updatedAt
       }
     }
   }

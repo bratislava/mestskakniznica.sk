@@ -37,10 +37,10 @@ function SectionPromos({ events }: SectionPromosProps) {
             case 'announcement':
               return (
                 <div
-                  key={event.slug}
+                  key={event?.slug}
                   className="w-[80vw] flex-shrink-0 sm:w-[calc(50vw_-_24px)] lg:w-full"
                 >
-                  <AnnouncementCard title={event.eventTitle || ''} slug={event.slug || ''} />
+                  <AnnouncementCard title={event?.eventTitle || ''} slug={event?.slug || ''} />
                 </div>
               )
 

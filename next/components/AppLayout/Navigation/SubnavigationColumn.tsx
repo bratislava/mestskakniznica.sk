@@ -1,6 +1,5 @@
-import { ComponentMenuSections, Enum_Page_Layout, MenuSectionFragment } from '@bratislava/strapi-sdk-city-library'
+import { ComponentMenuSections, Enum_Page_Layout, EventCardFragment } from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { IEvent } from '@utils/types'
 import cx from 'classnames'
 import Link from 'next/link'
 
@@ -10,7 +9,7 @@ import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
 interface ColumnProps {
   section: ComponentMenuSections
-  latestEvents: IEvent[] | undefined
+  latestEvents?: EventCardFragment[]
   classNames?: string
 }
 
@@ -46,32 +45,32 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
               return (
                 <div className="grid grid-rows-2 grid-flow-col">
                   {latestEvents.map((event) => (
-                    <div key={event.slug}>
+                    <div key={event.attributes?.slug}>
                       <div className="h-23 w-[380px] cursor-pointer pt-5 pb-5">
                         <NavigationMenu.Link
                           className="h-10 pt-4 text-gray-universal-70"
                           tabIndex={-1}
                         >
-                          <Link href={`/${event.slug}`} passHref>
-                            <a href={`/${event.slug}`} className="flex">
+                          <Link href={`/${event.attributes?.slug}`} passHref>
+                            <a href={`/${event.attributes?.slug}`} className="flex">
                               <div className="flex h-16 w-20 bg-yellow-promo text-center">
                                 <DateCardDisplay
-                                  dateFrom={event.dateFrom || ''}
-                                  dateTo={event.dateTo || ''}
+                                  dateFrom={event.attributes?.dateFrom || ''}
+                                  dateTo={event.attributes?.dateTo || ''}
                                   textSize="text-[18px]"
                                 />
                               </div>
 
                               <div className="w-full pl-5">
                                 <div className="leading-[19px] text-black-universal hover:underline">
-                                  {event?.eventTitle}
+                                  {event?.attributes?.title}
                                 </div>
                                 <div className="leading-[20px] text-xs text-gray-universal-70">
-                                  {dateTimeString(event.dateFrom || '', event.dateTo || '', locale)}
+                                  {dateTimeString(event.attributes?.dateFrom || '', event.attributes?.dateTo || '', locale)}
                                 </div>
-                                {event?.eventLocality?.attributes?.title && (
+                                {event?.attributes?.eventLocality?.data?.attributes?.title && (
                                   <div className="leading-[20px] text-xs text-gray-universal-70 max-w-[250px]">
-                                    &#9679; {event?.eventLocality?.attributes?.title}
+                                    &#9679; {event?.attributes?.eventLocality?.data?.attributes?.title}
                                   </div>
                                 )}
                               </div>

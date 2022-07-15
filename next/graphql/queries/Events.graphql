@@ -1,16 +1,161 @@
-query LatestEvents($locale: I18NLocaleCode!, $today: DateTime!, $count: Int = 4) {
+query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int) {
   events(
     locale: $locale
     sort: "dateFrom:asc"
-    filters: { dateFrom: { gte: $today } }
-    pagination: { limit: $count }
+    pagination: { start: $start, limit: $limit }
   ) {
     data {
-      attributes {
-        dateFrom
-        title
-        # TODO add more attributes as fragment
+      ...EventCard
+    }
+  }
+}
+
+query FutureEventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $today: DateTime) {
+  events(
+    locale: $locale
+    sort: "dateFrom:asc"
+    pagination: { start: $start, limit: $limit }
+    filters: { dateFrom: { gte: $today } }
+  ) {
+    data {
+      ...EventCard
+    }
+  }
+}
+
+query PromotedEvents($locale: I18NLocaleCode!, $start: Int, $limit: Int) {
+  events(
+    locale: $locale
+    sort: "dateFrom:asc"
+    pagination: { start: $start, limit: $limit }
+    filters: { promoted: {eq: true} }
+  ) {
+    data {
+      ...EventCard
+    }
+  }
+}
+
+query GetEventDetail($slug: String) {
+  events(filters: { slug: { eq: $slug } }) {
+    data {
+      ...EventCard
+    }
+  }
+}
+
+fragment EventCard on EventEntity {
+  id
+  attributes {
+    slug
+    title
+    description
+    createdAt
+    updatedAt
+    date_added
+    locale
+    dateFrom
+    dateTo
+    price
+    eventCategory {
+      data {
+        id
+        attributes {
+          title
+          createdAt
+          updatedAt
+        }
       }
+    }
+    eventLocality {
+      data {
+        id
+        attributes {
+          title
+          navigateTo
+          eventAddress
+          createdAt
+          updatedAt
+        }
+      }
+    }
+    eventTags {
+      data {
+        id
+        attributes {
+          title
+          slug
+          createdAt
+          publishedAt
+          updatedAt
+        }
+      }
+    }
+    listingImage {
+      data {
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+          alternativeText
+        }
+      }
+    }
+    coverImage {
+      data {
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+          alternativeText
+        }
+      }
+    }
+    guests {
+      id
+      name
+      surname
+      avatar {
+        data {
+          id
+          attributes {
+            name
+            width
+            height
+            url
+            createdAt
+            hash
+            mime
+            provider
+            size
+            updatedAt
+            alternativeText
+          }
+        }
+      }
+    }
+    Seo {
+      id
+      metaTitle
+      metaDescription
+      keywords
+      metaRobots
+      metaViewport
+      canonicalURL
     }
   }
 }

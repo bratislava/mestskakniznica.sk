@@ -1,6 +1,5 @@
-import { ComponentMenuSections, Maybe, Menu } from '@bratislava/strapi-sdk-city-library'
+import { ComponentMenuSections, EventCardFragment, Maybe, Menu } from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { IEvent } from '@utils/types'
 import cx from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -10,7 +9,7 @@ import Subnavigation from './Subnavigation'
 
 interface navItemProps {
   menu: Menu | undefined | null
-  latestEvents?: IEvent[]
+  latestEvents?: EventCardFragment[]
   index: number
 }
 
