@@ -1,10 +1,5 @@
 // TODO use @ts-check
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require('path')
-const fs = require('fs')
-const { i18n } = require('./next-i18next.config')
-
 /**
  * @type {import('next').NextConfig}
  */
@@ -25,12 +20,12 @@ const nextConfig = {
         // Graphql Proxy
         {
           source: '/graphql',
-          destination: `http://${process.env.STRAPI_URL}/graphql`,
+          destination: `${process.env.STRAPI_URL}/graphql`,
         },
         // Media proxy for getting media from Strapi
         {
           source: '/uploads/:file',
-          destination: `http://${process.env.STRAPI_URL}/uploads/:file`,
+          destination: `${process.env.STRAPI_URL}/uploads/:file`,
         },
         /**
          * Rewrites to make the the translation of URL work. Based on an approached outlined here:
@@ -51,7 +46,7 @@ const nextConfig = {
         {
           source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
           destination: '/documents/:slug',
-        }
+        },
       ],
     }
   },
@@ -607,7 +602,8 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/ochrana-osobnych-udajov-v-zmysle-zakona-c.-182018-v-podmienkach-mestskej-kniznice-v-bratislave',
+        source:
+          '/ochrana-osobnych-udajov-v-zmysle-zakona-c.-182018-v-podmienkach-mestskej-kniznice-v-bratislave',
         destination: '/o-nas/ochrana-osobnych-udajov',
         permanent: true,
       },
