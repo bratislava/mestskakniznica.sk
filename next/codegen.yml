@@ -1,4 +1,4 @@
-schema: 'https://strapi-city-library.bratislava.sk/graphql'
+schema: 'http://localhost:1338/graphql'
 documents: './graphql/queries/**/*.{gql,graphql}'
 generates:
   graphql/index.ts:
