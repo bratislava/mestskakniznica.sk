@@ -1,7 +1,6 @@
 import Check from '@assets/images/check-done.svg'
 import RegisterToLibrary from '@assets/images/register-to-library.svg'
 import { ComponentHomepageRegistrationInfo } from '@bratislava/strapi-sdk-city-library'
-import { Button } from '@bratislava/ui-city-library'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import React from 'react'

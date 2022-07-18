@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageWrapper from '../../components/layouts/PageWrapper'
 import FileDetailPage from '../../components/pages/fileDetailPage'
-import { BasicDocumentEntity, BasicDocumentFragment, FooterQuery, MenuEntity, MenusQuery } from '../../graphql'
+import { BasicDocumentEntity, FooterQuery, MenuEntity } from '../../graphql'
 import { client } from '../../utils/gql'
 import { arrayify } from '../../utils/utils'
 

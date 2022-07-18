@@ -49,9 +49,6 @@ fragment DocumentCategory on FileCategoryEntity {
   attributes {
     name
     slug
-    # page {
-    #   ...Page
-    # }
   }
 }
 

@@ -1,4 +1,4 @@
-import { BlogPostSectionsDynamicZone, PageSectionsDynamicZone, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostSectionsDynamicZone, PageSectionsDynamicZone } from '@bratislava/strapi-sdk-city-library'
 import {
   Accordion,
   ColumnedText,

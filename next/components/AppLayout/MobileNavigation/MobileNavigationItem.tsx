@@ -1,4 +1,4 @@
-import { ComponentMenuSections, Maybe, Menu, MenuEntity, MenuFragment, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useState } from 'react'

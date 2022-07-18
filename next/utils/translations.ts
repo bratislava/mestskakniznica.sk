@@ -1,7 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import cfg from '../next.config'
-import { shouldSkipStaticPaths } from './utils'
 
 interface IcachedSsrTranslations {
   [key: string]: any

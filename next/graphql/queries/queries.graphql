@@ -19,16 +19,6 @@ query Footer($locale: I18NLocaleCode!) {
             }
           }
         }
-        siteMapLink {
-          data {
-            ...BasePageFields
-          }
-        }
-        privacyLink {
-          data {
-            ...BasePageFields
-          }
-        }
         copyrightText
       }
     }
@@ -104,7 +94,7 @@ query HomePage($locale: I18NLocaleCode!) {
       }
     }
   }
-    menus(locale: $locale, sort: ["order:asc"]) {
+  menus(locale: $locale, sort: ["order:asc"]) {
     data {
       ...Menu
     }
@@ -127,16 +117,32 @@ query HomePage($locale: I18NLocaleCode!) {
             otherSite
           }
         }
-        siteMapLink {
-          data {
-            ...BasePageFields
-          }
-        }
-        privacyLink {
-          data {
-            ...BasePageFields
-          }
-        }
+      }
+    }
+  }
+  promotedPages : pages(
+    filters: { promoted: {eq: true}, or: [{ layout: {eq: "event"} }, { layout: {eq: "announcement"} }, { layout: {eq: "news"} }] }
+    locale: $locale
+  ) {
+    data {
+      ...Page
+    }
+  }
+  localityPages : pages(filters: { layout: { eq: "locality" } }, locale: $locale) {
+    data {
+      ...Page
+    }
+  }
+  newsPages : pages(filters: { layout: { eq: "news" } }, locale: $locale, sort: "date_added:asc", pagination: { limit: 4, start: 0 }) {
+    data {
+      ...Page
+    }
+  }
+  bookTags {
+    data {
+      attributes {
+        displayName
+        slug
       }
     }
   }
@@ -194,7 +200,6 @@ fragment Menu on MenuEntity {
       ...MenuSection
     }
     createdAt
-    updatedAt
   }
 }
 
@@ -295,16 +300,6 @@ query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
             otherSite
           }
         }
-        siteMapLink {
-          data {
-            ...BasePageFields
-          }
-        }
-        privacyLink {
-          data {
-            ...BasePageFields
-          }
-        }
       }
     }
   }
@@ -330,7 +325,6 @@ fragment Page on PageEntity {
     slug
     title
     createdAt
-    updatedAt
     date_added
     listingImage {
       data {
@@ -339,12 +333,7 @@ fragment Page on PageEntity {
           width
           height
           url
-          createdAt
-          hash
           mime
-          provider
-          size
-          updatedAt
         }
       }
     }
@@ -363,7 +352,6 @@ fragment Page on PageEntity {
         ...BlogPost
       }
     }
-
     locale
     localizations {
       data {
@@ -424,7 +412,6 @@ fragment Category on Category {
     ...PageLink
   }
   createdAt
-  updatedAt
 }
 
 fragment Sections on PageSectionsDynamicZone {
@@ -449,17 +436,9 @@ fragment Sections on PageSectionsDynamicZone {
       data {
         id
         attributes {
-          name
-          width
-          height
           url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
           alternativeText
+          mime
         }
       }
     }
@@ -471,17 +450,9 @@ fragment Sections on PageSectionsDynamicZone {
       data {
         id
         attributes {
-          name
-          width
-          height
           url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
           alternativeText
+          mime
         }
       }
     }
@@ -577,32 +548,8 @@ fragment Sections on PageSectionsDynamicZone {
         id
         attributes {
           name
-          width
-          height
           url
-          createdAt
-          hash
           mime
-          provider
-          size
-          updatedAt
-        }
-      }
-    }
-    localityMap {
-      data {
-        id
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
         }
       }
     }
@@ -652,16 +599,9 @@ fragment Sections on PageSectionsDynamicZone {
         data {
           id
           attributes {
-            name
-            width
-            height
             url
-            createdAt
-            hash
+            alternativeText
             mime
-            provider
-            size
-            updatedAt
           }
         }
       }
@@ -743,7 +683,6 @@ fragment BasePageFields on PageEntity {
     title
     slug
     createdAt
-    updatedAt
   }
 }
 
@@ -757,7 +696,6 @@ fragment EventDetails on ComponentSectionsEventDetails {
       attributes {
         title
         createdAt
-        updatedAt
       }
     }
   }
@@ -769,7 +707,6 @@ fragment EventDetails on ComponentSectionsEventDetails {
         navigateTo
         eventAddress
         createdAt
-        updatedAt
       }
     }
   }
@@ -784,39 +721,15 @@ fragment EventDetails on ComponentSectionsEventDetails {
       data {
         id
         attributes {
-          name
           width
           height
           url
-          createdAt
-          hash
           mime
-          provider
-          size
-          updatedAt
           alternativeText
         }
       }
     }
   }
-  # partners {
-  #   id
-  #   title
-  #   image {
-  #     name
-  #     width
-  #     height
-  #     url
-  #     createdAt
-  #     hash
-  #     id
-  #     mime
-  #     provider
-  #     size
-  #     updatedAt
-  #     alternativeText
-  #   }
-  # }
   eventTags {
     data {
       id
@@ -825,23 +738,15 @@ fragment EventDetails on ComponentSectionsEventDetails {
         slug
         createdAt
         publishedAt
-        updatedAt
       }
     }
   }
   eventCoverImage {
     data {
       attributes {
-        name
         width
         height
         url
-        createdAt
-        hash
-        mime
-        provider
-        size
-        updatedAt
         alternativeText
       }
     }
@@ -855,7 +760,6 @@ fragment SectionLinkPage on PageEntity {
     title
     slug
     createdAt
-    updatedAt
     date_added
     listingImage {
       data {
@@ -864,12 +768,7 @@ fragment SectionLinkPage on PageEntity {
           width
           height
           url
-          createdAt
-          hash
           mime
-          provider
-          size
-          updatedAt
         }
       }
     }
@@ -887,7 +786,6 @@ fragment PageEvent on PageEntity {
     slug
     title
     createdAt
-    updatedAt
     date_added
     listingImage {
       data {
@@ -931,7 +829,6 @@ fragment EventDetailsEvent on ComponentSectionsEventDetails {
       attributes {
         title
         createdAt
-        updatedAt
       }
     }
   }
@@ -943,7 +840,6 @@ fragment EventDetailsEvent on ComponentSectionsEventDetails {
         navigateTo
         eventAddress
         createdAt
-        updatedAt
       }
     }
   }
@@ -958,7 +854,6 @@ fragment EventDetailsEvent on ComponentSectionsEventDetails {
         slug
         createdAt
         publishedAt
-        updatedAt
       }
     }
   }
@@ -971,7 +866,6 @@ query EventProperties($locale: I18NLocaleCode!) {
       attributes {
         title
         createdAt
-        updatedAt
       }
     }
   }
@@ -982,7 +876,6 @@ query EventProperties($locale: I18NLocaleCode!) {
         title
         navigateTo
         createdAt
-        updatedAt
       }
     }
   }
@@ -994,7 +887,6 @@ query EventProperties($locale: I18NLocaleCode!) {
         slug
         createdAt
         publishedAt
-        updatedAt
       }
     }
   }

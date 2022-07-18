@@ -1,7 +1,5 @@
 import { BookTagsQuery } from '@bratislava/strapi-sdk-city-library'
-import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useState } from 'react'
 
 interface BookTagsProps {
   bookTags: NonNullable<BookTagsQuery['bookTags']>

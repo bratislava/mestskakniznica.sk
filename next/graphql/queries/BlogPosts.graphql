@@ -78,16 +78,6 @@ fragment ParentPage on PageEntity {
   }
 }
 
-fragment BasePageFields on PageEntity {
-  id
-  attributes {
-    title
-    slug
-    createdAt
-    updatedAt
-  }
-}
-
 query FetchBlogPosts($id: ID, $limit: Int, $offset: Int) {
   blogPosts(filters: {id: {eq: $id}}, pagination: {limit: $limit, start: $offset}){
     data {

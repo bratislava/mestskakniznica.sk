@@ -1,4 +1,4 @@
-import { PageEntity, PartnerEntity, PartnerFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity, PartnerEntity } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, Partner, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'

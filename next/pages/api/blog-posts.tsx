@@ -1,4 +1,4 @@
-import { BlogPostEntity, BlogPostFragment } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostEntity } from '@bratislava/strapi-sdk-city-library'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { fetchBlogPosts, getBlogPostsCount } from '../../utils/blogpost'

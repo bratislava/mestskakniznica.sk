@@ -1,12 +1,9 @@
 import { BookNewsDetail, Link } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
-import React, { useEffect,useState } from 'react'
+import React from 'react'
 
 import { OpacBook } from '../../utils/opac'
 import Section from '../AppLayout/Section'
-
-const LIMIT = 6
-const OFFSET = 1
 
 interface SectionOpacBookNewsProps {
   books: OpacBook[]

@@ -7,7 +7,6 @@ import {
   FooterEntity,
   MenuEntity,
   PageEntity,
-  PagesByLayoutQuery,
 } from '@bratislava/strapi-sdk-city-library'
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
@@ -156,24 +155,10 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
     const [
       opacBookNews,
-      newsPages,
-      { homePage, menus, footer },
-      promotedPages,
-      localityPages,
-      { bookTags },
+      { homePage, menus, footer, promotedPages, localityPages, newsPages, bookTags },
     ] = await Promise.all([
       getOpacBooks(),
-      client.PagesByLayout({
-        layout: 'news',
-        locale,
-      }),
       client.HomePage({ locale }),
-      client.PromotedPages({ locale }),
-      client.PagesByLayout({
-        layout: 'locality',
-        locale,
-      }),
-      client.BookTags(),
     ])
 
     if (!homePage || !bookTags) {

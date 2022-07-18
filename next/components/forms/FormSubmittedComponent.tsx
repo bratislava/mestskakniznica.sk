@@ -1,5 +1,4 @@
 import CheckMark from '@assets/images/check-mark.svg'
-import CloseMark from '@assets/images/close.svg'
 import { Button } from '@bratislava/ui-city-library'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'

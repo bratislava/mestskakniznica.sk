@@ -1,11 +1,9 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
-import ArrowLeft from '@assets/images/arrow-left.svg'
-import ChevronRight from '@assets/images/chevron-right.svg'
 import { PageEntity, PagesByLayoutWithFieldPaginationQuery, Pagination as MetaPagination } from '@bratislava/strapi-sdk-city-library'
 import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import { IEvent } from '../../utils/types'
 import NewsListingCard from "../Molecules/NewsListingCard"

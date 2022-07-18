@@ -1,5 +1,4 @@
 import { ComponentMenuSections, Maybe, MenuSectionFragment } from '@bratislava/strapi-sdk-city-library'
-import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { IEvent } from '@utils/types'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'

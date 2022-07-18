@@ -1,5 +1,5 @@
 import Burger from '@assets/images/Burger.svg'
-import { MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'

@@ -6,11 +6,8 @@ import Home from '@assets/images/home.svg'
 import {
   BlogPostEntity,
   Category,
-  CategoryEntity,
   FileCategoryEntity,
-  PageCategoryFragment,
   PageEntity,
-  ParentPageFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import Link from 'next/link'

@@ -4,7 +4,6 @@ import {
   ComponentGuestsGuest,
   ComponentLocalityPartsLocalitySection,
   EventLocalityEntity,
-  EventTagEntity,
   EventTagRelationResponseCollection,
   Maybe,
   Menu,

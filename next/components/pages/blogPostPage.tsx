@@ -1,5 +1,4 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import { BlogPostEntity, BlogPostWithParentPageFragment, ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostEntity, ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 
@@ -17,8 +16,7 @@ function BlogPostPage({ blogPost }: BlogPostPageProps) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
   const mediaType = blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
-  const { Image: UIImage } = useUIContext()
-
+  
   return (
     <SectionContainer>
       {blogPost?.attributes?.parentPage && <PageBreadcrumbs page={blogPost?.attributes?.parentPage?.data} blogPost={blogPost} />}

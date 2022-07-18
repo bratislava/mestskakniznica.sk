@@ -1,4 +1,4 @@
-import { BlogPostEntity, BlogPostFragment, PageEntity } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostEntity, PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { ArticleCard, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'

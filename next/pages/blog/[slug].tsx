@@ -1,4 +1,4 @@
-import { BlogPostBySlugQuery, BlogPostEntity, FooterEntity, FooterQuery, MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostEntity, FooterEntity, MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'

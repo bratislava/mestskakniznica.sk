@@ -1,4 +1,4 @@
-import { ComponentMenuSections, Enum_Page_Layout, MenuSectionFragment } from '@bratislava/strapi-sdk-city-library'
+import { ComponentMenuSections, Enum_Page_Layout } from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { IEvent } from '@utils/types'
 import cx from 'classnames'

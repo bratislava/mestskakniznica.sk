@@ -1,5 +1,4 @@
 import { client } from '@utils/gql'
-import { arrayify } from '@utils/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

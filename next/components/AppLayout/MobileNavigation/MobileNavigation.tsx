@@ -1,5 +1,4 @@
-import Accessibility from '@assets/images/accessibility.svg'
-import { MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'

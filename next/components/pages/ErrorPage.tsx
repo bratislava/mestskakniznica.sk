@@ -1,4 +1,3 @@
-import BookReader from '@assets/images/book-reader.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import Home from '@assets/images/home.svg'
 import { SectionContainer } from '@bratislava/ui-city-library'

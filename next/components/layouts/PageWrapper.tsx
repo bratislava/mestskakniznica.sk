@@ -1,4 +1,3 @@
-import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import orderBy from 'lodash/orderBy'
 import { useTranslation } from 'next-i18next'
 import { createContext, useContext, useMemo } from 'react'

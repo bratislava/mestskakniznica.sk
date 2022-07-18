@@ -1,13 +1,9 @@
 import {
   CategoryEntity,
-  CategoryFragment,
   ComponentBlocksPageLink,
   ExternalLinkFragment,
   FlatTextFragment,
-  PageCategoryFragment,
-  PageLinkFragment,
   PartnerEntity,
-  PartnerFragment,
   SubpagesFragment,
   TableRowFragment,
 } from '@bratislava/strapi-sdk-city-library'

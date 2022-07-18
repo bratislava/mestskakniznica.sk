@@ -4,9 +4,6 @@ import {
   Enum_Page_Layout,
   Maybe,
   PageEntity,
-  PageEventFragment,
-  PageSectionsDynamicZone,
-  SectionLinkPageFragment,
 } from '@bratislava/strapi-sdk-city-library'
 
 import { IEvent, ILocality } from './types'
