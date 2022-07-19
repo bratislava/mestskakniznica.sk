@@ -1,3 +1,4 @@
+import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import orderBy from 'lodash/orderBy'
 import { useTranslation } from 'next-i18next'
 import { createContext, useContext, useMemo } from 'react'
@@ -33,11 +34,11 @@ function PageWrapper({ children, locale, localizations = [], slug }: IProps) {
       base.push({ locale, slug: localePath(locale, slug) })
     }
 
-    localizations?.forEach((l) => {
-      if (!l.locale || !l.slug) return
+    localizations?.forEach((attributes) => {
+      if (!attributes?.locale || !attributes?.slug) return
       base.push({
-        locale: l.locale,
-        slug: localePath(l.locale, l.slug),
+        locale: attributes?.locale,
+        slug: localePath(attributes?.locale, attributes?.slug),
       })
     })
 

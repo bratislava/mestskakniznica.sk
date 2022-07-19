@@ -1,9 +1,9 @@
 import Burger from '@assets/images/Burger.svg'
-import { MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 
 import SearchBox from '../Navigation/SearchBox'
@@ -11,7 +11,7 @@ import SkipNavigation from '../SkipNavigation'
 import { MobileNavigation } from './MobileNavigation'
 
 interface HeaderProps {
-  menus: NonNullable<MenusQuery['menus']>
+  menus: MenuEntity[]
 }
 
 function MobilHeader({ menus }: HeaderProps) {
@@ -31,25 +31,28 @@ function MobilHeader({ menus }: HeaderProps) {
         <div className="flex justify-between border-b border-gray-900">
           <Link href="/" passHref>
             <>
-              <a className="hidden relative w-full uppercase lg:grid grid-cols-10 items-center pr-8">
+              <a className="relative hidden w-full grid-cols-10 items-center pr-8 uppercase lg:grid">
                 {t('pageTitle')
                   .split(' ')
                   .map((word, index) => (
                     <span
                       key={word}
-                      className={cx('border-r border-gray-900 h-[30px] px-[7px] py-[2px] flex items-center min-w-fit', {
-                        'col-span-1': word.length <= 4,
-                        'col-span-5': word.length > 4,
-                      })}
+                      className={cx(
+                        'flex h-[30px] min-w-fit items-center border-r border-gray-900 px-[7px] py-[2px]',
+                        {
+                          'col-span-1': word.length <= 4,
+                          'col-span-5': word.length > 4,
+                        }
+                      )}
                     >
                       {word}
                     </span>
                   ))}
-                <div className="absolute w-full border-b border-gray-900 -z-10 top-1/2" />
+                <div className="absolute top-1/2 -z-10 w-full border-b border-gray-900" />
               </a>
               <Link href="/" passHref>
-                <a className="w-full flex flex-col justify-center">
-                  <div className="relative w-full uppercase flex flex-wrap lg:hidden items-center pr-8">
+                <a className="flex w-full flex-col justify-center">
+                  <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
                     {t('pageTitle')
                       .split(' ')
                       .slice(0, 2)
@@ -57,15 +60,15 @@ function MobilHeader({ menus }: HeaderProps) {
                         <span
                           key={word}
                           className={cx(
-                            'border-r border-gray-900 h-[30px] px-[7px] py-[2px] flex items-center min-w-fit'
+                            'flex h-[30px] min-w-fit items-center border-r border-gray-900 px-[7px] py-[2px]'
                           )}
                         >
                           {word}
                         </span>
                       ))}
-                    <div className="absolute w-full border-b border-gray-900 -z-10 bottom-0" />
+                    <div className="absolute bottom-0 -z-10 w-full border-b border-gray-900" />
                   </div>
-                  <div className="relative w-full uppercase flex flex-wrap lg:hidden items-center pr-8">
+                  <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
                     {t('pageTitle')
                       .split(' ')
                       .slice(2)
@@ -73,7 +76,7 @@ function MobilHeader({ menus }: HeaderProps) {
                         <span
                           key={word}
                           className={cx(
-                            'border-r border-gray-900 h-[30px] px-[7px] py-[2px] flex items-center min-w-fit'
+                            'flex h-[30px] min-w-fit items-center border-r border-gray-900 px-[7px] py-[2px]'
                           )}
                         >
                           {word}
@@ -96,7 +99,7 @@ function MobilHeader({ menus }: HeaderProps) {
 
       <div className="m-auto border-b border-gray-900">
         <div className="flex">
-          <div className="py-2 px-[5px] w-[320px]">
+          <div className="w-[320px] py-2 px-[5px]">
             <SearchBox text={t('searchBook')} />
           </div>
         </div>

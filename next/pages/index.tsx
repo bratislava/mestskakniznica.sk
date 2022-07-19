@@ -1,8 +1,13 @@
 import {
   BookTagsQuery,
-  FooterQuery,
-  HomePageQuery,
-  MenusQuery,
+  ComponentHomepageFaqSection,
+  ComponentHomepageNewsSection,
+  ComponentHomepageRegistrationInfo,
+  ComponentSeoSeo,
+  FooterEntity,
+  MenuEntity,
+  PageEntity,
+  PagesByLayoutQuery,
 } from '@bratislava/strapi-sdk-city-library'
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
@@ -49,7 +54,7 @@ export function Index({
         localizations={localizations
           ?.filter(isPresent)
           // add empty slug because it's expected in wrapper and index page does not have slug
-          .map((l: any) => ({ ...l, slug: '' }))}
+          .map((l) => ({ ...l, slug: '' }))}
       >
         <ErrorPage code={500}>
           <ErrorDisplay error={error} />
@@ -65,7 +70,7 @@ export function Index({
       localizations={localizations
         ?.filter(isPresent)
         // add empty slug because it's expected in wrapper and index page does not have slug
-        .map((l: any) => ({ ...l, slug: '' }))}
+        .map((l) => ({ ...l, slug: '' }))}
     >
       <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} latestEvents={latestEvents}>
         {promotedEvents.length > 0 && (
@@ -125,22 +130,20 @@ export function Index({
 
 interface IProps {
   locale?: string
-  localizations?: NonNullable<NonNullable<HomePageQuery['homePage']>['localizations']>
+  localizations?: Partial<PageEntity>[]
   news: IEvent[]
   latestEvents: IEvent[]
   opacBookNews: OpacBook[]
   promotedEvents: IEvent[]
   bookTags: NonNullable<BookTagsQuery['bookTags']>
-  faqSection: NonNullable<NonNullable<HomePageQuery['homePage']>['faqSection']>
-  newsSection: NonNullable<NonNullable<HomePageQuery['homePage']>['newsSection']>
-  registrationInfoSection: NonNullable<
-    NonNullable<HomePageQuery['homePage']>['registrationInfoSection']
-  >
+  faqSection: ComponentHomepageFaqSection
+  newsSection: ComponentHomepageNewsSection
+  registrationInfoSection: ComponentHomepageRegistrationInfo
   localities: ILocality[]
   error?: IDisplayError
-  Seo?: NonNullable<NonNullable<HomePageQuery['homePage']>['Seo']>
-  menus: NonNullable<MenusQuery['menus']>
-  footer: FooterQuery['footer']
+  Seo?: ComponentSeoSeo
+  menus: MenuEntity[]
+  footer: FooterEntity
 }
 
 // trigger redeployment :)
@@ -177,11 +180,11 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       return { notFound: true }
     }
     interface eventProps {
-      dateTo?: any | null | undefined
-      dateFrom?: any | null | undefined
+      dateTo?: string | Date
+      dateFrom?: string | Date
     }
 
-    let allEventPages: any[] = []
+    let allEventPages : any[] = []
     for (let i = 0; i <= 15; i++) {
       const eventPages = await client.PagesByLayout({
         layout: 'event',
@@ -189,30 +192,30 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         start: i * 250,
         limit: 250,
       })
-      const length = eventPages.pages?.length
+      const length = eventPages?.pages?.data?.length
       if (!length || length === 0) break
-      allEventPages = allEventPages.concat(eventPages.pages)
+      allEventPages = allEventPages.concat(eventPages?.pages?.data?.filter(isDefined) ?? [])
     }
 
     const latestEvents = convertPagesToEvents(allEventPages)
-      .filter((event: eventProps) => new Date(event.dateTo) >= new Date())
+      .filter((event: eventProps) => event.dateTo && new Date(event.dateTo) >= new Date())
       .sort((a: eventProps, b: eventProps) => {
-        if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-        if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
+        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
+        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
         return 0
       })
       .slice(0, 4)
 
-    const news = convertPagesToEvents(newsPages.pages?.filter(isDefined) ?? [])
+    const news = convertPagesToEvents(newsPages.pages?.data?.filter(isDefined) ?? [])
       .sort((a: eventProps, b: eventProps) => {
-        if (new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-        if (new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
+        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
+        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
         return 0
       })
       .slice(0, 4)
-    const promotedEvents = convertPagesToEvents(promotedPages.pages?.filter(isDefined) ?? [])
+    const promotedEvents = convertPagesToEvents(promotedPages.pages?.data ?? [])
     const localities = convertPagesToLocalities(
-      localityPages.pages?.filter(isDefined) ?? [],
+      localityPages.pages?.data ?? [],
       true
     ).map((locality) => ({
       ...locality,
@@ -222,18 +225,18 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     return {
       props: {
         locale,
-        localizations: homePage?.localizations,
+        localizations: homePage?.data?.attributes?.localizations?.data,
         news,
         latestEvents,
         promotedEvents,
         bookTags,
         opacBookNews,
-        menus,
-        footer,
-        faqSection: homePage?.faqSection,
-        newsSection: homePage?.newsSection,
-        Seo: homePage?.Seo,
-        registrationInfoSection: homePage?.registrationInfoSection,
+        menus: menus?.data,
+        footer: footer?.data,
+        faqSection: homePage?.data?.attributes?.faqSection,
+        newsSection: homePage?.data?.attributes?.newsSection,
+        Seo: homePage?.data?.attributes?.Seo,
+        registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection,
         localities,
         ...translations,
       },

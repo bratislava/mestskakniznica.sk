@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // TODO use @ts-check
 
-const path = require('path')
-const fs = require('fs')
-const { i18n } = require('./next-i18next.config')
-
 /**
  * @type {import('next').NextConfig}
  */
@@ -25,12 +21,12 @@ const nextConfig = {
         // Graphql Proxy
         {
           source: '/graphql',
-          destination: `http://${process.env.STRAPI_URL}/graphql`,
+          destination: `${process.env.STRAPI_URL}/graphql`,
         },
         // Media proxy for getting media from Strapi
         {
           source: '/uploads/:file',
-          destination: `http://${process.env.STRAPI_URL}/uploads/:file`,
+          destination: `${process.env.STRAPI_URL}/uploads/:file`,
         },
         /**
          * Rewrites to make the the translation of URL work. Based on an approached outlined here:

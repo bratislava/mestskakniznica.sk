@@ -35,10 +35,16 @@ export function SubListing({ title, url, linkTitle }: SubListingProps) {
 }
 
 export default SubListing
-function otherLocale(arg0: any, localizations: any) {
+
+interface PageLocalization {
+  locale: string | null | undefined
+  slug: string | null | undefined
+}
+
+function otherLocale(arg0: string, localizations: PageLocalization[]) {
   throw new Error('Function not implemented.')
 }
 
-function usePageWrapperContext(): { localizations: any; locale: any } {
+function usePageWrapperContext(): { localizations: PageLocalization[]; locale: string } {
   throw new Error('Function not implemented.')
 }

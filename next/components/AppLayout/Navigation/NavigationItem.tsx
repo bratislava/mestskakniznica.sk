@@ -1,4 +1,4 @@
-import { MenuFragment } from '@bratislava/strapi-sdk-city-library'
+import { ComponentMenuSections, Maybe, Menu } from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { IEvent } from '@utils/types'
 import cx from 'classnames'
@@ -9,14 +9,14 @@ import React, { useMemo } from 'react'
 import Subnavigation from './Subnavigation'
 
 interface navItemProps {
-  menu: MenuFragment | undefined | null
+  menu: Menu | undefined | null
   latestEvents?: IEvent[]
   index: number
 }
 
-function NavigationItem({ index, menu, latestEvents }: navItemProps) {
+function NavigationItem({ menu, latestEvents }: navItemProps) {
   const [panelHidden, setPanelHidden] = React.useState(false)
-  const menuSections: any = menu?.menuSections
+  const menuSections: Maybe<ComponentMenuSections>[] = menu?.menuSections || []
   const router = useRouter()
 
   React.useEffect(() => {
@@ -28,29 +28,32 @@ function NavigationItem({ index, menu, latestEvents }: navItemProps) {
     }
   }, [router])
 
-  const isCurrentLink = useMemo(() => router.asPath.includes(menu?.menuSlug ?? ''), [menu?.menuSlug, router.asPath])
+  const isCurrentLink = useMemo(
+    () => router.asPath.includes(menu?.menuSlug ?? ''),
+    [menu?.menuSlug, router.asPath]
+  )
 
   return (
-    <NavigationMenu.Item className="border-gray-900 border-r last:border-r-0 pl-3 first:pl-0 pt-[28px] pb-1 h-14 w-[160px]">
+    <NavigationMenu.Item className="h-14 w-[160px] border-r border-gray-900 pl-3 pt-[28px] pb-1 first:pl-0 last:border-r-0">
       <NavigationMenu.Trigger
-        className={cx('font-normal text-default flex h-full', {
+        className={cx('flex h-full text-default font-normal', {
           'text-primary': isCurrentLink,
         })}
       >
         <Link href={`/${menu?.menuSlug}`} passHref>
-          <a tabIndex={-1} className="text-gray-900 hover:underline text-left h-full">
+          <a tabIndex={-1} className="h-full text-left text-gray-900 hover:underline">
             {menu?.menuTitle}
           </a>
         </Link>
       </NavigationMenu.Trigger>
-      <NavigationMenu.Content>
+      {menuSections && <NavigationMenu.Content>
         <Subnavigation
           menuSections={menuSections}
           latestEvents={latestEvents}
           menuTotalColumns={menu?.menuTotalColumns}
           menuSlug={menu?.menuSlug}
         />
-      </NavigationMenu.Content>
+      </NavigationMenu.Content>}
     </NavigationMenu.Item>
   )
 }

@@ -114,3 +114,4 @@ dist
 .AppleDesktop
 
 /.idea
+.manifest*

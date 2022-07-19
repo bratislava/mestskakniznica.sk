@@ -4,10 +4,12 @@ import ChevronRight from '@assets/images/chevron-right.svg'
 import ChevronUp from '@assets/images/chevron-up.svg'
 import Home from '@assets/images/home.svg'
 import {
-  BlogPostFragment,
-  DocumentCategoryFragment,
+  BlogPostEntity,
+  Category,
+  CategoryEntity,
+  FileCategoryEntity,
   PageCategoryFragment,
-  PageFragment,
+  PageEntity,
   ParentPageFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
@@ -18,9 +20,9 @@ import * as React from 'react'
 import { pagePath } from '../../utils/page'
 
 interface PageBreadcrumbsProps {
-  page: PageFragment | ParentPageFragment | null | undefined
-  blogPost?: BlogPostFragment
-  documentCategory?: DocumentCategoryFragment
+  page: PageEntity | null | undefined
+  blogPost?: BlogPostEntity
+  documentCategory?: FileCategoryEntity
 }
 
 interface BreadcrumbsProps {
@@ -139,33 +141,33 @@ function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsPr
   // document category pagee
   if (documentCategory) {
     crumbs.push({
-      title: documentCategory.name ?? '',
-      url: `${t('documents_category_slug')}${documentCategory.slug}` ?? '#',
+      title: documentCategory?.attributes?.name ?? '',
+      url: `${t('documents_category_slug')}${documentCategory?.attributes?.slug}` ?? '#',
     })
   }
   // blog post page
-  if (page?.layout === 'blog_posts' && blogPost) {
+  if (page?.attributes?.layout === 'blog_posts' && blogPost) {
     crumbs.push({
-      title: blogPost.title ?? '',
-      url: `${t('blog_slug') + pagePath(blogPost)}`,
+      title: blogPost?.attributes?.title ?? '',
+      url: `${t('blog_slug') + pagePath(blogPost?.attributes)}`,
     })
   }
 
   // self, if is only subpage and not pagecategory, to avoid mutliple appearance
-  if (page?.pageCategory?.pageLink?.page?.slug !== page?.slug) {
-    crumbs.push({ title: page?.title ?? '', url: `/${pagePath(page)}` })
+  if (page?.attributes?.pageCategory?.data?.attributes?.pageLink?.page?.data?.attributes?.slug !== page?.attributes?.slug) {
+    crumbs.push({ title: page?.attributes?.title ?? '', url: `/${pagePath(page?.attributes)}` })
   }
 
   // get parent pagecategory
-  let current: Pick<PageCategoryFragment, 'parentCategory' | 'title' | 'pageLink'> | undefined | null =
-    page?.pageCategory || null
+  let current: Pick<Category, 'parentCategory' | 'title' | 'pageLink'> | undefined | null =
+    page?.attributes?.pageCategory?.data?.attributes || null
 
   while (current) {
     crumbs.push({
-      title: current.pageLink?.page?.title ?? '',
-      url: current === page ? null : `/${pagePath(current.pageLink?.page)}`,
+      title: current.pageLink?.page?.data?.attributes?.title ?? '',
+      url: current === page ? null : `/${pagePath(current.pageLink?.page?.data?.attributes)}`,
     })
-    current = current.parentCategory
+    current = current.parentCategory?.data?.attributes
   }
 
   // homepage

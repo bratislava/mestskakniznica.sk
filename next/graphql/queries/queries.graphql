@@ -1,72 +1,374 @@
 # Write your query or mutation here
 # TODO refactor - move footer to fragment and get rid of unused data
-query Footer($locale: String!) {
+query Footer($locale: I18NLocaleCode!) {
   footer(locale: $locale) {
-    id
-    footerColumns {
+    data {
       id
-      title
-      footerLink {
-        id
-        redirectTo {
-          ...BasePageFields
+      attributes {
+        footerColumns {
+          id
+          title
+          footerLink {
+            id
+            title
+            otherSite
+            redirectTo {
+              data {
+                ...BasePageFields
+              }
+            }
+          }
         }
-        title
-        otherSite
+        siteMapLink {
+          data {
+            ...BasePageFields
+          }
+        }
+        privacyLink {
+          data {
+            ...BasePageFields
+          }
+        }
+        copyrightText
       }
     }
-    siteMapLink {
-      ...BasePageFields
-    }
-    privacyLink {
-      ...BasePageFields
-    }
-    copyrightText
   }
 }
 
-query HomePage($locale: String!) {
+query HomePage($locale: I18NLocaleCode!) {
   homePage(locale: $locale) {
-    faqSection {
-      id
-      title
-      faqSectionRedirectTo {
-        ...BasePageFields
-      }
-      faqs {
-        id
-        question
-        answer
-      }
-      ctas {
-        id
-        title
-        ctaRedirectTo {
-          ...BasePageFields
+    data {
+      attributes {
+        faqSection {
+          id
+          title
+          redirectTo {
+            data {
+              ...BasePageFields
+            }
+          }
+          faqs {
+            id
+            question
+            answer
+          }
+          ctas {
+            id
+            title
+            ctaRedirectTo {
+              data {
+                ...BasePageFields
+              }
+            }
+          }
+        }
+        registrationInfoSection {
+          id
+          title
+          description
+          redirectTo {
+            data {
+              ...BasePageFields
+            }
+          }
+          registrationBenefits {
+            id
+            benefit
+          }
+        }
+        newsSection {
+          id
+          title
+          redirectTo {
+            data {
+              ...BasePageFields
+            }
+          }
+        }
+        localizations {
+          data {
+            attributes {
+              locale
+            }
+          }
+        }
+        Seo {
+          id
+          metaTitle
+          metaDescription
+          keywords
+          metaRobots
+          metaViewport
+          canonicalURL
         }
       }
     }
-    registrationInfoSection {
+  }
+    menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      ...Menu
+    }
+  }
+  footer(locale: $locale) {
+    data {
       id
-      title
-      description
-      registrationInfoSectionRedirectTo {
-        ...BasePageFields
-      }
-      registrationBenefits {
-        id
-        benefit
+      attributes {
+        footerColumns {
+          id
+          title
+          footerLink {
+            id
+            redirectTo {
+              data {
+                ...BasePageFields
+              }
+            }
+            title
+            otherSite
+          }
+        }
+        siteMapLink {
+          data {
+            ...BasePageFields
+          }
+        }
+        privacyLink {
+          data {
+            ...BasePageFields
+          }
+        }
       }
     }
-    newsSection {
-      id
-      title
-      newsSectionRedirectTo {
-        ...BasePageFields
+  }
+}
+
+query BookTags {
+  bookTags {
+    data {
+      attributes {
+        displayName
+        slug
       }
     }
+  }
+}
+
+query Premises($locale: I18NLocaleCode!) {
+  premises(locale: $locale) {
+    data {
+      attributes {
+        title
+        address
+        url
+        image {
+          data {
+            attributes {
+              width
+              height
+              url
+              alternativeText
+            }
+          }
+        }
+      }
+      }
+    }
+}
+
+query Menus($locale: I18NLocaleCode!) {
+  menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      ...Menu
+    }
+  }
+}
+
+fragment Menu on MenuEntity {
+  id
+  attributes {
+    menuTitle
+    menuSlug
+    menuTotalColumns
+    order
+    menuSections {
+      ...MenuSection
+    }
+    createdAt
+    updatedAt
+  }
+}
+
+fragment MenuSection on ComponentMenuSections {
+  id
+  sectionTitle
+  sectionColumnSpan
+  sectionPage {
+    data {
+      ...BasePageFields
+    }
+  }
+  sectionLinks {
+    id
+    sectionLinkTitle
+    sectionLinkPage {
+      data {
+        ...SectionLinkPage
+      }
+    }
+  }
+}
+
+query PromotedPages($locale: I18NLocaleCode!) {
+  pages(
+    filters: { promoted: {eq: true}, or: [{ layout: {eq: "event"} }, { layout: {eq: "announcement"} }, { layout: {eq: "news"} }] }
+    locale: $locale
+  ) {
+    data {
+      ...Page
+    }
+  }
+}
+
+query PromotedEvents($locale: I18NLocaleCode!) {
+  pages(filters: { promoted: {eq: true}, layout: {eq: "event"} }, locale: $locale) {
+    data {
+      ...Page
+    }
+  }
+}
+
+query ListEvents($locale: I18NLocaleCode!, $start: Int, $limit: Int) {
+  pages(filters: { layout: {eq: "event"} }, locale: $locale, pagination: { start: $start, limit: $limit }) {
+    data {
+      ...PageEvent
+    }
+  }
+}
+
+query PagesByLayout($layout: String!, $locale: I18NLocaleCode!, $start: Int, $limit: Int) {
+  pages(filters: { layout: { eq: $layout } }, locale: $locale, pagination: { start: $start, limit: $limit }) {
+    data {
+      ...Page
+    }
+  }
+}
+
+query PagesByLayoutWithFieldPagination($layout: String!, $locale: I18NLocaleCode!, $start: Int, $limit: Int, $sort: String!) {
+  pages(filters: { layout: { eq: $layout } }, locale: $locale, pagination: { start: $start, limit: $limit }, sort: [$sort]) {
+    data {
+      ...Page
+    }
+    meta {
+      pagination {
+        ...Pagination
+      }
+    }
+  }
+}
+
+query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  pages(filters: { slug: {eq: $slug} }, locale: $locale) {
+    data {
+      ...Page
+    }
+  }
+  menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      ...Menu
+    }
+  }
+  footer(locale: $locale) {
+    data {
+      id
+      attributes {
+        footerColumns {
+          id
+          title
+          footerLink {
+            id
+            redirectTo {
+              data {
+                ...BasePageFields
+              }
+            }
+            title
+            otherSite
+          }
+        }
+        siteMapLink {
+          data {
+            ...BasePageFields
+          }
+        }
+        privacyLink {
+          data {
+            ...BasePageFields
+          }
+        }
+      }
+    }
+  }
+}
+
+# strapi returns just the default locale if no locale is provided
+# easiest way to get all static paths is to ask for all locales sequentially
+query PagesStaticPaths($locale: I18NLocaleCode) {
+  pages(locale: $locale) {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+
+fragment Page on PageEntity {
+  id
+  attributes {
+    slug
+    title
+    createdAt
+    updatedAt
+    date_added
+    listingImage {
+      data {
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+        }
+      }
+    }
+    layout
+    description
+    pageCategory {
+      data {
+        ...PageCategory
+      }
+    }
+    sections {
+      ...Sections
+    }
+    blogPosts {
+      data {
+        ...BlogPost
+      }
+    }
+
+    locale
     localizations {
-      locale
+      data {
+        ...Localization
+      }
     }
     Seo {
       id
@@ -78,240 +380,36 @@ query HomePage($locale: String!) {
       canonicalURL
     }
   }
-  menus(locale: $locale, sort: "order:asc") {
-    ...Menu
-  }
-  footer(locale: $locale) {
-    id
-    footerColumns {
-      id
-      title
-      footerLink {
+}
+
+fragment PageCategory on CategoryEntity {
+  attributes {
+    ...Category
+
+    subCategories {
+      data {
         id
-        redirectTo {
-          ...BasePageFields
+        attributes {
+          ...Category
         }
-        title
-        otherSite
       }
     }
-    siteMapLink {
-      ...BasePageFields
-    }
-    privacyLink {
-      ...BasePageFields
-    }
-    copyrightText
-  }
-}
 
-query EventProperties($locale: String!) {
-  eventCategories(locale: $locale) {
-    id
-    title
-    created_at
-    updated_at
-  }
-  eventLocalities(locale: $locale) {
-    id
-    title
-    navigateTo
-    created_at
-    updated_at
-  }
-  eventTags(locale: $locale) {
-    id
-    title
-    slug
-    created_at
-    published_at
-    updated_at
-  }
-}
-
-query BookTags {
-  bookTags {
-    displayName
-    slug
-  }
-}
-
-query Premises($locale: String!) {
-  premises(locale: $locale) {
-    title
-    address
-    url
-    image {
-      width
-      height
-      url
-      alternativeText
-    }
-  }
-}
-
-query Menus($locale: String!) {
-  menus(locale: $locale, sort: "order:asc") {
-    ...Menu
-  }
-}
-
-fragment Menu on Menu {
-  id
-  menuTitle
-  menuSlug
-  menuTotalColumns
-  order
-  menuSections {
-    ...MenuSection
-  }
-  created_at
-  updated_at
-}
-
-fragment MenuSection on ComponentMenuSections {
-  id
-  sectionTitle
-  sectionColumnSpan
-  sectionPage {
-    ...BasePageFields
-  }
-  sectionLinks {
-    id
-    sectionLinkTitle
-    sectionLinkPage {
-      ...SectionLinkPage
-    }
-  }
-}
-
-query PromotedPages($locale: String!) {
-  pages(
-    where: { promoted: true, _or: [{ layout: "event" }, { layout: "announcement" }, { layout: "news" }] }
-    locale: $locale
-  ) {
-    ...Page
-  }
-}
-
-query PromotedEvents($locale: String!) {
-  pages(where: { promoted: true, layout: "event" }, locale: $locale) {
-    ...Page
-  }
-}
-
-query ListEvents($locale: String!, $start: Int, $limit: Int) {
-  pages(where: { layout: "event" }, locale: $locale, start: $start, limit: $limit) {
-    ...PageEvent
-  }
-}
-
-query PagesByLayout($layout: String!, $locale: String!, $start: Int, $limit: Int) {
-  pages(where: { layout: $layout }, locale: $locale, start: $start, limit: $limit) {
-    ...Page
-  }
-}
-
-query PageBySlug($slug: String!, $locale: String!) {
-  pageBySlug(slug: $slug, locale: $locale) {
-    ...Page
-  }
-  menus(locale: $locale, sort: "order:asc") {
-    ...Menu
-  }
-  footer(locale: $locale) {
-    id
-    footerColumns {
-      id
-      title
-      footerLink {
-        id
-        redirectTo {
-          ...BasePageFields
-        }
-        title
-        otherSite
-      }
-    }
-    siteMapLink {
-      ...BasePageFields
-    }
-    privacyLink {
-      ...BasePageFields
-    }
-    copyrightText
-  }
-}
-
-# strapi returns just the default locale if no locale is provided
-# easiest way to get all static paths is to ask for all locales sequentially
-query PagesStaticPaths($locale: String) {
-  pages(locale: $locale) {
-    id
-    slug
-    locale
-  }
-}
-
-fragment Page on Page {
-  id
-  slug
-  title
-  created_at
-  updated_at
-  date_added
-  listingImage {
-    name
-    width
-    height
-    url
-    created_at
-    hash
-    id
-    mime
-    provider
-    size
-    updated_at
-  }
-  layout
-  description
-  pageCategory {
-    ...PageCategory
-  }
-  sections {
-    ...Sections
-  }
-  relatedBlogPosts {
-    ...BlogPost
-  }
-  relatedBlogPostsCount
-
-  locale
-  localizations {
-    ...Localization
-  }
-  Seo {
-    id
-    metaTitle
-    metaDescription
-    keywords
-    metaRobots
-    metaViewport
-    canonicalURL
-  }
-}
-
-fragment PageCategory on Category {
-  ...Category
-
-  subCategories {
-    ...Category
-  }
-
-  parentCategory {
-    ...Category
     parentCategory {
-      ...Category
+      data {
+        id
+        attributes {
+          ...Category
+          parentCategory {
+            data {
+              id
+              attributes {
+                ...Category
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -325,9 +423,8 @@ fragment Category on Category {
   pageLink {
     ...PageLink
   }
-  id
-  created_at
-  updated_at
+  createdAt
+  updatedAt
 }
 
 fragment Sections on PageSectionsDynamicZone {
@@ -349,36 +446,44 @@ fragment Sections on PageSectionsDynamicZone {
     id
     content
     image {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
-      alternativeText
+      data {
+        id
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+          alternativeText
+        }
+      }
     }
   }
   ... on ComponentSectionsFlatText {
     id
     content
     media {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
-      alternativeText
+      data {
+        id
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+          alternativeText
+        }
+      }
     }
   }
   ... on ComponentSectionsSiteUsefullness {
@@ -438,38 +543,24 @@ fragment Sections on PageSectionsDynamicZone {
     id
     youtube_url
     media {
-      url
+      data {
+        attributes {
+          url
+        }
+      }
     }
   }
 
   ... on ComponentSectionsDocuments {
+    id
     title
     basicDocuments {
-      ...BasicDocument
+      data {
+        ...BasicDocument
+      }
     }
     moreLink {
       ...PageLink
-    }
-  }
-
-  ... on ComponentSectionsGallery {
-    id
-    Gallery {
-      id
-      Photo {
-        name
-        width
-        height
-        url
-        created_at
-        hash
-        id
-        mime
-        provider
-        size
-        updated_at
-      }
-      Description
     }
   }
 
@@ -482,30 +573,38 @@ fragment Sections on PageSectionsDynamicZone {
     displayOnHomePage
     isMainLocality
     localityCoverImage {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
+      data {
+        id
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+        }
+      }
     }
     localityMap {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
+      data {
+        id
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+        }
+      }
     }
     localityAddress {
       id
@@ -536,8 +635,35 @@ fragment Sections on PageSectionsDynamicZone {
     }
     localityServices {
       id
-      localityServicesPage {
-        ...BasePageFields
+      page {
+        data {
+          ...BasePageFields
+        }
+      }
+    }
+  }
+
+  ... on ComponentSectionsGallery {
+    id
+    Gallery {
+      id
+      Description
+      Photo {
+        data {
+          id
+          attributes {
+            name
+            width
+            height
+            url
+            createdAt
+            hash
+            mime
+            provider
+            size
+            updatedAt
+          }
+        }
       }
     }
   }
@@ -574,7 +700,9 @@ fragment Subpages on ComponentSectionsSubpages {
     description
     url
     page {
-      ...BasePageFields
+      data {
+        ...BasePageFields
+      }
     }
   }
 }
@@ -592,25 +720,31 @@ fragment AccordionItem on ComponentBlocksAccordionItem {
 }
 
 fragment PageLink on ComponentBlocksPageLink {
-  id
   title
   url
   page {
-    ...BasePageFields
+    data {
+      ...BasePageFields
+    }
   }
 }
 
-fragment Localization on Page {
-  slug
-  locale
+fragment Localization on PageEntity {
+  id
+  attributes {
+    slug
+    locale
+  }
 }
 
-fragment BasePageFields on Page {
+fragment BasePageFields on PageEntity {
   id
-  title
-  slug
-  created_at
-  updated_at
+  attributes {
+    title
+    slug
+    createdAt
+    updatedAt
+  }
 }
 
 fragment EventDetails on ComponentSectionsEventDetails {
@@ -618,18 +752,26 @@ fragment EventDetails on ComponentSectionsEventDetails {
   eventTitle
   eventDescription
   eventCategory {
-    id
-    title
-    created_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        createdAt
+        updatedAt
+      }
+    }
   }
   eventLocality {
-    id
-    title
-    navigateTo
-    eventAddress
-    created_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        navigateTo
+        eventAddress
+        createdAt
+        updatedAt
+      }
+    }
   }
   dateFrom
   dateTo
@@ -639,115 +781,137 @@ fragment EventDetails on ComponentSectionsEventDetails {
     name
     surname
     avatar {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
-      alternativeText
+      data {
+        id
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+          alternativeText
+        }
+      }
     }
   }
-  partners {
-    id
-    title
-    image {
-      name
-      width
-      height
-      url
-      created_at
-      hash
-      id
-      mime
-      provider
-      size
-      updated_at
-      alternativeText
-    }
-  }
+  # partners {
+  #   id
+  #   title
+  #   image {
+  #     name
+  #     width
+  #     height
+  #     url
+  #     createdAt
+  #     hash
+  #     id
+  #     mime
+  #     provider
+  #     size
+  #     updatedAt
+  #     alternativeText
+  #   }
+  # }
   eventTags {
-    id
-    title
-    slug
-    created_at
-    published_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        slug
+        createdAt
+        publishedAt
+        updatedAt
+      }
+    }
   }
   eventCoverImage {
-    name
-    width
-    height
-    url
-    created_at
-    hash
-    id
-    mime
-    provider
-    size
-    updated_at
-    alternativeText
+    data {
+      attributes {
+        name
+        width
+        height
+        url
+        createdAt
+        hash
+        mime
+        provider
+        size
+        updatedAt
+        alternativeText
+      }
+    }
   }
 }
 
-fragment SectionLinkPage on Page {
+fragment SectionLinkPage on PageEntity {
   id
-  layout
-  title
-  slug
-  created_at
-  updated_at
-  date_added
-  listingImage {
-    name
-    width
-    height
-    url
-    created_at
-    hash
-    id
-    mime
-    provider
-    size
-    updated_at
-  }
-  sections {
-    __typename
-    ... on ComponentSectionsEventDetails {
-      ...EventDetails
+  attributes {
+    layout
+    title
+    slug
+    createdAt
+    updatedAt
+    date_added
+    listingImage {
+      data {
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+        }
+      }
+    }
+    sections {
+      __typename
+      ... on ComponentSectionsEventDetails {
+        ...EventDetails
+      }
     }
   }
 }
-fragment PageEvent on Page {
+fragment PageEvent on PageEntity {
   id
-  slug
-  title
-  created_at
-  updated_at
-  date_added
-  listingImage {
-    name
-    url
-    created_at
-  }
-  layout
-  sections {
-    ...SectionsEvent
-  }
-  locale
-  Seo {
-    id
-    metaTitle
-    metaDescription
-    keywords
-    metaRobots
-    metaViewport
-    canonicalURL
+  attributes {
+    slug
+    title
+    createdAt
+    updatedAt
+    date_added
+    listingImage {
+      data {
+        attributes {
+          name
+          url
+          createdAt
+        }
+      }
+    }
+    layout
+    sections {
+      ...SectionsEvent
+    }
+    locale
+    Seo {
+      id
+      metaTitle
+      metaDescription
+      keywords
+      metaRobots
+      metaViewport
+      canonicalURL
+    }
   }
 }
 
@@ -762,28 +926,83 @@ fragment EventDetailsEvent on ComponentSectionsEventDetails {
   id
   eventTitle
   eventCategory {
-    id
-    title
-    created_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        createdAt
+        updatedAt
+      }
+    }
   }
   eventLocality {
-    id
-    title
-    navigateTo
-    eventAddress
-    created_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        navigateTo
+        eventAddress
+        createdAt
+        updatedAt
+      }
+    }
   }
   dateFrom
   dateTo
   price
   eventTags {
-    id
-    title
-    slug
-    created_at
-    published_at
-    updated_at
+    data {
+      id
+      attributes {
+        title
+        slug
+        createdAt
+        publishedAt
+        updatedAt
+      }
+    }
   }
+}
+
+query EventProperties($locale: I18NLocaleCode!) {
+  eventCategories(locale: $locale) {
+    data {
+      id
+      attributes {
+        title
+        createdAt
+        updatedAt
+      }
+    }
+  }
+  eventLocalities(locale: $locale) {
+    data {
+      id
+      attributes {
+        title
+        navigateTo
+        createdAt
+        updatedAt
+      }
+    }
+  }
+  eventTags(locale: $locale) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        createdAt
+        publishedAt
+        updatedAt
+      }
+    }
+  }
+}
+
+fragment Pagination on Pagination {
+  total
+  page
+  pageSize
+  pageCount
 }

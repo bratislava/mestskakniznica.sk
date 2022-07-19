@@ -1,6 +1,6 @@
 import CloseIcon from '@assets/images/close.svg'
 import SearchIcon from '@assets/images/search.svg'
-import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import {
   Link,
  LoadingSpinner,  PageTitle,
@@ -20,7 +20,7 @@ import Metadata from '../Molecules/Metadata'
 import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
 
 export interface PageProps {
-  page: PageFragment
+  page: PageEntity
 }
 
 export interface SortOption {
@@ -41,7 +41,7 @@ function DocumentsPage({ page }: PageProps) {
     { key: 'asc', title: t('sort_asc') },
   ]
 
-  const resultsRef: any = React.useRef<HTMLDivElement>()
+  const resultsRef = React.useRef<HTMLDivElement>(null)
 
   const [fetchingData, setFetchingData] = React.useState(true)
   const [offsetPage, setOffsetPage] = React.useState(1)
@@ -62,7 +62,7 @@ function DocumentsPage({ page }: PageProps) {
   React.useEffect(() => {
     const fetchDocuments = async () => {
       const res = await fetch(
-        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=${sort.key}&query=${query}`
+        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=date_added:${sort.key}&query=${query}`
       )
       const data: DocumentResponse = await res.json()
 
@@ -111,7 +111,7 @@ function DocumentsPage({ page }: PageProps) {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={page?.title ?? ''} description={page?.description ?? ''} hasDivider={false} />
+        <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} hasDivider={false} />
         <SearchBar
           placeholder={t('whatAreYouLookingFor')}
           className="mt-6"
@@ -131,9 +131,9 @@ function DocumentsPage({ page }: PageProps) {
           <LoadingSpinner size="medium" className="mt-[30px]" />
         ) : (
           <div className="flex flex-col gap-y-2 lg:grid lg:grid-cols-4 lg:gap-5 mt-6">
-            {documentData.fileCategories.map((category) => (
-              <Link key={category.id} href={`${t('documents_category_slug')}${category.slug}`} variant="plain" uppercase={false}>
-                <RowSubcategory title={category.name || ''} />
+            {documentData.fileCategories && documentData.fileCategories.map((category) => (
+              <Link key={category.id} href={`${t('documents_category_slug')}${category?.attributes?.slug}`} variant="plain" uppercase={false}>
+                <RowSubcategory title={category?.attributes?.name || ''} />
               </Link>
             ))}
           </div>
@@ -149,15 +149,15 @@ function DocumentsPage({ page }: PageProps) {
             <LoadingSpinner size="medium" className="mt-[30px]" />
           ) : (
             documentData.documents.map((document) => (
-              <NextLink key={document.id} href={`${t('documents_category_slug')}${document.file_category?.slug}/${document.slug}`} passHref>
-                <a href={document.slug || ''}>
+              <NextLink key={document.id} href={`${t('documents_category_slug')}${document?.attributes?.file_category?.data?.attributes?.slug}/${document?.attributes?.slug}`} passHref>
+                <a href={document?.attributes?.slug || ''}>
                   <RowFile
                     className="cursor-pointer"
-                    type={document.file_category?.name || ''}
-                    title={document.title || ''}
-                    metadata={<Metadata metadata={document.metadata} />}
-                    dateAdded={`${t('added')} ${formatDateToLocal(document.date_added, page.locale || '')}`}
-                    fileType={document.attachment?.ext?.toUpperCase().replace('.', '')}
+                    type={document?.attributes?.file_category?.data?.attributes?.name || ''}
+                    title={document?.attributes?.title || ''}
+                    metadata={<Metadata metadata={document?.attributes?.metadata} />}
+                    dateAdded={`${t('added')} ${formatDateToLocal(document?.attributes?.date_added, page?.attributes?.locale || '')}`}
+                    fileType={document?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '')}
                   />
                 </a>
               </NextLink>

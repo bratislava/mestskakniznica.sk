@@ -18,21 +18,21 @@ function EventListingCard({ event }: EventListingProps) {
         <div className="w-full">
           <img
             className="flex-1 h-[200px] w-full object-cover"
-            alt={event.listingImage?.alternativeText}
+            alt={event.listingImage?.alternativeText || 'Event card'}
             src={event.listingImage?.url}
             height="200px"
           />
 
           <div className="flex pt-4 text-xs">
-            <TagsDisplay tags={event.eventTags} category={event.eventCategory?.title || ''} tagsCount={2} />
+            <TagsDisplay tags={event?.eventTags?.data} category={event?.eventCategory?.attributes?.title || ''} tagsCount={2} />
           </div>
 
           <div className="text-default pt-2 justify-end hover:underline">{event.eventTitle}</div>
           <div className="text-xs text-gray-600 pt-2">
             {dateTimeString(event.dateFrom || '', event.dateTo || '', locale)}
           </div>
-          {event.eventLocality?.title && (
-            <div className="text-xs text-gray-600 pt-2">&#9679; {event.eventLocality.title}</div>
+          {event.eventLocality?.attributes?.title && (
+            <div className="text-xs text-gray-600 pt-2">&#9679; {event.eventLocality.attributes.title}</div>
           )}
         </div>
       </a>

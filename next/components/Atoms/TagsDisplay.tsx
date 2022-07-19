@@ -1,7 +1,7 @@
-import { EventTags } from '@bratislava/strapi-sdk-city-library'
+import { EventTagEntity } from '@bratislava/strapi-sdk-city-library'
 
 interface TagsDisplayProps {
-  tags?: Array<EventTags | null>
+  tags?: Array<EventTagEntity>
   category: string
   tagsCount: number
 }
@@ -16,9 +16,9 @@ function TagsDisplay({ tags = [], category, tagsCount }: TagsDisplayProps) {
         <span>{category}</span>
         {tags?.length > 0 && <span>{'\u00A0\u2022\u00A0'}</span>}
       </div>
-      {slicedTags?.map((tag, index) => (
-        <div className="" key={tag?.id}>
-          {tag?.title}
+      {slicedTags?.map(({ attributes, id }, index) => (
+        <div className="" key={id}>
+          {attributes?.title}
           {tags.length > 1 && index < lower - 1 ? ',\u00A0' : ''}
         </div>
       ))}

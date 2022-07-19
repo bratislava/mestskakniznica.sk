@@ -1,6 +1,9 @@
 import {
   DocumentCategoryBySlugQuery,
+  FileCategoryEntity,
+  FooterEntity,
   FooterQuery,
+  MenuEntity,
   MenusQuery,
 } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -16,9 +19,9 @@ import { shouldSkipStaticPaths } from '../../utils/utils'
 interface IDocumentPageProps {
   slug: string
   locale: string
-  menus: MenusQuery['menus']
-  footer: FooterQuery['footer']
-  documentCategory: DocumentCategoryBySlugQuery['documentCategoryBySlug']
+  menus: MenuEntity[]
+  footer: FooterEntity
+  documentCategory: FileCategoryEntity
 }
 
 function Page({ documentCategory, locale, slug, menus, footer }: IDocumentPageProps) {
@@ -29,8 +32,8 @@ function Page({ documentCategory, locale, slug, menus, footer }: IDocumentPagePr
   return (
     <PageWrapper locale={locale ?? 'sk'} slug={slug ?? ''}>
       <DefaultPageLayout
-        title={documentCategory?.page?.title}
-        Seo={documentCategory?.page?.Seo}
+        title={documentCategory?.attributes?.page?.data?.attributes?.title}
+        Seo={documentCategory?.attributes?.page?.data?.attributes?.Seo}
         menus={menus}
         footer={footer}
       >
@@ -41,14 +44,14 @@ function Page({ documentCategory, locale, slug, menus, footer }: IDocumentPagePr
 }
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  let paths: any = []
+  let paths: { params: { slug: string } }[] = []
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
 
-  const { fileCategories } = await client.FileCategories()
-  if (fileCategories) {
-    paths = fileCategories?.filter(isDefined).map((path) => ({
+  const fileCategories = await client.FileCategories()
+  if (fileCategories.fileCategories) {
+    paths = fileCategories?.fileCategories.data.filter(isDefined).map((path) => ({
       params: {
-        slug: path?.slug || '',
+        slug: path?.attributes?.slug || '',
       },
     }))
   }
@@ -62,20 +65,20 @@ export const getStaticProps: GetStaticProps<IDocumentPageProps> = async (ctx) =>
   const { slug } = ctx.params
 
   // TODO change to single query
-  const { documentCategoryBySlug } = await client.DocumentCategoryBySlug({ slug })
+  const documentCategoryBySlug = await client.DocumentCategoryBySlug({ slug })
   const { menus } = await client.Menus({ locale })
   const { footer } = await client.Footer({ locale })
   const translations = (await serverSideTranslations(locale, ['common', 'newsletter'])) as any
 
-  if (!documentCategoryBySlug && !menus) return { notFound: true }
+  if (!documentCategoryBySlug.fileCategories && !menus) return { notFound: true }
 
   return {
     props: {
       slug,
       locale,
-      menus: menus,
-      footer,
-      documentCategory: documentCategoryBySlug,
+      menus: menus?.data,
+      footer: footer?.data,
+      documentCategory: documentCategoryBySlug.fileCategories?.data[0],
       ...translations,
     },
     revalidate: 86400,

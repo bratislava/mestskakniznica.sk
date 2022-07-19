@@ -1,4 +1,4 @@
-import { PageFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import {
   PageTitle,
   Pagination,
@@ -19,7 +19,7 @@ import { LoadingSpinner } from '@bratislava/ui-city-library'
 import cx from 'classnames';
 
 export interface PageProps {
-  page: PageFragment | undefined;
+  page: PageEntity | undefined;
 }
 
 export interface MetaDataCategory {
@@ -151,8 +151,8 @@ const SearchPage = ({ page }: PageProps) => {
       </SectionContainer>
       <SectionContainer>
         <PageTitle
-          title={page?.title ?? 'Výsledky vyhľadávania'}
-          description={page?.description ?? ''}
+          title={page?.attributes?.title ?? 'Výsledky vyhľadávania'}
+          description={page?.attributes?.description ?? ''}
           hasDivider={false}
         />
         <div className="mt-6 flex flex-col lg:flex-row gap-y-4 lg:gap-y-0">
@@ -188,27 +188,41 @@ const SearchPage = ({ page }: PageProps) => {
           </Button>
         </div>
         <div className="mt-4 flex flex-wrap gap-x-3 gap-y-3">
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Stranka
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Pracovisko
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Podujatie
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Aktualita
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Zamestnanec
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Dokument
-          </span>
-          <span className="border-2 px-[16px] py-[8px] rounded-full text-[14px]">
-            Subor
-          </span>
+          <Link href={'/'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Stranka
+            </a>
+          </Link>
+          <Link href={'/'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Pracovisko
+            </a>
+          </Link>
+          <Link href={'/'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Podujatie
+            </a>
+          </Link>
+          <Link href={'/'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Aktualita
+            </a>
+          </Link>
+          <Link href={'/'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Zamestnanec
+            </a>
+          </Link>
+          <Link href={'/'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Dokument
+            </a>
+          </Link>
+          <Link href={'/'} passHref>
+            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+              Subor
+            </a>
+          </Link>
         </div>
 
         <p className="mt-5 text-[16px] text-gray-600">

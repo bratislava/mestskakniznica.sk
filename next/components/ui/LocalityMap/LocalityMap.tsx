@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
 export interface LocalityMapProps {
-  localityName?: string
+  localityName?: string | null
   localityLongitude?: number
   localityLatitude?: number
   mapboxAccessToken: string

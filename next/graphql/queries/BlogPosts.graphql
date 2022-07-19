@@ -1,54 +1,107 @@
 query BlogPostStaticPaths {
   blogPosts {
-    id
-    slug
+    data {
+      id
+      attributes {
+        slug
+      }
+    }
   }
 }
 
 query BlogPostBySlug($slug: String!) {
-  blogPostBySlug(slug: $slug) {
-    ...BlogPostWithParentPage
+  blogPosts(filters: {slug: {eq: $slug}}) {
+    data {
+      ...BlogPostWithParentPage
+    }
   }
 }
 
-fragment BlogPost on BlogPost {
+fragment BlogPost on BlogPostEntity {
   id
-  slug
-  title
-  created_at
-  sections {
-    ...Sections
-  }
-  coverMedia {
-    url
-    mime
-    alternativeText
+  attributes {
+    slug
+    title
+    createdAt
+    coverMedia {
+      data {
+        attributes {
+          url
+          mime
+          alternativeText
+        }
+      }
+    }
+    sections {
+      ...Sections
+    }
   }
 }
 
-fragment BlogPostWithParentPage on BlogPost {
-  ...BlogPost
-  parentPage {
-    ...ParentPage
-  }
-}
-
-fragment ParentPage on Page {
+fragment BlogPostWithParentPage on BlogPostEntity {
   id
-  title
-  slug
-  layout
-  pageCategory {
-    ...PageCategory
+  attributes {
+    slug
+    title
+    createdAt
+    coverMedia {
+      data {
+        attributes {
+          url
+          mime
+          alternativeText
+        }
+      }
+    }
+    sections {
+      ...Sections
+    }
+    parentPage {
+      data {
+        ...ParentPage
+      }
+    }
   }
 }
 
-query FetchBlogPosts($id: Int, $limit: Int, $offset: Int) {
-  fetchBlogPosts(id: $id, limit: $limit, offset: $offset) {
-    ...BlogPost
+fragment ParentPage on PageEntity {
+  id
+  attributes {
+    title
+    slug
+    layout
+    pageCategory {
+      data {
+        ...PageCategory
+      }
+    }
+  }
+}
+
+fragment BasePageFields on PageEntity {
+  id
+  attributes {
+    title
+    slug
+    createdAt
+    updatedAt
+  }
+}
+
+query FetchBlogPosts($id: ID, $limit: Int, $offset: Int) {
+  blogPosts(filters: {id: {eq: $id}}, pagination: {limit: $limit, start: $offset}){
+    data {
+      ...BlogPost
+    }
   }
 }
 
 query BlogPostsCount {
-  blogPostsCount
+  blogPosts {
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
 }

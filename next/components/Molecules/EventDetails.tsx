@@ -1,30 +1,30 @@
-import Calendar from '@assets/images/calendar.svg'
 import SmCalendar from '@assets/images/calendar-sm.svg'
+import Calendar from '@assets/images/calendar.svg'
 import QrLogo from '@assets/images/camera.svg'
 import Directions from '@assets/images/directions.svg'
 import Euro from '@assets/images/euro-symbol.svg'
 import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import { ComponentSectionsEventDetails, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
-import { useRouter } from 'next/router'
+import { BlogPostSectionsDynamicZone, ComponentSectionsEventDetails, ComponentSectionsForm, PageSectionsDynamicZone, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
+import AddToCalendar from '@culturehq/add-to-calendar'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import QRCode from 'qrcode.react'
 import React from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-
 import { dateTimeString, isEventPast } from '../../utils/utils'
 import DateCardDisplay from '../Atoms/DateCardDispaly'
 import Clickable from '../Atoms/EventClickable'
 import DetailsRow from '../Atoms/EventDetailsRow'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-import AddToCalendar from '@culturehq/add-to-calendar'
+
 
 export interface PageProps {
   eventDetails?: ComponentSectionsEventDetails
-  sections?: (SectionsFragment | null)[];
+  sections?: ComponentSectionsForm[];
 }
 
 function EventDetails({ eventDetails, sections }: PageProps) {
@@ -60,10 +60,10 @@ function EventDetails({ eventDetails, sections }: PageProps) {
   return (
     <>
       <img
-        src={eventDetails?.eventCoverImage?.url}
-        width={eventDetails?.eventCoverImage?.width || 0}
-        height={eventDetails?.eventCoverImage?.height || 0}
-        alt={eventDetails?.eventCoverImage?.alternativeText || 'Event details'}
+        src={eventDetails?.eventCoverImage?.data?.attributes?.url}
+        width={eventDetails?.eventCoverImage?.data?.attributes?.width || 0}
+        height={eventDetails?.eventCoverImage?.data?.attributes?.height || 0}
+        alt={eventDetails?.eventCoverImage?.data?.attributes?.alternativeText || 'Event details'}
         className="md:h-[300px] lg:h-[400px] object-cover object-center"
       />
       <div className="block lg:grid grid-cols-9 pt-10 gap-x-16">
@@ -73,8 +73,8 @@ function EventDetails({ eventDetails, sections }: PageProps) {
         <div className="col-span-5">
           <div className="text-xs">
             <TagsDisplay
-              tags={eventDetails?.eventTags || []}
-              category={eventDetails?.eventCategory?.title || ''}
+              tags={eventDetails?.eventTags?.data || []}
+              category={eventDetails?.eventCategory?.data?.attributes?.title || ''}
               tagsCount={5}
             />
           </div>
@@ -84,7 +84,7 @@ function EventDetails({ eventDetails, sections }: PageProps) {
           </div>
         </div>
         <div className="col-span-3 mt-4 lg:m-auto w-full">
-          {sections?.map((section: any) => (
+          {sections?.map((section) => (
             (section?.type) == 'detail_podujatia' && !isEventInThePast &&(
               <a
               href="#detail_podujatia"
@@ -111,10 +111,10 @@ function EventDetails({ eventDetails, sections }: PageProps) {
                 {eventDetails?.guests?.map((guest) => (
                   <div key={guest?.id} className="flex pr-[24px]">
                     <img
-                      src={guest?.avatar?.url}
-                      width={guest?.avatar?.width || 0}
-                      height={guest?.avatar?.height || 0}
-                      alt={guest?.name}
+                      src={guest?.avatar?.data?.attributes?.url}
+                      width={guest?.avatar?.data?.attributes?.width || 0}
+                      height={guest?.avatar?.data?.attributes?.height || 0}
+                      alt={guest?.name || 'Guest name.'}
                       className="rounded-full h-12 w-12 flex items-center justify-center object-cover"
                     />
                     <span className="m-auto text-[16px]">
@@ -125,7 +125,7 @@ function EventDetails({ eventDetails, sections }: PageProps) {
               </div>
             </div>
           )}
-          {(eventDetails?.partners?.length || 0) > 0 && (
+          {/* {(eventDetails?.partners?.length || 0) > 0 && (
             <div className="border-b border-gray-700 pb-10 pt-10">
               <div className="text-[24px]">{t('eventPartners')}</div>
               <div className="grid grid-cols-3 pt-5">
@@ -143,7 +143,7 @@ function EventDetails({ eventDetails, sections }: PageProps) {
                 ))}
               </div>
             </div>
-          )}
+          )} */}
           <div className="pt-10">
             <div className="border-t border-b h-auto py-3 block lg:border border-gray-900 lg:h-[70px] lg:flex lg:p-0">
               {/* <div className="hidden lg:block pl-6 w-[169px] text-sm m-auto"> */}
@@ -154,8 +154,8 @@ function EventDetails({ eventDetails, sections }: PageProps) {
                   <AddToCalendar
                     event={{
                       name: eventDetails?.eventTitle || '',
-                      details: eventDetails?.eventDescription.replace(/\n/g, ' ') || null,
-                      location: eventDetails?.eventLocality?.title || null,
+                      details: eventDetails?.eventDescription?.replace(/\n/g, ' ') || null,
+                      location: eventDetails?.eventLocality?.data?.attributes?.title || null,
                       startsAt: new Date(eventDetails?.dateFrom).toISOString(),
                       endsAt: new Date(eventDetails?.dateTo).toISOString(),
                     }}
@@ -203,8 +203,8 @@ function EventDetails({ eventDetails, sections }: PageProps) {
                       <AddToCalendar
                         event={{
                           name: eventDetails?.eventTitle || '',
-                          details: eventDetails?.eventDescription.replace(/\n/g, ' ') || null,
-                          location: eventDetails?.eventLocality?.title || null,
+                          details: eventDetails?.eventDescription?.replace(/\n/g, ' ') || null,
+                          location: eventDetails?.eventLocality?.data?.attributes?.title || null,
                           startsAt: new Date(eventDetails?.dateFrom).toISOString(),
                           endsAt: new Date(eventDetails?.dateTo).toISOString(),
                         }}
@@ -222,12 +222,12 @@ function EventDetails({ eventDetails, sections }: PageProps) {
                   <DetailsRow
                     classWrapper="flex"
                     svgIcon={<Navigate />}
-                    text={`${eventDetails?.eventLocality?.title}${
-                      eventDetails?.eventLocality?.eventAddress ? `, ${eventDetails?.eventLocality?.eventAddress}` : ``
+                    text={`${eventDetails?.eventLocality?.data?.attributes?.title}${
+                      eventDetails?.eventLocality?.data?.attributes?.eventAddress ? `, ${eventDetails?.eventLocality?.data?.attributes?.eventAddress}` : ``
                     }`}
                   />
                   <Clickable
-                    actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${eventDetails?.eventLocality?.navigateTo}`}
+                    actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${eventDetails?.eventLocality?.data?.attributes?.navigateTo}`}
                     classA="flex text-sm uppercase"
                     classDiv="pl-9 pt-3"
                     svgIcon={<Directions />}
@@ -238,7 +238,7 @@ function EventDetails({ eventDetails, sections }: PageProps) {
                 <DetailsRow
                   classWrapper="flex pt-5"
                   svgIcon={<Euro />}
-                  text={eventDetails?.price == 0 ? t('noCharge').toString() : eventDetails?.price.toString() || ''}
+                  text={eventDetails?.price == 0 ? t('noCharge').toString() : eventDetails?.price?.toString() || ''}
                 />
               </div>
             </div>

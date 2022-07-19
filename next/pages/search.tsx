@@ -1,8 +1,8 @@
 import {
-  FooterQuery,
-  HomePageQuery,
-  MenusQuery,
-  PageBySlugQuery,
+  ComponentSeoSeo,
+  FooterEntity,
+  MenuEntity,
+  PageEntity,
 } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -24,7 +24,7 @@ export function Search({ locale, localizations, error, Seo, page, menus, footer 
         localizations={localizations
           ?.filter(isPresent)
           // add empty slug because it's expected in wrapper and index page does not have slug
-          .map((l: any) => ({ ...l, slug: '' }))}
+          .map((l) => ({ ...l, slug: '' }))}
       >
         <ErrorPage code={500}>
           <ErrorDisplay error={error} />
@@ -40,7 +40,7 @@ export function Search({ locale, localizations, error, Seo, page, menus, footer 
       localizations={localizations
         ?.filter(isPresent)
         // add empty slug because it's expected in wrapper and index page does not have slug
-        .map((l: any) => ({ ...l, slug: '' }))}
+        .map((l) => ({ ...l, slug: '' }))}
     >
       <DefaultPageLayout Seo={Seo} menus={menus} footer={footer}>
         <SearchPage page={page} />
@@ -50,13 +50,13 @@ export function Search({ locale, localizations, error, Seo, page, menus, footer 
 }
 
 interface IProps {
-  locale?: string
-  localizations?: NonNullable<NonNullable<HomePageQuery['homePage']>['localizations']>
-  error?: IDisplayError
-  Seo?: NonNullable<NonNullable<HomePageQuery['homePage']>['Seo']>
-  page?: NonNullable<PageBySlugQuery['pageBySlug']>
-  menus: NonNullable<MenusQuery['menus']>
-  footer: FooterQuery['footer']
+  locale?: string;
+  localizations?: Partial<PageEntity>[];
+  error?: IDisplayError;
+  Seo?: ComponentSeoSeo;
+  page?: PageEntity;
+  menus: MenuEntity[];
+  footer: FooterEntity;
 }
 
 // trigger redeployment :)
@@ -72,7 +72,7 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
     // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
     const [{ homePage, menus, footer }] = await Promise.all([client.HomePage({ locale })])
 
-    const { pageBySlug } = await client.PageBySlug({
+    const pageBySlugResponse = await client.PageBySlug({
       slug,
       locale,
     })
@@ -80,11 +80,11 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
     return {
       props: {
         locale,
-        localizations: homePage?.localizations ?? null,
-        page: pageBySlug,
-        menus,
+        localizations: homePage?.data?.attributes?.localizations?.data ?? null,
+        page: pageBySlugResponse?.pages?.data[0] ?? [],
+        menus: menus?.data,
         footer,
-        Seo: homePage?.Seo ?? null,
+        Seo: homePage?.data?.attributes?.Seo ?? null,
         ...translations,
       },
     }

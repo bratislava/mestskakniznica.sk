@@ -15,15 +15,15 @@ function BooksTags({ bookTags }: BookTagsProps) {
       <section className="object-center">
         <div className="pt-8 pb-8 text-center items-center flex flex-col flex-grow-0">
           <div className="flex flex-row my-2 mx-0 flex-grow-0 flex-wrap gap-4 justify-center jus">
-            {bookTags.map((tag) => (
+            {bookTags?.data?.map((tag) => (
                 <a
-                  href={`https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchTitle=${tag?.slug}`}
+                  href={`https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchTitle=${tag?.attributes?.slug}`}
                   target="_blank"
                   className="border h-9 border-gray-400 hover:border-gray-900 rounded-full py-2 px-4 text-xs whitespace-nowrap"
                   rel="noreferrer"
-                  key={tag?.slug}
+                  key={tag?.attributes?.slug}
                 >
-                  {tag?.displayName}
+                  {tag?.attributes?.displayName}
                 </a>
               ))}
           </div>

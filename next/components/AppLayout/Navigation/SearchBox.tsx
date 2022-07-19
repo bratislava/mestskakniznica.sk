@@ -1,7 +1,7 @@
 import ClearCircle from '@assets/images/clear-circle.svg'
 import SearchIcon from '@assets/images/search.svg'
 import { SearchBar } from '@bratislava/ui-city-library'
-import React, { FormEvent, useState } from 'react'
+import { FormEvent, useState } from 'react'
 
 interface SearchBoxProps {
   text: string

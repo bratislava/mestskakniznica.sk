@@ -1,13 +1,13 @@
 import Check from '@assets/images/check-done.svg'
 import RegisterToLibrary from '@assets/images/register-to-library.svg'
-import { HomePageQuery } from '@bratislava/strapi-sdk-city-library'
+import { ComponentHomepageRegistrationInfo } from '@bratislava/strapi-sdk-city-library'
 import { Button } from '@bratislava/ui-city-library'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 interface RegistrationInfoProps {
-  registrationInfoSection: NonNullable<HomePageQuery['homePage']>['registrationInfoSection']
+  registrationInfoSection: ComponentHomepageRegistrationInfo
 }
 
 function RegistrationInfo({ registrationInfoSection }: RegistrationInfoProps) {
@@ -27,16 +27,16 @@ function RegistrationInfo({ registrationInfoSection }: RegistrationInfoProps) {
             <ul>
               {registrationInfoSection?.registrationBenefits?.map((benefit) => (
                 <li className="pt-3 text-sm" key={benefit?.id}>
-                  <Check className="w-[15px] inline-flex text-sm" /> {benefit?.benefit}
+                  <Check className="transform scale-75 md:scale-100 inline-flex text-sm" /> {benefit?.benefit}
                 </li>
               ))}
             </ul>
 
             <div className="pt-8 curson-pointer">
               <div className="bg-gray-900 w-full md:w-fit py-2 px-4 text-white text-center text-sm">
-                <Link href={registrationInfoSection?.registrationInfoSectionRedirectTo?.slug ?? '#'}>
+                <Link href={registrationInfoSection?.redirectTo?.data?.attributes?.slug ?? '#'}>
                   <a
-                    href={registrationInfoSection?.registrationInfoSectionRedirectTo?.slug ?? '#'}
+                    href={registrationInfoSection?.redirectTo?.data?.attributes?.slug ?? '#'}
                     className="uppercase"
                   >
                     {t('registerToLibraryButton')}

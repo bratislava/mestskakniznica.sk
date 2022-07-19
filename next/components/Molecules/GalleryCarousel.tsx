@@ -22,9 +22,9 @@ function GalleryCarousel({ gallery }: PageProps) {
             <SwiperSlide key={galleryItem?.id} className="bg-black">
               <div className="relative">
                 <img
-                  src={galleryItem?.Photo?.url || ''}
+                  src={galleryItem?.Photo?.data?.attributes?.url || ''}
                   className="w-full object-cover"
-                  alt={galleryItem?.Photo?.alternativeText || `carousel-${galleryItem?.id}`}
+                  alt={galleryItem?.Photo?.data?.attributes?.alternativeText || `carousel-${galleryItem?.id}`}
                 />
                 <div className="absolute bottom-0 w-full text-center bg-gray-900 bg-opacity-50 text-white">
                   <p className="text-l py-2">{galleryItem?.Description} </p>

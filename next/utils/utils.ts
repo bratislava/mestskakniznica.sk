@@ -1,9 +1,11 @@
 import {
-  ComponentLocalityPartsLocalityOpeningHours,
+  ComponentLocalityPartsLocalitySection,
   ComponentSectionsLocalityDetails,
   Enum_Page_Layout,
+  Maybe,
+  PageEntity,
   PageEventFragment,
-  PageFragment,
+  PageSectionsDynamicZone,
   SectionLinkPageFragment,
 } from '@bratislava/strapi-sdk-city-library'
 
@@ -133,7 +135,7 @@ export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = f
   return { day, month, year, date: dFrom }
 }
 
-export const convertPagesToEvents = (pages: PageFragment[]) => {
+export const convertPagesToEvents = (pages: PageEntity[] | any[]) => {
   const events: IEvent[] = []
 
   pages.forEach((page) => {
@@ -143,7 +145,7 @@ export const convertPagesToEvents = (pages: PageFragment[]) => {
   return events
 }
 
-export const convertPagesEventsToEvents = (pages: PageEventFragment[]) => {
+export const convertPagesEventsToEvents = (pages: PageEntity[] | any[]) => {
   const events: IEvent[] = []
 
   pages.forEach((page) => {
@@ -154,46 +156,46 @@ export const convertPagesEventsToEvents = (pages: PageEventFragment[]) => {
 }
 
 export const convertPageToEventDisplay = (
-  page: PageFragment | SectionLinkPageFragment | PageEventFragment
+  page: PageEntity
 ): IEvent | any => {
-  if (page.layout === Enum_Page_Layout.Event) {
-    const eventDetails = page.sections?.find((section) => section?.__typename === 'ComponentSectionsEventDetails')
+  if (page?.attributes?.layout === Enum_Page_Layout.Event) {
+    const eventDetails = page?.attributes?.sections?.find((section: Maybe<any>) => section?.__typename === 'ComponentSectionsEventDetails')
     return {
-      ...page.sections?.find((section) => section?.__typename === 'ComponentSectionsEventDetails'),
-      slug: page.slug || '',
-      listingImage: page.listingImage || null,
+      ...page?.attributes?.sections?.find((section) => section?.__typename === 'ComponentSectionsEventDetails'),
+      slug: page?.attributes?.slug || '',
+      listingImage: page?.attributes?.listingImage?.data?.attributes || null,
       eventCustomType: 'event',
       eventLocality:
-        eventDetails && eventDetails.__typename === 'ComponentSectionsEventDetails' ? eventDetails.eventLocality : null,
+        eventDetails && eventDetails.__typename === 'ComponentSectionsEventDetails' ? eventDetails.eventLocality?.data : undefined,
       eventCategory:
-        eventDetails && eventDetails.__typename === 'ComponentSectionsEventDetails' ? eventDetails.eventCategory : null,
+        eventDetails && eventDetails.__typename === 'ComponentSectionsEventDetails' ? eventDetails.eventCategory?.data : undefined,
     }
   }
-  if (page.layout === Enum_Page_Layout.Announcement) {
+  if (page?.attributes?.layout === Enum_Page_Layout.Announcement) {
     return {
-      eventTitle: page.title || '',
-      listingImage: page.listingImage || null,
+      eventTitle: page?.attributes?.title || '',
+      listingImage: page?.attributes?.listingImage?.data?.attributes || null,
       eventCustomType: 'announcement',
-      slug: page.slug || '',
+      slug: page?.attributes?.slug || '',
     }
   }
-  if (page.layout === Enum_Page_Layout.News) {
+  if (page?.attributes?.layout === Enum_Page_Layout.News) {
     return {
-      eventTitle: page.title,
-      date_added: page.date_added,
-      listingImage: page.listingImage,
+      eventTitle: page?.attributes?.title,
+      date_added: page?.attributes?.date_added,
+      listingImage: page?.attributes?.listingImage?.data?.attributes,
       eventCustomType: 'news',
-      slug: page.slug,
-      dateFrom: page.created_at,
+      slug: page?.attributes?.slug,
+      dateFrom: page?.attributes?.createdAt,
     }
   }
 }
 
-export const convertPagesToLocalities = (pages: PageFragment[], onlyForHomepage = false): ILocality[] => {
+export const convertPagesToLocalities = (pages: PageEntity[] | any[], onlyForHomepage = false): ILocality[] => {
   const localities: ILocality[] = []
 
   pages.forEach((page) => {
-    const localityDetails = page.sections?.find((section) => section?.__typename === 'ComponentSectionsLocalityDetails')
+    const localityDetails = page?.attributes?.sections?.find((section: any) => section?.__typename === 'ComponentSectionsLocalityDetails')
 
     if (localityDetails?.__typename === 'ComponentSectionsLocalityDetails') {
       if (localityDetails.displayOnHomePage && onlyForHomepage) {
@@ -208,17 +210,17 @@ export const convertPagesToLocalities = (pages: PageFragment[], onlyForHomepage 
 }
 
 export const convertPageToLocality = (
-  page: PageFragment,
+  page: PageEntity,
   localityDetails: ComponentSectionsLocalityDetails | any
 ): ILocality | any => {
-  if (page.layout === Enum_Page_Layout.Locality) {
+  if (page?.attributes?.layout === Enum_Page_Layout.Locality) {
     const { localityOpenFrom, localityOpenTo, isCurrentlyOpen } = getMainOpeningHours(localityDetails.localitySections)
 
     return {
       localityOpenFrom,
       localityOpenTo,
       localityTitle: localityDetails.localityTitle,
-      localitySlug: page.slug,
+      localitySlug: page?.attributes?.slug,
       localitySections: localityDetails.localitySections,
       localityAddress: localityDetails.localityAddress,
       localityLatitude: localityDetails.localityLatitude,
@@ -229,7 +231,7 @@ export const convertPageToLocality = (
   }
 }
 
-const getMainOpeningHours = (sections: ComponentLocalityPartsLocalityOpeningHours[]) => {
+const getMainOpeningHours = (sections: ComponentLocalityPartsLocalitySection[]) => {
   const mainSection = sections.find((section) => section.isMainSection)
 
   if (!mainSection)
