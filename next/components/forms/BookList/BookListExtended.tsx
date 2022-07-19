@@ -95,7 +95,7 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
                 inputClassName="px-3 w-full"
                 required
                 hasError={errors.books && !!errors.books[index]?.title}
-                errorMessage={(errors.books && errors.books[index]?.title?.message) ?? ''}
+                errorMessage={(errors.books && errors.books[index]?.title?.message)}
                 {...field}
               />
             )}
