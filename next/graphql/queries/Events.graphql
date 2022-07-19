@@ -1,24 +1,17 @@
-query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int) {
+query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $filters: EventFiltersInput, $sort: String) {
   events(
     locale: $locale
-    sort: "dateFrom:asc"
+    sort: [$sort]
     pagination: { start: $start, limit: $limit }
+    filters: $filters
   ) {
     data {
       ...EventCard
     }
-  }
-}
-
-query FutureEventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $today: DateTime) {
-  events(
-    locale: $locale
-    sort: "dateFrom:asc"
-    pagination: { start: $start, limit: $limit }
-    filters: { dateFrom: { gte: $today } }
-  ) {
-    data {
-      ...EventCard
+    meta {
+      pagination {
+        ...Pagination
+      }
     }
   }
 }
@@ -36,7 +29,7 @@ query PromotedEvents($locale: I18NLocaleCode!, $start: Int, $limit: Int) {
   }
 }
 
-query GetEventDetail($slug: String) {
+query EventBySlug($slug: String) {
   events(filters: { slug: { eq: $slug } }) {
     data {
       ...EventCard

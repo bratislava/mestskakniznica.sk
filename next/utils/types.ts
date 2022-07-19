@@ -55,7 +55,7 @@ export interface IEvent {
   slug?: string
   id?: string
   price?: number
-  eventCategory?: Maybe<CategoryEntity> | Maybe<EventCategoryEntity>
+  eventCategory?: Maybe<EventCategoryEntity>
 }
 export interface IPremises {
   address?: string

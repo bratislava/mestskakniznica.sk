@@ -185,26 +185,17 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     }
 
     let allEventPages : any[] = []
-    for (let i = 0; i <= 15; i++) {
-      const eventPages = await client.PagesByLayout({
-        layout: 'event',
-        locale,
-        start: i * 250,
-        limit: 250,
-      })
-      const length = eventPages?.pages?.data?.length
-      if (!length || length === 0) break
-      allEventPages = allEventPages.concat(eventPages?.pages?.data?.filter(isDefined) ?? [])
-    }
+    const today = new Date()
+    const latestEventPages = await client.EventList({
+      locale,
+      start: 0,
+      limit: 4,
+      filters: { dateFrom: { eq: today.toISOString() } },
+      sort: "dateFrom:asc"
+    })
+    allEventPages = latestEventPages.events?.data || []
 
-    const latestEvents = convertPagesToEvents(allEventPages)
-      .filter((event: eventProps) => event.dateTo && new Date(event.dateTo) >= new Date())
-      .sort((a: eventProps, b: eventProps) => {
-        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
-        return 0
-      })
-      .slice(0, 4)
+    const latestEvents = allEventPages
 
     const news = convertPagesToEvents(newsPages.pages?.data?.filter(isDefined) ?? [])
       .sort((a: eventProps, b: eventProps) => {

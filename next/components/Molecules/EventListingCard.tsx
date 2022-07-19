@@ -20,7 +20,7 @@ function EventListingCard({ event: { attributes } }: EventListingProps) {
           <img
             className="flex-1 h-[200px] w-full object-cover"
             alt={'Event card'}
-            src={attributes?.listingImage?.data?.attributes?.url}
+            src={attributes?.listingImage?.data?.attributes?.url || attributes?.coverImage?.data?.attributes?.url}
             height="200px"
           />
 

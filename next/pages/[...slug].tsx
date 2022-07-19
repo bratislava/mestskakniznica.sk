@@ -140,6 +140,7 @@ function Page({
           eventCategories={eventCategories}
           eventTags={eventTags}
           eventLocalities={eventLocalities}
+          paginationFields={paginationFields}
         />
       )
       break
@@ -250,7 +251,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     const { menus, footer } = queryResponse;
     
     if (!pageBySlug) {
-      const eventDetailResponse = await client.GetEventDetail({ slug })
+      const eventDetailResponse = await client.EventBySlug({ slug })
       if(eventDetailResponse.events?.data[0]) {
         eventDetail = eventDetailResponse.events.data[0]
       } else {
@@ -261,14 +262,15 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     // For all page in header
     let allEventPages: EventCardFragment[] = []
     const today = new Date();
-    const futureEvents = await client.FutureEventList({
+    const futureEvents = await client.EventList({
       locale,
       start: 0,
       limit: 10,
-      today: today.toISOString()
+      filters: { dateFrom: { gte: today.toISOString() } },
+      sort: "dateFrom:asc"
     })
     allEventPages = futureEvents.events?.data || []
-    latestEvents = futureEvents.events?.data || []
+    latestEvents = futureEvents.events?.data.slice(0, 4) || []
 
     // all partners for about us partners page
     const partners: { allPartners: PartnerFragment[] | null } = {
@@ -294,10 +296,13 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         locale,
         start: 0,
         limit: 10,
+        filters: {},
+        sort: "dateFrom:desc"
       })
       
       promotedEvents = convertEventToPromotedType(promotedPagesResponse.events?.data || [])
       eventListEvents = eventPages.events?.data || []
+      paginationFields = eventPages.events?.meta.pagination || null
 
       eventCategories = eventProperties.eventCategories?.data || []
       eventTags = eventProperties.eventTags?.data || []

@@ -278,9 +278,6 @@ const sectionContent = (
     case 'ComponentSectionsForm':
       return getForm(section.type || '', pageTitle, eventDetail || undefined)
 
-    case 'ComponentSectionsEventDetails':
-      return <EventDetails sections={sections} eventDetails={section} />
-
     case 'ComponentSectionsDivider':
       return section.shown && <div className="border-b border-gray-universal-100" />
 
