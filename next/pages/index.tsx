@@ -72,7 +72,7 @@ export function Index({
         // add empty slug because it's expected in wrapper and index page does not have slug
         .map((l) => ({ ...l, slug: '' }))}
     >
-      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} latestEvents={latestEvents}>
+      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} latestEvents={latestEvents} isHomePage={true}>
         {promotedEvents.length > 0 && (
           <SectionContainer>
             <Section>
