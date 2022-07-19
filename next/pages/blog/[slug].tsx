@@ -72,10 +72,8 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
   if (!ctx?.params?.slug || typeof ctx.params.slug !== 'string') return { notFound: true }
   const { slug } = ctx.params
 
-  const blogPostResponse = await client.BlogPostBySlug({ slug })
-  const blogPostBySlug = blogPostResponse.blogPosts?.data[0];
-  const { menus } = await client.Menus({ locale })
-  const { footer } = await client.Footer({ locale })
+  const { blogPosts, menus, footer } = await client.BlogPostBySlug({ slug, locale })
+  const blogPostBySlug = blogPosts?.data[0];
   const translations = (await serverSideTranslations(locale, [
     'common',
     'forms',

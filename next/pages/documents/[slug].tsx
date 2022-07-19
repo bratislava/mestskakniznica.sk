@@ -62,12 +62,10 @@ export const getStaticProps: GetStaticProps<IDocumentPageProps> = async (ctx) =>
   const { slug } = ctx.params
 
   // TODO change to single query
-  const documentCategoryBySlug = await client.DocumentCategoryBySlug({ slug })
-  const { menus } = await client.Menus({ locale })
-  const { footer } = await client.Footer({ locale })
+  const { fileCategories, menus, footer } = await client.DocumentCategoryBySlug({ slug, locale })
   const translations = (await serverSideTranslations(locale, ['common', 'newsletter'])) as any
 
-  if (!documentCategoryBySlug.fileCategories && !menus) return { notFound: true }
+  if (!fileCategories && !menus) return { notFound: true }
 
   return {
     props: {
@@ -75,7 +73,7 @@ export const getStaticProps: GetStaticProps<IDocumentPageProps> = async (ctx) =>
       locale,
       menus: menus?.data,
       footer: footer?.data,
-      documentCategory: documentCategoryBySlug.fileCategories?.data[0],
+      documentCategory: fileCategories?.data[0],
       ...translations,
     },
     revalidate: 86400,

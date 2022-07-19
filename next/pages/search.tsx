@@ -15,16 +15,13 @@ import SearchPage from '../components/pages/SearchPage'
 import { client } from '../utils/gql'
 import { arrayify, isPresent } from '../utils/utils'
 
-export function Search({ locale, localizations, error, Seo, page, menus, footer }: IProps) {
+export function Search({ locale, error, Seo, page, menus, footer }: IProps) {
   if (error) {
     return (
       <PageWrapper
         locale={locale ?? 'sk'}
         slug="/"
-        localizations={localizations
-          ?.filter(isPresent)
-          // add empty slug because it's expected in wrapper and index page does not have slug
-          .map((l) => ({ ...l, slug: '' }))}
+        localizations={page?.attributes?.localizations?.data.filter(isPresent).map(localisation => ({locale: localisation.attributes?.locale, slug: localisation.attributes?.slug}))}
       >
         <ErrorPage code={500}>
           <ErrorDisplay error={error} />
@@ -37,12 +34,9 @@ export function Search({ locale, localizations, error, Seo, page, menus, footer 
     <PageWrapper
       locale={locale ?? 'sk'}
       slug="/"
-      localizations={localizations
-        ?.filter(isPresent)
-        // add empty slug because it's expected in wrapper and index page does not have slug
-        .map((l) => ({ ...l, slug: '' }))}
+      localizations={page?.attributes?.localizations?.data.filter(isPresent).map(localisation => ({locale: localisation.attributes?.locale, slug: localisation.attributes?.slug}))}
     >
-      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer}>
+      <DefaultPageLayout Seo={page?.attributes?.Seo} menus={menus} footer={footer}>
         <SearchPage page={page} />
       </DefaultPageLayout>
     </PageWrapper>
@@ -70,9 +64,9 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
   try {
     // running all requests parallel
     // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
-    const [{ homePage, menus, footer }] = await Promise.all([client.HomePage({ locale })])
+    //const [{ homePage, menus, footer }] = await Promise.all([client.HomePage({ locale })])
 
-    const pageBySlugResponse = await client.PageBySlug({
+    const {pages, menus, footer }= await client.PageBySlug({
       slug,
       locale,
     })
@@ -80,11 +74,9 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
     return {
       props: {
         locale,
-        localizations: homePage?.data?.attributes?.localizations?.data ?? null,
-        page: pageBySlugResponse?.pages?.data[0] ?? [],
+        page: pages?.data[0] ?? [],
         menus: menus?.data,
-        footer,
-        Seo: homePage?.data?.attributes?.Seo ?? null,
+        footer: footer?.data,
         ...translations,
       },
     }

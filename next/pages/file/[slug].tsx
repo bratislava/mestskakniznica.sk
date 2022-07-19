@@ -27,12 +27,10 @@ export const getServerSideProps: GetServerSideProps<IFilePageProps> = async ({ l
 
   if (!slug) return { notFound: true }
 
-  const basicDocumentBySlug = await client.BasicDocumentBySlug({ slug })
-  const { menus } = await client.Menus({ locale })
-  const { footer } = await client.Footer({ locale })
+  const { basicDocuments, menus, footer } = await client.BasicDocumentBySlug({ slug, locale })
   const translations = (await serverSideTranslations(locale, ['common', 'newsletter'])) as any
 
-  if (!basicDocumentBySlug.basicDocuments?.data && !menus) return { notFound: true }
+  if (!basicDocuments?.data && !menus) return { notFound: true }
 
   return {
     props: {
@@ -40,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<IFilePageProps> = async ({ l
       locale,
       menus: menus?.data,
       footer: footer?.data,
-      basicDocument: basicDocumentBySlug.basicDocuments?.data[0],
+      basicDocument: basicDocuments?.data[0],
       ...translations,
     },
   }

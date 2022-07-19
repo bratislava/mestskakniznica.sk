@@ -191,16 +191,10 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       })
       .slice(0, 4)
 
-    const news = convertPagesToEvents(newsPages.pages?.data?.filter(isDefined) ?? [])
-      .sort((a: eventProps, b: eventProps) => {
-        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
-        return 0
-      })
-      .slice(0, 4)
-    const promotedEvents = convertPagesToEvents(promotedPages.pages?.data ?? [])
+    const news = convertPagesToEvents(newsPages?.data?.filter(isDefined) ?? [])
+    const promotedEvents = convertPagesToEvents(promotedPages?.data ?? [])
     const localities = convertPagesToLocalities(
-      localityPages.pages?.data ?? [],
+      localityPages?.data ?? [],
       true
     ).map((locality) => ({
       ...locality,

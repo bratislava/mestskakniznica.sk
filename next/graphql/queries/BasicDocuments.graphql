@@ -1,7 +1,17 @@
-query BasicDocumentBySlug($slug: String!) {
+query BasicDocumentBySlug($slug: String!, $locale: I18NLocaleCode!) {
   basicDocuments(filters: {slug: {eq: $slug}}) {
     data {
       ...BasicDocument
+    }
+  }
+  menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      ...Menu
+    }
+  }
+  footer(locale: $locale) {
+    data {
+      ...Footer
     }
   }
 }
@@ -36,10 +46,20 @@ query FileCategories {
   }
 }
 
-query DocumentCategoryBySlug($slug: String!) {
+query DocumentCategoryBySlug($slug: String!, $locale: I18NLocaleCode!) {
   fileCategories(filters: {slug: {eq: $slug}}) {
     data {
       ...DocumentCategory
+    }
+  }
+  menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      ...Menu
+    }
+  }
+  footer(locale: $locale) {
+    data {
+      ...Footer
     }
   }
 }

@@ -3,25 +3,29 @@
 query Footer($locale: I18NLocaleCode!) {
   footer(locale: $locale) {
     data {
+      ...Footer
+    }
+  }
+}
+
+fragment Footer on FooterEntity {
+  id
+  attributes {
+    footerColumns {
       id
-      attributes {
-        footerColumns {
-          id
-          title
-          footerLink {
-            id
-            title
-            otherSite
-            redirectTo {
-              data {
-                ...BasePageFields
-              }
-            }
+      title
+      footerLink {
+        id
+        title
+        otherSite
+        redirectTo {
+          data {
+            ...BasePageFields
           }
         }
-        copyrightText
       }
     }
+    copyrightText
   }
 }
 
@@ -101,23 +105,7 @@ query HomePage($locale: I18NLocaleCode!) {
   }
   footer(locale: $locale) {
     data {
-      id
-      attributes {
-        footerColumns {
-          id
-          title
-          footerLink {
-            id
-            redirectTo {
-              data {
-                ...BasePageFields
-              }
-            }
-            title
-            otherSite
-          }
-        }
-      }
+      ...Footer
     }
   }
   promotedPages : pages(
@@ -133,7 +121,7 @@ query HomePage($locale: I18NLocaleCode!) {
       ...Page
     }
   }
-  newsPages : pages(filters: { layout: { eq: "news" } }, locale: $locale, sort: "date_added:asc", pagination: { limit: 4, start: 0 }) {
+  newsPages : pages(filters: { layout: { eq: "news" } }, locale: $locale, sort: "date_added:desc", pagination: { limit: 4, start: 0 }) {
     data {
       ...Page
     }
@@ -284,23 +272,7 @@ query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
   }
   footer(locale: $locale) {
     data {
-      id
-      attributes {
-        footerColumns {
-          id
-          title
-          footerLink {
-            id
-            redirectTo {
-              data {
-                ...BasePageFields
-              }
-            }
-            title
-            otherSite
-          }
-        }
-      }
+      ...Footer
     }
   }
 }

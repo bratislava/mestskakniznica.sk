@@ -9,10 +9,20 @@ query BlogPostStaticPaths {
   }
 }
 
-query BlogPostBySlug($slug: String!) {
+query BlogPostBySlug($slug: String!, $locale: I18NLocaleCode!) {
   blogPosts(filters: {slug: {eq: $slug}}) {
     data {
       ...BlogPostWithParentPage
+    }
+  }
+  menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      ...Menu
+    }
+  }
+  footer(locale: $locale) {
+    data {
+      ...Footer
     }
   }
 }
