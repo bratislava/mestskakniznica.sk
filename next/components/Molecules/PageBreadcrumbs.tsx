@@ -23,9 +23,10 @@ interface PageBreadcrumbsProps {
   page: PageEntity | null | undefined
   blogPost?: BlogPostEntity
   documentCategory?: FileCategoryEntity
+  breadCrumbs?: { title: string; url: string | null }[]
 }
 
-interface BreadcrumbsProps {
+export interface BreadcrumbsProps {
   crumbs: { title: string; url: string | null }[]
   homeLabel?: string
 }
@@ -133,7 +134,7 @@ function MobilePageBreadcrumbs({ crumbs }: BreadcrumbsProps) {
 }
 
 // Desktop version
-function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsProps) {
+function PageBreadcrumbs({ page, blogPost, documentCategory, breadCrumbs }: PageBreadcrumbsProps) {
   const { t } = useTranslation('common')
 
   const crumbs: { title: string; url: string | null }[] = []
@@ -178,7 +179,7 @@ function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsPr
   return (
     <>
       <div className="hidden lg:flex flex-row py-[18px] items-center">
-        <BreadCrumbs crumbs={crumbs} homeLabel={t('homepage')} />
+        <BreadCrumbs crumbs={breadCrumbs || crumbs} homeLabel={t('homepage')} />
       </div>
       <MobilePageBreadcrumbs crumbs={crumbs} />
     </>

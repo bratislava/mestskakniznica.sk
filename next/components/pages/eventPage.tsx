@@ -3,9 +3,10 @@ import { Link, SectionContainer } from '@bratislava/ui-city-library'
 import EventDetails from 'components/Molecules/EventDetails'
 import { useTranslation } from 'next-i18next'
 import { convertEventToPromotedType, convertPageToEventDisplay } from '../../utils/utils'
+import { useEffect, useState } from 'react'
 import Section from "../AppLayout/Section"
 import NewsListingCard from "../Molecules/NewsListingCard"
-import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import PageBreadcrumbs, { BreadcrumbsProps } from "../Molecules/PageBreadcrumbs"
 import Sections from "../Molecules/Sections"
 
 export interface PageProps {
@@ -13,16 +14,37 @@ export interface PageProps {
   eventDetail: EventCardFragment
   events: EventCardFragment[]
   allNewsLink: string
+  locale?: string
 }
 
-function EventPage({ page, events, allNewsLink, eventDetail }: PageProps) {
+function EventPage({ page, events, allNewsLink, locale, eventDetail }: PageProps) {
   const { t } = useTranslation(['common', 'homepage'])
   const event = convertPageToEventDisplay(page)
+  const [breadCrumbs, setBreadcrumbs] = useState<BreadcrumbsProps['crumbs']>([])
+
+  useEffect(() => {
+    if(locale === "sk") {
+      setBreadcrumbs([
+        {title: "", url: "/"},
+        {title: "Zažite", url: "/zazite"},
+        {title: "Podujatia", url: "/zazite/podujatia"},
+        {title: eventDetail.attributes?.title || '', url: eventDetail.attributes?.slug || ''}
+      ])
+    } else {
+      setBreadcrumbs([
+        {title: "", url: "/"},
+        {title: "Experience", url: "/experience"},
+        {title: "Events", url: "/experience/events"},
+        {title: eventDetail.attributes?.title || '', url: eventDetail.attributes?.slug || ''}
+      ])
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs page={page} breadCrumbs={breadCrumbs} />
       </SectionContainer>
       <SectionContainer>
         <div className="pt-16 pb-16">

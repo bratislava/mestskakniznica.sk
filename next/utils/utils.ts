@@ -160,10 +160,10 @@ export const convertEventToPromotedType = (events: EventCardFragment[]): IEvent[
     eventTitle: event.attributes?.title || '',
     eventTags: event.attributes?.eventTags,
     listingImage: event.attributes?.listingImage?.data?.attributes || undefined,
-    slug: event.attributes?.slug || undefined,
-    eventLocality: event.attributes?.eventLocality?.data || undefined,
+    slug: event.attributes?.slug || '',
+    eventLocality: event.attributes?.eventLocality?.data || null,
     eventCustomType: 'event',
-    eventCategory: event.attributes?.eventCategory?.data || undefined
+    eventCategory: event.attributes?.eventCategory?.data || null
   }))
 }
 

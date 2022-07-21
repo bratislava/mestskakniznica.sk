@@ -4,6 +4,7 @@ import {
   ComponentHomepageNewsSection,
   ComponentHomepageRegistrationInfo,
   ComponentSeoSeo,
+  EventEntity,
   FooterEntity,
   MenuEntity,
   PageEntity,
@@ -27,7 +28,7 @@ import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
 import { IEvent, ILocality } from '../utils/types'
-import { convertPagesToEvents, convertPagesToLocalities, isPresent } from '../utils/utils'
+import { convertEventToPromotedType, convertPagesToEvents, convertPagesToLocalities, isPresent } from '../utils/utils'
 
 export function Index({
   locale,
@@ -132,7 +133,7 @@ interface IProps {
   locale?: string
   localizations?: Partial<PageEntity>[]
   news: IEvent[]
-  latestEvents: IEvent[]
+  latestEvents: EventEntity[]
   opacBookNews: OpacBook[]
   promotedEvents: IEvent[]
   bookTags: NonNullable<BookTagsQuery['bookTags']>
@@ -184,13 +185,13 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       dateFrom?: string | Date
     }
 
-    let allEventPages : any[] = []
+    let allEventPages : EventEntity[] = []
     const today = new Date()
     const latestEventPages = await client.EventList({
       locale,
       start: 0,
       limit: 4,
-      filters: { dateFrom: { eq: today.toISOString() } },
+      filters: { dateFrom: { gte: today.toISOString() } },
       sort: "dateFrom:asc"
     })
     allEventPages = latestEventPages.events?.data || []
@@ -204,7 +205,9 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         return 0
       })
       .slice(0, 4)
+    const promotedEventsR = await client.PromotedEvents({ locale, start: 0, limit: 3 })
     const promotedEvents = convertPagesToEvents(promotedPages.pages?.data ?? [])
+    promotedEvents.push(...convertEventToPromotedType(promotedEventsR.events?.data || []))
     const localities = convertPagesToLocalities(
       localityPages.pages?.data ?? [],
       true

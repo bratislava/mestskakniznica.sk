@@ -56,6 +56,7 @@ interface IPageProps {
   opacBookNews: OpacBook[]
   localities: ILocality[]
   news: IEvent[]
+  locale?: string
   eventCategories: EventCategoryEntity[]
   eventTags: EventTagEntity[]
   eventLocalities: EventLocalityEntity[]
@@ -78,6 +79,7 @@ function Page({
   premises,
   localities,
   news,
+  locale,
   paginationFields,
   eventCategories,
   eventTags,
@@ -169,7 +171,7 @@ function Page({
   }
 
   if(!pageComponentByLayout && eventDetail) {
-    pageComponentByLayout = <EventPage page={page} eventDetail={eventDetail} events={allEvents} allNewsLink={allNewsLink} />
+    pageComponentByLayout = <EventPage page={page} eventDetail={eventDetail} events={allEvents} allNewsLink={allNewsLink} locale={locale} />
   }
 
   return (
@@ -366,6 +368,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         premises,
         localities,
         news,
+        locale,
         paginationFields,
         menus: menus?.data ?? [],
         footer: footer?.data,
