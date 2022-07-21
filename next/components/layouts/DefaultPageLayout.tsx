@@ -17,9 +17,10 @@ interface IProps {
   menus: MenuEntity[]
   footer: FooterEntity
   latestEvents?: IEvent[]
+  isHomePage?: boolean
 }
 
-function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }: IProps) {
+function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents, isHomePage }: IProps) {
   const { localizations, locale } = usePageWrapperContext()
   const otherLangData = otherLocale(locale ?? 'sk', localizations)
   const currentLangData = otherLocale(otherLangData.locale, localizations)
@@ -69,7 +70,7 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }
       <div className="flex min-h-screen flex-1 flex-col justify-self-stretch">
         <header>
           <div className="hidden lg:block lg:px-8">
-            <Header menus={menus} latestEvents={latestEvents} />
+            <Header menus={menus} latestEvents={latestEvents} isHomePage={isHomePage} />
           </div>
           <div className="block lg:hidden">
             <MobileHeader menus={menus} />
