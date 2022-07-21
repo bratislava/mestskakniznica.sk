@@ -18,7 +18,7 @@ import FormContainer, { phoneRegex } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
 interface Props {
-  eventDetail?: IEvent | any
+  eventDetail?: IEvent
 }
 
 function EventReservationForm({ eventDetail }: Props) {
@@ -56,8 +56,8 @@ function EventReservationForm({ eventDetail }: Props) {
     spaceCount: yup.number().min(1).required(),
     eventDate: yup.lazy(() => {
       if (eventDetail) {
-        const dateFrom = new Date(eventDetail.dateFrom)
-        const dateTo = new Date(eventDetail.dateTo)
+        const dateFrom = new Date(eventDetail?.dateFrom || '')
+        const dateTo = new Date(eventDetail?.dateTo || '')
 
         const { date } = dayForDifferentDateTo(dateFrom, dateTo, true)
         return yup
@@ -95,8 +95,8 @@ function EventReservationForm({ eventDetail }: Props) {
   React.useMemo(() => {
     // prefill event date and time
     if (eventDetail) {
-      const dateFrom = new Date(eventDetail.dateFrom)
-      const dateTo = new Date(eventDetail.dateTo)
+      const dateFrom = new Date(eventDetail?.dateFrom || '')
+      const dateTo = new Date(eventDetail?.dateTo || '')
 
       const { day, month, year } = dayForDifferentDateTo(dateFrom, dateTo, true)
       // "yyyy-MM-dd"
@@ -128,7 +128,7 @@ function EventReservationForm({ eventDetail }: Props) {
     }
 
     // disable showing form if is in the past
-    setIsEventInThePast(isEventPast(eventDetail?.dateTo))
+    setIsEventInThePast(isEventPast(eventDetail?.dateTo || ''))
   }, [eventDetail, methods])
 
   const handleSubmit = methods.handleSubmit(async (data) => {
@@ -265,9 +265,9 @@ function EventReservationForm({ eventDetail }: Props) {
 
                       <div className="pl-5">
                         <div className="leading-[19px] text-black-universal ">
-                          {eventDetail?.eventTitle?.length > 50
+                          {eventDetail?.eventTitle ? eventDetail?.eventTitle?.length > 50
                             ? `${eventDetail?.eventTitle?.slice(0, 50)  }...`
-                            : eventDetail?.eventTitle}
+                            : eventDetail?.eventTitle : ''}
                         </div>
                         <div className="leading-[20px] text-xs text-gray-universal-70 pt-[5px]">
                           {dateTimeString(
@@ -276,9 +276,9 @@ function EventReservationForm({ eventDetail }: Props) {
                             locale
                           )}
                         </div>
-                        {eventDetail?.eventLocality?.title && (
+                        {eventDetail?.eventLocality?.attributes?.title && (
                           <div className="leading-[20px] text-xs text-gray-universal-70">
-                            &#9679; {eventDetail?.eventLocality.title}
+                            &#9679; {eventDetail?.eventLocality?.attributes?.title}
                           </div>
                         )}
                       </div>

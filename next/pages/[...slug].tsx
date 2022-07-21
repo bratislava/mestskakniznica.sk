@@ -334,24 +334,24 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         })
         .slice(0, 4)
 
-      const { pages }: any = await client.PagesByLayout({
+      const { pages } = await client.PagesByLayout({
         layout: 'eventsListing',
         locale,
       })
-      allNewsLink = pages && pages[0]?.slug ? pages[0].slug : ''
+      allNewsLink = pages && pages.data[0]?.attributes?.slug ? pages.data[0]?.attributes?.slug : ''
     }
 
     if (
       pageBySlug?.attributes?.layout === Enum_Page_Layout.NewsListing ||
       pageBySlug?.attributes?.layout === Enum_Page_Layout.Listing
     ) {
-      const newsPages: any = await client.PagesByLayoutWithFieldPagination({
+      const newsPages = await client.PagesByLayoutWithFieldPagination({
         layout: 'news',
         locale,
         sort: "createdAt:desc"
       })
-      news = convertPagesToEvents(newsPages?.pages?.data) || []
-      paginationFields = newsPages.pages?.meta?.pagination;
+      news = convertPagesToEvents(newsPages?.pages?.data ?? []) || []
+      paginationFields = newsPages?.pages?.meta?.pagination || null;
     }
 
     if (pageBySlug?.attributes?.layout === Enum_Page_Layout.Premises) {
@@ -360,11 +360,11 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     }
 
     if (pageBySlug?.attributes?.layout === Enum_Page_Layout.LocalitiesListing) {
-      const localitiesPages: any = await client.PagesByLayout({
+      const localitiesPages = await client.PagesByLayout({
         layout: 'locality',
         locale,
       })
-      localities = convertPagesToLocalities(localitiesPages?.pages?.data, true) || []
+      localities = convertPagesToLocalities(localitiesPages?.pages?.data ?? [], true) || []
     }
     
     return {

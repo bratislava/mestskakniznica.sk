@@ -69,7 +69,7 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
   }, [localities])
 
   useEffect(() => {
-    setBrowser((process as any).browser)
+    setBrowser(!!typeof window)
   }, [])
 
   return localities.length > 0 ? (
