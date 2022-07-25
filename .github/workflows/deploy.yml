@@ -1,38 +1,19 @@
 name: Deploy code to kubernetes
 on: [push]
-env:
-  DOCKER_REGISTRY: harbor.bratislava.sk
-  DOCKER_USERNAME: ${{ github.repository_owner }}
-  DOCKER_PASSWORD: ${{ secrets.HARBOR_TOKEN }}
 jobs:
   deploy:
     name: Build and deploy
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: next   
+        working-directory: ./next
     steps:
-    - name: Setup Node.js environment
+    - uses: actions/checkout@v3
+    - name: Use Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '16'
-
-    - name: Setup yarn
-      run: npm install -g yarn
-
-    - uses: actions/checkout@v3
-      name: Checkout repository
-      with:
-        fetch-depth: 0
-
-    - name: Yarn install dependencies
-      run: yarn --frozen-lockfile
-      
-    - name: Git fetch changes for bratiska-cli
-      run: git fetch
-      
-    - name: Yarn install bratiska-cli
-      run: yarn global add bratislava/bratiska-cli
-      
-    - name: Run Bratiska-cli
-      run: bratiska-cli deploy --dry_run
+    - run: yarn --frozen-lockfile
+    - run: yarn global add bratislava/bratiska-cli
+    - run: git fetch
+    - run: bratiska-cli deploy --dry_run
