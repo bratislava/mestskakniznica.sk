@@ -1,5 +1,9 @@
 name: Deploy code to kubernetes
 on: [push]
+env:
+  DOCKER_REGISTRY: harbor.bratislava.sk
+  DOCKER_USERNAME: ${{ github.repository_owner }}
+  DOCKER_PASSWORD: ${{ secrets.HARBOR_TOKEN }}
 jobs:
   deploy:
     name: Build and deploy
