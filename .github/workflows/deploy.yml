@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./next   
+        working-directory: next   
     steps:
     - name: Setup Node.js environment
       uses: actions/setup-node@v3
