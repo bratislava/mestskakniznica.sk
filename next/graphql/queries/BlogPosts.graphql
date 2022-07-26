@@ -10,7 +10,7 @@ query BlogPostStaticPaths {
 }
 
 query BlogPostBySlug($slug: String!) {
-  blogPosts(filters: {slug: {eq: $slug}}) {
+  blogPosts(filters: { slug: { eq: $slug } }) {
     data {
       ...BlogPostWithParentPage
     }
@@ -64,32 +64,8 @@ fragment BlogPostWithParentPage on BlogPostEntity {
   }
 }
 
-fragment ParentPage on PageEntity {
-  id
-  attributes {
-    title
-    slug
-    layout
-    pageCategory {
-      data {
-        ...PageCategory
-      }
-    }
-  }
-}
-
-fragment BasePageFields on PageEntity {
-  id
-  attributes {
-    title
-    slug
-    createdAt
-    updatedAt
-  }
-}
-
 query FetchBlogPosts($id: ID, $limit: Int, $offset: Int) {
-  blogPosts(filters: {id: {eq: $id}}, pagination: {limit: $limit, start: $offset}){
+  blogPosts(filters: { id: { eq: $id } }, pagination: { limit: $limit, start: $offset }) {
     data {
       ...BlogPost
     }

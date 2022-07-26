@@ -1,9 +1,9 @@
-import { PageEntity, PartnerEntity, PartnerFragment } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity, PartnerEntity } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, Partner, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
 
-import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export type TSortedPartners = {
   featuredPartners: PartnerEntity[]
@@ -23,10 +23,13 @@ function PartnersPage({ page, partners }: PartnersPageProps) {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} />
+        <PageTitle
+          title={page?.attributes?.title ?? ''}
+          description={page?.attributes?.description ?? ''}
+        />
 
         {partners.featuredPartners.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
+          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
             {partners.featuredPartners.map((partner) => (
               <Partner
                 key={partner?.attributes?.title}
@@ -44,7 +47,7 @@ function PartnersPage({ page, partners }: PartnersPageProps) {
         )}
 
         {partners.notFeaturedPartners.length > 0 && (
-          <div className="flex flex-col space-y-3 mt-12">
+          <div className="mt-12 flex flex-col space-y-3">
             {partners.notFeaturedPartners.map((partner) => (
               <Partner
                 key={partner?.attributes?.title}

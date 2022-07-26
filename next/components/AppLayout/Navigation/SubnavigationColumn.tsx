@@ -1,4 +1,8 @@
-import { ComponentMenuSections, Enum_Page_Layout, EventCardFragment } from '@bratislava/strapi-sdk-city-library'
+import {
+  ComponentMenuSections,
+  Enum_Page_Layout,
+  EventCardEntityFragment,
+} from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
 import Link from 'next/link'
@@ -9,14 +13,15 @@ import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
 interface ColumnProps {
   section: ComponentMenuSections
-  latestEvents?: EventCardFragment[]
+  latestEvents?: EventCardEntityFragment[]
   classNames?: string
 }
 
 function Column({ section, latestEvents, classNames }: ColumnProps) {
   // TODO optionally load latestEvents here if needed
   const containsEvents = section?.sectionLinks?.some(
-    (sectionLink) => sectionLink?.sectionLinkPage?.data?.attributes?.layout === Enum_Page_Layout.Event
+    (sectionLink) =>
+      sectionLink?.sectionLinkPage?.data?.attributes?.layout === Enum_Page_Layout.Event
   )
   const isLengthy = section?.sectionLinks ? section.sectionLinks.length >= 8 : false
   const { locale } = usePageWrapperContext()
@@ -30,7 +35,9 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
     >
       {section.sectionTitle && section.sectionPage !== null && (
         <NavigationMenu.Link className="text-default hover:underline" tabIndex={-1}>
-          <Link href={`/${section?.sectionPage?.data?.attributes?.slug}`}>{section.sectionTitle}</Link>
+          <Link href={`/${section?.sectionPage?.data?.attributes?.slug}`}>
+            {section.sectionTitle}
+          </Link>
         </NavigationMenu.Link>
       )}
 
@@ -43,7 +50,7 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
           if (sectionLink?.sectionLinkTitle === 'latestEvents') {
             if (latestEvents && latestEvents?.length > 0) {
               return (
-                <div className="grid grid-rows-2 grid-flow-col">
+                <div className="grid grid-flow-col grid-rows-2">
                   {latestEvents.map((event) => (
                     <div key={event.attributes?.slug}>
                       <div className="h-23 w-[380px] cursor-pointer pt-5 pb-5">
@@ -65,12 +72,17 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
                                 <div className="leading-[19px] text-black-universal hover:underline">
                                   {event?.attributes?.title}
                                 </div>
-                                <div className="leading-[20px] text-xs text-gray-universal-70">
-                                  {dateTimeString(event.attributes?.dateFrom || '', event.attributes?.dateTo || '', locale)}
+                                <div className="text-xs leading-[20px] text-gray-universal-70">
+                                  {dateTimeString(
+                                    event.attributes?.dateFrom || '',
+                                    event.attributes?.dateTo || '',
+                                    locale
+                                  )}
                                 </div>
                                 {event?.attributes?.eventLocality?.data?.attributes?.title && (
-                                  <div className="leading-[20px] text-xs text-gray-universal-70 max-w-[250px]">
-                                    &#9679; {event?.attributes?.eventLocality?.data?.attributes?.title}
+                                  <div className="max-w-[250px] text-xs leading-[20px] text-gray-universal-70">
+                                    &#9679;{' '}
+                                    {event?.attributes?.eventLocality?.data?.attributes?.title}
                                   </div>
                                 )}
                               </div>
@@ -93,7 +105,10 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
                 key={sectionLink.sectionLinkPage?.data?.attributes?.slug}
               >
                 <Link href={`/${sectionLink.sectionLinkPage?.data?.attributes?.slug}`} passHref>
-                  <a href={`/${sectionLink.sectionLinkPage?.data?.attributes?.slug}`} className="hover:underline">
+                  <a
+                    href={`/${sectionLink.sectionLinkPage?.data?.attributes?.slug}`}
+                    className="hover:underline"
+                  >
                     {sectionLink.sectionLinkPage?.data?.attributes?.title}
                   </a>
                 </Link>

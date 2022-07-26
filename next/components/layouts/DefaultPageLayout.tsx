@@ -1,6 +1,6 @@
 import {
   ComponentSeoSeo,
-  EventCardFragment,
+  EventCardEntityFragment,
   FooterEntity,
   MenuEntity,
 } from '@bratislava/strapi-sdk-city-library'
@@ -20,7 +20,7 @@ interface IProps {
   Seo?: ComponentSeoSeo | undefined | null
   menus: MenuEntity[]
   footer: FooterEntity
-  latestEvents?: EventCardFragment[]
+  latestEvents?: EventCardEntityFragment[]
   isHomePage?: boolean
 }
 

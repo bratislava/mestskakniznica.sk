@@ -1,61 +1,70 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
-import ArrowLeft from '@assets/images/arrow-left.svg'
-import ChevronRight from '@assets/images/chevron-right.svg'
-import { PageEntity, PagesByLayoutWithFieldPaginationQuery, Pagination as MetaPagination } from '@bratislava/strapi-sdk-city-library'
-import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
+import { PageEntity, PageEntityFragment, PaginationFragment } from '../../graphql'
 import { useTranslation } from 'next-i18next'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
-import { IEvent } from '../../utils/types'
-import NewsListingCard from "../Molecules/NewsListingCard"
-import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
-import { convertPagesToEvents } from '@utils/utils'
+import ListingCard from '../Molecules/ListingCard'
+import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import { usePageWrapperContext } from 'components/layouts/PageWrapper'
+import { client } from '../../utils/gql'
+import { SectionContainer } from '../ui/SectionContainer/SectionContainer'
+import { Pagination } from '../ui/Pagination/Pagination'
 
 export interface PageProps {
   page: PageEntity
-  news: IEvent[]
-  pagination: MetaPagination
+  news: PageEntityFragment[]
+  pagination: PaginationFragment
 }
 
 function NewsListingPage({ page, news, pagination }: PageProps) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
-  const [paginatedNews, setPaginatedNews] = useState(news);
-  const [paginationData, setPaginationData] = useState(pagination);
+  const [paginatedNews, setPaginatedNews] = useState<PageEntityFragment[]>(news)
+  const [paginationData, setPaginationData] = useState<PaginationFragment | null>(pagination)
 
   const handleChangeOffsetPage = async (num: number) => {
-    const res = await fetch(`/api/paginated-news?layout=news&locale=${locale}&sort=createdAt:desc&limit=10&start=${(num-1) * 10}`)
-    const result: PagesByLayoutWithFieldPaginationQuery = await res.json()
-    
-    result.pages?.data && setPaginatedNews(convertPagesToEvents(result.pages?.data))
-    result.pages?.meta.pagination && setPaginationData(result.pages?.meta.pagination)
+    const { pages } = await client.PagesByLayoutPaginated({
+      layout: 'news',
+      locale,
+      sort: 'createdAt:desc',
+      start: (num - 1) * 10,
+      limit: 10,
+    })
+    // fetch(
+    //   `/api/paginated-news?layout=news&locale=${locale}&sort=createdAt:desc&limit=10&start=${
+    //     (num - 1) * 10
+    //   }`
+    // )
+    // const result = await res.json()
+
+    setPaginatedNews(pages?.data ?? [])
+    setPaginationData(pages?.meta.pagination || null)
   }
 
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs page={page as PageEntity} />
       </SectionContainer>
       <SectionContainer>
         <div className="pb-[48px]">
           <div className="pt-16">
-            <header className="m-auto text-[40px] leading-[48px] border-b border-gray-900">
+            <header className="m-auto border-b border-gray-900 text-[40px] leading-[48px]">
               <h1>{t('newsListingTitle')}</h1>
             </header>
           </div>
         </div>
 
-        <div className="pt-6 pb-16 m-auto grid sm:grid-cols-2 gap-4 lg:gap-x-5 items-stretch md:grid-cols-3 lg:grid-cols-4 gap-y-10">
-          {paginatedNews?.map((event) => (
-            <NewsListingCard event={event} key={event.slug} />
+        <div className="m-auto grid items-stretch gap-4 gap-y-10 pt-6 pb-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
+          {paginatedNews?.map((page) => (
+            <ListingCard card={page} key={page.attributes?.slug} />
           ))}
         </div>
-        <div className="flex md:mr-0 w-fit m-auto">
+        <div className="m-auto flex w-fit md:mr-0">
           <Pagination
-            max={paginationData.pageCount}
-            value={paginationData.page}
+            max={paginationData?.pageCount ?? 0}
+            value={paginationData?.page ?? 1}
             onChangeNumber={(num) => {
               handleChangeOffsetPage(num)
             }}

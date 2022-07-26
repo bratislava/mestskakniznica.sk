@@ -1,4 +1,4 @@
-import { EventCardFragment, MenuEntity } from '@bratislava/strapi-sdk-city-library'
+import { EventCardEntityFragment, MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -10,7 +10,7 @@ import SkipNavigation from './SkipNavigation'
 
 interface HeaderProps {
   menus: MenuEntity[]
-  latestEvents?: EventCardFragment[]
+  latestEvents?: EventCardEntityFragment[]
   isHomePage?: boolean
 }
 

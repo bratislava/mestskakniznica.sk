@@ -1,17 +1,18 @@
 import {
   CategoryEntity,
-  CategoryFragment,
   ComponentBlocksPageLink,
   ExternalLinkFragment,
   FlatTextFragment,
-  PageCategoryFragment,
-  PageLinkFragment,
   PartnerEntity,
-  PartnerFragment,
   SubpagesFragment,
   TableRowFragment,
 } from '@bratislava/strapi-sdk-city-library'
-import { SidebarProps, SubpageItemProps, TableRowProps, TExternalLinksSection } from '@bratislava/ui-city-library'
+import {
+  SidebarProps,
+  SubpageItemProps,
+  TableRowProps,
+  TExternalLinksSection,
+} from '@bratislava/ui-city-library'
 import { groupBy } from 'lodash'
 import orderBy from 'lodash/orderBy'
 
@@ -87,7 +88,10 @@ export const parseSidebar = (
         title: parsePageLink(p)?.title ?? '',
         href: parsePageLink(p)?.url ?? '',
       })) ?? [],
-    activeCategory: pageCategory?.attributes?.pages?.findIndex((x) => x?.page?.data?.attributes?.slug === pageSlug) ?? 0,
+    activeCategory:
+      pageCategory?.attributes?.pages?.findIndex(
+        (x) => x?.page?.data?.attributes?.slug === pageSlug
+      ) ?? 0,
   }
 }
 
@@ -157,7 +161,8 @@ export const groupByLinksCategory = (
   const groupedDescriptions = descriptions ? groupByCategory(descriptions) : []
 
   return groupedLinks.map((link) => ({
-    description: groupedDescriptions.find((d) => d.category === link.category)?.items[0]?.content ?? undefined,
+    description:
+      groupedDescriptions.find((d) => d.category === link.category)?.items[0]?.content ?? undefined,
     links: link.items?.map((item) => ({
       title: item?.title ?? '',
       url: item?.url ?? '#',

@@ -4,11 +4,14 @@ import {
   ComponentHomepageNewsSection,
   ComponentHomepageRegistrationInfo,
   ComponentSeoSeo,
+  EventCardEntityFragment,
   EventEntity,
   FooterEntity,
   MenuEntity,
   PageEntity,
+  PageEntityFragment,
   PagesByLayoutQuery,
+  PromoNewsCardFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
@@ -25,22 +28,17 @@ import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
 import { client } from '../utils/gql'
-import { isDefined } from '../utils/isDefined'
+import { hasAttributes, isDefined } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
-import { IEvent, ILocality } from '../utils/types'
-import {
-  convertEventToPromotedType,
-  convertPagesToEvents,
-  convertPagesToLocalities,
-  isPresent,
-} from '../utils/utils'
+import { ILocality } from '../utils/types'
+import { convertPagesToLocalities, isPresent } from '../utils/utils'
 
 export function Index({
   locale,
   localizations,
   news,
   latestEvents,
-  promotedEvents,
+  promos,
   bookTags,
   faqSection,
   registrationInfoSection,
@@ -79,10 +77,10 @@ export function Index({
         .map((l) => ({ ...l, slug: '' }))}
     >
       <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} latestEvents={latestEvents}>
-        {promotedEvents.length > 0 && (
+        {promos.length > 0 && (
           <SectionContainer>
             <Section>
-              <SectionPromos events={promotedEvents} />
+              <SectionPromos promos={promos} />
             </Section>
           </SectionContainer>
         )}
@@ -110,7 +108,7 @@ export function Index({
         {newsSection !== null && news.length > 0 && (
           <SectionContainer>
             <Section>
-              <SectionLibraryNews newsSection={newsSection} news={news} />
+              <SectionLibraryNews newsSection={newsSection} news={news as PageEntityFragment[]} />
             </Section>
           </SectionContainer>
         )}
@@ -140,7 +138,7 @@ interface IProps {
   news: PageEntity[]
   latestEvents: EventEntity[]
   opacBookNews: OpacBook[]
-  promotedEvents: IEvent[]
+  promos: (EventCardEntityFragment | PromoNewsCardFragment)[]
   bookTags: NonNullable<BookTagsQuery['bookTags']>
   faqSection: ComponentHomepageFaqSection
   newsSection: ComponentHomepageNewsSection
@@ -164,7 +162,8 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       opacBookNews,
       { pages: news },
       { homePage, menus, footer },
-      promotedPages,
+      { promotedNews },
+      { promotedEvents },
       localityPages,
       { bookTags },
     ] = await Promise.all([
@@ -177,7 +176,8 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         limit: 4,
       }),
       client.HomePage({ locale }),
-      client.PromotedPages({ locale }),
+      client.PromotedNews({ locale }),
+      client.PromotedEvents({ locale, start: 0, limit: 3 }),
       client.PagesByLayout({
         layout: 'locality',
         locale,
@@ -191,34 +191,16 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     if (!homePage || !bookTags) {
       return { notFound: true }
     }
-    interface eventProps {
-      dateTo?: string | Date
-      dateFrom?: string | Date
-    }
 
-    let allEventPages: EventEntity[] = []
     const today = new Date()
-    const latestEventPages = await client.EventList({
+    const { events: latestEventsResponse } = await client.EventList({
       locale,
       start: 0,
       limit: 4,
       filters: { dateFrom: { gte: today.toISOString() } },
       sort: 'dateFrom:asc',
     })
-    allEventPages = latestEventPages.events?.data || []
 
-    const latestEvents = allEventPages
-
-    // const news = convertPagesToEvents(newsPages.pages?.data?.filter(isDefined) ?? [])
-    //   .sort((a: eventProps, b: eventProps) => {
-    //     if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-    //     if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
-    //     return 0
-    //   })
-    //   .slice(0, 4)
-    const promotedEventsR = await client.PromotedEvents({ locale, start: 0, limit: 3 })
-    const promotedEvents = convertPagesToEvents(promotedPages.pages?.data ?? [])
-    promotedEvents.push(...convertEventToPromotedType(promotedEventsR.events?.data || []))
     const localities = convertPagesToLocalities(localityPages.pages?.data ?? [], true).map(
       (locality) => ({
         ...locality,
@@ -230,9 +212,9 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       props: {
         locale,
         localizations: homePage?.data?.attributes?.localizations?.data,
-        news: news?.data?.filter(isDefined) ?? [],
-        latestEvents,
-        promotedEvents,
+        news: news?.data?.filter(hasAttributes) ?? [],
+        latestEvents: latestEventsResponse?.data.filter(hasAttributes) ?? [],
+        promos: [...(promotedNews?.data ?? []), ...(promotedEvents?.data ?? [])],
         bookTags,
         opacBookNews,
         menus: menus?.data,

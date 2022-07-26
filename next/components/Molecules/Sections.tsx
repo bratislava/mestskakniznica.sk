@@ -1,4 +1,8 @@
-import { BlogPostSectionsDynamicZone, EventCardFragment, PageSectionsDynamicZone, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
+import {
+  BlogPostSectionsDynamicZone,
+  EventCardEntityFragment,
+  PageSectionsDynamicZone,
+} from '@bratislava/strapi-sdk-city-library'
 import {
   Accordion,
   ColumnedText,
@@ -24,7 +28,6 @@ import {
   parsePageLink,
   parseSubpages,
 } from '../../utils/page'
-import { IEvent } from '../../utils/types'
 import { formatDateToLocal } from '../../utils/utils'
 import AskLibraryForm from '../forms/AskLibraryForm.tsx'
 import BookNotInLibraryForm from '../forms/BookNotInLibraryForm'
@@ -77,7 +80,11 @@ function NullComponent() {
   return null
 }
 
-export const getForm = (formType: string, key?: string | null, eventDetail?: EventCardFragment) => {
+export const getForm = (
+  formType: string,
+  key?: string | null,
+  eventDetail?: EventCardEntityFragment
+) => {
   if (!formType) return NullComponent
 
   let Comp: (arg: any) => any = FORM[formType]
@@ -102,22 +109,27 @@ function Sections({
 }: {
   pageTitle?: string | null | undefined
   sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
-  events?: EventCardFragment[] | undefined
+  events?: EventCardEntityFragment[] | undefined
   eventsListingUrl?: string | undefined
   className?: string | undefined
 }) {
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
-      {sections.map((section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined, index) => (
-        <Section
-          sections={sections}
-          pageTitle={pageTitle}
-          key={index}
-          section={section || null}
-          events={events}
-          eventsListingUrl={eventsListingUrl}
-        />
-      ))}
+      {sections.map(
+        (
+          section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined,
+          index
+        ) => (
+          <Section
+            sections={sections}
+            pageTitle={pageTitle}
+            key={index}
+            section={section || null}
+            events={events}
+            eventsListingUrl={eventsListingUrl}
+          />
+        )
+      )}
     </div>
   )
 }
@@ -129,10 +141,10 @@ function Section({
   events,
   eventsListingUrl,
 }: {
-  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[];
+  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
   pageTitle?: string | null | undefined
   section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
-  events: EventCardFragment[] | undefined
+  events: EventCardEntityFragment[] | undefined
   eventsListingUrl: string | undefined
 }) {
   const [openAccordion, setOpenAccordion] = React.useState('')
@@ -147,7 +159,17 @@ function Section({
 
   return (
     <div>
-      {sectionContent(sections, pageTitle, section, events, eventsListingUrl, t, openAccordion, listenAccordionState, locale)}
+      {sectionContent(
+        sections,
+        pageTitle,
+        section,
+        events,
+        eventsListingUrl,
+        t,
+        openAccordion,
+        listenAccordionState,
+        locale
+      )}
     </div>
   )
 }
@@ -156,7 +178,7 @@ const sectionContent = (
   sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[] | any,
   pageTitle: string | null | undefined,
   section: BlogPostSectionsDynamicZone,
-  events: EventCardFragment[] | undefined,
+  events: EventCardEntityFragment[] | undefined,
   eventsListingUrl: string | undefined,
   t: TFunction,
   openAccordion: string,
@@ -189,7 +211,13 @@ const sectionContent = (
       )
 
     case 'ComponentSectionsSubListing':
-      return <SubListing title={section?.title || undefined} url={section.url || undefined} linkTitle={t('more')} />
+      return (
+        <SubListing
+          title={section?.title || undefined}
+          url={section.url || undefined}
+          linkTitle={t('more')}
+        />
+      )
 
     case 'ComponentSectionsFaq':
       return <Faq title={section.title ?? ''} questions={section?.questions ?? []} />
@@ -222,7 +250,7 @@ const sectionContent = (
     case 'ComponentSectionsAccordion':
       return (
         <>
-          {section.title && <h2 className="flex font-normal text-md pb-6">{section.title}</h2>}
+          {section.title && <h2 className="flex pb-6 text-md font-normal">{section.title}</h2>}
           {section.tableRows &&
             groupByAccordionCategory(section.tableRows ?? []).map((item, index) => (
               <Accordion
@@ -286,7 +314,7 @@ const sectionContent = (
 
     case 'ComponentSectionsCta':
       return (
-        <div className="w-full flex justify-center">
+        <div className="flex w-full justify-center">
           <LinkButton href={section.url || ''} target="_blank" className="py-[9px] px-5">
             {section.title}
           </LinkButton>
@@ -294,13 +322,22 @@ const sectionContent = (
       )
 
     case 'ComponentSectionsLocalityDetails':
-      return <LocalityDetails localityDetails={section} events={events} eventsListingUrl={eventsListingUrl} />
+      return (
+        <LocalityDetails
+          localityDetails={section}
+          events={events}
+          eventsListingUrl={eventsListingUrl}
+        />
+      )
 
     case 'ComponentSectionsExternalLinks':
       return (
         <ExternalLinks
           title={section.title ?? ''}
-          sections={groupByLinksCategory(section.descriptions || undefined, section.externalLinks || undefined)}
+          sections={groupByLinksCategory(
+            section.descriptions || undefined,
+            section.externalLinks || undefined
+          )}
         />
       )
 
@@ -308,8 +345,12 @@ const sectionContent = (
       return (
         section.media?.data?.attributes?.url ||
         (section.youtube_url && (
-          <div className="flex justify-center w-full">
-            <Video id={section.id} mediaUrl={section.media?.data?.attributes?.url ?? ''} youTubeUrl={section.youtube_url ?? ''} />
+          <div className="flex w-full justify-center">
+            <Video
+              id={section.id}
+              mediaUrl={section.media?.data?.attributes?.url ?? ''}
+              youTubeUrl={section.youtube_url ?? ''}
+            />
           </div>
         ))
       )
@@ -320,16 +361,26 @@ const sectionContent = (
           title={section.title || undefined}
           moreLink={{
             url: parsePageLink(section?.moreLink?.[0])?.url ?? '',
-            title: section.moreLink?.[0]?.title ?? section.moreLink?.[0]?.page?.data?.attributes?.title ?? '',
+            title:
+              section.moreLink?.[0]?.title ??
+              section.moreLink?.[0]?.page?.data?.attributes?.title ??
+              '',
           }}
           files={section.basicDocuments?.data?.map((document) => ({
-            url: `${t('documents_category_slug')}${document?.attributes?.file_category?.data?.attributes?.slug}/${document?.attributes?.slug}`,
+            url: `${t('documents_category_slug')}${
+              document?.attributes?.file_category?.data?.attributes?.slug
+            }/${document?.attributes?.slug}`,
             content: {
               type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
               title: document?.attributes?.title ?? '',
               metadata: <Metadata metadata={document?.attributes?.metadata || []} /> ?? '',
-              dateAdded: document?.attributes?.date_added ? `${t('added')} ${formatDateToLocal(document?.attributes?.date_added, locale)}` : '',
-              fileType: document?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
+              dateAdded: document?.attributes?.date_added
+                ? `${t('added')} ${formatDateToLocal(document?.attributes?.date_added, locale)}`
+                : '',
+              fileType:
+                document?.attributes?.attachment?.data?.attributes?.ext
+                  ?.toUpperCase()
+                  .replace('.', '') ?? '',
             },
           }))}
         />

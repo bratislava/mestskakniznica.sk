@@ -1,4 +1,3 @@
-# Write your query or mutation here
 # TODO refactor - move footer to fragment and get rid of unused data
 query Footer($locale: I18NLocaleCode!) {
   footer(locale: $locale) {
@@ -14,19 +13,19 @@ query Footer($locale: I18NLocaleCode!) {
             otherSite
             redirectTo {
               data {
-                ...BasePageFields
+                ...PageWithBaseFieldsEntity
               }
             }
           }
         }
         siteMapLink {
           data {
-            ...BasePageFields
+            ...PageWithBaseFieldsEntity
           }
         }
         privacyLink {
           data {
-            ...BasePageFields
+            ...PageWithBaseFieldsEntity
           }
         }
         copyrightText
@@ -44,7 +43,7 @@ query HomePage($locale: I18NLocaleCode!) {
           title
           redirectTo {
             data {
-              ...BasePageFields
+              ...PageWithBaseFieldsEntity
             }
           }
           faqs {
@@ -57,7 +56,7 @@ query HomePage($locale: I18NLocaleCode!) {
             title
             ctaRedirectTo {
               data {
-                ...BasePageFields
+                ...PageWithBaseFieldsEntity
               }
             }
           }
@@ -68,7 +67,7 @@ query HomePage($locale: I18NLocaleCode!) {
           description
           redirectTo {
             data {
-              ...BasePageFields
+              ...PageWithBaseFieldsEntity
             }
           }
           registrationBenefits {
@@ -81,7 +80,7 @@ query HomePage($locale: I18NLocaleCode!) {
           title
           redirectTo {
             data {
-              ...BasePageFields
+              ...PageWithBaseFieldsEntity
             }
           }
         }
@@ -120,7 +119,7 @@ query HomePage($locale: I18NLocaleCode!) {
             id
             redirectTo {
               data {
-                ...BasePageFields
+                ...PageWithBaseFieldsEntity
               }
             }
             title
@@ -129,12 +128,12 @@ query HomePage($locale: I18NLocaleCode!) {
         }
         siteMapLink {
           data {
-            ...BasePageFields
+            ...PageWithBaseFieldsEntity
           }
         }
         privacyLink {
           data {
-            ...BasePageFields
+            ...PageWithBaseFieldsEntity
           }
         }
       }
@@ -204,7 +203,7 @@ fragment MenuSection on ComponentMenuSections {
   sectionColumnSpan
   sectionPage {
     data {
-      ...BasePageFields
+      ...PageWithBaseFieldsEntity
     }
   }
   sectionLinks {
@@ -216,229 +215,6 @@ fragment MenuSection on ComponentMenuSections {
       }
     }
   }
-}
-
-query PromotedPages($locale: I18NLocaleCode!) {
-  pages(
-    filters: {
-      promoted: { eq: true }
-      or: [
-        { layout: { eq: "event" } }
-        { layout: { eq: "announcement" } }
-        { layout: { eq: "news" } }
-      ]
-    }
-    locale: $locale
-  ) {
-    data {
-      ...Page
-    }
-  }
-}
-
-query PagesByLayout(
-  $layout: String!
-  $locale: I18NLocaleCode!
-  $start: Int
-  $limit: Int
-  $sort: String
-) {
-  pages(
-    filters: { layout: { eq: $layout } }
-    locale: $locale
-    pagination: { start: $start, limit: $limit }
-    sort: [$sort]
-  ) {
-    data {
-      ...Page
-    }
-  }
-}
-
-query PagesByLayoutWithFieldPagination(
-  $layout: String!
-  $locale: I18NLocaleCode!
-  $start: Int
-  $limit: Int
-  $sort: String!
-) {
-  pages(
-    filters: { layout: { eq: $layout } }
-    locale: $locale
-    pagination: { start: $start, limit: $limit }
-    sort: [$sort]
-  ) {
-    data {
-      ...Page
-    }
-    meta {
-      pagination {
-        ...Pagination
-      }
-    }
-  }
-}
-
-query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
-  pages(filters: { slug: { eq: $slug } }, locale: $locale) {
-    data {
-      ...Page
-    }
-  }
-  menus(locale: $locale, sort: ["order:asc"]) {
-    data {
-      ...Menu
-    }
-  }
-  footer(locale: $locale) {
-    data {
-      id
-      attributes {
-        footerColumns {
-          id
-          title
-          footerLink {
-            id
-            redirectTo {
-              data {
-                ...BasePageFields
-              }
-            }
-            title
-            otherSite
-          }
-        }
-        siteMapLink {
-          data {
-            ...BasePageFields
-          }
-        }
-        privacyLink {
-          data {
-            ...BasePageFields
-          }
-        }
-      }
-    }
-  }
-}
-
-# strapi returns just the default locale if no locale is provided
-# easiest way to get all static paths is to ask for all locales sequentially
-query PagesStaticPaths($locale: I18NLocaleCode) {
-  pages(locale: $locale) {
-    data {
-      id
-      attributes {
-        slug
-        locale
-      }
-    }
-  }
-}
-
-fragment Page on PageEntity {
-  id
-  attributes {
-    slug
-    title
-    createdAt
-    updatedAt
-    date_added
-    listingImage {
-      data {
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          alternativeText
-          updatedAt
-        }
-      }
-    }
-    layout
-    description
-    pageCategory {
-      data {
-        ...PageCategory
-      }
-    }
-    sections {
-      ...Sections
-    }
-    blogPosts {
-      data {
-        ...BlogPost
-      }
-    }
-
-    locale
-    localizations {
-      data {
-        ...Localization
-      }
-    }
-    Seo {
-      id
-      metaTitle
-      metaDescription
-      keywords
-      metaRobots
-      metaViewport
-      canonicalURL
-    }
-  }
-}
-
-fragment PageCategory on CategoryEntity {
-  attributes {
-    ...Category
-
-    subCategories {
-      data {
-        id
-        attributes {
-          ...Category
-        }
-      }
-    }
-
-    parentCategory {
-      data {
-        id
-        attributes {
-          ...Category
-          parentCategory {
-            data {
-              id
-              attributes {
-                ...Category
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-fragment Category on Category {
-  title
-  priority
-  pages {
-    ...PageLink
-  }
-  pageLink {
-    ...PageLink
-  }
-  createdAt
-  updatedAt
 }
 
 fragment Sections on PageSectionsDynamicZone {
@@ -528,9 +304,6 @@ fragment Sections on PageSectionsDynamicZone {
       category
       type
     }
-  }
-  ... on ComponentSectionsEventDetails {
-    ...EventDetails
   }
   ... on ComponentSectionsDivider {
     shown
@@ -651,7 +424,7 @@ fragment Sections on PageSectionsDynamicZone {
       id
       page {
         data {
-          ...BasePageFields
+          ...PageWithBaseFieldsEntity
         }
       }
     }
@@ -715,7 +488,7 @@ fragment Subpages on ComponentSectionsSubpages {
     url
     page {
       data {
-        ...BasePageFields
+        ...PageWithBaseFieldsEntity
       }
     }
   }
@@ -738,197 +511,7 @@ fragment PageLink on ComponentBlocksPageLink {
   url
   page {
     data {
-      ...BasePageFields
-    }
-  }
-}
-
-fragment Localization on PageEntity {
-  id
-  attributes {
-    slug
-    locale
-  }
-}
-
-fragment BasePageFields on PageEntity {
-  id
-  attributes {
-    title
-    slug
-    createdAt
-    updatedAt
-  }
-}
-
-fragment EventDetails on ComponentSectionsEventDetails {
-  id
-  eventTitle
-  eventDescription
-  eventCategory {
-    data {
-      id
-      attributes {
-        title
-        createdAt
-        updatedAt
-      }
-    }
-  }
-  eventLocality {
-    data {
-      id
-      attributes {
-        title
-        navigateTo
-        eventAddress
-        createdAt
-        updatedAt
-      }
-    }
-  }
-  dateFrom
-  dateTo
-  price
-  guests {
-    id
-    name
-    surname
-    avatar {
-      data {
-        id
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
-          alternativeText
-        }
-      }
-    }
-  }
-  # partners {
-  #   id
-  #   title
-  #   image {
-  #     name
-  #     width
-  #     height
-  #     url
-  #     createdAt
-  #     hash
-  #     id
-  #     mime
-  #     provider
-  #     size
-  #     updatedAt
-  #     alternativeText
-  #   }
-  # }
-  eventTags {
-    data {
-      id
-      attributes {
-        title
-        slug
-        createdAt
-        publishedAt
-        updatedAt
-      }
-    }
-  }
-  eventCoverImage {
-    data {
-      attributes {
-        name
-        width
-        height
-        url
-        createdAt
-        hash
-        mime
-        provider
-        size
-        updatedAt
-        alternativeText
-      }
-    }
-  }
-}
-
-fragment SectionLinkPage on PageEntity {
-  id
-  attributes {
-    layout
-    title
-    slug
-    createdAt
-    updatedAt
-    date_added
-    listingImage {
-      data {
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
-          alternativeText
-        }
-      }
-    }
-    sections {
-      __typename
-      ... on ComponentSectionsEventDetails {
-        ...EventDetails
-      }
-    }
-  }
-}
-
-query EventProperties($locale: I18NLocaleCode!) {
-  eventCategories(locale: $locale) {
-    data {
-      id
-      attributes {
-        title
-        createdAt
-        updatedAt
-      }
-    }
-  }
-  eventLocalities(locale: $locale) {
-    data {
-      id
-      attributes {
-        title
-        navigateTo
-        createdAt
-        updatedAt
-      }
-    }
-  }
-  eventTags(locale: $locale) {
-    data {
-      id
-      attributes {
-        title
-        slug
-        createdAt
-        publishedAt
-        updatedAt
-      }
+      ...PageWithBaseFieldsEntity
     }
   }
 }

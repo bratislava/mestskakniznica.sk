@@ -1,4 +1,9 @@
-import { ComponentMenuSections, EventCardFragment, Maybe, Menu } from '@bratislava/strapi-sdk-city-library'
+import {
+  ComponentMenuSections,
+  EventCardEntityFragment,
+  Maybe,
+  Menu,
+} from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
 import Link from 'next/link'
@@ -9,7 +14,7 @@ import Subnavigation from './Subnavigation'
 
 interface navItemProps {
   menu: Menu | undefined | null
-  latestEvents?: EventCardFragment[]
+  latestEvents?: EventCardEntityFragment[]
   index: number
 }
 
@@ -45,14 +50,16 @@ function NavigationItem({ menu, latestEvents }: navItemProps) {
           </a>
         </Link>
       </NavigationMenu.Trigger>
-      {menuSections && <NavigationMenu.Content>
-        <Subnavigation
-          menuSections={menuSections}
-          latestEvents={latestEvents}
-          menuTotalColumns={menu?.menuTotalColumns}
-          menuSlug={menu?.menuSlug}
-        />
-      </NavigationMenu.Content>}
+      {menuSections && (
+        <NavigationMenu.Content>
+          <Subnavigation
+            menuSections={menuSections}
+            latestEvents={latestEvents}
+            menuTotalColumns={menu?.menuTotalColumns}
+            menuSlug={menu?.menuSlug}
+          />
+        </NavigationMenu.Content>
+      )}
     </NavigationMenu.Item>
   )
 }

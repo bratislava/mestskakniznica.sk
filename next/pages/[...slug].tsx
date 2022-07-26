@@ -1,20 +1,22 @@
 import {
   Enum_Page_Layout,
-  EventCardFragment,
+  EventCardEntityFragment,
   EventCategoryEntity,
-  EventEntity,
+  EventEntityFragment,
   EventLocalityEntity,
   EventTagEntity,
   FooterEntity,
   MenuEntity,
   PageEntity,
+  PageEntityFragment,
   Pagination,
   PartnerEntity,
-  PartnerFragment,
+  PartnerEntityFragment,
   PremiseEntity,
-} from '@bratislava/strapi-sdk-city-library'
+} from '../graphql'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ReactNode } from 'react'
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
@@ -37,11 +39,9 @@ import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
 import { sortPartners } from '../utils/page'
-import { IEvent, ILocality } from '../utils/types'
+import { ILocality } from '../utils/types'
 import {
   arrayify,
-  convertEventToPromotedType,
-  convertPagesToEvents,
   convertPagesToLocalities,
   isPresent,
   shouldSkipStaticPaths,
@@ -52,15 +52,15 @@ interface IPageProps {
   slug: string
   page: PageEntity
   partners: PartnerEntity[]
-  promotedEvents: IEvent[]
-  eventDetail: EventEntity
-  allEvents: EventCardFragment[]
-  eventListEvents: EventCardFragment[]
-  latestEvents: EventCardFragment[]
+  promotedEvents: EventCardEntityFragment[]
+  eventDetail: EventEntityFragment
+  allEvents: EventCardEntityFragment[]
+  eventListEvents: EventCardEntityFragment[]
+  latestEvents: EventCardEntityFragment[]
   premises: PremiseEntity[]
   opacBookNews: OpacBook[]
   localities: ILocality[]
-  news: IEvent[]
+  news: PageEntity[]
   locale?: string
   eventCategories: EventCategoryEntity[]
   eventTags: EventTagEntity[]
@@ -103,7 +103,7 @@ function Page({
 
   const sortedPartners = sortPartners(partners)
 
-  let pageComponentByLayout = null
+  let pageComponentByLayout: ReactNode = null
 
   switch (page?.attributes?.layout) {
     case Enum_Page_Layout.Listing:
@@ -112,9 +112,6 @@ function Page({
 
     case Enum_Page_Layout.Sublisting:
       pageComponentByLayout = <SublistingPage page={page} />
-      break
-
-    case Enum_Page_Layout.Announcement:
       break
 
     case Enum_Page_Layout.News:
@@ -162,7 +159,11 @@ function Page({
 
     case Enum_Page_Layout.NewsListing:
       pageComponentByLayout = (
-        <NewsListingPage page={page} news={news} pagination={paginationFields} />
+        <NewsListingPage
+          page={page}
+          news={news as PageEntityFragment[]}
+          pagination={paginationFields}
+        />
       )
       break
 
@@ -179,13 +180,7 @@ function Page({
 
   if (!pageComponentByLayout && eventDetail) {
     pageComponentByLayout = (
-      <EventPage
-        page={page}
-        eventDetail={eventDetail}
-        events={allEvents}
-        allNewsLink={allNewsLink}
-        locale={locale}
-      />
+      <EventPage event={eventDetail} locale={locale} events={[]} allNewsLink={''} />
     )
   }
 
@@ -249,11 +244,11 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
   ])) as any
 
   try {
-    let promotedEvents: IEvent[] = []
-    let allEvents: EventCardFragment[] = []
-    let eventListEvents: EventCardFragment[] = []
-    let news: IEvent[] = []
-    let latestEvents: EventCardFragment[] = []
+    const promotedEvents: EventCardEntityFragment[] = []
+    let allEvents: EventCardEntityFragment[] = []
+    let eventListEvents: EventCardEntityFragment[] = []
+    let news: PageEntityFragment[] = []
+    let latestEvents: EventCardEntityFragment[] = []
     let premises: PremiseEntity[] = []
     let localities: ILocality[] = []
     let eventCategories: EventCategoryEntity[] = []
@@ -269,20 +264,20 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     })
     // menus, footer
     const pageBySlug = queryResponse?.pages?.data[0]
-    let eventDetail: EventEntity | null = null
+    let eventDetail: EventEntityFragment | null = null
     const { menus, footer } = queryResponse
 
     if (!pageBySlug) {
-      const eventDetailResponse = await client.EventBySlug({ slug })
-      if (eventDetailResponse.events?.data[0]) {
-        eventDetail = eventDetailResponse.events.data[0]
+      const { events: eventResponse } = await client.EventBySlug({ slug })
+      if (eventResponse?.data[0]) {
+        eventDetail = eventResponse.data[0]
       } else {
         return { notFound: true } as { notFound: true }
       }
     }
 
     // For all page in header
-    let allEventPages: EventCardFragment[] = []
+    let allEventPages: EventCardEntityFragment[] = []
     const today = new Date()
     const futureEvents = await client.EventList({
       locale,
@@ -295,7 +290,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     latestEvents = futureEvents.events?.data.slice(0, 4) || []
 
     // all partners for about us partners page
-    const partners: { allPartners: PartnerFragment[] | null } = {
+    const partners: { allPartners: PartnerEntityFragment[] | null } = {
       allPartners: null,
     }
 
@@ -309,7 +304,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     }
 
     if (pageBySlug?.attributes?.layout === Enum_Page_Layout.EventsListing) {
-      const [promotedPagesResponse, eventProperties] = await Promise.all([
+      const [{ promotedEvents }, eventProperties] = await Promise.all([
         client.PromotedEvents({ locale, start: 0, limit: 4 }),
         client.EventProperties({ locale }),
       ])
@@ -322,7 +317,6 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         sort: 'dateFrom:desc',
       })
 
-      promotedEvents = convertEventToPromotedType(promotedPagesResponse.events?.data || [])
       eventListEvents = eventPages.events?.data || []
       paginationFields = eventPages.events?.meta.pagination || null
 
@@ -348,12 +342,12 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       pageBySlug?.attributes?.layout === Enum_Page_Layout.NewsListing ||
       pageBySlug?.attributes?.layout === Enum_Page_Layout.Listing
     ) {
-      const newsPages = await client.PagesByLayoutWithFieldPagination({
+      const newsPages = await client.PagesByLayoutPaginated({
         layout: 'news',
         locale,
         sort: 'createdAt:desc',
       })
-      news = convertPagesToEvents(newsPages?.pages?.data ?? []) || []
+      news = newsPages?.pages?.data ?? []
       paginationFields = newsPages?.pages?.meta?.pagination || null
     }
 
@@ -377,7 +371,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         page: pageBySlug || null,
         partners: partners.allPartners ?? [],
         eventDetail,
-        promotedEvents,
+        promotedEvents: promotedEvents,
         allEvents,
         eventListEvents,
         latestEvents,

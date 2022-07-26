@@ -1,4 +1,150 @@
-query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $filters: EventFiltersInput, $sort: String) {
+fragment ImageEntity on UploadFileEntity {
+  attributes {
+    name
+    width
+    height
+    url
+    hash
+    mime
+    size
+    alternativeText
+  }
+}
+
+fragment EventCardAttributes on Event {
+  slug
+  title
+  description
+  createdAt
+  updatedAt
+  date_added
+  locale
+  dateFrom
+  dateTo
+  price
+  eventCategory {
+    data {
+      id
+      attributes {
+        title
+        createdAt
+        updatedAt
+      }
+    }
+  }
+  eventLocality {
+    data {
+      id
+      attributes {
+        title
+        navigateTo
+        eventAddress
+        createdAt
+        updatedAt
+      }
+    }
+  }
+  eventTags {
+    data {
+      id
+      attributes {
+        title
+        slug
+        createdAt
+        publishedAt
+        updatedAt
+      }
+    }
+  }
+  listingImage {
+    data {
+      ...ImageEntity
+    }
+  }
+  coverImage {
+    data {
+      ...ImageEntity
+    }
+  }
+}
+
+fragment EventCardEntity on EventEntity {
+  id
+  attributes {
+    ...EventCardAttributes
+  }
+}
+
+fragment EventEntity on EventEntity {
+  id
+  attributes {
+    ...EventCardAttributes
+    promoted
+    showForm
+    guests {
+      id
+      name
+      surname
+      avatar {
+        data {
+          ...ImageEntity
+        }
+      }
+    }
+    Seo {
+      metaTitle
+      metaDescription
+      keywords
+      metaRobots
+      metaViewport
+      canonicalURL
+    }
+  }
+}
+
+query EventProperties($locale: I18NLocaleCode!) {
+  eventCategories(locale: $locale) {
+    data {
+      id
+      attributes {
+        title
+        createdAt
+        updatedAt
+      }
+    }
+  }
+  eventLocalities(locale: $locale) {
+    data {
+      id
+      attributes {
+        title
+        navigateTo
+        createdAt
+        updatedAt
+      }
+    }
+  }
+  eventTags(locale: $locale) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        createdAt
+        publishedAt
+        updatedAt
+      }
+    }
+  }
+}
+
+query EventList(
+  $locale: I18NLocaleCode!
+  $start: Int
+  $limit: Int
+  $filters: EventFiltersInput
+  $sort: String
+) {
   events(
     locale: $locale
     sort: [$sort]
@@ -6,7 +152,7 @@ query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $filters: Ev
     filters: $filters
   ) {
     data {
-      ...EventCard
+      ...EventEntity
     }
     meta {
       pagination {
@@ -17,138 +163,22 @@ query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $filters: Ev
 }
 
 query PromotedEvents($locale: I18NLocaleCode!, $start: Int, $limit: Int) {
-  events(
+  promotedEvents: events(
     locale: $locale
     sort: "dateFrom:asc"
     pagination: { start: $start, limit: $limit }
-    filters: { promoted: {eq: true} }
+    filters: { promoted: { eq: true } }
   ) {
     data {
-      ...EventCard
+      ...EventCardEntity
     }
   }
 }
 
-query EventBySlug($slug: String) {
+query EventBySlug($slug: String!) {
   events(filters: { slug: { eq: $slug } }) {
     data {
-      ...EventCard
-    }
-  }
-}
-
-fragment EventCard on EventEntity {
-  id
-  attributes {
-    slug
-    title
-    description
-    createdAt
-    updatedAt
-    date_added
-    locale
-    dateFrom
-    dateTo
-    price
-    eventCategory {
-      data {
-        id
-        attributes {
-          title
-          createdAt
-          updatedAt
-        }
-      }
-    }
-    eventLocality {
-      data {
-        id
-        attributes {
-          title
-          navigateTo
-          eventAddress
-          createdAt
-          updatedAt
-        }
-      }
-    }
-    eventTags {
-      data {
-        id
-        attributes {
-          title
-          slug
-          createdAt
-          publishedAt
-          updatedAt
-        }
-      }
-    }
-    listingImage {
-      data {
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
-          alternativeText
-        }
-      }
-    }
-    coverImage {
-      data {
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
-          alternativeText
-        }
-      }
-    }
-    guests {
-      id
-      name
-      surname
-      avatar {
-        data {
-          id
-          attributes {
-            name
-            width
-            height
-            url
-            createdAt
-            hash
-            mime
-            provider
-            size
-            updatedAt
-            alternativeText
-          }
-        }
-      }
-    }
-    Seo {
-      id
-      metaTitle
-      metaDescription
-      keywords
-      metaRobots
-      metaViewport
-      canonicalURL
+      ...EventEntity
     }
   }
 }

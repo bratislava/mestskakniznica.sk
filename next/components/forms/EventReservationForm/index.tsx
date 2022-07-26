@@ -10,16 +10,15 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { convertDataToBody } from '../../../utils/form-constants'
-import { IEvent } from '../../../utils/types'
 import { dateTimeString, dayForDifferentDateTo, isEventPast } from '../../../utils/utils'
 import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 import FormContainer, { phoneRegex } from '../FormContainer'
 import FormFooter from '../FormFooter'
-import { EventCardFragment } from '@bratislava/strapi-sdk-city-library'
+import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 
 interface Props {
-  eventDetail?: EventCardFragment
+  eventDetail?: EventCardEntityFragment
 }
 
 function EventReservationForm({ eventDetail }: Props) {

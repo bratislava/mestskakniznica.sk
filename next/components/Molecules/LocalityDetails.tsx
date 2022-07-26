@@ -2,7 +2,7 @@ import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import {
   ComponentLocalityPartsLocalitySection,
   ComponentSectionsLocalityDetails,
-  EventCardFragment,
+  EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
@@ -13,14 +13,13 @@ import SectionSvg from '../../assets/images/section.svg'
 
 import MailSvg from '../../assets/images/mail.svg'
 import PhoneSvg from '../../assets/images/phone.svg'
-import { IEvent } from '../../utils/types'
 import { dateTimeString } from '../../utils/utils'
 import DateCardDisplay from '../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface PageProps {
   localityDetails: ComponentSectionsLocalityDetails
-  events: EventCardFragment[] | undefined
+  events: EventCardEntityFragment[] | undefined
   eventsListingUrl: string | undefined
 }
 
@@ -63,16 +62,16 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
     <div className="h-full">
       {showContactInfo && (
         <div className="mb-3">
-          <div className="flex items-center mb-2">
-            <span className="inline-flex mr-4 mb-[1px]">
+          <div className="mb-2 flex items-center">
+            <span className="mr-4 mb-[1px] inline-flex">
               <PhoneSvg />
             </span>
             <a href={`tel:${section.localitySectionPhone}`} className="hover:underline">
               {section.localitySectionPhone}
             </a>
           </div>
-          <div className="flex items-center mb-2">
-            <span className="inline-flex mr-4 mb-[1px]">
+          <div className="mb-2 flex items-center">
+            <span className="mr-4 mb-[1px] inline-flex">
               <MailSvg />
             </span>
             <a href={`mailto:${section.localitySectionEmail}`} className="hover:underline">
@@ -110,7 +109,11 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
         )}
       </div>
       <div className="pb-2">
-        {dayString(locale == 'sk' ? 'Piatok' : 'Friday', section.openingHoursFridayFrom, section.openingHoursFridayTo)}
+        {dayString(
+          locale == 'sk' ? 'Piatok' : 'Friday',
+          section.openingHoursFridayFrom,
+          section.openingHoursFridayTo
+        )}
       </div>
       <div className="pb-2">
         {dayString(
@@ -120,7 +123,11 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
         )}
       </div>
       <div className="pb-2">
-        {dayString(locale == 'sk' ? 'Nedeľa' : 'Sunday', section.openingHoursSundayFrom, section.openingHoursSundayTo)}
+        {dayString(
+          locale == 'sk' ? 'Nedeľa' : 'Sunday',
+          section.openingHoursSundayFrom,
+          section.openingHoursSundayTo
+        )}
       </div>
       {section.localitySectionDescription && !onlyOpeningHours && (
         <UIMarkdown content={section.localitySectionDescription} />
@@ -129,23 +136,27 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
   )
 
   const scrollButton = (anchor: string, text: string) => (
-    <a href={anchor} className="hover:underline cursor-pointer uppercase whitespace-nowrap">
+    <a href={anchor} className="cursor-pointer whitespace-nowrap uppercase hover:underline">
       {text}
     </a>
   )
 
   return (
-    <div className="flex flex-col lg:flex-row gap-16 pt-12">
+    <div className="flex flex-col gap-16 pt-12 lg:flex-row">
       <div className="w-full lg:w-2/3">
         <div className="border-b border-gray-700 pb-10">
-          <div className="text-[32px] py-[12px]">
+          <div className="py-[12px] text-[32px]">
             <div className="pb-8">
-              <h1 className="leading-10 lg:leading-6 md:leading-6">{localityDetails.localityTitle}</h1>
+              <h1 className="leading-10 md:leading-6 lg:leading-6">
+                {localityDetails.localityTitle}
+              </h1>
               <div className="-mx-4 overflow-x-auto">
-                <div className="flex gap-x-6 pt-9 px-4 text-xs uppercase">
+                <div className="flex gap-x-6 px-4 pt-9 text-xs uppercase">
                   {scrollButton('#description', t('description'))}
-                  {(localityDetails.localityServices?.length || 0) > 0 && scrollButton('#services', t('services'))}
-                  {(localityDetails.localitySections?.length || 0) > 0 && scrollButton('#sections', t('sections'))}
+                  {(localityDetails.localityServices?.length || 0) > 0 &&
+                    scrollButton('#services', t('services'))}
+                  {(localityDetails.localitySections?.length || 0) > 0 &&
+                    scrollButton('#sections', t('sections'))}
                   {scrollButton('#where', t('localityWhereToFind'))}
                 </div>
               </div>
@@ -154,8 +165,11 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
           {localityDetails.localityDescription && (
             <div id="description">
               <div className="text-[24px]">{t('description')}</div>
-              <div className="text-gray-500 text-[16px] pt-5">
-                <UIMarkdown content={localityDetails.localityDescription} paragraphClassName="text-sm" />
+              <div className="pt-5 text-[16px] text-gray-500">
+                <UIMarkdown
+                  content={localityDetails.localityDescription}
+                  paragraphClassName="text-sm"
+                />
               </div>
             </div>
           )}
@@ -163,17 +177,17 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
         {(localityDetails.localityServices?.length || 0) > 0 && (
           <div className="border-b border-gray-700 pb-10 pt-10" id="services">
             <div className="text-[24px]">{t('services')}</div>
-            <div className="grid sm:grid-cols-2 gap-4 flex-wrap pt-5">
+            <div className="grid flex-wrap gap-4 pt-5 sm:grid-cols-2">
               {localityDetails.localityServices?.map((service) => (
                 <CallToAction
                   title={service?.page?.data?.attributes?.title ?? ''}
                   href={service?.page?.data?.attributes?.slug ?? ''}
                   bottomText={t('more')}
-                  className="flex pr-[24px] h-[180px]"
+                  className="flex h-[180px] pr-[24px]"
                   hasIcon={false}
                   uppercase={false}
                   customIcon={
-                    <span className="inline-flex ml-2">
+                    <span className="ml-2 inline-flex">
                       <ChevronRightSvg />
                     </span>
                   }
@@ -184,15 +198,15 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
           </div>
         )}
         {(events?.length || 0) > 0 && (
-          <div className="border-b border-gray-700 pb-12 pt-12 hidden" id="events">
+          <div className="hidden border-b border-gray-700 pb-12 pt-12" id="events">
             <div className="text-md2">{t('events')}</div>
             <div className="grid grid-cols-1 md:grid-cols-2">
               {events?.map((event) => (
-                <div className="w-full h-23 cursor-pointer" key={event.id}>
-                  <div className="pt-4 h-10 text-gray-universal-70">
+                <div className="h-23 w-full cursor-pointer" key={event.id}>
+                  <div className="h-10 pt-4 text-gray-universal-70">
                     <Link href={event.attributes?.slug || ''} passHref>
                       <a href={event.attributes?.slug || ''} className="flex">
-                        <div className="flex w-16 h-16 bg-yellow-promo">
+                        <div className="flex h-16 w-16 bg-yellow-promo">
                           <DateCardDisplay
                             dateFrom={event.attributes?.dateFrom || ''}
                             dateTo={event.attributes?.dateTo || ''}
@@ -201,15 +215,19 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
                           />
                         </div>
 
-                        <div className="pl-5 overflow-hidden">
-                          <div className="leading-[21px] md:w-52 whitespace-pre text-ellipsis overflow-hidden text-black-universal hover:underline">
+                        <div className="overflow-hidden pl-5">
+                          <div className="overflow-hidden text-ellipsis whitespace-pre leading-[21px] text-black-universal hover:underline md:w-52">
                             {event.attributes?.title}
                           </div>
-                          <div className="leading-[20px] text-xs text-gray-universal-70 pt-[5px]">
-                            {dateTimeString(event.attributes?.dateFrom || '', event.attributes?.dateTo || '', locale)}
+                          <div className="pt-[5px] text-xs leading-[20px] text-gray-universal-70">
+                            {dateTimeString(
+                              event.attributes?.dateFrom || '',
+                              event.attributes?.dateTo || '',
+                              locale
+                            )}
                           </div>
                           {event.attributes?.eventLocality?.data?.attributes?.title && (
-                            <div className="leading-[20px] text-xs text-gray-universal-70 md:w-52 overflow-hidden whitespace-pre text-ellipsis">
+                            <div className="overflow-hidden text-ellipsis whitespace-pre text-xs leading-[20px] text-gray-universal-70 md:w-52">
                               &#9679; {event.attributes?.eventLocality.data.attributes.title}
                             </div>
                           )}
@@ -222,7 +240,7 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
             </div>
             <div className="pt-6">
               <Link href={eventsListingUrl || ''} passHref>
-                <a href={eventsListingUrl} className="text-sm cursor-pointer uppercase">
+                <a href={eventsListingUrl} className="cursor-pointer text-sm uppercase">
                   {t('moreEvents')} {'>'}
                 </a>
               </Link>
@@ -250,8 +268,8 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
         </div>
         <div id="where" className="mb-4">
           <div className="pb-6 text-md2">{t('localityWhereToFind')}</div>
-          <div className="flex flex-col space-y-4 md:grid grid-cols-2 gap-x-5">
-            <div className="w-full h-64 md:h-[415px]">
+          <div className="flex grid-cols-2 flex-col gap-x-5 space-y-4 md:grid">
+            <div className="h-64 w-full md:h-[415px]">
               <LocalityMap
                 localityName={localityDetails.localityTitle}
                 localityLatitude={localityDetails.localityLatitude || undefined}
@@ -262,7 +280,7 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
             {mainSection && (
               <div className="">
                 <div className="pb-4">{t('address')}</div>
-                <div className="text-sm text-gray-500 pb">
+                <div className="pb text-sm text-gray-500">
                   {localityDetails.localityAddress?.title &&
                     localityDetails.localityAddress.title.split(', ').map((part) => (
                       <div key={part}>
@@ -276,19 +294,28 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
           </div>
         </div>
       </div>
-      <div className="sticky top-8 border border-gray-900 w-full h-fit p-6 lg:w-1/3">
+      <div className="sticky top-8 h-fit w-full border border-gray-900 p-6 lg:w-1/3">
         <div className="m-auto">
           <div className="pb-6">{t('contactUs')}</div>
           {localityDetails?.localitySections?.map((localityContact) => (
-            <div className="py-3 flex flex-col border-t border-gray-300 pt-5 pb-5" key={localityContact?.id}>
+            <div
+              className="flex flex-col border-t border-gray-300 py-3 pt-5 pb-5"
+              key={localityContact?.id}
+            >
               <span>{localityContact?.localitySectionTitle}</span>
-              <a href={`tel:${localityContact?.localitySectionPhone}`} className="flex items-center space-x-4 py-2">
+              <a
+                href={`tel:${localityContact?.localitySectionPhone}`}
+                className="flex items-center space-x-4 py-2"
+              >
                 <span>
                   <PhoneSvg />
                 </span>
                 <span>{localityContact?.localitySectionPhone}</span>
               </a>
-              <a href={`mailto:${localityContact?.localitySectionEmail}`} className="flex items-center space-x-4 py-2">
+              <a
+                href={`mailto:${localityContact?.localitySectionEmail}`}
+                className="flex items-center space-x-4 py-2"
+              >
                 <span>
                   <MailSvg />
                 </span>

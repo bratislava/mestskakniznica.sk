@@ -1,7 +1,7 @@
 import { EventTagEntity } from '@bratislava/strapi-sdk-city-library'
 
 interface TagsDisplayProps {
-  tags?: Array<EventTagEntity>
+  tags?: EventTagEntity[]
   category: string
   tagsCount: number
 }
@@ -25,7 +25,7 @@ function TagsDisplay({ tags = [], category, tagsCount }: TagsDisplayProps) {
       {slicedTags?.length < tags.length && (
         <div>
           &nbsp;
-          {` + ${  (tags.length - slicedTags.length).toString()}`}
+          {` + ${(tags.length - slicedTags.length).toString()}`}
         </div>
       )}
     </div>
