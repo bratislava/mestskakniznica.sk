@@ -1,0 +1,33 @@
+name: Deploy code to kubernetes
+on: [push]
+env:
+  DOCKER_REGISTRY: harbor.bratislava.sk
+  DOCKER_USERNAME: ${{ github.repository_owner }}
+  DOCKER_PASSWORD: ${{ secrets.HARBOR_TOKEN }}
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./next
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Prerequisites -  Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+    - name: Install Prerequisites - envsubst
+      run: |
+           sudo apt-get update
+           sudo apt-get install gettext-base    
+    - run: yarn --frozen-lockfile
+    - run: yarn global add bratislava/bratiska-cli
+    - run: git fetch
+    - name: Login to Docker registry
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ env.DOCKER_REGISTRY }}
+        username: ${{ env.DOCKER_USERNAME }}
+        password: ${{ env.DOCKER_PASSWORD }}
+    - run: bratiska-cli deploy --dry_run

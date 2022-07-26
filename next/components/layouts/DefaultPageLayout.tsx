@@ -1,4 +1,9 @@
-import { ComponentSeoSeo, EventCardFragment, FooterEntity, MenuEntity } from '@bratislava/strapi-sdk-city-library'
+import {
+  ComponentSeoSeo,
+  EventCardFragment,
+  FooterEntity,
+  MenuEntity,
+} from '@bratislava/strapi-sdk-city-library'
 import { Footer, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
@@ -16,9 +21,18 @@ interface IProps {
   menus: MenuEntity[]
   footer: FooterEntity
   latestEvents?: EventCardFragment[]
+  isHomePage?: boolean
 }
 
-function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }: IProps) {
+function DefaultPageLayout({
+  children,
+  title,
+  Seo,
+  menus,
+  footer,
+  latestEvents,
+  isHomePage,
+}: IProps) {
   const { localizations, locale } = usePageWrapperContext()
   const otherLangData = otherLocale(locale ?? 'sk', localizations)
   const currentLangData = otherLocale(otherLangData.locale, localizations)
@@ -68,7 +82,7 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }
       <div className="flex min-h-screen flex-1 flex-col justify-self-stretch">
         <header>
           <div className="hidden lg:block lg:px-8">
-            <Header menus={menus} latestEvents={latestEvents} />
+            <Header menus={menus} latestEvents={latestEvents} isHomePage={isHomePage} />
           </div>
           <div className="block lg:hidden">
             <MobileHeader menus={menus} />
@@ -84,7 +98,7 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents }
         <footer>
           <SectionContainer>
             <Footer
-              footerColumns={footer?.attributes?.footerColumns|| []}
+              footerColumns={footer?.attributes?.footerColumns || []}
               // siteMap={{
               //   title: t('siteMap'),
               //   href: footer?.siteMapLink?.slug ?? '#',

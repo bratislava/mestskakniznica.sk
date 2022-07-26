@@ -1,5 +1,5 @@
 name: Test yarn build
-on: [push]
+on: [pull_request]
 jobs:
   build:
     name: Test yarn build

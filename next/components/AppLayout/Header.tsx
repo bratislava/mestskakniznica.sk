@@ -11,9 +11,10 @@ import SkipNavigation from './SkipNavigation'
 interface HeaderProps {
   menus: MenuEntity[]
   latestEvents?: EventCardFragment[]
+  isHomePage?: boolean
 }
 
-function Header({ menus, latestEvents }: HeaderProps) {
+function Header({ menus, latestEvents, isHomePage }: HeaderProps) {
   const { t } = useTranslation('common')
   return (
     <>
@@ -21,18 +22,33 @@ function Header({ menus, latestEvents }: HeaderProps) {
         <div className="mx-auto flex items-center justify-between border-b border-gray-900">
           <Link href="/" passHref>
             <a className="flex h-[40px] cursor-pointer flex-row items-center uppercase">
-              <h1>
-                {t('pageTitle')
-                  .split(' ')
-                  .map((word) => (
-                    <span
-                      key={word}
-                      className="h-[40px] border-r border-gray-900 px-3 pt-[7px] pb-[6px] text-27 uppercase first:pl-0 first:pr-3"
-                    >
-                      {word}
-                    </span>
-                  ))}
-              </h1>
+              {isHomePage ? (
+                <h1>
+                  {t('pageTitle')
+                    .split(' ')
+                    .map((word) => (
+                      <span
+                        key={word}
+                        className="h-[40px] border-r border-gray-900 px-3 pt-[7px] pb-[6px] text-27 uppercase first:pl-0 first:pr-3"
+                      >
+                        {word}
+                      </span>
+                    ))}
+                </h1>
+              ) : (
+                <>
+                  {t('pageTitle')
+                    .split(' ')
+                    .map((word) => (
+                      <span
+                        key={word}
+                        className="h-[40px] border-r border-gray-900 px-3 pt-[7px] pb-[6px] text-27 uppercase first:pl-0 first:pr-3"
+                      >
+                        {word}
+                      </span>
+                    ))}
+                </>
+              )}
             </a>
           </Link>
 
@@ -48,7 +64,12 @@ function Header({ menus, latestEvents }: HeaderProps) {
           <NavigationMenu.Root aria-label={t('navAriaLabel')}>
             <NavigationMenu.List className="flex">
               {menus?.map((menu, index) => (
-                <NavigationItem latestEvents={latestEvents} index={index} menu={menu.attributes} key={index} />
+                <NavigationItem
+                  latestEvents={latestEvents}
+                  index={index}
+                  menu={menu.attributes}
+                  key={index}
+                />
               ))}
             </NavigationMenu.List>
 
