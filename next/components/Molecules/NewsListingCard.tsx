@@ -4,9 +4,10 @@ import { useTranslation } from 'next-i18next'
 import { IEvent } from '../../utils/types'
 import { formatDateToLocal } from '../../utils/utils'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
+import { PageEntity } from '../../graphql'
 
 interface NewsProps {
-  event: IEvent
+  event: PageEntity
 }
 
 function NewsListingCard({ event }: NewsProps) {
@@ -14,21 +15,32 @@ function NewsListingCard({ event }: NewsProps) {
   const { locale } = usePageWrapperContext()
 
   return (
-    <Link href={event.slug || ''} passHref>
-      <a href={event.slug} className="relative w-full flex-shrink-0 h-full flex flex-col justify-between">
-        <div className="h-full flex flex-col">
+    <Link href={event.attributes?.slug ?? ''} passHref>
+      <a
+        href={event.attributes?.slug ?? ''}
+        className="relative flex h-full w-full flex-shrink-0 flex-col justify-between"
+      >
+        <div className="flex h-full flex-col">
           <img
-            className="w-full h-48 object-cover"
-            alt={event.listingImage?.alternativeText || `Cover for ${event.eventTitle}`}
-            src={event.listingImage?.url}
+            className="h-48 w-full object-cover"
+            alt={
+              event.attributes?.listingImage?.data?.attributes?.alternativeText ||
+              `Cover for ${event.attributes?.title}`
+            }
+            src={event.attributes?.listingImage?.data?.attributes?.url}
           />
 
-          <div className="text-sm pt-3">
-            {formatDateToLocal(event.date_added ? event.date_added : event.dateFrom ? event.dateFrom : '', locale)}
+          <div className="pt-3 text-sm">
+            {formatDateToLocal(
+              event.attributes?.date_added ? event.attributes?.date_added : '',
+              locale
+            )}
           </div>
-          <div className="text-black justify-end text-default hover:underline">{event.eventTitle}</div>
+          <div className="text-black justify-end text-default hover:underline">
+            {event.attributes?.title}
+          </div>
         </div>
-        <div className="text-black pt-5 justify-end uppercase text-base bottom-0 hover:underline">
+        <div className="text-black bottom-0 justify-end pt-5 text-base uppercase hover:underline">
           {t('showMore')} {'>'}
         </div>
       </a>

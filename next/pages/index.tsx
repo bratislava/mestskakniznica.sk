@@ -137,7 +137,7 @@ export function Index({
 interface IProps {
   locale?: string
   localizations?: Partial<PageEntity>[]
-  news: IEvent[]
+  news: PageEntity[]
   latestEvents: EventEntity[]
   opacBookNews: OpacBook[]
   promotedEvents: IEvent[]
@@ -230,7 +230,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       props: {
         locale,
         localizations: homePage?.data?.attributes?.localizations?.data,
-        news,
+        news: news?.data?.filter(isDefined) ?? [],
         latestEvents,
         promotedEvents,
         bookTags,
