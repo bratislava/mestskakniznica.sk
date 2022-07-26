@@ -162,7 +162,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
     const [
       opacBookNews,
-      newsPages,
+      { pages: news },
       { homePage, menus, footer },
       promotedPages,
       localityPages,
@@ -172,12 +172,18 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       client.PagesByLayout({
         layout: 'news',
         locale,
+        sort: 'publishedAt:asc',
+        start: 0,
+        limit: 4,
       }),
       client.HomePage({ locale }),
       client.PromotedPages({ locale }),
       client.PagesByLayout({
         layout: 'locality',
         locale,
+        sort: 'publishedAt:asc',
+        start: 0,
+        limit: 4,
       }),
       client.BookTags(),
     ])
@@ -203,13 +209,13 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
 
     const latestEvents = allEventPages
 
-    const news = convertPagesToEvents(newsPages.pages?.data?.filter(isDefined) ?? [])
-      .sort((a: eventProps, b: eventProps) => {
-        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
-        return 0
-      })
-      .slice(0, 4)
+    // const news = convertPagesToEvents(newsPages.pages?.data?.filter(isDefined) ?? [])
+    //   .sort((a: eventProps, b: eventProps) => {
+    //     if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
+    //     if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
+    //     return 0
+    //   })
+    //   .slice(0, 4)
     const promotedEventsR = await client.PromotedEvents({ locale, start: 0, limit: 3 })
     const promotedEvents = convertPagesToEvents(promotedPages.pages?.data ?? [])
     promotedEvents.push(...convertEventToPromotedType(promotedEventsR.events?.data || []))

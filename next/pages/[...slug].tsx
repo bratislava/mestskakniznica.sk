@@ -4,8 +4,14 @@ import {
   EventCategoryEntity,
   EventEntity,
   EventLocalityEntity,
-  EventTagEntity, FooterEntity,
-  MenuEntity, PageEntity, Pagination, PartnerEntity, PartnerFragment, PremiseEntity
+  EventTagEntity,
+  FooterEntity,
+  MenuEntity,
+  PageEntity,
+  Pagination,
+  PartnerEntity,
+  PartnerFragment,
+  PremiseEntity,
 } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -38,9 +44,8 @@ import {
   convertPagesToEvents,
   convertPagesToLocalities,
   isPresent,
-  shouldSkipStaticPaths
+  shouldSkipStaticPaths,
 } from '../utils/utils'
-
 
 interface IPageProps {
   error?: IDisplayError
@@ -156,7 +161,9 @@ function Page({
       break
 
     case Enum_Page_Layout.NewsListing:
-      pageComponentByLayout = <NewsListingPage page={page} news={news} pagination={paginationFields} />
+      pageComponentByLayout = (
+        <NewsListingPage page={page} news={news} pagination={paginationFields} />
+      )
       break
 
     case Enum_Page_Layout.Locality:
@@ -170,15 +177,28 @@ function Page({
       break
   }
 
-  if(!pageComponentByLayout && eventDetail) {
-    pageComponentByLayout = <EventPage page={page} eventDetail={eventDetail} events={allEvents} allNewsLink={allNewsLink} locale={locale} />
+  if (!pageComponentByLayout && eventDetail) {
+    pageComponentByLayout = (
+      <EventPage
+        page={page}
+        eventDetail={eventDetail}
+        events={allEvents}
+        allNewsLink={allNewsLink}
+        locale={locale}
+      />
+    )
   }
 
   return (
     <PageWrapper
       locale={page?.attributes?.locale ?? ''}
       slug={page?.attributes?.slug ?? ''}
-      localizations={page?.attributes?.localizations?.data.filter(isPresent).map(localisation => ({locale: localisation.attributes?.locale, slug: localisation.attributes?.slug}))}
+      localizations={page?.attributes?.localizations?.data
+        .filter(isPresent)
+        .map((localisation) => ({
+          locale: localisation.attributes?.locale,
+          slug: localisation.attributes?.slug,
+        }))}
     >
       <DefaultPageLayout
         title={page?.attributes?.title}
@@ -248,13 +268,13 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       locale,
     })
     // menus, footer
-    const pageBySlug = queryResponse?.pages?.data[0];
+    const pageBySlug = queryResponse?.pages?.data[0]
     let eventDetail: EventEntity | null = null
-    const { menus, footer } = queryResponse;
-    
+    const { menus, footer } = queryResponse
+
     if (!pageBySlug) {
       const eventDetailResponse = await client.EventBySlug({ slug })
-      if(eventDetailResponse.events?.data[0]) {
+      if (eventDetailResponse.events?.data[0]) {
         eventDetail = eventDetailResponse.events.data[0]
       } else {
         return { notFound: true } as { notFound: true }
@@ -263,13 +283,13 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
 
     // For all page in header
     let allEventPages: EventCardFragment[] = []
-    const today = new Date();
+    const today = new Date()
     const futureEvents = await client.EventList({
       locale,
       start: 0,
       limit: 10,
       filters: { dateFrom: { gte: today.toISOString() } },
-      sort: "dateFrom:asc"
+      sort: 'dateFrom:asc',
     })
     allEventPages = futureEvents.events?.data || []
     latestEvents = futureEvents.events?.data.slice(0, 4) || []
@@ -299,9 +319,9 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         start: 0,
         limit: 10,
         filters: {},
-        sort: "dateFrom:desc"
+        sort: 'dateFrom:desc',
       })
-      
+
       promotedEvents = convertEventToPromotedType(promotedPagesResponse.events?.data || [])
       eventListEvents = eventPages.events?.data || []
       paginationFields = eventPages.events?.meta.pagination || null
@@ -309,7 +329,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       eventCategories = eventProperties.eventCategories?.data || []
       eventTags = eventProperties.eventTags?.data || []
       eventLocalities = eventProperties.eventLocalities?.data || []
-    }    
+    }
     if (
       pageBySlug?.attributes?.layout === Enum_Page_Layout.Event ||
       pageBySlug?.attributes?.layout === Enum_Page_Layout.Locality ||
@@ -331,14 +351,14 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       const newsPages = await client.PagesByLayoutWithFieldPagination({
         layout: 'news',
         locale,
-        sort: "createdAt:desc"
+        sort: 'createdAt:desc',
       })
       news = convertPagesToEvents(newsPages?.pages?.data ?? []) || []
-      paginationFields = newsPages?.pages?.meta?.pagination || null;
+      paginationFields = newsPages?.pages?.meta?.pagination || null
     }
 
     if (pageBySlug?.attributes?.layout === Enum_Page_Layout.Premises) {
-      const premisesPages : any = await client.Premises({ locale })
+      const premisesPages: any = await client.Premises({ locale })
       premises = premisesPages?.premises?.data
     }
 
@@ -346,10 +366,11 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       const localitiesPages = await client.PagesByLayout({
         layout: 'locality',
         locale,
+        sort: 'publishedAt:desc',
       })
       localities = convertPagesToLocalities(localitiesPages?.pages?.data ?? [], true) || []
     }
-    
+
     return {
       props: {
         slug,

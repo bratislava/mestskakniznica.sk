@@ -3588,6 +3588,7 @@ export type PagesByLayoutQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
   start?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
+  sort?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -4972,11 +4973,12 @@ export const PromotedPagesDocument = gql`
 }
     ${PageFragmentDoc}`;
 export const PagesByLayoutDocument = gql`
-    query PagesByLayout($layout: String!, $locale: I18NLocaleCode!, $start: Int, $limit: Int) {
+    query PagesByLayout($layout: String!, $locale: I18NLocaleCode!, $start: Int, $limit: Int, $sort: String) {
   pages(
     filters: {layout: {eq: $layout}}
     locale: $locale
     pagination: {start: $start, limit: $limit}
+    sort: [$sort]
   ) {
     data {
       ...Page

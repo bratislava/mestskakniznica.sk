@@ -104,7 +104,7 @@ query HomePage($locale: I18NLocaleCode!) {
       }
     }
   }
-    menus(locale: $locale, sort: ["order:asc"]) {
+  menus(locale: $locale, sort: ["order:asc"]) {
     data {
       ...Menu
     }
@@ -171,8 +171,8 @@ query Premises($locale: I18NLocaleCode!) {
           }
         }
       }
-      }
     }
+  }
 }
 
 query Menus($locale: I18NLocaleCode!) {
@@ -220,7 +220,14 @@ fragment MenuSection on ComponentMenuSections {
 
 query PromotedPages($locale: I18NLocaleCode!) {
   pages(
-    filters: { promoted: {eq: true}, or: [{ layout: {eq: "event"} }, { layout: {eq: "announcement"} }, { layout: {eq: "news"} }] }
+    filters: {
+      promoted: { eq: true }
+      or: [
+        { layout: { eq: "event" } }
+        { layout: { eq: "announcement" } }
+        { layout: { eq: "news" } }
+      ]
+    }
     locale: $locale
   ) {
     data {
@@ -229,16 +236,38 @@ query PromotedPages($locale: I18NLocaleCode!) {
   }
 }
 
-query PagesByLayout($layout: String!, $locale: I18NLocaleCode!, $start: Int, $limit: Int) {
-  pages(filters: { layout: { eq: $layout } }, locale: $locale, pagination: { start: $start, limit: $limit }) {
+query PagesByLayout(
+  $layout: String!
+  $locale: I18NLocaleCode!
+  $start: Int
+  $limit: Int
+  $sort: String
+) {
+  pages(
+    filters: { layout: { eq: $layout } }
+    locale: $locale
+    pagination: { start: $start, limit: $limit }
+    sort: [$sort]
+  ) {
     data {
       ...Page
     }
   }
 }
 
-query PagesByLayoutWithFieldPagination($layout: String!, $locale: I18NLocaleCode!, $start: Int, $limit: Int, $sort: String!) {
-  pages(filters: { layout: { eq: $layout } }, locale: $locale, pagination: { start: $start, limit: $limit }, sort: [$sort]) {
+query PagesByLayoutWithFieldPagination(
+  $layout: String!
+  $locale: I18NLocaleCode!
+  $start: Int
+  $limit: Int
+  $sort: String!
+) {
+  pages(
+    filters: { layout: { eq: $layout } }
+    locale: $locale
+    pagination: { start: $start, limit: $limit }
+    sort: [$sort]
+  ) {
     data {
       ...Page
     }
@@ -251,7 +280,7 @@ query PagesByLayoutWithFieldPagination($layout: String!, $locale: I18NLocaleCode
 }
 
 query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
-  pages(filters: { slug: {eq: $slug} }, locale: $locale) {
+  pages(filters: { slug: { eq: $slug } }, locale: $locale) {
     data {
       ...Page
     }
