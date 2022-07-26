@@ -2,14 +2,14 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import MarkerIcon from '@assets/images/marker.svg'
 import {
-  ComponentAddressAddress, ComponentLocalityPartsLocalitySection
+  ComponentAddressAddress,
+  ComponentLocalityPartsLocalitySection,
 } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { maxBy, minBy } from 'lodash'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-// import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
 export interface ILocality {

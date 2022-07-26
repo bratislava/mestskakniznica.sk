@@ -1,29 +1,32 @@
-import { PageEntity, PageFragment } from '@bratislava/strapi-sdk-city-library'
 import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
-import * as React from 'react'
+import { EventCardEntityFragment, PageEntity } from '../../graphql'
 
 import { parseSubCategories } from '../../utils/page'
-import { IEvent } from '../../utils/types'
-import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface PageProps {
   page: PageEntity
-  allEvents: IEvent[]
-  news: IEvent[]
+  allEvents: EventCardEntityFragment[]
+  news: PageEntity[]
 }
 
 function ListingPage({ page, allEvents, news }: PageProps) {
   const { t } = useTranslation('common')
 
-  const subCategories = parseSubCategories(page?.attributes?.pageCategory?.data?.attributes?.subCategories?.data ?? [])
+  const subCategories = parseSubCategories(
+    page?.attributes?.pageCategory?.data?.attributes?.subCategories?.data ?? []
+  )
   return (
     <>
       <SectionContainer>
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} />
+        <PageTitle
+          title={page?.attributes?.title ?? ''}
+          description={page?.attributes?.description ?? ''}
+        />
 
         {/* Subcategories */}
         {subCategories.map((subCategory, index) => (
@@ -34,16 +37,17 @@ function ListingPage({ page, allEvents, news }: PageProps) {
             url={subCategory.url}
             moreLinkTitle={subCategory.moreLinkTitle}
             pages={
-              subCategory.pages[0]?.url === 'latestNews' || subCategory.pages[0]?.url === 'latestEvents'
+              subCategory.pages[0]?.url === 'latestNews' ||
+              subCategory.pages[0]?.url === 'latestEvents'
                 ? subCategory.pages[0]?.url === 'latestNews'
-                  ? news.slice(0, 4).map((singleNes) => ({
-                      title: singleNes.eventTitle ?? '',
-                      url: singleNes.slug ?? '',
+                  ? news.slice(0, 4).map((page) => ({
+                      title: page.attributes?.title ?? '',
+                      url: page.attributes?.slug ?? '',
                       moreLinkTitle: t('more'),
                     }))
                   : allEvents.slice(0, 4).map((event) => ({
-                      title: event.eventTitle ?? '',
-                      url: event.slug ?? '',
+                      title: event.attributes?.title ?? '',
+                      url: event.attributes?.slug ?? '',
                       moreLinkTitle: t('more'),
                     }))
                 : subCategory.pages.map((page) => ({

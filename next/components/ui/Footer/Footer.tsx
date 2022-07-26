@@ -1,7 +1,7 @@
 import FbLogo from '@assets/images/fb-logo.svg'
 import IgLogo from '@assets/images/ig-logo.svg'
 import YtLogo from '@assets/images/yt-logo.svg'
-import { ComponentFooterFooterColumn, FooterQuery, Maybe } from '@bratislava/strapi-sdk-city-library'
+import { ComponentFooterFooterColumn, Maybe } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
@@ -35,13 +35,7 @@ export interface FooterProps {
   copyrightText?: string
 }
 
-function FooterSection({
-  col,
-  i,
-}: {
-  col: ComponentFooterFooterColumn
-  i: number
-}) {
+function FooterSection({ col, i }: { col: ComponentFooterFooterColumn; i: number }) {
   return (
     <div
       key={col?.title}
@@ -49,13 +43,17 @@ function FooterSection({
         'border-l border-gray-universal-100 pl-8': i !== 0,
       })}
     >
-      <h6 className="text-default cursor-default" aria-label={col?.title || 'Title'}>
+      <h6 className="cursor-default text-default" aria-label={col?.title || 'Title'}>
         {col?.title}
       </h6>
       <div className="mt-6 flex flex-col gap-y-3">
         {col?.footerLink?.map((link) =>
           link?.otherSite && link.otherSite !== '' ? (
-            <a href={link.otherSite} className="text-gray-universal-70 text-base hover:underline" key={link.id}>
+            <a
+              href={link.otherSite}
+              className="text-base text-gray-universal-70 hover:underline"
+              key={link.id}
+            >
               {link.title}
             </a>
           ) : (
@@ -64,7 +62,7 @@ function FooterSection({
               variant="plain"
               uppercase={false}
               href={link?.redirectTo?.data?.attributes?.slug || ''}
-              className="text-gray-universal-70 text-base hover:underline"
+              className="text-base text-gray-universal-70 hover:underline"
             >
               {link?.title}
             </Link>
@@ -95,23 +93,23 @@ export function Footer({
 
   return (
     <div className={className}>
-      <div className="lg:container border-b border-t border-gray-universal-100">
+      <div className="border-b border-t border-gray-universal-100 lg:container">
         <div className="grid grid-cols-3 items-center">
           <div className="flex items-center justify-center">
             <a href={facebookUrl} target="_blank" rel="noreferrer">
-              <FbLogo className="lg:p-0 cursor-pointer" />
+              <FbLogo className="cursor-pointer lg:p-0" />
               <span className="sr-only">Facebook</span>
             </a>
           </div>
-          <div className="flex items-center justify-center py-5 lg:py-6 border-l border-r border-gray-universal-100">
+          <div className="flex items-center justify-center border-l border-r border-gray-universal-100 py-5 lg:py-6">
             <a href={instagramUrl} target="_blank" rel="noreferrer">
-              <IgLogo className="lg:p-0 cursor-pointer" />
+              <IgLogo className="cursor-pointer lg:p-0" />
               <span className="sr-only">Instagram</span>
             </a>
           </div>
           <div className="flex items-center justify-center">
             <a href={youtubeUrl} target="_blank" rel="noreferrer">
-              <YtLogo className="lg:p-0 cursor-pointer" />
+              <YtLogo className="cursor-pointer lg:p-0" />
               <span className="sr-only">Youtube</span>
             </a>
           </div>
@@ -119,42 +117,53 @@ export function Footer({
       </div>
       {/* Mobile */}
       <div className="lg:hidden">
-        {footerColumns?.map((col, i) => (
-           col && <Accordion
-            type="divider"
-            size="small"
-            label={col?.title || ''}
-            id={col?.title || ''}
-            stateListener={listenAccordionState}
-            defaultState={openFooter === col?.title}
-            content={
-              <div className="flex flex-col gap-y-2">
-                {col?.footerLink?.map((item) => (
-                  <Link key={item?.title} uppercase={false} variant="plain" href={item?.redirectTo?.data?.attributes?.slug || ''}>
-                    {item?.title}
-                  </Link>
-                ))}
-              </div>
-            }
-            key={i}
-          />
-        ))}
+        {footerColumns?.map(
+          (col, i) =>
+            col && (
+              <Accordion
+                type="divider"
+                size="small"
+                label={col?.title || ''}
+                id={col?.title || ''}
+                stateListener={listenAccordionState}
+                defaultState={openFooter === col?.title}
+                content={
+                  <div className="flex flex-col gap-y-2">
+                    {col?.footerLink?.map((item) => (
+                      <Link
+                        key={item?.title}
+                        uppercase={false}
+                        variant="plain"
+                        href={item?.redirectTo?.data?.attributes?.slug || ''}
+                      >
+                        {item?.title}
+                      </Link>
+                    ))}
+                  </div>
+                }
+                key={i}
+              />
+            )
+        )}
       </div>
 
       {/* Desktop */}
-      <div className="hidden lg:grid lg:container grid-cols-4 border-b border-gray-universal-100">
-        {footerColumns?.map((col, i) => (
-          col && <FooterSection col={col} i={i} key={i} />
-        ))}
+      <div className="hidden grid-cols-4 border-b border-gray-universal-100 lg:container lg:grid">
+        {footerColumns?.map((col, i) => col && <FooterSection col={col} i={i} key={i} />)}
       </div>
 
-      <div className="lg:container lg:p-6 pb-4 lg:pb-0 text-gray-universal-70 text-xs flex flex-col lg:flex-row lg:justify-between lg:items-center">
-        <p className="py-4 lg:py-0">&copy; {copyrightText || `${new Date().getFullYear()} ${t('pageTitle')}`}</p>
-        <div className="flex flex-col lg:flex-row lg:items-center gap-x-8">
+      <div className="flex flex-col pb-4 text-xs text-gray-universal-70 lg:container lg:flex-row lg:items-center lg:justify-between lg:p-6 lg:pb-0">
+        <p className="py-4 lg:py-0">
+          &copy; {copyrightText || `${new Date().getFullYear()} ${t('pageTitle')}`}
+        </p>
+        <div className="flex flex-col gap-x-8 lg:flex-row lg:items-center">
           {siteMap && (
-            <Link variant="plain" uppercase={false} href={siteMap.href}>
-              {siteMap.title}
-            </Link>
+            <>
+              <Link variant="plain" uppercase={false} href={siteMap.href}>
+                {siteMap.title}
+              </Link>{' '}
+              v4.0.1
+            </>
           )}
           <Link variant="plain" uppercase={false} href={VOP.href}>
             {VOP.title}

@@ -6,7 +6,6 @@ import Euro from '@assets/images/euro-symbol.svg'
 import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import { BlogPostSectionsDynamicZone, ComponentSectionsEventDetails, ComponentSectionsForm, PageSectionsDynamicZone, SectionsFragment } from '@bratislava/strapi-sdk-city-library'
 import AddToCalendar from '@culturehq/add-to-calendar'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -14,6 +13,7 @@ import QRCode from 'qrcode.react'
 import React from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { EventEntityFragment } from '../../graphql'
 import { dateTimeString, isEventPast } from '../../utils/utils'
 import DateCardDisplay from '../Atoms/DateCardDispaly'
 import Clickable from '../Atoms/EventClickable'
@@ -21,13 +21,11 @@ import DetailsRow from '../Atoms/EventDetailsRow'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
-
 export interface PageProps {
-  eventDetails?: ComponentSectionsEventDetails
-  sections?: ComponentSectionsForm[];
+  event?: EventEntityFragment
 }
 
-function EventDetails({ eventDetails, sections }: PageProps) {
+function EventDetails({ event }: PageProps) {
   const { t } = useTranslation('common')
   const { asPath } = useRouter()
   const { Markdown: UIMarkdown } = useUIContext()
@@ -41,7 +39,14 @@ function EventDetails({ eventDetails, sections }: PageProps) {
   const fireSwal = () => {
     const withContent = withReactContent(Swal)
     withContent.fire({
-      html: <QRCode value={eventDetails?.eventTitle || ''} className="m-auto" renderAs="svg" size={240} />,
+      html: (
+        <QRCode
+          value={event?.attributes?.title || ''}
+          className="m-auto"
+          renderAs="svg"
+          size={240}
+        />
+      ),
       position: 'center',
       width: 350,
       confirmButtonText: t('close'),
@@ -54,68 +59,71 @@ function EventDetails({ eventDetails, sections }: PageProps) {
   }
 
   React.useMemo(() => {
-    setIsEventInThePast(isEventPast(eventDetails?.dateTo))
-  }, [eventDetails])
+    setIsEventInThePast(isEventPast(event?.attributes?.dateTo))
+  }, [event])
 
   return (
     <>
       <img
-        src={eventDetails?.eventCoverImage?.data?.attributes?.url}
-        width={eventDetails?.eventCoverImage?.data?.attributes?.width || 0}
-        height={eventDetails?.eventCoverImage?.data?.attributes?.height || 0}
-        alt={eventDetails?.eventCoverImage?.data?.attributes?.alternativeText || 'Event details'}
-        className="md:h-[300px] lg:h-[400px] object-cover object-center"
+        src={event?.attributes?.coverImage?.data?.attributes?.url}
+        width={event?.attributes?.coverImage?.data?.attributes?.width || 0}
+        height={event?.attributes?.coverImage?.data?.attributes?.height || 0}
+        alt={event?.attributes?.coverImage?.data?.attributes?.alternativeText || 'Event details'}
+        className="object-cover object-center md:h-[300px] lg:h-[400px]"
       />
-      <div className="block lg:grid grid-cols-9 pt-10 gap-x-16">
-        <div className="col-span-1 h-[108px] w-[108px] bg-promo-yellow text-center lg:flex hidden">
-          <DateCardDisplay dateFrom={eventDetails?.dateFrom} dateTo={eventDetails?.dateTo} textSize="text-lg" />
+      <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
+        <div className="col-span-1 hidden h-[108px] w-[108px] bg-promo-yellow text-center lg:flex">
+          <DateCardDisplay
+            dateFrom={event?.attributes?.dateFrom}
+            dateTo={event?.attributes?.dateTo}
+            textSize="text-lg"
+          />
         </div>
         <div className="col-span-5">
           <div className="text-xs">
             <TagsDisplay
-              tags={eventDetails?.eventTags?.data || []}
-              category={eventDetails?.eventCategory?.data?.attributes?.title || ''}
+              tags={event?.attributes?.eventTags?.data || []}
+              category={event?.attributes?.eventCategory?.data?.attributes?.title || ''}
               tagsCount={5}
             />
           </div>
-          <h1 className="text-[32px] py-[12px] leading-[38px]">{eventDetails?.eventTitle}</h1>
+          <h1 className="py-[12px] text-[32px] leading-[38px]">{event?.attributes?.title}</h1>
           <div className="text-[14px] text-gray-500">
-            {dateTimeString(eventDetails?.dateFrom, eventDetails?.dateTo, locale)}
+            {dateTimeString(event?.attributes?.dateFrom, event?.attributes?.dateTo, locale)}
           </div>
         </div>
-        <div className="col-span-3 mt-4 lg:m-auto w-full">
-          {sections?.map((section) => (
-            (section?.type) == 'detail_podujatia' && !isEventInThePast &&(
-              <a
+        <div className="col-span-3 mt-4 w-full lg:m-auto">
+          {!isEventInThePast && (
+            <a
               href="#detail_podujatia"
-              className="w-full h-12 base-button text-white bg-gray-universal-100 hover:bg-gray-universal-80 border border-gray-universal-100">
-                {t('eventReservation')}
-              </a>
-            )
-          ))}
+              className="base-button h-12 w-full border border-gray-universal-100 bg-gray-universal-100 text-white hover:bg-gray-universal-80"
+            >
+              {t('eventReservation')}
+            </a>
+          )}
         </div>
       </div>
 
-      <div className="flex flex-col-reverse lg:grid grid-cols-9 pt-10 gap-x-16">
+      <div className="flex grid-cols-9 flex-col-reverse gap-x-16 pt-10 lg:grid">
         <div className="col-span-6">
-          <div className="border-b border-gray-700 pb-10 mt-8 lg:mt-0">
+          <div className="mt-8 border-b border-gray-700 pb-10 lg:mt-0">
             <div className="text-[24px]">{t('description')}</div>
-            <div className="text-gray-500 text-[16px] pt-5">
-              <UIMarkdown content={eventDetails?.eventDescription || ''} />
+            <div className="pt-5 text-[16px] text-gray-500">
+              <UIMarkdown content={event?.attributes?.description || ''} />
             </div>
           </div>
-          {(eventDetails?.guests?.length || 0) > 0 && (
+          {(event?.attributes?.guests?.length || 0) > 0 && (
             <div className="border-b border-gray-700 pb-10 pt-10">
               <div className="text-[24px]">{t('eventGuests')}</div>
               <div className="grid grid-cols-3 pt-5">
-                {eventDetails?.guests?.map((guest) => (
+                {event?.attributes?.guests?.map((guest) => (
                   <div key={guest?.id} className="flex pr-[24px]">
                     <img
                       src={guest?.avatar?.data?.attributes?.url}
                       width={guest?.avatar?.data?.attributes?.width || 0}
                       height={guest?.avatar?.data?.attributes?.height || 0}
                       alt={guest?.name || 'Guest name.'}
-                      className="rounded-full h-12 w-12 flex items-center justify-center object-cover"
+                      className="flex h-12 w-12 items-center justify-center rounded-full object-cover"
                     />
                     <span className="m-auto text-[16px]">
                       {guest?.name} {guest?.surname}
@@ -145,7 +153,7 @@ function EventDetails({ eventDetails, sections }: PageProps) {
             </div>
           )} */}
           <div className="pt-10">
-            <div className="border-t border-b h-auto py-3 block lg:border border-gray-900 lg:h-[70px] lg:flex lg:p-0">
+            <div className="block h-auto border-t border-b border-gray-900 py-3 lg:flex lg:h-[70px] lg:border lg:p-0">
               {/* <div className="hidden lg:block pl-6 w-[169px] text-sm m-auto"> */}
               {/*  {t('eventShareAndSave')} */}
               {/* </div> */}
@@ -153,11 +161,11 @@ function EventDetails({ eventDetails, sections }: PageProps) {
                 <div className="my-3 lg:m-auto">
                   <AddToCalendar
                     event={{
-                      name: eventDetails?.eventTitle || '',
-                      details: eventDetails?.eventDescription?.replace(/\n/g, ' ') || null,
-                      location: eventDetails?.eventLocality?.data?.attributes?.title || null,
-                      startsAt: new Date(eventDetails?.dateFrom).toISOString(),
-                      endsAt: new Date(eventDetails?.dateTo).toISOString(),
+                      name: event?.attributes?.title || '',
+                      details: event?.attributes?.description?.replace(/\n/g, ' ') || null,
+                      location: event?.attributes?.eventLocality?.data?.attributes?.title || null,
+                      startsAt: new Date(event?.attributes?.dateFrom).toISOString(),
+                      endsAt: new Date(event?.attributes?.dateTo).toISOString(),
                     }}
                     filename="library-event"
                   >
@@ -190,23 +198,28 @@ function EventDetails({ eventDetails, sections }: PageProps) {
         <div className="col-span-3 text-[24px]">
           {t('details')}
           <div className="pt-5">
-            <div className="border-t border-b lg:border border-gray-900 text-sm">
+            <div className="border-t border-b border-gray-900 text-sm lg:border">
               <div className="m-5">
                 <div className="border-b border-gray-300 pb-5">
                   <DetailsRow
                     classWrapper="flex"
                     svgIcon={<Calendar />}
-                    text={dateTimeString(eventDetails?.dateFrom, eventDetails?.dateTo, locale)}
+                    text={dateTimeString(
+                      event?.attributes?.dateFrom,
+                      event?.attributes?.dateTo,
+                      locale
+                    )}
                   />
                   {!isEventInThePast && (
                     <div className="pl-9 pt-3">
                       <AddToCalendar
                         event={{
-                          name: eventDetails?.eventTitle || '',
-                          details: eventDetails?.eventDescription?.replace(/\n/g, ' ') || null,
-                          location: eventDetails?.eventLocality?.data?.attributes?.title || null,
-                          startsAt: new Date(eventDetails?.dateFrom).toISOString(),
-                          endsAt: new Date(eventDetails?.dateTo).toISOString(),
+                          name: event?.attributes?.title || '',
+                          details: event?.attributes?.description?.replace(/\n/g, ' ') || null,
+                          location:
+                            event?.attributes?.eventLocality?.data?.attributes?.title || null,
+                          startsAt: new Date(event?.attributes?.dateFrom).toISOString(),
+                          endsAt: new Date(event?.attributes?.dateTo).toISOString(),
                         }}
                         filename="library-event"
                       >
@@ -222,12 +235,14 @@ function EventDetails({ eventDetails, sections }: PageProps) {
                   <DetailsRow
                     classWrapper="flex"
                     svgIcon={<Navigate />}
-                    text={`${eventDetails?.eventLocality?.data?.attributes?.title}${
-                      eventDetails?.eventLocality?.data?.attributes?.eventAddress ? `, ${eventDetails?.eventLocality?.data?.attributes?.eventAddress}` : ``
+                    text={`${event?.attributes?.eventLocality?.data?.attributes?.title}${
+                      event?.attributes?.eventLocality?.data?.attributes?.eventAddress
+                        ? `, ${event?.attributes?.eventLocality?.data?.attributes?.eventAddress}`
+                        : ``
                     }`}
                   />
                   <Clickable
-                    actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${eventDetails?.eventLocality?.data?.attributes?.navigateTo}`}
+                    actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${event?.attributes?.eventLocality?.data?.attributes?.navigateTo}`}
                     classA="flex text-sm uppercase"
                     classDiv="pl-9 pt-3"
                     svgIcon={<Directions />}
@@ -238,7 +253,11 @@ function EventDetails({ eventDetails, sections }: PageProps) {
                 <DetailsRow
                   classWrapper="flex pt-5"
                   svgIcon={<Euro />}
-                  text={eventDetails?.price == 0 ? t('noCharge').toString() : eventDetails?.price?.toString() || ''}
+                  text={
+                    event?.attributes?.price == 0
+                      ? t('noCharge').toString()
+                      : event?.attributes?.price?.toString() || ''
+                  }
                 />
               </div>
             </div>

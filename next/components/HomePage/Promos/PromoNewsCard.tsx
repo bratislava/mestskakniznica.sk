@@ -1,12 +1,12 @@
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 
-interface AccouncementProps {
+interface IPromoNewsCard {
   title: string
   slug: string
 }
 
-function AnnouncementCard({ title, slug }: AccouncementProps) {
+function PromoNewsCard({ title, slug }: IPromoNewsCard) {
   const { t } = useTranslation('common')
   return (
     <Link key={slug} href={slug} passHref>
@@ -31,4 +31,4 @@ function AnnouncementCard({ title, slug }: AccouncementProps) {
   )
 }
 
-export default AnnouncementCard
+export default PromoNewsCard

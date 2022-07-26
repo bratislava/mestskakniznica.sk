@@ -3,8 +3,8 @@ import {
   ComponentAddressAddress,
   ComponentGuestsGuest,
   ComponentLocalityPartsLocalitySection,
+  EventCategoryEntity,
   EventLocalityEntity,
-  EventTagEntity,
   EventTagRelationResponseCollection,
   Maybe,
   Menu,
@@ -28,8 +28,9 @@ export type NextRedirectServerSideProps =
 // tends to work better then GetServerSidePropsResult - gives you inferred props only for when the page component actually renders
 // use as follows: AsyncServerProps<typeof getServerSideProps>
 // getServerSideProps needs to be declared as async - which it tends to be, add a sync version if you need it
-export type AsyncServerProps<T extends (...args: any) => Promise<NextRedirectServerSideProps | { props: any }>> =
-  Exclude<Awaited<ReturnType<T>>, NextRedirectServerSideProps>['props']
+export type AsyncServerProps<
+  T extends (...args: any) => Promise<NextRedirectServerSideProps | { props: any }>
+> = Exclude<Awaited<ReturnType<T>>, NextRedirectServerSideProps>['props']
 
 export interface newBookOpac {
   title: string
@@ -37,26 +38,6 @@ export interface newBookOpac {
   authors: string[]
 }
 
-export interface IEvent {
-  dateFrom?: string
-  dateTo?: string
-  date_added?: string
-  eventTitle?: string
-  eventDescription?: string
-  guests?: ComponentGuestsGuest[]
-  eventTags?: Maybe<EventTagRelationResponseCollection>
-  listingImage?: UploadFile
-  eventCustomType: string
-  eventType?: {
-    id: string
-    title: string
-  }
-  eventLocality?: Maybe<EventLocalityEntity>
-  slug?: string
-  id?: string
-  price?: number
-  eventCategory?: Maybe<CategoryEntity>
-}
 export interface IPremises {
   address?: string
   url?: string

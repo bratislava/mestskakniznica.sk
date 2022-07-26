@@ -1,9 +1,13 @@
-import { ComponentSeoSeo, FooterEntity, MenuEntity } from '@bratislava/strapi-sdk-city-library'
+import {
+  ComponentSeoSeo,
+  EventCardEntityFragment,
+  FooterEntity,
+  MenuEntity,
+} from '@bratislava/strapi-sdk-city-library'
 import { Footer, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
 import favicon from '../../assets/images/mkb_favicon.png'
-import { IEvent } from '../../utils/types'
 import Header from '../AppLayout/Header'
 import MobileHeader from '../AppLayout/MobileNavigation/MobileHeader'
 import NewsletterSection from '../HomePage/NewsletterSection'
@@ -16,11 +20,19 @@ interface IProps {
   Seo?: ComponentSeoSeo | undefined | null
   menus: MenuEntity[]
   footer: FooterEntity
-  latestEvents?: IEvent[]
+  latestEvents?: EventCardEntityFragment[]
   isHomePage?: boolean
 }
 
-function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents, isHomePage }: IProps) {
+function DefaultPageLayout({
+  children,
+  title,
+  Seo,
+  menus,
+  footer,
+  latestEvents,
+  isHomePage,
+}: IProps) {
   const { localizations, locale } = usePageWrapperContext()
   const otherLangData = otherLocale(locale ?? 'sk', localizations)
   const currentLangData = otherLocale(otherLangData.locale, localizations)
@@ -86,7 +98,7 @@ function DefaultPageLayout({ children, title, Seo, menus, footer, latestEvents, 
         <footer>
           <SectionContainer>
             <Footer
-              footerColumns={footer?.attributes?.footerColumns|| []}
+              footerColumns={footer?.attributes?.footerColumns || []}
               // siteMap={{
               //   title: t('siteMap'),
               //   href: footer?.siteMapLink?.slug ?? '#',
