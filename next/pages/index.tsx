@@ -28,7 +28,12 @@ import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
 import { IEvent, ILocality } from '../utils/types'
-import { convertEventToPromotedType, convertPagesToEvents, convertPagesToLocalities, isPresent } from '../utils/utils'
+import {
+  convertEventToPromotedType,
+  convertPagesToEvents,
+  convertPagesToLocalities,
+  isPresent,
+} from '../utils/utils'
 
 export function Index({
   locale,
@@ -73,7 +78,7 @@ export function Index({
         // add empty slug because it's expected in wrapper and index page does not have slug
         .map((l) => ({ ...l, slug: '' }))}
     >
-      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} latestEvents={latestEvents} isHomePage={true}>
+      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} latestEvents={latestEvents}>
         {promotedEvents.length > 0 && (
           <SectionContainer>
             <Section>
@@ -185,14 +190,14 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       dateFrom?: string | Date
     }
 
-    let allEventPages : EventEntity[] = []
+    let allEventPages: EventEntity[] = []
     const today = new Date()
     const latestEventPages = await client.EventList({
       locale,
       start: 0,
       limit: 4,
       filters: { dateFrom: { gte: today.toISOString() } },
-      sort: "dateFrom:asc"
+      sort: 'dateFrom:asc',
     })
     allEventPages = latestEventPages.events?.data || []
 
@@ -208,13 +213,12 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     const promotedEventsR = await client.PromotedEvents({ locale, start: 0, limit: 3 })
     const promotedEvents = convertPagesToEvents(promotedPages.pages?.data ?? [])
     promotedEvents.push(...convertEventToPromotedType(promotedEventsR.events?.data || []))
-    const localities = convertPagesToLocalities(
-      localityPages.pages?.data ?? [],
-      true
-    ).map((locality) => ({
-      ...locality,
-      hideOpeningHours: true,
-    }))
+    const localities = convertPagesToLocalities(localityPages.pages?.data ?? [], true).map(
+      (locality) => ({
+        ...locality,
+        hideOpeningHours: true,
+      })
+    )
 
     return {
       props: {
