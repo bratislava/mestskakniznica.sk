@@ -72,7 +72,13 @@ export function Index({
         // add empty slug because it's expected in wrapper and index page does not have slug
         .map((l) => ({ ...l, slug: '' }))}
     >
-      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} latestEvents={latestEvents} isHomePage={true}>
+      <DefaultPageLayout
+        Seo={Seo}
+        menus={menus}
+        footer={footer}
+        latestEvents={latestEvents}
+        isHomePage={true}
+      >
         {promotedEvents.length > 0 && (
           <SectionContainer>
             <Section>
@@ -101,7 +107,7 @@ export function Index({
           </SectionContainer>
         )}
 
-        {newsSection !== null && news.length > 0 && (
+        {newsSection !== null && news && news.length > 0 && (
           <SectionContainer>
             <Section>
               <SectionLibraryNews newsSection={newsSection} news={news} />
@@ -131,7 +137,7 @@ export function Index({
 interface IProps {
   locale?: string
   localizations?: Partial<PageEntity>[]
-  news: IEvent[]
+  news: IEvent[] | null
   latestEvents: IEvent[]
   opacBookNews: OpacBook[]
   promotedEvents: IEvent[]
@@ -155,24 +161,24 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     // running all requests parallel
     // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
     const [
-      opacBookNews,
+      // opacBookNews,
       newsPages,
       { homePage, menus, footer },
-      promotedPages,
-      localityPages,
+      // promotedPages,
+      // localityPages,
       { bookTags },
     ] = await Promise.all([
-      getOpacBooks(),
+      // getOpacBooks(),
       client.PagesByLayout({
         layout: 'news',
         locale,
       }),
       client.HomePage({ locale }),
-      client.PromotedPages({ locale }),
-      client.PagesByLayout({
-        layout: 'locality',
-        locale,
-      }),
+      // client.PromotedPages({ locale }),
+      // client.PagesByLayout({
+      //   layout: 'locality',
+      //   locale,
+      // }),
       client.BookTags(),
     ])
 
@@ -184,7 +190,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       dateFrom?: string | Date
     }
 
-    let allEventPages : any[] = []
+    let allEventPages: any[] = []
     for (let i = 0; i <= 15; i++) {
       const eventPages = await client.PagesByLayout({
         layout: 'event',
@@ -206,38 +212,42 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       })
       .slice(0, 4)
 
-    const news = convertPagesToEvents(newsPages.pages?.data?.filter(isDefined) ?? [])
-      .sort((a: eventProps, b: eventProps) => {
-        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
-        if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
-        return 0
-      })
-      .slice(0, 4)
-    const promotedEvents = convertPagesToEvents(promotedPages.pages?.data ?? [])
-    const localities = convertPagesToLocalities(
-      localityPages.pages?.data ?? [],
-      true
-    ).map((locality) => ({
-      ...locality,
-      hideOpeningHours: true,
-    }))
+    // const news = convertPagesToEvents(newsPages.pages?.data?.filter(isDefined) ?? [])
+    //   .sort((a: eventProps, b: eventProps) => {
+    //     if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) < new Date(b.dateFrom)) return 1
+    //     if (a.dateFrom && b.dateFrom && new Date(a.dateFrom) > new Date(b.dateFrom)) return -1
+    //     return 0
+    //   })
+    //   .slice(0, 4)
+
+    // const promotedEvents = convertPagesToEvents(promotedPages.pages?.data ?? [])
+    // const localities = convertPagesToLocalities(localityPages.pages?.data ?? [], true).map(
+    //   (locality) => ({
+    //     ...locality,
+    //     hideOpeningHours: true,
+    //   })
+    // )
 
     return {
       props: {
         locale,
         localizations: homePage?.data?.attributes?.localizations?.data,
-        news,
+        // news,
+        news: [],
         latestEvents,
-        promotedEvents,
+        // latestEvents: [],
+        // promotedEvents,
+        promotedEvents: [],
         bookTags,
-        opacBookNews,
+        opacBookNews: [] as OpacBook[],
         menus: menus?.data,
         footer: footer?.data,
         faqSection: homePage?.data?.attributes?.faqSection,
         newsSection: homePage?.data?.attributes?.newsSection,
         Seo: homePage?.data?.attributes?.Seo,
         registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection,
-        localities,
+        // localities,
+        localities: [],
         ...translations,
       },
       revalidate: 86400,
