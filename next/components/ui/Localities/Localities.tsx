@@ -49,7 +49,7 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
   ])
   const [isBrowser, setBrowser] = useState(false)
 
-  const mapRef = useRef<MapRef | any>()
+  const mapRef = useRef<MapRef>(null)
 
   useEffect(() => {
     setBounds([

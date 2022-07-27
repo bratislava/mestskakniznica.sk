@@ -19,7 +19,10 @@ const preCachedNamespaces = [
   ['common', 'newsletter'],
 ]
 
-export const ssrTranslations = async (ctx: { locale?: string } | undefined, namespaces?: string[]) => {
+export const ssrTranslations = async (
+  ctx: { locale?: string } | undefined,
+  namespaces?: string[]
+) => {
   const locale = ctx?.locale ?? 'sk'
   const namespaceString = (namespaces || []).join('-')
   const cachedValue = cachedSsrTranslations[locale][namespaceString]

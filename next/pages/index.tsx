@@ -1,18 +1,17 @@
 import {
-  BookTagsQuery,
+  BookTagEntityFragment,
   ComponentHomepageFaqSection,
   ComponentHomepageNewsSection,
   ComponentHomepageRegistrationInfo,
   ComponentSeoSeo,
   EventCardEntityFragment,
-  EventEntity,
   FooterEntity,
   MenuEntity,
   PageEntity,
   PageEntityFragment,
-  PagesByLayoutQuery,
+  PageLocalizationEntityFragment,
   PromoNewsCardFragment,
-} from '@bratislava/strapi-sdk-city-library'
+} from '../graphql'
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -28,37 +27,56 @@ import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
 import { client } from '../utils/gql'
-import { hasAttributes, isDefined } from '../utils/isDefined'
+import { hasAttributes } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
 import { ILocality } from '../utils/types'
 import { convertPagesToLocalities, isPresent } from '../utils/utils'
+import { useUpcomingEvents } from '../hooks/useUpcomingEvets'
+
+interface IIndexProps {
+  locale?: string
+  localizations?: PageLocalizationEntityFragment[]
+  menus: MenuEntity[]
+  upcomingEvents: EventCardEntityFragment[]
+  promos: (EventCardEntityFragment | PromoNewsCardFragment)[]
+  news: PageEntity[]
+  opacBookNews: OpacBook[]
+  faqSection: ComponentHomepageFaqSection
+  newsSection: ComponentHomepageNewsSection
+  registrationInfoSection: ComponentHomepageRegistrationInfo
+  localities: ILocality[]
+  bookTags: BookTagEntityFragment[]
+  footer: FooterEntity
+  error?: IDisplayError
+  Seo?: ComponentSeoSeo
+}
 
 export function Index({
-  locale,
+  locale = 'sk',
   localizations,
-  news,
-  latestEvents,
+  menus,
+  upcomingEvents,
   promos,
-  bookTags,
-  faqSection,
-  registrationInfoSection,
-  newsSection,
+  news,
   opacBookNews,
+  faqSection,
+  newsSection,
+  registrationInfoSection,
   localities,
+  bookTags,
+  footer,
   error,
   Seo,
-  menus,
-  footer,
-}: IProps) {
+}: IIndexProps) {
   if (error) {
     return (
       <PageWrapper
-        locale={locale ?? 'sk'}
+        locale={locale}
         slug="/"
-        localizations={localizations
-          ?.filter(isPresent)
-          // add empty slug because it's expected in wrapper and index page does not have slug
-          .map((l) => ({ ...l, slug: '' }))}
+        localizations={localizations?.filter(isPresent).map((localization) => ({
+          locale: localization.attributes?.locale,
+          slug: localization.attributes?.slug,
+        }))}
       >
         <ErrorPage code={500}>
           <ErrorDisplay error={error} />
@@ -76,7 +94,7 @@ export function Index({
         // add empty slug because it's expected in wrapper and index page does not have slug
         .map((l) => ({ ...l, slug: '' }))}
     >
-      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} latestEvents={latestEvents}>
+      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} upcomingEvents={upcomingEvents}>
         {promos.length > 0 && (
           <SectionContainer>
             <Section>
@@ -113,11 +131,13 @@ export function Index({
           </SectionContainer>
         )}
 
-        <SectionContainer>
-          <Section>
-            <SectionTags bookTags={bookTags} />
-          </Section>
-        </SectionContainer>
+        {bookTags && bookTags.length > 0 && (
+          <SectionContainer>
+            <Section>
+              <SectionTags bookTags={bookTags} />
+            </Section>
+          </SectionContainer>
+        )}
 
         <SectionContainer>
           <Section noBorder>
@@ -132,26 +152,6 @@ export function Index({
   )
 }
 
-interface IProps {
-  locale?: string
-  localizations?: Partial<PageEntity>[]
-  news: PageEntity[]
-  latestEvents: EventEntity[]
-  opacBookNews: OpacBook[]
-  promos: (EventCardEntityFragment | PromoNewsCardFragment)[]
-  bookTags: NonNullable<BookTagsQuery['bookTags']>
-  faqSection: ComponentHomepageFaqSection
-  newsSection: ComponentHomepageNewsSection
-  registrationInfoSection: ComponentHomepageRegistrationInfo
-  localities: ILocality[]
-  error?: IDisplayError
-  Seo?: ComponentSeoSeo
-  menus: MenuEntity[]
-  footer: FooterEntity
-}
-
-// trigger redeployment :)
-
 export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
   const translations = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
 
@@ -160,48 +160,27 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
     const [
       opacBookNews,
-      { pages: news },
-      { homePage, menus, footer },
-      { promotedNews },
-      { promotedEvents },
-      localityPages,
-      { bookTags },
+      {
+        homePage,
+        menus,
+        upcomingEvents,
+        promotedNews,
+        promotedEvents,
+        latestNews,
+        bookTags,
+        localityPages,
+        footer,
+      },
     ] = await Promise.all([
       getOpacBooks(),
-      client.PagesByLayout({
-        layout: 'news',
-        locale,
-        sort: 'publishedAt:asc',
-        start: 0,
-        limit: 4,
-      }),
-      client.HomePage({ locale }),
-      client.PromotedNews({ locale }),
-      client.PromotedEvents({ locale, start: 0, limit: 3 }),
-      client.PagesByLayout({
-        layout: 'locality',
-        locale,
-        sort: 'publishedAt:asc',
-        start: 0,
-        limit: 4,
-      }),
-      client.BookTags(),
+      client.HomePage({ locale, date: new Date().toISOString() }),
     ])
 
-    if (!homePage || !bookTags) {
+    if (!homePage) {
       return { notFound: true }
     }
 
-    const today = new Date()
-    const { events: latestEventsResponse } = await client.EventList({
-      locale,
-      start: 0,
-      limit: 4,
-      filters: { dateFrom: { gte: today.toISOString() } },
-      sort: 'dateFrom:asc',
-    })
-
-    const localities = convertPagesToLocalities(localityPages.pages?.data ?? [], true).map(
+    const localities = convertPagesToLocalities(localityPages?.data ?? [], true).map(
       (locality) => ({
         ...locality,
         hideOpeningHours: true,
@@ -212,18 +191,18 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       props: {
         locale,
         localizations: homePage?.data?.attributes?.localizations?.data,
-        news: news?.data?.filter(hasAttributes) ?? [],
-        latestEvents: latestEventsResponse?.data.filter(hasAttributes) ?? [],
-        promos: [...(promotedNews?.data ?? []), ...(promotedEvents?.data ?? [])],
-        bookTags,
-        opacBookNews,
         menus: menus?.data,
-        footer: footer?.data,
+        upcomingEvents: upcomingEvents?.data ?? [],
+        promos: [...(promotedNews?.data ?? []), ...(promotedEvents?.data ?? [])],
+        news: latestNews?.data?.filter(hasAttributes) ?? [],
+        opacBookNews,
         faqSection: homePage?.data?.attributes?.faqSection,
         newsSection: homePage?.data?.attributes?.newsSection,
-        Seo: homePage?.data?.attributes?.Seo,
         registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection,
         localities,
+        bookTags: bookTags?.data?.filter(hasAttributes) ?? [],
+        footer: footer?.data,
+        Seo: homePage?.data?.attributes?.Seo,
         ...translations,
       },
       revalidate: 86400,

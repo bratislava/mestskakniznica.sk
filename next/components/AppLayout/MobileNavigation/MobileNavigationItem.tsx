@@ -1,4 +1,4 @@
-import { ComponentMenuSections, Maybe, Menu, MenuEntity, MenuFragment, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { MenuEntity } from '../../../graphql'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -18,9 +18,12 @@ function MobileNavigationItem({ menu, menus }: navItemProps) {
     <div className={cx('w-full cursor-pointer px-4 text-default font-normal')}>
       <button
         onClick={() => setOpen(true)}
-        className={cx('w-full font-normal flex justify-between items-center text-default border-b border-gray-900', {
-          'text-primary': router.asPath.includes(menu?.attributes?.menuSlug ?? ''),
-        })}
+        className={cx(
+          'flex w-full items-center justify-between border-b border-gray-900 text-default font-normal',
+          {
+            'text-primary': router.asPath.includes(menu?.attributes?.menuSlug ?? ''),
+          }
+        )}
       >
         <div className="text-[20px] text-gray-900">
           <div>{menu?.attributes?.menuTitle}</div>

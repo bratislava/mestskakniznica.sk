@@ -16,7 +16,6 @@ import {
 import { groupBy } from 'lodash'
 import orderBy from 'lodash/orderBy'
 
-import { TSortedPartners } from '../components/pages/partnersPage'
 import { isPresent } from './utils'
 
 export const localePath = (locale: string, slug: string) => {
@@ -102,15 +101,6 @@ export const parseSubpages = (subpages: SubpagesFragment): SubpageItemProps[] =>
     description: subpage?.description ?? '',
     url: parsePageLink(subpage)?.url,
   })) ?? []
-
-// PartnersPage
-export const sortPartners = (allPartners: PartnerEntity[]): TSortedPartners => {
-  const grouped = groupBy(allPartners, 'attributes.featured')
-  return {
-    featuredPartners: orderBy(grouped.true, ['priority'], ['asc']),
-    notFeaturedPartners: orderBy(grouped.false, ['priority'], ['asc']),
-  }
-}
 
 // Group by for accordion
 export const groupByAccordionCategory = (

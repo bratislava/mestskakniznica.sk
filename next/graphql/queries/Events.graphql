@@ -17,6 +17,7 @@ fragment EventCardAttributes on Event {
   description
   createdAt
   updatedAt
+  publishedAt
   date_added
   locale
   dateFrom
@@ -70,6 +71,7 @@ fragment EventCardAttributes on Event {
 
 fragment EventCardEntity on EventEntity {
   id
+  __typename
   attributes {
     ...EventCardAttributes
   }
@@ -143,7 +145,7 @@ query EventList(
   $start: Int
   $limit: Int
   $filters: EventFiltersInput
-  $sort: String
+  $sort: String = "publishedAt:desc"
 ) {
   events(
     locale: $locale
@@ -152,12 +154,25 @@ query EventList(
     filters: $filters
   ) {
     data {
-      ...EventEntity
+      ...EventCardEntity
     }
     meta {
       pagination {
         ...Pagination
       }
+    }
+  }
+}
+
+query UpcomingEvents($locale: I18NLocaleCode!, $date: DateTime!) {
+  events(
+    locale: $locale
+    sort: ["dateFrom:asc"]
+    pagination: { start: 0, limit: 4 }
+    filters: { dateFrom: { gte: $date } }
+  ) {
+    data {
+      ...EventCardEntity
     }
   }
 }
@@ -179,6 +194,16 @@ query EventBySlug($slug: String!) {
   events(filters: { slug: { eq: $slug } }) {
     data {
       ...EventEntity
+    }
+  }
+}
+
+query EventsCount($locale: I18NLocaleCode!) {
+  events(locale: $locale) {
+    meta {
+      pagination {
+        total
+      }
     }
   }
 }

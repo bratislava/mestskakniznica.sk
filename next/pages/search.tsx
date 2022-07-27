@@ -15,13 +15,13 @@ import SearchPage from '../components/pages/SearchPage'
 import { client } from '../utils/gql'
 import { arrayify, isPresent } from '../utils/utils'
 
-export function Search({ locale, localizations, error, Seo, page, menus, footer }: IProps) {
+export function Search({ locale, error, page, menus, footer }: IProps) {
   if (error) {
     return (
       <PageWrapper
         locale={locale ?? 'sk'}
         slug="/"
-        localizations={localizations
+        localizations={page?.attributes?.localizations?.data
           ?.filter(isPresent)
           // add empty slug because it's expected in wrapper and index page does not have slug
           .map((l) => ({ ...l, slug: '' }))}
@@ -37,12 +37,14 @@ export function Search({ locale, localizations, error, Seo, page, menus, footer 
     <PageWrapper
       locale={locale ?? 'sk'}
       slug="/"
-      localizations={localizations
+      localizations={page?.attributes?.localizations?.data
         ?.filter(isPresent)
-        // add empty slug because it's expected in wrapper and index page does not have slug
-        .map((l) => ({ ...l, slug: '' }))}
+        .map((localization) => ({
+          locale: localization.attributes?.locale,
+          slug: localization.attributes?.slug,
+        }))}
     >
-      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer}>
+      <DefaultPageLayout Seo={page?.attributes?.Seo} menus={menus} footer={footer}>
         <SearchPage page={page} />
       </DefaultPageLayout>
     </PageWrapper>
@@ -50,16 +52,12 @@ export function Search({ locale, localizations, error, Seo, page, menus, footer 
 }
 
 interface IProps {
-  locale?: string;
-  localizations?: Partial<PageEntity>[];
-  error?: IDisplayError;
-  Seo?: ComponentSeoSeo;
-  page?: PageEntity;
-  menus: MenuEntity[];
-  footer: FooterEntity;
+  locale?: string
+  error?: IDisplayError
+  page?: PageEntity
+  menus: MenuEntity[]
+  footer: FooterEntity
 }
-
-// trigger redeployment :)
 
 export async function getServerSideProps(ctx: GetStaticPropsContext) {
   const locale = ctx?.locale ?? 'sk'
@@ -68,23 +66,17 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
   const slug = arrayify(ctx?.params?.slug).join('/')
 
   try {
-    // running all requests parallel
-    // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
-    const [{ homePage, menus, footer }] = await Promise.all([client.HomePage({ locale })])
+    const today = new Date().toISOString()
+    const [{ menus, footer }] = await Promise.all([client.HomePage({ locale, date: today })])
 
-    const pageBySlugResponse = await client.PageBySlug({
-      slug,
-      locale,
-    })
+    const { pages } = await client.PageBySlug({ slug, locale, date: today })
 
     return {
       props: {
         locale,
-        localizations: homePage?.data?.attributes?.localizations?.data ?? null,
-        page: pageBySlugResponse?.pages?.data[0] ?? [],
+        page: pages?.data[0] ?? [],
         menus: menus?.data,
         footer,
-        Seo: homePage?.data?.attributes?.Seo ?? null,
         ...translations,
       },
     }

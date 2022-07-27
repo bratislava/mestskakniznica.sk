@@ -3,13 +3,15 @@ import SearchIcon from '@assets/images/search.svg'
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import {
   Link,
- LoadingSpinner,  PageTitle,
+  LoadingSpinner,
+  PageTitle,
   Pagination,
   RowFile,
   RowSubcategory,
   SearchBar,
   SectionContainer,
-  Select } from '@bratislava/ui-city-library'
+  Select,
+} from '@bratislava/ui-city-library'
 import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
@@ -17,7 +19,7 @@ import * as React from 'react'
 import { DocumentResponse, DOCUMENTS_LIMIT } from '../../pages/api/documents'
 import { formatDateToLocal } from '../../utils/utils'
 import Metadata from '../Molecules/Metadata'
-import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface PageProps {
   page: PageEntity
@@ -62,7 +64,9 @@ function DocumentsPage({ page }: PageProps) {
   React.useEffect(() => {
     const fetchDocuments = async () => {
       const res = await fetch(
-        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=date_added:${sort.key}&query=${query}`
+        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=date_added:${
+          sort.key
+        }&query=${query}`
       )
       const data: DocumentResponse = await res.json()
 
@@ -111,14 +115,23 @@ function DocumentsPage({ page }: PageProps) {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} hasDivider={false} />
+        <PageTitle
+          title={page?.attributes?.title ?? ''}
+          description={page?.attributes?.description ?? ''}
+          hasDivider={false}
+        />
         <SearchBar
           placeholder={t('whatAreYouLookingFor')}
           className="mt-6"
           inputClassName="py-2 lg:py-5 text-sm w-full border-gray-universal-200"
           iconLeft={<SearchIcon />}
           iconRight={
-            <div tabIndex={0} role="button" onKeyPress={onSearchBarRightIconKeyPress} onClick={handleSearchReset}>
+            <div
+              tabIndex={0}
+              role="button"
+              onKeyPress={onSearchBarRightIconKeyPress}
+              onClick={handleSearchReset}
+            >
               <CloseIcon />
             </div>
           }
@@ -130,18 +143,32 @@ function DocumentsPage({ page }: PageProps) {
         {fetchingData ? (
           <LoadingSpinner size="medium" className="mt-[30px]" />
         ) : (
-          <div className="flex flex-col gap-y-2 lg:grid lg:grid-cols-4 lg:gap-5 mt-6">
-            {documentData.fileCategories && documentData.fileCategories.map((category) => (
-              <Link key={category.id} href={`${t('documents_category_slug')}${category?.attributes?.slug}`} variant="plain" uppercase={false}>
-                <RowSubcategory title={category?.attributes?.name || ''} />
-              </Link>
-            ))}
+          <div className="mt-6 flex flex-col gap-y-2 lg:grid lg:grid-cols-4 lg:gap-5">
+            {documentData.fileCategories &&
+              documentData.fileCategories.map((category) => (
+                <Link
+                  key={category.id}
+                  href={`${t('documents_category_slug')}${category?.attributes?.slug}`}
+                  variant="plain"
+                  uppercase={false}
+                >
+                  <RowSubcategory title={category?.attributes?.name || ''} />
+                </Link>
+              ))}
           </div>
         )}
-        <div ref={resultsRef} className="mt-6 lg:mt-16 pb-10 lg:pb-32 border-t border-b border-gray-universal-100">
-          <div className="flex flex-col gap-y-4 pb-6 pt-6 lg:pt-7.5 lg:pb-7.5 lg:gap-y-0 lg:flex-row lg:items-center lg:justify-between">
+        <div
+          ref={resultsRef}
+          className="mt-6 border-t border-b border-gray-universal-100 pb-10 lg:mt-16 lg:pb-32"
+        >
+          <div className="flex flex-col gap-y-4 pb-6 pt-6 lg:flex-row lg:items-center lg:justify-between lg:gap-y-0 lg:pt-7.5 lg:pb-7.5">
             <h4>{t('allDocuments')}</h4>
-            <Select className="w-full lg:w-44" options={SORT_OPTIONS} value={sort} onChange={(s) => setSort(s)} />
+            <Select
+              className="w-full lg:w-44"
+              options={SORT_OPTIONS}
+              value={sort}
+              onChange={(s) => setSort(s)}
+            />
           </div>
 
           {/* Documents */}
@@ -149,15 +176,26 @@ function DocumentsPage({ page }: PageProps) {
             <LoadingSpinner size="medium" className="mt-[30px]" />
           ) : (
             documentData.documents.map((document) => (
-              <NextLink key={document.id} href={`${t('documents_category_slug')}${document?.attributes?.file_category?.data?.attributes?.slug}/${document?.attributes?.slug}`} passHref>
+              <NextLink
+                key={document.id}
+                href={`${t('documents_category_slug')}${
+                  document?.attributes?.file_category?.data?.attributes?.slug
+                }/${document?.attributes?.slug}`}
+                passHref
+              >
                 <a href={document?.attributes?.slug || ''}>
                   <RowFile
                     className="cursor-pointer"
                     type={document?.attributes?.file_category?.data?.attributes?.name || ''}
                     title={document?.attributes?.title || ''}
                     metadata={<Metadata metadata={document?.attributes?.metadata} />}
-                    dateAdded={`${t('added')} ${formatDateToLocal(document?.attributes?.date_added, page?.attributes?.locale || '')}`}
-                    fileType={document?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '')}
+                    dateAdded={`${t('added')} ${formatDateToLocal(
+                      document?.attributes?.date_added,
+                      page?.attributes?.locale || ''
+                    )}`}
+                    fileType={document?.attributes?.attachment?.data?.attributes?.ext
+                      ?.toUpperCase()
+                      .replace('.', '')}
                   />
                 </a>
               </NextLink>

@@ -10,11 +10,11 @@ import SkipNavigation from './SkipNavigation'
 
 interface HeaderProps {
   menus: MenuEntity[]
-  latestEvents?: EventCardEntityFragment[]
+  upcomingEvents?: EventCardEntityFragment[]
   isHomePage?: boolean
 }
 
-function Header({ menus, latestEvents, isHomePage }: HeaderProps) {
+function Header({ menus, upcomingEvents, isHomePage }: HeaderProps) {
   const { t } = useTranslation('common')
   return (
     <>
@@ -65,7 +65,7 @@ function Header({ menus, latestEvents, isHomePage }: HeaderProps) {
             <NavigationMenu.List className="flex">
               {menus?.map((menu, index) => (
                 <NavigationItem
-                  latestEvents={latestEvents}
+                  latestEvents={upcomingEvents}
                   index={index}
                   menu={menu.attributes}
                   key={index}

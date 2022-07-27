@@ -20,7 +20,7 @@ interface IProps {
   Seo?: ComponentSeoSeo | undefined | null
   menus: MenuEntity[]
   footer: FooterEntity
-  latestEvents?: EventCardEntityFragment[]
+  upcomingEvents?: EventCardEntityFragment[]
   isHomePage?: boolean
 }
 
@@ -30,7 +30,7 @@ function DefaultPageLayout({
   Seo,
   menus,
   footer,
-  latestEvents,
+  upcomingEvents,
   isHomePage,
 }: IProps) {
   const { localizations, locale } = usePageWrapperContext()
@@ -82,7 +82,7 @@ function DefaultPageLayout({
       <div className="flex min-h-screen flex-1 flex-col justify-self-stretch">
         <header>
           <div className="hidden lg:block lg:px-8">
-            <Header menus={menus} latestEvents={latestEvents} isHomePage={isHomePage} />
+            <Header menus={menus} upcomingEvents={upcomingEvents} isHomePage={isHomePage} />
           </div>
           <div className="block lg:hidden">
             <MobileHeader menus={menus} />

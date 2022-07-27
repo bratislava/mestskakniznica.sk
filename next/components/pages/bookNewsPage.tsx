@@ -1,31 +1,39 @@
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
-import { BookNewsDetail, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
+import {
+  BookNewsDetail,
+  LoadingSpinner,
+  PageTitle,
+  Pagination,
+  SectionContainer,
+} from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
-import * as React from 'react'
-
-import { OpacBook } from '../../utils/opac'
+import { useEffect, useState } from 'react'
+import useSWR from 'swr'
+import { getOpacBooks, OpacBook } from '../../utils/opac'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface BookNewsPageProps {
   page: PageEntity
-  books: OpacBook[]
 }
 
 export const BOOKS_PER_PAGE = 24
 
-function BookNewsPage({ page, books }: BookNewsPageProps) {
-  const { t } = useTranslation('common')
-  const [displayedBooks, setDisplayedBooks] = React.useState<OpacBook[]>(books.slice(0, BOOKS_PER_PAGE))
-  const [pageNumber, setPageNumber] = React.useState(1)
+function BookNewsPage({ page }: BookNewsPageProps) {
+  const { t } = useTranslation(['homepage', 'common'])
 
-  const pagesCount = Math.ceil(books.length / BOOKS_PER_PAGE)
+  const { data: books, error } = useSWR(['OpacBookNews'], (_key) => getOpacBooks())
 
-  React.useEffect(() => {
+  const [displayedBooks, setDisplayedBooks] = useState<OpacBook[]>([])
+  const [pageNumber, setPageNumber] = useState(1)
+
+  const pagesCount = Math.ceil(books?.length ?? 0 / BOOKS_PER_PAGE)
+
+  useEffect(() => {
     const startIndex = (pageNumber - 1) * BOOKS_PER_PAGE
     const endIndex = startIndex + BOOKS_PER_PAGE
 
-    setDisplayedBooks(books.slice(startIndex, endIndex))
-  }, [books, pageNumber, setDisplayedBooks])
+    setDisplayedBooks(books?.slice(startIndex, endIndex) ?? [])
+  }, [books, error, pageNumber, setDisplayedBooks])
 
   const handleChangePage = (num: number) => {
     if (num > 0 && num <= pagesCount) setPageNumber(num)
@@ -37,10 +45,15 @@ function BookNewsPage({ page, books }: BookNewsPageProps) {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} />
+        <PageTitle
+          title={page?.attributes?.title ?? ''}
+          description={page?.attributes?.description ?? ''}
+        />
 
-        {displayedBooks.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-8 mt-8">
+        {!books && !error ? (
+          <LoadingSpinner className="my-[15vh]" />
+        ) : !error && books ? (
+          <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 lg:grid-cols-6">
             {displayedBooks.map(
               (
                 {
@@ -64,7 +77,7 @@ function BookNewsPage({ page, books }: BookNewsPageProps) {
             )}
           </div>
         ) : (
-          <div className="flex mt-4 justify-center">Book news from opac have not initialized</div>
+          <div className="mt-4 flex justify-center">{t('noOpacBookNews')}</div>
         )}
 
         <div className="mt-6 flex justify-end">

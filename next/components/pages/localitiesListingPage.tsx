@@ -1,18 +1,32 @@
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { Localities, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
+import useSWR from 'swr'
+import { client } from '../../utils/gql'
 
-import { ILocality } from '../../utils/types'
+import { usePageWrapperContext } from '../layouts/PageWrapper'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import Sections from '../Molecules/Sections'
-
+import { convertPagesToLocalities } from '../../utils/utils'
 export interface LocalityPageProps {
-  localities: ILocality[]
   page: PageEntity
 }
 
-function LocalitiesListingPage({ page, localities }: LocalityPageProps) {
+function LocalitiesListingPage({ page }: LocalityPageProps) {
   const { t } = useTranslation(['common', 'homepage'])
+
+  const { locale = 'sk' } = usePageWrapperContext()
+
+  const { data, error } = useSWR(['Localities', locale], (_key, locale) =>
+    client.PagesByLayout({
+      layout: 'locality',
+      locale,
+      sort: 'publishedAt:asc',
+    })
+  )
+
+  const localities = convertPagesToLocalities(data?.pages?.data ?? [], true) || []
+
   return (
     <>
       <SectionContainer>
@@ -20,7 +34,10 @@ function LocalitiesListingPage({ page, localities }: LocalityPageProps) {
       </SectionContainer>
       <SectionContainer>
         <div className="border-b border-gray-900">
-          <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} />
+          <PageTitle
+            title={page?.attributes?.title ?? ''}
+            description={page?.attributes?.description ?? ''}
+          />
 
           <Localities
             altDesign

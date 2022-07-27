@@ -1,14 +1,6 @@
 import {
-  CategoryEntity,
   ComponentAddressAddress,
-  ComponentGuestsGuest,
   ComponentLocalityPartsLocalitySection,
-  EventCategoryEntity,
-  EventLocalityEntity,
-  EventTagRelationResponseCollection,
-  Maybe,
-  Menu,
-  UploadFile,
 } from '@bratislava/strapi-sdk-city-library'
 
 export type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T
@@ -32,19 +24,6 @@ export type AsyncServerProps<
   T extends (...args: any) => Promise<NextRedirectServerSideProps | { props: any }>
 > = Exclude<Awaited<ReturnType<T>>, NextRedirectServerSideProps>['props']
 
-export interface newBookOpac {
-  title: string
-  imgSrc: string
-  authors: string[]
-}
-
-export interface IPremises {
-  address?: string
-  url?: string
-  title?: string
-  image?: Image
-}
-
 export interface ILocality {
   localityTitle?: string
   localitySections?: ComponentLocalityPartsLocalitySection[]
@@ -62,16 +41,4 @@ export interface ILocality {
 interface ILocalityOpeningHours {
   localityOpenFrom?: string
   localityOpenTo?: string
-}
-
-export interface Image {
-  alternativeText?: string
-  url: string
-  width?: number
-  height?: number
-  name: string
-}
-
-export interface IMenus {
-  menus: Menu[]
 }

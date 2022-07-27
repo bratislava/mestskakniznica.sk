@@ -1,11 +1,4 @@
-import {
-  DocumentCategoryBySlugQuery,
-  FileCategoryEntity,
-  FooterEntity,
-  FooterQuery,
-  MenuEntity,
-  MenusQuery,
-} from '@bratislava/strapi-sdk-city-library'
+import { FileCategoryEntity, FooterEntity, MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 

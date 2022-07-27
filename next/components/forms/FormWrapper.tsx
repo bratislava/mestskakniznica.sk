@@ -1,6 +1,5 @@
 import CloseIcon from '@assets/images/close.svg'
 import cx from 'classnames'
-import Link from 'next/link'
 import React from 'react'
 
 import FormSubmittedComponent from './FormSubmittedComponent'
@@ -20,10 +19,13 @@ interface IProps {
 function FormWrapper({ className, children, title, onSubmit, isSubmitted }: IProps) {
   return (
     <div
-      className={cx(className, 'lg:px-8 lg:pt-8 w-72 lg:w-full max-w-[680px] lg:border lg:border-gray-universal-100')}
+      className={cx(
+        className,
+        'w-72 max-w-[680px] lg:w-full lg:border lg:border-gray-universal-100 lg:px-8 lg:pt-8'
+      )}
     >
-      <div className="flex justify-between -mx-4 px-4 border-b border-gray-universal-100 py-4.5 lg:py-0 lg:border-none">
-        <h4 className="text-base lg:text-md font-normal">{title}</h4>
+      <div className="-mx-4 flex justify-between border-b border-gray-universal-100 px-4 py-4.5 lg:border-none lg:py-0">
+        <h4 className="text-base font-normal lg:text-md">{title}</h4>
         <button>
           <CloseIcon className="lg:hidden" />
         </button>

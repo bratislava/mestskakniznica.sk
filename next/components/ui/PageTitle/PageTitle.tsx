@@ -19,7 +19,7 @@ export function PageTitle({ className, title, description, hasDivider = true }: 
       {description && (
         <UIMarkdown
           paragraphClassName="text-sm lg:text-defaul"
-          className="w-full md:w-8/12 mt-6 text-gray-universal-70 pb-8"
+          className="mt-6 w-full text-gray-universal-70 md:w-8/12"
           content={description ?? ''}
         />
       )}

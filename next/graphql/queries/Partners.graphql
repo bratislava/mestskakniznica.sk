@@ -1,5 +1,18 @@
-query AllPartners($locale: String!) {
-  partners(filters: { locale: { eq: $locale } }) {
+query SortedPartners($locale: I18NLocaleCode!) {
+  featuredPartners: partners(
+    locale: $locale
+    filters: { featured: { eq: true } }
+    sort: "priority:asc"
+  ) {
+    data {
+      ...PartnerEntity
+    }
+  }
+  notFeaturedPartners: partners(
+    locale: $locale
+    filters: { featured: { eq: false } }
+    sort: "priority:asc"
+  ) {
     data {
       ...PartnerEntity
     }

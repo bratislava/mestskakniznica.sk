@@ -1,12 +1,9 @@
 import { BookNewsDetail, Link } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
-import React, { useEffect,useState } from 'react'
 
 import { OpacBook } from '../../utils/opac'
 import Section from '../AppLayout/Section'
-
-const LIMIT = 6
-const OFFSET = 1
+import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 interface SectionOpacBookNewsProps {
   books: OpacBook[]
@@ -14,15 +11,16 @@ interface SectionOpacBookNewsProps {
 
 function SectionOpacBookNews({ books }: SectionOpacBookNewsProps) {
   const { t } = useTranslation('homepage')
+  const { locale } = usePageWrapperContext()
 
   return (
     <>
       {books.length > 0 ? (
         <Section>
-          <section className="relative flex flex-col py-10 w-full">
-            <h2 className="text-center md:text-left text-lg">{t('newBooksTitle')}</h2>
+          <section className="relative flex w-full flex-col py-10">
+            <h2 className="text-center text-lg md:text-left">{t('newBooksTitle')}</h2>
             <div className="overflow-x-auto ">
-              <div className="w-fit min-w-full  flex justify-between py-6 gap-4 sm:gap-6 lg:gap-6 items-stretch">
+              <div className="flex w-fit  min-w-full items-stretch justify-between gap-4 py-6 sm:gap-6 lg:gap-6">
                 {books
                   .slice(0, 6)
                   .map(
@@ -48,14 +46,17 @@ function SectionOpacBookNews({ books }: SectionOpacBookNewsProps) {
                   )}
               </div>
             </div>
-            <div className="flex justify-center md:absolute md:w-fit top-12 pt-1 right-0">
+            <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
               <Link
-                href="https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchNews=30"
+                href={
+                  locale === 'en'
+                    ? '/en/services/reading/new-additions'
+                    : '/sluzby/citanie/knizne-novinky'
+                }
                 hasIcon
                 title={t('newBooksAll')}
                 size="large"
                 className="text-center"
-                target="_blank"
               >
                 {t('newBooksAll')}
               </Link>
@@ -63,7 +64,7 @@ function SectionOpacBookNews({ books }: SectionOpacBookNewsProps) {
           </section>
         </Section>
       ) : (
-        <div className="flex justify-center items-center mt-4">Book news from opac have not initialized</div>
+        <div className="mt-4 flex items-center justify-center">{t('noOpacBookNews')}</div>
       )}
     </>
   )

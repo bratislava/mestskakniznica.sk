@@ -12,9 +12,9 @@ import {
 import cx from 'classnames'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import * as React from 'react'
 
 import { pagePath } from '../../utils/page'
+import { Fragment, useState } from 'react'
 
 interface PageBreadcrumbsProps {
   page: PageEntity | null | undefined
@@ -36,7 +36,7 @@ function BreadCrumbs({ crumbs, homeLabel = 'Home' }: BreadcrumbsProps) {
         const first = i === 0
 
         return (
-          <React.Fragment key={i}>
+          <Fragment key={i}>
             {crumb.url ? (
               <Link href={crumb.url} passHref>
                 <a className="flex-shrink" href={crumb.url}>
@@ -67,7 +67,7 @@ function BreadCrumbs({ crumbs, homeLabel = 'Home' }: BreadcrumbsProps) {
                 <ChevronRight />
               </span>
             )}
-          </React.Fragment>
+          </Fragment>
         )
       })}
     </>
@@ -76,7 +76,7 @@ function BreadCrumbs({ crumbs, homeLabel = 'Home' }: BreadcrumbsProps) {
 
 // Mobile version
 function MobilePageBreadcrumbs({ crumbs }: BreadcrumbsProps) {
-  const [isOpen, setOpen] = React.useState(false)
+  const [isOpen, setOpen] = useState(false)
   const { t } = useTranslation('common')
 
   const primaryBreadcrumbs: { title: string; url: string | null }[] = []

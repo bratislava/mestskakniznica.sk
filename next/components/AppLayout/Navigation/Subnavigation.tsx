@@ -1,8 +1,4 @@
-import {
-  ComponentMenuSections,
-  EventCardEntityFragment,
-  Maybe,
-} from '@bratislava/strapi-sdk-city-library'
+import { ComponentMenuSections, EventCardEntityFragment, Maybe } from '../../../graphql'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
