@@ -1,38 +1,47 @@
+import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import Link from 'next/link'
 
-import { IEvent } from '../../utils/types'
 import { dateTimeString } from '../../utils/utils'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 interface EventListingProps {
-  event: IEvent
+  event: EventCardEntityFragment
 }
 
-function EventListingCard({ event }: EventListingProps) {
+function EventListingCard({ event: { attributes } }: EventListingProps) {
   const { locale } = usePageWrapperContext()
 
   return (
-    <Link key={event.slug} href={event.slug || ''} passHref>
-      <a className="m-auto cursor-pointer h-[360px] w-full">
+    <Link key={attributes?.slug} href={attributes?.slug || ''} passHref>
+      <a className="m-auto h-[360px] w-full cursor-pointer">
         <div className="w-full">
           <img
-            className="flex-1 h-[200px] w-full object-cover"
-            alt={event.listingImage?.alternativeText || 'Event card'}
-            src={event.listingImage?.url}
+            className="h-[200px] w-full flex-1 object-cover"
+            alt={'Event card'}
+            src={
+              attributes?.listingImage?.data?.attributes?.url ||
+              attributes?.coverImage?.data?.attributes?.url
+            }
             height="200px"
           />
 
           <div className="flex pt-4 text-xs">
-            <TagsDisplay tags={event?.eventTags?.data} category={event?.eventCategory?.attributes?.title || ''} tagsCount={2} />
+            <TagsDisplay
+              tags={attributes?.eventTags?.data}
+              category={attributes?.eventCategory?.data?.attributes?.title || ''}
+              tagsCount={2}
+            />
           </div>
 
-          <div className="text-default pt-2 justify-end hover:underline">{event.eventTitle}</div>
-          <div className="text-xs text-gray-600 pt-2">
-            {dateTimeString(event.dateFrom || '', event.dateTo || '', locale)}
+          <div className="justify-end pt-2 text-default hover:underline">{attributes?.title}</div>
+          <div className="pt-2 text-xs text-gray-600">
+            {dateTimeString(attributes?.dateFrom || '', attributes?.dateTo || '', locale)}
           </div>
-          {event.eventLocality?.attributes?.title && (
-            <div className="text-xs text-gray-600 pt-2">&#9679; {event.eventLocality.attributes.title}</div>
+          {attributes?.eventLocality?.data?.attributes?.title && (
+            <div className="pt-2 text-xs text-gray-600">
+              &#9679; {attributes?.eventLocality.data?.attributes.title}
+            </div>
           )}
         </div>
       </a>

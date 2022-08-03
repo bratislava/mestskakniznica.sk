@@ -1,12 +1,12 @@
 query AllPartners($locale: String!) {
-  partners(filters: {locale: {eq: $locale}}){
+  partners(filters: { locale: { eq: $locale } }) {
     data {
-      ...Partner
+      ...PartnerEntity
     }
   }
 }
 
-fragment Partner on PartnerEntity {
+fragment PartnerEntity on PartnerEntity {
   id
   attributes {
     title

@@ -6,11 +6,8 @@ import Home from '@assets/images/home.svg'
 import {
   BlogPostEntity,
   Category,
-  CategoryEntity,
   FileCategoryEntity,
-  PageCategoryFragment,
   PageEntity,
-  ParentPageFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import Link from 'next/link'
@@ -23,55 +20,58 @@ interface PageBreadcrumbsProps {
   page: PageEntity | null | undefined
   blogPost?: BlogPostEntity
   documentCategory?: FileCategoryEntity
+  breadCrumbs?: { title: string; url: string | null }[]
 }
 
-interface BreadcrumbsProps {
+export interface BreadcrumbsProps {
   crumbs: { title: string; url: string | null }[]
   homeLabel?: string
 }
 
 function BreadCrumbs({ crumbs, homeLabel = 'Home' }: BreadcrumbsProps) {
-  return <>
-    {crumbs.map((crumb, i) => {
-      const last = i === crumbs.length - 1
-      const first = i === 0
+  return (
+    <>
+      {crumbs.map((crumb, i) => {
+        const last = i === crumbs.length - 1
+        const first = i === 0
 
-      return (
-        <React.Fragment key={i}>
-          {crumb.url ? (
-            <Link href={crumb.url} passHref>
-              <a className="flex-shrink" href={crumb.url}>
-                {first ? (
-                  <>
-                    <Home className="cursor-pointer" />
-                    <span className="sr-only">{homeLabel}</span>
-                  </>
-                ) : (
-                  <span
-                    style={{
-                      textUnderlineOffset: 1,
-                    }}
-                    className={cx('cursor-pointer text-xs truncate', {
-                      underline: !last,
-                    })}
-                  >
-                    {crumb.title}
-                  </span>
-                )}
-              </a>
-            </Link>
-          ) : (
-            <span>{crumb.title}</span>
-          )}
-          {!last && (
-            <span className="px-4">
-              <ChevronRight />
-            </span>
-          )}
-        </React.Fragment>
-      )
-    })}
-  </>
+        return (
+          <React.Fragment key={i}>
+            {crumb.url ? (
+              <Link href={crumb.url} passHref>
+                <a className="flex-shrink" href={crumb.url}>
+                  {first ? (
+                    <>
+                      <Home className="cursor-pointer" />
+                      <span className="sr-only">{homeLabel}</span>
+                    </>
+                  ) : (
+                    <span
+                      style={{
+                        textUnderlineOffset: 1,
+                      }}
+                      className={cx('cursor-pointer truncate text-xs', {
+                        underline: !last,
+                      })}
+                    >
+                      {crumb.title}
+                    </span>
+                  )}
+                </a>
+              </Link>
+            ) : (
+              <span>{crumb.title}</span>
+            )}
+            {!last && (
+              <span className="px-4">
+                <ChevronRight />
+              </span>
+            )}
+          </React.Fragment>
+        )
+      })}
+    </>
+  )
 }
 
 // Mobile version
@@ -89,7 +89,7 @@ function MobilePageBreadcrumbs({ crumbs }: BreadcrumbsProps) {
   // homepage > link1 > link2
   if (crumbs.length > 2) {
     primaryBreadcrumbs.push({ title: '...', url: '' })
-    crumbs.slice(1, - 1).map((crumb) => secondaryBreadcrumbs.push(crumb))
+    crumbs.slice(1, -1).map((crumb) => secondaryBreadcrumbs.push(crumb))
   }
 
   // homepage > link1
@@ -101,9 +101,11 @@ function MobilePageBreadcrumbs({ crumbs }: BreadcrumbsProps) {
     <div className={cx('w-full overflow-hidden lg:hidden')}>
       <button
         onClick={() => setOpen((prevState) => !prevState)}
-        className={cx('flex items-center justify-between w-full cursor-pointer py-4 overflow-x-auto')}
+        className={cx(
+          'flex w-full cursor-pointer items-center justify-between overflow-x-auto py-4'
+        )}
       >
-        <div className="w-fit flex flex-row flex-shrink items-center">
+        <div className="flex w-fit flex-shrink flex-row items-center">
           <BreadCrumbs crumbs={primaryBreadcrumbs} homeLabel={t('homepage')} />
         </div>
         <div className="ml-4">{isOpen ? <ChevronUp /> : <ChevronDown />}</div>
@@ -112,14 +114,14 @@ function MobilePageBreadcrumbs({ crumbs }: BreadcrumbsProps) {
       <div
         className={cx('transform transition-all duration-200 ease-linear', {
           'h-0': !isOpen,
-          'h-full mt-3': isOpen,
+          'mt-3 h-full': isOpen,
         })}
       >
         <div className="flex flex-col space-y-3">
           {secondaryBreadcrumbs.map((crumb) => (
             <Link href={crumb.url || ''} passHref key={crumb.title}>
               <a>
-                <div className="flex space-x-4 items-center" key={crumb.title}>
+                <div className="flex items-center space-x-4" key={crumb.title}>
                   <ArrowLeft />
                   <span>{crumb.title}</span>
                 </div>
@@ -133,7 +135,7 @@ function MobilePageBreadcrumbs({ crumbs }: BreadcrumbsProps) {
 }
 
 // Desktop version
-function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsProps) {
+function PageBreadcrumbs({ page, blogPost, documentCategory, breadCrumbs }: PageBreadcrumbsProps) {
   const { t } = useTranslation('common')
 
   const crumbs: { title: string; url: string | null }[] = []
@@ -154,7 +156,10 @@ function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsPr
   }
 
   // self, if is only subpage and not pagecategory, to avoid mutliple appearance
-  if (page?.attributes?.pageCategory?.data?.attributes?.pageLink?.page?.data?.attributes?.slug !== page?.attributes?.slug) {
+  if (
+    page?.attributes?.pageCategory?.data?.attributes?.pageLink?.page?.data?.attributes?.slug !==
+    page?.attributes?.slug
+  ) {
     crumbs.push({ title: page?.attributes?.title ?? '', url: `/${pagePath(page?.attributes)}` })
   }
 
@@ -177,8 +182,8 @@ function PageBreadcrumbs({ page, blogPost, documentCategory }: PageBreadcrumbsPr
 
   return (
     <>
-      <div className="hidden lg:flex flex-row py-[18px] items-center">
-        <BreadCrumbs crumbs={crumbs} homeLabel={t('homepage')} />
+      <div className="hidden flex-row items-center py-[18px] lg:flex">
+        <BreadCrumbs crumbs={breadCrumbs || crumbs} homeLabel={t('homepage')} />
       </div>
       <MobilePageBreadcrumbs crumbs={crumbs} />
     </>

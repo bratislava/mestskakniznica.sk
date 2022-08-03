@@ -1,5 +1,5 @@
 query BasicDocumentBySlug($slug: String!) {
-  basicDocuments(filters: {slug: {eq: $slug}}) {
+  basicDocuments(filters: { slug: { eq: $slug } }) {
     data {
       ...BasicDocument
     }
@@ -7,7 +7,11 @@ query BasicDocumentBySlug($slug: String!) {
 }
 
 query AllBasicDocuments($limit: Int, $offset: Int, $sort: String, $categoryId: ID, $query: String) {
-  basicDocuments(sort: [$sort], pagination: {limit: $limit, start: $offset}, filters: {title: {contains: $query}, file_category: {id: {eq: $categoryId}}}) {
+  basicDocuments(
+    sort: [$sort]
+    pagination: { limit: $limit, start: $offset }
+    filters: { title: { contains: $query }, file_category: { id: { eq: $categoryId } } }
+  ) {
     data {
       ...BasicDocument
     }
@@ -37,7 +41,7 @@ query FileCategories {
 }
 
 query DocumentCategoryBySlug($slug: String!) {
-  fileCategories(filters: {slug: {eq: $slug}}) {
+  fileCategories(filters: { slug: { eq: $slug } }) {
     data {
       ...DocumentCategory
     }
@@ -49,9 +53,6 @@ fragment DocumentCategory on FileCategoryEntity {
   attributes {
     name
     slug
-    # page {
-    #   ...Page
-    # }
   }
 }
 

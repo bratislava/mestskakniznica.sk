@@ -1,13 +1,21 @@
 import DropdownIcon from '@assets/images/dropdown.svg'
-import { EventCategoryEntity, EventLocalityEntity, EventTagEntity, PageEntity } from '@bratislava/strapi-sdk-city-library'
+import {
+  EventCardEntityFragment,
+  EventCategoryEntity,
+  EventFiltersInput,
+  EventLocalityEntity,
+  EventTagEntity,
+  PageEntity,
+  Pagination as PaginationFragment,
+} from '@bratislava/strapi-sdk-city-library'
 import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
+import { client } from '@utils/gql'
 import enUs from 'date-fns/locale/en-US'
 import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
 import { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { IEvent } from '../../utils/types'
 import Section from '../AppLayout/Section'
 import SectionPromos from '../HomePage/SectionPromos'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
@@ -15,8 +23,6 @@ import EventFilters from '../Molecules/EventFilters'
 import EventListingCard from '../Molecules/EventListingCard'
 import { FilterModal } from '../Molecules/FilterModal'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-
-
 
 registerLocale('en', enUs)
 registerLocale('sk', sk)
@@ -27,20 +33,30 @@ interface KeyTitlePair {
 }
 export interface PageProps {
   page: PageEntity
-  promotedEvents: IEvent[]
-  events: IEvent[]
+  promotedEvents: EventCardEntityFragment[]
+  events: EventCardEntityFragment[]
   eventCategories: NonNullable<EventCategoryEntity[]>
   eventTags: EventTagEntity[]
   eventLocalities: EventLocalityEntity[]
+  paginationFields: PaginationFragment
 }
 
 const MAX_EVENTS_PER_PAGE = 16
 
-function Events({ page, promotedEvents, events, eventCategories, eventTags, eventLocalities }: PageProps) {
+function Events({
+  page,
+  promotedEvents,
+  events,
+  eventCategories,
+  eventTags,
+  eventLocalities,
+  paginationFields,
+}: PageProps) {
   const { t } = useTranslation('common')
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
-  const [filteredEvents, setFilteredEvents] = useState<IEvent[]>(events)
+  const [filteredEvents, setFilteredEvents] = useState<EventCardEntityFragment[]>(events)
+  const [paginationState, setPaginationState] = useState(paginationFields)
   const [currentPage, setCurrentPage] = useState(1)
   const [openFilterModal, setOpenFilterModal] = useState(false)
   const [bodyStyle, setBodyStyle] = useState('')
@@ -66,7 +82,7 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
   }
 
   const tags = useMemo(() => {
-    const defaultType = { key: '', title: t('eventType'), disabled: true }
+    const defaultType = { key: '', title: t('eventType') }
     const parsedTypes = eventTags.map(({ attributes, id }) => ({
       key: id || '',
       title: attributes?.title || '',
@@ -78,7 +94,6 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
     const defaultCategory = {
       key: '',
       title: t('eventCategory'),
-      disabled: true,
     }
     const parsedCategories = eventCategories.map(({ attributes, id }) => ({
       key: id || '',
@@ -91,7 +106,6 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
     const defaultLocality = {
       key: '',
       title: t('eventLocality'),
-      disabled: true,
     }
     const parsedLocalities = eventLocalities.map(({ attributes, id }) => ({
       key: id || '',
@@ -104,7 +118,7 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
   const [selectedCategory, setSelectedCategory] = useState<KeyTitlePair | null>()
   const [selectedLocality, setSelectedLocality] = useState<KeyTitlePair | null>()
 
-  const resetFilters = () => {
+  const resetFilters = async () => {
     setStartDate(null)
     setEndDate(null)
     setSelectedEventTags(null)
@@ -112,58 +126,67 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
     setSelectedLocality(null)
     setFilteredEvents(events)
     openFilterModal && toggleFilterModal()
+
+    const eventResponse = await client.EventList({
+      locale,
+      limit: 10,
+      start: 0,
+      filters: {},
+      sort: 'dateFrom:desc',
+    })
+    if (eventResponse.events) {
+      setFilteredEvents(eventResponse.events.data || [])
+      setPaginationState(eventResponse.events.meta.pagination)
+    }
   }
 
-  const filterEvents = () => {
-    const filterDate = (event: IEvent) => {
-      const filterFrom = startDate && startDate.getTime()
-      const filterTo = endDate && endDate.getTime()
-      const eventFrom = new Date(event?.dateFrom || '').setHours(0)
-      const eventTo = new Date(event?.dateTo || '').setHours(0)
+  const filterEvents = async () => {
+    const currentFilters: EventFiltersInput = {}
+    if (startDate) currentFilters['dateFrom'] = { gte: startDate.toISOString() }
+    if (endDate) currentFilters['dateTo'] = { lte: endDate.toISOString() }
+    if (selectedEventTags && selectedEventTags.title)
+      currentFilters['eventTags'] = { title: { eq: selectedEventTags.title } }
+    if (selectedCategory && selectedCategory.title)
+      currentFilters['eventCategory'] = { title: { eq: selectedCategory.title } }
+    if (selectedLocality && selectedLocality.title)
+      currentFilters['eventLocality'] = { title: { eq: selectedLocality.title } }
 
-      // Complicated if to handle all possible date usecases
-      if (filterFrom) {
-        if (filterTo) {
-          if (eventTo >= filterFrom && eventFrom <= filterTo) return event
-        }
-        // If NOT filterTO
-        else if (eventFrom >= filterFrom || (filterFrom >= eventFrom && filterFrom <= eventTo)) return event
-      } else {
-        return event
-      }
+    const eventResponse = await client.EventList({
+      locale,
+      limit: 10,
+      start: 0,
+      filters: currentFilters,
+      sort: 'dateFrom:desc',
+    })
+    if (eventResponse.events) {
+      setFilteredEvents(eventResponse.events.data || [])
+      setPaginationState(eventResponse.events.meta.pagination)
     }
-
-    const filterType = (event: IEvent) => {
-      if (selectedEventTags) return event.eventTags?.data?.find((tag) => tag.id === selectedEventTags?.key)
-
-      return event
-    }
-
-    const filterCategory = (event: IEvent) => {
-      if (selectedCategory) return event.eventCategory?.id === selectedCategory?.key
-
-      return event
-    }
-
-    const filterLocality = (event: IEvent) => {
-      if (selectedLocality) return event.eventLocality?.id === selectedLocality?.key
-
-      return event
-    }
-
-    // move to page 1 after filter change
-    setCurrentPage(1)
-
-    const eventsFiltered = events.filter(filterDate).filter(filterType).filter(filterCategory).filter(filterLocality)
-    setFilteredEvents(eventsFiltered)
   }
 
-  const filteredEventsPaginated = useMemo(
-    () => filteredEvents.slice((currentPage - 1) * MAX_EVENTS_PER_PAGE, MAX_EVENTS_PER_PAGE * currentPage),
-    [filteredEvents, currentPage]
-  )
+  const handlePageChange = async (page: number) => {
+    const currentFilters: EventFiltersInput = {}
+    if (startDate) currentFilters['dateFrom'] = { gte: startDate.toISOString() }
+    if (endDate) currentFilters['dateTo'] = { lte: endDate.toISOString() }
+    if (selectedEventTags && selectedEventTags.title)
+      currentFilters['eventTags'] = { title: { eq: selectedEventTags.title } }
+    if (selectedCategory && selectedCategory.title)
+      currentFilters['eventCategory'] = { title: { eq: selectedCategory.title } }
+    if (selectedLocality && selectedLocality.title)
+      currentFilters['eventLocality'] = { title: { eq: selectedLocality.title } }
 
-  const pagesCount = useMemo(() => Math.ceil(filteredEvents.length / MAX_EVENTS_PER_PAGE), [filteredEvents])
+    const eventResponse = await client.EventList({
+      locale,
+      limit: 10,
+      start: (page - 1) * 10,
+      filters: currentFilters,
+      sort: 'dateFrom:desc',
+    })
+    if (eventResponse.events) {
+      setFilteredEvents(eventResponse.events.data || [])
+      setPaginationState(eventResponse.events.meta.pagination)
+    }
+  }
 
   const handleEventSubscription = async () => {
     const res = await fetch(`/api/calendar-auth-link`)
@@ -180,14 +203,17 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
       </SectionContainer>
       <SectionContainer>
         <div className="pb-6 lg:pb-16">
-          <h1 className="pt-16 text-md2 lg:text-2xl pb-4 border-b border-gray-universal-100 lg:pb-0 lg:border-none">
+          <h1 className="border-b border-gray-universal-100 pt-16 pb-4 text-md2 lg:border-none lg:pb-0 lg:text-2xl">
             {t('eventsCalendar')}
           </h1>
 
-          <div className="lg:block mt-4 lg:mt-6 lg:p-6 lg:border lg:border-gray-universal-100">
+          <div className="mt-4 lg:mt-6 lg:block lg:border lg:border-gray-universal-100 lg:p-6">
             {/* Mobile */}
-            <div className="flex lg:hidden items-center justify-between p-4 w-full border border-gray-universal-100">
-              <button className="flex items-center justify-between gap-y-5 z-10 w-full" onClick={toggleFilterModal}>
+            <div className="flex w-full items-center justify-between border border-gray-universal-100 p-4 lg:hidden">
+              <button
+                className="z-10 flex w-full items-center justify-between gap-y-5"
+                onClick={toggleFilterModal}
+              >
                 {t('eventsFilter')}
                 <DropdownIcon />
               </button>
@@ -208,15 +234,15 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
                     setSelectedCategory={setSelectedCategory}
                     setSelectedLocality={setSelectedLocality}
                   />
-                  <div className="absolute bottom-0 w-full p-3 flex gap-x-3">
+                  <div className="absolute bottom-0 flex w-full gap-x-3 p-3">
                     <button
-                      className="w-1/2 base-button py-[9px] text-white bg-gray-universal-100 border border-gray-universal-100"
+                      className="base-button w-1/2 border border-gray-universal-100 bg-gray-universal-100 py-[9px] text-white"
                       onClick={filterEvents}
                     >
                       {t('filterButton')}
                     </button>
                     <button
-                      className="w-1/2 base-button py-[9px] text-gray-universal-100 bg-white border border-gray-universal-100"
+                      className="base-button w-1/2 border border-gray-universal-100 bg-white py-[9px] text-gray-universal-100"
                       onClick={resetFilters}
                     >
                       {t('reset_button')}
@@ -231,7 +257,7 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
               <div className="flex items-center justify-between">
                 <h4 className="text-md">{t('eventsFilter')}</h4>
               </div>
-              <div className="flex items-center gap-x-5 mt-3">
+              <div className="mt-3 flex items-center gap-x-5">
                 <EventFilters
                   startDate={startDate}
                   endDate={endDate}
@@ -248,15 +274,15 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
                   setSelectedLocality={setSelectedLocality}
                 />
               </div>
-              <div className="flex items-center justify-end mt-3">
+              <div className="mt-3 flex items-center justify-end">
                 <button
-                  className="px-10 base-button py-[9px] bg-gray-900 text-white bg-gray-universal-100 border border-gray-universal-100"
+                  className="base-button border border-gray-universal-100 bg-gray-900 bg-gray-universal-100 px-10 py-[9px] text-white"
                   onClick={filterEvents}
                 >
                   {t('filterButton')}
                 </button>
                 <button
-                  className="ml-5 px-10 base-button py-[9px] text-gray-universal-100 bg-white border border-gray-universal-100"
+                  className="base-button ml-5 border border-gray-universal-100 bg-white px-10 py-[9px] text-gray-universal-100"
                   onClick={resetFilters}
                 >
                   {t('reset_button')}
@@ -269,23 +295,23 @@ function Events({ page, promotedEvents, events, eventCategories, eventTags, even
           <Section>
             <div className="text-md2">{t('eventsPromoted')}</div>
             <div className="pb-10">
-              <SectionPromos events={promotedEvents} />
+              <SectionPromos promos={promotedEvents} />
             </div>
           </Section>
         )}
 
         <div className="py-6 lg:py-16">
           <div className="text-md2">{t('eventsAll')}</div>
-          <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 gap-y-4 lg:gap-y-10">
-            {filteredEventsPaginated?.map((event) => (
-              <EventListingCard event={event} key={event.slug} />
+          <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
+            {filteredEvents?.map((event) => (
+              <EventListingCard event={event} key={event.attributes?.slug} />
             ))}
           </div>
-          <div className="flex justify-center lg:justify-end pt-6">
+          <div className="flex justify-center pt-6 lg:justify-end">
             <Pagination
-              value={currentPage}
-              onChangeNumber={(num) => setCurrentPage(num)}
-              max={pagesCount}
+              value={paginationState?.page || 0}
+              onChangeNumber={handlePageChange}
+              max={paginationState?.pageCount || 0}
               previousButtonAriaLabel={t('previousPage')}
               nextButtonAriaLabel={t('nextPage')}
               currentInputAriaLabel={t('currentPage')}

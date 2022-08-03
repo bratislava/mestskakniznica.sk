@@ -1,0 +1,284 @@
+fragment PageEntity on PageEntity {
+  id
+  attributes {
+    slug
+    title
+    createdAt
+    updatedAt
+    date_added
+    listingImage {
+      data {
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          alternativeText
+          updatedAt
+        }
+      }
+    }
+    layout
+    description
+    pageCategory {
+      data {
+        ...PageCategoryEntity
+      }
+    }
+    sections {
+      ...Sections
+    }
+    blogPosts {
+      data {
+        ...BlogPost
+      }
+    }
+
+    locale
+    localizations {
+      data {
+        ...Localization
+      }
+    }
+    Seo {
+      id
+      metaTitle
+      metaDescription
+      keywords
+      metaRobots
+      metaViewport
+      canonicalURL
+    }
+  }
+}
+
+fragment SectionLinkPage on PageEntity {
+  id
+  attributes {
+    layout
+    title
+    slug
+    createdAt
+    updatedAt
+    date_added
+    listingImage {
+      data {
+        attributes {
+          name
+          width
+          height
+          url
+          createdAt
+          hash
+          mime
+          provider
+          size
+          updatedAt
+          alternativeText
+        }
+      }
+    }
+  }
+}
+
+fragment PageWithBaseFieldsEntity on PageEntity {
+  id
+  attributes {
+    title
+    slug
+    createdAt
+    updatedAt
+  }
+}
+
+fragment Localization on PageEntity {
+  id
+  attributes {
+    slug
+    locale
+  }
+}
+
+fragment Category on Category {
+  title
+  priority
+  pages {
+    ...PageLink
+  }
+  pageLink {
+    ...PageLink
+  }
+  createdAt
+  updatedAt
+}
+
+fragment PageCategoryEntity on CategoryEntity {
+  attributes {
+    ...Category
+
+    subCategories {
+      data {
+        id
+        attributes {
+          ...Category
+        }
+      }
+    }
+
+    parentCategory {
+      data {
+        id
+        attributes {
+          ...Category
+          parentCategory {
+            data {
+              id
+              attributes {
+                ...Category
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment ParentPage on PageEntity {
+  id
+  attributes {
+    title
+    slug
+    layout
+    pageCategory {
+      data {
+        ...PageCategoryEntity
+      }
+    }
+  }
+}
+
+fragment PromoNewsCard on PageEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
+# strapi returns just the default locale if no locale is provided
+# easiest way to get all static paths is to ask for all locales sequentially
+query PagesStaticPaths($locale: I18NLocaleCode) {
+  pages(locale: $locale) {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+
+query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  pages(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      ...PageEntity
+    }
+  }
+  menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      ...Menu
+    }
+  }
+  footer(locale: $locale) {
+    data {
+      id
+      attributes {
+        footerColumns {
+          id
+          title
+          footerLink {
+            id
+            redirectTo {
+              data {
+                ...PageWithBaseFieldsEntity
+              }
+            }
+            title
+            otherSite
+          }
+        }
+        siteMapLink {
+          data {
+            ...PageWithBaseFieldsEntity
+          }
+        }
+        privacyLink {
+          data {
+            ...PageWithBaseFieldsEntity
+          }
+        }
+      }
+    }
+  }
+}
+
+query PagesByLayout(
+  $layout: String!
+  $locale: I18NLocaleCode!
+  $start: Int
+  $limit: Int
+  $sort: String
+) {
+  pages(
+    filters: { layout: { eq: $layout } }
+    locale: $locale
+    pagination: { start: $start, limit: $limit }
+    sort: [$sort]
+  ) {
+    data {
+      ...PageEntity
+    }
+  }
+}
+
+query PagesByLayoutPaginated(
+  $layout: String!
+  $locale: I18NLocaleCode!
+  $start: Int
+  $limit: Int
+  $sort: String!
+) {
+  pages(
+    filters: { layout: { eq: $layout } }
+    locale: $locale
+    pagination: { start: $start, limit: $limit }
+    sort: [$sort]
+  ) {
+    data {
+      ...PageEntity
+    }
+    meta {
+      pagination {
+        ...Pagination
+      }
+    }
+  }
+}
+
+query PromotedNews($locale: I18NLocaleCode!) {
+  promotedNews: pages(
+    filters: { promoted: { eq: true }, or: [{ layout: { eq: "news" } }] }
+    locale: $locale
+  ) {
+    data {
+      ...PromoNewsCard
+    }
+  }
+}

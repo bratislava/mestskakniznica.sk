@@ -15,13 +15,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "plugins": [
-    //   {
-    //     "name": "typescript-strict-plugin"
-    //   }
-    // ],
     "baseUrl": "./",
     "paths": {
       "@bratislava/ui-city-library": ["./components/ui/"],

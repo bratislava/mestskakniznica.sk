@@ -7,11 +7,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const limit = Number(req.query.limit)
   const sort = req.query.sort.toString()
   const layout = req.query.layout.toString()
-  const locale = req.query.locale || "sk"
+  const locale = req.query.locale || 'sk'
 
-  const variable = { layout, locale, sort, limit, start }  
-  const result = await client.PagesByLayoutWithFieldPagination(variable)
-  
+  const variable = { layout, locale, sort, limit, start }
+  const result = await client.PagesByLayoutPaginated(variable)
+
   return res.json(result)
 }
 

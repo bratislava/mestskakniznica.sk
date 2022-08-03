@@ -10,15 +10,15 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { convertDataToBody } from '../../../utils/form-constants'
-import { IEvent } from '../../../utils/types'
 import { dateTimeString, dayForDifferentDateTo, isEventPast } from '../../../utils/utils'
 import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 import FormContainer, { phoneRegex } from '../FormContainer'
 import FormFooter from '../FormFooter'
+import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 
 interface Props {
-  eventDetail?: IEvent
+  eventDetail?: EventCardEntityFragment
 }
 
 function EventReservationForm({ eventDetail }: Props) {
@@ -56,8 +56,8 @@ function EventReservationForm({ eventDetail }: Props) {
     spaceCount: yup.number().min(1).required(),
     eventDate: yup.lazy(() => {
       if (eventDetail) {
-        const dateFrom = new Date(eventDetail?.dateFrom || '')
-        const dateTo = new Date(eventDetail?.dateTo || '')
+        const dateFrom = new Date(eventDetail.attributes?.dateFrom)
+        const dateTo = new Date(eventDetail.attributes?.dateTo)
 
         const { date } = dayForDifferentDateTo(dateFrom, dateTo, true)
         return yup
@@ -95,8 +95,8 @@ function EventReservationForm({ eventDetail }: Props) {
   React.useMemo(() => {
     // prefill event date and time
     if (eventDetail) {
-      const dateFrom = new Date(eventDetail?.dateFrom || '')
-      const dateTo = new Date(eventDetail?.dateTo || '')
+      const dateFrom = new Date(eventDetail.attributes?.dateFrom)
+      const dateTo = new Date(eventDetail.attributes?.dateTo)
 
       const { day, month, year } = dayForDifferentDateTo(dateFrom, dateTo, true)
       // "yyyy-MM-dd"
@@ -128,7 +128,7 @@ function EventReservationForm({ eventDetail }: Props) {
     }
 
     // disable showing form if is in the past
-    setIsEventInThePast(isEventPast(eventDetail?.dateTo || ''))
+    setIsEventInThePast(isEventPast(eventDetail?.attributes?.dateTo))
   }, [eventDetail, methods])
 
   const handleSubmit = methods.handleSubmit(async (data) => {
@@ -137,12 +137,11 @@ function EventReservationForm({ eventDetail }: Props) {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'ivo.dobrovodsky@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'ivo.dobrovodsky@mestskakniznica.sk',
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     // send email
@@ -164,7 +163,7 @@ function EventReservationForm({ eventDetail }: Props) {
   })
 
   return (
-    <div className="flex flex-col-reverse lg:grid grid-cols-9 gap-x-16">
+    <div className="flex grid-cols-9 flex-col-reverse gap-x-16 lg:grid">
       {!isEventInThePast && (
         <FormProvider {...methods}>
           <FormContainer
@@ -178,9 +177,9 @@ function EventReservationForm({ eventDetail }: Props) {
             errorMessage={t('generic_error_message')}
             wrapperClass="col-span-6"
           >
-            <div className="flex flex-col gap-y-6 w-full mt-4">
-              <div className="text-black-universal text-default">{t('personal_details')}</div>
-              <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+            <div className="mt-4 flex w-full flex-col gap-y-6">
+              <div className="text-default text-black-universal">{t('personal_details')}</div>
+              <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
                 <Controller
                   control={methods.control}
                   name="fName"
@@ -251,34 +250,36 @@ function EventReservationForm({ eventDetail }: Props) {
               </div>
               {eventDetail && (
                 <div>
-                  <div className="text-black-universal text-default pb-4 border-t pt-6">{t('event')}</div>
+                  <div className="border-t pb-4 pt-6 text-default text-black-universal">
+                    {t('event')}
+                  </div>
 
-                  <div className="border p-4 border-gray-300 text-gray-universal-70">
+                  <div className="border border-gray-300 p-4 text-gray-universal-70">
                     <div className="flex">
-                      <div className="text-center flex w-16 h-16 bg-yellow-promo">
+                      <div className="flex h-16 w-16 bg-yellow-promo text-center">
                         <DateCardDisplay
-                          dateFrom={eventDetail?.dateFrom ?? '1-1-1970'}
-                          dateTo={eventDetail?.dateTo ?? '1-1-1970'}
+                          dateFrom={eventDetail?.attributes?.dateFrom ?? '1-1-1970'}
+                          dateTo={eventDetail?.attributes?.dateTo ?? '1-1-1970'}
                           textSize="text-[18px]"
                         />
                       </div>
 
                       <div className="pl-5">
                         <div className="leading-[19px] text-black-universal ">
-                          {eventDetail?.eventTitle ? eventDetail?.eventTitle?.length > 50
-                            ? `${eventDetail?.eventTitle?.slice(0, 50)  }...`
-                            : eventDetail?.eventTitle : ''}
+                          {(eventDetail?.attributes?.title?.length || 0) > 50
+                            ? `${eventDetail?.attributes?.title?.slice(0, 50)}...`
+                            : eventDetail?.attributes?.title}
                         </div>
-                        <div className="leading-[20px] text-xs text-gray-universal-70 pt-[5px]">
+                        <div className="pt-[5px] text-xs leading-[20px] text-gray-universal-70">
                           {dateTimeString(
-                            eventDetail?.dateFrom ?? new Date(),
-                            eventDetail?.dateTo ?? new Date(),
+                            eventDetail?.attributes?.dateFrom ?? new Date(),
+                            eventDetail?.attributes?.dateTo ?? new Date(),
                             locale
                           )}
                         </div>
-                        {eventDetail?.eventLocality?.attributes?.title && (
-                          <div className="leading-[20px] text-xs text-gray-universal-70">
-                            &#9679; {eventDetail?.eventLocality?.attributes?.title}
+                        {eventDetail?.attributes?.eventLocality?.data?.attributes?.title && (
+                          <div className="text-xs leading-[20px] text-gray-universal-70">
+                            &#9679; {eventDetail?.attributes?.eventLocality.data.attributes?.title}
                           </div>
                         )}
                       </div>
@@ -287,7 +288,7 @@ function EventReservationForm({ eventDetail }: Props) {
                 </div>
               )}
 
-              <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row  justify-between">
+              <div className="flex flex-col justify-between gap-y-6 gap-x-6  lg:flex-row">
                 <Controller
                   control={methods.control}
                   name="eventDate"
@@ -358,7 +359,9 @@ function EventReservationForm({ eventDetail }: Props) {
                   />
                 )}
               />
-              {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
+              {hasErrors && (
+                <p className="text-base text-error ">{t('please_fill_required_fields')}</p>
+              )}
               <FormFooter buttonContent={t('send')} />
             </div>
           </FormContainer>

@@ -1,4 +1,5 @@
-const plugin = require('tailwindcss/plugin');
+/* eslint-disable @typescript-eslint/no-var-requires */
+const plugin = require('tailwindcss/plugin')
 
 const scrollBarHide = plugin(({ addUtilities }) => {
   addUtilities({
@@ -11,8 +12,8 @@ const scrollBarHide = plugin(({ addUtilities }) => {
         display: 'none',
       },
     },
-  });
-});
+  })
+})
 
 module.exports = {
   theme: {
@@ -182,4 +183,4 @@ module.exports = {
     },
   },
   plugins: [scrollBarHide],
-};
+}
