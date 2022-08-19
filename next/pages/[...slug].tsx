@@ -56,6 +56,7 @@ interface IPageProps {
   eventDetail: EventEntityFragment
   allEvents: EventCardEntityFragment[]
   eventListEvents: EventCardEntityFragment[]
+  upcomingEventListEvents: EventCardEntityFragment[]
   latestEvents: EventCardEntityFragment[]
   premises: PremiseEntity[]
   opacBookNews: OpacBook[]
@@ -69,6 +70,7 @@ interface IPageProps {
   menus: MenuEntity[]
   footer: FooterEntity
   paginationFields: Pagination
+  upcomingPaginationFields: Pagination
 }
 
 function Page({
@@ -79,6 +81,7 @@ function Page({
   eventDetail,
   allEvents,
   eventListEvents,
+  upcomingEventListEvents,
   latestEvents,
   opacBookNews,
   premises,
@@ -86,6 +89,7 @@ function Page({
   news,
   locale,
   paginationFields,
+  upcomingPaginationFields,
   eventCategories,
   eventTags,
   eventLocalities,
@@ -141,10 +145,12 @@ function Page({
           page={page}
           promotedEvents={promotedEvents}
           events={eventListEvents}
+          futureEvents={upcomingEventListEvents}
           eventCategories={eventCategories}
           eventTags={eventTags}
           eventLocalities={eventLocalities}
           paginationFields={paginationFields}
+          upcomingPaginationFields={upcomingPaginationFields}
         />
       )
       break
@@ -247,6 +253,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     const promotedEvents: EventCardEntityFragment[] = []
     let allEvents: EventCardEntityFragment[] = []
     let eventListEvents: EventCardEntityFragment[] = []
+    let upcomingEventListEvents: EventCardEntityFragment[] = []
     let news: PageEntityFragment[] = []
     let latestEvents: EventCardEntityFragment[] = []
     let premises: PremiseEntity[] = []
@@ -257,6 +264,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     let opacBookNews: OpacBook[] = []
     let allNewsLink = ''
     let paginationFields: Pagination | null = null
+    let upcomingPaginationFields: Pagination | null = null
 
     const queryResponse = await client.PageBySlug({
       slug,
@@ -309,16 +317,29 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         client.EventProperties({ locale }),
       ])
 
+      const today = new Date();
+      const PAGE_SIZE = 8;
+
       const eventPages = await client.EventList({
         locale,
         start: 0,
-        limit: 10,
-        filters: {},
+        limit: PAGE_SIZE,
+        filters: {'dateFrom': {'lt': today.toISOString()}},
         sort: 'dateFrom:desc',
+      })
+
+      const upcomingEventPages = await client.EventList({
+        locale,
+        start: 0,
+        limit: PAGE_SIZE,
+        filters: {'dateFrom': {'gte': today.toISOString()}},
+        sort: 'dateFrom:asc',
       })
 
       eventListEvents = eventPages.events?.data || []
       paginationFields = eventPages.events?.meta.pagination || null
+      upcomingEventListEvents = upcomingEventPages.events?.data || []
+      upcomingPaginationFields = upcomingEventPages.events?.meta.pagination || null
 
       eventCategories = eventProperties.eventCategories?.data || []
       eventTags = eventProperties.eventTags?.data || []
@@ -371,9 +392,10 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         page: pageBySlug || null,
         partners: partners.allPartners ?? [],
         eventDetail,
-        promotedEvents: promotedEvents,
+        promotedEvents,
         allEvents,
         eventListEvents,
+        upcomingEventListEvents,
         latestEvents,
         allNewsLink,
         opacBookNews,
@@ -385,6 +407,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         news,
         locale,
         paginationFields,
+        upcomingPaginationFields,
         menus: menus?.data ?? [],
         footer: footer?.data,
         ...translations,

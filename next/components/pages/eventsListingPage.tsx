@@ -35,32 +35,39 @@ export interface PageProps {
   page: PageEntity
   promotedEvents: EventCardEntityFragment[]
   events: EventCardEntityFragment[]
+  futureEvents: EventCardEntityFragment[]
   eventCategories: NonNullable<EventCategoryEntity[]>
   eventTags: EventTagEntity[]
   eventLocalities: EventLocalityEntity[]
   paginationFields: PaginationFragment
+  upcomingPaginationFields: PaginationFragment
 }
-
-const MAX_EVENTS_PER_PAGE = 16
 
 function Events({
   page,
   promotedEvents,
   events,
+  futureEvents,
   eventCategories,
   eventTags,
   eventLocalities,
   paginationFields,
+  upcomingPaginationFields
 }: PageProps) {
   const { t } = useTranslation('common')
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
   const [filteredEvents, setFilteredEvents] = useState<EventCardEntityFragment[]>(events)
+  const [upcomingEvents, setUpcomingEvents] = useState<EventCardEntityFragment[]>(futureEvents)
   const [paginationState, setPaginationState] = useState(paginationFields)
+  const [upcomingPaginationState, setUpcomingPaginationState] = useState(upcomingPaginationFields)
   const [currentPage, setCurrentPage] = useState(1)
   const [openFilterModal, setOpenFilterModal] = useState(false)
   const [bodyStyle, setBodyStyle] = useState('')
   const { locale } = usePageWrapperContext()
+  const PAGE_SIZE = 8;
+  const today = new Date();
+  today.setHours(0,0,0,0);
 
   const toggleFilterModal = () => {
     if (openFilterModal) {
@@ -129,18 +136,30 @@ function Events({
 
     const eventResponse = await client.EventList({
       locale,
-      limit: 10,
+      limit: PAGE_SIZE,
       start: 0,
-      filters: {},
+      filters: {'dateFrom': {'lt': today.toISOString()}},
       sort: 'dateFrom:desc',
     })
     if (eventResponse.events) {
       setFilteredEvents(eventResponse.events.data || [])
       setPaginationState(eventResponse.events.meta.pagination)
     }
+
+    const upcomingEventsResponse = await client.EventList({
+      locale,
+      limit: PAGE_SIZE,
+      start: 0,
+      filters: {'dateFrom': {'gte': today.toISOString()}},
+      sort: 'dateFrom:asc',
+    })
+    if (upcomingEventsResponse.events) {
+      setUpcomingEvents(upcomingEventsResponse.events.data || [])
+      setUpcomingPaginationState(upcomingEventsResponse.events.meta.pagination)
+    }
   }
 
-  const filterEvents = async () => {
+  const getFilters = (upcoming = false): EventFiltersInput => {
     const currentFilters: EventFiltersInput = {}
     if (startDate) currentFilters['dateFrom'] = { gte: startDate.toISOString() }
     if (endDate) currentFilters['dateTo'] = { lte: endDate.toISOString() }
@@ -151,40 +170,72 @@ function Events({
     if (selectedLocality && selectedLocality.title)
       currentFilters['eventLocality'] = { title: { eq: selectedLocality.title } }
 
+    if (upcoming) {
+      if (!startDate || (startDate <= today)) {
+        currentFilters['dateFrom'] = { gte: today.toISOString() }
+      }
+    } else {
+      if (startDate) {
+        currentFilters['dateFrom'] = { between: [ startDate.toISOString(), today.toISOString() ] }
+      } else {
+        currentFilters['dateFrom'] = { lt: today.toISOString() }
+      }
+    }
+
+    return currentFilters;
+  }
+
+  const filterEvents = async () => {
     const eventResponse = await client.EventList({
       locale,
-      limit: 10,
+      limit: PAGE_SIZE,
       start: 0,
-      filters: currentFilters,
+      filters: getFilters(),
       sort: 'dateFrom:desc',
     })
     if (eventResponse.events) {
       setFilteredEvents(eventResponse.events.data || [])
       setPaginationState(eventResponse.events.meta.pagination)
+    }
+
+    const upcomingEventsResponse = await client.EventList({
+      locale,
+      limit: PAGE_SIZE,
+      start: 0,
+      filters: getFilters(true),
+      sort: 'dateFrom:asc',
+    })
+    if (upcomingEventsResponse.events) {
+      setUpcomingEvents(upcomingEventsResponse.events.data || [])
+      setUpcomingPaginationState(upcomingEventsResponse.events.meta.pagination)
     }
   }
 
   const handlePageChange = async (page: number) => {
-    const currentFilters: EventFiltersInput = {}
-    if (startDate) currentFilters['dateFrom'] = { gte: startDate.toISOString() }
-    if (endDate) currentFilters['dateTo'] = { lte: endDate.toISOString() }
-    if (selectedEventTags && selectedEventTags.title)
-      currentFilters['eventTags'] = { title: { eq: selectedEventTags.title } }
-    if (selectedCategory && selectedCategory.title)
-      currentFilters['eventCategory'] = { title: { eq: selectedCategory.title } }
-    if (selectedLocality && selectedLocality.title)
-      currentFilters['eventLocality'] = { title: { eq: selectedLocality.title } }
-
     const eventResponse = await client.EventList({
       locale,
-      limit: 10,
-      start: (page - 1) * 10,
-      filters: currentFilters,
+      limit: PAGE_SIZE,
+      start: (page - 1) * PAGE_SIZE,
+      filters: getFilters(),
       sort: 'dateFrom:desc',
     })
     if (eventResponse.events) {
       setFilteredEvents(eventResponse.events.data || [])
       setPaginationState(eventResponse.events.meta.pagination)
+    }
+  }
+
+  const handleUpcomingPageChange = async (page: number) => {
+    const upcomingEventsResponse = await client.EventList({
+      locale,
+      limit: PAGE_SIZE,
+      start: (page - 1) * PAGE_SIZE,
+      filters: getFilters(true),
+      sort: 'dateFrom:asc',
+    })
+    if (upcomingEventsResponse.events) {
+      setUpcomingEvents(upcomingEventsResponse.events.data || [])
+      setUpcomingPaginationState(upcomingEventsResponse.events.meta.pagination)
     }
   }
 
@@ -300,8 +351,27 @@ function Events({
           </Section>
         )}
 
+        <div className="py-6 lg:py-16 lg:border-b border-gray-universal-100">
+          <div className="text-md2">{t('eventsUpcoming')}</div>
+          <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
+            {upcomingEvents?.map((event) => (
+              <EventListingCard event={event} key={event.attributes?.slug} />
+            ))}
+          </div>
+          <div className="flex justify-center pt-6 lg:justify-end">
+            <Pagination
+              value={upcomingPaginationState?.page || 0}
+              onChangeNumber={handleUpcomingPageChange}
+              max={upcomingPaginationState?.pageCount || 0}
+              previousButtonAriaLabel={t('previousPage')}
+              nextButtonAriaLabel={t('nextPage')}
+              currentInputAriaLabel={t('currentPage')}
+            />
+          </div>
+        </div>
+
         <div className="py-6 lg:py-16">
-          <div className="text-md2">{t('eventsAll')}</div>
+          <div className="text-md2">{t('eventsArchived')}</div>
           <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
             {filteredEvents?.map((event) => (
               <EventListingCard event={event} key={event.attributes?.slug} />
