@@ -1,23 +1,4 @@
-query BlogPostStaticPaths {
-  blogPosts {
-    data {
-      id
-      attributes {
-        slug
-      }
-    }
-  }
-}
-
-query BlogPostBySlug($slug: String!) {
-  blogPosts(filters: { slug: { eq: $slug } }) {
-    data {
-      ...BlogPostWithParentPage
-    }
-  }
-}
-
-fragment BlogPost on BlogPostEntity {
+fragment BlogPostEntity on BlogPostEntity {
   id
   attributes {
     slug
@@ -38,7 +19,7 @@ fragment BlogPost on BlogPostEntity {
   }
 }
 
-fragment BlogPostWithParentPage on BlogPostEntity {
+fragment BlogPostWithParentPageEntity on BlogPostEntity {
   id
   attributes {
     slug
@@ -64,10 +45,29 @@ fragment BlogPostWithParentPage on BlogPostEntity {
   }
 }
 
-query FetchBlogPosts($id: ID, $limit: Int, $offset: Int) {
-  blogPosts(filters: { id: { eq: $id } }, pagination: { limit: $limit, start: $offset }) {
+query BlogPostStaticPaths {
+  blogPosts {
     data {
-      ...BlogPost
+      id
+      attributes {
+        slug
+      }
+    }
+  }
+}
+
+query BlogPostBySlug($slug: String!) {
+  blogPosts(filters: { slug: { eq: $slug } }) {
+    data {
+      ...BlogPostWithParentPageEntity
+    }
+  }
+}
+
+query BlogPosts($limit: Int, $start: Int, $sort: String = "publishedAt:desc") {
+  blogPosts(pagination: { limit: $limit, start: $start }, sort: [$sort]) {
+    data {
+      ...BlogPostEntity
     }
   }
 }

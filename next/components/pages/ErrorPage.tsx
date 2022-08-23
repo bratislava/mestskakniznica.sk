@@ -1,4 +1,3 @@
-import BookReader from '@assets/images/book-reader.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import Home from '@assets/images/home.svg'
 import { SectionContainer } from '@bratislava/ui-city-library'
@@ -14,20 +13,25 @@ function ErrorPage({ code, children }: IProps) {
   return (
     <SectionContainer>
       <div className="border-gray-700">
-        <div className="flex text-sm h-[56px]">
+        <div className="flex h-[56px] text-sm">
           <a href="./" className="py-[18px]">
             <Home />{' '}
           </a>
           <div className="flex">
-            <div className="pl-[18px] py-[23px]">
+            <div className="py-[23px] pl-[18px]">
               <ChevronRight />
             </div>
             <div className="py-[18px] pl-3"> {code} </div>
           </div>
         </div>
-        <div className="flex flex-col md:grid grid-cols-2 py-12 items-center">
+        <div className="flex grid-cols-2 flex-col items-center py-12 md:grid">
           <div>{children}</div>
-          <img src={book_reader.src} alt="book_readers" height={book_reader.height} width={book_reader.width} />
+          <img
+            src={book_reader.src}
+            alt="book_readers"
+            height={book_reader.height}
+            width={book_reader.width}
+          />
         </div>
       </div>
     </SectionContainer>

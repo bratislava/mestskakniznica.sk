@@ -1,16 +1,15 @@
-import { BlogPostEntity, BlogPostFragment, PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { ArticleCard, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
-import * as React from 'react'
+import { useState } from 'react'
+import { BlogPostEntityFragment, PageEntity, PageEntityFragment } from '../../graphql'
 
-import { BlogPostResponse } from '../../pages/api/blog-posts'
 import { client } from '../../utils/gql'
 import { formatDateToLocal } from '../../utils/utils'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface BlogPostsPageProps {
-  page: PageEntity
+  page: PageEntityFragment
 }
 
 const LIMIT = 16
@@ -19,25 +18,29 @@ function BlogPostsPage({ page }: BlogPostsPageProps) {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
-  const [relatedBlogPosts, setRelatedBlogPosts] = React.useState<BlogPostEntity[]>(
+  const [relatedBlogPosts, setRelatedBlogPosts] = useState<BlogPostEntityFragment[]>(
     page?.attributes?.blogPosts?.data ?? []
   )
 
-  const [noOfPages, setNoOfPages] = React.useState(
+  const [noOfPages, setNoOfPages] = useState(
     Math.ceil((page?.attributes?.blogPosts?.data.length ?? 1) / LIMIT) ?? 1
   )
 
-  const [offsetPage, setOffsetPage] = React.useState(1)
+  const [offsetPage, setOffsetPage] = useState(1)
 
-  if (!page) return null
+  if (!page) {
+    return null
+  }
 
-  const fetchBlogPosts = async (offset: number) => {
-    const res = await fetch(
-      `/api/blog-posts?id=${page.id}&offset=${(offset - 1) * LIMIT}&limit=${LIMIT}`
-    )
-    const data: BlogPostResponse = await res.json()
-    setRelatedBlogPosts(data.posts)
-    setNoOfPages(Math.ceil(data.count / LIMIT))
+  const fetchBlogPosts = async (start: number) => {
+    const { blogPosts: blogPostResponse } = await client.BlogPosts({
+      limit: LIMIT,
+      start: start,
+    })
+    const { blogPosts: blogPostsMetaReposponse } = await client.BlogPostsCount()
+
+    setRelatedBlogPosts(blogPostResponse?.data ?? [])
+    setNoOfPages(Math.ceil(blogPostsMetaReposponse?.meta.pagination.total ?? 1 / LIMIT))
   }
 
   const handleChangeOffsetPage = (num: number) => {
@@ -46,7 +49,7 @@ function BlogPostsPage({ page }: BlogPostsPageProps) {
 
   return (
     <SectionContainer>
-      <PageBreadcrumbs page={page} />
+      <PageBreadcrumbs page={page as PageEntity} />
       <PageTitle
         title={page?.attributes?.title ?? ''}
         description={page?.attributes?.description ?? ''}

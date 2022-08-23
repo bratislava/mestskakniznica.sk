@@ -19,7 +19,7 @@ import {
   Video,
 } from '@bratislava/ui-city-library'
 import { TFunction, useTranslation } from 'next-i18next'
-import * as React from 'react'
+import { useState } from 'react'
 
 import {
   groupByAccordionCategory,
@@ -147,7 +147,7 @@ function Section({
   events: EventCardEntityFragment[] | undefined
   eventsListingUrl: string | undefined
 }) {
-  const [openAccordion, setOpenAccordion] = React.useState('')
+  const [openAccordion, setOpenAccordion] = useState('')
   const { t } = useTranslation(['common', 'homepage'])
   const { locale } = usePageWrapperContext()
 

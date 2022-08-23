@@ -1,8 +1,4 @@
-import {
-  ComponentMenuSections,
-  Enum_Page_Layout,
-  EventCardEntityFragment,
-} from '@bratislava/strapi-sdk-city-library'
+import { ComponentMenuSections, Enum_Page_Layout, EventCardEntityFragment } from '../../../graphql'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
 import Link from 'next/link'

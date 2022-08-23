@@ -29,6 +29,7 @@ function PromoEventCard({ event }: IPromoEventCardProps) {
     dateTo,
     eventLocality,
     listingImage,
+    coverImage,
   } = event.attributes
 
   return (
@@ -68,7 +69,7 @@ function PromoEventCard({ event }: IPromoEventCardProps) {
                 </div>
               </div>
 
-              {listingImage !== null && listingImage && (
+              {listingImage && listingImage.data?.attributes ? (
                 <div className="flex w-full">
                   <Image
                     width={600}
@@ -76,6 +77,16 @@ function PromoEventCard({ event }: IPromoEventCardProps) {
                     objectFit="cover"
                     src={listingImage?.data?.attributes?.url || ''}
                     alt={listingImage?.data?.attributes?.alternativeText || `Cover for ${title}`}
+                  />
+                </div>
+              ) : (
+                <div className="flex w-full">
+                  <Image
+                    width={600}
+                    height={360}
+                    objectFit="cover"
+                    src={coverImage?.data?.attributes?.url || ''}
+                    alt={coverImage?.data?.attributes?.alternativeText || `Cover for ${title}`}
                   />
                 </div>
               )}

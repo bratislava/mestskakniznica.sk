@@ -1,8 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
-import { PageEntity, PageEntityFragment, PaginationFragment } from '../../graphql'
+import { Enum_Page_Layout, PageEntity, PageEntityFragment, PaginationFragment } from '../../graphql'
 import { useTranslation } from 'next-i18next'
-import { useState } from 'react'
 
 import ListingCard from '../Molecules/ListingCard'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
@@ -10,36 +9,31 @@ import { usePageWrapperContext } from 'components/layouts/PageWrapper'
 import { client } from '../../utils/gql'
 import { SectionContainer } from '../ui/SectionContainer/SectionContainer'
 import { Pagination } from '../ui/Pagination/Pagination'
+import { usePagesPaginated } from '../../hooks/usePagesPaginated'
+import useSWR from 'swr'
 
 export interface PageProps {
   page: PageEntity
-  news: PageEntityFragment[]
-  pagination: PaginationFragment
 }
 
-function NewsListingPage({ page, news, pagination }: PageProps) {
+function NewsListingPage({ page }: PageProps) {
   const { t } = useTranslation('common')
-  const { locale } = usePageWrapperContext()
-  const [paginatedNews, setPaginatedNews] = useState<PageEntityFragment[]>(news)
-  const [paginationData, setPaginationData] = useState<PaginationFragment | null>(pagination)
+  const { locale = 'sk' } = usePageWrapperContext()
 
-  const handleChangeOffsetPage = async (num: number) => {
-    const { pages } = await client.PagesByLayoutPaginated({
-      layout: 'news',
-      locale,
-      sort: 'createdAt:desc',
-      start: (num - 1) * 10,
-      limit: 10,
-    })
-    // fetch(
-    //   `/api/paginated-news?layout=news&locale=${locale}&sort=createdAt:desc&limit=10&start=${
-    //     (num - 1) * 10
-    //   }`
-    // )
-    // const result = await res.json()
+  const { data: newsCount, error: newsCountError } = useSWR(
+    ['NewsCount', { locale, layout: 'news' }],
+    (_key, variables) => client.PagesByLayoutCount(variables)
+  )
+  const totalCount = newsCount?.pages?.meta.pagination.total ?? 0
 
-    setPaginatedNews(pages?.data ?? [])
-    setPaginationData(pages?.meta.pagination || null)
+  // TODO show loading and error, add LoadMore button - check the hook for more useful variables
+  const { setSize, filteredPages, strapiMetaPagination } = usePagesPaginated({
+    locale,
+    layout: Enum_Page_Layout.News,
+  })
+
+  const handlePageChange = async (page: number) => {
+    setSize(page)
   }
 
   return (
@@ -57,16 +51,16 @@ function NewsListingPage({ page, news, pagination }: PageProps) {
         </div>
 
         <div className="m-auto grid items-stretch gap-4 gap-y-10 pt-6 pb-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
-          {paginatedNews?.map((page) => (
-            <ListingCard card={page} key={page.attributes?.slug} />
+          {filteredPages?.map((page) => (
+            <ListingCard card={page as PageEntityFragment} key={page?.attributes?.slug} />
           ))}
         </div>
         <div className="m-auto flex w-fit md:mr-0">
           <Pagination
-            max={paginationData?.pageCount ?? 0}
-            value={paginationData?.page ?? 1}
+            max={totalCount}
+            value={strapiMetaPagination?.page ?? 1}
             onChangeNumber={(num) => {
-              handleChangeOffsetPage(num)
+              handlePageChange(num)
             }}
             previousButtonAriaLabel={t('previousPage')}
             nextButtonAriaLabel={t('nextPage')}

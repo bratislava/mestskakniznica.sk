@@ -31,7 +31,9 @@ function ListingCard({ card }: IListingCardProps) {
 
           <div className="pt-3 text-sm">
             {formatDateToLocal(
-              card.attributes?.date_added ? card.attributes?.date_added : '',
+              card.attributes?.date_added
+                ? card.attributes?.date_added
+                : card.attributes?.publishedAt,
               locale
             )}
           </div>

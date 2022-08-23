@@ -6,7 +6,13 @@ query BasicDocumentBySlug($slug: String!) {
   }
 }
 
-query AllBasicDocuments($limit: Int, $offset: Int, $sort: String, $categoryId: ID, $query: String) {
+query AllBasicDocuments(
+  $limit: Int
+  $offset: Int
+  $sort: String = "publishedAt:desc"
+  $categoryId: ID
+  $query: String
+) {
   basicDocuments(
     sort: [$sort]
     pagination: { limit: $limit, start: $offset }

@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageWrapper from '../../components/layouts/PageWrapper'
 import FileDetailPage from '../../components/pages/fileDetailPage'
-import { BasicDocumentEntity, BasicDocumentFragment, FooterQuery, MenuEntity, MenusQuery } from '../../graphql'
+import { BasicDocumentEntity, FooterQuery, MenuEntity } from '../../graphql'
 import { client } from '../../utils/gql'
 import { arrayify } from '../../utils/utils'
 
@@ -17,12 +17,20 @@ interface IFilePageProps {
 function Page({ basicDocument, locale, menus, footer, slug }: IFilePageProps) {
   return (
     <PageWrapper locale={locale ?? 'sk'} slug={slug}>
-      <FileDetailPage locale={locale} file={basicDocument} menus={menus} footer={footer?.data || {}} />
+      <FileDetailPage
+        locale={locale}
+        file={basicDocument}
+        menus={menus}
+        footer={footer?.data || {}}
+      />
     </PageWrapper>
   )
 }
 
-export const getServerSideProps: GetServerSideProps<IFilePageProps> = async ({ locale = 'sk', query }) => {
+export const getServerSideProps: GetServerSideProps<IFilePageProps> = async ({
+  locale = 'sk',
+  query,
+}) => {
   const slug = arrayify(query.slug)[0]
 
   if (!slug) return { notFound: true }

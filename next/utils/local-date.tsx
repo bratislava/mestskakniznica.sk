@@ -1,6 +1,4 @@
-import { convert, LocalDate, ZonedDateTime } from '@js-joda/core'
-import lCapitalize from 'lodash/capitalize'
-import padStart from 'lodash/padStart'
+import { convert, ZonedDateTime } from '@js-joda/core'
 
 // "Sep 17, 2021"
 export const getLocalDate = (dateString: string) => {

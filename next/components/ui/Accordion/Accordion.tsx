@@ -1,21 +1,21 @@
 import ChevronDown from '@assets/images/chevron-down.svg'
 import ChevronUp from '@assets/images/chevron-up.svg'
 import cx from 'classnames'
-import React, { useEffect } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 export interface AccordionProps {
   id?: string
   className?: string
-  iconLeft?: React.ReactNode
+  iconLeft?: ReactNode
   type: 'boxed' | 'divider' | 'sublocation'
   size: 'small' | 'big'
   label: string
-  content: React.ReactNode | any
+  content: ReactNode | any
   stateListener?: (id: string, state: boolean) => unknown
   defaultState?: boolean
   ariaLabelPrefix?: string
-  openIcon?: React.ReactNode
-  closeIcon?: React.ReactNode
+  openIcon?: ReactNode
+  closeIcon?: ReactNode
 }
 
 export function Accordion({
@@ -32,7 +32,7 @@ export function Accordion({
   openIcon = <ChevronDown />,
   closeIcon = <ChevronUp />,
 }: AccordionProps) {
-  const [isOpen, setOpen] = React.useState(false)
+  const [isOpen, setOpen] = useState(false)
 
   useEffect(() => {
     if (defaultState !== null && defaultState !== undefined && defaultState !== isOpen) {
@@ -59,10 +59,10 @@ export function Accordion({
       {/* TODO: Accessibility */}
       <button
         onClick={toggleState}
-        className={cx('w-full text-left flex items-center justify-between cursor-pointer', {
+        className={cx('flex w-full cursor-pointer items-center justify-between text-left', {
           'py-5 px-6': size === 'big' && type === 'boxed',
           'py-4.5 px-4': size === 'small' && type === 'boxed',
-          'pr-1.5 py-6': type !== 'boxed',
+          'py-6 pr-1.5': type !== 'boxed',
         })}
         aria-label={`${ariaLabelPrefix} ${label}`}
       >
@@ -90,7 +90,7 @@ export function Accordion({
       <div
         className={cx('text-base text-gray-universal-70', {
           'h-0': !isOpen,
-          'h-full mt-1': isOpen,
+          'mt-1 h-full': isOpen,
           'pb-10': isOpen && size === 'big',
           'pb-8': isOpen && size === 'small',
           'px-6': size === 'big' && type === 'boxed',

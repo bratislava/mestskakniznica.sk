@@ -1,22 +1,25 @@
 import { PageEntity, PartnerEntity } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, Partner, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
-import * as React from 'react'
+import useSWR from 'swr'
+import { client } from '../../utils/gql'
+import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
+import PartnerSkeleton from '../ui/Partner/PartnerSkeleton'
 
-export type TSortedPartners = {
-  featuredPartners: PartnerEntity[]
-  notFeaturedPartners: PartnerEntity[]
-}
-
-export interface PartnersPageProps {
+export interface IPartnersPageProps {
   page: PageEntity
-  partners: TSortedPartners
 }
 
-function PartnersPage({ page, partners }: PartnersPageProps) {
+function PartnersPage({ page }: IPartnersPageProps) {
   const { t } = useTranslation('common')
+  const { locale = 'sk' } = usePageWrapperContext()
+
+  const { data: partners, error } = useSWR(['Partners', locale], (_key, locale) =>
+    client.SortedPartners({ locale })
+  )
+
   return (
     <>
       <SectionContainer>
@@ -28,9 +31,26 @@ function PartnersPage({ page, partners }: PartnersPageProps) {
           description={page?.attributes?.description ?? ''}
         />
 
-        {partners.featuredPartners.length > 0 && (
+        {error ? error : null}
+
+        {!partners && !error && (
+          <>
+            <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
+              {[1, 2, 3, 4, 5, 6].map((_, index) => (
+                <PartnerSkeleton key={index} featured />
+              ))}
+            </div>
+            <div className="mt-12 flex flex-col space-y-3">
+              {[1, 2, 3, 4, 5, 6].map((_, index) => (
+                <PartnerSkeleton key={index} />
+              ))}
+            </div>
+          </>
+        )}
+
+        {partners?.featuredPartners && partners.featuredPartners.data.length > 0 && (
           <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
-            {partners.featuredPartners.map((partner) => (
+            {partners.featuredPartners.data.map((partner) => (
               <Partner
                 key={partner?.attributes?.title}
                 title={partner?.attributes?.title || ''}
@@ -46,9 +66,9 @@ function PartnersPage({ page, partners }: PartnersPageProps) {
           </div>
         )}
 
-        {partners.notFeaturedPartners.length > 0 && (
+        {partners?.notFeaturedPartners && partners.notFeaturedPartners.data.length > 0 && (
           <div className="mt-12 flex flex-col space-y-3">
-            {partners.notFeaturedPartners.map((partner) => (
+            {partners.notFeaturedPartners.data.map((partner) => (
               <Partner
                 key={partner?.attributes?.title}
                 title={partner?.attributes?.title || ''}

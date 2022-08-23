@@ -1,4 +1,4 @@
-import { BlogPostBySlugQuery, BlogPostEntity, FooterEntity, FooterQuery, MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
+import { BlogPostEntity, FooterEntity, MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
   const { slug } = ctx.params
 
   const blogPostResponse = await client.BlogPostBySlug({ slug })
-  const blogPostBySlug = blogPostResponse.blogPosts?.data[0];
+  const blogPostBySlug = blogPostResponse.blogPosts?.data[0]
   const { menus } = await client.Menus({ locale })
   const { footer } = await client.Footer({ locale })
   const translations = (await serverSideTranslations(locale, [

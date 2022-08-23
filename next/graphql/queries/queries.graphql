@@ -34,7 +34,7 @@ query Footer($locale: I18NLocaleCode!) {
   }
 }
 
-query HomePage($locale: I18NLocaleCode!) {
+query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
   homePage(locale: $locale) {
     data {
       attributes {
@@ -108,6 +108,58 @@ query HomePage($locale: I18NLocaleCode!) {
       ...Menu
     }
   }
+  upcomingEvents: events(
+    locale: $locale
+    sort: ["dateFrom:asc"]
+    pagination: { start: 0, limit: 4 }
+    filters: { dateFrom: { gte: $date } }
+  ) {
+    data {
+      ...EventCardEntity
+    }
+  }
+  promotedNews: pages(
+    filters: { promoted: { eq: true }, layout: { eq: "news" } }
+    locale: $locale
+  ) {
+    data {
+      ...PromoNewsCard
+    }
+  }
+  promotedEvents: events(
+    locale: $locale
+    sort: "dateFrom:asc"
+    filters: { promoted: { eq: true } }
+  ) {
+    data {
+      ...EventCardEntity
+    }
+  }
+  latestNews: pages(
+    filters: { layout: { eq: "news" } }
+    locale: $locale
+    pagination: { start: 0, limit: 4 }
+    sort: "publishedAt:desc"
+  ) {
+    data {
+      ...PageEntity
+    }
+  }
+  bookTags {
+    data {
+      ...BookTagEntity
+    }
+  }
+  localityPages: pages(
+    filters: { layout: { eq: "locality" } }
+    locale: $locale
+    pagination: { start: 0, limit: 4 }
+    sort: ["publishedAt:asc"]
+  ) {
+    data {
+      ...PageEntity
+    }
+  }
   footer(locale: $locale) {
     data {
       id
@@ -141,12 +193,15 @@ query HomePage($locale: I18NLocaleCode!) {
   }
 }
 
-query BookTags {
-  bookTags {
-    data {
-      attributes {
-        displayName
-        slug
+fragment PremiseEntity on PremiseEntity {
+  id
+  attributes {
+    title
+    address
+    url
+    image {
+      data {
+        ...ImageEntity
       }
     }
   }
@@ -155,21 +210,7 @@ query BookTags {
 query Premises($locale: I18NLocaleCode!) {
   premises(locale: $locale) {
     data {
-      attributes {
-        title
-        address
-        url
-        image {
-          data {
-            attributes {
-              width
-              height
-              url
-              alternativeText
-            }
-          }
-        }
-      }
+      ...PremiseEntity
     }
   }
 }
@@ -178,6 +219,19 @@ query Menus($locale: I18NLocaleCode!) {
   menus(locale: $locale, sort: ["order:asc"]) {
     data {
       ...Menu
+    }
+  }
+}
+
+query LatestNews($locale: I18NLocaleCode!) {
+  pages(
+    filters: { layout: { eq: "news" } }
+    locale: $locale
+    pagination: { start: 0, limit: 4 }
+    sort: "publishedAt:desc"
+  ) {
+    data {
+      ...PageEntity
     }
   }
 }
@@ -214,6 +268,14 @@ fragment MenuSection on ComponentMenuSections {
         ...SectionLinkPage
       }
     }
+  }
+}
+
+fragment BookTagEntity on BookTagEntity {
+  id
+  attributes {
+    displayName
+    slug
   }
 }
 

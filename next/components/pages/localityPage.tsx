@@ -6,11 +6,9 @@ import Sections from '../Molecules/Sections'
 
 export interface PageProps {
   page: PageEntity
-  events: EventCardEntityFragment[]
-  eventsListingUrl: string
 }
 
-function LocalityPage({ page, events, eventsListingUrl }: PageProps) {
+function LocalityPage({ page }: PageProps) {
   return (
     <>
       <SectionContainer>
@@ -19,11 +17,7 @@ function LocalityPage({ page, events, eventsListingUrl }: PageProps) {
       <SectionContainer>
         <div className="border-b border-gray-900">
           {page?.attributes?.sections && (
-            <Sections
-              sections={page?.attributes?.sections}
-              events={events}
-              eventsListingUrl={eventsListingUrl}
-            />
+            <Sections sections={page?.attributes?.sections} events={[]} eventsListingUrl={''} />
           )}
         </div>
       </SectionContainer>

@@ -45,7 +45,7 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
       {fields.map((field, index) => (
         <div
           key={field.id}
-          className={cx('flex flex-col gap-y-6 w-full border p-6 mb-6 relative', {
+          className={cx('relative mb-6 flex w-full flex-col gap-y-6 border p-6', {
             'border-input-stroke': !errors?.books?.[index],
             'base-input--with-error': errors?.books?.[index],
           })}
@@ -95,12 +95,12 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
                 inputClassName="px-3 w-full"
                 required
                 hasError={errors.books && !!errors.books[index]?.title}
-                errorMessage={(errors.books && 'errors.books[index]?.title?.message') ?? ''}
+                errorMessage={errors.books && 'errors.books[index]?.title?.message'}
                 {...field}
               />
             )}
           />
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row items-center justify-between">
+          <div className="flex flex-col items-center justify-between gap-y-6 gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name={`books[${index}].placeOfIssue` as const}
@@ -128,7 +128,7 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
               )}
             />
           </div>
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row items-center justify-between">
+          <div className="flex flex-col items-center justify-between gap-y-6 gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name={`books[${index}].packageNumber` as const}
@@ -178,7 +178,7 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
           icon={<PlusIcon />}
           iconPosition="left"
           variant="plain-primary"
-          className="font-medium text-xs mb-4"
+          className="mb-4 text-xs font-medium"
           onClick={(e) => handleAddBook(e)}
         >
           {t('add_book')}
