@@ -9,6 +9,7 @@ const {
 } = require("./helpers/relationHelpers");
 
 var relations = [];
+// const skipAttributes = ["created_by", "updated_by"];
 const skipAttributes = [];
 
 async function migrateModels(tables) {
@@ -40,29 +41,29 @@ async function migrateModels(tables) {
         omitAttributes.push(key);
       }
     }
-    await migrate(modelDef.collectionName, modelDef.collectionName
-    //   , (item) => {
-    //   if (modelDef.options.timestamps === false) {
-    //     return migrateItem(item);
-    //   } else {
-    //     const timestamps =
-    //       modelDef.options.timestamps === true
-    //         ? ["created_at", "updated_at"]
-    //         : modelDef.options.timestamps;
-    //     const [createdAt, updatedAt] = timestamps;
-    //     const newItem = {
-    //       ...item,
-    //       created_at: item[createdAt],
-    //       updated_at: item[updatedAt],
-    //     };
+    await migrate(modelDef.collectionName, modelDef.collectionName, (item) => {
+      if (modelDef.options.timestamps === false) {
+        return migrateItem(item);
+      } else {
+        const timestamps =
+          modelDef.options.timestamps === true
+            ? ["created_at", "updated_at"]
+            : modelDef.options.timestamps;
+        const [createdAt, updatedAt] = timestamps;
 
-    //     return migrateItem(
-    //       omit(newItem, [...omitAttributes, createdAt, updatedAt])
-    //     );
-    //   }
-    // }
-    );
+        const newItem = {
+          ...item,
+          created_at: item[createdAt],
+          updated_at: item[updatedAt],
+        };
 
+        let omitFields = [...omitAttributes];
+        if(createdAt != "created_at") omitFields.push(createdAt);
+        if(updatedAt != "updated_at") omitFields.push(updatedAt);
+
+        return migrateItem(omit(newItem, omitFields));
+      }
+    });
   }
   await migrateRelations(tables, relations);
 }
