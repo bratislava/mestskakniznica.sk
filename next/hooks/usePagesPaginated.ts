@@ -35,6 +35,7 @@ export const usePagesPaginated = ({
     (_key, variables) => client.PagesByLayoutPaginated(variables)
   )
 
+  // preparation for infinite loading
   const filteredPages = keepPreviousItems
     ? data?.map((listingPage) => listingPage.pages?.data).flat() ?? []
     : last(data)?.pages?.data

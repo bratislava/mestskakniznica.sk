@@ -28,7 +28,6 @@ const nextConfig = {
           source: '/uploads/:file',
           destination: `${process.env.STRAPI_URL}/uploads/:file`,
         },
-        // OPOpacAC books
         {
           source: '/opacBookNews',
           destination:

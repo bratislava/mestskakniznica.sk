@@ -54,7 +54,7 @@ function Events({ page }: PageProps) {
   const [openFilterModal, setOpenFilterModal] = useState<boolean>(false)
   const [bodyStyle, setBodyStyle] = useState('')
 
-  // TODO show loading and error, add LoadMore button - check the hook for mor useful variables
+  // TODO show loading and error, add LoadMore button - check the hook for more useful variables
   const { setSize, filteredEvents, strapiMetaPagination } = useEventsPaginated({
     locale,
     filters: activeFilters || {},

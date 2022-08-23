@@ -26,7 +26,7 @@ function NewsListingPage({ page }: PageProps) {
   )
   const totalCount = newsCount?.pages?.meta.pagination.total ?? 0
 
-  // TODO show loading and error, add LoadMore button - check the hook for mor useful variables
+  // TODO show loading and error, add LoadMore button - check the hook for more useful variables
   const { setSize, filteredPages, strapiMetaPagination } = usePagesPaginated({
     locale,
     layout: Enum_Page_Layout.News,
