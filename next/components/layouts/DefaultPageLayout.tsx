@@ -113,7 +113,7 @@ function DefaultPageLayout({
               }}
               VOP={{
                 title: t('VOP'),
-                href: '#',
+                href: 'https://cdn-api.bratislava.sk/strapi-city-library/upload/vyhlasenie_o_pristupnosti_mkb_a75189f26f.pdf',
               }}
               copyrightText={`${new Date().getFullYear()} ${t('copyright')}`}
               facebookUrl="https://sk-sk.facebook.com/mestskakniznica/"
