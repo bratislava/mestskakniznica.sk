@@ -11,6 +11,7 @@ export const dateTimeString = (date: Date | string, dateTo: Date | string, local
   const newDate = new Date(date)
   const dayFrom = newDate.toLocaleString('en-US', { day: 'numeric' })
   const monthFrom = newDate.toLocaleString('en-US', { month: 'numeric' })
+  const yearFrom = newDate.toLocaleString('en-US', { year: 'numeric' })
   const fromTime = newDate.toLocaleString('en-US', {
     hour: 'numeric',
     minute: 'numeric',
@@ -27,6 +28,16 @@ export const dateTimeString = (date: Date | string, dateTo: Date | string, local
     hour12: false,
   })
 
+  if (!dateTo) {
+    return locale == 'sk'
+      ? `${dayFrom}. ${monthFrom}. ${yearFrom}, ${fromTime}`
+      : `${monthFrom}. ${dayFrom}. ${yearFrom}, ${fromTime}`
+  }
+
+  if (dayFrom === dayTo && monthFrom === monthTo && fromTime === toTime)
+    return locale == 'sk'
+      ? `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime}`
+      : `${monthFrom}. ${dayFrom}. ${yearTo}, ${fromTime}`
   if (dayFrom === dayTo && monthFrom === monthTo)
     return locale == 'sk'
       ? `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime} - ${toTime}`
