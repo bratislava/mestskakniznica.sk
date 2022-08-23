@@ -195,7 +195,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       props: {
         slug,
         page: pageBySlug || null,
-        upcomingEvents,
+        upcomingEvents: upcomingEvents?.data,
         eventDetail,
         locale,
         menus: menus?.data ?? [],
