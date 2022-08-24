@@ -4542,7 +4542,7 @@ export const MenuSectionFragmentDoc = gql`
       ...PageWithBaseFieldsEntity
     }
   }
-  sectionLinks {
+  sectionLinks(pagination: {limit: 20}) {
     id
     sectionLinkTitle
     sectionLinkPage {
@@ -4908,6 +4908,7 @@ export const SortedPartnersDocument = gql`
     query SortedPartners($locale: I18NLocaleCode!) {
   featuredPartners: partners(
     locale: $locale
+    pagination: {limit: 100}
     filters: {featured: {eq: true}}
     sort: "priority:asc"
   ) {
@@ -4917,6 +4918,7 @@ export const SortedPartnersDocument = gql`
   }
   notFeaturedPartners: partners(
     locale: $locale
+    pagination: {limit: 100}
     filters: {featured: {eq: false}}
     sort: "priority:asc"
   ) {
@@ -4975,12 +4977,12 @@ export const HomePageDocument = gql`
               ...PageWithBaseFieldsEntity
             }
           }
-          faqs {
+          faqs(pagination: {limit: 100}) {
             id
             question
             answer
           }
-          ctas {
+          ctas(pagination: {limit: 100}) {
             id
             title
             ctaRedirectTo {
@@ -5074,7 +5076,7 @@ export const HomePageDocument = gql`
       ...PageEntity
     }
   }
-  bookTags {
+  bookTags(pagination: {limit: 10}) {
     data {
       ...BookTagEntity
     }
@@ -5082,7 +5084,7 @@ export const HomePageDocument = gql`
   localityPages: pages(
     filters: {layout: {eq: "locality"}}
     locale: $locale
-    pagination: {start: 0, limit: 4}
+    pagination: {start: 0, limit: 10}
     sort: ["publishedAt:asc"]
   ) {
     data {

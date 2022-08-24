@@ -1,6 +1,7 @@
 query SortedPartners($locale: I18NLocaleCode!) {
   featuredPartners: partners(
     locale: $locale
+    pagination: { limit: 100 }
     filters: { featured: { eq: true } }
     sort: "priority:asc"
   ) {
@@ -10,6 +11,7 @@ query SortedPartners($locale: I18NLocaleCode!) {
   }
   notFeaturedPartners: partners(
     locale: $locale
+    pagination: { limit: 100 }
     filters: { featured: { eq: false } }
     sort: "priority:asc"
   ) {

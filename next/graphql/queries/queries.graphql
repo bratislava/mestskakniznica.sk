@@ -46,12 +46,12 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
               ...PageWithBaseFieldsEntity
             }
           }
-          faqs {
+          faqs(pagination: { limit: 100 }) {
             id
             question
             answer
           }
-          ctas {
+          ctas(pagination: { limit: 100 }) {
             id
             title
             ctaRedirectTo {
@@ -145,7 +145,7 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
       ...PageEntity
     }
   }
-  bookTags {
+  bookTags(pagination: { limit: 10 }) {
     data {
       ...BookTagEntity
     }
@@ -153,7 +153,7 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
   localityPages: pages(
     filters: { layout: { eq: "locality" } }
     locale: $locale
-    pagination: { start: 0, limit: 4 }
+    pagination: { start: 0, limit: 10 }
     sort: ["publishedAt:asc"]
   ) {
     data {
@@ -260,7 +260,7 @@ fragment MenuSection on ComponentMenuSections {
       ...PageWithBaseFieldsEntity
     }
   }
-  sectionLinks {
+  sectionLinks(pagination: { limit: 20 }) {
     id
     sectionLinkTitle
     sectionLinkPage {
