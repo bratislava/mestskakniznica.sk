@@ -1,4 +1,7 @@
 import XMLConvertor from 'xml-js'
+import { isServer } from './utils'
+
+const bookNewsUrl = 'https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchNews=60&rtrnxml=true'
 
 export interface OpacBook {
   title: { _text: string }
@@ -15,7 +18,9 @@ export interface Opac {
 
 export const getOpacBooks = async () => {
   try {
-    const response = await fetch('/opacBookNews')
+    // when called from frontend this is proxied through next server to avoid CORS - search for opacBookNews in next.js config
+    const response = await fetch(isServer() ? bookNewsUrl : '/opacBookNews')
+    console.log(response)
     const text = await response.text()
     const opac: Opac = XMLConvertor.xml2js(text, { compact: true }) as Opac
 
@@ -30,6 +35,7 @@ export const getOpacBooks = async () => {
       }
     })
   } catch (error) {
+    console.error(error)
     return []
   }
 }

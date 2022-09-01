@@ -18,29 +18,35 @@ export interface ICategory {
 }
 
 export function Sidebar({ className, title, href, categories, activeCategory }: SidebarProps) {
-  return <div className={className}>
-    <Link href={href} variant="plain" className="text-base flex items-center gap-x-4">
-      <ArrowLeft />
-      {title}
-    </Link>
-    <div className={cx('flex flex-col')}>
-      {categories.map((category, i) => {
-        const isActive = activeCategory === i
-        return (
-          <Link
-            key={category.title}
-            href={category.href}
-            variant="plain"
-            className={cx('py-3 border-b text-base tranform transition-all duration-200 ease-linear', {
-              'border-input-stroke text-gray-universal-70': !isActive,
-              'border-gray-universal-100 text-gray-universal-100 flex items-center gap-x-5.5 pl-1.5': isActive,
-            })}
-          >
-            {isActive && <ChevronRight />}
-            {category.title}
-          </Link>
-        )
-      })}
+  return (
+    <div className={className}>
+      <Link href={href} variant="plain" className="flex items-center gap-x-4 text-base">
+        <ArrowLeft />
+        {title}
+      </Link>
+      <div className={cx('flex flex-col')}>
+        {categories.map((category, i) => {
+          const isActive = activeCategory === i
+          return (
+            <Link
+              key={category.title}
+              href={category.href}
+              variant="plain"
+              className={cx(
+                'tranform border-b py-3 text-base transition-all duration-200 ease-linear',
+                {
+                  'border-input-stroke text-gray-universal-70': !isActive,
+                  'flex items-center gap-x-5.5 border-gray-universal-100 pl-1.5 text-gray-universal-100':
+                    isActive,
+                }
+              )}
+            >
+              {isActive && <ChevronRight />}
+              {category.title}
+            </Link>
+          )
+        })}
+      </div>
     </div>
-  </div>
+  )
 }

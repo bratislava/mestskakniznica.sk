@@ -4168,7 +4168,7 @@ export const CategoryFragmentDoc = gql`
     fragment Category on Category {
   title
   priority
-  pages {
+  pages(pagination: {limit: 20}) {
     ...PageLink
   }
   pageLink {

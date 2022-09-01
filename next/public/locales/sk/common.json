@@ -121,5 +121,6 @@
   "currentPage": "Zadajte číslo aktuálnej strany",
   "navAriaLabel": "Hlavná navigácia",
   "goToTopAriaLabel": "Vrátiť sa na začiatok stránky",
-  "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/"
+  "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/",
+  "eventsAllSlug": "/zazite/podujatia"
 }

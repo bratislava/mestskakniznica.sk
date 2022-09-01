@@ -92,7 +92,8 @@ function EventDetails({ event }: PageProps) {
             {dateTimeString(event?.attributes?.dateFrom, event?.attributes?.dateTo, locale)}
           </div>
         </div>
-        <div className="col-span-3 mt-4 w-full lg:m-auto">
+        {/* TODO validate this - what is event reservation and is it used ? */}
+        {/* <div className="col-span-3 mt-4 w-full lg:m-auto">
           {!isEventInThePast && (
             <a
               href="#detail_podujatia"
@@ -101,7 +102,7 @@ function EventDetails({ event }: PageProps) {
               {t('eventReservation')}
             </a>
           )}
-        </div>
+        </div> */}
       </div>
 
       <div className="flex grid-cols-9 flex-col-reverse gap-x-16 pt-10 lg:grid">
@@ -254,7 +255,7 @@ function EventDetails({ event }: PageProps) {
                   classWrapper="flex pt-5"
                   svgIcon={<Euro />}
                   text={
-                    event?.attributes?.price == 0
+                    !event?.attributes?.price || event?.attributes?.price == 0
                       ? t('noCharge').toString()
                       : event?.attributes?.price?.toString() || ''
                   }

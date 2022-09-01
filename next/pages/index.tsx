@@ -205,7 +205,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         Seo: homePage?.data?.attributes?.Seo,
         ...translations,
       },
-      revalidate: 86400,
+      revalidate: 3600, // revalidates every hour
     }
   } catch (iError) {
     console.error(iError)
@@ -216,7 +216,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         error,
         ...translations,
       },
-      revalidate: 86400,
+      revalidate: 180, // in case of an error, revalidates in 3 minutes
     }
   }
 }
