@@ -1,33 +1,140 @@
-name: Deploy code to kubernetes
-on: [pull_request]
-env:
-  DOCKER_REGISTRY: harbor.bratislava.sk
-  DOCKER_USERNAME: ${{ github.repository_owner }}
-  DOCKER_PASSWORD: ${{ secrets.HARBOR_TOKEN }}
+name: Strapi/Next deploy pipeline
+on:
+  push:
+    tags:
+      - 'dev**'
+      - 'staging**'
+      - 'prod**'
+  pull_request:
+    types:
+      - closed
+
 jobs:
-  deploy:
-    name: Build and deploy
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./next
-    steps:
-    - uses: actions/checkout@v3
-    - name: Install Prerequisites -  Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
-    - name: Install Prerequisites - envsubst
-      run: |
-           sudo apt-get update
-           sudo apt-get install gettext-base    
-    - run: yarn --frozen-lockfile
-    - run: yarn global add bratislava/bratiska-cli
-    - run: git fetch
-    - name: Login to Docker registry
-      uses: docker/login-action@v1
-      with:
-        registry: ${{ env.DOCKER_REGISTRY }}
-        username: ${{ env.DOCKER_USERNAME }}
-        password: ${{ env.DOCKER_PASSWORD }}
-    - run: bratiska-cli deploy --dry_run
+  conditions:
+    name: Check for cluster conditions
+    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions.yml@stable
+
+  deploy-dev:
+    name: after dev Strapi deploy Next
+    if: needs.conditions.outputs.dev == 'true'
+    needs: [conditions, deploy-dev-strapi]
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    with:
+      directory: next/
+      cluster: tkg-innov-dev
+      url: https://tkg.dev.bratislava.sk
+      debug: --debug
+    secrets:
+      service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
+      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+  deploy-dev-strapi:
+    name: dev Strapi
+    needs: conditions
+    if: needs.conditions.outputs.dev-strapi == 'true'
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    with:
+      directory: strapi/
+      cluster: tkg-innov-dev
+      url: https://tkg.dev.bratislava.sk
+    secrets:
+      service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
+      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+  deploy-dev-next:
+    name: dev Next
+    needs: conditions
+    if: needs.conditions.outputs.dev-next == 'true'
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    with:
+      directory: next/
+      cluster: tkg-innov-dev
+      url: https://tkg.dev.bratislava.sk
+    secrets:
+      service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
+      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+  deploy-staging:
+    name: after staging Strapi deploy Next
+    if: needs.conditions.outputs.staging == 'true'
+    needs: [conditions, deploy-staging-strapi]
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    with:
+      directory: next/
+      cluster: tkg-innov-staging
+      url: https://tkg.staging.bratislava.sk
+      flag: --staging
+    secrets:
+      service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
+      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+  deploy-staging-strapi:
+    name: staging Strapi
+    needs: conditions
+    if: needs.conditions.outputs.staging-strapi == 'true'
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    with:
+      directory: strapi/
+      cluster: tkg-innov-staging
+      url: https://tkg.staging.bratislava.sk
+      flag: --staging
+    secrets:
+      service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
+      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+  deploy-staging-next:
+    name: staging Next
+    needs: conditions
+    if: needs.conditions.outputs.staging-next == 'true'
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    with:
+      directory: next/
+      cluster: tkg-innov-staging
+      url: https://tkg.staging.bratislava.sk
+      flag: --staging
+    secrets:
+      service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
+      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+  deploy-prod:
+    name: after prod Strapi deploy Next
+    if: needs.conditions.outputs.prod == 'true'
+    needs: [conditions, deploy-prod-strapi]
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    with:
+      directory: next/
+      cluster: tkg-innov-prod
+      url: https://tkg.bratislava.sk
+      flag: --production
+    secrets:
+      service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
+      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+  deploy-prod-strapi:
+    name: prod Strapi
+    needs: conditions
+    if: needs.conditions.outputs.prod-strapi == 'true'
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    with:
+      directory: strapi/
+      cluster: tkg-innov-prod
+      url: https://tkg.bratislava.sk
+      flag: --production
+      debug: --debug
+    secrets:
+      service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
+      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+  deploy-prod-next:
+    name: prod Next
+    needs: conditions
+    if: needs.conditions.outputs.prod-next == 'true'
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    with:
+      directory: next/
+      cluster: tkg-innov-prod
+      url: https://tkg.bratislava.sk
+      flag: --production
+    secrets:
+      service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
+      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
