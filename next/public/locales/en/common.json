@@ -122,5 +122,7 @@
   "navAriaLabel": "Main",
   "goToTopAriaLabel": "Go to top header",
   "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/",
-  "eventsAllSlug": "/experience/events"
+  "eventsAllSlug": "/experience/events",
+  "eventListImagePlaceholder": "Event card image",
+  "eventDetailImagePlaceholder": "Event image"
 }

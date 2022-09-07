@@ -122,5 +122,7 @@
   "navAriaLabel": "Hlavná navigácia",
   "goToTopAriaLabel": "Vrátiť sa na začiatok stránky",
   "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/",
-  "eventsAllSlug": "/zazite/podujatia"
+  "eventsAllSlug": "/zazite/podujatia",
+  "eventListImagePlaceholder": "Obrázok karty podujatia",
+  "eventDetailImagePlaceholder": "Obrázok podujatia"
 }
