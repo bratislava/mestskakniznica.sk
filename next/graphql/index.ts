@@ -4721,7 +4721,7 @@ export const EventPropertiesDocument = gql`
 }
     `;
 export const EventListDocument = gql`
-    query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $filters: EventFiltersInput, $sort: String = "publishedAt:desc") {
+    query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $filters: EventFiltersInput, $sort: String = "dateFrom:desc") {
   events(
     locale: $locale
     sort: [$sort]

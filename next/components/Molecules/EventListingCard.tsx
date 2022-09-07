@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { dateTimeString } from '../../utils/utils'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
+// import Placeholder from '../../assets/images/book-reader.png'
 
 interface EventListingProps {
   event: EventCardEntityFragment
@@ -22,6 +23,7 @@ function EventListingCard({ event: { attributes } }: EventListingProps) {
             src={
               attributes?.listingImage?.data?.attributes?.url ||
               attributes?.coverImage?.data?.attributes?.url
+              // || Placeholder.src // TODO should add once legit placeholder is available
             }
             height="200px"
           />
