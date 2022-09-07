@@ -78,7 +78,7 @@ function EventDetails({ event }: PageProps) {
         src={bannerProps.url}
         width={bannerProps.width || 0}
         height={bannerProps.height || 0}
-        alt={bannerProps.alternativeText}
+        alt={bannerProps.alternativeText || t('eventDetailImagePlaceholder')}
         className="object-cover object-center md:h-[300px] lg:h-[400px]"
       />
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
