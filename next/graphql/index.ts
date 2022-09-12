@@ -4001,7 +4001,7 @@ export const SectionsFragmentDoc = gql`
     flatText {
       ...FlatText
     }
-    tableRows {
+    tableRows(pagination: {limit: 100}) {
       ...TableRow
     }
     forms {
@@ -5076,7 +5076,7 @@ export const HomePageDocument = gql`
       ...PageEntity
     }
   }
-  bookTags(pagination: {limit: 10}) {
+  bookTags(pagination: {limit: 100}) {
     data {
       ...BookTagEntity
     }
@@ -5084,7 +5084,7 @@ export const HomePageDocument = gql`
   localityPages: pages(
     filters: {layout: {eq: "locality"}}
     locale: $locale
-    pagination: {start: 0, limit: 10}
+    pagination: {start: 0, limit: 100}
     sort: ["publishedAt:asc"]
   ) {
     data {

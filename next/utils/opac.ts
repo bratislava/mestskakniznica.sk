@@ -20,7 +20,6 @@ export const getOpacBooks = async () => {
   try {
     // when called from frontend this is proxied through next server to avoid CORS - search for opacBookNews in next.js config
     const response = await fetch(isServer() ? bookNewsUrl : '/opacBookNews')
-    console.log(response)
     const text = await response.text()
     const opac: Opac = XMLConvertor.xml2js(text, { compact: true }) as Opac
 
