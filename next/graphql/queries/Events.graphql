@@ -145,7 +145,7 @@ query EventList(
   $start: Int
   $limit: Int
   $filters: EventFiltersInput
-  $sort: String = "publishedAt:desc"
+  $sort: String = "dateFrom:desc"
 ) {
   events(
     locale: $locale

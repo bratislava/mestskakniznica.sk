@@ -4,7 +4,7 @@ import {
   EventFiltersInput,
   PageEntity,
 } from '@bratislava/strapi-sdk-city-library'
-import { Pagination, SectionContainer } from '@bratislava/ui-city-library'
+import { LoadingSpinner, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { client } from '@utils/gql'
 import enUs from 'date-fns/locale/en-US'
 import sk from 'date-fns/locale/sk'
@@ -60,7 +60,7 @@ function Events({ page }: PageProps) {
   const [bodyStyle, setBodyStyle] = useState('')
 
   // TODO show loading and error, add LoadMore button - check the hook for more useful variables
-  const { setSize, filteredEvents, strapiMetaPagination, isLoadingInitialData } =
+  const { setSize, filteredEvents, strapiMetaPagination, isLoadingMore, isLoadingInitialData } =
     useEventsPaginated({
       locale,
       filters: activeFilters || {},
@@ -351,14 +351,18 @@ function Events({ page }: PageProps) {
             ))}
           </div>
           <div className="flex justify-center pt-6 lg:justify-end">
-            <Pagination
-              value={strapiMetaPagination?.page || 0}
-              onChangeNumber={handlePageChange}
-              max={strapiMetaPagination?.pageCount || 0}
-              previousButtonAriaLabel={t('previousPage')}
-              nextButtonAriaLabel={t('nextPage')}
-              currentInputAriaLabel={t('currentPage')}
-            />
+            {isLoadingInitialData || isLoadingMore ? (
+              <LoadingSpinner size="small" />
+            ) : (
+              <Pagination
+                value={strapiMetaPagination?.page || 0}
+                onChangeNumber={handlePageChange}
+                max={strapiMetaPagination?.pageCount || 0}
+                previousButtonAriaLabel={t('previousPage')}
+                nextButtonAriaLabel={t('nextPage')}
+                currentInputAriaLabel={t('currentPage')}
+              />
+            )}
           </div>
         </div>
 

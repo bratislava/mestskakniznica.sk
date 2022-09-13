@@ -108,7 +108,7 @@ fragment PageLocalizationEntity on PageEntity {
 fragment Category on Category {
   title
   priority
-  pages {
+  pages(pagination: { limit: 20 }) {
     ...PageLink
   }
   pageLink {

@@ -4,12 +4,15 @@ import Link from 'next/link'
 import { dateTimeString } from '../../utils/utils'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
+import Placeholder from '../../assets/images/event-list-placeholder.jpg'
+import { useTranslation } from 'next-i18next'
 
 interface EventListingProps {
   event: EventCardEntityFragment
 }
 
 function EventListingCard({ event: { attributes } }: EventListingProps) {
+  const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
   return (
@@ -18,10 +21,11 @@ function EventListingCard({ event: { attributes } }: EventListingProps) {
         <div className="w-full">
           <img
             className="h-[200px] w-full flex-1 object-cover"
-            alt={'Event card'}
+            alt={t('eventDetailImagePlaceholder')}
             src={
               attributes?.listingImage?.data?.attributes?.url ||
-              attributes?.coverImage?.data?.attributes?.url
+              attributes?.coverImage?.data?.attributes?.url ||
+              Placeholder.src
             }
             height="200px"
           />

@@ -29,28 +29,17 @@ export const dateTimeString = (date: Date | string, dateTo: Date | string, local
   })
 
   if (!dateTo) {
-    return locale == 'sk'
-      ? `${dayFrom}. ${monthFrom}. ${yearFrom}, ${fromTime}`
-      : `${monthFrom}. ${dayFrom}. ${yearFrom}, ${fromTime}`
+    return `${dayFrom}. ${monthFrom}. ${yearFrom}, ${fromTime}`
   }
 
   if (dayFrom === dayTo && monthFrom === monthTo && fromTime === toTime)
-    return locale == 'sk'
-      ? `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime}`
-      : `${monthFrom}. ${dayFrom}. ${yearTo}, ${fromTime}`
+    return `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime}`
   if (dayFrom === dayTo && monthFrom === monthTo)
-    return locale == 'sk'
-      ? `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime} - ${toTime}`
-      : `${monthFrom}. ${dayFrom}. ${yearTo}, ${fromTime} - ${toTime}`
+    return `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime} - ${toTime}`
   if (monthFrom === monthTo)
-    return locale == 'sk'
-      ? `${dayFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
-      : `${monthFrom}. ${dayFrom}. - ${monthTo}. ${dayTo}. ${yearTo}, ${fromTime} - ${toTime}`
+    return `${dayFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
 
-  if (locale == 'sk') {
-    return `${dayFrom}. ${monthFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
-  }
-  return `${monthFrom}. ${dayFrom}. - ${monthTo}. ${dayTo}. ${yearTo}, ${fromTime} - ${toTime}`
+  return `${dayFrom}. ${monthFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
 }
 
 export const arrayify = (input: string | string[] | undefined | null) => {
@@ -292,13 +281,10 @@ export const isEventPast = (dateTo: Date | string | null): boolean => {
   return today > endDate
 }
 
-// TEMP fix for build step where tokenized var isn't replaced until we figure out a better way
+// FIXME shouldn't be needed anymore - kept for a little while longer as constantly false in case we need to revert
 export const shouldSkipStaticPaths = () => {
-  return true
+  return false
   // return process.env.NODE_ENV === 'development' || tokenizedSrapiUrlNoAvailable()
 }
 
-// this happens in build environment because token replacement happens only once dockerized
-export const tokenizedSrapiUrlNoAvailable = () => {
-  return process.env.STRAPI_URL === '%{STRAPI_URL}%'
-}
+export const isServer = () => typeof window === 'undefined'

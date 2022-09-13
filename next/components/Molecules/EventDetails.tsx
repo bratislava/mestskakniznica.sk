@@ -20,6 +20,7 @@ import Clickable from '../Atoms/EventClickable'
 import DetailsRow from '../Atoms/EventDetailsRow'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
+import Placeholder from '../../assets/images/event-detail-placeholder.jpg'
 
 export interface PageProps {
   event?: EventEntityFragment
@@ -62,13 +63,22 @@ function EventDetails({ event }: PageProps) {
     setIsEventInThePast(isEventPast(event?.attributes?.dateTo))
   }, [event])
 
+  // fallback to placeholder
+  const bannerProps = {
+    url: Placeholder.src,
+    width: Placeholder.width,
+    height: Placeholder.height,
+    alternativeText: t('eventDetailImagePlaceholder'),
+    ...(event?.attributes?.coverImage?.data?.attributes || {}),
+  }
+
   return (
     <>
       <img
-        src={event?.attributes?.coverImage?.data?.attributes?.url}
-        width={event?.attributes?.coverImage?.data?.attributes?.width || 0}
-        height={event?.attributes?.coverImage?.data?.attributes?.height || 0}
-        alt={event?.attributes?.coverImage?.data?.attributes?.alternativeText || 'Event details'}
+        src={bannerProps.url}
+        width={bannerProps.width || 0}
+        height={bannerProps.height || 0}
+        alt={bannerProps.alternativeText || t('eventDetailImagePlaceholder')}
         className="object-cover object-center md:h-[300px] lg:h-[400px]"
       />
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
@@ -92,7 +102,8 @@ function EventDetails({ event }: PageProps) {
             {dateTimeString(event?.attributes?.dateFrom, event?.attributes?.dateTo, locale)}
           </div>
         </div>
-        <div className="col-span-3 mt-4 w-full lg:m-auto">
+        {/* TODO validate this - what is event reservation and is it used ? */}
+        {/* <div className="col-span-3 mt-4 w-full lg:m-auto">
           {!isEventInThePast && (
             <a
               href="#detail_podujatia"
@@ -101,7 +112,7 @@ function EventDetails({ event }: PageProps) {
               {t('eventReservation')}
             </a>
           )}
-        </div>
+        </div> */}
       </div>
 
       <div className="flex grid-cols-9 flex-col-reverse gap-x-16 pt-10 lg:grid">
@@ -254,7 +265,7 @@ function EventDetails({ event }: PageProps) {
                   classWrapper="flex pt-5"
                   svgIcon={<Euro />}
                   text={
-                    event?.attributes?.price == 0
+                    !event?.attributes?.price || event?.attributes?.price == 0
                       ? t('noCharge').toString()
                       : event?.attributes?.price?.toString() || ''
                   }

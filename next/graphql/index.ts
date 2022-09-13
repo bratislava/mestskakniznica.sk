@@ -4001,7 +4001,7 @@ export const SectionsFragmentDoc = gql`
     flatText {
       ...FlatText
     }
-    tableRows {
+    tableRows(pagination: {limit: 100}) {
       ...TableRow
     }
     forms {
@@ -4168,7 +4168,7 @@ export const CategoryFragmentDoc = gql`
     fragment Category on Category {
   title
   priority
-  pages {
+  pages(pagination: {limit: 20}) {
     ...PageLink
   }
   pageLink {
@@ -4721,7 +4721,7 @@ export const EventPropertiesDocument = gql`
 }
     `;
 export const EventListDocument = gql`
-    query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $filters: EventFiltersInput, $sort: String = "publishedAt:desc") {
+    query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $filters: EventFiltersInput, $sort: String = "dateFrom:desc") {
   events(
     locale: $locale
     sort: [$sort]
@@ -5076,7 +5076,7 @@ export const HomePageDocument = gql`
       ...PageEntity
     }
   }
-  bookTags(pagination: {limit: 10}) {
+  bookTags(pagination: {limit: 100}) {
     data {
       ...BookTagEntity
     }
@@ -5084,7 +5084,7 @@ export const HomePageDocument = gql`
   localityPages: pages(
     filters: {layout: {eq: "locality"}}
     locale: $locale
-    pagination: {start: 0, limit: 10}
+    pagination: {start: 0, limit: 100}
     sort: ["publishedAt:asc"]
   ) {
     data {

@@ -44,7 +44,7 @@ export const parsePageLink = (
 
   return {
     title: pageLink.page?.data?.attributes?.title || '',
-    url: pageLink.url ?? pagePath(pageLink?.page?.data?.attributes) ?? '',
+    url: (pageLink.url || pagePath(pageLink?.page?.data?.attributes)) ?? '',
   }
 }
 

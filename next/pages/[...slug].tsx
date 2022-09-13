@@ -109,9 +109,7 @@ function Page({ locale, page, eventDetail, upcomingEvents, menus, footer, error 
   }
 
   if (!pageComponentByLayout && eventDetail) {
-    pageComponentByLayout = (
-      <EventPage event={eventDetail} locale={locale} events={[]} allNewsLink={''} />
-    )
+    pageComponentByLayout = <EventPage event={eventDetail} locale={locale} />
   }
 
   return (
@@ -179,17 +177,22 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       locale,
       date: new Date().toISOString(),
     })
-    const pageBySlug = pages?.data[0]
+    let pageBySlug = pages?.data[0]
 
     let eventDetail: EventEntityFragment | null = null
-    if (!pageBySlug) {
-      const { events: eventResponse } = await client.EventBySlug({ slug })
-      if (eventResponse?.data[0]) {
-        eventDetail = eventResponse.data[0]
-      } else {
-        return { notFound: true } as { notFound: true }
-      }
+    // TODO until we clean up the duplicate event from pages, always trying to find both the page and the event
+    // if (!pageBySlug) {
+    const { events: eventResponse } = await client.EventBySlug({ slug })
+    if (eventResponse?.data[0]) {
+      eventDetail = eventResponse.data[0]
+      pageBySlug = undefined
     }
+    // else {
+    //   return { notFound: true } as { notFound: true }
+    // }
+    // }
+
+    if (!pageBySlug && !eventDetail) return { notFound: true } as { notFound: true }
 
     return {
       props: {

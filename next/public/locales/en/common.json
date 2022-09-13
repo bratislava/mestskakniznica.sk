@@ -124,5 +124,8 @@
   "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/",
   "eventsArchived": "Archived events",
   "eventsUpcoming": "Upcoming events",
-  "eventsEmpty": "No events found"
+  "eventsEmpty": "No events found",
+  "eventsAllSlug": "/experience/events",
+  "eventListImagePlaceholder": "Event card image",
+  "eventDetailImagePlaceholder": "Event image"
 }

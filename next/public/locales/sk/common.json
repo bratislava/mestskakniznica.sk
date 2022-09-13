@@ -124,5 +124,8 @@
   "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/",
   "eventsArchived": "Archivované udalosti",
   "eventsUpcoming": "Budúce udalosti",
-  "eventsEmpty": "Nenašli sa žiadne podujatia"
+  "eventsEmpty": "Nenašli sa žiadne podujatia",
+  "eventsAllSlug": "/zazite/podujatia",
+  "eventListImagePlaceholder": "Obrázok karty podujatia",
+  "eventDetailImagePlaceholder": "Obrázok podujatia"
 }
