@@ -60,18 +60,12 @@ function Events({ page }: PageProps) {
   const [bodyStyle, setBodyStyle] = useState('')
 
   // TODO show loading and error, add LoadMore button - check the hook for more useful variables
-  const {
-    setSize,
-    filteredEvents,
-    strapiMetaPagination,
-    isLoadingMore,
-    isLoadingInitialData,
-    isLoadingInitialData,
-  } = useEventsPaginated({
-    locale,
-    filters: activeFilters || {},
-    sort: 'dateFrom:desc',
-  })
+  const { setSize, filteredEvents, strapiMetaPagination, isLoadingMore, isLoadingInitialData } =
+    useEventsPaginated({
+      locale,
+      filters: activeFilters || {},
+      sort: 'dateFrom:desc',
+    })
 
   const {
     setSize: upcomingSetSize,
