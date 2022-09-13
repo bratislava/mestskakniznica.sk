@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+// TODO cleanup
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Check tmp secret to confirm this is a valid request
   // TODO generate new secret and move it to envs
@@ -53,6 +54,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await res.unstable_revalidate(urlToRevalidate)
     }
 
+    if (payload?.model === 'event') {
+      const urlToRevalidate = `/${payload?.entry?.slug}`
+      const isEn = payload?.entry?.locale === 'en'
+
+      console.log(`Revalidating ${urlToRevalidate}`)
+      await res.unstable_revalidate(urlToRevalidate)
+
+      if (isEn) {
+        console.log(
+          `Revalidating /en/experience/events, /en/experience due to change in ${urlToRevalidate}`
+        )
+        await res.unstable_revalidate('/en/experience/events')
+        await res.unstable_revalidate('/en/experience')
+      } else {
+        console.log(`Revalidating /zazite/podujatia, /zazite due to change in ${urlToRevalidate}`)
+        await res.unstable_revalidate('/zazite/podujatia')
+        await res.unstable_revalidate('/zazite')
+      }
+    }
+
     if (payload?.model === 'page') {
       const urlToRevalidate = `/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
@@ -60,20 +81,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       console.log(`Revalidating ${urlToRevalidate}`)
       await res.unstable_revalidate(urlToRevalidate)
-
-      if (layout === 'event') {
-        if (isEn) {
-          console.log(
-            `Revalidating /en/experience/events, /en/experience due to change in ${urlToRevalidate}`
-          )
-          await res.unstable_revalidate('/en/experience/events')
-          await res.unstable_revalidate('/en/experience')
-        } else {
-          console.log(`Revalidating /zazite/podujatia, /zazite due to change in ${urlToRevalidate}`)
-          await res.unstable_revalidate('/zazite/podujatia')
-          await res.unstable_revalidate('/zazite')
-        }
-      }
 
       if (layout === 'news') {
         if (isEn) {
