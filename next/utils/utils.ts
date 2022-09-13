@@ -297,3 +297,8 @@ export const shouldSkipStaticPaths = () => {
   return true
   // return process.env.NODE_ENV === 'development' || tokenizedSrapiUrlNoAvailable()
 }
+
+// this happens in build environment because token replacement happens only once dockerized
+export const tokenizedSrapiUrlNoAvailable = () => {
+  return process.env.STRAPI_URL === '%{STRAPI_URL}%'
+}

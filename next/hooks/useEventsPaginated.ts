@@ -3,17 +3,19 @@ import useSWRInfinite from 'swr/infinite'
 import { EventCardEntityFragment, EventFiltersInput } from '../graphql'
 import { client } from '../utils/gql'
 
-export const PAGE_SIZE = 16
+export const PAGE_SIZE = 8
 
 type EventsPaginatedProps = {
   locale: string
   filters: EventFiltersInput
+  sort: string
   keepPreviousItems?: boolean
 }
 
 export const useEventsPaginated = ({
   locale,
   filters,
+  sort = 'dateFrom:asc',
   keepPreviousItems = false,
 }: EventsPaginatedProps) => {
   const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
@@ -27,6 +29,7 @@ export const useEventsPaginated = ({
         limit: PAGE_SIZE,
         start: index * PAGE_SIZE,
         filters,
+        sort: sort,
       }
 
       return ['EventsPaginated', variables]

@@ -9,7 +9,7 @@ import { client } from '@utils/gql'
 import enUs from 'date-fns/locale/en-US'
 import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import useSWR from 'swr'
@@ -21,6 +21,7 @@ import EventFilters from '../Molecules/EventFilters'
 import EventListingCard from '../Molecules/EventListingCard'
 import { FilterModal } from '../Molecules/FilterModal'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
+import cx from 'classnames'
 
 registerLocale('en', enUs)
 registerLocale('sk', sk)
@@ -48,16 +49,33 @@ function Events({ page }: PageProps) {
     (_key, locale) => client.EventProperties({ locale })
   )
 
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
   const [activeFilters, setActiveFilters] = useState<EventFiltersInput | null>(null)
+  const [upcomingActiveFilters, setUpcomingActiveFilters] = useState<EventFiltersInput | null>(null)
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
   const [openFilterModal, setOpenFilterModal] = useState<boolean>(false)
   const [bodyStyle, setBodyStyle] = useState('')
 
   // TODO show loading and error, add LoadMore button - check the hook for more useful variables
-  const { setSize, filteredEvents, strapiMetaPagination } = useEventsPaginated({
+  const { setSize, filteredEvents, strapiMetaPagination, isLoadingInitialData } =
+    useEventsPaginated({
+      locale,
+      filters: activeFilters || {},
+      sort: 'dateFrom:desc',
+    })
+
+  const {
+    setSize: upcomingSetSize,
+    filteredEvents: upcomingFilteredEvents,
+    strapiMetaPagination: upcomingStrapiMetaPagination,
+    isLoadingInitialData: upcomingIsLoadingInitialData,
+  } = useEventsPaginated({
     locale,
-    filters: activeFilters || {},
+    filters: upcomingActiveFilters || {},
+    sort: 'dateFrom:asc',
   })
 
   const toggleFilterModal = () => {
@@ -117,13 +135,22 @@ function Events({ page }: PageProps) {
     setSelectedCategory(null)
     setSelectedLocality(null)
     setActiveFilters(null)
+    setUpcomingActiveFilters(null)
     openFilterModal && toggleFilterModal()
+    filterEvents()
   }
 
   const filterEvents = async () => {
     const currentFilters: EventFiltersInput = {}
-    if (startDate) currentFilters['dateFrom'] = { gte: startDate.toISOString() }
-    if (endDate) currentFilters['dateTo'] = { lte: endDate.toISOString() }
+    if (startDate) {
+      currentFilters['dateFrom'] = { between: [startDate.toISOString(), today.toISOString()] }
+    } else {
+      currentFilters['dateFrom'] = { lt: today.toISOString() }
+    }
+    if (endDate) {
+      const tempDate = new Date(new Date().setDate(endDate.getDate() + 1)) // plus one day
+      currentFilters['dateTo'] = { lte: tempDate.toISOString() }
+    }
     if (selectedEventTags && selectedEventTags.title)
       currentFilters['eventTags'] = { title: { eq: selectedEventTags.title } }
     if (selectedCategory && selectedCategory.title)
@@ -132,10 +159,40 @@ function Events({ page }: PageProps) {
       currentFilters['eventLocality'] = { title: { eq: selectedLocality.title } }
 
     setActiveFilters(currentFilters)
+
+    const upcomingFilters = { ...currentFilters }
+
+    delete upcomingFilters['dateFrom']
+    if (!startDate || startDate <= today) {
+      upcomingFilters['dateFrom'] = { gte: today.toISOString() }
+    } else {
+      upcomingFilters['dateFrom'] = { gte: startDate.toISOString() }
+    }
+
+    setUpcomingActiveFilters(upcomingFilters)
+  }
+
+  useEffect(() => {
+    console.log('onload')
+    filterEvents()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // TODO run only once
+
+  const areThereAnyEvents = () => {
+    return (
+      filteredEvents?.length ||
+      upcomingFilteredEvents?.length ||
+      isLoadingInitialData ||
+      upcomingIsLoadingInitialData
+    )
   }
 
   const handlePageChange = async (page: number) => {
     setSize(page)
+  }
+
+  const handleUpcomingPageChange = async (page: number) => {
+    upcomingSetSize(page)
   }
 
   // const handleEventSubscription = async () => {
@@ -250,8 +307,41 @@ function Events({ page }: PageProps) {
           </Section>
         )}
 
-        <div className="py-6 lg:py-16">
-          <div className="text-md2">{t('eventsAll')}</div>
+        <div
+          className={cx('py-6 lg:py-16', {
+            'border-gray-universal-100 lg:border-b': filteredEvents?.length,
+            block: upcomingFilteredEvents?.length,
+            hidden: !upcomingFilteredEvents?.length,
+          })}
+        >
+          <div className="text-md2">{t('eventsUpcoming')}</div>
+          <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
+            {upcomingFilteredEvents?.map((event) => (
+              <EventListingCard
+                event={event as EventCardEntityFragment}
+                key={event?.attributes?.slug}
+              />
+            ))}
+          </div>
+          <div className="flex justify-center pt-6 lg:justify-end">
+            <Pagination
+              value={upcomingStrapiMetaPagination?.page || 0}
+              onChangeNumber={handleUpcomingPageChange}
+              max={upcomingStrapiMetaPagination?.pageCount || 0}
+              previousButtonAriaLabel={t('previousPage')}
+              nextButtonAriaLabel={t('nextPage')}
+              currentInputAriaLabel={t('currentPage')}
+            />
+          </div>
+        </div>
+
+        <div
+          className={cx('py-6 lg:py-16 ', {
+            block: filteredEvents?.length,
+            hidden: !filteredEvents?.length,
+          })}
+        >
+          <div className="text-md2">{t('eventsArchived')}</div>
           <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
             {filteredEvents?.map((event) => (
               <EventListingCard
@@ -271,6 +361,8 @@ function Events({ page }: PageProps) {
             />
           </div>
         </div>
+
+        {!areThereAnyEvents() && <div className={'text-center text-md2'}>{t('eventsEmpty')}</div>}
         {/* <Banner
           onBannerClick={handleEventSubscription}
           title={t('eventsDontMiss')}
