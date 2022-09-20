@@ -288,3 +288,5 @@ export const shouldSkipStaticPaths = () => {
 }
 
 export const isServer = () => typeof window === 'undefined'
+
+export const isProductionDeployment = () => process.env.NEXT_PUBLIC_IS_STAGING !== 'true'
