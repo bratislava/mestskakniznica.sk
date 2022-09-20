@@ -22,6 +22,31 @@ Afterward, install `node_modules` with
 yarn install
 ```
 
+## Local installation
+
+You need `node` and `yarn` installed locally.
+
+If you want to start a postgres database and meilisearch instance with correct credentials, simply run:
+
+```bash
+docker-compose up -d
+```
+
+You need `docker` installed locally.
+
+### Meilisearch
+
+After initial `docker-compose up` you have to set keys for meilisearch for both the strapi and nextjs. To get them run the command bellow.
+
+```
+curl --request GET \
+  --url http://localhost:7700/keys \
+  --header 'Authorization: Bearer masterKey' \
+  --header 'Content-Type: application/json' | json_pp
+```
+
+Then use "Default Admin API Key" for strapi in `strapi/.env.local` as `MEILISEARCH_ADMIN_API_KEY` and "Default Search API Key" in `next/.env.local` file as `NEXT_PUBLIC_MEILISEARCH_SEARCH_API_KEY`.
+
 ## Editor setup
 
 We recommend using [VS Code](https://code.visualstudio.com/) with the following extensions installed and formatting your code on save enabled (or, at minimum, formatting before commit):
