@@ -6,11 +6,11 @@ metadata:
   labels:
     service: meilisearch
 spec:
-  replicas: 1
-  serviceName: ${BUILD_REPOSITORY_NAME}-meilisearch
   selector:
     matchLabels:
-      service: meilisearch
+      app: meilisearch
+  replicas: 1
+  serviceName: ${BUILD_REPOSITORY_NAME}-meilisearch
   template:
     metadata:
       labels:
@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: meilisearch
-          image: "getmeili/meilisearch"
+          image: 'getmeili/meilisearch:v0.28.0'
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
@@ -44,8 +44,7 @@ spec:
           volumeMounts:
             - name: ${BUILD_REPOSITORY_NAME}-meilisearch-data-storage
               mountPath: /meili_data
-          resources:
-            {}
+          resources: {}
   volumeClaimTemplates:
     - metadata:
         name: ${BUILD_REPOSITORY_NAME}-meilisearch-data-storage
