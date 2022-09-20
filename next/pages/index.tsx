@@ -32,6 +32,8 @@ import { getOpacBooks, OpacBook } from '../utils/opac'
 import { ILocality } from '../utils/types'
 import { convertPagesToLocalities, isPresent } from '../utils/utils'
 import { useUpcomingEvents } from '../hooks/useUpcomingEvets'
+import { useEffect } from 'react'
+import { meiliClient } from '@utils/meilisearch'
 
 interface IIndexProps {
   locale?: string
@@ -68,6 +70,17 @@ export function Index({
   error,
   Seo,
 }: IIndexProps) {
+  // example of how to search in hooked events with meilisearch
+  useEffect(() => {
+    meiliClient
+      .index('event')
+      .search('eve', {
+        limit: 10,
+        filter: [`locale = ${locale}`],
+      })
+      .then(console.log)
+  }, [locale])
+
   if (error) {
     return (
       <PageWrapper
@@ -190,19 +203,19 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     return {
       props: {
         locale,
-        localizations: homePage?.data?.attributes?.localizations?.data,
+        localizations: homePage?.data?.attributes?.localizations?.data ?? null,
         menus: menus?.data,
         upcomingEvents: upcomingEvents?.data ?? [],
         promos: [...(promotedNews?.data ?? []), ...(promotedEvents?.data ?? [])],
         news: latestNews?.data?.filter(hasAttributes) ?? [],
         opacBookNews,
-        faqSection: homePage?.data?.attributes?.faqSection,
-        newsSection: homePage?.data?.attributes?.newsSection,
-        registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection,
+        faqSection: homePage?.data?.attributes?.faqSection ?? null,
+        newsSection: homePage?.data?.attributes?.newsSection ?? null,
+        registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection ?? null,
         localities,
         bookTags: bookTags?.data?.filter(hasAttributes) ?? [],
         footer: footer?.data,
-        Seo: homePage?.data?.attributes?.Seo,
+        Seo: homePage?.data?.attributes?.Seo ?? null,
         ...translations,
       },
       revalidate: 3600, // revalidates every hour

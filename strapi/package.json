@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "develop": "strapi develop",
-    "dev": "strapi develop",
+    "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
+    "dev": "yarn develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
@@ -18,7 +18,7 @@
     "@strapi/strapi": "4.2.0",
     "better-sqlite3": "7.4.6",
     "pg": "^8.7.3",
-    "strapi-plugin-meilisearch": "^0.6.6",
+    "strapi-plugin-meilisearch": "https://github.com/bratislava/strapi-plugin-meilisearch.git",
     "strapi-provider-upload-ts-minio": "^3.1.0"
   },
   "author": {
