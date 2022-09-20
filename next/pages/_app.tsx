@@ -10,6 +10,7 @@ import { CityLibraryMarkdown } from '../components/Atoms/CityLibraryMarkdown'
 import CookieConsent from '../components/Molecules/CookieConsent'
 import ErrorDisplay from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
+import { isProductionDeployment } from '@utils/utils'
 
 function CustomApp({ Component, pageProps, router }: AppProps): JSX.Element {
   if (pageProps.error) {
@@ -22,6 +23,13 @@ function CustomApp({ Component, pageProps, router }: AppProps): JSX.Element {
   return (
     <div className="font-beausite text-default">
       <Script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.sk" />
+      {isProductionDeployment() ? (
+        <Script
+          strategy="afterInteractive"
+          data-domain="mestskakniznica.sk"
+          src="https://plausible.io/js/plausible.js"
+        />
+      ) : null}
       <UIContextProvider
         components={{
           Link: ({ href, className, children, locale, target, rel }) => {
