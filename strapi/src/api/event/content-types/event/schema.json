@@ -30,7 +30,7 @@
           "localized": true
         }
       },
-      "type": "text"
+      "type": "string"
     },
     "description": {
       "pluginOptions": {
@@ -48,14 +48,6 @@
       },
       "type": "boolean",
       "default": false
-    },
-    "date_added": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "date"
     },
     "dateFrom": {
       "type": "datetime"
@@ -83,13 +75,17 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "listingImage": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "eventTags": {
       "type": "relation",

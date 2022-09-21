@@ -109,7 +109,7 @@ function Page({ locale, page, eventDetail, upcomingEvents, menus, footer, error 
   }
 
   if (!pageComponentByLayout && eventDetail) {
-    pageComponentByLayout = <EventPage event={eventDetail} locale={locale} />
+    pageComponentByLayout = <EventPage event={eventDetail} />
   }
 
   return (

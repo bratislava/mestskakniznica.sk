@@ -14,7 +14,7 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "text",
+      "type": "string",
       "pluginOptions": {}
     },
     "slug": {
@@ -47,24 +47,24 @@
       "pluginOptions": {},
       "type": "dynamiczone",
       "components": [
-        "sections.form",
-        "sections.subpages",
-        "sections.faq",
-        "sections.table",
-        "sections.site-usefullness",
         "sections.accordion",
-        "sections.event-details",
-        "sections.divider",
         "sections.columned-text",
         "sections.cta",
-        "sections.sub-listing",
-        "sections.external-links",
-        "sections.flat-text-center",
-        "sections.locality-details",
+        "sections.divider",
         "sections.documents",
-        "sections.video",
+        "sections.event-details",
+        "sections.external-links",
+        "sections.faq",
         "sections.flat-text",
-        "sections.gallery"
+        "sections.flat-text-center",
+        "sections.form",
+        "sections.gallery",
+        "sections.locality-details",
+        "sections.site-usefullness",
+        "sections.sub-listing",
+        "sections.subpages",
+        "sections.table",
+        "sections.video"
       ]
     },
     "Seo": {

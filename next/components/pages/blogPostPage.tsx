@@ -28,7 +28,7 @@ function BlogPostPage({ blogPost }: BlogPostPageProps) {
         'added'
       )} ${formatDateToLocal(
         // blogPost.date_added ? blogPost.date_added : blogPost.created_at, // TEMP fix for not localized blog posts
-        blogPost?.attributes?.createdAt,
+        blogPost?.attributes?.publishedAt,
         locale
       )}`}</div>
 

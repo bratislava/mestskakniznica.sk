@@ -18,7 +18,6 @@ fragment EventCardAttributes on Event {
   createdAt
   updatedAt
   publishedAt
-  date_added
   locale
   dateFrom
   dateTo
