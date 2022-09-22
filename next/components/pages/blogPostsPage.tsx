@@ -65,7 +65,7 @@ function BlogPostsPage({ page }: BlogPostsPageProps) {
                 mediaType={
                   blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
                 }
-                publishedDate={formatDateToLocal(blogPost?.attributes?.publishedAt ?? '', locale)}
+                publishedDate={formatDateToLocal(blogPost?.attributes?.createdAt ?? '', locale)}
                 pageLink={{
                   title: t('showMore'),
                   url: `${t('blog_slug') + blogPost?.attributes?.slug}`,
