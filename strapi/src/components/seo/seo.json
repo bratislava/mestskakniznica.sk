@@ -1,7 +1,8 @@
 {
   "collectionName": "components_seo_seos",
   "info": {
-    "displayName": "Seo"
+    "displayName": "Seo",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -9,10 +10,10 @@
       "type": "string"
     },
     "metaDescription": {
-      "type": "string"
+      "type": "text"
     },
     "keywords": {
-      "type": "text"
+      "type": "string"
     },
     "metaRobots": {
       "type": "string"

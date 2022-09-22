@@ -31,9 +31,10 @@ import { hasAttributes } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
 import { ILocality } from '../utils/types'
 import { convertPagesToLocalities, isPresent } from '../utils/utils'
-import { useUpcomingEvents } from '../hooks/useUpcomingEvets'
-import { useEffect } from 'react'
-import { meiliClient } from '@utils/meilisearch'
+// used for example meili usage
+// import { useUpcomingEvents } from '../hooks/useUpcomingEvets'
+// import { useEffect } from 'react'
+// import { meiliClient } from '@utils/meilisearch'
 
 interface IIndexProps {
   locale?: string
@@ -71,15 +72,15 @@ export function Index({
   Seo,
 }: IIndexProps) {
   // example of how to search in hooked events with meilisearch
-  useEffect(() => {
-    meiliClient
-      .index('event')
-      .search('eve', {
-        limit: 10,
-        filter: [`locale = ${locale}`],
-      })
-      .then(console.log)
-  }, [locale])
+  // useEffect(() => {
+  //   meiliClient
+  //     .index('event')
+  //     .search('eve', {
+  //       limit: 10,
+  //       filter: [`locale = ${locale}`],
+  //     })
+  //     .then(console.log)
+  // }, [locale])
 
   if (error) {
     return (

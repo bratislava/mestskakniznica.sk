@@ -3,7 +3,7 @@ fragment BlogPostEntity on BlogPostEntity {
   attributes {
     slug
     title
-    createdAt
+    publishedAt
     coverMedia {
       data {
         attributes {
@@ -24,7 +24,7 @@ fragment BlogPostWithParentPageEntity on BlogPostEntity {
   attributes {
     slug
     title
-    createdAt
+    publishedAt
     coverMedia {
       data {
         attributes {
