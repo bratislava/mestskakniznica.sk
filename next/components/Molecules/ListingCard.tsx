@@ -10,7 +10,7 @@ interface IListingCardProps {
 }
 
 function ListingCard({ card }: IListingCardProps) {
-  const { t } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
   return (
@@ -30,12 +30,14 @@ function ListingCard({ card }: IListingCardProps) {
           />
 
           <div className="pt-3 text-sm">
-            {formatDateToLocal(
-              card.attributes?.date_added
-                ? card.attributes?.date_added
-                : card.attributes?.publishedAt,
-              locale
-            )}
+            {card.__typename === 'EventEntity'
+              ? formatDateToLocal(card.attributes?.dateFrom, locale || i18n.language)
+              : formatDateToLocal(
+                  card.attributes?.date_added
+                    ? card.attributes?.date_added
+                    : card.attributes?.publishedAt,
+                  locale || i18n.language
+                )}
           </div>
           <div className="text-black justify-end text-default hover:underline">
             {card.attributes?.title}

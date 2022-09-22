@@ -1,28 +1,23 @@
 import { Link, SectionContainer } from '@bratislava/ui-city-library'
 import EventDetails from 'components/Molecules/EventDetails'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useState } from 'react'
 import Section from '../AppLayout/Section'
 import ListingCard from '../Molecules/ListingCard'
-import {
-  PageEntity,
-  EventCardEntityFragment,
-  EventEntity,
-  EventEntityFragment,
-} from '../../graphql'
+import { EventEntityFragment } from '../../graphql'
 import Breadcrumbs from 'components/Molecules/Breadcrumbs'
 import { useUpcomingEvents } from 'hooks/useUpcomingEvets'
 
 export interface PageProps {
   event: EventEntityFragment
-  locale?: string
 }
 
-function EventPage({ locale, event }: PageProps) {
+function EventPage({ event }: PageProps) {
   const { t, i18n } = useTranslation(['common', 'homepage'])
+
   const { upcomingEvents } = useUpcomingEvents({ locale: i18n.language })
+
   const breadCrumbs =
-    locale === 'sk'
+    i18n.language === 'sk'
       ? [
           { title: '', url: '/' },
           { title: 'Zažite', url: '/zazite' },
