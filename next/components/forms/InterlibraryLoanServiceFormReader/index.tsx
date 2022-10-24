@@ -98,12 +98,12 @@ function InterlibraryLoanServiceFormReader() {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'info@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'info@mestskakniznica.sk',
+      mg_reply_to: data.email,
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
     console.log('body:', body)
 
@@ -126,19 +126,25 @@ function InterlibraryLoanServiceFormReader() {
   })
 
   const triggerFirstStep = () => {
-    methods.trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone']).then((fulfillment) => {
-      if (fulfillment) {
-        methods.clearErrors()
-        setStep(2)
-      }
-    })
+    methods
+      .trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone'])
+      .then((fulfillment) => {
+        if (fulfillment) {
+          methods.clearErrors()
+          setStep(2)
+        }
+      })
   }
 
   const stepOneErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms')
+    Object.keys(errors).filter(
+      (k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms'
+    )
   )
 
-  const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'acceptFeesTerms'))
+  const stepTwoErrors = !isEmpty(
+    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'acceptFeesTerms')
+  )
 
   return (
     <FormProvider {...methods}>
@@ -158,12 +164,12 @@ function InterlibraryLoanServiceFormReader() {
           title={t('personal_details')}
           activeStep={step}
           className={cx('', {
-            '-mx-8 px-8 border border-error': stepOneErrors && step !== 1,
+            '-mx-8 border border-error px-8': stepOneErrors && step !== 1,
           })}
           onClick={() => setStep(1)}
         >
-          <div className="flex flex-col gap-y-6 w-full">
-            <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+          <div className="flex w-full flex-col gap-y-6">
+            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="fName"
@@ -248,9 +254,11 @@ function InterlibraryLoanServiceFormReader() {
               />
             </div>
 
-            {stepOneErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
+            {stepOneErrors && (
+              <p className="text-base text-error">{t('please_fill_required_fields')}</p>
+            )}
 
-            <Button onClick={() => triggerFirstStep()} className="w-36 h-10">
+            <Button onClick={() => triggerFirstStep()} className="h-10 w-36">
               {t('common:continue')}
             </Button>
           </div>
@@ -279,9 +287,11 @@ function InterlibraryLoanServiceFormReader() {
               />
             )}
           />
-          {stepTwoErrors && <p className="text-base text-error pt-4">{t('please_fill_required_fields')}</p>}
+          {stepTwoErrors && (
+            <p className="pt-4 text-base text-error">{t('please_fill_required_fields')}</p>
+          )}
 
-          <div className="border-t border-gray-universal-200 pt-6 mt-6 pb-3">
+          <div className="mt-6 border-t border-gray-universal-200 pt-6 pb-3">
             <Controller
               control={methods.control}
               name="acceptFeesTerms"
@@ -299,7 +309,9 @@ function InterlibraryLoanServiceFormReader() {
                       {t('interlibrary_accept_fees')}{' '}
                       <Link
                         href={
-                          locale == 'sk' ? '/file/cennik-poplatkov-a-sluzieb' : '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
+                          locale == 'sk'
+                            ? '/file/cennik-poplatkov-a-sluzieb'
+                            : '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
                         }
                         variant="plain"
                         uppercase={false}
@@ -310,7 +322,9 @@ function InterlibraryLoanServiceFormReader() {
                       .
                     </div>
                   </CheckBox>
-                  {!!errors.acceptFeesTerms && <p className="text-error text-base my-6">{t('terms_error')}</p>}
+                  {!!errors.acceptFeesTerms && (
+                    <p className="my-6 text-base text-error">{t('terms_error')}</p>
+                  )}
                 </>
               )}
               rules={{ required: true }}

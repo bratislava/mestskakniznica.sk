@@ -103,12 +103,12 @@ function CityLibraryRegistrationForm() {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'registracia@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'registracia@mestskakniznica.sk',
+      mg_reply_to: data.email,
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     console.log('body:', body)
@@ -156,7 +156,9 @@ function CityLibraryRegistrationForm() {
       })
   }
 
-  const stepOneErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'IDType'))
+  const stepOneErrors = !isEmpty(
+    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'IDType')
+  )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
 
@@ -178,12 +180,12 @@ function CityLibraryRegistrationForm() {
           title={t('personal_details')}
           activeStep={step}
           className={cx('', {
-            '-mx-8 px-8 border border-error': stepOneErrors && step !== 1,
+            '-mx-8 border border-error px-8': stepOneErrors && step !== 1,
           })}
           onClick={() => setStep(1)}
         >
-          <div className="flex flex-col gap-y-6 w-full">
-            <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+          <div className="flex w-full flex-col gap-y-6">
+            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="fName"
@@ -250,8 +252,8 @@ function CityLibraryRegistrationForm() {
               )}
             />
           </div>
-          <div className="border p-6 my-6 flex flex-col gap-y-6 ">
-            <p className="text-gray-universal-100 text-default text-left ">
+          <div className="my-6 flex flex-col gap-y-6 border p-6 ">
+            <p className="text-left text-default text-gray-universal-100 ">
               {t('permanent_address')} <span className="text-error">*</span>
             </p>
             <Controller
@@ -270,7 +272,7 @@ function CityLibraryRegistrationForm() {
                 />
               )}
             />
-            <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="city"
@@ -324,8 +326,8 @@ function CityLibraryRegistrationForm() {
           </div>
 
           {showTempAddress && (
-            <div className="border p-6 my-6 flex flex-col gap-y-6 ">
-              <p className="text-gray-universal-100 text-default text-left ">
+            <div className="my-6 flex flex-col gap-y-6 border p-6 ">
+              <p className="text-left text-default text-gray-universal-100 ">
                 {t('temporary_address')} <span className="text-error">*</span>
               </p>
               <Controller
@@ -344,7 +346,7 @@ function CityLibraryRegistrationForm() {
                   />
                 )}
               />
-              <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row  justify-between">
+              <div className="flex flex-col justify-between gap-y-6 gap-x-6  lg:flex-row">
                 <Controller
                   control={methods.control}
                   name="tempCity"
@@ -381,7 +383,7 @@ function CityLibraryRegistrationForm() {
             </div>
           )}
 
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row  justify-between mb-6">
+          <div className="mb-6 flex flex-col justify-between gap-y-6  gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="birthDate"
@@ -417,8 +419,10 @@ function CityLibraryRegistrationForm() {
             />
           </div>
 
-          {stepOneErrors && <p className="text-base text-error pb-4">{t('please_fill_required_fields')}</p>}
-          <Button onClick={() => triggerFirstStep()} className="w-36 h-10">
+          {stepOneErrors && (
+            <p className="pb-4 text-base text-error">{t('please_fill_required_fields')}</p>
+          )}
+          <Button onClick={() => triggerFirstStep()} className="h-10 w-36">
             {t('common:continue')}
           </Button>
         </StepNumberTitle>
@@ -450,7 +454,9 @@ function CityLibraryRegistrationForm() {
               />
             )}
           />
-          {stepTwoErrors && <p className="text-base text-error pb-4">{t('please_fill_required_fields')}</p>}
+          {stepTwoErrors && (
+            <p className="pb-4 text-base text-error">{t('please_fill_required_fields')}</p>
+          )}
           <Controller
             control={methods.control}
             name="authorizedToUseBlindDepartment"

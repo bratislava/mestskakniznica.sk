@@ -24,9 +24,9 @@ function FileInput({ control, name }: any) {
       required
       onChange={(e) => {
         if (e.target.files) {
-          const newArray = [];
-          for(let i=0; i < e.target.files.length; i+=1) {
-            if(e.target.files.item(i) !== null) {
+          const newArray = []
+          for (let i = 0; i < e.target.files.length; i += 1) {
+            if (e.target.files.item(i) !== null) {
               newArray.push(e.target.files.item(i))
             }
           }
@@ -40,7 +40,8 @@ function FileInput({ control, name }: any) {
       {files.length > 0 ? (
         <>
           <p>
-            {`${files.length} ${files.length > 1 ? t('upload_files') : t('upload_file')}`} {t('upload_success')}:
+            {`${files.length} ${files.length > 1 ? t('upload_files') : t('upload_file')}`}{' '}
+            {t('upload_success')}:
           </p>
           <p>{`[${files.map((file) => file?.name).join(', ')}]`}</p>
         </>
@@ -110,12 +111,12 @@ function ServiceReservationForm() {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'diplomovky@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'diplomovky@mestskakniznica.sk',
+      mg_reply_to: data.email,
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     // send email
@@ -148,8 +149,8 @@ function ServiceReservationForm() {
         successMessage={t('service_success_message')}
         errorMessage={t('generic_error_message')}
       >
-        <div className="flex flex-col gap-y-6 w-full mt-4">
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+        <div className="mt-4 flex w-full flex-col gap-y-6">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="fName"

@@ -58,12 +58,12 @@ function BookNotInLibraryForm() {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'info@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'info@mestskakniznica.sk',
+      mg_reply_to: data.email,
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     // send email
@@ -96,7 +96,7 @@ function BookNotInLibraryForm() {
         successMessage={t('book_not_in_library_success_message')}
         errorMessage={t('generic_error_message')}
       >
-        <div className="flex flex-col gap-y-6 w-full mt-4">
+        <div className="mt-4 flex w-full flex-col gap-y-6">
           <Controller
             control={methods.control}
             name="email"
