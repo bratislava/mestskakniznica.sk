@@ -6,7 +6,7 @@ import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { Controller, FormProvider,useForm } from 'react-hook-form'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
@@ -78,12 +78,12 @@ function ReaderReservationForm() {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'info@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'info@mestskakniznica.sk',
+      mg_reply_to: data.email,
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     // send email
@@ -116,8 +116,8 @@ function ReaderReservationForm() {
         successMessage={t('reservation_success_message')}
         errorMessage={t('generic_error_message')}
       >
-        <div className="flex flex-col gap-y-6 w-full mt-4">
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+        <div className="mt-4 flex w-full flex-col gap-y-6">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="fName"
@@ -205,7 +205,7 @@ function ReaderReservationForm() {
             />
           </div>
 
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="dateFrom"
@@ -241,7 +241,7 @@ function ReaderReservationForm() {
               )}
             />
           </div>
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="dateTo"

@@ -6,7 +6,7 @@ import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { Controller, FormProvider,useForm } from 'react-hook-form'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
@@ -18,7 +18,7 @@ export interface VenueRentalFormProps {
   slug: string
 }
 
-function VenueRentalForm(props: VenueRentalFormProps){
+function VenueRentalForm(props: VenueRentalFormProps) {
   const pageTitle = props?.slug.trim()
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
@@ -60,10 +60,10 @@ function VenueRentalForm(props: VenueRentalFormProps){
 
   const selectOptions = useGetFormOptions(options)
   const typeOptions = useGetFormOptions(types)
-  
+
   const optionsKey = selectOptions.find(
     (options) => options.title.split(',')[0].trim() == pageTitle
-  );
+  )
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -91,12 +91,12 @@ function VenueRentalForm(props: VenueRentalFormProps){
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'ivo.dobrovodsky@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'ivo.dobrovodsky@mestskakniznica.sk',
+      mg_reply_to: data.email,
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     // send email
@@ -129,7 +129,7 @@ function VenueRentalForm(props: VenueRentalFormProps){
         successMessage={t('generic_success_message')}
         errorMessage={t('generic_error_message')}
       >
-        <div className="flex flex-col gap-y-6 lg:w-full mt-4">
+        <div className="mt-4 flex flex-col gap-y-6 lg:w-full">
           <div className="flex flex-col gap-y-4 gap-x-4 md:flex-row">
             <Controller
               control={methods.control}
@@ -242,7 +242,7 @@ function VenueRentalForm(props: VenueRentalFormProps){
             )}
           />
 
-          <div className="flex flex-col gap-y-6 gap-x-6 md:flex-row justify-between">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6 md:flex-row">
             <Controller
               control={methods.control}
               name="dateFrom"
@@ -278,7 +278,7 @@ function VenueRentalForm(props: VenueRentalFormProps){
               )}
             />
           </div>
-          <div className="flex flex-col gap-y-6 gap-x-6 md:flex-row  justify-between">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6  md:flex-row">
             <Controller
               control={methods.control}
               name="dateTo"
