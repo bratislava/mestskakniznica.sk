@@ -8,14 +8,14 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '../../../utils/form-constants'
-import FormContainer, { phoneRegex } from '../FormContainer'
+import { convertDataToBody } from '@utils/form-constants'
+import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
 
 function RechercheReservationForm() {
   const [step, setStep] = React.useState(1)
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
@@ -79,12 +79,11 @@ function RechercheReservationForm() {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'miroslava.porubska@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'miroslava.porubska@mestskakniznica.sk',
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     // send email
@@ -102,16 +101,18 @@ function RechercheReservationForm() {
     }
 
     // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   const triggerFirstStep = () => {
-    methods.trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone']).then((fulfillment) => {
-      if (fulfillment) {
-        methods.clearErrors()
-        setStep(2)
-      }
-    })
+    methods
+      .trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone'])
+      .then((fulfillment) => {
+        if (fulfillment) {
+          methods.clearErrors()
+          setStep(2)
+        }
+      })
   }
 
   const stepOneErrors = !isEmpty(
@@ -127,7 +128,7 @@ function RechercheReservationForm() {
         buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(false)}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('interlibrary_research_success_title')}
         successMessage={t('interlibrary_research_success_message')}
         errorMessage={t('interlibrary_research_error_message')}
@@ -138,12 +139,12 @@ function RechercheReservationForm() {
           title={t('personal_details')}
           activeStep={step}
           className={cx('', {
-            '-mx-8 px-8 border border-error': stepOneErrors && step !== 1,
+            '-mx-8 border border-error px-8': stepOneErrors && step !== 1,
           })}
           onClick={() => setStep(1)}
         >
-          <div className="flex flex-col gap-y-6 w-full">
-            <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+          <div className="flex w-full flex-col gap-y-6">
+            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="fName"
@@ -211,7 +212,7 @@ function RechercheReservationForm() {
                 />
               )}
             />
-            <div className="w-full lg:w-6/12 lg:pg-3">
+            <div className="lg:pg-3 w-full lg:w-6/12">
               <Controller
                 control={methods.control}
                 name="phone"
@@ -230,8 +231,10 @@ function RechercheReservationForm() {
               />
             </div>
 
-            {stepOneErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
-            <Button onClick={() => triggerFirstStep()} className="w-36 h-10">
+            {stepOneErrors && (
+              <p className="text-base text-error">{t('please_fill_required_fields')}</p>
+            )}
+            <Button onClick={() => triggerFirstStep()} className="h-10 w-36">
               {t('common:continue')}
             </Button>
           </div>
@@ -245,7 +248,7 @@ function RechercheReservationForm() {
           className="border-b-0 pb-0"
           onClick={() => triggerFirstStep()}
         >
-          <div className="flex flex-col gap-y-6 w-full">
+          <div className="flex w-full flex-col gap-y-6">
             <Controller
               control={methods.control}
               name="rechercheTopic"
@@ -356,7 +359,9 @@ function RechercheReservationForm() {
                 />
               )}
             />
-            {stepTwoErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
+            {stepTwoErrors && (
+              <p className="text-base text-error">{t('please_fill_required_fields')}</p>
+            )}
             <FormFooter hasDivider buttonContent={t('send')} />
           </div>
         </StepNumberTitle>

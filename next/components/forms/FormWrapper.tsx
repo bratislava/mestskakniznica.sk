@@ -3,6 +3,7 @@ import cx from 'classnames'
 import React from 'react'
 
 import FormSubmittedComponent from './FormSubmittedComponent'
+import { SubmitStatus } from './FormContainer'
 
 export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
 export const postalCodeRegex = /^\d{5}(?:-\d{4})?$/
@@ -13,7 +14,7 @@ interface IProps {
   children: React.ReactNode
   title: string
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
-  isSubmitted: boolean
+  isSubmitted: SubmitStatus
 }
 
 function FormWrapper({ className, children, title, onSubmit, isSubmitted }: IProps) {
@@ -34,12 +35,13 @@ function FormWrapper({ className, children, title, onSubmit, isSubmitted }: IPro
         {/* Here are the children of each form if unsubmitted, otherwise default SubmittedFormComponent */}
         <FormSubmittedComponent
           className={cx({
-            hidden: !isSubmitted,
+            hidden: isSubmitted == SubmitStatus.NONE,
           })}
+          submitStatus={isSubmitted}
         />
         <div
           className={cx({
-            hidden: isSubmitted,
+            hidden: isSubmitted != SubmitStatus.NONE,
           })}
         >
           {children}

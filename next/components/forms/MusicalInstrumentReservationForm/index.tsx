@@ -6,16 +6,16 @@ import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { Controller, FormProvider,useForm } from 'react-hook-form'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
-import FormContainer, { phoneRegex } from '../FormContainer'
+import { convertDataToBody, useGetFormOptions } from '@utils/form-constants'
+import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import { options } from './options'
 
 function MusicalInstrumentReservationForm() {
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
@@ -77,12 +77,11 @@ function MusicalInstrumentReservationForm() {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'vypozicky.hudobna@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'vypozicky.hudobna@mestskakniznica.sk',
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     // send email
@@ -100,7 +99,7 @@ function MusicalInstrumentReservationForm() {
     }
 
     // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   return (
@@ -110,13 +109,13 @@ function MusicalInstrumentReservationForm() {
         buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(false)}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('reservation_success_title')}
         successMessage={t('reservation_success_message')}
         errorMessage={t('generic_error_message')}
       >
-        <div className="flex flex-col gap-y-6 mt-4">
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row  justify-between">
+        <div className="mt-4 flex flex-col gap-y-6">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6  lg:flex-row">
             <Controller
               control={methods.control}
               name="fName"
@@ -206,7 +205,7 @@ function MusicalInstrumentReservationForm() {
             )}
           />
 
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="dateFrom"
@@ -242,7 +241,7 @@ function MusicalInstrumentReservationForm() {
               )}
             />
           </div>
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="dateTo"

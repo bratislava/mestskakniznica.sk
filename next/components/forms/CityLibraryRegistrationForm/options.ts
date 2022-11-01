@@ -1,8 +1,9 @@
-import { IFormOption } from '../../../utils/form-constants'
+import { IFormOption } from '@utils/form-constants'
 
+// Keys based on SVOP categories available in jira/MKB-538
 export const options: IFormOption[] = [
   {
-    key: 'Dieťa do 15 rokov',
+    key: '1',
     label: [
       { locale: 'sk', label: 'Dieťa do 15 rokov' },
       { locale: 'en', label: 'Child under 15 years' },
@@ -10,7 +11,7 @@ export const options: IFormOption[] = [
     price: '0,00 €',
   },
   {
-    key: 'Zrakovo a inak zdravotne postihnutý',
+    key: '8',
     label: [
       {
         locale: 'sk',
@@ -24,7 +25,7 @@ export const options: IFormOption[] = [
     price: '0,00 €',
   },
   {
-    key: 'Poberateľ dávok v hmotnej núdzi',
+    key: '4',
     label: [
       { locale: 'sk', label: 'Poberateľ dávok v hmotnej núdzi' },
       { locale: 'en', label: 'Recipient of benefits in material need' },
@@ -32,7 +33,7 @@ export const options: IFormOption[] = [
     price: '0,00 €',
   },
   {
-    key: 'Osoba registrovaná v partnerskej knižnici',
+    key: '11',
     label: [
       { locale: 'sk', label: 'Osoba registrovaná v partnerskej knižnici' },
       { locale: 'en', label: 'Person registered in the partner library' },
@@ -40,7 +41,7 @@ export const options: IFormOption[] = [
     price: '0,00 €',
   },
   {
-    key: 'Osoba s ťažkým zdravotným postihnutím',
+    key: '12',
     label: [
       { locale: 'sk', label: 'Osoba s preukazom ŤZP' },
       { locale: 'en', label: 'Person with the disability card' },
@@ -48,7 +49,7 @@ export const options: IFormOption[] = [
     price: '1,00 €',
   },
   {
-    key: 'Osoba v starobnom dôchodku',
+    key: '3',
     label: [
       { locale: 'sk', label: 'Starobný dôchodca (62+)' },
       { locale: 'en', label: 'Senior (age 62+)' },
@@ -56,7 +57,7 @@ export const options: IFormOption[] = [
     price: '2,00 €',
   },
   {
-    key: 'Študent/ka strednej alebo vysokej školy denného štúdia do 26 rokov',
+    key: '6',
     label: [
       {
         locale: 'sk',
@@ -70,7 +71,7 @@ export const options: IFormOption[] = [
     price: '2,80 €',
   },
   {
-    key: 'Dospelá osoba',
+    key: '2',
     label: [
       { locale: 'sk', label: 'Dospelý' },
       { locale: 'en', label: 'Adult' },
@@ -78,7 +79,7 @@ export const options: IFormOption[] = [
     price: '4,00 €',
   },
   {
-    key: 'Právnická osoba',
+    key: '5',
     label: [
       { locale: 'sk', label: 'Právnická osoba' },
       { locale: 'en', label: 'Corporation' },
