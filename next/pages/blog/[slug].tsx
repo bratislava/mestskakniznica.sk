@@ -17,7 +17,7 @@ interface IBlogPostPageProps {
   footer: FooterEntity
 }
 
-function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
+const Page = ({ post, slug, menus, footer }: IBlogPostPageProps) => {
   const { t } = useTranslation('common')
 
   if (!menus || !post) {
@@ -32,7 +32,7 @@ function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
 
   const postData = [
     {
-      slug: t('mutation_blog_slug') + post?.attributes?.slug,
+      slug: `${t('mutation_blog_slug')}${post?.attributes?.slug ?? ''}`,
       locale: 'sk',
     },
   ]
@@ -40,7 +40,7 @@ function Page({ post, slug, menus, footer }: IBlogPostPageProps) {
   return (
     // TODO revert this back when blog posts are localized
     // <PageWrapper locale={post.locale ?? 'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
-    <PageWrapper locale={'sk'} slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
+    <PageWrapper locale="sk" slug={slug ?? ''} localizations={postData?.filter(isPresent)}>
       <DefaultPageLayout title={post?.attributes?.title} menus={menus} footer={footer}>
         <BlogPostPage blogPost={post} />
       </DefaultPageLayout>
@@ -92,7 +92,7 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
       post: blogPostBySlug,
       ...translations,
     },
-    revalidate: 86400,
+    revalidate: 86_400,
   }
 }
 

@@ -10,7 +10,7 @@ interface DateCardProps {
   wrapperClass?: string
 }
 
-function DateCardDisplay({ dateFrom, dateTo, textSize, wrapperClass }: DateCardProps) {
+const DateCardDisplay = ({ dateFrom, dateTo, textSize, wrapperClass }: DateCardProps) => {
   const { locale } = usePageWrapperContext()
   const { day, month } = dayForDifferentDateTo(new Date(dateFrom), new Date(dateTo))
 

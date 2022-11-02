@@ -4,16 +4,18 @@ import { useTranslation } from 'next-i18next'
 import * as React from 'react'
 
 import { parsePages } from '../../utils/page'
-import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface SublistingPageProps {
   page: PageEntity
 }
 
-function SublistingPage({ page }: SublistingPageProps) {
+const SublistingPage = ({ page }: SublistingPageProps) => {
   const { t } = useTranslation('common')
 
-  const pages = page?.attributes?.pageCategory?.data?.attributes?.pages ? parsePages(page?.attributes?.pageCategory?.data?.attributes?.pages) : undefined
+  const pages = page?.attributes?.pageCategory?.data?.attributes?.pages
+    ? parsePages(page?.attributes?.pageCategory?.data?.attributes?.pages)
+    : undefined
 
   return (
     <>
@@ -21,7 +23,10 @@ function SublistingPage({ page }: SublistingPageProps) {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={page?.attributes?.title ?? ''} description={page?.attributes?.description ?? ''} />
+        <PageTitle
+          title={page?.attributes?.title ?? ''}
+          description={page?.attributes?.description ?? ''}
+        />
 
         {/* Subcategory Pages */}
         {pages && (

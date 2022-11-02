@@ -14,6 +14,7 @@
   "openingHoursClosed": "Currently closed",
   "copyright": "Bratislava City Library",
   "category": "Category",
+  "coverImageFor": "Cover image for {{title}}",
   "allDocuments": "All documents",
   "added": "Added",
   "open": "Open",

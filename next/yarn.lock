@@ -6833,7 +6833,20 @@ eslint-ast-utils@^1.0.0:
     lodash.get "^4.4.2"
     lodash.zip "^4.2.0"
 
-eslint-config-adjunct@>=4.11.1, eslint-config-adjunct@^4.11.1:
+eslint-config-adjunct@>=4.11.2:
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-adjunct/-/eslint-config-adjunct-4.11.2.tgz#21810dd76d155f4e4fc585448a68b9c7ff5424d1"
+  integrity sha512-oj90FpZISBEL6DzNzWXTyjBhlxz6tvo9N4HFWVyCFPvgDlelvW472QAx0E8Tq2dIdI14uLKSt2ylf856XJ0q5g==
+  dependencies:
+    arrify "^2.0.1"
+    cosmiconfig "^7.0.1"
+    lodash "^4.17.21"
+    mkdirp "^1.0.4"
+    ramda "^0.28.0"
+    read-pkg-up "7.0.1"
+    rimraf "^3.0.2"
+
+eslint-config-adjunct@^4.11.1:
   version "4.11.1"
   resolved "https://registry.yarnpkg.com/eslint-config-adjunct/-/eslint-config-adjunct-4.11.1.tgz#a7194c58bf0f62d73d76208d8389af852de3b589"
   integrity sha512-vZ2sYJpYXuvetCrIXDuDXwJUbUuh9+3co8gAUxlX6Avjsj9J2qvm0wZxDC7m/u5FnjEB3T/15HufcL8w9MuaGw==
@@ -6846,7 +6859,7 @@ eslint-config-adjunct@>=4.11.1, eslint-config-adjunct@^4.11.1:
     read-pkg-up "7.0.1"
     rimraf "^3.0.2"
 
-eslint-config-airbnb-base@>=14.2.1, eslint-config-airbnb-base@^15.0.0:
+eslint-config-airbnb-base@>=15.0.0, eslint-config-airbnb-base@^15.0.0:
   version "15.0.0"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-15.0.0.tgz#6b09add90ac79c2f8d723a2580e07f3925afd236"
   integrity sha512-xaX3z4ZZIcFLvh2oUNvcX5oEofXda7giYmuplVxoOg5A7EXJMrUyqRgR+mhDhPK8LZ4PttFOBvCYDbX3sUoUig==
@@ -6872,19 +6885,19 @@ eslint-config-airbnb@^19.0.4:
     object.assign "^4.1.2"
     object.entries "^1.1.5"
 
-eslint-config-auto@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-auto/-/eslint-config-auto-0.7.1.tgz#b034121e66d96534b1f1aac65b6780c454d7d924"
-  integrity sha512-VLYP17NT4SJi56zF5KL6hR8IHFUvvXV158U0syXE4RvNv6DWBPfit9NBSCRG34wyMZ4xdPYIg6dLgaUrYPleEw==
+eslint-config-auto@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/eslint-config-auto/-/eslint-config-auto-0.7.3.tgz#4d0ba150f3899497e13dc73d7839add1813b84f3"
+  integrity sha512-uy0FMmXXRr68vHzbGXsjtTRHkCkYecsPh2vwMeU8s8wkHYjyBt3PQQtYK6HyzS1P+3X8345gvucHzAxqfd8CXA==
   dependencies:
     arrify "^2.0.1"
-    cosmiconfig "^7.0.0"
-    eslint-config-adjunct ">=4.11.1"
-    eslint-config-airbnb-base ">=14.2.1"
+    cosmiconfig "^7.0.1"
+    eslint-config-adjunct ">=4.11.2"
+    eslint-config-airbnb-base ">=15.0.0"
     lodash "^4.17.21"
     mkdir "0.0.2"
     mkdirp "^1.0.4"
-    ramda "^0.27.1"
+    ramda "^0.28.0"
     read-pkg-up "7.0.1"
     rimraf "^3.0.2"
 
@@ -7064,10 +7077,10 @@ eslint-plugin-optimize-regex@^1.2.1:
   dependencies:
     regexp-tree "^0.1.21"
 
-eslint-plugin-prettier@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-4.0.0.tgz#8b99d1e4b8b24a762472b4567992023619cb98e0"
-  integrity sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==
+eslint-plugin-prettier@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-4.2.1.tgz#651cbb88b1dab98bfd42f017a12fa6b2d993f94b"
+  integrity sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
@@ -7133,6 +7146,15 @@ eslint-plugin-switch-case@^1.1.2:
   dependencies:
     lodash.last "^3.0.0"
     lodash.zipobject "^4.0.0"
+
+eslint-plugin-tailwindcss@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-tailwindcss/-/eslint-plugin-tailwindcss-3.6.2.tgz#56ce5722b2972ed45cb4c0bc7062d37b0cfd4995"
+  integrity sha512-C9Ka3w6W9F5l/3ZDLnkdbqmeujc1vE+p5drjP1Z1UyxgoE1Nh4/f8oQ4XC45PrZsS0Nyv0YKXNH8/dn/FJZKsQ==
+  dependencies:
+    fast-glob "^3.2.5"
+    postcss "^8.4.4"
+    tailwindcss "^3.1.3"
 
 eslint-plugin-testing-library@^5.5.1:
   version "5.5.1"
@@ -7480,6 +7502,17 @@ fast-glob@^3.1.1, fast-glob@^3.2.11, fast-glob@^3.2.9:
   version "3.2.11"
   resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.11.tgz#a1172ad95ceb8a16e20caa5c5e56480e5129c1d9"
   integrity sha512-xrO3+1bxSo3ZVHAnqzyuewYT6aMFHRAd4Kcs92MAonjwQZLsK9d0SF1IyQ3k5PoirxTW0Oe/RqFgMQ6TcNE5Ew==
+  dependencies:
+    "@nodelib/fs.stat" "^2.0.2"
+    "@nodelib/fs.walk" "^1.2.3"
+    glob-parent "^5.1.2"
+    merge2 "^1.3.0"
+    micromatch "^4.0.4"
+
+fast-glob@^3.2.5:
+  version "3.2.12"
+  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.12.tgz#7f39ec99c2e6ab030337142da9e0c18f37afae80"
+  integrity sha512-DVj4CQIYYow0BlaelwK1pHl5n5cRSJfM60UA0zK891sVInoPri2Ekj7+e1CT3/3qxXenpI+nBBmQAcJPJgaj4w==
   dependencies:
     "@nodelib/fs.stat" "^2.0.2"
     "@nodelib/fs.walk" "^1.2.3"
@@ -11936,6 +11969,15 @@ postcss@^8.2.15, postcss@^8.4.14:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
+postcss@^8.4.4:
+  version "8.4.18"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.18.tgz#6d50046ea7d3d66a85e0e782074e7203bc7fbca2"
+  integrity sha512-Wi8mWhncLJm11GATDaQKobXSNEYGUHeQLiQqDFG1qQ5UTDPTEvKw0Xt5NsTpktGTwLps3ByrWsBrG0rB8YQ9oA==
+  dependencies:
+    nanoid "^3.3.4"
+    picocolors "^1.0.0"
+    source-map-js "^1.0.2"
+
 potpack@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/potpack/-/potpack-1.0.2.tgz#23b99e64eb74f5741ffe7656b5b5c4ddce8dfc14"
@@ -14733,6 +14775,11 @@ use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==
+
+usehooks-ts@^2.9.1:
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/usehooks-ts/-/usehooks-ts-2.9.1.tgz#953d3284851ffd097432379e271ce046a8180b37"
+  integrity sha512-2FAuSIGHlY+apM9FVlj8/oNhd+1y+Uwv5QNkMQz1oSfdHk4PXo1qoCw9I5M7j0vpH8CSWFJwXbVPeYDjLCx9PA==
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"

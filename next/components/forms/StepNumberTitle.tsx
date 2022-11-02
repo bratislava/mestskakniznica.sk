@@ -1,7 +1,7 @@
 import CheckMark from '@assets/images/check-mark.svg'
 import cx from 'classnames'
-import React from 'react'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 interface IProps {
   num: number
@@ -12,7 +12,7 @@ interface IProps {
   children?: React.ReactNode
 }
 
-function StepNumberTitle({ num, title, activeStep, onClick, className, children }: IProps) {
+const StepNumberTitle = ({ num, title, activeStep, onClick, className, children }: IProps) => {
   const active = activeStep === num
   const finished = activeStep > num
   const { t } = useTranslation(['homepage'])
@@ -31,14 +31,14 @@ function StepNumberTitle({ num, title, activeStep, onClick, className, children 
       <button
         type="button"
         onClick={onClick}
-        className={cx('flex items-center gap-x-6 cursor-pointer ', {
+        className={cx('flex cursor-pointer items-center gap-x-6 ', {
           'mb-6': active || finished,
         })}
         aria-label={`${active ? t('openAccordian') : t('closeAccordian')} ${title}`}
       >
         <span
           className={cx(
-            'w-14 h-14 p-6 inline-flex items-center justify-center text-base rounded-full border border-gray-universal-100',
+            'inline-flex h-14 w-14 items-center justify-center rounded-full border border-gray-universal-100 p-6 text-base',
             {
               'bg-gray-universal-100 text-white': active || finished,
               'text-gray-universal-100': !active && !finished,
@@ -47,7 +47,7 @@ function StepNumberTitle({ num, title, activeStep, onClick, className, children 
         >
           {finished ? <CheckMark className="-m-6" /> : num}
         </span>
-        <p className="text-gray-universal-100 text-default text-left">{title}</p>
+        <p className="text-left text-default text-gray-universal-100">{title}</p>
       </button>
       {active && children}
     </div>

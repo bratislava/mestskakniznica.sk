@@ -11,7 +11,7 @@ export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
 export const phoneRegexOrEmpty = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)|^$/
 export const postalCodeRegex = /^\d{5}(?:-\d{4})?$/
 export const IBANRegex = /^[A-Z]{2}(?: ?\d){13,30}$/
-export const IDCardRegex = /^(([a-zA-Z]{2})([0-9]{6}))$/
+export const IDCardRegex = /^(([A-Za-z]{2})(\d{6}))$/
 
 export enum SubmitStatus {
   NONE,
@@ -33,7 +33,7 @@ interface FormContainerProps {
   wrapperClass?: string
 }
 
-function FormContainer({
+const FormContainer = ({
   children,
   buttonText,
   title,
@@ -44,7 +44,7 @@ function FormContainer({
   successMessage,
   errorMessage,
   wrapperClass,
-}: FormContainerProps) {
+}: FormContainerProps) => {
   const [isFormOpen, setFormOpen] = useState(false)
   const { t } = useTranslation('forms')
 
@@ -69,7 +69,7 @@ function FormContainer({
 
   return (
     <div className={cx('flex flex-col border border-gray-900 p-4', wrapperClass)}>
-      {isSubmitted == SubmitStatus.NONE ? (
+      {isSubmitted === SubmitStatus.NONE ? (
         <>
           <div className="mb-4 text-md md:px-4 md:pt-4 md:text-lg" id="form-title">
             {title}
@@ -87,7 +87,7 @@ function FormContainer({
           {isFormOpen && (
             <form
               onSubmit={onSubmit}
-              className="fixed top-0 right-0 bottom-0 left-0 z-40 flex flex-col bg-white md:relative md:z-0"
+              className="fixed inset-0 z-40 flex flex-col bg-white md:relative md:z-0"
               onKeyDown={() => listener}
               tabIndex={0}
             >

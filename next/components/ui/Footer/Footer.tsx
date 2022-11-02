@@ -3,8 +3,8 @@ import IgLogo from '@assets/images/ig-logo.svg'
 import YtLogo from '@assets/images/yt-logo.svg'
 import { ComponentFooterFooterColumn, Maybe } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
-import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 
 import { Accordion } from '../Accordion/Accordion'
 import { Link } from '../Link/Link'
@@ -35,7 +35,7 @@ export interface FooterProps {
   copyrightText?: string
 }
 
-function FooterSection({ col, i }: { col: ComponentFooterFooterColumn; i: number }) {
+const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number }) => {
   return (
     <div
       key={col?.title}
@@ -73,7 +73,7 @@ function FooterSection({ col, i }: { col: ComponentFooterFooterColumn; i: number
   )
 }
 
-export function Footer({
+export const Footer = ({
   className,
   siteMap,
   gdpr,
@@ -83,7 +83,7 @@ export function Footer({
   youtubeUrl,
   footerColumns,
   copyrightText,
-}: FooterProps) {
+}: FooterProps) => {
   const { t } = useTranslation('common')
   const [openFooter, setOpenFooter] = useState('')
 
@@ -93,7 +93,7 @@ export function Footer({
 
   return (
     <div className={className}>
-      <div className="border-b border-t border-gray-universal-100 lg:container">
+      <div className="border-y border-gray-universal-100 lg:container">
         <div className="grid grid-cols-3 items-center">
           <div className="flex items-center justify-center">
             <a href={facebookUrl} target="_blank" rel="noreferrer">
@@ -101,7 +101,7 @@ export function Footer({
               <span className="sr-only">Facebook</span>
             </a>
           </div>
-          <div className="flex items-center justify-center border-l border-r border-gray-universal-100 py-5 lg:py-6">
+          <div className="flex items-center justify-center border-x border-gray-universal-100 py-5 lg:py-6">
             <a href={instagramUrl} target="_blank" rel="noreferrer">
               <IgLogo className="cursor-pointer lg:p-0" />
               <span className="sr-only">Instagram</span>

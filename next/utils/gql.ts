@@ -8,12 +8,18 @@ const { serverRuntimeConfig } = getConfig()
 
 const protocol =
   serverRuntimeConfig?.strapiUrl &&
-  (serverRuntimeConfig?.strapiUrl.startsWith('http://') || serverRuntimeConfig?.strapiUrl.startsWith('https://'))
+  (serverRuntimeConfig?.strapiUrl.startsWith('http://') ||
+    serverRuntimeConfig?.strapiUrl.startsWith('https://'))
     ? ''
     : 'http://'
 
 export const buildUrl = (path: string): string =>
-  `${serverRuntimeConfig?.strapiUrl ? `${protocol}${serverRuntimeConfig.strapiUrl}` : window.location.origin}${path}`
+  `${
+    serverRuntimeConfig?.strapiUrl
+      ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        `${protocol}${serverRuntimeConfig.strapiUrl}`
+      : window.location.origin
+  }${path}`
 
 const gql = new GraphQLClient(buildUrl('/graphql'))
 

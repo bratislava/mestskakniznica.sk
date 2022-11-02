@@ -17,7 +17,7 @@ export interface ICategory {
   href: string
 }
 
-export function Sidebar({ className, title, href, categories, activeCategory }: SidebarProps) {
+export const Sidebar = ({ className, title, href, categories, activeCategory }: SidebarProps) => {
   return (
     <div className={className}>
       <Link href={href} variant="plain" className="flex items-center gap-x-4 text-base">

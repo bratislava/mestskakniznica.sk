@@ -12,7 +12,7 @@ export interface BlogPostPageProps {
   Seo?: ComponentSeoSeo
 }
 
-function BlogPostPage({ blogPost }: BlogPostPageProps) {
+const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
   const mediaType = blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''

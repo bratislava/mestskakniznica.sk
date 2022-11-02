@@ -10,11 +10,11 @@ interface PageProps {
   gallery: Array<ComponentLocalityPartsGalleryParts | null | undefined>
 }
 
-function GalleryCarousel({ gallery }: PageProps) {
+const GalleryCarousel = ({ gallery }: PageProps) => {
   const prevRef = React.useRef(null)
   const nextRef = React.useRef(null)
   return (
-    <div className="w-full max-w-6xl mx-auto bg-black">
+    <div className="bg-black mx-auto w-full max-w-6xl">
       <Swiper navigation autoHeight modules={[Navigation]}>
         {gallery &&
           gallery.length > 0 &&
@@ -24,9 +24,12 @@ function GalleryCarousel({ gallery }: PageProps) {
                 <img
                   src={galleryItem?.Photo?.data?.attributes?.url || ''}
                   className="w-full object-cover"
-                  alt={galleryItem?.Photo?.data?.attributes?.alternativeText || `carousel-${galleryItem?.id}`}
+                  alt={
+                    galleryItem?.Photo?.data?.attributes?.alternativeText ||
+                    `carousel-${galleryItem?.id}`
+                  }
                 />
-                <div className="absolute bottom-0 w-full text-center bg-gray-900 bg-opacity-50 text-white">
+                <div className="absolute bottom-0 w-full bg-gray-900 bg-opacity-50 text-center text-white">
                   <p className="text-l py-2">{galleryItem?.Description} </p>
                 </div>
               </div>

@@ -8,7 +8,7 @@ export interface INavigationItemProps {
   children: ReactNode
 }
 
-function HeaderNavigationItem({ url, children }: INavigationItemProps) {
+const HeaderNavigationItem = ({ url, children }: INavigationItemProps) => {
   const router = useRouter()
 
   return (

@@ -30,7 +30,7 @@ export interface SortOption {
   title: string
 }
 
-function DocumentsPage({ page }: PageProps) {
+const DocumentsPage = ({ page }: PageProps) => {
   const { t } = useTranslation('common')
   const [documentData, setDocumentData] = React.useState<DocumentResponse>({
     documents: [],
@@ -159,9 +159,9 @@ function DocumentsPage({ page }: PageProps) {
         )}
         <div
           ref={resultsRef}
-          className="mt-6 border-t border-b border-gray-universal-100 pb-10 lg:mt-16 lg:pb-32"
+          className="mt-6 border-y border-gray-universal-100 pb-10 lg:mt-16 lg:pb-32"
         >
-          <div className="flex flex-col gap-y-4 pb-6 pt-6 lg:flex-row lg:items-center lg:justify-between lg:gap-y-0 lg:pt-7.5 lg:pb-7.5">
+          <div className="flex flex-col gap-y-4 py-6 lg:flex-row lg:items-center lg:justify-between lg:gap-y-0 lg:py-7.5">
             <h4>{t('allDocuments')}</h4>
             <Select
               className="w-full lg:w-44"

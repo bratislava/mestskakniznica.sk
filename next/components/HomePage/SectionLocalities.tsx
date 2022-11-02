@@ -9,32 +9,35 @@ interface LocalitiesProps {
   localities: ILocality[]
 }
 
-function Localities({ localities }: LocalitiesProps) {
+const Localities = ({ localities }: LocalitiesProps) => {
   const { t } = useTranslation(['homepage', 'common'])
 
   return (
     <div className="m-auto w-1180">
-      <h2 className="text-lg pt-10 pb-10">{t('localitiesTitle')}</h2>
+      <h2 className="py-10 text-lg">{t('localitiesTitle')}</h2>
 
-      <section className="pb-10 border border-gray-900">
+      <section className="border border-gray-900 pb-10">
         <img src={Map.src} alt="Mapa lokalit" height={Map.height} width={Map.width} />
-        <div className="inline-flex w-1180 h-[376px]">
+        <div className="inline-flex h-[376px] w-1180">
           {localities &&
             localities?.map((locality) => (
               <div key={locality.localityTitle}>
-                <div className="w-[294.6px] h-[376px] p-6 border-r border-gray-900">
-                  <div className="text-md2 hover:underline pb-7">{locality.localityTitle}</div>
+                <div className="h-[376px] w-[294.6px] border-r border-gray-900 p-6">
+                  <div className="pb-7 text-md2 hover:underline">{locality.localityTitle}</div>
                   {locality.localitySections?.map((section) => (
-                    <div key={section.localitySectionTitle} className="pt-1 text-[16px] text-gray-universal-70">
+                    <div
+                      key={section.localitySectionTitle}
+                      className="pt-1 text-[16px] text-gray-universal-70"
+                    >
                       {section.localitySectionTitle}
                     </div>
                   ))}
-                  <p className="text-sm pt-8 text-gray-universal-70">{t('localityOpeningText')}</p>
+                  <p className="pt-8 text-sm text-gray-universal-70">{t('localityOpeningText')}</p>
                   <p className="text-[16px] text-gray-universal-70">
                     {locality.localityOpenFrom} - {locality.localityOpenTo}
                   </p>
                 </div>
-                <div className="text-sm hover:underline pl-6 border-r border-gray-900">
+                <div className="border-r border-gray-900 pl-6 text-sm hover:underline">
                   <Link href={locality.localitySlug || ''} passHref>
                     <a className="uppercase" href={locality.localitySlug}>
                       <div className="relative">

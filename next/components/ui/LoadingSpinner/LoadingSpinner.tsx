@@ -6,7 +6,7 @@ interface IProps {
   size?: 'small' | 'default' | 'medium'
 }
 
-export function LoadingSpinner({ className, size = 'default', text }: IProps) {
+export const LoadingSpinner = ({ className, size = 'default', text }: IProps) => {
   return (
     <div className={cx('flex flex-col items-center gap-20 text-center', className)}>
       <div

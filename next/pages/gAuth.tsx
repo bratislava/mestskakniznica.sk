@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-function LoadingPage() {
+const LoadingPage = () => {
   const [message, setMessage] = useState('')
   const router = useRouter()
   const { code } = router.query
 
+  // TODO fix eslint
   useEffect(() => {
     const subscribe = async () => {
       const response = await fetch('/api/subscribe-event', {
@@ -16,11 +17,14 @@ function LoadingPage() {
     }
     try {
       if (code) {
+        // eslint-disable-next-line promise/catch-or-return, @typescript-eslint/no-floating-promises
         subscribe().then((res) => {
           setMessage(
+            // eslint-disable-next-line promise/always-return
             res.success
               ? 'Subscribed to events successfully.'
-              : 'Some error occured, please try again later.'
+              : // eslint-disable-next-line sonarjs/no-duplicate-string
+                'Some error occured, please try again later.'
           )
         })
       } else {

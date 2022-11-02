@@ -1,3 +1,5 @@
+import 'react-datepicker/dist/react-datepicker.css'
+
 import DropdownIcon from '@assets/images/dropdown.svg'
 import {
   EventCardEntityFragment,
@@ -6,13 +8,14 @@ import {
 } from '@bratislava/strapi-sdk-city-library'
 import { LoadingSpinner, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { client } from '@utils/gql'
+import cx from 'classnames'
 import enUs from 'date-fns/locale/en-US'
 import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useState } from 'react'
 import { registerLocale } from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
 import useSWR from 'swr'
+
 import { useEventsPaginated } from '../../hooks/useEventsPaginated'
 import Section from '../AppLayout/Section'
 import SectionPromos from '../HomePage/SectionPromos'
@@ -21,7 +24,6 @@ import EventFilters from '../Molecules/EventFilters'
 import EventListingCard from '../Molecules/EventListingCard'
 import { FilterModal } from '../Molecules/FilterModal'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-import cx from 'classnames'
 
 registerLocale('en', enUs)
 registerLocale('sk', sk)
@@ -34,7 +36,7 @@ export interface PageProps {
   page: PageEntity
 }
 
-function Events({ page }: PageProps) {
+const Events = ({ page }: PageProps) => {
   const { t } = useTranslation('common')
   const { locale = 'sk' } = usePageWrapperContext()
 
@@ -142,32 +144,24 @@ function Events({ page }: PageProps) {
 
   const filterEvents = async () => {
     const currentFilters: EventFiltersInput = {}
-    if (startDate) {
-      currentFilters['dateFrom'] = { between: [startDate.toISOString(), today.toISOString()] }
-    } else {
-      currentFilters['dateFrom'] = { lt: today.toISOString() }
-    }
+    currentFilters.dateFrom = startDate ? { between: [startDate.toISOString(), today.toISOString()] } : { lt: today.toISOString() };
     if (endDate) {
       const tempDate = new Date(new Date().setDate(endDate.getDate() + 1)) // plus one day
-      currentFilters['dateTo'] = { lte: tempDate.toISOString() }
+      currentFilters.dateTo = { lte: tempDate.toISOString() }
     }
     if (selectedEventTags && selectedEventTags.title)
-      currentFilters['eventTags'] = { title: { eq: selectedEventTags.title } }
+      currentFilters.eventTags = { title: { eq: selectedEventTags.title } }
     if (selectedCategory && selectedCategory.title)
-      currentFilters['eventCategory'] = { title: { eq: selectedCategory.title } }
+      currentFilters.eventCategory = { title: { eq: selectedCategory.title } }
     if (selectedLocality && selectedLocality.title)
-      currentFilters['eventLocality'] = { title: { eq: selectedLocality.title } }
+      currentFilters.eventLocality = { title: { eq: selectedLocality.title } }
 
     setActiveFilters(currentFilters)
 
     const upcomingFilters = { ...currentFilters }
 
-    delete upcomingFilters['dateFrom']
-    if (!startDate || startDate <= today) {
-      upcomingFilters['dateFrom'] = { gte: today.toISOString() }
-    } else {
-      upcomingFilters['dateFrom'] = { gte: startDate.toISOString() }
-    }
+    delete upcomingFilters.dateFrom
+    upcomingFilters.dateFrom = !startDate || startDate <= today ? { gte: today.toISOString() } : { gte: startDate.toISOString() };
 
     setUpcomingActiveFilters(upcomingFilters)
   }
@@ -366,7 +360,7 @@ function Events({ page }: PageProps) {
           </div>
         </div>
 
-        {!areThereAnyEvents() && <div className={'text-center text-md2'}>{t('eventsEmpty')}</div>}
+        {!areThereAnyEvents() && <div className="text-center text-md2">{t('eventsEmpty')}</div>}
         {/* <Banner
           onBannerClick={handleEventSubscription}
           title={t('eventsDontMiss')}

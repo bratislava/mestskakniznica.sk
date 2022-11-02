@@ -1,25 +1,36 @@
 import ScrollIcon from '@assets/images/scroll-icon.svg'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
+import { useEventListener } from 'usehooks-ts'
 
-function ScrollToTop() {
+const handleScrollToTop = () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+}
+
+const ScrollToTop = () => {
   const { t } = useTranslation('common')
-  const scrollTop = () => {
-    window?.scrollTo(0, 0)
-  }
 
-  const checkScrollTop = () => {
-    const btn = document.querySelector('#backToTopBtn') as HTMLElement | null;
-    if (btn) {
-      btn.style.display = document.body.scrollTop > 300 || document.documentElement.scrollTop > 300 ? 'block' : 'none';
+  const [visible, setVisible] = useState(false)
+
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setVisible(true)
+    } else {
+      setVisible(false)
     }
   }
-  if (typeof window !== 'undefined') {
-    window.addEventListener('scroll', checkScrollTop)
-  }
+
+  useEventListener('scroll', handleScroll)
 
   return (
-    <div className="fixed bottom-5 md:bottom-10 right-5 md:right-10 cursor-pointer bg-white rounded-full">
-      <button aria-label={t('goToTopAriaLabel')} id="backToTopBtn" style={{ display: 'none' }} onClick={scrollTop}>
+    <div className="fixed bottom-5 right-5 cursor-pointer rounded-full bg-white md:bottom-10 md:right-10">
+      <button
+        type="button"
+        aria-label={t('goToTopAriaLabel')}
+        id="backToTopBtn"
+        className={`${visible ? 'visible' : 'invisible'}`}
+        onClick={handleScrollToTop}
+      >
         <ScrollIcon />
       </button>
     </div>

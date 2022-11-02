@@ -11,7 +11,7 @@ interface Props {
   showLinkInput?: boolean
 }
 
-function BookListExtended({ className, showLinkInput = false }: Props) {
+const BookListExtended = ({ className, showLinkInput = false }: Props) => {
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation('forms')
@@ -100,7 +100,7 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
               />
             )}
           />
-          <div className="flex flex-col items-center justify-between gap-y-6 gap-x-6 lg:flex-row">
+          <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
             <Controller
               control={methods.control}
               name={`books[${index}].placeOfIssue` as const}
@@ -128,7 +128,7 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
               )}
             />
           </div>
-          <div className="flex flex-col items-center justify-between gap-y-6 gap-x-6 lg:flex-row">
+          <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
             <Controller
               control={methods.control}
               name={`books[${index}].packageNumber` as const}

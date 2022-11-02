@@ -18,7 +18,7 @@ interface navItemProps {
   index: number
 }
 
-function NavigationItem({ menu, latestEvents }: navItemProps) {
+const NavigationItem = ({ menu, latestEvents }: navItemProps) => {
   const [panelHidden, setPanelHidden] = React.useState(false)
   const menuSections: Maybe<ComponentMenuSections>[] = menu?.menuSections || []
   const router = useRouter()

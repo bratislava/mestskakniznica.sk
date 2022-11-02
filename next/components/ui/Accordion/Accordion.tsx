@@ -18,7 +18,7 @@ export interface AccordionProps {
   closeIcon?: ReactNode
 }
 
-export function Accordion({
+export const Accordion = ({
   id,
   className,
   label,
@@ -31,7 +31,7 @@ export function Accordion({
   ariaLabelPrefix,
   openIcon = <ChevronDown />,
   closeIcon = <ChevronUp />,
-}: AccordionProps) {
+}: AccordionProps) => {
   const [isOpen, setOpen] = useState(false)
 
   useEffect(() => {

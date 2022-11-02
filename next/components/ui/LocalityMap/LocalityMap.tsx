@@ -11,12 +11,12 @@ export interface LocalityMapProps {
   mapboxAccessToken: string
 }
 
-export function LocalityMap({
+export const LocalityMap = ({
   localityName,
   localityLongitude,
   localityLatitude,
   mapboxAccessToken,
-}: LocalityMapProps) {
+}: LocalityMapProps) => {
   const [isBrowser, setBrowser] = useState(false)
 
   const mapRef = useRef<MapRef | any>()

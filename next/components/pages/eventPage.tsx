@@ -1,17 +1,18 @@
 import { Link, SectionContainer } from '@bratislava/ui-city-library'
+import Breadcrumbs from 'components/Molecules/Breadcrumbs'
 import EventDetails from 'components/Molecules/EventDetails'
+import { useUpcomingEvents } from 'hooks/useUpcomingEvets'
 import { useTranslation } from 'next-i18next'
+
+import { EventEntityFragment } from '../../graphql'
 import Section from '../AppLayout/Section'
 import ListingCard from '../Molecules/ListingCard'
-import { EventEntityFragment } from '../../graphql'
-import Breadcrumbs from 'components/Molecules/Breadcrumbs'
-import { useUpcomingEvents } from 'hooks/useUpcomingEvets'
 
 export interface PageProps {
   event: EventEntityFragment
 }
 
-function EventPage({ event }: PageProps) {
+const EventPage = ({ event }: PageProps) => {
   const { t, i18n } = useTranslation(['common', 'homepage'])
 
   const { upcomingEvents } = useUpcomingEvents({ locale: i18n.language })
@@ -37,7 +38,7 @@ function EventPage({ event }: PageProps) {
         <Breadcrumbs crumbs={breadCrumbs} />
       </SectionContainer>
       <SectionContainer>
-        <div className="pt-16 pb-16">
+        <div className="py-16">
           <EventDetails event={event} />
         </div>
         <Section>

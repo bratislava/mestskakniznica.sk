@@ -1,7 +1,7 @@
 import { EventCardEntityFragment, MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 import HeaderNavigation from './Navigation/HeaderNavigation'
 import NavigationItem from './Navigation/NavigationItem'
@@ -14,7 +14,7 @@ interface HeaderProps {
   isHomePage?: boolean
 }
 
-function Header({ menus, upcomingEvents, isHomePage }: HeaderProps) {
+const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
   const { t } = useTranslation('common')
   return (
     <>

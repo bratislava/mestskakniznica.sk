@@ -1,8 +1,8 @@
-import { ComponentMenuSections, EventCardEntityFragment, Maybe } from '../../../graphql'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
+import { ComponentMenuSections, EventCardEntityFragment, Maybe } from '../../../graphql'
 import Column from './SubnavigationColumn'
 
 interface SubnavigationProps {
@@ -12,7 +12,7 @@ interface SubnavigationProps {
   latestEvents?: EventCardEntityFragment[]
 }
 
-function Subnavigation({ latestEvents, menuTotalColumns, menuSections }: SubnavigationProps) {
+const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: SubnavigationProps) => {
   const { t } = useTranslation('common')
 
   const columns = useMemo(() => {

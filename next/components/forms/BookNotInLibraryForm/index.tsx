@@ -1,5 +1,6 @@
 import { Input, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { convertDataToBody } from '@utils/form-constants'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -7,11 +8,10 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '@utils/form-constants'
 import FormContainer, { SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
-function BookNotInLibraryForm() {
+const BookNotInLibraryForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()

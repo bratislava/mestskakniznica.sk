@@ -1,10 +1,10 @@
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
 import HeaderNavigationItem from './HeaderNavigationItem'
 
-function HeaderNavigation() {
+const HeaderNavigation = () => {
   const { localizations, locale } = usePageWrapperContext()
   const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
   const { t } = useTranslation('common')
@@ -25,7 +25,7 @@ function HeaderNavigation() {
       <div className="group border-l border-gray-900">
         <HeaderNavigationItem url={t('openingHoursPageLink')}>
           <div className="px-[12px] font-normal text-gray-900 hover:underline">{openingHours}</div>
-          {/* TODO show he div below again once the one above contains dynami opening hours */}
+          {/* TODO show the div below again once the one above contains dynamic opening hours */}
           {/* <div className="mt-2 absolute w-40 bg-white text-center py-5 px-3 border z-50 transform scale-0 focus-within:scale-100 group-hover:scale-100 cursor-default">
               {t('openHoursInfo')}
             </div> */}

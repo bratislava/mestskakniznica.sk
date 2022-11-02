@@ -12,7 +12,7 @@ interface IProps {
   hasDivider?: boolean
 }
 
-function FormFooter({ className, buttonContent, hasDivider = false }: IProps) {
+const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) => {
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation('forms')

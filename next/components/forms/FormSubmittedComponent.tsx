@@ -4,6 +4,7 @@ import { Button } from '@bratislava/ui-city-library'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+
 import { SubmitStatus } from './FormContainer'
 
 type IProps = {
@@ -15,14 +16,14 @@ type IProps = {
   submitStatus: SubmitStatus
 }
 
-function FormSubmittedComponent({
+const FormSubmittedComponent = ({
   className,
   onBackToFormClick,
   successTitle,
   successMessage,
   errorMessage,
   submitStatus,
-}: IProps) {
+}: IProps) => {
   const { t } = useTranslation('forms')
 
   return (

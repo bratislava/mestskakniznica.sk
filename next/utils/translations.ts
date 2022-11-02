@@ -1,7 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import cfg from '../next.config'
-import { shouldSkipStaticPaths } from './utils'
 
 interface IcachedSsrTranslations {
   [key: string]: any
@@ -46,7 +45,11 @@ export const ssrTranslations = async (
 // warm-up the translations cache
 ;(async () => {
   console.log('Warming up SSR translation cache')
+
+  // TODO fix eslint
+  // eslint-disable-next-line no-restricted-syntax, guard-for-in
   for (const locale in cachedSsrTranslations) {
+    // eslint-disable-next-line no-await-in-loop
     await Promise.all(
       preCachedNamespaces.map((arr) => {
         console.log('Caching translations:', arr)

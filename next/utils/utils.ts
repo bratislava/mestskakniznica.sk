@@ -7,6 +7,7 @@ import {
 
 import { ILocality } from './types'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const dateTimeString = (date: Date | string, dateTo: Date | string, locale = 'sk') => {
   const newDate = new Date(date)
   const dayFrom = newDate.toLocaleString('en-US', { day: 'numeric' })
@@ -50,9 +51,8 @@ export const arrayify = (input: string | string[] | undefined | null) => {
   return input
 }
 
-export const isPresent = <U>(a: U | null | undefined | void): a is U => {
-  if (a === null || a === undefined) return false
-  return true
+export const isPresent = <U>(value: U | null | undefined | void): value is U => {
+  return value !== null && value !== undefined
 }
 
 export const formatDateToLocal = (date: Date | string, locale = 'sk') => {
@@ -61,22 +61,26 @@ export const formatDateToLocal = (date: Date | string, locale = 'sk') => {
   const month = newDate.toLocaleString('en-US', { month: 'numeric' })
   const year = newDate.toLocaleString('en-US', { year: 'numeric' })
 
-  return locale == 'sk' ? `${day}. ${month}. ${year}` : `${month}. ${day}. ${year}`
+  return locale === 'sk' ? `${day}. ${month}. ${year}` : `${month}. ${day}. ${year}`
 }
 
+// TODO fix eslint
 export const Time24To12Format = (time: any, locale: string) => {
-  if (locale == 'en') {
+  /* eslint-disable no-param-reassign */
+  if (locale === 'en') {
     time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time]
     if (time.length > 1) {
       // If time format correct
       time = time.slice(1) // Remove full string match value
       time[5] = +time[0] < 12 ? 'AM' : 'PM' // Set AM/PM
       time[0] = +time[0] % 12 || 12 // Adjust hours
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       time = time[0] + time[5]
     }
     return time // return adjusted time or original string
   }
   return time
+  /* eslint-enable no-param-reassign */
 }
 
 export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = false) => {
@@ -131,51 +135,32 @@ export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = f
   return { day, month, year, date: dFrom }
 }
 
-export const convertPagesToLocalities = (
-  pages: PageEntity[] | any[],
-  onlyForHomepage = false
-): ILocality[] => {
-  const localities: ILocality[] = []
+export const getIsCurrentlyOpen = (
+  today: Date,
+  time: {
+    from: { minutes: number; hours: number }
+    to: { minutes: number; hours: number }
+  }
+): boolean => today.getHours() < time.to.hours && today.getHours() > time.from.hours
 
-  pages.forEach((page) => {
-    const localityDetails = page?.attributes?.sections?.find(
-      (section: any) => section?.__typename === 'ComponentSectionsLocalityDetails'
-    )
-
-    if (localityDetails?.__typename === 'ComponentSectionsLocalityDetails') {
-      if (localityDetails.displayOnHomePage && onlyForHomepage) {
-        localities.push(convertPageToLocality(page, localityDetails))
-      } else if (!onlyForHomepage) {
-        localities.push(convertPageToLocality(page, localityDetails))
-      }
+const getHoursAndMinutes = (time: string) => {
+  if (!time)
+    return {
+      minutes: 0,
+      hours: 0,
     }
-  })
+  const splitted = time.split(':')
 
-  return localities
+  return {
+    minutes: Number(splitted[1]),
+    hours: Number(splitted[0]),
+  }
 }
 
-export const convertPageToLocality = (
-  page: PageEntity,
-  localityDetails: ComponentSectionsLocalityDetails | any
-): ILocality | any => {
-  if (page?.attributes?.layout === Enum_Page_Layout.Locality) {
-    const { localityOpenFrom, localityOpenTo, isCurrentlyOpen } = getMainOpeningHours(
-      localityDetails.localitySections
-    )
-
-    return {
-      localityOpenFrom,
-      localityOpenTo,
-      localityTitle: localityDetails.localityTitle,
-      localitySlug: page?.attributes?.slug,
-      localitySections: localityDetails.localitySections,
-      localityAddress: localityDetails.localityAddress,
-      localityLatitude: localityDetails.localityLatitude,
-      localityLongitude: localityDetails.localityLongitude,
-      isMainLocality: localityDetails.isMainLocality,
-      isCurrentlyOpen,
-    }
-  }
+const formatTime = (time: number) => {
+  const temp = time.toString()
+  if (temp.length === 1) return `0${temp}`
+  return temp
 }
 
 const getMainOpeningHours = (sections: ComponentLocalityPartsLocalitySection[]) => {
@@ -242,33 +227,56 @@ const getMainOpeningHours = (sections: ComponentLocalityPartsLocalitySection[]) 
   }
 }
 
-const formatTime = (time: number) => {
-  const temp = time.toString()
-  if (temp.length == 1) return `0${temp}`
-  return temp
-}
+export const convertPageToLocality = (
+  page: PageEntity,
+  localityDetails: ComponentSectionsLocalityDetails | any
+): ILocality | any => {
+  if (page?.attributes?.layout === Enum_Page_Layout.Locality) {
+    const { localityOpenFrom, localityOpenTo, isCurrentlyOpen } = getMainOpeningHours(
+      localityDetails.localitySections
+    )
 
-const getHoursAndMinutes = (time: string) => {
-  if (!time)
     return {
-      minutes: 0,
-      hours: 0,
+      localityOpenFrom,
+      localityOpenTo,
+      localityTitle: localityDetails.localityTitle,
+      localitySlug: page?.attributes?.slug,
+      localitySections: localityDetails.localitySections,
+      localityAddress: localityDetails.localityAddress,
+      localityLatitude: localityDetails.localityLatitude,
+      localityLongitude: localityDetails.localityLongitude,
+      isMainLocality: localityDetails.isMainLocality,
+      isCurrentlyOpen,
     }
-  const splitted = time.split(':')
-
-  return {
-    minutes: Number(splitted[1]),
-    hours: Number(splitted[0]),
   }
+
+  return null
 }
 
-export const getIsCurrentlyOpen = (
-  today: Date,
-  time: {
-    from: { minutes: number; hours: number }
-    to: { minutes: number; hours: number }
-  }
-): boolean => today.getHours() < time.to.hours && today.getHours() > time.from.hours
+// TODO fix eslint
+export const convertPagesToLocalities = (
+  pages: PageEntity[] | any[],
+  onlyForHomepage = false
+): ILocality[] => {
+  const localities: ILocality[] = []
+
+  pages.forEach((page) => {
+    const localityDetails = page?.attributes?.sections?.find(
+      (section: any) => section?.__typename === 'ComponentSectionsLocalityDetails'
+    )
+
+    if (localityDetails?.__typename === 'ComponentSectionsLocalityDetails') {
+      if (localityDetails.displayOnHomePage && onlyForHomepage) {
+        localities.push(convertPageToLocality(page, localityDetails))
+        // eslint-disable-next-line sonarjs/no-duplicated-branches
+      } else if (!onlyForHomepage) {
+        localities.push(convertPageToLocality(page, localityDetails))
+      }
+    }
+  })
+
+  return localities
+}
 
 // method for determining if event already happened
 export const isEventPast = (dateTo: Date | string | null): boolean => {

@@ -2,10 +2,10 @@ import ChevronDown from '@assets/images/chevron-down.svg'
 import ChevronUp from '@assets/images/chevron-up.svg'
 import Close from '@assets/images/hamburger-close.svg'
 import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import Consent, { Cookies } from 'react-cookie-consent'
 import * as ReactGA from 'react-ga'
-import { useTranslation } from 'next-i18next'
 import Modal from 'react-modal'
 
 const CUSTOM_STYLES = {
@@ -21,7 +21,7 @@ const CUSTOM_STYLES = {
   },
 }
 
-function CookieConsent() {
+const CookieConsent = () => {
   const { t } = useTranslation(['common'])
   const [showModal, setShowModal] = React.useState(false)
   const [isConsentSubmitted, setConsent] = React.useState(false)
@@ -228,7 +228,7 @@ interface SwitchProps {
   disabled?: boolean
 }
 
-function Switch({ value, onValueChange, disabled }: SwitchProps) {
+const Switch = ({ value, onValueChange, disabled }: SwitchProps) => {
   const { t } = useTranslation(['common'])
   return (
     <button
@@ -272,7 +272,7 @@ interface PanelProps {
   setPanel: (value: string) => void
 }
 
-function Panel({ title, content, value, onValueChange, isOpen, setPanel }: PanelProps) {
+const Panel = ({ title, content, value, onValueChange, isOpen, setPanel }: PanelProps) => {
   const { t } = useTranslation(['common'])
   return (
     <>

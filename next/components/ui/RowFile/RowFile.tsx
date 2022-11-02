@@ -13,11 +13,11 @@ export interface RowFileProps {
   fileType?: string
 }
 
-export function RowFile({ className, type, title, metadata, dateAdded, fileType }: RowFileProps) {
+export const RowFile = ({ className, type, title, metadata, dateAdded, fileType }: RowFileProps) => {
   return (
     <div
       className={cx(
-        'group bg-white flex justify-between py-4 pr-2 items-center border-b border-gray-universal-100',
+        'group flex items-center justify-between border-b border-gray-universal-100 bg-white py-4 pr-2',
         className
       )}
     >
@@ -25,9 +25,9 @@ export function RowFile({ className, type, title, metadata, dateAdded, fileType 
         <FileIcon type={fileType ?? ''} />
 
         <div className="space-y-2">
-          <p className="text-gray-universal-70 text-xs cursor-default hidden">{type}</p>
+          <p className="hidden cursor-default text-xs text-gray-universal-70">{type}</p>
           <h5 className="text-default lg:cursor-pointer lg:group-hover:underline">{title}</h5>
-          <div className="flex cursor-default items-center gap-x-3 text-gray-universal-70 text-xs">
+          <div className="flex cursor-default items-center gap-x-3 text-xs text-gray-universal-70">
             <span className="hidden lg:block">{metadata}</span>
             <SingleDot className="hidden lg:block" />
             <span>{dateAdded}</span>

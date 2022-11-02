@@ -1,5 +1,5 @@
-import SmCalendar from '@assets/images/calendar-sm.svg'
 import Calendar from '@assets/images/calendar.svg'
+import SmCalendar from '@assets/images/calendar-sm.svg'
 import QrLogo from '@assets/images/camera.svg'
 import Directions from '@assets/images/directions.svg'
 import Euro from '@assets/images/euro-symbol.svg'
@@ -7,12 +7,14 @@ import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import AddToCalendar from '@culturehq/add-to-calendar'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
 import React from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+
+import Placeholder from '../../assets/images/event-detail-placeholder.jpg'
 import { EventEntityFragment } from '../../graphql'
 import { dateTimeString, isEventPast } from '../../utils/utils'
 import DateCardDisplay from '../Atoms/DateCardDispaly'
@@ -20,13 +22,12 @@ import Clickable from '../Atoms/EventClickable'
 import DetailsRow from '../Atoms/EventDetailsRow'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-import Placeholder from '../../assets/images/event-detail-placeholder.jpg'
 
 export interface PageProps {
   event?: EventEntityFragment
 }
 
-function EventDetails({ event }: PageProps) {
+const EventDetails = ({ event }: PageProps) => {
   const { t } = useTranslation('common')
   const { asPath } = useRouter()
   const { Markdown: UIMarkdown } = useUIContext()
@@ -69,7 +70,7 @@ function EventDetails({ event }: PageProps) {
     width: Placeholder.width,
     height: Placeholder.height,
     alternativeText: t('eventDetailImagePlaceholder'),
-    ...(event?.attributes?.coverImage?.data?.attributes || {}),
+    ...(event?.attributes?.coverImage?.data?.attributes),
   }
 
   return (
@@ -124,7 +125,7 @@ function EventDetails({ event }: PageProps) {
             </div>
           </div>
           {(event?.attributes?.guests?.length || 0) > 0 && (
-            <div className="border-b border-gray-700 pb-10 pt-10">
+            <div className="border-b border-gray-700 py-10">
               <div className="text-[24px]">{t('eventGuests')}</div>
               <div className="grid grid-cols-3 pt-5">
                 {event?.attributes?.guests?.map((guest) => (
@@ -164,7 +165,7 @@ function EventDetails({ event }: PageProps) {
             </div>
           )} */}
           <div className="pt-10">
-            <div className="block h-auto border-t border-b border-gray-900 py-3 lg:flex lg:h-[70px] lg:border lg:p-0">
+            <div className="block h-auto border-y border-gray-900 py-3 lg:flex lg:h-[70px] lg:border lg:p-0">
               {/* <div className="hidden lg:block pl-6 w-[169px] text-sm m-auto"> */}
               {/*  {t('eventShareAndSave')} */}
               {/* </div> */}
@@ -209,7 +210,7 @@ function EventDetails({ event }: PageProps) {
         <div className="col-span-3 text-[24px]">
           {t('details')}
           <div className="pt-5">
-            <div className="border-t border-b border-gray-900 text-sm lg:border">
+            <div className="border-y border-gray-900 text-sm lg:border">
               <div className="m-5">
                 <div className="border-b border-gray-300 pb-5">
                   <DetailsRow

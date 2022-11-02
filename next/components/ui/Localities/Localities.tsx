@@ -7,8 +7,8 @@ import {
 } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { maxBy, minBy } from 'lodash'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
@@ -41,7 +41,7 @@ export interface LocalitiesProps {
   altDesign?: boolean // alternative design
 }
 
-export function Localities({ localities, mapboxAccessToken, altDesign = false }: LocalitiesProps) {
+export const Localities = ({ localities, mapboxAccessToken, altDesign = false }: LocalitiesProps) => {
   const { t } = useTranslation('homepage')
   const [bounds, setBounds] = useState<[[number, number], [number, number]]>([
     [0, 0],

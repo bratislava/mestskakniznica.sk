@@ -1,5 +1,7 @@
 import { convert, ZonedDateTime } from '@js-joda/core'
 
+const capitalize = (text: string) => text[0].toUpperCase() + text.slice(1)
+
 // "Sep 17, 2021"
 export const getLocalDate = (dateString: string) => {
   const m = capitalize(
@@ -28,5 +30,3 @@ export const getNumericLocalDate = (dateString: string) =>
       dateStyle: 'short',
     })
     .replace(/ /g, '')
-
-const capitalize = (text: string) => text[0].toUpperCase() + text.slice(1)

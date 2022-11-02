@@ -7,7 +7,7 @@ interface DetailsRowProps {
   svgIcon: ReactNode
 }
 
-function DetailsRow({ classWrapper, text, svgIcon }: DetailsRowProps) {
+const DetailsRow = ({ classWrapper, text, svgIcon }: DetailsRowProps) => {
   return (
     <div className={cx(classWrapper)}>
       <div className="align-top">{svgIcon}</div>

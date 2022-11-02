@@ -26,7 +26,7 @@ interface FileMetadata {
 
 const DESCRIPTION_LIMIT = 100
 
-function CustomPageBreadcrumbs({ file }: IProps) {
+const CustomPageBreadcrumbs = ({ file }: IProps) => {
   return (
     <div className="mt-4.5 flex items-center gap-x-4">
       <Link variant="plain" href="/">
@@ -39,7 +39,7 @@ function CustomPageBreadcrumbs({ file }: IProps) {
   )
 }
 
-function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
+const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
   const dateAddedString = formatDateToLocal(file?.attributes?.date_added, locale)
   const { t } = useTranslation('common')
 
@@ -163,7 +163,7 @@ function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
                 <p>{`${t('added')} ${dateAddedString}`}</p>
               </div>
               {file?.attributes?.attachment && (
-                <div className="mt-6 mb-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
+                <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
                   <a
                     className="w-full lg:w-auto"
                     href={file?.attributes?.attachment?.data?.attributes?.url}
@@ -197,7 +197,7 @@ function FileDetailPage({ file, locale = 'sk', menus, footer }: IProps) {
             </div>
 
             {/* Description */}
-            <div className="space-y-4 border-t border-b border-gray-universal-100 py-6 lg:space-y-6 lg:py-10">
+            <div className="space-y-4 border-y border-gray-universal-100 py-6 lg:space-y-6 lg:py-10">
               <h3 className="text-default lg:text-md2">{t('description')}</h3>
               <p className="text-xs text-gray-universal-70 lg:text-sm">
                 {truncate(description || undefined, {

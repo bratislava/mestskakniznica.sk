@@ -9,7 +9,7 @@ interface SectionOpacBookNewsProps {
   books: OpacBook[]
 }
 
-function SectionOpacBookNews({ books }: SectionOpacBookNewsProps) {
+const SectionOpacBookNews = ({ books }: SectionOpacBookNewsProps) => {
   const { t } = useTranslation('homepage')
   const { locale } = usePageWrapperContext()
 
@@ -31,11 +31,11 @@ function SectionOpacBookNews({ books }: SectionOpacBookNewsProps) {
                         recURL: { _text: link },
                         author: { _text: author },
                       },
-                      i
+                      index
                     ) => (
                       <BookNewsDetail
                         className="w-[160px]"
-                        key={i}
+                        key={index}
                         title={title}
                         imgSrc={imageSrc}
                         author={author !== ' --- ' ? author : ''}

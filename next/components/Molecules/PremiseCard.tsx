@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+
 import { ImageEntityFragment } from '../../graphql'
 
 interface PremiseCardProps {
@@ -9,7 +10,7 @@ interface PremiseCardProps {
   image: ImageEntityFragment | undefined | null
 }
 
-function PremiseCard({ title, address, url, image }: PremiseCardProps) {
+const PremiseCard = ({ title, address, url, image }: PremiseCardProps) => {
   const { t } = useTranslation('common')
   return (
     <Link href={url} passHref>

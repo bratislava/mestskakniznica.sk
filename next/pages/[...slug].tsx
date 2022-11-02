@@ -1,15 +1,7 @@
-import {
-  Enum_Page_Layout,
-  EventCardEntityFragment,
-  EventEntityFragment,
-  FooterEntity,
-  MenuEntity,
-  PageEntity,
-  PageEntityFragment,
-} from '../graphql'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode } from 'react'
+
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
@@ -28,6 +20,15 @@ import PartnersPage from '../components/pages/partnersPage'
 import Premises from '../components/pages/premises'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
 import SublistingPage from '../components/pages/sublistingPage'
+import {
+  Enum_Page_Layout,
+  EventCardEntityFragment,
+  EventEntityFragment,
+  FooterEntity,
+  MenuEntity,
+  PageEntity,
+  PageEntityFragment,
+} from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 import { arrayify, isPresent, shouldSkipStaticPaths } from '../utils/utils'
@@ -42,7 +43,7 @@ interface IPageProps {
   error?: IDisplayError
 }
 
-function Page({ locale, page, eventDetail, upcomingEvents, menus, footer, error }: IPageProps) {
+const Page = ({ page, eventDetail, upcomingEvents, menus, footer, error }: IPageProps) => {
   if (error) {
     return (
       <ErrorPage code={500}>
@@ -53,6 +54,7 @@ function Page({ locale, page, eventDetail, upcomingEvents, menus, footer, error 
 
   let pageComponentByLayout: ReactNode = null
 
+  // eslint-disable-next-line default-case
   switch (page?.attributes?.layout) {
     case Enum_Page_Layout.Listing:
       pageComponentByLayout = <ListingPage page={page} />
@@ -137,13 +139,15 @@ function Page({ locale, page, eventDetail, upcomingEvents, menus, footer, error 
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
-  let paths: any = []
+  let paths: any[] = []
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
 
   const pathArraysForLocales = await Promise.all(
     locales.map((locale) => client.PagesStaticPaths({ locale }))
   )
-  const pages = pathArraysForLocales.flatMap(({ pages }) => pages?.data || []).filter(isDefined)
+  const pages = pathArraysForLocales
+    .flatMap(({ pages: pagesInner }) => pagesInner?.data || [])
+    .filter(isDefined)
   if (pages.length > 0) {
     paths = pages
       .filter((page) => page.attributes?.slug)
@@ -205,7 +209,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         footer: footer?.data,
         ...translations,
       },
-      revalidate: 86400,
+      revalidate: 86_400,
     }
   } catch (iError) {
     console.error(iError)
@@ -216,7 +220,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         error,
         ...translations,
       },
-      revalidate: 86400,
+      revalidate: 86_400,
     }
   }
 }

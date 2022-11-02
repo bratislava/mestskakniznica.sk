@@ -7,7 +7,7 @@ export interface ColumnedTextProps {
   title?: string
 }
 
-export function ColumnedText({ className, content, title }: ColumnedTextProps) {
+export const ColumnedText = ({ className, content, title }: ColumnedTextProps) => {
   const breakWord = '<break>'
   const columns = content?.split(breakWord) || []
   const { Markdown: UIMarkdown } = useUIContext()

@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 // TODO cleanup
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Check tmp secret to confirm this is a valid request
   // TODO generate new secret and move it to envs
@@ -31,6 +33,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Check model
     if (payload?.model === 'blog-post') {
+      // TODO fix eslint
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const urlToRevalidate = `/blog/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
 
@@ -49,12 +53,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (payload?.model === 'basic-document') {
+      // TODO fix eslint
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const urlToRevalidate = `/documents/${payload?.entry?.slug}`
       console.log(`Revalidating ${urlToRevalidate}`)
       await res.unstable_revalidate(urlToRevalidate)
     }
 
     if (payload?.model === 'event') {
+      // TODO fix eslint
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const urlToRevalidate = `/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
 
@@ -75,6 +83,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (payload?.model === 'page') {
+      // TODO fix eslint
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const urlToRevalidate = `/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
       const layout = payload?.entry?.layout as string
@@ -114,8 +124,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     return res.json({ revalidated: true })
-  } catch (err) {
-    console.log('Error while revalidating ==>', err)
+  } catch (error) {
+    console.log('Error while revalidating ==>', error)
     return res.status(500).send('Error revalidating')
   }
 }
+/* eslint-enable no-console */

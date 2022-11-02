@@ -11,7 +11,7 @@ export interface DocumentsProps {
   files?: { url?: string; content?: RowFileProps }[]
 }
 
-export function Documents({ className, title, moreLink, files }: DocumentsProps) {
+export const Documents = ({ className, title, moreLink, files }: DocumentsProps) => {
   const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className, 'flex flex-col')}>
@@ -25,7 +25,7 @@ export function Documents({ className, title, moreLink, files }: DocumentsProps)
               type={file.content?.type ?? ''}
               title={file.content?.title ?? ''}
               metadata={file.content?.metadata}
-              dateAdded={file.content?.dateAdded ||''}
+              dateAdded={file.content?.dateAdded || ''}
               fileType={file.content?.fileType}
             />
           </UILink>

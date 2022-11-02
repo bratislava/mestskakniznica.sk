@@ -1,13 +1,24 @@
 import { BasicDocumentMetadataDynamicZone } from '@bratislava/strapi-sdk-city-library'
 import React from 'react'
 
-function Metadata({ metadata }: { metadata: (BasicDocumentMetadataDynamicZone | null | undefined)[] | null | undefined }) {
-  return <>{metadata?.map((meta) => meta && <MetadataComponent key={meta?.__typename} metadata={meta} />)}</>
+const Metadata = ({
+  metadata,
+}: {
+  metadata: (BasicDocumentMetadataDynamicZone | null | undefined)[] | null | undefined
+}) => {
+  return (
+    <>
+      {metadata?.map(
+        (meta) => meta && <MetadataComponent key={meta?.__typename} metadata={meta} />
+      )}
+    </>
+  )
 }
 
-const buildMetadata = (data: (string | number | undefined | null)[]) => data.filter((d) => !!d).join(', ')
+const buildMetadata = (data: (string | number | undefined | null)[]) =>
+  data.filter((d) => !!d).join(', ')
 
-function MetadataComponent({ metadata }: { metadata: BasicDocumentMetadataDynamicZone | null }) {
+const MetadataComponent = ({ metadata }: { metadata: BasicDocumentMetadataDynamicZone | null }) => {
   if (!metadata) return null
 
   return <div>{metadataContent(metadata)}</div>
@@ -22,16 +33,40 @@ const metadataContent = (meta: BasicDocumentMetadataDynamicZone) => {
       return <div>{buildMetadata([meta.subject, meta.supplier, meta.number, meta.amount])}</div>
 
     case 'ComponentMetadataMetadata':
-      return <div>{buildMetadata([meta.grant_name, meta.grant_number, meta.provider, meta.amount])}</div>
+      return (
+        <div>{buildMetadata([meta.grant_name, meta.grant_number, meta.provider, meta.amount])}</div>
+      )
 
     case 'ComponentMetadataObjednavky':
-      return <div>{buildMetadata([meta.title, meta.date_period, meta?.attachment?.data?.attributes?.name])}</div>
+      return (
+        <div>
+          {buildMetadata([meta.title, meta.date_period, meta?.attachment?.data?.attributes?.name])}
+        </div>
+      )
 
     case 'ComponentMetadataObchodnaVerejnaSutaz':
-      return <div>{buildMetadata([meta.subject, meta.number, meta.amount, meta?.attachment?.data?.attributes?.name])}</div>
+      return (
+        <div>
+          {buildMetadata([
+            meta.subject,
+            meta.number,
+            meta.amount,
+            meta?.attachment?.data?.attributes?.name,
+          ])}
+        </div>
+      )
 
     case 'ComponentMetadataVerejneObstaravanie':
-      return <div>{buildMetadata([meta.subject, meta.number, meta.amount, meta?.attachment?.data?.attributes?.name])}</div>
+      return (
+        <div>
+          {buildMetadata([
+            meta.subject,
+            meta.number,
+            meta.amount,
+            meta?.attachment?.data?.attributes?.name,
+          ])}
+        </div>
+      )
 
     default:
       return null
