@@ -50,7 +50,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const body = JSON.parse(req.body)
 
-    const { mg_subject, mg_email_to, meta_sent_from, meta_locale, ...rest } = body
+    const { mg_subject, mg_email_to, mg_reply_to, meta_sent_from, meta_locale, ...rest } = body
 
     if (!available_emails.has(mg_email_to)) {
       console.log('email is not in whitelist')
@@ -69,6 +69,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       to: mg_email_to,
       subject: mg_subject || 'Nová odpoveď na formulár stránky mestskakniznica.sk',
       text,
+      'h:Reply-To': mg_reply_to || EMAIL_FROM,
     }
 
     await messenger.messages().send(dataToSend)

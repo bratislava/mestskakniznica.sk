@@ -67,6 +67,7 @@ function AskLibraryForm() {
 
       mg_subject: null,
       mg_email_to: 'info@mestskakniznica.sk',
+      mg_reply_to: data.email,
       meta_sent_from: router.asPath,
       meta_locale: router.locale,
     }
