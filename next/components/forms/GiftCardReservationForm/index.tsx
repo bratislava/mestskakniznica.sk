@@ -7,13 +7,13 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
-import FormContainer, { phoneRegex } from '../FormContainer'
+import { convertDataToBody, useGetFormOptions } from '@utils/form-constants'
+import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import { options } from './options'
 
 function GiftCardReservationForm() {
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
@@ -90,7 +90,7 @@ function GiftCardReservationForm() {
     }
 
     // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   return (
@@ -100,7 +100,7 @@ function GiftCardReservationForm() {
         buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(false)}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('gift_card_success_title')}
         successMessage={t('gift_card_success_message')}
         errorMessage={t('order_error_message')}

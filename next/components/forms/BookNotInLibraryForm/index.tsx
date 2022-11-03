@@ -7,12 +7,12 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '../../../utils/form-constants'
-import FormContainer from '../FormContainer'
+import { convertDataToBody } from '@utils/form-constants'
+import FormContainer, { SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
 function BookNotInLibraryForm() {
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
@@ -81,7 +81,7 @@ function BookNotInLibraryForm() {
     }
 
     // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   return (
@@ -91,7 +91,7 @@ function BookNotInLibraryForm() {
         buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(false)}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('book_not_in_library_success_title')}
         successMessage={t('book_not_in_library_success_message')}
         errorMessage={t('generic_error_message')}

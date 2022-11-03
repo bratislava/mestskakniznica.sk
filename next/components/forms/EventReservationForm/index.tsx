@@ -9,11 +9,11 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '../../../utils/form-constants'
-import { dateTimeString, dayForDifferentDateTo, isEventPast } from '../../../utils/utils'
+import { convertDataToBody } from '@utils/form-constants'
+import { dateTimeString, dayForDifferentDateTo, isEventPast } from '@utils/utils'
 import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
-import FormContainer, { phoneRegex } from '../FormContainer'
+import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 
@@ -22,7 +22,7 @@ interface Props {
 }
 
 function EventReservationForm({ eventDetail }: Props) {
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
   const [isDateEditDisabled, setIsDateEditDisabled] = React.useState(false)
   const [isTimeEditDisabled, setIsTimeEditDisabled] = React.useState(false)
@@ -160,7 +160,7 @@ function EventReservationForm({ eventDetail }: Props) {
     }
 
     // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   return (
@@ -172,7 +172,7 @@ function EventReservationForm({ eventDetail }: Props) {
             buttonText={t('common:continue')}
             onSubmit={handleSubmit}
             isSubmitted={isSubmitted}
-            onReset={() => setIsSubmitted(false)}
+            onReset={() => setIsSubmitted(SubmitStatus.NONE)}
             successTitle={t('generic_success_title')}
             successMessage={t('generic_success_message')}
             errorMessage={t('generic_error_message')}

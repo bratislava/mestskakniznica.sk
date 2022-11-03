@@ -8,15 +8,15 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '../../../utils/form-constants'
+import { convertDataToBody } from '@utils/form-constants'
 import BookList from '../BookList/BookList'
-import FormContainer, { phoneRegex, postalCodeRegex } from '../FormContainer'
+import FormContainer, { phoneRegex, postalCodeRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
 
 function CycleDeliveryReservationForm() {
   const [step, setStep] = React.useState(1)
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
@@ -55,12 +55,12 @@ function CycleDeliveryReservationForm() {
           yup.object().shape({
             id: yup.string(),
             author: yup.string().when(['id'], {
-              is: (id: any) => id.length,
+              is: (id: string) => id?.length,
               then: yup.string(),
               otherwise: yup.string().required(),
             }),
             title: yup.string().when(['id'], {
-              is: (id: any) => id.length,
+              is: (id: string) => id?.length,
               then: yup.string(),
               otherwise: yup.string().required(),
             }),
@@ -116,7 +116,7 @@ function CycleDeliveryReservationForm() {
     }
 
     // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   const triggerFirstStep = () => {
@@ -152,7 +152,7 @@ function CycleDeliveryReservationForm() {
         buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(false)}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('cycle_delivery_success_title')}
         successMessage={t('cycle_delivery_success_message')}
         errorMessage={t('order_error_message')}

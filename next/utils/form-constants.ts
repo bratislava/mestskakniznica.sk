@@ -80,7 +80,8 @@ const getMailTranslationKey = (key: string): string => {
   return translationMap.find((item) => item.key == key)?.value ?? key
 }
 
-const key = (k: string, t: (arg0: string, args1: any) => string): string => t(getMailTranslationKey(k), { lng: 'sk' })
+const key = (k: string, t: (arg0: string, args1: any) => string): string =>
+  t(getMailTranslationKey(k), { lng: 'sk' })
 
 function flattenObject(
   o: any,
@@ -89,7 +90,13 @@ function flattenObject(
   result: { [key: string]: any } = {},
   keepNull = true
 ) {
-  if (_.isString(o) || _.isNumber(o) || _.isBoolean(o) || _.isDate(o) || (keepNull && _.isNull(o))) {
+  if (
+    _.isString(o) ||
+    _.isNumber(o) ||
+    _.isBoolean(o) ||
+    _.isDate(o) ||
+    (keepNull && _.isNull(o))
+  ) {
     result[key(prefix, t)] = convertValue(o)
     return result
   }
@@ -100,10 +107,10 @@ function flattenObject(
       if (_.isArray(o)) {
         pref = `${pref} (${Number(i) + 1})`
       } else if (_.isEmpty(prefix)) {
-          pref = i
-        } else {
-          pref = `${key(prefix, t)  }. ${  key(i, t)}`
-        }
+        pref = i
+      } else {
+        pref = `${key(prefix, t)}. ${key(i, t)}`
+      }
       flattenObject(o[i], t, pref, result, keepNull)
     }
     return result
@@ -125,7 +132,8 @@ const convertValue = (value: any) => {
   return String(value)
 }
 
-export const convertDataToBody = (data: object, t: (arg0: string, args1: any) => string) => flattenObject(data, t)
+export const convertDataToBody = (data: object, t: (arg0: string, args1: any) => string) =>
+  flattenObject(data, t)
 
 export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRadioOption[] => {
   const temp: IRadioOption[] = []
@@ -134,10 +142,9 @@ export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRa
   options.forEach((item) =>
     temp.push({
       key: item.key,
-      title:
-        `${item.label.find((l) => l.locale == (locale ?? 'sk'))?.label ?? '-' 
-        } ${ 
-        showPrice ? item.price ?? '' : ''}`,
+      title: `${item.label.find((l) => l.locale == (locale ?? 'sk'))?.label ?? '-'} ${
+        showPrice ? item.price ?? '' : ''
+      }`,
       price: item.price ?? null,
     } as IRadioOption)
   )

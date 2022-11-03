@@ -4,24 +4,28 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { LocalDate } from '@js-joda/core'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
-import FormContainer, { phoneRegex, postalCodeRegex } from '../FormContainer'
+import { useGetFormOptions } from '@utils/form-constants'
+import FormContainer, {
+  IDCardRegex,
+  phoneRegex,
+  postalCodeRegex,
+  SubmitStatus,
+} from '../FormContainer'
 import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
 import { options } from './options'
 
 function CityLibraryRegistrationForm() {
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
+  const [errMessage, setErrMessage] = React.useState('')
   const [step, setStep] = React.useState(1)
   const [showTempAddress, setShowTempAddress] = React.useState(false)
   const { t } = useTranslation(['forms', 'common'])
-  const router = useRouter()
 
   yup.setLocale({
     mixed: {
@@ -45,6 +49,11 @@ function CityLibraryRegistrationForm() {
       fName: yup.string().required(),
       lName: yup.string().required(),
       email: yup.string().email().required(),
+      password: yup.string().required().min(7, t('validation_error_password_gt_7')),
+      password2: yup
+        .string()
+        .oneOf([yup.ref('password'), null], t('validation_error_password_mismatch'))
+        .required(),
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       address: yup.string().required(),
       city: yup.string().required(),
@@ -67,9 +76,10 @@ function CityLibraryRegistrationForm() {
       }),
       IDType: yup.string().required(),
       birthDate: yup.date().max(LocalDate.now().toString()).required(),
-      IDNumber: yup.string().required(),
+      IDNumber: yup.string().matches(IDCardRegex, t('validation_error_idcard')).required(),
       acceptFormTerms: yup.boolean().isTrue(),
       authorizedToUseBlindDepartment: yup.boolean(),
+      acceptNewsletter: yup.boolean(),
     })
     .required()
 
@@ -81,6 +91,8 @@ function CityLibraryRegistrationForm() {
       fName: '',
       lName: '',
       email: '',
+      password: '',
+      password2: '',
       phone: '',
       address: '',
       city: '',
@@ -93,42 +105,29 @@ function CityLibraryRegistrationForm() {
       birthDate: '',
       IDNumber: '',
       authorizedToUseBlindDepartment: false,
+      acceptNewsletter: false,
     },
   })
   const { errors } = methods.formState
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    const temp = convertDataToBody(data, t)
-
-    // additional params
-    const body = {
-      ...temp,
-
-      mg_subject: null,
-      mg_email_to: 'registracia@mestskakniznica.sk',
-      mg_reply_to: data.email,
-      meta_sent_from: router.asPath,
-      meta_locale: router.locale,
-    }
-
-    console.log('body:', body)
-
     // send email
-    const res = await fetch(`/api/submit-form`, {
+    const res = await fetch(`/api/register`, {
       method: 'POST',
       // @ts-ignore
-      body: JSON.stringify(body),
+      body: JSON.stringify(data),
     })
 
     // catch error
-    const { error } = await res.json()
-    if (error) {
-      console.log('error sending form', error)
+    const { status, message } = await res.json()
+    if (!status || status != 200) {
+      const errMessage = message || t('library_registration_error_message')
+      setErrMessage(errMessage)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
-    // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   const triggerFirstStep = () => {
@@ -137,6 +136,8 @@ function CityLibraryRegistrationForm() {
         'fName',
         'lName',
         'email',
+        'password',
+        'password2',
         'phone',
         'address',
         'city',
@@ -169,10 +170,10 @@ function CityLibraryRegistrationForm() {
         buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(false)}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('library_registration_success_title')}
         successMessage={t('library_registration_success_message')}
-        errorMessage={t('library_registration_error_message')}
+        errorMessage={errMessage}
       >
         {/* Step 1 */}
         <StepNumberTitle
@@ -235,6 +236,44 @@ function CityLibraryRegistrationForm() {
                 />
               )}
             />
+
+            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+              <Controller
+                control={methods.control}
+                name="password"
+                render={({ field: { ref, ...field } }) => (
+                  <Input
+                    id="password_label"
+                    labelContent={t('password')}
+                    className="w-full"
+                    inputClassName="px-3 w-full"
+                    hasError={!!errors.password}
+                    errorMessage={errors.password?.message}
+                    required
+                    type="password"
+                    {...field}
+                  />
+                )}
+              />
+              <Controller
+                control={methods.control}
+                name="password2"
+                render={({ field: { ref, ...field } }) => (
+                  <Input
+                    id="password2_label"
+                    labelContent={t('password_again')}
+                    className="w-full"
+                    inputClassName="px-3 w-full"
+                    hasError={!!errors.password2}
+                    errorMessage={errors.password2?.message}
+                    required
+                    type="password"
+                    {...field}
+                  />
+                )}
+              />
+            </div>
+
             <Controller
               control={methods.control}
               name="phone"
@@ -459,6 +498,22 @@ function CityLibraryRegistrationForm() {
           )}
           <Controller
             control={methods.control}
+            name="acceptNewsletter"
+            defaultValue={false}
+            render={({ field: { onChange, value, name } }) => (
+              <CheckBox
+                id="acceptNewsletter"
+                name={name}
+                onChange={onChange} // send value to hook form
+                checked={value}
+                aria-invalid={errors.acceptNewsletter ? 'true' : 'false'}
+              >
+                <div className="text-xs">{t('form_city_accept_newsletter')}</div>
+              </CheckBox>
+            )}
+          />
+          <Controller
+            control={methods.control}
             name="authorizedToUseBlindDepartment"
             defaultValue={false}
             render={({ field: { onChange, value, name } }) => (
@@ -468,6 +523,7 @@ function CityLibraryRegistrationForm() {
                 onChange={onChange} // send value to hook form
                 checked={value}
                 aria-invalid={errors.authorizedToUseBlindDepartment ? 'true' : 'false'}
+                className="pt-4"
               >
                 <div className="text-xs">{t('form_city_auth_blind_dep')}</div>
               </CheckBox>

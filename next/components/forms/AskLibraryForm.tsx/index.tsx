@@ -7,12 +7,12 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '../../../utils/form-constants'
-import FormContainer, { phoneRegexOrEmpty } from '../FormContainer'
+import { convertDataToBody } from '@utils/form-constants'
+import FormContainer, { phoneRegexOrEmpty, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
 function AskLibraryForm() {
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
@@ -87,7 +87,7 @@ function AskLibraryForm() {
     }
 
     // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   return (
@@ -97,7 +97,7 @@ function AskLibraryForm() {
         buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(false)}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('generic_success_title')}
         successMessage={t('generic_success_message')}
         errorMessage={t('generic_error_message')}
