@@ -1,8 +1,6 @@
-import {
-  FooterEntity,
-  MenuEntity,
-  PageEntity,
-} from '@bratislava/strapi-sdk-city-library'
+import { FooterEntity, MenuEntity, PageEntity } from '@bratislava/strapi-sdk-city-library'
+import { client } from '@utils/gql'
+import { arrayify, isPresent } from '@utils/utils'
 import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -11,8 +9,6 @@ import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
 import SearchPage from '../components/pages/SearchPage'
-import { client } from '../utils/gql'
-import { arrayify, isPresent } from '../utils/utils'
 
 export const Search = ({ locale, error, page, menus, footer }: IProps) => {
   if (error) {
@@ -26,7 +22,7 @@ export const Search = ({ locale, error, page, menus, footer }: IProps) => {
           .map((l) => ({ ...l, slug: '' }))}
       >
         <ErrorPage code={500}>
-          <ErrorDisplay error={error} />
+          <ErrorDisplay error={error}/>
         </ErrorPage>
       </PageWrapper>
     )
@@ -44,7 +40,7 @@ export const Search = ({ locale, error, page, menus, footer }: IProps) => {
         }))}
     >
       <DefaultPageLayout Seo={page?.attributes?.Seo} menus={menus} footer={footer}>
-        <SearchPage page={page} />
+        <SearchPage pageEntity={page}/>
       </DefaultPageLayout>
     </PageWrapper>
   )

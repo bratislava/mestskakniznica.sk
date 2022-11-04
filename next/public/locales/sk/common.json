@@ -128,5 +128,14 @@
   "eventsEmpty": "Nenašli sa žiadne podujatia",
   "eventsAllSlug": "/zazite/podujatia",
   "eventListImagePlaceholder": "Obrázok karty podujatia",
-  "eventDetailImagePlaceholder": "Obrázok podujatia"
+  "eventDetailImagePlaceholder": "Obrázok podujatia",
+  "resultsFound_zero": "Nebol nájdený žiaden výsledok",
+  "resultsFound_one": "Bol nájdený {{count}} výsledok",
+  "resultsFound_few": "Boli nájdené {{count}} výsledky",
+  "resultsFound_other": "Bolo nájdených {{count}} výsledkov",
+  "allResults": "Všetky výsledky",
+  "searchPlaceholder": "Hľadať",
+  "searchTags": {
+    "page": "Stránka"
+  }
 }

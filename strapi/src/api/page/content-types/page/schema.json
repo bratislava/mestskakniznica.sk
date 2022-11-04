@@ -30,7 +30,7 @@
           "localized": true
         }
       },
-      "type": "text"
+      "type": "string"
     },
     "layout": {
       "pluginOptions": {

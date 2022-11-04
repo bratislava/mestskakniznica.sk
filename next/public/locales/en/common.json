@@ -128,5 +128,14 @@
   "eventsEmpty": "No events found",
   "eventsAllSlug": "/experience/events",
   "eventListImagePlaceholder": "Event card image",
-  "eventDetailImagePlaceholder": "Event image"
+  "eventDetailImagePlaceholder": "Event image",
+  "resultsFound_zero": "No results found",
+  "resultsFound_one": "{{count}} result found",
+  "resultsFound_few": "{{count}} results found",
+  "resultsFound_other": "{{count}} results found",
+  "allResults": "All results",
+  "searchPlaceholder": "Search",
+  "searchTags": {
+    "page": "Page"
+  }
 }
