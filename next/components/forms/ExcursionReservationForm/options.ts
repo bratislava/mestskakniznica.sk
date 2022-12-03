@@ -1,4 +1,4 @@
-import { IFormOption } from '../../../utils/form-constants'
+import { IFormOption } from '@utils/form-constants'
 
 export const options: IFormOption[] = [
   {
@@ -16,7 +16,8 @@ export const options: IFormOption[] = [
     label: [
       {
         locale: 'sk',
-        label: 'Spoznajte knižnicu po svojom – Exkurzia a prehliadka Letnej čitárne U červeného raka',
+        label:
+          'Spoznajte knižnicu po svojom – Exkurzia a prehliadka Letnej čitárne U červeného raka',
       },
       {
         locale: 'en',
@@ -30,11 +31,13 @@ export const options: IFormOption[] = [
     label: [
       {
         locale: 'sk',
-        label: 'Spoznajte knižnicu po svojom – Komentovaná prehliadka Letnej čitárne U červeného raka',
+        label:
+          'Spoznajte knižnicu po svojom – Komentovaná prehliadka Letnej čitárne U červeného raka',
       },
       {
         locale: 'en',
-        label: 'Get to know the library in your own way - Guided tour of the Summer Reading Room U červeného raka',
+        label:
+          'Get to know the library in your own way - Guided tour of the Summer Reading Room U červeného raka',
       },
     ],
   },

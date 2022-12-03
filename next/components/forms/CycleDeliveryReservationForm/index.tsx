@@ -8,15 +8,15 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '../../../utils/form-constants'
+import { convertDataToBody } from '@utils/form-constants'
 import BookList from '../BookList/BookList'
-import FormContainer, { phoneRegex, postalCodeRegex } from '../FormContainer'
+import FormContainer, { phoneRegex, postalCodeRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
 
 function CycleDeliveryReservationForm() {
   const [step, setStep] = React.useState(1)
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
@@ -55,12 +55,12 @@ function CycleDeliveryReservationForm() {
           yup.object().shape({
             id: yup.string(),
             author: yup.string().when(['id'], {
-              is: (id: any) => id.length,
+              is: (id: string) => id?.length,
               then: yup.string(),
               otherwise: yup.string().required(),
             }),
             title: yup.string().when(['id'], {
-              is: (id: any) => id.length,
+              is: (id: string) => id?.length,
               then: yup.string(),
               otherwise: yup.string().required(),
             }),
@@ -93,12 +93,12 @@ function CycleDeliveryReservationForm() {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'donaska@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'donaska@mestskakniznica.sk',
+      mg_reply_to: data.email,
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     // send email
@@ -116,12 +116,21 @@ function CycleDeliveryReservationForm() {
     }
 
     // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   const triggerFirstStep = () => {
     methods
-      .trigger(['fName', 'lName', 'readerCardNumber', 'address', 'city', 'postalCode', 'email', 'phone'])
+      .trigger([
+        'fName',
+        'lName',
+        'readerCardNumber',
+        'address',
+        'city',
+        'postalCode',
+        'email',
+        'phone',
+      ])
       .then((fulfillment) => {
         if (fulfillment) {
           methods.clearErrors()
@@ -130,7 +139,9 @@ function CycleDeliveryReservationForm() {
       })
   }
 
-  const stepOneErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'books'))
+  const stepOneErrors = !isEmpty(
+    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'books')
+  )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
 
@@ -141,7 +152,7 @@ function CycleDeliveryReservationForm() {
         buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(false)}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('cycle_delivery_success_title')}
         successMessage={t('cycle_delivery_success_message')}
         errorMessage={t('order_error_message')}
@@ -152,12 +163,12 @@ function CycleDeliveryReservationForm() {
           title={t('personal_details')}
           activeStep={step}
           className={cx('', {
-            '-mx-8 px-8 border border-error': stepOneErrors && step !== 1,
+            '-mx-8 border border-error px-8': stepOneErrors && step !== 1,
           })}
           onClick={() => setStep(1)}
         >
-          <div className="flex flex-col gap-y-6 w-full">
-            <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row items-center justify-between">
+          <div className="flex w-full flex-col gap-y-6">
+            <div className="flex flex-col items-center justify-between gap-y-6 gap-x-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="fName"
@@ -259,7 +270,7 @@ function CycleDeliveryReservationForm() {
                 />
               )}
             />
-            <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row items-center justify-between">
+            <div className="flex flex-col items-center justify-between gap-y-6 gap-x-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="city"
@@ -294,7 +305,7 @@ function CycleDeliveryReservationForm() {
               />
             </div>
 
-            <Button onClick={() => triggerFirstStep()} className="w-36 h-10">
+            <Button onClick={() => triggerFirstStep()} className="h-10 w-36">
               {t('common:continue')}
             </Button>
           </div>
@@ -324,7 +335,9 @@ function CycleDeliveryReservationForm() {
               />
             )}
           />
-          {stepTwoErrors && <p className="text-base text-error pb-4">{t('please_fill_required_fields')}</p>}
+          {stepTwoErrors && (
+            <p className="pb-4 text-base text-error">{t('please_fill_required_fields')}</p>
+          )}
           <FormFooter hasDivider buttonContent={t('send')} />
         </StepNumberTitle>
       </FormContainer>

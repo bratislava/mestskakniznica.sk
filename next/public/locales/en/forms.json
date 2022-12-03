@@ -137,5 +137,12 @@
   "mail_time_from": "Time from",
   "mail_time_to": "Time to",
   "mail_blind_dep": "Use the services of the Department for the Blind and Visually Impaired",
-  "mail_accept_terms": "Agree with ToS"
+  "mail_accept_terms": "Agree with ToS",
+  "password": "Password",
+  "password_again": "Password again",
+  "validation_error_password_gt_7": "must have at least 7 characters",
+  "validation_error_password_mismatch": "must match with Password",
+  "validation_error_idcard": "must be in format AA000000",
+  "generic_error_title": "Error",
+  "form_city_accept_newsletter": "I agree to receive news from the online catalogue."
 }

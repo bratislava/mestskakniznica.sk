@@ -1,4 +1,4 @@
-import { IFormOption } from '../../../utils/form-constants'
+import { IFormOption } from '@utils/form-constants'
 
 export const options: IFormOption[] = [
   {
@@ -14,7 +14,8 @@ export const options: IFormOption[] = [
     label: [
       {
         locale: 'sk',
-        label: 'Zrakovo a inak zdravotne postihnutý v rozsahu odôvodnenom jeho zdravotným postihnutím',
+        label:
+          'Zrakovo a inak zdravotne postihnutý v rozsahu odôvodnenom jeho zdravotným postihnutím',
       },
       {
         locale: 'en',

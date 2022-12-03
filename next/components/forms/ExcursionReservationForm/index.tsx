@@ -8,13 +8,13 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody, useGetFormOptions } from '../../../utils/form-constants'
-import FormContainer, { phoneRegex } from '../FormContainer'
+import { convertDataToBody, useGetFormOptions } from '@utils/form-constants'
+import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import { options } from './options'
 
 function ExcursionReservationForm() {
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
@@ -74,12 +74,12 @@ function ExcursionReservationForm() {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'vypozicky.detska@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'vypozicky.detska@mestskakniznica.sk',
+      mg_reply_to: data.email,
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     // send email
@@ -97,7 +97,7 @@ function ExcursionReservationForm() {
     }
 
     // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   return (
@@ -107,13 +107,13 @@ function ExcursionReservationForm() {
         buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(false)}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('generic_success_title')}
         successMessage={t('generic_success_message')}
         errorMessage={t('generic_error_message')}
       >
-        <div className="flex flex-col gap-y-6 w-full mt-4">
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+        <div className="mt-4 flex w-full flex-col gap-y-6">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="fName"
@@ -201,7 +201,7 @@ function ExcursionReservationForm() {
               />
             )}
           />
-          <div className="flex flex-col gap-y-6 gap-x-6 lg:flex-row justify-between">
+          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="excursionDate"

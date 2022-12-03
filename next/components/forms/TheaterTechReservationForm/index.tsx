@@ -5,15 +5,15 @@ import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { Controller, FormProvider,useForm } from 'react-hook-form'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '../../../utils/form-constants'
-import FormContainer, { phoneRegex } from '../FormContainer'
+import { convertDataToBody } from '@utils/form-constants'
+import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
 function TheaterTechReservationForm() {
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
@@ -67,12 +67,12 @@ function TheaterTechReservationForm() {
     // additional params
     const body = {
       ...temp,
-      
-        mg_subject: null,
-        mg_email_to: 'vypozicky.detska@mestskakniznica.sk',
-        meta_sent_from: router.asPath,
-        meta_locale: router.locale
-      ,
+
+      mg_subject: null,
+      mg_email_to: 'vypozicky.detska@mestskakniznica.sk',
+      mg_reply_to: data.email,
+      meta_sent_from: router.asPath,
+      meta_locale: router.locale,
     }
 
     // send email
@@ -90,7 +90,7 @@ function TheaterTechReservationForm() {
     }
 
     // show thank you message
-    setIsSubmitted(true)
+    setIsSubmitted(SubmitStatus.SUCCESS)
   })
 
   return (
@@ -100,13 +100,13 @@ function TheaterTechReservationForm() {
         buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(false)}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('reservation_success_title')}
         successMessage={t('reservation_success_message')}
         errorMessage={t('generic_error_message')}
       >
-        <div className="flex flex-col gap-y-6 w-full mt-4">
-          <div className="flex flex-col gap-y-6 lg:flex-row justify-between">
+        <div className="mt-4 flex w-full flex-col gap-y-6">
+          <div className="flex flex-col justify-between gap-y-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="fName"
@@ -170,7 +170,7 @@ function TheaterTechReservationForm() {
               />
             )}
           />
-          <div className="flex flex-col gap-y-6 lg:flex-row justify-between">
+          <div className="flex flex-col justify-between gap-y-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="techType"

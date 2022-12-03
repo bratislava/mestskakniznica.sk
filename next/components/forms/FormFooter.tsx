@@ -19,7 +19,7 @@ function FormFooter({ className, buttonContent, hasDivider = false }: IProps) {
   const { locale } = usePageWrapperContext()
 
   return (
-    <div className={cx('space-y-6 w-full', className)}>
+    <div className={cx('w-full space-y-6', className)}>
       {hasDivider && <div className="border-t border-gray-universal-200" />}
       <Controller
         control={methods.control}
@@ -37,22 +37,28 @@ function FormFooter({ className, buttonContent, hasDivider = false }: IProps) {
               <div className="text-xs">
                 {t('form_footer_agree')}{' '}
                 <Link
-                  href={locale == 'sk' ? '/o-nas/ochrana-osobnych-udajov' : '/about-us/privacy-terms-and-conditions'}
+                  href={
+                    locale == 'sk'
+                      ? '/o-nas/ochrana-osobnych-udajov'
+                      : '/about-us/privacy-terms-and-conditions'
+                  }
                   variant="plain"
                   uppercase={false}
                   className="underline"
                 >
                   {t('form_footer_personal_details')}
                 </Link>
-                .
+                . <span className="pl-1 text-error">*</span>
               </div>
             </CheckBox>
-            {!!errors.acceptFormTerms && <p className="text-error text-base -mt-6">{t('terms_error')}</p>}
+            {!!errors.acceptFormTerms && (
+              <p className="-mt-6 text-base text-error">{t('terms_error')}</p>
+            )}
           </>
         )}
         rules={{ required: true }}
       />
-      <Button className="w-full lg:w-auto py-2.5 px-5 ml-0 m-auto">{buttonContent}</Button>
+      <Button className="m-auto ml-0 w-full py-2.5 px-5 lg:w-auto">{buttonContent}</Button>
     </div>
   )
 }
