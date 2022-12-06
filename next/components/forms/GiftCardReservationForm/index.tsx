@@ -42,6 +42,7 @@ function GiftCardReservationForm() {
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       cardType: yup.string().required(),
       acceptFormTerms: yup.boolean().isTrue(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -55,6 +56,7 @@ function GiftCardReservationForm() {
       email: '',
       phone: '',
       cardType: selectOptions[0].key,
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -86,6 +88,7 @@ function GiftCardReservationForm() {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 

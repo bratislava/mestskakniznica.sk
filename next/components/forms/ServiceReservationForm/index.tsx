@@ -86,6 +86,7 @@ function ServiceReservationForm() {
       message: yup.string().required(),
       attachment: yup.mixed().required(),
       acceptFormTerms: yup.boolean().isTrue(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -98,6 +99,7 @@ function ServiceReservationForm() {
       phone: '',
       message: '',
       attachment: undefined,
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -130,6 +132,7 @@ function ServiceReservationForm() {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 

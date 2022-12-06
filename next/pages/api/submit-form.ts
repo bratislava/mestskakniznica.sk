@@ -31,9 +31,6 @@ const available_emails = new Set([
   'miroslava.porubska@mestskakniznica.sk',
   'diplomovky@mestskakniznica.sk',
   'vypozicky.hudobna@mestskakniznica.sk',
-  // todo remove after testing
-  'francviktor@gmail.com',
-  'martin.pinter@bratislava.sk',
 ])
 
 // To send results of any form on the page to the email of city library,
@@ -41,7 +38,6 @@ const available_emails = new Set([
 // json 1 level deep. Optionally you can add a custom subject field (i.e.
 // to indicate the identity of the form you are sending)
 
-// TODO captcha ?
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== 'POST' /* || typeof req.body !== 'object' */) {
@@ -50,11 +46,32 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const body = JSON.parse(req.body)
 
-    const { mg_subject, mg_email_to, mg_reply_to, meta_sent_from, meta_locale, ...rest } = body
+    const {
+      mg_subject,
+      mg_email_to,
+      mg_reply_to,
+      meta_sent_from,
+      meta_locale,
+      cfTurnstile,
+      ...rest
+    } = body
+
+    if (
+      !process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY ||
+      !process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITEVERIFY_API
+    ) {
+      console.log('Captcha variables not defined')
+      return res.status(500).json({ error: 'Captcha variables not defined' })
+    }
+
+    if (!cfTurnstile) {
+      console.log('Captcha token not provided')
+      return res.status(500).json({ error: 'Captcha token not provided' })
+    }
 
     if (!available_emails.has(mg_email_to)) {
       console.log('email is not in whitelist')
-      return res.status(500).json({})
+      return res.status(500).json({ error: 'generic error' })
     }
 
     const text = _.reduce(
@@ -72,12 +89,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       'h:Reply-To': mg_reply_to || EMAIL_FROM,
     }
 
+    const cfForm = new URLSearchParams()
+    cfForm.append('secret', process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY)
+    cfForm.append('response', cfTurnstile)
+
+    const result = await fetch(process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITEVERIFY_API, {
+      method: 'POST',
+      body: cfForm,
+    })
+    const cfResponse = await result.json()
+
+    if (cfResponse.success != true) {
+      console.log('Captcha validation failed')
+      return res.status(500).json({ error: 'Captcha validation failed' })
+    }
+
     await messenger.messages().send(dataToSend)
 
     return res.status(200).json({})
   } catch (error) {
     console.error(error)
-    return res.status(500).json({})
+    return res.status(500).json({ error: 'generic error' })
   }
 }
 

@@ -38,6 +38,7 @@ function BookNotInLibraryForm() {
       email: yup.string().email().required(),
       message: yup.string().required(),
       acceptFormTerms: yup.boolean().isTrue(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -46,6 +47,7 @@ function BookNotInLibraryForm() {
     defaultValues: {
       email: '',
       message: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -77,6 +79,7 @@ function BookNotInLibraryForm() {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 

@@ -1,13 +1,41 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-// TODO captcha ?
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== 'POST' /* || typeof req.body !== 'object' */) {
       return res.status(400).json({})
     }
 
+    if (
+      !process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY ||
+      !process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITEVERIFY_API
+    ) {
+      console.log('Captcha variables not defined')
+      return res.status(500).json({})
+    }
+
     const body = JSON.parse(req.body)
+
+    const cfTurnstile = body.cfTurnstile ?? false
+    if (!cfTurnstile) {
+      console.log('Captcha token not provided')
+      return res.status(500).json({})
+    }
+
+    const cfForm = new URLSearchParams()
+    cfForm.append('secret', process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY)
+    cfForm.append('response', cfTurnstile)
+
+    const cfResult = await fetch(process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITEVERIFY_API, {
+      method: 'POST',
+      body: cfForm,
+    })
+    const cfResponse = await cfResult.json()
+
+    if (cfResponse.success != true) {
+      console.log('Captcha validation failed')
+      return res.status(500).json({})
+    }
 
     // datum narodenia vo formate dd.mm.yyyy
     const birthday = new Date(body.birthDate)

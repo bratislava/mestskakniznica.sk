@@ -63,6 +63,7 @@ function InterlibraryLoanServiceFormReader() {
           })
         )
         .required(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -88,6 +89,7 @@ function InterlibraryLoanServiceFormReader() {
         },
       ],
       acceptFeesTerms: false,
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -118,6 +120,7 @@ function InterlibraryLoanServiceFormReader() {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
@@ -138,7 +141,8 @@ function InterlibraryLoanServiceFormReader() {
 
   const stepOneErrors = !isEmpty(
     Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms'
+      (k) =>
+        k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms' && k !== 'cfTurnstile'
     )
   )
 

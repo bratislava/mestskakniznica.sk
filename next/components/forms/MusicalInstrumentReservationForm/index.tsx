@@ -48,6 +48,7 @@ function MusicalInstrumentReservationForm() {
       timeFrom: yup.string().required(),
       timeTo: yup.string().required(),
       acceptFormTerms: yup.boolean().isTrue(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -65,6 +66,7 @@ function MusicalInstrumentReservationForm() {
       dateTo: '',
       timeFrom: '',
       timeTo: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -96,6 +98,7 @@ function MusicalInstrumentReservationForm() {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 

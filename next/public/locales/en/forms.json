@@ -144,5 +144,7 @@
   "validation_error_password_mismatch": "must match with Password",
   "validation_error_idcard": "must be in format AA000000",
   "generic_error_title": "Error",
-  "form_city_accept_newsletter": "I agree to receive news from the online catalogue."
+  "form_city_accept_newsletter": "I agree to receive news from the online catalogue.",
+  "validation_error_captcha": "validation is required.",
+  "captcha": "Captcha"
 }

@@ -49,6 +49,7 @@ function SpaceReservationForm() {
       timeTo: yup.string().required(),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -67,6 +68,7 @@ function SpaceReservationForm() {
       timeFrom: '',
       timeTo: '',
       message: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -98,6 +100,7 @@ function SpaceReservationForm() {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 

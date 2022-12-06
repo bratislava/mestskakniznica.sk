@@ -72,6 +72,7 @@ function EventReservationForm({ eventDetail }: Props) {
     eventTime: yup.string().required(),
     message: yup.string(),
     acceptFormTerms: yup.boolean().isTrue(),
+    cfTurnstile: yup.string().required(t('validation_error_captcha')),
   }
   const schema = yup.object(schemaBase).required()
 
@@ -86,6 +87,7 @@ function EventReservationForm({ eventDetail }: Props) {
       eventDate: '',
       eventTime: '',
       message: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -156,6 +158,7 @@ function EventReservationForm({ eventDetail }: Props) {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 

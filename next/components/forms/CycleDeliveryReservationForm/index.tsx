@@ -67,6 +67,7 @@ function CycleDeliveryReservationForm() {
           })
         )
         .required(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -83,6 +84,7 @@ function CycleDeliveryReservationForm() {
       phone: '',
       message: '',
       books: [{ bookId: '', author: '', title: '' }],
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -112,6 +114,7 @@ function CycleDeliveryReservationForm() {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
@@ -140,7 +143,9 @@ function CycleDeliveryReservationForm() {
   }
 
   const stepOneErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'books')
+    Object.keys(errors).filter(
+      (k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'cfTurnstile'
+    )
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))

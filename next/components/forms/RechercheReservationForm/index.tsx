@@ -51,6 +51,7 @@ function RechercheReservationForm() {
       rechercheLiteratureTime: yup.string().required(),
       rechercheDocumentsType: yup.string().required(),
       rechercheDemandedLanguages: yup.string().required(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -69,6 +70,7 @@ function RechercheReservationForm() {
       rechercheLiteratureTime: '',
       rechercheDocumentsType: '',
       rechercheDemandedLanguages: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -98,6 +100,7 @@ function RechercheReservationForm() {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
@@ -117,7 +120,9 @@ function RechercheReservationForm() {
   }
 
   const stepOneErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && !k.startsWith('recherche'))
+    Object.keys(errors).filter(
+      (k) => k !== 'acceptFormTerms' && !k.startsWith('recherche') && k !== 'cfTurnstile'
+    )
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
