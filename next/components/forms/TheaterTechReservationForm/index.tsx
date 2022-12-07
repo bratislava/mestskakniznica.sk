@@ -1,6 +1,7 @@
 import { DateTimeSelect, Input, Select } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LocalDate } from '@js-joda/core'
+import { convertDataToBody } from '@utils/form-constants'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -8,11 +9,10 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '@utils/form-constants'
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
-function TheaterTechReservationForm() {
+const TheaterTechReservationForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()

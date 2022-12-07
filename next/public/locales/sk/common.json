@@ -14,6 +14,7 @@
   "openingHoursClosed": "Teraz je zatvorené",
   "copyright": "Mestská knižnica v Bratislave",
   "category": "Kategórie",
+  "coverImageFor": "Ilustračný obrázok pre {{title}}",
   "allDocuments": "Všetky kategórie",
   "added": "Pridané",
   "open": "Otvoriť",

@@ -18,7 +18,7 @@ interface IProps {
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
 }
 
-export function NewsLetter({
+export const NewsLetter = ({
   className,
   title,
   buttonContent,
@@ -28,7 +28,7 @@ export function NewsLetter({
   respondMessage,
   resStatus,
   onSubmit,
-}: IProps) {
+}: IProps) => {
   const methods = useFormContext()
   const { errors } = useFormState()
 

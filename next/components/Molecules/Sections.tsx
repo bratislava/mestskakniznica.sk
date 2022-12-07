@@ -76,7 +76,7 @@ const FORM: dynamicObject = {
   aka_kniha_vam_v_kniznici_chyba: BookNotInLibraryForm,
 }
 
-function NullComponent() {
+const NullComponent = () => {
   return null
 }
 
@@ -100,7 +100,7 @@ export const getForm = (
   )
 }
 
-function Sections({
+const Sections = ({
   pageTitle,
   sections,
   events,
@@ -112,7 +112,7 @@ function Sections({
   events?: EventCardEntityFragment[] | undefined
   eventsListingUrl?: string | undefined
   className?: string | undefined
-}) {
+}) => {
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
       {sections.map(
@@ -134,7 +134,7 @@ function Sections({
   )
 }
 
-function Section({
+const Section = ({
   sections,
   pageTitle,
   section,
@@ -146,7 +146,7 @@ function Section({
   section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
   events: EventCardEntityFragment[] | undefined
   eventsListingUrl: string | undefined
-}) {
+}) => {
   const [openAccordion, setOpenAccordion] = useState('')
   const { t } = useTranslation(['common', 'homepage'])
   const { locale } = usePageWrapperContext()

@@ -12,7 +12,9 @@ export type WithRequired<Type, Key extends keyof Type> = Type & {
 
 export type WithAttributes<Type extends ObjWithAttributes> = WithRequired<Type, 'attributes'>
 
-export function hasAttributes<T extends ObjWithAttributes>(value: T | null | undefined): value is WithAttributes<T> {
+export function hasAttributes<T extends ObjWithAttributes>(
+  value: T | null | undefined
+): value is WithAttributes<T> {
   return isDefined(value) && 'attributes' in value && isDefined(value.attributes)
 }
 
@@ -21,11 +23,9 @@ export function withAttributes<T extends ObjWithAttributes>(
 ): WithAttributes<T> | null | undefined {
   if (isDefined(value)) {
     if (hasAttributes(value)) {
-      return value 
-    } 
-      return null
-    
-  } 
-    return value
-  
+      return value
+    }
+    return null
+  }
+  return value
 }

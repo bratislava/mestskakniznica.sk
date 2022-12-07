@@ -1,5 +1,5 @@
-import _ from 'lodash'
-import mg from 'mailgun-js'
+import reduce from 'lodash/reduce'
+import Mailgun from 'mailgun-js'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 // TODO get domain and set based on that
@@ -16,7 +16,7 @@ if (
 }
 const EMAIL_FROM = process.env.MAILGUN_EMAIL || ''
 
-const messenger = new mg({
+const messenger = new Mailgun({
   apiKey: process.env.MAILGUN_API_KEY || '',
   domain: process.env.MAILGUN_DOMAIN || '',
   host: process.env.MAILGUN_HOST || '',
@@ -57,7 +57,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(500).json({})
     }
 
-    const text = _.reduce(
+    const text = reduce(
       rest,
       (result, value, key) => result.concat(`${key}: ${value}\n`),
       'Formulár bol vyplnený s nasledovnými hodnotami:\n' +

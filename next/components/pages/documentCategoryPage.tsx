@@ -1,6 +1,13 @@
 import SearchIcon from '@assets/images/search.svg'
 import { FileCategoryEntity } from '@bratislava/strapi-sdk-city-library'
-import { PageTitle, Pagination, RowFile, SearchBar, SectionContainer, Select } from '@bratislava/ui-city-library'
+import {
+  PageTitle,
+  Pagination,
+  RowFile,
+  SearchBar,
+  SectionContainer,
+  Select,
+} from '@bratislava/ui-city-library'
 import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
@@ -20,7 +27,7 @@ export interface SortOption {
   title: string
 }
 
-function DocumentCategoryPage({ documentCategory, locale = 'sk' }: PageProps) {
+const DocumentCategoryPage = ({ documentCategory, locale = 'sk' }: PageProps) => {
   const { t } = useTranslation('common')
   const [documentData, setDocumentData] = React.useState<DocumentResponse>({
     documents: [],
@@ -43,7 +50,9 @@ function DocumentCategoryPage({ documentCategory, locale = 'sk' }: PageProps) {
   React.useEffect(() => {
     const fetchDocuments = async () => {
       const res = await fetch(
-        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=date_added:${sort.key}&categoryId=${id}&query=${query}`
+        `/api/documents?offset=${(offsetPage - 1) * DOCUMENTS_LIMIT}&sort=date_added:${
+          sort.key
+        }&categoryId=${id}&query=${query}`
       )
       const data: DocumentResponse = await res.json()
 
@@ -59,48 +68,67 @@ function DocumentCategoryPage({ documentCategory, locale = 'sk' }: PageProps) {
 
   return (
     <SectionContainer>
-        <PageBreadcrumbs page={documentCategory?.attributes?.page?.data} documentCategory={documentCategory} />
-        <PageTitle title={documentCategory?.attributes?.name ?? ''} hasDivider={false} />
-        <SearchBar
-          placeholder={t('whatAreYouLookingFor')}
-          className="mt-6"
-          inputClassName="py-5 text-sm w-full border-gray-universal-200"
-          iconLeft={<SearchIcon />}
-          value={query}
-          onChange={(ev) => setQuery(ev.target.value)}
-        />
-        <div className="mt-16 pb-32 border-b border-gray-universal-100">
-          <div className="flex items-center justify-end">
-            <Select className="w-44" options={SORT_OPTIONS} value={sort} onChange={(s) => setSort(s)} />
-          </div>
-
-          {/* Documents */}
-          {documentData.documents.map((document) => (
-            <NextLink key={document.id} href={`${t('documents_category_slug')}${document?.attributes?.file_category?.data?.attributes?.slug}/${document?.attributes?.slug}`} passHref>
-              <a href={document?.attributes?.slug || ''}>
-                <RowFile
-                  className="cursor-pointer"
-                  type={document?.attributes?.file_category?.data?.attributes?.name || ''}
-                  title={document?.attributes?.title || ''}
-                  metadata={<Metadata metadata={document?.attributes?.metadata} />}
-                  dateAdded={`${t('added')} ${formatDateToLocal(document?.attributes?.date_added, locale)}`}
-                  fileType={document?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '')}
-                />
-              </a>
-            </NextLink>
-          ))}
-          <div className="mt-6 flex justify-end">
-            <Pagination
-              max={noOfPages}
-              value={offsetPage}
-              onChangeNumber={(num) => handleChangeOffsetPage(num)}
-              previousButtonAriaLabel={t('previousPage')}
-              nextButtonAriaLabel={t('nextPage')}
-              currentInputAriaLabel={t('currentPage')}
-            />
-          </div>
+      <PageBreadcrumbs
+        page={documentCategory?.attributes?.page?.data}
+        documentCategory={documentCategory}
+      />
+      <PageTitle title={documentCategory?.attributes?.name ?? ''} hasDivider={false} />
+      <SearchBar
+        placeholder={t('whatAreYouLookingFor')}
+        className="mt-6"
+        inputClassName="py-5 text-sm w-full border-gray-universal-200"
+        iconLeft={<SearchIcon />}
+        value={query}
+        onChange={(ev) => setQuery(ev.target.value)}
+      />
+      <div className="mt-16 border-b border-gray-universal-100 pb-32">
+        <div className="flex items-center justify-end">
+          <Select
+            className="w-44"
+            options={SORT_OPTIONS}
+            value={sort}
+            onChange={(s) => setSort(s)}
+          />
         </div>
-      </SectionContainer>
+
+        {/* Documents */}
+        {documentData.documents.map((document) => (
+          <NextLink
+            key={document.id}
+            href={`${t('documents_category_slug')}${
+              document?.attributes?.file_category?.data?.attributes?.slug
+            }/${document?.attributes?.slug}`}
+            passHref
+          >
+            <a href={document?.attributes?.slug || ''}>
+              <RowFile
+                className="cursor-pointer"
+                type={document?.attributes?.file_category?.data?.attributes?.name || ''}
+                title={document?.attributes?.title || ''}
+                metadata={<Metadata metadata={document?.attributes?.metadata} />}
+                dateAdded={`${t('added')} ${formatDateToLocal(
+                  document?.attributes?.date_added,
+                  locale
+                )}`}
+                fileType={document?.attributes?.attachment?.data?.attributes?.ext
+                  ?.toUpperCase()
+                  .replace('.', '')}
+              />
+            </a>
+          </NextLink>
+        ))}
+        <div className="mt-6 flex justify-end">
+          <Pagination
+            max={noOfPages}
+            value={offsetPage}
+            onChangeNumber={(num) => handleChangeOffsetPage(num)}
+            previousButtonAriaLabel={t('previousPage')}
+            nextButtonAriaLabel={t('nextPage')}
+            currentInputAriaLabel={t('currentPage')}
+          />
+        </div>
+      </div>
+    </SectionContainer>
   )
 }
 

@@ -8,7 +8,7 @@ export interface DateTimeSelectProps extends InputProps {
   type: 'date' | 'time'
 }
 
-export function DateTimeSelect({ type, inputClassName, ...props }: DateTimeSelectProps) {
+export const DateTimeSelect = ({ type, inputClassName, ...props }: DateTimeSelectProps) => {
   const Icon = type === 'date' ? <CalendarIcon /> : <ClockIcon />
 
   return (

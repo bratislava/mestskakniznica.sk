@@ -12,27 +12,27 @@ registerLocale('en', enUs)
 registerLocale('sk', sk)
 
 interface IEventOptionItem {
-  key: string;
-  title: string;
+  key: string
+  title: string
 }
 
 interface IEventFilters {
-  startDate: Date | null;
-  endDate: Date | null;
-  onStartChange: (date: Date | null) => void;
-  onEndChange: (date: Date | null) => void;
-  tags: IEventOptionItem[];
-  categories: IEventOptionItem[];
-  localities: IEventOptionItem[];
-  selectedEventTags: IEventOptionItem | null | undefined;
-  selectedCategory: IEventOptionItem | null | undefined;
-  selectedLocality: IEventOptionItem | null | undefined;
-  setSelectedEventTags: (data: IEventOptionItem | null | undefined) => void;
-  setSelectedCategory: (data: IEventOptionItem | null | undefined) => void;
-  setSelectedLocality: (data: IEventOptionItem | null | undefined) => void;
+  startDate: Date | null
+  endDate: Date | null
+  onStartChange: (date: Date | null) => void
+  onEndChange: (date: Date | null) => void
+  tags: IEventOptionItem[]
+  categories: IEventOptionItem[]
+  localities: IEventOptionItem[]
+  selectedEventTags: IEventOptionItem | null | undefined
+  selectedCategory: IEventOptionItem | null | undefined
+  selectedLocality: IEventOptionItem | null | undefined
+  setSelectedEventTags: (data: IEventOptionItem | null | undefined) => void
+  setSelectedCategory: (data: IEventOptionItem | null | undefined) => void
+  setSelectedLocality: (data: IEventOptionItem | null | undefined) => void
 }
 
-function EventFilters({
+const EventFilters = ({
   startDate,
   endDate,
   onStartChange,
@@ -46,20 +46,18 @@ function EventFilters({
   setSelectedEventTags,
   setSelectedCategory,
   setSelectedLocality,
-}: IEventFilters) {
+}: IEventFilters) => {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
   return (
     <>
-      <div
-        className="h-auto lg:py-2 px-3 text-sm lg:w-[268px] lg:border lg:border-gray-universal-200 border-b-[1px] border-b-[#000] text-[#000] w-full"
-      >
+      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-sm text-[#000] lg:w-[268px] lg:border lg:border-gray-universal-200 lg:py-2">
         <DatePicker
           onChange={onStartChange}
           selected={startDate}
           chooseDayAriaLabelPrefix={t('dateAriaLabel')}
-          className="w-full placeholder-gray-900 my-5 lg:my-0"
+          className="my-5 w-full placeholder:text-gray-900 lg:my-0"
           placeholderText={t('eventsDateFrom')}
           dateFormat="dd. MM. yyyy"
           locale={locale === 'sk' ? 'sk' : 'en'}
@@ -67,14 +65,12 @@ function EventFilters({
           shouldCloseOnSelect={false}
         />
       </div>
-      <div
-        className="h-auto lg:py-2 px-3 text-sm lg:w-[268px] lg:border lg:border-gray-universal-200 border-b-[1px] border-b-[#000] text-[#000] w-full"
-      >
+      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-sm text-[#000] lg:w-[268px] lg:border lg:border-gray-universal-200 lg:py-2">
         <DatePicker
           onChange={onEndChange}
           selected={endDate}
           chooseDayAriaLabelPrefix={t('dateAriaLabel')}
-          className="w-full placeholder-gray-900 my-5 lg:my-0"
+          className="my-5 w-full placeholder:text-gray-900 lg:my-0"
           placeholderText={t('eventsDateTo')}
           dateFormat="dd. MM. yyyy"
           locale={locale === 'sk' ? 'sk' : 'en'}
@@ -83,21 +79,21 @@ function EventFilters({
         />
       </div>
       <Select
-        className="py-3 w-full border-b-[1px] border-b-[#000] lg:border-gray-universal-200 lg:border-0 lg:w-[268px]"
+        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-gray-universal-200"
         selectClassName="border-0 lg:border"
         options={tags}
         value={selectedEventTags ?? tags[0].title}
         onChange={(ev) => setSelectedEventTags(ev)}
       />
       <Select
-        className="py-3 w-full border-b-[1px] border-b-[#000] lg:border-gray-universal-200 lg:border-0 lg:w-[268px]"
+        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-gray-universal-200"
         selectClassName="border-0 lg:border"
         options={categories}
         value={selectedCategory ?? categories[0].title}
         onChange={(ev) => setSelectedCategory(ev)}
       />
       <Select
-        className="py-3 w-full border-b-[1px] border-b-[#000] lg:border-gray-universal-200 lg:border-0 lg:w-[268px]"
+        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-gray-universal-200"
         selectClassName="border-0 lg:border"
         options={localities}
         value={selectedLocality ?? localities[0].title}

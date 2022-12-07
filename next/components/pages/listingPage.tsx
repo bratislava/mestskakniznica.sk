@@ -1,9 +1,9 @@
 import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import useSWR from 'swr'
+
 import { EventCardEntityFragment, PageEntity } from '../../graphql'
 import { client } from '../../utils/gql'
-
 import { parseSubCategories } from '../../utils/page'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
@@ -12,7 +12,7 @@ export interface PageProps {
   page: PageEntity
 }
 
-function ListingPage({ page }: PageProps) {
+const ListingPage = ({ page }: PageProps) => {
   const { t } = useTranslation('common')
   const { locale = 'sk' } = usePageWrapperContext()
 

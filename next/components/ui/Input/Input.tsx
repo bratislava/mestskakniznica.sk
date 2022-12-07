@@ -14,7 +14,7 @@ export interface InputProps
   inputClassName?: string
 }
 
-export function Input({
+export const Input = ({
   className,
   id,
   required,
@@ -28,71 +28,75 @@ export function Input({
   inputClassName,
   labelClassName,
   ...props
-}: InputProps) {
-  return <div className={className}>
-    {/* Label */}
-    {labelContent && (
-      <label
-        className={cx(labelClassName, 'text-xs text-gray-universal-100 mb-0.5 opacity-80')}
-        id={`${id  }_label`}
-        htmlFor={id}
-      >
-        {labelContent}
-        {required && <span className="text-error pl-1">*</span>}
-      </label>
-    )}
-
-    {/* LeftIcon Accessory */}
-    <div className="flex items-center relative w-full">
-      {!!iconLeft && (
-        <span className={cx('absolute left-4.5 z-10 text-gray-universal-100', iconClassName)}>{iconLeft}</span>
+}: InputProps) => {
+  return (
+    <div className={className}>
+      {/* Label */}
+      {labelContent && (
+        <label
+          className={cx(labelClassName, 'mb-0.5 text-xs text-gray-universal-100 opacity-80')}
+          id={`${id}_label`}
+          htmlFor={id}
+        >
+          {labelContent}
+          {required && <span className="pl-1 text-error">*</span>}
+        </label>
       )}
 
-      {/* BaseInput */}
-      <input
-        id={id}
-        className={cx('base-input', inputClassName, {
-          'base-input--disabled cursor-not-allowed text-gray-universal-60': props.disabled,
-          'base-input--with-error': hasError,
-        })}
-        aria-invalid={hasError}
-        aria-required={required}
-        aria-errormessage={errorMessage ? `${id  }_err` : ''}
-        {...props}
-      />
+      {/* LeftIcon Accessory */}
+      <div className="relative flex w-full items-center">
+        {!!iconLeft && (
+          <span className={cx('absolute left-4.5 z-10 text-gray-universal-100', iconClassName)}>
+            {iconLeft}
+          </span>
+        )}
 
-      {/* RightIcon Accessory */}
-      {iconRight ||
-        (hasError &&
-          (hasError ? (
-            <ErrorOutline className="absolute right-4.5 text-error" />
-          ) : (
-            <span className={cx('absolute right-4.5', iconClassName)}>{iconRight}</span>
-          )))}
+        {/* BaseInput */}
+        <input
+          id={id}
+          className={cx('base-input', inputClassName, {
+            'base-input--disabled cursor-not-allowed text-gray-universal-60': props.disabled,
+            'base-input--with-error': hasError,
+          })}
+          aria-invalid={hasError}
+          aria-required={required}
+          aria-errormessage={errorMessage ? `${id}_err` : ''}
+          {...props}
+        />
+
+        {/* RightIcon Accessory */}
+        {iconRight ||
+          (hasError &&
+            (hasError ? (
+              <ErrorOutline className="absolute right-4.5 text-error" />
+            ) : (
+              <span className={cx('absolute right-4.5', iconClassName)}>{iconRight}</span>
+            )))}
+      </div>
+
+      {/* Error Message */}
+      {hasError && errorMessage && (
+        <p
+          id={`${id}_err`}
+          className={cx('mt-2 text-xs text-error', { hidden: !hasError })}
+          aria-labelledby={`${id}_label`}
+        >
+          {labelContent} {errorMessage}
+        </p>
+      )}
+
+      {/* Help Text */}
+      {helpText && (
+        <p
+          className={cx('mt-0.5 text-xs opacity-80', {
+            'text-gray-universal-70': !hasError,
+            'text-error': hasError,
+            '-ml-4.5': iconLeft,
+          })}
+        >
+          {helpText}
+        </p>
+      )}
     </div>
-
-    {/* Error Message */}
-    {hasError && errorMessage && (
-      <p
-        id={`${id  }_err`}
-        className={cx('text-xs text-error mt-2', { hidden: !hasError })}
-        aria-labelledby={`${id  }_label`}
-      >
-        {labelContent} {errorMessage}
-      </p>
-    )}
-
-    {/* Help Text */}
-    {helpText && (
-      <p
-        className={cx('text-xs mt-0.5 opacity-80', {
-          'text-gray-universal-70': !hasError,
-          'text-error': hasError,
-          '-ml-4.5': iconLeft,
-        })}
-      >
-        {helpText}
-      </p>
-    )}
-  </div>
+  )
 }

@@ -1,12 +1,12 @@
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 interface IPromoNewsCard {
   title: string
   slug: string
 }
 
-function PromoNewsCard({ title, slug }: IPromoNewsCard) {
+const PromoNewsCard = ({ title, slug }: IPromoNewsCard) => {
   const { t } = useTranslation('common')
   return (
     <Link key={slug} href={slug} passHref>

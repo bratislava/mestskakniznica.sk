@@ -1,17 +1,17 @@
 import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
+import Placeholder from '../../assets/images/event-list-placeholder.jpg'
 import { dateTimeString } from '../../utils/utils'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-import Placeholder from '../../assets/images/event-list-placeholder.jpg'
-import { useTranslation } from 'next-i18next'
 
 interface EventListingProps {
   event: EventCardEntityFragment
 }
 
-function EventListingCard({ event: { attributes } }: EventListingProps) {
+const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 

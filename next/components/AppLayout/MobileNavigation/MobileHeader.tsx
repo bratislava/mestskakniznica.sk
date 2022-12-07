@@ -1,9 +1,9 @@
 import Burger from '@assets/images/Burger.svg'
 import { MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 
 import SearchBox from '../Navigation/SearchBox'
@@ -14,7 +14,7 @@ interface HeaderProps {
   menus: MenuEntity[]
 }
 
-function MobilHeader({ menus }: HeaderProps) {
+const MobilHeader = ({ menus }: HeaderProps) => {
   const [isOpen, setOpen] = useState(false)
   const router = useRouter()
   const { t } = useTranslation('common')

@@ -14,14 +14,14 @@ export interface SiteUsefullnessProps {
   secondOption?: string
 }
 
-export function SiteUsefullness({
+export const SiteUsefullness = ({
   className,
   title,
   thankYouMessage,
   firstOption,
   secondOption,
   onButtonClick,
-}: SiteUsefullnessProps) {
+}: SiteUsefullnessProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
 
   const handleClick = (e: MouseEvent) => {
@@ -32,7 +32,7 @@ export function SiteUsefullness({
   return (
     <div
       className={cx(
-        'flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-center border border-gray-universal-100 p-6',
+        'flex flex-col items-center gap-y-4 border border-gray-universal-100 p-6 lg:flex-row lg:gap-y-0',
         className,
         {
           'justify-between': !isSubmitted,
@@ -41,10 +41,10 @@ export function SiteUsefullness({
       )}
     >
       {isSubmitted ? (
-        <p className="text-gray-universal-100 text-base">{thankYouMessage}</p>
+        <p className="text-base text-gray-universal-100">{thankYouMessage}</p>
       ) : (
         <>
-          <p className="text-gray-universal-100 text-base">{title}</p>
+          <p className="text-base text-gray-universal-100">{title}</p>
           <div className="flex items-center gap-x-3">
             <Button
               variant="secondary"

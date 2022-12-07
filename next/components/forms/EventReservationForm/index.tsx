@@ -1,7 +1,10 @@
+import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import { DateTimeSelect, Input, TextArea } from '@bratislava/ui-city-library'
 import NumberSwitcher from '@bratislava/ui-city-library/NumberSwitcher/NumberSwitcher'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LocalDate } from '@js-joda/core'
+import { convertDataToBody } from '@utils/form-constants'
+import { dateTimeString, dayForDifferentDateTo, isEventPast } from '@utils/utils'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -9,19 +12,16 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '@utils/form-constants'
-import { dateTimeString, dayForDifferentDateTo, isEventPast } from '@utils/utils'
 import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
-import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 
 interface Props {
   eventDetail?: EventCardEntityFragment
 }
 
-function EventReservationForm({ eventDetail }: Props) {
+const EventReservationForm = ({ eventDetail }: Props) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
   const [isDateEditDisabled, setIsDateEditDisabled] = React.useState(false)
@@ -107,7 +107,7 @@ function EventReservationForm({ eventDetail }: Props) {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
-        }) ==
+        }) ===
         dateTo.toLocaleString('en-US', {
           year: 'numeric',
           month: '2-digit',
@@ -148,7 +148,6 @@ function EventReservationForm({ eventDetail }: Props) {
     // send email
     const res = await fetch(`/api/submit-form`, {
       method: 'POST',
-      // @ts-ignore
       body: JSON.stringify(body),
     })
 
@@ -180,7 +179,7 @@ function EventReservationForm({ eventDetail }: Props) {
           >
             <div className="mt-4 flex w-full flex-col gap-y-6">
               <div className="text-default text-black-universal">{t('personal_details')}</div>
-              <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+              <div className="flex flex-col justify-between gap-6 lg:flex-row">
                 <Controller
                   control={methods.control}
                   name="fName"
@@ -265,10 +264,12 @@ function EventReservationForm({ eventDetail }: Props) {
                         />
                       </div>
 
+                      {/* TODO fix eslint */}
                       <div className="pl-5">
                         <div className="leading-[19px] text-black-universal ">
                           {(eventDetail?.attributes?.title?.length || 0) > 50
-                            ? `${eventDetail?.attributes?.title?.slice(0, 50)}...`
+                            ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                              `${eventDetail?.attributes?.title?.slice(0, 50)}...`
                             : eventDetail?.attributes?.title}
                         </div>
                         <div className="pt-[5px] text-xs leading-[20px] text-gray-universal-70">
@@ -289,7 +290,7 @@ function EventReservationForm({ eventDetail }: Props) {
                 </div>
               )}
 
-              <div className="flex flex-col justify-between gap-y-6 gap-x-6  lg:flex-row">
+              <div className="flex flex-col justify-between gap-6 lg:flex-row">
                 <Controller
                   control={methods.control}
                   name="eventDate"

@@ -12,7 +12,7 @@ export interface CtaProps {
   uppercase?: boolean
 }
 
-export function CallToAction({
+export const CallToAction = ({
   className,
   title,
   href,
@@ -20,13 +20,13 @@ export function CallToAction({
   customIcon,
   hasIcon = true,
   uppercase = true,
-}: CtaProps) {
+}: CtaProps) => {
   return (
     <div className="border border-gray-900">
       <Link href={href} hasIcon={hasIcon} uppercase={uppercase}>
-        <div className={cx('p-4 relative flex flex-col space-y-4', className)}>
-          <div className="h-full text-[20px] overflow-hidden">{title}</div>
-          <div className="text-sm cursor-pointer uppercase underline decoration-2">
+        <div className={cx('relative flex flex-col space-y-4 p-4', className)}>
+          <div className="h-full overflow-hidden text-[20px]">{title}</div>
+          <div className="cursor-pointer text-sm uppercase underline decoration-2">
             {bottomText}
             {customIcon}
           </div>

@@ -2,6 +2,7 @@ import { Button, CheckBox, DateTimeSelect, Input } from '@bratislava/ui-city-lib
 import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LocalDate } from '@js-joda/core'
+import { useGetFormOptions } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useTranslation } from 'next-i18next'
@@ -9,7 +10,6 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { useGetFormOptions } from '@utils/form-constants'
 import FormContainer, {
   IDCardRegex,
   phoneRegex,
@@ -20,7 +20,7 @@ import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
 import { options } from './options'
 
-function CityLibraryRegistrationForm() {
+const CityLibraryRegistrationForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [errMessage, setErrMessage] = React.useState('')
   const [step, setStep] = React.useState(1)
@@ -186,7 +186,7 @@ function CityLibraryRegistrationForm() {
           onClick={() => setStep(1)}
         >
           <div className="flex w-full flex-col gap-y-6">
-            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+            <div className="flex flex-col justify-between gap-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="fName"
@@ -237,7 +237,7 @@ function CityLibraryRegistrationForm() {
               )}
             />
 
-            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+            <div className="flex flex-col justify-between gap-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="password"
@@ -311,7 +311,7 @@ function CityLibraryRegistrationForm() {
                 />
               )}
             />
-            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+            <div className="flex flex-col justify-between gap-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="city"
@@ -385,7 +385,7 @@ function CityLibraryRegistrationForm() {
                   />
                 )}
               />
-              <div className="flex flex-col justify-between gap-y-6 gap-x-6  lg:flex-row">
+              <div className="flex flex-col justify-between gap-6 lg:flex-row">
                 <Controller
                   control={methods.control}
                   name="tempCity"
@@ -422,7 +422,7 @@ function CityLibraryRegistrationForm() {
             </div>
           )}
 
-          <div className="mb-6 flex flex-col justify-between gap-y-6  gap-x-6 lg:flex-row">
+          <div className="mb-6 flex flex-col justify-between gap-6  lg:flex-row">
             <Controller
               control={methods.control}
               name="birthDate"
@@ -481,7 +481,7 @@ function CityLibraryRegistrationForm() {
               <RadioGroup
                 id="IDType_input"
                 labelContent={t('ID_type')}
-                className="flex flex-col gap-x-4 gap-y-4"
+                className="flex flex-col gap-4"
                 wrapperClassName="w-full mb-6"
                 radioClassName="w-full"
                 options={selectOptions}

@@ -1,6 +1,6 @@
 import cx from 'classnames'
-import { ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
+import { ReactNode, useEffect, useState } from 'react'
 import ReactTooltip from 'react-tooltip'
 
 interface ClickableProps {
@@ -12,7 +12,7 @@ interface ClickableProps {
   copyText?: boolean
 }
 
-function Clickable({ text, svgIcon, actionLink, classA, classDiv, copyText }: ClickableProps) {
+const Clickable = ({ text, svgIcon, actionLink, classA, classDiv, copyText }: ClickableProps) => {
   const [copied, setCopied] = useState(false)
   const { t } = useTranslation('common')
 

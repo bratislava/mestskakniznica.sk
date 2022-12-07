@@ -13,7 +13,7 @@ export type CheckBoxProps = Omit<
   onChange?: (value: boolean) => void
 }
 
-export function CheckBox({ className, children, ...props }: CheckBoxProps) {
+export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
   return (
     <div className={cx('flex items-center gap-3.5', className)}>
       <Checkbox
@@ -22,7 +22,7 @@ export function CheckBox({ className, children, ...props }: CheckBoxProps) {
         id={props.id}
         required={props.required}
         className={cx(
-          'border-gray-universal-100 w-5 h-5 border-2 flex flex-0 text-white items-center justify-center box-border overflow-hidden focus:outline outline-offset-2 outline-1',
+          'flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-gray-universal-100 text-white outline-1 outline-offset-2 focus:outline',
           {
             'bg-gray-universal-100': props.checked,
             'base-input--disabled': props.disabled,
@@ -35,7 +35,7 @@ export function CheckBox({ className, children, ...props }: CheckBoxProps) {
       </Checkbox>
 
       <label
-        className={cx('flex-1 text-gray-universal-70 cursor-pointer', {
+        className={cx('flex-1 cursor-pointer text-gray-universal-70', {
           'base-input--disabled': props.disabled,
         })}
         htmlFor={props.id}

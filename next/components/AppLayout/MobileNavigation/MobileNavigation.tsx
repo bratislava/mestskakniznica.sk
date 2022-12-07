@@ -1,8 +1,8 @@
-import { MenuEntity } from '../../../graphql'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
 
+import { MenuEntity } from '../../../graphql'
 import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
 import MobileNavigationItem from './MobileNavigationItem'
 
@@ -11,7 +11,7 @@ interface MobileNavigationProps {
   menus: MenuEntity[]
 }
 
-export function MobileNavigation({ onClose, menus }: MobileNavigationProps) {
+export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
   const { t } = useTranslation(['common', 'homepage'])
 
   useEffect(() => {
@@ -56,14 +56,14 @@ export function MobileNavigation({ onClose, menus }: MobileNavigationProps) {
       {menus?.map((menu, index) => (
         <MobileNavigationItem menu={menu} key={index} menus={menus} />
       ))}
-      <div className="pl-4 pr-4 pt-[47px] pb-4">
+      <div className="px-4 pt-[47px] pb-4">
         <div className="border-b border-gray-900 pb-4 text-[16px]">
           <Link href={t('openingHoursPageLink')} passHref>
             <a>{openingHours}</a>
           </Link>
         </div>
       </div>
-      <div className="pl-4 pr-4 pb-10">
+      <div className="px-4 pb-10">
         <div className="border-b border-gray-900 pb-4 text-[16px]">
           <Link href="https://opac.mestskakniznica.sk/opac" passHref>
             <a target="_blank">{t('onlineCatalog')}</a>

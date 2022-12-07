@@ -4,7 +4,7 @@ export interface IPartnerSkeletonProps {
   featured?: boolean
 }
 
-export function PartnerSkeleton({ featured = false }: IPartnerSkeletonProps) {
+export const PartnerSkeleton = ({ featured = false }: IPartnerSkeletonProps) => {
   return (
     <div
       className={cx('flex w-full animate-pulse bg-[#ccc] p-4 lg:p-5', {

@@ -1,5 +1,4 @@
 import {
-  ComponentSeoSeo,
   FooterEntity,
   MenuEntity,
   PageEntity,
@@ -15,7 +14,7 @@ import SearchPage from '../components/pages/SearchPage'
 import { client } from '../utils/gql'
 import { arrayify, isPresent } from '../utils/utils'
 
-export function Search({ locale, error, page, menus, footer }: IProps) {
+export const Search = ({ locale, error, page, menus, footer }: IProps) => {
   if (error) {
     return (
       <PageWrapper

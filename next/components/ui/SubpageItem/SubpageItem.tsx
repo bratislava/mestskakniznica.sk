@@ -9,14 +9,16 @@ export interface SubpageItemProps {
   url?: string
 }
 
-export function SubpageItem({ className, title, description, url }: SubpageItemProps) {
+export const SubpageItem = ({ className, title, description, url }: SubpageItemProps) => {
   const { Link: UILink, Markdown: UIMarkdown } = useUIContext()
 
   return (
     <UILink className={cx(className)} href={url ?? '#'}>
-      <h3 className="text-md border-gray-universal-100">{title}</h3>
-      {description && <UIMarkdown className="text-sm text-gray-universal-70 mt-4" content={description} />}
-      <div className="flex p-4 mt-6 border-[1px] border-gray-universal-100 justify-between items-center">
+      <h3 className="border-gray-universal-100 text-md">{title}</h3>
+      {description && (
+        <UIMarkdown className="mt-4 text-sm text-gray-universal-70" content={description} />
+      )}
+      <div className="mt-6 flex items-center justify-between border-[1px] border-gray-universal-100 p-4">
         <span className="text-sm">{title}</span>
 
         {url && <ArrowRight />}

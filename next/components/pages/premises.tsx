@@ -1,9 +1,9 @@
 import { PageEntity, PremiseEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import { LoadingSpinner, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import useSWR from 'swr'
+
 import { client } from '../../utils/gql'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import PremiseCard from '../Molecules/PremiseCard'
 import Sections from '../Molecules/Sections'
@@ -12,7 +12,7 @@ export interface PremisesPageProps {
   page: PageEntity
 }
 
-function Premises({ page }: PremisesPageProps) {
+const Premises = ({ page }: PremisesPageProps) => {
   const { locale = 'sk' } = usePageWrapperContext()
 
   const { data, error } = useSWR(['Premises', locale], (_key, locale) =>

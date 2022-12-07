@@ -9,7 +9,7 @@ interface IProps {
   children?: React.ReactNode
 }
 
-function ErrorPage({ code, children }: IProps) {
+const ErrorPage = ({ code, children }: IProps) => {
   return (
     <SectionContainer>
       <div className="border-gray-700">

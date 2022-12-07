@@ -1,18 +1,19 @@
 import { useTranslation } from 'next-i18next'
+
 import { BookTagEntityFragment } from '../../graphql'
 
 interface BookTagsProps {
   bookTags: BookTagEntityFragment[]
 }
 
-function BooksTags({ bookTags }: BookTagsProps) {
+const BooksTags = ({ bookTags }: BookTagsProps) => {
   const { t } = useTranslation('homepage')
   return (
     <>
       <h2 className="object-none pt-10 text-center text-lg">{t('lookingForBook')}</h2>
       <section className="object-center">
-        <div className="flex flex-grow-0 flex-col items-center pt-8 pb-8 text-center">
-          <div className="jus my-2 mx-0 flex flex-grow-0 flex-row flex-wrap justify-center gap-4">
+        <div className="flex grow-0 flex-col items-center py-8 text-center">
+          <div className="jus my-2 mx-0 flex grow-0 flex-row flex-wrap justify-center gap-4">
             {bookTags?.map((tag) => (
               <a
                 href={`https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchTitle=${tag?.attributes?.slug}`}

@@ -1,6 +1,7 @@
 import { DateTimeSelect, Input, Select, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LocalDate } from '@js-joda/core'
+import { convertDataToBody, useGetFormOptions } from '@utils/form-constants'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -8,12 +9,11 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody, useGetFormOptions } from '@utils/form-constants'
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import { options } from './options'
 
-function ExcursionReservationForm() {
+const ExcursionReservationForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
@@ -113,7 +113,7 @@ function ExcursionReservationForm() {
         errorMessage={t('generic_error_message')}
       >
         <div className="mt-4 flex w-full flex-col gap-y-6">
-          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="fName"
@@ -201,7 +201,7 @@ function ExcursionReservationForm() {
               />
             )}
           />
-          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="excursionDate"

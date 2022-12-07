@@ -9,7 +9,7 @@ interface RegistrationInfoProps {
   registrationInfoSection: ComponentHomepageRegistrationInfo
 }
 
-function RegistrationInfo({ registrationInfoSection }: RegistrationInfoProps) {
+const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) => {
   const { t } = useTranslation('homepage')
 
   return (
@@ -26,7 +26,7 @@ function RegistrationInfo({ registrationInfoSection }: RegistrationInfoProps) {
             <ul>
               {registrationInfoSection?.registrationBenefits?.map((benefit) => (
                 <li className="pt-3 text-sm" key={benefit?.id}>
-                  <Check className="inline-flex scale-75 transform text-sm md:scale-100" />{' '}
+                  <Check className="inline-flex scale-75 text-sm md:scale-100" />{' '}
                   {benefit?.benefit}
                 </li>
               ))}

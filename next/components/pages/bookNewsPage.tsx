@@ -9,6 +9,7 @@ import {
 import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
+
 import { getOpacBooks, OpacBook } from '../../utils/opac'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
@@ -18,7 +19,7 @@ export interface BookNewsPageProps {
 
 export const BOOKS_PER_PAGE = 24
 
-function BookNewsPage({ page }: BookNewsPageProps) {
+const BookNewsPage = ({ page }: BookNewsPageProps) => {
   const { t } = useTranslation(['homepage', 'common'])
 
   const { data: books, error } = useSWR(['OpacBookNews'], (_key) => getOpacBooks())

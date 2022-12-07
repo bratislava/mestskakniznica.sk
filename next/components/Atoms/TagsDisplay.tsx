@@ -6,7 +6,7 @@ interface TagsDisplayProps {
   tagsCount: number
 }
 
-function TagsDisplay({ tags = [], category, tagsCount }: TagsDisplayProps) {
+const TagsDisplay = ({ tags = [], category, tagsCount }: TagsDisplayProps) => {
   const lower = Math.min(tagsCount, tags?.length)
   const slicedTags = tags?.slice(0, lower)
 

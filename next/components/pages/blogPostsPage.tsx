@@ -1,8 +1,8 @@
 import { ArticleCard, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
-import { BlogPostEntityFragment, PageEntity, PageEntityFragment } from '../../graphql'
 
+import { BlogPostEntityFragment, PageEntity, PageEntityFragment } from '../../graphql'
 import { client } from '../../utils/gql'
 import { formatDateToLocal } from '../../utils/utils'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
@@ -14,7 +14,7 @@ export interface BlogPostsPageProps {
 
 const LIMIT = 16
 
-function BlogPostsPage({ page }: BlogPostsPageProps) {
+const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
@@ -35,7 +35,7 @@ function BlogPostsPage({ page }: BlogPostsPageProps) {
   const fetchBlogPosts = async (start: number) => {
     const { blogPosts: blogPostResponse } = await client.BlogPosts({
       limit: LIMIT,
-      start: start,
+      start,
     })
     const { blogPosts: blogPostsMetaReposponse } = await client.BlogPostsCount()
 

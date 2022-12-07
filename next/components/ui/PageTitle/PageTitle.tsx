@@ -8,7 +8,7 @@ export interface PageTitleProps {
   hasDivider?: boolean
 }
 
-export function PageTitle({ className, title, description, hasDivider = true }: PageTitleProps) {
+export const PageTitle = ({ className, title, description, hasDivider = true }: PageTitleProps) => {
   const { Markdown: UIMarkdown } = useUIContext()
   return (
     <div className={cx(className)}>

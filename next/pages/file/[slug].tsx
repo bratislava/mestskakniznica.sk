@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import PageWrapper from '../../components/layouts/PageWrapper'
 import FileDetailPage from '../../components/pages/fileDetailPage'
 import { BasicDocumentEntity, FooterQuery, MenuEntity } from '../../graphql'
@@ -14,7 +15,7 @@ interface IFilePageProps {
   footer: FooterQuery['footer']
 }
 
-function Page({ basicDocument, locale, menus, footer, slug }: IFilePageProps) {
+const Page = ({ basicDocument, locale, menus, footer, slug }: IFilePageProps) => {
   return (
     <PageWrapper locale={locale ?? 'sk'} slug={slug}>
       <FileDetailPage

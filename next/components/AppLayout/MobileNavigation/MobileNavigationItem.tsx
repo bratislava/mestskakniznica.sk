@@ -1,8 +1,8 @@
-import { MenuEntity } from '../../../graphql'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
+import { MenuEntity } from '../../../graphql'
 import MobileSubnavigation from './MobileSubnavigation'
 
 interface navItemProps {
@@ -10,7 +10,7 @@ interface navItemProps {
   menus: MenuEntity[]
 }
 
-function MobileNavigationItem({ menu, menus }: navItemProps) {
+const MobileNavigationItem = ({ menu, menus }: navItemProps) => {
   const router = useRouter()
   const [isOpen, setOpen] = useState(false)
   const menuSections = menu?.attributes?.menuSections || []

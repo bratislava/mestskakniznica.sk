@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 const prerender = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     console.log('Init calling whole sitemap after server restart.')
@@ -18,7 +20,9 @@ const prerender = async (_req: NextApiRequest, res: NextApiResponse) => {
     console.log(`Ping /sluzby/citanie/e-knihy-a-e-casopisy/pressreader`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/sluzby/citanie/e-knihy-a-e-casopisy/pressreader`)
     console.log(`Ping /sluzby/citanie/e-knihy-a-e-casopisy/ebscoebookpubliclibrarycollection`)
-    await fetch(`${process.env.ORIGIN_ROOT_URL}/sluzby/citanie/e-knihy-a-e-casopisy/ebscoebookpubliclibrarycollection`)
+    await fetch(
+      `${process.env.ORIGIN_ROOT_URL}/sluzby/citanie/e-knihy-a-e-casopisy/ebscoebookpubliclibrarycollection`
+    )
     console.log(`Ping /sluzby/citanie/e-knihy-a-e-casopisy/kubo`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/sluzby/citanie/e-knihy-a-e-casopisy/kubo`)
     console.log(`Ping /sluzby/citanie/prezencne-zdroje`)
@@ -134,10 +138,16 @@ const prerender = async (_req: NextApiRequest, res: NextApiResponse) => {
     console.log(`Ping /en/services/reading/e-books-and-e-maganizes`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/reading/e-books-and-e-maganizes`)
     console.log(`Ping /en/services/reading/e-books-and-e-maganizes/palmknihy`)
-    await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/reading/e-books-and-e-maganizes/palmknihy`)
+    await fetch(
+      `${process.env.ORIGIN_ROOT_URL}/en/services/reading/e-books-and-e-maganizes/palmknihy`
+    )
     console.log(`Ping /en/services/reading/e-books-and-e-maganizes/pressreader`)
-    await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/reading/e-books-and-e-maganizes/pressreader`)
-    console.log(`Ping /en/services/reading/e-books-and-e-maganizes/ebsco-ebook-public-library-collection`)
+    await fetch(
+      `${process.env.ORIGIN_ROOT_URL}/en/services/reading/e-books-and-e-maganizes/pressreader`
+    )
+    console.log(
+      `Ping /en/services/reading/e-books-and-e-maganizes/ebsco-ebook-public-library-collection`
+    )
     await fetch(
       `${process.env.ORIGIN_ROOT_URL}/en/services/reading/e-books-and-e-maganizes/ebsco-ebook-public-library-collection`
     )
@@ -146,7 +156,9 @@ const prerender = async (_req: NextApiRequest, res: NextApiResponse) => {
     console.log(`Ping /en/services/reading/on-site-resources`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/reading/on-site-resources`)
     console.log(`Ping /en/services/reading/bibliography-and-library-research`)
-    await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/reading/bibliography-and-library-research`)
+    await fetch(
+      `${process.env.ORIGIN_ROOT_URL}/en/services/reading/bibliography-and-library-research`
+    )
     console.log(`Ping /en/services/reading/interlibrary-loan-service`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/reading/interlibrary-loan-service`)
     console.log(`Ping /en/services/reading/orders-and-reservations`)
@@ -158,7 +170,9 @@ const prerender = async (_req: NextApiRequest, res: NextApiResponse) => {
     console.log(`Ping /en/services/reading/new-additions`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/reading/new-additions`)
     console.log(`Ping /en/services/reading/a-book-that-is-missing-in-the-library`)
-    await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/reading/a-book-that-is-missing-in-the-library`)
+    await fetch(
+      `${process.env.ORIGIN_ROOT_URL}/en/services/reading/a-book-that-is-missing-in-the-library`
+    )
     console.log(`Ping /en/services/tools`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/tools`)
     console.log(`Ping /en/services/tools/internet-access`)
@@ -184,7 +198,9 @@ const prerender = async (_req: NextApiRequest, res: NextApiResponse) => {
     console.log(`Ping /en/services/other-information`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/other-information`)
     console.log(`Ping /en/services/other-information/frequently-asked-questions`)
-    await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/other-information/frequently-asked-questions`)
+    await fetch(
+      `${process.env.ORIGIN_ROOT_URL}/en/services/other-information/frequently-asked-questions`
+    )
     console.log(`Ping /en/services/other-information/contact-us`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/en/services/other-information/contact-us`)
     console.log(`Ping /en/experience`)
@@ -238,7 +254,9 @@ const prerender = async (_req: NextApiRequest, res: NextApiResponse) => {
     console.log(`Ping /en/about-us/organizational-structure`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/en/about-us/organizational-structure`)
     console.log(`Ping /en/about-us/documents-and-public-disclosure-of-information`)
-    await fetch(`${process.env.ORIGIN_ROOT_URL}/en/about-us/documents-and-public-disclosure-of-information`)
+    await fetch(
+      `${process.env.ORIGIN_ROOT_URL}/en/about-us/documents-and-public-disclosure-of-information`
+    )
     console.log(`Ping /en/about-us/public-libraries-and-methodology`)
     await fetch(`${process.env.ORIGIN_ROOT_URL}/en/about-us/public-libraries-and-methodology`)
     console.log(`Ping /en/about-us/partners-and-cooperation`)
@@ -254,5 +272,7 @@ const prerender = async (_req: NextApiRequest, res: NextApiResponse) => {
   }
   return res.status(200).json({})
 }
+/* eslint-enable @typescript-eslint/restrict-template-expressions */
+/* eslint-enable no-console */
 
 export default prerender

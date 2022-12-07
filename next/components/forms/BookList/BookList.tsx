@@ -10,7 +10,7 @@ interface Props {
   className?: string
 }
 
-function BookList({ className }: Props) {
+const BookList = ({ className }: Props) => {
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation(['forms', 'common'])
@@ -36,7 +36,7 @@ function BookList({ className }: Props) {
         {fields.map((field, index) => (
           <div
             key={field.id}
-            className={cx('p-6 relative w-full border', {
+            className={cx('relative w-full border p-6', {
               'border-input-stroke': !errors?.books?.[index],
               'base-input--with-error': errors?.books?.[index],
             })}
@@ -47,7 +47,7 @@ function BookList({ className }: Props) {
                 className="absolute right-3 top-3 cursor-pointer"
               />
             )}
-            <div className="flex flex-col gap-y-6 w-full">
+            <div className="flex w-full flex-col gap-y-6">
               <Controller
                 control={methods.control}
                 name={`books[${index}].id` as const}
@@ -98,7 +98,7 @@ function BookList({ className }: Props) {
 
             {/* Error Message */}
             <p
-              className={cx('text-xs text-error mt-2', {
+              className={cx('mt-2 text-xs text-error', {
                 hidden: !(errors.books && errors.books[index]) ?? false,
               })}
             >
@@ -112,7 +112,7 @@ function BookList({ className }: Props) {
           icon={<PlusIcon />}
           iconPosition="left"
           variant="plain-primary"
-          className="font-medium text-xs mt-[33px] mb-[9px]"
+          className="mt-[33px] mb-[9px] text-xs font-medium"
           onClick={(e) => handleAddBook(e)}
         >
           {t('add_book')}

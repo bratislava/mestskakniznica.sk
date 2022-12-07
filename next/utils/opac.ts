@@ -1,4 +1,5 @@
 import XMLConvertor from 'xml-js'
+
 import { isServer } from './utils'
 
 const bookNewsUrl = 'https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchNews=60&rtrnxml=true'
@@ -25,6 +26,7 @@ export const getOpacBooks = async () => {
 
     // despite the above typecast, the object returned may miss some values - replacing them with '' should be safe for most uses
     return opac.xml.book.map((unsafeBook) => {
+      /* eslint-disable no-underscore-dangle */
       const coverUrl = unsafeBook?.coverURL?._text || ''
       return {
         title: { _text: unsafeBook?.title?._text || '' },
@@ -32,6 +34,7 @@ export const getOpacBooks = async () => {
         coverURL: { _text: [' --- ', ''].includes(coverUrl) ? '/book-empty-cover.png' : coverUrl },
         recURL: { _text: unsafeBook?.recURL?._text || '' },
       }
+      /* eslint-enable no-underscore-dangle */
     })
   } catch (error) {
     console.error(error)

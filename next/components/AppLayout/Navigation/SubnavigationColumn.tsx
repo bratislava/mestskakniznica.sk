@@ -1,8 +1,8 @@
-import { ComponentMenuSections, Enum_Page_Layout, EventCardEntityFragment } from '../../../graphql'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
 import Link from 'next/link'
 
+import { ComponentMenuSections, Enum_Page_Layout, EventCardEntityFragment } from '../../../graphql'
 import { dateTimeString } from '../../../utils/utils'
 import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
@@ -13,7 +13,7 @@ interface ColumnProps {
   classNames?: string
 }
 
-function Column({ section, latestEvents, classNames }: ColumnProps) {
+const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
   // TODO optionally load latestEvents here if needed
   const containsEvents = section?.sectionLinks?.some(
     (sectionLink) =>
@@ -49,7 +49,7 @@ function Column({ section, latestEvents, classNames }: ColumnProps) {
                 <div className="grid grid-flow-col grid-rows-2">
                   {latestEvents.map((event) => (
                     <div key={event.attributes?.slug}>
-                      <div className="h-23 w-[380px] cursor-pointer pt-5 pb-5">
+                      <div className="h-23 w-[380px] cursor-pointer py-5">
                         <NavigationMenu.Link
                           className="h-10 pt-4 text-gray-universal-70"
                           tabIndex={-1}

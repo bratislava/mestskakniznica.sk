@@ -2,8 +2,8 @@ import CloseIcon from '@assets/images/close.svg'
 import cx from 'classnames'
 import React from 'react'
 
-import FormSubmittedComponent from './FormSubmittedComponent'
 import { SubmitStatus } from './FormContainer'
+import FormSubmittedComponent from './FormSubmittedComponent'
 
 export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
 export const postalCodeRegex = /^\d{5}(?:-\d{4})?$/
@@ -17,7 +17,7 @@ interface IProps {
   isSubmitted: SubmitStatus
 }
 
-function FormWrapper({ className, children, title, onSubmit, isSubmitted }: IProps) {
+const FormWrapper = ({ className, children, title, onSubmit, isSubmitted }: IProps) => {
   return (
     <div
       className={cx(

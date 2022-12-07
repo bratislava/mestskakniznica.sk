@@ -1,22 +1,22 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
-import { Enum_Page_Layout, PageEntity, PageEntityFragment, PaginationFragment } from '../../graphql'
+import { usePageWrapperContext } from 'components/layouts/PageWrapper'
 import { useTranslation } from 'next-i18next'
+import useSWR from 'swr'
 
+import { Enum_Page_Layout, PageEntity, PageEntityFragment, PaginationFragment } from '../../graphql'
+import { usePagesPaginated } from '../../hooks/usePagesPaginated'
+import { client } from '../../utils/gql'
 import ListingCard from '../Molecules/ListingCard'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-import { usePageWrapperContext } from 'components/layouts/PageWrapper'
-import { client } from '../../utils/gql'
-import { SectionContainer } from '../ui/SectionContainer/SectionContainer'
 import { Pagination } from '../ui/Pagination/Pagination'
-import { usePagesPaginated } from '../../hooks/usePagesPaginated'
-import useSWR from 'swr'
+import { SectionContainer } from '../ui/SectionContainer/SectionContainer'
 
 export interface PageProps {
   page: PageEntity
 }
 
-function NewsListingPage({ page }: PageProps) {
+const NewsListingPage = ({ page }: PageProps) => {
   const { t } = useTranslation('common')
   const { locale = 'sk' } = usePageWrapperContext()
 
@@ -39,7 +39,7 @@ function NewsListingPage({ page }: PageProps) {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page as PageEntity} />
+        <PageBreadcrumbs page={page } />
       </SectionContainer>
       <SectionContainer>
         <div className="pb-[48px]">

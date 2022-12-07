@@ -5,14 +5,14 @@ import {
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
-import ChevronRightSvg from '../../assets/images/chevron-right.svg'
-import SectionSvg from '../../assets/images/section.svg'
 
+import ChevronRightSvg from '../../assets/images/chevron-right.svg'
 import MailSvg from '../../assets/images/mail.svg'
 import PhoneSvg from '../../assets/images/phone.svg'
+import SectionSvg from '../../assets/images/section.svg'
 import { dateTimeString } from '../../utils/utils'
 import DateCardDisplay from '../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
@@ -23,7 +23,7 @@ export interface PageProps {
   eventsListingUrl: string | undefined
 }
 
-function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProps) {
+const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProps) => {
   const { locale } = usePageWrapperContext()
   const { Markdown: UIMarkdown } = useUIContext()
   const { t } = useTranslation('common')
@@ -175,7 +175,7 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
           )}
         </div>
         {(localityDetails.localityServices?.length || 0) > 0 && (
-          <div className="border-b border-gray-700 pb-10 pt-10" id="services">
+          <div className="border-b border-gray-700 py-10" id="services">
             <div className="text-[24px]">{t('services')}</div>
             <div className="grid flex-wrap gap-4 pt-5 sm:grid-cols-2">
               {localityDetails.localityServices?.map((service) => (
@@ -198,7 +198,7 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
           </div>
         )}
         {(events?.length || 0) > 0 && (
-          <div className="hidden border-b border-gray-700 pb-12 pt-12" id="events">
+          <div className="hidden border-b border-gray-700 py-12" id="events">
             <div className="text-md2">{t('events')}</div>
             <div className="grid grid-cols-1 md:grid-cols-2">
               {events?.map((event) => (
@@ -247,7 +247,7 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
             </div>
           </div>
         )}
-        <div className="pb-10 pt-10" id="sections">
+        <div className="py-10" id="sections">
           <div className="text-[24px]">{t('sections')}</div>
           <div className="pt-5">
             {localityDetails.localitySections?.map((section) => (
@@ -299,7 +299,7 @@ function LocalityDetails({ localityDetails, events, eventsListingUrl }: PageProp
           <div className="pb-6">{t('contactUs')}</div>
           {localityDetails?.localitySections?.map((localityContact) => (
             <div
-              className="flex flex-col border-t border-gray-300 py-3 pt-5 pb-5"
+              className="flex flex-col border-t border-gray-300 py-3 py-5"
               key={localityContact?.id}
             >
               <span>{localityContact?.localitySectionTitle}</span>

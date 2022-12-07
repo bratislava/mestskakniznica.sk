@@ -7,7 +7,7 @@ interface SearchBoxProps {
   text: string
 }
 
-function SearchBox({ text }: SearchBoxProps) {
+const SearchBox = ({ text }: SearchBoxProps) => {
   const [searchedTerm, setSearchedTerm] = useState('')
   const baseUrl = 'https://opac.mestskakniznica.sk/opac'
 

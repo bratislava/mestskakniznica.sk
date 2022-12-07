@@ -6,14 +6,12 @@ describe('Accordion', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <Accordion
-        key={"index"}
-        label={"Title"}
-        id={"Title"}
-        defaultState={true}
+        key="index"
+        label="Title"
+        id="Title"
+        defaultState
         stateListener={(id: string, state: boolean) => null}
-        content={
-          <div />
-        }
+        content={<div />}
         size="big"
         type="divider"
       />

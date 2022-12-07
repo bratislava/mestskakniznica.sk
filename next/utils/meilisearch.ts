@@ -1,4 +1,5 @@
 import { MeiliSearch } from 'meilisearch'
+
 console.log(process.env.NEXT_PUBLIC_MEILISEARCH_HOST)
 export const meiliClient = new MeiliSearch({
   host: process.env.NEXT_PUBLIC_MEILISEARCH_HOST ?? '',

@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
+
 import { EventCardEntityFragment, EventTagEntity, ImageEntityFragment } from '../../../graphql'
 import { WithAttributes } from '../../../utils/isDefined'
-
 import { dateTimeString } from '../../../utils/utils'
 import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import TagsDisplay from '../../Atoms/TagsDisplay'
@@ -12,7 +12,7 @@ interface IPromoEventCardProps {
   event: WithAttributes<EventCardEntityFragment> | null | undefined
 }
 
-function PromoEventCard({ event }: IPromoEventCardProps) {
+const PromoEventCard = ({ event }: IPromoEventCardProps) => {
   const { locale } = usePageWrapperContext()
 
   if (!event) {

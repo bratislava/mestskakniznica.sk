@@ -17,7 +17,7 @@ interface IDocumentPageProps {
   documentCategory: FileCategoryEntity
 }
 
-function Page({ documentCategory, locale, slug, menus, footer }: IDocumentPageProps) {
+const Page = ({ documentCategory, locale, slug, menus, footer }: IDocumentPageProps) => {
   if (!menus || !documentCategory) {
     return null
   }
@@ -36,6 +36,7 @@ function Page({ documentCategory, locale, slug, menus, footer }: IDocumentPagePr
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
   let paths: { params: { slug: string } }[] = []
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
@@ -74,7 +75,7 @@ export const getStaticProps: GetStaticProps<IDocumentPageProps> = async (ctx) =>
       documentCategory: documentCategoryBySlug.fileCategories?.data[0],
       ...translations,
     },
-    revalidate: 86400,
+    revalidate: 86_400,
   }
 }
 

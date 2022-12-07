@@ -26,22 +26,23 @@ interface IProps {
   error: IDisplayError
 }
 
-function ErrorDisplay({ error }: IProps) {
+const ErrorDisplay = ({ error }: IProps) => {
   const [open, setOpen] = React.useState(false)
 
   return (
     <>
-      <header className="text-[40px] h-[73px] leading-[48px]">
+      <header className="h-[73px] text-[40px] leading-[48px]">
         <h1>Na stránke sa vyskytla chyba...</h1>
       </header>
       <p className="text-base">
-        Ľutujeme, ale na tejto stránke sa vyskytla chyba. Skúste opäť neskôr alebo použite vyhľadávanie.
+        Ľutujeme, ale na tejto stránke sa vyskytla chyba. Skúste opäť neskôr alebo použite
+        vyhľadávanie.
       </p>
       <Button className="mt-4 p-4" onClick={() => setOpen((o) => !o)}>
         Zobraziť {open ? 'menej' : 'viac'}
       </Button>
       {open && (
-        <pre className="mt-4 text-xs whitespace-pre-wrap">
+        <pre className="mt-4 whitespace-pre-wrap text-xs">
           {error.message}
           {'\n\n'}
           {error.description}
