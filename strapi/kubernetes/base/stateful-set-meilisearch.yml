@@ -11,6 +11,7 @@ spec:
       app: meilisearch
   replicas: 1
   serviceName: ${BUILD_REPOSITORY_NAME}-meilisearch
+  minReadySeconds: 60
   template:
     metadata:
       labels:
@@ -18,7 +19,7 @@ spec:
     spec:
       containers:
         - name: meilisearch
-          image: 'getmeili/meilisearch:v0.28.0'
+          image: "getmeili/meilisearch:v0.29.1"
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
