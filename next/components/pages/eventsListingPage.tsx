@@ -141,15 +141,31 @@ function Events({ page }: PageProps) {
   }
 
   const filterEvents = async () => {
+    // archived events
     const currentFilters: EventFiltersInput = {}
+
+    // default without filters
+    currentFilters['dateTo'] = { lt: today.toISOString() }
+
+    // filtered startDate
     if (startDate) {
-      currentFilters['dateFrom'] = { between: [startDate.toISOString(), today.toISOString()] }
-    } else {
-      currentFilters['dateFrom'] = { lt: today.toISOString() }
+      currentFilters['dateTo'] = { between: [startDate.toISOString(), today.toISOString()] }
     }
+
+    // filtered endDate
     if (endDate) {
-      const tempDate = new Date(new Date().setDate(endDate.getDate() + 1)) // plus one day
+      const tempDate = endDate <= today ? endDate : today
       currentFilters['dateTo'] = { lte: tempDate.toISOString() }
+    }
+
+    // filtered both
+    if (startDate && endDate) {
+      let tempDate = today
+      if (endDate <= today) {
+        tempDate = new Date(endDate)
+        tempDate.setDate(endDate.getDate() + 1)
+      }
+      currentFilters['dateTo'] = { between: [startDate.toISOString(), tempDate.toISOString()] }
     }
     if (selectedEventTags && selectedEventTags.title)
       currentFilters['eventTags'] = { title: { eq: selectedEventTags.title } }
@@ -160,13 +176,40 @@ function Events({ page }: PageProps) {
 
     setActiveFilters(currentFilters)
 
+    // upcoming events
     const upcomingFilters = { ...currentFilters }
 
     delete upcomingFilters['dateFrom']
-    if (!startDate || startDate <= today) {
-      upcomingFilters['dateFrom'] = { gte: today.toISOString() }
-    } else {
-      upcomingFilters['dateFrom'] = { gte: startDate.toISOString() }
+    delete upcomingFilters['dateTo']
+
+    // default without filters
+    upcomingFilters['dateTo'] = { gte: today.toISOString() }
+
+    // filtered startDate
+    if (startDate) {
+      const tempDate = startDate <= today ? today : startDate
+      upcomingFilters['dateTo'] = { gte: tempDate.toISOString() }
+    }
+
+    // filtered endDate
+    if (endDate) {
+      const tempDate =
+        endDate <= today ? today : new Date(new Date().setDate(endDate.getDate() + 1))
+      upcomingFilters['dateTo'] = { between: [today.toISOString(), tempDate.toISOString()] }
+    }
+
+    // filtered both
+    if (startDate && endDate) {
+      let tempStartDate = today
+      if (startDate >= today) {
+        tempStartDate = new Date(startDate)
+        tempStartDate.setDate(startDate.getDate())
+      }
+      const tempEndDate = new Date(endDate)
+      tempEndDate.setDate(endDate.getDate() + 1)
+      upcomingFilters['dateTo'] = {
+        between: [tempStartDate.toISOString(), tempEndDate.toISOString()],
+      }
     }
 
     setUpcomingActiveFilters(upcomingFilters)
