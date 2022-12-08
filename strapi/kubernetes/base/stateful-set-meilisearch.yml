@@ -11,7 +11,6 @@ spec:
       app: meilisearch
   replicas: 1
   serviceName: ${BUILD_REPOSITORY_NAME}-meilisearch
-  minReadySeconds: 60
   template:
     metadata:
       labels:
@@ -35,13 +34,13 @@ spec:
               path: /health
               port: http
             periodSeconds: 60
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
           readinessProbe:
             httpGet:
               path: /health
               port: http
             periodSeconds: 60
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
           volumeMounts:
             - name: ${BUILD_REPOSITORY_NAME}-meilisearch-data-storage
               mountPath: /meili_data
