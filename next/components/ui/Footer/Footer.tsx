@@ -44,7 +44,7 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number
         'border-l border-border-dark pl-8': i !== 0,
       })}
     >
-      <h6 className="cursor-default text-default" aria-label={col?.title || 'Title'}>
+      <h6 className="cursor-default text-h5" aria-label={col?.title || 'Title'}>
         {col?.title}
       </h6>
       <div className="mt-6 flex flex-col gap-y-3">
@@ -52,7 +52,7 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number
           link?.otherSite && link.otherSite !== '' ? (
             <a
               href={link.otherSite}
-              className="text-base text-text-body hover:underline"
+              className="text-base text-foreground-body hover:underline"
               key={link.id}
             >
               {link.title}
@@ -63,7 +63,7 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number
               variant="plain"
               uppercase={false}
               href={link?.redirectTo?.data?.attributes?.slug || ''}
-              className="text-base text-text-body hover:underline"
+              className="text-base text-foreground-body hover:underline"
             >
               {link?.title}
             </Link>
@@ -74,17 +74,18 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number
   )
 }
 
-export const Footer = ({
-  className,
-  siteMap,
-  gdpr,
-  VOP,
-  facebookUrl,
-  instagramUrl,
-  youtubeUrl,
-  footerColumns,
-  copyrightText,
-}: FooterProps) => {
+export const Footer = (
+  {
+    className,
+    siteMap,
+    gdpr,
+    VOP,
+    facebookUrl,
+    instagramUrl,
+    youtubeUrl,
+    footerColumns,
+    copyrightText,
+  }: FooterProps) => {
   const { t } = useTranslation('common')
   const [openFooter, setOpenFooter] = useState('')
 
@@ -98,19 +99,19 @@ export const Footer = ({
         <div className="grid grid-cols-3 items-center">
           <div className="flex items-center justify-center">
             <a href={facebookUrl} target="_blank" rel="noreferrer">
-              <FbLogo className="cursor-pointer lg:p-0" />
+              <FbLogo className="cursor-pointer lg:p-0"/>
               <span className="sr-only">Facebook</span>
             </a>
           </div>
           <div className="flex items-center justify-center border-x border-border-dark py-5 lg:py-6">
             <a href={instagramUrl} target="_blank" rel="noreferrer">
-              <IgLogo className="cursor-pointer lg:p-0" />
+              <IgLogo className="cursor-pointer lg:p-0"/>
               <span className="sr-only">Instagram</span>
             </a>
           </div>
           <div className="flex items-center justify-center">
             <a href={youtubeUrl} target="_blank" rel="noreferrer">
-              <YtLogo className="cursor-pointer lg:p-0" />
+              <YtLogo className="cursor-pointer lg:p-0"/>
               <span className="sr-only">Youtube</span>
             </a>
           </div>
@@ -150,10 +151,11 @@ export const Footer = ({
 
       {/* Desktop */}
       <div className="hidden grid-cols-4 border-b border-border-dark lg:container lg:grid">
-        {footerColumns?.map((col, i) => col && <FooterSection col={col} i={i} key={i} />)}
+        {footerColumns?.map((col, i) => col && <FooterSection col={col} i={i} key={i}/>)}
       </div>
 
-      <div className="flex flex-col pb-4 text-xs text-text-body lg:container lg:flex-row lg:items-center lg:justify-between lg:p-6 lg:pb-0">
+      <div
+        className="flex flex-col pb-4 text-sm text-foreground-body lg:container lg:flex-row lg:items-center lg:justify-between lg:p-6 lg:pb-0">
         <p className="py-4 lg:py-0">
           &copy; {copyrightText || `${new Date().getFullYear()} ${t('pageTitle')}`}
         </p>

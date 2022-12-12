@@ -20,11 +20,11 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
   return (
     <SectionContainer>
       {blogPost?.attributes?.parentPage && (
-        <PageBreadcrumbs page={blogPost?.attributes?.parentPage?.data} blogPost={blogPost} />
+        <PageBreadcrumbs page={blogPost?.attributes?.parentPage?.data} blogPost={blogPost}/>
       )}
 
-      <PageTitle title={blogPost?.attributes?.title ?? ''} hasDivider={false} />
-      <div className="mt-2 text-sm text-text-body lg:mt-4">{`${t('added')} ${formatDateToLocal(
+      <PageTitle title={blogPost?.attributes?.title ?? ''} hasDivider={false}/>
+      <div className="mt-2 text-base text-foreground-body lg:mt-4">{`${t('added')} ${formatDateToLocal(
         // blogPost.date_added ? blogPost.date_added : blogPost.created_at, // TEMP fix for not localized blog posts
         blogPost?.attributes?.publishedAt,
         locale
@@ -40,7 +40,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
         )}
         {blogPost?.attributes?.coverMedia && mediaType === 'video' && (
           <div className="flex w-full justify-center">
-            <Video mediaUrl={blogPost?.attributes?.coverMedia?.data?.attributes?.url} />
+            <Video mediaUrl={blogPost?.attributes?.coverMedia?.data?.attributes?.url}/>
           </div>
         )}
       </div>
@@ -48,7 +48,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
       {/* Sections */}
       <div className="flex">
         <div className="mt-10 w-full lg:mx-auto lg:w-8/12">
-          {blogPost?.attributes?.sections && <Sections sections={blogPost?.attributes?.sections} />}
+          {blogPost?.attributes?.sections && <Sections sections={blogPost?.attributes?.sections}/>}
         </div>
       </div>
     </SectionContainer>

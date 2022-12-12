@@ -12,22 +12,23 @@ export interface LinkProps
   uppercase?: boolean
 }
 
-export const Link = ({
-                       className,
-                       href,
-                       children,
-                       hasIcon = false,
-                       variant = 'default',
-                       size = 'default',
-                       uppercase = true,
-                       ...props
-                     }: LinkProps) => {
+export const Link = (
+  {
+    className,
+    href,
+    children,
+    hasIcon = false,
+    variant = 'default',
+    size = 'default',
+    uppercase = true,
+    ...props
+  }: LinkProps) => {
   return (
     <NextLink href={href}>
       <a
         href={href}
         className={cx('hover:underline', className, {
-          'flex items-center gap-x-2.5 text-text-heading ': variant === 'default',
+          'flex items-center gap-x-2.5 text-foreground-heading ': variant === 'default',
           'text-[16px]': size === 'large',
           'text-[14px]': size === 'default',
           'text-[12px]': size === 'small',

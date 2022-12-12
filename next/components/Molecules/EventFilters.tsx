@@ -32,32 +32,34 @@ interface IEventFilters {
   setSelectedLocality: (data: IEventOptionItem | null | undefined) => void
 }
 
-const EventFilters = ({
-  startDate,
-  endDate,
-  onStartChange,
-  onEndChange,
-  tags,
-  categories,
-  localities,
-  selectedEventTags,
-  selectedCategory,
-  selectedLocality,
-  setSelectedEventTags,
-  setSelectedCategory,
-  setSelectedLocality,
-}: IEventFilters) => {
+const EventFilters = (
+  {
+    startDate,
+    endDate,
+    onStartChange,
+    onEndChange,
+    tags,
+    categories,
+    localities,
+    selectedEventTags,
+    selectedCategory,
+    selectedLocality,
+    setSelectedEventTags,
+    setSelectedCategory,
+    setSelectedLocality,
+  }: IEventFilters) => {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
   return (
     <>
-      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-sm text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
+      <div
+        className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
         <DatePicker
           onChange={onStartChange}
           selected={startDate}
           chooseDayAriaLabelPrefix={t('dateAriaLabel')}
-          className="my-5 w-full placeholder:text-text-heading lg:my-0"
+          className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
           placeholderText={t('eventsDateFrom')}
           dateFormat="dd. MM. yyyy"
           locale={locale === 'sk' ? 'sk' : 'en'}
@@ -65,12 +67,13 @@ const EventFilters = ({
           shouldCloseOnSelect={false}
         />
       </div>
-      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-sm text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
+      <div
+        className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
         <DatePicker
           onChange={onEndChange}
           selected={endDate}
           chooseDayAriaLabelPrefix={t('dateAriaLabel')}
-          className="my-5 w-full placeholder:text-text-heading lg:my-0"
+          className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
           placeholderText={t('eventsDateTo')}
           dateFormat="dd. MM. yyyy"
           locale={locale === 'sk' ? 'sk' : 'en'}

@@ -1,9 +1,7 @@
 import cx from 'classnames'
 
-type ButtonProps = React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
-> & {
+type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement> & {
   icon?: React.ReactNode
   iconClassName?: string
   iconPosition?: 'left' | 'center' | 'right'
@@ -17,16 +15,17 @@ type ButtonProps = React.DetailedHTMLProps<
     | 'plain-white'
 }
 
-export const Button = ({
-  children,
-  className,
-  icon,
-  iconClassName,
-  iconPosition = 'left',
-  shape = 'default',
-  variant = 'primary',
-  ...props
-}: ButtonProps) => {
+export const Button = (
+  {
+    children,
+    className,
+    icon,
+    iconClassName,
+    iconPosition = 'left',
+    shape = 'default',
+    variant = 'primary',
+    ...props
+  }: ButtonProps) => {
   return (
     <button
       className={cx('base-button outline-1 outline-offset-2 focus:outline', className, {
@@ -34,7 +33,7 @@ export const Button = ({
 
         // text colors
         'text-white': variant === 'primary' || variant === 'plain-white',
-        'text-text-heading':
+        'text-foreground-heading':
           variant === 'secondary' || variant === 'plain-primary' || variant === 'tertiary',
         'text-button-gray': variant === 'plain-secondary',
 

@@ -8,14 +8,15 @@ export interface UploadProps
   hasError?: boolean
 }
 
-export const Upload = ({
-  className,
-  children,
-  labelContent,
-  hasError,
-  required,
-  ...props
-}: UploadProps) => {
+export const Upload = (
+  {
+    className,
+    children,
+    labelContent,
+    hasError,
+    required,
+    ...props
+  }: UploadProps) => {
   const [isInArea, setIsInArea] = React.useState(false)
   const fileInputRef: React.LegacyRef<HTMLInputElement> = React.useRef(null)
 
@@ -23,7 +24,7 @@ export const Upload = ({
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('mb-0.5 text-xs text-text-heading opacity-80')}>
+        <label className={cx('mb-0.5 text-sm text-foreground-heading opacity-80')}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -49,8 +50,9 @@ export const Upload = ({
           aria-required={required}
           {...props}
         />
-        <UploadIcon className="group-hover:rounded-full group-hover:bg-error group-hover:bg-dark group-hover:text-white" />
-        <div className="text-center text-[12px] text-text-body lg:text-[14px]">{children}</div>
+        <UploadIcon
+          className="group-hover:rounded-full group-hover:bg-error group-hover:bg-dark group-hover:text-white"/>
+        <div className="text-center text-[12px] text-foreground-body lg:text-[14px]">{children}</div>
       </div>
     </div>
   )

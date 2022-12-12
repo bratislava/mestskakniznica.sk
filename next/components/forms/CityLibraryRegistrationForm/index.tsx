@@ -10,12 +10,7 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import FormContainer, {
-  IDCardRegex,
-  phoneRegex,
-  postalCodeRegex,
-  SubmitStatus,
-} from '../FormContainer'
+import FormContainer, { IDCardRegex, phoneRegex, postalCodeRegex, SubmitStatus, } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
 import { options } from './options'
@@ -292,7 +287,7 @@ const CityLibraryRegistrationForm = () => {
             />
           </div>
           <div className="my-6 flex flex-col gap-y-6 border p-6 ">
-            <p className="text-left text-default text-text-heading ">
+            <p className="text-left text-lg text-foreground-heading ">
               {t('permanent_address')} <span className="text-error">*</span>
             </p>
             <Controller
@@ -358,7 +353,7 @@ const CityLibraryRegistrationForm = () => {
                   name="useTempAddress"
                   checked={value}
                 >
-                  <div className="text-xs">{t('add_temporary_address')}</div>
+                  <div className="text-sm">{t('add_temporary_address')}</div>
                 </CheckBox>
               )}
             />
@@ -366,7 +361,7 @@ const CityLibraryRegistrationForm = () => {
 
           {showTempAddress && (
             <div className="my-6 flex flex-col gap-y-6 border p-6 ">
-              <p className="text-left text-default text-text-heading ">
+              <p className="text-left text-lg text-foreground-heading ">
                 {t('temporary_address')} <span className="text-error">*</span>
               </p>
               <Controller
@@ -508,7 +503,7 @@ const CityLibraryRegistrationForm = () => {
                 checked={value}
                 aria-invalid={errors.acceptNewsletter ? 'true' : 'false'}
               >
-                <div className="text-xs">{t('form_city_accept_newsletter')}</div>
+                <div className="text-sm">{t('form_city_accept_newsletter')}</div>
               </CheckBox>
             )}
           />
@@ -525,12 +520,12 @@ const CityLibraryRegistrationForm = () => {
                 aria-invalid={errors.authorizedToUseBlindDepartment ? 'true' : 'false'}
                 className="pt-4"
               >
-                <div className="text-xs">{t('form_city_auth_blind_dep')}</div>
+                <div className="text-sm">{t('form_city_auth_blind_dep')}</div>
               </CheckBox>
             )}
           />
 
-          <FormFooter buttonContent={t('send')} className="pt-4" />
+          <FormFooter buttonContent={t('send')} className="pt-4"/>
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

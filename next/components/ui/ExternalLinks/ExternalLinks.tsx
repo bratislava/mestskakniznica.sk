@@ -18,8 +18,8 @@ export interface ExternalLinksProps {
 export const ExternalLinks = ({ className, title, sections }: ExternalLinksProps) => {
   const { Link: UILink } = useUIContext()
   return (
-    <div className={cx(className, '')}>
-      {title && <h3 className="text-md2 text-text-heading">{title}</h3>}
+    <div className={cx(className)}>
+      {title && <h3 className="text-h3.5">{title}</h3>}
 
       {sections && (
         <div className="mt-6 flex flex-col space-y-8">
@@ -32,7 +32,7 @@ export const ExternalLinks = ({ className, title, sections }: ExternalLinksProps
                   {section?.links.map((link) => (
                     <UILink
                       key={link.title}
-                      className="flex items-center justify-between border border-border-dark p-4 text-sm text-text-heading"
+                      className="flex items-center justify-between border border-border-dark p-4 text-base text-foreground-heading"
                       href={link.url ?? '#'}
                       target="_blank"
                       rel="noreferrer"

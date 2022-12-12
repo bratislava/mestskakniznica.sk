@@ -319,7 +319,7 @@ const CycleDeliveryReservationForm = () => {
           className="border-b-0 pb-0"
           onClick={() => triggerFirstStep()}
         >
-          <BookList />
+          <BookList/>
           <Controller
             control={methods.control}
             name="message"
@@ -338,7 +338,7 @@ const CycleDeliveryReservationForm = () => {
           {stepTwoErrors && (
             <p className="pb-4 text-base text-error">{t('please_fill_required_fields')}</p>
           )}
-          <FormFooter hasDivider buttonContent={t('send')} />
+          <FormFooter hasDivider buttonContent={t('send')}/>
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

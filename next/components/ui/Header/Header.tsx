@@ -42,7 +42,7 @@ interface LanguageOption {
 
 const Logo = ({ logoTitle }: { logoTitle: string }) => {
   return (
-    <div className="flex text-[27px] uppercase text-text-heading">
+    <div className="flex text-[27px] uppercase text-foreground-heading">
       {logoTitle.split(' ').map((part, index) => (
         <span
           key={index}
@@ -58,12 +58,13 @@ const Logo = ({ logoTitle }: { logoTitle: string }) => {
   )
 }
 
-const LanguageSelect = ({
-                          className,
-                          languages: options,
-                          currentLanguage: current,
-                          onLanguageChange: onChange,
-                        }: LanguageSelectProps) => {
+const LanguageSelect = (
+  {
+    className,
+    languages: options,
+    currentLanguage: current,
+    onLanguageChange: onChange,
+  }: LanguageSelectProps) => {
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     if (!onChange) return
 
@@ -91,14 +92,14 @@ const HeaderTopItems = ({ openingHours, ...languageSelectProps }: { openingHours
       <span className="flex h-full items-center border-l border-border-dark px-3">
         <Accessibility className="cursor-pointer"/>
       </span>
-      <p className="flex h-full cursor-default items-center border-l border-border-dark px-3 text-xs">
+      <p className="flex h-full cursor-default items-center border-l border-border-dark px-3 text-sm">
         {openingHours}
       </p>
       <div className="flex h-full items-center border-l border-border-dark px-3">
         Prihlásenie
       </div>
       <LanguageSelect
-        className="flex h-full cursor-pointer appearance-none items-center border-l border-border-dark bg-white px-3 text-xs focus:outline-none"
+        className="flex h-full cursor-pointer appearance-none items-center border-l border-border-dark bg-white px-3 text-sm focus:outline-none"
         {...languageSelectProps}
       />
     </div>
@@ -128,13 +129,14 @@ const SearchBox = () => {
   )
 }
 
-export const Header = ({
-                         className,
-                         logoTitle,
-                         menuItems,
-                         openingHours,
-                         ...languageSelectProps
-                       }: IProps) => {
+export const Header = (
+  {
+    className,
+    logoTitle,
+    menuItems,
+    openingHours,
+    ...languageSelectProps
+  }: IProps) => {
   return (
     <div className={cx(className, 'relative w-full')}>
       <div className="flex justify-between border-b border-border-dark">
@@ -162,14 +164,14 @@ export const Header = ({
                 <div className="flex h-[410px] flex-col flex-wrap gap-10 py-8">
                   {item.elements.map((el) => (
                     <div key={el.title}>
-                      <p className="mb-4 text-default text-text-heading">{el.title}</p>
+                      <p className="mb-4 text-h5 text-foreground-heading">{el.title}</p>
                       <div className="flex flex-col gap-y-4">
                         {el.items.map((item, idx) => (
                           <Link
                             key={item.title}
                             uppercase={false}
                             href={item.url}
-                            className="w-66 text-sm text-text-body"
+                            className="w-66 text-base text-foreground-body"
                           >
                             {idx < 8 && item.title}
                           </Link>

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import 'city-library.css';
+@import 'globals.css';
 
 @layer base {
   @font-face {
@@ -23,6 +24,11 @@
     src: url(/fonts/Bold/BeausiteClassicWeb-Bold.woff2) format('woff2');
     src: url(/fonts/Bold/BeausiteClassicWeb-Bold.woff) format('woff');
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground-heading
+  }
+
 }
 
 html {
@@ -36,12 +42,12 @@ body {
 @layer components {
   .base-button {
     @apply inline-flex appearance-none items-center justify-center text-center;
-    @apply text-xs uppercase tracking-wider;
+    @apply text-sm uppercase tracking-wider;
   }
 
   .base-input {
-    @apply box-border inline-block appearance-none border bg-white px-3 py-2 text-base text-text-heading;
-    @apply border-border-light placeholder:text-text-body hover:border-border-dark focus:border-border-dark focus:outline-none;
+    @apply box-border inline-block appearance-none border bg-white px-3 py-2 text-base text-foreground-heading;
+    @apply border-border-light placeholder:text-foreground-body hover:border-border-dark focus:border-border-dark focus:outline-none;
   }
 
   .base-input--with-error {

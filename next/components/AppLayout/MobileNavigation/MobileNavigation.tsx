@@ -39,7 +39,7 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
         <div className="flex h-full">
           <div className="flex h-full items-center px-5">
             <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
-              <a className="border-border-dark text-sm font-normal leading-[19.6px]">
+              <a className="border-border-dark text-base font-normal">
                 {otherLocaleData.locale.toUpperCase()}
               </a>
             </Link>
@@ -54,7 +54,7 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
       </div>
 
       {menus?.map((menu, index) => (
-        <MobileNavigationItem menu={menu} key={index} menus={menus} />
+        <MobileNavigationItem menu={menu} key={index} menus={menus}/>
       ))}
       <div className="px-4 pt-[47px] pb-4">
         <div className="border-b border-border-dark pb-4 text-[16px]">

@@ -16,7 +16,7 @@ export const RowSubcategory = ({ className, title, icon = <ArrowRight/> }: RowSu
         className
       )}
     >
-      <p className="text-sm text-text-heading group-hover:underline">{title}</p>
+      <p className="text-base text-foreground-heading group-hover:underline">{title}</p>
       {icon}
     </div>
   )

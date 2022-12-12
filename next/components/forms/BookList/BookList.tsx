@@ -63,7 +63,7 @@ const BookList = ({ className }: Props) => {
                   />
                 )}
               />
-              <div className="text-xs text-text-body">{t('common:or')}</div>
+              <div className="text-sm text-foreground-body">{t('common:or')}</div>
               <Controller
                 control={methods.control}
                 name={`books[${index}].author` as const}
@@ -98,7 +98,7 @@ const BookList = ({ className }: Props) => {
 
             {/* Error Message */}
             <p
-              className={cx('mt-2 text-xs text-error', {
+              className={cx('mt-2 text-sm text-error', {
                 hidden: !(errors.books && errors.books[index]) ?? false,
               })}
             >
@@ -109,10 +109,10 @@ const BookList = ({ className }: Props) => {
       </div>
       <div className="flex justify-center lg:block">
         <Button
-          icon={<PlusIcon />}
+          icon={<PlusIcon/>}
           iconPosition="left"
           variant="plain-primary"
-          className="mt-[33px] mb-[9px] text-xs font-medium"
+          className="mt-[33px] mb-[9px] text-sm font-medium"
           onClick={(e) => handleAddBook(e)}
         >
           {t('add_book')}

@@ -13,11 +13,11 @@ export const Table = ({ className, primaryTitle, secondaryTitle, rows }: TablePr
   return (
     <div className={cx(className)}>
       {primaryTitle && (
-        <h3 className="mb-4 text-default text-text-heading lg:mb-6 lg:text-md2">
+        <h3 className="mb-4 text-h5 lg:mb-6">
           {primaryTitle}
         </h3>
       )}
-      {secondaryTitle && <h6 className="mb-4 text-sm text-text-heading">{secondaryTitle}</h6>}
+      {secondaryTitle && <h6 className="mb-4 text-base">{secondaryTitle}</h6>}
 
       <table className={cx(className, 'w-full table-fixed border-collapse')}>
         <tbody>

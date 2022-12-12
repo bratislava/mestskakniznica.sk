@@ -72,12 +72,12 @@ const DocumentCategoryPage = ({ documentCategory, locale = 'sk' }: PageProps) =>
         page={documentCategory?.attributes?.page?.data}
         documentCategory={documentCategory}
       />
-      <PageTitle title={documentCategory?.attributes?.name ?? ''} hasDivider={false} />
+      <PageTitle title={documentCategory?.attributes?.name ?? ''} hasDivider={false}/>
       <SearchBar
         placeholder={t('whatAreYouLookingFor')}
         className="mt-6"
-        inputClassName="py-5 text-sm w-full border-border-light"
-        iconLeft={<SearchIcon />}
+        inputClassName="py-5 text-base w-full border-border-light"
+        iconLeft={<SearchIcon/>}
         value={query}
         onChange={(ev) => setQuery(ev.target.value)}
       />
@@ -105,7 +105,7 @@ const DocumentCategoryPage = ({ documentCategory, locale = 'sk' }: PageProps) =>
                 className="cursor-pointer"
                 type={document?.attributes?.file_category?.data?.attributes?.name || ''}
                 title={document?.attributes?.title || ''}
-                metadata={<Metadata metadata={document?.attributes?.metadata} />}
+                metadata={<Metadata metadata={document?.attributes?.metadata}/>}
                 dateAdded={`${t('added')} ${formatDateToLocal(
                   document?.attributes?.date_added,
                   locale

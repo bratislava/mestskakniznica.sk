@@ -175,10 +175,10 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
       ))}
       <div className="flex justify-center lg:block">
         <Button
-          icon={<PlusIcon />}
+          icon={<PlusIcon/>}
           iconPosition="left"
           variant="plain-primary"
-          className="mb-4 text-xs font-medium"
+          className="mb-4 text-sm font-medium"
           onClick={(e) => handleAddBook(e)}
         >
           {t('add_book')}

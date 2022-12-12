@@ -14,7 +14,8 @@ const PromoNewsCard = ({ title, slug }: IPromoNewsCard) => {
         <div className="relative h-full w-full">
           <div className="relative m-auto h-full cursor-pointer bg-promo-peach">
             <div>
-              <div className="text-black m-auto justify-end pt-[18px] pl-5 pr-[25px] text-lg line-clamp-3 hover:underline">
+              <div
+                className="m-auto justify-end pt-[18px] pl-5 pr-[25px] text-h3 text-black line-clamp-3 hover:underline">
                 {title}
               </div>
             </div>

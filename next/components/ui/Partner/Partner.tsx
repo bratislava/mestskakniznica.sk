@@ -30,7 +30,7 @@ export const Partner = ({ className, title, pageLink, logo, alt, featured }: Par
         </div>
       )}
       <h5
-        className={cx('text-sm lg:text-default', {
+        className={cx('text-h5', {
           'mt-4 text-center lg:mt-5': featured,
           'max-w-[246px] lg:max-w-full': !featured,
         })}
@@ -45,9 +45,9 @@ export const Partner = ({ className, title, pageLink, logo, alt, featured }: Par
         })}
         href={pageLink?.url ?? '#'}
       >
-        <Globe />
+        <Globe/>
         <span
-          className={cx('text-[12px] font-medium lg:text-xs', {
+          className={cx('text-[12px] font-medium lg:text-sm', {
             'hidden lg:inline-flex': !featured,
           })}
         >

@@ -24,7 +24,7 @@ const HeaderNavigation = () => {
       {/* </div> */}
       <div className="group border-l border-border-dark">
         <HeaderNavigationItem url={t('openingHoursPageLink')}>
-          <div className="px-[12px] font-normal text-text-heading hover:underline">
+          <div className="px-[12px] font-normal text-foreground-heading hover:underline">
             {openingHours}
           </div>
           {/* TODO show the div below again once the one above contains dynamic opening hours */}
@@ -34,7 +34,7 @@ const HeaderNavigation = () => {
         </HeaderNavigationItem>
       </div>
       <div className="border-l border-border-dark">
-        <div className="border-border-dark py-[10px] text-xs font-normal leading-[19.6px] md:flex">
+        <div className="border-border-dark py-[10px] text-sm font-normal md:flex">
           <Link href="https://opac.mestskakniznica.sk/opac" passHref>
             <a target="_blank" className="px-[12px] font-normal hover:underline">
               {t('onlineCatalog')}
@@ -45,7 +45,7 @@ const HeaderNavigation = () => {
       <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
         <a
           aria-label={t('otherLocaleAriaLabel')}
-          className="border-l border-border-dark py-[10px] pl-[12px] text-sm font-normal leading-[19.6px]"
+          className="border-l border-border-dark py-[10px] pl-[12px] text-base font-normal"
         >
           {otherLocaleData.locale.toUpperCase()}
         </a>

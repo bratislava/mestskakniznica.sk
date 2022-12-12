@@ -13,14 +13,15 @@ export interface RowFileProps {
   fileType?: string
 }
 
-export const RowFile = ({
-                          className,
-                          type,
-                          title,
-                          metadata,
-                          dateAdded,
-                          fileType,
-                        }: RowFileProps) => {
+export const RowFile = (
+  {
+    className,
+    type,
+    title,
+    metadata,
+    dateAdded,
+    fileType,
+  }: RowFileProps) => {
   return (
     <div
       className={cx(
@@ -32,9 +33,9 @@ export const RowFile = ({
         <FileIcon type={fileType ?? ''}/>
 
         <div className="space-y-2">
-          <p className="hidden cursor-default text-xs text-text-body">{type}</p>
-          <h5 className="text-default lg:cursor-pointer lg:group-hover:underline">{title}</h5>
-          <div className="flex cursor-default items-center gap-x-3 text-xs text-text-body">
+          <p className="hidden cursor-default text-sm text-foreground-body">{type}</p>
+          <h5 className="text-h5 lg:cursor-pointer lg:group-hover:underline">{title}</h5>
+          <div className="flex cursor-default items-center gap-x-3 text-sm text-foreground-body">
             <span className="hidden lg:block">{metadata}</span>
             <SingleDot className="hidden lg:block"/>
             <span>{dateAdded}</span>

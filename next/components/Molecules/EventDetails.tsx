@@ -87,19 +87,19 @@ const EventDetails = ({ event }: PageProps) => {
           <DateCardDisplay
             dateFrom={event?.attributes?.dateFrom}
             dateTo={event?.attributes?.dateTo}
-            textSize="text-lg"
+            textSize="text-h3"
           />
         </div>
         <div className="col-span-5">
-          <div className="text-xs">
+          <div className="text-sm">
             <TagsDisplay
               tags={event?.attributes?.eventTags?.data || []}
               category={event?.attributes?.eventCategory?.data?.attributes?.title || ''}
               tagsCount={5}
             />
           </div>
-          <h1 className="py-[12px] text-[32px] leading-[38px]">{event?.attributes?.title}</h1>
-          <div className="text-[14px] text-text-body">
+          <h1 className="py-3 text-h3">{event?.attributes?.title}</h1>
+          <div className="text-sm text-foreground-body">
             {dateTimeString(event?.attributes?.dateFrom, event?.attributes?.dateTo, locale)}
           </div>
         </div>
@@ -120,8 +120,8 @@ const EventDetails = ({ event }: PageProps) => {
         <div className="col-span-6">
           <div className="mt-8 border-b border-border-dark pb-10 lg:mt-0">
             <div className="text-[24px]">{t('description')}</div>
-            <div className="pt-5 text-[16px] text-text-body">
-              <UIMarkdown content={event?.attributes?.description || ''} />
+            <div className="pt-5 text-[16px] text-foreground-body">
+              <UIMarkdown content={event?.attributes?.description || ''}/>
             </div>
           </div>
           {(event?.attributes?.guests?.length || 0) > 0 && (
@@ -166,7 +166,7 @@ const EventDetails = ({ event }: PageProps) => {
           )} */}
           <div className="pt-10">
             <div className="block h-auto border-y border-border-dark py-3 lg:flex lg:h-[70px] lg:border lg:p-0">
-              {/* <div className="hidden lg:block pl-6 w-[169px] text-sm m-auto"> */}
+              {/* <div className="hidden lg:block pl-6 w-[169px] text-base m-auto"> */}
               {/*  {t('eventShareAndSave')} */}
               {/* </div> */}
               {!isEventInThePast && (
@@ -181,8 +181,8 @@ const EventDetails = ({ event }: PageProps) => {
                     }}
                     filename="library-event"
                   >
-                    <div className="flex text-xs uppercase">
-                      <SmCalendar />
+                    <div className="flex text-sm uppercase">
+                      <SmCalendar/>
                       &nbsp; {t('eventAddToCalendar')}
                     </div>
                   </AddToCalendar>
@@ -191,17 +191,17 @@ const EventDetails = ({ event }: PageProps) => {
 
               <Clickable
                 actionLink={copyToClipBoard}
-                classA="flex text-xs uppercase"
+                classA="flex text-sm uppercase"
                 classDiv="my-3 lg:m-auto"
-                svgIcon={<Share />}
+                svgIcon={<Share/>}
                 text={t('eventShare')}
                 copyText
               />
               <Clickable
                 actionLink={fireSwal}
-                classA="flex text-xs uppercase"
+                classA="flex text-sm uppercase"
                 classDiv="my-3 lg:m-auto"
-                svgIcon={<QrLogo />}
+                svgIcon={<QrLogo/>}
                 text={t('eventQr')}
               />
             </div>
@@ -210,12 +210,12 @@ const EventDetails = ({ event }: PageProps) => {
         <div className="col-span-3 text-[24px]">
           {t('details')}
           <div className="pt-5">
-            <div className="border-y border-border-dark text-sm lg:border">
+            <div className="border-y border-border-dark text-base lg:border">
               <div className="m-5">
                 <div className="border-b border-border-light pb-5">
                   <DetailsRow
                     classWrapper="flex"
-                    svgIcon={<Calendar />}
+                    svgIcon={<Calendar/>}
                     text={dateTimeString(
                       event?.attributes?.dateFrom,
                       event?.attributes?.dateTo,
@@ -235,8 +235,8 @@ const EventDetails = ({ event }: PageProps) => {
                         }}
                         filename="library-event"
                       >
-                        <div className="flex text-xs uppercase">
-                          <SmCalendar />
+                        <div className="flex text-sm uppercase">
+                          <SmCalendar/>
                           &nbsp; {t('eventAddToCalendar')}
                         </div>
                       </AddToCalendar>
@@ -246,7 +246,7 @@ const EventDetails = ({ event }: PageProps) => {
                 <div className="border-b border-border-light py-5">
                   <DetailsRow
                     classWrapper="flex"
-                    svgIcon={<Navigate />}
+                    svgIcon={<Navigate/>}
                     text={`${event?.attributes?.eventLocality?.data?.attributes?.title}${
                       event?.attributes?.eventLocality?.data?.attributes?.eventAddress
                         ? `, ${event?.attributes?.eventLocality?.data?.attributes?.eventAddress}`
@@ -255,16 +255,16 @@ const EventDetails = ({ event }: PageProps) => {
                   />
                   <Clickable
                     actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${event?.attributes?.eventLocality?.data?.attributes?.navigateTo}`}
-                    classA="flex text-sm uppercase"
+                    classA="flex text-base uppercase"
                     classDiv="pl-9 pt-3"
-                    svgIcon={<Directions />}
+                    svgIcon={<Directions/>}
                     text={t('navigate')}
                   />
                 </div>
 
                 <DetailsRow
                   classWrapper="flex pt-5"
-                  svgIcon={<Euro />}
+                  svgIcon={<Euro/>}
                   text={
                     !event?.attributes?.price || event?.attributes?.price == 0
                       ? t('noCharge').toString()

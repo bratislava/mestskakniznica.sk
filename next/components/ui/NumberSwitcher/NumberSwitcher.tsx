@@ -19,23 +19,24 @@ interface NumberSwitcherProps extends InputProps {
 
 const clampValue = (n: number) => Math.max(1, n)
 
-export const NumberSwitcher = ({
-  className,
-  value,
-  hasError,
-  errorMessage,
-  id,
-  onClickChange,
-  labelContent,
-  required,
-  inputClassName,
-  ...props
-}: NumberSwitcherProps) => {
+export const NumberSwitcher = (
+  {
+    className,
+    value,
+    hasError,
+    errorMessage,
+    id,
+    onClickChange,
+    labelContent,
+    required,
+    inputClassName,
+    ...props
+  }: NumberSwitcherProps) => {
   return (
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('mb-0.5 text-xs text-text-heading opacity-80')} htmlFor={id}>
+        <label className={cx('mb-0.5 text-sm text-foreground-heading opacity-80')} htmlFor={id}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -51,9 +52,9 @@ export const NumberSwitcher = ({
             e.preventDefault()
             onClickChange && onClickChange(clampValue(Number(value) - 1))
           }}
-          className="h-full cursor-pointer py-2 text-text-heading"
+          className="h-full cursor-pointer py-2 text-foreground-heading"
         >
-          <MinusIcon />
+          <MinusIcon/>
         </button>
 
         <div className="mx-3 h-full w-full border-x border-border-light py-2 px-6 text-center">
@@ -74,9 +75,9 @@ export const NumberSwitcher = ({
             e.preventDefault()
             onClickChange && onClickChange(clampValue(Number(value) + 1))
           }}
-          className="h-full cursor-pointer py-2 text-text-heading"
+          className="h-full cursor-pointer py-2 text-foreground-heading"
         >
-          <PlusIcon />
+          <PlusIcon/>
         </button>
       </div>
 
@@ -84,7 +85,7 @@ export const NumberSwitcher = ({
       {hasError && errorMessage && (
         <p
           id={`${id}_err`}
-          className={cx('mt-2 text-xs text-error', { hidden: !hasError })}
+          className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
           aria-labelledby={id}
         >
           {labelContent} {errorMessage}

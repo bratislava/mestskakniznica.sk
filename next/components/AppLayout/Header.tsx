@@ -29,7 +29,7 @@ const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
                     .map((word) => (
                       <span
                         key={word}
-                        className="h-[40px] border-r border-border-dark px-3 pt-[7px] pb-[6px] text-27 uppercase first:pl-0 first:pr-3"
+                        className="h-[40px] border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase first:pl-0 first:pr-3"
                       >
                         {word}
                       </span>
@@ -42,7 +42,7 @@ const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
                     .map((word) => (
                       <span
                         key={word}
-                        className="h-[40px] border-r border-border-dark px-3 pt-[7px] pb-[6px] text-27 uppercase first:pl-0 first:pr-3"
+                        className="h-[40px] border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase first:pl-0 first:pr-3"
                       >
                         {word}
                       </span>
@@ -52,10 +52,10 @@ const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
             </a>
           </Link>
 
-          <SkipNavigation />
+          <SkipNavigation/>
 
           <div className="">
-            <HeaderNavigation />
+            <HeaderNavigation/>
           </div>
         </div>
       </div>
@@ -73,10 +73,10 @@ const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
               ))}
             </NavigationMenu.List>
 
-            <NavigationMenu.Viewport className="absolute z-50 m-auto w-1180 max-w-full bg-white" />
+            <NavigationMenu.Viewport className="absolute z-50 m-auto w-1180 max-w-full bg-white"/>
           </NavigationMenu.Root>
 
-          <SearchBox text={t('searchBook')} />
+          <SearchBox text={t('searchBook')}/>
         </div>
       </div>
     </>

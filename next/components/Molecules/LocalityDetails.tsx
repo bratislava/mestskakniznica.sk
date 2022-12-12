@@ -64,7 +64,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
         <div className="mb-3">
           <div className="mb-2 flex items-center">
             <span className="mr-4 mb-[1px] inline-flex">
-              <PhoneSvg />
+              <PhoneSvg/>
             </span>
             <a href={`tel:${section.localitySectionPhone}`} className="hover:underline">
               {section.localitySectionPhone}
@@ -72,7 +72,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           </div>
           <div className="mb-2 flex items-center">
             <span className="mr-4 mb-[1px] inline-flex">
-              <MailSvg />
+              <MailSvg/>
             </span>
             <a href={`mailto:${section.localitySectionEmail}`} className="hover:underline">
               {section.localitySectionEmail}
@@ -130,7 +130,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
         )}
       </div>
       {section.localitySectionDescription && !onlyOpeningHours && (
-        <UIMarkdown content={section.localitySectionDescription} />
+        <UIMarkdown content={section.localitySectionDescription}/>
       )}
     </div>
   )
@@ -151,7 +151,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                 {localityDetails.localityTitle}
               </h1>
               <div className="-mx-4 overflow-x-auto">
-                <div className="flex gap-x-6 px-4 pt-9 text-xs uppercase">
+                <div className="flex gap-x-6 px-4 pt-9 text-sm uppercase">
                   {scrollButton('#description', t('description'))}
                   {(localityDetails.localityServices?.length || 0) > 0 &&
                     scrollButton('#services', t('services'))}
@@ -165,10 +165,10 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           {localityDetails.localityDescription && (
             <div id="description">
               <div className="text-[24px]">{t('description')}</div>
-              <div className="pt-5 text-[16px] text-text-body">
+              <div className="pt-5 text-[16px] text-foreground-body">
                 <UIMarkdown
                   content={localityDetails.localityDescription}
-                  paragraphClassName="text-sm"
+                  paragraphClassName="text-base"
                 />
               </div>
             </div>
@@ -188,7 +188,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                   uppercase={false}
                   customIcon={
                     <span className="ml-2 inline-flex">
-                      <ChevronRightSvg />
+                      <ChevronRightSvg/>
                     </span>
                   }
                   key={service?.page?.data?.id ?? ''}
@@ -199,11 +199,11 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
         )}
         {(events?.length || 0) > 0 && (
           <div className="hidden border-b border-border-dark py-12" id="events">
-            <div className="text-md2">{t('events')}</div>
+            <div className="text-h3.5">{t('events')}</div>
             <div className="grid grid-cols-1 md:grid-cols-2">
               {events?.map((event) => (
                 <div className="h-23 w-full cursor-pointer" key={event.id}>
-                  <div className="h-10 pt-4 text-text-body">
+                  <div className="h-10 pt-4 text-foreground-body">
                     <Link href={event.attributes?.slug || ''} passHref>
                       <a href={event.attributes?.slug || ''} className="flex">
                         <div className="flex h-16 w-16 bg-promo-yellow">
@@ -216,10 +216,11 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                         </div>
 
                         <div className="overflow-hidden pl-5">
-                          <div className="overflow-hidden text-ellipsis whitespace-pre leading-[21px] text-text-heading hover:underline md:w-52">
+                          <div
+                            className="overflow-hidden text-ellipsis whitespace-pre text-foreground-heading hover:underline md:w-52">
                             {event.attributes?.title}
                           </div>
-                          <div className="pt-[5px] text-xs leading-[20px] text-text-body">
+                          <div className="pt-[5px] text-sm text-foreground-body">
                             {dateTimeString(
                               event.attributes?.dateFrom || '',
                               event.attributes?.dateTo || '',
@@ -227,7 +228,8 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                             )}
                           </div>
                           {event.attributes?.eventLocality?.data?.attributes?.title && (
-                            <div className="overflow-hidden text-ellipsis whitespace-pre text-xs leading-[20px] text-text-body md:w-52">
+                            <div
+                              className="overflow-hidden text-ellipsis whitespace-pre text-sm text-foreground-body md:w-52">
                               &#9679; {event.attributes?.eventLocality.data.attributes.title}
                             </div>
                           )}
@@ -240,7 +242,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
             </div>
             <div className="pt-6">
               <Link href={eventsListingUrl || ''} passHref>
-                <a href={eventsListingUrl} className="cursor-pointer text-sm uppercase">
+                <a href={eventsListingUrl} className="cursor-pointer text-base uppercase">
                   {t('moreEvents')} {'>'}
                 </a>
               </Link>
@@ -261,13 +263,13 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                 defaultState={openLocality === section?.localitySectionTitle}
                 label={section?.localitySectionTitle ?? ''}
                 content={createContent(section || { id: '' }, false, true)}
-                iconLeft={<SectionSvg />}
+                iconLeft={<SectionSvg/>}
               />
             ))}
           </div>
         </div>
         <div id="where" className="mb-4">
-          <div className="pb-6 text-md2">{t('localityWhereToFind')}</div>
+          <div className="pb-6 text-h3.5">{t('localityWhereToFind')}</div>
           <div className="flex grid-cols-2 flex-col gap-x-5 space-y-4 md:grid">
             <div className="h-64 w-full md:h-[415px]">
               <LocalityMap
@@ -280,12 +282,12 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
             {mainSection && (
               <div className="">
                 <div className="pb-4">{t('address')}</div>
-                <div className="pb text-sm text-text-body">
+                <div className="pb text-base text-foreground-body">
                   {localityDetails.localityAddress?.title &&
                     localityDetails.localityAddress.title.split(', ').map((part) => (
                       <div key={part}>
                         {part}
-                        <br />
+                        <br/>
                       </div>
                     ))}
                 </div>
@@ -308,7 +310,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                 className="flex items-center space-x-4 py-2"
               >
                 <span>
-                  <PhoneSvg />
+                  <PhoneSvg/>
                 </span>
                 <span>{localityContact?.localitySectionPhone}</span>
               </a>
@@ -317,7 +319,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                 className="flex items-center space-x-4 py-2"
               >
                 <span>
-                  <MailSvg />
+                  <MailSvg/>
                 </span>
                 <span className="truncate">{localityContact?.localitySectionEmail}</span>
               </a>

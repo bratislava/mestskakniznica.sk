@@ -4,16 +4,18 @@ import { Input, InputProps } from '../Input/Input'
 
 export interface SearchBarProps
   extends InputProps,
-    React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {}
+    React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+}
 
-export const SearchBar = ({
-  className,
-  inputClassName,
-  value = '',
-  iconRight,
-  placeholder,
-  ...props
-}: SearchBarProps) => {
+export const SearchBar = (
+  {
+    className,
+    inputClassName,
+    value = '',
+    iconRight,
+    placeholder,
+    ...props
+  }: SearchBarProps) => {
   return (
     <div className={className}>
       <Input
@@ -23,7 +25,7 @@ export const SearchBar = ({
         inputClassName={cx('px-12', inputClassName)}
         value={value}
         iconRight={
-          !!iconRight && <span className="-ml-9 cursor-pointer text-text-heading">{iconRight}</span>
+          !!iconRight && <span className="-ml-9 cursor-pointer text-foreground-heading">{iconRight}</span>
         }
         {...props}
       />

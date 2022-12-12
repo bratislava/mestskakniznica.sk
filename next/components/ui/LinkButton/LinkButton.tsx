@@ -2,10 +2,8 @@ import cx from 'classnames'
 import NextLink from 'next/link'
 
 export interface LinkButtonProps
-  extends React.DetailedHTMLProps<
-    React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {
+  extends React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    HTMLAnchorElement> {
   href: string
   icon?: React.ReactNode
   iconClassName?: string
@@ -20,17 +18,18 @@ export interface LinkButtonProps
     | 'plain-white'
 }
 
-export const LinkButton = ({
-  href,
-  children,
-  className,
-  icon,
-  iconClassName,
-  iconPosition = 'left',
-  shape = 'default',
-  variant = 'primary',
-  ...props
-}: LinkButtonProps) => {
+export const LinkButton = (
+  {
+    href,
+    children,
+    className,
+    icon,
+    iconClassName,
+    iconPosition = 'left',
+    shape = 'default',
+    variant = 'primary',
+    ...props
+  }: LinkButtonProps) => {
   return (
     <NextLink href={href} passHref>
       <a
@@ -40,7 +39,7 @@ export const LinkButton = ({
 
           // text colors
           'text-white': variant === 'primary' || variant === 'plain-white',
-          'text-text-heading':
+          'text-foreground-heading':
             variant === 'secondary' || variant === 'plain-primary' || variant === 'tertiary',
           'text-button-gray': variant === 'plain-secondary',
 

@@ -14,14 +14,15 @@ export interface SiteUsefullnessProps {
   secondOption?: string
 }
 
-export const SiteUsefullness = ({
-                                  className,
-                                  title,
-                                  thankYouMessage,
-                                  firstOption,
-                                  secondOption,
-                                  onButtonClick,
-                                }: SiteUsefullnessProps) => {
+export const SiteUsefullness = (
+  {
+    className,
+    title,
+    thankYouMessage,
+    firstOption,
+    secondOption,
+    onButtonClick,
+  }: SiteUsefullnessProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
 
   const handleClick = (e: MouseEvent) => {
@@ -41,10 +42,10 @@ export const SiteUsefullness = ({
       )}
     >
       {isSubmitted ? (
-        <p className="text-base text-text-heading">{thankYouMessage}</p>
+        <p className="text-base text-foreground-heading">{thankYouMessage}</p>
       ) : (
         <>
-          <p className="text-base text-text-heading">{title}</p>
+          <p className="text-base text-foreground-heading">{title}</p>
           <div className="flex items-center gap-x-3">
             <Button
               variant="secondary"

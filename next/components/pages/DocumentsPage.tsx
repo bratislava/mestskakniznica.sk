@@ -112,7 +112,7 @@ const DocumentsPage = ({ page }: PageProps) => {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs page={page}/>
       </SectionContainer>
       <SectionContainer>
         <PageTitle
@@ -123,8 +123,8 @@ const DocumentsPage = ({ page }: PageProps) => {
         <SearchBar
           placeholder={t('whatAreYouLookingFor')}
           className="mt-6"
-          inputClassName="py-2 lg:py-5 text-sm w-full border-border-light"
-          iconLeft={<SearchIcon />}
+          inputClassName="py-2 lg:py-5 text-base w-full border-border-light"
+          iconLeft={<SearchIcon/>}
           iconRight={
             <div
               tabIndex={0}
@@ -132,7 +132,7 @@ const DocumentsPage = ({ page }: PageProps) => {
               onKeyPress={onSearchBarRightIconKeyPress}
               onClick={handleSearchReset}
             >
-              <CloseIcon />
+              <CloseIcon/>
             </div>
           }
           value={visibleQuery}
@@ -141,7 +141,7 @@ const DocumentsPage = ({ page }: PageProps) => {
         />
         <h4 className="pt-6 lg:pt-16">{t('category')}</h4>
         {fetchingData ? (
-          <LoadingSpinner size="medium" className="mt-[30px]" />
+          <LoadingSpinner size="medium" className="mt-[30px]"/>
         ) : (
           <div className="mt-6 flex flex-col gap-y-2 lg:grid lg:grid-cols-4 lg:gap-5">
             {documentData.fileCategories &&
@@ -152,13 +152,14 @@ const DocumentsPage = ({ page }: PageProps) => {
                   variant="plain"
                   uppercase={false}
                 >
-                  <RowSubcategory title={category?.attributes?.name || ''} />
+                  <RowSubcategory title={category?.attributes?.name || ''}/>
                 </Link>
               ))}
           </div>
         )}
         <div ref={resultsRef} className="mt-6 border-y border-border-dark pb-10 lg:mt-16 lg:pb-32">
-          <div className="flex flex-col gap-y-4 py-6 lg:flex-row lg:items-center lg:justify-between lg:gap-y-0 lg:py-7.5">
+          <div
+            className="flex flex-col gap-y-4 py-6 lg:flex-row lg:items-center lg:justify-between lg:gap-y-0 lg:py-7.5">
             <h4>{t('allDocuments')}</h4>
             <Select
               className="w-full lg:w-44"
@@ -170,7 +171,7 @@ const DocumentsPage = ({ page }: PageProps) => {
 
           {/* Documents */}
           {fetchingData ? (
-            <LoadingSpinner size="medium" className="mt-[30px]" />
+            <LoadingSpinner size="medium" className="mt-[30px]"/>
           ) : (
             documentData.documents.map((document) => (
               <NextLink
@@ -185,7 +186,7 @@ const DocumentsPage = ({ page }: PageProps) => {
                     className="cursor-pointer"
                     type={document?.attributes?.file_category?.data?.attributes?.name || ''}
                     title={document?.attributes?.title || ''}
-                    metadata={<Metadata metadata={document?.attributes?.metadata} />}
+                    metadata={<Metadata metadata={document?.attributes?.metadata}/>}
                     dateAdded={`${t('added')} ${formatDateToLocal(
                       document?.attributes?.date_added,
                       page?.attributes?.locale || ''

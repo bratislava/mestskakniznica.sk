@@ -30,11 +30,11 @@ const CustomPageBreadcrumbs = ({ file }: IProps) => {
   return (
     <div className="mt-4.5 flex items-center gap-x-4">
       <Link variant="plain" href="/">
-        <Home className="cursor-pointer" />
+        <Home className="cursor-pointer"/>
       </Link>
-      <ChevronRight className="ml-1" />
+      <ChevronRight className="ml-1"/>
 
-      <span className="text-xs">{file?.attributes?.title}</span>
+      <span className="text-sm">{file?.attributes?.title}</span>
     </div>
   )
 }
@@ -92,7 +92,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
           <Link
             href={file?.attributes?.link ?? '#'}
             uppercase={false}
-            className="text-text-body underline lg:hidden"
+            className="text-foreground-body underline lg:hidden"
             variant="plain"
             size="default"
           >
@@ -102,7 +102,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
           <Link
             href={file?.attributes?.link ?? '#'}
             uppercase={false}
-            className="hidden text-text-body underline lg:block"
+            className="hidden text-foreground-body underline lg:block"
             variant="plain"
             size="large"
           >
@@ -116,23 +116,23 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
   const transformedMetadata: Array<FileMetadata> =
     file && file?.attributes?.metadata && file?.attributes?.metadata[0]
       ? Object.entries(file?.attributes?.metadata[0])
-          .filter(
-            (entry) =>
-              (entry[0] !== '__typename' && entry[0] !== 'id' && entry[0] !== 'attachment') ||
-              entry[0] === 'attachment'
-          )
-          .map((entry) => {
-            if (entry[0] !== '__typename' && entry[0] !== 'id' && entry[0] !== 'attachment') {
-              return {
-                key: `${t(entry[0])}:`,
-                content: entry[1],
-              }
-            }
+        .filter(
+          (entry) =>
+            (entry[0] !== '__typename' && entry[0] !== 'id' && entry[0] !== 'attachment') ||
+            entry[0] === 'attachment'
+        )
+        .map((entry) => {
+          if (entry[0] !== '__typename' && entry[0] !== 'id' && entry[0] !== 'attachment') {
             return {
-              key: 'Attachment',
-              content: entry[1].name,
+              key: `${t(entry[0])}:`,
+              content: entry[1],
             }
-          })
+          }
+          return {
+            key: 'Attachment',
+            content: entry[1].name,
+          }
+        })
       : []
 
   const fullMetadata = Metadata?.concat(transformedMetadata)
@@ -140,7 +140,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
   return (
     <DefaultPageLayout title={file?.attributes?.title} menus={menus} footer={footer}>
       <SectionContainer>
-        <CustomPageBreadcrumbs file={file} menus={menus} footer={footer} />
+        <CustomPageBreadcrumbs file={file} menus={menus} footer={footer}/>
         <div className="mt-6 flex gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:pb-32">
           <FileIcon
             className="hidden lg:flex"
@@ -151,19 +151,21 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
           <div className="w-full">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
               {/* Header */}
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-border-dark text-[12px] lg:hidden">
+              <span
+                className="flex h-14 w-14 items-center justify-center rounded-full border border-border-dark text-[12px] lg:hidden">
                 {file?.attributes?.attachment?.data?.attributes?.ext
                   ?.toUpperCase()
                   .replace('.', '')}
               </span>
-              <h1 className="mt-8 text-md2 lg:mt-0 lg:text-2xl">{file?.attributes?.title}</h1>
-              <div className="mt-2 items-center text-sm text-text-body lg:flex lg:gap-x-3">
+              <h1 className="mt-8 text-h1 lg:mt-0">{file?.attributes?.title}</h1>
+              <div className="mt-2 items-center text-base text-foreground-body lg:flex lg:gap-x-3">
                 <p className="hidden lg:block">{file?.attributes?.author}</p>
-                <SingleDot className="hidden lg:block" />
+                <SingleDot className="hidden lg:block"/>
                 <p>{`${t('added')} ${dateAddedString}`}</p>
               </div>
               {file?.attributes?.attachment && (
-                <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
+                <div
+                  className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
                   <a
                     className="w-full lg:w-auto"
                     href={file?.attributes?.attachment?.data?.attributes?.url}
@@ -173,7 +175,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
                     <Button
                       className="w-full py-[9px] px-5"
                       aria-label={`${t('open')} ${file?.attributes?.title}`}
-                      icon={<ExternalLink />}
+                      icon={<ExternalLink/>}
                     >
                       {t('open')}
                     </Button>
@@ -187,7 +189,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
                       variant="secondary"
                       className="w-full py-[9px] px-5"
                       aria-label={`${t('download')} ${file?.attributes?.title}`}
-                      icon={<Download />}
+                      icon={<Download/>}
                     >
                       {t('download')}
                     </Button>
@@ -198,8 +200,8 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
 
             {/* Description */}
             <div className="space-y-4 border-y border-border-dark py-6 lg:space-y-6 lg:py-10">
-              <h3 className="text-default lg:text-md2">{t('description')}</h3>
-              <p className="text-xs text-text-body lg:text-sm">
+              <h3 className="text-h3">{t('description')}</h3>
+              <p className="text-sm text-foreground-body lg:text-base">
                 {truncate(description || undefined, {
                   length: expandDescription ? description?.length : DESCRIPTION_LIMIT,
                 })}
@@ -208,7 +210,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
               {showExpandButton && (
                 <Button
                   variant="plain-primary"
-                  icon={<ChevronRight />}
+                  icon={<ChevronRight/>}
                   iconPosition="right"
                   onClick={() => setExpandDescription((prev) => !prev)}
                 >
@@ -218,7 +220,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
             </div>
 
             {/* Metadata */}
-            <ul className="mt-6 space-y-3 text-xs text-text-body lg:mt-10 lg:text-sm">
+            <ul className="mt-6 space-y-3 text-sm text-foreground-body lg:mt-10 lg:text-base">
               {fullMetadata
                 .filter((data) => data?.content)
                 .map((data, i) => (

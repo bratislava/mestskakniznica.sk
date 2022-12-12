@@ -42,7 +42,7 @@ const ErrorDisplay = ({ error }: IProps) => {
         Zobraziť {open ? 'menej' : 'viac'}
       </Button>
       {open && (
-        <pre className="mt-4 whitespace-pre-wrap text-xs">
+        <pre className="mt-4 whitespace-pre-wrap text-sm">
           {error.message}
           {'\n\n'}
           {error.description}

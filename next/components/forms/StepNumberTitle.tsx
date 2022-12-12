@@ -41,13 +41,13 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
             'inline-flex h-14 w-14 items-center justify-center rounded-full border border-border-dark p-6 text-base',
             {
               'bg-button-dark text-white': active || finished,
-              'text-text-heading': !active && !finished,
+              'text-foreground-heading': !active && !finished,
             }
           )}
         >
-          {finished ? <CheckMark className="-m-6" /> : num}
+          {finished ? <CheckMark className="-m-6"/> : num}
         </span>
-        <p className="text-left text-default text-text-heading">{title}</p>
+        <p className="text-left text-h5 text-foreground-heading">{title}</p>
       </button>
       {active && children}
     </div>

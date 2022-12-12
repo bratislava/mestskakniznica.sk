@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { join } = require('path')
 const plugin = require('tailwindcss/plugin')
-const pluginLineClamp = require('@tailwindcss/line-clamp')
 
-const scrollBarHide = plugin(({ addUtilities }) => {
+const scrollBarHide = plugin(function ({ addUtilities }) {
   addUtilities({
     '.scrollbar-hide': {
       /* Firefox */
       'scrollbar-width': 'none',
-
       /* Safari and Chrome */
       '&::-webkit-scrollbar': {
         display: 'none',
@@ -17,14 +15,39 @@ const scrollBarHide = plugin(({ addUtilities }) => {
   })
 })
 
+const inputNumberArrowsHide = plugin(function ({ addUtilities }) {
+  // https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
+  addUtilities({
+    /* Chrome, Safari, Edge, Opera */
+    '.arrows-hide': {
+      '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+        '-webkit-appearance': 'none',
+      },
+      /* Firefox */
+      '-moz-appearance': 'textfield',
+    },
+  })
+})
+
+const customVariants = plugin(function ({ addVariant }) {
+  addVariant('not-first', '&:not(:first-child)')
+})
+
 module.exports = {
   content: [
     join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'),
     join(__dirname, 'components/**/*.{js,ts,jsx,tsx}'),
   ],
   corePlugins: {
-    scale: true,
+    // aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
   },
+  plugins: [
+    scrollBarHide,
+    inputNumberArrowsHide,
+    customVariants,
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
+  ],
   theme: {
     screens: {
       xs: '360px',
@@ -57,9 +80,10 @@ module.exports = {
       black: '#000000',
       white: '#ffffff',
       dark: '#121212', //gray-100
-      text: {
+      foreground: {
         heading: '#121212', // gray-100
         body: '#565656', // gray-70
+        placeholder: '#787878', // gray-60
         disabled: '#969696', // gray-50
       },
       border: {
@@ -99,6 +123,32 @@ module.exports = {
         '"Noto Color Emoji"',
       ],
     },
+    fontSize: {
+      h6: ['var(--font-size-h6)', 'var(--line-height-h6)'], // 16px / 16px / 150%
+      h5: ['var(--font-size-h5)', 'var(--line-height-h5)'], // 20px / 16px / 150%
+      h4: ['var(--font-size-h4)', 'var(--line-height-h4)'], // 24px / 20px / 150%
+      'h3.5': ['var(--font-size-h3-5)', 'var(--line-height-h3-5)'], // 28px / 22px / 150%
+      h3: ['var(--font-size-h3)', 'var(--line-height-h3)'], // 32px / 24px / 150%
+      h2: ['var(--font-size-h2)', 'var(--line-height-h2)'], // 40px / 28px / 150%
+      h1: ['var(--font-size-h1)', 'var(--line-height-h1)'], // 48px / 32px / 150%
+
+      btn: ['0.875rem', '1.4rem'],
+
+      xs: ['0.75rem', '1.2rem'], // 12px / 150%
+      sm: ['0.875rem', '1.4rem'], // 14px / 160%
+      base: ['1rem', '1.5rem'], // 16px / 150%
+      lg: ['1.25rem', '1.875rem'], // 20px / 150%
+
+      // xs_old: ['14px', '22.4px'],
+      // sm_old: ['16px', '24px'],
+      // base_old: ['1rem', '1.5rem'],
+      // default_old: ['20px', '24.2px'],
+      // md_old: ['24px', '140%'],
+      // md2_old: ['28px', '33.6px'],
+      // lg_old: ['32px', '44.8px'],
+      // xl_old: ['36px', '42.3px'],
+      // '2xl_old': ['40px', '60px'],
+    },
     extend: {
       width: {
         1180: '1180px',
@@ -117,18 +167,6 @@ module.exports = {
       margin: {
         60: '60px',
         185: '185px',
-      },
-      fontSize: {
-        27: '27px',
-        xs: ['14px', '22.4px'],
-        sm: ['16px', '24px'],
-        default: ['20px', '24.2px'],
-        md: ['24px', '140%'],
-        md2: ['28px', '33.6px'],
-        lg: ['32px', '44.8px'],
-        xl: ['36px', '42.3px'],
-        '2xl': ['40px', '60px'],
-        xxl: ['42px', '50.8px'],
       },
       borderWidth: {
         3: '3px',
@@ -181,5 +219,4 @@ module.exports = {
       },
     },
   },
-  plugins: [scrollBarHide, pluginLineClamp],
 }

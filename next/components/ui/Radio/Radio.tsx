@@ -1,10 +1,8 @@
 import cx from 'classnames'
 import React from 'react'
 
-type RadioProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->
+type RadioProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement>
 
 export const Radio = ({ className, children, ...props }: RadioProps) => {
   return (
@@ -19,10 +17,10 @@ export const Radio = ({ className, children, ...props }: RadioProps) => {
           className
         )}
       >
-        {props.checked && <div className="h-3 w-3 rounded-full bg-dark" />}
+        {props.checked && <div className="h-3 w-3 rounded-full bg-dark"/>}
       </div>
       <p
-        className={cx('flex-1 text-text-body', {
+        className={cx('flex-1 text-foreground-body', {
           'base-input--disabled': props.disabled,
         })}
       >

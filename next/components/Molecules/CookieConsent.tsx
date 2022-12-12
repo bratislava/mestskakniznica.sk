@@ -110,7 +110,7 @@ const CookieConsent = () => {
               className="m-3 cursor-pointer rounded-md border-2 border-border-dark p-1 md:m-0 md:p-2"
               onClick={closeModal}
             >
-              <Close />
+              <Close/>
             </button>
           </div>
           <div className="p-5">
@@ -118,7 +118,7 @@ const CookieConsent = () => {
               <div>
                 <div className="mb-2 font-medium">{t('cookie_consent_modal_content_title')}</div>
                 <p
-                  className="text-sm"
+                  className="text-base"
                   dangerouslySetInnerHTML={{
                     __html: t('cookie_consent_modal_conent_body'),
                   }}
@@ -151,20 +151,20 @@ const CookieConsent = () => {
             </div>
             <div className="mt-5 flex flex-col justify-between gap-1 md:flex-row">
               <button
-                className="rounded-sm bg-button-dark px-3 py-1 text-sm text-white"
+                className="rounded-sm bg-button-dark px-3 py-1 text-base text-white"
                 onClick={saveSettings}
               >
                 {t('cookie_consent_save_settings')}
               </button>
               <div className="flex flex-col gap-1 md:flex-row">
                 <button
-                  className="min-w-[140px] rounded-sm bg-button-dark py-1 text-sm text-white md:mr-1"
+                  className="min-w-[140px] rounded-sm bg-button-dark py-1 text-base text-white md:mr-1"
                   onClick={declineCookies}
                 >
                   {t('cookie_consent_rejectall')}
                 </button>
                 <button
-                  className="min-w-[140px] rounded-sm bg-button-dark py-1 text-sm text-white"
+                  className="min-w-[140px] rounded-sm bg-button-dark py-1 text-base text-white"
                   onClick={acceptAllCookies}
                 >
                   {t('cookie_consent_acceptall')}
@@ -183,13 +183,13 @@ const CookieConsent = () => {
         enableDeclineButton
         declineButtonText={t('cookie_consent_rejectall')}
         ariaDeclineLabel={t('cookie_consent_reject_aria_label')}
-        declineButtonClasses="text-sm"
+        declineButtonClasses="text-base"
         flipButtons
         declineButtonStyle={{
           background: 'black',
           minWidth: '120px',
         }}
-        buttonClasses="bg-button-gray text-sm"
+        buttonClasses="bg-button-gray text-base"
         buttonStyle={{
           background: 'black',
           color: 'white',
@@ -207,7 +207,7 @@ const CookieConsent = () => {
         expires={365}
         cookieName="city-library-gdpr"
       >
-        <div className="text-sm" tabIndex={1}>
+        <div className="text-base" tabIndex={1}>
           {t('cookie_consent_body')}{' '}
           <button
             className="cursor-pointer text-error underline"
@@ -282,7 +282,7 @@ const Panel = ({ title, content, value, onValueChange, isOpen, setPanel }: Panel
     <>
       <div className="mt-2 flex items-center justify-between bg-border-light px-2 py-3">
         <button className="flex items-center gap-2" onClick={() => setPanel(isOpen ? '' : title)}>
-          <span>{isOpen ? <ChevronUp /> : <ChevronDown />}</span>
+          <span>{isOpen ? <ChevronUp/> : <ChevronDown/>}</span>
           {title}
         </button>
         <Switch
@@ -293,7 +293,7 @@ const Panel = ({ title, content, value, onValueChange, isOpen, setPanel }: Panel
       </div>
       <div
         className={cx(
-          'transform text-base text-text-body transition-all duration-200 ease-linear',
+          'transform text-base text-foreground-body transition-all duration-200 ease-linear',
           {
             'hidden h-0': !isOpen,
             'mt-1 h-full pb-8': isOpen,

@@ -147,7 +147,7 @@ const SearchPage = ({ page }: PageProps) => {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs page={page}/>
       </SectionContainer>
       <SectionContainer>
         <PageTitle
@@ -166,8 +166,8 @@ const SearchPage = ({ page }: PageProps) => {
           <SearchBar
             placeholder={t('searchFor')}
             className="w-full"
-            inputClassName="py-2 lg:py-5 text-sm w-full border-border-light"
-            iconLeft={<SearchIcon />}
+            inputClassName="py-2 lg:py-5 text-base w-full border-border-light"
+            iconLeft={<SearchIcon/>}
             iconRight={
               <div
                 tabIndex={0}
@@ -175,7 +175,7 @@ const SearchPage = ({ page }: PageProps) => {
                 onKeyPress={onSearchBarRightIconKeyPress}
                 onClick={handleSearchReset}
               >
-                <CloseIcon />
+                <CloseIcon/>
               </div>
             }
             value={visibleQuery}
@@ -183,7 +183,7 @@ const SearchPage = ({ page }: PageProps) => {
             onKeyPress={onSearchBarKeyPress}
           />
 
-          <Button className="w-full py-[9px] text-xs lg:w-auto lg:py-4.25 lg:px-8">Hľadať</Button>
+          <Button className="w-full py-[9px] text-sm lg:w-auto lg:py-4.25 lg:px-8">Hľadať</Button>
         </div>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link href="/" passHref>
@@ -228,7 +228,7 @@ const SearchPage = ({ page }: PageProps) => {
         <div ref={resultsRef} className="mt-6 pb-10 lg:mt-11 lg:pb-32">
           {/* Documents */}
           {!pageData ? (
-            <LoadingSpinner size="medium" className="mt-[30px]" />
+            <LoadingSpinner size="medium" className="mt-[30px]"/>
           ) : (
             pageData.map((page, i) => (
               <Link key={i} href={page.page_url} passHref>
@@ -241,17 +241,17 @@ const SearchPage = ({ page }: PageProps) => {
                     <div className="flex items-center gap-x-6">
                       <div className="space-y-2">
                         <div className="flex items-center gap-x-4">
-                          <h5 className="text-default">{page.page_title}</h5>
+                          <h5 className="text-h5">{page.page_title}</h5>
                           <span className="rounded-[4px] border-2 border-border-dark px-[8px] text-[12px]">
                             {page.page_category}
                           </span>
                         </div>
-                        <div className="flex items-center gap-x-3 text-xs text-text-body">
+                        <div className="flex items-center gap-x-3 text-sm text-foreground-body">
                           <span>{page.page_url}</span>
                         </div>
                       </div>
                     </div>
-                    <ChevronRight />
+                    <ChevronRight/>
                   </div>
                 </a>
               </Link>

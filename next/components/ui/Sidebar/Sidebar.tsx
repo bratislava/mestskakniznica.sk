@@ -35,8 +35,8 @@ export const Sidebar = ({ className, title, href, categories, activeCategory }: 
               className={cx(
                 'transform border-b py-3 text-base transition-all duration-200 ease-linear',
                 {
-                  'border-border-light text-text-body': !isActive,
-                  'flex items-center gap-x-5.5 border-border-dark pl-1.5 text-text-heading':
+                  'border-border-light text-foreground-body': !isActive,
+                  'flex items-center gap-x-5.5 border-border-dark pl-1.5 text-foreground-heading':
                   isActive,
                 }
               )}
