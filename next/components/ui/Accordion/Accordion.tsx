@@ -50,7 +50,7 @@ export const Accordion = ({
 
   return (
     <div
-      className={cx('w-full overflow-hidden border-gray-universal-100', className, {
+      className={cx('w-full overflow-hidden border-border-dark', className, {
         'overflow-visible': isOpen,
         border: type === 'boxed',
         'border-b': type !== 'boxed',
@@ -88,7 +88,7 @@ export const Accordion = ({
         {isOpen ? <span>{closeIcon}</span> : <span>{openIcon}</span>}
       </button>
       <div
-        className={cx('text-base text-gray-universal-70', {
+        className={cx('text-base text-text-body', {
           'h-0': !isOpen,
           'mt-1 h-full': isOpen,
           'pb-10': isOpen && size === 'big',

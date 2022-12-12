@@ -3,7 +3,6 @@ const { join } = require('path')
 const plugin = require('tailwindcss/plugin')
 const pluginLineClamp = require('@tailwindcss/line-clamp')
 
-
 const scrollBarHide = plugin(({ addUtilities }) => {
   addUtilities({
     '.scrollbar-hide': {
@@ -19,10 +18,12 @@ const scrollBarHide = plugin(({ addUtilities }) => {
 })
 
 module.exports = {
-  presets: [require('./tailwind-workspace-preset.js')],
-  content: [join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'), join(__dirname, 'components/**/*.{js,ts,jsx,tsx}')],
+  content: [
+    join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, 'components/**/*.{js,ts,jsx,tsx}'),
+  ],
   corePlugins: {
-    scale: true
+    scale: true,
   },
   theme: {
     screens: {
@@ -49,6 +50,34 @@ module.exports = {
       DEFAULT: '0px 8px 24px rgba(0, 0, 0, 0.08)',
       xs: '0px 8px 24px rgba(0, 0, 0, 0.04)',
       none: 'none',
+    },
+    colors: {
+      current: 'currentColor',
+      transparent: 'transparent',
+      black: '#000000',
+      white: '#ffffff',
+      dark: '#121212', //gray-100
+      text: {
+        heading: '#121212', // gray-100
+        body: '#565656', // gray-70
+        disabled: '#969696', // gray-50
+      },
+      border: {
+        dark: '#121212', // gray-100
+        light: '#cccccc', // gray-30
+        disabled: '#e0e0e0', // gray-20
+      },
+      button: {
+        dark: '#121212', // gray-100
+        gray: '#787878', // gray-60
+        hover: '#3D3D3D', // gray-80
+        disabled: '#969696', // gray-50
+      },
+      promo: {
+        yellow: '#ffef4e',
+        peach: '#fdd1a8',
+      },
+      error: '#ad1e13',
     },
     fontFamily: {
       beausite: "'BeausiteMedium','BeausiteRegular', 'BeausiteBold'",
@@ -101,57 +130,6 @@ module.exports = {
         '2xl': ['40px', '60px'],
         xxl: ['42px', '50.8px'],
       },
-      colors: {
-        primary: 'var(--primary-color)',
-        secondary: 'var(--secondary-color)',
-        background: 'var(--background-color)',
-        font: 'var(--font-color)',
-        input: {
-          'nav-bg': 'var(--input-nav-background-color)',
-          stroke: 'var(--input-stroke-color)',
-        },
-        universal: {
-          'gray-500': 'var(--universal-gray-500)',
-          'gray-800': 'var(--universal-gray-800)',
-          black: 'var(--universal-black)',
-        },
-        gray: {
-          universal: {
-            60: '#787878',
-            70: '#565656',
-            80: '#3D3D3D',
-          },
-          dark: 'var(--dark-gray-color)',
-          semilight: 'var(--semilight-gray-color)',
-          light: 'var(--light-gray-color)',
-        },
-        black: {
-          universal: 'var(--universal-black)',
-        },
-        yellow: {
-          promo: '#FFEF4E',
-        },
-        red: {
-          'universal-800': 'var(--universal-red-800)',
-          'universal-500': 'var(--universal-red-500)',
-          'universal-300': 'var(--universal-red-300)',
-          brick: '#E46054',
-          'brick-dark': '#D05145',
-          superlight: 'var(--superlight-red-color)',
-        },
-        blue: {
-          light: '#faf9f9',
-          sea: '#7CCEF2',
-          'sea-dark': '#66BDE3',
-        },
-        purple: '#704B9D', // TODO var
-        warning: 'var(--warning-color)',
-        success: 'var(--success-color)',
-        error: 'var(--error-color)',
-        brown: '#873C35',
-        'promo-yellow': '#FFE95C',
-        'promo-orange': '#FDD1A8',
-      },
       borderWidth: {
         3: '3px',
       },
@@ -200,14 +178,6 @@ module.exports = {
       },
       letterSpacing: {
         wider: '.08em',
-      },
-      minWidth: {
-        39: '156px',
-        70: '280px',
-      },
-      maxWidth: {
-        61: '244px',
-        87: '350px',
       },
     },
   },

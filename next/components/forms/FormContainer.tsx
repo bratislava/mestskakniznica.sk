@@ -68,7 +68,7 @@ const FormContainer = ({
   }
 
   return (
-    <div className={cx('flex flex-col border border-gray-900 p-4', wrapperClass)}>
+    <div className={cx('flex flex-col border border-border-dark p-4', wrapperClass)}>
       {isSubmitted === SubmitStatus.NONE ? (
         <>
           <div className="mb-4 text-md md:px-4 md:pt-4 md:text-lg" id="form-title">
@@ -77,7 +77,7 @@ const FormContainer = ({
           <button
             onClick={() => setFormOpen(true)}
             className={cx(
-              'flex items-center justify-center bg-gray-900 py-2 px-4 text-center text-sm uppercase text-white md:mx-4 md:mb-4',
+              'flex items-center justify-center bg-button-dark py-2 px-4 text-center text-sm uppercase text-white md:mx-4 md:mb-4',
               { hidden: isFormOpen }
             )}
             aria-labelledby="form-title"
@@ -92,7 +92,7 @@ const FormContainer = ({
               tabIndex={0}
             >
               {/* HEADER */}
-              <div className="flex items-center justify-between border-b border-gray-900 md:hidden">
+              <div className="flex items-center justify-between border-b border-border-dark md:hidden">
                 <span className="pl-4">{title}</span>
                 <button className="p-4" onClick={() => setFormOpen(false)}>
                   <CloseIcon />
@@ -101,7 +101,7 @@ const FormContainer = ({
               {/* BODY */}
 
               <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 pt-0">
-                <div className="pt-4 text-xs text-gray-universal-70 md:pt-0">
+                <div className="pt-4 text-xs text-text-body md:pt-0">
                   {t('required_fields')} (<span className="text-error">*</span>
                   ).
                 </div>

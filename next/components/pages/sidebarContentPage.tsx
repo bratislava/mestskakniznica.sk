@@ -41,7 +41,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
               />
             </div>
           )}
-          <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-gray-700" />
+          <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-border-dark" />
           {/* Title */}
           <h1 className="col-span-12 row-start-1 mt-16 text-2xl md:col-span-7 md:col-start-6">
             {page?.attributes?.title ?? ''}

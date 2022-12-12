@@ -40,10 +40,7 @@ export const RadioGroup = <T extends IRadioOption>({
     <div className={wrapperClassName}>
       {/* Label */}
       {labelContent && (
-        <label
-          className={cx('mb-1 block text-xs text-gray-universal-100 opacity-80 ')}
-          htmlFor={id}
-        >
+        <label className={cx('mb-1 block text-xs text-text-heading opacity-80 ')} htmlFor={id}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -72,13 +69,13 @@ export const RadioGroup = <T extends IRadioOption>({
               <RadioGroupPrimitive.Item
                 value={opt.key}
                 id={opt.key}
-                className="flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-gray-universal-100 "
+                className="flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark "
               >
-                <RadioGroupPrimitive.Indicator className="h-3 w-3 rounded-full bg-gray-universal-100" />
+                <RadioGroupPrimitive.Indicator className="h-3 w-3 rounded-full bg-dark" />
               </RadioGroupPrimitive.Item>
               <label
                 htmlFor={opt.key}
-                className={cx('flex-1 cursor-pointer text-gray-universal-70', {
+                className={cx('flex-1 cursor-pointer text-text-body', {
                   'base-input--disabled': opt.disabled,
                 })}
               >

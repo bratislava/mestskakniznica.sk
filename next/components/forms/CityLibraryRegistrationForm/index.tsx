@@ -292,7 +292,7 @@ const CityLibraryRegistrationForm = () => {
             />
           </div>
           <div className="my-6 flex flex-col gap-y-6 border p-6 ">
-            <p className="text-left text-default text-gray-universal-100 ">
+            <p className="text-left text-default text-text-heading ">
               {t('permanent_address')} <span className="text-error">*</span>
             </p>
             <Controller
@@ -366,7 +366,7 @@ const CityLibraryRegistrationForm = () => {
 
           {showTempAddress && (
             <div className="my-6 flex flex-col gap-y-6 border p-6 ">
-              <p className="text-left text-default text-gray-universal-100 ">
+              <p className="text-left text-default text-text-heading ">
                 {t('temporary_address')} <span className="text-error">*</span>
               </p>
               <Controller

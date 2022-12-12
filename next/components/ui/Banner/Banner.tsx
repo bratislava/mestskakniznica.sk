@@ -19,7 +19,7 @@ export const Banner = ({
   return (
     <div
       className={cx(
-        'flex flex-col items-center justify-between gap-y-6 bg-gray-universal-100 p-4 text-center lg:flex-row lg:gap-y-0 lg:p-10 lg:text-left',
+        'flex flex-col items-center justify-between gap-y-6 bg-dark p-4 text-center lg:flex-row lg:gap-y-0 lg:p-10 lg:text-left',
         className
       )}
     >
@@ -29,7 +29,7 @@ export const Banner = ({
       </div>
       <button
         onClick={onBannerClick}
-        className="flex items-center gap-x-[11px] bg-white py-[9px] px-5 text-xs hover:bg-gray-100"
+        className="hover:bg-gray-100 flex items-center gap-x-[11px] bg-white py-[9px] px-5 text-xs"
       >
         <Calendar />
         <p>{buttonContent}</p>

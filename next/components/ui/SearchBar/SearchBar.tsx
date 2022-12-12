@@ -23,9 +23,7 @@ export const SearchBar = ({
         inputClassName={cx('px-12', inputClassName)}
         value={value}
         iconRight={
-          !!iconRight && (
-            <span className="-ml-9 cursor-pointer text-gray-universal-100">{iconRight}</span>
-          )
+          !!iconRight && <span className="-ml-9 cursor-pointer text-text-heading">{iconRight}</span>
         }
         {...props}
       />

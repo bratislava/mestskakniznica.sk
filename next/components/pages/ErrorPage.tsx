@@ -12,7 +12,7 @@ interface IProps {
 const ErrorPage = ({ code, children }: IProps) => {
   return (
     <SectionContainer>
-      <div className="border-gray-700">
+      <div className="border-border-dark">
         <div className="flex h-[56px] text-sm">
           <a href="./" className="py-[18px]">
             <Home />{' '}

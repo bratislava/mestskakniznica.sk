@@ -39,7 +39,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
             </div>
           ))}
         </div>
-        <div className="border-l border-gray-700" />
+        <div className="border-l border-border-dark" />
         <div className="w-full">
           <h2 className="mb-8 text-md">{faqSection?.title ?? t('faqTitle')}</h2>
           {faqSection?.faqs?.map((faq) => (

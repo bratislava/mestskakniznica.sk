@@ -20,7 +20,7 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
 
   return (
     <div className={cx('w-full space-y-6', className)}>
-      {hasDivider && <div className="border-t border-gray-universal-200" />}
+      {hasDivider && <div className="border-t border-border-light" />}
       <Controller
         control={methods.control}
         name="acceptFormTerms"

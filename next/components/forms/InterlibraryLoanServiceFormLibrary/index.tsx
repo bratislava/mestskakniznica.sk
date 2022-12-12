@@ -308,7 +308,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
             <p className="pt-4 text-base text-error">{t('please_fill_required_fields')}</p>
           )}
 
-          <div className="mt-2 space-y-4 border-t border-gray-universal-200 pt-6">
+          <div className="mt-2 space-y-4 border-t border-border-light pt-6">
             <Controller
               control={methods.control}
               name="acceptFeesTerms"

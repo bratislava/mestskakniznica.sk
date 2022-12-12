@@ -144,7 +144,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
   return (
     <div className="flex flex-col gap-16 pt-12 lg:flex-row">
       <div className="w-full lg:w-2/3">
-        <div className="border-b border-gray-700 pb-10">
+        <div className="border-b border-border-dark pb-10">
           <div className="py-[12px] text-[32px]">
             <div className="pb-8">
               <h1 className="leading-10 md:leading-6 lg:leading-6">
@@ -165,7 +165,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           {localityDetails.localityDescription && (
             <div id="description">
               <div className="text-[24px]">{t('description')}</div>
-              <div className="pt-5 text-[16px] text-gray-500">
+              <div className="pt-5 text-[16px] text-text-body">
                 <UIMarkdown
                   content={localityDetails.localityDescription}
                   paragraphClassName="text-sm"
@@ -175,7 +175,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           )}
         </div>
         {(localityDetails.localityServices?.length || 0) > 0 && (
-          <div className="border-b border-gray-700 py-10" id="services">
+          <div className="border-b border-border-dark py-10" id="services">
             <div className="text-[24px]">{t('services')}</div>
             <div className="grid flex-wrap gap-4 pt-5 sm:grid-cols-2">
               {localityDetails.localityServices?.map((service) => (
@@ -198,15 +198,15 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           </div>
         )}
         {(events?.length || 0) > 0 && (
-          <div className="hidden border-b border-gray-700 py-12" id="events">
+          <div className="hidden border-b border-border-dark py-12" id="events">
             <div className="text-md2">{t('events')}</div>
             <div className="grid grid-cols-1 md:grid-cols-2">
               {events?.map((event) => (
                 <div className="h-23 w-full cursor-pointer" key={event.id}>
-                  <div className="h-10 pt-4 text-gray-universal-70">
+                  <div className="h-10 pt-4 text-text-body">
                     <Link href={event.attributes?.slug || ''} passHref>
                       <a href={event.attributes?.slug || ''} className="flex">
-                        <div className="flex h-16 w-16 bg-yellow-promo">
+                        <div className="flex h-16 w-16 bg-promo-yellow">
                           <DateCardDisplay
                             dateFrom={event.attributes?.dateFrom || ''}
                             dateTo={event.attributes?.dateTo || ''}
@@ -216,10 +216,10 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                         </div>
 
                         <div className="overflow-hidden pl-5">
-                          <div className="overflow-hidden text-ellipsis whitespace-pre leading-[21px] text-black-universal hover:underline md:w-52">
+                          <div className="overflow-hidden text-ellipsis whitespace-pre leading-[21px] text-text-heading hover:underline md:w-52">
                             {event.attributes?.title}
                           </div>
-                          <div className="pt-[5px] text-xs leading-[20px] text-gray-universal-70">
+                          <div className="pt-[5px] text-xs leading-[20px] text-text-body">
                             {dateTimeString(
                               event.attributes?.dateFrom || '',
                               event.attributes?.dateTo || '',
@@ -227,7 +227,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                             )}
                           </div>
                           {event.attributes?.eventLocality?.data?.attributes?.title && (
-                            <div className="overflow-hidden text-ellipsis whitespace-pre text-xs leading-[20px] text-gray-universal-70 md:w-52">
+                            <div className="overflow-hidden text-ellipsis whitespace-pre text-xs leading-[20px] text-text-body md:w-52">
                               &#9679; {event.attributes?.eventLocality.data.attributes.title}
                             </div>
                           )}
@@ -280,7 +280,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
             {mainSection && (
               <div className="">
                 <div className="pb-4">{t('address')}</div>
-                <div className="pb text-sm text-gray-500">
+                <div className="pb text-sm text-text-body">
                   {localityDetails.localityAddress?.title &&
                     localityDetails.localityAddress.title.split(', ').map((part) => (
                       <div key={part}>
@@ -294,12 +294,12 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           </div>
         </div>
       </div>
-      <div className="sticky top-8 h-fit w-full border border-gray-900 p-6 lg:w-1/3">
+      <div className="sticky top-8 h-fit w-full border border-border-dark p-6 lg:w-1/3">
         <div className="m-auto">
           <div className="pb-6">{t('contactUs')}</div>
           {localityDetails?.localitySections?.map((localityContact) => (
             <div
-              className="flex flex-col border-t border-gray-300 py-3 py-5"
+              className="flex flex-col border-t border-border-light py-3 py-5"
               key={localityContact?.id}
             >
               <span>{localityContact?.localitySectionTitle}</span>

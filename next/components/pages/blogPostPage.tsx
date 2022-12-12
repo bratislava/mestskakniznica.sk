@@ -24,9 +24,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
       )}
 
       <PageTitle title={blogPost?.attributes?.title ?? ''} hasDivider={false} />
-      <div className="mt-2 text-sm text-gray-universal-70 lg:mt-4">{`${t(
-        'added'
-      )} ${formatDateToLocal(
+      <div className="mt-2 text-sm text-text-body lg:mt-4">{`${t('added')} ${formatDateToLocal(
         // blogPost.date_added ? blogPost.date_added : blogPost.created_at, // TEMP fix for not localized blog posts
         blogPost?.attributes?.publishedAt,
         locale

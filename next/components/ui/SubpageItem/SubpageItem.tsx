@@ -14,14 +14,14 @@ export const SubpageItem = ({ className, title, description, url }: SubpageItemP
 
   return (
     <UILink className={cx(className)} href={url ?? '#'}>
-      <h3 className="border-gray-universal-100 text-md">{title}</h3>
+      <h3 className="border-border-dark text-md">{title}</h3>
       {description && (
-        <UIMarkdown className="mt-4 text-sm text-gray-universal-70" content={description} />
+        <UIMarkdown className="mt-4 text-sm text-text-body" content={description}/>
       )}
-      <div className="mt-6 flex items-center justify-between border-[1px] border-gray-universal-100 p-4">
+      <div className="mt-6 flex items-center justify-between border-[1px] border-border-dark p-4">
         <span className="text-sm">{title}</span>
 
-        {url && <ArrowRight />}
+        {url && <ArrowRight/>}
       </div>
     </UILink>
   )

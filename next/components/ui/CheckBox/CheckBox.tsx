@@ -22,9 +22,9 @@ export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
         id={props.id}
         required={props.required}
         className={cx(
-          'flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-gray-universal-100 text-white outline-1 outline-offset-2 focus:outline',
+          'flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-border-dark text-white outline-1 outline-offset-2 focus:outline',
           {
-            'bg-gray-universal-100': props.checked,
+            'bg-dark': props.checked,
             'base-input--disabled': props.disabled,
           }
         )}
@@ -35,7 +35,7 @@ export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
       </Checkbox>
 
       <label
-        className={cx('flex-1 cursor-pointer text-gray-universal-70', {
+        className={cx('flex-1 cursor-pointer text-text-body', {
           'base-input--disabled': props.disabled,
         })}
         htmlFor={props.id}

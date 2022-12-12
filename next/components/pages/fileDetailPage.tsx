@@ -92,7 +92,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
           <Link
             href={file?.attributes?.link ?? '#'}
             uppercase={false}
-            className="text-gray-universal-70 underline lg:hidden"
+            className="text-text-body underline lg:hidden"
             variant="plain"
             size="default"
           >
@@ -102,7 +102,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
           <Link
             href={file?.attributes?.link ?? '#'}
             uppercase={false}
-            className="hidden text-gray-universal-70 underline lg:block"
+            className="hidden text-text-body underline lg:block"
             variant="plain"
             size="large"
           >
@@ -141,7 +141,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
     <DefaultPageLayout title={file?.attributes?.title} menus={menus} footer={footer}>
       <SectionContainer>
         <CustomPageBreadcrumbs file={file} menus={menus} footer={footer} />
-        <div className="mt-6 flex gap-x-8 border-b border-gray-universal-100 pb-10 lg:mt-16 lg:pb-32">
+        <div className="mt-6 flex gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:pb-32">
           <FileIcon
             className="hidden lg:flex"
             type={file?.attributes?.attachment?.data?.attributes?.ext
@@ -151,13 +151,13 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
           <div className="w-full">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
               {/* Header */}
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-universal-100 text-[12px] lg:hidden">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-border-dark text-[12px] lg:hidden">
                 {file?.attributes?.attachment?.data?.attributes?.ext
                   ?.toUpperCase()
                   .replace('.', '')}
               </span>
               <h1 className="mt-8 text-md2 lg:mt-0 lg:text-2xl">{file?.attributes?.title}</h1>
-              <div className="mt-2 items-center text-sm text-gray-universal-70 lg:flex lg:gap-x-3">
+              <div className="mt-2 items-center text-sm text-text-body lg:flex lg:gap-x-3">
                 <p className="hidden lg:block">{file?.attributes?.author}</p>
                 <SingleDot className="hidden lg:block" />
                 <p>{`${t('added')} ${dateAddedString}`}</p>
@@ -197,9 +197,9 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
             </div>
 
             {/* Description */}
-            <div className="space-y-4 border-y border-gray-universal-100 py-6 lg:space-y-6 lg:py-10">
+            <div className="space-y-4 border-y border-border-dark py-6 lg:space-y-6 lg:py-10">
               <h3 className="text-default lg:text-md2">{t('description')}</h3>
-              <p className="text-xs text-gray-universal-70 lg:text-sm">
+              <p className="text-xs text-text-body lg:text-sm">
                 {truncate(description || undefined, {
                   length: expandDescription ? description?.length : DESCRIPTION_LIMIT,
                 })}
@@ -218,7 +218,7 @@ const FileDetailPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
             </div>
 
             {/* Metadata */}
-            <ul className="mt-6 space-y-3 text-xs text-gray-universal-70 lg:mt-10 lg:text-sm">
+            <ul className="mt-6 space-y-3 text-xs text-text-body lg:mt-10 lg:text-sm">
               {fullMetadata
                 .filter((data) => data?.content)
                 .map((data, i) => (

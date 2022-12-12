@@ -79,7 +79,7 @@ const NewsletterSection = () => {
       ) : (
         <div className="container flex flex-col items-center justify-center">
           <h2 className="pt-30 pb-6 text-lg">{t('newsletter_sent_title')}</h2>
-          <div className="m-auto w-[780px] pb-30 text-center text-sm text-gray-500">
+          <div className="m-auto w-[780px] pb-30 text-center text-sm text-text-body">
             {t('newsletter_sent_text')}
           </div>
         </div>

@@ -34,12 +34,12 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
   //   : t('openingHoursClosed');
 
   return (
-    <div className="max-w-1180 fixed inset-x-0 top-0 z-30 m-auto h-screen border-gray-900 bg-white">
-      <div className="flex h-[61px] justify-between border-b border-gray-900">
+    <div className="max-w-1180 fixed inset-x-0 top-0 z-30 m-auto h-screen border-border-dark bg-white">
+      <div className="flex h-[61px] justify-between border-b border-border-dark">
         <div className="flex h-full">
           <div className="flex h-full items-center px-5">
             <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
-              <a className="border-gray-900 text-sm font-normal leading-[19.6px]">
+              <a className="border-border-dark text-sm font-normal leading-[19.6px]">
                 {otherLocaleData.locale.toUpperCase()}
               </a>
             </Link>
@@ -57,14 +57,14 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
         <MobileNavigationItem menu={menu} key={index} menus={menus} />
       ))}
       <div className="px-4 pt-[47px] pb-4">
-        <div className="border-b border-gray-900 pb-4 text-[16px]">
+        <div className="border-b border-border-dark pb-4 text-[16px]">
           <Link href={t('openingHoursPageLink')} passHref>
             <a>{openingHours}</a>
           </Link>
         </div>
       </div>
       <div className="px-4 pb-10">
-        <div className="border-b border-gray-900 pb-4 text-[16px]">
+        <div className="border-b border-border-dark pb-4 text-[16px]">
           <Link href="https://opac.mestskakniznica.sk/opac" passHref>
             <a target="_blank">{t('onlineCatalog')}</a>
           </Link>

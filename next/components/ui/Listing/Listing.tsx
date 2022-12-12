@@ -15,7 +15,14 @@ export interface ListingProps {
   hasDivider?: boolean
 }
 
-export const Listing = ({ className, title, url, moreLinkTitle, pages, hasDivider }: ListingProps) => {
+export const Listing = ({
+  className,
+  title,
+  url,
+  moreLinkTitle,
+  pages,
+  hasDivider,
+}: ListingProps) => {
   const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className)}>
@@ -50,7 +57,9 @@ export const Listing = ({ className, title, url, moreLinkTitle, pages, hasDivide
           </UILink>
         ))}
       </div>
-      {hasDivider && <div className="mt-16 hidden w-full border-b-[1px] border-gray-700 md:flex" />}
+      {hasDivider && (
+        <div className="mt-16 hidden w-full border-b-[1px] border-border-dark md:flex" />
+      )}
     </div>
   )
 }

@@ -38,14 +38,14 @@ const NavigationItem = ({ menu, latestEvents }: navItemProps) => {
   )
 
   return (
-    <NavigationMenu.Item className="h-14 w-[160px] border-r border-gray-900 pl-3 pt-[28px] pb-1 first:pl-0 last:border-r-0">
+    <NavigationMenu.Item className="h-14 w-[160px] border-r border-border-dark pl-3 pt-[28px] pb-1 first:pl-0 last:border-r-0">
       <NavigationMenu.Trigger
         className={cx('flex h-full text-default font-normal', {
-          'text-primary': isCurrentLink,
+          'text-text-body': isCurrentLink,
         })}
       >
         <Link href={`/${menu?.menuSlug}`} passHref>
-          <a tabIndex={-1} className="h-full text-left text-gray-900 hover:underline">
+          <a tabIndex={-1} className="h-full text-left text-text-heading hover:underline">
             {menu?.menuTitle}
           </a>
         </Link>

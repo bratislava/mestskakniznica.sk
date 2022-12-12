@@ -39,12 +39,12 @@ const NewsListingPage = ({ page }: PageProps) => {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page } />
+        <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
         <div className="pb-[48px]">
           <div className="pt-16">
-            <header className="m-auto border-b border-gray-900 text-[40px] leading-[48px]">
+            <header className="m-auto border-b border-border-dark text-[40px] leading-[48px]">
               <h1>{t('newsListingTitle')}</h1>
             </header>
           </div>

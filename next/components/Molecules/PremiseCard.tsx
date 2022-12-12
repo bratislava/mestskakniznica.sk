@@ -23,7 +23,7 @@ const PremiseCard = ({ title, address, url, image }: PremiseCardProps) => {
           />
           <div className="">
             <div className="pt-4">{title}</div>
-            <div className="pt-3 text-sm leading-[19.6px] text-gray-universal-70">{address}</div>
+            <div className="pt-3 text-sm leading-[19.6px] text-text-body">{address}</div>
             <div className="cursor-pointer pt-6 text-sm uppercase">
               {t('showDetails')} {'>'}
             </div>

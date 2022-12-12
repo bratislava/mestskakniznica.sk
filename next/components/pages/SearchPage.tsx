@@ -166,7 +166,7 @@ const SearchPage = ({ page }: PageProps) => {
           <SearchBar
             placeholder={t('searchFor')}
             className="w-full"
-            inputClassName="py-2 lg:py-5 text-sm w-full border-gray-universal-200"
+            inputClassName="py-2 lg:py-5 text-sm w-full border-border-light"
             iconLeft={<SearchIcon />}
             iconRight={
               <div
@@ -187,43 +187,43 @@ const SearchPage = ({ page }: PageProps) => {
         </div>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Stranka
             </a>
           </Link>
           <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Pracovisko
             </a>
           </Link>
           <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Podujatie
             </a>
           </Link>
           <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Aktualita
             </a>
           </Link>
           <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Zamestnanec
             </a>
           </Link>
           <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Dokument
             </a>
           </Link>
           <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Subor
             </a>
           </Link>
         </div>
 
-        <p className="mt-5 text-[16px] text-gray-600">248 vysledkov vyhladavania</p>
+        <p className="text--text-body mt-5 text-[16px]">248 vysledkov vyhladavania</p>
 
         <div ref={resultsRef} className="mt-6 pb-10 lg:mt-11 lg:pb-32">
           {/* Documents */}
@@ -235,18 +235,18 @@ const SearchPage = ({ page }: PageProps) => {
                 <a>
                   <div
                     className={cx(
-                      'group flex items-center justify-between border-b border-gray-universal-100 bg-white py-4 pr-2'
+                      'group flex items-center justify-between border-b border-border-dark bg-white py-4 pr-2'
                     )}
                   >
                     <div className="flex items-center gap-x-6">
                       <div className="space-y-2">
                         <div className="flex items-center gap-x-4">
                           <h5 className="text-default">{page.page_title}</h5>
-                          <span className="rounded-[4px] border-2 border-gray-universal-100 px-[8px] text-[12px]">
+                          <span className="rounded-[4px] border-2 border-border-dark px-[8px] text-[12px]">
                             {page.page_category}
                           </span>
                         </div>
-                        <div className="flex items-center gap-x-3 text-xs text-gray-universal-70">
+                        <div className="flex items-center gap-x-3 text-xs text-text-body">
                           <span>{page.page_url}</span>
                         </div>
                       </div>

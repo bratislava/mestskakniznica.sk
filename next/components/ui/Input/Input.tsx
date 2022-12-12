@@ -34,7 +34,7 @@ export const Input = ({
       {/* Label */}
       {labelContent && (
         <label
-          className={cx(labelClassName, 'mb-0.5 text-xs text-gray-universal-100 opacity-80')}
+          className={cx(labelClassName, 'mb-0.5 text-xs text-text-heading opacity-80')}
           id={`${id}_label`}
           htmlFor={id}
         >
@@ -46,7 +46,7 @@ export const Input = ({
       {/* LeftIcon Accessory */}
       <div className="relative flex w-full items-center">
         {!!iconLeft && (
-          <span className={cx('absolute left-4.5 z-10 text-gray-universal-100', iconClassName)}>
+          <span className={cx('absolute left-4.5 z-10 text-text-heading', iconClassName)}>
             {iconLeft}
           </span>
         )}
@@ -55,7 +55,7 @@ export const Input = ({
         <input
           id={id}
           className={cx('base-input', inputClassName, {
-            'base-input--disabled cursor-not-allowed text-gray-universal-60': props.disabled,
+            'base-input--disabled text-text-disabled cursor-not-allowed': props.disabled,
             'base-input--with-error': hasError,
           })}
           aria-invalid={hasError}
@@ -89,7 +89,7 @@ export const Input = ({
       {helpText && (
         <p
           className={cx('mt-0.5 text-xs opacity-80', {
-            'text-gray-universal-70': !hasError,
+            'text-text-body': !hasError,
             'text-error': hasError,
             '-ml-4.5': iconLeft,
           })}

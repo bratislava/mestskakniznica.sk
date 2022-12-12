@@ -52,12 +52,12 @@ const EventFilters = ({
 
   return (
     <>
-      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-sm text-[#000] lg:w-[268px] lg:border lg:border-gray-universal-200 lg:py-2">
+      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-sm text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
         <DatePicker
           onChange={onStartChange}
           selected={startDate}
           chooseDayAriaLabelPrefix={t('dateAriaLabel')}
-          className="my-5 w-full placeholder:text-gray-900 lg:my-0"
+          className="my-5 w-full placeholder:text-text-heading lg:my-0"
           placeholderText={t('eventsDateFrom')}
           dateFormat="dd. MM. yyyy"
           locale={locale === 'sk' ? 'sk' : 'en'}
@@ -65,12 +65,12 @@ const EventFilters = ({
           shouldCloseOnSelect={false}
         />
       </div>
-      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-sm text-[#000] lg:w-[268px] lg:border lg:border-gray-universal-200 lg:py-2">
+      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-sm text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
         <DatePicker
           onChange={onEndChange}
           selected={endDate}
           chooseDayAriaLabelPrefix={t('dateAriaLabel')}
-          className="my-5 w-full placeholder:text-gray-900 lg:my-0"
+          className="my-5 w-full placeholder:text-text-heading lg:my-0"
           placeholderText={t('eventsDateTo')}
           dateFormat="dd. MM. yyyy"
           locale={locale === 'sk' ? 'sk' : 'en'}
@@ -79,21 +79,21 @@ const EventFilters = ({
         />
       </div>
       <Select
-        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-gray-universal-200"
+        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-border-light"
         selectClassName="border-0 lg:border"
         options={tags}
         value={selectedEventTags ?? tags[0].title}
         onChange={(ev) => setSelectedEventTags(ev)}
       />
       <Select
-        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-gray-universal-200"
+        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-border-light"
         selectClassName="border-0 lg:border"
         options={categories}
         value={selectedCategory ?? categories[0].title}
         onChange={(ev) => setSelectedCategory(ev)}
       />
       <Select
-        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-gray-universal-200"
+        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-border-light"
         selectClassName="border-0 lg:border"
         options={localities}
         value={selectedLocality ?? localities[0].title}

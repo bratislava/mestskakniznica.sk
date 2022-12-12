@@ -13,22 +13,22 @@ export const Table = ({ className, primaryTitle, secondaryTitle, rows }: TablePr
   return (
     <div className={cx(className)}>
       {primaryTitle && (
-        <h3 className="text-universal-gray-100 mb-4 text-default lg:mb-6 lg:text-md2">
+        <h3 className="mb-4 text-default text-text-heading lg:mb-6 lg:text-md2">
           {primaryTitle}
         </h3>
       )}
-      {secondaryTitle && <h6 className="text-universal-gray-100 mb-4 text-sm">{secondaryTitle}</h6>}
+      {secondaryTitle && <h6 className="mb-4 text-sm text-text-heading">{secondaryTitle}</h6>}
 
       <table className={cx(className, 'w-full table-fixed border-collapse')}>
         <tbody>
-          {rows?.map((row, index) => (
-            <TableRow
-              key={index}
-              value={row?.value ?? ''}
-              label={row?.label ?? ''}
-              valueAlign={row?.valueAlign ?? 'start'}
-            />
-          ))}
+        {rows?.map((row, index) => (
+          <TableRow
+            key={index}
+            value={row?.value ?? ''}
+            label={row?.label ?? ''}
+            valueAlign={row?.valueAlign ?? 'start'}
+          />
+        ))}
         </tbody>
       </table>
     </div>

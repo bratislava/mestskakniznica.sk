@@ -32,6 +32,7 @@ interface KeyTitlePair {
   key: string
   title: string
 }
+
 export interface PageProps {
   page: PageEntity
 }
@@ -147,17 +148,17 @@ const Events = ({ page }: PageProps) => {
     const currentFilters: EventFiltersInput = {}
 
     // default without filters
-    currentFilters['dateTo'] = { lt: today.toISOString() }
+    currentFilters.dateTo = { lt: today.toISOString() }
 
     // filtered startDate
     if (startDate) {
-      currentFilters['dateTo'] = { between: [startDate.toISOString(), today.toISOString()] }
+      currentFilters.dateTo = { between: [startDate.toISOString(), today.toISOString()] }
     }
 
     // filtered endDate
     if (endDate) {
       const tempDate = endDate <= today ? endDate : today
-      currentFilters['dateTo'] = { lte: tempDate.toISOString() }
+      currentFilters.dateTo = { lte: tempDate.toISOString() }
     }
 
     // filtered both
@@ -167,7 +168,7 @@ const Events = ({ page }: PageProps) => {
         tempDate = new Date(endDate)
         tempDate.setDate(endDate.getDate() + 1)
       }
-      currentFilters['dateTo'] = { between: [startDate.toISOString(), tempDate.toISOString()] }
+      currentFilters.dateTo = { between: [startDate.toISOString(), tempDate.toISOString()] }
     }
     if (selectedEventTags && selectedEventTags.title)
       currentFilters.eventTags = { title: { eq: selectedEventTags.title } }
@@ -181,23 +182,23 @@ const Events = ({ page }: PageProps) => {
     // upcoming events
     const upcomingFilters = { ...currentFilters }
 
-    delete upcomingFilters['dateFrom']
-    delete upcomingFilters['dateTo']
+    delete upcomingFilters.dateFrom
+    delete upcomingFilters.dateTo
 
     // default without filters
-    upcomingFilters['dateTo'] = { gte: today.toISOString() }
+    upcomingFilters.dateTo = { gte: today.toISOString() }
 
     // filtered startDate
     if (startDate) {
       const tempDate = startDate <= today ? today : startDate
-      upcomingFilters['dateTo'] = { gte: tempDate.toISOString() }
+      upcomingFilters.dateTo = { gte: tempDate.toISOString() }
     }
 
     // filtered endDate
     if (endDate) {
       const tempDate =
         endDate <= today ? today : new Date(new Date().setDate(endDate.getDate() + 1))
-      upcomingFilters['dateTo'] = { between: [today.toISOString(), tempDate.toISOString()] }
+      upcomingFilters.dateTo = { between: [today.toISOString(), tempDate.toISOString()] }
     }
 
     // filtered both
@@ -209,7 +210,7 @@ const Events = ({ page }: PageProps) => {
       }
       const tempEndDate = new Date(endDate)
       tempEndDate.setDate(endDate.getDate() + 1)
-      upcomingFilters['dateTo'] = {
+      upcomingFilters.dateTo = {
         between: [tempStartDate.toISOString(), tempEndDate.toISOString()],
       }
     }
@@ -254,13 +255,13 @@ const Events = ({ page }: PageProps) => {
       </SectionContainer>
       <SectionContainer>
         <div className="pb-6 lg:pb-16">
-          <h1 className="border-b border-gray-universal-100 pt-16 pb-4 text-md2 lg:border-none lg:pb-0 lg:text-2xl">
+          <h1 className="border-b border-border-dark pt-16 pb-4 text-md2 lg:border-none lg:pb-0 lg:text-2xl">
             {t('eventsCalendar')}
           </h1>
 
-          <div className="mt-4 lg:mt-6 lg:block lg:border lg:border-gray-universal-100 lg:p-6">
+          <div className="mt-4 lg:mt-6 lg:block lg:border lg:border-border-dark lg:p-6">
             {/* Mobile */}
-            <div className="flex w-full items-center justify-between border border-gray-universal-100 p-4 lg:hidden">
+            <div className="flex w-full items-center justify-between border border-border-dark p-4 lg:hidden">
               <button
                 className="z-10 flex w-full items-center justify-between gap-y-5"
                 onClick={toggleFilterModal}
@@ -287,13 +288,13 @@ const Events = ({ page }: PageProps) => {
                   />
                   <div className="absolute bottom-0 flex w-full gap-x-3 p-3">
                     <button
-                      className="base-button w-1/2 border border-gray-universal-100 bg-gray-universal-100 py-[9px] text-white"
+                      className="base-button w-1/2 border border-border-dark bg-button-dark py-[9px] text-white"
                       onClick={filterEvents}
                     >
                       {t('filterButton')}
                     </button>
                     <button
-                      className="base-button w-1/2 border border-gray-universal-100 bg-white py-[9px] text-gray-universal-100"
+                      className="base-button w-1/2 border border-border-dark bg-white py-[9px] text-text-heading"
                       onClick={resetFilters}
                     >
                       {t('reset_button')}
@@ -327,13 +328,13 @@ const Events = ({ page }: PageProps) => {
               </div>
               <div className="mt-3 flex items-center justify-end">
                 <button
-                  className="base-button border border-gray-universal-100 bg-gray-900 bg-gray-universal-100 px-10 py-[9px] text-white"
+                  className="base-button border border-border-dark bg-button-dark px-10 py-[9px] text-white"
                   onClick={filterEvents}
                 >
                   {t('filterButton')}
                 </button>
                 <button
-                  className="base-button ml-5 border border-gray-universal-100 bg-white px-10 py-[9px] text-gray-universal-100"
+                  className="base-button ml-5 border border-border-dark bg-white px-10 py-[9px] text-text-heading"
                   onClick={resetFilters}
                 >
                   {t('reset_button')}
@@ -353,7 +354,7 @@ const Events = ({ page }: PageProps) => {
 
         <div
           className={cx('py-6 lg:py-16', {
-            'border-gray-universal-100 lg:border-b': filteredEvents?.length,
+            'border-border-dark lg:border-b': filteredEvents?.length,
             block: upcomingFilteredEvents?.length,
             hidden: !upcomingFilteredEvents?.length,
           })}

@@ -123,7 +123,7 @@ const DocumentsPage = ({ page }: PageProps) => {
         <SearchBar
           placeholder={t('whatAreYouLookingFor')}
           className="mt-6"
-          inputClassName="py-2 lg:py-5 text-sm w-full border-gray-universal-200"
+          inputClassName="py-2 lg:py-5 text-sm w-full border-border-light"
           iconLeft={<SearchIcon />}
           iconRight={
             <div
@@ -157,10 +157,7 @@ const DocumentsPage = ({ page }: PageProps) => {
               ))}
           </div>
         )}
-        <div
-          ref={resultsRef}
-          className="mt-6 border-y border-gray-universal-100 pb-10 lg:mt-16 lg:pb-32"
-        >
+        <div ref={resultsRef} className="mt-6 border-y border-border-dark pb-10 lg:mt-16 lg:pb-32">
           <div className="flex flex-col gap-y-4 py-6 lg:flex-row lg:items-center lg:justify-between lg:gap-y-0 lg:py-7.5">
             <h4>{t('allDocuments')}</h4>
             <Select

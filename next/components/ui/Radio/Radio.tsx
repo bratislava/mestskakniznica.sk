@@ -12,17 +12,17 @@ export const Radio = ({ className, children, ...props }: RadioProps) => {
       <input type="radio" className="hidden" {...props} />
       <div
         className={cx(
-          'flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-gray-universal-100',
+          'flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark',
           {
             'base-input--disabled': props.disabled,
           },
           className
         )}
       >
-        {props.checked && <div className="h-3 w-3 rounded-full bg-gray-universal-100" />}
+        {props.checked && <div className="h-3 w-3 rounded-full bg-dark" />}
       </div>
       <p
-        className={cx('flex-1 text-gray-universal-70', {
+        className={cx('flex-1 text-text-body', {
           'base-input--disabled': props.disabled,
         })}
       >

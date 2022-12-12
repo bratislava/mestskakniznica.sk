@@ -37,7 +37,7 @@ const BookList = ({ className }: Props) => {
           <div
             key={field.id}
             className={cx('relative w-full border p-6', {
-              'border-input-stroke': !errors?.books?.[index],
+              'border-border-light': !errors?.books?.[index],
               'base-input--with-error': errors?.books?.[index],
             })}
           >
@@ -63,7 +63,7 @@ const BookList = ({ className }: Props) => {
                   />
                 )}
               />
-              <div className="text-xs text-gray-universal-70">{t('common:or')}</div>
+              <div className="text-xs text-text-body">{t('common:or')}</div>
               <Controller
                 control={methods.control}
                 name={`books[${index}].author` as const}

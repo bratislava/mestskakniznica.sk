@@ -22,7 +22,7 @@ export const CallToAction = ({
   uppercase = true,
 }: CtaProps) => {
   return (
-    <div className="border border-gray-900">
+    <div className="border border-border-dark">
       <Link href={href} hasIcon={hasIcon} uppercase={uppercase}>
         <div className={cx('relative flex flex-col space-y-4 p-4', className)}>
           <div className="h-full overflow-hidden text-[20px]">{title}</div>

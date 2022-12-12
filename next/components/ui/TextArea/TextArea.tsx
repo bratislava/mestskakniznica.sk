@@ -26,7 +26,7 @@ export const TextArea = ({
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('mb-0.5 text-xs text-gray-universal-100 opacity-80')} htmlFor={id}>
+        <label className={cx('mb-0.5 text-xs text-text-heading opacity-80')} htmlFor={id}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -61,7 +61,7 @@ export const TextArea = ({
       {helpText && (
         <p
           className={cx('mt-0.5 text-xs opacity-80', {
-            'text-gray-universal-70': !hasError,
+            'text-text-body': !hasError,
             'text-error': hasError,
           })}
         >

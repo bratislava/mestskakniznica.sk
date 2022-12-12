@@ -76,12 +76,12 @@ const DocumentCategoryPage = ({ documentCategory, locale = 'sk' }: PageProps) =>
       <SearchBar
         placeholder={t('whatAreYouLookingFor')}
         className="mt-6"
-        inputClassName="py-5 text-sm w-full border-gray-universal-200"
+        inputClassName="py-5 text-sm w-full border-border-light"
         iconLeft={<SearchIcon />}
         value={query}
         onChange={(ev) => setQuery(ev.target.value)}
       />
-      <div className="mt-16 border-b border-gray-universal-100 pb-32">
+      <div className="mt-16 border-b border-border-dark pb-32">
         <div className="flex items-center justify-end">
           <Select
             className="w-44"

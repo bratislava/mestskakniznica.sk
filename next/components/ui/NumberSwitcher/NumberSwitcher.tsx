@@ -35,7 +35,7 @@ export const NumberSwitcher = ({
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('mb-0.5 text-xs text-gray-universal-100 opacity-80')} htmlFor={id}>
+        <label className={cx('mb-0.5 text-xs text-text-heading opacity-80')} htmlFor={id}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -51,12 +51,12 @@ export const NumberSwitcher = ({
             e.preventDefault()
             onClickChange && onClickChange(clampValue(Number(value) - 1))
           }}
-          className="h-full cursor-pointer py-2 text-black-universal"
+          className="h-full cursor-pointer py-2 text-text-heading"
         >
           <MinusIcon />
         </button>
 
-        <div className="mx-3 h-full w-full border-x border-gray-universal-200 py-2 px-6 text-center">
+        <div className="mx-3 h-full w-full border-x border-border-light py-2 px-6 text-center">
           <input
             id={id}
             type="number"
@@ -74,7 +74,7 @@ export const NumberSwitcher = ({
             e.preventDefault()
             onClickChange && onClickChange(clampValue(Number(value) + 1))
           }}
-          className="h-full cursor-pointer py-2 text-black-universal"
+          className="h-full cursor-pointer py-2 text-text-heading"
         >
           <PlusIcon />
         </button>

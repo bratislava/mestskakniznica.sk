@@ -46,7 +46,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
         <div
           key={field.id}
           className={cx('relative mb-6 flex w-full flex-col gap-y-6 border p-6', {
-            'border-input-stroke': !errors?.books?.[index],
+            'border-border-light': !errors?.books?.[index],
             'base-input--with-error': errors?.books?.[index],
           })}
         >

@@ -29,16 +29,16 @@ const FormSubmittedComponent = ({
   return (
     <div className={cx('py-4', className)}>
       <div className="flex h-full w-full flex-col items-center justify-center gap-y-8 text-center">
-        <span className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-gray-universal-100 bg-gray-universal-100 text-base text-white">
+        <span className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border-dark bg-button-dark text-base text-white">
           {submitStatus == SubmitStatus.SUCCESS && <CheckMark />}
           {submitStatus == SubmitStatus.FAILURE && <CloseIcon />}
         </span>
         <div className="space-y-4">
-          <h5 className="text-gray-universal-100">
+          <h5 className="text-text-heading">
             {submitStatus == SubmitStatus.SUCCESS && (successTitle || t('generic_success_title'))}
             {submitStatus == SubmitStatus.FAILURE && t('generic_error_title')}
           </h5>
-          <p className="text-base text-gray-universal-70">
+          <p className="text-base text-text-body">
             {submitStatus == SubmitStatus.SUCCESS &&
               (successMessage || t('generic_success_message'))}
             {submitStatus == SubmitStatus.FAILURE && (errorMessage || t('generic_error_message'))}

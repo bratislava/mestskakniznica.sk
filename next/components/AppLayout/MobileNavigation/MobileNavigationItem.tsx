@@ -19,16 +19,16 @@ const MobileNavigationItem = ({ menu, menus }: navItemProps) => {
       <button
         onClick={() => setOpen(true)}
         className={cx(
-          'flex w-full items-center justify-between border-b border-gray-900 text-default font-normal',
+          'flex w-full items-center justify-between border-b border-border-dark text-default font-normal',
           {
-            'text-primary': router.asPath.includes(menu?.attributes?.menuSlug ?? ''),
+            'text-text-body': router.asPath.includes(menu?.attributes?.menuSlug ?? ''),
           }
         )}
       >
-        <div className="text-[20px] text-gray-900">
+        <div className="text-[20px] text-text-heading">
           <div>{menu?.attributes?.menuTitle}</div>
         </div>
-        <div className="p-5 text-right text-gray-900">{'>'}</div>
+        <div className="p-5 text-right text-text-heading">{'>'}</div>
       </button>
       <div>
         {isOpen && (

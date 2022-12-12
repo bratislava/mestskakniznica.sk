@@ -52,7 +52,7 @@ export const Select = <T extends ISelectOption>({
     <div className={cx('relative flex flex-col', className)}>
       {/* Label */}
       {labelContent && (
-        <label className="mb-0.5 text-xs text-gray-universal-100 opacity-80" htmlFor={id}>
+        <label className="mb-0.5 text-xs text-text-heading opacity-80" htmlFor={id}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -76,7 +76,7 @@ export const Select = <T extends ISelectOption>({
             </option>
           ))}
         </select>
-        <ChevronDown className="pointer-events-none absolute right-0 mr-4 text-gray-universal-100" />
+        <ChevronDown className="pointer-events-none absolute right-0 mr-4 text-text-heading" />
       </div>
 
       {/* Error Message */}
@@ -94,7 +94,7 @@ export const Select = <T extends ISelectOption>({
       {helpText && (
         <p
           className={cx('mt-0.5 text-xs opacity-80', {
-            'text-gray-universal-70': !hasError,
+            'text-text-body': !hasError,
             'text-error': hasError,
           })}
         >

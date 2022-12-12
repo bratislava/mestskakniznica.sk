@@ -39,11 +39,11 @@ const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
           </div>
 
           <div className="justify-end pt-2 text-default hover:underline">{attributes?.title}</div>
-          <div className="pt-2 text-xs text-gray-600">
+          <div className="text--text-body pt-2 text-xs">
             {dateTimeString(attributes?.dateFrom || '', attributes?.dateTo || '', locale)}
           </div>
           {attributes?.eventLocality?.data?.attributes?.title && (
-            <div className="pt-2 text-xs text-gray-600">
+            <div className="text--text-body pt-2 text-xs">
               &#9679; {attributes?.eventLocality.data?.attributes.title}
             </div>
           )}

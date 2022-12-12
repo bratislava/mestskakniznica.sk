@@ -26,14 +26,13 @@ const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) =>
             <ul>
               {registrationInfoSection?.registrationBenefits?.map((benefit) => (
                 <li className="pt-3 text-sm" key={benefit?.id}>
-                  <Check className="inline-flex scale-75 text-sm md:scale-100" />{' '}
-                  {benefit?.benefit}
+                  <Check className="inline-flex scale-75 text-sm md:scale-100" /> {benefit?.benefit}
                 </li>
               ))}
             </ul>
 
             <div className="curson-pointer pt-8">
-              <div className="w-full bg-gray-900 py-2 px-4 text-center text-sm text-white md:w-fit">
+              <div className="w-full bg-button-dark py-2 px-4 text-center text-sm text-white md:w-fit">
                 <Link href={registrationInfoSection?.redirectTo?.data?.attributes?.slug ?? '#'}>
                   <a
                     href={registrationInfoSection?.redirectTo?.data?.attributes?.slug ?? '#'}

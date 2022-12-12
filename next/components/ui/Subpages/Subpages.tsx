@@ -10,7 +10,7 @@ export interface SubpagesProps {
 export const Subpages = ({ title, subpages }: SubpagesProps) => {
   return (
     <div className={cx('space-y-6')}>
-      <h3 className="text-md2 text-gray-universal-100"> {title}</h3>
+      <h3 className="text-md2 text-text-heading"> {title}</h3>
       <div className="mt-6 grid grid-cols-1 gap-8">
         {subpages?.map((subpage, index) => (
           <SubpageItem

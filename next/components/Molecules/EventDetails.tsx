@@ -70,7 +70,7 @@ const EventDetails = ({ event }: PageProps) => {
     width: Placeholder.width,
     height: Placeholder.height,
     alternativeText: t('eventDetailImagePlaceholder'),
-    ...(event?.attributes?.coverImage?.data?.attributes),
+    ...event?.attributes?.coverImage?.data?.attributes,
   }
 
   return (
@@ -99,7 +99,7 @@ const EventDetails = ({ event }: PageProps) => {
             />
           </div>
           <h1 className="py-[12px] text-[32px] leading-[38px]">{event?.attributes?.title}</h1>
-          <div className="text-[14px] text-gray-500">
+          <div className="text-[14px] text-text-body">
             {dateTimeString(event?.attributes?.dateFrom, event?.attributes?.dateTo, locale)}
           </div>
         </div>
@@ -108,7 +108,7 @@ const EventDetails = ({ event }: PageProps) => {
           {!isEventInThePast && (
             <a
               href="#detail_podujatia"
-              className="base-button h-12 w-full border border-gray-universal-100 bg-gray-universal-100 text-white hover:bg-gray-universal-80"
+              className="base-button h-12 w-full border border-border-dark bg-button-dark text-white hover:bg-button-hover"
             >
               {t('eventReservation')}
             </a>
@@ -118,14 +118,14 @@ const EventDetails = ({ event }: PageProps) => {
 
       <div className="flex grid-cols-9 flex-col-reverse gap-x-16 pt-10 lg:grid">
         <div className="col-span-6">
-          <div className="mt-8 border-b border-gray-700 pb-10 lg:mt-0">
+          <div className="mt-8 border-b border-border-dark pb-10 lg:mt-0">
             <div className="text-[24px]">{t('description')}</div>
-            <div className="pt-5 text-[16px] text-gray-500">
+            <div className="pt-5 text-[16px] text-text-body">
               <UIMarkdown content={event?.attributes?.description || ''} />
             </div>
           </div>
           {(event?.attributes?.guests?.length || 0) > 0 && (
-            <div className="border-b border-gray-700 py-10">
+            <div className="border-b border-border-dark py-10">
               <div className="text-[24px]">{t('eventGuests')}</div>
               <div className="grid grid-cols-3 pt-5">
                 {event?.attributes?.guests?.map((guest) => (
@@ -146,7 +146,7 @@ const EventDetails = ({ event }: PageProps) => {
             </div>
           )}
           {/* {(eventDetails?.partners?.length || 0) > 0 && (
-            <div className="border-b border-gray-700 pb-10 pt-10">
+            <div className="border-b border-border-dark pb-10 pt-10">
               <div className="text-[24px]">{t('eventPartners')}</div>
               <div className="grid grid-cols-3 pt-5">
                 {eventDetails?.partners?.map((partner) => (
@@ -165,7 +165,7 @@ const EventDetails = ({ event }: PageProps) => {
             </div>
           )} */}
           <div className="pt-10">
-            <div className="block h-auto border-y border-gray-900 py-3 lg:flex lg:h-[70px] lg:border lg:p-0">
+            <div className="block h-auto border-y border-border-dark py-3 lg:flex lg:h-[70px] lg:border lg:p-0">
               {/* <div className="hidden lg:block pl-6 w-[169px] text-sm m-auto"> */}
               {/*  {t('eventShareAndSave')} */}
               {/* </div> */}
@@ -210,9 +210,9 @@ const EventDetails = ({ event }: PageProps) => {
         <div className="col-span-3 text-[24px]">
           {t('details')}
           <div className="pt-5">
-            <div className="border-y border-gray-900 text-sm lg:border">
+            <div className="border-y border-border-dark text-sm lg:border">
               <div className="m-5">
-                <div className="border-b border-gray-300 pb-5">
+                <div className="border-b border-border-light pb-5">
                   <DetailsRow
                     classWrapper="flex"
                     svgIcon={<Calendar />}
@@ -243,7 +243,7 @@ const EventDetails = ({ event }: PageProps) => {
                     </div>
                   )}
                 </div>
-                <div className="border-b border-gray-300 py-5">
+                <div className="border-b border-border-light py-5">
                   <DetailsRow
                     classWrapper="flex"
                     svgIcon={<Navigate />}

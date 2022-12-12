@@ -50,13 +50,10 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                   {latestEvents.map((event) => (
                     <div key={event.attributes?.slug}>
                       <div className="h-23 w-[380px] cursor-pointer py-5">
-                        <NavigationMenu.Link
-                          className="h-10 pt-4 text-gray-universal-70"
-                          tabIndex={-1}
-                        >
+                        <NavigationMenu.Link className="h-10 pt-4 text-text-body" tabIndex={-1}>
                           <Link href={`/${event.attributes?.slug}`} passHref>
                             <a href={`/${event.attributes?.slug}`} className="flex">
-                              <div className="flex h-16 w-20 bg-yellow-promo text-center">
+                              <div className="flex h-16 w-20 bg-promo-yellow text-center">
                                 <DateCardDisplay
                                   dateFrom={event.attributes?.dateFrom || ''}
                                   dateTo={event.attributes?.dateTo || ''}
@@ -65,10 +62,10 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                               </div>
 
                               <div className="w-full pl-5">
-                                <div className="leading-[19px] text-black-universal hover:underline">
+                                <div className="leading-[19px] text-text-heading hover:underline">
                                   {event?.attributes?.title}
                                 </div>
-                                <div className="text-xs leading-[20px] text-gray-universal-70">
+                                <div className="text-xs leading-[20px] text-text-body">
                                   {dateTimeString(
                                     event.attributes?.dateFrom || '',
                                     event.attributes?.dateTo || '',
@@ -76,7 +73,7 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                                   )}
                                 </div>
                                 {event?.attributes?.eventLocality?.data?.attributes?.title && (
-                                  <div className="max-w-[250px] text-xs leading-[20px] text-gray-universal-70">
+                                  <div className="max-w-[250px] text-xs leading-[20px] text-text-body">
                                     &#9679;{' '}
                                     {event?.attributes?.eventLocality?.data?.attributes?.title}
                                   </div>
@@ -94,7 +91,7 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
           } else if (sectionLink?.sectionLinkPage)
             return (
               <NavigationMenu.Link
-                className={cx('h-auto cursor-pointer pt-4 text-gray-universal-70', {
+                className={cx('h-auto cursor-pointer pt-4 text-text-body', {
                   'h-[45px]': !containsEvents && isLengthy,
                 })}
                 tabIndex={-1}

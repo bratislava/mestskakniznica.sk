@@ -1,4 +1,4 @@
-import './index.css'
+import '../styles/index.css'
 
 import { UIContextProvider } from '@bratislava/common-frontend-ui-context'
 import { isProductionDeployment } from '@utils/utils'

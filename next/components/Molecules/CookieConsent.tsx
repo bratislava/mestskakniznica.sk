@@ -107,7 +107,7 @@ const CookieConsent = () => {
           <div className="mb-[10px] flex w-full items-center justify-between border-b px-5 md:p-5">
             <div>{t('cookie_consent_modal_title')}</div>
             <button
-              className="m-3 cursor-pointer rounded-md border-2 border-gray-900 p-1 md:m-0 md:p-2"
+              className="m-3 cursor-pointer rounded-md border-2 border-border-dark p-1 md:m-0 md:p-2"
               onClick={closeModal}
             >
               <Close />
@@ -151,20 +151,20 @@ const CookieConsent = () => {
             </div>
             <div className="mt-5 flex flex-col justify-between gap-1 md:flex-row">
               <button
-                className="rounded-sm bg-gray-900 px-3 py-1 text-sm text-white"
+                className="rounded-sm bg-button-dark px-3 py-1 text-sm text-white"
                 onClick={saveSettings}
               >
                 {t('cookie_consent_save_settings')}
               </button>
               <div className="flex flex-col gap-1 md:flex-row">
                 <button
-                  className="min-w-[140px] rounded-sm bg-gray-900 py-1 text-sm text-white md:mr-1"
+                  className="min-w-[140px] rounded-sm bg-button-dark py-1 text-sm text-white md:mr-1"
                   onClick={declineCookies}
                 >
                   {t('cookie_consent_rejectall')}
                 </button>
                 <button
-                  className="min-w-[140px] rounded-sm bg-gray-900 py-1 text-sm text-white"
+                  className="min-w-[140px] rounded-sm bg-button-dark py-1 text-sm text-white"
                   onClick={acceptAllCookies}
                 >
                   {t('cookie_consent_acceptall')}
@@ -189,7 +189,7 @@ const CookieConsent = () => {
           background: 'black',
           minWidth: '120px',
         }}
-        buttonClasses="bg-gray-200 text-sm"
+        buttonClasses="bg-button-gray text-sm"
         buttonStyle={{
           background: 'black',
           color: 'white',
@@ -210,7 +210,7 @@ const CookieConsent = () => {
         <div className="text-sm" tabIndex={1}>
           {t('cookie_consent_body')}{' '}
           <button
-            className="cursor-pointer text-red-600 underline"
+            className="cursor-pointer text-error underline"
             onClick={() => setShowModal(true)}
             tabIndex={2}
           >
@@ -233,11 +233,14 @@ const Switch = ({ value, onValueChange, disabled }: SwitchProps) => {
   return (
     <button
       disabled={disabled}
-      className={cx('mx-3 flex h-6 w-25 items-center rounded-full border border-gray-900 px-0.5', {
-        'justify-end bg-red-600': value,
-        'bg-gray-400': !value,
-        'cursor-not-allowed border-gray-100 bg-gray-300': disabled,
-      })}
+      className={cx(
+        'mx-3 flex h-6 w-25 items-center rounded-full border border-border-dark px-0.5',
+        {
+          'justify-end bg-error': value,
+          'bg-button-gray': !value,
+          'cursor-not-allowed border-border-dark bg-button-disabled': disabled,
+        }
+      )}
       onClick={(e) => {
         e.stopPropagation()
         onValueChange(!value)
@@ -263,6 +266,7 @@ const Switch = ({ value, onValueChange, disabled }: SwitchProps) => {
     </button>
   )
 }
+
 interface PanelProps {
   title: string
   content: React.ReactNode
@@ -276,7 +280,7 @@ const Panel = ({ title, content, value, onValueChange, isOpen, setPanel }: Panel
   const { t } = useTranslation(['common'])
   return (
     <>
-      <div className="mt-2 flex items-center justify-between bg-gray-200 px-2 py-3">
+      <div className="mt-2 flex items-center justify-between bg-border-light px-2 py-3">
         <button className="flex items-center gap-2" onClick={() => setPanel(isOpen ? '' : title)}>
           <span>{isOpen ? <ChevronUp /> : <ChevronDown />}</span>
           {title}
@@ -289,7 +293,7 @@ const Panel = ({ title, content, value, onValueChange, isOpen, setPanel }: Panel
       </div>
       <div
         className={cx(
-          'transform text-base text-gray-universal-70 transition-all duration-200 ease-linear',
+          'transform text-base text-text-body transition-all duration-200 ease-linear',
           {
             'hidden h-0': !isOpen,
             'mt-1 h-full pb-8': isOpen,

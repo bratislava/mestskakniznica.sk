@@ -32,7 +32,7 @@ export const BookNewsDetail = ({
           {title.length > 35 ? `${title.slice(0, 35)}...` : title}
         </UILink>
       </h6>
-      {/* {author && <span className="mt-[7px] text-xs text-gray-universal-70">{author}</span>} */}
+      {/* {author && <span className="mt-[7px] text-xs text-text-body">{author}</span>} */}
     </div>
   )
 }

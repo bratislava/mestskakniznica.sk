@@ -15,7 +15,7 @@ export const Partner = ({ className, title, pageLink, logo, alt, featured }: Par
   const { Link: UILink, Image: UIImage } = useUIContext()
   return (
     <div
-      className={cx(className, 'flex w-full border-gray-universal-100 p-4 lg:p-5', {
+      className={cx(className, 'flex w-full border-border-dark p-4 lg:p-5', {
         'min-h-[199px] flex-col items-center justify-end border': featured,
         'flex-row justify-between border-b last:border-0 lg:border lg:last:border': !featured,
       })}

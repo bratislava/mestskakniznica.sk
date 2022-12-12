@@ -3,10 +3,8 @@ import cx from 'classnames'
 import NextLink from 'next/link'
 
 export interface LinkProps
-  extends React.DetailedHTMLProps<
-    React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {
+  extends React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    HTMLAnchorElement> {
   href: string
   size?: 'default' | 'small' | 'large'
   variant?: 'default' | 'plain'
@@ -15,21 +13,21 @@ export interface LinkProps
 }
 
 export const Link = ({
-  className,
-  href,
-  children,
-  hasIcon = false,
-  variant = 'default',
-  size = 'default',
-  uppercase = true,
-  ...props
-}: LinkProps) => {
+                       className,
+                       href,
+                       children,
+                       hasIcon = false,
+                       variant = 'default',
+                       size = 'default',
+                       uppercase = true,
+                       ...props
+                     }: LinkProps) => {
   return (
     <NextLink href={href}>
       <a
         href={href}
         className={cx('hover:underline', className, {
-          'flex items-center gap-x-2.5 text-gray-universal-100 ': variant === 'default',
+          'flex items-center gap-x-2.5 text-text-heading ': variant === 'default',
           'text-[16px]': size === 'large',
           'text-[14px]': size === 'default',
           'text-[12px]': size === 'small',
@@ -38,7 +36,7 @@ export const Link = ({
         {...props}
       >
         {children}
-        {hasIcon && <ChevronRight />}
+        {hasIcon && <ChevronRight/>}
       </a>
     </NextLink>
   )

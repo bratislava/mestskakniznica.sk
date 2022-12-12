@@ -307,7 +307,7 @@ const sectionContent = (
       return getForm(section.type || '', pageTitle, eventDetail || undefined)
 
     case 'ComponentSectionsDivider':
-      return section.shown && <div className="border-b border-gray-universal-100" />
+      return section.shown && <div className="border-b border-border-dark" />
 
     case 'ComponentSectionsColumnedText':
       return <ColumnedText title={section.title ?? ''} content={section.content ?? ''} />
