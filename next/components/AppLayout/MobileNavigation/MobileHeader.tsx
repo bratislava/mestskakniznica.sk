@@ -28,6 +28,12 @@ const MobilHeader = ({ menus }: HeaderProps) => {
     return () => router.events.off('routeChangeStart', () => setOpen(false))
   }, [router])
 
+  const pageTitle = (word: string, index: number) => (
+    <span key={index} className={cx(TITLE_CLASSES)}>
+      {word}
+    </span>
+  )
+
   return (
     <>
       <div className="m-auto">
@@ -37,9 +43,9 @@ const MobilHeader = ({ menus }: HeaderProps) => {
               <a className="relative hidden w-full grid-cols-10 items-center pr-8 uppercase lg:grid">
                 {t('pageTitle')
                   .split(' ')
-                  .map((word) => (
+                  .map((word, index) => (
                     <span
-                      key={word}
+                      key={index}
                       className={cx(TITLE_CLASSES, {
                         'col-span-1': word.length <= 4,
                         'col-span-5': word.length > 4,
@@ -56,22 +62,14 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                     {t('pageTitle')
                       .split(' ')
                       .slice(0, 2)
-                      .map((word) => (
-                        <span key={word} className={cx(TITLE_CLASSES)}>
-                          {word}
-                        </span>
-                      ))}
+                      .map((word, index) => pageTitle(word, index))}
                     <div className="border-border-dark absolute bottom-0 -z-10 w-full border-b" />
                   </div>
                   <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
                     {t('pageTitle')
                       .split(' ')
                       .slice(2)
-                      .map((word) => (
-                        <span key={word} className={cx(TITLE_CLASSES)}>
-                          {word}
-                        </span>
-                      ))}
+                      .map((word, index) => pageTitle(word, index))}
                   </div>
                 </a>
               </Link>
