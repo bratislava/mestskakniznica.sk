@@ -38,6 +38,7 @@ module.exports = {
     'lodash/prefer-noop': 'off',
     'jsx-a11y/img-redundant-alt': 'warn',
     '@next/next/no-img-element': 'off',
+    'react/no-array-index-key': 'off',
   },
   ignorePatterns: ['*.config.*', 'graphql', '.eslintrc.js'],
 }
