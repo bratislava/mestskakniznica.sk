@@ -34,7 +34,7 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
   //   : t('openingHoursClosed');
 
   return (
-    <div className="max-w-1180 fixed inset-x-0 top-0 z-30 m-auto h-screen border-border-dark bg-white">
+    <div className="fixed inset-x-0 top-0 z-30 m-auto h-screen border-border-dark bg-white">
       <div className="flex h-[61px] justify-between border-b border-border-dark">
         <div className="flex h-full">
           <div className="flex h-full items-center px-5">
@@ -48,7 +48,7 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
           {/*  <Accessibility /> */}
           {/* </div> */}
         </div>
-        <button className="px-5" onClick={onClose}>
+        <button className="px-5" type="button" onClick={onClose}>
           X
         </button>
       </div>
