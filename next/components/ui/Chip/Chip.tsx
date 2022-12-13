@@ -12,7 +12,7 @@ export const Chip = ({ size, children, className, onDelete }: ChipProps) => {
   return (
     <div
       className={cx(
-        'flex items-center justify-center gap-x-1.5 rounded-full border border-input-stroke',
+        'flex items-center justify-center gap-x-1.5 rounded-full border border-border-light',
         className,
         {
           'px-4 py-2': size === 'big',

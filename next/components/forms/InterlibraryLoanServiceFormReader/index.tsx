@@ -272,7 +272,7 @@ const InterlibraryLoanServiceFormReader = () => {
           className="border-b-0 pb-0"
           onClick={() => triggerFirstStep()}
         >
-          <BookListExtended showLinkInput />
+          <BookListExtended showLinkInput/>
           <Controller
             control={methods.control}
             name="message"
@@ -291,7 +291,7 @@ const InterlibraryLoanServiceFormReader = () => {
             <p className="pt-4 text-base text-error">{t('please_fill_required_fields')}</p>
           )}
 
-          <div className="mt-6 border-t border-gray-universal-200 pt-6 pb-3">
+          <div className="mt-6 border-t border-border-light pt-6 pb-3">
             <Controller
               control={methods.control}
               name="acceptFeesTerms"
@@ -305,7 +305,7 @@ const InterlibraryLoanServiceFormReader = () => {
                     checked={value}
                     aria-invalid={errors.acceptFeesTerms ? 'true' : 'false'}
                   >
-                    <div className="text-xs">
+                    <div className="text-sm">
                       {t('interlibrary_accept_fees')}{' '}
                       <Link
                         href={
@@ -330,7 +330,7 @@ const InterlibraryLoanServiceFormReader = () => {
               rules={{ required: true }}
             />
           </div>
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')}/>
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

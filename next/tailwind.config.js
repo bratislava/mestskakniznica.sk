@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { join } = require('path')
 const plugin = require('tailwindcss/plugin')
-const pluginLineClamp = require('@tailwindcss/line-clamp')
 
-
-const scrollBarHide = plugin(({ addUtilities }) => {
+const scrollBarHide = plugin(function ({ addUtilities }) {
   addUtilities({
     '.scrollbar-hide': {
       /* Firefox */
       'scrollbar-width': 'none',
-
       /* Safari and Chrome */
       '&::-webkit-scrollbar': {
         display: 'none',
@@ -18,12 +15,39 @@ const scrollBarHide = plugin(({ addUtilities }) => {
   })
 })
 
+const inputNumberArrowsHide = plugin(function ({ addUtilities }) {
+  // https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
+  addUtilities({
+    /* Chrome, Safari, Edge, Opera */
+    '.arrows-hide': {
+      '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+        '-webkit-appearance': 'none',
+      },
+      /* Firefox */
+      '-moz-appearance': 'textfield',
+    },
+  })
+})
+
+const customVariants = plugin(function ({ addVariant }) {
+  addVariant('not-first', '&:not(:first-child)')
+})
+
 module.exports = {
-  presets: [require('./tailwind-workspace-preset.js')],
-  content: [join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'), join(__dirname, 'components/**/*.{js,ts,jsx,tsx}')],
+  content: [
+    join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, 'components/**/*.{js,ts,jsx,tsx}'),
+  ],
   corePlugins: {
-    scale: true
+    // aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
   },
+  plugins: [
+    scrollBarHide,
+    inputNumberArrowsHide,
+    customVariants,
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
+  ],
   theme: {
     screens: {
       xs: '360px',
@@ -50,6 +74,35 @@ module.exports = {
       xs: '0px 8px 24px rgba(0, 0, 0, 0.04)',
       none: 'none',
     },
+    colors: {
+      current: 'currentColor',
+      transparent: 'transparent',
+      black: '#000000',
+      white: '#ffffff',
+      dark: '#121212', //gray-100
+      foreground: {
+        heading: '#121212', // gray-100
+        body: '#565656', // gray-70
+        placeholder: '#787878', // gray-60
+        disabled: '#969696', // gray-50
+      },
+      border: {
+        dark: '#121212', // gray-100
+        light: '#cccccc', // gray-30
+        disabled: '#e0e0e0', // gray-20
+      },
+      button: {
+        dark: '#121212', // gray-100
+        gray: '#787878', // gray-60
+        hover: '#3D3D3D', // gray-80
+        disabled: '#969696', // gray-50
+      },
+      promo: {
+        yellow: '#ffef4e',
+        peach: '#fdd1a8',
+      },
+      error: '#ad1e13',
+    },
     fontFamily: {
       beausite: "'BeausiteMedium','BeausiteRegular', 'BeausiteBold'",
       sans: [
@@ -70,6 +123,32 @@ module.exports = {
         '"Noto Color Emoji"',
       ],
     },
+    fontSize: {
+      h6: ['var(--font-size-h6)', 'var(--line-height-h6)'], // 16px / 16px / 150%
+      h5: ['var(--font-size-h5)', 'var(--line-height-h5)'], // 20px / 16px / 150%
+      h4: ['var(--font-size-h4)', 'var(--line-height-h4)'], // 24px / 20px / 150%
+      'h3.5': ['var(--font-size-h3-5)', 'var(--line-height-h3-5)'], // 28px / 22px / 150%
+      h3: ['var(--font-size-h3)', 'var(--line-height-h3)'], // 32px / 24px / 150%
+      h2: ['var(--font-size-h2)', 'var(--line-height-h2)'], // 40px / 28px / 150%
+      h1: ['var(--font-size-h1)', 'var(--line-height-h1)'], // 48px / 32px / 150%
+
+      btn: ['0.875rem', '1.4rem'],
+
+      xs: ['0.75rem', '1.2rem'], // 12px / 150%
+      sm: ['0.875rem', '1.4rem'], // 14px / 160%
+      base: ['1rem', '1.5rem'], // 16px / 150%
+      lg: ['1.25rem', '1.875rem'], // 20px / 150%
+
+      // xs_old: ['14px', '22.4px'],
+      // sm_old: ['16px', '24px'],
+      // base_old: ['1rem', '1.5rem'],
+      // default_old: ['20px', '24.2px'],
+      // md_old: ['24px', '140%'],
+      // md2_old: ['28px', '33.6px'],
+      // lg_old: ['32px', '44.8px'],
+      // xl_old: ['36px', '42.3px'],
+      // '2xl_old': ['40px', '60px'],
+    },
     extend: {
       width: {
         1180: '1180px',
@@ -88,69 +167,6 @@ module.exports = {
       margin: {
         60: '60px',
         185: '185px',
-      },
-      fontSize: {
-        27: '27px',
-        xs: ['14px', '22.4px'],
-        sm: ['16px', '24px'],
-        default: ['20px', '24.2px'],
-        md: ['24px', '140%'],
-        md2: ['28px', '33.6px'],
-        lg: ['32px', '44.8px'],
-        xl: ['36px', '42.3px'],
-        '2xl': ['40px', '60px'],
-        xxl: ['42px', '50.8px'],
-      },
-      colors: {
-        primary: 'var(--primary-color)',
-        secondary: 'var(--secondary-color)',
-        background: 'var(--background-color)',
-        font: 'var(--font-color)',
-        input: {
-          'nav-bg': 'var(--input-nav-background-color)',
-          stroke: 'var(--input-stroke-color)',
-        },
-        universal: {
-          'gray-500': 'var(--universal-gray-500)',
-          'gray-800': 'var(--universal-gray-800)',
-          black: 'var(--universal-black)',
-        },
-        gray: {
-          universal: {
-            60: '#787878',
-            70: '#565656',
-            80: '#3D3D3D',
-          },
-          dark: 'var(--dark-gray-color)',
-          semilight: 'var(--semilight-gray-color)',
-          light: 'var(--light-gray-color)',
-        },
-        black: {
-          universal: 'var(--universal-black)',
-        },
-        yellow: {
-          promo: '#FFEF4E',
-        },
-        red: {
-          'universal-800': 'var(--universal-red-800)',
-          'universal-500': 'var(--universal-red-500)',
-          'universal-300': 'var(--universal-red-300)',
-          brick: '#E46054',
-          'brick-dark': '#D05145',
-          superlight: 'var(--superlight-red-color)',
-        },
-        blue: {
-          light: '#faf9f9',
-          sea: '#7CCEF2',
-          'sea-dark': '#66BDE3',
-        },
-        purple: '#704B9D', // TODO var
-        warning: 'var(--warning-color)',
-        success: 'var(--success-color)',
-        error: 'var(--error-color)',
-        brown: '#873C35',
-        'promo-yellow': '#FFE95C',
-        'promo-orange': '#FDD1A8',
       },
       borderWidth: {
         3: '3px',
@@ -201,15 +217,6 @@ module.exports = {
       letterSpacing: {
         wider: '.08em',
       },
-      minWidth: {
-        39: '156px',
-        70: '280px',
-      },
-      maxWidth: {
-        61: '244px',
-        87: '350px',
-      },
     },
   },
-  plugins: [scrollBarHide, pluginLineClamp],
 }

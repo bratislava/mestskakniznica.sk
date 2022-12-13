@@ -17,7 +17,7 @@ const SkipNavigation = () => {
     <button
       type="button"
       onClick={handleSkip}
-      className="fixed left-0 top-5 -translate-x-100 bg-gray-900 text-base text-white transition-transform focus:translate-x-0 md:top-8"
+      className="fixed left-0 top-5 -translate-x-100 bg-button-dark text-base text-white transition-transform focus:translate-x-0 md:top-8"
     >
       {t('skipNavigation')}
     </button>

@@ -9,8 +9,8 @@ export interface BulletProps {
 
 export const Bullet = ({ className, children, icon }: BulletProps) => {
   return (
-    <div className={cx('flex items-center text-gray-universal-70', className)}>
-      <span className="flex w-9 justify-center">{icon || <DotIcon />}</span>
+    <div className={cx('flex items-center text-foreground-body', className)}>
+      <span className="flex w-9 justify-center">{icon || <DotIcon/>}</span>
       <span className="text-base">{children}</span>
     </div>
   )

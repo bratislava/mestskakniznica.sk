@@ -7,6 +7,7 @@ import GalleryModal from './GalleryModal'
 export interface PageProps {
   gallery?: Array<ComponentLocalityPartsGalleryParts | null | undefined>
 }
+
 const GalleryBanner = ({ gallery }: PageProps) => {
   const [showModal, setShowModal] = React.useState(false)
   const closeModal = () => {
@@ -40,7 +41,7 @@ const GalleryBanner = ({ gallery }: PageProps) => {
                 />
               ) : (
                 <div className="hidden h-full py-2 pr-2 lg:block lg:pt-0 lg:pl-2 lg:pr-0">
-                  <div className="flex h-full items-center justify-center border-2 border-gray-900 text-center">
+                  <div className="flex h-full items-center justify-center border-2 border-border-dark text-center">
                     <div>
                       <p>{t('noImage')}</p>
                     </div>
@@ -59,7 +60,7 @@ const GalleryBanner = ({ gallery }: PageProps) => {
                 />
               ) : (
                 <div className="hidden h-full py-2 lg:block lg:pt-0 lg:pl-2">
-                  <div className="flex h-full items-center justify-center border-2 border-gray-900 text-center">
+                  <div className="flex h-full items-center justify-center border-2 border-border-dark text-center">
                     <div>
                       <p>{t('noImage')}</p>
                     </div>
@@ -78,7 +79,7 @@ const GalleryBanner = ({ gallery }: PageProps) => {
                 />
               ) : (
                 <div className="hidden h-full pr-2 lg:block lg:pr-0 lg:pl-2">
-                  <div className="flex h-full items-center justify-center border-2 border-gray-900 text-center">
+                  <div className="flex h-full items-center justify-center border-2 border-border-dark text-center">
                     <div>
                       <p>{t('noImage')}</p>
                     </div>
@@ -90,7 +91,7 @@ const GalleryBanner = ({ gallery }: PageProps) => {
               <div className="w-1/2 lg:pl-2">
                 <div
                   onClick={() => setShowModal(true)}
-                  className="flex h-full cursor-pointer items-center justify-center border-2 border-gray-900 text-center"
+                  className="flex h-full cursor-pointer items-center justify-center border-2 border-border-dark text-center"
                   aria-hidden="true"
                 >
                   <div>{t('galleryMorePhotos')}</div>
@@ -98,7 +99,7 @@ const GalleryBanner = ({ gallery }: PageProps) => {
               </div>
             ) : (
               <div className="hidden w-1/2 lg:block lg:pl-2">
-                <div className="flex h-full items-center justify-center border-2 border-gray-900 text-center">
+                <div className="flex h-full items-center justify-center border-2 border-border-dark text-center">
                   <div>{t('noImage')}</div>
                 </div>
               </div>

@@ -34,7 +34,7 @@ const LocalitiesListingPage = ({ page }: LocalityPageProps) => {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <div className="border-b border-gray-900">
+        <div className="border-b border-border-dark">
           <PageTitle
             title={page?.attributes?.title ?? ''}
             description={page?.attributes?.description ?? ''}

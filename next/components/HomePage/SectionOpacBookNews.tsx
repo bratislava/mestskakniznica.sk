@@ -18,7 +18,7 @@ const SectionOpacBookNews = ({ books }: SectionOpacBookNewsProps) => {
       {books.length > 0 ? (
         <Section>
           <section className="relative flex w-full flex-col py-10">
-            <h2 className="text-center text-lg md:text-left">{t('newBooksTitle')}</h2>
+            <h2 className="text-center text-h3 md:text-left">{t('newBooksTitle')}</h2>
             <div className="overflow-x-auto ">
               <div className="flex w-fit  min-w-full items-stretch justify-between gap-4 py-6 sm:gap-6 lg:gap-6">
                 {books

@@ -30,8 +30,8 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
                   title={cta?.title || ''}
                   href={cta?.ctaRedirectTo?.data?.attributes.slug}
                   bottomText=""
-                  className="h-[222px] w-full p-4 text-md2 hover:underline"
-                  customIcon={<Arrow />}
+                  className="h-[222px] w-full p-4 text-h3.5 hover:underline"
+                  customIcon={<Arrow/>}
                   hasIcon={false}
                   uppercase={false}
                 />
@@ -39,9 +39,9 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
             </div>
           ))}
         </div>
-        <div className="border-l border-gray-700" />
+        <div className="border-l border-border-dark"/>
         <div className="w-full">
-          <h2 className="mb-8 text-md">{faqSection?.title ?? t('faqTitle')}</h2>
+          <h2 className="mb-8 text-h3">{faqSection?.title ?? t('faqTitle')}</h2>
           {faqSection?.faqs?.map((faq) => (
             <Accordion
               className="w-full"
@@ -53,10 +53,10 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
               defaultState={openFaq === faq?.id}
               ariaLabelPrefix={openFaq === faq?.id ? t('openAccordian') : t('closeAccordian')}
               label={faq?.question || ''}
-              content={<UIMarkdown content={faq?.answer || ''} />}
+              content={<UIMarkdown content={faq?.answer || ''}/>}
             />
           ))}
-          <div className="font-serif cursor-pointer pt-6 text-xs">
+          <div className="font-serif cursor-pointer pt-6 text-sm">
             <Link href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'} passHref>
               <a href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'} className="uppercase">
                 {t('showMore', { ns: 'common' })} {'>'}

@@ -19,7 +19,7 @@ const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
   return (
     <>
       <div className="m-auto max-w-[1180px]">
-        <div className="mx-auto flex items-center justify-between border-b border-gray-900">
+        <div className="mx-auto flex items-center justify-between border-b border-border-dark">
           <Link href="/" passHref>
             <a className="flex h-[40px] cursor-pointer flex-row items-center uppercase">
               {isHomePage ? (
@@ -29,7 +29,7 @@ const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
                     .map((word) => (
                       <span
                         key={word}
-                        className="h-[40px] border-r border-gray-900 px-3 pt-[7px] pb-[6px] text-27 uppercase first:pl-0 first:pr-3"
+                        className="h-[40px] border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase first:pl-0 first:pr-3"
                       >
                         {word}
                       </span>
@@ -42,7 +42,7 @@ const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
                     .map((word) => (
                       <span
                         key={word}
-                        className="h-[40px] border-r border-gray-900 px-3 pt-[7px] pb-[6px] text-27 uppercase first:pl-0 first:pr-3"
+                        className="h-[40px] border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase first:pl-0 first:pr-3"
                       >
                         {word}
                       </span>
@@ -52,14 +52,14 @@ const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
             </a>
           </Link>
 
-          <SkipNavigation />
+          <SkipNavigation/>
 
           <div className="">
-            <HeaderNavigation />
+            <HeaderNavigation/>
           </div>
         </div>
       </div>
-      <div className="m-auto max-w-[1180px] border-b border-gray-900">
+      <div className="m-auto max-w-[1180px] border-b border-border-dark">
         <div className="flex items-center justify-between">
           <NavigationMenu.Root aria-label={t('navAriaLabel')}>
             <NavigationMenu.List className="flex">
@@ -73,10 +73,10 @@ const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
               ))}
             </NavigationMenu.List>
 
-            <NavigationMenu.Viewport className="absolute z-50 m-auto w-1180 max-w-full bg-white" />
+            <NavigationMenu.Viewport className="absolute z-50 m-auto w-1180 max-w-full bg-white"/>
           </NavigationMenu.Root>
 
-          <SearchBox text={t('searchBook')} />
+          <SearchBox text={t('searchBook')}/>
         </div>
       </div>
     </>

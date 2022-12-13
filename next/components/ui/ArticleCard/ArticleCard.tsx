@@ -11,14 +11,15 @@ export interface ArticleCardProps {
   publishedDate?: string
 }
 
-export const ArticleCard = ({
-  className,
-  title,
-  pageLink,
-  media,
-  mediaType,
-  publishedDate,
-}: ArticleCardProps) => {
+export const ArticleCard = (
+  {
+    className,
+    title,
+    pageLink,
+    media,
+    mediaType,
+    publishedDate,
+  }: ArticleCardProps) => {
   const { Link: UILink } = useUIContext()
 
   return (
@@ -26,7 +27,7 @@ export const ArticleCard = ({
       <div className={cx(className, 'flex flex-col')}>
         <div className="flex w-full">
           {media && mediaType === 'image' && (
-            <img src={media} alt={title} className="h-48 w-full object-cover" />
+            <img src={media} alt={title} className="h-48 w-full object-cover"/>
           )}
           {media && mediaType === 'video' && (
             <video
@@ -35,24 +36,24 @@ export const ArticleCard = ({
               style={{ objectFit: 'cover' }}
               className="h-48 w-full object-cover"
             >
-              <source src={media} />
+              <source src={media}/>
               Your browser does not support HTML video.
             </video>
           )}{' '}
         </div>
 
         {publishedDate && (
-          <label className="mt-2 cursor-pointer text-xs text-gray-universal-70">
+          <label className="mt-2 cursor-pointer text-sm text-foreground-body">
             {publishedDate}
           </label>
         )}
 
-        <h5 className="mt-2 text-gray-universal-100">{title}</h5>
+        <h5 className="mt-2">{title}</h5>
 
         {pageLink?.url && (
           <UILink className="mt-6 flex items-center space-x-[9px]" href={pageLink?.url ?? '#'}>
-            <span className="text-xs text-gray-universal-100">{pageLink?.title}</span>
-            <ChevronRight />
+            <span className="text-sm text-foreground-heading">{pageLink?.title}</span>
+            <ChevronRight/>
           </UILink>
         )}
       </div>

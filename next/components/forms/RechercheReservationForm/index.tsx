@@ -363,7 +363,7 @@ const RechercheReservationForm = () => {
             {stepTwoErrors && (
               <p className="text-base text-error">{t('please_fill_required_fields')}</p>
             )}
-            <FormFooter hasDivider buttonContent={t('send')} />
+            <FormFooter hasDivider buttonContent={t('send')}/>
           </div>
         </StepNumberTitle>
       </FormContainer>

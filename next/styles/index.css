@@ -1,8 +1,9 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@import './city-library.css';
+@import 'city-library.css';
+@import 'globals.css';
 
 @layer base {
   @font-face {
@@ -23,11 +24,17 @@
     src: url(/fonts/Bold/BeausiteClassicWeb-Bold.woff2) format('woff2');
     src: url(/fonts/Bold/BeausiteClassicWeb-Bold.woff) format('woff');
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground-heading
+  }
+
 }
 
 html {
   scroll-behavior: smooth;
 }
+
 body {
   -webkit-font-smoothing: antialiased;
 }
@@ -35,17 +42,20 @@ body {
 @layer components {
   .base-button {
     @apply inline-flex appearance-none items-center justify-center text-center;
-    @apply text-xs uppercase tracking-wider;
+    @apply text-sm uppercase tracking-wider;
   }
+
   .base-input {
-    @apply box-border inline-block appearance-none border bg-input-nav-bg px-3 py-2 text-base text-gray-universal-100;
-    @apply border-input-stroke placeholder:text-gray-500 hover:border-gray-universal-100 focus:border-gray-universal-100 focus:outline-none;
+    @apply box-border inline-block appearance-none border bg-white px-3 py-2 text-base text-foreground-heading;
+    @apply border-border-light placeholder:text-foreground-body hover:border-border-dark focus:border-border-dark focus:outline-none;
   }
+
   .base-input--with-error {
     @apply border-error;
   }
+
   .base-radio {
-    @apply flex h-5 w-5 items-center rounded-full border-2 border-gray-universal-100;
+    @apply flex h-5 w-5 items-center rounded-full border-2 border-border-dark;
     @apply box-border justify-center overflow-hidden;
   }
 }
@@ -121,14 +131,17 @@ body {
 .react-datepicker__header {
   background-color: white !important;
 }
+
 .react-datepicker__day-names {
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   margin-top: 5px;
 }
+
 .react-datepicker__day {
   color: gray !important;
 }
+
 .react-datepicker__day--in-selecting-range,
 .react-datepicker__day--in-range,
 .react-datepicker__day--keyboard-selected {
@@ -136,6 +149,7 @@ body {
   color: black !important;
   border-radius: 0px !important;
 }
+
 .react-datepicker__day--range-start,
 .react-datepicker__day--range-end,
 .react-datepicker__day--selecting-range-start,
@@ -144,16 +158,20 @@ body {
   background-color: black !important;
   color: white !important;
 }
+
 .react-datepicker__navigation-icon::before {
   border-color: black !important;
 }
+
 .react-datepicker {
   border: 1px solid black !important;
   border-radius: 0px !important;
 }
+
 .react-datepicker__triangle {
   display: none;
 }
+
 @media (max-width: 1024px) {
   .react-datepicker__month-container {
     float: unset !important;

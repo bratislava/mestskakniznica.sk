@@ -18,21 +18,23 @@ const HeaderNavigation = () => {
   //   : t('openingHoursClosed');
 
   return (
-    <div className="container flex flex-wrap border-gray-900 pr-0">
-      {/* <div className="border-gray-900 border-l w-10 p-2.5"> */}
+    <div className="container flex flex-wrap border-border-dark pr-0">
+      {/* <div className="border-border-dark border-l w-10 p-2.5"> */}
       {/*  <Accessibility /> */}
       {/* </div> */}
-      <div className="group border-l border-gray-900">
+      <div className="group border-l border-border-dark">
         <HeaderNavigationItem url={t('openingHoursPageLink')}>
-          <div className="px-[12px] font-normal text-gray-900 hover:underline">{openingHours}</div>
+          <div className="px-[12px] font-normal text-foreground-heading hover:underline">
+            {openingHours}
+          </div>
           {/* TODO show the div below again once the one above contains dynamic opening hours */}
           {/* <div className="mt-2 absolute w-40 bg-white text-center py-5 px-3 border z-50 transform scale-0 focus-within:scale-100 group-hover:scale-100 cursor-default">
               {t('openHoursInfo')}
             </div> */}
         </HeaderNavigationItem>
       </div>
-      <div className="border-l border-gray-900">
-        <div className="border-gray-900 py-[10px] text-xs font-normal leading-[19.6px] md:flex">
+      <div className="border-l border-border-dark">
+        <div className="border-border-dark py-[10px] text-sm font-normal md:flex">
           <Link href="https://opac.mestskakniznica.sk/opac" passHref>
             <a target="_blank" className="px-[12px] font-normal hover:underline">
               {t('onlineCatalog')}
@@ -43,7 +45,7 @@ const HeaderNavigation = () => {
       <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
         <a
           aria-label={t('otherLocaleAriaLabel')}
-          className="border-l border-gray-900 py-[10px] pl-[12px] text-sm font-normal leading-[19.6px]"
+          className="border-l border-border-dark py-[10px] pl-[12px] text-base font-normal"
         >
           {otherLocaleData.locale.toUpperCase()}
         </a>

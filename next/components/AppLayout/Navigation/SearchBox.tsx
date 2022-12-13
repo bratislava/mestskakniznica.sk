@@ -24,7 +24,7 @@ const SearchBox = ({ text }: SearchBoxProps) => {
         iconRight={searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />}
         onChange={(e) => setSearchedTerm(e.target.value)}
         value={searchedTerm}
-        inputClassName="rounded-full w-[320px] xl:w-[440px] border-gray-900"
+        inputClassName="rounded-full w-[320px] xl:w-[440px] border-border-dark"
         placeholder={text}
         aria-label={text}
       />

@@ -23,7 +23,7 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
         'pt-6',
         {
           'pb-6': !finished && active,
-          'border-b border-gray-universal-200': active || finished,
+          'border-b border-border-light': active || finished,
         },
         className
       )}
@@ -38,16 +38,16 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
       >
         <span
           className={cx(
-            'inline-flex h-14 w-14 items-center justify-center rounded-full border border-gray-universal-100 p-6 text-base',
+            'inline-flex h-14 w-14 items-center justify-center rounded-full border border-border-dark p-6 text-base',
             {
-              'bg-gray-universal-100 text-white': active || finished,
-              'text-gray-universal-100': !active && !finished,
+              'bg-button-dark text-white': active || finished,
+              'text-foreground-heading': !active && !finished,
             }
           )}
         >
-          {finished ? <CheckMark className="-m-6" /> : num}
+          {finished ? <CheckMark className="-m-6"/> : num}
         </span>
-        <p className="text-left text-default text-gray-universal-100">{title}</p>
+        <p className="text-left text-h5 text-foreground-heading">{title}</p>
       </button>
       {active && children}
     </div>

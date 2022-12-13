@@ -19,7 +19,7 @@ const DateCardDisplay = ({ dateFrom, dateTo, textSize, wrapperClass }: DateCardP
   return (
     <div className={cx('m-auto text-center', wrapperClass)}>
       <div className={cx(textSize)}>{text}</div>
-      {/* <div className="text-xs capitalize">{month}</div> */}
+      {/* <div className="text-sm capitalize">{month}</div> */}
     </div>
   )
 }
