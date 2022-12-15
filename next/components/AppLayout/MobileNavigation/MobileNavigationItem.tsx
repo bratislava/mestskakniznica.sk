@@ -7,16 +7,16 @@ import MobileSubnavigation from './MobileSubnavigation'
 
 interface navItemProps {
   menu: MenuEntity
-  menus: MenuEntity[]
 }
 
-const MobileNavigationItem = ({ menu, menus }: navItemProps) => {
+const MobileNavigationItem = ({ menu }: navItemProps) => {
   const router = useRouter()
   const [isOpen, setOpen] = useState(false)
   const menuSections = menu?.attributes?.menuSections || []
   return (
     <div className={cx('w-full cursor-pointer px-4 text-h5 font-normal')}>
       <button
+        type="button"
         onClick={() => setOpen(true)}
         className={cx(
           'flex w-full items-center justify-between border-b border-border-dark text-h5 font-normal',

@@ -54,7 +54,8 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
       </div>
 
       {menus?.map((menu, index) => (
-        <MobileNavigationItem menu={menu} key={index} menus={menus}/>
+        // eslint-disable-next-line react/no-array-index-key
+        <MobileNavigationItem menu={menu} key={index} />
       ))}
       <div className="px-4 pt-[47px] pb-4">
         <div className="border-b border-border-dark pb-4 text-[16px]">

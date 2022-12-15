@@ -45,6 +45,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                   .split(' ')
                   .map((word, index) => (
                     <span
+                      // eslint-disable-next-line react/no-array-index-key
                       key={index}
                       className={cx(TITLE_CLASSES, {
                         'col-span-1': word.length <= 4,

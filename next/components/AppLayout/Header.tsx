@@ -48,10 +48,11 @@ const Header = ({ menus, upcomingEvents }: HeaderProps) => {
             <NavigationMenu.List className="flex">
               {menus?.map((menu, index) => (
                 <NavigationItem
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
                   latestEvents={upcomingEvents}
                   index={index}
                   menu={menu.attributes}
-                  key={index}
                 />
               ))}
             </NavigationMenu.List>
