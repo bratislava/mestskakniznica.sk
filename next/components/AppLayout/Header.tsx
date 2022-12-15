@@ -51,7 +51,6 @@ const Header = ({ menus, upcomingEvents }: HeaderProps) => {
                   // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   latestEvents={upcomingEvents}
-                  index={index}
                   menu={menu.attributes}
                 />
               ))}
