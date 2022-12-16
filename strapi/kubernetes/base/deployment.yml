@@ -31,6 +31,8 @@ spec:
             - secretRef:
                 name: ${BUILD_REPOSITORY_NAME}-config-strapi-secret
             - secretRef:
+                name: ${BUILD_REPOSITORY_NAME}-app-keys-secret
+            - secretRef:
                 name: ${BUILD_REPOSITORY_NAME}-meilisearch-secret
             - secretRef:
                 name: minio-secret-standalone
