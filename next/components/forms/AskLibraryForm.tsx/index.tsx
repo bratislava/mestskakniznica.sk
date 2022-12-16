@@ -41,6 +41,7 @@ const AskLibraryForm = () => {
       phone: yup.string().matches(phoneRegexOrEmpty, t('validation_error_phone')),
       message: yup.string().required(),
       acceptFormTerms: yup.boolean().isTrue(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -52,6 +53,7 @@ const AskLibraryForm = () => {
       email: '',
       phone: '',
       message: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -83,6 +85,7 @@ const AskLibraryForm = () => {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 

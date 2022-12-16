@@ -64,6 +64,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
           })
         )
         .required(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -89,6 +90,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
           ISBN: '',
         },
       ],
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -120,6 +122,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
@@ -138,7 +141,8 @@ const InterlibraryLoanServiceFormLibrary = () => {
 
   const stepOneErrors = !isEmpty(
     Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms'
+      (k) =>
+        k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms' && k !== 'cfTurnstile'
     )
   )
 

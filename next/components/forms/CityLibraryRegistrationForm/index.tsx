@@ -75,6 +75,7 @@ const CityLibraryRegistrationForm = () => {
       acceptFormTerms: yup.boolean().isTrue(),
       authorizedToUseBlindDepartment: yup.boolean(),
       acceptNewsletter: yup.boolean(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -101,6 +102,7 @@ const CityLibraryRegistrationForm = () => {
       IDNumber: '',
       authorizedToUseBlindDepartment: false,
       acceptNewsletter: false,
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -153,7 +155,9 @@ const CityLibraryRegistrationForm = () => {
   }
 
   const stepOneErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'IDType')
+    Object.keys(errors).filter(
+      (k) => k !== 'acceptFormTerms' && k !== 'IDType' && k !== 'cfTurnstile'
+    )
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))

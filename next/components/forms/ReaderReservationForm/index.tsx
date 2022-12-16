@@ -49,6 +49,7 @@ const ReaderReservationForm = () => {
       timeTo: yup.string().required(),
       where: yup.string().required(),
       acceptFormTerms: yup.boolean().isTrue(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -66,6 +67,7 @@ const ReaderReservationForm = () => {
       timeFrom: '',
       timeTo: '',
       where: selectOptions[0].key,
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -97,6 +99,7 @@ const ReaderReservationForm = () => {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 

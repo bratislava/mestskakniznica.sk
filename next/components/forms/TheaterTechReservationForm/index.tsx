@@ -43,6 +43,7 @@ const TheaterTechReservationForm = () => {
       techType: yup.string().required(),
       term: yup.date().min(LocalDate.now().toString()).required(),
       acceptFormTerms: yup.boolean().isTrue(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -55,6 +56,7 @@ const TheaterTechReservationForm = () => {
       phone: '',
       techType: '',
       term: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -86,6 +88,7 @@ const TheaterTechReservationForm = () => {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
