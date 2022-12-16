@@ -22,18 +22,9 @@ interface IProps {
   menus: MenuEntity[]
   footer: FooterEntity
   upcomingEvents?: EventCardEntityFragment[]
-  isHomePage?: boolean
 }
 
-const DefaultPageLayout = ({
-  children,
-  title,
-  Seo,
-  menus,
-  footer,
-  upcomingEvents,
-  isHomePage,
-}: IProps) => {
+const DefaultPageLayout = ({ children, title, Seo, menus, footer, upcomingEvents }: IProps) => {
   const { localizations, locale } = usePageWrapperContext()
   const otherLangData = otherLocale(locale ?? 'sk', localizations)
   const currentLangData = otherLocale(otherLangData.locale, localizations)
@@ -45,19 +36,17 @@ const DefaultPageLayout = ({
       <Head>
         <link rel="icon" type="image/x-icon" href={favicon.src} />
         <title>
-          {`${(title ?? t('pageTitle') ?? '') +
-            ((title || t('pageTitle')) && ' | ') 
-            }mestskakniznica.sk`}
+          {`${
+            (title ?? t('pageTitle') ?? '') + ((title || t('pageTitle')) && ' | ')
+          }mestskakniznica.sk`}
         </title>
         {Seo && (
           <>
             <meta
               name="title"
-              content={
-                `${(Seo.metaTitle ?? title ?? '') +
-                ((Seo.metaTitle || title) && ' | ') 
-                }mestskakniznica.sk`
-              }
+              content={`${
+                (Seo.metaTitle ?? title ?? '') + ((Seo.metaTitle || title) && ' | ')
+              }mestskakniznica.sk`}
             />
             <meta name="description" content={Seo.metaDescription ?? t('chooseYourBook')} />
             <meta name="keywords" content={Seo.keywords ?? ''} />
@@ -83,7 +72,7 @@ const DefaultPageLayout = ({
       <div className="flex min-h-screen flex-1 flex-col justify-self-stretch">
         <header>
           <div className="hidden lg:block lg:px-8">
-            <Header menus={menus} upcomingEvents={upcomingEvents} isHomePage={isHomePage} />
+            <Header menus={menus} upcomingEvents={upcomingEvents} />
           </div>
           <div className="block lg:hidden">
             <MobileHeader menus={menus} />

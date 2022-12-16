@@ -11,44 +11,27 @@ import SkipNavigation from './SkipNavigation'
 interface HeaderProps {
   menus: MenuEntity[]
   upcomingEvents?: EventCardEntityFragment[]
-  isHomePage?: boolean
 }
 
-const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
+const Header = ({ menus, upcomingEvents }: HeaderProps) => {
   const { t } = useTranslation('common')
+
   return (
     <>
       <div className="m-auto max-w-[1180px]">
-        <div className="mx-auto flex items-center justify-between border-b border-border-dark">
+        <div className="border-border-dark mx-auto flex items-center justify-between border-b">
           <Link href="/" passHref>
             <a className="flex h-[40px] cursor-pointer flex-row items-center uppercase">
-              {isHomePage ? (
-                <h1>
-                  {t('pageTitle')
-                    .split(' ')
-                    .map((word) => (
-                      <span
-                        key={word}
-                        className="h-[40px] border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase first:pl-0 first:pr-3"
-                      >
-                        {word}
-                      </span>
-                    ))}
-                </h1>
-              ) : (
-                <>
-                  {t('pageTitle')
-                    .split(' ')
-                    .map((word) => (
-                      <span
-                        key={word}
-                        className="h-[40px] border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase first:pl-0 first:pr-3"
-                      >
-                        {word}
-                      </span>
-                    ))}
-                </>
-              )}
+              {t('pageTitle')
+                .split(' ')
+                .map((word) => (
+                  <span
+                    key={word}
+                    className="border-border-dark h-[40px] border-r px-3 pt-[7px] pb-[6px] text-[27px] uppercase first:pl-0 first:pr-3"
+                  >
+                    {word}
+                  </span>
+                ))}
             </a>
           </Link>
 
@@ -59,21 +42,21 @@ const Header = ({ menus, upcomingEvents, isHomePage }: HeaderProps) => {
           </div>
         </div>
       </div>
-      <div className="m-auto max-w-[1180px] border-b border-border-dark">
+      <div className="border-border-dark m-auto max-w-[1180px] border-b">
         <div className="flex items-center justify-between">
           <NavigationMenu.Root aria-label={t('navAriaLabel')}>
             <NavigationMenu.List className="flex">
               {menus?.map((menu, index) => (
                 <NavigationItem
-                  latestEvents={upcomingEvents}
-                  index={index}
-                  menu={menu.attributes}
+                  // eslint-disable-next-line react/no-array-index-key
                   key={index}
+                  latestEvents={upcomingEvents}
+                  menu={menu.attributes}
                 />
               ))}
             </NavigationMenu.List>
 
-            <NavigationMenu.Viewport className="absolute z-50 m-auto w-1180 max-w-full bg-white"/>
+            <NavigationMenu.Viewport className="w-1180 absolute z-50 m-auto max-w-full bg-white"/>
           </NavigationMenu.Root>
 
           <SearchBox text={t('searchBook')}/>
