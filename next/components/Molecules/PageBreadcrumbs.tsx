@@ -12,9 +12,9 @@ import {
 import cx from 'classnames'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+import { Fragment, useState } from 'react'
 
 import { pagePath } from '../../utils/page'
-import { Fragment, useState } from 'react'
 import Breadcrumbs from './Breadcrumbs'
 
 interface PageBreadcrumbsProps {
@@ -24,7 +24,7 @@ interface PageBreadcrumbsProps {
   breadCrumbs?: { title: string; url: string | null }[]
 }
 
-function PageBreadcrumbs({ page, blogPost, documentCategory, breadCrumbs }: PageBreadcrumbsProps) {
+const PageBreadcrumbs = ({ page, blogPost, documentCategory, breadCrumbs }: PageBreadcrumbsProps) => {
   const { t } = useTranslation('common')
 
   const crumbs: { title: string; url: string | null }[] = []

@@ -2,9 +2,9 @@ import ClearCircle from '@assets/images/clear-circle.svg'
 import SearchIcon from '@assets/images/search-404.svg'
 import { SearchBar } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
 
 import PageWrapper from '../components/layouts/PageWrapper'
@@ -14,21 +14,22 @@ interface ICustomProps {
   locale: string
 }
 
-function Custom404({ locale }: ICustomProps) {
+const onSubmit = (e: FormEvent) => {
+  e.preventDefault()
+  // TODO: search redirect
+}
+
+const Custom404 = ({ locale }: ICustomProps) => {
   const { t } = useTranslation()
 
   const [searchedTerm, setSearchedTerm] = useState('')
 
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    // TODO: search redirect
-  }
   const { asPath } = useRouter()
 
   return (
     <PageWrapper locale={locale ?? 'sk'} slug="/404">
       <ErrorPage code={404}>
-        <header className="mb-6 text-xl">
+        <header className="text_xl_old mb-6">
           <h1>{t('pageNotFound')}</h1>
         </header>
         <p className="text-base">{t('pageNotFoundSorry')}</p>
@@ -38,9 +39,9 @@ function Custom404({ locale }: ICustomProps) {
         </p>
         <form onSubmit={onSubmit}>
           <SearchBar
-            iconLeft={<SearchIcon onClick={onSubmit} />}
+            iconLeft={<SearchIcon onClick={onSubmit}/>}
             iconRight={
-              searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />
+              searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')}/>
             }
             placeholder={t('whatAreYouLookingFor')}
             className="pt-10"

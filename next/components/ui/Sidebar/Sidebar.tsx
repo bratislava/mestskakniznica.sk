@@ -17,11 +17,11 @@ export interface ICategory {
   href: string
 }
 
-export function Sidebar({ className, title, href, categories, activeCategory }: SidebarProps) {
+export const Sidebar = ({ className, title, href, categories, activeCategory }: SidebarProps) => {
   return (
     <div className={className}>
       <Link href={href} variant="plain" className="flex items-center gap-x-4 text-base">
-        <ArrowLeft />
+        <ArrowLeft/>
         {title}
       </Link>
       <div className={cx('flex flex-col')}>
@@ -33,15 +33,15 @@ export function Sidebar({ className, title, href, categories, activeCategory }: 
               href={category.href}
               variant="plain"
               className={cx(
-                'tranform border-b py-3 text-base transition-all duration-200 ease-linear',
+                'transform border-b py-3 text-base transition-all duration-200 ease-linear',
                 {
-                  'border-input-stroke text-gray-universal-70': !isActive,
-                  'flex items-center gap-x-5.5 border-gray-universal-100 pl-1.5 text-gray-universal-100':
-                    isActive,
+                  'border-border-light text-foreground-body': !isActive,
+                  'flex items-center gap-x-5.5 border-border-dark pl-1.5 text-foreground-heading':
+                  isActive,
                 }
               )}
             >
-              {isActive && <ChevronRight />}
+              {isActive && <ChevronRight/>}
               {category.title}
             </Link>
           )

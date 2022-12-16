@@ -1,17 +1,17 @@
 import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
+import Placeholder from '../../assets/images/event-list-placeholder.jpg'
 import { dateTimeString } from '../../utils/utils'
 import TagsDisplay from '../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-import Placeholder from '../../assets/images/event-list-placeholder.jpg'
-import { useTranslation } from 'next-i18next'
 
 interface EventListingProps {
   event: EventCardEntityFragment
 }
 
-function EventListingCard({ event: { attributes } }: EventListingProps) {
+const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
@@ -30,7 +30,7 @@ function EventListingCard({ event: { attributes } }: EventListingProps) {
             height="200px"
           />
 
-          <div className="flex pt-4 text-xs">
+          <div className="flex pt-4 text-sm">
             <TagsDisplay
               tags={attributes?.eventTags?.data}
               category={attributes?.eventCategory?.data?.attributes?.title || ''}
@@ -38,12 +38,12 @@ function EventListingCard({ event: { attributes } }: EventListingProps) {
             />
           </div>
 
-          <div className="justify-end pt-2 text-default hover:underline">{attributes?.title}</div>
-          <div className="pt-2 text-xs text-gray-600">
+          <div className="justify-end pt-2 text-h5 hover:underline">{attributes?.title}</div>
+          <div className="text--text-body pt-2 text-sm">
             {dateTimeString(attributes?.dateFrom || '', attributes?.dateTo || '', locale)}
           </div>
           {attributes?.eventLocality?.data?.attributes?.title && (
-            <div className="pt-2 text-xs text-gray-600">
+            <div className="text--text-body pt-2 text-sm">
               &#9679; {attributes?.eventLocality.data?.attributes.title}
             </div>
           )}

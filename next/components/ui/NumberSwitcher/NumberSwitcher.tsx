@@ -19,29 +19,30 @@ interface NumberSwitcherProps extends InputProps {
 
 const clampValue = (n: number) => Math.max(1, n)
 
-export function NumberSwitcher({
-  className,
-  value,
-  hasError,
-  errorMessage,
-  id,
-  onClickChange,
-  labelContent,
-  required,
-  inputClassName,
-  ...props
-}: NumberSwitcherProps) {
+export const NumberSwitcher = (
+  {
+    className,
+    value,
+    hasError,
+    errorMessage,
+    id,
+    onClickChange,
+    labelContent,
+    required,
+    inputClassName,
+    ...props
+  }: NumberSwitcherProps) => {
   return (
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('text-xs text-gray-universal-100 mb-0.5 opacity-80')} htmlFor={id}>
+        <label className={cx('mb-0.5 text-sm text-foreground-heading opacity-80')} htmlFor={id}>
           {labelContent}
-          {required && <span className="text-error pl-1">*</span>}
+          {required && <span className="pl-1 text-error">*</span>}
         </label>
       )}
       <div
-        className={cx(className, 'base-input py-0 flex items-center justify-between h-11', {
+        className={cx(className, 'base-input flex h-11 items-center justify-between py-0', {
           'base-input--with-error': hasError,
           'base-input--disabled cursor-not-allowed': props.disabled,
         })}
@@ -51,20 +52,20 @@ export function NumberSwitcher({
             e.preventDefault()
             onClickChange && onClickChange(clampValue(Number(value) - 1))
           }}
-          className="cursor-pointer py-2 text-black-universal h-full"
+          className="h-full cursor-pointer py-2 text-foreground-heading"
         >
-          <MinusIcon />
+          <MinusIcon/>
         </button>
 
-        <div className="border-l border-r mx-3 w-full text-center border-gray-universal-200 h-full py-2 px-6">
+        <div className="mx-3 h-full w-full border-x border-border-light py-2 px-6 text-center">
           <input
             id={id}
             type="number"
-            className="text-center w-full "
+            className="w-full text-center "
             value={value}
             aria-invalid={hasError}
             aria-required={required}
-            aria-errormessage={errorMessage ? `${id  }_err` : ''}
+            aria-errormessage={errorMessage ? `${id}_err` : ''}
             {...props}
           />
         </div>
@@ -74,15 +75,19 @@ export function NumberSwitcher({
             e.preventDefault()
             onClickChange && onClickChange(clampValue(Number(value) + 1))
           }}
-          className="cursor-pointer py-2 text-black-universal h-full"
+          className="h-full cursor-pointer py-2 text-foreground-heading"
         >
-          <PlusIcon />
+          <PlusIcon/>
         </button>
       </div>
 
       {/* Error Message */}
       {hasError && errorMessage && (
-        <p id={`${id  }_err`} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
+        <p
+          id={`${id}_err`}
+          className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
+          aria-labelledby={id}
+        >
           {labelContent} {errorMessage}
         </p>
       )}

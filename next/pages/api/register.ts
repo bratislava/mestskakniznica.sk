@@ -48,29 +48,44 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const reqid = Date.now()
     const remark = ''
-    const password = body.password
+    const {
+      password,
+      fName,
+      lName,
+      address,
+      city,
+      postalCode,
+      tempAddress,
+      tempCity,
+      tempPostalCode,
+      phone,
+      email,
+      IDNumber,
+      IDType,
+      acceptNewsletter,
+    } = body
 
     const dawinchiBody = {
       user: {
-        reqid: reqid,
+        reqid,
         sign: '',
-        firstname: body.fName,
-        lastname: body.lName,
-        password: password,
-        addressstreet1: body.address,
-        addresstown1: body.city,
-        addresspsc1: body.postalCode,
-        addressstreet2: body.tempAddress,
-        addresstown2: body.tempCity,
-        addresspsc2: body.tempPostalCode,
+        firstname: fName,
+        lastname: lName,
+        password,
+        addressstreet1: address,
+        addresstown1: city,
+        addresspsc1: postalCode,
+        addressstreet2: tempAddress,
+        addresstown2: tempCity,
+        addresspsc2: tempPostalCode,
         borndate: birthday,
         location: '',
-        remark: remark,
-        phone: body.phone,
-        email: body.email,
-        identifycard: body.IDNumber,
-        category: body.IDType,
-        checkConfirm2: body.acceptNewsletter === true ? '1' : '0',
+        remark,
+        phone,
+        email,
+        identifycard: IDNumber,
+        category: IDType,
+        checkConfirm2: acceptNewsletter === true ? '1' : '0',
       },
     }
 

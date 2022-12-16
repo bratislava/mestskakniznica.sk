@@ -1,14 +1,11 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import MarkerIcon from '@assets/images/marker.svg'
-import {
-  ComponentAddressAddress,
-  ComponentLocalityPartsLocalitySection,
-} from '@bratislava/strapi-sdk-city-library'
+import { ComponentAddressAddress, ComponentLocalityPartsLocalitySection, } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { maxBy, minBy } from 'lodash'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
@@ -41,7 +38,11 @@ export interface LocalitiesProps {
   altDesign?: boolean // alternative design
 }
 
-export function Localities({ localities, mapboxAccessToken, altDesign = false }: LocalitiesProps) {
+export const Localities = ({
+                             localities,
+                             mapboxAccessToken,
+                             altDesign = false,
+                           }: LocalitiesProps) => {
   const { t } = useTranslation('homepage')
   const [bounds, setBounds] = useState<[[number, number], [number, number]]>([
     [0, 0],
@@ -55,15 +56,15 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
     setBounds([
       [
         minBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ??
-          17.107_748,
+        17.107_748,
         minBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ??
-          48.148_598,
+        48.148_598,
       ],
       [
         maxBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ??
-          17.107_748,
+        17.107_748,
         maxBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ??
-          48.148_598,
+        48.148_598,
       ],
     ] as [[number, number], [number, number]])
   }, [localities])
@@ -74,10 +75,10 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
 
   return localities.length > 0 ? (
     <section className="">
-      <h2 className="py-12 text-center text-lg md:text-left">{t('localitiesTitle')}</h2>
+      <h2 className="py-12 text-center text-h3 md:text-left">{t('localitiesTitle')}</h2>
 
-      <div className={cx({ 'border-gray-900 lg:border': !altDesign })}>
-        <div className="text-black mb-4 h-60 w-full lg:mb-8">
+      <div className={cx({ 'border-border-dark lg:border': !altDesign })}>
+        <div className="mb-4 h-60 w-full text-black lg:mb-8">
           {isBrowser && (
             <Mapbox
               ref={mapRef}
@@ -119,7 +120,8 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
                         height={48}
                       />
                       {localityTitle && (
-                        <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-primary px-2 group-hover:visible">
+                        <div
+                          className="bg-primary invisible absolute top-1/3 z-30 whitespace-nowrap rounded px-2 group-hover:visible">
                           {localityTitle}
                         </div>
                       )}
@@ -150,9 +152,9 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
               <div
                 className={cx({
                   'lg:border-l-0': index === 0 && !altDesign,
-                  'relative w-70 flex-shrink-0 border border-gray-900 lg:mb-8 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0':
+                  'relative w-70 flex-shrink-0 border border-border-dark lg:mb-8 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0':
                     !altDesign,
-                  'relative w-full border border-gray-900 py-4': altDesign,
+                  'relative w-full border border-border-dark py-4': altDesign,
                 })}
                 key={index}
               >
@@ -160,27 +162,24 @@ export function Localities({ localities, mapboxAccessToken, altDesign = false }:
                   <a href={localitySlug}>
                     <div className="flex h-full w-full flex-col justify-between gap-4 p-6 lg:py-0">
                       <div>
-                        <div className="text-md2">{localityTitle}</div>
-                        <div className="pt-8 text-sm">
+                        <div className="text-h3.5">{localityTitle}</div>
+                        <div className="pt-8 text-base">
                           {localitySections?.map((section) => (
-                            <div
-                              key={section.localitySectionTitle}
-                              className="pt-1 text-gray-universal-70"
-                            >
+                            <div key={section.localitySectionTitle} className="pt-1 text-foreground-body">
                               {section.localitySectionTitle}
                             </div>
                           ))}
                         </div>
                         {!hideOpeningHours && (
                           <>
-                            <p className="pt-8 text-sm">{t('localityOpeningText')}</p>
-                            <p className="text-sm">
+                            <p className="pt-8 text-base">{t('localityOpeningText')}</p>
+                            <p className="text-base">
                               {localityOpenFrom} - {localityOpenTo}
                             </p>
                           </>
                         )}
                       </div>
-                      <div className="text-sm hover:underline">
+                      <div className="text-base hover:underline">
                         <div className="relative uppercase">
                           {t('localityDetailText')} {'>'}
                         </div>

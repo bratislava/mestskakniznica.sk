@@ -8,16 +8,16 @@ export interface PageProps {
   page: PageEntity
 }
 
-function LocalityPage({ page }: PageProps) {
+const LocalityPage = ({ page }: PageProps) => {
   return (
     <>
       <SectionContainer>
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <div className="border-b border-gray-900">
+        <div className="border-b border-border-dark">
           {page?.attributes?.sections && (
-            <Sections sections={page?.attributes?.sections} events={[]} eventsListingUrl={''} />
+            <Sections sections={page?.attributes?.sections} events={[]} eventsListingUrl="" />
           )}
         </div>
       </SectionContainer>

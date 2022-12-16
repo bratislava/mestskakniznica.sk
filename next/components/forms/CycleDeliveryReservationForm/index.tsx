@@ -1,5 +1,6 @@
 import { Button, Input, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { convertDataToBody } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
@@ -8,13 +9,12 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody } from '@utils/form-constants'
 import BookList from '../BookList/BookList'
 import FormContainer, { phoneRegex, postalCodeRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
 
-function CycleDeliveryReservationForm() {
+const CycleDeliveryReservationForm = () => {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
@@ -173,7 +173,7 @@ function CycleDeliveryReservationForm() {
           onClick={() => setStep(1)}
         >
           <div className="flex w-full flex-col gap-y-6">
-            <div className="flex flex-col items-center justify-between gap-y-6 gap-x-6 lg:flex-row">
+            <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="fName"
@@ -275,7 +275,7 @@ function CycleDeliveryReservationForm() {
                 />
               )}
             />
-            <div className="flex flex-col items-center justify-between gap-y-6 gap-x-6 lg:flex-row">
+            <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="city"
@@ -324,7 +324,7 @@ function CycleDeliveryReservationForm() {
           className="border-b-0 pb-0"
           onClick={() => triggerFirstStep()}
         >
-          <BookList />
+          <BookList/>
           <Controller
             control={methods.control}
             name="message"
@@ -343,7 +343,7 @@ function CycleDeliveryReservationForm() {
           {stepTwoErrors && (
             <p className="pb-4 text-base text-error">{t('please_fill_required_fields')}</p>
           )}
-          <FormFooter hasDivider buttonContent={t('send')} />
+          <FormFooter hasDivider buttonContent={t('send')}/>
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

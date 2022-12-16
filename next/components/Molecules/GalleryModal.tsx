@@ -21,13 +21,13 @@ export interface PageProps {
   gallery: Array<ComponentLocalityPartsGalleryParts | null | undefined>
 }
 
-function GalleryModal({ showModal, closeModal, gallery }: PageProps) {
+const GalleryModal = ({ showModal, closeModal, gallery }: PageProps) => {
   return (
     <Modal isOpen={showModal} onRequestClose={closeModal} style={CUSTOM_STYLES}>
-      <div className="absolute top-4 right-4 flex w-full justify-end mb-[10px] cursor-pointer ">
+      <div className="absolute top-4 right-4 mb-[10px] flex w-full cursor-pointer justify-end ">
         <Close onClick={closeModal} />
       </div>
-      <div className="w-full h-full flex items-center">
+      <div className="flex h-full w-full items-center">
         <GalleryCarousel gallery={gallery} />
       </div>
     </Modal>

@@ -1,3 +1,18 @@
+import { Localities, SectionContainer } from '@bratislava/ui-city-library'
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import Section from '../components/AppLayout/Section'
+import SectionFaq from '../components/HomePage/SectionFaq'
+import SectionLibraryNews from '../components/HomePage/SectionLibraryNews'
+import SectionOpacBookNews from '../components/HomePage/SectionOpacBookNews'
+import SectionPromos from '../components/HomePage/SectionPromos'
+import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationInfo'
+import SectionTags from '../components/HomePage/SectionTags'
+import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
+import PageWrapper from '../components/layouts/PageWrapper'
+import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
+import ErrorPage from '../components/pages/ErrorPage'
 import {
   BookTagEntityFragment,
   ComponentHomepageFaqSection,
@@ -12,20 +27,6 @@ import {
   PageLocalizationEntityFragment,
   PromoNewsCardFragment,
 } from '../graphql'
-import { Localities, SectionContainer } from '@bratislava/ui-city-library'
-import { GetStaticProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import Section from '../components/AppLayout/Section'
-import SectionFaq from '../components/HomePage/SectionFaq'
-import SectionLibraryNews from '../components/HomePage/SectionLibraryNews'
-import SectionOpacBookNews from '../components/HomePage/SectionOpacBookNews'
-import SectionPromos from '../components/HomePage/SectionPromos'
-import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationInfo'
-import SectionTags from '../components/HomePage/SectionTags'
-import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
-import PageWrapper from '../components/layouts/PageWrapper'
-import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
-import ErrorPage from '../components/pages/ErrorPage'
 import { client } from '../utils/gql'
 import { hasAttributes } from '../utils/isDefined'
 import { getOpacBooks, OpacBook } from '../utils/opac'
@@ -54,7 +55,7 @@ interface IIndexProps {
   Seo?: ComponentSeoSeo
 }
 
-export function Index({
+export const Index = ({
   locale = 'sk',
   localizations,
   menus,
@@ -70,7 +71,7 @@ export function Index({
   footer,
   error,
   Seo,
-}: IIndexProps) {
+}: IIndexProps) => {
   // example of how to search in hooked events with meilisearch
   // useEffect(() => {
   //   meiliClient

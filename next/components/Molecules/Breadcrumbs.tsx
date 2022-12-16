@@ -6,7 +6,6 @@ import Home from '@assets/images/home.svg'
 import cx from 'classnames'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-
 import { Fragment, useState } from 'react'
 
 export interface BreadcrumbsProps {
@@ -15,7 +14,7 @@ export interface BreadcrumbsProps {
 
 // TODO consolidate with Breadcrumbs in ui directory, find out if those are ever used
 
-function DesktopBreadCrumbs({ crumbs }: BreadcrumbsProps) {
+const DesktopBreadCrumbs = ({ crumbs }: BreadcrumbsProps) => {
   const { t } = useTranslation('common')
   return (
     <>
@@ -27,10 +26,10 @@ function DesktopBreadCrumbs({ crumbs }: BreadcrumbsProps) {
           <Fragment key={i}>
             {crumb.url ? (
               <Link href={crumb.url} passHref>
-                <a className="flex-shrink" href={crumb.url}>
+                <a className="shrink" href={crumb.url}>
                   {first ? (
                     <>
-                      <Home className="cursor-pointer" />
+                      <Home className="cursor-pointer"/>
                       <span className="sr-only">{t('homepage')}</span>
                     </>
                   ) : (
@@ -38,7 +37,7 @@ function DesktopBreadCrumbs({ crumbs }: BreadcrumbsProps) {
                       style={{
                         textUnderlineOffset: 1,
                       }}
-                      className={cx('cursor-pointer truncate text-xs', {
+                      className={cx('cursor-pointer truncate text-sm', {
                         underline: !last,
                       })}
                     >
@@ -52,7 +51,7 @@ function DesktopBreadCrumbs({ crumbs }: BreadcrumbsProps) {
             )}
             {!last && (
               <span className="px-4">
-                <ChevronRight />
+                <ChevronRight/>
               </span>
             )}
           </Fragment>
@@ -63,7 +62,7 @@ function DesktopBreadCrumbs({ crumbs }: BreadcrumbsProps) {
 }
 
 // Mobile version
-function MobileBreadcrumbs({ crumbs }: BreadcrumbsProps) {
+const MobileBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
   const [isOpen, setOpen] = useState(false)
   const { t } = useTranslation('common')
 
@@ -93,10 +92,10 @@ function MobileBreadcrumbs({ crumbs }: BreadcrumbsProps) {
           'flex w-full cursor-pointer items-center justify-between overflow-x-auto py-4'
         )}
       >
-        <div className="flex w-fit flex-shrink flex-row items-center">
-          <DesktopBreadCrumbs crumbs={primaryBreadcrumbs} />
+        <div className="flex w-fit shrink flex-row items-center">
+          <DesktopBreadCrumbs crumbs={primaryBreadcrumbs}/>
         </div>
-        <div className="ml-4">{isOpen ? <ChevronUp /> : <ChevronDown />}</div>
+        <div className="ml-4">{isOpen ? <ChevronUp/> : <ChevronDown/>}</div>
       </button>
 
       <div
@@ -110,7 +109,7 @@ function MobileBreadcrumbs({ crumbs }: BreadcrumbsProps) {
             <Link href={crumb.url || ''} passHref key={crumb.title}>
               <a>
                 <div className="flex items-center space-x-4" key={crumb.title}>
-                  <ArrowLeft />
+                  <ArrowLeft/>
                   <span>{crumb.title}</span>
                 </div>
               </a>
@@ -122,13 +121,13 @@ function MobileBreadcrumbs({ crumbs }: BreadcrumbsProps) {
   )
 }
 
-function Breadcrumbs({ crumbs }: BreadcrumbsProps) {
+const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
   return (
     <>
       <div className="hidden flex-row items-center py-[18px] lg:flex">
-        <DesktopBreadCrumbs crumbs={crumbs} />
+        <DesktopBreadCrumbs crumbs={crumbs}/>
       </div>
-      <MobileBreadcrumbs crumbs={crumbs} />
+      <MobileBreadcrumbs crumbs={crumbs}/>
     </>
   )
 }

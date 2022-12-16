@@ -1,18 +1,17 @@
+import 'react-datepicker/dist/react-datepicker.css'
+
 import DropdownIcon from '@assets/images/dropdown.svg'
-import {
-  EventCardEntityFragment,
-  EventFiltersInput,
-  PageEntity,
-} from '@bratislava/strapi-sdk-city-library'
+import { EventCardEntityFragment, EventFiltersInput, PageEntity, } from '@bratislava/strapi-sdk-city-library'
 import { LoadingSpinner, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { client } from '@utils/gql'
+import cx from 'classnames'
 import enUs from 'date-fns/locale/en-US'
 import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useState } from 'react'
 import { registerLocale } from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
 import useSWR from 'swr'
+
 import { useEventsPaginated } from '../../hooks/useEventsPaginated'
 import Section from '../AppLayout/Section'
 import SectionPromos from '../HomePage/SectionPromos'
@@ -21,7 +20,6 @@ import EventFilters from '../Molecules/EventFilters'
 import EventListingCard from '../Molecules/EventListingCard'
 import { FilterModal } from '../Molecules/FilterModal'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-import cx from 'classnames'
 
 registerLocale('en', enUs)
 registerLocale('sk', sk)
@@ -30,11 +28,12 @@ interface KeyTitlePair {
   key: string
   title: string
 }
+
 export interface PageProps {
   page: PageEntity
 }
 
-function Events({ page }: PageProps) {
+const Events = ({ page }: PageProps) => {
   const { t } = useTranslation('common')
   const { locale = 'sk' } = usePageWrapperContext()
 
@@ -141,34 +140,76 @@ function Events({ page }: PageProps) {
   }
 
   const filterEvents = async () => {
+    // archived events
     const currentFilters: EventFiltersInput = {}
+
+    // default without filters
+    currentFilters.dateTo = { lt: today.toISOString() }
+
+    // filtered startDate
     if (startDate) {
-      currentFilters['dateFrom'] = { between: [startDate.toISOString(), today.toISOString()] }
-    } else {
-      currentFilters['dateFrom'] = { lt: today.toISOString() }
+      currentFilters.dateTo = { between: [startDate.toISOString(), today.toISOString()] }
     }
+
+    // filtered endDate
     if (endDate) {
-      const tempDate = new Date(new Date().setDate(endDate.getDate() + 1)) // plus one day
-      currentFilters['dateTo'] = { lte: tempDate.toISOString() }
+      const tempDate = endDate <= today ? endDate : today
+      currentFilters.dateTo = { lte: tempDate.toISOString() }
+    }
+
+    // filtered both
+    if (startDate && endDate) {
+      let tempDate = today
+      if (endDate <= today) {
+        tempDate = new Date(endDate)
+        tempDate.setDate(endDate.getDate() + 1)
+      }
+      currentFilters.dateTo = { between: [startDate.toISOString(), tempDate.toISOString()] }
     }
     if (selectedEventTags && selectedEventTags.title)
-      currentFilters['eventTags'] = { title: { eq: selectedEventTags.title } }
+      currentFilters.eventTags = { title: { eq: selectedEventTags.title } }
     if (selectedCategory && selectedCategory.title)
-      currentFilters['eventCategory'] = { title: { eq: selectedCategory.title } }
+      currentFilters.eventCategory = { title: { eq: selectedCategory.title } }
     if (selectedLocality && selectedLocality.title)
-      currentFilters['eventLocality'] = { title: { eq: selectedLocality.title } }
+      currentFilters.eventLocality = { title: { eq: selectedLocality.title } }
 
     setActiveFilters(currentFilters)
 
+    // upcoming events
     const upcomingFilters = { ...currentFilters }
 
-    delete upcomingFilters['dateFrom']
-    if (!startDate || startDate <= today) {
-      upcomingFilters['dateFrom'] = { gte: today.toISOString() }
-    } else {
-      upcomingFilters['dateFrom'] = { gte: startDate.toISOString() }
+    delete upcomingFilters.dateFrom
+    delete upcomingFilters.dateTo
+
+    // default without filters
+    upcomingFilters.dateTo = { gte: today.toISOString() }
+
+    // filtered startDate
+    if (startDate) {
+      const tempDate = startDate <= today ? today : startDate
+      upcomingFilters.dateTo = { gte: tempDate.toISOString() }
     }
 
+    // filtered endDate
+    if (endDate) {
+      const tempDate =
+        endDate <= today ? today : new Date(new Date().setDate(endDate.getDate() + 1))
+      upcomingFilters.dateTo = { between: [today.toISOString(), tempDate.toISOString()] }
+    }
+
+    // filtered both
+    if (startDate && endDate) {
+      let tempStartDate = today
+      if (startDate >= today) {
+        tempStartDate = new Date(startDate)
+        tempStartDate.setDate(startDate.getDate())
+      }
+      const tempEndDate = new Date(endDate)
+      tempEndDate.setDate(endDate.getDate() + 1)
+      upcomingFilters.dateTo = {
+        between: [tempStartDate.toISOString(), tempEndDate.toISOString()],
+      }
+    }
     setUpcomingActiveFilters(upcomingFilters)
   }
 
@@ -206,23 +247,23 @@ function Events({ page }: PageProps) {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs page={page}/>
       </SectionContainer>
       <SectionContainer>
         <div className="pb-6 lg:pb-16">
-          <h1 className="border-b border-gray-universal-100 pt-16 pb-4 text-md2 lg:border-none lg:pb-0 lg:text-2xl">
+          <h1 className="border-b border-border-dark pt-16 pb-4 text-h1 lg:border-none lg:pb-0">
             {t('eventsCalendar')}
           </h1>
 
-          <div className="mt-4 lg:mt-6 lg:block lg:border lg:border-gray-universal-100 lg:p-6">
+          <div className="mt-4 lg:mt-6 lg:block lg:border lg:border-border-dark lg:p-6">
             {/* Mobile */}
-            <div className="flex w-full items-center justify-between border border-gray-universal-100 p-4 lg:hidden">
+            <div className="flex w-full items-center justify-between border border-border-dark p-4 lg:hidden">
               <button
                 className="z-10 flex w-full items-center justify-between gap-y-5"
                 onClick={toggleFilterModal}
               >
                 {t('eventsFilter')}
-                <DropdownIcon />
+                <DropdownIcon/>
               </button>
               {openFilterModal && (
                 <FilterModal onClose={toggleFilterModal} title={t('eventsFilter')}>
@@ -243,13 +284,13 @@ function Events({ page }: PageProps) {
                   />
                   <div className="absolute bottom-0 flex w-full gap-x-3 p-3">
                     <button
-                      className="base-button w-1/2 border border-gray-universal-100 bg-gray-universal-100 py-[9px] text-white"
+                      className="base-button w-1/2 border border-border-dark bg-button-dark py-[9px] text-white"
                       onClick={filterEvents}
                     >
                       {t('filterButton')}
                     </button>
                     <button
-                      className="base-button w-1/2 border border-gray-universal-100 bg-white py-[9px] text-gray-universal-100"
+                      className="base-button w-1/2 border border-border-dark bg-white py-[9px] text-foreground-heading"
                       onClick={resetFilters}
                     >
                       {t('reset_button')}
@@ -262,7 +303,7 @@ function Events({ page }: PageProps) {
             {/* Desktop */}
             <div className="hidden lg:block">
               <div className="flex items-center justify-between">
-                <h4 className="text-md">{t('eventsFilter')}</h4>
+                <h4 className="text-h4">{t('eventsFilter')}</h4>
               </div>
               <div className="mt-3 flex items-center gap-x-5">
                 <EventFilters
@@ -283,13 +324,13 @@ function Events({ page }: PageProps) {
               </div>
               <div className="mt-3 flex items-center justify-end">
                 <button
-                  className="base-button border border-gray-universal-100 bg-gray-900 bg-gray-universal-100 px-10 py-[9px] text-white"
+                  className="base-button border border-border-dark bg-button-dark px-10 py-[9px] text-white"
                   onClick={filterEvents}
                 >
                   {t('filterButton')}
                 </button>
                 <button
-                  className="base-button ml-5 border border-gray-universal-100 bg-white px-10 py-[9px] text-gray-universal-100"
+                  className="base-button ml-5 border border-border-dark bg-white px-10 py-[9px] text-foreground-heading"
                   onClick={resetFilters}
                 >
                   {t('reset_button')}
@@ -300,21 +341,21 @@ function Events({ page }: PageProps) {
         </div>
         {!activeFilters && (
           <Section>
-            <div className="text-md2">{t('eventsPromoted')}</div>
+            <div className="text-h3.5">{t('eventsPromoted')}</div>
             <div className="pb-10">
-              <SectionPromos promos={promotedEvents} />
+              <SectionPromos promos={promotedEvents}/>
             </div>
           </Section>
         )}
 
         <div
           className={cx('py-6 lg:py-16', {
-            'border-gray-universal-100 lg:border-b': filteredEvents?.length,
+            'border-border-dark lg:border-b': filteredEvents?.length,
             block: upcomingFilteredEvents?.length,
             hidden: !upcomingFilteredEvents?.length,
           })}
         >
-          <div className="text-md2">{t('eventsUpcoming')}</div>
+          <div className="text-h3.5">{t('eventsUpcoming')}</div>
           <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
             {upcomingFilteredEvents?.map((event) => (
               <EventListingCard
@@ -341,7 +382,7 @@ function Events({ page }: PageProps) {
             hidden: !filteredEvents?.length,
           })}
         >
-          <div className="text-md2">{t('eventsArchived')}</div>
+          <div className="text-h3.5">{t('eventsArchived')}</div>
           <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
             {filteredEvents?.map((event) => (
               <EventListingCard
@@ -352,7 +393,7 @@ function Events({ page }: PageProps) {
           </div>
           <div className="flex justify-center pt-6 lg:justify-end">
             {isLoadingInitialData || isLoadingMore ? (
-              <LoadingSpinner size="small" />
+              <LoadingSpinner size="small"/>
             ) : (
               <Pagination
                 value={strapiMetaPagination?.page || 0}
@@ -366,7 +407,7 @@ function Events({ page }: PageProps) {
           </div>
         </div>
 
-        {!areThereAnyEvents() && <div className={'text-center text-md2'}>{t('eventsEmpty')}</div>}
+        {!areThereAnyEvents() && <div className="text-center text-h3.5">{t('eventsEmpty')}</div>}
         {/* <Banner
           onBannerClick={handleEventSubscription}
           title={t('eventsDontMiss')}

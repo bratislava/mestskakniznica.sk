@@ -3,7 +3,6 @@ import {
   ComponentBlocksPageLink,
   ExternalLinkFragment,
   FlatTextFragment,
-  PartnerEntity,
   SubpagesFragment,
   TableRowFragment,
 } from '@bratislava/strapi-sdk-city-library'
@@ -13,8 +12,8 @@ import {
   TableRowProps,
   TExternalLinksSection,
 } from '@bratislava/ui-city-library'
-import { groupBy } from 'lodash'
-import orderBy from 'lodash/orderBy'
+import groupBy from 'lodash/groupBy'
+import sortBy from 'lodash/sortBy'
 
 import { isPresent } from './utils'
 
@@ -65,7 +64,7 @@ export const parseSubCategories = (
   moreLinkTitle: string
   pages: { title: string; url: string }[]
 }[] =>
-  orderBy(subCategories ?? [], ['priority'], ['asc']).map((subCategory) => ({
+  sortBy(subCategories ?? [], ['priority']).map((subCategory) => ({
     title: parsePageLink(subCategory?.attributes?.pageLink)?.title ?? '',
     url: parsePageLink(subCategory?.attributes?.pageLink)?.url ?? '',
     moreLinkTitle: subCategory?.attributes?.pageLink?.title ?? 'VIAC',
@@ -102,17 +101,6 @@ export const parseSubpages = (subpages: SubpagesFragment): SubpageItemProps[] =>
     url: parsePageLink(subpage)?.url,
   })) ?? []
 
-// Group by for accordion
-export const groupByAccordionCategory = (
-  tableRows: (TableRowFragment | undefined | null)[]
-): { title: string; tables: { title: string; rows: TableRowProps[] }[] }[] => {
-  const groupedItems = groupBy(tableRows, 'accordionCategory')
-  return Object.keys(groupedItems).map((key) => ({
-    title: key,
-    tables: groupByTableCategory(groupedItems[key]),
-  }))
-}
-
 export const groupByTableCategory = (
   tableRows: (TableRowFragment | undefined | null)[]
 ): { title: string; rows: TableRowProps[] }[] => {
@@ -130,6 +118,17 @@ export const groupByTableCategory = (
         value: row?.value ?? '',
         valueAlign: row?.valueAlign ?? 'start',
       })) ?? [],
+  }))
+}
+
+// Group by for accordion
+export const groupByAccordionCategory = (
+  tableRows: (TableRowFragment | undefined | null)[]
+): { title: string; tables: { title: string; rows: TableRowProps[] }[] }[] => {
+  const groupedItems = groupBy(tableRows, 'accordionCategory')
+  return Object.keys(groupedItems).map((key) => ({
+    title: key,
+    tables: groupByTableCategory(groupedItems[key]),
   }))
 }
 

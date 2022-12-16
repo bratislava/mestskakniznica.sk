@@ -11,7 +11,7 @@ interface Props {
   showLinkInput?: boolean
 }
 
-function BookListExtended({ className, showLinkInput = false }: Props) {
+const BookListExtended = ({ className, showLinkInput = false }: Props) => {
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation('forms')
@@ -46,7 +46,7 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
         <div
           key={field.id}
           className={cx('relative mb-6 flex w-full flex-col gap-y-6 border p-6', {
-            'border-input-stroke': !errors?.books?.[index],
+            'border-border-light': !errors?.books?.[index],
             'base-input--with-error': errors?.books?.[index],
           })}
         >
@@ -100,7 +100,7 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
               />
             )}
           />
-          <div className="flex flex-col items-center justify-between gap-y-6 gap-x-6 lg:flex-row">
+          <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
             <Controller
               control={methods.control}
               name={`books[${index}].placeOfIssue` as const}
@@ -128,7 +128,7 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
               )}
             />
           </div>
-          <div className="flex flex-col items-center justify-between gap-y-6 gap-x-6 lg:flex-row">
+          <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
             <Controller
               control={methods.control}
               name={`books[${index}].packageNumber` as const}
@@ -175,10 +175,10 @@ function BookListExtended({ className, showLinkInput = false }: Props) {
       ))}
       <div className="flex justify-center lg:block">
         <Button
-          icon={<PlusIcon />}
+          icon={<PlusIcon/>}
           iconPosition="left"
           variant="plain-primary"
-          className="mb-4 text-xs font-medium"
+          className="mb-4 text-sm font-medium"
           onClick={(e) => handleAddBook(e)}
         >
           {t('add_book')}

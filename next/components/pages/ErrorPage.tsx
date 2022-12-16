@@ -9,17 +9,17 @@ interface IProps {
   children?: React.ReactNode
 }
 
-function ErrorPage({ code, children }: IProps) {
+const ErrorPage = ({ code, children }: IProps) => {
   return (
     <SectionContainer>
-      <div className="border-gray-700">
-        <div className="flex h-[56px] text-sm">
+      <div className="border-border-dark">
+        <div className="flex h-[56px] text-base">
           <a href="./" className="py-[18px]">
-            <Home />{' '}
+            <Home/>{' '}
           </a>
           <div className="flex">
             <div className="py-[23px] pl-[18px]">
-              <ChevronRight />
+              <ChevronRight/>
             </div>
             <div className="py-[18px] pl-3"> {code} </div>
           </div>

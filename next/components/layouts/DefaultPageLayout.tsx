@@ -5,8 +5,9 @@ import {
   MenuEntity,
 } from '@bratislava/strapi-sdk-city-library'
 import { Footer, SectionContainer } from '@bratislava/ui-city-library'
-import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
+import { useTranslation } from 'next-i18next'
+
 import favicon from '../../assets/images/mkb_favicon.png'
 import Header from '../AppLayout/Header'
 import MobileHeader from '../AppLayout/MobileNavigation/MobileHeader'
@@ -24,7 +25,7 @@ interface IProps {
   isHomePage?: boolean
 }
 
-function DefaultPageLayout({
+const DefaultPageLayout = ({
   children,
   title,
   Seo,
@@ -32,7 +33,7 @@ function DefaultPageLayout({
   footer,
   upcomingEvents,
   isHomePage,
-}: IProps) {
+}: IProps) => {
   const { localizations, locale } = usePageWrapperContext()
   const otherLangData = otherLocale(locale ?? 'sk', localizations)
   const currentLangData = otherLocale(otherLangData.locale, localizations)
@@ -44,18 +45,18 @@ function DefaultPageLayout({
       <Head>
         <link rel="icon" type="image/x-icon" href={favicon.src} />
         <title>
-          {(title ?? t('pageTitle') ?? '') +
-            ((title || t('pageTitle')) && ' | ') +
-            'mestskakniznica.sk'}
+          {`${(title ?? t('pageTitle') ?? '') +
+            ((title || t('pageTitle')) && ' | ') 
+            }mestskakniznica.sk`}
         </title>
         {Seo && (
           <>
             <meta
               name="title"
               content={
-                (Seo.metaTitle ?? title ?? '') +
-                ((Seo.metaTitle || title) && ' | ') +
-                'mestskakniznica.sk'
+                `${(Seo.metaTitle ?? title ?? '') +
+                ((Seo.metaTitle || title) && ' | ') 
+                }mestskakniznica.sk`
               }
             />
             <meta name="description" content={Seo.metaDescription ?? t('chooseYourBook')} />

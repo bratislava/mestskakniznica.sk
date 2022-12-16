@@ -1,18 +1,23 @@
 import { useTranslation } from 'next-i18next'
 
-function SkipNavigation() {
+const SkipNavigation = () => {
   const { t } = useTranslation(['common'])
+
+  /* Based on approach here: https://levelup.gitconnected.com/build-an-accessible-skip-to-content-anchor-link-with-react-140903f3bd7e */
+  const handleSkip = () => {
+    const contentElement: HTMLElement | null = document.querySelector('#content-anchor')
+    if (contentElement) {
+      contentElement.setAttribute('tabindex', '0')
+      contentElement.focus()
+      setTimeout(() => contentElement.removeAttribute('tabindex'), 1000)
+    }
+  }
+
   return (
     <button
-      onClick={() => {
-        const contentElement = document.querySelector('#content-anchor') as HTMLElement | null
-        if (contentElement) {
-          contentElement.setAttribute('tabindex', '0')
-          contentElement.focus()
-          contentElement.removeAttribute('tabindex')
-        }
-      }}
-      className="fixed left-0 top-5 -translate-x-100 transform bg-gray-900 text-base text-white transition-transform focus:translate-x-0 md:top-8"
+      type="button"
+      onClick={handleSkip}
+      className="fixed left-0 top-5 -translate-x-100 bg-button-dark text-base text-white transition-transform focus:translate-x-0 md:top-8"
     >
       {t('skipNavigation')}
     </button>

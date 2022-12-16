@@ -9,7 +9,7 @@ interface SectionOpacBookNewsProps {
   books: OpacBook[]
 }
 
-function SectionOpacBookNews({ books }: SectionOpacBookNewsProps) {
+const SectionOpacBookNews = ({ books }: SectionOpacBookNewsProps) => {
   const { t } = useTranslation('homepage')
   const { locale } = usePageWrapperContext()
 
@@ -18,7 +18,7 @@ function SectionOpacBookNews({ books }: SectionOpacBookNewsProps) {
       {books.length > 0 ? (
         <Section>
           <section className="relative flex w-full flex-col py-10">
-            <h2 className="text-center text-lg md:text-left">{t('newBooksTitle')}</h2>
+            <h2 className="text-center text-h3 md:text-left">{t('newBooksTitle')}</h2>
             <div className="overflow-x-auto ">
               <div className="flex w-fit  min-w-full items-stretch justify-between gap-4 py-6 sm:gap-6 lg:gap-6">
                 {books
@@ -31,11 +31,11 @@ function SectionOpacBookNews({ books }: SectionOpacBookNewsProps) {
                         recURL: { _text: link },
                         author: { _text: author },
                       },
-                      i
+                      index
                     ) => (
                       <BookNewsDetail
                         className="w-[160px]"
-                        key={i}
+                        key={index}
                         title={title}
                         imgSrc={imageSrc}
                         author={author !== ' --- ' ? author : ''}

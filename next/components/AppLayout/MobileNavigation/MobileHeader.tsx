@@ -1,9 +1,9 @@
 import Burger from '@assets/images/Burger.svg'
 import { MenuEntity, MenusQuery } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 
 import SearchBox from '../Navigation/SearchBox'
@@ -14,7 +14,7 @@ interface HeaderProps {
   menus: MenuEntity[]
 }
 
-function MobilHeader({ menus }: HeaderProps) {
+const MobilHeader = ({ menus }: HeaderProps) => {
   const [isOpen, setOpen] = useState(false)
   const router = useRouter()
   const { t } = useTranslation('common')
@@ -28,7 +28,7 @@ function MobilHeader({ menus }: HeaderProps) {
   return (
     <>
       <div className="m-auto">
-        <div className="flex justify-between border-b border-gray-900">
+        <div className="flex justify-between border-b border-border-dark">
           <Link href="/" passHref>
             <>
               <a className="relative hidden w-full grid-cols-10 items-center pr-8 uppercase lg:grid">
@@ -38,7 +38,7 @@ function MobilHeader({ menus }: HeaderProps) {
                     <span
                       key={word}
                       className={cx(
-                        'flex h-[30px] min-w-fit items-center border-r border-gray-900 px-[7px] py-[2px]',
+                        'flex h-[30px] min-w-fit items-center border-r border-border-dark px-[7px] py-[2px]',
                         {
                           'col-span-1': word.length <= 4,
                           'col-span-5': word.length > 4,
@@ -48,7 +48,7 @@ function MobilHeader({ menus }: HeaderProps) {
                       {word}
                     </span>
                   ))}
-                <div className="absolute top-1/2 -z-10 w-full border-b border-gray-900" />
+                <div className="absolute top-1/2 -z-10 w-full border-b border-border-dark" />
               </a>
               <Link href="/" passHref>
                 <a className="flex w-full flex-col justify-center">
@@ -60,13 +60,13 @@ function MobilHeader({ menus }: HeaderProps) {
                         <span
                           key={word}
                           className={cx(
-                            'flex h-[30px] min-w-fit items-center border-r border-gray-900 px-[7px] py-[2px]'
+                            'flex h-[30px] min-w-fit items-center border-r border-border-dark px-[7px] py-[2px]'
                           )}
                         >
                           {word}
                         </span>
                       ))}
-                    <div className="absolute bottom-0 -z-10 w-full border-b border-gray-900" />
+                    <div className="absolute bottom-0 -z-10 w-full border-b border-border-dark" />
                   </div>
                   <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
                     {t('pageTitle')
@@ -76,7 +76,7 @@ function MobilHeader({ menus }: HeaderProps) {
                         <span
                           key={word}
                           className={cx(
-                            'flex h-[30px] min-w-fit items-center border-r border-gray-900 px-[7px] py-[2px]'
+                            'flex h-[30px] min-w-fit items-center border-r border-border-dark px-[7px] py-[2px]'
                           )}
                         >
                           {word}
@@ -90,14 +90,14 @@ function MobilHeader({ menus }: HeaderProps) {
 
           <SkipNavigation />
 
-          <div className="border-l border-gray-900">
+          <div className="border-l border-border-dark">
             <Burger onClick={() => setOpen(true)} className="m-4 cursor-pointer" />
             {isOpen && <MobileNavigation menus={menus} onClose={() => setOpen(false)} />}
           </div>
         </div>
       </div>
 
-      <div className="m-auto border-b border-gray-900">
+      <div className="m-auto border-b border-border-dark">
         <div className="flex">
           <div className="w-[320px] py-2 px-[5px]">
             <SearchBox text={t('searchBook')} />

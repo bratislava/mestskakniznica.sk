@@ -9,7 +9,7 @@ interface IVideo {
   size?: 'default' | 'custom'
 }
 
-export function Video({ id, className, youTubeUrl, mediaUrl, size = 'default' }: IVideo) {
+export const Video = ({ id, className, youTubeUrl, mediaUrl, size = 'default' }: IVideo) => {
   const [embedUrl, setEmbedUrl] = React.useState('')
 
   React.useEffect(() => {
@@ -20,9 +20,9 @@ export function Video({ id, className, youTubeUrl, mediaUrl, size = 'default' }:
 
       const substrStart = html.indexOf('src="') + 5
       const substrEnd = html.indexOf('oembed') + 6
-      const embedUrl = html.substring(substrStart, substrEnd)
+      const embedUrlInner = html.slice(substrStart, substrEnd)
 
-      setEmbedUrl(embedUrl)
+      setEmbedUrl(embedUrlInner)
     }
 
     if (youTubeUrl) parseYoutubeUrl()
@@ -31,10 +31,15 @@ export function Video({ id, className, youTubeUrl, mediaUrl, size = 'default' }:
   return (
     <div
       className={cx(className, {
-        'w-72 h-[162px] lg:w-[780px] lg:h-[439px]': size === 'default',
+        'h-[162px] w-72 lg:h-[439px] lg:w-[780px]': size === 'default',
       })}
     >
-      <iframe className={cx('w-full h-full')} title={id} src={youTubeUrl ? embedUrl : mediaUrl} allowFullScreen />
+      <iframe
+        className={cx('h-full w-full')}
+        title={id}
+        src={youTubeUrl ? embedUrl : mediaUrl}
+        allowFullScreen
+      />
     </div>
   )
 }

@@ -15,20 +15,26 @@ interface IBreadcrumb {
   url: string
 }
 
-export function Breadcrumbs({ items, homeLabel = 'Home' }: BreadcrumbsProps) {
-  return <div className=" flex text-sm h-[56px]">
-    <Link href="/" className="py-4">
-      <Home />
-      <span className="sr-only">{homeLabel}</span>
-    </Link>
-    <div className="flex">
-      {items.map((item) => (
+export const Breadcrumbs = ({ items, homeLabel = 'Home' }: BreadcrumbsProps) => {
+  return (
+    <div className=" flex h-[56px] text-base">
+      <Link href="/" className="py-4">
+        <Home/>
+        <span className="sr-only">{homeLabel}</span>
+      </Link>
+      <div className="flex">
+        {items.map((item) => (
           <Fragment key={item.url}>
-            <div className="pl-[18px] py-6">
-              <ChevronRight />
+            <div className="py-6 pl-[18px]">
+              <ChevronRight/>
             </div>
             {item.url && item.url !== null ? (
-              <Link href={item.url} className="py-4 pl-3 cursor-pointer" uppercase={false} size="large">
+              <Link
+                href={item.url}
+                className="cursor-pointer py-4 pl-3"
+                uppercase={false}
+                size="large"
+              >
                 <a href={item.url} className="">
                   {item.title}
                 </a>
@@ -40,6 +46,7 @@ export function Breadcrumbs({ items, homeLabel = 'Home' }: BreadcrumbsProps) {
             )}
           </Fragment>
         ))}
+      </div>
     </div>
-  </div>
+  )
 }

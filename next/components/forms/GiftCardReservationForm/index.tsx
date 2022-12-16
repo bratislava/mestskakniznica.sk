@@ -1,5 +1,6 @@
 import { Input, Select } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { convertDataToBody, useGetFormOptions } from '@utils/form-constants'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -7,12 +8,11 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { convertDataToBody, useGetFormOptions } from '@utils/form-constants'
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import { options } from './options'
 
-function GiftCardReservationForm() {
+const GiftCardReservationForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
@@ -80,6 +80,8 @@ function GiftCardReservationForm() {
     // send email
     const res = await fetch(`/api/submit-form`, {
       method: 'POST',
+      // TODO fix eslint
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       body: JSON.stringify(body),
     })
@@ -109,7 +111,7 @@ function GiftCardReservationForm() {
         errorMessage={t('order_error_message')}
       >
         <div className="mt-4 flex w-full flex-col gap-y-6">
-          <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="fName"
@@ -198,7 +200,7 @@ function GiftCardReservationForm() {
             )}
           />
           {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')}/>
         </div>
       </FormContainer>
     </FormProvider>

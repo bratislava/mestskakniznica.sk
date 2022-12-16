@@ -8,7 +8,15 @@ export interface UploadProps
   hasError?: boolean
 }
 
-export function Upload({ className, children, labelContent, hasError, required, ...props }: UploadProps) {
+export const Upload = (
+  {
+    className,
+    children,
+    labelContent,
+    hasError,
+    required,
+    ...props
+  }: UploadProps) => {
   const [isInArea, setIsInArea] = React.useState(false)
   const fileInputRef: React.LegacyRef<HTMLInputElement> = React.useRef(null)
 
@@ -16,17 +24,21 @@ export function Upload({ className, children, labelContent, hasError, required, 
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('text-xs text-gray-universal-100 mb-0.5 opacity-80')}>
+        <label className={cx('mb-0.5 text-sm text-foreground-heading opacity-80')}>
           {labelContent}
-          {required && <span className="text-error pl-1">*</span>}
+          {required && <span className="pl-1 text-error">*</span>}
         </label>
       )}
       <div
-        className={cx('relative flex flex-col group gap-y-6 items-center justify-center p-6 border border-dashed', {
-          'bg-emerald-200 transform transition-all duration-200': isInArea || fileInputRef.current?.files?.length,
-          'border-gray-universal-100': !hasError,
-          'border-error': hasError,
-        })}
+        className={cx(
+          'group relative flex flex-col items-center justify-center gap-y-6 border border-dashed p-6',
+          {
+            'bg-emerald-200 transform transition-all duration-200':
+              isInArea || fileInputRef.current?.files?.length,
+            'border-border-dark': !hasError,
+            'border-error': hasError,
+          }
+        )}
         onDragEnter={() => setIsInArea(true)}
         onDragLeave={() => setIsInArea(false)}
       >
@@ -34,12 +46,13 @@ export function Upload({ className, children, labelContent, hasError, required, 
           id="file_input"
           ref={fileInputRef}
           type="file"
-          className="absolute w-full h-full opacity-0 cursor-pointer"
+          className="absolute h-full w-full cursor-pointer opacity-0"
           aria-required={required}
           {...props}
         />
-        <UploadIcon className="group-hover:text-white group-hover:rounded-full group-hover:bg-gray-universal-100 group-hover:bg-red-300" />
-        <div className="text-center text-gray-universal-70 text-[12px] lg:text-[14px]">{children}</div>
+        <UploadIcon
+          className="group-hover:rounded-full group-hover:bg-error group-hover:bg-dark group-hover:text-white"/>
+        <div className="text-center text-[12px] text-foreground-body lg:text-[14px]">{children}</div>
       </div>
     </div>
   )

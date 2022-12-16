@@ -12,7 +12,7 @@ const schema = yup
   })
   .required()
 
-function NewsletterSection() {
+const NewsletterSection = () => {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -65,7 +65,10 @@ function NewsletterSection() {
             inputPlaceholder={t('newsletter_placeholder')}
             buttonContent={t('newsletter_button')}
             checkboxContent={
-              <div className="md:w-[580px] text-sm" dangerouslySetInnerHTML={{ __html: t('newsletter_checkbox') }} />
+              <div
+                className="text-base md:w-[580px]"
+                dangerouslySetInnerHTML={{ __html: t('newsletter_checkbox') }}
+              />
             }
             errorMessage={t('newsletter_error')}
             onSubmit={handleSubmit}
@@ -75,8 +78,10 @@ function NewsletterSection() {
         </FormProvider>
       ) : (
         <div className="container flex flex-col items-center justify-center">
-          <h2 className="pt-30 text-lg pb-6">{t('newsletter_sent_title')}</h2>
-          <div className="w-[780px] m-auto text-sm pb-30 text-center text-gray-500">{t('newsletter_sent_text')}</div>
+          <h2 className="pt-30 pb-6 text-h3">{t('newsletter_sent_title')}</h2>
+          <div className="m-auto w-[780px] pb-30 text-center text-base text-foreground-body">
+            {t('newsletter_sent_text')}
+          </div>
         </div>
       )}
     </>

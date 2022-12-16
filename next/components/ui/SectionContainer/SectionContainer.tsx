@@ -6,14 +6,16 @@ interface SectionContainerProps {
   noPadding?: boolean
 }
 
-export function SectionContainer({
+export const SectionContainer = ({
   children,
   className,
   hasBackground = false,
   noPadding = false,
   ...rest
-}: HTMLAttributes<HTMLDivElement> & SectionContainerProps) {
-  return <div className={cx({ 'px-4 lg:px-8': !noPadding }, className)} {...rest}>
-    <div className="max-w-[1180px] mx-auto">{children}</div>
-  </div>
+}: HTMLAttributes<HTMLDivElement> & SectionContainerProps) => {
+  return (
+    <div className={cx({ 'px-4 lg:px-8': !noPadding }, className)} {...rest}>
+      <div className="mx-auto max-w-[1180px]">{children}</div>
+    </div>
+  )
 }

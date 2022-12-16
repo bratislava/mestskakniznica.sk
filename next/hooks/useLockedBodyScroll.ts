@@ -16,7 +16,7 @@ function useLockedBody(initialLocked = false): ReturnType {
 
     document.body.style.overflow = 'hidden'
 
-    const root = document.querySelector('#___gatsby') as HTMLElement | null; // or root
+    const root = document.querySelector('#___gatsby') as HTMLElement | null // or root
     const scrollBarWidth = root ? root.offsetWidth - root.scrollWidth : 0
 
     if (scrollBarWidth) {

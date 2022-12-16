@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { EventCardEntityFragment, EventTagEntity, ImageEntityFragment } from '../../../graphql'
-import { WithAttributes } from '../../../utils/isDefined'
 
+import { EventCardEntityFragment } from '../../../graphql'
+import { WithAttributes } from '../../../utils/isDefined'
 import { dateTimeString } from '../../../utils/utils'
 import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import TagsDisplay from '../../Atoms/TagsDisplay'
@@ -12,7 +12,7 @@ interface IPromoEventCardProps {
   event: WithAttributes<EventCardEntityFragment> | null | undefined
 }
 
-function PromoEventCard({ event }: IPromoEventCardProps) {
+const PromoEventCard = ({ event }: IPromoEventCardProps) => {
   const { locale } = usePageWrapperContext()
 
   if (!event) {
@@ -37,7 +37,7 @@ function PromoEventCard({ event }: IPromoEventCardProps) {
       <a href={slug || ''}>
         <div className="h-full w-full">
           <div className="relative m-auto flex h-full cursor-pointer flex-col justify-between bg-promo-yellow">
-            <div className="flex flex-wrap pl-5 pt-4 text-sm">
+            <div className="flex flex-wrap pl-5 pt-4 text-base">
               <TagsDisplay
                 tags={eventTags?.data || []}
                 category={eventCategory?.data?.attributes?.title || ''}
@@ -45,7 +45,8 @@ function PromoEventCard({ event }: IPromoEventCardProps) {
               />
             </div>
 
-            <div className="text-black m-auto mt-3 w-full justify-end pl-5 pr-[19px] text-lg line-clamp-3 hover:underline">
+            <div
+              className="m-auto mt-3 w-full justify-end pl-5 pr-[19px] text-h3 text-black line-clamp-3 hover:underline">
               {title}
             </div>
             <div>
@@ -58,11 +59,11 @@ function PromoEventCard({ event }: IPromoEventCardProps) {
                   />
                 </div>
                 <div className="m-auto overflow-hidden">
-                  <div className="overflow-hidden text-ellipsis whitespace-pre text-xs">
+                  <div className="overflow-hidden text-ellipsis whitespace-pre text-sm">
                     {dateTimeString(dateFrom || '', dateTo || '', locale)}
                   </div>
                   {eventLocality?.data?.attributes?.title && (
-                    <div className="overflow-hidden text-ellipsis whitespace-pre text-xs">
+                    <div className="overflow-hidden text-ellipsis whitespace-pre text-sm">
                       &#9679; {eventLocality.data.attributes.title}
                     </div>
                   )}

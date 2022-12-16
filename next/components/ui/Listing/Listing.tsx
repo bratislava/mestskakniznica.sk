@@ -15,24 +15,32 @@ export interface ListingProps {
   hasDivider?: boolean
 }
 
-export function Listing({ className, title, url, moreLinkTitle, pages, hasDivider }: ListingProps) {
+export const Listing = (
+  {
+    className,
+    title,
+    url,
+    moreLinkTitle,
+    pages,
+    hasDivider,
+  }: ListingProps) => {
   const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className)}>
       {moreLinkTitle && url && (
         <Link href={url} hasIcon>
-          <div className="flex w-full justify-between items-center">
-            <h2 className="text-md lg:text-lg normal-case">{title}</h2>
+          <div className="flex w-full items-center justify-between">
+            <h2 className="text-h3 normal-case">{title}</h2>
             {moreLinkTitle}
           </div>
         </Link>
       )}
 
-      <div className="grid grid-cols-1 gap-y-2 mt-4 md:mt-6 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
+      <div className="mt-4 grid grid-cols-1 gap-y-2 md:mt-6 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
         {pages?.map((page) => (
           <UILink href={page.url} key={page.title}>
             <CallToAction
-              className="hidden md:flex w-full h-[180px] mt-0"
+              className="mt-0 hidden h-[180px] w-full md:flex"
               key={page.title}
               title={page.title}
               href={page.url}
@@ -40,17 +48,19 @@ export function Listing({ className, title, url, moreLinkTitle, pages, hasDivide
               hasIcon={false}
               uppercase={false}
               customIcon={
-                <span className="inline-flex ml-2">
-                  <ChevronRight />
+                <span className="ml-2 inline-flex">
+                  <ChevronRight/>
                 </span>
               }
             />
 
-            <RowSubcategory className="md:hidden" title={page.title} icon={<ChevronRight />} />
+            <RowSubcategory className="md:hidden" title={page.title} icon={<ChevronRight/>}/>
           </UILink>
         ))}
       </div>
-      {hasDivider && <div className="hidden mt-16 border-b-[1px] border-gray-700 w-full md:flex" />}
+      {hasDivider && (
+        <div className="mt-16 hidden w-full border-b-[1px] border-border-dark md:flex"/>
+      )}
     </div>
   )
 }

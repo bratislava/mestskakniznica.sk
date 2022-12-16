@@ -15,30 +15,30 @@ export interface ExternalLinksProps {
   sections?: TExternalLinksSection[]
 }
 
-export function ExternalLinks({ className, title, sections }: ExternalLinksProps) {
+export const ExternalLinks = ({ className, title, sections }: ExternalLinksProps) => {
   const { Link: UILink } = useUIContext()
   return (
-    <div className={cx(className, '')}>
-      {title && <h3 className="text-md2 text-gray-universal-100">{title}</h3>}
+    <div className={cx(className)}>
+      {title && <h3 className="text-h3.5">{title}</h3>}
 
       {sections && (
-        <div className="flex flex-col space-y-8 mt-6">
+        <div className="mt-6 flex flex-col space-y-8">
           {sections?.map((section, index) => (
             <div key={index}>
-              {section.description && <FlatText content={section.description} />}
+              {section.description && <FlatText content={section.description}/>}
 
               {section.links && (
-                <div className="flex flex-col space-y-3 mt-4">
+                <div className="mt-4 flex flex-col space-y-3">
                   {section?.links.map((link) => (
                     <UILink
                       key={link.title}
-                      className="flex justify-between items-center border border-gray-universal-100 p-4 text-gray-universal-100 text-sm"
+                      className="flex items-center justify-between border border-border-dark p-4 text-base text-foreground-heading"
                       href={link.url ?? '#'}
                       target="_blank"
                       rel="noreferrer"
                     >
                       {link.title}
-                      <Open />
+                      <Open/>
                     </UILink>
                   ))}
                 </div>

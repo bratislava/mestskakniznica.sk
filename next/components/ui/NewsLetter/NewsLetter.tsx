@@ -18,23 +18,24 @@ interface IProps {
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
 }
 
-export function NewsLetter({
-  className,
-  title,
-  buttonContent,
-  checkboxContent,
-  errorMessage,
-  inputPlaceholder,
-  respondMessage,
-  resStatus,
-  onSubmit,
-}: IProps) {
+export const NewsLetter = (
+  {
+    className,
+    title,
+    buttonContent,
+    checkboxContent,
+    errorMessage,
+    inputPlaceholder,
+    respondMessage,
+    resStatus,
+    onSubmit,
+  }: IProps) => {
   const methods = useFormContext()
   const { errors } = useFormState()
 
   return (
     <div className={cx('flex flex-col items-center justify-center', className)}>
-      <h2 className="pt-10 text-center text-md lg:pt-24 lg:text-lg">{title}</h2>
+      <h2 className="pt-10 text-center text-h3 lg:pt-24">{title}</h2>
       <form className="pt-4 pb-10 lg:pt-6 lg:pb-24" onSubmit={onSubmit}>
         <div className="flex flex-col gap-y-4 lg:flex-row lg:gap-x-4 lg:gap-y-0">
           <Controller
@@ -53,7 +54,7 @@ export function NewsLetter({
             )}
           />
 
-          <Button className="w-full py-[9px] text-xs lg:w-auto lg:py-4.25 lg:px-8">
+          <Button className="w-full py-[9px] text-sm lg:w-auto lg:py-4.25 lg:px-8">
             {buttonContent}
           </Button>
         </div>

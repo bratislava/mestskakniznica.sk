@@ -11,7 +11,7 @@ export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
 export const phoneRegexOrEmpty = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)|^$/
 export const postalCodeRegex = /^\d{5}(?:-\d{4})?$/
 export const IBANRegex = /^[A-Z]{2}(?: ?\d){13,30}$/
-export const IDCardRegex = /^(([a-zA-Z]{2})([0-9]{6}))$/
+export const IDCardRegex = /^(([A-Za-z]{2})(\d{6}))$/
 
 export enum SubmitStatus {
   NONE,
@@ -33,18 +33,19 @@ interface FormContainerProps {
   wrapperClass?: string
 }
 
-function FormContainer({
-  children,
-  buttonText,
-  title,
-  onSubmit,
-  isSubmitted,
-  onReset,
-  successTitle,
-  successMessage,
-  errorMessage,
-  wrapperClass,
-}: FormContainerProps) {
+const FormContainer = (
+  {
+    children,
+    buttonText,
+    title,
+    onSubmit,
+    isSubmitted,
+    onReset,
+    successTitle,
+    successMessage,
+    errorMessage,
+    wrapperClass,
+  }: FormContainerProps) => {
   const [isFormOpen, setFormOpen] = useState(false)
   const { t } = useTranslation('forms')
 
@@ -68,16 +69,16 @@ function FormContainer({
   }
 
   return (
-    <div className={cx('flex flex-col border border-gray-900 p-4', wrapperClass)}>
-      {isSubmitted == SubmitStatus.NONE ? (
+    <div className={cx('flex flex-col border border-border-dark p-4', wrapperClass)}>
+      {isSubmitted === SubmitStatus.NONE ? (
         <>
-          <div className="mb-4 text-md md:px-4 md:pt-4 md:text-lg" id="form-title">
+          <div className="mb-4 text-h3 md:px-4 md:pt-4" id="form-title">
             {title}
           </div>
           <button
             onClick={() => setFormOpen(true)}
             className={cx(
-              'flex items-center justify-center bg-gray-900 py-2 px-4 text-center text-sm uppercase text-white md:mx-4 md:mb-4',
+              'flex items-center justify-center bg-button-dark py-2 px-4 text-center text-base uppercase text-white md:mx-4 md:mb-4',
               { hidden: isFormOpen }
             )}
             aria-labelledby="form-title"
@@ -87,21 +88,21 @@ function FormContainer({
           {isFormOpen && (
             <form
               onSubmit={onSubmit}
-              className="fixed top-0 right-0 bottom-0 left-0 z-40 flex flex-col bg-white md:relative md:z-0"
+              className="fixed inset-0 z-40 flex flex-col bg-white md:relative md:z-0"
               onKeyDown={() => listener}
               tabIndex={0}
             >
               {/* HEADER */}
-              <div className="flex items-center justify-between border-b border-gray-900 md:hidden">
+              <div className="flex items-center justify-between border-b border-border-dark md:hidden">
                 <span className="pl-4">{title}</span>
                 <button className="p-4" onClick={() => setFormOpen(false)}>
-                  <CloseIcon />
+                  <CloseIcon/>
                 </button>
               </div>
               {/* BODY */}
 
               <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 pt-0">
-                <div className="pt-4 text-xs text-gray-universal-70 md:pt-0">
+                <div className="pt-4 text-sm text-foreground-body md:pt-0">
                   {t('required_fields')} (<span className="text-error">*</span>
                   ).
                 </div>

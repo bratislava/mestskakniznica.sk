@@ -10,12 +10,12 @@ export interface SubListingProps {
   linkTitle?: string
 }
 
-export function SubListing({ title, url, linkTitle }: SubListingProps) {
+export const SubListing = ({ title, url, linkTitle }: SubListingProps) => {
   const { Link: UILink } = useUIContext()
   return (
     <UILink key={title} href={url || ''}>
       <CallToAction
-        className="hidden md:flex w-full h-[180px] mt-0"
+        className="mt-0 hidden h-[180px] w-full md:flex"
         key={title}
         title={title || ''}
         href={url || ''}
@@ -23,7 +23,7 @@ export function SubListing({ title, url, linkTitle }: SubListingProps) {
         hasIcon={false}
         uppercase={false}
         customIcon={
-          <span className="inline-flex ml-2">
+          <span className="ml-2 inline-flex">
             <ChevronRight />
           </span>
         }

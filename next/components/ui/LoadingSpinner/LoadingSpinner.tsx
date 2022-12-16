@@ -6,7 +6,7 @@ interface IProps {
   size?: 'small' | 'default' | 'medium'
 }
 
-export function LoadingSpinner({ className, size = 'default', text }: IProps) {
+export const LoadingSpinner = ({ className, size = 'default', text }: IProps) => {
   return (
     <div className={cx('flex flex-col items-center gap-20 text-center', className)}>
       <div
@@ -19,7 +19,7 @@ export function LoadingSpinner({ className, size = 'default', text }: IProps) {
           'h-40 w-40 border-8': size === 'default',
         })}
       />
-      {text && <p className="w-52 text-lg font-medium text-primary">{text}</p>}
+      {text && <p className="w-52 text-h3 font-medium text-foreground-body">{text}</p>}
     </div>
   )
 }

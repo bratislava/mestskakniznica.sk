@@ -2,9 +2,9 @@ import { PageEntity, PartnerEntity } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, Partner, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import useSWR from 'swr'
+
 import { client } from '../../utils/gql'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import PartnerSkeleton from '../ui/Partner/PartnerSkeleton'
 
@@ -12,7 +12,7 @@ export interface IPartnersPageProps {
   page: PageEntity
 }
 
-function PartnersPage({ page }: IPartnersPageProps) {
+const PartnersPage = ({ page }: IPartnersPageProps) => {
   const { t } = useTranslation('common')
   const { locale = 'sk' } = usePageWrapperContext()
 
@@ -31,7 +31,7 @@ function PartnersPage({ page }: IPartnersPageProps) {
           description={page?.attributes?.description ?? ''}
         />
 
-        {error ? error : null}
+        {error || null}
 
         {!partners && !error && (
           <>

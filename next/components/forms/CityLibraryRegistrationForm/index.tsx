@@ -2,6 +2,7 @@ import { Button, CheckBox, DateTimeSelect, Input } from '@bratislava/ui-city-lib
 import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LocalDate } from '@js-joda/core'
+import { useGetFormOptions } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useTranslation } from 'next-i18next'
@@ -9,18 +10,12 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { useGetFormOptions } from '@utils/form-constants'
-import FormContainer, {
-  IDCardRegex,
-  phoneRegex,
-  postalCodeRegex,
-  SubmitStatus,
-} from '../FormContainer'
+import FormContainer, { IDCardRegex, phoneRegex, postalCodeRegex, SubmitStatus, } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
 import { options } from './options'
 
-function CityLibraryRegistrationForm() {
+const CityLibraryRegistrationForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [errMessage, setErrMessage] = React.useState('')
   const [step, setStep] = React.useState(1)
@@ -190,7 +185,7 @@ function CityLibraryRegistrationForm() {
           onClick={() => setStep(1)}
         >
           <div className="flex w-full flex-col gap-y-6">
-            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+            <div className="flex flex-col justify-between gap-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="fName"
@@ -241,7 +236,7 @@ function CityLibraryRegistrationForm() {
               )}
             />
 
-            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+            <div className="flex flex-col justify-between gap-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="password"
@@ -296,7 +291,7 @@ function CityLibraryRegistrationForm() {
             />
           </div>
           <div className="my-6 flex flex-col gap-y-6 border p-6 ">
-            <p className="text-left text-default text-gray-universal-100 ">
+            <p className="text-left text-lg text-foreground-heading ">
               {t('permanent_address')} <span className="text-error">*</span>
             </p>
             <Controller
@@ -315,7 +310,7 @@ function CityLibraryRegistrationForm() {
                 />
               )}
             />
-            <div className="flex flex-col justify-between gap-y-6 gap-x-6 lg:flex-row">
+            <div className="flex flex-col justify-between gap-6 lg:flex-row">
               <Controller
                 control={methods.control}
                 name="city"
@@ -362,7 +357,7 @@ function CityLibraryRegistrationForm() {
                   name="useTempAddress"
                   checked={value}
                 >
-                  <div className="text-xs">{t('add_temporary_address')}</div>
+                  <div className="text-sm">{t('add_temporary_address')}</div>
                 </CheckBox>
               )}
             />
@@ -370,7 +365,7 @@ function CityLibraryRegistrationForm() {
 
           {showTempAddress && (
             <div className="my-6 flex flex-col gap-y-6 border p-6 ">
-              <p className="text-left text-default text-gray-universal-100 ">
+              <p className="text-left text-lg text-foreground-heading ">
                 {t('temporary_address')} <span className="text-error">*</span>
               </p>
               <Controller
@@ -389,7 +384,7 @@ function CityLibraryRegistrationForm() {
                   />
                 )}
               />
-              <div className="flex flex-col justify-between gap-y-6 gap-x-6  lg:flex-row">
+              <div className="flex flex-col justify-between gap-6 lg:flex-row">
                 <Controller
                   control={methods.control}
                   name="tempCity"
@@ -426,7 +421,7 @@ function CityLibraryRegistrationForm() {
             </div>
           )}
 
-          <div className="mb-6 flex flex-col justify-between gap-y-6  gap-x-6 lg:flex-row">
+          <div className="mb-6 flex flex-col justify-between gap-6  lg:flex-row">
             <Controller
               control={methods.control}
               name="birthDate"
@@ -485,7 +480,7 @@ function CityLibraryRegistrationForm() {
               <RadioGroup
                 id="IDType_input"
                 labelContent={t('ID_type')}
-                className="flex flex-col gap-x-4 gap-y-4"
+                className="flex flex-col gap-4"
                 wrapperClassName="w-full mb-6"
                 radioClassName="w-full"
                 options={selectOptions}
@@ -512,7 +507,7 @@ function CityLibraryRegistrationForm() {
                 checked={value}
                 aria-invalid={errors.acceptNewsletter ? 'true' : 'false'}
               >
-                <div className="text-xs">{t('form_city_accept_newsletter')}</div>
+                <div className="text-sm">{t('form_city_accept_newsletter')}</div>
               </CheckBox>
             )}
           />
@@ -529,12 +524,12 @@ function CityLibraryRegistrationForm() {
                 aria-invalid={errors.authorizedToUseBlindDepartment ? 'true' : 'false'}
                 className="pt-4"
               >
-                <div className="text-xs">{t('form_city_auth_blind_dep')}</div>
+                <div className="text-sm">{t('form_city_auth_blind_dep')}</div>
               </CheckBox>
             )}
           />
 
-          <FormFooter buttonContent={t('send')} className="pt-4" />
+          <FormFooter buttonContent={t('send')} className="pt-4"/>
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

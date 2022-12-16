@@ -1,8 +1,8 @@
-import { MenuEntity } from '../../../graphql'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
 
+import { MenuEntity } from '../../../graphql'
 import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
 import MobileNavigationItem from './MobileNavigationItem'
 
@@ -11,7 +11,7 @@ interface MobileNavigationProps {
   menus: MenuEntity[]
 }
 
-export function MobileNavigation({ onClose, menus }: MobileNavigationProps) {
+export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
   const { t } = useTranslation(['common', 'homepage'])
 
   useEffect(() => {
@@ -34,12 +34,12 @@ export function MobileNavigation({ onClose, menus }: MobileNavigationProps) {
   //   : t('openingHoursClosed');
 
   return (
-    <div className="max-w-1180 fixed inset-x-0 top-0 z-30 m-auto h-screen border-gray-900 bg-white">
-      <div className="flex h-[61px] justify-between border-b border-gray-900">
+    <div className="max-w-1180 fixed inset-x-0 top-0 z-30 m-auto h-screen border-border-dark bg-white">
+      <div className="flex h-[61px] justify-between border-b border-border-dark">
         <div className="flex h-full">
           <div className="flex h-full items-center px-5">
             <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
-              <a className="border-gray-900 text-sm font-normal leading-[19.6px]">
+              <a className="border-border-dark text-base font-normal">
                 {otherLocaleData.locale.toUpperCase()}
               </a>
             </Link>
@@ -54,17 +54,17 @@ export function MobileNavigation({ onClose, menus }: MobileNavigationProps) {
       </div>
 
       {menus?.map((menu, index) => (
-        <MobileNavigationItem menu={menu} key={index} menus={menus} />
+        <MobileNavigationItem menu={menu} key={index} menus={menus}/>
       ))}
-      <div className="pl-4 pr-4 pt-[47px] pb-4">
-        <div className="border-b border-gray-900 pb-4 text-[16px]">
+      <div className="px-4 pt-[47px] pb-4">
+        <div className="border-b border-border-dark pb-4 text-[16px]">
           <Link href={t('openingHoursPageLink')} passHref>
             <a>{openingHours}</a>
           </Link>
         </div>
       </div>
-      <div className="pl-4 pr-4 pb-10">
-        <div className="border-b border-gray-900 pb-4 text-[16px]">
+      <div className="px-4 pb-10">
+        <div className="border-b border-border-dark pb-4 text-[16px]">
           <Link href="https://opac.mestskakniznica.sk/opac" passHref>
             <a target="_blank">{t('onlineCatalog')}</a>
           </Link>

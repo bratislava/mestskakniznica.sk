@@ -2,17 +2,18 @@ import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { Localities, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 import useSWR from 'swr'
-import { client } from '../../utils/gql'
 
+import { client } from '../../utils/gql'
+import { convertPagesToLocalities } from '../../utils/utils'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import Sections from '../Molecules/Sections'
-import { convertPagesToLocalities } from '../../utils/utils'
+
 export interface LocalityPageProps {
   page: PageEntity
 }
 
-function LocalitiesListingPage({ page }: LocalityPageProps) {
+const LocalitiesListingPage = ({ page }: LocalityPageProps) => {
   const { t } = useTranslation(['common', 'homepage'])
 
   const { locale = 'sk' } = usePageWrapperContext()
@@ -33,7 +34,7 @@ function LocalitiesListingPage({ page }: LocalityPageProps) {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <div className="border-b border-gray-900">
+        <div className="border-b border-border-dark">
           <PageTitle
             title={page?.attributes?.title ?? ''}
             description={page?.attributes?.description ?? ''}

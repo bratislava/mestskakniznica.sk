@@ -1,5 +1,12 @@
 import { IRadioOption } from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
-import _ from 'lodash'
+import isArray from 'lodash/isArray'
+import isBoolean from 'lodash/isBoolean'
+import isDate from 'lodash/isDate'
+import isEmpty from 'lodash/isEmpty'
+import isNull from 'lodash/isNull'
+import isNumber from 'lodash/isNumber'
+import isPlainObject from 'lodash/isPlainObject'
+import isString from 'lodash/isString'
 
 import { usePageWrapperContext } from '../components/layouts/PageWrapper'
 
@@ -14,6 +21,21 @@ interface IFormLabelOption {
   label: string
 }
 
+const convertValue = (value: any) => {
+  if (isBoolean(value)) {
+    return value ? 'Áno' : 'Nie'
+  }
+  if (isDate(value)) {
+    return value.toLocaleDateString('sk', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    })
+  }
+  return String(value)
+}
+
+/* eslint-disable no-secrets/no-secrets */
 const getMailTranslationKey = (key: string): string => {
   const translationMap: { key: string; value: string }[] = [
     { key: 'fName', value: 'first_name' },
@@ -77,12 +99,14 @@ const getMailTranslationKey = (key: string): string => {
     { key: 'issueDate', value: 'issue_date' },
   ]
 
-  return translationMap.find((item) => item.key == key)?.value ?? key
+  return translationMap.find((item) => item.key === key)?.value ?? key
 }
+/* eslint-enable no-secrets/no-secrets */
 
 const key = (k: string, t: (arg0: string, args1: any) => string): string =>
   t(getMailTranslationKey(k), { lng: 'sk' })
 
+// TODO fix eslint
 function flattenObject(
   o: any,
   t: (arg0: string, args1: any) => string,
@@ -90,23 +114,19 @@ function flattenObject(
   result: { [key: string]: any } = {},
   keepNull = true
 ) {
-  if (
-    _.isString(o) ||
-    _.isNumber(o) ||
-    _.isBoolean(o) ||
-    _.isDate(o) ||
-    (keepNull && _.isNull(o))
-  ) {
+  if (isString(o) || isNumber(o) || isBoolean(o) || isDate(o) || (keepNull && isNull(o))) {
+    // eslint-disable-next-line no-param-reassign
     result[key(prefix, t)] = convertValue(o)
     return result
   }
 
-  if (_.isArray(o) || _.isPlainObject(o)) {
+  if (isArray(o) || isPlainObject(o)) {
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const i in o) {
       let pref = key(prefix, t)
-      if (_.isArray(o)) {
+      if (isArray(o)) {
         pref = `${pref} (${Number(i) + 1})`
-      } else if (_.isEmpty(prefix)) {
+      } else if (isEmpty(prefix)) {
         pref = i
       } else {
         pref = `${key(prefix, t)}. ${key(i, t)}`
@@ -116,20 +136,6 @@ function flattenObject(
     return result
   }
   return result
-}
-
-const convertValue = (value: any) => {
-  if (_.isBoolean(value)) {
-    return value ? 'Áno' : 'Nie'
-  }
-  if (_.isDate(value)) {
-    return value.toLocaleDateString('sk', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    })
-  }
-  return String(value)
 }
 
 export const convertDataToBody = (data: object, t: (arg0: string, args1: any) => string) =>
@@ -142,7 +148,7 @@ export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRa
   options.forEach((item) =>
     temp.push({
       key: item.key,
-      title: `${item.label.find((l) => l.locale == (locale ?? 'sk'))?.label ?? '-'} ${
+      title: `${item.label.find((l) => l.locale === (locale ?? 'sk'))?.label ?? '-'} ${
         showPrice ? item.price ?? '' : ''
       }`,
       price: item.price ?? null,

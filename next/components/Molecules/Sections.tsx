@@ -47,7 +47,6 @@ import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm from '../forms/VenueRentalForm'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-import EventDetails from './EventDetails'
 import GalleryBanner from './GalleryBanner'
 import LocalityDetails from './LocalityDetails'
 import Metadata from './Metadata'
@@ -76,7 +75,7 @@ const FORM: dynamicObject = {
   aka_kniha_vam_v_kniznici_chyba: BookNotInLibraryForm,
 }
 
-function NullComponent() {
+const NullComponent = () => {
   return null
 }
 
@@ -95,24 +94,25 @@ export const getForm = (
 
   return (
     <div key={key} id={formType}>
-      <Comp slug={key} eventDetail={eventDetail} />
+      <Comp slug={key} eventDetail={eventDetail}/>
     </div>
   )
 }
 
-function Sections({
-  pageTitle,
-  sections,
-  events,
-  eventsListingUrl,
-  className,
-}: {
-  pageTitle?: string | null | undefined
-  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
-  events?: EventCardEntityFragment[] | undefined
-  eventsListingUrl?: string | undefined
-  className?: string | undefined
-}) {
+const Sections = (
+  {
+    pageTitle,
+    sections,
+    events,
+    eventsListingUrl,
+    className,
+  }: {
+    pageTitle?: string | null | undefined
+    sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
+    events?: EventCardEntityFragment[] | undefined
+    eventsListingUrl?: string | undefined
+    className?: string | undefined
+  }) => {
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
       {sections.map(
@@ -134,19 +134,20 @@ function Sections({
   )
 }
 
-function Section({
-  sections,
-  pageTitle,
-  section,
-  events,
-  eventsListingUrl,
-}: {
-  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
-  pageTitle?: string | null | undefined
-  section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
-  events: EventCardEntityFragment[] | undefined
-  eventsListingUrl: string | undefined
-}) {
+const Section = (
+  {
+    sections,
+    pageTitle,
+    section,
+    events,
+    eventsListingUrl,
+  }: {
+    sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
+    pageTitle?: string | null | undefined
+    section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
+    events: EventCardEntityFragment[] | undefined
+    eventsListingUrl: string | undefined
+  }) => {
   const [openAccordion, setOpenAccordion] = useState('')
   const { t } = useTranslation(['common', 'homepage'])
   const { locale } = usePageWrapperContext()
@@ -199,7 +200,7 @@ const sectionContent = (
       )
 
     case 'ComponentSectionsGallery':
-      return <GalleryBanner gallery={section.Gallery || undefined} />
+      return <GalleryBanner gallery={section.Gallery || undefined}/>
 
     case 'ComponentSectionsFlatTextCenter':
       return (
@@ -220,7 +221,7 @@ const sectionContent = (
       )
 
     case 'ComponentSectionsFaq':
-      return <Faq title={section.title ?? ''} questions={section?.questions ?? []} />
+      return <Faq title={section.title ?? ''} questions={section?.questions ?? []}/>
 
     case 'ComponentSectionsSiteUsefullness':
       return (
@@ -236,7 +237,7 @@ const sectionContent = (
       )
 
     case 'ComponentSectionsSubpages':
-      return <Subpages title={section.title ?? ''} subpages={parseSubpages(section)} />
+      return <Subpages title={section.title ?? ''} subpages={parseSubpages(section)}/>
 
     case 'ComponentSectionsTable':
       return (
@@ -250,7 +251,7 @@ const sectionContent = (
     case 'ComponentSectionsAccordion':
       return (
         <>
-          {section.title && <h2 className="flex pb-6 text-md font-normal">{section.title}</h2>}
+          {section.title && <h2 className="flex pb-6 text-h4 font-normal">{section.title}</h2>}
           {section.tableRows &&
             groupByAccordionCategory(section.tableRows ?? []).map((item, index) => (
               <Accordion
@@ -262,7 +263,7 @@ const sectionContent = (
                 content={
                   <div key={index} className="flex flex-col space-y-6">
                     {item.tables.map((table, index) => (
-                      <Table key={index} secondaryTitle={table.title} rows={table.rows} />
+                      <Table key={index} secondaryTitle={table.title} rows={table.rows}/>
                     ))}
                   </div>
                 }
@@ -279,7 +280,7 @@ const sectionContent = (
                 defaultState={flatText.category === openAccordion}
                 stateListener={listenAccordionState}
                 content={flatText.items.map((item, index) => (
-                  <FlatText key={`${item?.category} ${index}`} content={item?.content ?? ''} />
+                  <FlatText key={`${item?.category} ${index}`} content={item?.content ?? ''}/>
                 ))}
                 size="big"
                 type="divider"
@@ -307,10 +308,10 @@ const sectionContent = (
       return getForm(section.type || '', pageTitle, eventDetail || undefined)
 
     case 'ComponentSectionsDivider':
-      return section.shown && <div className="border-b border-gray-universal-100" />
+      return section.shown && <div className="border-b border-border-dark"/>
 
     case 'ComponentSectionsColumnedText':
-      return <ColumnedText title={section.title ?? ''} content={section.content ?? ''} />
+      return <ColumnedText title={section.title ?? ''} content={section.content ?? ''}/>
 
     case 'ComponentSectionsCta':
       return (
@@ -373,7 +374,7 @@ const sectionContent = (
             content: {
               type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
               title: document?.attributes?.title ?? '',
-              metadata: <Metadata metadata={document?.attributes?.metadata || []} /> ?? '',
+              metadata: <Metadata metadata={document?.attributes?.metadata || []}/> ?? '',
               dateAdded: document?.attributes?.date_added
                 ? `${t('added')} ${formatDateToLocal(document?.attributes?.date_added, locale)}`
                 : '',

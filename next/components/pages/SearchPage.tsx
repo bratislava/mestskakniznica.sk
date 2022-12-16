@@ -1,45 +1,45 @@
+import ChevronRight from '@assets/images/chevron-right.svg'
+import CloseIcon from '@assets/images/close.svg'
+import SearchIcon from '@assets/images/search.svg'
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import {
+  Button,
+  LoadingSpinner,
   PageTitle,
   Pagination,
   SearchBar,
   SectionContainer,
   Select,
-  Button,
-} from '@bratislava/ui-city-library';
-import Link from 'next/link';
-import * as React from 'react';
-import { useTranslation } from 'next-i18next';
-import CloseIcon from '@assets/images/close.svg'
-import SearchIcon from '@assets/images/search.svg'
-import ChevronRight from '@assets/images/chevron-right.svg'
-import PageBreadcrumbs from "../Molecules/PageBreadcrumbs"
+} from '@bratislava/ui-city-library'
+import cx from 'classnames'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+import * as React from 'react'
 
-import { LoadingSpinner } from '@bratislava/ui-city-library'
-import cx from 'classnames';
+import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface PageProps {
-  page: PageEntity | undefined;
+  page: PageEntity | undefined
 }
 
 export interface MetaDataCategory {
-  key: string;
-  title: string;
+  key: string
+  title: string
 }
 
 const SearchPage = ({ page }: PageProps) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common')
 
-  const resultsRef = React.useRef<HTMLDivElement>(null);
+  const resultsRef = React.useRef<HTMLDivElement>(null)
 
   const metaDataCategories: MetaDataCategory[] = [
     { key: 'Na Webe', title: 'Na Webe' },
     { key: 'Na Webe 1', title: 'Na Webe 1' },
-  ];
+  ]
 
-  const [offsetPage, setOffsetPage] = React.useState(1);
-  const [visibleQuery, setVisibleQuery] = React.useState('');
-  const [categories, setCategories] = React.useState(metaDataCategories[0]);
+  const [offsetPage, setOffsetPage] = React.useState(1)
+  const [visibleQuery, setVisibleQuery] = React.useState('')
+  const [categories, setCategories] = React.useState(metaDataCategories[0])
 
   const pageData = [
     {
@@ -102,52 +102,52 @@ const SearchPage = ({ page }: PageProps) => {
       page_category: 'Typ obsahu',
       page_url: `${process.env.ORIGIN_ROOT_URL}/o-nas/dokumenty-a-zverejnovanie-informacii`,
     },
-  ];
+  ]
 
-  const noOfPages = Math.ceil(pageData.length / 2);
+  const noOfPages = Math.ceil(pageData.length / 2)
 
   const scrollToResults = React.useCallback(() => {
     resultsRef.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'nearest',
       inline: 'start',
-    });
-  }, [resultsRef]);
+    })
+  }, [resultsRef])
 
   const handleChangeOffsetPage = (num: number) => {
-    if (num > 0 && num <= noOfPages) setOffsetPage(num);
-  };
+    if (num > 0 && num <= noOfPages) setOffsetPage(num)
+  }
 
   const handleSearch = React.useCallback(() => {
-    scrollToResults();
-  }, [scrollToResults]);
+    scrollToResults()
+  }, [scrollToResults])
 
   const handleSearchReset = React.useCallback(() => {
-    setVisibleQuery('');
-  }, [setVisibleQuery]);
+    setVisibleQuery('')
+  }, [setVisibleQuery])
 
   const onSearchBarKeyPress = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === 'Enter') {
-        handleSearch();
+        handleSearch()
       }
     },
     [handleSearch]
-  );
+  )
 
   const onSearchBarRightIconKeyPress = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === 'Enter') {
-        handleSearchReset();
+        handleSearchReset()
       }
     },
     [handleSearchReset]
-  );
+  )
 
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs page={page}/>
       </SectionContainer>
       <SectionContainer>
         <PageTitle
@@ -155,7 +155,7 @@ const SearchPage = ({ page }: PageProps) => {
           description={page?.attributes?.description ?? ''}
           hasDivider={false}
         />
-        <div className="mt-6 flex flex-col lg:flex-row gap-y-4 lg:gap-y-0">
+        <div className="mt-6 flex flex-col gap-y-4 lg:flex-row lg:gap-y-0">
           <Select
             className="lg:w-auto"
             selectClassName="lg:w-auto py-[9px] lg:py-5"
@@ -166,8 +166,8 @@ const SearchPage = ({ page }: PageProps) => {
           <SearchBar
             placeholder={t('searchFor')}
             className="w-full"
-            inputClassName="py-2 lg:py-5 text-sm w-full border-gray-universal-200"
-            iconLeft={<SearchIcon />}
+            inputClassName="py-2 lg:py-5 text-base w-full border-border-light"
+            iconLeft={<SearchIcon/>}
             iconRight={
               <div
                 tabIndex={0}
@@ -175,7 +175,7 @@ const SearchPage = ({ page }: PageProps) => {
                 onKeyPress={onSearchBarRightIconKeyPress}
                 onClick={handleSearchReset}
               >
-                <CloseIcon />
+                <CloseIcon/>
               </div>
             }
             value={visibleQuery}
@@ -183,79 +183,75 @@ const SearchPage = ({ page }: PageProps) => {
             onKeyPress={onSearchBarKeyPress}
           />
 
-          <Button className="w-full lg:w-auto py-[9px] lg:py-4.25 lg:px-8 text-xs">
-            Hľadať
-          </Button>
+          <Button className="w-full py-[9px] text-sm lg:w-auto lg:py-4.25 lg:px-8">Hľadať</Button>
         </div>
-        <div className="mt-4 flex flex-wrap gap-x-3 gap-y-3">
-          <Link href={'/'} passHref>
-            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/" passHref>
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Stranka
             </a>
           </Link>
-          <Link href={'/'} passHref>
-            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+          <Link href="/" passHref>
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Pracovisko
             </a>
           </Link>
-          <Link href={'/'} passHref>
-            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+          <Link href="/" passHref>
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Podujatie
             </a>
           </Link>
-          <Link href={'/'} passHref>
-            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+          <Link href="/" passHref>
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Aktualita
             </a>
           </Link>
-          <Link href={'/'} passHref>
-            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+          <Link href="/" passHref>
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Zamestnanec
             </a>
           </Link>
-          <Link href={'/'} passHref>
-            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+          <Link href="/" passHref>
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Dokument
             </a>
           </Link>
-          <Link href={'/'} passHref>
-            <a className="border px-[16px] py-[8px] rounded-full text-[14px] hover:border-gray-universal-100">
+          <Link href="/" passHref>
+            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-border-dark">
               Subor
             </a>
           </Link>
         </div>
 
-        <p className="mt-5 text-[16px] text-gray-600">
-          248 vysledkov vyhladavania
-        </p>
+        <p className="text--text-body mt-5 text-[16px]">248 vysledkov vyhladavania</p>
 
-        <div ref={resultsRef} className="mt-6 lg:mt-11 pb-10 lg:pb-32">
+        <div ref={resultsRef} className="mt-6 pb-10 lg:mt-11 lg:pb-32">
           {/* Documents */}
           {!pageData ? (
-            <LoadingSpinner size="medium" className="mt-[30px]" />
+            <LoadingSpinner size="medium" className="mt-[30px]"/>
           ) : (
             pageData.map((page, i) => (
               <Link key={i} href={page.page_url} passHref>
                 <a>
                   <div
                     className={cx(
-                      'group bg-white flex justify-between py-4 pr-2 items-center border-b border-gray-universal-100'
+                      'group flex items-center justify-between border-b border-border-dark bg-white py-4 pr-2'
                     )}
                   >
                     <div className="flex items-center gap-x-6">
                       <div className="space-y-2">
                         <div className="flex items-center gap-x-4">
-                          <h5 className="text-default">{page.page_title}</h5>
-                          <span className="border-2 border-gray-universal-100 px-[8px] rounded-[4px] text-[12px]">
+                          <h5 className="text-h5">{page.page_title}</h5>
+                          <span className="rounded-[4px] border-2 border-border-dark px-[8px] text-[12px]">
                             {page.page_category}
                           </span>
                         </div>
-                        <div className="flex items-center gap-x-3 text-gray-universal-70 text-xs">
+                        <div className="flex items-center gap-x-3 text-sm text-foreground-body">
                           <span>{page.page_url}</span>
                         </div>
                       </div>
                     </div>
-                    <ChevronRight />
+                    <ChevronRight/>
                   </div>
                 </a>
               </Link>
@@ -274,7 +270,7 @@ const SearchPage = ({ page }: PageProps) => {
         </div>
       </SectionContainer>
     </>
-  );
-};
+  )
+}
 
-export default SearchPage;
+export default SearchPage

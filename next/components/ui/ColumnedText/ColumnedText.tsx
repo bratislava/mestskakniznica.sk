@@ -7,7 +7,7 @@ export interface ColumnedTextProps {
   title?: string
 }
 
-export function ColumnedText({ className, content, title }: ColumnedTextProps) {
+export const ColumnedText = ({ className, content, title }: ColumnedTextProps) => {
   const breakWord = '<break>'
   const columns = content?.split(breakWord) || []
   const { Markdown: UIMarkdown } = useUIContext()
@@ -32,7 +32,7 @@ export function ColumnedText({ className, content, title }: ColumnedTextProps) {
     >
       {columns.map((column, i) => (
         <div key={i}>
-          <UIMarkdown content={column} className="text-sm" />
+          <UIMarkdown content={column} className="text-base"/>
         </div>
       ))}
     </div>

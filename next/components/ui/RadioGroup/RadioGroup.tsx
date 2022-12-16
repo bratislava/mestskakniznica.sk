@@ -23,26 +23,27 @@ interface RadioGroupProps<T extends IRadioOption> {
   required?: boolean | undefined
 }
 
-export function RadioGroup<T extends IRadioOption>({
-  id,
-  wrapperClassName,
-  className,
-  radioClassName,
-  labelContent,
-  hasError,
-  errorMessage,
-  options,
-  onChange,
-  value,
-  required,
-}: RadioGroupProps<T>) {
+export const RadioGroup = <T extends IRadioOption>(
+  {
+    id,
+    wrapperClassName,
+    className,
+    radioClassName,
+    labelContent,
+    hasError,
+    errorMessage,
+    options,
+    onChange,
+    value,
+    required,
+  }: RadioGroupProps<T>) => {
   return (
     <div className={wrapperClassName}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('text-xs text-gray-universal-100 mb-1 block opacity-80 ')} htmlFor={id}>
+        <label className={cx('mb-1 block text-sm text-foreground-heading opacity-80 ')} htmlFor={id}>
           {labelContent}
-          {required && <span className="text-error pl-1">*</span>}
+          {required && <span className="pl-1 text-error">*</span>}
         </label>
       )}
 
@@ -50,7 +51,7 @@ export function RadioGroup<T extends IRadioOption>({
         <RadioGroupPrimitive.Root
           aria-label={labelContent}
           aria-invalid={hasError}
-          aria-errormessage={errorMessage ? `${id  }_err` : ''}
+          aria-errormessage={errorMessage ? `${id}_err` : ''}
           className={className}
           onValueChange={onChange}
           value={value}
@@ -59,7 +60,7 @@ export function RadioGroup<T extends IRadioOption>({
             <div
               key={opt.key}
               className={cx(
-                'cursor-pointer flex items-center gap-3.5 text-base base-input py-3 w-full',
+                'base-input flex w-full cursor-pointer items-center gap-3.5 py-3 text-base',
                 radioClassName,
                 {
                   'base-input--with-error': hasError,
@@ -69,13 +70,13 @@ export function RadioGroup<T extends IRadioOption>({
               <RadioGroupPrimitive.Item
                 value={opt.key}
                 id={opt.key}
-                className="border-gray-universal-100 w-5 h-5 rounded-full border-2 flex flex-0 items-center justify-center box-border overflow-hidden "
+                className="flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark "
               >
-                <RadioGroupPrimitive.Indicator className="bg-gray-universal-100 w-3 h-3 rounded-full" />
+                <RadioGroupPrimitive.Indicator className="h-3 w-3 rounded-full bg-dark"/>
               </RadioGroupPrimitive.Item>
               <label
                 htmlFor={opt.key}
-                className={cx('flex-1 text-gray-universal-70 cursor-pointer', {
+                className={cx('flex-1 cursor-pointer text-foreground-body', {
                   'base-input--disabled': opt.disabled,
                 })}
               >
@@ -90,7 +91,11 @@ export function RadioGroup<T extends IRadioOption>({
 
         {/* Error Message */}
         {hasError && errorMessage && (
-          <p id={`${id  }_err`} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
+          <p
+            id={`${id}_err`}
+            className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
+            aria-labelledby={id}
+          >
             {errorMessage}
           </p>
         )}

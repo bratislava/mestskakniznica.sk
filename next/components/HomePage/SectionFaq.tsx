@@ -10,7 +10,7 @@ interface SectionFaqProps {
   faqSection: ComponentHomepageFaqSection
 }
 
-function SectionFaq({ faqSection }: SectionFaqProps) {
+const SectionFaq = ({ faqSection }: SectionFaqProps) => {
   const { t } = useTranslation(['homepage', 'common'])
   const [openFaq, setOpenFaq] = useState('')
   const { Markdown: UIMarkdown } = useUIContext()
@@ -21,8 +21,8 @@ function SectionFaq({ faqSection }: SectionFaqProps) {
 
   return (
     <section className="py-12">
-      <div className="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
-        <div className="w-full md:w-96 space-y-4">
+      <div className="flex flex-col space-y-8 md:flex-row md:space-y-0 md:space-x-8">
+        <div className="w-full space-y-4 md:w-96">
           {faqSection?.ctas?.map((cta) => (
             <div key={cta?.title}>
               {cta?.ctaRedirectTo?.data?.attributes?.slug && (
@@ -30,8 +30,8 @@ function SectionFaq({ faqSection }: SectionFaqProps) {
                   title={cta?.title || ''}
                   href={cta?.ctaRedirectTo?.data?.attributes.slug}
                   bottomText=""
-                  className="w-full h-[222px] p-4 hover:underline text-md2"
-                  customIcon={<Arrow />}
+                  className="h-[222px] w-full p-4 text-h3.5 hover:underline"
+                  customIcon={<Arrow/>}
                   hasIcon={false}
                   uppercase={false}
                 />
@@ -39,9 +39,9 @@ function SectionFaq({ faqSection }: SectionFaqProps) {
             </div>
           ))}
         </div>
-        <div className="border-l border-gray-700" />
+        <div className="border-l border-border-dark"/>
         <div className="w-full">
-          <h2 className="text-md mb-8">{faqSection?.title ?? t('faqTitle')}</h2>
+          <h2 className="mb-8 text-h3">{faqSection?.title ?? t('faqTitle')}</h2>
           {faqSection?.faqs?.map((faq) => (
             <Accordion
               className="w-full"
@@ -53,10 +53,10 @@ function SectionFaq({ faqSection }: SectionFaqProps) {
               defaultState={openFaq === faq?.id}
               ariaLabelPrefix={openFaq === faq?.id ? t('openAccordian') : t('closeAccordian')}
               label={faq?.question || ''}
-              content={<UIMarkdown content={faq?.answer || ''} />}
+              content={<UIMarkdown content={faq?.answer || ''}/>}
             />
           ))}
-          <div className="pt-6 font-serif cursor-pointer text-xs">
+          <div className="font-serif cursor-pointer pt-6 text-sm">
             <Link href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'} passHref>
               <a href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'} className="uppercase">
                 {t('showMore', { ns: 'common' })} {'>'}

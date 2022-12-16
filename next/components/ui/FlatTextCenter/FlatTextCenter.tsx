@@ -8,12 +8,12 @@ export interface FlatTextCenterProps {
   content?: string
 }
 
-export function FlatTextCenter({ className, imgSrc, alt, content }: FlatTextCenterProps) {
+export const FlatTextCenter = ({ className, imgSrc, alt, content }: FlatTextCenterProps) => {
   const { Markdown: UIMarkdown } = useUIContext()
   return (
-    <div className={cx(className, 'space-y-10 max-w-[780px] m-auto float-none')}>
-      {imgSrc && <img src={imgSrc} alt={alt} />}
-      <UIMarkdown paragraphClassName="text-sm" content={content ?? ''} />
+    <div className={cx(className, 'float-none m-auto max-w-[780px] space-y-10')}>
+      {imgSrc && <img src={imgSrc} alt={alt}/>}
+      <UIMarkdown paragraphClassName="text-base" content={content ?? ''}/>
     </div>
   )
 }

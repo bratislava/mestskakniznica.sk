@@ -8,14 +8,14 @@ export interface INavigationItemProps {
   children: ReactNode
 }
 
-function HeaderNavigationItem({ url, children }: INavigationItemProps) {
+const HeaderNavigationItem = ({ url, children }: INavigationItemProps) => {
   const router = useRouter()
 
   return (
-    <div className="border-gray-900 py-[10px] text-xs font-normal leading-[19.6px] md:flex">
+    <div className="border-border-dark py-[10px] text-sm font-normal md:flex">
       <div
         className={cx('font-normal', {
-          'text-primary': router.pathname.startsWith(url),
+          'text-foreground-body': router.pathname.startsWith(url),
         })}
       >
         <Link href={url} passHref>

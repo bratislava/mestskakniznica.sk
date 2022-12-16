@@ -5,15 +5,17 @@ export interface FileIconProps {
   type?: string
 }
 
-export function FileIcon({ className, type }: FileIconProps) {
-  return <div
-    className={cx(
-      className,
-      'flex lg:border lg:border-gray-universal-100 lg:rounded-full lg:h-14 lg:w-14 justify-center items-center'
-    )}
-  >
-    <span className="lg:w-14 lg:text-center text-[12px] text-gray-universal-100">{type}</span>
-  </div>
+export const FileIcon = ({ className, type }: FileIconProps) => {
+  return (
+    <div
+      className={cx(
+        className,
+        'flex items-center justify-center lg:h-14 lg:w-14 lg:rounded-full lg:border lg:border-border-dark'
+      )}
+    >
+      <span className="text-[12px] text-foreground-heading lg:w-14 lg:text-center">{type}</span>
+    </div>
+  )
 }
 
 export default FileIcon

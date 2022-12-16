@@ -23,21 +23,22 @@ interface IProps<T extends ISelectOption> {
   required?: boolean
 }
 
-export function Select<T extends ISelectOption>({
-  id,
-  className,
-  selectClassName,
-  options,
-  value: iValue,
-  onChange,
-  hasError,
-  errorMessage,
-  placeholder,
-  labelContent,
-  helpText,
-  required,
-  ...rest
-}: IProps<T>) {
+export const Select = <T extends ISelectOption>(
+  {
+    id,
+    className,
+    selectClassName,
+    options,
+    value: iValue,
+    onChange,
+    hasError,
+    errorMessage,
+    placeholder,
+    labelContent,
+    helpText,
+    required,
+    ...rest
+  }: IProps<T>) => {
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     if (!onChange) return
 
@@ -52,22 +53,22 @@ export function Select<T extends ISelectOption>({
     <div className={cx('relative flex flex-col', className)}>
       {/* Label */}
       {labelContent && (
-        <label className="text-xs text-gray-universal-100 mb-0.5 opacity-80" htmlFor={id}>
+        <label className="mb-0.5 text-sm text-foreground-heading opacity-80" htmlFor={id}>
           {labelContent}
-          {required && <span className="text-error pl-1">*</span>}
+          {required && <span className="pl-1 text-error">*</span>}
         </label>
       )}
-      <div className={cx('flex items-center relative')}>
+      <div className={cx('relative flex items-center')}>
         <select
           id={id}
-          className={cx('base-input cursor-pointer w-full pr-9', selectClassName, {
+          className={cx('base-input w-full cursor-pointer pr-9', selectClassName, {
             'base-input--with-error': hasError,
           })}
           onChange={handleChange}
           value={value}
           placeholder={placeholder ?? placeholder}
           aria-invalid={hasError}
-          aria-errormessage={errorMessage ? `${id  }_err` : ''}
+          aria-errormessage={errorMessage ? `${id}_err` : ''}
           {...rest}
         >
           {options.map((option) => (
@@ -76,12 +77,16 @@ export function Select<T extends ISelectOption>({
             </option>
           ))}
         </select>
-        <ChevronDown className="absolute right-0 mr-4 pointer-events-none text-gray-universal-100" />
+        <ChevronDown className="pointer-events-none absolute right-0 mr-4 text-foreground-heading"/>
       </div>
 
       {/* Error Message */}
       {hasError && errorMessage && (
-        <p id={`${id  }_err`} className={cx('text-xs text-error mt-2', { hidden: !hasError })} aria-labelledby={id}>
+        <p
+          id={`${id}_err`}
+          className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
+          aria-labelledby={id}
+        >
           {errorMessage}
         </p>
       )}
@@ -89,8 +94,8 @@ export function Select<T extends ISelectOption>({
       {/* Help Text */}
       {helpText && (
         <p
-          className={cx('text-xs mt-0.5 opacity-80', {
-            'text-gray-universal-70': !hasError,
+          className={cx('mt-0.5 text-sm opacity-80', {
+            'text-foreground-body': !hasError,
             'text-error': hasError,
           })}
         >

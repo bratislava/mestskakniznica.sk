@@ -1,28 +1,28 @@
-import './index.css'
+import '../styles/index.css'
 
 import { UIContextProvider } from '@bratislava/common-frontend-ui-context'
-import { appWithTranslation } from 'next-i18next'
+import { isProductionDeployment } from '@utils/utils'
 import { AppProps } from 'next/app'
 import Link from 'next/link'
 import Script from 'next/script'
+import { appWithTranslation } from 'next-i18next'
 
 import { CityLibraryMarkdown } from '../components/Atoms/CityLibraryMarkdown'
 import CookieConsent from '../components/Molecules/CookieConsent'
 import ErrorDisplay from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
-import { isProductionDeployment } from '@utils/utils'
 
-function CustomApp({ Component, pageProps, router }: AppProps): JSX.Element {
+const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   if (pageProps.error) {
     return (
       <ErrorPage code={500}>
-        <ErrorDisplay error={pageProps.error} />
+        <ErrorDisplay error={pageProps.error}/>
       </ErrorPage>
     )
   }
   return (
-    <div className="font-beausite text-default">
-      <Script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.sk" />
+    <div className="font-beausite text-lg">
+      <Script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.sk"/>
       {isProductionDeployment() ? (
         <Script
           strategy="afterInteractive"
@@ -42,7 +42,7 @@ function CustomApp({ Component, pageProps, router }: AppProps): JSX.Element {
               </Link>
             )
           },
-          Image: ({ alt, src }) => <img alt={alt} src={src} />,
+          Image: ({ alt, src }) => <img alt={alt} src={src}/>,
           Markdown: ({ className, paragraphClassName, content }) => (
             <CityLibraryMarkdown
               className={className}
@@ -54,7 +54,7 @@ function CustomApp({ Component, pageProps, router }: AppProps): JSX.Element {
       >
         <Component {...pageProps} />
       </UIContextProvider>
-      <CookieConsent />
+      <CookieConsent/>
     </div>
   )
 }

@@ -10,7 +10,7 @@ interface DateCardProps {
   wrapperClass?: string
 }
 
-function DateCardDisplay({ dateFrom, dateTo, textSize, wrapperClass }: DateCardProps) {
+const DateCardDisplay = ({ dateFrom, dateTo, textSize, wrapperClass }: DateCardProps) => {
   const { locale } = usePageWrapperContext()
   const { day, month } = dayForDifferentDateTo(new Date(dateFrom), new Date(dateTo))
 
@@ -19,7 +19,7 @@ function DateCardDisplay({ dateFrom, dateTo, textSize, wrapperClass }: DateCardP
   return (
     <div className={cx('m-auto text-center', wrapperClass)}>
       <div className={cx(textSize)}>{text}</div>
-      {/* <div className="text-xs capitalize">{month}</div> */}
+      {/* <div className="text-sm capitalize">{month}</div> */}
     </div>
   )
 }

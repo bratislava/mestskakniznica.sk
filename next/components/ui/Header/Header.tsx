@@ -40,28 +40,31 @@ interface LanguageOption {
   title: string
 }
 
-function Logo({ logoTitle }: { logoTitle: string }) {
-  return <div className="flex uppercase text-gray-universal-100 text-[27px]">
-    {logoTitle.split(' ').map((part, index) => (
-      <span
-        key={index}
-        className={cx('border-r border-gray-universal-100 py-[7px]', {
-          'pr-3': index === 0,
-          'px-3': index !== 0,
-        })}
-      >
-        {part}
-      </span>
-    ))}
-  </div>
+const Logo = ({ logoTitle }: { logoTitle: string }) => {
+  return (
+    <div className="flex text-[27px] uppercase text-foreground-heading">
+      {logoTitle.split(' ').map((part, index) => (
+        <span
+          key={index}
+          className={cx('border-r border-border-dark py-[7px]', {
+            'pr-3': index === 0,
+            'px-3': index !== 0,
+          })}
+        >
+          {part}
+        </span>
+      ))}
+    </div>
+  )
 }
 
-function LanguageSelect({
-  className,
-  languages: options,
-  currentLanguage: current,
-  onLanguageChange: onChange,
-}: LanguageSelectProps) {
+const LanguageSelect = (
+  {
+    className,
+    languages: options,
+    currentLanguage: current,
+    onLanguageChange: onChange,
+  }: LanguageSelectProps) => {
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     if (!onChange) return
 
@@ -83,25 +86,27 @@ function LanguageSelect({
   )
 }
 
-function HeaderTopItems({ openingHours, ...languageSelectProps }: { openingHours: string }) {
-  return <div className="flex">
-    <span className="px-3 border-l border-gray-universal-100 h-full flex items-center">
-      <Accessibility className="cursor-pointer" />
-    </span>
-    <p className="text-xs border-l border-gray-universal-100 px-3 h-full flex items-center cursor-default">
-      {openingHours}
-    </p>
-    <div className="border-l border-gray-universal-100 px-3 h-full flex items-center">
-      Prihlásenie
+const HeaderTopItems = ({ openingHours, ...languageSelectProps }: { openingHours: string }) => {
+  return (
+    <div className="flex">
+      <span className="flex h-full items-center border-l border-border-dark px-3">
+        <Accessibility className="cursor-pointer"/>
+      </span>
+      <p className="flex h-full cursor-default items-center border-l border-border-dark px-3 text-sm">
+        {openingHours}
+      </p>
+      <div className="flex h-full items-center border-l border-border-dark px-3">
+        Prihlásenie
+      </div>
+      <LanguageSelect
+        className="flex h-full cursor-pointer appearance-none items-center border-l border-border-dark bg-white px-3 text-sm focus:outline-none"
+        {...languageSelectProps}
+      />
     </div>
-    <LanguageSelect
-      className="appearance-none border-l border-gray-universal-100 bg-white px-3 text-xs h-full flex items-center cursor-pointer focus:outline-none"
-      {...languageSelectProps}
-    />
-  </div>
+  )
 }
 
-function SearchBox() {
+const SearchBox = () => {
   const [searchedTerm, setSearchedTerm] = React.useState('')
   const baseUrl = 'https://opac.mestskakniznica.sk/opac'
 
@@ -114,8 +119,8 @@ function SearchBox() {
   return (
     <form onSubmit={onSubmit} className="self-center">
       <SearchBar
-        iconLeft={<SearchIcon onClick={onSubmit} className="cursor-pointer" />}
-        iconRight={searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />}
+        iconLeft={<SearchIcon onClick={onSubmit} className="cursor-pointer"/>}
+        iconRight={searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')}/>}
         onChange={(e) => setSearchedTerm(e.target.value)}
         value={searchedTerm}
         inputClassName="rounded-full w-[440px]"
@@ -124,58 +129,67 @@ function SearchBox() {
   )
 }
 
-export function Header({ className, logoTitle, menuItems, openingHours, ...languageSelectProps }: IProps) {
-  return <div className={cx(className, 'w-full relative')}>
-    <div className="flex justify-between border-b border-gray-universal-100">
-      <Logo logoTitle={logoTitle} />
-      <HeaderTopItems openingHours={openingHours} {...languageSelectProps} />
-    </div>
-    <div className="flex items-center justify-between border-b border-gray-universal-100">
-      <div className="flex">
-        {menuItems.map((item, idx) => (
-          <div key={item.title} className="group">
-            <div
-              key={item.title}
-              className={cx('w-40 pb-1 pt-7 cursor-pointer', {
-                'border-l border-gray-universal-100 pl-3': idx !== 0,
-              })}
-            >
-              {item.title}
-            </div>
-            {/* Panel */}
-            <div
-              className={cx(
-                'hidden group-hover:block absolute bg-white border-t border-gray-universal-100 left-0 right-0 z-20 w-full'
-              )}
-            >
-              <div className="flex flex-col h-[410px] flex-wrap gap-10 py-8">
-                {item.elements.map((el) => (
-                  <div key={el.title}>
-                    <p className="text-default text-gray-universal-100 mb-4">{el.title}</p>
-                    <div className="flex flex-col gap-y-4">
-                      {el.items.map((item, idx) => (
-                        <Link
-                          key={item.title}
-                          uppercase={false}
-                          href={item.url}
-                          className="text-sm w-66 text-gray-universal-70"
-                        >
-                          {idx < 8 && item.title}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="flex items-center gap-x-[13px] border-t border-gray-universal-100 py-5">
-                Zobraziť všetko
-                <ChevronRight />
-              </div>
-            </div>
-          </div>
-        ))}
+export const Header = (
+  {
+    className,
+    logoTitle,
+    menuItems,
+    openingHours,
+    ...languageSelectProps
+  }: IProps) => {
+  return (
+    <div className={cx(className, 'relative w-full')}>
+      <div className="flex justify-between border-b border-border-dark">
+        <Logo logoTitle={logoTitle}/>
+        <HeaderTopItems openingHours={openingHours} {...languageSelectProps} />
       </div>
-      <SearchBox />
+      <div className="flex items-center justify-between border-b border-border-dark">
+        <div className="flex">
+          {menuItems.map((item, idx) => (
+            <div key={item.title} className="group">
+              <div
+                key={item.title}
+                className={cx('w-40 cursor-pointer pb-1 pt-7', {
+                  'border-l border-border-dark pl-3': idx !== 0,
+                })}
+              >
+                {item.title}
+              </div>
+              {/* Panel */}
+              <div
+                className={cx(
+                  'absolute left-0 right-0 z-20 hidden w-full border-t border-border-dark bg-white group-hover:block'
+                )}
+              >
+                <div className="flex h-[410px] flex-col flex-wrap gap-10 py-8">
+                  {item.elements.map((el) => (
+                    <div key={el.title}>
+                      <p className="mb-4 text-h5 text-foreground-heading">{el.title}</p>
+                      <div className="flex flex-col gap-y-4">
+                        {el.items.map((item, idx) => (
+                          <Link
+                            key={item.title}
+                            uppercase={false}
+                            href={item.url}
+                            className="w-66 text-base text-foreground-body"
+                          >
+                            {idx < 8 && item.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-center gap-x-[13px] border-t border-border-dark py-5">
+                  Zobraziť všetko
+                  <ChevronRight/>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <SearchBox/>
+      </div>
     </div>
-  </div>
+  )
 }
