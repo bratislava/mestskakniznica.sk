@@ -13,21 +13,21 @@ interface SubnavigationProps {
 const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: SubnavigationProps) => {
 
   const columns = useMemo(() => {
-    const columns = []
+    const columnsTmp = []
     const temp: ComponentMenuSections[] = []
-    menuSections?.map((section) => {
+    menuSections?.forEach((section) => {
       if (section && section.sectionColumnSpan) {
-        columns.push({ sections: section })
-      } else {
-        section && temp.push(section)
+        columnsTmp.push({ sections: section })
+      } else if(section) {
+        temp.push(section)
       }
     })
 
     if (temp.length > 0) {
-      columns.push({ sections: temp })
+      columnsTmp.push({ sections: temp })
     }
 
-    return columns
+    return columnsTmp
   }, [menuSections])
 
   return (
