@@ -1,19 +1,16 @@
 import cx from 'classnames'
-import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { ComponentMenuSections, EventCardEntityFragment, Maybe } from '../../../graphql'
 import Column from './SubnavigationColumn'
 
 interface SubnavigationProps {
-  menuSlug: string | undefined | null
   menuTotalColumns: number | undefined | null
   menuSections: Maybe<ComponentMenuSections>[]
   latestEvents?: EventCardEntityFragment[]
 }
 
 const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: SubnavigationProps) => {
-  const { t } = useTranslation('common')
 
   const columns = useMemo(() => {
     const columns = []
@@ -36,7 +33,7 @@ const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: Subnavi
   return (
     <div
       className={cx(
-        'm-auto grid w-full border border-border-light bg-white px-4 py-8 text-base font-light',
+        'border-border-light m-auto grid w-full border bg-white px-4 py-8 text-base font-light',
         {
           'grid-cols-3': menuTotalColumns === 3,
           'grid-cols-4 gap-x-10': menuTotalColumns === 4,
