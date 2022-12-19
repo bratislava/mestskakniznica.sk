@@ -7,11 +7,16 @@ import { SearchIndexWrapped } from './searchIndexWrapped'
 
 export const allSearchTypes = [
   'page' as const,
-  // 'article' as const,
+  'blog-post' as const,
+  'event' as const,
+  'premise' as const,
 ]
 
-type CommonSearchResults = SearchIndexWrapped<'page', { slug: string; title: string | null | undefined }> // TODO: Specify type if needed.
-// | SearchIndexWrapped<'article', { slug: string }> // TODO: Specify type if needed.
+type CommonSearchResults =
+  | SearchIndexWrapped<'page', { slug: string; title: string | null | undefined }> // TODO: Specify type if needed.
+  | SearchIndexWrapped<'blog-post', { slug: string }> // TODO: Specify type if needed.
+  | SearchIndexWrapped<'event', { slug: string }> // TODO: Specify type if needed.
+  | SearchIndexWrapped<'premise', { url: string }> // TODO: Specify type if needed.
 
 // https://stackoverflow.com/a/52331580
 export type Unpacked<T> = T extends (infer U)[] ? U : T
@@ -57,6 +62,18 @@ export const commonSearchFetcher = (filters: CommonSearchFilters, locale: string
         // TODO: Fix types, but not worth it.
         // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
         const dataInner = (hit as any)[type]
+
+        if (type === 'blog-post') {
+          const { title, slug } = dataInner
+          // TODO: use function to get full path
+          const link = locale === 'sk' ? `sluzby/vzdelavanie/clanky/${slug}` : `en/services/education/articles/${slug}`
+          return { type, title, link, data: dataInner } as CommonSearchResult
+        }
+
+        if (type === 'premise') {
+          const { title, url: link } = dataInner
+          return { type, title, link, data: dataInner } as CommonSearchResult
+        }
 
         const { title, slug: link } = dataInner
         return { type, title, link, data: dataInner } as CommonSearchResult

@@ -136,6 +136,9 @@
   "allResults": "Všetky výsledky",
   "searchPlaceholder": "Hľadať",
   "searchTags": {
-    "page": "Stránka"
+    "page": "Stránka",
+    "blog-post": "Článok",
+    "event": "Podujatie",
+    "premise": "Priestor"
   }
 }

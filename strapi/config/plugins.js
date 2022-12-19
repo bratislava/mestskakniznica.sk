@@ -23,11 +23,17 @@ const searchIndexSettings = {
   searchableAttributes: [
     // Page
     "page.title",
+    // Blog post
+    "blog-post.title",
+    // Event
+    "event.title",
+    // Premise
+    "premise.title",
   ],
   filterableAttributes: [
     // All
     "type",
-    // Page + branch + article + bundle + cemetery
+    // Page + Event + Premise
     "locale",
   ],
   sortableAttributes: [],
@@ -55,6 +61,30 @@ module.exports = ({ env }) => ({
         },
         settings: searchIndexSettings,
         transformEntry: ({ entry }) => wrapSearchIndexEntry("page", entry),
+      },
+
+      "blog-post": {
+        indexName: "search_index",
+        settings: searchIndexSettings,
+        transformEntry: ({ entry }) => wrapSearchIndexEntry("blog-post", entry),
+      },
+
+      event: {
+        indexName: "search_index",
+        entriesQuery: {
+          locale: "all",
+        },
+        settings: searchIndexSettings,
+        transformEntry: ({ entry }) => wrapSearchIndexEntry("event", entry),
+      },
+
+      premise: {
+        indexName: "search_index",
+        entriesQuery: {
+          locale: "all",
+        },
+        settings: searchIndexSettings,
+        transformEntry: ({ entry }) => wrapSearchIndexEntry("premise", entry),
       },
     },
   },

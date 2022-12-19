@@ -136,6 +136,9 @@
   "allResults": "All results",
   "searchPlaceholder": "Search",
   "searchTags": {
-    "page": "Page"
+    "page": "Page",
+    "blog-post": "Article",
+    "event": "Event",
+    "premise": "Premise"
   }
 }
