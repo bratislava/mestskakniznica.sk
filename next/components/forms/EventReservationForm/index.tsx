@@ -18,11 +18,11 @@ import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
 export interface EventReservationFormProps {
-  eventDetail: EventCardEntityFragment
+  eventDetail?: EventCardEntityFragment
 }
 
 const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
-  const { dateFrom, dateTo, title, eventLocality } = eventDetail.attributes ?? {}
+  const { dateFrom, dateTo, title, eventLocality } = eventDetail?.attributes ?? {}
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
   const [isDateEditDisabled, setIsDateEditDisabled] = React.useState(false)

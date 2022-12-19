@@ -51,11 +51,13 @@ import GalleryBanner from './GalleryBanner'
 import LocalityDetails from './LocalityDetails'
 import Metadata from './Metadata'
 
+type FormsProps =
+  | (() => JSX.Element)
+  | ((props: VenueRentalFormProps) => JSX.Element)
+  | ((eventDetail: EventReservationFormProps) => JSX.Element)
+
 interface dynamicObject {
-  [key: string]:
-    | (() => JSX.Element)
-    | ((props: VenueRentalFormProps) => JSX.Element)
-    | ((eventDetail: EventReservationFormProps) => JSX.Element)
+  [key: string]: FormsProps
 }
 
 const FORM: dynamicObject = {
@@ -82,14 +84,10 @@ const NullComponent = () => {
   return null
 }
 
-export const getForm = (
-  formType: string,
-  key?: string | null,
-  eventDetail?: EventCardEntityFragment
-) => {
+export const getForm = (formType: string, key: string, eventDetail?: EventCardEntityFragment) => {
   if (!formType) return NullComponent
 
-  let Comp: (arg: any) => any = FORM[formType]
+  let Comp: FormsProps | (() => null) = FORM[formType]
 
   if (!Comp) {
     Comp = NullComponent
@@ -306,7 +304,7 @@ const sectionContent = (
       )
 
     case 'ComponentSectionsForm':
-      return getForm(section.type || '', pageTitle, eventDetail || undefined)
+      return getForm(section.type || '', pageTitle ?? '', eventDetail || undefined)
 
     case 'ComponentSectionsDivider':
       return section.shown && <div className="border-b border-border-dark" />
