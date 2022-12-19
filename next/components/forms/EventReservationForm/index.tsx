@@ -17,11 +17,12 @@ import { usePageWrapperContext } from '../../layouts/PageWrapper'
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
-interface Props {
-  eventDetail?: EventCardEntityFragment
+export interface EventReservationFormProps {
+  eventDetail: EventCardEntityFragment
 }
 
-const EventReservationForm = ({ eventDetail }: Props) => {
+const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
+  const { dateFrom, dateTo, title, eventLocality } = eventDetail.attributes ?? {}
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
   const [isDateEditDisabled, setIsDateEditDisabled] = React.useState(false)
@@ -55,15 +56,15 @@ const EventReservationForm = ({ eventDetail }: Props) => {
     phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
     spaceCount: yup.number().min(1).required(),
     eventDate: yup.lazy(() => {
-      if (eventDetail) {
-        const dateFrom = new Date(eventDetail.attributes?.dateFrom)
-        const dateTo = new Date(eventDetail.attributes?.dateTo)
+      if (dateFrom && dateTo) {
+        const dateFromTmp = new Date(dateFrom)
+        const dateToTmp = new Date(dateTo)
 
-        const { date } = dayForDifferentDateTo(dateFrom, dateTo, true)
+        const { date } = dayForDifferentDateTo(dateFromTmp, dateToTmp, true)
         return yup
           .date()
           .min(date, t('validation_error_min_event_date'))
-          .max(dateTo, t('validation_error_max_event_date'))
+          .max(dateToTmp, t('validation_error_max_event_date'))
           .required()
       }
 
@@ -96,21 +97,21 @@ const EventReservationForm = ({ eventDetail }: Props) => {
 
   React.useMemo(() => {
     // prefill event date and time
-    if (eventDetail) {
-      const dateFrom = new Date(eventDetail.attributes?.dateFrom)
-      const dateTo = new Date(eventDetail.attributes?.dateTo)
+    if (dateFrom && dateTo) {
+      const dateFromTmp = new Date(dateFrom)
+      const dateToTmp = new Date(dateTo)
 
-      const { day, month, year } = dayForDifferentDateTo(dateFrom, dateTo, true)
+      const { day, month, year } = dayForDifferentDateTo(dateFromTmp, dateToTmp, true)
       // "yyyy-MM-dd"
       methods.setValue('eventDate', `${year}-${month}-${day}`)
 
       if (
-        dateFrom.toLocaleString('en-US', {
+        dateFromTmp.toLocaleString('en-US', {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
         }) ===
-        dateTo.toLocaleString('en-US', {
+        dateToTmp.toLocaleString('en-US', {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
@@ -119,7 +120,7 @@ const EventReservationForm = ({ eventDetail }: Props) => {
         setIsDateEditDisabled(true)
       }
 
-      const timeFrom = dateFrom.toLocaleString('sk', {
+      const timeFrom = dateFromTmp.toLocaleString('sk', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: false,
@@ -130,8 +131,8 @@ const EventReservationForm = ({ eventDetail }: Props) => {
     }
 
     // disable showing form if is in the past
-    setIsEventInThePast(isEventPast(eventDetail?.attributes?.dateTo))
-  }, [eventDetail, methods])
+    setIsEventInThePast(isEventPast(dateTo))
+  }, [dateFrom, dateTo, methods])
 
   const handleSubmit = methods.handleSubmit(async (data) => {
     const temp = convertDataToBody(data, t)
@@ -261,8 +262,8 @@ const EventReservationForm = ({ eventDetail }: Props) => {
                     <div className="flex">
                       <div className="flex h-16 w-16 bg-promo-yellow text-center">
                         <DateCardDisplay
-                          dateFrom={eventDetail?.attributes?.dateFrom ?? '1-1-1970'}
-                          dateTo={eventDetail?.attributes?.dateTo ?? '1-1-1970'}
+                          dateFrom={dateFrom ?? '1-1-1970'}
+                          dateTo={dateTo ?? '1-1-1970'}
                           textSize="text-[18px]"
                         />
                       </div>
@@ -270,21 +271,17 @@ const EventReservationForm = ({ eventDetail }: Props) => {
                       {/* TODO fix eslint */}
                       <div className="pl-5">
                         <div className="text-foreground-heading">
-                          {(eventDetail?.attributes?.title?.length || 0) > 50
+                          {(title?.length || 0) > 50
                             ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                            `${eventDetail?.attributes?.title?.slice(0, 50)}...`
-                            : eventDetail?.attributes?.title}
+                              `${title?.slice(0, 50)}...`
+                            : title}
                         </div>
                         <div className="pt-[5px] text-sm text-foreground-body">
-                          {dateTimeString(
-                            eventDetail?.attributes?.dateFrom ?? new Date(),
-                            eventDetail?.attributes?.dateTo ?? new Date(),
-                            locale
-                          )}
+                          {dateTimeString(dateFrom ?? new Date(), dateTo ?? new Date(), locale)}
                         </div>
-                        {eventDetail?.attributes?.eventLocality?.data?.attributes?.title && (
+                        {eventLocality?.data?.attributes?.title && (
                           <div className="text-sm text-foreground-body">
-                            &#9679; {eventDetail?.attributes?.eventLocality.data.attributes?.title}
+                            &#9679; {eventLocality.data.attributes?.title}
                           </div>
                         )}
                       </div>
@@ -367,7 +364,7 @@ const EventReservationForm = ({ eventDetail }: Props) => {
               {hasErrors && (
                 <p className="text-base text-error ">{t('please_fill_required_fields')}</p>
               )}
-              <FormFooter buttonContent={t('send')}/>
+              <FormFooter buttonContent={t('send')} />
             </div>
           </FormContainer>
         </FormProvider>
