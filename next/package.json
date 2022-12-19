@@ -19,6 +19,7 @@
     "@radix-ui/react-checkbox": "^0.1.5",
     "@radix-ui/react-navigation-menu": "^0.1.2",
     "@radix-ui/react-radio-group": "^0.1.5",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@types/mailchimp__mailchimp_marketing": "^3.0.5",
     "@types/react-datepicker": "^4.4.2",

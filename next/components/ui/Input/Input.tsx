@@ -14,27 +14,28 @@ export interface InputProps
   inputClassName?: string
 }
 
-export const Input = ({
-  className,
-  id,
-  required,
-  labelContent,
-  helpText,
-  hasError,
-  errorMessage,
-  iconLeft,
-  iconRight,
-  iconClassName,
-  inputClassName,
-  labelClassName,
-  ...props
-}: InputProps) => {
+export const Input = (
+  {
+    className,
+    id,
+    required,
+    labelContent,
+    helpText,
+    hasError,
+    errorMessage,
+    iconLeft,
+    iconRight,
+    iconClassName,
+    inputClassName,
+    labelClassName,
+    ...props
+  }: InputProps) => {
   return (
     <div className={className}>
       {/* Label */}
       {labelContent && (
         <label
-          className={cx(labelClassName, 'mb-0.5 text-xs text-gray-universal-100 opacity-80')}
+          className={cx(labelClassName, 'mb-0.5 text-sm text-foreground-heading opacity-80')}
           id={`${id}_label`}
           htmlFor={id}
         >
@@ -46,7 +47,7 @@ export const Input = ({
       {/* LeftIcon Accessory */}
       <div className="relative flex w-full items-center">
         {!!iconLeft && (
-          <span className={cx('absolute left-4.5 z-10 text-gray-universal-100', iconClassName)}>
+          <span className={cx('absolute left-4.5 z-10 text-foreground-heading', iconClassName)}>
             {iconLeft}
           </span>
         )}
@@ -55,7 +56,7 @@ export const Input = ({
         <input
           id={id}
           className={cx('base-input', inputClassName, {
-            'base-input--disabled cursor-not-allowed text-gray-universal-60': props.disabled,
+            'base-input--disabled cursor-not-allowed text-foreground-disabled': props.disabled,
             'base-input--with-error': hasError,
           })}
           aria-invalid={hasError}
@@ -68,7 +69,7 @@ export const Input = ({
         {iconRight ||
           (hasError &&
             (hasError ? (
-              <ErrorOutline className="absolute right-4.5 text-error" />
+              <ErrorOutline className="absolute right-4.5 text-error"/>
             ) : (
               <span className={cx('absolute right-4.5', iconClassName)}>{iconRight}</span>
             )))}
@@ -78,7 +79,7 @@ export const Input = ({
       {hasError && errorMessage && (
         <p
           id={`${id}_err`}
-          className={cx('mt-2 text-xs text-error', { hidden: !hasError })}
+          className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
           aria-labelledby={`${id}_label`}
         >
           {labelContent} {errorMessage}
@@ -88,8 +89,8 @@ export const Input = ({
       {/* Help Text */}
       {helpText && (
         <p
-          className={cx('mt-0.5 text-xs opacity-80', {
-            'text-gray-universal-70': !hasError,
+          className={cx('mt-0.5 text-sm opacity-80', {
+            'text-foreground-body': !hasError,
             'text-error': hasError,
             '-ml-4.5': iconLeft,
           })}

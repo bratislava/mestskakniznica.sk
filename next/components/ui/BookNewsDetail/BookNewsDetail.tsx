@@ -10,29 +10,30 @@ export interface BookNewsDetailProps {
   linkClassName?: string
 }
 
-export const BookNewsDetail = ({
-  className,
-  title,
-  imgSrc,
-  author,
-  detailLink,
-  linkClassName,
-}: BookNewsDetailProps) => {
+export const BookNewsDetail = (
+  {
+    className,
+    title,
+    imgSrc,
+    author,
+    detailLink,
+    linkClassName,
+  }: BookNewsDetailProps) => {
   const { Link: UILink, Image: UIImage } = useUIContext()
 
   return (
     <div className={cx(className, 'group flex flex-col pt-4 hover:pt-0')}>
       {imgSrc && (
         <UILink target="_blank" className={cx(linkClassName, 'flex')} href={detailLink ?? ''}>
-          <UIImage src={imgSrc} shadow={false} alt={title} />
+          <UIImage src={imgSrc} shadow={false} alt={title}/>
         </UILink>
       )}
-      <h6 className="mt-4 max-h-12 overflow-hidden text-sm group-hover:underline" title={title}>
+      <h6 className="mt-4 max-h-12 overflow-hidden text-base group-hover:underline" title={title}>
         <UILink target="_blank" href={detailLink ?? ''}>
           {title.length > 35 ? `${title.slice(0, 35)}...` : title}
         </UILink>
       </h6>
-      {/* {author && <span className="mt-[7px] text-xs text-gray-universal-70">{author}</span>} */}
+      {/* {author && <span className="mt-[7px] text-sm text-foreground-body">{author}</span>} */}
     </div>
   )
 }

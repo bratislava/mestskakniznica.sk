@@ -46,6 +46,7 @@ const ExcursionReservationForm = () => {
       excursionTime: yup.string().required(),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -62,6 +63,7 @@ const ExcursionReservationForm = () => {
       excursionDate: '',
       excursionTime: '',
       message: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -93,6 +95,7 @@ const ExcursionReservationForm = () => {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
@@ -252,7 +255,7 @@ const ExcursionReservationForm = () => {
             )}
           />
           {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')}/>
         </div>
       </FormContainer>
     </FormProvider>

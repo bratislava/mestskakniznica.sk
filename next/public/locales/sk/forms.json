@@ -144,5 +144,7 @@
   "validation_error_password_mismatch": "sa musí zhodovať s heslom",
   "validation_error_idcard": "musí mať tvar AA000000",
   "generic_error_title": "Chyba",
-  "form_city_accept_newsletter": "Súhlasím s odoberaním noviniek z online katalógu."
+  "form_city_accept_newsletter": "Súhlasím s odoberaním noviniek z online katalógu.",
+  "validation_error_captcha": "overenie je potrebné.",
+  "captcha": "Captcha"
 }

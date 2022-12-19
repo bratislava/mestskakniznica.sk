@@ -67,6 +67,7 @@ const CycleDeliveryReservationForm = () => {
           })
         )
         .required(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -83,6 +84,7 @@ const CycleDeliveryReservationForm = () => {
       phone: '',
       message: '',
       books: [{ bookId: '', author: '', title: '' }],
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -112,6 +114,7 @@ const CycleDeliveryReservationForm = () => {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
@@ -140,7 +143,9 @@ const CycleDeliveryReservationForm = () => {
   }
 
   const stepOneErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'books')
+    Object.keys(errors).filter(
+      (k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'cfTurnstile'
+    )
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
@@ -319,7 +324,7 @@ const CycleDeliveryReservationForm = () => {
           className="border-b-0 pb-0"
           onClick={() => triggerFirstStep()}
         >
-          <BookList />
+          <BookList/>
           <Controller
             control={methods.control}
             name="message"
@@ -338,7 +343,7 @@ const CycleDeliveryReservationForm = () => {
           {stepTwoErrors && (
             <p className="pb-4 text-base text-error">{t('please_fill_required_fields')}</p>
           )}
-          <FormFooter hasDivider buttonContent={t('send')} />
+          <FormFooter hasDivider buttonContent={t('send')}/>
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

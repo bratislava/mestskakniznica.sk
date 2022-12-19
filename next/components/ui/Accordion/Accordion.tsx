@@ -18,20 +18,21 @@ export interface AccordionProps {
   closeIcon?: ReactNode
 }
 
-export const Accordion = ({
-  id,
-  className,
-  label,
-  type,
-  size,
-  content,
-  iconLeft,
-  stateListener,
-  defaultState,
-  ariaLabelPrefix,
-  openIcon = <ChevronDown />,
-  closeIcon = <ChevronUp />,
-}: AccordionProps) => {
+export const Accordion = (
+  {
+    id,
+    className,
+    label,
+    type,
+    size,
+    content,
+    iconLeft,
+    stateListener,
+    defaultState,
+    ariaLabelPrefix,
+    openIcon = <ChevronDown/>,
+    closeIcon = <ChevronUp/>,
+  }: AccordionProps) => {
   const [isOpen, setOpen] = useState(false)
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export const Accordion = ({
 
   return (
     <div
-      className={cx('w-full overflow-hidden border-gray-universal-100', className, {
+      className={cx('w-full overflow-hidden border-border-dark', className, {
         'overflow-visible': isOpen,
         border: type === 'boxed',
         'border-b': type !== 'boxed',
@@ -78,7 +79,7 @@ export const Accordion = ({
           )}
           <div
             className={cx('hover:underline', {
-              'text-default': size === 'big',
+              'text-lg': size === 'big',
               'text-base': size === 'small',
             })}
           >
@@ -88,7 +89,7 @@ export const Accordion = ({
         {isOpen ? <span>{closeIcon}</span> : <span>{openIcon}</span>}
       </button>
       <div
-        className={cx('text-base text-gray-universal-70', {
+        className={cx('text-base text-foreground-body', {
           'h-0': !isOpen,
           'mt-1 h-full': isOpen,
           'pb-10': isOpen && size === 'big',

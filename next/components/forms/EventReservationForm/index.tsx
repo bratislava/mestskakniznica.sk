@@ -72,6 +72,7 @@ const EventReservationForm = ({ eventDetail }: Props) => {
     eventTime: yup.string().required(),
     message: yup.string(),
     acceptFormTerms: yup.boolean().isTrue(),
+    cfTurnstile: yup.string().required(t('validation_error_captcha')),
   }
   const schema = yup.object(schemaBase).required()
 
@@ -86,6 +87,7 @@ const EventReservationForm = ({ eventDetail }: Props) => {
       eventDate: '',
       eventTime: '',
       message: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -155,6 +157,7 @@ const EventReservationForm = ({ eventDetail }: Props) => {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
@@ -178,7 +181,7 @@ const EventReservationForm = ({ eventDetail }: Props) => {
             wrapperClass="col-span-6"
           >
             <div className="mt-4 flex w-full flex-col gap-y-6">
-              <div className="text-default text-black-universal">{t('personal_details')}</div>
+              <div className="text-h5 text-foreground-heading">{t('personal_details')}</div>
               <div className="flex flex-col justify-between gap-6 lg:flex-row">
                 <Controller
                   control={methods.control}
@@ -250,13 +253,13 @@ const EventReservationForm = ({ eventDetail }: Props) => {
               </div>
               {eventDetail && (
                 <div>
-                  <div className="border-t pb-4 pt-6 text-default text-black-universal">
+                  <div className="border-t pb-4 pt-6 text-h5 text-foreground-heading">
                     {t('event')}
                   </div>
 
-                  <div className="border border-gray-300 p-4 text-gray-universal-70">
+                  <div className="border border-border-light p-4 text-foreground-body">
                     <div className="flex">
-                      <div className="flex h-16 w-16 bg-yellow-promo text-center">
+                      <div className="flex h-16 w-16 bg-promo-yellow text-center">
                         <DateCardDisplay
                           dateFrom={eventDetail?.attributes?.dateFrom ?? '1-1-1970'}
                           dateTo={eventDetail?.attributes?.dateTo ?? '1-1-1970'}
@@ -266,13 +269,13 @@ const EventReservationForm = ({ eventDetail }: Props) => {
 
                       {/* TODO fix eslint */}
                       <div className="pl-5">
-                        <div className="leading-[19px] text-black-universal ">
+                        <div className="text-foreground-heading">
                           {(eventDetail?.attributes?.title?.length || 0) > 50
                             ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                              `${eventDetail?.attributes?.title?.slice(0, 50)}...`
+                            `${eventDetail?.attributes?.title?.slice(0, 50)}...`
                             : eventDetail?.attributes?.title}
                         </div>
-                        <div className="pt-[5px] text-xs leading-[20px] text-gray-universal-70">
+                        <div className="pt-[5px] text-sm text-foreground-body">
                           {dateTimeString(
                             eventDetail?.attributes?.dateFrom ?? new Date(),
                             eventDetail?.attributes?.dateTo ?? new Date(),
@@ -280,7 +283,7 @@ const EventReservationForm = ({ eventDetail }: Props) => {
                           )}
                         </div>
                         {eventDetail?.attributes?.eventLocality?.data?.attributes?.title && (
-                          <div className="text-xs leading-[20px] text-gray-universal-70">
+                          <div className="text-sm text-foreground-body">
                             &#9679; {eventDetail?.attributes?.eventLocality.data.attributes?.title}
                           </div>
                         )}
@@ -364,7 +367,7 @@ const EventReservationForm = ({ eventDetail }: Props) => {
               {hasErrors && (
                 <p className="text-base text-error ">{t('please_fill_required_fields')}</p>
               )}
-              <FormFooter buttonContent={t('send')} />
+              <FormFooter buttonContent={t('send')}/>
             </div>
           </FormContainer>
         </FormProvider>

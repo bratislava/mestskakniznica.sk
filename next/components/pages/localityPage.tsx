@@ -15,7 +15,7 @@ const LocalityPage = ({ page }: PageProps) => {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <div className="border-b border-gray-900">
+        <div className="border-b border-border-dark">
           {page?.attributes?.sections && (
             <Sections sections={page?.attributes?.sections} events={[]} eventsListingUrl="" />
           )}

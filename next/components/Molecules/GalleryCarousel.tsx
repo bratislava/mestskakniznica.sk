@@ -14,7 +14,7 @@ const GalleryCarousel = ({ gallery }: PageProps) => {
   const prevRef = React.useRef(null)
   const nextRef = React.useRef(null)
   return (
-    <div className="bg-black mx-auto w-full max-w-6xl">
+    <div className="mx-auto w-full max-w-6xl bg-dark">
       <Swiper navigation autoHeight modules={[Navigation]}>
         {gallery &&
           gallery.length > 0 &&
@@ -29,7 +29,7 @@ const GalleryCarousel = ({ gallery }: PageProps) => {
                     `carousel-${galleryItem?.id}`
                   }
                 />
-                <div className="absolute bottom-0 w-full bg-gray-900 bg-opacity-50 text-center text-white">
+                <div className="absolute bottom-0 w-full bg-button-dark bg-opacity-50 text-center text-white">
                   <p className="text-l py-2">{galleryItem?.Description} </p>
                 </div>
               </div>

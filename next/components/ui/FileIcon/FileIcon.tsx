@@ -10,10 +10,10 @@ export const FileIcon = ({ className, type }: FileIconProps) => {
     <div
       className={cx(
         className,
-        'flex items-center justify-center lg:h-14 lg:w-14 lg:rounded-full lg:border lg:border-gray-universal-100'
+        'flex items-center justify-center lg:h-14 lg:w-14 lg:rounded-full lg:border lg:border-border-dark'
       )}
     >
-      <span className="text-[12px] text-gray-universal-100 lg:w-14 lg:text-center">{type}</span>
+      <span className="text-[12px] text-foreground-heading lg:w-14 lg:text-center">{type}</span>
     </div>
   )
 }

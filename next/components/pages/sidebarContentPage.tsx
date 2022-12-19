@@ -21,7 +21,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs page={page}/>
       </SectionContainer>
       <SectionContainer>
         <div className="grid grid-cols-12">
@@ -41,29 +41,29 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
               />
             </div>
           )}
-          <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-gray-700" />
+          <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-border-dark"/>
           {/* Title */}
-          <h1 className="col-span-12 row-start-1 mt-16 text-2xl md:col-span-7 md:col-start-6">
+          <h1 className="text_2xl_old col-span-12 row-start-1 mt-16 md:col-span-7 md:col-start-6">
             {page?.attributes?.title ?? ''}
           </h1>
           {/* Description */}
           <div className="col-span-12 mt-8 md:col-span-7">
             {page?.attributes?.description && (
               <UIMarkdown
-                paragraphClassName="text-sm"
-                className="w-full text-sm"
+                paragraphClassName="text-base"
+                className="w-full text-base"
                 content={page?.attributes?.description ?? ''}
               />
             )}
 
             {/* Sections */}
             {page?.attributes?.sections && (
-              <Sections pageTitle={page?.attributes?.title} sections={page?.attributes.sections} />
+              <Sections pageTitle={page?.attributes?.title} sections={page?.attributes.sections}/>
             )}
           </div>
         </div>
 
-        <div className="mt-8 flex" />
+        <div className="mt-8 flex"/>
       </SectionContainer>
     </>
   )

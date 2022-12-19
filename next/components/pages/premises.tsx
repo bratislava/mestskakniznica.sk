@@ -27,14 +27,14 @@ const Premises = ({ page }: PremisesPageProps) => {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <div className="border-gray-900">
+        <div className="border-border-dark">
           <PageTitle
             title={page?.attributes?.title ?? ''}
             description={page?.attributes?.description ?? ''}
           />
           {!premises && !error && <LoadingSpinner className="pt-12" />}
 
-          <div className="mb-16 grid gap-x-5 gap-y-8 border-b border-gray-900 pt-12 pb-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="mb-16 grid gap-x-5 gap-y-8 border-b border-border-dark pt-12 pb-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {premises?.map((item) => (
               <PremiseCard
                 address={item?.attributes?.address || ''}

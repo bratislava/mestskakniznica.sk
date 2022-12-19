@@ -46,7 +46,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
         <div
           key={field.id}
           className={cx('relative mb-6 flex w-full flex-col gap-y-6 border p-6', {
-            'border-input-stroke': !errors?.books?.[index],
+            'border-border-light': !errors?.books?.[index],
             'base-input--with-error': errors?.books?.[index],
           })}
         >
@@ -175,10 +175,10 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
       ))}
       <div className="flex justify-center lg:block">
         <Button
-          icon={<PlusIcon />}
+          icon={<PlusIcon/>}
           iconPosition="left"
           variant="plain-primary"
-          className="mb-4 text-xs font-medium"
+          className="mb-4 text-sm font-medium"
           onClick={(e) => handleAddBook(e)}
         >
           {t('add_book')}

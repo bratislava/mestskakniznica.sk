@@ -10,23 +10,24 @@ export interface TextAreaProps
   textAreaClassname?: string
 }
 
-export const TextArea = ({
-  className,
-  children,
-  labelContent,
-  helpText,
-  id,
-  hasError = false,
-  errorMessage,
-  textAreaClassname,
-  required,
-  ...props
-}: TextAreaProps) => {
+export const TextArea = (
+  {
+    className,
+    children,
+    labelContent,
+    helpText,
+    id,
+    hasError = false,
+    errorMessage,
+    textAreaClassname,
+    required,
+    ...props
+  }: TextAreaProps) => {
   return (
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('mb-0.5 text-xs text-gray-universal-100 opacity-80')} htmlFor={id}>
+        <label className={cx('mb-0.5 text-sm text-foreground-heading opacity-80')} htmlFor={id}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -50,7 +51,7 @@ export const TextArea = ({
       {errorMessage && (
         <p
           id={`${id}_err`}
-          className={cx('mt-2 text-xs text-error', { hidden: !hasError })}
+          className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
           aria-labelledby={id}
         >
           {labelContent} {errorMessage}
@@ -60,8 +61,8 @@ export const TextArea = ({
       {/* Help Text */}
       {helpText && (
         <p
-          className={cx('mt-0.5 text-xs opacity-80', {
-            'text-gray-universal-70': !hasError,
+          className={cx('mt-0.5 text-sm opacity-80', {
+            'text-foreground-body': !hasError,
             'text-error': hasError,
           })}
         >
