@@ -100,82 +100,7 @@ export const getForm = (formType: string, key: string, eventDetail?: EventCardEn
   )
 }
 
-const Sections = ({
-  pageTitle,
-  sections,
-  events,
-  eventsListingUrl,
-  className,
-}: {
-  pageTitle?: string | null | undefined
-  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
-  events?: EventCardEntityFragment[] | undefined
-  eventsListingUrl?: string | undefined
-  className?: string | undefined
-}) => {
-  return (
-    <div className={className ?? 'flex flex-col space-y-8'}>
-      {sections.map(
-        (
-          section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined,
-          index
-        ) => (
-          <Section
-            key={index}
-            sections={sections}
-            pageTitle={pageTitle}
-            section={section || null}
-            events={events}
-            eventsListingUrl={eventsListingUrl}
-          />
-        )
-      )}
-    </div>
-  )
-}
-
-const Section = ({
-  sections,
-  pageTitle,
-  section,
-  events,
-  eventsListingUrl,
-}: {
-  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
-  pageTitle?: string | null | undefined
-  section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
-  events: EventCardEntityFragment[] | undefined
-  eventsListingUrl: string | undefined
-}) => {
-  const [openAccordion, setOpenAccordion] = useState('')
-  const { t } = useTranslation(['common', 'homepage'])
-  const { locale } = usePageWrapperContext()
-
-  const listenAccordionState = (id: string, state: boolean) => {
-    setOpenAccordion(state ? id : '')
-  }
-
-  if (!section) return null
-
-  return (
-    <div>
-      {sectionContent(
-        sections,
-        pageTitle,
-        section,
-        events,
-        eventsListingUrl,
-        t,
-        openAccordion,
-        listenAccordionState,
-        locale
-      )}
-    </div>
-  )
-}
-
 const sectionContent = (
-  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[] | any,
   pageTitle: string | null | undefined,
   section: BlogPostSectionsDynamicZone,
   events: EventCardEntityFragment[] | undefined,
@@ -389,6 +314,76 @@ const sectionContent = (
     default:
       return null
   }
+}
+
+const Section = ({
+  pageTitle,
+  section,
+  events,
+  eventsListingUrl,
+}: {
+  pageTitle?: string | null | undefined
+  section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
+  events: EventCardEntityFragment[] | undefined
+  eventsListingUrl: string | undefined
+}) => {
+  const [openAccordion, setOpenAccordion] = useState('')
+  const { t } = useTranslation(['common', 'homepage'])
+  const { locale } = usePageWrapperContext()
+
+  const listenAccordionState = (id: string, state: boolean) => {
+    setOpenAccordion(state ? id : '')
+  }
+
+  if (!section) return null
+
+  return (
+    <div>
+      {sectionContent(
+        pageTitle,
+        section,
+        events,
+        eventsListingUrl,
+        t,
+        openAccordion,
+        listenAccordionState,
+        locale
+      )}
+    </div>
+  )
+}
+
+const Sections = ({
+  pageTitle,
+  sections,
+  events,
+  eventsListingUrl,
+  className,
+}: {
+  pageTitle?: string | null | undefined
+  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
+  events?: EventCardEntityFragment[] | undefined
+  eventsListingUrl?: string | undefined
+  className?: string | undefined
+}) => {
+  return (
+    <div className={className ?? 'flex flex-col space-y-8'}>
+      {sections.map(
+        (
+          section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined,
+          index
+        ) => (
+          <Section
+            key={index}
+            pageTitle={pageTitle}
+            section={section || null}
+            events={events}
+            eventsListingUrl={eventsListingUrl}
+          />
+        )
+      )}
+    </div>
+  )
 }
 
 export default Sections
