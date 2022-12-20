@@ -80,22 +80,14 @@ const FORM: dynamicObject = {
   aka_kniha_vam_v_kniznici_chyba: BookNotInLibraryForm,
 }
 
-const NullComponent = () => {
-  return null
-}
-
 export const getForm = (formType: string, key: string, eventDetail?: EventCardEntityFragment) => {
-  if (!formType) return NullComponent
+  if (!formType) return null
 
-  let Comp: FormsProps | (() => null) = FORM[formType]
-
-  if (!Comp) {
-    Comp = NullComponent
-  }
+  const Comp = FORM[formType]
 
   return (
     <div key={key} id={formType}>
-      <Comp slug={key} eventDetail={eventDetail} />
+      {Comp && <Comp slug={key} eventDetail={eventDetail} />}
     </div>
   )
 }
@@ -109,7 +101,7 @@ const sectionContent = (
   openAccordion: string,
   listenAccordionState: (id: string, state: boolean) => unknown,
   locale: string | undefined
-): React.ReactNode | any => {
+): React.ReactNode => {
   const eventDetail = events?.length ? events[0] : null
 
   switch (section.__typename) {
