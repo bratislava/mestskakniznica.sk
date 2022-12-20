@@ -27,7 +27,6 @@
   "showWeb": "Zobraziť web",
   "moreInformation": "Ďalšie informácie",
   "registration": "Prihlásenie",
-  "searchBook": "Hľadať knihu",
   "continue": "Pokračovať",
   "signup": "Zaregistrovať sa",
   "homepage": "Domovská stránka",
@@ -134,11 +133,23 @@
   "resultsFound_few": "Boli nájdené {{count}} výsledky",
   "resultsFound_other": "Bolo nájdených {{count}} výsledkov",
   "allResults": "Všetky výsledky",
-  "searchPlaceholder": "Hľadať",
+  "search_slug": "/vyhladavanie",
+  "search": "Hľadať",
+  "searchPlaceholder": "Hľadať…",
+  "searchBookPlaceholder": "Hľadať knihu…",
+  "searchOnPagePlaceholder": "Hľadať na stránke…",
   "searchTags": {
     "page": "Stránka",
     "blog-post": "Článok",
     "event": "Podujatie",
     "premise": "Priestor"
-  }
+  },
+  "searchOnPage": "Na stránke",
+  "searchInCatalogue": "V katalógu",
+  "aria": {
+    "searchBook": "Hľadať knihu",
+    "searchOnPage": "Hľadať na stránke",
+    "clearSearch": "Vyčistiť vyhľadávanie"
+  },
+  "searchResults": "Výsledky vyhľadávania"
 }

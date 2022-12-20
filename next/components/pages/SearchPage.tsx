@@ -68,7 +68,6 @@ const SearchPage = ({ pageEntity }: PageProps) => {
     setInput,
     searchValue,
     setSearchValue,
-    emptyValue,
   } = useSearch({ syncWithUrlQuery: true })
 
   const handlePageChange = (page: number) => {
@@ -77,7 +76,8 @@ const SearchPage = ({ pageEntity }: PageProps) => {
 
   useEffect(() => {
     setFilters({ ...filters, searchValue })
-  }, [filters, searchValue])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue])
 
   const {
     dataToDisplay,
@@ -92,7 +92,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
       </SectionContainer>
       <SectionContainer>
         <PageTitle
-          title={pageEntity?.attributes?.title ?? 'Výsledky vyhľadávania'}
+          title={pageEntity?.attributes?.title ?? t('searchResults')}
           description={pageEntity?.attributes?.description ?? ''}
           hasDivider={false}
         />
@@ -105,7 +105,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
             setSearchValue={setSearchValue}
           />
 
-          <Button className="w-full py-[9px] text-xs lg:w-auto lg:py-4.25 lg:px-8">Hľadať</Button>
+          <Button className="w-full py-[9px] lg:w-auto lg:py-4.25 lg:px-8">{t('search')}</Button>
         </div>
         <div
           className="mt-5 flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
@@ -125,12 +125,6 @@ const SearchPage = ({ pageEntity }: PageProps) => {
               )
             })}
           </div>
-          {!loadingAndNoDataToDisplay && !emptyValue && (
-            <div className="whitespace-nowrap">
-              {dataToDisplay?.estimatedTotalHits}
-              {/* {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits })} */}
-            </div>
-          )}
         </div>
         <div
           className="mt-5 text-[16px] text-foreground-placeholder">{t('resultsFound', { count: dataToDisplay?.estimatedTotalHits })}</div>
@@ -167,10 +161,11 @@ const SearchPage = ({ pageEntity }: PageProps) => {
                           <div className="space-y-2">
                             <div className="flex items-center gap-x-4">
                               <h2>{title}</h2>
-                              {/* <span */}
-                              {/*  className="rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[12px]"> */}
-                              {/*    {type} */}
-                              {/* </span> */}
+                              <span
+                                className="rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[12px]">
+                                  {/* TODO proper translation keys */}
+                                {t(`searchTags.${type}`)}
+                               </span>
                             </div>
                             <div
                               className="flex items-center gap-x-3 text-xs text-foreground-body">

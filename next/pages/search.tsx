@@ -31,13 +31,17 @@ export const Search = ({ locale, error, page, menus, footer }: IProps) => {
   return (
     <PageWrapper
       locale={locale ?? 'sk'}
-      slug="/"
-      localizations={page?.attributes?.localizations?.data
-        ?.filter(isPresent)
-        .map((localization) => ({
-          locale: localization.attributes?.locale,
-          slug: localization.attributes?.slug,
-        }))}
+      slug="vyhladavanie"
+      localizations={[
+        {
+          locale: 'sk',
+          slug: 'vyhladavanie',
+        },
+        {
+          locale: 'en',
+          slug: 'search',
+        }
+      ]}
     >
       <DefaultPageLayout Seo={page?.attributes?.Seo} menus={menus} footer={footer}>
         <SearchPage pageEntity={page}/>

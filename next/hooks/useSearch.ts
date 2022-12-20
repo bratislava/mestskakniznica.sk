@@ -27,9 +27,7 @@ export const useSearch = ({ syncWithUrlQuery = false }: UseSearchOptions) => {
   }, [routerQueryValue, syncWithUrlQuery])
 
   useEffect(() => {
-    if (debouncedInput.trim().length > 0) {
-      setSearchValue(debouncedInput)
-    }
+    setSearchValue(debouncedInput)
   }, [debouncedInput])
 
   return {

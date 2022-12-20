@@ -2,21 +2,21 @@ import XCircleIcon from '@assets/images/clear-circle.svg'
 import CloseIcon from '@assets/images/close.svg'
 import SearchIcon from '@assets/images/search.svg'
 import { useTranslation } from 'next-i18next'
-import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, } from 'react'
+import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, KeyboardEventHandler, SetStateAction, } from 'react'
 
 import TextField from './TextField'
 
 type SearchProps = {
-                     input: string
-                     setInput: Dispatch<SetStateAction<string>>
-                     setSearchValue: (query: string) => void
-                     placeholder?: string
+  input: string
+  setInput: Dispatch<SetStateAction<string>>
+  setSearchValue: (query: string) => void
+  placeholder?: string
 
-                     onSearchPress?: (value: string) => void
-                     isLarge?: boolean
-                     className?: string
-                     inputClassName?: string
-                   } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+  onSearchPress?: (value: string) => void
+  isLarge?: boolean
+  className?: string
+  inputClassName?: string
+} & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 const SearchField = ({
   input,
@@ -38,9 +38,7 @@ const SearchField = ({
   }
 
   // TODO: proper keyboard events handling
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const onKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+  const onKeyUpHandler: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter') {
       onSearchPress(input)
       e.preventDefault()
