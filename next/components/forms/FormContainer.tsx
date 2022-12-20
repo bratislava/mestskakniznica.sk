@@ -33,32 +33,31 @@ interface FormContainerProps {
   wrapperClass?: string
 }
 
-const FormContainer = (
-  {
-    children,
-    buttonText,
-    title,
-    onSubmit,
-    isSubmitted,
-    onReset,
-    successTitle,
-    successMessage,
-    errorMessage,
-    wrapperClass,
-  }: FormContainerProps) => {
+const FormContainer = ({
+  children,
+  buttonText,
+  title,
+  onSubmit,
+  isSubmitted,
+  onReset,
+  successTitle,
+  successMessage,
+  errorMessage,
+  wrapperClass,
+}: FormContainerProps) => {
   const [isFormOpen, setFormOpen] = useState(false)
   const { t } = useTranslation('forms')
 
-  const { width }: any = useWindowSize()
+  const { width } = useWindowSize()
 
   const [lockedBodyScroll, setLockedBodyScroll] = useLockedBodyScroll()
 
   useEffect(() => {
-    setFormOpen(isFormOpen && width > 767)
+    setFormOpen(isFormOpen && width !== undefined && width > 767)
   }, [isFormOpen, width])
 
   useEffect(() => {
-    setLockedBodyScroll(!isSubmitted && isFormOpen && width <= 768)
+    setLockedBodyScroll(!isSubmitted && isFormOpen && width !== undefined && width <= 768)
   }, [isFormOpen, setLockedBodyScroll, width, isSubmitted])
 
   const listener = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -96,7 +95,7 @@ const FormContainer = (
               <div className="flex items-center justify-between border-b border-border-dark md:hidden">
                 <span className="pl-4">{title}</span>
                 <button className="p-4" onClick={() => setFormOpen(false)}>
-                  <CloseIcon/>
+                  <CloseIcon />
                 </button>
               </div>
               {/* BODY */}
