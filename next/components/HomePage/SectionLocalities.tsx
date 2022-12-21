@@ -17,13 +17,13 @@ const Localities = ({ localities }: LocalitiesProps) => {
       <h2 className="py-10 text-h3">{t('localitiesTitle')}</h2>
 
       <section className="border border-border-dark pb-10">
-        <img src={Map.src} alt="Mapa lokalit" height={Map.height} width={Map.width}/>
+        <img src={Map.src} alt="Mapa lokalit" height={Map.height} width={Map.width} />
         <div className="inline-flex h-[376px] w-1180">
           {localities &&
             localities?.map((locality) => (
               <div key={locality.localityTitle}>
                 <div className="h-[376px] w-[294.6px] border-r border-border-dark p-6">
-                  <div className="pb-7 text-h3.5 hover:underline">{locality.localityTitle}</div>
+                  <div className="pb-7 text-h3 hover:underline">{locality.localityTitle}</div>
                   {locality.localitySections?.map((section) => (
                     <div
                       key={section.localitySectionTitle}
