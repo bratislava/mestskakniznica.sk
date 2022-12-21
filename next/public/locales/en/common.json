@@ -140,6 +140,7 @@
   "searchOnPagePlaceholder": "Search on page…",
   "searchTags": {
     "page": "Page",
+    "basic-document": "Document",
     "blog-post": "Article",
     "event": "Event",
     "premise": "Premise"
