@@ -53,6 +53,10 @@ const nextConfig = {
           source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
           destination: '/documents/:slug',
         },
+        {
+          source: '/vyhladavanie',
+          destination: '/search',
+        },
       ],
     }
   },
@@ -511,7 +515,6 @@ const nextConfig = {
         destination: '/sluzby/nastroje/darcekova-poukazka',
         permanent: true,
       },
-      { source: '/vyhladavanie/', destination: '/', permanent: true },
       {
         source: '/spoznajte-svety-ukryte-v-knihach',
         destination: '/zazite/aktuality',

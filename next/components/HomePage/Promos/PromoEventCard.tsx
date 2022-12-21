@@ -81,15 +81,18 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
                   />
                 </div>
               ) : (
-                <div className="flex w-full">
-                  <Image
-                    width={600}
-                    height={360}
-                    objectFit="cover"
-                    src={coverImage?.data?.attributes?.url || ''}
-                    alt={coverImage?.data?.attributes?.alternativeText || `Cover for ${title}`}
-                  />
-                </div>
+                coverImage &&
+                coverImage.data?.attributes && (
+                  <div className="flex w-full">
+                    <Image
+                      width={600}
+                      height={360}
+                      objectFit="cover"
+                      src={coverImage?.data?.attributes?.url || ''}
+                      alt={coverImage?.data?.attributes?.alternativeText || `Cover for ${title}`}
+                    />
+                  </div>
+                )
               )}
             </div>
           </div>

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 
-import SearchBox from '../Navigation/SearchBox'
+import HeaderSearchBox from '../Navigation/HeaderSearchBox'
 import SkipNavigation from '../SkipNavigation'
 import { MobileNavigation } from './MobileNavigation'
 
@@ -18,14 +18,15 @@ const TITLE_CLASSES =
   'flex h-[30px] min-w-fit items-center border-r border-border-dark px-[7px] py-[2px]'
 
 const MobilHeader = ({ menus }: HeaderProps) => {
-  const [isOpen, setOpen] = useState(false)
+  const [isMenuOpen, setMenuOpen] = useState(false)
   const router = useRouter()
   const { t } = useTranslation('common')
+  const [isSearchOpen, setSearchOpen] = useState(false)
 
   // close mobile header on route change
   useEffect(() => {
-    router.events.on('routeChangeStart', () => setOpen(false))
-    return () => router.events.off('routeChangeStart', () => setOpen(false))
+    router.events.on('routeChangeStart', () => setMenuOpen(false))
+    return () => router.events.off('routeChangeStart', () => setMenuOpen(false))
   }, [router])
 
   const pageTitle = (word: string, index: number) => (
@@ -37,7 +38,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
   return (
     <>
       <div className="m-auto">
-        <div className="border-border-dark flex justify-between border-b">
+        <div className="flex justify-between border-b border-border-dark">
           <Link href="/" passHref>
             <>
               <a className="relative hidden w-full grid-cols-10 items-center pr-8 uppercase lg:grid">
@@ -55,7 +56,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                       {word}
                     </span>
                   ))}
-                <div className="border-border-dark absolute top-1/2 -z-10 w-full border-b" />
+                <div className="absolute top-1/2 -z-10 w-full border-b border-border-dark"/>
               </a>
               <Link href="/" passHref>
                 <a className="flex w-full flex-col justify-center">
@@ -64,7 +65,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                       .split(' ')
                       .slice(0, 2)
                       .map((word, index) => pageTitle(word, index))}
-                    <div className="border-border-dark absolute bottom-0 -z-10 w-full border-b" />
+                    <div className="absolute bottom-0 -z-10 w-full border-b border-border-dark"/>
                   </div>
                   <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
                     {t('pageTitle')
@@ -77,21 +78,17 @@ const MobilHeader = ({ menus }: HeaderProps) => {
             </>
           </Link>
 
-          <SkipNavigation />
+          <SkipNavigation/>
 
-          <div className="border-border-dark border-l">
-            <Burger onClick={() => setOpen(true)} className="m-4 cursor-pointer" />
-            {isOpen && <MobileNavigation menus={menus} onClose={() => setOpen(false)} />}
+          <div className="border-l border-border-dark">
+            <Burger onClick={() => setMenuOpen(true)} className="m-4 cursor-pointer"/>
+            {isMenuOpen && <MobileNavigation menus={menus} onClose={() => setMenuOpen(false)}/>}
           </div>
         </div>
       </div>
 
-      <div className="border-border-dark m-auto border-b">
-        <div className="flex">
-          <div className="w-[320px] py-2 px-[5px]">
-            <SearchBox text={t('searchBook')} />
-          </div>
-        </div>
+      <div className="m-auto border-b border-border-dark py-2 px-[5px]">
+        <HeaderSearchBox isOpen={isSearchOpen} setOpen={setSearchOpen}/>
       </div>
     </>
   )

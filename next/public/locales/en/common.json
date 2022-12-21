@@ -27,7 +27,6 @@
   "showWeb": "Show Web",
   "moreInformation": "More information",
   "registration": "Sign in",
-  "searchBook": "Search for a book",
   "continue": "Continue",
   "signup": "Sign Up",
   "homepage": "Home",
@@ -128,5 +127,29 @@
   "eventsEmpty": "No events found",
   "eventsAllSlug": "/experience/events",
   "eventListImagePlaceholder": "Event card image",
-  "eventDetailImagePlaceholder": "Event image"
+  "eventDetailImagePlaceholder": "Event image",
+  "resultsFound_zero": "No results found",
+  "resultsFound_one": "{{count}} result found",
+  "resultsFound_few": "{{count}} results found",
+  "resultsFound_other": "{{count}} results found",
+  "allResults": "All results",
+  "search_slug": "/en/search",
+  "search": "Search",
+  "searchPlaceholder": "Search…",
+  "searchBookPlaceholder": "Search for a book…",
+  "searchOnPagePlaceholder": "Search on page…",
+  "searchTags": {
+    "page": "Page",
+    "blog-post": "Article",
+    "event": "Event",
+    "premise": "Premise"
+  },
+  "searchOnPage": "On page",
+  "searchInCatalogue": "In catalog",
+  "aria": {
+    "searchBook": "earch for a book",
+    "searchOnPage": "Search on page",
+    "clearSearch": "Clear search field"
+  },
+  "searchResults": "Search results"
 }
