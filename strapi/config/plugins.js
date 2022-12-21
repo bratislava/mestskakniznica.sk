@@ -23,12 +23,12 @@ const searchIndexSettings = {
   searchableAttributes: [
     // Page
     "page.title",
+    // Basic documents
+    "basic-document.title",
     // Blog post
     "blog-post.title",
     // Event
     "event.title",
-    // Premise
-    "premise.title",
   ],
   filterableAttributes: [
     // All
@@ -63,6 +63,13 @@ module.exports = ({ env }) => ({
         transformEntry: ({ entry }) => wrapSearchIndexEntry("page", entry),
       },
 
+      "basic-document": {
+        indexName: "search_index",
+        settings: searchIndexSettings,
+        transformEntry: ({ entry }) =>
+          wrapSearchIndexEntry("basic-document", entry),
+      },
+
       "blog-post": {
         indexName: "search_index",
         settings: searchIndexSettings,
@@ -76,15 +83,6 @@ module.exports = ({ env }) => ({
         },
         settings: searchIndexSettings,
         transformEntry: ({ entry }) => wrapSearchIndexEntry("event", entry),
-      },
-
-      premise: {
-        indexName: "search_index",
-        entriesQuery: {
-          locale: "all",
-        },
-        settings: searchIndexSettings,
-        transformEntry: ({ entry }) => wrapSearchIndexEntry("premise", entry),
       },
     },
   },

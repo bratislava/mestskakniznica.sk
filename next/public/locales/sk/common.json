@@ -140,6 +140,7 @@
   "searchOnPagePlaceholder": "Hľadať na stránke…",
   "searchTags": {
     "page": "Stránka",
+    "basic-document": "Dokument",
     "blog-post": "Článok",
     "event": "Podujatie",
     "premise": "Priestor"

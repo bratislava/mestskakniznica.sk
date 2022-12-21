@@ -9,14 +9,16 @@ export const allSearchTypes = [
   'page' as const,
   'blog-post' as const,
   'event' as const,
-  'premise' as const,
+  'basic-document' as const,
+  // 'premise' as const,
 ]
 
 type CommonSearchResults =
   | SearchIndexWrapped<'page', { slug: string; title: string | null | undefined }> // TODO: Specify type if needed.
+  | SearchIndexWrapped<'basic-document', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'blog-post', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'event', { slug: string }> // TODO: Specify type if needed.
-  | SearchIndexWrapped<'premise', { url: string }> // TODO: Specify type if needed.
+// | SearchIndexWrapped<'premise', { url: string }> // TODO: Specify type if needed.
 
 // https://stackoverflow.com/a/52331580
 export type Unpacked<T> = T extends (infer U)[] ? U : T
@@ -50,10 +52,7 @@ export const commonSearchFetcher = (filters: CommonSearchFilters, locale: string
     .index('search_index')
     .search<CommonSearchResults>(filters.searchValue, {
       ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
-      filter: [
-        selectedTypesFilter,
-        `locale = ${locale} OR locale NOT EXISTS`,
-      ],
+      filter: [selectedTypesFilter, `locale = ${locale} OR locale NOT EXISTS`],
     })
     .then((response) => {
       const newHits = response.hits.map((hit) => {
@@ -66,12 +65,20 @@ export const commonSearchFetcher = (filters: CommonSearchFilters, locale: string
         if (type === 'blog-post') {
           const { title, slug } = dataInner
           // TODO: use function to get full path
-          const link = locale === 'sk' ? `sluzby/vzdelavanie/clanky/${slug}` : `en/services/education/articles/${slug}`
+          const link =
+            locale === 'sk'
+              ? `sluzby/vzdelavanie/clanky/${slug}`
+              : `en/services/education/articles/${slug}`
           return { type, title, link, data: dataInner } as CommonSearchResult
         }
 
-        if (type === 'premise') {
-          const { title, url: link } = dataInner
+        if (type === 'basic-document') {
+          const { title, slug } = dataInner
+          // TODO IMPORTANT: use function to get full path, fix undefined in url, add english url
+          const link =
+            locale === 'sk'
+              ? `o-nas/dokumenty-a-zverejnovanie-informacii/undefined/${slug}`
+              : `en/o-nas/dokumenty-a-zverejnovanie-informacii/undefined/${slug}`
           return { type, title, link, data: dataInner } as CommonSearchResult
         }
 

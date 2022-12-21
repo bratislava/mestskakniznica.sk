@@ -12,7 +12,7 @@ import {
   commonSearchFetcher,
   CommonSearchFilters,
   CommonSearchType,
-  getCommonSearchSwrKey
+  getCommonSearchSwrKey,
 } from '../../backend/meili/commonSearchFetcher'
 import { useSearch } from '../../hooks/useSearch'
 import useSwrWithExtras from '../../hooks/useSwrWithExtras'
@@ -63,12 +63,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
     [filters]
   )
 
-  const {
-    input,
-    setInput,
-    searchValue,
-    setSearchValue,
-  } = useSearch({ syncWithUrlQuery: true })
+  const { input, setInput, searchValue, setSearchValue } = useSearch({ syncWithUrlQuery: true })
 
   const handlePageChange = (page: number) => {
     setFilters({ ...filters, page })
@@ -79,16 +74,15 @@ const SearchPage = ({ pageEntity }: PageProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue])
 
-  const {
-    dataToDisplay,
-    loadingAndNoDataToDisplay,
-    delayedLoading
-  } = useSwrWithExtras(getCommonSearchSwrKey(filters, i18n.language), commonSearchFetcher(filters, i18n.language))
+  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useSwrWithExtras(
+    getCommonSearchSwrKey(filters, i18n.language),
+    commonSearchFetcher(filters, i18n.language)
+  )
 
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={pageEntity}/>
+        <PageBreadcrumbs page={pageEntity} />
       </SectionContainer>
       <SectionContainer>
         <PageTitle
@@ -107,8 +101,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
 
           <Button className="w-full py-[9px] lg:w-auto lg:py-4.25 lg:px-8">{t('search')}</Button>
         </div>
-        <div
-          className="mt-5 flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
+        <div className="mt-5 flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
           <div className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
             <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
               {t('allResults')}
@@ -126,8 +119,9 @@ const SearchPage = ({ pageEntity }: PageProps) => {
             })}
           </div>
         </div>
-        <div
-          className="mt-5 text-[16px] text-foreground-placeholder">{t('resultsFound', { count: dataToDisplay?.estimatedTotalHits })}</div>
+        <div className="mt-5 text-[16px] text-foreground-placeholder">
+          {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits })}
+        </div>
 
         {/* eslint-disable-next-line sonarjs/no-redundant-boolean */}
         <div className="mt-12 flex flex-col gap-6">
@@ -154,26 +148,24 @@ const SearchPage = ({ pageEntity }: PageProps) => {
                     <a>
                       <div
                         className={cx(
-                          'group border-gray-universal-100 flex items-center justify-between border-b bg-white py-4 pr-2'
+                          'border-gray-universal-100 group flex items-center justify-between border-b bg-white py-4 pr-2'
                         )}
                       >
                         <div className="flex items-center gap-x-6">
                           <div className="space-y-2">
                             <div className="flex items-center gap-x-4">
                               <h2>{title}</h2>
-                              <span
-                                className="rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[12px]">
-                                  {/* TODO proper translation keys */}
+                              <span className="rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[12px]">
+                                {/* TODO proper translation keys */}
                                 {t(`searchTags.${type}`)}
-                               </span>
+                              </span>
                             </div>
-                            <div
-                              className="flex items-center gap-x-3 text-xs text-foreground-body">
+                            <div className="flex items-center gap-x-3 text-xs text-foreground-body">
                               <span>/{link}</span>
                             </div>
                           </div>
                         </div>
-                        <ChevronRight/>
+                        <ChevronRight className="ml-4 shrink-0" />
                       </div>
                     </a>
                   </Link>
