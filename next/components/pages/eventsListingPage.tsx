@@ -1,7 +1,11 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
 import DropdownIcon from '@assets/images/dropdown.svg'
-import { EventCardEntityFragment, EventFiltersInput, PageEntity, } from '@bratislava/strapi-sdk-city-library'
+import {
+  EventCardEntityFragment,
+  EventFiltersInput,
+  PageEntity,
+} from '@bratislava/strapi-sdk-city-library'
 import { LoadingSpinner, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { client } from '@utils/gql'
 import cx from 'classnames'
@@ -247,7 +251,7 @@ const Events = ({ page }: PageProps) => {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page}/>
+        <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
         <div className="pb-6 lg:pb-16">
@@ -263,7 +267,7 @@ const Events = ({ page }: PageProps) => {
                 onClick={toggleFilterModal}
               >
                 {t('eventsFilter')}
-                <DropdownIcon/>
+                <DropdownIcon />
               </button>
               {openFilterModal && (
                 <FilterModal onClose={toggleFilterModal} title={t('eventsFilter')}>
@@ -341,9 +345,9 @@ const Events = ({ page }: PageProps) => {
         </div>
         {!activeFilters && (
           <Section>
-            <div className="text-h3.5">{t('eventsPromoted')}</div>
+            <div className="text-h3">{t('eventsPromoted')}</div>
             <div className="pb-10">
-              <SectionPromos promos={promotedEvents}/>
+              <SectionPromos promos={promotedEvents} />
             </div>
           </Section>
         )}
@@ -355,7 +359,7 @@ const Events = ({ page }: PageProps) => {
             hidden: !upcomingFilteredEvents?.length,
           })}
         >
-          <div className="text-h3.5">{t('eventsUpcoming')}</div>
+          <div className="text-h3">{t('eventsUpcoming')}</div>
           <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
             {upcomingFilteredEvents?.map((event) => (
               <EventListingCard
@@ -382,7 +386,7 @@ const Events = ({ page }: PageProps) => {
             hidden: !filteredEvents?.length,
           })}
         >
-          <div className="text-h3.5">{t('eventsArchived')}</div>
+          <div className="text-h3">{t('eventsArchived')}</div>
           <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
             {filteredEvents?.map((event) => (
               <EventListingCard
@@ -393,7 +397,7 @@ const Events = ({ page }: PageProps) => {
           </div>
           <div className="flex justify-center pt-6 lg:justify-end">
             {isLoadingInitialData || isLoadingMore ? (
-              <LoadingSpinner size="small"/>
+              <LoadingSpinner size="small" />
             ) : (
               <Pagination
                 value={strapiMetaPagination?.page || 0}
@@ -407,7 +411,7 @@ const Events = ({ page }: PageProps) => {
           </div>
         </div>
 
-        {!areThereAnyEvents() && <div className="text-center text-h3.5">{t('eventsEmpty')}</div>}
+        {!areThereAnyEvents() && <div className="text-center text-h3">{t('eventsEmpty')}</div>}
         {/* <Banner
           onBannerClick={handleEventSubscription}
           title={t('eventsDontMiss')}

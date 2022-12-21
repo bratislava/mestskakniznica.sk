@@ -33,7 +33,7 @@ const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: Subnavi
   return (
     <div
       className={cx(
-        'border-border-light m-auto grid w-full border bg-white px-4 py-8 text-base font-light',
+        'm-auto grid w-full border border-border-light bg-white px-4 py-8 text-base font-light',
         {
           'grid-cols-3': menuTotalColumns === 3,
           'grid-cols-4 gap-x-10': menuTotalColumns === 4,
