@@ -47,7 +47,6 @@ const NavigationItem = ({ menu, latestEvents }: navItemProps) => {
             menuSections={menuSections}
             latestEvents={latestEvents}
             menuTotalColumns={menu?.menuTotalColumns}
-            menuSlug={menu?.menuSlug}
           />
         </NavigationMenu.Content>
       )}
