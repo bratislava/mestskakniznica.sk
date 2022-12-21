@@ -9,16 +9,12 @@ type StackProps = {
 
 export const Stack = ({ direction = 'row', children }: StackProps) => {
   const classNameStyles = cx(
-    'flex flex-wrap gap-1 xs:p-3 border p-4 border-dashed border-gray-800 rounded-lg',
+    'flex flex-wrap gap-1 rounded-lg border border-dashed border-border-dark p-4 xs:p-3',
     {
-      'flex-col space-y-2 items-center': direction === 'column',
-      'space-x-2 items-end': direction === 'row',
+      'flex-col items-center space-y-2': direction === 'column',
+      'items-end space-x-2': direction === 'row',
     }
   )
 
-  return (
-    <div className={classNameStyles}>
-      {children}
-    </div>
-  )
+  return <div className={classNameStyles}>{children}</div>
 }

@@ -26,7 +26,7 @@ export const LocalityMap = ({
   }, [])
 
   return localityLongitude && localityLatitude ? (
-    <div className="text-black mb-4 h-full w-full lg:mb-8">
+    <div className="mb-4 h-full w-full text-black lg:mb-8">
       {isBrowser && (
         <Mapbox
           ref={mapRef}
@@ -55,7 +55,7 @@ export const LocalityMap = ({
                 height={48}
               />
               {localityName && (
-                <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-primary px-2 group-hover:visible">
+                <div className="bg-primary invisible absolute top-1/3 z-30 whitespace-nowrap rounded px-2 group-hover:visible">
                   {localityName}
                 </div>
               )}
