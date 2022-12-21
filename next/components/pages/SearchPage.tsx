@@ -93,7 +93,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
         <div className="mt-6 flex flex-col gap-y-4 lg:flex-row lg:gap-y-0">
           <SearchField
             className="h-16"
-            // inputClassName="py-2 lg:py-5 text-sm w-full border-gray-universal-200"
+            // inputClassName="py-2 lg:py-5 text-sm w-full"
             input={input}
             setInput={setInput}
             setSearchValue={setSearchValue}
@@ -148,7 +148,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
                     <a>
                       <div
                         className={cx(
-                          'border-gray-universal-100 group flex items-center justify-between border-b bg-white py-4 pr-2'
+                          'group flex items-center justify-between border-b border-border-dark bg-white py-4 pr-2'
                         )}
                       >
                         <div className="flex items-center gap-x-6">

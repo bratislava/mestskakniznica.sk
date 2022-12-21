@@ -45,8 +45,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
               />
             </div>
 
-            <div
-              className="m-auto mt-3 w-full justify-end pl-5 pr-[19px] text-h3 text-black line-clamp-3 hover:underline">
+            <div className="m-auto mt-3 w-full justify-end pl-5 pr-[19px] text-h2 text-black line-clamp-3 hover:underline">
               {title}
             </div>
             <div>

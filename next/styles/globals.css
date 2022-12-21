@@ -1,30 +1,22 @@
+/* Mobile screen font sizes */
 :root {
-  --font-size-h6: 1rem;
-  --font-size-h5: 1rem;
-  --font-size-h4: 1.25rem;
-  --font-size-h3-5: 1.375rem;
-  --font-size-h3: 1.5rem;
-  --font-size-h2: 1.75rem;
-  --font-size-h1: 2rem;
-
-  --line-height-h6: calc(var(--font-size-h6) * 1.5);
-  --line-height-h5: calc(var(--font-size-h5) * 1.5);
-  --line-height-h4: calc(var(--font-size-h4) * 1.5);
-  --line-height-h3-5: calc(var(--font-size-h3-5) * 1.5);
-  --line-height-h3: calc(var(--font-size-h3) * 1.5);
-  --line-height-h2: calc(var(--font-size-h2) * 1.5);
-  --line-height-h1: calc(var(--font-size-h1) * 1.5);
+  --font-size-h1: 1.75rem; /* 28px */
+  --font-size-h2: 1.5rem; /* 24px */
+  --font-size-h3: 1.25rem; /* 20px */
+  --font-size-h4: 1.125rem; /* 18px */
+  --font-size-h5: 1rem; /* 16px */
+  --font-size-h6: 1rem; /* 16px */
 }
 
+/* Larger screen font sizes */
 @screen md {
   :root {
-    --font-size-h6: 1rem;
-    --font-size-h5: 1.25rem;
-    --font-size-h4: 1.5rem;
-    --font-size-h3-5: 1.75rem;
-    --font-size-h3: 2rem;
-    --font-size-h2: 2.5rem;
-    --font-size-h1: 3rem;
+    --font-size-h1: 2.5rem; /* 40px */
+    --font-size-h2: 2rem; /* 32px */
+    --font-size-h3: 1.75rem; /* 28px */
+    --font-size-h4: 1.5rem; /* 24px */
+    --font-size-h5: 1.25rem; /* 20px */
+    --font-size-h6: 1rem; /* 16px */
   }
 }
 
