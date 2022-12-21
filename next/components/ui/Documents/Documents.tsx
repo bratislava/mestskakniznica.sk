@@ -15,7 +15,7 @@ export const Documents = ({ className, title, moreLink, files }: DocumentsProps)
   const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className, 'flex flex-col')}>
-      <h3 className="text-h3">{title}</h3>
+      <h3 className="text-h3.5">{title}</h3>
 
       <div className={cx('flex flex-col', { 'mt-6': !!title })}>
         {files?.map((file, index) => (

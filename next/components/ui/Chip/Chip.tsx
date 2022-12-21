@@ -29,7 +29,7 @@ export const Chip = ({ size, children, className, onDelete }: ChipProps) => {
       >
         {children}
       </div>
-      {!!onDelete && <ClearCircle onClick={onDelete} className="cursor-pointer text-black/60" />}
+      {!!onDelete && <ClearCircle onClick={onDelete} className="text-black/60 cursor-pointer" />}
     </div>
   )
 }
