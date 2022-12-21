@@ -1,11 +1,11 @@
 import { Button, CheckBox, Input, Link } from '@bratislava/ui-city-library'
 import cx from 'classnames'
+import Script from 'next/script'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-import Script from 'next/script'
 
 interface IProps {
   className?: string
@@ -36,11 +36,11 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
   const [cfId] = React.useState(Math.floor(Math.random() * 999))
 
   const renderCfCaptcha = () => {
-    const widget = document.getElementById('turnstile-widget-' + cfId)
+    const widget = document.getElementById(`turnstile-widget-${  cfId}`)
     if (window.turnstile && widget && widget.childNodes.length === 0) {
-      window.turnstile.render('#turnstile-widget-' + cfId, {
+      window.turnstile.render(`#turnstile-widget-${  cfId}`, {
         sitekey: process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY ?? '',
-        callback: function (token: string) {
+        callback (token: string) {
           methods.setValue('cfTurnstile', token)
         },
         theme: 'light',
@@ -108,12 +108,12 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
         )}
       />
       <Script
-        src={'https://challenges.cloudflare.com/turnstile/v0/api.js'}
-        async={true}
-        defer={true}
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer
         onLoad={renderCfCaptcha}
       />
-      <div id={'turnstile-widget-' + cfId} className="!mt-0" />
+      <div id={`turnstile-widget-${  cfId}`} className="!mt-0" />
 
       <Button className="m-auto ml-0 w-full py-2.5 px-5 lg:w-auto">{buttonContent}</Button>
     </div>
