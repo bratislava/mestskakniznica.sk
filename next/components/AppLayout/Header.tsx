@@ -23,26 +23,28 @@ const Header = ({ menus, upcomingEvents }: HeaderProps) => {
   return (
     <>
       <div className="m-auto max-w-[1180px]">
-        <div className="mx-auto flex items-center justify-between border-b border-border-dark">
-          <Link href="/" passHref>
-            <a className="flex h-[40px] cursor-pointer flex-row items-center uppercase">
-              {t('pageTitle')
-                .split(' ')
-                .map((word) => (
-                  <span
-                    key={word}
-                    className="h-[40px] border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase first:pl-0 first:pr-3"
-                  >
-                    {word}
-                  </span>
-                ))}
-            </a>
-          </Link>
+        <div className="mx-auto flex justify-between border-b border-border-dark">
+          <div>
+            <Link href="/" passHref>
+              <a className="flex h-full cursor-pointer uppercase">
+                {t('pageTitle')
+                  .split(' ')
+                  .map((word) => (
+                    <span
+                      key={word}
+                      className="border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase leading-[27px] first:pl-0 first:pr-3"
+                    >
+                      {word}
+                    </span>
+                  ))}
+              </a>
+            </Link>
+          </div>
 
-          <SkipNavigation/>
+          <SkipNavigation />
 
-          <div className="">
-            <HeaderNavigation/>
+          <div>
+            <HeaderNavigation />
           </div>
         </div>
       </div>
@@ -50,11 +52,7 @@ const Header = ({ menus, upcomingEvents }: HeaderProps) => {
         <div className="relative flex h-14 items-center justify-between">
           <AnimatePresence>
             {!isSearchOpen && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <NavigationMenu.Root aria-label={t('navAriaLabel')}>
                   <NavigationMenu.List className="flex">
                     {menus?.map((menu, index) => (
@@ -67,12 +65,12 @@ const Header = ({ menus, upcomingEvents }: HeaderProps) => {
                     ))}
                   </NavigationMenu.List>
 
-                  <NavigationMenu.Viewport className="absolute z-50 m-auto w-1180 max-w-full bg-white"/>
+                  <NavigationMenu.Viewport className="absolute z-50 m-auto w-1180 max-w-full bg-white" />
                 </NavigationMenu.Root>
               </motion.div>
             )}
           </AnimatePresence>
-          <HeaderSearchBox isOpen={isSearchOpen} setOpen={setSearchOpen}/>
+          <HeaderSearchBox isOpen={isSearchOpen} setOpen={setSearchOpen} />
         </div>
       </div>
     </>

@@ -27,7 +27,7 @@ const NavigationItem = ({ menu, latestEvents }: navItemProps) => {
   )
 
   return (
-    <NavigationMenu.Item className="h-14 w-[160px] border-r border-border-dark pl-3 pt-[28px] pb-1 first:pl-0 last:border-r-0">
+    <NavigationMenu.Item className="h-14 border-r border-border-dark pl-3 pt-[28px] pb-1 first:pl-0 last:border-r-0 lg:w-[134px] xl:w-[160px]">
       {menu?.menuSlug && (
         <NavigationMenu.Trigger
           className={cx('flex h-full text-lg font-normal', {
