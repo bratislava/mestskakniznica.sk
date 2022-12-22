@@ -34,13 +34,13 @@ spec:
               path: /health
               port: http
             periodSeconds: 60
-            initialDelaySeconds: 60
+            initialDelaySeconds: 30
           readinessProbe:
             httpGet:
               path: /health
               port: http
             periodSeconds: 60
-            initialDelaySeconds: 60
+            initialDelaySeconds: 30
           volumeMounts:
             - name: ${BUILD_REPOSITORY_NAME}-meilisearch-data-storage
               mountPath: /meili_data
@@ -51,7 +51,7 @@ spec:
         labels:
           service: meilisearch
       spec:
-        accessModes: ['ReadWriteOnce']
+        accessModes: ["ReadWriteOnce"]
         resources:
           requests:
             storage: 10Gi

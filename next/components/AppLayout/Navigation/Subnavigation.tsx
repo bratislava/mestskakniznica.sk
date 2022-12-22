@@ -1,36 +1,33 @@
 import cx from 'classnames'
-import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { ComponentMenuSections, EventCardEntityFragment, Maybe } from '../../../graphql'
 import Column from './SubnavigationColumn'
 
 interface SubnavigationProps {
-  menuSlug: string | undefined | null
   menuTotalColumns: number | undefined | null
   menuSections: Maybe<ComponentMenuSections>[]
   latestEvents?: EventCardEntityFragment[]
 }
 
 const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: SubnavigationProps) => {
-  const { t } = useTranslation('common')
 
   const columns = useMemo(() => {
-    const columns = []
+    const columnsTmp = []
     const temp: ComponentMenuSections[] = []
-    menuSections?.map((section) => {
+    menuSections?.forEach((section) => {
       if (section && section.sectionColumnSpan) {
-        columns.push({ sections: section })
-      } else {
-        section && temp.push(section)
+        columnsTmp.push({ sections: section })
+      } else if(section) {
+        temp.push(section)
       }
     })
 
     if (temp.length > 0) {
-      columns.push({ sections: temp })
+      columnsTmp.push({ sections: temp })
     }
 
-    return columns
+    return columnsTmp
   }, [menuSections])
 
   return (
