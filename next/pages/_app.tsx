@@ -6,6 +6,8 @@ import { AppProps } from 'next/app'
 import Link from 'next/link'
 import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next'
+import { NextAdapter } from 'next-query-params'
+import { QueryParamProvider } from 'use-query-params'
 
 import { CityLibraryMarkdown } from '../components/Atoms/CityLibraryMarkdown'
 import CookieConsent from '../components/Molecules/CookieConsent'
@@ -29,31 +31,33 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
           data-domain="mestskakniznica.sk"
           src="https://plausible.io/js/plausible.js"
         />
-      ) : null}
-      <UIContextProvider
-        components={{
-          Link: ({ href, className, children, locale, target, rel }) => {
-            if (href === undefined || href === null) return null
-            return (
-              <Link href={href} locale={locale}>
-                <a target={target} rel={rel} href={href} className={className}>
-                  {children}
-                </a>
-              </Link>
-            )
-          },
-          Image: ({ alt, src }) => <img alt={alt} src={src}/>,
-          Markdown: ({ className, paragraphClassName, content }) => (
-            <CityLibraryMarkdown
-              className={className}
-              paragraphClassName={paragraphClassName}
-              content={content}
-            />
-          ),
-        }}
-      >
-        <Component {...pageProps} />
-      </UIContextProvider>
+      ) : null}{' '}
+      <QueryParamProvider adapter={NextAdapter}>
+        <UIContextProvider
+          components={{
+            Link: ({ href, className, children, locale, target, rel }) => {
+              if (href === undefined || href === null) return null
+              return (
+                <Link href={href} locale={locale}>
+                  <a target={target} rel={rel} href={href} className={className}>
+                    {children}
+                  </a>
+                </Link>
+              )
+            },
+            Image: ({ alt, src }) => <img alt={alt} src={src}/>,
+            Markdown: ({ className, paragraphClassName, content }) => (
+              <CityLibraryMarkdown
+                className={className}
+                paragraphClassName={paragraphClassName}
+                content={content}
+              />
+            ),
+          }}
+        >
+          <Component {...pageProps} />
+        </UIContextProvider>
+      </QueryParamProvider>
       <CookieConsent/>
     </div>
   )

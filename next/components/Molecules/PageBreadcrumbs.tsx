@@ -1,18 +1,5 @@
-import ArrowLeft from '@assets/images/arrow-left.svg'
-import ChevronDown from '@assets/images/chevron-down.svg'
-import ChevronRight from '@assets/images/chevron-right.svg'
-import ChevronUp from '@assets/images/chevron-up.svg'
-import Home from '@assets/images/home.svg'
-import {
-  BlogPostEntity,
-  Category,
-  FileCategoryEntity,
-  PageEntity,
-} from '@bratislava/strapi-sdk-city-library'
-import cx from 'classnames'
-import Link from 'next/link'
+import { BlogPostEntity, Category, FileCategoryEntity, PageEntity, } from '@bratislava/strapi-sdk-city-library'
 import { useTranslation } from 'next-i18next'
-import { Fragment, useState } from 'react'
 
 import { pagePath } from '../../utils/page'
 import Breadcrumbs from './Breadcrumbs'
@@ -69,7 +56,7 @@ const PageBreadcrumbs = ({ page, blogPost, documentCategory, breadCrumbs }: Page
 
   crumbs.reverse()
 
-  return <Breadcrumbs crumbs={crumbs} />
+  return <Breadcrumbs crumbs={crumbs}/>
 }
 
 export default PageBreadcrumbs
