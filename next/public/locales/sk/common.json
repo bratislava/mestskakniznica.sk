@@ -148,9 +148,15 @@
   "searchOnPage": "Na stránke",
   "searchInCatalogue": "V katalógu",
   "aria": {
+    "searchField": "Vyhľadávanie",
     "searchBook": "Hľadať knihu",
     "searchOnPage": "Hľadať na stránke",
     "clearSearch": "Vyčistiť vyhľadávanie"
   },
-  "searchResults": "Výsledky vyhľadávania"
+  "searchResults": "Výsledky vyhľadávania",
+  "allCategories": "Všetky kategórie",
+  "SortSelect": {
+    "byNewest": "Od najnovšieho",
+    "byOldest": "Od najstaršieho"
+  }
 }

@@ -2,8 +2,8 @@ import { meiliClient } from '@utils/meilisearch'
 import { SearchResponse } from 'meilisearch'
 import { Key } from 'swr'
 
-import { getMeilisearchPageOptions } from './getMeilisearchPageOptions'
-import { SearchIndexWrapped } from './searchIndexWrapped'
+import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
+import { SearchIndexWrapped } from '../searchIndexWrapped'
 
 export const allSearchTypes = [
   'page' as const,

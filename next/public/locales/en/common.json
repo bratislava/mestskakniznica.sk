@@ -148,9 +148,15 @@
   "searchOnPage": "On page",
   "searchInCatalogue": "In catalog",
   "aria": {
-    "searchBook": "earch for a book",
+    "searchField": "Search",
+    "searchBook": "Search for a book",
     "searchOnPage": "Search on page",
     "clearSearch": "Clear search field"
   },
-  "searchResults": "Search results"
+  "searchResults": "Search results",
+  "allCategories": "All categories",
+  "SortSelect": {
+    "byNewest": "From newest",
+    "byOldest": "From oldest"
+  }
 }

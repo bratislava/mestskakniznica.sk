@@ -13,7 +13,7 @@ import {
   CommonSearchFilters,
   CommonSearchType,
   getCommonSearchSwrKey,
-} from '../../backend/meili/commonSearchFetcher'
+} from '../../backend/meili/fetchers/commonSearchFetcher'
 import { useSearch } from '../../hooks/useSearch'
 import useSwrWithExtras from '../../hooks/useSwrWithExtras'
 import { AnimateHeight } from '../Atoms/AnimateHeight'
