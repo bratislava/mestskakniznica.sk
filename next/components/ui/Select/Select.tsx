@@ -23,22 +23,21 @@ interface IProps<T extends ISelectOption> {
   required?: boolean
 }
 
-export const Select = <T extends ISelectOption>(
-  {
-    id,
-    className,
-    selectClassName,
-    options,
-    value: iValue,
-    onChange,
-    hasError,
-    errorMessage,
-    placeholder,
-    labelContent,
-    helpText,
-    required,
-    ...rest
-  }: IProps<T>) => {
+export const Select = <T extends ISelectOption>({
+  id,
+  className,
+  selectClassName,
+  options,
+  value: iValue,
+  onChange,
+  hasError,
+  errorMessage,
+  placeholder,
+  labelContent,
+  helpText,
+  required,
+  ...rest
+}: IProps<T>) => {
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     if (!onChange) return
 
@@ -77,7 +76,7 @@ export const Select = <T extends ISelectOption>(
             </option>
           ))}
         </select>
-        <ChevronDown className="pointer-events-none absolute right-0 mr-4 text-foreground-heading"/>
+        <ChevronDown className="pointer-events-none absolute right-0 mr-4 text-foreground-heading" />
       </div>
 
       {/* Error Message */}

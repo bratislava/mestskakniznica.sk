@@ -2,7 +2,13 @@ import XCircleIcon from '@assets/images/clear-circle.svg'
 import CloseIcon from '@assets/images/close.svg'
 import SearchIcon from '@assets/images/search.svg'
 import { useTranslation } from 'next-i18next'
-import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, KeyboardEventHandler, SetStateAction, } from 'react'
+import {
+  DetailedHTMLProps,
+  Dispatch,
+  InputHTMLAttributes,
+  KeyboardEventHandler,
+  SetStateAction,
+} from 'react'
 
 import TextField from './TextField'
 
@@ -23,9 +29,7 @@ const SearchField = ({
   setInput,
   setSearchValue,
   placeholder,
-
-  onSearchPress = () => {
-  },
+  onSearchPress = () => {},
   className,
   inputClassName,
   isLarge = false,
@@ -59,11 +63,12 @@ const SearchField = ({
       onKeyUp={onKeyUpHandler}
       className={className}
       inputClassName={inputClassName}
-      leftSlot={<SearchIcon/>}
+      leftSlot={<SearchIcon />}
+      isLarge={isLarge}
       rightSlot={
         input.length > 0 ? (
           <button onClick={handleClear} type="button" className="p-2">
-            {isLarge ? <CloseIcon/> : <XCircleIcon/>}
+            {isLarge ? <CloseIcon /> : <XCircleIcon />}
           </button>
         ) : null
       }
