@@ -8,6 +8,11 @@ on:
     branches:
       - master
 
+permissions:
+  contents: 'read'
+  id-token: 'write'
+  issues: 'write'
+
 jobs:
   conditions:
     name: Check for cluster conditions
