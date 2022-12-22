@@ -8,7 +8,7 @@ export const fetchDocuments = (
   limit: number,
   offset: number,
   sort: string,
-  categoryId: any,
+  categoryId: string,
   query: string
 ) =>
   client.AllBasicDocuments({
