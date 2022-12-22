@@ -2,10 +2,8 @@ import cx from 'classnames'
 import NextLink from 'next/link'
 
 export interface LinkButtonProps
-  extends React.DetailedHTMLProps<
-    React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {
+  extends React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    HTMLAnchorElement> {
   href: string
   icon?: React.ReactNode
   iconClassName?: string
@@ -20,17 +18,18 @@ export interface LinkButtonProps
     | 'plain-white'
 }
 
-export const LinkButton = ({
-  href,
-  children,
-  className,
-  icon,
-  iconClassName,
-  iconPosition = 'left',
-  shape = 'default',
-  variant = 'primary',
-  ...props
-}: LinkButtonProps) => {
+export const LinkButton = (
+  {
+    href,
+    children,
+    className,
+    icon,
+    iconClassName,
+    iconPosition = 'left',
+    shape = 'default',
+    variant = 'primary',
+    ...props
+  }: LinkButtonProps) => {
   return (
     <NextLink href={href} passHref>
       <a
@@ -40,23 +39,22 @@ export const LinkButton = ({
 
           // text colors
           'text-white': variant === 'primary' || variant === 'plain-white',
-          'text-gray-universal-100':
+          'text-foreground-heading':
             variant === 'secondary' || variant === 'plain-primary' || variant === 'tertiary',
-          'text-gray-universal-60': variant === 'plain-secondary',
+          'text-button-gray': variant === 'plain-secondary',
 
           // bg and border
-          'border border-gray-universal-100 bg-gray-universal-100 hover:bg-gray-universal-80':
-            variant === 'primary',
-          'border border-gray-universal-100 hover:border-gray-universal-80 hover:text-gray-universal-80':
+          'border border-border-dark bg-dark hover:bg-button-hover': variant === 'primary',
+          'border border-border-dark hover:border-button-hover hover:text-button-hover':
             variant === 'secondary',
-          'border border-gray-universal-200 hover:text-gray-universal-80': variant === 'tertiary',
+          'border border-border-light hover:text-button-hover': variant === 'tertiary',
 
           // hover bg and border
-          'hover:bg-gray-universal-80': variant === 'primary',
-          'hover:border-gray-universal-80': variant === 'secondary',
+          'hover:bg-button-hover': variant === 'primary',
+          'hover:border-button-hover': variant === 'secondary',
 
           // hover-text
-          'hover:text-gray-universal-80':
+          'hover:text-button-hover':
             variant === 'tertiary' ||
             variant === 'plain-secondary' ||
             variant === 'plain-primary' ||

@@ -3,10 +3,8 @@ import { Checkbox, CheckboxIndicator } from '@radix-ui/react-checkbox'
 import cx from 'classnames'
 import React from 'react'
 
-export type CheckBoxProps = Omit<
-  React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-  'onChange'
-> & {
+export type CheckBoxProps = Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+  'onChange'> & {
   id?: string
   className?: string
   required?: boolean
@@ -22,20 +20,20 @@ export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
         id={props.id}
         required={props.required}
         className={cx(
-          'flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-gray-universal-100 text-white outline-1 outline-offset-2 focus:outline',
+          'flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-border-dark text-white outline-1 outline-offset-2 focus:outline',
           {
-            'bg-gray-universal-100': props.checked,
+            'bg-dark': props.checked,
             'base-input--disabled': props.disabled,
           }
         )}
       >
         <CheckboxIndicator>
-          <CheckMark />
+          <CheckMark/>
         </CheckboxIndicator>
       </Checkbox>
 
       <label
-        className={cx('flex-1 cursor-pointer text-gray-universal-70', {
+        className={cx('flex-1 cursor-pointer text-foreground-body', {
           'base-input--disabled': props.disabled,
         })}
         htmlFor={props.id}

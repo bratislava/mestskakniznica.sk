@@ -51,6 +51,7 @@ const RechercheReservationForm = () => {
       rechercheLiteratureTime: yup.string().required(),
       rechercheDocumentsType: yup.string().required(),
       rechercheDemandedLanguages: yup.string().required(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -69,6 +70,7 @@ const RechercheReservationForm = () => {
       rechercheLiteratureTime: '',
       rechercheDocumentsType: '',
       rechercheDemandedLanguages: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -98,6 +100,7 @@ const RechercheReservationForm = () => {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
@@ -117,7 +120,9 @@ const RechercheReservationForm = () => {
   }
 
   const stepOneErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && !k.startsWith('recherche'))
+    Object.keys(errors).filter(
+      (k) => k !== 'acceptFormTerms' && !k.startsWith('recherche') && k !== 'cfTurnstile'
+    )
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
@@ -363,7 +368,7 @@ const RechercheReservationForm = () => {
             {stepTwoErrors && (
               <p className="text-base text-error">{t('please_fill_required_fields')}</p>
             )}
-            <FormFooter hasDivider buttonContent={t('send')} />
+            <FormFooter hasDivider buttonContent={t('send')}/>
           </div>
         </StepNumberTitle>
       </FormContainer>

@@ -1,272 +1,187 @@
 import ChevronRight from '@assets/images/chevron-right.svg'
-import CloseIcon from '@assets/images/close.svg'
-import SearchIcon from '@assets/images/search.svg'
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
-import {
-  Button,
-  LoadingSpinner,
-  PageTitle,
-  Pagination,
-  SearchBar,
-  SectionContainer,
-  Select,
-} from '@bratislava/ui-city-library'
+import { Button, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import cx from 'classnames'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import * as React from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
+import {
+  allSearchTypes,
+  commonSearchFetcher,
+  CommonSearchFilters,
+  CommonSearchType,
+  getCommonSearchSwrKey,
+} from '../../backend/meili/commonSearchFetcher'
+import { useSearch } from '../../hooks/useSearch'
+import useSwrWithExtras from '../../hooks/useSwrWithExtras'
+import { AnimateHeight } from '../Atoms/AnimateHeight'
+import SearchField from '../Atoms/SearchField'
+import TagToggle from '../Atoms/TagToggle'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface PageProps {
-  page: PageEntity | undefined
+  pageEntity: PageEntity | undefined
 }
 
-export interface MetaDataCategory {
-  key: string
-  title: string
-}
+const SearchPage = ({ pageEntity }: PageProps) => {
+  const { t, i18n } = useTranslation('common')
 
-const SearchPage = ({ page }: PageProps) => {
-  const { t } = useTranslation('common')
+  const resultsRef = useRef<HTMLDivElement>(null)
 
-  const resultsRef = React.useRef<HTMLDivElement>(null)
+  const [filters, setFilters] = useState<CommonSearchFilters>({
+    searchValue: '',
+    pageSize: 10,
+    page: 1,
+    selectedTypes: [],
+  })
 
-  const metaDataCategories: MetaDataCategory[] = [
-    { key: 'Na Webe', title: 'Na Webe' },
-    { key: 'Na Webe 1', title: 'Na Webe 1' },
-  ]
+  const isNothingSelected = filters.selectedTypes.length === 0
 
-  const [offsetPage, setOffsetPage] = React.useState(1)
-  const [visibleQuery, setVisibleQuery] = React.useState('')
-  const [categories, setCategories] = React.useState(metaDataCategories[0])
+  const deselectAll = useCallback(() => {
+    setFilters({ ...filters, selectedTypes: [], page: 1 })
+  }, [filters])
 
-  const pageData = [
-    {
-      page_title: 'Služby',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/sluzby`,
+  const isTypeSelected = useCallback(
+    (type: CommonSearchType) => {
+      return filters.selectedTypes.includes(type)
     },
-    {
-      page_title: 'Zažite',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/zazite`,
-    },
-    {
-      page_title: 'Ako sa prihlásiť do knižnice',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/sluzby/citanie/ako-sa-prihlasit-do-kniznice`,
-    },
-    {
-      page_title: 'Knižné boxy',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/sluzby/citanie/knizne-boxy`,
-    },
-    {
-      page_title: 'Podujatia',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/zazite/podujatia`,
-    },
-    {
-      page_title: 'Aktuality z knižnice',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/zazite/aktuality`,
-    },
-    {
-      page_title: 'Študujte v knižnici',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/zazite/studujte-v-kniznici`,
-    },
-    {
-      page_title: 'Navštívte',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/navstivte`,
-    },
-    {
-      page_title: 'Naše lokality',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/navstivte/nase-lokality`,
-    },
-    {
-      page_title: 'Klariská',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/navstivte/klariska`,
-    },
-    {
-      page_title: 'Galéria Artotéka',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/navstivte/ostatne/galeria-artoteka`,
-    },
-    {
-      page_title: 'Dokumenty a zverejňovanie informácií',
-      page_category: 'Typ obsahu',
-      page_url: `${process.env.ORIGIN_ROOT_URL}/o-nas/dokumenty-a-zverejnovanie-informacii`,
-    },
-  ]
-
-  const noOfPages = Math.ceil(pageData.length / 2)
-
-  const scrollToResults = React.useCallback(() => {
-    resultsRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'start',
-    })
-  }, [resultsRef])
-
-  const handleChangeOffsetPage = (num: number) => {
-    if (num > 0 && num <= noOfPages) setOffsetPage(num)
-  }
-
-  const handleSearch = React.useCallback(() => {
-    scrollToResults()
-  }, [scrollToResults])
-
-  const handleSearchReset = React.useCallback(() => {
-    setVisibleQuery('')
-  }, [setVisibleQuery])
-
-  const onSearchBarKeyPress = React.useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter') {
-        handleSearch()
-      }
-    },
-    [handleSearch]
+    [filters]
   )
 
-  const onSearchBarRightIconKeyPress = React.useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter') {
-        handleSearchReset()
+  const changeTypeSelected = useCallback(
+    (changedType: CommonSearchType) => {
+      return (value: boolean) => {
+        const newSelectedTypes = value
+          ? [...filters.selectedTypes, changedType]
+          : filters.selectedTypes.filter((type) => type !== changedType)
+
+        setFilters({ ...filters, selectedTypes: newSelectedTypes })
       }
     },
-    [handleSearchReset]
+    [filters]
+  )
+
+  const { input, setInput, searchValue, setSearchValue } = useSearch({ syncWithUrlQuery: true })
+
+  const handlePageChange = (page: number) => {
+    setFilters({ ...filters, page })
+  }
+
+  useEffect(() => {
+    setFilters({ ...filters, searchValue })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue])
+
+  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useSwrWithExtras(
+    getCommonSearchSwrKey(filters, i18n.language),
+    commonSearchFetcher(filters, i18n.language)
   )
 
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs page={pageEntity} />
       </SectionContainer>
       <SectionContainer>
         <PageTitle
-          title={page?.attributes?.title ?? 'Výsledky vyhľadávania'}
-          description={page?.attributes?.description ?? ''}
+          title={pageEntity?.attributes?.title ?? t('searchResults')}
+          description={pageEntity?.attributes?.description ?? ''}
           hasDivider={false}
         />
         <div className="mt-6 flex flex-col gap-y-4 lg:flex-row lg:gap-y-0">
-          <Select
-            className="lg:w-auto"
-            selectClassName="lg:w-auto py-[9px] lg:py-5"
-            options={metaDataCategories}
-            value={categories}
-            onChange={(s) => setCategories(s)}
-          />
-          <SearchBar
-            placeholder={t('searchFor')}
-            className="w-full"
-            inputClassName="py-2 lg:py-5 text-sm w-full border-gray-universal-200"
-            iconLeft={<SearchIcon />}
-            iconRight={
-              <div
-                tabIndex={0}
-                role="button"
-                onKeyPress={onSearchBarRightIconKeyPress}
-                onClick={handleSearchReset}
-              >
-                <CloseIcon />
-              </div>
-            }
-            value={visibleQuery}
-            onChange={(ev) => setVisibleQuery(ev.target.value)}
-            onKeyPress={onSearchBarKeyPress}
+          <SearchField
+            className="h-16"
+            // inputClassName="py-2 lg:py-5 text-sm w-full"
+            input={input}
+            setInput={setInput}
+            setSearchValue={setSearchValue}
           />
 
-          <Button className="w-full py-[9px] text-xs lg:w-auto lg:py-4.25 lg:px-8">Hľadať</Button>
+          <Button className="w-full py-[9px] lg:w-auto lg:py-4.25 lg:px-8">{t('search')}</Button>
         </div>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
-              Stranka
-            </a>
-          </Link>
-          <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
-              Pracovisko
-            </a>
-          </Link>
-          <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
-              Podujatie
-            </a>
-          </Link>
-          <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
-              Aktualita
-            </a>
-          </Link>
-          <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
-              Zamestnanec
-            </a>
-          </Link>
-          <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
-              Dokument
-            </a>
-          </Link>
-          <Link href="/" passHref>
-            <a className="rounded-full border px-[16px] py-[8px] text-[14px] hover:border-gray-universal-100">
-              Subor
-            </a>
-          </Link>
-        </div>
-
-        <p className="mt-5 text-[16px] text-gray-600">248 vysledkov vyhladavania</p>
-
-        <div ref={resultsRef} className="mt-6 pb-10 lg:mt-11 lg:pb-32">
-          {/* Documents */}
-          {!pageData ? (
-            <LoadingSpinner size="medium" className="mt-[30px]" />
-          ) : (
-            pageData.map((page, i) => (
-              <Link key={i} href={page.page_url} passHref>
-                <a>
-                  <div
-                    className={cx(
-                      'group flex items-center justify-between border-b border-gray-universal-100 bg-white py-4 pr-2'
-                    )}
-                  >
-                    <div className="flex items-center gap-x-6">
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-x-4">
-                          <h5 className="text-default">{page.page_title}</h5>
-                          <span className="rounded-[4px] border-2 border-gray-universal-100 px-[8px] text-[12px]">
-                            {page.page_category}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-x-3 text-xs text-gray-universal-70">
-                          <span>{page.page_url}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <ChevronRight />
-                  </div>
-                </a>
-              </Link>
-            ))
-          )}
-          <div className="mt-6 flex justify-center lg:justify-end">
-            <Pagination
-              max={noOfPages}
-              value={offsetPage}
-              onChangeNumber={(num) => handleChangeOffsetPage(num)}
-              previousButtonAriaLabel={t('previousPage')}
-              nextButtonAriaLabel={t('nextPage')}
-              currentInputAriaLabel={t('currentPage')}
-            />
+        <div className="mt-5 flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
+          <div className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
+            <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
+              {t('allResults')}
+            </TagToggle>
+            {allSearchTypes.map((type) => {
+              return (
+                <TagToggle
+                  isSelected={isTypeSelected(type)}
+                  onChange={changeTypeSelected(type)}
+                  key={type}
+                >
+                  {t(`searchTags.${type}`)}
+                </TagToggle>
+              )
+            })}
           </div>
+        </div>
+        <div className="mt-5 text-[16px] text-foreground-placeholder">
+          {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits })}
+        </div>
+
+        {/* eslint-disable-next-line sonarjs/no-redundant-boolean */}
+        <div className="mt-12 flex flex-col gap-6">
+          <AnimateHeight isVisible>
+            {delayedLoading || loadingAndNoDataToDisplay ? (
+              <div className="flex select-none flex-col gap-3">
+                {Array.from({ length: filters.pageSize }, (_item, index) => (
+                  <div key={index}>row</div>
+                ))}
+              </div>
+            ) : dataToDisplay?.estimatedTotalHits === 0 ? (
+              <motion.div
+                initial={{ y: 48 }}
+                animate={{ y: 0 }}
+                className="flex justify-center py-8 text-lg"
+              >
+                {t('resultsFound', { count: 0 })}
+              </motion.div>
+            ) : (
+              <div ref={resultsRef} className="flex flex-col">
+                {dataToDisplay?.hits.map(({ title, link, type }, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Link key={index} href={link} passHref>
+                    <a>
+                      <div
+                        className={cx(
+                          'group flex items-center justify-between border-b border-border-dark bg-white py-4 pr-2'
+                        )}
+                      >
+                        <div className="flex items-center gap-x-6">
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-x-4">
+                              <h2>{title}</h2>
+                              <span className="rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[12px]">
+                                {/* TODO proper translation keys */}
+                                {t(`searchTags.${type}`)}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-x-3 text-xs text-foreground-body">
+                              <span>/{link}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <ChevronRight className="ml-4 shrink-0" />
+                      </div>
+                    </a>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </AnimateHeight>
+          {dataToDisplay?.estimatedTotalHits ? (
+            <div className="flex justify-center">
+              <Pagination
+                max={Math.ceil(dataToDisplay.estimatedTotalHits / filters.pageSize)}
+                onChangeNumber={handlePageChange}
+                value={filters.page}
+              />
+            </div>
+          ) : null}
         </div>
       </SectionContainer>
     </>

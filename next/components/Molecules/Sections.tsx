@@ -33,7 +33,7 @@ import AskLibraryForm from '../forms/AskLibraryForm.tsx'
 import BookNotInLibraryForm from '../forms/BookNotInLibraryForm'
 import CityLibraryRegistrationForm from '../forms/CityLibraryRegistrationForm'
 import CycleDeliveryReservationForm from '../forms/CycleDeliveryReservationForm'
-import EventReservationForm from '../forms/EventReservationForm'
+import EventReservationForm, { EventReservationFormProps } from '../forms/EventReservationForm'
 import ExcursionReservationForm from '../forms/ExcursionReservationForm'
 import GiftCardReservationForm from '../forms/GiftCardReservationForm'
 import InterlibraryLoanServiceFormLibrary from '../forms/InterlibraryLoanServiceFormLibrary'
@@ -45,15 +45,19 @@ import ServiceReservationForm from '../forms/ServiceReservationForm'
 import SpaceReservationForm from '../forms/SpaceReservationForm'
 import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
-import VenueRentalForm from '../forms/VenueRentalForm'
+import VenueRentalForm, { VenueRentalFormProps } from '../forms/VenueRentalForm'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-import EventDetails from './EventDetails'
 import GalleryBanner from './GalleryBanner'
 import LocalityDetails from './LocalityDetails'
 import Metadata from './Metadata'
 
+type FormsProps =
+  | (() => JSX.Element)
+  | ((props: VenueRentalFormProps) => JSX.Element)
+  | ((eventDetail: EventReservationFormProps) => JSX.Element)
+
 interface dynamicObject {
-  [key: string]: any
+  [key: string]: FormsProps
 }
 
 const FORM: dynamicObject = {
@@ -76,106 +80,19 @@ const FORM: dynamicObject = {
   aka_kniha_vam_v_kniznici_chyba: BookNotInLibraryForm,
 }
 
-const NullComponent = () => {
-  return null
-}
+export const getForm = (formType: string, key: string, eventDetail?: EventCardEntityFragment) => {
+  if (!formType) return null
 
-export const getForm = (
-  formType: string,
-  key?: string | null,
-  eventDetail?: EventCardEntityFragment
-) => {
-  if (!formType) return NullComponent
-
-  let Comp: (arg: any) => any = FORM[formType]
-
-  if (!Comp) {
-    Comp = NullComponent
-  }
+  const Comp = FORM[formType]
 
   return (
     <div key={key} id={formType}>
-      <Comp slug={key} eventDetail={eventDetail} />
-    </div>
-  )
-}
-
-const Sections = ({
-  pageTitle,
-  sections,
-  events,
-  eventsListingUrl,
-  className,
-}: {
-  pageTitle?: string | null | undefined
-  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
-  events?: EventCardEntityFragment[] | undefined
-  eventsListingUrl?: string | undefined
-  className?: string | undefined
-}) => {
-  return (
-    <div className={className ?? 'flex flex-col space-y-8'}>
-      {sections.map(
-        (
-          section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined,
-          index
-        ) => (
-          <Section
-            sections={sections}
-            pageTitle={pageTitle}
-            key={index}
-            section={section || null}
-            events={events}
-            eventsListingUrl={eventsListingUrl}
-          />
-        )
-      )}
-    </div>
-  )
-}
-
-const Section = ({
-  sections,
-  pageTitle,
-  section,
-  events,
-  eventsListingUrl,
-}: {
-  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
-  pageTitle?: string | null | undefined
-  section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
-  events: EventCardEntityFragment[] | undefined
-  eventsListingUrl: string | undefined
-}) => {
-  const [openAccordion, setOpenAccordion] = useState('')
-  const { t } = useTranslation(['common', 'homepage'])
-  const { locale } = usePageWrapperContext()
-
-  const listenAccordionState = (id: string, state: boolean) => {
-    setOpenAccordion(state ? id : '')
-  }
-
-  if (!section) return null
-
-  return (
-    <div>
-      {sectionContent(
-        sections,
-        pageTitle,
-        section,
-        events,
-        eventsListingUrl,
-        t,
-        openAccordion,
-        listenAccordionState,
-        locale
-      )}
+      {Comp && <Comp slug={key} eventDetail={eventDetail} />}
     </div>
   )
 }
 
 const sectionContent = (
-  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[] | any,
   pageTitle: string | null | undefined,
   section: BlogPostSectionsDynamicZone,
   events: EventCardEntityFragment[] | undefined,
@@ -184,7 +101,7 @@ const sectionContent = (
   openAccordion: string,
   listenAccordionState: (id: string, state: boolean) => unknown,
   locale: string | undefined
-): React.ReactNode | any => {
+): React.ReactNode => {
   const eventDetail = events?.length ? events[0] : null
 
   switch (section.__typename) {
@@ -250,7 +167,7 @@ const sectionContent = (
     case 'ComponentSectionsAccordion':
       return (
         <>
-          {section.title && <h2 className="flex pb-6 text-md font-normal">{section.title}</h2>}
+          {section.title && <h2 className="flex pb-6 text-h4 font-normal">{section.title}</h2>}
           {section.tableRows &&
             groupByAccordionCategory(section.tableRows ?? []).map((item, index) => (
               <Accordion
@@ -304,10 +221,10 @@ const sectionContent = (
       )
 
     case 'ComponentSectionsForm':
-      return getForm(section.type || '', pageTitle, eventDetail || undefined)
+      return getForm(section.type || '', pageTitle ?? '', eventDetail || undefined)
 
     case 'ComponentSectionsDivider':
-      return section.shown && <div className="border-b border-gray-universal-100" />
+      return section.shown && <div className="border-b border-border-dark" />
 
     case 'ComponentSectionsColumnedText':
       return <ColumnedText title={section.title ?? ''} content={section.content ?? ''} />
@@ -389,6 +306,76 @@ const sectionContent = (
     default:
       return null
   }
+}
+
+const Section = ({
+  pageTitle,
+  section,
+  events,
+  eventsListingUrl,
+}: {
+  pageTitle?: string | null | undefined
+  section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
+  events: EventCardEntityFragment[] | undefined
+  eventsListingUrl: string | undefined
+}) => {
+  const [openAccordion, setOpenAccordion] = useState('')
+  const { t } = useTranslation(['common', 'homepage'])
+  const { locale } = usePageWrapperContext()
+
+  const listenAccordionState = (id: string, state: boolean) => {
+    setOpenAccordion(state ? id : '')
+  }
+
+  if (!section) return null
+
+  return (
+    <div>
+      {sectionContent(
+        pageTitle,
+        section,
+        events,
+        eventsListingUrl,
+        t,
+        openAccordion,
+        listenAccordionState,
+        locale
+      )}
+    </div>
+  )
+}
+
+const Sections = ({
+  pageTitle,
+  sections,
+  events,
+  eventsListingUrl,
+  className,
+}: {
+  pageTitle?: string | null | undefined
+  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
+  events?: EventCardEntityFragment[] | undefined
+  eventsListingUrl?: string | undefined
+  className?: string | undefined
+}) => {
+  return (
+    <div className={className ?? 'flex flex-col space-y-8'}>
+      {sections.map(
+        (
+          section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined,
+          index
+        ) => (
+          <Section
+            key={index}
+            pageTitle={pageTitle}
+            section={section || null}
+            events={events}
+            eventsListingUrl={eventsListingUrl}
+          />
+        )
+      )}
+    </div>
+  )
 }
 
 export default Sections

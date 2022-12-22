@@ -26,21 +26,21 @@ const ListingCard = ({ card }: IListingCardProps) => {
             src={card.attributes?.listingImage?.data?.attributes?.url}
           />
 
-          <div className="pt-3 text-sm">
+          <div className="pt-3 text-base">
             {card.__typename === 'EventEntity'
               ? formatDateToLocal(card.attributes?.dateFrom, locale || i18n.language)
               : formatDateToLocal(
-                  card.attributes?.date_added
-                    ? card.attributes?.date_added
-                    : card.attributes?.publishedAt,
-                  locale || i18n.language
-                )}
+                card.attributes?.date_added
+                  ? card.attributes?.date_added
+                  : card.attributes?.publishedAt,
+                locale || i18n.language
+              )}
           </div>
-          <div className="text-black justify-end text-default hover:underline">
+          <div className="justify-end text-h5 text-black hover:underline">
             {card.attributes?.title}
           </div>
         </div>
-        <div className="text-black bottom-0 justify-end pt-5 text-base uppercase hover:underline">
+        <div className="bottom-0 justify-end pt-5 text-base uppercase text-black hover:underline">
           {t('showMore')} {'>'}
         </div>
       </a>

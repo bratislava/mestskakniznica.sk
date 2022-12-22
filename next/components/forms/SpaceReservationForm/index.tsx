@@ -49,6 +49,7 @@ const SpaceReservationForm = () => {
       timeTo: yup.string().required(),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
+      cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
 
@@ -67,6 +68,7 @@ const SpaceReservationForm = () => {
       timeFrom: '',
       timeTo: '',
       message: '',
+      cfTurnstile: '',
     },
   })
   const { errors } = methods.formState
@@ -100,6 +102,7 @@ const SpaceReservationForm = () => {
     const { error } = await res.json()
     if (error) {
       console.log('error sending form', error)
+      setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
 
@@ -296,7 +299,7 @@ const SpaceReservationForm = () => {
             )}
           />
           {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')}/>
         </div>
       </FormContainer>
     </FormProvider>

@@ -32,6 +32,7 @@ interface KeyTitlePair {
   key: string
   title: string
 }
+
 export interface PageProps {
   page: PageEntity
 }
@@ -324,13 +325,13 @@ const Events = ({ page }: PageProps) => {
       </SectionContainer>
       <SectionContainer>
         <div className="pb-6 lg:pb-16">
-          <h1 className="border-b border-gray-universal-100 pt-16 pb-4 text-md2 lg:border-none lg:pb-0 lg:text-2xl">
+          <h1 className="border-b border-border-dark pt-16 pb-4 text-h1 lg:border-none lg:pb-0">
             {t('eventsCalendar')}
           </h1>
 
-          <div className="mt-4 lg:mt-6 lg:block lg:border lg:border-gray-universal-100 lg:p-6">
+          <div className="mt-4 lg:mt-6 lg:block lg:border lg:border-border-dark lg:p-6">
             {/* Mobile */}
-            <div className="flex w-full items-center justify-between border border-gray-universal-100 p-4 lg:hidden">
+            <div className="flex w-full items-center justify-between border border-border-dark p-4 lg:hidden">
               <button
                 className="z-10 flex w-full items-center justify-between gap-y-5"
                 onClick={toggleFilterModal}
@@ -357,13 +358,13 @@ const Events = ({ page }: PageProps) => {
                   />
                   <div className="absolute bottom-0 flex w-full gap-x-3 p-3">
                     <button
-                      className="base-button w-1/2 border border-gray-universal-100 bg-gray-universal-100 py-[9px] text-white"
+                      className="base-button w-1/2 border border-border-dark bg-button-dark py-[9px] text-white"
                       onClick={filterEvents}
                     >
                       {t('filterButton')}
                     </button>
                     <button
-                      className="base-button w-1/2 border border-gray-universal-100 bg-white py-[9px] text-gray-universal-100"
+                      className="base-button w-1/2 border border-border-dark bg-white py-[9px] text-foreground-heading"
                       onClick={resetFilters}
                     >
                       {t('reset_button')}
@@ -376,7 +377,7 @@ const Events = ({ page }: PageProps) => {
             {/* Desktop */}
             <div className="hidden lg:block">
               <div className="flex items-center justify-between">
-                <h4 className="text-md">{t('eventsFilter')}</h4>
+                <h4 className="text-h4">{t('eventsFilter')}</h4>
               </div>
               <div className="mt-3 flex items-center gap-x-5">
                 <EventFilters
@@ -397,13 +398,13 @@ const Events = ({ page }: PageProps) => {
               </div>
               <div className="mt-3 flex items-center justify-end">
                 <button
-                  className="base-button border border-gray-universal-100 bg-gray-900 bg-gray-universal-100 px-10 py-[9px] text-white"
+                  className="base-button border border-border-dark bg-button-dark px-10 py-[9px] text-white"
                   onClick={filterEvents}
                 >
                   {t('filterButton')}
                 </button>
                 <button
-                  className="base-button ml-5 border border-gray-universal-100 bg-white px-10 py-[9px] text-gray-universal-100"
+                  className="base-button ml-5 border border-border-dark bg-white px-10 py-[9px] text-foreground-heading"
                   onClick={resetFilters}
                 >
                   {t('reset_button')}
@@ -414,7 +415,7 @@ const Events = ({ page }: PageProps) => {
         </div>
         {!activeFilters && (
           <Section>
-            <div className="text-md2">{t('eventsPromoted')}</div>
+            <div className="text-h3">{t('eventsPromoted')}</div>
             <div className="pb-10">
               <SectionPromos promos={promotedEvents} />
             </div>
@@ -423,12 +424,12 @@ const Events = ({ page }: PageProps) => {
 
         <div
           className={cx('py-6 lg:py-16', {
-            'border-gray-universal-100 lg:border-b': filteredEvents?.length,
+            'border-border-dark lg:border-b': filteredEvents?.length,
             block: upcomingFilteredEvents?.length,
             hidden: !upcomingFilteredEvents?.length,
           })}
         >
-          <div className="text-md2">{t('eventsUpcoming')}</div>
+          <div className="text-h3">{t('eventsUpcoming')}</div>
           <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
             {upcomingFilteredEvents?.map((event) => (
               <EventListingCard
@@ -455,7 +456,7 @@ const Events = ({ page }: PageProps) => {
             hidden: !filteredEvents?.length,
           })}
         >
-          <div className="text-md2">{t('eventsArchived')}</div>
+          <div className="text-h3">{t('eventsArchived')}</div>
           <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
             {filteredEvents?.map((event) => (
               <EventListingCard
@@ -480,7 +481,7 @@ const Events = ({ page }: PageProps) => {
           </div>
         </div>
 
-        {!areThereAnyEvents() && <div className="text-center text-md2">{t('eventsEmpty')}</div>}
+        {!areThereAnyEvents() && <div className="text-center text-h3">{t('eventsEmpty')}</div>}
         {/* <Banner
           onBannerClick={handleEventSubscription}
           title={t('eventsDontMiss')}

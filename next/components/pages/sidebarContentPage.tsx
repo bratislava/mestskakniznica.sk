@@ -1,9 +1,8 @@
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { SectionContainer, Sidebar } from '@bratislava/ui-city-library'
-import * as React from 'react'
+import { parsePageLink, parseSidebar } from '@utils/page'
 
-import { parsePageLink, parseSidebar } from '../../utils/page'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import Sections from '../Molecules/Sections'
 
@@ -41,17 +40,17 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
               />
             </div>
           )}
-          <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-gray-700" />
+          <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-border-dark" />
           {/* Title */}
-          <h1 className="col-span-12 row-start-1 mt-16 text-2xl md:col-span-7 md:col-start-6">
+          <h1 className="col-span-12 row-start-1 mt-16 text-h1 md:col-span-7 md:col-start-6">
             {page?.attributes?.title ?? ''}
           </h1>
           {/* Description */}
           <div className="col-span-12 mt-8 md:col-span-7">
             {page?.attributes?.description && (
               <UIMarkdown
-                paragraphClassName="text-sm"
-                className="w-full text-sm"
+                paragraphClassName="text-base"
+                className="w-full text-base"
                 content={page?.attributes?.description ?? ''}
               />
             )}

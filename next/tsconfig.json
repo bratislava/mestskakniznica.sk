@@ -21,6 +21,7 @@
       "@bratislava/ui-city-library/*": ["./components/ui/*"],
       "@bratislava/common-frontend-ui-context": ["utils/ui-context.tsx"],
       "@utils/*": ["./utils/*"],
+      "@components/*": ["./components/*"],
       "@assets/images": ["./assets/images/index.ts"],
       "@assets/images/*": ["./assets/images/*"],
       "@bratislava/strapi-sdk-city-library": ["./graphql/index.ts"],
