@@ -1,5 +1,11 @@
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
-import { LoadingSpinner, PageTitle, RowFile, SectionContainer } from '@bratislava/ui-city-library'
+import {
+  LoadingSpinner,
+  PageTitle,
+  Pagination,
+  RowFile,
+  SectionContainer,
+} from '@bratislava/ui-city-library'
 import DocumentsCategorySelect from '@components/Atoms/Documents/DocumentsCategorySelect'
 import SearchField from '@components/Atoms/SearchField'
 import SortSelect, { Sort } from '@components/Atoms/SortSelect'
@@ -33,7 +39,7 @@ const DocumentsPage = ({ page }: PageProps) => {
 
   const { input, setInput, searchValue, setSearchValue } = useSearch({ syncWithUrlQuery: false })
 
-  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useSwrWithExtras(
+  const { dataToDisplay, loadingAndNoDataToDisplay } = useSwrWithExtras(
     getDocumentsSwrKey(filters),
     documentsFetcher(filters)
   )
@@ -112,16 +118,18 @@ const DocumentsPage = ({ page }: PageProps) => {
               </NextLink>
             ))
           )}
-          <div className="mt-6 flex justify-center lg:justify-end">
-            {/* <Pagination */}
-            {/*  max={noOfPages} */}
-            {/*  value={offsetPage} */}
-            {/*  onChangeNumber={(num) => handleChangeOffsetPage(num)} */}
-            {/*  previousButtonAriaLabel={t('previousPage')} */}
-            {/*  nextButtonAriaLabel={t('nextPage')} */}
-            {/*  currentInputAriaLabel={t('currentPage')} */}
-            {/* /> */}
-          </div>
+          {dataToDisplay?.estimatedTotalHits ? (
+            <div className="mt-6 flex justify-center lg:justify-end">
+              <Pagination
+                max={Math.ceil(dataToDisplay.estimatedTotalHits / filters.pageSize)}
+                onChangeNumber={handlePageChange}
+                value={filters.page}
+                previousButtonAriaLabel={t('previousPage')}
+                nextButtonAriaLabel={t('nextPage')}
+                currentInputAriaLabel={t('currentPage')}
+              />
+            </div>
+          ) : null}
         </div>
       </SectionContainer>
     </>

@@ -179,6 +179,9 @@ const SearchPage = ({ pageEntity }: PageProps) => {
                 max={Math.ceil(dataToDisplay.estimatedTotalHits / filters.pageSize)}
                 onChangeNumber={handlePageChange}
                 value={filters.page}
+                previousButtonAriaLabel={t('previousPage')}
+                nextButtonAriaLabel={t('nextPage')}
+                currentInputAriaLabel={t('currentPage')}
               />
             </div>
           ) : null}
