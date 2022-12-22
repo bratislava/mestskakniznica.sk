@@ -10,7 +10,7 @@ export interface AccordionProps {
   type: 'boxed' | 'divider' | 'sublocation'
   size: 'small' | 'big'
   label: string
-  content: ReactNode | any
+  content: ReactNode
   stateListener?: (id: string, state: boolean) => unknown
   defaultState?: boolean
   ariaLabelPrefix?: string
@@ -18,21 +18,20 @@ export interface AccordionProps {
   closeIcon?: ReactNode
 }
 
-export const Accordion = (
-  {
-    id,
-    className,
-    label,
-    type,
-    size,
-    content,
-    iconLeft,
-    stateListener,
-    defaultState,
-    ariaLabelPrefix,
-    openIcon = <ChevronDown/>,
-    closeIcon = <ChevronUp/>,
-  }: AccordionProps) => {
+export const Accordion = ({
+  id,
+  className,
+  label,
+  type,
+  size,
+  content,
+  iconLeft,
+  stateListener,
+  defaultState,
+  ariaLabelPrefix,
+  openIcon = <ChevronDown />,
+  closeIcon = <ChevronUp />,
+}: AccordionProps) => {
   const [isOpen, setOpen] = useState(false)
 
   useEffect(() => {
