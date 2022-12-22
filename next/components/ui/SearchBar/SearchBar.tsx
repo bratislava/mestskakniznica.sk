@@ -5,6 +5,7 @@ import { Input, InputProps } from '../Input/Input'
 export interface SearchBarProps
   extends InputProps,
     React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+  isOpen?: boolean
 }
 
 export const SearchBar = (
@@ -13,6 +14,7 @@ export const SearchBar = (
     inputClassName,
     value = '',
     iconRight,
+    isOpen,
     placeholder,
     ...props
   }: SearchBarProps) => {
@@ -25,7 +27,15 @@ export const SearchBar = (
         inputClassName={cx('px-12', inputClassName)}
         value={value}
         iconRight={
-          !!iconRight && <span className="-ml-9 cursor-pointer text-foreground-heading">{iconRight}</span>
+          !!iconRight &&
+          <span
+            className={cx('cursor-pointer text-foreground-heading transition-all duration-100', {
+              '-ml-32': isOpen,
+              '-ml-9': !isOpen
+            })}
+          >
+            {iconRight}
+          </span>
         }
         {...props}
       />

@@ -1,5 +1,11 @@
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
+import { client } from '@utils/gql'
+import { hasAttributes } from '@utils/isDefined'
+import { getOpacBooks, OpacBook } from '@utils/opac'
+import { ILocality } from '@utils/types'
+import { convertPagesToLocalities, isPresent } from '@utils/utils'
 import { GetStaticProps } from 'next'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Section from '../components/AppLayout/Section'
@@ -27,11 +33,6 @@ import {
   PageLocalizationEntityFragment,
   PromoNewsCardFragment,
 } from '../graphql'
-import { client } from '../utils/gql'
-import { hasAttributes } from '../utils/isDefined'
-import { getOpacBooks, OpacBook } from '../utils/opac'
-import { ILocality } from '../utils/types'
-import { convertPagesToLocalities, isPresent } from '../utils/utils'
 // used for example meili usage
 // import { useUpcomingEvents } from '../hooks/useUpcomingEvets'
 // import { useEffect } from 'react'
@@ -72,6 +73,8 @@ export const Index = ({
   error,
   Seo,
 }: IIndexProps) => {
+  const { t } = useTranslation('common')
+
   // example of how to search in hooked events with meilisearch
   // useEffect(() => {
   //   meiliClient
@@ -110,6 +113,7 @@ export const Index = ({
         .map((l) => ({ ...l, slug: '' }))}
     >
       <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} upcomingEvents={upcomingEvents}>
+        <h1 className="sr-only">{t('pageTitle')}</h1>
         {promos.length > 0 && (
           <SectionContainer>
             <Section>

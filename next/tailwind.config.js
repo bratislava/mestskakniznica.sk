@@ -124,13 +124,12 @@ module.exports = {
       ],
     },
     fontSize: {
-      h6: ['var(--font-size-h6)', 'var(--line-height-h6)'], // 16px / 16px / 150%
-      h5: ['var(--font-size-h5)', 'var(--line-height-h5)'], // 20px / 16px / 150%
-      h4: ['var(--font-size-h4)', 'var(--line-height-h4)'], // 24px / 20px / 150%
-      'h3.5': ['var(--font-size-h3-5)', 'var(--line-height-h3-5)'], // 28px / 22px / 150%
-      h3: ['var(--font-size-h3)', 'var(--line-height-h3)'], // 32px / 24px / 150%
-      h2: ['var(--font-size-h2)', 'var(--line-height-h2)'], // 40px / 28px / 150%
-      h1: ['var(--font-size-h1)', 'var(--line-height-h1)'], // 48px / 32px / 150%
+      h1: ['var(--font-size-h1)', '120%'], // 40px / 28px / 120%
+      h2: ['var(--font-size-h2)', '120%'], // 32px / 24px / 120%
+      h3: ['var(--font-size-h3)', '120%'], // 28px / 20px / 120%
+      h4: ['var(--font-size-h4)', '120%'], // 24px / 18px / 120%
+      h5: ['var(--font-size-h5)', '120%'], // 20px / 16px / 120%
+      h6: ['var(--font-size-h6)', '120%'], // 16px / 16px / 120%
 
       btn: ['0.875rem', '1.4rem'],
 

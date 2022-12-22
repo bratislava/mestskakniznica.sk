@@ -58,13 +58,12 @@ const Logo = ({ logoTitle }: { logoTitle: string }) => {
   )
 }
 
-const LanguageSelect = (
-  {
-    className,
-    languages: options,
-    currentLanguage: current,
-    onLanguageChange: onChange,
-  }: LanguageSelectProps) => {
+const LanguageSelect = ({
+  className,
+  languages: options,
+  currentLanguage: current,
+  onLanguageChange: onChange,
+}: LanguageSelectProps) => {
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     if (!onChange) return
 
@@ -90,14 +89,12 @@ const HeaderTopItems = ({ openingHours, ...languageSelectProps }: { openingHours
   return (
     <div className="flex">
       <span className="flex h-full items-center border-l border-border-dark px-3">
-        <Accessibility className="cursor-pointer"/>
+        <Accessibility className="cursor-pointer" />
       </span>
       <p className="flex h-full cursor-default items-center border-l border-border-dark px-3 text-sm">
         {openingHours}
       </p>
-      <div className="flex h-full items-center border-l border-border-dark px-3">
-        Prihlásenie
-      </div>
+      <div className="flex h-full items-center border-l border-border-dark px-3">Prihlásenie</div>
       <LanguageSelect
         className="flex h-full cursor-pointer appearance-none items-center border-l border-border-dark bg-white px-3 text-sm focus:outline-none"
         {...languageSelectProps}
@@ -112,15 +109,19 @@ const SearchBox = () => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
+    // https://github.com/eslint-community/eslint-plugin-security/issues/26#issuecomment-612886359
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     if (searchedTerm === '') window.open(baseUrl, '_blank')
+    // https://github.com/eslint-community/eslint-plugin-security/issues/26#issuecomment-612886359
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     else window.open(`${baseUrl}?fn=searchform&extSrchTitle=${searchedTerm}`, '_blank')
   }
 
   return (
     <form onSubmit={onSubmit} className="self-center">
       <SearchBar
-        iconLeft={<SearchIcon onClick={onSubmit} className="cursor-pointer"/>}
-        iconRight={searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')}/>}
+        iconLeft={<SearchIcon onClick={onSubmit} className="cursor-pointer" />}
+        iconRight={searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />}
         onChange={(e) => setSearchedTerm(e.target.value)}
         value={searchedTerm}
         inputClassName="rounded-full w-[440px]"
@@ -129,18 +130,17 @@ const SearchBox = () => {
   )
 }
 
-export const Header = (
-  {
-    className,
-    logoTitle,
-    menuItems,
-    openingHours,
-    ...languageSelectProps
-  }: IProps) => {
+export const Header = ({
+  className,
+  logoTitle,
+  menuItems,
+  openingHours,
+  ...languageSelectProps
+}: IProps) => {
   return (
     <div className={cx(className, 'relative w-full')}>
       <div className="flex justify-between border-b border-border-dark">
-        <Logo logoTitle={logoTitle}/>
+        <Logo logoTitle={logoTitle} />
         <HeaderTopItems openingHours={openingHours} {...languageSelectProps} />
       </div>
       <div className="flex items-center justify-between border-b border-border-dark">
@@ -182,13 +182,13 @@ export const Header = (
                 </div>
                 <div className="flex items-center gap-x-[13px] border-t border-border-dark py-5">
                   Zobraziť všetko
-                  <ChevronRight/>
+                  <ChevronRight />
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <SearchBox/>
+        <SearchBox />
       </div>
     </div>
   )

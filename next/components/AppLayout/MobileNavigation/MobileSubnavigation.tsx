@@ -1,4 +1,8 @@
-import { ComponentMenuSections, Maybe, MenuSectionFragment, } from '@bratislava/strapi-sdk-city-library'
+import {
+  ComponentMenuSections,
+  Maybe,
+  MenuSectionFragment,
+} from '@bratislava/strapi-sdk-city-library'
 import Link from 'next/link'
 
 interface SubnavigationProps {
@@ -19,24 +23,26 @@ const MobileSubnavigation = ({ menuSections, onClose }: SubnavigationProps) => {
             {'<'}
           </div>
         </div>
-        {menuSections.map((mobilMenu) => (
-          <div
-            key={`mobil-menu-${mobilMenu?.sectionTitle}`}
-            className="py-4 pl-4 text-lg"
-          >
-            <Link href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`} passHref>
-              <a href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`}>
-                {mobilMenu?.sectionTitle}
-              </a>
-            </Link>
+        {menuSections.map((mobilMenu, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div key={index} className="py-4 pl-4 text-lg">
+            {mobilMenu?.sectionPage?.data?.attributes?.slug && (
+              <Link href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`} passHref>
+                <a href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`}>
+                  {mobilMenu?.sectionTitle}
+                </a>
+              </Link>
+            )}
             {mobilMenu?.sectionLinks?.map((mobilSubMenu) => (
               <div
                 key={mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug}
                 className="pt-3 text-[16px] text-foreground-body"
               >
-                <Link href={`/${mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug}`} passHref>
-                  <a>{mobilSubMenu?.sectionLinkPage?.data?.attributes?.title}</a>
-                </Link>
+                {mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug && (
+                  <Link href={`/${mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug}`} passHref>
+                    <a>{mobilSubMenu?.sectionLinkPage?.data?.attributes?.title}</a>
+                  </Link>
+                )}
               </div>
             ))}
           </div>

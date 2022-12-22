@@ -34,7 +34,7 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
   //   : t('openingHoursClosed');
 
   return (
-    <div className="max-w-1180 fixed inset-x-0 top-0 z-30 m-auto h-screen border-border-dark bg-white">
+    <div className="fixed inset-x-0 top-0 z-30 m-auto h-screen border-border-dark bg-white">
       <div className="flex h-[61px] justify-between border-b border-border-dark">
         <div className="flex h-full">
           <div className="flex h-full items-center px-5">
@@ -48,13 +48,14 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
           {/*  <Accessibility /> */}
           {/* </div> */}
         </div>
-        <button className="px-5" onClick={onClose}>
+        <button className="px-5" type="button" onClick={onClose}>
           X
         </button>
       </div>
 
       {menus?.map((menu, index) => (
-        <MobileNavigationItem menu={menu} key={index} menus={menus}/>
+        // eslint-disable-next-line react/no-array-index-key
+        <MobileNavigationItem menu={menu} key={index} />
       ))}
       <div className="px-4 pt-[47px] pb-4">
         <div className="border-b border-border-dark pb-4 text-[16px]">
