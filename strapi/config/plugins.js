@@ -23,12 +23,15 @@ const searchIndexSettings = {
   searchableAttributes: [
     // Page
     "page.title",
+    "page.description",
     // Basic documents
     "basic-document.title",
+    "basic-document.description",
     // Blog post
     "blog-post.title",
     // Event
     "event.title",
+    "event.description",
   ],
   filterableAttributes: [
     // All
