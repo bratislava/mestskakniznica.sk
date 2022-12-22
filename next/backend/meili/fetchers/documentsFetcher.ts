@@ -26,10 +26,6 @@ export const documentsDefaultFilters: DocumentsFilters = {
 export const getDocumentsSwrKey = (filters: DocumentsFilters) => ['Documents', filters] as Key
 
 export const documentsFetcher = (filters: DocumentsFilters) => () => {
-  console.log(filters)
-  console.log(
-    isDefined(filters.categoryId) ? `basic-document.file_category.id = ${filters.categoryId}` : null
-  )
   return meiliClient
     .index('search_index')
     .search<SearchIndexWrapped<'basic-document', BasicDocumentMeili>>(filters.searchValue, {
@@ -47,9 +43,3 @@ export const documentsFetcher = (filters: DocumentsFilters) => () => {
     })
     .then(unwrapFromSearchIndex('basic-document'))
 }
-
-// export const documentsSectionPrefetch = {
-//   sectionTypename: 'ComponentSectionsDocumentsSection',
-//   key: getDocumentsSectionSwrKey(documentsSectionDefaultFilters),
-//   fetcher: documentsSectionFetcher(documentsSectionDefaultFilters),
-// } as const
