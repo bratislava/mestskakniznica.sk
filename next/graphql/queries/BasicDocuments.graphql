@@ -34,14 +34,18 @@ query BasicDocumentsCount {
   }
 }
 
+fragment FileCategoryEntity on FileCategoryEntity {
+  id
+  attributes {
+    name
+    slug
+  }
+}
+
 query FileCategories {
   fileCategories {
     data {
-      id
-      attributes {
-        name
-        slug
-      }
+      ...FileCategoryEntity
     }
   }
 }
