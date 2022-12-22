@@ -19,7 +19,7 @@ export const LocalityMap = ({
 }: LocalityMapProps) => {
   const [isBrowser, setBrowser] = useState(false)
 
-  const mapRef = useRef<MapRef | any>()
+  const mapRef = useRef<MapRef>(null)
 
   useEffect(() => {
     setBrowser(!!typeof window)
@@ -38,7 +38,7 @@ export const LocalityMap = ({
             width: '100%',
           }}
           onLoad={() => {
-            mapRef.current.getMap().jumpTo({
+            mapRef.current?.getMap().jumpTo({
               center: [localityLongitude, localityLatitude],
             })
           }}
