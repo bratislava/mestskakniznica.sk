@@ -1,7 +1,10 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import MarkerIcon from '@assets/images/marker.svg'
-import { ComponentAddressAddress, ComponentLocalityPartsLocalitySection, } from '@bratislava/strapi-sdk-city-library'
+import {
+  ComponentAddressAddress,
+  ComponentLocalityPartsLocalitySection,
+} from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import { maxBy, minBy } from 'lodash'
 import Link from 'next/link'
@@ -39,10 +42,10 @@ export interface LocalitiesProps {
 }
 
 export const Localities = ({
-                             localities,
-                             mapboxAccessToken,
-                             altDesign = false,
-                           }: LocalitiesProps) => {
+  localities,
+  mapboxAccessToken,
+  altDesign = false,
+}: LocalitiesProps) => {
   const { t } = useTranslation('homepage')
   const [bounds, setBounds] = useState<[[number, number], [number, number]]>([
     [0, 0],
@@ -56,15 +59,15 @@ export const Localities = ({
     setBounds([
       [
         minBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ??
-        17.107_748,
+          17.107_748,
         minBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ??
-        48.148_598,
+          48.148_598,
       ],
       [
         maxBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ??
-        17.107_748,
+          17.107_748,
         maxBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ??
-        48.148_598,
+          48.148_598,
       ],
     ] as [[number, number], [number, number]])
   }, [localities])
@@ -120,8 +123,7 @@ export const Localities = ({
                         height={48}
                       />
                       {localityTitle && (
-                        <div
-                          className="bg-primary invisible absolute top-1/3 z-30 whitespace-nowrap rounded px-2 group-hover:visible">
+                        <div className="bg-primary invisible absolute top-1/3 z-30 whitespace-nowrap rounded px-2 group-hover:visible">
                           {localityTitle}
                         </div>
                       )}
@@ -162,10 +164,13 @@ export const Localities = ({
                   <a href={localitySlug}>
                     <div className="flex h-full w-full flex-col justify-between gap-4 p-6 lg:py-0">
                       <div>
-                        <div className="text-h3.5">{localityTitle}</div>
+                        <div className="text-h3">{localityTitle}</div>
                         <div className="pt-8 text-base">
                           {localitySections?.map((section) => (
-                            <div key={section.localitySectionTitle} className="pt-1 text-foreground-body">
+                            <div
+                              key={section.localitySectionTitle}
+                              className="pt-1 text-foreground-body"
+                            >
                               {section.localitySectionTitle}
                             </div>
                           ))}

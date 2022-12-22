@@ -8,6 +8,11 @@ on:
     branches:
       - master
 
+permissions:
+  contents: 'read'
+  id-token: 'write'
+  issues: 'write'
+
 jobs:
   conditions:
     name: Check for cluster conditions
@@ -134,6 +139,7 @@ jobs:
       cluster: tkg-innov-prod
       url: https://tkg.bratislava.sk
       flag: --production
+      debug: --debug
     secrets:
       service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}

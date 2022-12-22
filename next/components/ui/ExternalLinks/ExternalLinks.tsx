@@ -19,13 +19,13 @@ export const ExternalLinks = ({ className, title, sections }: ExternalLinksProps
   const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className)}>
-      {title && <h3 className="text-h3.5">{title}</h3>}
+      {title && <h3 className="text-h3">{title}</h3>}
 
       {sections && (
         <div className="mt-6 flex flex-col space-y-8">
           {sections?.map((section, index) => (
             <div key={index}>
-              {section.description && <FlatText content={section.description}/>}
+              {section.description && <FlatText content={section.description} />}
 
               {section.links && (
                 <div className="mt-4 flex flex-col space-y-3">
@@ -38,7 +38,7 @@ export const ExternalLinks = ({ className, title, sections }: ExternalLinksProps
                       rel="noreferrer"
                     >
                       {link.title}
-                      <Open/>
+                      <Open />
                     </UILink>
                   ))}
                 </div>

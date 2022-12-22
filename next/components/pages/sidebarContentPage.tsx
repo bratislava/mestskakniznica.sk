@@ -1,9 +1,8 @@
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { SectionContainer, Sidebar } from '@bratislava/ui-city-library'
-import * as React from 'react'
+import { parsePageLink, parseSidebar } from '@utils/page'
 
-import { parsePageLink, parseSidebar } from '../../utils/page'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import Sections from '../Molecules/Sections'
 
@@ -21,7 +20,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page}/>
+        <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
         <div className="grid grid-cols-12">
@@ -41,9 +40,9 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
               />
             </div>
           )}
-          <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-border-dark"/>
+          <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-border-dark" />
           {/* Title */}
-          <h1 className="text_2xl_old col-span-12 row-start-1 mt-16 md:col-span-7 md:col-start-6">
+          <h1 className="col-span-12 row-start-1 mt-16 text-h1 md:col-span-7 md:col-start-6">
             {page?.attributes?.title ?? ''}
           </h1>
           {/* Description */}
@@ -58,12 +57,12 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
 
             {/* Sections */}
             {page?.attributes?.sections && (
-              <Sections pageTitle={page?.attributes?.title} sections={page?.attributes.sections}/>
+              <Sections pageTitle={page?.attributes?.title} sections={page?.attributes.sections} />
             )}
           </div>
         </div>
 
-        <div className="mt-8 flex"/>
+        <div className="mt-8 flex" />
       </SectionContainer>
     </>
   )

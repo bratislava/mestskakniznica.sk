@@ -18,7 +18,7 @@ const HeaderNavigation = () => {
   //   : t('openingHoursClosed');
 
   return (
-    <div className="container flex flex-wrap border-border-dark pr-0">
+    <div className="flex flex-wrap pr-0">
       {/* <div className="border-border-dark border-l w-10 p-2.5"> */}
       {/*  <Accessibility /> */}
       {/* </div> */}
