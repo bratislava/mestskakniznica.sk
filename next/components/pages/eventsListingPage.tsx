@@ -142,78 +142,148 @@ const Events = ({ page }: PageProps) => {
     filterEvents()
   }
 
+  // combined filter for both queries
+  function newEventFilter(): EventFiltersInput {
+    const tmp = {} as EventFiltersInput
+    if (selectedEventTags && selectedEventTags.title)
+      tmp.eventTags = { title: { eq: selectedEventTags.title } }
+    if (selectedCategory && selectedCategory.title)
+      tmp.eventCategory = { title: { eq: selectedCategory.title } }
+    if (selectedLocality && selectedLocality.title)
+      tmp.eventLocality = { title: { eq: selectedLocality.title } }
+    return tmp
+  }
+
+  // inclusive date range query
+  function generateOrQuery(start: Date, end: Date) {
+    return [
+      { dateFrom: { between: [start.toISOString(), end.toISOString()] } },
+      { dateTo: { between: [start.toISOString(), end.toISOString()] } },
+      {
+        and: [{ dateFrom: { lte: start.toISOString() } }, { dateTo: { gte: end.toISOString() } }],
+      },
+    ]
+  }
+
+  // dummy query
+  function generateDummyQuery() {
+    return [{ dateFrom: { lt: today.toISOString() } }, { dateFrom: { gt: today.toISOString() } }]
+  }
+
+  // generate query for upcoming events
+  function generateUpcomingFilters(): void {
+    const upcomingQuery = newEventFilter()
+
+    let tempEndDate = new Date()
+    let tempStartDate = new Date()
+    // limit endDate
+    if (endDate) {
+      tempEndDate = new Date(endDate)
+      tempEndDate.setDate(endDate.getDate() + 1)
+      tempEndDate = tempEndDate >= today ? tempEndDate : today
+    }
+    // limit start date
+    if (startDate) {
+      tempStartDate = startDate >= today ? startDate : today
+    }
+
+    // default without filters
+    if (!startDate && !endDate) {
+      upcomingQuery['or'] = [
+        { dateFrom: { gte: today.toISOString() } },
+        { dateTo: { gte: today.toISOString() } },
+      ]
+    }
+
+    // filtered startDate
+    if (startDate && !endDate) {
+      upcomingQuery['or'] = [
+        { dateFrom: { gte: tempStartDate.toISOString() } },
+        { dateTo: { gte: tempStartDate.toISOString() } },
+      ]
+    }
+
+    // filtered endDate
+    if (endDate && !startDate) {
+      if (tempEndDate <= today) {
+        upcomingQuery['and'] = generateDummyQuery()
+      } else {
+        upcomingQuery['or'] = generateOrQuery(today, tempEndDate)
+      }
+    }
+
+    // filtered both
+    if (startDate && endDate) {
+      if (tempEndDate <= today && startDate <= today) {
+        // dummy
+        upcomingQuery['and'] = generateDummyQuery()
+      } else {
+        upcomingQuery['or'] = generateOrQuery(tempStartDate, tempEndDate)
+      }
+    }
+
+    setUpcomingActiveFilters(upcomingQuery)
+  }
+
+  // generate query for archived events
+  function generateArchivedFilters(): void {
+    const archivedQuery = newEventFilter()
+
+    let tempStartDate = new Date()
+    let tempEndDate = new Date()
+    // limit end date
+    if (endDate) {
+      tempEndDate = new Date(endDate)
+      tempEndDate.setDate(endDate.getDate() + 1)
+      tempEndDate = tempEndDate <= today ? tempEndDate : today
+    }
+    // limit start date
+    if (startDate) {
+      tempStartDate = startDate <= today ? startDate : today
+    }
+
+    // default without filters
+    if (!startDate && !endDate) {
+      archivedQuery['or'] = [
+        { dateFrom: { lte: today.toISOString() } },
+        { dateTo: { lte: today.toISOString() } },
+      ]
+    }
+
+    // filtered startDate
+    if (startDate && !endDate) {
+      if (startDate >= today) {
+        archivedQuery['and'] = generateDummyQuery()
+      } else {
+        archivedQuery['or'] = generateOrQuery(tempStartDate, today)
+      }
+    }
+
+    // filtered endDate
+    if (endDate && !startDate) {
+      archivedQuery['or'] = [
+        { dateFrom: { lte: tempEndDate.toISOString() } },
+        { dateTo: { lte: tempEndDate.toISOString() } },
+      ]
+    }
+
+    // filtered both
+    if (startDate && endDate) {
+      if (tempEndDate >= today && startDate >= today) {
+        archivedQuery['and'] = generateDummyQuery()
+      } else {
+        archivedQuery['or'] = generateOrQuery(tempStartDate, tempEndDate)
+      }
+    }
+
+    setActiveFilters(archivedQuery)
+  }
+
   const filterEvents = async () => {
     // archived events
-    const currentFilters: EventFiltersInput = {}
-
-    // default without filters
-    currentFilters['dateTo'] = { lt: today.toISOString() }
-
-    // filtered startDate
-    if (startDate) {
-      currentFilters['dateTo'] = { between: [startDate.toISOString(), today.toISOString()] }
-    }
-
-    // filtered endDate
-    if (endDate) {
-      const tempDate = endDate <= today ? endDate : today
-      currentFilters['dateTo'] = { lte: tempDate.toISOString() }
-    }
-
-    // filtered both
-    if (startDate && endDate) {
-      let tempDate = today
-      if (endDate <= today) {
-        tempDate = new Date(endDate)
-        tempDate.setDate(endDate.getDate() + 1)
-      }
-      currentFilters['dateTo'] = { between: [startDate.toISOString(), tempDate.toISOString()] }
-    }
-    if (selectedEventTags && selectedEventTags.title)
-      currentFilters.eventTags = { title: { eq: selectedEventTags.title } }
-    if (selectedCategory && selectedCategory.title)
-      currentFilters.eventCategory = { title: { eq: selectedCategory.title } }
-    if (selectedLocality && selectedLocality.title)
-      currentFilters.eventLocality = { title: { eq: selectedLocality.title } }
-
-    setActiveFilters(currentFilters)
-
+    generateArchivedFilters()
     // upcoming events
-    const upcomingFilters = { ...currentFilters }
-
-    delete upcomingFilters['dateFrom']
-    delete upcomingFilters['dateTo']
-
-    // default without filters
-    upcomingFilters['dateTo'] = { gte: today.toISOString() }
-
-    // filtered startDate
-    if (startDate) {
-      const tempDate = startDate <= today ? today : startDate
-      upcomingFilters['dateTo'] = { gte: tempDate.toISOString() }
-    }
-
-    // filtered endDate
-    if (endDate) {
-      const tempDate =
-        endDate <= today ? today : new Date(new Date().setDate(endDate.getDate() + 1))
-      upcomingFilters['dateTo'] = { between: [today.toISOString(), tempDate.toISOString()] }
-    }
-
-    // filtered both
-    if (startDate && endDate) {
-      let tempStartDate = today
-      if (startDate >= today) {
-        tempStartDate = new Date(startDate)
-        tempStartDate.setDate(startDate.getDate())
-      }
-      const tempEndDate = new Date(endDate)
-      tempEndDate.setDate(endDate.getDate() + 1)
-      upcomingFilters['dateTo'] = {
-        between: [tempStartDate.toISOString(), tempEndDate.toISOString()],
-      }
-    }
-    setUpcomingActiveFilters(upcomingFilters)
+    generateUpcomingFilters()
   }
 
   useEffect(() => {
