@@ -139,7 +139,7 @@ const Page = ({ page, eventDetail, upcomingEvents, menus, footer, error }: IPage
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
-  let paths: any[] = []
+  let paths: Array<{ params: { slug: string[]; locale: string } }> = []
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
 
   const pathArraysForLocales = await Promise.all(
