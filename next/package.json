@@ -7,7 +7,7 @@
     "develop": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint components pages utils",
+    "lint": "eslint components pages utils hooks",
     "lint:fix": "yarn lint --fix",
     "gen": "graphql-codegen"
   },
