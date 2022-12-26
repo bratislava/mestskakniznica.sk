@@ -284,9 +284,7 @@ const sectionContent = (
               '',
           }}
           files={section.basicDocuments?.data?.map((document) => ({
-            url: `${t('documents_category_slug')}${
-              document?.attributes?.file_category?.data?.attributes?.slug
-            }/${document?.attributes?.slug}`,
+            url: `${t('documents_slug')}${document?.attributes?.slug}`,
             content: {
               type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
               title: document?.attributes?.title ?? '',

@@ -2,8 +2,8 @@ import { meiliClient } from '@utils/meilisearch'
 import { SearchResponse } from 'meilisearch'
 import { Key } from 'swr'
 
-import { getMeilisearchPageOptions } from './getMeilisearchPageOptions'
-import { SearchIndexWrapped } from './searchIndexWrapped'
+import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
+import { SearchIndexWrapped } from '../searchIndexWrapped'
 
 export const allSearchTypes = [
   'page' as const,
@@ -77,8 +77,8 @@ export const commonSearchFetcher = (filters: CommonSearchFilters, locale: string
           // TODO IMPORTANT: use function to get full path, fix undefined in url, add english url
           const link =
             locale === 'sk'
-              ? `o-nas/dokumenty-a-zverejnovanie-informacii/undefined/${slug}`
-              : `en/o-nas/dokumenty-a-zverejnovanie-informacii/undefined/${slug}`
+              ? `o-nas/dokumenty-a-zverejnovanie-informacii/${slug}`
+              : `en/about-us/documents-and-public-disclosure-of-information/${slug}`
           return { type, title, link, data: dataInner } as CommonSearchResult
         }
 

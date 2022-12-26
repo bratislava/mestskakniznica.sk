@@ -132,6 +132,7 @@ export type BlogPostEntityResponseCollection = {
 };
 
 export type BlogPostFiltersInput = {
+  Seo?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<BlogPostFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   date_added?: InputMaybe<DateFilterInput>;
@@ -214,6 +215,7 @@ export type BooleanFilterInput = {
   containsi?: InputMaybe<Scalars['Boolean']>;
   endsWith?: InputMaybe<Scalars['Boolean']>;
   eq?: InputMaybe<Scalars['Boolean']>;
+  eqi?: InputMaybe<Scalars['Boolean']>;
   gt?: InputMaybe<Scalars['Boolean']>;
   gte?: InputMaybe<Scalars['Boolean']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
@@ -293,6 +295,8 @@ export type CategoryFiltersInput = {
   localizations?: InputMaybe<CategoryFiltersInput>;
   not?: InputMaybe<CategoryFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>;
+  pageLink?: InputMaybe<ComponentBlocksPageLinkFiltersInput>;
+  pages?: InputMaybe<ComponentBlocksPageLinkFiltersInput>;
   parentCategory?: InputMaybe<CategoryFiltersInput>;
   priority?: InputMaybe<IntFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
@@ -473,6 +477,7 @@ export type ComponentFooterFooterColumnFooterLinkArgs = {
 
 export type ComponentFooterFooterColumnFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentFooterFooterColumnFiltersInput>>>;
+  footerLink?: InputMaybe<ComponentFooterFooterLinkFiltersInput>;
   not?: InputMaybe<ComponentFooterFooterColumnFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentFooterFooterColumnFiltersInput>>>;
   title?: InputMaybe<StringFilterInput>;
@@ -777,6 +782,7 @@ export type ComponentMenuSectionsFiltersInput = {
   not?: InputMaybe<ComponentMenuSectionsFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentMenuSectionsFiltersInput>>>;
   sectionColumnSpan?: InputMaybe<IntFilterInput>;
+  sectionLinks?: InputMaybe<ComponentMenuSectionLinksFiltersInput>;
   sectionPage?: InputMaybe<PageFiltersInput>;
   sectionTitle?: InputMaybe<StringFilterInput>;
 };
@@ -1150,6 +1156,18 @@ export type ComponentSeoSeo = {
   metaViewport?: Maybe<Scalars['String']>;
 };
 
+export type ComponentSeoSeoFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSeoSeoFiltersInput>>>;
+  canonicalURL?: InputMaybe<StringFilterInput>;
+  keywords?: InputMaybe<StringFilterInput>;
+  metaDescription?: InputMaybe<StringFilterInput>;
+  metaRobots?: InputMaybe<StringFilterInput>;
+  metaTitle?: InputMaybe<StringFilterInput>;
+  metaViewport?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentSeoSeoFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentSeoSeoFiltersInput>>>;
+};
+
 export type ComponentSeoSeoInput = {
   canonicalURL?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -1167,6 +1185,7 @@ export type DateFilterInput = {
   containsi?: InputMaybe<Scalars['Date']>;
   endsWith?: InputMaybe<Scalars['Date']>;
   eq?: InputMaybe<Scalars['Date']>;
+  eqi?: InputMaybe<Scalars['Date']>;
   gt?: InputMaybe<Scalars['Date']>;
   gte?: InputMaybe<Scalars['Date']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
@@ -1190,6 +1209,7 @@ export type DateTimeFilterInput = {
   containsi?: InputMaybe<Scalars['DateTime']>;
   endsWith?: InputMaybe<Scalars['DateTime']>;
   eq?: InputMaybe<Scalars['DateTime']>;
+  eqi?: InputMaybe<Scalars['DateTime']>;
   gt?: InputMaybe<Scalars['DateTime']>;
   gte?: InputMaybe<Scalars['DateTime']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
@@ -1287,6 +1307,7 @@ export type Event = {
   createdAt?: Maybe<Scalars['DateTime']>;
   dateFrom?: Maybe<Scalars['DateTime']>;
   dateTo?: Maybe<Scalars['DateTime']>;
+  date_added?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
   eventCategory?: Maybe<EventCategoryEntityResponse>;
   eventLocality?: Maybe<EventLocalityEntityResponse>;
@@ -1403,14 +1424,17 @@ export type EventEntityResponseCollection = {
 };
 
 export type EventFiltersInput = {
+  Seo?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   dateFrom?: InputMaybe<DateTimeFilterInput>;
   dateTo?: InputMaybe<DateTimeFilterInput>;
+  date_added?: InputMaybe<DateFilterInput>;
   description?: InputMaybe<StringFilterInput>;
   eventCategory?: InputMaybe<EventCategoryFiltersInput>;
   eventLocality?: InputMaybe<EventLocalityFiltersInput>;
   eventTags?: InputMaybe<EventTagFiltersInput>;
+  guests?: InputMaybe<ComponentGuestsGuestFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<EventFiltersInput>;
@@ -1430,6 +1454,7 @@ export type EventInput = {
   coverImage?: InputMaybe<Scalars['ID']>;
   dateFrom?: InputMaybe<Scalars['DateTime']>;
   dateTo?: InputMaybe<Scalars['DateTime']>;
+  date_added?: InputMaybe<Scalars['Date']>;
   description?: InputMaybe<Scalars['String']>;
   eventCategory?: InputMaybe<Scalars['ID']>;
   eventLocality?: InputMaybe<Scalars['ID']>;
@@ -1678,6 +1703,7 @@ export type FloatFilterInput = {
   containsi?: InputMaybe<Scalars['Float']>;
   endsWith?: InputMaybe<Scalars['Float']>;
   eq?: InputMaybe<Scalars['Float']>;
+  eqi?: InputMaybe<Scalars['Float']>;
   gt?: InputMaybe<Scalars['Float']>;
   gte?: InputMaybe<Scalars['Float']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
@@ -1743,7 +1769,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = BasicDocument | BlogPost | BookTag | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksExternalLink | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsEventDetails | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsLocalityDetails | ComponentSectionsParnters | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventLocality | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Page | Partner | Premise | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = BasicDocument | BlogPost | BookTag | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksExternalLink | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsEventDetails | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsLocalityDetails | ComponentSectionsParnters | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventLocality | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Page | Partner | Premise | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -1830,6 +1856,7 @@ export type IdFilterInput = {
   containsi?: InputMaybe<Scalars['ID']>;
   endsWith?: InputMaybe<Scalars['ID']>;
   eq?: InputMaybe<Scalars['ID']>;
+  eqi?: InputMaybe<Scalars['ID']>;
   gt?: InputMaybe<Scalars['ID']>;
   gte?: InputMaybe<Scalars['ID']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
@@ -1853,6 +1880,7 @@ export type IntFilterInput = {
   containsi?: InputMaybe<Scalars['Int']>;
   endsWith?: InputMaybe<Scalars['Int']>;
   eq?: InputMaybe<Scalars['Int']>;
+  eqi?: InputMaybe<Scalars['Int']>;
   gt?: InputMaybe<Scalars['Int']>;
   gte?: InputMaybe<Scalars['Int']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
@@ -1876,6 +1904,7 @@ export type JsonFilterInput = {
   containsi?: InputMaybe<Scalars['JSON']>;
   endsWith?: InputMaybe<Scalars['JSON']>;
   eq?: InputMaybe<Scalars['JSON']>;
+  eqi?: InputMaybe<Scalars['JSON']>;
   gt?: InputMaybe<Scalars['JSON']>;
   gte?: InputMaybe<Scalars['JSON']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
@@ -1944,6 +1973,7 @@ export type MenuFiltersInput = {
   id?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<MenuFiltersInput>;
+  menuSections?: InputMaybe<ComponentMenuSectionsFiltersInput>;
   menuSlug?: InputMaybe<StringFilterInput>;
   menuTitle?: InputMaybe<StringFilterInput>;
   menuTotalColumns?: InputMaybe<IntFilterInput>;
@@ -1970,6 +2000,8 @@ export type MenuRelationResponseCollection = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Change user password. Confirm with the current password. */
+  changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createBasicDocument?: Maybe<BasicDocumentEntityResponse>;
   createBlogPost?: Maybe<BlogPostEntityResponse>;
   createBookTag?: Maybe<BookTagEntityResponse>;
@@ -1996,6 +2028,7 @@ export type Mutation = {
   createPremise?: Maybe<PremiseEntityResponse>;
   createPremiseLocalization?: Maybe<PremiseEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
+  createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
@@ -2017,6 +2050,7 @@ export type Mutation = {
   deletePartner?: Maybe<PartnerEntityResponse>;
   deletePremise?: Maybe<PremiseEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
+  deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
   /** Delete an existing user */
@@ -2050,11 +2084,19 @@ export type Mutation = {
   updatePartner?: Maybe<PartnerEntityResponse>;
   updatePremise?: Maybe<PremiseEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
+  updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
   updateUsersPermissionsRole?: Maybe<UsersPermissionsUpdateRolePayload>;
   /** Update an existing user */
   updateUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   upload: UploadFileEntityResponse;
+};
+
+
+export type MutationChangePasswordArgs = {
+  currentPassword: Scalars['String'];
+  password: Scalars['String'];
+  passwordConfirmation: Scalars['String'];
 };
 
 
@@ -2219,6 +2261,11 @@ export type MutationCreateUploadFileArgs = {
 };
 
 
+export type MutationCreateUploadFolderArgs = {
+  data: UploadFolderInput;
+};
+
+
 export type MutationCreateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
 };
@@ -2319,6 +2366,11 @@ export type MutationDeletePremiseArgs = {
 
 
 export type MutationDeleteUploadFileArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteUploadFolderArgs = {
   id: Scalars['ID'];
 };
 
@@ -2490,6 +2542,12 @@ export type MutationUpdateUploadFileArgs = {
 };
 
 
+export type MutationUpdateUploadFolderArgs = {
+  data: UploadFolderInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
   id: Scalars['ID'];
@@ -2564,6 +2622,7 @@ export type PageEntityResponseCollection = {
 };
 
 export type PageFiltersInput = {
+  Seo?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
   blogPosts?: InputMaybe<BlogPostFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -2797,6 +2856,8 @@ export type Query = {
   premises?: Maybe<PremiseEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
+  uploadFolder?: Maybe<UploadFolderEntityResponse>;
+  uploadFolders?: Maybe<UploadFolderEntityResponseCollection>;
   usersPermissionsRole?: Maybe<UsersPermissionsRoleEntityResponse>;
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
@@ -3040,6 +3101,18 @@ export type QueryUploadFilesArgs = {
 };
 
 
+export type QueryUploadFolderArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryUploadFoldersArgs = {
+  filters?: InputMaybe<UploadFolderFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
 export type QueryUsersPermissionsRoleArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
@@ -3075,6 +3148,7 @@ export type StringFilterInput = {
   containsi?: InputMaybe<Scalars['String']>;
   endsWith?: InputMaybe<Scalars['String']>;
   eq?: InputMaybe<Scalars['String']>;
+  eqi?: InputMaybe<Scalars['String']>;
   gt?: InputMaybe<Scalars['String']>;
   gte?: InputMaybe<Scalars['String']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -3098,6 +3172,7 @@ export type TimeFilterInput = {
   containsi?: InputMaybe<Scalars['Time']>;
   endsWith?: InputMaybe<Scalars['Time']>;
   eq?: InputMaybe<Scalars['Time']>;
+  eqi?: InputMaybe<Scalars['Time']>;
   gt?: InputMaybe<Scalars['Time']>;
   gte?: InputMaybe<Scalars['Time']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Time']>>>;
@@ -3158,6 +3233,8 @@ export type UploadFileFiltersInput = {
   caption?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   ext?: InputMaybe<StringFilterInput>;
+  folder?: InputMaybe<UploadFolderFiltersInput>;
+  folderPath?: InputMaybe<StringFilterInput>;
   formats?: InputMaybe<JsonFilterInput>;
   hash?: InputMaybe<StringFilterInput>;
   height?: InputMaybe<IntFilterInput>;
@@ -3179,6 +3256,8 @@ export type UploadFileInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
   caption?: InputMaybe<Scalars['String']>;
   ext?: InputMaybe<Scalars['String']>;
+  folder?: InputMaybe<Scalars['ID']>;
+  folderPath?: InputMaybe<Scalars['String']>;
   formats?: InputMaybe<Scalars['JSON']>;
   hash?: InputMaybe<Scalars['String']>;
   height?: InputMaybe<Scalars['Int']>;
@@ -3190,6 +3269,83 @@ export type UploadFileInput = {
   size?: InputMaybe<Scalars['Float']>;
   url?: InputMaybe<Scalars['String']>;
   width?: InputMaybe<Scalars['Int']>;
+};
+
+export type UploadFileRelationResponseCollection = {
+  __typename?: 'UploadFileRelationResponseCollection';
+  data: Array<UploadFileEntity>;
+};
+
+export type UploadFolder = {
+  __typename?: 'UploadFolder';
+  children?: Maybe<UploadFolderRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  files?: Maybe<UploadFileRelationResponseCollection>;
+  name: Scalars['String'];
+  parent?: Maybe<UploadFolderEntityResponse>;
+  path: Scalars['String'];
+  pathId: Scalars['Int'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type UploadFolderChildrenArgs = {
+  filters?: InputMaybe<UploadFolderFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type UploadFolderFilesArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type UploadFolderEntity = {
+  __typename?: 'UploadFolderEntity';
+  attributes?: Maybe<UploadFolder>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type UploadFolderEntityResponse = {
+  __typename?: 'UploadFolderEntityResponse';
+  data?: Maybe<UploadFolderEntity>;
+};
+
+export type UploadFolderEntityResponseCollection = {
+  __typename?: 'UploadFolderEntityResponseCollection';
+  data: Array<UploadFolderEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type UploadFolderFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<UploadFolderFiltersInput>>>;
+  children?: InputMaybe<UploadFolderFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  files?: InputMaybe<UploadFileFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<UploadFolderFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<UploadFolderFiltersInput>>>;
+  parent?: InputMaybe<UploadFolderFiltersInput>;
+  path?: InputMaybe<StringFilterInput>;
+  pathId?: InputMaybe<IntFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type UploadFolderInput = {
+  children?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  files?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  name?: InputMaybe<Scalars['String']>;
+  parent?: InputMaybe<Scalars['ID']>;
+  path?: InputMaybe<Scalars['String']>;
+  pathId?: InputMaybe<Scalars['Int']>;
+};
+
+export type UploadFolderRelationResponseCollection = {
+  __typename?: 'UploadFolderRelationResponseCollection';
+  data: Array<UploadFolderEntity>;
 };
 
 export type UsersPermissionsCreateRolePayload = {
@@ -3413,35 +3569,12 @@ export type BasicDocumentBySlugQueryVariables = Exact<{
 
 export type BasicDocumentBySlugQuery = { __typename?: 'Query', basicDocuments?: { __typename?: 'BasicDocumentEntityResponseCollection', data: Array<{ __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', slug?: string | null, title?: string | null, description?: string | null, date_added?: any | null, author?: string | null, link?: string | null, file_category?: { __typename?: 'FileCategoryEntityResponse', data?: { __typename?: 'FileCategoryEntity', id?: string | null, attributes?: { __typename?: 'FileCategory', name?: string | null, slug?: string | null } | null } | null } | null, metadata?: Array<{ __typename: 'ComponentMetadataFaktury', id: string, name?: string | null, date?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataMetadata', id: string, provider?: string | null, year?: number | null, grant_name?: string | null, grant_number?: string | null, amount?: string | null, description?: string | null } | { __typename: 'ComponentMetadataObchodnaVerejnaSutaz', id: string, subject?: string | null, description?: string | null, number?: string | null, date_added?: any | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataObjednavky', id: string, title?: string | null, date_period?: any | null, date_added?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataVerejneObstaravanie', id: string, subject?: string | null, description?: string | null, number?: string | null, date_added?: any | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataZmluvy', id: string, date?: any | null, number?: string | null, amount?: string | null, supplier?: string | null, subject?: string | null } | { __typename: 'Error' } | null> | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | null }> } | null };
 
-export type AllBasicDocumentsQueryVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  categoryId?: InputMaybe<Scalars['ID']>;
-  query?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type AllBasicDocumentsQuery = { __typename?: 'Query', basicDocuments?: { __typename?: 'BasicDocumentEntityResponseCollection', data: Array<{ __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', slug?: string | null, title?: string | null, description?: string | null, date_added?: any | null, author?: string | null, link?: string | null, file_category?: { __typename?: 'FileCategoryEntityResponse', data?: { __typename?: 'FileCategoryEntity', id?: string | null, attributes?: { __typename?: 'FileCategory', name?: string | null, slug?: string | null } | null } | null } | null, metadata?: Array<{ __typename: 'ComponentMetadataFaktury', id: string, name?: string | null, date?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataMetadata', id: string, provider?: string | null, year?: number | null, grant_name?: string | null, grant_number?: string | null, amount?: string | null, description?: string | null } | { __typename: 'ComponentMetadataObchodnaVerejnaSutaz', id: string, subject?: string | null, description?: string | null, number?: string | null, date_added?: any | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataObjednavky', id: string, title?: string | null, date_period?: any | null, date_added?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataVerejneObstaravanie', id: string, subject?: string | null, description?: string | null, number?: string | null, date_added?: any | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataZmluvy', id: string, date?: any | null, number?: string | null, amount?: string | null, supplier?: string | null, subject?: string | null } | { __typename: 'Error' } | null> | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | null }> } | null };
-
-export type BasicDocumentsCountQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type BasicDocumentsCountQuery = { __typename?: 'Query', basicDocuments?: { __typename?: 'BasicDocumentEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+export type FileCategoryEntityFragment = { __typename?: 'FileCategoryEntity', id?: string | null, attributes?: { __typename?: 'FileCategory', name?: string | null, slug?: string | null } | null };
 
 export type FileCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FileCategoriesQuery = { __typename?: 'Query', fileCategories?: { __typename?: 'FileCategoryEntityResponseCollection', data: Array<{ __typename?: 'FileCategoryEntity', id?: string | null, attributes?: { __typename?: 'FileCategory', name?: string | null, slug?: string | null } | null }> } | null };
-
-export type DocumentCategoryBySlugQueryVariables = Exact<{
-  slug: Scalars['String'];
-}>;
-
-
-export type DocumentCategoryBySlugQuery = { __typename?: 'Query', fileCategories?: { __typename?: 'FileCategoryEntityResponseCollection', data: Array<{ __typename?: 'FileCategoryEntity', id?: string | null, attributes?: { __typename?: 'FileCategory', name?: string | null, slug?: string | null } | null }> } | null };
-
-export type DocumentCategoryFragment = { __typename?: 'FileCategoryEntity', id?: string | null, attributes?: { __typename?: 'FileCategory', name?: string | null, slug?: string | null } | null };
 
 export type BasicDocumentFileFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null };
 
@@ -3721,8 +3854,8 @@ export type PageLinkFragment = { __typename?: 'ComponentBlocksPageLink', title?:
 
 export type PaginationFragment = { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number };
 
-export const DocumentCategoryFragmentDoc = gql`
-    fragment DocumentCategory on FileCategoryEntity {
+export const FileCategoryEntityFragmentDoc = gql`
+    fragment FileCategoryEntity on FileCategoryEntity {
   id
   attributes {
     name
@@ -4592,52 +4725,15 @@ export const BasicDocumentBySlugDocument = gql`
   }
 }
     ${BasicDocumentFragmentDoc}`;
-export const AllBasicDocumentsDocument = gql`
-    query AllBasicDocuments($limit: Int, $offset: Int, $sort: String = "publishedAt:desc", $categoryId: ID, $query: String) {
-  basicDocuments(
-    sort: [$sort]
-    pagination: {limit: $limit, start: $offset}
-    filters: {title: {contains: $query}, file_category: {id: {eq: $categoryId}}}
-  ) {
-    data {
-      ...BasicDocument
-    }
-  }
-}
-    ${BasicDocumentFragmentDoc}`;
-export const BasicDocumentsCountDocument = gql`
-    query BasicDocumentsCount {
-  basicDocuments {
-    meta {
-      pagination {
-        total
-      }
-    }
-  }
-}
-    `;
 export const FileCategoriesDocument = gql`
     query FileCategories {
   fileCategories {
     data {
-      id
-      attributes {
-        name
-        slug
-      }
+      ...FileCategoryEntity
     }
   }
 }
-    `;
-export const DocumentCategoryBySlugDocument = gql`
-    query DocumentCategoryBySlug($slug: String!) {
-  fileCategories(filters: {slug: {eq: $slug}}) {
-    data {
-      ...DocumentCategory
-    }
-  }
-}
-    ${DocumentCategoryFragmentDoc}`;
+    ${FileCategoryEntityFragmentDoc}`;
 export const BlogPostStaticPathsDocument = gql`
     query BlogPostStaticPaths {
   blogPosts {
@@ -5168,17 +5264,8 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     BasicDocumentBySlug(variables: BasicDocumentBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BasicDocumentBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<BasicDocumentBySlugQuery>(BasicDocumentBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BasicDocumentBySlug', 'query');
     },
-    AllBasicDocuments(variables?: AllBasicDocumentsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllBasicDocumentsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<AllBasicDocumentsQuery>(AllBasicDocumentsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllBasicDocuments', 'query');
-    },
-    BasicDocumentsCount(variables?: BasicDocumentsCountQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BasicDocumentsCountQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<BasicDocumentsCountQuery>(BasicDocumentsCountDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BasicDocumentsCount', 'query');
-    },
     FileCategories(variables?: FileCategoriesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FileCategoriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FileCategoriesQuery>(FileCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'FileCategories', 'query');
-    },
-    DocumentCategoryBySlug(variables: DocumentCategoryBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DocumentCategoryBySlugQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<DocumentCategoryBySlugQuery>(DocumentCategoryBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DocumentCategoryBySlug', 'query');
     },
     BlogPostStaticPaths(variables?: BlogPostStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BlogPostStaticPathsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<BlogPostStaticPathsQuery>(BlogPostStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BlogPostStaticPaths', 'query');

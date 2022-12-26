@@ -121,7 +121,8 @@
   "currentPage": "Please enter a current page number",
   "navAriaLabel": "Main",
   "goToTopAriaLabel": "Go to top header",
-  "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/",
+  "documents_slug": "/about-us/documents-and-public-disclosure-of-information/",
+  "documents_page_name": "Documents and public disclosure of information",
   "eventsArchived": "Archived events",
   "eventsUpcoming": "Upcoming events",
   "eventsEmpty": "No events found",
@@ -148,9 +149,15 @@
   "searchOnPage": "On page",
   "searchInCatalogue": "In catalog",
   "aria": {
-    "searchBook": "earch for a book",
+    "searchField": "Search",
+    "searchBook": "Search for a book",
     "searchOnPage": "Search on page",
     "clearSearch": "Clear search field"
   },
-  "searchResults": "Search results"
+  "searchResults": "Search results",
+  "allCategories": "All categories",
+  "SortSelect": {
+    "byNewest": "From newest",
+    "byOldest": "From oldest"
+  }
 }

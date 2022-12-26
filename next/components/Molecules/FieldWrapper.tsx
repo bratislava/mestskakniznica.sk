@@ -26,6 +26,7 @@ const FieldWrapper = ({
 }: FieldWrapperProps) => {
   return (
     <div className="w-full">
+      {/* TODO inspect font size is overriden */}
       <div className="flex w-full gap-1 text-sm font-semibold">
         {label && (
           <label className="mb-1 block" htmlFor={id}>
@@ -41,7 +42,7 @@ const FieldWrapper = ({
           'border-border bg-border bg-opacity-25 text-foreground-disabled focus-within:border-border-dark hover:border-border-dark group-focus:border-border-dark':
             disabled,
           'border-error': error,
-          'border-border focus-within:border-border-dark hover:border-border-dark group-focus:border-border-dark':
+          'border-border-light focus-within:border-border-dark hover:border-border-dark group-focus:border-border-dark':
             !error && !disabled,
           'pl-1': hasLeftSlot,
           'pr-1': hasRightSlot,

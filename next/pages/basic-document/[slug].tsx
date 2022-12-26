@@ -1,8 +1,8 @@
+import BasicDocumentPage from '@components/pages/BasicDocumentPage'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../../components/layouts/PageWrapper'
-import FileDetailPage from '../../components/pages/fileDetailPage'
 import { BasicDocumentEntity, FooterQuery, MenuEntity } from '../../graphql'
 import { client } from '../../utils/gql'
 import { arrayify } from '../../utils/utils'
@@ -18,7 +18,7 @@ interface IFilePageProps {
 const Page = ({ basicDocument, locale, menus, footer, slug }: IFilePageProps) => {
   return (
     <PageWrapper locale={locale ?? 'sk'} slug={slug}>
-      <FileDetailPage
+      <BasicDocumentPage
         locale={locale}
         file={basicDocument}
         menus={menus}
@@ -36,12 +36,12 @@ export const getServerSideProps: GetServerSideProps<IFilePageProps> = async ({
 
   if (!slug) return { notFound: true }
 
-  const basicDocumentBySlug = await client.BasicDocumentBySlug({ slug })
+  const { basicDocuments } = await client.BasicDocumentBySlug({ slug })
   const { menus } = await client.Menus({ locale })
   const { footer } = await client.Footer({ locale })
   const translations = (await serverSideTranslations(locale, ['common', 'newsletter'])) as any
 
-  if (!basicDocumentBySlug.basicDocuments?.data && !menus) return { notFound: true }
+  if (!basicDocuments?.data[0] || !menus) return { notFound: true }
 
   return {
     props: {
@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps<IFilePageProps> = async ({
       locale,
       menus: menus?.data,
       footer: footer?.data,
-      basicDocument: basicDocumentBySlug.basicDocuments?.data[0],
+      basicDocument: basicDocuments?.data[0],
       ...translations,
     },
   }

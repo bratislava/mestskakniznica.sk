@@ -121,7 +121,8 @@
   "currentPage": "Zadajte číslo aktuálnej strany",
   "navAriaLabel": "Hlavná navigácia",
   "goToTopAriaLabel": "Vrátiť sa na začiatok stránky",
-  "documents_category_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/",
+  "documents_slug": "/o-nas/dokumenty-a-zverejnovanie-informacii/",
+  "documents_page_name": "Dokumenty a zverejňovanie informácií",
   "eventsArchived": "Archivované udalosti",
   "eventsUpcoming": "Budúce udalosti",
   "eventsEmpty": "Nenašli sa žiadne podujatia",
@@ -148,9 +149,15 @@
   "searchOnPage": "Na stránke",
   "searchInCatalogue": "V katalógu",
   "aria": {
+    "searchField": "Vyhľadávanie",
     "searchBook": "Hľadať knihu",
     "searchOnPage": "Hľadať na stránke",
     "clearSearch": "Vyčistiť vyhľadávanie"
   },
-  "searchResults": "Výsledky vyhľadávania"
+  "searchResults": "Výsledky vyhľadávania",
+  "allCategories": "Všetky kategórie",
+  "SortSelect": {
+    "byNewest": "Od najnovšieho",
+    "byOldest": "Od najstaršieho"
+  }
 }

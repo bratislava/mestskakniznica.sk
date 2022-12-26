@@ -38,8 +38,13 @@ const searchIndexSettings = {
     "type",
     // Page + Event + Premise
     "locale",
+    // Basic document
+    "basic-document.file_category.id",
   ],
-  sortableAttributes: [],
+  sortableAttributes: [
+    // Basic document
+    "basic-document.date_added",
+  ],
   pagination: {
     // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
     maxTotalHits: 100000,
@@ -70,7 +75,14 @@ module.exports = ({ env }) => ({
         indexName: "search_index",
         settings: searchIndexSettings,
         transformEntry: ({ entry }) =>
-          wrapSearchIndexEntry("basic-document", entry),
+          wrapSearchIndexEntry("basic-document", {
+            ...entry,
+            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+            // use (number) filters.
+            date_added: entry.date_added
+              ? new Date(entry.date_added).getTime()
+              : undefined,
+          }),
       },
 
       "blog-post": {

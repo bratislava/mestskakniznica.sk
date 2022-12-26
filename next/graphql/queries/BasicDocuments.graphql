@@ -6,59 +6,19 @@ query BasicDocumentBySlug($slug: String!) {
   }
 }
 
-query AllBasicDocuments(
-  $limit: Int
-  $offset: Int
-  $sort: String = "publishedAt:desc"
-  $categoryId: ID
-  $query: String
-) {
-  basicDocuments(
-    sort: [$sort]
-    pagination: { limit: $limit, start: $offset }
-    filters: { title: { contains: $query }, file_category: { id: { eq: $categoryId } } }
-  ) {
-    data {
-      ...BasicDocument
-    }
-  }
-}
-
-query BasicDocumentsCount {
-  basicDocuments {
-    meta {
-      pagination {
-        total
-      }
-    }
+fragment FileCategoryEntity on FileCategoryEntity {
+  id
+  attributes {
+    name
+    slug
   }
 }
 
 query FileCategories {
   fileCategories {
     data {
-      id
-      attributes {
-        name
-        slug
-      }
+      ...FileCategoryEntity
     }
-  }
-}
-
-query DocumentCategoryBySlug($slug: String!) {
-  fileCategories(filters: { slug: { eq: $slug } }) {
-    data {
-      ...DocumentCategory
-    }
-  }
-}
-
-fragment DocumentCategory on FileCategoryEntity {
-  id
-  attributes {
-    name
-    slug
   }
 }
 

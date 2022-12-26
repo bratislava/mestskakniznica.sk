@@ -46,12 +46,12 @@ const nextConfig = {
           destination: '/blog/:slug',
         },
         {
-          source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug/:slug',
-          destination: '/file/:slug',
+          source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
+          destination: '/basic-document/:slug',
         },
         {
-          source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
-          destination: '/documents/:slug',
+          source: '/about-us/documents-and-public-disclosure-of-information/:slug',
+          destination: '/basic-document/:slug',
         },
         {
           source: '/vyhladavanie',
@@ -62,6 +62,19 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: '/sk/o-nas/dokumenty-a-zverejnovanie-informacii/:categorySlug/:slug',
+        destination: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/en/o-nas/dokumenty-a-zverejnovanie-informacii/:categorySlug/:slug',
+        destination: '/en/about-us/documents-and-public-disclosure-of-information/:slug',
+        permanent: true,
+        locale: false,
+      },
+
       {
         source: '/online-katalog',
         destination: '/sluzby/citanie/online-katalog',

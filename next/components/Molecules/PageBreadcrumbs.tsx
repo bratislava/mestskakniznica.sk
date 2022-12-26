@@ -1,4 +1,9 @@
-import { BlogPostEntity, Category, FileCategoryEntity, PageEntity, } from '@bratislava/strapi-sdk-city-library'
+import {
+  BlogPostEntity,
+  Category,
+  FileCategoryEntity,
+  PageEntity,
+} from '@bratislava/strapi-sdk-city-library'
 import { useTranslation } from 'next-i18next'
 
 import { pagePath } from '../../utils/page'
@@ -11,18 +16,11 @@ interface PageBreadcrumbsProps {
   breadCrumbs?: { title: string; url: string | null }[]
 }
 
-const PageBreadcrumbs = ({ page, blogPost, documentCategory, breadCrumbs }: PageBreadcrumbsProps) => {
+const PageBreadcrumbs = ({ page, blogPost, breadCrumbs }: PageBreadcrumbsProps) => {
   const { t } = useTranslation('common')
 
   const crumbs: { title: string; url: string | null }[] = []
 
-  // document category pagee
-  if (documentCategory) {
-    crumbs.push({
-      title: documentCategory?.attributes?.name ?? '',
-      url: `${t('documents_category_slug')}${documentCategory?.attributes?.slug}` ?? '#',
-    })
-  }
   // blog post page
   if (page?.attributes?.layout === 'blog_posts' && blogPost) {
     crumbs.push({
@@ -56,7 +54,7 @@ const PageBreadcrumbs = ({ page, blogPost, documentCategory, breadCrumbs }: Page
 
   crumbs.reverse()
 
-  return <Breadcrumbs crumbs={crumbs}/>
+  return <Breadcrumbs crumbs={crumbs} />
 }
 
 export default PageBreadcrumbs
