@@ -8,7 +8,7 @@ import { useState } from 'react'
 import HeaderNavigation from './Navigation/HeaderNavigation'
 import HeaderSearchBox from './Navigation/HeaderSearchBox'
 import NavigationItem from './Navigation/NavigationItem'
-import SkipNavigation from './SkipNavigation'
+import SkipToContentButton from './SkipToContentButton'
 
 interface HeaderProps {
   menus: MenuEntity[]
@@ -41,7 +41,7 @@ const Header = ({ menus, upcomingEvents }: HeaderProps) => {
             </Link>
           </div>
 
-          <SkipNavigation />
+          <SkipToContentButton />
 
           <div>
             <HeaderNavigation />

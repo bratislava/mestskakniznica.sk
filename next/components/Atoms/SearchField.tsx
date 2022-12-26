@@ -1,6 +1,7 @@
 import XCircleIcon from '@assets/images/clear-circle.svg'
 import CloseIcon from '@assets/images/close.svg'
 import SearchIcon from '@assets/images/search.svg'
+import Button from '@modules/common/Button'
 import { useTranslation } from 'next-i18next'
 import {
   DetailedHTMLProps,
@@ -67,9 +68,9 @@ const SearchField = ({
       isLarge={isLarge}
       rightSlot={
         input.length > 0 ? (
-          <button onClick={handleClear} type="button" className="p-2">
+          <Button variant="unstyled" onPress={handleClear} className="p-2">
             {isLarge ? <CloseIcon /> : <XCircleIcon />}
-          </button>
+          </Button>
         ) : null
       }
       {...rest}

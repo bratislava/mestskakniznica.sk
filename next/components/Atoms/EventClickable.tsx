@@ -1,3 +1,4 @@
+import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useEffect, useState } from 'react'
@@ -36,17 +37,18 @@ const Clickable = ({ text, svgIcon, actionLink, classA, classDiv, copyText }: Cl
     <div className={cx(classDiv)}>
       {copyText && copied ? (
         <a data-for="main" data-delay-hide="3000" data-tip={t('linkCopied')} data-iscapture="true">
-          <button onClick={() => actionLink()}>
+          <Button variant="unstyled" onPress={() => actionLink()}>
             <div className={cx(classA)}>
               {svgIcon}
               &nbsp; {text}
             </div>
-          </button>
+          </Button>
           <ReactTooltip id="main" place="top" type="dark" effect="solid" multiline />
         </a>
       ) : (
-        <button
-          onClick={() => {
+        <Button
+          variant="unstyled"
+          onPress={() => {
             actionLink()
             setCopied(true)
           }}
@@ -55,7 +57,7 @@ const Clickable = ({ text, svgIcon, actionLink, classA, classDiv, copyText }: Cl
             {svgIcon}
             &nbsp; {text}
           </div>
-        </button>
+        </Button>
       )}
     </div>
   )

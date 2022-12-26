@@ -28,6 +28,7 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
         className
       )}
     >
+      {/* TODO replace by Button */}
       <button
         type="button"
         onClick={onClick}
@@ -45,7 +46,7 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
             }
           )}
         >
-          {finished ? <CheckMark className="-m-6"/> : num}
+          {finished ? <CheckMark className="-m-6" /> : num}
         </span>
         <p className="text-left text-h5 text-foreground-heading">{title}</p>
       </button>

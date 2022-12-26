@@ -48,6 +48,7 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
           {/*  <Accessibility /> */}
           {/* </div> */}
         </div>
+        {/* TODO ARIA: add aria label and replace by Button */}
         <button className="px-5" type="button" onClick={onClose}>
           X
         </button>

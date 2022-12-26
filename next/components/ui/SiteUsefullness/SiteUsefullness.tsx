@@ -1,31 +1,30 @@
 import ThumbDown from '@assets/images/thumb-down.svg'
 import ThumbUp from '@assets/images/thumb-up.svg'
+import Button from '@modules/common/Button'
+import { PressEvent } from '@react-types/shared'
 import cx from 'classnames'
-import React, { MouseEvent } from 'react'
-
-import { Button } from '../Button/Button'
+import { useState } from 'react'
 
 export interface SiteUsefullnessProps {
   className?: string
   title: string
   thankYouMessage: string
-  onButtonClick: (e: React.MouseEvent) => void
+  onButtonClick: (e: PressEvent) => void
   firstOption?: string
   secondOption?: string
 }
 
-export const SiteUsefullness = (
-  {
-    className,
-    title,
-    thankYouMessage,
-    firstOption,
-    secondOption,
-    onButtonClick,
-  }: SiteUsefullnessProps) => {
-  const [isSubmitted, setIsSubmitted] = React.useState(false)
+export const SiteUsefullness = ({
+  className,
+  title,
+  thankYouMessage,
+  firstOption,
+  secondOption,
+  onButtonClick,
+}: SiteUsefullnessProps) => {
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleClick = (e: MouseEvent) => {
+  const handleClick = (e: PressEvent) => {
     setIsSubmitted(true)
     onButtonClick(e)
   }
@@ -49,21 +48,17 @@ export const SiteUsefullness = (
           <div className="flex items-center gap-x-3">
             <Button
               variant="secondary"
-              className="py-[9px] px-5"
-              icon={<ThumbUp/>}
-              iconPosition="left"
+              startIcon={<ThumbUp />}
               id="site-useful-yes"
-              onClick={handleClick}
+              onPress={handleClick}
             >
               {firstOption}
             </Button>
             <Button
               variant="secondary"
-              className="py-[9px] px-5"
-              icon={<ThumbDown/>}
-              iconPosition="left"
+              startIcon={<ThumbDown />}
               id="site-useful-no"
-              onClick={handleClick}
+              onPress={handleClick}
             >
               {secondOption}
             </Button>
