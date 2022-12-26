@@ -70,8 +70,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
   }
 
   useEffect(() => {
-    setFilters({ ...filters, searchValue })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setFilters((prevFilters) => ({ ...prevFilters, searchValue }))
   }, [searchValue])
 
   const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useSwrWithExtras(
@@ -93,7 +92,6 @@ const SearchPage = ({ pageEntity }: PageProps) => {
         <div className="mt-6 flex flex-col gap-y-4 lg:flex-row lg:gap-y-0">
           <SearchField
             className="h-16"
-            // inputClassName="py-2 lg:py-5 text-sm w-full"
             input={input}
             setInput={setInput}
             setSearchValue={setSearchValue}

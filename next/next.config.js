@@ -63,15 +63,15 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:categorySlug/:slug',
+        source: '/sk/o-nas/dokumenty-a-zverejnovanie-informacii/:categorySlug/:slug',
         destination: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
-        permanent: false,
+        permanent: true,
         locale: false,
       },
       {
         source: '/en/o-nas/dokumenty-a-zverejnovanie-informacii/:categorySlug/:slug',
         destination: '/en/about-us/documents-and-public-disclosure-of-information/:slug',
-        permanent: false,
+        permanent: true,
         locale: false,
       },
 

@@ -12,7 +12,6 @@ import SortSelect, { Sort } from '@components/Atoms/SortSelect'
 import { formatDateToLocal } from '@utils/utils'
 import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
-import * as React from 'react'
 import { useEffect, useState } from 'react'
 
 import {
@@ -44,8 +43,8 @@ const DocumentsPage = ({ page }: PageProps) => {
     documentsFetcher(filters)
   )
 
-  const handlePageChange = (page: number) => {
-    setFilters({ ...filters, page })
+  const handlePageChange = (newPage: number) => {
+    setFilters({ ...filters, page: newPage })
   }
 
   const handleCategoryChange = (categoryId: string | null) => {
@@ -57,8 +56,7 @@ const DocumentsPage = ({ page }: PageProps) => {
   }
 
   useEffect(() => {
-    setFilters({ ...filters, searchValue })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setFilters((prevFilters) => ({ ...prevFilters, searchValue }))
   }, [searchValue])
 
   return (
