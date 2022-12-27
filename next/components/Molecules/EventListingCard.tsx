@@ -1,5 +1,5 @@
 import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
-import Link from 'next/link'
+import MLink from '@modules/common/MLink'
 import { useTranslation } from 'next-i18next'
 
 import Placeholder from '../../assets/images/event-list-placeholder.jpg'
@@ -16,40 +16,39 @@ const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
   const { locale } = usePageWrapperContext()
 
   return (
-    <Link key={attributes?.slug} href={attributes?.slug || ''} passHref>
-      <a className="m-auto h-[360px] w-full cursor-pointer">
-        <div className="w-full">
-          <img
-            className="h-[200px] w-full flex-1 object-cover"
-            alt={t('eventDetailImagePlaceholder')}
-            src={
-              attributes?.listingImage?.data?.attributes?.url ||
-              attributes?.coverImage?.data?.attributes?.url ||
-              Placeholder.src
-            }
-            height="200px"
+    // TODO refactor link to meet html validation standards
+    <MLink href={attributes?.slug || ''} className="m-auto h-[360px] w-full cursor-pointer">
+      <div className="w-full">
+        <img
+          className="h-[200px] w-full flex-1 object-cover"
+          alt={t('eventDetailImagePlaceholder')}
+          src={
+            attributes?.listingImage?.data?.attributes?.url ||
+            attributes?.coverImage?.data?.attributes?.url ||
+            Placeholder.src
+          }
+          height="200px"
+        />
+
+        <div className="flex pt-4 text-sm">
+          <TagsDisplay
+            tags={attributes?.eventTags?.data}
+            category={attributes?.eventCategory?.data?.attributes?.title || ''}
+            tagsCount={2}
           />
-
-          <div className="flex pt-4 text-sm">
-            <TagsDisplay
-              tags={attributes?.eventTags?.data}
-              category={attributes?.eventCategory?.data?.attributes?.title || ''}
-              tagsCount={2}
-            />
-          </div>
-
-          <div className="justify-end pt-2 text-h5 hover:underline">{attributes?.title}</div>
-          <div className="text--text-body pt-2 text-sm">
-            {dateTimeString(attributes?.dateFrom || '', attributes?.dateTo || '', locale)}
-          </div>
-          {attributes?.eventLocality?.data?.attributes?.title && (
-            <div className="text--text-body pt-2 text-sm">
-              &#9679; {attributes?.eventLocality.data?.attributes.title}
-            </div>
-          )}
         </div>
-      </a>
-    </Link>
+
+        <div className="justify-end pt-2 text-h5 hover:underline">{attributes?.title}</div>
+        <div className="pt-2 text-sm text-foreground-body">
+          {dateTimeString(attributes?.dateFrom || '', attributes?.dateTo || '', locale)}
+        </div>
+        {attributes?.eventLocality?.data?.attributes?.title && (
+          <div className="pt-2 text-sm text-foreground-body">
+            &#9679; {attributes?.eventLocality.data?.attributes.title}
+          </div>
+        )}
+      </div>
+    </MLink>
   )
 }
 

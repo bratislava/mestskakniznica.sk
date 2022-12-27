@@ -28,7 +28,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
   ) => {
     const styles = twMerge(
       cx({
-        'underline hover:text-foreground-dark': variant === 'basic',
+        'hover:underline': variant === 'basic',
       }),
       className
     )

@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import MLink from '@modules/common/MLink'
+import ShowMoreButton from '@modules/common/ShowMoreButton'
 import { useTranslation } from 'next-i18next'
 
 interface IPromoNewsCard {
@@ -9,25 +10,17 @@ interface IPromoNewsCard {
 const PromoNewsCard = ({ title, slug }: IPromoNewsCard) => {
   const { t } = useTranslation('common')
   return (
-    <Link key={slug} href={slug} passHref>
-      <a href={slug}>
-        <div className="relative h-full w-full">
-          <div className="relative m-auto h-full cursor-pointer bg-promo-peach">
-            <div>
-              <div className="m-auto justify-end pt-[18px] pl-5 pr-[25px] text-h2 text-black line-clamp-3 hover:underline">
-                {title}
-              </div>
-            </div>
+    <div className="group relative h-full w-full bg-promo-peach">
+      <div className="pt-[18px] pl-5 pr-[25px] text-h2 text-foreground-heading line-clamp-3">
+        <MLink href={slug} variant="basic" className="after:absolute after:inset-0 after:z-[1]">
+          {title}
+        </MLink>
+      </div>
 
-            <div className="absolute bottom-4 inline-flex space-x-4 pl-5 hover:underline">
-              <p>
-                {t('showMore')} {'>'}
-              </p>
-            </div>
-          </div>
-        </div>
-      </a>
-    </Link>
+      <div className="absolute bottom-4 left-5">
+        <ShowMoreButton uppercase />
+      </div>
+    </div>
   )
 }
 

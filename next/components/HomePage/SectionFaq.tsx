@@ -2,7 +2,7 @@ import Arrow from '@assets/images/arrow-right.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { ComponentHomepageFaqSection } from '@bratislava/strapi-sdk-city-library'
 import { Accordion, CallToAction } from '@bratislava/ui-city-library'
-import Link from 'next/link'
+import MLink from '@modules/common/MLink'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 
@@ -56,12 +56,14 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
               content={<UIMarkdown content={faq?.answer || ''} />}
             />
           ))}
-          <div className="font-serif cursor-pointer pt-6 text-sm">
-            <Link href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'} passHref>
-              <a href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'} className="uppercase">
-                {t('showMore', { ns: 'common' })} {'>'}
-              </a>
-            </Link>
+          <div className="pt-6 text-sm">
+            <MLink
+              href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'}
+              variant="basic"
+              className="uppercase"
+            >
+              {t('showMore', { ns: 'common' })} {'>'}
+            </MLink>
           </div>
         </div>
       </div>

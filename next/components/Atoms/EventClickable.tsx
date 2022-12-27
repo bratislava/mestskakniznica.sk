@@ -1,4 +1,5 @@
 import Button from '@modules/common/Button'
+import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useEffect, useState } from 'react'
@@ -27,10 +28,10 @@ const Clickable = ({ text, svgIcon, actionLink, classA, classDiv, copyText }: Cl
   if (typeof actionLink === 'string')
     return (
       <div className={cx(classDiv)}>
-        <a href={actionLink} target="_blank" rel="noreferrer" className={cx(classA)}>
+        <MLink href={actionLink} target="_blank" rel="noreferrer" className={cx(classA)}>
           {svgIcon}
           &nbsp; {text}
-        </a>
+        </MLink>
       </div>
     )
   return (
