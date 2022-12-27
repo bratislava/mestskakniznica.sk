@@ -17,6 +17,8 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
+      "@modules/*": ["./modules/*"],
+      "@assets/icons": ["./assets/icons/index.ts"],
       "@bratislava/ui-city-library": ["./components/ui/"],
       "@bratislava/ui-city-library/*": ["./components/ui/*"],
       "@bratislava/common-frontend-ui-context": ["utils/ui-context.tsx"],

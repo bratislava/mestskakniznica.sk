@@ -1,8 +1,8 @@
+import Button from '@modules/common/Button'
 import cx from 'classnames'
 import React from 'react'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
-import { Button } from '../Button/Button'
 import { CheckBox } from '../CheckBox/CheckBox'
 import { Input } from '../Input/Input'
 
@@ -18,18 +18,17 @@ interface IProps {
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
 }
 
-export const NewsLetter = (
-  {
-    className,
-    title,
-    buttonContent,
-    checkboxContent,
-    errorMessage,
-    inputPlaceholder,
-    respondMessage,
-    resStatus,
-    onSubmit,
-  }: IProps) => {
+export const NewsLetter = ({
+  className,
+  title,
+  buttonContent,
+  checkboxContent,
+  errorMessage,
+  inputPlaceholder,
+  respondMessage,
+  resStatus,
+  onSubmit,
+}: IProps) => {
   const methods = useFormContext()
   const { errors } = useFormState()
 
@@ -54,9 +53,7 @@ export const NewsLetter = (
             )}
           />
 
-          <Button className="w-full py-[9px] text-sm lg:w-auto lg:py-4.25 lg:px-8">
-            {buttonContent}
-          </Button>
+          <Button mobileFullWidth>{buttonContent}</Button>
         </div>
         <div className="pl-0.5 pt-4.5 pb-8">
           <Controller
@@ -76,6 +73,7 @@ export const NewsLetter = (
                 {!!errors.acceptTerms && (
                   <p className="mt-2 text-base text-error">{errorMessage}</p>
                 )}
+                {/* TODO add success color */}
                 <p className={`mt-2 text-base ${resStatus ? 'text-green-600' : 'text-error'}`}>
                   {respondMessage}
                 </p>

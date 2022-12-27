@@ -1,4 +1,4 @@
-import { Button } from '@bratislava/ui-city-library'
+import Button from '@modules/common/Button'
 import * as React from 'react'
 
 export const getError = (iError: any) => {
@@ -38,7 +38,8 @@ const ErrorDisplay = ({ error }: IProps) => {
         Ľutujeme, ale na tejto stránke sa vyskytla chyba. Skúste opäť neskôr alebo použite
         vyhľadávanie.
       </p>
-      <Button className="mt-4 p-4" onClick={() => setOpen((o) => !o)}>
+      <Button className="mt-4" onPress={() => setOpen((o) => !o)}>
+        {/* TODO add translation */}
         Zobraziť {open ? 'menej' : 'viac'}
       </Button>
       {open && (

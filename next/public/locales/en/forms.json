@@ -28,6 +28,7 @@
   "author": "Author",
   "title": "Title",
   "add_book": "Add a new book",
+  "remove_book": "Remove book",
   "place_of_issue": "Place of issue",
   "issuer": "Issuer",
   "package_number": "Package Number",

@@ -19,19 +19,18 @@ interface NumberSwitcherProps extends InputProps {
 
 const clampValue = (n: number) => Math.max(1, n)
 
-export const NumberSwitcher = (
-  {
-    className,
-    value,
-    hasError,
-    errorMessage,
-    id,
-    onClickChange,
-    labelContent,
-    required,
-    inputClassName,
-    ...props
-  }: NumberSwitcherProps) => {
+export const NumberSwitcher = ({
+  className,
+  value,
+  hasError,
+  errorMessage,
+  id,
+  onClickChange,
+  labelContent,
+  required,
+  inputClassName,
+  ...props
+}: NumberSwitcherProps) => {
   return (
     <div className={className}>
       {/* Label */}
@@ -54,7 +53,7 @@ export const NumberSwitcher = (
           }}
           className="h-full cursor-pointer py-2 text-foreground-heading"
         >
-          <MinusIcon/>
+          <MinusIcon />
         </button>
 
         <div className="mx-3 h-full w-full border-x border-border-light py-2 px-6 text-center">
@@ -70,6 +69,7 @@ export const NumberSwitcher = (
           />
         </div>
 
+        {/* TODO replace by Button */}
         <button
           onClick={(e) => {
             e.preventDefault()
@@ -77,7 +77,7 @@ export const NumberSwitcher = (
           }}
           className="h-full cursor-pointer py-2 text-foreground-heading"
         >
-          <PlusIcon/>
+          <PlusIcon />
         </button>
       </div>
 

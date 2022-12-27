@@ -1,7 +1,8 @@
-import { Button, CheckBox, DateTimeSelect, Input } from '@bratislava/ui-city-library'
+import { CheckBox, DateTimeSelect, Input } from '@bratislava/ui-city-library'
 import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LocalDate } from '@js-joda/core'
+import Button from '@modules/common/Button'
 import { useGetFormOptions } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
@@ -10,7 +11,12 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import FormContainer, { IDCardRegex, phoneRegex, postalCodeRegex, SubmitStatus, } from '../FormContainer'
+import FormContainer, {
+  IDCardRegex,
+  phoneRegex,
+  postalCodeRegex,
+  SubmitStatus,
+} from '../FormContainer'
 import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
 import { options } from './options'
@@ -460,9 +466,7 @@ const CityLibraryRegistrationForm = () => {
           {stepOneErrors && (
             <p className="pb-4 text-base text-error">{t('please_fill_required_fields')}</p>
           )}
-          <Button onClick={() => triggerFirstStep()} className="h-10 w-36">
-            {t('common:continue')}
-          </Button>
+          <Button onPress={() => triggerFirstStep()}>{t('common:continue')}</Button>
         </StepNumberTitle>
 
         {/* Step 2 */}
@@ -529,7 +533,7 @@ const CityLibraryRegistrationForm = () => {
             )}
           />
 
-          <FormFooter buttonContent={t('send')} className="pt-4"/>
+          <FormFooter buttonContent={t('send')} className="pt-4" />
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

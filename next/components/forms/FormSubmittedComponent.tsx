@@ -1,6 +1,6 @@
 import CheckMark from '@assets/images/check-mark.svg'
 import CloseIcon from '@assets/images/close.svg'
-import { Button } from '@bratislava/ui-city-library'
+import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -16,24 +16,22 @@ type IProps = {
   submitStatus: SubmitStatus
 }
 
-const FormSubmittedComponent = (
-  {
-    className,
-    onBackToFormClick,
-    successTitle,
-    successMessage,
-    errorMessage,
-    submitStatus,
-  }: IProps) => {
+const FormSubmittedComponent = ({
+  className,
+  onBackToFormClick,
+  successTitle,
+  successMessage,
+  errorMessage,
+  submitStatus,
+}: IProps) => {
   const { t } = useTranslation('forms')
 
   return (
     <div className={cx('py-4', className)}>
       <div className="flex h-full w-full flex-col items-center justify-center gap-y-8 text-center">
-        <span
-          className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border-dark bg-button-dark text-base text-white">
-          {submitStatus == SubmitStatus.SUCCESS && <CheckMark/>}
-          {submitStatus == SubmitStatus.FAILURE && <CloseIcon/>}
+        <span className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border-dark bg-button-dark text-base text-white">
+          {submitStatus == SubmitStatus.SUCCESS && <CheckMark />}
+          {submitStatus == SubmitStatus.FAILURE && <CloseIcon />}
         </span>
         <div className="space-y-4">
           <h5 className="text-foreground-heading">
@@ -46,7 +44,7 @@ const FormSubmittedComponent = (
             {submitStatus == SubmitStatus.FAILURE && (errorMessage || t('generic_error_message'))}
           </p>
         </div>
-        <Button className="py-[9px] px-5" variant="secondary" onClick={onBackToFormClick}>
+        <Button variant="secondary" onPress={onBackToFormClick}>
           {t('thank_you_button_content')}
         </Button>
       </div>

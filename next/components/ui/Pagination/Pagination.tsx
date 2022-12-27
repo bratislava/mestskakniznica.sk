@@ -13,15 +13,14 @@ export interface PaginationProps {
   currentInputAriaLabel?: string
 }
 
-export const Pagination = (
-  {
-    max,
-    value,
-    onChangeNumber,
-    previousButtonAriaLabel,
-    nextButtonAriaLabel,
-    currentInputAriaLabel,
-  }: PaginationProps) => {
+export const Pagination = ({
+  max,
+  value,
+  onChangeNumber,
+  previousButtonAriaLabel,
+  nextButtonAriaLabel,
+  currentInputAriaLabel,
+}: PaginationProps) => {
   const [displayValue, setDisplayValue] = useState(value.toString())
 
   useEffect(() => {
@@ -49,6 +48,7 @@ export const Pagination = (
 
   return (
     <div className="flex items-center gap-x-6">
+      {/* TODO replace by Button */}
       <button
         className="flex cursor-pointer p-1"
         onClick={() => {
@@ -56,7 +56,7 @@ export const Pagination = (
         }}
         aria-label={previousButtonAriaLabel}
       >
-        <ChevronLeft className="w-2 cursor-pointer"/>
+        <ChevronLeft className="w-2 cursor-pointer" />
       </button>
       <div className="flex items-center gap-x-4 text-base">
         <Input
@@ -83,7 +83,7 @@ export const Pagination = (
         }}
         aria-label={nextButtonAriaLabel}
       >
-        <ChevronRight className="w-2"/>
+        <ChevronRight className="w-2" />
       </button>
     </div>
   )

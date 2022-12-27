@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 
 import HeaderSearchBox from '../Navigation/HeaderSearchBox'
-import SkipNavigation from '../SkipNavigation'
+import SkipToContentButton from '../SkipToContentButton'
 import { MobileNavigation } from './MobileNavigation'
 
 interface HeaderProps {
@@ -56,7 +56,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                       {word}
                     </span>
                   ))}
-                <div className="absolute top-1/2 -z-10 w-full border-b border-border-dark"/>
+                <div className="absolute top-1/2 -z-10 w-full border-b border-border-dark" />
               </a>
               <Link href="/" passHref>
                 <a className="flex w-full flex-col justify-center">
@@ -65,7 +65,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                       .split(' ')
                       .slice(0, 2)
                       .map((word, index) => pageTitle(word, index))}
-                    <div className="absolute bottom-0 -z-10 w-full border-b border-border-dark"/>
+                    <div className="absolute bottom-0 -z-10 w-full border-b border-border-dark" />
                   </div>
                   <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
                     {t('pageTitle')
@@ -78,17 +78,17 @@ const MobilHeader = ({ menus }: HeaderProps) => {
             </>
           </Link>
 
-          <SkipNavigation/>
+          <SkipToContentButton />
 
           <div className="border-l border-border-dark">
-            <Burger onClick={() => setMenuOpen(true)} className="m-4 cursor-pointer"/>
-            {isMenuOpen && <MobileNavigation menus={menus} onClose={() => setMenuOpen(false)}/>}
+            <Burger onClick={() => setMenuOpen(true)} className="m-4 cursor-pointer" />
+            {isMenuOpen && <MobileNavigation menus={menus} onClose={() => setMenuOpen(false)} />}
           </div>
         </div>
       </div>
 
       <div className="m-auto border-b border-border-dark py-2 px-[5px]">
-        <HeaderSearchBox isOpen={isSearchOpen} setOpen={setSearchOpen}/>
+        <HeaderSearchBox isOpen={isSearchOpen} setOpen={setSearchOpen} />
       </div>
     </>
   )

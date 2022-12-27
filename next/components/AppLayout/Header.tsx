@@ -1,14 +1,14 @@
 import { EventCardEntityFragment, MenuEntity } from '@bratislava/strapi-sdk-city-library'
+import MLink from '@modules/common/MLink'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { AnimatePresence, motion } from 'framer-motion'
-import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import HeaderNavigation from './Navigation/HeaderNavigation'
 import HeaderSearchBox from './Navigation/HeaderSearchBox'
 import NavigationItem from './Navigation/NavigationItem'
-import SkipNavigation from './SkipNavigation'
+import SkipToContentButton from './SkipToContentButton'
 
 interface HeaderProps {
   menus: MenuEntity[]
@@ -25,23 +25,21 @@ const Header = ({ menus, upcomingEvents }: HeaderProps) => {
       <div className="m-auto max-w-[1180px]">
         <div className="mx-auto flex justify-between border-b border-border-dark">
           <div>
-            <Link href="/" passHref>
-              <a className="flex h-full cursor-pointer uppercase">
-                {t('pageTitle')
-                  .split(' ')
-                  .map((word) => (
-                    <span
-                      key={word}
-                      className="border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase leading-[27px] first:pl-0 first:pr-3"
-                    >
-                      {word}
-                    </span>
-                  ))}
-              </a>
-            </Link>
+            <MLink href="/" className="flex h-full uppercase">
+              {t('pageTitle')
+                .split(' ')
+                .map((word) => (
+                  <span
+                    key={word}
+                    className="border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase leading-[27px] first:pl-0 first:pr-3"
+                  >
+                    {word}
+                  </span>
+                ))}
+            </MLink>
           </div>
 
-          <SkipNavigation />
+          <SkipToContentButton />
 
           <div>
             <HeaderNavigation />
