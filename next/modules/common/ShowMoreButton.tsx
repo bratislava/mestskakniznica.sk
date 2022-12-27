@@ -9,6 +9,17 @@ type ShowMoreButtonProps = ComponentProps<typeof Button> & {
   uppercase?: boolean
 }
 
+/**
+ * Show more button should be used just as decoration, not as a link.
+ * The link should be provided elsewhere, e.g. on the title of parent component.
+ *
+ * @param label
+ * @param uppercase
+ * @param children
+ * @param variant
+ * @param rest
+ * @constructor
+ */
 const ShowMoreButton = ({ label, uppercase, children, variant, ...rest }: ShowMoreButtonProps) => {
   const { t } = useTranslation('common')
 
@@ -16,6 +27,7 @@ const ShowMoreButton = ({ label, uppercase, children, variant, ...rest }: ShowMo
     <Button
       endIcon={<ChevronRightIcon />}
       variant={variant ?? 'unstyled'}
+      disabled
       className={cx(
         'inline-flex items-center justify-center text-center text-base group-hover:underline',
         {

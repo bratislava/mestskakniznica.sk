@@ -1,3 +1,4 @@
+/* Inspired by https://github.com/bratislava/marianum/blob/master/next/components/atoms/Button.tsx */
 import MLink from '@modules/common/MLink'
 import { LinkButtonProps } from '@react-types/button'
 import cx from 'classnames'
@@ -20,19 +21,18 @@ type ButtonBase = {
   mobileFullWidth?: boolean
   className?: string
   disabled?: boolean
-  tabIndex?: number
 }
 
 /*
  *  This part makes the component return `HTMLAnchorElement` ref when `href` if provided and `HTMLButtonElement` when it's not.
  *  https://github.com/typescript-cheatsheets/react/issues/167#issuecomment-751347673
  */
-export type ButtonProps = Omit<AriaButtonProps<'button'>, keyof LinkButtonProps> &
+export type ButtonProps = Omit<AriaButtonProps<'button'>, keyof LinkButtonProps | 'isDisabled'> &
   ButtonBase & {
     ref?: Ref<HTMLButtonElement>
     href?: undefined
   }
-export type AnchorProps = AriaButtonProps<'a'> &
+export type AnchorProps = Omit<AriaButtonProps<'a'>, 'isDisabled'> &
   ButtonBase & {
     ref?: Ref<HTMLAnchorElement>
     href: string
@@ -56,7 +56,6 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       variant = 'primary',
       mobileFullWidth,
       disabled,
-      tabIndex,
       ...rest
     },
     ref
@@ -121,7 +120,6 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         <MLink
           ref={ref as RefObject<HTMLAnchorElement>}
           href={rest.href}
-          tabIndex={tabIndex}
           variant="unstyled"
           className={style}
           {...buttonPropsFixed}
@@ -137,7 +135,6 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       <button
         type="button"
         ref={ref as RefObject<HTMLButtonElement>}
-        tabIndex={tabIndex}
         className={style}
         {...buttonProps}
       >

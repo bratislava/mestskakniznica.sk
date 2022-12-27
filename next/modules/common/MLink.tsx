@@ -1,3 +1,4 @@
+/* Inspired by https://github.com/bratislava/marianum/blob/master/next/components/atoms/MLink.tsx */
 import cx from 'classnames'
 import NextLink from 'next/link'
 import { ComponentProps, forwardRef, ReactNode } from 'react'
