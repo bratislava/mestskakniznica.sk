@@ -1,42 +1,30 @@
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import { ComponentSectionsFaq } from '@bratislava/strapi-sdk-city-library'
+import Accordion from '@components/ui/Accordion/Accordion'
+import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
-import { useState } from 'react'
-
-import Accordion from '../Accordion/Accordion'
 
 export interface FaqProps {
   className?: string
   title?: string
-  questions?: (
-    | { label?: string | undefined | null; content?: string | undefined | null }
-    | undefined
-    | null
-    )[]
+  questions?: ComponentSectionsFaq['questions']
 }
 
 export const Faq = ({ className, title, questions }: FaqProps) => {
   const { Markdown: UIMarkdown } = useUIContext()
-  const [openFaqIndex, setOpenFaqIndex] = useState('')
-
-  const listenAccordionState = (id: string, state: boolean) => {
-    setOpenFaqIndex(state ? id : '')
-  }
 
   return (
     <div className={cx(className)}>
       <h2 className="text-h4 font-normal">{title}</h2>
       <div className="mt-6">
-        {questions?.map((question, index) => (
-          <Accordion
-            key={question?.label ?? ''}
-            label={question?.label ?? ''}
-            id={question?.label ?? ''}
-            defaultState={question?.label === openFaqIndex}
-            stateListener={listenAccordionState}
-            content={<UIMarkdown paragraphClassName="text-base" content={question?.content ?? ''}/>}
-            size="small"
-            type="divider"
-          />
+        {questions?.filter(isDefined).map((question) => (
+          <Accordion key={question.id} title={question.label} type="divider-small">
+            <UIMarkdown
+              className="mb-0"
+              paragraphClassName="text-base"
+              content={question.content ?? ''}
+            />
+          </Accordion>
         ))}
       </div>
     </div>

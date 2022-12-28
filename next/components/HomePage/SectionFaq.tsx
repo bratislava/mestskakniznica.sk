@@ -1,10 +1,11 @@
 import Arrow from '@assets/images/arrow-right.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { ComponentHomepageFaqSection } from '@bratislava/strapi-sdk-city-library'
-import { Accordion, CallToAction } from '@bratislava/ui-city-library'
+import { CallToAction } from '@bratislava/ui-city-library'
+import Accordion from '@components/ui/Accordion/Accordion'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import React, { useState } from 'react'
+import React from 'react'
 
 interface SectionFaqProps {
   faqSection: ComponentHomepageFaqSection
@@ -12,12 +13,7 @@ interface SectionFaqProps {
 
 const SectionFaq = ({ faqSection }: SectionFaqProps) => {
   const { t } = useTranslation(['homepage', 'common'])
-  const [openFaq, setOpenFaq] = useState('')
   const { Markdown: UIMarkdown } = useUIContext()
-
-  const listenAccordionState = (id: string, state: boolean) => {
-    setOpenFaq(state ? id : '')
-  }
 
   return (
     <section className="py-12">
@@ -43,18 +39,9 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
         <div className="w-full">
           <h2 className="mb-8 text-h3">{faqSection?.title ?? t('faqTitle')}</h2>
           {faqSection?.faqs?.map((faq) => (
-            <Accordion
-              className="w-full"
-              id={faq?.id}
-              key={faq?.id}
-              type="divider"
-              size="big"
-              stateListener={listenAccordionState}
-              defaultState={openFaq === faq?.id}
-              ariaLabelPrefix={openFaq === faq?.id ? t('openAccordian') : t('closeAccordian')}
-              label={faq?.question || ''}
-              content={<UIMarkdown content={faq?.answer || ''} />}
-            />
+            <Accordion key={faq?.id} title={faq?.question} type="divider-big">
+              <UIMarkdown content={faq?.answer || ''} className="mb-0 text-base" />
+            </Accordion>
           ))}
           <div className="font-serif cursor-pointer pt-6 text-sm">
             <Link href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'} passHref>

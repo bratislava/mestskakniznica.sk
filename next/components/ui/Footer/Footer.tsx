@@ -2,11 +2,12 @@ import FbLogo from '@assets/images/fb-logo.svg'
 import IgLogo from '@assets/images/ig-logo.svg'
 import YtLogo from '@assets/images/yt-logo.svg'
 import { ComponentFooterFooterColumn, Maybe } from '@bratislava/strapi-sdk-city-library'
+import Accordion from '@components/ui/Accordion/Accordion'
+import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
-import { Accordion } from '../Accordion/Accordion'
 import { Link } from '../Link/Link'
 
 export interface IFooterColumn {
@@ -74,24 +75,18 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number
   )
 }
 
-export const Footer = (
-  {
-    className,
-    siteMap,
-    gdpr,
-    VOP,
-    facebookUrl,
-    instagramUrl,
-    youtubeUrl,
-    footerColumns,
-    copyrightText,
-  }: FooterProps) => {
+export const Footer = ({
+  className,
+  siteMap,
+  gdpr,
+  VOP,
+  facebookUrl,
+  instagramUrl,
+  youtubeUrl,
+  footerColumns,
+  copyrightText,
+}: FooterProps) => {
   const { t } = useTranslation('common')
-  const [openFooter, setOpenFooter] = useState('')
-
-  const listenAccordionState = (id: string, state: boolean) => {
-    setOpenFooter(state ? id : '')
-  }
 
   return (
     <div className={className}>
@@ -99,19 +94,19 @@ export const Footer = (
         <div className="grid grid-cols-3 items-center">
           <div className="flex items-center justify-center">
             <a href={facebookUrl} target="_blank" rel="noreferrer">
-              <FbLogo className="cursor-pointer lg:p-0"/>
+              <FbLogo className="cursor-pointer lg:p-0" />
               <span className="sr-only">Facebook</span>
             </a>
           </div>
           <div className="flex items-center justify-center border-x border-border-dark py-5 lg:py-6">
             <a href={instagramUrl} target="_blank" rel="noreferrer">
-              <IgLogo className="cursor-pointer lg:p-0"/>
+              <IgLogo className="cursor-pointer lg:p-0" />
               <span className="sr-only">Instagram</span>
             </a>
           </div>
           <div className="flex items-center justify-center">
             <a href={youtubeUrl} target="_blank" rel="noreferrer">
-              <YtLogo className="cursor-pointer lg:p-0"/>
+              <YtLogo className="cursor-pointer lg:p-0" />
               <span className="sr-only">Youtube</span>
             </a>
           </div>
@@ -119,43 +114,30 @@ export const Footer = (
       </div>
       {/* Mobile */}
       <div className="lg:hidden">
-        {footerColumns?.map(
-          (col, i) =>
-            col && (
-              <Accordion
-                type="divider"
-                size="small"
-                label={col?.title || ''}
-                id={col?.title || ''}
-                stateListener={listenAccordionState}
-                defaultState={openFooter === col?.title}
-                content={
-                  <div className="flex flex-col gap-y-2">
-                    {col?.footerLink?.map((item) => (
-                      <Link
-                        key={item?.title}
-                        uppercase={false}
-                        variant="plain"
-                        href={item?.redirectTo?.data?.attributes?.slug || ''}
-                      >
-                        {item?.title}
-                      </Link>
-                    ))}
-                  </div>
-                }
-                key={i}
-              />
-            )
-        )}
+        {footerColumns?.filter(isDefined).map((col) => (
+          <Accordion key={col?.id} title={col?.title} type="divider-small">
+            <div className="flex flex-col gap-y-2">
+              {col?.footerLink?.map((item) => (
+                <Link
+                  key={item?.title}
+                  uppercase={false}
+                  variant="plain"
+                  href={item?.redirectTo?.data?.attributes?.slug || ''}
+                >
+                  {item?.title}
+                </Link>
+              ))}
+            </div>
+          </Accordion>
+        ))}
       </div>
 
       {/* Desktop */}
       <div className="hidden grid-cols-4 border-b border-border-dark lg:container lg:grid">
-        {footerColumns?.map((col, i) => col && <FooterSection col={col} i={i} key={i}/>)}
+        {footerColumns?.map((col, i) => col && <FooterSection col={col} i={i} key={col.id} />)}
       </div>
 
-      <div
-        className="flex flex-col pb-4 text-sm text-foreground-body lg:container lg:flex-row lg:items-center lg:justify-between lg:p-6 lg:pb-0">
+      <div className="flex flex-col py-4 text-sm text-foreground-body lg:container lg:flex-row lg:items-center lg:justify-between lg:p-6">
         <p className="py-4 lg:py-0">
           &copy; {copyrightText || `${new Date().getFullYear()} ${t('pageTitle')}`}
         </p>

@@ -4,16 +4,17 @@ import {
   ComponentSectionsLocalityDetails,
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
-import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
+import { CallToAction, LocalityMap } from '@bratislava/ui-city-library'
+import Accordion from '@components/ui/Accordion/Accordion'
+import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
+import BusinessSvg from '../../assets/images/business.svg'
 import ChevronRightSvg from '../../assets/images/chevron-right.svg'
 import MailSvg from '../../assets/images/mail.svg'
 import PhoneSvg from '../../assets/images/phone.svg'
-import SectionSvg from '../../assets/images/section.svg'
-import { dateTimeString } from '../../utils/utils'
 import DateCardDisplay from '../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
@@ -27,11 +28,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
   const { locale } = usePageWrapperContext()
   const { Markdown: UIMarkdown } = useUIContext()
   const { t } = useTranslation('common')
-  const [openLocality, setOpenLocality] = useState('')
 
-  const listenAccordionState = (id: string, state: boolean) => {
-    setOpenLocality(state ? id : '')
-  }
   const mainSection = useMemo(
     () => localityDetails?.localitySections?.find((section) => section?.isMainSection),
     [localityDetails?.localitySections]
@@ -59,7 +56,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
     onlyOpeningHours: boolean,
     showContactInfo: boolean
   ) => (
-    <div className="h-full">
+    <div className="h-full text-base">
       {showContactInfo && (
         <div className="mb-3">
           <div className="mb-2 flex items-center">
@@ -252,17 +249,13 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           <div className="pt-5">
             {localityDetails.localitySections?.map((section) => (
               <Accordion
-                className="pr-[24px]"
-                key={section?.localitySectionTitle}
-                type="divider"
-                size="small"
-                id={section?.localitySectionTitle || section?.id}
-                stateListener={listenAccordionState}
-                defaultState={openLocality === section?.localitySectionTitle}
-                label={section?.localitySectionTitle ?? ''}
-                content={createContent(section || { id: '' }, false, true)}
-                iconLeft={<SectionSvg />}
-              />
+                key={section?.id}
+                title={section?.localitySectionTitle}
+                type="sublocation"
+                iconLeft={<BusinessSvg />}
+              >
+                {createContent(section || { id: '' }, false, true)}
+              </Accordion>
             ))}
           </div>
         </div>
@@ -299,7 +292,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           <div className="pb-6">{t('contactUs')}</div>
           {localityDetails?.localitySections?.map((localityContact) => (
             <div
-              className="flex flex-col border-t border-border-light py-3 py-5"
+              className="flex flex-col border-t border-border-light py-5"
               key={localityContact?.id}
             >
               <span>{localityContact?.localitySectionTitle}</span>
