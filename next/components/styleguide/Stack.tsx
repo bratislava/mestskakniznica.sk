@@ -14,8 +14,8 @@ export const Stack = ({ direction = 'row', children }: StackProps) => {
   const classNameStyles = cx(
     'flex flex-wrap gap-1 rounded-lg border border-dashed border-border-dark p-4 xs:p-3',
     {
-      'flex-col items-center space-y-2': direction === 'column',
-      'items-end space-x-2': direction === 'row',
+      'flex-col items-center gap-y-2': direction === 'column',
+      'items-end gap-x-2': direction === 'row',
     }
   )
 
