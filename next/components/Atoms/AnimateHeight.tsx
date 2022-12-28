@@ -3,6 +3,9 @@ import { motion, useReducedMotion, Variant } from 'framer-motion'
 import { ReactNode, useMemo } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
+// eslint-disable-next-line no-secrets/no-secrets
+// Copied from https://github.com/bratislava/marianum/blob/762d10222bd33352b77a44d902620181b07107c1/next/components/atoms/AnimateHeight.tsx
+
 type AnimateHeightProps = {
   isVisible: boolean
   ease?: string
