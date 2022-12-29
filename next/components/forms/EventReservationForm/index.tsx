@@ -3,8 +3,9 @@ import { DateTimeSelect, Input, TextArea } from '@bratislava/ui-city-library'
 import NumberSwitcher from '@bratislava/ui-city-library/NumberSwitcher/NumberSwitcher'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LocalDate } from '@js-joda/core'
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import { convertDataToBody } from '@utils/form-constants'
-import { dateTimeString, dayForDifferentDateTo, isEventPast } from '@utils/utils'
+import { isEventPast } from '@utils/utils'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -13,7 +14,6 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
@@ -29,7 +29,6 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
   const [isTimeEditDisabled, setIsTimeEditDisabled] = React.useState(false)
 
   const { t } = useTranslation(['forms', 'common'])
-  const { locale } = usePageWrapperContext()
   const router = useRouter()
 
   yup.setLocale({
@@ -277,7 +276,10 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                             : title}
                         </div>
                         <div className="pt-[5px] text-sm text-foreground-body">
-                          {dateTimeString(dateFrom ?? new Date(), dateTo ?? new Date(), locale)}
+                          <FormatEventDateRange
+                            dateFrom={dateFrom ?? new Date().toISOString()}
+                            dateTo={dateTo ?? new Date().toISOString()}
+                          />
                         </div>
                         {eventLocality?.data?.attributes?.title && (
                           <div className="text-sm text-foreground-body">

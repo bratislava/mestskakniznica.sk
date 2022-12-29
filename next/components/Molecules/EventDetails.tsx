@@ -7,6 +7,7 @@ import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import AddToCalendar from '@culturehq/add-to-calendar'
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
@@ -16,12 +17,11 @@ import withReactContent from 'sweetalert2-react-content'
 
 import Placeholder from '../../assets/images/event-detail-placeholder.jpg'
 import { EventEntityFragment } from '../../graphql'
-import { dateTimeString, isEventPast } from '../../utils/utils'
+import { isEventPast } from '../../utils/utils'
 import Clickable from '../Atoms/EventClickable'
 import EventDetailsDateBox from '../Atoms/EventDetailsDateBox'
 import DetailsRow from '../Atoms/EventDetailsRow'
 import TagsDisplay from '../Atoms/TagsDisplay'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface PageProps {
   event?: EventEntityFragment
@@ -32,7 +32,6 @@ const EventDetails = ({ event }: PageProps) => {
   const { asPath } = useRouter()
   const { Markdown: UIMarkdown } = useUIContext()
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
-  const { locale } = usePageWrapperContext()
 
   const copyToClipBoard = () => {
     navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
@@ -100,7 +99,10 @@ const EventDetails = ({ event }: PageProps) => {
           </div>
           <h1 className="py-3 text-h3">{event?.attributes?.title}</h1>
           <div className="text-sm text-foreground-body">
-            {dateTimeString(event?.attributes?.dateFrom, event?.attributes?.dateTo, locale)}
+            <FormatEventDateRange
+              dateFrom={event?.attributes?.dateFrom}
+              dateTo={event?.attributes?.dateTo}
+            />
           </div>
         </div>
         {/* TODO validate this - what is event reservation and is it used ? */}
@@ -216,11 +218,12 @@ const EventDetails = ({ event }: PageProps) => {
                   <DetailsRow
                     classWrapper="flex"
                     svgIcon={<Calendar />}
-                    text={dateTimeString(
-                      event?.attributes?.dateFrom,
-                      event?.attributes?.dateTo,
-                      locale
-                    )}
+                    text={
+                      <FormatEventDateRange
+                        dateFrom={event?.attributes?.dateFrom}
+                        dateTo={event?.attributes?.dateTo}
+                      />
+                    }
                   />
                   {!isEventInThePast && (
                     <div className="pl-9 pt-3">

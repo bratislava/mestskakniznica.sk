@@ -5,8 +5,8 @@ import {
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
-import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
@@ -223,11 +223,10 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                             {event.attributes?.title}
                           </div>
                           <div className="pt-[5px] text-sm text-foreground-body">
-                            {dateTimeString(
-                              event.attributes?.dateFrom || '',
-                              event.attributes?.dateTo || '',
-                              locale
-                            )}
+                            <FormatEventDateRange
+                              dateFrom={event?.attributes?.dateFrom}
+                              dateTo={event?.attributes?.dateTo}
+                            />
                           </div>
                           {event.attributes?.eventLocality?.data?.attributes?.title && (
                             <div className="overflow-hidden text-ellipsis whitespace-pre text-sm text-foreground-body md:w-52">

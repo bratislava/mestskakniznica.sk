@@ -1,11 +1,10 @@
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
 import Link from 'next/link'
 
 import { ComponentMenuSections, Enum_Page_Layout, EventCardEntityFragment } from '../../../graphql'
-import { dateTimeString } from '../../../utils/utils'
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
 interface ColumnProps {
   section: ComponentMenuSections
@@ -20,7 +19,6 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
       sectionLink?.sectionLinkPage?.data?.attributes?.layout === Enum_Page_Layout.Event
   )
   const isLengthy = section?.sectionLinks ? section.sectionLinks.length >= 8 : false
-  const { locale } = usePageWrapperContext()
 
   return (
     <div
@@ -69,11 +67,10 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                                   {event?.attributes?.title}
                                 </div>
                                 <div className="text-sm text-foreground-body">
-                                  {dateTimeString(
-                                    event.attributes?.dateFrom || '',
-                                    event.attributes?.dateTo || '',
-                                    locale
-                                  )}
+                                  <FormatEventDateRange
+                                    dateFrom={event.attributes?.dateFrom}
+                                    dateTo={event.attributes?.dateTo}
+                                  />
                                 </div>
                                 {event?.attributes?.eventLocality?.data?.attributes?.title && (
                                   <div className="max-w-[250px] text-sm text-foreground-body">

@@ -1,20 +1,17 @@
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
+import { WithAttributes } from '@utils/isDefined'
 import Image from 'next/image'
 
 import { EventCardEntityFragment } from '../../../graphql'
-import { WithAttributes } from '../../../utils/isDefined'
-import { dateTimeString } from '../../../utils/utils'
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import TagsDisplay from '../../Atoms/TagsDisplay'
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
 interface IPromoEventCardProps {
   event: WithAttributes<EventCardEntityFragment> | null | undefined
 }
 
 const PromoEventCard = ({ event }: IPromoEventCardProps) => {
-  const { locale } = usePageWrapperContext()
-
   if (!event) {
     return null
   }
@@ -62,7 +59,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
           </div>
           <div className="m-auto overflow-hidden">
             <div className="overflow-hidden text-ellipsis whitespace-pre text-sm">
-              {dateTimeString(dateFrom || '', dateTo || '', locale)}
+              <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} />
             </div>
             {eventLocality?.data?.attributes?.title && (
               <div className="overflow-hidden text-ellipsis whitespace-pre text-sm">
