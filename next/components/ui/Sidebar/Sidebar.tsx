@@ -1,4 +1,4 @@
-import ArrowLeft from '@assets/images/arrow-left.svg'
+import { ArrowLeftIcon } from '@assets/icons'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import Button from '@modules/common/Button'
 import MLink from '@modules/common/MLink'
@@ -24,9 +24,9 @@ export const Sidebar = ({ className, title, href, categories, activeCategory }: 
       <Button
         href={href}
         variant="unstyled"
+        startIcon={<ArrowLeftIcon />}
         className="inline-flex items-center gap-x-4 text-base uppercase"
       >
-        <ArrowLeft />
         {title}
       </Button>
       <div className={cx('flex flex-col')}>

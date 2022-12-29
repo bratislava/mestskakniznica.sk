@@ -1,7 +1,7 @@
 import Check from '@assets/images/check-done.svg'
 import RegisterToLibrary from '@assets/images/register-to-library.svg'
 import { ComponentHomepageRegistrationInfo } from '@bratislava/strapi-sdk-city-library'
-import Link from 'next/link'
+import Button from '@modules/common/Button'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -17,7 +17,7 @@ const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) =>
       <div className="flex w-full">
         <div className="flex w-full flex-col pt-12 md:flex-row md:space-x-8 md:px-8 lg:px-16">
           <div className="mx-auto w-full max-w-sm">
-            <RegisterToLibrary/>
+            <RegisterToLibrary />
           </div>
           <div className="w-full">
             <h2 className="text-center text-h3 md:text-left">{registrationInfoSection?.title}</h2>
@@ -26,22 +26,16 @@ const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) =>
             <ul>
               {registrationInfoSection?.registrationBenefits?.map((benefit) => (
                 <li className="pt-3 text-base" key={benefit?.id}>
-                  <Check className="inline-flex scale-75 text-base md:scale-100"/> {benefit?.benefit}
+                  <Check className="inline-flex scale-75 text-base md:scale-100" />{' '}
+                  {benefit?.benefit}
                 </li>
               ))}
             </ul>
 
-            <div className="curson-pointer pt-8">
-              <div className="w-full bg-button-dark py-2 px-4 text-center text-base text-white md:w-fit">
-                <Link href={registrationInfoSection?.redirectTo?.data?.attributes?.slug ?? '#'}>
-                  <a
-                    href={registrationInfoSection?.redirectTo?.data?.attributes?.slug ?? '#'}
-                    className="uppercase"
-                  >
-                    {t('registerToLibraryButton')}
-                  </a>
-                </Link>
-              </div>
+            <div className="pt-8">
+              <Button href={registrationInfoSection?.redirectTo?.data?.attributes?.slug ?? ''}>
+                {t('registerToLibraryButton')}
+              </Button>
             </div>
           </div>
         </div>
