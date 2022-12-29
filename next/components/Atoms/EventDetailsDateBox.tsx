@@ -11,7 +11,7 @@ interface DateCardProps {
   wrapperClass?: string
 }
 
-const DateCardDisplay = ({ dateFrom, dateTo, textSize, wrapperClass }: DateCardProps) => {
+const EventDetailsDateBox = ({ dateFrom, dateTo, textSize, wrapperClass }: DateCardProps) => {
   const formatter = useDateFormatter({
     day: 'numeric',
     month: 'numeric',
@@ -57,4 +57,4 @@ const DateCardDisplay = ({ dateFrom, dateTo, textSize, wrapperClass }: DateCardP
   )
 }
 
-export default DateCardDisplay
+export default EventDetailsDateBox

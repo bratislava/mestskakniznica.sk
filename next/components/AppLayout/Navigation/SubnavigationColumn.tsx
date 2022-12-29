@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { ComponentMenuSections, Enum_Page_Layout, EventCardEntityFragment } from '../../../graphql'
 import { dateTimeString } from '../../../utils/utils'
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
+import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
 interface ColumnProps {
@@ -50,11 +50,14 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                   {latestEvents.map((event) => (
                     <div key={event.attributes?.slug}>
                       <div className="h-23 w-[380px] cursor-pointer py-5">
-                        <NavigationMenu.Link className="h-10 pt-4 text-foreground-body" tabIndex={-1}>
+                        <NavigationMenu.Link
+                          className="h-10 pt-4 text-foreground-body"
+                          tabIndex={-1}
+                        >
                           <Link href={`/${event.attributes?.slug}`} passHref>
                             <a href={`/${event.attributes?.slug}`} className="flex">
                               <div className="flex h-16 w-20 bg-promo-yellow text-center">
-                                <DateCardDisplay
+                                <EventDetailsDateBox
                                   dateFrom={event.attributes?.dateFrom || ''}
                                   dateTo={event.attributes?.dateTo || ''}
                                   textSize="text-[18px]"

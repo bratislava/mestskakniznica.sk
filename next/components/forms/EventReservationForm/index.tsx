@@ -12,7 +12,7 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
+import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
@@ -261,7 +261,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                   <div className="border border-border-light p-4 text-foreground-body">
                     <div className="flex">
                       <div className="flex h-16 w-16 bg-promo-yellow text-center">
-                        <DateCardDisplay
+                        <EventDetailsDateBox
                           dateFrom={dateFrom ?? '1-1-1970'}
                           dateTo={dateTo ?? '1-1-1970'}
                           textSize="text-[18px]"

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { EventCardEntityFragment } from '../../../graphql'
 import { WithAttributes } from '../../../utils/isDefined'
 import { dateTimeString } from '../../../utils/utils'
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
+import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import TagsDisplay from '../../Atoms/TagsDisplay'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
@@ -54,7 +54,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
       <div>
         <div className="flex space-x-4 overflow-hidden px-5 pb-6 pt-3">
           <div className="flex h-[62px] w-[60px] min-w-[60px] bg-white text-center">
-            <DateCardDisplay
+            <EventDetailsDateBox
               dateFrom={dateFrom || ''}
               dateTo={dateTo || ''}
               textSize="text-[18px]"

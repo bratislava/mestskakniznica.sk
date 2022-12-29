@@ -15,7 +15,7 @@ import ChevronRightSvg from '../../assets/images/chevron-right.svg'
 import MailSvg from '../../assets/images/mail.svg'
 import PhoneSvg from '../../assets/images/phone.svg'
 import SectionSvg from '../../assets/images/section.svg'
-import DateCardDisplay from '../Atoms/DateCardDispaly'
+import EventDetailsDateBox from '../Atoms/EventDetailsDateBox'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface PageProps {
@@ -210,7 +210,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                     <Link href={event.attributes?.slug || ''} passHref>
                       <a href={event.attributes?.slug || ''} className="flex">
                         <div className="flex h-16 w-16 bg-promo-yellow">
-                          <DateCardDisplay
+                          <EventDetailsDateBox
                             dateFrom={event.attributes?.dateFrom || ''}
                             dateTo={event.attributes?.dateTo || ''}
                             textSize="text-[18px]"
