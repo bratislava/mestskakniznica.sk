@@ -40,11 +40,6 @@ body {
 }
 
 @layer components {
-  .base-button {
-    @apply inline-flex appearance-none items-center justify-center text-center;
-    @apply text-sm uppercase tracking-wider;
-  }
-
   .base-input {
     @apply box-border inline-block appearance-none border bg-white px-3 py-2 text-base text-foreground-heading;
     @apply border-border-light placeholder:text-foreground-body hover:border-border-dark focus:border-border-dark focus:outline-none;
@@ -53,13 +48,9 @@ body {
   .base-input--with-error {
     @apply border-error;
   }
-
-  .base-radio {
-    @apply flex h-5 w-5 items-center rounded-full border-2 border-border-dark;
-    @apply box-border justify-center overflow-hidden;
-  }
 }
 
+/* @culturehq/add-to-calendar styles override */
 .chq-atc--button > svg {
   vertical-align: text-bottom;
   display: none;

@@ -29,7 +29,7 @@ const Custom404 = ({ locale }: ICustomProps) => {
   return (
     <PageWrapper locale={locale ?? 'sk'} slug="/404">
       <ErrorPage code={404}>
-        <header className="text_xl_old mb-6">
+        <header className="mb-6">
           <h1>{t('pageNotFound')}</h1>
         </header>
         <p className="text-base">{t('pageNotFoundSorry')}</p>
@@ -39,9 +39,9 @@ const Custom404 = ({ locale }: ICustomProps) => {
         </p>
         <form onSubmit={onSubmit}>
           <SearchBar
-            iconLeft={<SearchIcon onClick={onSubmit}/>}
+            iconLeft={<SearchIcon onClick={onSubmit} />}
             iconRight={
-              searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')}/>
+              searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />
             }
             placeholder={t('whatAreYouLookingFor')}
             className="pt-10"
