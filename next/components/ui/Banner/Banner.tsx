@@ -9,14 +9,13 @@ export interface BannerProps {
   buttonContent?: string
 }
 
-export const Banner = (
-  {
-    className,
-    onBannerClick,
-    title,
-    description,
-    buttonContent,
-  }: BannerProps) => {
+export const Banner = ({
+  className,
+  onBannerClick,
+  title,
+  description,
+  buttonContent,
+}: BannerProps) => {
   return (
     <div
       className={cx(
@@ -28,11 +27,12 @@ export const Banner = (
         <h4 className="text-h4 text-white">{title}</h4>
         <p className="pt-3 text-sm text-[#B0B0B0] lg:text-base">{description}</p>
       </div>
+      {/* TODO replace by Button */}
       <button
         onClick={onBannerClick}
         className="hover:bg-gray-100 flex items-center gap-x-[11px] bg-white py-[9px] px-5 text-sm"
       >
-        <Calendar/>
+        <Calendar />
         <p>{buttonContent}</p>
       </button>
     </div>

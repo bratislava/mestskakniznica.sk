@@ -4,6 +4,9 @@ import {
   ComponentSectionsLocalityDetails,
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
+import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
+import MLink from '@modules/common/MLink'
+import { dateTimeString } from '@utils/utils'
 import { CallToAction, LocalityMap } from '@bratislava/ui-city-library'
 import Accordion from '@components/ui/Accordion/Accordion'
 import { dateTimeString } from '@utils/utils'
@@ -15,6 +18,7 @@ import BusinessSvg from '../../assets/images/business.svg'
 import ChevronRightSvg from '../../assets/images/chevron-right.svg'
 import MailSvg from '../../assets/images/mail.svg'
 import PhoneSvg from '../../assets/images/phone.svg'
+import SectionSvg from '../../assets/images/section.svg'
 import DateCardDisplay from '../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
@@ -59,6 +63,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
     <div className="h-full text-base">
       {showContactInfo && (
         <div className="mb-3">
+          {/* TODO replace by PhoneButton */}
           <div className="mb-2 flex items-center">
             <span className="mr-4 mb-[1px] inline-flex">
               <PhoneSvg />
@@ -67,6 +72,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
               {section.localitySectionPhone}
             </a>
           </div>
+          {/* TODO replace by MailButton */}
           <div className="mb-2 flex items-center">
             <span className="mr-4 mb-[1px] inline-flex">
               <MailSvg />
@@ -79,49 +85,49 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
       )}
       <div className="pb-2">
         {dayString(
-          locale == 'sk' ? 'Pondelok' : 'Monday',
+          locale === 'sk' ? 'Pondelok' : 'Monday',
           section.openingHoursMondayFrom,
           section.openingHoursMondayTo
         )}
       </div>
       <div className="pb-2">
         {dayString(
-          locale == 'sk' ? 'Utorok' : 'Tuesday',
+          locale === 'sk' ? 'Utorok' : 'Tuesday',
           section.openingHoursTuesdayFrom,
           section.openingHoursTuesdayTo
         )}
       </div>
       <div className="pb-2">
         {dayString(
-          locale == 'sk' ? 'Streda' : 'Wednesday',
+          locale === 'sk' ? 'Streda' : 'Wednesday',
           section.openingHoursWednesdayFrom,
           section.openingHoursWednesdayTo
         )}
       </div>
       <div className="pb-2">
         {dayString(
-          locale == 'sk' ? 'Štvrtok' : 'Thursday',
+          locale === 'sk' ? 'Štvrtok' : 'Thursday',
           section.openingHoursThursdayFrom,
           section.openingHoursThursdayTo
         )}
       </div>
       <div className="pb-2">
         {dayString(
-          locale == 'sk' ? 'Piatok' : 'Friday',
+          locale === 'sk' ? 'Piatok' : 'Friday',
           section.openingHoursFridayFrom,
           section.openingHoursFridayTo
         )}
       </div>
       <div className="pb-2">
         {dayString(
-          locale == 'sk' ? 'Sobota' : 'Saturday',
+          locale === 'sk' ? 'Sobota' : 'Saturday',
           section.openingHoursSaturdayFrom,
           section.openingHoursSaturdayTo
         )}
       </div>
       <div className="pb-2">
         {dayString(
-          locale == 'sk' ? 'Nedeľa' : 'Sunday',
+          locale === 'sk' ? 'Nedeľa' : 'Sunday',
           section.openingHoursSundayFrom,
           section.openingHoursSundayTo
         )}
@@ -133,9 +139,9 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
   )
 
   const scrollButton = (anchor: string, text: string) => (
-    <a href={anchor} className="cursor-pointer whitespace-nowrap uppercase hover:underline">
+    <MLink href={anchor} className="cursor-pointer whitespace-nowrap uppercase hover:underline">
       {text}
-    </a>
+    </MLink>
   )
 
   return (
@@ -273,7 +279,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
             {mainSection && (
               <div className="">
                 <div className="pb-4">{t('address')}</div>
-                <div className="pb text-base text-foreground-body">
+                <div className="text-base text-foreground-body">
                   {localityDetails.localityAddress?.title &&
                     localityDetails.localityAddress.title.split(', ').map((part) => (
                       <div key={part}>
@@ -296,6 +302,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
               key={localityContact?.id}
             >
               <span>{localityContact?.localitySectionTitle}</span>
+              {/* TODO replace by PhoneButton */}
               <a
                 href={`tel:${localityContact?.localitySectionPhone}`}
                 className="flex items-center space-x-4 py-2"
@@ -305,6 +312,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                 </span>
                 <span>{localityContact?.localitySectionPhone}</span>
               </a>
+              {/* TODO replace by MailButton */}
               <a
                 href={`mailto:${localityContact?.localitySectionEmail}`}
                 className="flex items-center space-x-4 py-2"

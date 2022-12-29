@@ -10,13 +10,13 @@ import {
   Faq,
   FlatText,
   FlatTextCenter,
-  LinkButton,
   SiteUsefullness,
   SubListing,
   Subpages,
   Table,
   Video,
 } from '@bratislava/ui-city-library'
+import Button from '@modules/common/Button'
 import Accordion from '@components/ui/Accordion/Accordion'
 import { isDefined } from '@utils/isDefined'
 import {
@@ -215,9 +215,9 @@ const sectionContent = (
     case 'ComponentSectionsCta':
       return (
         <div className="flex w-full justify-center">
-          <LinkButton href={section.url || ''} target="_blank" className="py-[9px] px-5">
+          <Button href={section.url || ''} target="_blank">
             {section.title}
-          </LinkButton>
+          </Button>
         </div>
       )
 

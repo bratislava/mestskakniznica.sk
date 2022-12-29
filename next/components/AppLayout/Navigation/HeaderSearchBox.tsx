@@ -1,7 +1,7 @@
 import ClearCircle from '@assets/images/clear-circle.svg'
 import SearchIcon from '@assets/images/search.svg'
 import { SearchBar, Select } from '@bratislava/ui-city-library'
-import Button from '@components/ui/Button/Button'
+import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
@@ -22,14 +22,13 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const router = useRouter()
   const { t } = useTranslation('common')
 
-  const SEARCH_OPTIONS: { key: 'on_page' | 'in_catalogue', title: string }[] = [
+  const SEARCH_OPTIONS: { key: 'on_page' | 'in_catalogue'; title: string }[] = [
     { key: 'on_page', title: t('searchOnPage') },
     { key: 'in_catalogue', title: t('searchInCatalogue') },
   ]
 
   const { focusWithinProps } = useFocusWithin({
-    onBlurWithin: () =>
-      setOpen(false),
+    onBlurWithin: () => setOpen(false),
   })
 
   const {
@@ -76,8 +75,9 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
       {...focusWithinProps}
       className={cx('relative flex w-full transition-all duration-500 lg:absolute lg:right-0', {
         'lg:w-full': isOpen,
-        'lg:w-[440px]': !isOpen
-      })}>
+        'lg:w-[440px]': !isOpen,
+      })}
+    >
       <Select
         options={SEARCH_OPTIONS}
         value={searchOptions}
@@ -85,11 +85,18 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
         selectClassName="rounded-l-full border-dark w-[140px] border-r-0"
       />
       <SearchBar
-        iconLeft={<SearchIcon onClick={handleSearch} className="cursor-pointer"/>}
-        iconRight={input.length > 0 &&
-          <button type="button" onClick={handleClear} aria-label={t('aria.clearSearch')} className="flex items-center">
-            <ClearCircle/>
-          </button>
+        iconLeft={<SearchIcon onClick={handleSearch} className="cursor-pointer" />}
+        iconRight={
+          input.length > 0 && (
+            <Button
+              onPress={handleClear}
+              aria-label={t('aria.clearSearch')}
+              variant="unstyled"
+              className="flex items-center"
+            >
+              <ClearCircle />
+            </Button>
+          )
         }
         onChange={(e) => setInput(e.target.value)}
         onSubmit={handleSearch}
@@ -99,26 +106,29 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
         onFocus={() => setOpen(true)}
         className={cx('w-full')}
         inputClassName={cx('grow-1 w-full rounded-r-full border-border-dark', { 'pr-36': isOpen })}
-        placeholder={searchOptions === 'in_catalogue' ? t('searchBookPlaceholder') : t('searchOnPagePlaceholder')}
-        aria-label={searchOptions === 'in_catalogue' ? t('aria.searchBook') : t('aria.searchOnPage')}
+        placeholder={
+          searchOptions === 'in_catalogue'
+            ? t('searchBookPlaceholder')
+            : t('searchOnPagePlaceholder')
+        }
+        aria-label={
+          searchOptions === 'in_catalogue' ? t('aria.searchBook') : t('aria.searchOnPage')
+        }
       />
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <Button
-              onClick={handleSearch}
-              aria-label={searchOptions === 'in_catalogue' ? t('aria.searchBook') : t('aria.searchOnPage')}
+              onPress={handleSearch}
+              aria-label={
+                searchOptions === 'in_catalogue' ? t('aria.searchBook') : t('aria.searchOnPage')
+              }
               className={cx('absolute right-0 h-[42px] rounded-full px-4')}
             >
               {t('search')}
             </Button>
           </motion.div>
         )}
-
       </AnimatePresence>
     </div>
   )

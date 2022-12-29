@@ -7,6 +7,7 @@ import {
   PageEntity,
 } from '@bratislava/strapi-sdk-city-library'
 import { LoadingSpinner, Pagination, SectionContainer } from '@bratislava/ui-city-library'
+import Button from '@modules/common/Button'
 import { client } from '@utils/gql'
 import cx from 'classnames'
 import enUs from 'date-fns/locale/en-US'
@@ -190,7 +191,7 @@ const Events = ({ page }: PageProps) => {
 
     // default without filters
     if (!startDate && !endDate) {
-      upcomingQuery['or'] = [
+      upcomingQuery.or = [
         { dateFrom: { gte: today.toISOString() } },
         { dateTo: { gte: today.toISOString() } },
       ]
@@ -198,7 +199,7 @@ const Events = ({ page }: PageProps) => {
 
     // filtered startDate
     if (startDate && !endDate) {
-      upcomingQuery['or'] = [
+      upcomingQuery.or = [
         { dateFrom: { gte: tempStartDate.toISOString() } },
         { dateTo: { gte: tempStartDate.toISOString() } },
       ]
@@ -207,9 +208,9 @@ const Events = ({ page }: PageProps) => {
     // filtered endDate
     if (endDate && !startDate) {
       if (tempEndDate <= today) {
-        upcomingQuery['and'] = generateDummyQuery()
+        upcomingQuery.and = generateDummyQuery()
       } else {
-        upcomingQuery['or'] = generateOrQuery(today, tempEndDate)
+        upcomingQuery.or = generateOrQuery(today, tempEndDate)
       }
     }
 
@@ -217,9 +218,9 @@ const Events = ({ page }: PageProps) => {
     if (startDate && endDate) {
       if (tempEndDate <= today && startDate <= today) {
         // dummy
-        upcomingQuery['and'] = generateDummyQuery()
+        upcomingQuery.and = generateDummyQuery()
       } else {
-        upcomingQuery['or'] = generateOrQuery(tempStartDate, tempEndDate)
+        upcomingQuery.or = generateOrQuery(tempStartDate, tempEndDate)
       }
     }
 
@@ -245,7 +246,7 @@ const Events = ({ page }: PageProps) => {
 
     // default without filters
     if (!startDate && !endDate) {
-      archivedQuery['or'] = [
+      archivedQuery.or = [
         { dateFrom: { lte: today.toISOString() } },
         { dateTo: { lte: today.toISOString() } },
       ]
@@ -254,15 +255,15 @@ const Events = ({ page }: PageProps) => {
     // filtered startDate
     if (startDate && !endDate) {
       if (startDate >= today) {
-        archivedQuery['and'] = generateDummyQuery()
+        archivedQuery.and = generateDummyQuery()
       } else {
-        archivedQuery['or'] = generateOrQuery(tempStartDate, today)
+        archivedQuery.or = generateOrQuery(tempStartDate, today)
       }
     }
 
     // filtered endDate
     if (endDate && !startDate) {
-      archivedQuery['or'] = [
+      archivedQuery.or = [
         { dateFrom: { lte: tempEndDate.toISOString() } },
         { dateTo: { lte: tempEndDate.toISOString() } },
       ]
@@ -271,9 +272,9 @@ const Events = ({ page }: PageProps) => {
     // filtered both
     if (startDate && endDate) {
       if (tempEndDate >= today && startDate >= today) {
-        archivedQuery['and'] = generateDummyQuery()
+        archivedQuery.and = generateDummyQuery()
       } else {
-        archivedQuery['or'] = generateOrQuery(tempStartDate, tempEndDate)
+        archivedQuery.or = generateOrQuery(tempStartDate, tempEndDate)
       }
     }
 
@@ -332,13 +333,15 @@ const Events = ({ page }: PageProps) => {
           <div className="mt-4 lg:mt-6 lg:block lg:border lg:border-border-dark lg:p-6">
             {/* Mobile */}
             <div className="flex w-full items-center justify-between border border-border-dark p-4 lg:hidden">
-              <button
+              {/* TODO accessibility 'more content' */}
+              <Button
+                variant="unstyled"
                 className="z-10 flex w-full items-center justify-between gap-y-5"
-                onClick={toggleFilterModal}
+                onPress={toggleFilterModal}
               >
                 {t('eventsFilter')}
                 <DropdownIcon />
-              </button>
+              </Button>
               {openFilterModal && (
                 <FilterModal onClose={toggleFilterModal} title={t('eventsFilter')}>
                   <EventFilters
@@ -357,18 +360,12 @@ const Events = ({ page }: PageProps) => {
                     setSelectedLocality={setSelectedLocality}
                   />
                   <div className="absolute bottom-0 flex w-full gap-x-3 p-3">
-                    <button
-                      className="base-button w-1/2 border border-border-dark bg-button-dark py-[9px] text-white"
-                      onClick={filterEvents}
-                    >
+                    <Button variant="primary" className="w-1/2" onPress={filterEvents}>
                       {t('filterButton')}
-                    </button>
-                    <button
-                      className="base-button w-1/2 border border-border-dark bg-white py-[9px] text-foreground-heading"
-                      onClick={resetFilters}
-                    >
+                    </Button>
+                    <Button variant="secondary" className="w-1/2" onPress={resetFilters}>
                       {t('reset_button')}
-                    </button>
+                    </Button>
                   </div>
                 </FilterModal>
               )}
@@ -396,19 +393,13 @@ const Events = ({ page }: PageProps) => {
                   setSelectedLocality={setSelectedLocality}
                 />
               </div>
-              <div className="mt-3 flex items-center justify-end">
-                <button
-                  className="base-button border border-border-dark bg-button-dark px-10 py-[9px] text-white"
-                  onClick={filterEvents}
-                >
+              <div className="mt-3 flex items-center justify-end gap-4">
+                <Button variant="primary" onPress={filterEvents}>
                   {t('filterButton')}
-                </button>
-                <button
-                  className="base-button ml-5 border border-border-dark bg-white px-10 py-[9px] text-foreground-heading"
-                  onClick={resetFilters}
-                >
+                </Button>
+                <Button variant="secondary" onPress={resetFilters}>
                   {t('reset_button')}
-                </button>
+                </Button>
               </div>
             </div>
           </div>

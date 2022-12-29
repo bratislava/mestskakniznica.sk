@@ -1,4 +1,5 @@
 import CloseIcon from '@assets/images/close.svg'
+import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode, useEffect, useState } from 'react'
@@ -74,16 +75,14 @@ const FormContainer = ({
           <div className="mb-4 text-h3 md:px-4 md:pt-4" id="form-title">
             {title}
           </div>
-          <button
-            onClick={() => setFormOpen(true)}
-            className={cx(
-              'flex items-center justify-center bg-button-dark py-2 px-4 text-center text-base uppercase text-white md:mx-4 md:mb-4',
-              { hidden: isFormOpen }
-            )}
+          <Button
+            onPress={() => setFormOpen(true)}
+            variant="primary"
+            className={cx({ hidden: isFormOpen })}
             aria-labelledby="form-title"
           >
             {buttonText}
-          </button>
+          </Button>
           {isFormOpen && (
             <form
               onSubmit={onSubmit}
@@ -94,9 +93,10 @@ const FormContainer = ({
               {/* HEADER */}
               <div className="flex items-center justify-between border-b border-border-dark md:hidden">
                 <span className="pl-4">{title}</span>
-                <button className="p-4" onClick={() => setFormOpen(false)}>
+                {/* TODO ARIA: adda aria-label */}
+                <Button variant="unstyled" className="p-4" onPress={() => setFormOpen(false)}>
                   <CloseIcon />
-                </button>
+                </Button>
               </div>
               {/* BODY */}
 

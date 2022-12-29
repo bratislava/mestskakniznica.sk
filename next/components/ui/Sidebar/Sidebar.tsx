@@ -1,8 +1,8 @@
-import ArrowLeft from '@assets/images/arrow-left.svg'
+import { ArrowLeftIcon } from '@assets/icons'
 import ChevronRight from '@assets/images/chevron-right.svg'
+import Button from '@modules/common/Button'
+import MLink from '@modules/common/MLink'
 import cx from 'classnames'
-
-import { Link } from '../Link/Link'
 
 export interface SidebarProps {
   className?: string
@@ -20,30 +20,32 @@ export interface ICategory {
 export const Sidebar = ({ className, title, href, categories, activeCategory }: SidebarProps) => {
   return (
     <div className={className}>
-      <Link href={href} variant="plain" className="flex items-center gap-x-4 text-base">
-        <ArrowLeft/>
+      {/* TODO create component for this button or update Button variants */}
+      <Button
+        href={href}
+        variant="unstyled"
+        startIcon={<ArrowLeftIcon />}
+        className="inline-flex items-center gap-x-4 text-base uppercase"
+      >
         {title}
-      </Link>
+      </Button>
       <div className={cx('flex flex-col')}>
         {categories.map((category, i) => {
           const isActive = activeCategory === i
           return (
-            <Link
+            <MLink
               key={category.title}
               href={category.href}
-              variant="plain"
-              className={cx(
-                'transform border-b py-3 text-base transition-all duration-200 ease-linear',
-                {
-                  'border-border-light text-foreground-body': !isActive,
-                  'flex items-center gap-x-5.5 border-border-dark pl-1.5 text-foreground-heading':
+              variant="basic"
+              className={cx('transform border-b py-3 transition-all duration-200 ease-linear', {
+                'border-border-light text-foreground-body': !isActive,
+                'flex items-center gap-x-5.5 border-border-dark pl-1.5 text-foreground-dark':
                   isActive,
-                }
-              )}
+              })}
             >
-              {isActive && <ChevronRight/>}
+              {isActive && <ChevronRight />}
               {category.title}
-            </Link>
+            </MLink>
           )
         })}
       </div>

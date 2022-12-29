@@ -1,4 +1,5 @@
-import { Button, CheckBox, Input, Link } from '@bratislava/ui-city-library'
+import { CheckBox, Input, Link } from '@bratislava/ui-city-library'
+import Button from '@modules/common/Button'
 import cx from 'classnames'
 import Script from 'next/script'
 import { useTranslation } from 'next-i18next'
@@ -115,7 +116,9 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
       />
       <div id={`turnstile-widget-${cfId}`} className="!mt-0" />
 
-      <Button className="m-auto ml-0 w-full py-2.5 px-5 lg:w-auto">{buttonContent}</Button>
+      <Button className="m-auto ml-0" mobileFullWidth>
+        {buttonContent}
+      </Button>
     </div>
   )
 }

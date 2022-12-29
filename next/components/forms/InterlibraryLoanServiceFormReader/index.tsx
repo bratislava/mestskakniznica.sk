@@ -1,5 +1,6 @@
-import { Button, CheckBox, Input, Link, TextArea } from '@bratislava/ui-city-library'
+import { CheckBox, Input, Link, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Button from '@modules/common/Button'
 import { convertDataToBody } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
@@ -262,9 +263,7 @@ const InterlibraryLoanServiceFormReader = () => {
               <p className="text-base text-error">{t('please_fill_required_fields')}</p>
             )}
 
-            <Button onClick={() => triggerFirstStep()} className="h-10 w-36">
-              {t('common:continue')}
-            </Button>
+            <Button onPress={() => triggerFirstStep()}>{t('common:continue')}</Button>
           </div>
         </StepNumberTitle>
 
@@ -276,7 +275,7 @@ const InterlibraryLoanServiceFormReader = () => {
           className="border-b-0 pb-0"
           onClick={() => triggerFirstStep()}
         >
-          <BookListExtended showLinkInput/>
+          <BookListExtended showLinkInput />
           <Controller
             control={methods.control}
             name="message"
@@ -334,7 +333,7 @@ const InterlibraryLoanServiceFormReader = () => {
               rules={{ required: true }}
             />
           </div>
-          <FormFooter buttonContent={t('send')}/>
+          <FormFooter buttonContent={t('send')} />
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>
