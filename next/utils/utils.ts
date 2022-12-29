@@ -7,42 +7,6 @@ import {
 
 import { ILocality } from './types'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const dateTimeString = (date: Date | string, dateTo: Date | string, locale = 'sk') => {
-  const newDate = new Date(date)
-  const dayFrom = newDate.toLocaleString('en-US', { day: 'numeric' })
-  const monthFrom = newDate.toLocaleString('en-US', { month: 'numeric' })
-  const yearFrom = newDate.toLocaleString('en-US', { year: 'numeric' })
-  const fromTime = newDate.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: false,
-  })
-
-  const newDateTo = new Date(dateTo)
-  const dayTo = newDateTo.toLocaleString('en-US', { day: 'numeric' })
-  const monthTo = newDateTo.toLocaleString('en-US', { month: 'numeric' })
-  const yearTo = newDateTo.toLocaleString('en-US', { year: 'numeric' })
-  const toTime = newDateTo.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: false,
-  })
-
-  if (!dateTo) {
-    return `${dayFrom}. ${monthFrom}. ${yearFrom}, ${fromTime}`
-  }
-
-  if (dayFrom === dayTo && monthFrom === monthTo && fromTime === toTime)
-    return `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime}`
-  if (dayFrom === dayTo && monthFrom === monthTo)
-    return `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime} - ${toTime}`
-  if (monthFrom === monthTo)
-    return `${dayFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
-
-  return `${dayFrom}. ${monthFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
-}
-
 export const arrayify = (input: string | string[] | undefined | null) => {
   if (input === undefined || input === null) {
     return [] as undefined[]
