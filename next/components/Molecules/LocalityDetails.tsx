@@ -5,7 +5,7 @@ import {
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import { CallToAction, LocalityMap } from '@bratislava/ui-city-library'
-import Accordion from '@components/ui/Accordion/Accordion'
+import Accordion from '@modules/common/Accordion'
 import MLink from '@modules/common/MLink'
 import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'

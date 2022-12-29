@@ -1,7 +1,7 @@
 import CalendarSvg from '@assets/images/calendar.svg'
 import { Stack } from '@components/styleguide/Stack'
 import { Wrapper } from '@components/styleguide/Wrapper'
-import Accordion from '@components/ui/Accordion/Accordion'
+import Accordion from '@modules/common/Accordion'
 import React from 'react'
 
 const StyleguideAccordion = () => {

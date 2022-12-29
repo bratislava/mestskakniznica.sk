@@ -2,11 +2,11 @@ import FbLogo from '@assets/images/fb-logo.svg'
 import IgLogo from '@assets/images/ig-logo.svg'
 import YtLogo from '@assets/images/yt-logo.svg'
 import { ComponentFooterFooterColumn, Maybe } from '@bratislava/strapi-sdk-city-library'
-import Accordion from '@components/ui/Accordion/Accordion'
+import Accordion from '@modules/common/Accordion'
 import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Link } from '../Link/Link'
 

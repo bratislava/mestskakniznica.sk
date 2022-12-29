@@ -16,7 +16,7 @@ import {
   Table,
   Video,
 } from '@bratislava/ui-city-library'
-import Accordion from '@components/ui/Accordion/Accordion'
+import Accordion from '@modules/common/Accordion'
 import Button from '@modules/common/Button'
 import { isDefined } from '@utils/isDefined'
 import {

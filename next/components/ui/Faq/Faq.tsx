@@ -1,6 +1,6 @@
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { ComponentSectionsFaq } from '@bratislava/strapi-sdk-city-library'
-import Accordion from '@components/ui/Accordion/Accordion'
+import Accordion from '@modules/common/Accordion'
 import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 
