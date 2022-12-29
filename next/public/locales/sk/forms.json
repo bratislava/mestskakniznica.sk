@@ -28,6 +28,7 @@
   "author": "Autor/ka diela",
   "title": "Názov diela",
   "add_book": "Pridať knihu",
+  "remove_book": "Odstrániť knihu",
   "place_of_issue": "Miesto vydania",
   "issuer": "Vydavateľstvo",
   "package_number": "Číslo zväzku",

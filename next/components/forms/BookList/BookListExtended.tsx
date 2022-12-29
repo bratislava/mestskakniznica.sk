@@ -1,9 +1,10 @@
 import ClearCircle from '@assets/images/clear-circle.svg'
 import PlusIcon from '@assets/images/plus.svg'
-import { Button, Input } from '@bratislava/ui-city-library'
+import { Input } from '@bratislava/ui-city-library'
+import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
-import React, { FormEvent } from 'react'
+import React from 'react'
 import { Controller, useFieldArray, useFormContext, useFormState } from 'react-hook-form'
 
 interface Props {
@@ -21,8 +22,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
     name: 'books',
   })
 
-  const handleAddBook = (e: FormEvent) => {
-    e.preventDefault()
+  const handleAddBook = () => {
     append({
       author: '',
       title: '',
@@ -35,8 +35,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
     })
   }
 
-  const handleRemoveBook = (e: FormEvent, idx: number) => {
-    e.preventDefault()
+  const handleRemoveBook = (idx: number) => {
     remove(idx)
   }
 
@@ -51,10 +50,14 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
           })}
         >
           {fields.length > 1 && (
-            <ClearCircle
-              onClick={(e: FormEvent) => handleRemoveBook(e, index)}
+            <Button
+              variant="unstyled"
               className="absolute right-3 top-3 cursor-pointer"
-            />
+              onPress={() => handleRemoveBook(index)}
+              aria-label={t('remove_book')}
+            >
+              <ClearCircle />
+            </Button>
           )}
           {showLinkInput && (
             <Controller
@@ -175,11 +178,10 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
       ))}
       <div className="flex justify-center lg:block">
         <Button
-          icon={<PlusIcon/>}
-          iconPosition="left"
+          startIcon={<PlusIcon />}
           variant="plain-primary"
-          className="mb-4 text-sm font-medium"
-          onClick={(e) => handleAddBook(e)}
+          className="mb-4"
+          onPress={handleAddBook}
         >
           {t('add_book')}
         </Button>

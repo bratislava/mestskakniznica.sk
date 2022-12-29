@@ -4,7 +4,8 @@ import Download from '@assets/images/download.svg'
 import ExternalLink from '@assets/images/external-link.svg'
 import Home from '@assets/images/home.svg'
 import { BasicDocumentEntity, FooterEntity, MenuEntity } from '@bratislava/strapi-sdk-city-library'
-import { Button, FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
+import { FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
+import Button from '@modules/common/Button'
 import truncate from 'lodash/truncate'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -143,36 +144,29 @@ const BasicDocumentPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
                 <SingleDot className="hidden lg:block" />
                 <p>{`${t('added')} ${dateAddedString}`}</p>
               </div>
-              {file?.attributes?.attachment && (
+              {file?.attributes?.attachment?.data?.attributes?.url && (
                 <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
-                  <a
-                    className="w-full lg:w-auto"
+                  <Button
                     href={file?.attributes?.attachment?.data?.attributes?.url}
                     target="_blank"
                     rel="noreferrer"
+                    mobileFullWidth
+                    aria-label={`${t('open')} ${file?.attributes?.title}`}
+                    startIcon={<ExternalLink />}
                   >
-                    <Button
-                      className="w-full py-[9px] px-5"
-                      aria-label={`${t('open')} ${file?.attributes?.title}`}
-                      icon={<ExternalLink />}
-                    >
-                      {t('open')}
-                    </Button>
-                  </a>
-                  <a
-                    className="w-full lg:w-auto"
+                    {t('open')}
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    mobileFullWidth
                     href={file?.attributes?.attachment?.data?.attributes?.url}
-                    download={file?.attributes?.attachment?.data?.attributes?.name}
+                    // TODO add download title
+                    // download={file?.attributes?.attachment?.data?.attributes?.name}
+                    aria-label={`${t('download')} ${file?.attributes?.title}`}
+                    startIcon={<Download />}
                   >
-                    <Button
-                      variant="secondary"
-                      className="w-full py-[9px] px-5"
-                      aria-label={`${t('download')} ${file?.attributes?.title}`}
-                      icon={<Download />}
-                    >
-                      {t('download')}
-                    </Button>
-                  </a>
+                    {t('download')}
+                  </Button>
                 </div>
               )}
             </div>
@@ -189,9 +183,8 @@ const BasicDocumentPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
               {showExpandButton && (
                 <Button
                   variant="plain-primary"
-                  icon={<ChevronRight />}
-                  iconPosition="right"
-                  onClick={() => setExpandDescription((prev) => !prev)}
+                  endIcon={<ChevronRight />}
+                  onPress={() => setExpandDescription((prev) => !prev)}
                 >
                   {expandDescription ? t('showLess') : t('showMore')}
                 </Button>

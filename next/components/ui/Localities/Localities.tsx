@@ -5,9 +5,9 @@ import {
   ComponentAddressAddress,
   ComponentLocalityPartsLocalitySection,
 } from '@bratislava/strapi-sdk-city-library'
+import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 import { maxBy, minBy } from 'lodash'
-import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
@@ -160,38 +160,37 @@ export const Localities = ({
                 })}
                 key={index}
               >
-                <Link href={localitySlug || ''} passHref>
-                  <a href={localitySlug}>
-                    <div className="flex h-full w-full flex-col justify-between gap-4 p-6 lg:py-0">
-                      <div>
-                        <div className="text-h3">{localityTitle}</div>
-                        <div className="pt-8 text-base">
-                          {localitySections?.map((section) => (
-                            <div
-                              key={section.localitySectionTitle}
-                              className="pt-1 text-foreground-body"
-                            >
-                              {section.localitySectionTitle}
-                            </div>
-                          ))}
-                        </div>
-                        {!hideOpeningHours && (
-                          <>
-                            <p className="pt-8 text-base">{t('localityOpeningText')}</p>
-                            <p className="text-base">
-                              {localityOpenFrom} - {localityOpenTo}
-                            </p>
-                          </>
-                        )}
+                {/* TODO move link to title */}
+                <MLink href={localitySlug || ''}>
+                  <div className="flex h-full w-full flex-col justify-between gap-4 p-6 lg:py-0">
+                    <div>
+                      <div className="text-h3">{localityTitle}</div>
+                      <div className="pt-8 text-base">
+                        {localitySections?.map((section) => (
+                          <div
+                            key={section.localitySectionTitle}
+                            className="pt-1 text-foreground-body"
+                          >
+                            {section.localitySectionTitle}
+                          </div>
+                        ))}
                       </div>
-                      <div className="text-base hover:underline">
-                        <div className="relative uppercase">
-                          {t('localityDetailText')} {'>'}
-                        </div>
+                      {!hideOpeningHours && (
+                        <>
+                          <p className="pt-8 text-base">{t('localityOpeningText')}</p>
+                          <p className="text-base">
+                            {localityOpenFrom} - {localityOpenTo}
+                          </p>
+                        </>
+                      )}
+                    </div>
+                    <div className="text-base hover:underline">
+                      <div className="relative uppercase">
+                        {t('localityDetailText')} {'>'}
                       </div>
                     </div>
-                  </a>
-                </Link>
+                  </div>
+                </MLink>
               </div>
             )
           )}

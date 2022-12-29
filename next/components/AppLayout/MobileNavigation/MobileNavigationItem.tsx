@@ -15,6 +15,7 @@ const MobileNavigationItem = ({ menu }: navItemProps) => {
   const menuSections = menu?.attributes?.menuSections || []
   return (
     <div className={cx('w-full cursor-pointer px-4 text-h5 font-normal')}>
+      {/* TODO replace by Button */}
       <button
         type="button"
         onClick={() => setOpen(true)}
@@ -32,7 +33,7 @@ const MobileNavigationItem = ({ menu }: navItemProps) => {
       </button>
       <div>
         {isOpen && (
-          <MobileSubnavigation menuSections={menuSections} onClose={() => setOpen(false)}/>
+          <MobileSubnavigation menuSections={menuSections} onClose={() => setOpen(false)} />
         )}
       </div>
     </div>

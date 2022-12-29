@@ -82,6 +82,7 @@ module.exports = {
       dark: '#121212', //gray-100
       foreground: {
         heading: '#121212', // gray-100
+        dark: '#121212', //gray-100
         body: '#565656', // gray-70
         placeholder: '#787878', // gray-60
         disabled: '#969696', // gray-50
@@ -131,7 +132,7 @@ module.exports = {
       h5: ['var(--font-size-h5)', '120%'], // 20px / 16px / 120%
       h6: ['var(--font-size-h6)', '120%'], // 16px / 16px / 120%
 
-      btn: ['0.875rem', '1.4rem'],
+      btn: ['0.875rem', '160%'], // 14px / 160%
 
       xs: ['0.75rem', '1.2rem'], // 12px / 150%
       sm: ['0.875rem', '1.4rem'], // 14px / 160%

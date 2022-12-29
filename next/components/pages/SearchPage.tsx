@@ -1,6 +1,7 @@
 import ChevronRight from '@assets/images/chevron-right.svg'
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
-import { Button, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
+import { PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
+import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -97,7 +98,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
             setSearchValue={setSearchValue}
           />
 
-          <Button className="w-full py-[9px] lg:w-auto lg:py-4.25 lg:px-8">{t('search')}</Button>
+          <Button mobileFullWidth>{t('search')}</Button>
         </div>
         <div className="mt-5 flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
           <div className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
