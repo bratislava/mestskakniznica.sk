@@ -1,5 +1,8 @@
 import cx from 'classnames'
 
+// eslint-disable-next-line no-secrets/no-secrets
+// Copied from https://github.com/bratislava/marianum/blob/762d10222bd33352b77a44d902620181b07107c1/next/pages/styleguide/index.tsx
+
 type StackProps = {
   bg?: 'white' | 'dark'
   width?: 'desktop' | 'mobile' | 'full' | null

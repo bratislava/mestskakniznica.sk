@@ -1,6 +1,9 @@
 import cx from 'classnames'
 import { ReactNode } from 'react'
 
+// eslint-disable-next-line no-secrets/no-secrets
+// Copied from https://github.com/bratislava/marianum/blob/762d10222bd33352b77a44d902620181b07107c1/next/pages/styleguide/index.tsx
+
 type WrapperProps = {
   title?: string
   children: ReactNode
