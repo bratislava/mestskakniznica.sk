@@ -4,21 +4,18 @@ import {
   ComponentSectionsLocalityDetails,
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
-import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
-import MLink from '@modules/common/MLink'
-import { dateTimeString } from '@utils/utils'
 import { CallToAction, LocalityMap } from '@bratislava/ui-city-library'
 import Accordion from '@components/ui/Accordion/Accordion'
+import MLink from '@modules/common/MLink'
 import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 
 import BusinessSvg from '../../assets/images/business.svg'
 import ChevronRightSvg from '../../assets/images/chevron-right.svg'
 import MailSvg from '../../assets/images/mail.svg'
 import PhoneSvg from '../../assets/images/phone.svg'
-import SectionSvg from '../../assets/images/section.svg'
 import DateCardDisplay from '../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 

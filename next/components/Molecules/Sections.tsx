@@ -16,8 +16,8 @@ import {
   Table,
   Video,
 } from '@bratislava/ui-city-library'
-import Button from '@modules/common/Button'
 import Accordion from '@components/ui/Accordion/Accordion'
+import Button from '@modules/common/Button'
 import { isDefined } from '@utils/isDefined'
 import {
   groupByAccordionCategory,
