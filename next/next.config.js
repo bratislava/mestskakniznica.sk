@@ -34,7 +34,7 @@ const nextConfig = {
             'https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchNews=60&rtrnxml=true',
         },
         /**
-         * Rewrites to make the the translation of URL work. Based on an approached outlined here:
+         * Rewrites to make the translation of URL work. Based on an approached outlined here:
          * https://stackoverflow.com/questions/68723485/how-to-setup-i18n-translated-url-routes-in-next-js/68731057#68731057
          */
         {
@@ -52,6 +52,14 @@ const nextConfig = {
         {
           source: '/about-us/documents-and-public-disclosure-of-information/:slug',
           destination: '/basic-document/:slug',
+        },
+        {
+          source: '/zazite/podujatia/:slug',
+          destination: '/event/:slug',
+        },
+        {
+          source: '/experience/events/:slug',
+          destination: '/event/:slug',
         },
         {
           source: '/vyhladavanie',

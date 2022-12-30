@@ -9,7 +9,6 @@ import BlogPostsPage from '../components/pages/blogPostsPage'
 import BookNewsPage from '../components/pages/bookNewsPage'
 import DocumentsPage from '../components/pages/DocumentsPage'
 import ErrorPage from '../components/pages/ErrorPage'
-import EventPage from '../components/pages/eventPage'
 import EventsListingPage from '../components/pages/eventsListingPage'
 import FullContentPage from '../components/pages/fullContentPage'
 import ListingPage from '../components/pages/listingPage'
@@ -23,7 +22,6 @@ import SublistingPage from '../components/pages/sublistingPage'
 import {
   Enum_Page_Layout,
   EventCardEntityFragment,
-  EventEntityFragment,
   FooterEntity,
   MenuEntity,
   PageEntity,
@@ -36,14 +34,13 @@ import { arrayify, isPresent, shouldSkipStaticPaths } from '../utils/utils'
 interface IPageProps {
   locale: string
   page: PageEntity
-  eventDetail: EventEntityFragment
   upcomingEvents: EventCardEntityFragment[]
   menus: MenuEntity[]
   footer: FooterEntity
   error?: IDisplayError
 }
 
-const Page = ({ page, eventDetail, upcomingEvents, menus, footer, error }: IPageProps) => {
+const Page = ({ page, upcomingEvents, menus, footer, error }: IPageProps) => {
   if (error) {
     return (
       <ErrorPage code={500}>
@@ -108,10 +105,6 @@ const Page = ({ page, eventDetail, upcomingEvents, menus, footer, error }: IPage
     case Enum_Page_Layout.BookNews:
       pageComponentByLayout = <BookNewsPage page={page} />
       break
-  }
-
-  if (!pageComponentByLayout && eventDetail) {
-    pageComponentByLayout = <EventPage event={eventDetail} />
   }
 
   return (
@@ -181,29 +174,15 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       locale,
       date: new Date().toISOString(),
     })
-    let pageBySlug = pages?.data[0]
+    const pageBySlug = pages?.data[0]
 
-    let eventDetail: EventEntityFragment | null = null
-    // TODO until we clean up the duplicate event from pages, always trying to find both the page and the event
-    // if (!pageBySlug) {
-    const { events: eventResponse } = await client.EventBySlug({ slug })
-    if (eventResponse?.data[0]) {
-      eventDetail = eventResponse.data[0]
-      pageBySlug = undefined
-    }
-    // else {
-    //   return { notFound: true } as { notFound: true }
-    // }
-    // }
-
-    if (!pageBySlug && !eventDetail) return { notFound: true } as { notFound: true }
+    if (!pageBySlug) return { notFound: true } as { notFound: true }
 
     return {
       props: {
         slug,
         page: pageBySlug || null,
         upcomingEvents: upcomingEvents?.data,
-        eventDetail,
         locale,
         menus: menus?.data ?? [],
         footer: footer?.data,
