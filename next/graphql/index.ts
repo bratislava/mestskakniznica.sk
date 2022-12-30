@@ -4946,7 +4946,7 @@ export const EventsCountDocument = gql`
     `;
 export const AllEventSlugsDocument = gql`
     query AllEventSlugs($locale: I18NLocaleCode!) {
-  events(locale: $locale) {
+  events(locale: $locale, pagination: {limit: -1}) {
     data {
       attributes {
         slug

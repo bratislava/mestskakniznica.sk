@@ -76,7 +76,9 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
         params: {
           fullPath: `${
             event.attributes?.locale === 'sk' ? '/zazite/podujatia/' : '/experience/events/'
-          }${event.attributes?.slug!}`.split('/'),
+          }${event.attributes?.slug!}`
+            .split('/')
+            .slice(1),
           locale: event.attributes?.locale || '',
         },
       }))
@@ -87,6 +89,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
   return { paths, fallback: 'blocking' }
 }
 
+// TODO define type of fullPath to string[]
 export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
   const locale = ctx.locale ?? 'sk'
   const slug = last(ctx?.params?.fullPath)
@@ -94,7 +97,8 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
   if (!slug) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Static gen: ${locale} ${slug}`)
+  console.log(`Revalidating ${locale} event ${slug} on ${ctx?.params?.fullPath}`)
+
   const translations = (await serverSideTranslations(locale, [
     'common',
     'forms',
