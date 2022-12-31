@@ -11,6 +11,7 @@ import {
 import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
 import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
 import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
+import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
 import MLink from '@modules/common/MLink'
 import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'
@@ -35,10 +36,6 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
   const listenAccordionState = (id: string, state: boolean) => {
     setOpenLocality(state ? id : '')
   }
-  const mainSection = useMemo(
-    () => localityDetails?.localitySections?.find((section) => section?.isMainSection),
-    [localityDetails?.localitySections]
-  )
 
   const dayString = (day: string, from: string | null, to: string | null) => {
     if (from === to || from == null || to == null)
@@ -247,34 +244,8 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
             ))}
           </div>
         </div>
-        <div id="where" className="mb-4">
-          <div className="pb-6 text-h3">{t('localityWhereToFind')}</div>
-          <div className="flex grid-cols-2 flex-col gap-x-5 space-y-4 md:grid">
-            <div className="h-64 w-full md:h-[415px]">
-              <LocalityMap
-                localityName={localityDetails.localityTitle}
-                localityLatitude={localityDetails.localityLatitude || undefined}
-                localityLongitude={localityDetails.localityLongitude || undefined}
-                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
-              />
-            </div>
-            {mainSection && (
-              <div className="">
-                <div className="pb-4">{t('address')}</div>
-                <div className="text-base text-foreground-body">
-                  {localityDetails.localityAddress?.title &&
-                    localityDetails.localityAddress.title.split(', ').map((part) => (
-                      <div key={part}>
-                        {part}
-                        <br />
-                      </div>
-                    ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
       </div>
+      <LocalityDetailsWhere localityDetails={localityDetails} />
       <LocalityDetailsContactUs localityDetails={localityDetails} />
     </div>
   )
