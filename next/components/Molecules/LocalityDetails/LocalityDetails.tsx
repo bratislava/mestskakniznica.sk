@@ -10,6 +10,7 @@ import {
 } from '@bratislava/strapi-sdk-city-library'
 import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
 import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
+import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
 import MLink from '@modules/common/MLink'
 import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'
@@ -151,9 +152,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
         <div className="border-b border-border-dark pb-10">
           <div className="py-[12px] text-[32px]">
             <div className="pb-8">
-              <h1 className="leading-10 md:leading-6 lg:leading-6">
-                {localityDetails.localityTitle}
-              </h1>
+              <h1 className="text-h1">{localityDetails.localityTitle}</h1>
               <div className="-mx-4 overflow-x-auto">
                 <div className="flex gap-x-6 px-4 pt-9 text-sm uppercase">
                   {scrollButton('#description', t('description'))}
@@ -168,7 +167,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           </div>
           {localityDetails.localityDescription && (
             <div id="description">
-              <div className="text-[24px]">{t('description')}</div>
+              <h3 className="text-h3">{t('description')}</h3>
               <div className="pt-5 text-[16px] text-foreground-body">
                 <UIMarkdown
                   content={localityDetails.localityDescription}
@@ -178,29 +177,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
             </div>
           )}
         </div>
-        {(localityDetails.localityServices?.length || 0) > 0 && (
-          <div className="border-b border-border-dark py-10" id="services">
-            <div className="text-[24px]">{t('services')}</div>
-            <div className="grid flex-wrap gap-4 pt-5 sm:grid-cols-2">
-              {localityDetails.localityServices?.map((service) => (
-                <CallToAction
-                  title={service?.page?.data?.attributes?.title ?? ''}
-                  href={service?.page?.data?.attributes?.slug ?? ''}
-                  bottomText={t('more')}
-                  className="flex h-[180px] pr-[24px]"
-                  hasIcon={false}
-                  uppercase={false}
-                  customIcon={
-                    <span className="ml-2 inline-flex">
-                      <ChevronRightSvg />
-                    </span>
-                  }
-                  key={service?.page?.data?.id ?? ''}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+        <LocalityDetailsServices localityDetails={localityDetails} />
         {(events?.length || 0) > 0 && (
           <div className="hidden border-b border-border-dark py-12" id="events">
             <div className="text-h3">{t('events')}</div>
