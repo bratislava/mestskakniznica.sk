@@ -1,4 +1,3 @@
-import ChevronRightSvg from '@assets/images/chevron-right.svg'
 import MailSvg from '@assets/images/mail.svg'
 import PhoneSvg from '@assets/images/phone.svg'
 import SectionSvg from '@assets/images/section.svg'
@@ -8,7 +7,7 @@ import {
   ComponentSectionsLocalityDetails,
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
-import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
+import { Accordion } from '@bratislava/ui-city-library'
 import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
 import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
 import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
@@ -16,7 +15,7 @@ import MLink from '@modules/common/MLink'
 import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import DateCardDisplay from '../../Atoms/DateCardDispaly'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
@@ -144,7 +143,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
   )
 
   return (
-    <div className="grid grid-cols-1 gap-30 lg:grid-cols-[minmax(0px,_1fr)_380px]">
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0px,_1fr)_380px] lg:gap-30">
       <div>
         <div className="border-b border-border-dark pb-10">
           <div className="py-[12px] text-[32px]">
@@ -162,6 +161,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
               </div>
             </div>
           </div>
+          {/* TODO: Extract description */}
           {localityDetails.localityDescription && (
             <div id="description">
               <h3 className="text-h3">{t('description')}</h3>
@@ -175,6 +175,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           )}
         </div>
         <LocalityDetailsServices localityDetails={localityDetails} />
+        {/* TODO: Extract events */}
         {(events?.length || 0) > 0 && (
           <div className="hidden border-b border-border-dark py-12" id="events">
             <div className="text-h3">{t('events')}</div>
@@ -225,6 +226,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
             </div>
           </div>
         )}
+        {/* TODO: Extract sections */}
         <div className="py-10" id="sections">
           <div className="text-[24px]">{t('sections')}</div>
           <div className="pt-5">
@@ -243,9 +245,9 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
               />
             ))}
           </div>
+          <LocalityDetailsWhere localityDetails={localityDetails} />
         </div>
       </div>
-      <LocalityDetailsWhere localityDetails={localityDetails} />
       <LocalityDetailsContactUs localityDetails={localityDetails} />
     </div>
   )
