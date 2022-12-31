@@ -48,7 +48,7 @@ import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm, { VenueRentalFormProps } from '../forms/VenueRentalForm'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 import GalleryBanner from './GalleryBanner'
-import LocalityDetails from './LocalityDetails'
+import LocalityDetails from './LocalityDetails/LocalityDetails'
 import Metadata from './Metadata'
 
 type FormsProps =

@@ -1,3 +1,7 @@
+import ChevronRightSvg from '@assets/images/chevron-right.svg'
+import MailSvg from '@assets/images/mail.svg'
+import PhoneSvg from '@assets/images/phone.svg'
+import SectionSvg from '@assets/images/section.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import {
   ComponentLocalityPartsLocalitySection,
@@ -11,12 +15,8 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
 
-import ChevronRightSvg from '../../assets/images/chevron-right.svg'
-import MailSvg from '../../assets/images/mail.svg'
-import PhoneSvg from '../../assets/images/phone.svg'
-import SectionSvg from '../../assets/images/section.svg'
-import DateCardDisplay from '../Atoms/DateCardDispaly'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
+import DateCardDisplay from '../../Atoms/DateCardDispaly'
+import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
 export interface PageProps {
   localityDetails: ComponentSectionsLocalityDetails
@@ -145,8 +145,8 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
   )
 
   return (
-    <div className="flex flex-col gap-16 pt-12 lg:flex-row">
-      <div className="w-full lg:w-2/3">
+    <div className="grid grid-cols-1 gap-30 lg:grid-cols-[minmax(0px,_1fr)_380px]">
+      <div>
         <div className="border-b border-border-dark pb-10">
           <div className="py-[12px] text-[32px]">
             <div className="pb-8">
@@ -297,7 +297,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           </div>
         </div>
       </div>
-      <div className="sticky top-8 h-fit w-full border border-border-dark p-6 lg:w-1/3">
+      <div className="sticky top-8 h-fit border border-border-dark p-6">
         <div className="m-auto">
           <div className="pb-6">{t('contactUs')}</div>
           {localityDetails?.localitySections?.map((localityContact) => (
