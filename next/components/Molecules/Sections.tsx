@@ -18,17 +18,16 @@ import {
   Video,
 } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
-import { TFunction, useTranslation } from 'next-i18next'
-import { useState } from 'react'
-
 import {
   groupByAccordionCategory,
   groupByCategory,
   groupByLinksCategory,
   parsePageLink,
   parseSubpages,
-} from '../../utils/page'
-import { formatDateToLocal } from '../../utils/utils'
+} from '@utils/page'
+import { TFunction, useTranslation } from 'next-i18next'
+import { useState } from 'react'
+
 import AskLibraryForm from '../forms/AskLibraryForm.tsx'
 import BookNotInLibraryForm from '../forms/BookNotInLibraryForm'
 import CityLibraryRegistrationForm from '../forms/CityLibraryRegistrationForm'
@@ -46,7 +45,6 @@ import SpaceReservationForm from '../forms/SpaceReservationForm'
 import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm, { VenueRentalFormProps } from '../forms/VenueRentalForm'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 import GalleryBanner from './GalleryBanner'
 import LocalityDetails from './LocalityDetails'
 import Metadata from './Metadata'
@@ -99,8 +97,7 @@ const sectionContent = (
   eventsListingUrl: string | undefined,
   t: TFunction,
   openAccordion: string,
-  listenAccordionState: (id: string, state: boolean) => unknown,
-  locale: string | undefined
+  listenAccordionState: (id: string, state: boolean) => unknown
 ): React.ReactNode => {
   const eventDetail = events?.length ? events[0] : null
 
@@ -289,9 +286,7 @@ const sectionContent = (
               type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
               title: document?.attributes?.title ?? '',
               metadata: <Metadata metadata={document?.attributes?.metadata || []} /> ?? '',
-              dateAdded: document?.attributes?.date_added
-                ? `${t('added')} ${formatDateToLocal(document?.attributes?.date_added, locale)}`
-                : '',
+              dateAdded: document?.attributes?.date_added,
               fileType:
                 document?.attributes?.attachment?.data?.attributes?.ext
                   ?.toUpperCase()
@@ -319,7 +314,6 @@ const Section = ({
 }) => {
   const [openAccordion, setOpenAccordion] = useState('')
   const { t } = useTranslation(['common', 'homepage'])
-  const { locale } = usePageWrapperContext()
 
   const listenAccordionState = (id: string, state: boolean) => {
     setOpenAccordion(state ? id : '')
@@ -336,8 +330,7 @@ const Section = ({
         eventsListingUrl,
         t,
         openAccordion,
-        listenAccordionState,
-        locale
+        listenAccordionState
       )}
     </div>
   )

@@ -4,8 +4,6 @@ import { useState } from 'react'
 
 import { BlogPostEntityFragment, PageEntity, PageEntityFragment } from '../../graphql'
 import { client } from '../../utils/gql'
-import { formatDateToLocal } from '../../utils/utils'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface BlogPostsPageProps {
@@ -16,7 +14,6 @@ const LIMIT = 16
 
 const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
   const { t } = useTranslation('common')
-  const { locale } = usePageWrapperContext()
 
   const [relatedBlogPosts, setRelatedBlogPosts] = useState<BlogPostEntityFragment[]>(
     page?.attributes?.blogPosts?.data ?? []
@@ -65,7 +62,7 @@ const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
                 mediaType={
                   blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
                 }
-                publishedDate={formatDateToLocal(blogPost?.attributes?.publishedAt ?? '', locale)}
+                publishedDate={blogPost?.attributes?.publishedAt}
                 pageLink={{
                   title: t('showMore'),
                   url: `${t('blog_slug') + blogPost?.attributes?.slug}`,

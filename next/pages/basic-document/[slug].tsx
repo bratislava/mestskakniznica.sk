@@ -18,12 +18,7 @@ interface IFilePageProps {
 const Page = ({ basicDocument, locale, menus, footer, slug }: IFilePageProps) => {
   return (
     <PageWrapper locale={locale ?? 'sk'} slug={slug}>
-      <BasicDocumentPage
-        locale={locale}
-        file={basicDocument}
-        menus={menus}
-        footer={footer?.data || {}}
-      />
+      <BasicDocumentPage file={basicDocument} menus={menus} footer={footer?.data || {}} />
     </PageWrapper>
   )
 }

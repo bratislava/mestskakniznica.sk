@@ -1,9 +1,8 @@
 import { BlogPostEntity, ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
+import FormatDate from '@modules/common/FormatDate'
 import { useTranslation } from 'next-i18next'
 
-import { formatDateToLocal } from '../../utils/utils'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import Sections from '../Molecules/Sections'
 
@@ -14,21 +13,18 @@ export interface BlogPostPageProps {
 
 const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
   const { t } = useTranslation('common')
-  const { locale } = usePageWrapperContext()
   const mediaType = blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
 
   return (
     <SectionContainer>
       {blogPost?.attributes?.parentPage && (
-        <PageBreadcrumbs page={blogPost?.attributes?.parentPage?.data} blogPost={blogPost}/>
+        <PageBreadcrumbs page={blogPost?.attributes?.parentPage?.data} blogPost={blogPost} />
       )}
 
-      <PageTitle title={blogPost?.attributes?.title ?? ''} hasDivider={false}/>
-      <div className="mt-2 text-base text-foreground-body lg:mt-4">{`${t('added')} ${formatDateToLocal(
-        // blogPost.date_added ? blogPost.date_added : blogPost.created_at, // TEMP fix for not localized blog posts
-        blogPost?.attributes?.publishedAt,
-        locale
-      )}`}</div>
+      <PageTitle title={blogPost?.attributes?.title ?? ''} hasDivider={false} />
+      <div className="mt-2 text-base text-foreground-body lg:mt-4">
+        {t('added')} <FormatDate valueType="ISO" value={blogPost?.attributes?.publishedAt} />
+      </div>
 
       <div className="-mx-7.5 mt-6 flex md:mx-0 lg:mt-10">
         {blogPost?.attributes?.coverMedia && mediaType === 'image' && (
@@ -40,7 +36,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
         )}
         {blogPost?.attributes?.coverMedia && mediaType === 'video' && (
           <div className="flex w-full justify-center">
-            <Video mediaUrl={blogPost?.attributes?.coverMedia?.data?.attributes?.url}/>
+            <Video mediaUrl={blogPost?.attributes?.coverMedia?.data?.attributes?.url} />
           </div>
         )}
       </div>
@@ -48,7 +44,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
       {/* Sections */}
       <div className="flex">
         <div className="mt-10 w-full lg:mx-auto lg:w-8/12">
-          {blogPost?.attributes?.sections && <Sections sections={blogPost?.attributes?.sections}/>}
+          {blogPost?.attributes?.sections && <Sections sections={blogPost?.attributes?.sections} />}
         </div>
       </div>
     </SectionContainer>
