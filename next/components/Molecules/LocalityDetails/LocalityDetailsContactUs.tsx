@@ -12,7 +12,7 @@ const LocalityDetailsContactUs = ({ localityDetails }: LocalityDetailsContactUsP
   const { t } = useTranslation('common')
 
   return (
-    <div className="sticky top-8 h-fit border border-border-dark p-6">
+    <div className="sticky top-8 mb-4 h-fit border border-border-dark p-6">
       <h5 className="pb-6 text-h5">{t('contactUs')}</h5>
       {localityDetails?.localitySections?.map((localityContact) => (
         <div
