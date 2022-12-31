@@ -2,9 +2,8 @@ import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import { DateTimeSelect, Input, TextArea } from '@bratislava/ui-city-library'
 import NumberSwitcher from '@bratislava/ui-city-library/NumberSwitcher/NumberSwitcher'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { LocalDate } from '@js-joda/core'
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
-import { convertDataToBody } from '@utils/form-constants'
+import { convertDataToBody, getLocalDateForYup } from '@utils/form-constants'
 import { dayForDifferentDateTo, isEventPast } from '@utils/utils'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
@@ -67,7 +66,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
           .required()
       }
 
-      return yup.date().min(LocalDate.now()).required()
+      return yup.date().min(getLocalDateForYup()).required()
     }),
     eventTime: yup.string().required(),
     message: yup.string(),
