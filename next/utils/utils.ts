@@ -19,25 +19,6 @@ export const isPresent = <U>(value: U | null | undefined | void): value is U => 
   return value !== null && value !== undefined
 }
 
-// TODO fix eslint
-export const Time24To12Format = (time: any, locale: string) => {
-  /* eslint-disable no-param-reassign */
-  if (locale === 'en') {
-    time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time]
-    if (time.length > 1) {
-      // If time format correct
-      time = time.slice(1) // Remove full string match value
-      time[5] = +time[0] < 12 ? 'AM' : 'PM' // Set AM/PM
-      time[0] = +time[0] % 12 || 12 // Adjust hours
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      time = time[0] + time[5]
-    }
-    return time // return adjusted time or original string
-  }
-  return time
-  /* eslint-enable no-param-reassign */
-}
-
 export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = false) => {
   const today = new Date()
   const dFrom = new Date(dateFrom)
