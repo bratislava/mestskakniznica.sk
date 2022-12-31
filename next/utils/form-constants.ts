@@ -1,4 +1,6 @@
 import { IRadioOption } from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
+import { now } from '@internationalized/date'
+import { bratislavaTimezone } from '@utils/consts'
 import isArray from 'lodash/isArray'
 import isBoolean from 'lodash/isBoolean'
 import isDate from 'lodash/isDate'
@@ -155,4 +157,13 @@ export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRa
     } as IRadioOption)
   )
   return temp
+}
+
+/**
+ * Replaces `LocalDate.now().toString()` from @js-joda/core
+ *
+ * Returns e.g. 2022-12-31.
+ */
+export const getLocalDateForYup = () => {
+  return now(bratislavaTimezone).toString().slice(0, 10)
 }
