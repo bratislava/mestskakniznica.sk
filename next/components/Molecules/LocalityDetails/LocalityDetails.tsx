@@ -9,6 +9,7 @@ import {
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
 import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
+import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
 import MLink from '@modules/common/MLink'
 import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'
@@ -297,39 +298,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           </div>
         </div>
       </div>
-      <div className="sticky top-8 h-fit border border-border-dark p-6">
-        <div className="m-auto">
-          <div className="pb-6">{t('contactUs')}</div>
-          {localityDetails?.localitySections?.map((localityContact) => (
-            <div
-              className="flex flex-col border-t border-border-light py-3 py-5"
-              key={localityContact?.id}
-            >
-              <span>{localityContact?.localitySectionTitle}</span>
-              {/* TODO replace by PhoneButton */}
-              <a
-                href={`tel:${localityContact?.localitySectionPhone}`}
-                className="flex items-center space-x-4 py-2"
-              >
-                <span>
-                  <PhoneSvg />
-                </span>
-                <span>{localityContact?.localitySectionPhone}</span>
-              </a>
-              {/* TODO replace by MailButton */}
-              <a
-                href={`mailto:${localityContact?.localitySectionEmail}`}
-                className="flex items-center space-x-4 py-2"
-              >
-                <span>
-                  <MailSvg />
-                </span>
-                <span className="truncate">{localityContact?.localitySectionEmail}</span>
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
+      <LocalityDetailsContactUs localityDetails={localityDetails} />
     </div>
   )
 }
