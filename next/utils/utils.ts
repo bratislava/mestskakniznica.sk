@@ -19,15 +19,6 @@ export const isPresent = <U>(value: U | null | undefined | void): value is U => 
   return value !== null && value !== undefined
 }
 
-export const formatDateToLocal = (date: Date | string, locale = 'sk') => {
-  const newDate = new Date(date)
-  const day = newDate.toLocaleString('en-US', { day: 'numeric' })
-  const month = newDate.toLocaleString('en-US', { month: 'numeric' })
-  const year = newDate.toLocaleString('en-US', { year: 'numeric' })
-
-  return locale === 'sk' ? `${day}. ${month}. ${year}` : `${month}. ${day}. ${year}`
-}
-
 // TODO fix eslint
 export const Time24To12Format = (time: any, locale: string) => {
   /* eslint-disable no-param-reassign */
