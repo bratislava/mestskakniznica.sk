@@ -64,11 +64,12 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
 
   const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.AllEventSlugs({ locale }))
+    locales.map((locale) => client.EventStaticPaths({ locale }))
   )
   const events = pathArraysForLocales
     .flatMap(({ events: eventsInner }) => eventsInner?.data || [])
     .filter(isDefined)
+
   if (events.length > 0) {
     paths = events
       .filter((event) => event.attributes?.slug)

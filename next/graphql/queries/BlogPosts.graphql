@@ -19,61 +19,36 @@ fragment BlogPostEntity on BlogPostEntity {
   }
 }
 
-fragment BlogPostWithParentPageEntity on BlogPostEntity {
-  id
-  attributes {
-    slug
-    title
-    publishedAt
-    coverMedia {
-      data {
-        attributes {
-          url
-          mime
-          alternativeText
-        }
-      }
-    }
-    sections {
-      ...Sections
-    }
-    parentPage {
-      data {
-        ...ParentPage
-      }
-    }
-  }
-}
-
-query BlogPostStaticPaths {
-  blogPosts {
+query BlogPostStaticPaths($locale: I18NLocaleCode!) {
+  blogPosts(locale: $locale, pagination: { limit: -1 }) {
     data {
       id
       attributes {
         slug
+        locale
       }
     }
   }
 }
 
-query BlogPostBySlug($slug: String!) {
-  blogPosts(filters: { slug: { eq: $slug } }) {
-    data {
-      ...BlogPostWithParentPageEntity
-    }
-  }
-}
-
-query BlogPosts($limit: Int, $start: Int, $sort: String = "publishedAt:desc") {
-  blogPosts(pagination: { limit: $limit, start: $start }, sort: [$sort]) {
+query BlogPostBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  blogPosts(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
       ...BlogPostEntity
     }
   }
 }
 
-query BlogPostsCount {
-  blogPosts {
+query BlogPosts($locale: I18NLocaleCode!, $limit: Int, $start: Int, $sort: String = "publishedAt:desc") {
+  blogPosts(locale: $locale, pagination: { limit: $limit, start: $start }, sort: [$sort]) {
+    data {
+      ...BlogPostEntity
+    }
+  }
+}
+
+query BlogPostsCount($locale: I18NLocaleCode!) {
+  blogPosts(locale: $locale) {
     meta {
       pagination {
         total

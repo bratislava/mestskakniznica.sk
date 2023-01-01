@@ -34,11 +34,6 @@ fragment PageEntity on PageEntity {
     sections {
       ...Sections
     }
-    blogPosts {
-      data {
-        ...BlogPostEntity
-      }
-    }
 
     locale
     localizations {
