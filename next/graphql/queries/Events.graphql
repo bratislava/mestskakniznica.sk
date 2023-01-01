@@ -262,8 +262,9 @@ query EventsCount($locale: I18NLocaleCode!) {
   }
 }
 
-query AllEventSlugs($locale: I18NLocaleCode!) {
-  events(locale: $locale, pagination: { limit: -1 }) {
+# Generating pages for all events takes to long during build time and it is not necessary for old events
+query EventStaticPaths($locale: I18NLocaleCode!) {
+  events(locale: $locale, pagination: { limit: 32 }, sort: "dateFrom:desc") {
     data {
       attributes {
         slug
