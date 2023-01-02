@@ -1,7 +1,9 @@
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
+import MLink from '@modules/common/MLink'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 import { ComponentMenuSections, Enum_Page_Layout, EventCardEntityFragment } from '../../../graphql'
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
@@ -13,6 +15,8 @@ interface ColumnProps {
 }
 
 const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
+  const { t } = useTranslation('common')
+
   // TODO optionally load latestEvents here if needed
   const containsEvents = section?.sectionLinks?.some(
     (sectionLink) =>
@@ -52,35 +56,36 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                           className="h-10 pt-4 text-foreground-body"
                           tabIndex={-1}
                         >
-                          <Link href={`/${event.attributes?.slug}`} passHref>
-                            <a href={`/${event.attributes?.slug}`} className="flex">
-                              <div className="flex h-16 w-20 bg-promo-yellow text-center">
-                                <EventDetailsDateBox
-                                  dateFrom={event.attributes?.dateFrom || ''}
-                                  dateTo={event.attributes?.dateTo || ''}
-                                  textClassname="text-[18px]"
+                          <MLink
+                            href={`${t('event_slug')}${event.attributes?.slug ?? ''}`}
+                            className="flex"
+                          >
+                            <div className="flex h-16 w-20 bg-promo-yellow text-center">
+                              <EventDetailsDateBox
+                                dateFrom={event.attributes?.dateFrom || ''}
+                                dateTo={event.attributes?.dateTo || ''}
+                                textClassname="text-[18px]"
+                              />
+                            </div>
+
+                            <div className="w-full pl-5">
+                              <div className="text-foreground-heading hover:underline">
+                                {event?.attributes?.title}
+                              </div>
+                              <div className="text-sm text-foreground-body">
+                                <FormatEventDateRange
+                                  dateFrom={event.attributes?.dateFrom}
+                                  dateTo={event.attributes?.dateTo}
                                 />
                               </div>
-
-                              <div className="w-full pl-5">
-                                <div className="text-foreground-heading hover:underline">
-                                  {event?.attributes?.title}
+                              {event?.attributes?.eventLocality?.data?.attributes?.title && (
+                                <div className="max-w-[250px] text-sm text-foreground-body">
+                                  &#9679;{' '}
+                                  {event?.attributes?.eventLocality?.data?.attributes?.title}
                                 </div>
-                                <div className="text-sm text-foreground-body">
-                                  <FormatEventDateRange
-                                    dateFrom={event.attributes?.dateFrom}
-                                    dateTo={event.attributes?.dateTo}
-                                  />
-                                </div>
-                                {event?.attributes?.eventLocality?.data?.attributes?.title && (
-                                  <div className="max-w-[250px] text-sm text-foreground-body">
-                                    &#9679;{' '}
-                                    {event?.attributes?.eventLocality?.data?.attributes?.title}
-                                  </div>
-                                )}
-                              </div>
-                            </a>
-                          </Link>
+                              )}
+                            </div>
+                          </MLink>
                         </NavigationMenu.Link>
                       </div>
                     </div>

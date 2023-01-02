@@ -11,9 +11,11 @@ interface IListingCardProps {
 const ListingCard = ({ card }: IListingCardProps) => {
   const { t } = useTranslation('common')
 
+  const linkPrefix = card.__typename === 'EventEntity' ? t('event_slug') : ''
+
   return (
     <MLink
-      href={card.attributes?.slug ?? ''}
+      href={`${linkPrefix}${card.attributes?.slug ?? ''}`}
       className="relative flex h-full w-full shrink-0 flex-col justify-between"
     >
       <div className="flex h-full flex-col">

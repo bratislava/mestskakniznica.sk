@@ -2,6 +2,7 @@ import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
 import { WithAttributes } from '@utils/isDefined'
 import Image from 'next/image'
+import { useTranslation } from 'next-i18next'
 
 import { EventCardEntityFragment } from '../../../graphql'
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
@@ -12,6 +13,8 @@ interface IPromoEventCardProps {
 }
 
 const PromoEventCard = ({ event }: IPromoEventCardProps) => {
+  const { t } = useTranslation('common')
+
   if (!event) {
     return null
   }
@@ -41,7 +44,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
 
       <div className="mt-3 w-full pl-5 pr-[19px] text-h2 text-foreground-heading line-clamp-3">
         <MLink
-          href={slug ?? ''}
+          href={`${t('event_slug')}${slug}`}
           variant="basic"
           className="after:absolute after:inset-0 after:z-[1]"
         >
