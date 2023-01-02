@@ -62,6 +62,14 @@ const nextConfig = {
           destination: '/event/:slug',
         },
         {
+          source: '/navstivte/:slug',
+          destination: '/branch/:slug',
+        },
+        {
+          source: '/visit/:slug',
+          destination: '/branch/:slug',
+        },
+        {
           source: '/vyhladavanie',
           destination: '/search',
         },
