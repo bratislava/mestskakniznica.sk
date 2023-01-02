@@ -151,8 +151,9 @@ const Events = ({ page }: PageProps) => {
       tmp.eventTags = { title: { eq: selectedEventTags.title } }
     if (selectedCategory && selectedCategory.title)
       tmp.eventCategory = { title: { eq: selectedCategory.title } }
-    if (selectedLocality && selectedLocality.title)
-      tmp.eventLocality = { title: { eq: selectedLocality.title } }
+    // TODO put back with branch
+    // if (selectedLocality && selectedLocality.title)
+    //   tmp.eventLocality = { title: { eq: selectedLocality.title } }
     return tmp
   }
 

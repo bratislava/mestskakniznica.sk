@@ -7,6 +7,7 @@ import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import AddToCalendar from '@culturehq/add-to-calendar'
+import { getBranchInfo } from '@utils/getBranchInfo'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
@@ -33,6 +34,8 @@ const EventDetails = ({ event }: PageProps) => {
   const { Markdown: UIMarkdown } = useUIContext()
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
   const { locale } = usePageWrapperContext()
+
+  const eventBranch = getBranchInfo(event?.attributes?.branch?.data)
 
   const copyToClipBoard = () => {
     navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
@@ -121,7 +124,7 @@ const EventDetails = ({ event }: PageProps) => {
           <div className="mt-8 border-b border-border-dark pb-10 lg:mt-0">
             <div className="text-[24px]">{t('description')}</div>
             <div className="pt-5 text-[16px] text-foreground-body">
-              <UIMarkdown content={event?.attributes?.description || ''}/>
+              <UIMarkdown content={event?.attributes?.description || ''} />
             </div>
           </div>
           {(event?.attributes?.guests?.length || 0) > 0 && (
@@ -175,14 +178,14 @@ const EventDetails = ({ event }: PageProps) => {
                     event={{
                       name: event?.attributes?.title || '',
                       details: event?.attributes?.description?.replace(/\n/g, ' ') || null,
-                      location: event?.attributes?.eventLocality?.data?.attributes?.title || null,
+                      location: eventBranch?.title || null,
                       startsAt: new Date(event?.attributes?.dateFrom).toISOString(),
                       endsAt: new Date(event?.attributes?.dateTo).toISOString(),
                     }}
                     filename="library-event"
                   >
                     <div className="flex text-sm uppercase">
-                      <SmCalendar/>
+                      <SmCalendar />
                       &nbsp; {t('eventAddToCalendar')}
                     </div>
                   </AddToCalendar>
@@ -193,7 +196,7 @@ const EventDetails = ({ event }: PageProps) => {
                 actionLink={copyToClipBoard}
                 classA="flex text-sm uppercase"
                 classDiv="my-3 lg:m-auto"
-                svgIcon={<Share/>}
+                svgIcon={<Share />}
                 text={t('eventShare')}
                 copyText
               />
@@ -201,7 +204,7 @@ const EventDetails = ({ event }: PageProps) => {
                 actionLink={fireSwal}
                 classA="flex text-sm uppercase"
                 classDiv="my-3 lg:m-auto"
-                svgIcon={<QrLogo/>}
+                svgIcon={<QrLogo />}
                 text={t('eventQr')}
               />
             </div>
@@ -215,7 +218,7 @@ const EventDetails = ({ event }: PageProps) => {
                 <div className="border-b border-border-light pb-5">
                   <DetailsRow
                     classWrapper="flex"
-                    svgIcon={<Calendar/>}
+                    svgIcon={<Calendar />}
                     text={dateTimeString(
                       event?.attributes?.dateFrom,
                       event?.attributes?.dateTo,
@@ -228,15 +231,14 @@ const EventDetails = ({ event }: PageProps) => {
                         event={{
                           name: event?.attributes?.title || '',
                           details: event?.attributes?.description?.replace(/\n/g, ' ') || null,
-                          location:
-                            event?.attributes?.eventLocality?.data?.attributes?.title || null,
+                          location: eventBranch?.title || null,
                           startsAt: new Date(event?.attributes?.dateFrom).toISOString(),
                           endsAt: new Date(event?.attributes?.dateTo).toISOString(),
                         }}
                         filename="library-event"
                       >
                         <div className="flex text-sm uppercase">
-                          <SmCalendar/>
+                          <SmCalendar />
                           &nbsp; {t('eventAddToCalendar')}
                         </div>
                       </AddToCalendar>
@@ -246,25 +248,27 @@ const EventDetails = ({ event }: PageProps) => {
                 <div className="border-b border-border-light py-5">
                   <DetailsRow
                     classWrapper="flex"
-                    svgIcon={<Navigate/>}
-                    text={`${event?.attributes?.eventLocality?.data?.attributes?.title}${
-                      event?.attributes?.eventLocality?.data?.attributes?.eventAddress
-                        ? `, ${event?.attributes?.eventLocality?.data?.attributes?.eventAddress}`
+                    svgIcon={<Navigate />}
+                    text={`${
+                      eventBranch?.title && eventBranch?.address
+                        ? `${eventBranch?.title}, ${eventBranch.address}`
                         : ``
                     }`}
                   />
-                  <Clickable
-                    actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${event?.attributes?.eventLocality?.data?.attributes?.navigateTo}`}
-                    classA="flex text-base uppercase"
-                    classDiv="pl-9 pt-3"
-                    svgIcon={<Directions/>}
-                    text={t('navigate')}
-                  />
+                  {eventBranch?.address && (
+                    <Clickable
+                      actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${eventBranch.address}`}
+                      classA="flex text-base uppercase"
+                      classDiv="pl-9 pt-3"
+                      svgIcon={<Directions />}
+                      text={t('navigate')}
+                    />
+                  )}
                 </div>
 
                 <DetailsRow
                   classWrapper="flex pt-5"
-                  svgIcon={<Euro/>}
+                  svgIcon={<Euro />}
                   text={
                     !event?.attributes?.price || event?.attributes?.price == 0
                       ? t('noCharge').toString()
