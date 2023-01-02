@@ -13,6 +13,7 @@ import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/Locality
 import Accordion from '@modules/common/Accordion'
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
+import { getBranchInfo } from '@utils/getBranchInfo'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -175,41 +176,45 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           <div className="hidden border-b border-border-dark py-12" id="events">
             <div className="text-h3">{t('events')}</div>
             <div className="grid grid-cols-1 md:grid-cols-2">
-              {events?.map((event) => (
-                <div className="h-23 w-full cursor-pointer" key={event.id}>
-                  <div className="h-10 pt-4 text-foreground-body">
-                    <Link href={event.attributes?.slug || ''} passHref>
-                      <a href={event.attributes?.slug || ''} className="flex">
-                        <div className="flex h-16 w-16 bg-promo-yellow">
-                          <EventDetailsDateBox
-                            dateFrom={event.attributes?.dateFrom || ''}
-                            dateTo={event.attributes?.dateTo || ''}
-                            textClassname="text-[18px]"
-                            wrapperClassname="w-16"
-                          />
-                        </div>
+              {events?.map((event) => {
+                const eventBranch = getBranchInfo(event.attributes?.branch?.data)
 
-                        <div className="overflow-hidden pl-5">
-                          <div className="overflow-hidden text-ellipsis whitespace-pre text-foreground-heading hover:underline md:w-52">
-                            {event.attributes?.title}
-                          </div>
-                          <div className="pt-[5px] text-sm text-foreground-body">
-                            <FormatEventDateRange
-                              dateFrom={event?.attributes?.dateFrom}
-                              dateTo={event?.attributes?.dateTo}
+                return (
+                  <div className="h-23 w-full cursor-pointer" key={event.id}>
+                    <div className="h-10 pt-4 text-foreground-body">
+                      <Link href={event.attributes?.slug || ''} passHref>
+                        <a href={event.attributes?.slug || ''} className="flex">
+                          <div className="flex h-16 w-16 bg-promo-yellow">
+                            <EventDetailsDateBox
+                              dateFrom={event.attributes?.dateFrom || ''}
+                              dateTo={event.attributes?.dateTo || ''}
+                              textClassname="text-[18px]"
+                              wrapperClassname="w-16"
                             />
                           </div>
-                          {event.attributes?.eventLocality?.data?.attributes?.title && (
-                            <div className="overflow-hidden text-ellipsis whitespace-pre text-sm text-foreground-body md:w-52">
-                              &#9679; {event.attributes?.eventLocality.data.attributes.title}
+
+                          <div className="overflow-hidden pl-5">
+                            <div className="overflow-hidden text-ellipsis whitespace-pre text-foreground-heading hover:underline md:w-52">
+                              {event.attributes?.title}
                             </div>
-                          )}
-                        </div>
-                      </a>
-                    </Link>
+                            <div className="pt-[5px] text-sm text-foreground-body">
+                              <FormatEventDateRange
+                                dateFrom={event?.attributes?.dateFrom}
+                                dateTo={event?.attributes?.dateTo}
+                              />
+                            </div>
+                            {eventBranch?.title && (
+                              <div className="overflow-hidden text-ellipsis whitespace-pre text-sm text-foreground-body md:w-52">
+                                &#9679; {eventBranch.title}
+                              </div>
+                            )}
+                          </div>
+                        </a>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
             <div className="pt-6">
               <Link href={eventsListingUrl || ''} passHref>

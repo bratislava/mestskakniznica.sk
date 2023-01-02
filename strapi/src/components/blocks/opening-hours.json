@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_blocks_opening_hours",
+  "info": {
+    "displayName": "opening hours",
+    "icon": "clock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "days": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.opening-hours-item",
+      "required": true,
+      "min": 1
+    }
+  }
+}

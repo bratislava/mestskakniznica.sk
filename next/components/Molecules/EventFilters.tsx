@@ -83,13 +83,14 @@ const EventFilters = ({
         value={selectedCategory ?? categories[0].title}
         onChange={(ev) => setSelectedCategory(ev)}
       />
-      <Select
-        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-border-light"
-        selectClassName="border-0 lg:border"
-        options={localities}
-        value={selectedLocality ?? localities[0].title}
-        onChange={(ev) => setSelectedLocality(ev)}
-      />
+      {/* TODO put back with branch */}
+      {/* <Select */}
+      {/*  className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-border-light" */}
+      {/*  selectClassName="border-0 lg:border" */}
+      {/*  options={localities} */}
+      {/*  value={selectedLocality ?? localities[0].title} */}
+      {/*  onChange={(ev) => setSelectedLocality(ev)} */}
+      {/* /> */}
     </>
   )
 }
