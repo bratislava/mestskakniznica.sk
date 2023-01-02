@@ -11,6 +11,9 @@ interface DateCardProps {
   wrapperClassname?: string
 }
 
+/**
+ * Figma: https://www.figma.com/file/CY6Mh2f0SXJhBMY74HdS03/MKB?node-id=1566%3A19420&t=kXVnnkaG3JsS4Q8o-0
+ */
 const EventDetailsDateBox = ({
   dateFrom,
   dateTo,
@@ -55,7 +58,7 @@ const EventDetailsDateBox = ({
   }, [formatter, dateFrom, dateTo])
 
   return (
-    <div className={twMerge('m-auto text-center', wrapperClassname)}>
+    <div className={twMerge('m-auto text-center text-foreground-dark', wrapperClassname)}>
       <div className={textClassname}>{dateToDisplay}</div>
     </div>
   )
