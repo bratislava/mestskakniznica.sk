@@ -141,15 +141,10 @@ query EventProperties($locale: I18NLocaleCode!) {
       }
     }
   }
-  eventLocalities(locale: $locale) {
+  branches(locale: $locale) {
     data {
       id
-      attributes {
-        title
-        navigateTo
-        createdAt
-        updatedAt
-      }
+      ...BranchPlaceNestedEntity
     }
   }
   eventTags(locale: $locale) {
