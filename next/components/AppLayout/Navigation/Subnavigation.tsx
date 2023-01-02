@@ -11,14 +11,13 @@ interface SubnavigationProps {
 }
 
 const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: SubnavigationProps) => {
-
   const columns = useMemo(() => {
     const columnsTmp = []
     const temp: ComponentMenuSections[] = []
     menuSections?.forEach((section) => {
       if (section && section.sectionColumnSpan) {
         columnsTmp.push({ sections: section })
-      } else if(section) {
+      } else if (section) {
         temp.push(section)
       }
     })
@@ -42,7 +41,7 @@ const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: Subnavi
     >
       {columns?.map((column, index) => {
         if (!Array.isArray(column.sections)) {
-          return <Column latestEvents={latestEvents} section={column.sections} key={index}/>
+          return <Column latestEvents={latestEvents} section={column.sections} key={index} />
         }
         return (
           <div key={`merged-column-${index}`}>

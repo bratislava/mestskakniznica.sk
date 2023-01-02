@@ -19,14 +19,14 @@ export const Breadcrumbs = ({ items, homeLabel = 'Home' }: BreadcrumbsProps) => 
   return (
     <div className=" flex h-[56px] text-base">
       <Link href="/" className="py-4">
-        <Home/>
+        <Home />
         <span className="sr-only">{homeLabel}</span>
       </Link>
       <div className="flex">
         {items.map((item) => (
           <Fragment key={item.url}>
             <div className="py-6 pl-[18px]">
-              <ChevronRight/>
+              <ChevronRight />
             </div>
             {item.url && item.url !== null ? (
               <Link

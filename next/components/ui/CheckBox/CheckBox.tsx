@@ -3,8 +3,10 @@ import { Checkbox, CheckboxIndicator } from '@radix-ui/react-checkbox'
 import cx from 'classnames'
 import React from 'react'
 
-export type CheckBoxProps = Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-  'onChange'> & {
+export type CheckBoxProps = Omit<
+  React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+  'onChange'
+> & {
   id?: string
   className?: string
   required?: boolean
@@ -28,7 +30,7 @@ export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
         )}
       >
         <CheckboxIndicator>
-          <CheckMark/>
+          <CheckMark />
         </CheckboxIndicator>
       </Checkbox>
 

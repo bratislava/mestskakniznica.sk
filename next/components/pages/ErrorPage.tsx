@@ -15,11 +15,11 @@ const ErrorPage = ({ code, children }: IProps) => {
       <div className="border-border-dark">
         <div className="flex h-[56px] text-base">
           <a href="./" className="py-[18px]">
-            <Home/>{' '}
+            <Home />{' '}
           </a>
           <div className="flex">
             <div className="py-[23px] pl-[18px]">
-              <ChevronRight/>
+              <ChevronRight />
             </div>
             <div className="py-[18px] pl-3"> {code} </div>
           </div>

@@ -1,4 +1,7 @@
-import { ComponentHomepageNewsSection, PageEntityFragment, } from '@bratislava/strapi-sdk-city-library'
+import {
+  ComponentHomepageNewsSection,
+  PageEntityFragment,
+} from '@bratislava/strapi-sdk-city-library'
 import { Link } from '@bratislava/ui-city-library'
 import { useTranslation } from 'next-i18next'
 

@@ -15,15 +15,14 @@ export interface ListingProps {
   hasDivider?: boolean
 }
 
-export const Listing = (
-  {
-    className,
-    title,
-    url,
-    moreLinkTitle,
-    pages,
-    hasDivider,
-  }: ListingProps) => {
+export const Listing = ({
+  className,
+  title,
+  url,
+  moreLinkTitle,
+  pages,
+  hasDivider,
+}: ListingProps) => {
   const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className)}>
@@ -49,17 +48,17 @@ export const Listing = (
               uppercase={false}
               customIcon={
                 <span className="ml-2 inline-flex">
-                  <ChevronRight/>
+                  <ChevronRight />
                 </span>
               }
             />
 
-            <RowSubcategory className="md:hidden" title={page.title} icon={<ChevronRight/>}/>
+            <RowSubcategory className="md:hidden" title={page.title} icon={<ChevronRight />} />
           </UILink>
         ))}
       </div>
       {hasDivider && (
-        <div className="mt-16 hidden w-full border-b-[1px] border-border-dark md:flex"/>
+        <div className="mt-16 hidden w-full border-b-[1px] border-border-dark md:flex" />
       )}
     </div>
   )

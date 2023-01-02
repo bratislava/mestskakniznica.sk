@@ -23,25 +23,27 @@ interface RadioGroupProps<T extends IRadioOption> {
   required?: boolean | undefined
 }
 
-export const RadioGroup = <T extends IRadioOption>(
-  {
-    id,
-    wrapperClassName,
-    className,
-    radioClassName,
-    labelContent,
-    hasError,
-    errorMessage,
-    options,
-    onChange,
-    value,
-    required,
-  }: RadioGroupProps<T>) => {
+export const RadioGroup = <T extends IRadioOption>({
+  id,
+  wrapperClassName,
+  className,
+  radioClassName,
+  labelContent,
+  hasError,
+  errorMessage,
+  options,
+  onChange,
+  value,
+  required,
+}: RadioGroupProps<T>) => {
   return (
     <div className={wrapperClassName}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('mb-1 block text-sm text-foreground-heading opacity-80 ')} htmlFor={id}>
+        <label
+          className={cx('mb-1 block text-sm text-foreground-heading opacity-80 ')}
+          htmlFor={id}
+        >
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -72,7 +74,7 @@ export const RadioGroup = <T extends IRadioOption>(
                 id={opt.key}
                 className="flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark "
               >
-                <RadioGroupPrimitive.Indicator className="h-3 w-3 rounded-full bg-dark"/>
+                <RadioGroupPrimitive.Indicator className="h-3 w-3 rounded-full bg-dark" />
               </RadioGroupPrimitive.Item>
               <label
                 htmlFor={opt.key}
