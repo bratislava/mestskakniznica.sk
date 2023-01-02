@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_blocks_opening_hours_items",
+  "info": {
+    "displayName": "opening hours item",
+    "icon": "clock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": "Pondelok až piatok"
+    },
+    "time": {
+      "type": "string",
+      "required": true,
+      "default": "8:00 - 19:00"
+    }
+  }
+}

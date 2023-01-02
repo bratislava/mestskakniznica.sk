@@ -1,6 +1,7 @@
 import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
+import { getBranchInfo } from '@utils/getBranchInfo'
 import { useTranslation } from 'next-i18next'
 
 import Placeholder from '../../assets/images/event-list-placeholder.jpg'
@@ -22,8 +23,11 @@ const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
     coverImage,
     eventTags,
     eventCategory,
-    eventLocality,
+    branch,
   } = attributes ?? {}
+
+  const eventBranch = getBranchInfo(branch?.data)
+
   return (
     // TODO refactor link to meet html validation standards
 
@@ -59,10 +63,8 @@ const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
       <div className="pt-2 text-sm text-foreground-body">
         <FormatEventDateRange dateFrom={attributes?.dateFrom} dateTo={attributes?.dateTo} />
       </div>
-      {eventLocality?.data?.attributes?.title && (
-        <div className="pt-2 text-sm text-foreground-body">
-          &#9679; {eventLocality.data?.attributes.title}
-        </div>
+      {eventBranch?.title && (
+        <div className="pt-2 text-sm text-foreground-body">&#9679; {eventBranch.title}</div>
       )}
     </div>
   )

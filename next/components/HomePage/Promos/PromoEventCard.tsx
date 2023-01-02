@@ -1,6 +1,7 @@
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
 import { WithAttributes } from '@utils/isDefined'
+import { getBranchInfo } from '@utils/getBranchInfo'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
@@ -27,10 +28,12 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
     eventCategory,
     dateFrom,
     dateTo,
-    eventLocality,
+    branch,
     listingImage,
     coverImage,
   } = event.attributes
+
+  const eventBranch = getBranchInfo(branch?.data)
 
   return (
     <div className="relative m-auto flex h-full w-full flex-col justify-between bg-promo-yellow">
@@ -64,9 +67,9 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
             <div className="overflow-hidden text-ellipsis whitespace-pre text-sm">
               <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} />
             </div>
-            {eventLocality?.data?.attributes?.title && (
+            {eventBranch?.title && (
               <div className="overflow-hidden text-ellipsis whitespace-pre text-sm">
-                &#9679; {eventLocality.data.attributes.title}
+                &#9679; {eventBranch.title}
               </div>
             )}
           </div>
