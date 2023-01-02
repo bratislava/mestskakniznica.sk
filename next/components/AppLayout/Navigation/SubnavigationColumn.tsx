@@ -1,6 +1,5 @@
 import MLink from '@modules/common/MLink'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { getBranchInfo } from '@utils/getBranchInfo'
 import cx from 'classnames'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
@@ -52,51 +51,48 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
             if (latestEvents && latestEvents?.length > 0) {
               return (
                 <div className="grid grid-flow-col grid-rows-2">
-                  {latestEvents.map((event) => {
-                    const eventBranch = getBranchInfo(event.attributes?.branch?.data)
-
-                    return (
-                      <div key={event.attributes?.slug}>
-                        <div className="h-23 w-[380px] cursor-pointer py-5">
-                          <NavigationMenu.Link
-                            className="h-10 pt-4 text-foreground-body"
-                            tabIndex={-1}
+                  {latestEvents.map((event) => (
+                    <div key={event.attributes?.slug}>
+                      <div className="h-23 w-[380px] cursor-pointer py-5">
+                        <NavigationMenu.Link
+                          className="h-10 pt-4 text-foreground-body"
+                          tabIndex={-1}
+                        >
+                          <MLink
+                            href={`${t('event_slug')}${event.attributes?.slug ?? ''}`}
+                            className="flex"
                           >
-                            <MLink
-                              href={`${t('event_slug')}${event.attributes?.slug ?? ''}`}
-                              className="flex"
-                            >
-                              <div className="flex h-16 w-20 bg-promo-yellow text-center">
-                                <DateCardDisplay
-                                  dateFrom={event.attributes?.dateFrom || ''}
-                                  dateTo={event.attributes?.dateTo || ''}
-                                  textSize="text-[18px]"
-                                />
-                              </div>
+                            <div className="flex h-16 w-20 bg-promo-yellow text-center">
+                              <DateCardDisplay
+                                dateFrom={event.attributes?.dateFrom || ''}
+                                dateTo={event.attributes?.dateTo || ''}
+                                textSize="text-[18px]"
+                              />
+                            </div>
 
-                              <div className="w-full pl-5">
-                                <div className="text-foreground-heading hover:underline">
-                                  {event?.attributes?.title}
-                                </div>
-                                <div className="text-sm text-foreground-body">
-                                  {dateTimeString(
-                                    event.attributes?.dateFrom || '',
-                                    event.attributes?.dateTo || '',
-                                    locale
-                                  )}
-                                </div>
-                                {eventBranch?.title && (
-                                  <div className="max-w-[250px] text-sm text-foreground-body">
-                                    &#9679; {eventBranch.title}
-                                  </div>
+                            <div className="w-full pl-5">
+                              <div className="text-foreground-heading hover:underline">
+                                {event?.attributes?.title}
+                              </div>
+                              <div className="text-sm text-foreground-body">
+                                {dateTimeString(
+                                  event.attributes?.dateFrom || '',
+                                  event.attributes?.dateTo || '',
+                                  locale
                                 )}
                               </div>
-                            </MLink>
-                          </NavigationMenu.Link>
-                        </div>
+                              {event?.attributes?.eventLocality?.data?.attributes?.title && (
+                                <div className="max-w-[250px] text-sm text-foreground-body">
+                                  &#9679;{' '}
+                                  {event?.attributes?.eventLocality?.data?.attributes?.title}
+                                </div>
+                              )}
+                            </div>
+                          </MLink>
+                        </NavigationMenu.Link>
                       </div>
-                    )
-                  })}
+                    </div>
+                  ))}
                 </div>
               )
             }

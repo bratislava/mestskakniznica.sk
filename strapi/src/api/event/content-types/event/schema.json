@@ -100,11 +100,10 @@
       "relation": "oneToOne",
       "target": "api::event-category.event-category"
     },
-    "branch": {
+    "eventLocality": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::branch.branch",
-      "inversedBy": "events"
+      "relation": "oneToOne",
+      "target": "api::event-locality.event-locality"
     },
     "Seo": {
       "type": "component",

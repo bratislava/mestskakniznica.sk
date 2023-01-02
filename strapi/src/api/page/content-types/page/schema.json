@@ -141,12 +141,6 @@
         "sections.video",
         "sections.gallery"
       ]
-    },
-    "branchesServicesTo": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::branch.branch",
-      "inversedBy": "servicePages"
     }
   }
 }

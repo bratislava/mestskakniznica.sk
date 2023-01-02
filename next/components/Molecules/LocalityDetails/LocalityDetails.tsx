@@ -12,7 +12,6 @@ import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/Loca
 import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
 import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
 import MLink from '@modules/common/MLink'
-import { getBranchInfo } from '@utils/getBranchInfo'
 import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
@@ -181,46 +180,42 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           <div className="hidden border-b border-border-dark py-12" id="events">
             <div className="text-h3">{t('events')}</div>
             <div className="grid grid-cols-1 md:grid-cols-2">
-              {events?.map((event) => {
-                const eventBranch = getBranchInfo(event.attributes?.branch?.data)
+              {events?.map((event) => (
+                <div className="h-23 w-full cursor-pointer" key={event.id}>
+                  <div className="h-10 pt-4 text-foreground-body">
+                    <Link href={event.attributes?.slug || ''} passHref>
+                      <a href={event.attributes?.slug || ''} className="flex">
+                        <div className="flex h-16 w-16 bg-promo-yellow">
+                          <DateCardDisplay
+                            dateFrom={event.attributes?.dateFrom || ''}
+                            dateTo={event.attributes?.dateTo || ''}
+                            textSize="text-[18px]"
+                            wrapperClass="w-16"
+                          />
+                        </div>
 
-                return (
-                  <div className="h-23 w-full cursor-pointer" key={event.id}>
-                    <div className="h-10 pt-4 text-foreground-body">
-                      <Link href={event.attributes?.slug || ''} passHref>
-                        <a href={event.attributes?.slug || ''} className="flex">
-                          <div className="flex h-16 w-16 bg-promo-yellow">
-                            <DateCardDisplay
-                              dateFrom={event.attributes?.dateFrom || ''}
-                              dateTo={event.attributes?.dateTo || ''}
-                              textSize="text-[18px]"
-                              wrapperClass="w-16"
-                            />
+                        <div className="overflow-hidden pl-5">
+                          <div className="overflow-hidden text-ellipsis whitespace-pre text-foreground-heading hover:underline md:w-52">
+                            {event.attributes?.title}
                           </div>
-
-                          <div className="overflow-hidden pl-5">
-                            <div className="overflow-hidden text-ellipsis whitespace-pre text-foreground-heading hover:underline md:w-52">
-                              {event.attributes?.title}
-                            </div>
-                            <div className="pt-[5px] text-sm text-foreground-body">
-                              {dateTimeString(
-                                event.attributes?.dateFrom || '',
-                                event.attributes?.dateTo || '',
-                                locale
-                              )}
-                            </div>
-                            {eventBranch?.title && (
-                              <div className="overflow-hidden text-ellipsis whitespace-pre text-sm text-foreground-body md:w-52">
-                                &#9679; {eventBranch.title}
-                              </div>
+                          <div className="pt-[5px] text-sm text-foreground-body">
+                            {dateTimeString(
+                              event.attributes?.dateFrom || '',
+                              event.attributes?.dateTo || '',
+                              locale
                             )}
                           </div>
-                        </a>
-                      </Link>
-                    </div>
+                          {event.attributes?.eventLocality?.data?.attributes?.title && (
+                            <div className="overflow-hidden text-ellipsis whitespace-pre text-sm text-foreground-body md:w-52">
+                              &#9679; {event.attributes?.eventLocality.data.attributes.title}
+                            </div>
+                          )}
+                        </div>
+                      </a>
+                    </Link>
                   </div>
-                )
-              })}
+                </div>
+              ))}
             </div>
             <div className="pt-6">
               <Link href={eventsListingUrl || ''} passHref>

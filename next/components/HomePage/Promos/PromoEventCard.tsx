@@ -1,5 +1,4 @@
 import MLink from '@modules/common/MLink'
-import { getBranchInfo } from '@utils/getBranchInfo'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
@@ -30,12 +29,10 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
     eventCategory,
     dateFrom,
     dateTo,
-    branch,
+    eventLocality,
     listingImage,
     coverImage,
   } = event.attributes
-
-  const eventBranch = getBranchInfo(branch?.data)
 
   return (
     <div className="relative m-auto flex h-full w-full flex-col justify-between bg-promo-yellow">
@@ -69,9 +66,9 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
             <div className="overflow-hidden text-ellipsis whitespace-pre text-sm">
               {dateTimeString(dateFrom || '', dateTo || '', locale)}
             </div>
-            {eventBranch?.title && (
+            {eventLocality?.data?.attributes?.title && (
               <div className="overflow-hidden text-ellipsis whitespace-pre text-sm">
-                &#9679; {eventBranch.title}
+                &#9679; {eventLocality.data.attributes.title}
               </div>
             )}
           </div>

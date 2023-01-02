@@ -32,9 +32,16 @@ fragment EventCardAttributes on Event {
       }
     }
   }
-  branch {
+  eventLocality {
     data {
-      ...BranchPlaceNestedEntity
+      id
+      attributes {
+        title
+        navigateTo
+        eventAddress
+        createdAt
+        updatedAt
+      }
     }
   }
   eventTags {
@@ -57,31 +64,6 @@ fragment EventCardAttributes on Event {
   coverImage {
     data {
       ...ImageEntity
-    }
-  }
-}
-
-fragment BranchPlaceEntity on BranchEntity {
-  id
-  attributes {
-    title
-    navigateToLink
-    address
-  }
-}
-
-fragment BranchPlaceNestedEntity on BranchEntity {
-  ...BranchPlaceEntity
-  attributes {
-    parentBranch {
-      data {
-        id
-        attributes {
-          title
-          navigateToLink
-          address
-        }
-      }
     }
   }
 }

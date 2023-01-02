@@ -4,7 +4,6 @@ import NumberSwitcher from '@bratislava/ui-city-library/NumberSwitcher/NumberSwi
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LocalDate } from '@js-joda/core'
 import { convertDataToBody } from '@utils/form-constants'
-import { getBranchInfo } from '@utils/getBranchInfo'
 import { dateTimeString, dayForDifferentDateTo, isEventPast } from '@utils/utils'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
@@ -23,8 +22,7 @@ export interface EventReservationFormProps {
 }
 
 const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
-  const { dateFrom, dateTo, title, branch } = eventDetail?.attributes ?? {}
-  const eventBranch = getBranchInfo(branch?.data)
+  const { dateFrom, dateTo, title, eventLocality } = eventDetail?.attributes ?? {}
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
   const [isDateEditDisabled, setIsDateEditDisabled] = React.useState(false)
@@ -281,9 +279,9 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                         <div className="pt-[5px] text-sm text-foreground-body">
                           {dateTimeString(dateFrom ?? new Date(), dateTo ?? new Date(), locale)}
                         </div>
-                        {eventBranch?.title && (
+                        {eventLocality?.data?.attributes?.title && (
                           <div className="text-sm text-foreground-body">
-                            &#9679; {eventBranch.title}
+                            &#9679; {eventLocality.data.attributes?.title}
                           </div>
                         )}
                       </div>
