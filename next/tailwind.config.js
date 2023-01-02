@@ -37,6 +37,7 @@ module.exports = {
   content: [
     join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'),
     join(__dirname, 'components/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, 'modules/**/*.{js,ts,jsx,tsx}'),
   ],
   corePlugins: {
     // aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
