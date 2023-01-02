@@ -7,42 +7,6 @@ import {
 
 import { ILocality } from './types'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const dateTimeString = (date: Date | string, dateTo: Date | string, locale = 'sk') => {
-  const newDate = new Date(date)
-  const dayFrom = newDate.toLocaleString('en-US', { day: 'numeric' })
-  const monthFrom = newDate.toLocaleString('en-US', { month: 'numeric' })
-  const yearFrom = newDate.toLocaleString('en-US', { year: 'numeric' })
-  const fromTime = newDate.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: false,
-  })
-
-  const newDateTo = new Date(dateTo)
-  const dayTo = newDateTo.toLocaleString('en-US', { day: 'numeric' })
-  const monthTo = newDateTo.toLocaleString('en-US', { month: 'numeric' })
-  const yearTo = newDateTo.toLocaleString('en-US', { year: 'numeric' })
-  const toTime = newDateTo.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: false,
-  })
-
-  if (!dateTo) {
-    return `${dayFrom}. ${monthFrom}. ${yearFrom}, ${fromTime}`
-  }
-
-  if (dayFrom === dayTo && monthFrom === monthTo && fromTime === toTime)
-    return `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime}`
-  if (dayFrom === dayTo && monthFrom === monthTo)
-    return `${dayFrom}. ${monthFrom}. ${yearTo}, ${fromTime} - ${toTime}`
-  if (monthFrom === monthTo)
-    return `${dayFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
-
-  return `${dayFrom}. ${monthFrom}. - ${dayTo}. ${monthTo}. ${yearTo}, ${fromTime} - ${toTime}`
-}
-
 export const arrayify = (input: string | string[] | undefined | null) => {
   if (input === undefined || input === null) {
     return [] as undefined[]
@@ -53,34 +17,6 @@ export const arrayify = (input: string | string[] | undefined | null) => {
 
 export const isPresent = <U>(value: U | null | undefined | void): value is U => {
   return value !== null && value !== undefined
-}
-
-export const formatDateToLocal = (date: Date | string, locale = 'sk') => {
-  const newDate = new Date(date)
-  const day = newDate.toLocaleString('en-US', { day: 'numeric' })
-  const month = newDate.toLocaleString('en-US', { month: 'numeric' })
-  const year = newDate.toLocaleString('en-US', { year: 'numeric' })
-
-  return locale === 'sk' ? `${day}. ${month}. ${year}` : `${month}. ${day}. ${year}`
-}
-
-// TODO fix eslint
-export const Time24To12Format = (time: any, locale: string) => {
-  /* eslint-disable no-param-reassign */
-  if (locale === 'en') {
-    time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time]
-    if (time.length > 1) {
-      // If time format correct
-      time = time.slice(1) // Remove full string match value
-      time[5] = +time[0] < 12 ? 'AM' : 'PM' // Set AM/PM
-      time[0] = +time[0] % 12 || 12 // Adjust hours
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      time = time[0] + time[5]
-    }
-    return time // return adjusted time or original string
-  }
-  return time
-  /* eslint-enable no-param-reassign */
 }
 
 export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = false) => {

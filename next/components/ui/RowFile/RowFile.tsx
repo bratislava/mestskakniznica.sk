@@ -1,6 +1,8 @@
 import ChevronRight from '@assets/images/chevron-right.svg'
 import SingleDot from '@assets/images/dot.svg'
+import FormatDate from '@modules/common/FormatDate'
 import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
 
 import { FileIcon } from '../FileIcon/FileIcon'
 
@@ -13,15 +15,16 @@ export interface RowFileProps {
   fileType?: string
 }
 
-export const RowFile = (
-  {
-    className,
-    type,
-    title,
-    metadata,
-    dateAdded,
-    fileType,
-  }: RowFileProps) => {
+export const RowFile = ({
+  className,
+  type,
+  title,
+  metadata,
+  dateAdded,
+  fileType,
+}: RowFileProps) => {
+  const { t } = useTranslation('common')
+
   return (
     <div
       className={cx(
@@ -30,19 +33,21 @@ export const RowFile = (
       )}
     >
       <div className="flex items-center gap-x-6">
-        <FileIcon type={fileType ?? ''}/>
+        <FileIcon type={fileType ?? ''} />
 
         <div className="space-y-2">
           <p className="hidden cursor-default text-sm text-foreground-body">{type}</p>
           <h5 className="text-h5 lg:cursor-pointer lg:group-hover:underline">{title}</h5>
           <div className="flex cursor-default items-center gap-x-3 text-sm text-foreground-body">
             <span className="hidden lg:block">{metadata}</span>
-            <SingleDot className="hidden lg:block"/>
-            <span>{dateAdded}</span>
+            <SingleDot className="hidden lg:block" />
+            <span>
+              ${t('added')} <FormatDate value={dateAdded} valueType="ISO" />
+            </span>
           </div>
         </div>
       </div>
-      <ChevronRight className="hidden lg:block"/>
+      <ChevronRight className="hidden lg:block" />
     </div>
   )
 }

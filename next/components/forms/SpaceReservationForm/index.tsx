@@ -1,8 +1,7 @@
 import { DateTimeSelect, Input, TextArea } from '@bratislava/ui-city-library'
 import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { LocalDate } from '@js-joda/core'
-import { convertDataToBody, useGetFormOptions } from '@utils/form-constants'
+import { convertDataToBody, getLocalDateForYup, useGetFormOptions } from '@utils/form-constants'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -43,8 +42,8 @@ const SpaceReservationForm = () => {
       email: yup.string().email().required(),
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       space: yup.string().required(),
-      dateFrom: yup.date().min(LocalDate.now().toString()).required(),
-      dateTo: yup.date().min(LocalDate.now().toString()).required(),
+      dateFrom: yup.date().min(getLocalDateForYup()).required(),
+      dateTo: yup.date().min(getLocalDateForYup()).required(),
       timeFrom: yup.string().required(),
       timeTo: yup.string().required(),
       message: yup.string(),
@@ -299,7 +298,7 @@ const SpaceReservationForm = () => {
             )}
           />
           {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')}/>
+          <FormFooter buttonContent={t('send')} />
         </div>
       </FormContainer>
     </FormProvider>

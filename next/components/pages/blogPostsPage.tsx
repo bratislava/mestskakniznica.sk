@@ -1,11 +1,9 @@
 import { ArticleCard, PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import { client } from '@utils/gql'
-import { formatDateToLocal } from '@utils/utils'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 
 import { BlogPostEntityFragment, PageEntity, PageEntityFragment } from '../../graphql'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface BlogPostsPageProps {
@@ -17,22 +15,22 @@ export interface BlogPostsPageProps {
 const LIMIT = 16
 
 const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
+  const { i18n } = useTranslation()
   const { t } = useTranslation('common')
-  const { locale } = usePageWrapperContext()
 
   const [blogPosts, setBlogPosts] = useState<BlogPostEntityFragment[]>()
   const [noOfPages, setNoOfPages] = useState(1)
   const [offsetPage, setOffsetPage] = useState(1)
 
   useEffect(() => {
-    fetchBlogPosts(0)
+    fetchBlogPosts(0, i18n.language)
   }, [])
 
   if (!page) {
     return null
   }
 
-  const fetchBlogPosts = async (start: number) => {
+  const fetchBlogPosts = async (start: number, locale: string) => {
     const { blogPosts: blogPostResponse } = await client.BlogPosts({
       locale,
       limit: LIMIT,
@@ -66,7 +64,7 @@ const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
                 mediaType={
                   blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
                 }
-                publishedDate={formatDateToLocal(blogPost?.attributes?.publishedAt ?? '', locale)}
+                publishedDate={blogPost?.attributes?.publishedAt}
                 pageLink={{
                   title: t('showMore'),
                   url: `${t('blog_slug') + blogPost?.attributes?.slug}`,
@@ -83,7 +81,7 @@ const BlogPostsPage = ({ page }: BlogPostsPageProps) => {
           value={offsetPage}
           onChangeNumber={(num) => {
             handleChangeOffsetPage(num)
-            fetchBlogPosts((num - 1) * LIMIT)
+            fetchBlogPosts((num - 1) * LIMIT, i18n.language)
           }}
           previousButtonAriaLabel={t('previousPage')}
           nextButtonAriaLabel={t('nextPage')}

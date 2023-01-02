@@ -1,7 +1,6 @@
 import { DateTimeSelect, Input, Select } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { LocalDate } from '@js-joda/core'
-import { convertDataToBody } from '@utils/form-constants'
+import { convertDataToBody, getLocalDateForYup } from '@utils/form-constants'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -41,7 +40,7 @@ const TheaterTechReservationForm = () => {
       email: yup.string().email().required(),
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       techType: yup.string().required(),
-      term: yup.date().min(LocalDate.now().toString()).required(),
+      term: yup.date().min(getLocalDateForYup()).required(),
       acceptFormTerms: yup.boolean().isTrue(),
       cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
@@ -212,7 +211,7 @@ const TheaterTechReservationForm = () => {
             />
           </div>
           {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')}/>
+          <FormFooter buttonContent={t('send')} />
         </div>
       </FormContainer>
     </FormProvider>

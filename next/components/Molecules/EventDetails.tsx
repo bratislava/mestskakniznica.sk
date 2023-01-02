@@ -7,6 +7,7 @@ import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import AddToCalendar from '@culturehq/add-to-calendar'
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
@@ -16,12 +17,11 @@ import withReactContent from 'sweetalert2-react-content'
 
 import Placeholder from '../../assets/images/event-detail-placeholder.jpg'
 import { EventEntityFragment } from '../../graphql'
-import { dateTimeString, isEventPast } from '../../utils/utils'
-import DateCardDisplay from '../Atoms/DateCardDispaly'
+import { isEventPast } from '../../utils/utils'
 import Clickable from '../Atoms/EventClickable'
+import EventDetailsDateBox from '../Atoms/EventDetailsDateBox'
 import DetailsRow from '../Atoms/EventDetailsRow'
 import TagsDisplay from '../Atoms/TagsDisplay'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 export interface PageProps {
   event?: EventEntityFragment
@@ -32,7 +32,6 @@ const EventDetails = ({ event }: PageProps) => {
   const { asPath } = useRouter()
   const { Markdown: UIMarkdown } = useUIContext()
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
-  const { locale } = usePageWrapperContext()
 
   const copyToClipBoard = () => {
     navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
@@ -84,10 +83,10 @@ const EventDetails = ({ event }: PageProps) => {
       />
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
         <div className="col-span-1 hidden h-[108px] w-[108px] bg-promo-yellow text-center lg:flex">
-          <DateCardDisplay
+          <EventDetailsDateBox
             dateFrom={event?.attributes?.dateFrom}
             dateTo={event?.attributes?.dateTo}
-            textSize="text-h3"
+            textClassname="text-h3"
           />
         </div>
         <div className="col-span-5">
@@ -100,7 +99,10 @@ const EventDetails = ({ event }: PageProps) => {
           </div>
           <h1 className="py-3 text-h3">{event?.attributes?.title}</h1>
           <div className="text-sm text-foreground-body">
-            {dateTimeString(event?.attributes?.dateFrom, event?.attributes?.dateTo, locale)}
+            <FormatEventDateRange
+              dateFrom={event?.attributes?.dateFrom}
+              dateTo={event?.attributes?.dateTo}
+            />
           </div>
         </div>
         {/* TODO validate this - what is event reservation and is it used ? */}
@@ -121,7 +123,7 @@ const EventDetails = ({ event }: PageProps) => {
           <div className="mt-8 border-b border-border-dark pb-10 lg:mt-0">
             <div className="text-[24px]">{t('description')}</div>
             <div className="pt-5 text-[16px] text-foreground-body">
-              <UIMarkdown content={event?.attributes?.description || ''}/>
+              <UIMarkdown content={event?.attributes?.description || ''} />
             </div>
           </div>
           {(event?.attributes?.guests?.length || 0) > 0 && (
@@ -182,7 +184,7 @@ const EventDetails = ({ event }: PageProps) => {
                     filename="library-event"
                   >
                     <div className="flex text-sm uppercase">
-                      <SmCalendar/>
+                      <SmCalendar />
                       &nbsp; {t('eventAddToCalendar')}
                     </div>
                   </AddToCalendar>
@@ -193,7 +195,7 @@ const EventDetails = ({ event }: PageProps) => {
                 actionLink={copyToClipBoard}
                 classA="flex text-sm uppercase"
                 classDiv="my-3 lg:m-auto"
-                svgIcon={<Share/>}
+                svgIcon={<Share />}
                 text={t('eventShare')}
                 copyText
               />
@@ -201,7 +203,7 @@ const EventDetails = ({ event }: PageProps) => {
                 actionLink={fireSwal}
                 classA="flex text-sm uppercase"
                 classDiv="my-3 lg:m-auto"
-                svgIcon={<QrLogo/>}
+                svgIcon={<QrLogo />}
                 text={t('eventQr')}
               />
             </div>
@@ -215,12 +217,13 @@ const EventDetails = ({ event }: PageProps) => {
                 <div className="border-b border-border-light pb-5">
                   <DetailsRow
                     classWrapper="flex"
-                    svgIcon={<Calendar/>}
-                    text={dateTimeString(
-                      event?.attributes?.dateFrom,
-                      event?.attributes?.dateTo,
-                      locale
-                    )}
+                    svgIcon={<Calendar />}
+                    text={
+                      <FormatEventDateRange
+                        dateFrom={event?.attributes?.dateFrom}
+                        dateTo={event?.attributes?.dateTo}
+                      />
+                    }
                   />
                   {!isEventInThePast && (
                     <div className="pl-9 pt-3">
@@ -236,7 +239,7 @@ const EventDetails = ({ event }: PageProps) => {
                         filename="library-event"
                       >
                         <div className="flex text-sm uppercase">
-                          <SmCalendar/>
+                          <SmCalendar />
                           &nbsp; {t('eventAddToCalendar')}
                         </div>
                       </AddToCalendar>
@@ -246,7 +249,7 @@ const EventDetails = ({ event }: PageProps) => {
                 <div className="border-b border-border-light py-5">
                   <DetailsRow
                     classWrapper="flex"
-                    svgIcon={<Navigate/>}
+                    svgIcon={<Navigate />}
                     text={`${event?.attributes?.eventLocality?.data?.attributes?.title}${
                       event?.attributes?.eventLocality?.data?.attributes?.eventAddress
                         ? `, ${event?.attributes?.eventLocality?.data?.attributes?.eventAddress}`
@@ -257,14 +260,14 @@ const EventDetails = ({ event }: PageProps) => {
                     actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${event?.attributes?.eventLocality?.data?.attributes?.navigateTo}`}
                     classA="flex text-base uppercase"
                     classDiv="pl-9 pt-3"
-                    svgIcon={<Directions/>}
+                    svgIcon={<Directions />}
                     text={t('navigate')}
                   />
                 </div>
 
                 <DetailsRow
                   classWrapper="flex pt-5"
-                  svgIcon={<Euro/>}
+                  svgIcon={<Euro />}
                   text={
                     !event?.attributes?.price || event?.attributes?.price == 0
                       ? t('noCharge').toString()

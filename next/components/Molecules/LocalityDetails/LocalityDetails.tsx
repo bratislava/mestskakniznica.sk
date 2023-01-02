@@ -11,13 +11,13 @@ import { Accordion } from '@bratislava/ui-city-library'
 import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
 import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
 import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
-import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
+import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
 export interface PageProps {
@@ -186,11 +186,11 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                     <Link href={event.attributes?.slug || ''} passHref>
                       <a href={event.attributes?.slug || ''} className="flex">
                         <div className="flex h-16 w-16 bg-promo-yellow">
-                          <DateCardDisplay
+                          <EventDetailsDateBox
                             dateFrom={event.attributes?.dateFrom || ''}
                             dateTo={event.attributes?.dateTo || ''}
-                            textSize="text-[18px]"
-                            wrapperClass="w-16"
+                            textClassname="text-[18px]"
+                            wrapperClassname="w-16"
                           />
                         </div>
 
@@ -199,11 +199,10 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                             {event.attributes?.title}
                           </div>
                           <div className="pt-[5px] text-sm text-foreground-body">
-                            {dateTimeString(
-                              event.attributes?.dateFrom || '',
-                              event.attributes?.dateTo || '',
-                              locale
-                            )}
+                            <FormatEventDateRange
+                              dateFrom={event?.attributes?.dateFrom}
+                              dateTo={event?.attributes?.dateTo}
+                            />
                           </div>
                           {event.attributes?.eventLocality?.data?.attributes?.title && (
                             <div className="overflow-hidden text-ellipsis whitespace-pre text-sm text-foreground-body md:w-52">

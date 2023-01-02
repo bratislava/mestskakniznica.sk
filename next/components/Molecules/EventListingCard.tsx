@@ -1,11 +1,10 @@
 import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
 import { useTranslation } from 'next-i18next'
 
 import Placeholder from '../../assets/images/event-list-placeholder.jpg'
-import { dateTimeString } from '../../utils/utils'
 import TagsDisplay from '../Atoms/TagsDisplay'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 interface EventListingProps {
   event: EventCardEntityFragment
@@ -13,7 +12,6 @@ interface EventListingProps {
 
 const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
   const { t } = useTranslation('common')
-  const { locale } = usePageWrapperContext()
 
   const {
     title,
@@ -59,7 +57,7 @@ const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
         </MLink>
       </div>
       <div className="pt-2 text-sm text-foreground-body">
-        {dateTimeString(dateFrom || '', dateTo || '', locale)}
+        <FormatEventDateRange dateFrom={attributes?.dateFrom} dateTo={attributes?.dateTo} />
       </div>
       {eventLocality?.data?.attributes?.title && (
         <div className="pt-2 text-sm text-foreground-body">

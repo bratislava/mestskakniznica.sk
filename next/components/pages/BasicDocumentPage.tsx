@@ -6,16 +6,15 @@ import Home from '@assets/images/home.svg'
 import { BasicDocumentEntity, FooterEntity, MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import { FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
+import FormatDate from '@modules/common/FormatDate'
 import truncate from 'lodash/truncate'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { formatDateToLocal } from '../../utils/utils'
 import DefaultPageLayout from '../layouts/DefaultPageLayout'
 
 interface IProps {
   file: BasicDocumentEntity
-  locale?: string
   menus: MenuEntity[]
   footer: FooterEntity
 }
@@ -47,8 +46,7 @@ const CustomPageBreadcrumbs = ({ file }: IProps) => {
   )
 }
 
-const BasicDocumentPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
-  const dateAddedString = formatDateToLocal(file?.attributes?.date_added, locale)
+const BasicDocumentPage = ({ file, menus, footer }: IProps) => {
   const { t } = useTranslation('common')
 
   const [expandDescription, setExpandDescription] = React.useState(false)
@@ -64,7 +62,7 @@ const BasicDocumentPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
     { key: `${t('author')}:`, content: file?.attributes?.author },
     {
       key: `${t('createdAt')}:`,
-      content: dateAddedString,
+      content: <FormatDate valueType="ISO" value={file?.attributes?.date_added} />,
     },
     {
       key: `${t('link')}:`,
@@ -142,7 +140,9 @@ const BasicDocumentPage = ({ file, locale = 'sk', menus, footer }: IProps) => {
               <div className="mt-2 items-center text-base text-foreground-body lg:flex lg:gap-x-3">
                 <p className="hidden lg:block">{file?.attributes?.author}</p>
                 <SingleDot className="hidden lg:block" />
-                <p>{`${t('added')} ${dateAddedString}`}</p>
+                <p>
+                  {t('added')} <FormatDate valueType="ISO" value={file?.attributes?.date_added} />
+                </p>
               </div>
               {file?.attributes?.attachment?.data?.attributes?.url && (
                 <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">

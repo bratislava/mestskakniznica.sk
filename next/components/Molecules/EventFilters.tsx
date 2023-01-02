@@ -1,15 +1,8 @@
-import 'react-datepicker/dist/react-datepicker.css'
-
 import { Select } from '@bratislava/ui-city-library'
-import enUs from 'date-fns/locale/en-US'
-import sk from 'date-fns/locale/sk'
+import MDatePicker from '@modules/common/MDatePicker/MDatePicker'
 import { useTranslation } from 'next-i18next'
-import DatePicker, { registerLocale } from 'react-datepicker'
 
 import { usePageWrapperContext } from '../layouts/PageWrapper'
-
-registerLocale('en', enUs)
-registerLocale('sk', sk)
 
 interface IEventOptionItem {
   key: string
@@ -32,51 +25,46 @@ interface IEventFilters {
   setSelectedLocality: (data: IEventOptionItem | null | undefined) => void
 }
 
-const EventFilters = (
-  {
-    startDate,
-    endDate,
-    onStartChange,
-    onEndChange,
-    tags,
-    categories,
-    localities,
-    selectedEventTags,
-    selectedCategory,
-    selectedLocality,
-    setSelectedEventTags,
-    setSelectedCategory,
-    setSelectedLocality,
-  }: IEventFilters) => {
+const EventFilters = ({
+  startDate,
+  endDate,
+  onStartChange,
+  onEndChange,
+  tags,
+  categories,
+  localities,
+  selectedEventTags,
+  selectedCategory,
+  selectedLocality,
+  setSelectedEventTags,
+  setSelectedCategory,
+  setSelectedLocality,
+}: IEventFilters) => {
   const { t } = useTranslation('common')
   const { locale } = usePageWrapperContext()
 
   return (
     <>
-      <div
-        className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
-        <DatePicker
+      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
+        <MDatePicker
           onChange={onStartChange}
           selected={startDate}
           chooseDayAriaLabelPrefix={t('dateAriaLabel')}
           className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
           placeholderText={t('eventsDateFrom')}
           dateFormat="dd. MM. yyyy"
-          locale={locale === 'sk' ? 'sk' : 'en'}
           calendarClassName="w-screen lg:w-auto"
           shouldCloseOnSelect={false}
         />
       </div>
-      <div
-        className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
-        <DatePicker
+      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
+        <MDatePicker
           onChange={onEndChange}
           selected={endDate}
           chooseDayAriaLabelPrefix={t('dateAriaLabel')}
           className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
           placeholderText={t('eventsDateTo')}
           dateFormat="dd. MM. yyyy"
-          locale={locale === 'sk' ? 'sk' : 'en'}
           calendarClassName="w-screen lg:w-auto"
           shouldCloseOnSelect={false}
         />

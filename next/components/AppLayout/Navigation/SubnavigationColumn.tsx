@@ -1,3 +1,4 @@
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
@@ -5,9 +6,7 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
 import { ComponentMenuSections, Enum_Page_Layout, EventCardEntityFragment } from '../../../graphql'
-import { dateTimeString } from '../../../utils/utils'
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
+import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 
 interface ColumnProps {
   section: ComponentMenuSections
@@ -24,7 +23,6 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
       sectionLink?.sectionLinkPage?.data?.attributes?.layout === Enum_Page_Layout.Event
   )
   const isLengthy = section?.sectionLinks ? section.sectionLinks.length >= 8 : false
-  const { locale } = usePageWrapperContext()
 
   return (
     <div
@@ -63,10 +61,10 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                             className="flex"
                           >
                             <div className="flex h-16 w-20 bg-promo-yellow text-center">
-                              <DateCardDisplay
+                              <EventDetailsDateBox
                                 dateFrom={event.attributes?.dateFrom || ''}
                                 dateTo={event.attributes?.dateTo || ''}
-                                textSize="text-[18px]"
+                                textClassname="text-[18px]"
                               />
                             </div>
 
@@ -75,11 +73,10 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                                 {event?.attributes?.title}
                               </div>
                               <div className="text-sm text-foreground-body">
-                                {dateTimeString(
-                                  event.attributes?.dateFrom || '',
-                                  event.attributes?.dateTo || '',
-                                  locale
-                                )}
+                                <FormatEventDateRange
+                                  dateFrom={event.attributes?.dateFrom}
+                                  dateTo={event.attributes?.dateTo}
+                                />
                               </div>
                               {event?.attributes?.eventLocality?.data?.attributes?.title && (
                                 <div className="max-w-[250px] text-sm text-foreground-body">

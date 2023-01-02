@@ -1,5 +1,3 @@
-import 'react-datepicker/dist/react-datepicker.css'
-
 import { usePageWrapperContext } from 'components/layouts/PageWrapper'
 import { useTranslation } from 'next-i18next'
 import useSWR from 'swr'
@@ -39,7 +37,7 @@ const NewsListingPage = ({ page }: PageProps) => {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page}/>
+        <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
         <div className="pb-[48px]">
@@ -50,10 +48,9 @@ const NewsListingPage = ({ page }: PageProps) => {
           </div>
         </div>
 
-        <div
-          className="m-auto grid items-stretch gap-4 gap-y-10 pt-6 pb-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
+        <div className="m-auto grid items-stretch gap-4 gap-y-10 pt-6 pb-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
           {filteredPages?.map((page) => (
-            <ListingCard card={page as PageEntityFragment} key={page?.attributes?.slug}/>
+            <ListingCard card={page as PageEntityFragment} key={page?.attributes?.slug} />
           ))}
         </div>
         <div className="m-auto flex w-fit md:mr-0">

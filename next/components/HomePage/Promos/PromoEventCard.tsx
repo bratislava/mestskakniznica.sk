@@ -1,20 +1,18 @@
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
+import { WithAttributes } from '@utils/isDefined'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
 import { EventCardEntityFragment } from '../../../graphql'
-import { WithAttributes } from '../../../utils/isDefined'
-import { dateTimeString } from '../../../utils/utils'
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
+import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import TagsDisplay from '../../Atoms/TagsDisplay'
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
 interface IPromoEventCardProps {
   event: WithAttributes<EventCardEntityFragment> | null | undefined
 }
 
 const PromoEventCard = ({ event }: IPromoEventCardProps) => {
-  const { locale } = usePageWrapperContext()
   const { t } = useTranslation('common')
 
   if (!event) {
@@ -56,15 +54,15 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
       <div>
         <div className="flex space-x-4 overflow-hidden px-5 pb-6 pt-3">
           <div className="flex h-[62px] w-[60px] min-w-[60px] bg-white text-center">
-            <DateCardDisplay
+            <EventDetailsDateBox
               dateFrom={dateFrom || ''}
               dateTo={dateTo || ''}
-              textSize="text-[18px]"
+              textClassname="text-[18px]"
             />
           </div>
           <div className="m-auto overflow-hidden">
             <div className="overflow-hidden text-ellipsis whitespace-pre text-sm">
-              {dateTimeString(dateFrom || '', dateTo || '', locale)}
+              <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} />
             </div>
             {eventLocality?.data?.attributes?.title && (
               <div className="overflow-hidden text-ellipsis whitespace-pre text-sm">
