@@ -4,6 +4,14 @@ fragment BranchPlaceEntity on BranchEntity {
     title
     navigateToLink
     address
+    phone
+    email
+    openingHours {
+      days {
+        label
+        time
+      }
+    }
   }
 }
 
@@ -12,12 +20,7 @@ fragment BranchPlaceNestedEntity on BranchEntity {
   attributes {
     parentBranch {
       data {
-        id
-        attributes {
-          title
-          navigateToLink
-          address
-        }
+        ...BranchPlaceEntity
       }
     }
   }
@@ -34,8 +37,117 @@ fragment BranchCardEntity on BranchEntity {
     subBranches {
       data {
         id
+        ...BranchPlaceEntity
+      }
+    }
+  }
+}
+
+fragment BranchEntity on BranchEntity {
+  ...BranchCardEntity
+  attributes {
+    navigateToLink
+    parentBranch {
+      data {
+        ...BranchPlaceEntity
+      }
+    }
+    medias {
+      data {
+        id
+        attributes {
+          name
+          url
+          caption
+          alternativeText
+        }
+      }
+    }
+    body
+    publicTransportInfo
+    barrierFreeInfo
+    barrierFreeState
+    phone
+    email
+    openingHours {
+      days {
+        label
+        time
+      }
+    }
+    servicePages {
+      data {
+        id
         attributes {
           title
+          slug
+        }
+      }
+    }
+    locale
+    localizations {
+      data {
+        id
+        attributes {
+          title
+          slug
+          locale
+        }
+      }
+    }
+  }
+}
+
+query BranchStaticPaths($locale: I18NLocaleCode!) {
+  branches(locale: $locale, pagination: { limit: -1 }) {
+    data {
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+
+
+query BranchBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  branches(locale: $locale, filters: { slug: { eq: $slug } }) {
+    data {
+      ...BranchEntity
+    }
+  }
+  menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      ...Menu
+    }
+  }
+  footer(locale: $locale) {
+    data {
+      id
+      attributes {
+        footerColumns {
+          id
+          title
+          footerLink {
+            id
+            redirectTo {
+              data {
+                ...PageWithBaseFieldsEntity
+              }
+            }
+            title
+            otherSite
+          }
+        }
+        siteMapLink {
+          data {
+            ...PageWithBaseFieldsEntity
+          }
+        }
+        privacyLink {
+          data {
+            ...PageWithBaseFieldsEntity
+          }
         }
       }
     }

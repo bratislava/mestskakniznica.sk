@@ -20,7 +20,6 @@ import {
 import Accordion from '@modules/common/Accordion'
 import Button from '@modules/common/Button'
 import { isDefined } from '@utils/isDefined'
-import { isDefined } from '@utils/isDefined'
 import {
   groupByAccordionCategory,
   groupByCategory,
@@ -48,7 +47,6 @@ import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm, { VenueRentalFormProps } from '../forms/VenueRentalForm'
 import GalleryBanner from './GalleryBanner'
-import LocalityDetails from './LocalityDetails/LocalityDetails'
 import Metadata from './Metadata'
 
 type FormsProps =
@@ -218,15 +216,6 @@ const sectionContent = (
             {section.title}
           </Button>
         </div>
-      )
-
-    case 'ComponentSectionsLocalityDetails':
-      return (
-        <LocalityDetails
-          localityDetails={section}
-          events={events}
-          eventsListingUrl={eventsListingUrl}
-        />
       )
 
     case 'ComponentSectionsExternalLinks':
