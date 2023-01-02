@@ -46,11 +46,11 @@ interface IIndexProps {
   promos: (EventCardEntityFragment | PromoNewsCardFragment)[]
   news: PageEntity[]
   opacBookNews: OpacBook[]
-  faqSection: ComponentHomepageFaqSection
-  newsSection: ComponentHomepageNewsSection
+  faqSection: ComponentHomepageFaqSection | null
+  newsSection: ComponentHomepageNewsSection | null
   registrationInfoSection: ComponentHomepageRegistrationInfo
   bookTags: BookTagEntityFragment[]
-  mapSection: ComponentSectionsMap
+  mapSection: ComponentSectionsMap | null
   footer: FooterEntity
   error?: IDisplayError
   Seo?: ComponentSeoSeo
@@ -158,16 +158,18 @@ export const Index = ({
           </SectionContainer>
         )}
 
-        <SectionContainer>
-          <Section noBorder>
-            <Localities
-              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
-              branches={
-                mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []
-              }
-            />
-          </Section>
-        </SectionContainer>
+        {mapSection && (
+          <SectionContainer>
+            <Section noBorder>
+              <Localities
+                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
+                branches={
+                  mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []
+                }
+              />
+            </Section>
+          </SectionContainer>
+        )}
       </DefaultPageLayout>
     </PageWrapper>
   )

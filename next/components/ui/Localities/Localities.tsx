@@ -13,6 +13,7 @@ import { useIsClient } from 'usehooks-ts'
 export interface LocalitiesProps {
   branches: BranchCardEntityFragment[]
   mapboxAccessToken: string
+  title?: string | null | undefined
   altDesign?: boolean // alternative design
 }
 
@@ -28,7 +29,12 @@ const getBoundsForLocalities = (branches: BranchCardEntityFragment[]) => {
   ] as [[number, number], [number, number]]
 }
 
-export const Localities = ({ branches, mapboxAccessToken, altDesign = false }: LocalitiesProps) => {
+export const Localities = ({
+  branches,
+  mapboxAccessToken,
+  title,
+  altDesign = false,
+}: LocalitiesProps) => {
   const { t } = useTranslation('homepage')
 
   const isClient = useIsClient()
@@ -58,7 +64,7 @@ export const Localities = ({ branches, mapboxAccessToken, altDesign = false }: L
 
   return (
     <section>
-      <h2 className="py-12 text-center text-h3 md:text-left">{t('localitiesTitle')}</h2>
+      <h2 className="py-12 text-center text-h3 md:text-left">{title || t('localitiesTitle')}</h2>
 
       <div className={cx({ 'border-border-dark lg:border': !altDesign })}>
         <div className="mb-4 h-60 w-full text-black lg:mb-8">
@@ -138,7 +144,7 @@ export const Localities = ({ branches, mapboxAccessToken, altDesign = false }: L
                 key={branch.id}
               >
                 {/* TODO move link to title */}
-                <MLink href={slug || ''}>
+                <MLink href={`${t('branch_slug')}${slug ?? ''}`}>
                   <div className="flex h-full w-full flex-col justify-between gap-4 p-6 lg:py-0">
                     <div>
                       <div className="text-h3">{title}</div>

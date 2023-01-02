@@ -165,7 +165,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::page.page",
-      "inversedBy": "branchesServicesTo"
+      "mappedBy": "branchesServicesTo"
     }
   }
 }

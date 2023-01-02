@@ -10,6 +10,7 @@ import {
   Faq,
   FlatText,
   FlatTextCenter,
+  Localities,
   SiteUsefullness,
   SubListing,
   Subpages,
@@ -18,6 +19,7 @@ import {
 } from '@bratislava/ui-city-library'
 import Accordion from '@modules/common/Accordion'
 import Button from '@modules/common/Button'
+import { isDefined } from '@utils/isDefined'
 import { isDefined } from '@utils/isDefined'
 import {
   groupByAccordionCategory,
@@ -276,6 +278,16 @@ const sectionContent = (
                   .replace('.', '') ?? '',
             },
           }))}
+        />
+      )
+
+    case 'ComponentSectionsMap':
+      return (
+        <Localities
+          altDesign
+          title={section.title}
+          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
+          branches={section.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []}
         />
       )
 
