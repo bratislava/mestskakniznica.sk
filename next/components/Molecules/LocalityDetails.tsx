@@ -213,8 +213,8 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
                           <EventDetailsDateBox
                             dateFrom={event.attributes?.dateFrom || ''}
                             dateTo={event.attributes?.dateTo || ''}
-                            textSize="text-[18px]"
-                            wrapperClass="w-16"
+                            textClassname="text-[18px]"
+                            wrapperClassname="w-16"
                           />
                         </div>
 

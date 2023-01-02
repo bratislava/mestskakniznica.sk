@@ -262,7 +262,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                         <EventDetailsDateBox
                           dateFrom={dateFrom ?? '1-1-1970'}
                           dateTo={dateTo ?? '1-1-1970'}
-                          textSize="text-[18px]"
+                          textClassname="text-[18px]"
                         />
                       </div>
 

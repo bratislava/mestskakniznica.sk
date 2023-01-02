@@ -54,7 +54,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
             <EventDetailsDateBox
               dateFrom={dateFrom || ''}
               dateTo={dateTo || ''}
-              textSize="text-[18px]"
+              textClassname="text-[18px]"
             />
           </div>
           <div className="m-auto overflow-hidden">

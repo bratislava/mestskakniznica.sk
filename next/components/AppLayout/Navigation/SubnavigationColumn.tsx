@@ -58,7 +58,7 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                                 <EventDetailsDateBox
                                   dateFrom={event.attributes?.dateFrom || ''}
                                   dateTo={event.attributes?.dateTo || ''}
-                                  textSize="text-[18px]"
+                                  textClassname="text-[18px]"
                                 />
                               </div>
 

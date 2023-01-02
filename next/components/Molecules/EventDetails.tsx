@@ -86,7 +86,7 @@ const EventDetails = ({ event }: PageProps) => {
           <EventDetailsDateBox
             dateFrom={event?.attributes?.dateFrom}
             dateTo={event?.attributes?.dateTo}
-            textSize="text-h3"
+            textClassname="text-h3"
           />
         </div>
         <div className="col-span-5">

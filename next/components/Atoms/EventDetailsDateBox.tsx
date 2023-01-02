@@ -1,17 +1,22 @@
 import { now, parseAbsolute } from '@internationalized/date'
 import { bratislavaTimezone } from '@utils/consts'
-import cx from 'classnames'
 import { useMemo } from 'react'
 import { useDateFormatter } from 'react-aria'
+import { twMerge } from 'tailwind-merge'
 
 interface DateCardProps {
   dateFrom: string
   dateTo: string
-  textSize: string
-  wrapperClass?: string
+  textClassname: string
+  wrapperClassname?: string
 }
 
-const EventDetailsDateBox = ({ dateFrom, dateTo, textSize, wrapperClass }: DateCardProps) => {
+const EventDetailsDateBox = ({
+  dateFrom,
+  dateTo,
+  textClassname,
+  wrapperClassname,
+}: DateCardProps) => {
   const formatter = useDateFormatter({
     day: 'numeric',
     month: 'numeric',
@@ -50,9 +55,8 @@ const EventDetailsDateBox = ({ dateFrom, dateTo, textSize, wrapperClass }: DateC
   }, [formatter, dateFrom, dateTo])
 
   return (
-    <div className={cx('m-auto text-center', wrapperClass)}>
-      <div className={cx(textSize)}>{dateToDisplay}</div>
-      {/* <div className="text-sm capitalize">{month}</div> */}
+    <div className={twMerge('m-auto text-center', wrapperClassname)}>
+      <div className={textClassname}>{dateToDisplay}</div>
     </div>
   )
 }
