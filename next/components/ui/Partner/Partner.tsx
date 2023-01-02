@@ -45,7 +45,7 @@ export const Partner = ({ className, title, pageLink, logo, alt, featured }: Par
         })}
         href={pageLink?.url ?? '#'}
       >
-        <Globe/>
+        <Globe />
         <span
           className={cx('text-[12px] font-medium lg:text-sm', {
             'hidden lg:inline-flex': !featured,

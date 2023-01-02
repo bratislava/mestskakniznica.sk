@@ -10,19 +10,18 @@ export interface TextAreaProps
   textAreaClassname?: string
 }
 
-export const TextArea = (
-  {
-    className,
-    children,
-    labelContent,
-    helpText,
-    id,
-    hasError = false,
-    errorMessage,
-    textAreaClassname,
-    required,
-    ...props
-  }: TextAreaProps) => {
+export const TextArea = ({
+  className,
+  children,
+  labelContent,
+  helpText,
+  id,
+  hasError = false,
+  errorMessage,
+  textAreaClassname,
+  required,
+  ...props
+}: TextAreaProps) => {
   return (
     <div className={className}>
       {/* Label */}

@@ -12,16 +12,15 @@ export interface CtaProps {
   uppercase?: boolean
 }
 
-export const CallToAction = (
-  {
-    className,
-    title,
-    href,
-    bottomText,
-    customIcon,
-    hasIcon = true,
-    uppercase = true,
-  }: CtaProps) => {
+export const CallToAction = ({
+  className,
+  title,
+  href,
+  bottomText,
+  customIcon,
+  hasIcon = true,
+  uppercase = true,
+}: CtaProps) => {
   return (
     <div className="border border-border-dark">
       <Link href={href} hasIcon={hasIcon} uppercase={uppercase}>

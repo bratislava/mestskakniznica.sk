@@ -22,7 +22,7 @@ export const Search = ({ locale, error, page, menus, footer }: IProps) => {
           .map((l) => ({ ...l, slug: '' }))}
       >
         <ErrorPage code={500}>
-          <ErrorDisplay error={error}/>
+          <ErrorDisplay error={error} />
         </ErrorPage>
       </PageWrapper>
     )
@@ -40,11 +40,11 @@ export const Search = ({ locale, error, page, menus, footer }: IProps) => {
         {
           locale: 'en',
           slug: 'search',
-        }
+        },
       ]}
     >
       <DefaultPageLayout Seo={page?.attributes?.Seo} menus={menus} footer={footer}>
-        <SearchPage pageEntity={page}/>
+        <SearchPage pageEntity={page} />
       </DefaultPageLayout>
     </PageWrapper>
   )

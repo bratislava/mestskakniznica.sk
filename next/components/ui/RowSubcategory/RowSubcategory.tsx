@@ -8,7 +8,11 @@ export interface RowSubcategoryProps {
   icon?: ReactNode
 }
 
-export const RowSubcategory = ({ className, title, icon = <ArrowRight/> }: RowSubcategoryProps) => {
+export const RowSubcategory = ({
+  className,
+  title,
+  icon = <ArrowRight />,
+}: RowSubcategoryProps) => {
   return (
     <div
       className={cx(

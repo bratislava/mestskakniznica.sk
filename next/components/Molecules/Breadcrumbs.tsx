@@ -29,7 +29,7 @@ const DesktopBreadCrumbs = ({ crumbs }: BreadcrumbsProps) => {
                 <a className="shrink" href={crumb.url}>
                   {first ? (
                     <>
-                      <Home className="cursor-pointer"/>
+                      <Home className="cursor-pointer" />
                       <span className="sr-only">{t('homepage')}</span>
                     </>
                   ) : (
@@ -51,7 +51,7 @@ const DesktopBreadCrumbs = ({ crumbs }: BreadcrumbsProps) => {
             )}
             {!last && (
               <span className="px-4">
-                <ChevronRight/>
+                <ChevronRight />
               </span>
             )}
           </Fragment>
@@ -93,9 +93,9 @@ const MobileBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
         )}
       >
         <div className="flex w-fit shrink flex-row items-center">
-          <DesktopBreadCrumbs crumbs={primaryBreadcrumbs}/>
+          <DesktopBreadCrumbs crumbs={primaryBreadcrumbs} />
         </div>
-        <div className="ml-4">{isOpen ? <ChevronUp/> : <ChevronDown/>}</div>
+        <div className="ml-4">{isOpen ? <ChevronUp /> : <ChevronDown />}</div>
       </button>
 
       <div
@@ -109,7 +109,7 @@ const MobileBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
             <Link href={crumb.url || ''} passHref key={crumb.title}>
               <a>
                 <div className="flex items-center space-x-4" key={crumb.title}>
-                  <ArrowLeft/>
+                  <ArrowLeft />
                   <span>{crumb.title}</span>
                 </div>
               </a>
@@ -125,9 +125,9 @@ const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
   return (
     <>
       <div className="hidden flex-row items-center py-[18px] lg:flex">
-        <DesktopBreadCrumbs crumbs={crumbs}/>
+        <DesktopBreadCrumbs crumbs={crumbs} />
       </div>
-      <MobileBreadcrumbs crumbs={crumbs}/>
+      <MobileBreadcrumbs crumbs={crumbs} />
     </>
   )
 }

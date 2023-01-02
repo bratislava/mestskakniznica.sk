@@ -14,22 +14,21 @@ export interface InputProps
   inputClassName?: string
 }
 
-export const Input = (
-  {
-    className,
-    id,
-    required,
-    labelContent,
-    helpText,
-    hasError,
-    errorMessage,
-    iconLeft,
-    iconRight,
-    iconClassName,
-    inputClassName,
-    labelClassName,
-    ...props
-  }: InputProps) => {
+export const Input = ({
+  className,
+  id,
+  required,
+  labelContent,
+  helpText,
+  hasError,
+  errorMessage,
+  iconLeft,
+  iconRight,
+  iconClassName,
+  inputClassName,
+  labelClassName,
+  ...props
+}: InputProps) => {
   return (
     <div className={className}>
       {/* Label */}
@@ -69,7 +68,7 @@ export const Input = (
         {iconRight ||
           (hasError &&
             (hasError ? (
-              <ErrorOutline className="absolute right-4.5 text-error"/>
+              <ErrorOutline className="absolute right-4.5 text-error" />
             ) : (
               <span className={cx('absolute right-4.5', iconClassName)}>{iconRight}</span>
             )))}

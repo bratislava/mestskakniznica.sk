@@ -1,4 +1,7 @@
-import { ComponentAddressAddress, ComponentLocalityPartsLocalitySection } from '@bratislava/strapi-sdk-city-library'
+import {
+  ComponentAddressAddress,
+  ComponentLocalityPartsLocalitySection,
+} from '@bratislava/strapi-sdk-city-library'
 
 export type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T
 
@@ -17,7 +20,9 @@ export type NextRedirectServerSideProps =
 // tends to work better then GetServerSidePropsResult - gives you inferred props only for when the page component actually renders
 // use as follows: AsyncServerProps<typeof getServerSideProps>
 // getServerSideProps needs to be declared as async - which it tends to be, add a sync version if you need it
-export type AsyncServerProps<T extends (...args: any) => Promise<NextRedirectServerSideProps | { props: any }>> = Exclude<Awaited<ReturnType<T>>, NextRedirectServerSideProps>['props']
+export type AsyncServerProps<
+  T extends (...args: any) => Promise<NextRedirectServerSideProps | { props: any }>
+> = Exclude<Awaited<ReturnType<T>>, NextRedirectServerSideProps>['props']
 
 export interface ILocality {
   localityTitle?: string
@@ -37,4 +42,3 @@ interface ILocalityOpeningHours {
   localityOpenFrom?: string
   localityOpenTo?: string
 }
-

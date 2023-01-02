@@ -32,7 +32,7 @@ export const ColumnedText = ({ className, content, title }: ColumnedTextProps) =
     >
       {columns.map((column, i) => (
         <div key={i}>
-          <UIMarkdown content={column} className="text-base"/>
+          <UIMarkdown content={column} className="text-base" />
         </div>
       ))}
     </div>

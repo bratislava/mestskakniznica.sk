@@ -15,13 +15,13 @@ export const FlatText = ({ className, media, alt, mediaType, content }: FlatText
   const { Markdown: UIMarkdown } = useUIContext()
   return (
     <div className={cx(className, 'space-y-10 ')}>
-      {media && mediaType === 'image' && <img src={media} alt={alt}/>}
+      {media && mediaType === 'image' && <img src={media} alt={alt} />}
       {media && mediaType === 'video' && (
         <div className="flex w-full justify-center">
-          <Video mediaUrl={media}/>
+          <Video mediaUrl={media} />
         </div>
       )}
-      <UIMarkdown paragraphClassName="text-base" content={content ?? ''}/>
+      <UIMarkdown paragraphClassName="text-base" content={content ?? ''} />
     </div>
   )
 }

@@ -39,9 +39,9 @@ const Custom404 = ({ locale }: ICustomProps) => {
         </p>
         <form onSubmit={onSubmit}>
           <SearchBar
-            iconLeft={<SearchIcon onClick={onSubmit}/>}
+            iconLeft={<SearchIcon onClick={onSubmit} />}
             iconRight={
-              searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')}/>
+              searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />
             }
             placeholder={t('whatAreYouLookingFor')}
             className="pt-10"

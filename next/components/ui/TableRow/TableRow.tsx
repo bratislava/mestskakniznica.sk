@@ -24,7 +24,7 @@ export const TableRow = ({ className, label, value, valueAlign = 'start' }: Tabl
 
       {valueAlign === 'center' && (
         <>
-          <td className="w-1/6"/>
+          <td className="w-1/6" />
           <td className="w-1/3">{value ?? ''}</td>
         </>
       )}

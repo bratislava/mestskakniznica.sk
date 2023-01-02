@@ -110,7 +110,7 @@ const CookieConsent = () => {
               className="m-3 cursor-pointer rounded-md border-2 border-border-dark p-1 md:m-0 md:p-2"
               onClick={closeModal}
             >
-              <Close/>
+              <Close />
             </button>
           </div>
           <div className="p-5">
@@ -282,7 +282,7 @@ const Panel = ({ title, content, value, onValueChange, isOpen, setPanel }: Panel
     <>
       <div className="mt-2 flex items-center justify-between bg-border-light px-2 py-3">
         <button className="flex items-center gap-2" onClick={() => setPanel(isOpen ? '' : title)}>
-          <span>{isOpen ? <ChevronUp/> : <ChevronDown/>}</span>
+          <span>{isOpen ? <ChevronUp /> : <ChevronDown />}</span>
           {title}
         </button>
         <Switch
