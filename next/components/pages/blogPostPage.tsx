@@ -1,7 +1,7 @@
 import { BlogPostEntity, ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
-import FormatDate from '@modules/common/FormatDate'
 import Breadcrumbs from '@components/Molecules/Breadcrumbs'
+import FormatDate from '@modules/common/FormatDate'
 import { useTranslation } from 'next-i18next'
 
 import Sections from '../Molecules/Sections'
@@ -45,7 +45,9 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
       </SectionContainer>
       <SectionContainer>
         <PageTitle title={blogPost?.attributes?.title ?? ''} hasDivider={false} />
-        <div className="mt-2 text-base text-foreground-body lg:mt-4">{t('added')} <FormatDate valueType="ISO" value={blogPost?.attributes?.publishedAt} /></div>
+        <div className="mt-2 text-base text-foreground-body lg:mt-4">
+          {t('added')} <FormatDate valueType="ISO" value={blogPost?.attributes?.publishedAt} />
+        </div>
         <div className="-mx-7.5 mt-6 flex md:mx-0 lg:mt-10">
           {blogPost?.attributes?.coverMedia && mediaType === 'image' && (
             <img
