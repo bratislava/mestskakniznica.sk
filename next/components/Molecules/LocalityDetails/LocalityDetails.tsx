@@ -1,22 +1,24 @@
+import MailSvg from '@assets/images/mail.svg'
+import PhoneSvg from '@assets/images/phone.svg'
+import SectionSvg from '@assets/images/section.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import {
   ComponentLocalityPartsLocalitySection,
   ComponentSectionsLocalityDetails,
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
-import { Accordion, CallToAction, LocalityMap } from '@bratislava/ui-city-library'
+import { Accordion } from '@bratislava/ui-city-library'
+import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
+import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
+import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
 import MLink from '@modules/common/MLink'
 import { dateTimeString } from '@utils/utils'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
-import ChevronRightSvg from '../../assets/images/chevron-right.svg'
-import MailSvg from '../../assets/images/mail.svg'
-import PhoneSvg from '../../assets/images/phone.svg'
-import SectionSvg from '../../assets/images/section.svg'
-import DateCardDisplay from '../Atoms/DateCardDispaly'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
+import DateCardDisplay from '../../Atoms/DateCardDispaly'
+import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
 export interface PageProps {
   localityDetails: ComponentSectionsLocalityDetails
@@ -33,10 +35,6 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
   const listenAccordionState = (id: string, state: boolean) => {
     setOpenLocality(state ? id : '')
   }
-  const mainSection = useMemo(
-    () => localityDetails?.localitySections?.find((section) => section?.isMainSection),
-    [localityDetails?.localitySections]
-  )
 
   const dayString = (day: string, from: string | null, to: string | null) => {
     if (from === to || from == null || to == null)
@@ -145,14 +143,12 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
   )
 
   return (
-    <div className="flex flex-col gap-16 pt-12 lg:flex-row">
-      <div className="w-full lg:w-2/3">
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0px,_1fr)_380px] lg:gap-30">
+      <div>
         <div className="border-b border-border-dark pb-10">
           <div className="py-[12px] text-[32px]">
             <div className="pb-8">
-              <h1 className="leading-10 md:leading-6 lg:leading-6">
-                {localityDetails.localityTitle}
-              </h1>
+              <h1 className="text-h1">{localityDetails.localityTitle}</h1>
               <div className="-mx-4 overflow-x-auto">
                 <div className="flex gap-x-6 px-4 pt-9 text-sm uppercase">
                   {scrollButton('#description', t('description'))}
@@ -165,9 +161,10 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
               </div>
             </div>
           </div>
+          {/* TODO: Extract description */}
           {localityDetails.localityDescription && (
             <div id="description">
-              <div className="text-[24px]">{t('description')}</div>
+              <h3 className="text-h3">{t('description')}</h3>
               <div className="pt-5 text-[16px] text-foreground-body">
                 <UIMarkdown
                   content={localityDetails.localityDescription}
@@ -177,29 +174,8 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
             </div>
           )}
         </div>
-        {(localityDetails.localityServices?.length || 0) > 0 && (
-          <div className="border-b border-border-dark py-10" id="services">
-            <div className="text-[24px]">{t('services')}</div>
-            <div className="grid flex-wrap gap-4 pt-5 sm:grid-cols-2">
-              {localityDetails.localityServices?.map((service) => (
-                <CallToAction
-                  title={service?.page?.data?.attributes?.title ?? ''}
-                  href={service?.page?.data?.attributes?.slug ?? ''}
-                  bottomText={t('more')}
-                  className="flex h-[180px] pr-[24px]"
-                  hasIcon={false}
-                  uppercase={false}
-                  customIcon={
-                    <span className="ml-2 inline-flex">
-                      <ChevronRightSvg />
-                    </span>
-                  }
-                  key={service?.page?.data?.id ?? ''}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+        <LocalityDetailsServices localityDetails={localityDetails} />
+        {/* TODO: Extract events */}
         {(events?.length || 0) > 0 && (
           <div className="hidden border-b border-border-dark py-12" id="events">
             <div className="text-h3">{t('events')}</div>
@@ -250,6 +226,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
             </div>
           </div>
         )}
+        {/* TODO: Extract sections */}
         <div className="py-10" id="sections">
           <div className="text-[24px]">{t('sections')}</div>
           <div className="pt-5">
@@ -268,68 +245,10 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
               />
             ))}
           </div>
-        </div>
-        <div id="where" className="mb-4">
-          <div className="pb-6 text-h3">{t('localityWhereToFind')}</div>
-          <div className="flex grid-cols-2 flex-col gap-x-5 space-y-4 md:grid">
-            <div className="h-64 w-full md:h-[415px]">
-              <LocalityMap
-                localityName={localityDetails.localityTitle}
-                localityLatitude={localityDetails.localityLatitude || undefined}
-                localityLongitude={localityDetails.localityLongitude || undefined}
-                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
-              />
-            </div>
-            {mainSection && (
-              <div className="">
-                <div className="pb-4">{t('address')}</div>
-                <div className="text-base text-foreground-body">
-                  {localityDetails.localityAddress?.title &&
-                    localityDetails.localityAddress.title.split(', ').map((part) => (
-                      <div key={part}>
-                        {part}
-                        <br />
-                      </div>
-                    ))}
-                </div>
-              </div>
-            )}
-          </div>
+          <LocalityDetailsWhere localityDetails={localityDetails} />
         </div>
       </div>
-      <div className="sticky top-8 h-fit w-full border border-border-dark p-6 lg:w-1/3">
-        <div className="m-auto">
-          <div className="pb-6">{t('contactUs')}</div>
-          {localityDetails?.localitySections?.map((localityContact) => (
-            <div
-              className="flex flex-col border-t border-border-light py-3 py-5"
-              key={localityContact?.id}
-            >
-              <span>{localityContact?.localitySectionTitle}</span>
-              {/* TODO replace by PhoneButton */}
-              <a
-                href={`tel:${localityContact?.localitySectionPhone}`}
-                className="flex items-center space-x-4 py-2"
-              >
-                <span>
-                  <PhoneSvg />
-                </span>
-                <span>{localityContact?.localitySectionPhone}</span>
-              </a>
-              {/* TODO replace by MailButton */}
-              <a
-                href={`mailto:${localityContact?.localitySectionEmail}`}
-                className="flex items-center space-x-4 py-2"
-              >
-                <span>
-                  <MailSvg />
-                </span>
-                <span className="truncate">{localityContact?.localitySectionEmail}</span>
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
+      <LocalityDetailsContactUs localityDetails={localityDetails} />
     </div>
   )
 }
