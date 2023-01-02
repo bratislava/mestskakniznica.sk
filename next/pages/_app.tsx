@@ -1,6 +1,7 @@
 import '../styles/index.css'
 
 import { UIContextProvider } from '@bratislava/common-frontend-ui-context'
+import MI18nProvider from '@modules/common/MI18nProvider'
 import { isProductionDeployment } from '@utils/utils'
 import { AppProps } from 'next/app'
 import Link from 'next/link'
@@ -32,33 +33,35 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
           src="https://plausible.io/js/plausible.js"
         />
       ) : null}{' '}
-      <QueryParamProvider adapter={NextAdapter}>
-        <UIContextProvider
-          components={{
-            Link: ({ href, className, children, locale, target, rel }) => {
-              if (href === undefined || href === null) return null
-              return (
-                <Link href={href} locale={locale}>
-                  <a target={target} rel={rel} href={href} className={className}>
-                    {children}
-                  </a>
-                </Link>
-              )
-            },
-            Image: ({ alt, src }) => <img alt={alt} src={src} />,
-            Markdown: ({ className, paragraphClassName, content }) => (
-              <CityLibraryMarkdown
-                className={className}
-                paragraphClassName={paragraphClassName}
-                content={content}
-              />
-            ),
-          }}
-        >
-          <Component {...pageProps} />
-        </UIContextProvider>
-      </QueryParamProvider>
-      <CookieConsent />
+      <MI18nProvider>
+        <QueryParamProvider adapter={NextAdapter}>
+          <UIContextProvider
+            components={{
+              Link: ({ href, className, children, locale, target, rel }) => {
+                if (href === undefined || href === null) return null
+                return (
+                  <Link href={href} locale={locale}>
+                    <a target={target} rel={rel} href={href} className={className}>
+                      {children}
+                    </a>
+                  </Link>
+                )
+              },
+              Image: ({ alt, src }) => <img alt={alt} src={src} />,
+              Markdown: ({ className, paragraphClassName, content }) => (
+                <CityLibraryMarkdown
+                  className={className}
+                  paragraphClassName={paragraphClassName}
+                  content={content}
+                />
+              ),
+            }}
+          >
+            <Component {...pageProps} />
+          </UIContextProvider>
+        </QueryParamProvider>
+        <CookieConsent />
+      </MI18nProvider>
     </div>
   )
 }

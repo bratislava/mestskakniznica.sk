@@ -126,7 +126,7 @@
   "eventsArchived": "Archived events",
   "eventsUpcoming": "Upcoming events",
   "eventsEmpty": "No events found",
-  "eventsAllSlug": "/experience/events",
+  "event_slug": "/experience/events/",
   "eventListImagePlaceholder": "Event card image",
   "eventDetailImagePlaceholder": "Event image",
   "resultsFound_zero": "No results found",

@@ -1,11 +1,12 @@
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
+import MLink from '@modules/common/MLink'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 import { ComponentMenuSections, Enum_Page_Layout, EventCardEntityFragment } from '../../../graphql'
-import { dateTimeString } from '../../../utils/utils'
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
+import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 
 interface ColumnProps {
   section: ComponentMenuSections
@@ -14,13 +15,14 @@ interface ColumnProps {
 }
 
 const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
+  const { t } = useTranslation('common')
+
   // TODO optionally load latestEvents here if needed
   const containsEvents = section?.sectionLinks?.some(
     (sectionLink) =>
       sectionLink?.sectionLinkPage?.data?.attributes?.layout === Enum_Page_Layout.Event
   )
   const isLengthy = section?.sectionLinks ? section.sectionLinks.length >= 8 : false
-  const { locale } = usePageWrapperContext()
 
   return (
     <div
@@ -50,37 +52,40 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                   {latestEvents.map((event) => (
                     <div key={event.attributes?.slug}>
                       <div className="h-23 w-[380px] cursor-pointer py-5">
-                        <NavigationMenu.Link className="h-10 pt-4 text-foreground-body" tabIndex={-1}>
-                          <Link href={`/${event.attributes?.slug}`} passHref>
-                            <a href={`/${event.attributes?.slug}`} className="flex">
-                              <div className="flex h-16 w-20 bg-promo-yellow text-center">
-                                <DateCardDisplay
-                                  dateFrom={event.attributes?.dateFrom || ''}
-                                  dateTo={event.attributes?.dateTo || ''}
-                                  textSize="text-[18px]"
+                        <NavigationMenu.Link
+                          className="h-10 pt-4 text-foreground-body"
+                          tabIndex={-1}
+                        >
+                          <MLink
+                            href={`${t('event_slug')}${event.attributes?.slug ?? ''}`}
+                            className="flex"
+                          >
+                            <div className="flex h-16 w-20 bg-promo-yellow text-center">
+                              <EventDetailsDateBox
+                                dateFrom={event.attributes?.dateFrom || ''}
+                                dateTo={event.attributes?.dateTo || ''}
+                                textClassname="text-[18px]"
+                              />
+                            </div>
+
+                            <div className="w-full pl-5">
+                              <div className="text-foreground-heading hover:underline">
+                                {event?.attributes?.title}
+                              </div>
+                              <div className="text-sm text-foreground-body">
+                                <FormatEventDateRange
+                                  dateFrom={event.attributes?.dateFrom}
+                                  dateTo={event.attributes?.dateTo}
                                 />
                               </div>
-
-                              <div className="w-full pl-5">
-                                <div className="text-foreground-heading hover:underline">
-                                  {event?.attributes?.title}
+                              {event?.attributes?.eventLocality?.data?.attributes?.title && (
+                                <div className="max-w-[250px] text-sm text-foreground-body">
+                                  &#9679;{' '}
+                                  {event?.attributes?.eventLocality?.data?.attributes?.title}
                                 </div>
-                                <div className="text-sm text-foreground-body">
-                                  {dateTimeString(
-                                    event.attributes?.dateFrom || '',
-                                    event.attributes?.dateTo || '',
-                                    locale
-                                  )}
-                                </div>
-                                {event?.attributes?.eventLocality?.data?.attributes?.title && (
-                                  <div className="max-w-[250px] text-sm text-foreground-body">
-                                    &#9679;{' '}
-                                    {event?.attributes?.eventLocality?.data?.attributes?.title}
-                                  </div>
-                                )}
-                              </div>
-                            </a>
-                          </Link>
+                              )}
+                            </div>
+                          </MLink>
                         </NavigationMenu.Link>
                       </div>
                     </div>

@@ -19,7 +19,15 @@ module.exports = {
       { allow: ['__NEXT_DATA__', '__NEXT_LOADED_PAGES__', '__typename'] },
     ],
     /** Links get confused for secrets */
-    'no-secrets/no-secrets': ['error', { ignoreContent: '^http' }],
+    'no-secrets/no-secrets': [
+      'error',
+      {
+        ignoreContent: [
+          // https://stackoverflow.com/a/3809435
+          /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gm,
+        ],
+      },
+    ],
     /** Use official sorting */
     'tailwindcss/classnames-order': [
       'warn',

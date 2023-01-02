@@ -1,7 +1,6 @@
 import { DateTimeSelect, Input, Select, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { LocalDate } from '@js-joda/core'
-import { convertDataToBody, useGetFormOptions } from '@utils/form-constants'
+import { convertDataToBody, getLocalDateForYup, useGetFormOptions } from '@utils/form-constants'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -42,7 +41,7 @@ const ExcursionReservationForm = () => {
       email: yup.string().email().required(),
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       excursionType: yup.string().required(),
-      excursionDate: yup.date().min(LocalDate.now().toString()).required(),
+      excursionDate: yup.date().min(getLocalDateForYup()).required(),
       excursionTime: yup.string().required(),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
@@ -255,7 +254,7 @@ const ExcursionReservationForm = () => {
             )}
           />
           {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')}/>
+          <FormFooter buttonContent={t('send')} />
         </div>
       </FormContainer>
     </FormProvider>

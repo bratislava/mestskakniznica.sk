@@ -1,5 +1,3 @@
-import 'react-datepicker/dist/react-datepicker.css'
-
 import DropdownIcon from '@assets/images/dropdown.svg'
 import {
   EventCardEntityFragment,
@@ -10,11 +8,8 @@ import { LoadingSpinner, Pagination, SectionContainer } from '@bratislava/ui-cit
 import Button from '@modules/common/Button'
 import { client } from '@utils/gql'
 import cx from 'classnames'
-import enUs from 'date-fns/locale/en-US'
-import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useState } from 'react'
-import { registerLocale } from 'react-datepicker'
 import useSWR from 'swr'
 
 import { useEventsPaginated } from '../../hooks/useEventsPaginated'
@@ -25,9 +20,6 @@ import EventFilters from '../Molecules/EventFilters'
 import EventListingCard from '../Molecules/EventListingCard'
 import { FilterModal } from '../Molecules/FilterModal'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-
-registerLocale('en', enUs)
-registerLocale('sk', sk)
 
 interface KeyTitlePair {
   key: string

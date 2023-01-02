@@ -1,21 +1,21 @@
+import FormatDate from '@modules/common/FormatDate'
 import MLink from '@modules/common/MLink'
 import { useTranslation } from 'next-i18next'
 
 import { EventCardEntityFragment, PageEntityFragment } from '../../graphql'
-import { formatDateToLocal } from '../../utils/utils'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 interface IListingCardProps {
   card: PageEntityFragment | EventCardEntityFragment
 }
 
 const ListingCard = ({ card }: IListingCardProps) => {
-  const { t, i18n } = useTranslation('common')
-  const { locale } = usePageWrapperContext()
+  const { t } = useTranslation('common')
+
+  const linkPrefix = card.__typename === 'EventEntity' ? t('event_slug') : ''
 
   return (
     <MLink
-      href={card.attributes?.slug ?? ''}
+      href={`${linkPrefix}${card.attributes?.slug ?? ''}`}
       className="relative flex h-full w-full shrink-0 flex-col justify-between"
     >
       <div className="flex h-full flex-col">
@@ -26,14 +26,14 @@ const ListingCard = ({ card }: IListingCardProps) => {
         />
 
         <div className="pt-3 text-base">
-          {card.__typename === 'EventEntity'
-            ? formatDateToLocal(card.attributes?.dateFrom, locale || i18n.language)
-            : formatDateToLocal(
-                card.attributes?.date_added
-                  ? card.attributes?.date_added
-                  : card.attributes?.publishedAt,
-                locale || i18n.language
-              )}
+          <FormatDate
+            value={
+              card.__typename === 'EventEntity'
+                ? card.attributes?.dateFrom
+                : card.attributes?.date_added ?? card.attributes?.publishedAt
+            }
+            valueType="ISO"
+          />
         </div>
         <div className="justify-end text-h5 text-black hover:underline">
           {card.attributes?.title}

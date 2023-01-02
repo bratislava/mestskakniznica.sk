@@ -9,7 +9,6 @@ import {
 import DocumentsCategorySelect from '@components/Atoms/Documents/DocumentsCategorySelect'
 import SearchField from '@components/Atoms/SearchField'
 import SortSelect, { Sort } from '@components/Atoms/SortSelect'
-import { formatDateToLocal } from '@utils/utils'
 import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
@@ -100,10 +99,7 @@ const DocumentsPage = ({ page }: PageProps) => {
                     type={document?.file_category?.name || ''}
                     title={document?.title || ''}
                     metadata={<Metadata metadata={document?.metadata} />}
-                    dateAdded={`${t('added')} ${formatDateToLocal(
-                      document?.date_added,
-                      page?.attributes?.locale || ''
-                    )}`}
+                    dateAdded={document?.date_added}
                     fileType={document?.attachment?.ext?.toUpperCase().replace('.', '')}
                   />
                 </a>

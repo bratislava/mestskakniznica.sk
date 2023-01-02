@@ -2,9 +2,9 @@ import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import { DateTimeSelect, Input, TextArea } from '@bratislava/ui-city-library'
 import NumberSwitcher from '@bratislava/ui-city-library/NumberSwitcher/NumberSwitcher'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { LocalDate } from '@js-joda/core'
-import { convertDataToBody } from '@utils/form-constants'
-import { dateTimeString, dayForDifferentDateTo, isEventPast } from '@utils/utils'
+import FormatEventDateRange from '@modules/common/FormatEventDateRange'
+import { convertDataToBody, getLocalDateForYup } from '@utils/form-constants'
+import { dayForDifferentDateTo, isEventPast } from '@utils/utils'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -12,8 +12,7 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import DateCardDisplay from '../../Atoms/DateCardDispaly'
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
+import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
@@ -29,7 +28,6 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
   const [isTimeEditDisabled, setIsTimeEditDisabled] = React.useState(false)
 
   const { t } = useTranslation(['forms', 'common'])
-  const { locale } = usePageWrapperContext()
   const router = useRouter()
 
   yup.setLocale({
@@ -68,7 +66,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
           .required()
       }
 
-      return yup.date().min(LocalDate.now()).required()
+      return yup.date().min(getLocalDateForYup()).required()
     }),
     eventTime: yup.string().required(),
     message: yup.string(),
@@ -261,10 +259,10 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                   <div className="border border-border-light p-4 text-foreground-body">
                     <div className="flex">
                       <div className="flex h-16 w-16 bg-promo-yellow text-center">
-                        <DateCardDisplay
+                        <EventDetailsDateBox
                           dateFrom={dateFrom ?? '1-1-1970'}
                           dateTo={dateTo ?? '1-1-1970'}
-                          textSize="text-[18px]"
+                          textClassname="text-[18px]"
                         />
                       </div>
 
@@ -277,7 +275,10 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                             : title}
                         </div>
                         <div className="pt-[5px] text-sm text-foreground-body">
-                          {dateTimeString(dateFrom ?? new Date(), dateTo ?? new Date(), locale)}
+                          <FormatEventDateRange
+                            dateFrom={dateFrom ?? new Date().toISOString()}
+                            dateTo={dateTo ?? new Date().toISOString()}
+                          />
                         </div>
                         {eventLocality?.data?.attributes?.title && (
                           <div className="text-sm text-foreground-body">

@@ -1,9 +1,8 @@
 import { CheckBox, DateTimeSelect, Input } from '@bratislava/ui-city-library'
 import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { LocalDate } from '@js-joda/core'
 import Button from '@modules/common/Button'
-import { useGetFormOptions } from '@utils/form-constants'
+import { getLocalDateForYup, useGetFormOptions } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useTranslation } from 'next-i18next'
@@ -76,7 +75,7 @@ const CityLibraryRegistrationForm = () => {
         otherwise: yup.string(),
       }),
       IDType: yup.string().required(),
-      birthDate: yup.date().max(LocalDate.now().toString()).required(),
+      birthDate: yup.date().max(getLocalDateForYup()).required(),
       IDNumber: yup.string().matches(IDCardRegex, t('validation_error_idcard')).required(),
       acceptFormTerms: yup.boolean().isTrue(),
       authorizedToUseBlindDepartment: yup.boolean(),

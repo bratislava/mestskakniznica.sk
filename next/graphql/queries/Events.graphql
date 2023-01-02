@@ -92,7 +92,16 @@ fragment EventEntity on EventEntity {
         }
       }
     }
+    localizations {
+      data {
+        attributes {
+          slug
+          locale
+        }
+      }
+    }
     Seo {
+      id
       metaTitle
       metaDescription
       keywords
@@ -189,10 +198,56 @@ query PromotedEvents($locale: I18NLocaleCode!, $start: Int, $limit: Int) {
   }
 }
 
-query EventBySlug($slug: String!) {
-  events(filters: { slug: { eq: $slug } }) {
+query EventBySlug($slug: String!, $locale: I18NLocaleCode!, $date: DateTime!) {
+  events(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
       ...EventEntity
+    }
+  }
+  menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      ...Menu
+    }
+  }
+  upcomingEvents: events(
+    locale: $locale
+    sort: "dateFrom:asc"
+    pagination: { start: 0, limit: 4 }
+    filters: { dateFrom: { gte: $date } }
+  ) {
+    data {
+      ...EventCardEntity
+    }
+  }
+  footer(locale: $locale) {
+    data {
+      id
+      attributes {
+        footerColumns {
+          id
+          title
+          footerLink {
+            id
+            redirectTo {
+              data {
+                ...PageWithBaseFieldsEntity
+              }
+            }
+            title
+            otherSite
+          }
+        }
+        siteMapLink {
+          data {
+            ...PageWithBaseFieldsEntity
+          }
+        }
+        privacyLink {
+          data {
+            ...PageWithBaseFieldsEntity
+          }
+        }
+      }
     }
   }
 }
@@ -202,6 +257,18 @@ query EventsCount($locale: I18NLocaleCode!) {
     meta {
       pagination {
         total
+      }
+    }
+  }
+}
+
+# Generating pages for all events takes to long during build time and it is not necessary for old events
+query EventStaticPaths($locale: I18NLocaleCode!) {
+  events(locale: $locale, pagination: { limit: 32 }, sort: "dateFrom:desc") {
+    data {
+      attributes {
+        slug
+        locale
       }
     }
   }

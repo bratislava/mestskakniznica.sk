@@ -22,7 +22,8 @@
           "localized": true
         }
       },
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "title": {
       "pluginOptions": {
@@ -30,7 +31,8 @@
           "localized": true
         }
       },
-      "type": "text"
+      "type": "string",
+      "required": true
     },
     "layout": {
       "pluginOptions": {
@@ -96,12 +98,6 @@
         }
       },
       "type": "date"
-    },
-    "blogPosts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::blog-post.blog-post",
-      "mappedBy": "parentPage"
     },
     "pageCategory": {
       "type": "relation",

@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 interface DetailsRowProps {
   classWrapper: string
-  text: string
+  text: ReactNode
   svgIcon: ReactNode
 }
 
