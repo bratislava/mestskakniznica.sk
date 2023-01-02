@@ -39,11 +39,11 @@ const nextConfig = {
          */
         {
           source: '/sluzby/vzdelavanie/clanky/:slug',
-          destination: '/blog/:slug',
+          destination: '/blog-post/:slug',
         },
         {
           source: '/services/education/articles/:slug',
-          destination: '/blog/:slug',
+          destination: '/blog-post/:slug',
         },
         {
           source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
