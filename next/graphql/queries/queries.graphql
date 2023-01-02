@@ -414,6 +414,18 @@ fragment Sections on PageSectionsDynamicZone {
     }
   }
 
+  ... on ComponentSectionsMap {
+    id
+    title
+    branches {
+      branch {
+        data {
+          ...BranchCardEntity
+        }
+      }
+    }
+  }
+
   ... on ComponentSectionsLocalityDetails {
     id
     localityTitle

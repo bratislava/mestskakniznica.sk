@@ -77,7 +77,8 @@
         "sections.documents",
         "sections.video",
         "sections.flat-text",
-        "sections.gallery"
+        "sections.gallery",
+        "sections.map"
       ]
     },
     "Seo": {

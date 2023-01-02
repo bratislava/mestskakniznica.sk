@@ -1,11 +1,4 @@
-import {
-  ComponentLocalityPartsLocalitySection,
-  ComponentSectionsLocalityDetails,
-  Enum_Page_Layout,
-  PageEntity,
-} from '@bratislava/strapi-sdk-city-library'
-
-import { ILocality } from './types'
+import { ComponentLocalityPartsLocalitySection } from '@bratislava/strapi-sdk-city-library'
 
 export const arrayify = (input: string | string[] | undefined | null) => {
   if (input === undefined || input === null) {
@@ -161,57 +154,6 @@ const getMainOpeningHours = (sections: ComponentLocalityPartsLocalitySection[]) 
     localityOpenTo: openTo,
     isCurrentlyOpen,
   }
-}
-
-export const convertPageToLocality = (
-  page: PageEntity,
-  localityDetails: ComponentSectionsLocalityDetails | any
-): ILocality | any => {
-  if (page?.attributes?.layout === Enum_Page_Layout.Locality) {
-    const { localityOpenFrom, localityOpenTo, isCurrentlyOpen } = getMainOpeningHours(
-      localityDetails.localitySections
-    )
-
-    return {
-      localityOpenFrom,
-      localityOpenTo,
-      localityTitle: localityDetails.localityTitle,
-      localitySlug: page?.attributes?.slug,
-      localitySections: localityDetails.localitySections,
-      localityAddress: localityDetails.localityAddress,
-      localityLatitude: localityDetails.localityLatitude,
-      localityLongitude: localityDetails.localityLongitude,
-      isMainLocality: localityDetails.isMainLocality,
-      isCurrentlyOpen,
-    }
-  }
-
-  return null
-}
-
-// TODO fix eslint
-export const convertPagesToLocalities = (
-  pages: PageEntity[] | any[],
-  onlyForHomepage = false
-): ILocality[] => {
-  const localities: ILocality[] = []
-
-  pages.forEach((page) => {
-    const localityDetails = page?.attributes?.sections?.find(
-      (section: any) => section?.__typename === 'ComponentSectionsLocalityDetails'
-    )
-
-    if (localityDetails?.__typename === 'ComponentSectionsLocalityDetails') {
-      if (localityDetails.displayOnHomePage && onlyForHomepage) {
-        localities.push(convertPageToLocality(page, localityDetails))
-        // eslint-disable-next-line sonarjs/no-duplicated-branches
-      } else if (!onlyForHomepage) {
-        localities.push(convertPageToLocality(page, localityDetails))
-      }
-    }
-  })
-
-  return localities
 }
 
 // method for determining if event already happened
