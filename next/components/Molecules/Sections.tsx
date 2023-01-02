@@ -26,12 +26,7 @@ import {
   parsePageLink,
   parseSubpages,
 } from '@utils/page'
-import { formatDateToLocal } from '@utils/utils'
 import { TFunction, useTranslation } from 'next-i18next'
-
-} from '@utils/page'
-import { TFunction, useTranslation } from 'next-i18next'
-import { useState } from 'react'
 
 import AskLibraryForm from '../forms/AskLibraryForm.tsx'
 import BookNotInLibraryForm from '../forms/BookNotInLibraryForm'
@@ -100,7 +95,7 @@ const sectionContent = (
   section: BlogPostSectionsDynamicZone,
   events: EventCardEntityFragment[] | undefined,
   eventsListingUrl: string | undefined,
-  t: TFunction,
+  t: TFunction
 ): React.ReactNode => {
   const eventDetail = events?.length ? events[0] : null
 
@@ -304,7 +299,7 @@ const Section = ({
 
   if (!section) return null
 
-  return <div>{sectionContent(pageTitle, section, events, eventsListingUrl, t, locale)}</div>
+  return <div>{sectionContent(pageTitle, section, events, eventsListingUrl, t)}</div>
 }
 
 const Sections = ({

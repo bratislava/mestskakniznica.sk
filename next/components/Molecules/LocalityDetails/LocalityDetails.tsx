@@ -1,31 +1,22 @@
+import BusinessSvg from '@assets/images/business.svg'
 import MailSvg from '@assets/images/mail.svg'
 import PhoneSvg from '@assets/images/phone.svg'
-import SectionSvg from '@assets/images/section.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import {
   ComponentLocalityPartsLocalitySection,
   ComponentSectionsLocalityDetails,
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
-import { CallToAction, LocalityMap } from '@bratislava/ui-city-library'
-import Accordion from '@modules/common/Accordion'
-import { Accordion } from '@bratislava/ui-city-library'
 import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
 import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
 import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
+import Accordion from '@modules/common/Accordion'
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import React, { useMemo } from 'react'
-import { useState } from 'react'
+import React from 'react'
 
-import BusinessSvg from '../../assets/images/business.svg'
-import ChevronRightSvg from '../../assets/images/chevron-right.svg'
-import MailSvg from '../../assets/images/mail.svg'
-import PhoneSvg from '../../assets/images/phone.svg'
-import DateCardDisplay from '../Atoms/DateCardDispaly'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
 
