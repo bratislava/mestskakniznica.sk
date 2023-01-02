@@ -112,13 +112,13 @@ const Events = ({ page }: PageProps) => {
   }, [eventPropertiesResponse?.eventCategories?.data, t])
 
   const localities = useMemo(() => {
-    const eventLocalities = eventPropertiesResponse?.eventLocalities?.data ?? []
-    const parsedLocalities = eventLocalities.map(({ attributes, id }) => ({
+    const eventBranches = eventPropertiesResponse?.branches?.data ?? []
+    const parsedLocalities = eventBranches.map(({ attributes, id }) => ({
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
     return [{ key: '', title: t('eventLocality') }, ...parsedLocalities]
-  }, [eventPropertiesResponse?.eventLocalities?.data, t])
+  }, [eventPropertiesResponse?.branches?.data, t])
 
   const [selectedEventTags, setSelectedEventTags] = useState<KeyTitlePair | null>()
   const [selectedCategory, setSelectedCategory] = useState<KeyTitlePair | null>()
@@ -143,9 +143,8 @@ const Events = ({ page }: PageProps) => {
       tmp.eventTags = { title: { eq: selectedEventTags.title } }
     if (selectedCategory && selectedCategory.title)
       tmp.eventCategory = { title: { eq: selectedCategory.title } }
-    // TODO put back with branch
-    // if (selectedLocality && selectedLocality.title)
-    //   tmp.eventLocality = { title: { eq: selectedLocality.title } }
+    if (selectedLocality && selectedLocality.title)
+      tmp.branch = { title: { eq: selectedLocality.title } }
     return tmp
   }
 

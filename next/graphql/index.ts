@@ -1152,7 +1152,6 @@ export type ComponentSectionsEventDetails = {
   eventCategory?: Maybe<EventCategoryEntityResponse>;
   eventCoverImage?: Maybe<UploadFileEntityResponse>;
   eventDescription?: Maybe<Scalars['String']>;
-  eventLocality?: Maybe<EventLocalityEntityResponse>;
   eventTags?: Maybe<EventTagRelationResponseCollection>;
   eventTitle?: Maybe<Scalars['String']>;
   guests?: Maybe<Array<Maybe<ComponentGuestsGuest>>>;
@@ -1658,70 +1657,6 @@ export type EventInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
-export type EventLocality = {
-  __typename?: 'EventLocality';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  eventAddress?: Maybe<Scalars['String']>;
-  locale?: Maybe<Scalars['String']>;
-  localizations?: Maybe<EventLocalityRelationResponseCollection>;
-  navigateTo?: Maybe<Scalars['String']>;
-  publishedAt?: Maybe<Scalars['DateTime']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-
-export type EventLocalityLocalizationsArgs = {
-  filters?: InputMaybe<EventLocalityFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-export type EventLocalityEntity = {
-  __typename?: 'EventLocalityEntity';
-  attributes?: Maybe<EventLocality>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type EventLocalityEntityResponse = {
-  __typename?: 'EventLocalityEntityResponse';
-  data?: Maybe<EventLocalityEntity>;
-};
-
-export type EventLocalityEntityResponseCollection = {
-  __typename?: 'EventLocalityEntityResponseCollection';
-  data: Array<EventLocalityEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type EventLocalityFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<EventLocalityFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  eventAddress?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  locale?: InputMaybe<StringFilterInput>;
-  localizations?: InputMaybe<EventLocalityFiltersInput>;
-  navigateTo?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<EventLocalityFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<EventLocalityFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  title?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type EventLocalityInput = {
-  eventAddress?: InputMaybe<Scalars['String']>;
-  navigateTo?: InputMaybe<Scalars['String']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']>;
-  title?: InputMaybe<Scalars['String']>;
-};
-
-export type EventLocalityRelationResponseCollection = {
-  __typename?: 'EventLocalityRelationResponseCollection';
-  data: Array<EventLocalityEntity>;
-};
-
 export type EventRelationResponseCollection = {
   __typename?: 'EventRelationResponseCollection';
   data: Array<EventEntity>;
@@ -1958,7 +1893,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksExternalLink | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsEventDetails | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsLocalityDetails | ComponentSectionsParnters | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventLocality | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Page | Partner | Premise | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksExternalLink | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsEventDetails | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsLocalityDetails | ComponentSectionsParnters | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Page | Partner | Premise | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -2202,8 +2137,6 @@ export type Mutation = {
   createEvent?: Maybe<EventEntityResponse>;
   createEventCategory?: Maybe<EventCategoryEntityResponse>;
   createEventCategoryLocalization?: Maybe<EventCategoryEntityResponse>;
-  createEventLocality?: Maybe<EventLocalityEntityResponse>;
-  createEventLocalityLocalization?: Maybe<EventLocalityEntityResponse>;
   createEventLocalization?: Maybe<EventEntityResponse>;
   createEventSubscription?: Maybe<EventSubscriptionEntityResponse>;
   createEventTag?: Maybe<EventTagEntityResponse>;
@@ -2232,7 +2165,6 @@ export type Mutation = {
   deleteCategory?: Maybe<CategoryEntityResponse>;
   deleteEvent?: Maybe<EventEntityResponse>;
   deleteEventCategory?: Maybe<EventCategoryEntityResponse>;
-  deleteEventLocality?: Maybe<EventLocalityEntityResponse>;
   deleteEventSubscription?: Maybe<EventSubscriptionEntityResponse>;
   deleteEventTag?: Maybe<EventTagEntityResponse>;
   deleteFileCategory?: Maybe<FileCategoryEntityResponse>;
@@ -2266,7 +2198,6 @@ export type Mutation = {
   updateCategory?: Maybe<CategoryEntityResponse>;
   updateEvent?: Maybe<EventEntityResponse>;
   updateEventCategory?: Maybe<EventCategoryEntityResponse>;
-  updateEventLocality?: Maybe<EventLocalityEntityResponse>;
   updateEventSubscription?: Maybe<EventSubscriptionEntityResponse>;
   updateEventTag?: Maybe<EventTagEntityResponse>;
   updateFileCategory?: Maybe<FileCategoryEntityResponse>;
@@ -2357,19 +2288,6 @@ export type MutationCreateEventCategoryArgs = {
 
 export type MutationCreateEventCategoryLocalizationArgs = {
   data?: InputMaybe<EventCategoryInput>;
-  id?: InputMaybe<Scalars['ID']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
-export type MutationCreateEventLocalityArgs = {
-  data: EventLocalityInput;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
-export type MutationCreateEventLocalityLocalizationArgs = {
-  data?: InputMaybe<EventLocalityInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -2531,12 +2449,6 @@ export type MutationDeleteEventCategoryArgs = {
 };
 
 
-export type MutationDeleteEventLocalityArgs = {
-  id: Scalars['ID'];
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
 export type MutationDeleteEventSubscriptionArgs = {
   id: Scalars['ID'];
 };
@@ -2689,13 +2601,6 @@ export type MutationUpdateEventArgs = {
 
 export type MutationUpdateEventCategoryArgs = {
   data: EventCategoryInput;
-  id: Scalars['ID'];
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
-export type MutationUpdateEventLocalityArgs = {
-  data: EventLocalityInput;
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -3063,8 +2968,6 @@ export type Query = {
   event?: Maybe<EventEntityResponse>;
   eventCategories?: Maybe<EventCategoryEntityResponseCollection>;
   eventCategory?: Maybe<EventCategoryEntityResponse>;
-  eventLocalities?: Maybe<EventLocalityEntityResponseCollection>;
-  eventLocality?: Maybe<EventLocalityEntityResponse>;
   eventSubscription?: Maybe<EventSubscriptionEntityResponse>;
   eventSubscriptions?: Maybe<EventSubscriptionEntityResponseCollection>;
   eventTag?: Maybe<EventTagEntityResponse>;
@@ -3182,21 +3085,6 @@ export type QueryEventCategoriesArgs = {
 
 
 export type QueryEventCategoryArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
-export type QueryEventLocalitiesArgs = {
-  filters?: InputMaybe<EventLocalityFiltersInput>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryEventLocalityArgs = {
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -3894,7 +3782,7 @@ export type EventPropertiesQueryVariables = Exact<{
 }>;
 
 
-export type EventPropertiesQuery = { __typename?: 'Query', eventCategories?: { __typename?: 'EventCategoryEntityResponseCollection', data: Array<{ __typename?: 'EventCategoryEntity', id?: string | null, attributes?: { __typename?: 'EventCategory', title?: string | null, createdAt?: any | null, updatedAt?: any | null } | null }> } | null, eventLocalities?: { __typename?: 'EventLocalityEntityResponseCollection', data: Array<{ __typename?: 'EventLocalityEntity', id?: string | null, attributes?: { __typename?: 'EventLocality', title?: string | null, navigateTo?: string | null, createdAt?: any | null, updatedAt?: any | null } | null }> } | null, eventTags?: { __typename?: 'EventTagEntityResponseCollection', data: Array<{ __typename?: 'EventTagEntity', id?: string | null, attributes?: { __typename?: 'EventTag', title?: string | null, slug?: string | null, createdAt?: any | null, publishedAt?: any | null, updatedAt?: any | null } | null }> } | null };
+export type EventPropertiesQuery = { __typename?: 'Query', eventCategories?: { __typename?: 'EventCategoryEntityResponseCollection', data: Array<{ __typename?: 'EventCategoryEntity', id?: string | null, attributes?: { __typename?: 'EventCategory', title?: string | null, createdAt?: any | null, updatedAt?: any | null } | null }> } | null, branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, navigateToLink?: string | null, address?: string | null, parentBranch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, navigateToLink?: string | null, address?: string | null } | null } | null } | null } | null }> } | null, eventTags?: { __typename?: 'EventTagEntityResponseCollection', data: Array<{ __typename?: 'EventTagEntity', id?: string | null, attributes?: { __typename?: 'EventTag', title?: string | null, slug?: string | null, createdAt?: any | null, publishedAt?: any | null, updatedAt?: any | null } | null }> } | null };
 
 export type EventListQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
@@ -5052,15 +4940,10 @@ export const EventPropertiesDocument = gql`
       }
     }
   }
-  eventLocalities(locale: $locale) {
+  branches(locale: $locale) {
     data {
       id
-      attributes {
-        title
-        navigateTo
-        createdAt
-        updatedAt
-      }
+      ...BranchPlaceNestedEntity
     }
   }
   eventTags(locale: $locale) {
@@ -5076,7 +4959,7 @@ export const EventPropertiesDocument = gql`
     }
   }
 }
-    `;
+    ${BranchPlaceNestedEntityFragmentDoc}`;
 export const EventListDocument = gql`
     query EventList($locale: I18NLocaleCode!, $start: Int, $limit: Int, $filters: EventFiltersInput, $sort: String = "dateFrom:desc") {
   events(
