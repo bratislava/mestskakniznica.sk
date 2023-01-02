@@ -4,7 +4,6 @@ import {
   PageSectionsDynamicZone,
 } from '@bratislava/strapi-sdk-city-library'
 import {
-  Accordion,
   ColumnedText,
   Documents,
   ExternalLinks,
@@ -17,7 +16,9 @@ import {
   Table,
   Video,
 } from '@bratislava/ui-city-library'
+import Accordion from '@modules/common/Accordion'
 import Button from '@modules/common/Button'
+import { isDefined } from '@utils/isDefined'
 import {
   groupByAccordionCategory,
   groupByCategory,
@@ -26,7 +27,6 @@ import {
   parseSubpages,
 } from '@utils/page'
 import { TFunction, useTranslation } from 'next-i18next'
-import { useState } from 'react'
 
 import AskLibraryForm from '../forms/AskLibraryForm.tsx'
 import BookNotInLibraryForm from '../forms/BookNotInLibraryForm'
@@ -95,9 +95,7 @@ const sectionContent = (
   section: BlogPostSectionsDynamicZone,
   events: EventCardEntityFragment[] | undefined,
   eventsListingUrl: string | undefined,
-  t: TFunction,
-  openAccordion: string,
-  listenAccordionState: (id: string, state: boolean) => unknown
+  t: TFunction
 ): React.ReactNode => {
   const eventDetail = events?.length ? events[0] : null
 
@@ -167,52 +165,37 @@ const sectionContent = (
           {section.title && <h2 className="flex pb-6 text-h4 font-normal">{section.title}</h2>}
           {section.tableRows &&
             groupByAccordionCategory(section.tableRows ?? []).map((item, index) => (
-              <Accordion
-                key={index}
-                label={item.title}
-                id={item.title}
-                defaultState={item.title === openAccordion}
-                stateListener={listenAccordionState}
-                content={
-                  <div key={index} className="flex flex-col space-y-6">
-                    {item.tables.map((table, index) => (
-                      <Table key={index} secondaryTitle={table.title} rows={table.rows} />
-                    ))}
-                  </div>
-                }
-                size="big"
-                type="divider"
-              />
+              // eslint-disable-next-line react/no-array-index-key
+              <Accordion key={index} title={item.title} type="divider-big">
+                <div className="flex flex-col space-y-6">
+                  {item.tables.map((table, tableIndex) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Table key={tableIndex} secondaryTitle={table.title} rows={table.rows} />
+                  ))}
+                </div>
+              </Accordion>
             ))}
           {section.flatText &&
             groupByCategory(section.flatText).map((flatText, index) => (
-              <Accordion
-                key={index}
-                label={flatText.category}
-                id={flatText.category}
-                defaultState={flatText.category === openAccordion}
-                stateListener={listenAccordionState}
-                content={flatText.items.map((item, index) => (
-                  <FlatText key={`${item?.category} ${index}`} content={item?.content ?? ''} />
-                ))}
-                size="big"
-                type="divider"
-              />
+              // eslint-disable-next-line react/no-array-index-key
+              <Accordion key={index} title={flatText.category} type="divider-big">
+                <div className="text-base">
+                  {flatText.items.filter(isDefined).map((item) => (
+                    <FlatText key={item.id} content={item?.content ?? ''} />
+                  ))}
+                </div>
+              </Accordion>
             ))}
           {section.forms &&
             groupByCategory(section.forms).map((form, index) => (
-              <Accordion
-                key={index}
-                label={form.category}
-                id={form.category}
-                defaultState={form.category === openAccordion}
-                stateListener={listenAccordionState}
-                content={form.items.map((item, index) =>
-                  getForm(item?.type || '', index.toString(), eventDetail || undefined)
-                )}
-                size="big"
-                type="divider"
-              />
+              // eslint-disable-next-line react/no-array-index-key
+              <Accordion key={index} title={form.category} type="divider-big">
+                <div className="text-base">
+                  {form.items.map((item, itemIndex) =>
+                    getForm(item?.type || '', itemIndex.toString(), eventDetail || undefined)
+                  )}
+                </div>
+              </Accordion>
             ))}
         </>
       )
@@ -312,28 +295,11 @@ const Section = ({
   events: EventCardEntityFragment[] | undefined
   eventsListingUrl: string | undefined
 }) => {
-  const [openAccordion, setOpenAccordion] = useState('')
   const { t } = useTranslation(['common', 'homepage'])
-
-  const listenAccordionState = (id: string, state: boolean) => {
-    setOpenAccordion(state ? id : '')
-  }
 
   if (!section) return null
 
-  return (
-    <div>
-      {sectionContent(
-        pageTitle,
-        section,
-        events,
-        eventsListingUrl,
-        t,
-        openAccordion,
-        listenAccordionState
-      )}
-    </div>
-  )
+  return <div>{sectionContent(pageTitle, section, events, eventsListingUrl, t)}</div>
 }
 
 const Sections = ({
@@ -357,6 +323,7 @@ const Sections = ({
           index
         ) => (
           <Section
+            // eslint-disable-next-line react/no-array-index-key
             key={index}
             pageTitle={pageTitle}
             section={section || null}

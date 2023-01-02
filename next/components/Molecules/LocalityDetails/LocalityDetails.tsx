@@ -1,21 +1,21 @@
+import BusinessSvg from '@assets/images/business.svg'
 import MailSvg from '@assets/images/mail.svg'
 import PhoneSvg from '@assets/images/phone.svg'
-import SectionSvg from '@assets/images/section.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import {
   ComponentLocalityPartsLocalitySection,
   ComponentSectionsLocalityDetails,
   EventCardEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
-import { Accordion } from '@bratislava/ui-city-library'
 import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
 import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
 import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
+import Accordion from '@modules/common/Accordion'
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import { useState } from 'react'
+import React from 'react'
 
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import { usePageWrapperContext } from '../../layouts/PageWrapper'
@@ -30,11 +30,6 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
   const { locale } = usePageWrapperContext()
   const { Markdown: UIMarkdown } = useUIContext()
   const { t } = useTranslation('common')
-  const [openLocality, setOpenLocality] = useState('')
-
-  const listenAccordionState = (id: string, state: boolean) => {
-    setOpenLocality(state ? id : '')
-  }
 
   const dayString = (day: string, from: string | null, to: string | null) => {
     if (from === to || from == null || to == null)
@@ -58,7 +53,7 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
     onlyOpeningHours: boolean,
     showContactInfo: boolean
   ) => (
-    <div className="h-full">
+    <div className="h-full text-base">
       {showContactInfo && (
         <div className="mb-3">
           {/* TODO replace by PhoneButton */}
@@ -231,17 +226,13 @@ const LocalityDetails = ({ localityDetails, events, eventsListingUrl }: PageProp
           <div className="pt-5">
             {localityDetails.localitySections?.map((section) => (
               <Accordion
-                className="pr-[24px]"
-                key={section?.localitySectionTitle}
-                type="divider"
-                size="small"
-                id={section?.localitySectionTitle || section?.id}
-                stateListener={listenAccordionState}
-                defaultState={openLocality === section?.localitySectionTitle}
-                label={section?.localitySectionTitle ?? ''}
-                content={createContent(section || { id: '' }, false, true)}
-                iconLeft={<SectionSvg />}
-              />
+                key={section?.id}
+                title={section?.localitySectionTitle}
+                type="sublocation"
+                iconLeft={<BusinessSvg />}
+              >
+                {createContent(section || { id: '' }, false, true)}
+              </Accordion>
             ))}
           </div>
           <LocalityDetailsWhere localityDetails={localityDetails} />

@@ -1,6 +1,6 @@
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import cx from 'classnames'
 import ReactMarkdown from 'react-markdown'
+import { twMerge } from 'tailwind-merge'
 
 export interface HomepageMarkdownProps {
   className?: string
@@ -9,31 +9,23 @@ export interface HomepageMarkdownProps {
 }
 
 export const CityLibraryMarkdown = ({
-                                      className,
-                                      paragraphClassName,
-                                      content,
-                                    }: HomepageMarkdownProps) => {
+  className,
+  paragraphClassName,
+  content,
+}: HomepageMarkdownProps) => {
   const { Link: UILink, Image: UIImage } = useUIContext()
   return (
     <ReactMarkdown
-      className={cx(className, 'mb-7 whitespace-pre-wrap')}
+      className={twMerge('mb-7 whitespace-pre-wrap', className)}
       components={{
-        p: ({ children }) => <p className={cx(paragraphClassName, 'text-foreground-body')}>{children}</p>,
-        h1: ({ children }) => (
-          <h1 className="text-h1">{children}</h1>
+        p: ({ children }) => (
+          <p className={twMerge('text-foreground-body', paragraphClassName)}>{children}</p>
         ),
-        h2: ({ children }) => (
-          <h2 className="mb-8 text-h2">{children}</h2>
-        ),
-        h3: ({ children }) => (
-          <h3 className="text-h3">{children}</h3>
-        ),
-        h4: ({ children }) => (
-          <h4 className="text-h4">{children}</h4>
-        ),
-        h5: ({ children }) => (
-          <h5 className="text-h5">{children}</h5>
-        ),
+        h1: ({ children }) => <h1 className="text-h1">{children}</h1>,
+        h2: ({ children }) => <h2 className="mb-8 text-h2">{children}</h2>,
+        h3: ({ children }) => <h3 className="text-h3">{children}</h3>,
+        h4: ({ children }) => <h4 className="text-h4">{children}</h4>,
+        h5: ({ children }) => <h5 className="text-h5">{children}</h5>,
         h6: ({ children }) => <h6 className="text-h6">{children}</h6>,
         ul: ({ children }) => (
           <ul className="ml-8 flex list-disc flex-col space-y-1 text-base text-foreground-body">
@@ -47,7 +39,7 @@ export const CityLibraryMarkdown = ({
         ),
         img: ({ src, alt }) => (
           <div className="-mx-7.5 flex justify-center md:mx-0">
-            {src && <UIImage src={src} alt={alt} shadow={false}/>}
+            {src && <UIImage src={src} alt={alt} shadow={false} />}
           </div>
         ),
         strong: ({ children }) => <strong>{children}</strong>,
