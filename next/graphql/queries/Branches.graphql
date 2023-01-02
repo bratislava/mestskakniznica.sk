@@ -1,0 +1,43 @@
+fragment BranchPlaceEntity on BranchEntity {
+  id
+  attributes {
+    title
+    navigateToLink
+    address
+  }
+}
+
+fragment BranchPlaceNestedEntity on BranchEntity {
+  ...BranchPlaceEntity
+  attributes {
+    parentBranch {
+      data {
+        id
+        attributes {
+          title
+          navigateToLink
+          address
+        }
+      }
+    }
+  }
+}
+
+fragment BranchCardEntity on BranchEntity {
+  id
+  attributes {
+    title
+    address
+    slug
+    latitude
+    longitude
+    subBranches {
+      data {
+        id
+        attributes {
+          title
+        }
+      }
+    }
+  }
+}

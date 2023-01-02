@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_maps",
+  "info": {
+    "displayName": "map",
+    "icon": "map-marked"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "branches": {
+      "displayName": "branch item",
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.branch-item"
+    }
+  }
+}
