@@ -61,31 +61,6 @@ fragment EventCardAttributes on Event {
   }
 }
 
-fragment BranchPlaceEntity on BranchEntity {
-  id
-  attributes {
-    title
-    navigateToLink
-    address
-  }
-}
-
-fragment BranchPlaceNestedEntity on BranchEntity {
-  ...BranchPlaceEntity
-  attributes {
-    parentBranch {
-      data {
-        id
-        attributes {
-          title
-          navigateToLink
-          address
-        }
-      }
-    }
-  }
-}
-
 fragment EventCardEntity on EventEntity {
   id
   __typename

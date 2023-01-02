@@ -84,6 +84,17 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
             }
           }
         }
+        mapSection {
+          id
+          title
+          branches {
+            branch {
+              data {
+                ...BranchCardEntity
+              }
+            }
+          }
+        }
         localizations {
           data {
             attributes {
@@ -148,16 +159,6 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
   bookTags(pagination: { limit: 100 }) {
     data {
       ...BookTagEntity
-    }
-  }
-  localityPages: pages(
-    filters: { layout: { eq: "locality" } }
-    locale: $locale
-    pagination: { start: 0, limit: 100 }
-    sort: ["publishedAt:asc"]
-  ) {
-    data {
-      ...PageEntity
     }
   }
   footer(locale: $locale) {

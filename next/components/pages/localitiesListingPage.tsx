@@ -43,7 +43,7 @@ const LocalitiesListingPage = ({ page }: LocalityPageProps) => {
           <Localities
             altDesign
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
-            localities={localities}
+            branches={localities}
           />
 
           <div className="pt-12">

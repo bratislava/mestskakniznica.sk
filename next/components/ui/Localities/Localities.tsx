@@ -1,88 +1,68 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import MarkerIcon from '@assets/images/marker.svg'
-import {
-  ComponentAddressAddress,
-  ComponentLocalityPartsLocalitySection,
-} from '@bratislava/strapi-sdk-city-library'
+import { BranchCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import MLink from '@modules/common/MLink'
+import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
-import { maxBy, minBy } from 'lodash'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
-
-export interface ILocality {
-  localityTitle?: string
-  localitySections?: ComponentLocalityPartsLocalitySection[]
-  localityAddress: ComponentAddressAddress
-  localitySlug?: string
-  localityOpenFrom: string
-  localityOpenTo: string
-  localityLongitude?: number
-  localityLatitude?: number
-  localityOpeningHours?: ILocalityOpeningHours[]
-  isMainLocality?: boolean
-  isCurrentlyOpen?: boolean
-  hideOpeningHours?: boolean
-}
-
-export interface ILocalityOpeningHours {
-  localityOpenFrom?: string
-  localityOpenTo?: string
-  localityOpenDay?: number
-  localityIsOpenThisDay?: boolean
-  localityOpenDayText?: string
-}
+import { useIsClient } from 'usehooks-ts'
 
 export interface LocalitiesProps {
-  localities: ILocality[]
+  branches: BranchCardEntityFragment[]
   mapboxAccessToken: string
   altDesign?: boolean // alternative design
 }
 
-export const Localities = ({
-  localities,
-  mapboxAccessToken,
-  altDesign = false,
-}: LocalitiesProps) => {
+// Copied from https://github.com/bratislava/marianum/blob/master/next/components/sections/MapSection.tsx
+// calculate bounding box for localities
+const getBoundsForLocalities = (branches: BranchCardEntityFragment[]) => {
+  const longitudes = branches.map((branch) => branch.attributes?.longitude).filter(isDefined) ?? []
+  const latitudes = branches.map((branch) => branch.attributes?.latitude).filter(isDefined) ?? []
+
+  return [
+    [Math.min(...longitudes), Math.min(...latitudes)],
+    [Math.max(...longitudes), Math.max(...latitudes)],
+  ] as [[number, number], [number, number]]
+}
+
+export const Localities = ({ branches, mapboxAccessToken, altDesign = false }: LocalitiesProps) => {
   const { t } = useTranslation('homepage')
-  const [bounds, setBounds] = useState<[[number, number], [number, number]]>([
-    [0, 0],
-    [0, 0],
-  ])
-  const [isBrowser, setBrowser] = useState(false)
+
+  const isClient = useIsClient()
 
   const mapRef = useRef<MapRef>(null)
+  const initialBounds = useRef(branches && getBoundsForLocalities(branches))
+
+  const fitLocalities = useCallback(
+    (duration = 0) => {
+      try {
+        // fitBounds fails when there is no branch, so we use try catch
+        mapRef.current?.fitBounds(getBoundsForLocalities(branches), {
+          padding: 48,
+          offset: [0, 10],
+          duration,
+        })
+      } catch {
+        // When it fails, no one cares because there is no branch :)
+      }
+    },
+    [branches]
+  )
 
   useEffect(() => {
-    setBounds([
-      [
-        minBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ??
-          17.107_748,
-        minBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ??
-          48.148_598,
-      ],
-      [
-        maxBy(localities, ({ localityLongitude }) => localityLongitude)?.localityLongitude ??
-          17.107_748,
-        maxBy(localities, ({ localityLatitude }) => localityLatitude)?.localityLatitude ??
-          48.148_598,
-      ],
-    ] as [[number, number], [number, number]])
-  }, [localities])
+    fitLocalities(500)
+  }, [fitLocalities, branches])
 
-  useEffect(() => {
-    setBrowser(!!typeof window)
-  }, [])
-
-  return localities.length > 0 ? (
-    <section className="">
+  return (
+    <section>
       <h2 className="py-12 text-center text-h3 md:text-left">{t('localitiesTitle')}</h2>
 
       <div className={cx({ 'border-border-dark lg:border': !altDesign })}>
         <div className="mb-4 h-60 w-full text-black lg:mb-8">
-          {isBrowser && (
+          {isClient && (
             <Mapbox
               ref={mapRef}
               mapboxAccessToken={mapboxAccessToken}
@@ -92,44 +72,49 @@ export const Localities = ({
                 height: '100%',
                 width: '100%',
               }}
-              onLoad={() => {
-                mapRef?.current?.getMap().fitBounds(bounds, {
-                  padding: {
-                    top: 54,
-                    right: 24,
-                    bottom: 24,
-                    left: 24,
-                  },
+              initialViewState={{
+                bounds: initialBounds.current,
+                fitBoundsOptions: {
+                  padding: 48,
                   duration: 0,
-                })
+                  offset: [0, 10],
+                },
               }}
               cooperativeGestures
             >
-              {localities
-                .filter((locality) => locality.localityLatitude && locality.localityLongitude)
-                .map(({ localityTitle, localityLatitude, localityLongitude }, index) => (
-                  <Marker
-                    key={index}
-                    anchor="bottom"
-                    longitude={localityLongitude}
-                    latitude={localityLatitude}
-                  >
-                    <div className="group flex flex-col items-center">
-                      <MarkerIcon
-                        onClick={() => {
-                          window.location.href = `https://www.google.com/maps/@${localityLatitude},${localityLongitude},16z`
-                        }}
-                        width={48}
-                        height={48}
-                      />
-                      {localityTitle && (
-                        <div className="bg-primary invisible absolute top-1/3 z-30 whitespace-nowrap rounded px-2 group-hover:visible">
-                          {localityTitle}
-                        </div>
-                      )}
-                    </div>
-                  </Marker>
-                ))}
+              {branches
+                .map((branch) => {
+                  const { longitude, latitude, title } = branch.attributes ?? {}
+
+                  if (!longitude || !latitude) {
+                    return null
+                  }
+
+                  return (
+                    <Marker
+                      key={branch.id}
+                      anchor="bottom"
+                      longitude={longitude}
+                      latitude={latitude}
+                    >
+                      <div className="group flex flex-col items-center">
+                        <MarkerIcon
+                          onClick={() => {
+                            window.location.href = `https://www.google.com/maps/@${latitude},${longitude},16z`
+                          }}
+                          width={48}
+                          height={48}
+                        />
+                        {title && (
+                          <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-promo-peach px-2 group-hover:visible">
+                            {title}
+                          </div>
+                        )}
+                      </div>
+                    </Marker>
+                  )
+                })
+                .filter(isDefined)}
             </Mapbox>
           )}
         </div>
@@ -139,18 +124,10 @@ export const Localities = ({
             'grid gap-4 md:grid-cols-2': altDesign,
           })}
         >
-          {localities.map(
-            (
-              {
-                localityTitle,
-                localityOpenFrom,
-                localityOpenTo,
-                localitySections,
-                localitySlug,
-                hideOpeningHours = true,
-              },
-              index
-            ) => (
+          {branches.map((branch, index) => {
+            const { slug, title, subBranches } = branch.attributes ?? {}
+
+            return (
               <div
                 className={cx({
                   'lg:border-l-0': index === 0 && !altDesign,
@@ -158,31 +135,28 @@ export const Localities = ({
                     !altDesign,
                   'relative w-full border border-border-dark py-4': altDesign,
                 })}
-                key={index}
+                key={branch.id}
               >
                 {/* TODO move link to title */}
-                <MLink href={localitySlug || ''}>
+                <MLink href={slug || ''}>
                   <div className="flex h-full w-full flex-col justify-between gap-4 p-6 lg:py-0">
                     <div>
-                      <div className="text-h3">{localityTitle}</div>
+                      <div className="text-h3">{title}</div>
                       <div className="pt-8 text-base">
-                        {localitySections?.map((section) => (
-                          <div
-                            key={section.localitySectionTitle}
-                            className="pt-1 text-foreground-body"
-                          >
-                            {section.localitySectionTitle}
+                        {subBranches?.data.map((subBranch) => (
+                          <div key={subBranch.id} className="pt-1 text-foreground-body">
+                            {subBranch.attributes?.title}
                           </div>
                         ))}
                       </div>
-                      {!hideOpeningHours && (
-                        <>
-                          <p className="pt-8 text-base">{t('localityOpeningText')}</p>
-                          <p className="text-base">
-                            {localityOpenFrom} - {localityOpenTo}
-                          </p>
-                        </>
-                      )}
+                      {/* {!hideOpeningHours && ( */}
+                      {/*  <> */}
+                      {/*    <p className="pt-8 text-base">{t('localityOpeningText')}</p> */}
+                      {/*    <p className="text-base"> */}
+                      {/*      {localityOpenFrom} - {localityOpenTo} */}
+                      {/*    </p> */}
+                      {/*  </> */}
+                      {/* )} */}
                     </div>
                     <div className="text-base hover:underline">
                       <div className="relative uppercase">
@@ -193,11 +167,11 @@ export const Localities = ({
                 </MLink>
               </div>
             )
-          )}
+          })}
         </div>
       </div>
     </section>
-  ) : null
+  )
 }
 
 export default Localities
