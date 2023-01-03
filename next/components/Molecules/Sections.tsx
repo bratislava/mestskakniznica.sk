@@ -10,6 +10,7 @@ import {
   Faq,
   FlatText,
   FlatTextCenter,
+  Localities,
   SiteUsefullness,
   SubListing,
   Subpages,
@@ -46,7 +47,6 @@ import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm, { VenueRentalFormProps } from '../forms/VenueRentalForm'
 import GalleryBanner from './GalleryBanner'
-import LocalityDetails from './LocalityDetails/LocalityDetails'
 import Metadata from './Metadata'
 
 type FormsProps =
@@ -218,15 +218,6 @@ const sectionContent = (
         </div>
       )
 
-    case 'ComponentSectionsLocalityDetails':
-      return (
-        <LocalityDetails
-          localityDetails={section}
-          events={events}
-          eventsListingUrl={eventsListingUrl}
-        />
-      )
-
     case 'ComponentSectionsExternalLinks':
       return (
         <ExternalLinks
@@ -276,6 +267,16 @@ const sectionContent = (
                   .replace('.', '') ?? '',
             },
           }))}
+        />
+      )
+
+    case 'ComponentSectionsMap':
+      return (
+        <Localities
+          altDesign
+          title={section.title}
+          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
+          branches={section.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []}
         />
       )
 

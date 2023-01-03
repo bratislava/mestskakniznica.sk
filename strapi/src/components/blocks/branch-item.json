@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_branch_items",
+  "info": {
+    "displayName": "branch item",
+    "icon": "map-marker"
+  },
+  "options": {},
+  "attributes": {
+    "branch": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::branch.branch"
+    }
+  }
+}

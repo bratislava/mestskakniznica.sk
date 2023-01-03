@@ -22,8 +22,11 @@ const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
     coverImage,
     eventTags,
     eventCategory,
-    eventLocality,
+    branch,
   } = attributes ?? {}
+
+  const eventBranch = branch?.data?.attributes
+
   return (
     // TODO refactor link to meet html validation standards
 
@@ -59,10 +62,8 @@ const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
       <div className="pt-2 text-sm text-foreground-body">
         <FormatEventDateRange dateFrom={attributes?.dateFrom} dateTo={attributes?.dateTo} />
       </div>
-      {eventLocality?.data?.attributes?.title && (
-        <div className="pt-2 text-sm text-foreground-body">
-          &#9679; {eventLocality.data?.attributes.title}
-        </div>
+      {eventBranch?.title && (
+        <div className="pt-2 text-sm text-foreground-body">&#9679; {eventBranch.title}</div>
       )}
     </div>
   )

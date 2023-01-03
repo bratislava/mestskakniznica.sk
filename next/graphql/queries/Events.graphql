@@ -32,16 +32,9 @@ fragment EventCardAttributes on Event {
       }
     }
   }
-  eventLocality {
+  branch {
     data {
-      id
-      attributes {
-        title
-        navigateTo
-        eventAddress
-        createdAt
-        updatedAt
-      }
+      ...BranchPlaceEntity
     }
   }
   eventTags {
@@ -123,15 +116,10 @@ query EventProperties($locale: I18NLocaleCode!) {
       }
     }
   }
-  eventLocalities(locale: $locale) {
+  branches(locale: $locale) {
     data {
       id
-      attributes {
-        title
-        navigateTo
-        createdAt
-        updatedAt
-      }
+      ...BranchPlaceEntity
     }
   }
   eventTags(locale: $locale) {

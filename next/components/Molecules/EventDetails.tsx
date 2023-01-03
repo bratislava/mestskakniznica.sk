@@ -33,6 +33,8 @@ const EventDetails = ({ event }: PageProps) => {
   const { Markdown: UIMarkdown } = useUIContext()
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
 
+  const eventBranch = event?.attributes?.branch?.data?.attributes
+
   const copyToClipBoard = () => {
     navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
   }
@@ -177,7 +179,7 @@ const EventDetails = ({ event }: PageProps) => {
                     event={{
                       name: event?.attributes?.title || '',
                       details: event?.attributes?.description?.replace(/\n/g, ' ') || null,
-                      location: event?.attributes?.eventLocality?.data?.attributes?.title || null,
+                      location: eventBranch?.title || null,
                       startsAt: new Date(event?.attributes?.dateFrom).toISOString(),
                       endsAt: new Date(event?.attributes?.dateTo).toISOString(),
                     }}
@@ -231,8 +233,7 @@ const EventDetails = ({ event }: PageProps) => {
                         event={{
                           name: event?.attributes?.title || '',
                           details: event?.attributes?.description?.replace(/\n/g, ' ') || null,
-                          location:
-                            event?.attributes?.eventLocality?.data?.attributes?.title || null,
+                          location: eventBranch?.title || null,
                           startsAt: new Date(event?.attributes?.dateFrom).toISOString(),
                           endsAt: new Date(event?.attributes?.dateTo).toISOString(),
                         }}
@@ -250,19 +251,21 @@ const EventDetails = ({ event }: PageProps) => {
                   <DetailsRow
                     classWrapper="flex"
                     svgIcon={<Navigate />}
-                    text={`${event?.attributes?.eventLocality?.data?.attributes?.title}${
-                      event?.attributes?.eventLocality?.data?.attributes?.eventAddress
-                        ? `, ${event?.attributes?.eventLocality?.data?.attributes?.eventAddress}`
+                    text={`${
+                      eventBranch?.title && eventBranch?.address
+                        ? `${eventBranch?.title}, ${eventBranch.address}`
                         : ``
                     }`}
                   />
-                  <Clickable
-                    actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${event?.attributes?.eventLocality?.data?.attributes?.navigateTo}`}
-                    classA="flex text-base uppercase"
-                    classDiv="pl-9 pt-3"
-                    svgIcon={<Directions />}
-                    text={t('navigate')}
-                  />
+                  {eventBranch?.address && (
+                    <Clickable
+                      actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${eventBranch.address}`}
+                      classA="flex text-base uppercase"
+                      classDiv="pl-9 pt-3"
+                      svgIcon={<Directions />}
+                      text={t('navigate')}
+                    />
+                  )}
                 </div>
 
                 <DetailsRow

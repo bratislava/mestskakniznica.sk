@@ -1,48 +1,56 @@
 import MailSvg from '@assets/images/mail.svg'
 import PhoneSvg from '@assets/images/phone.svg'
-import { ComponentSectionsLocalityDetails } from '@bratislava/strapi-sdk-city-library'
+import { BranchEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 type LocalityDetailsContactUsProps = {
-  localityDetails: ComponentSectionsLocalityDetails
+  branch: BranchEntityFragment
 }
 
-const LocalityDetailsContactUs = ({ localityDetails }: LocalityDetailsContactUsProps) => {
+const LocalityDetailsContactUs = ({ branch }: LocalityDetailsContactUsProps) => {
   const { t } = useTranslation('common')
 
+  if (!branch?.attributes?.subBranches?.data.length) {
+    return null
+  }
+
   return (
-    <div className="sticky top-8 mb-4 h-fit border border-border-dark p-6">
+    <div className="sticky top-8 mb-10 h-fit border border-border-dark p-6">
       <h5 className="pb-6 text-h5">{t('contactUs')}</h5>
-      {localityDetails?.localitySections?.map((localityContact) => (
+      {branch?.attributes?.subBranches?.data.map((subBranch) => (
         <div
           className="flex flex-col border-t border-border-light py-6 last:pb-0"
-          key={localityContact?.id}
+          key={subBranch.id}
         >
-          <div className="pb-4">{localityContact?.localitySectionTitle}</div>
+          <div className="pb-4">{subBranch.attributes?.title}</div>
           {/* TODO replace by PhoneButton */}
           <div className="flex flex-col gap-3">
-            <a
-              href={`tel:${localityContact?.localitySectionPhone}`}
-              className="flex items-center space-x-4 hover:underline"
-            >
-              {/* TODO: Resize icon and text to sm. */}
-              <span>
-                <PhoneSvg />
-              </span>
-              <span>{localityContact?.localitySectionPhone}</span>
-            </a>
+            {subBranch.attributes?.phone && (
+              <a
+                href={`tel:${subBranch.attributes?.phone}`}
+                className="flex items-center space-x-4 hover:underline"
+              >
+                {/* TODO: Resize icon and text to sm. */}
+                <span>
+                  <PhoneSvg />
+                </span>
+                <span>{subBranch.attributes?.phone}</span>
+              </a>
+            )}
             {/* TODO replace by MailButton */}
-            <a
-              href={`mailto:${localityContact?.localitySectionEmail}`}
-              className="flex items-center space-x-4 hover:underline"
-            >
-              {/* TODO: Resize icon and text to sm. */}
-              <span>
-                <MailSvg />
-              </span>
-              <span className="truncate">{localityContact?.localitySectionEmail}</span>
-            </a>
+            {subBranch.attributes?.email && (
+              <a
+                href={`mailto:${subBranch.attributes?.email}`}
+                className="flex items-center space-x-4 hover:underline"
+              >
+                {/* TODO: Resize icon and text to sm. */}
+                <span>
+                  <MailSvg />
+                </span>
+                <span className="truncate">{subBranch.attributes?.email}</span>
+              </a>
+            )}
           </div>
         </div>
       ))}

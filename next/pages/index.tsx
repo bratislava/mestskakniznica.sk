@@ -1,9 +1,8 @@
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
 import { client } from '@utils/gql'
-import { hasAttributes } from '@utils/isDefined'
+import { hasAttributes, isDefined } from '@utils/isDefined'
 import { getOpacBooks, OpacBook } from '@utils/opac'
-import { ILocality } from '@utils/types'
-import { convertPagesToLocalities, isPresent } from '@utils/utils'
+import { isPresent } from '@utils/utils'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -24,6 +23,7 @@ import {
   ComponentHomepageFaqSection,
   ComponentHomepageNewsSection,
   ComponentHomepageRegistrationInfo,
+  ComponentSectionsMap,
   ComponentSeoSeo,
   EventCardEntityFragment,
   FooterEntity,
@@ -46,11 +46,11 @@ interface IIndexProps {
   promos: (EventCardEntityFragment | PromoNewsCardFragment)[]
   news: PageEntity[]
   opacBookNews: OpacBook[]
-  faqSection: ComponentHomepageFaqSection
-  newsSection: ComponentHomepageNewsSection
+  faqSection: ComponentHomepageFaqSection | null
+  newsSection: ComponentHomepageNewsSection | null
   registrationInfoSection: ComponentHomepageRegistrationInfo
-  localities: ILocality[]
   bookTags: BookTagEntityFragment[]
+  mapSection: ComponentSectionsMap | null
   footer: FooterEntity
   error?: IDisplayError
   Seo?: ComponentSeoSeo
@@ -67,8 +67,8 @@ export const Index = ({
   faqSection,
   newsSection,
   registrationInfoSection,
-  localities,
   bookTags,
+  mapSection,
   footer,
   error,
   Seo,
@@ -158,14 +158,18 @@ export const Index = ({
           </SectionContainer>
         )}
 
-        <SectionContainer>
-          <Section noBorder>
-            <Localities
-              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
-              localities={localities}
-            />
-          </Section>
-        </SectionContainer>
+        {mapSection && (
+          <SectionContainer>
+            <Section noBorder>
+              <Localities
+                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
+                branches={
+                  mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []
+                }
+              />
+            </Section>
+          </SectionContainer>
+        )}
       </DefaultPageLayout>
     </PageWrapper>
   )
@@ -187,7 +191,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         promotedEvents,
         latestNews,
         bookTags,
-        localityPages,
         footer,
       },
     ] = await Promise.all([
@@ -199,12 +202,12 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       return { notFound: true }
     }
 
-    const localities = convertPagesToLocalities(localityPages?.data ?? [], true).map(
-      (locality) => ({
-        ...locality,
-        hideOpeningHours: true,
-      })
-    )
+    // const localities = convertPagesToLocalities(localityPages?.data ?? [], true).map(
+    //   (locality) => ({
+    //     ...locality,
+    //     hideOpeningHours: true,
+    //   })
+    // )
 
     return {
       props: {
@@ -218,13 +221,13 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         faqSection: homePage?.data?.attributes?.faqSection ?? null,
         newsSection: homePage?.data?.attributes?.newsSection ?? null,
         registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection ?? null,
-        localities,
         bookTags: bookTags?.data?.filter(hasAttributes) ?? [],
+        mapSection: homePage?.data?.attributes?.mapSection ?? null,
         footer: footer?.data,
         Seo: homePage?.data?.attributes?.Seo ?? null,
         ...translations,
       },
-      revalidate: 3600, // revalidates every hour
+      revalidate: 10,
     }
   } catch (iError) {
     console.error(iError)
@@ -235,7 +238,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         error,
         ...translations,
       },
-      revalidate: 180, // in case of an error, revalidates in 3 minutes
+      revalidate: 10,
     }
   }
 }

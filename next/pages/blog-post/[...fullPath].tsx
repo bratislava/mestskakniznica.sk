@@ -107,7 +107,7 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
       blogPost,
       ...translations,
     },
-    revalidate: 86_400,
+    revalidate: 10,
   }
 }
 
