@@ -1,5 +1,6 @@
 import last from 'lodash/last'
 import useSWRInfinite from 'swr/infinite'
+
 import { EventCardEntityFragment, EventFiltersInput } from '../graphql'
 import { client } from '../utils/gql'
 
@@ -29,10 +30,10 @@ export const useEventsPaginated = ({
         limit: PAGE_SIZE,
         start: index * PAGE_SIZE,
         filters,
-        sort: sort,
+        sort,
       }
 
-      return ['EventsPaginated', variables]
+      return ['EventsPaginated', variables] as const
     },
     (_key, variables) => client.EventList(variables)
   )

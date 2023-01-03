@@ -1,6 +1,7 @@
 import { Enum_Page_Layout } from '@bratislava/strapi-sdk-city-library'
 import last from 'lodash/last'
 import useSWRInfinite from 'swr/infinite'
+
 import { EventCardEntityFragment, EventFiltersInput } from '../graphql'
 import { client } from '../utils/gql'
 
@@ -30,7 +31,7 @@ export const usePagesPaginated = ({
         start: index * PAGE_SIZE,
       }
 
-      return ['NewsPaginated', variables]
+      return ['NewsPaginated', variables] as const
     },
     (_key, variables) => client.PagesByLayoutPaginated(variables)
   )
