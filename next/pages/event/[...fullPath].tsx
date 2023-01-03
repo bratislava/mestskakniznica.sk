@@ -128,7 +128,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         footer: footer?.data,
         ...translations,
       },
-      revalidate: 86_400,
+      revalidate: 10,
     }
   } catch (iError) {
     console.error(iError)
@@ -139,7 +139,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         error,
         ...translations,
       },
-      revalidate: 86_400,
+      revalidate: 10,
     }
   }
 }
