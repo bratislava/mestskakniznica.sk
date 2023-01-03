@@ -2,6 +2,7 @@ import '../styles/index.css'
 
 import { UIContextProvider } from '@bratislava/common-frontend-ui-context'
 import MI18nProvider from '@modules/common/MI18nProvider'
+import { beausiteFont } from '@utils/beausiteFont'
 import { isProductionDeployment } from '@utils/utils'
 import { AppProps } from 'next/app'
 import Link from 'next/link'
@@ -24,7 +25,7 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
     )
   }
   return (
-    <div className="font-beausite">
+    <div className={`${beausiteFont.variable} font-beausite`}>
       <Script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.sk" />
       {isProductionDeployment() ? (
         <Script
