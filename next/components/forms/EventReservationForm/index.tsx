@@ -4,7 +4,6 @@ import NumberSwitcher from '@bratislava/ui-city-library/NumberSwitcher/NumberSwi
 import { yupResolver } from '@hookform/resolvers/yup'
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import { convertDataToBody, getLocalDateForYup } from '@utils/form-constants'
-import { getBranchInfo } from '@utils/getBranchInfo'
 import { dayForDifferentDateTo, isEventPast } from '@utils/utils'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
@@ -23,7 +22,8 @@ export interface EventReservationFormProps {
 
 const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
   const { dateFrom, dateTo, title, branch } = eventDetail?.attributes ?? {}
-  const eventBranch = getBranchInfo(branch?.data)
+  const eventBranch = branch?.data?.attributes
+
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
   const [isDateEditDisabled, setIsDateEditDisabled] = React.useState(false)

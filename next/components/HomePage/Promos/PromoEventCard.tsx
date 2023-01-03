@@ -1,7 +1,6 @@
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
 import { WithAttributes } from '@utils/isDefined'
-import { getBranchInfo } from '@utils/getBranchInfo'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
@@ -33,7 +32,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
     coverImage,
   } = event.attributes
 
-  const eventBranch = getBranchInfo(branch?.data)
+  const eventBranch = branch?.data?.attributes
 
   return (
     <div className="relative m-auto flex h-full w-full flex-col justify-between bg-promo-yellow">

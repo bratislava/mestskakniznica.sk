@@ -1,11 +1,9 @@
-import BusinessSvg from '@assets/images/business.svg'
-import MailSvg from '@assets/images/mail.svg'
-import PhoneSvg from '@assets/images/phone.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { BranchEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
+import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
+import LocalityDetailsSubBranches from '@components/Molecules/LocalityDetails/LocalityDetailsSubBranches'
 import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
-import Accordion from '@modules/common/Accordion'
 import MLink from '@modules/common/MLink'
 import { useTranslation } from 'next-i18next'
 
@@ -48,7 +46,7 @@ const LocalityDetails = ({ branch }: PageProps) => {
             </div>
           </div>
 
-          {/* TODO: Extract description */}
+          {/* TODO: Extract description from subbranches */}
           {body?.trim() ? (
             <div id="description">
               <h3 className="text-h3">{t('description')}</h3>
@@ -59,8 +57,7 @@ const LocalityDetails = ({ branch }: PageProps) => {
           ) : null}
         </div>
 
-        {/* TODO services */}
-        {/* <LocalityDetailsServices localityDetails={localityDetails} /> */}
+        <LocalityDetailsServices branch={branch} />
 
         {/* TODO: Extract events */}
         {/* {(events?.length || 0) > 0 && ( */}
@@ -117,55 +114,8 @@ const LocalityDetails = ({ branch }: PageProps) => {
         {/*  </div> */}
         {/* )} */}
 
-        {/* TODO: Extract sections */}
-        <div className="py-10" id="sections">
-          <div className="text-[24px]">{t('sections')}</div>
-          <div className="pt-5">
-            {subBranches?.data.map((subBranch) => (
-              <Accordion
-                key={subBranch?.id}
-                title={subBranch?.attributes?.title}
-                type="sublocation"
-                iconLeft={<BusinessSvg />}
-              >
-                <div className="mb-3">
-                  {/* TODO replace by PhoneButton */}
-                  {subBranch.attributes?.phone && (
-                    <div className="mb-2 flex items-center">
-                      <span className="mr-4 mb-[1px] inline-flex">
-                        <PhoneSvg />
-                      </span>
-                      <a href={`tel:${subBranch.attributes?.phone}`} className="hover:underline">
-                        {subBranch.attributes?.phone}
-                      </a>
-                    </div>
-                  )}
-                  {/* TODO replace by MailButton */}
-                  {subBranch.attributes?.email && (
-                    <div className="mb-2 flex items-center">
-                      <span className="mr-4 mb-[1px] inline-flex">
-                        <MailSvg />
-                      </span>
-                      <a href={`mailto:${subBranch.attributes?.email}`} className="hover:underline">
-                        {subBranch.attributes?.email}
-                      </a>
-                    </div>
-                  )}
-                </div>
-                <div className="flex flex-col gap-2 py-2">
-                  {subBranch.attributes?.openingHours?.days.map((day) => (
-                    <div className="flex max-w-[340px] justify-between">
-                      <div>{day?.label}</div>
-                      <div>{day?.time}</div>
-                    </div>
-                  ))}
-                </div>
-                {/* {createContent(subBranch. || { id: '' }, false, true)} */}
-              </Accordion>
-            ))}
-          </div>
-          <LocalityDetailsWhere branch={branch} />
-        </div>
+        <LocalityDetailsSubBranches branch={branch} />
+        <LocalityDetailsWhere branch={branch} />
       </div>
       <LocalityDetailsContactUs branch={branch} />
     </div>

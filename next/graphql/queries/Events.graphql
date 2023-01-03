@@ -34,7 +34,7 @@ fragment EventCardAttributes on Event {
   }
   branch {
     data {
-      ...BranchPlaceNestedEntity
+      ...BranchPlaceEntity
     }
   }
   eventTags {
@@ -119,7 +119,7 @@ query EventProperties($locale: I18NLocaleCode!) {
   branches(locale: $locale) {
     data {
       id
-      ...BranchPlaceNestedEntity
+      ...BranchPlaceEntity
     }
   }
   eventTags(locale: $locale) {

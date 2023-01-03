@@ -4,6 +4,7 @@ import { isDefined } from '@utils/isDefined'
 import { isPresent, shouldSkipStaticPaths } from '@utils/utils'
 import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
@@ -21,6 +22,8 @@ interface IPageProps {
 }
 
 const EventSlugPage = ({ branch, menus, footer, error }: IPageProps) => {
+  const { t } = useTranslation(['common'])
+
   if (error) {
     return (
       <ErrorPage code={500}>
@@ -32,12 +35,17 @@ const EventSlugPage = ({ branch, menus, footer, error }: IPageProps) => {
   return (
     <PageWrapper
       locale={branch.attributes?.locale ?? ''}
-      slug={branch.attributes?.slug ?? ''}
+      slug={`${t('branch_slug')}${branch.attributes?.slug}`}
       localizations={branch.attributes?.localizations?.data
         .filter(isPresent)
         .map((localization) => ({
           locale: localization.attributes?.locale,
-          slug: localization.attributes?.slug,
+          // TODO locale is switched on purpose to get en url if user is on sk page and vice versa
+          slug: `${
+            branch.attributes?.locale === 'en'
+              ? '/navstivte/nase-lokality/'
+              : '/visit/our-locations/'
+          }${localization.attributes?.slug}`,
         }))}
     >
       <DefaultPageLayout

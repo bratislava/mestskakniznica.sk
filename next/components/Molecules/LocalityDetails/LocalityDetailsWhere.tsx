@@ -13,10 +13,11 @@ const LocalityDetailsWhere = ({ branch }: LocalityDetailsWhereProps) => {
     return null
   }
 
-  const { title, latitude, longitude, address } = branch.attributes
+  const { title, latitude, longitude, address, publicTransportInfo, barrierFreeInfo } =
+    branch.attributes
 
   return (
-    <div id="where" className="mt-10">
+    <div id="where" className="py-10">
       <div className="pb-6 text-h3">{t('localityWhereToFind')}</div>
       <div className="flex grid-cols-2 flex-col gap-x-5 space-y-4 md:grid">
         <div className="h-64 w-full md:h-[415px]">
@@ -27,9 +28,25 @@ const LocalityDetailsWhere = ({ branch }: LocalityDetailsWhereProps) => {
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
           />
         </div>
-        <div>
-          <div className="pb-4">{t('address')}</div>
-          <div className="whitespace-pre-wrap text-base text-foreground-body">{address}</div>
+        <div className="flex flex-col gap-4 whitespace-pre-wrap text-base text-foreground-body">
+          {address && (
+            <>
+              <h3 className="text-h5">{t('address')}</h3>
+              <div>{address}</div>
+            </>
+          )}
+          {publicTransportInfo && (
+            <>
+              <h3 className="text-h5">{t('publicTransport')}</h3>
+              <div>{publicTransportInfo}</div>
+            </>
+          )}
+          {barrierFreeInfo && (
+            <>
+              <h3 className="text-h5">{t('barrierFreeTitle')}</h3>
+              <div>{barrierFreeInfo}</div>
+            </>
+          )}
         </div>
       </div>
     </div>

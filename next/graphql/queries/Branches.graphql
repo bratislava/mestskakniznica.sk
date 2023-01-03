@@ -2,7 +2,6 @@ fragment BranchPlaceEntity on BranchEntity {
   id
   attributes {
     title
-    navigateToLink
     address
     phone
     email
@@ -10,17 +9,6 @@ fragment BranchPlaceEntity on BranchEntity {
       days {
         label
         time
-      }
-    }
-  }
-}
-
-fragment BranchPlaceNestedEntity on BranchEntity {
-  ...BranchPlaceEntity
-  attributes {
-    parentBranch {
-      data {
-        ...BranchPlaceEntity
       }
     }
   }
@@ -46,8 +34,7 @@ fragment BranchCardEntity on BranchEntity {
 fragment BranchEntity on BranchEntity {
   ...BranchCardEntity
   attributes {
-    navigateToLink
-    parentBranch {
+    parentBranches {
       data {
         ...BranchPlaceEntity
       }

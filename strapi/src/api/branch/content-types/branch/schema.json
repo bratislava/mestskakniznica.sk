@@ -72,14 +72,6 @@
       },
       "type": "float"
     },
-    "navigateToLink": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "string"
-    },
     "address": {
       "pluginOptions": {
         "i18n": {
@@ -143,17 +135,17 @@
       },
       "component": "blocks.opening-hours"
     },
-    "parentBranch": {
+    "parentBranches": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::branch.branch",
       "inversedBy": "subBranches"
     },
     "subBranches": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::branch.branch",
-      "mappedBy": "parentBranch"
+      "mappedBy": "parentBranches"
     },
     "events": {
       "type": "relation",

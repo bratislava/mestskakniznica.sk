@@ -37,6 +37,8 @@ const nextConfig = {
          * Rewrites to make the translation of URL work. Based on an approached outlined here:
          * https://stackoverflow.com/questions/68723485/how-to-setup-i18n-translated-url-routes-in-next-js/68731057#68731057
          */
+
+        // Articles
         {
           source: '/sluzby/vzdelavanie/clanky/:slug',
           destination: '/blog-post/:slug',
@@ -45,6 +47,18 @@ const nextConfig = {
           source: '/services/education/articles/:slug',
           destination: '/blog-post/:slug',
         },
+
+        // Branches
+        {
+          source: '/navstivte/nase-lokality/:slug',
+          destination: '/branch/:slug',
+        },
+        {
+          source: '/visit/our-locations/:slug',
+          destination: '/branch/:slug',
+        },
+
+        // Documents
         {
           source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
           destination: '/basic-document/:slug',
@@ -53,6 +67,8 @@ const nextConfig = {
           source: '/about-us/documents-and-public-disclosure-of-information/:slug',
           destination: '/basic-document/:slug',
         },
+
+        // Events
         {
           source: '/zazite/podujatia/:slug',
           destination: '/event/:slug',
@@ -61,14 +77,8 @@ const nextConfig = {
           source: '/experience/events/:slug',
           destination: '/event/:slug',
         },
-        {
-          source: '/navstivte/:slug',
-          destination: '/branch/:slug',
-        },
-        {
-          source: '/visit/:slug',
-          destination: '/branch/:slug',
-        },
+
+        // Search
         {
           source: '/vyhladavanie',
           destination: '/search',

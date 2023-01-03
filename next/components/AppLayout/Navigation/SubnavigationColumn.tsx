@@ -1,7 +1,6 @@
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { getBranchInfo } from '@utils/getBranchInfo'
 import cx from 'classnames'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
@@ -51,7 +50,7 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
               return (
                 <div className="grid grid-flow-col grid-rows-2">
                   {latestEvents.map((event) => {
-                    const eventBranch = getBranchInfo(event.attributes?.branch?.data)
+                    const eventBranch = event.attributes?.branch?.data?.attributes
 
                     return (
                       <div key={event.attributes?.slug}>

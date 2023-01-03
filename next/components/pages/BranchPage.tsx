@@ -18,11 +18,13 @@ const BranchPage = ({ branch }: PageProps) => {
       ? [
           { title: '', url: '/' },
           { title: 'Navštívte', url: '/navstivte' },
+          { title: 'Naše lokality', url: '/navstivte/nase-lokality' },
           { title: branch.attributes?.title || '', url: branch.attributes?.slug || '' },
         ]
       : [
           { title: '', url: '/' },
           { title: 'Visit', url: '/visit' },
+          { title: 'Our locations', url: '/visit/our-locations' },
           { title: branch.attributes?.title || '', url: branch.attributes?.slug || '' },
         ]
 
@@ -32,6 +34,7 @@ const BranchPage = ({ branch }: PageProps) => {
         <Breadcrumbs crumbs={breadCrumbs} />
       </SectionContainer>
       <SectionContainer>
+        {/* TODO add gallery */}
         <Section>
           <LocalityDetails branch={branch} />
         </Section>

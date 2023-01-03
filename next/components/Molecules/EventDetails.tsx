@@ -8,7 +8,6 @@ import Share from '@assets/images/share.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import AddToCalendar from '@culturehq/add-to-calendar'
 import FormatEventDateRange from '@modules/common/FormatEventDateRange'
-import { getBranchInfo } from '@utils/getBranchInfo'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
@@ -34,7 +33,7 @@ const EventDetails = ({ event }: PageProps) => {
   const { Markdown: UIMarkdown } = useUIContext()
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
 
-  const eventBranch = getBranchInfo(event?.attributes?.branch?.data)
+  const eventBranch = event?.attributes?.branch?.data?.attributes
 
   const copyToClipBoard = () => {
     navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)

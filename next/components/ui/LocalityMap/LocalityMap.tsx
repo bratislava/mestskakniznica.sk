@@ -55,7 +55,7 @@ export const LocalityMap = ({
                 height={48}
               />
               {localityName && (
-                <div className="bg-primary invisible absolute top-1/3 z-30 whitespace-nowrap rounded px-2 group-hover:visible">
+                <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-promo-yellow px-2 group-hover:visible">
                   {localityName}
                 </div>
               )}
