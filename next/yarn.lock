@@ -3364,6 +3364,13 @@
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.6.tgz#250a7b16c3b91f672a24552ec64678eeb1d3a08d"
   integrity sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==
 
+"@types/url-file-size@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/url-file-size/-/url-file-size-1.0.0.tgz#7bc777c57732999e94ed4847785d5002819a0a7b"
+  integrity sha512-kzAsEqhPWieOdIw0ApFnPi6MT30qK++ZJfyOujswrF4uClM03AZNoZMHS+klKPaucw31ykWeePyFyD3qbmlT6w==
+  dependencies:
+    "@types/node" "*"
+
 "@types/ws@^8.0.0":
   version "8.5.3"
   resolved "https://registry.yarnpkg.com/@types/ws/-/ws-8.5.3.tgz#7d25a1ffbecd3c4f2d35068d0b283c037003274d"
@@ -10074,6 +10081,11 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+url-file-size@^1.0.5-1:
+  version "1.0.5-1"
+  resolved "https://registry.yarnpkg.com/url-file-size/-/url-file-size-1.0.5-1.tgz#fb8f94f68b3972df14c934bd6e57d81a15fe66e4"
+  integrity sha512-ghtCV4fngGFNlIS8jrQ1w1qvHRrwrhHciht9uMbhE4VROCavFgibLHL0xZqWk+jL3X4o/i5wuap2bi2YK8PnEA==
 
 url-parse-lax@^3.0.0:
   version "3.0.0"
