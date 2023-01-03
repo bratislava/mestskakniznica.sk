@@ -58,7 +58,10 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                   ))}
                 <div className="absolute top-1/2 -z-10 w-full border-b border-border-dark" />
               </a>
-              <Link href="/" className="flex w-full flex-col justify-center">
+              <Link
+                href="/"
+                className="flex w-full flex-col justify-center text-[22px] leading-[26px]"
+              >
                 <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
                   {t('pageTitle')
                     .split(' ')

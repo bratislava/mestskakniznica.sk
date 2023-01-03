@@ -25,25 +25,24 @@ const Header = ({ menus, upcomingEvents }: HeaderProps) => {
       <div className="m-auto max-w-[1180px]">
         <div className="mx-auto flex justify-between border-b border-border-dark">
           <div>
-            <MLink href="/" className="flex h-full uppercase">
+            <MLink
+              href="/"
+              className="flex h-full text-[27px] uppercase leading-[26px] tracking-[0.6px]"
+            >
               {t('pageTitle')
                 .split(' ')
                 .map((word) => (
                   <span
                     key={word}
-                    className="border-r border-border-dark px-3 pt-[7px] pb-[6px] text-[27px] uppercase leading-[27px] first:pl-0 first:pr-3"
+                    className="border-r border-border-dark px-3 py-[7px] first:pl-0 first:pr-3"
                   >
                     {word}
                   </span>
                 ))}
             </MLink>
           </div>
-
           <SkipToContentButton />
-
-          <div>
-            <HeaderNavigation />
-          </div>
+          <HeaderNavigation />
         </div>
       </div>
       <div className="m-auto max-w-[1180px] border-b border-border-dark">
@@ -59,6 +58,7 @@ const Header = ({ menus, upcomingEvents }: HeaderProps) => {
                         key={index}
                         latestEvents={upcomingEvents}
                         menu={menu.attributes}
+                        isFirst={index === 0}
                       />
                     ))}
                   </NavigationMenu.List>

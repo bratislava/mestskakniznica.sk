@@ -4,9 +4,9 @@ import {
   Maybe,
   Menu,
 } from '@bratislava/strapi-sdk-city-library'
+import MLink from '@modules/common/MLink'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 
@@ -15,9 +15,10 @@ import Subnavigation from './Subnavigation'
 interface navItemProps {
   menu: Menu | undefined | null
   latestEvents?: EventCardEntityFragment[]
+  isFirst: boolean
 }
 
-const NavigationItem = ({ menu, latestEvents }: navItemProps) => {
+const NavigationItem = ({ menu, latestEvents, isFirst }: navItemProps) => {
   const menuSections: Maybe<ComponentMenuSections>[] = menu?.menuSections || []
   const router = useRouter()
 
@@ -27,20 +28,23 @@ const NavigationItem = ({ menu, latestEvents }: navItemProps) => {
   )
 
   return (
-    <NavigationMenu.Item className="h-14 border-r border-border-dark pl-3 pt-[28px] pb-1 first:pl-0 last:border-r-0 lg:w-[134px] xl:w-[160px]">
+    <NavigationMenu.Item className="flex h-14 border-r border-border-dark last:border-r-0 lg:w-[134px] xl:w-[160px]">
       {menu?.menuSlug && (
         <NavigationMenu.Trigger
-          className={cx('flex h-full text-lg font-normal', {
+          className={cx('flex w-full text-h5', {
             'text-foreground-body': isCurrentLink,
           })}
         >
-          <Link
+          <MLink
             href={`/${menu.menuSlug}`}
             tabIndex={-1}
-            className="h-full text-left text-foreground-heading hover:underline"
+            variant="basic"
+            className={cx('flex h-full w-full items-end pb-1 text-foreground-heading', {
+              'ml-3': !isFirst,
+            })}
           >
             {menu?.menuTitle}
-          </Link>
+          </MLink>
         </NavigationMenu.Trigger>
       )}
       {menuSections && (
