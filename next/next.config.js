@@ -11,7 +11,7 @@ const nextConfig = {
   },
   reloadOnPrerender: process.env.NODE_ENV === 'development',
   images: {
-    domains: ['localhost', 'cdn-api.bratislava.sk'],
+    domains: ['localhost', 'cdn-api.bratislava.sk', 'coverlinker.biblib.net'],
   },
   reactStrictMode: true,
   staticPageGenerationTimeout: 300,
