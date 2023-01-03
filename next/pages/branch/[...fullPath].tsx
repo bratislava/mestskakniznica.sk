@@ -1,32 +1,29 @@
+import BranchPage from '@components/pages/BranchPage'
 import { client } from '@utils/gql'
 import { isDefined } from '@utils/isDefined'
 import { isPresent, shouldSkipStaticPaths } from '@utils/utils'
 import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
 import PageWrapper from '../../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../../components/Molecules/ErrorDisplay'
 import ErrorPage from '../../components/pages/ErrorPage'
-import EventPage from '../../components/pages/eventPage'
-import {
-  EventCardEntityFragment,
-  EventEntityFragment,
-  FooterEntity,
-  MenuEntity,
-} from '../../graphql'
+import { BranchEntityFragment, FooterEntity, MenuEntity } from '../../graphql'
 
 interface IPageProps {
   locale: string
-  event: EventEntityFragment
-  upcomingEvents: EventCardEntityFragment[]
+  branch: BranchEntityFragment
   menus: MenuEntity[]
   footer: FooterEntity
   error?: IDisplayError
 }
 
-const EventSlugPage = ({ event, upcomingEvents, menus, footer, error }: IPageProps) => {
+const EventSlugPage = ({ branch, menus, footer, error }: IPageProps) => {
+  const { t } = useTranslation(['common'])
+
   if (error) {
     return (
       <ErrorPage code={500}>
@@ -37,23 +34,28 @@ const EventSlugPage = ({ event, upcomingEvents, menus, footer, error }: IPagePro
 
   return (
     <PageWrapper
-      locale={event.attributes?.locale ?? ''}
-      slug={event.attributes?.slug ?? ''}
-      localizations={event.attributes?.localizations?.data
+      locale={branch.attributes?.locale ?? ''}
+      slug={`${t('branch_slug')}${branch.attributes?.slug}`}
+      localizations={branch.attributes?.localizations?.data
         .filter(isPresent)
         .map((localization) => ({
           locale: localization.attributes?.locale,
-          slug: localization.attributes?.slug,
+          // TODO locale is switched on purpose to get en url if user is on sk page and vice versa
+          slug: `${
+            branch.attributes?.locale === 'en'
+              ? '/navstivte/nase-lokality/'
+              : '/visit/our-locations/'
+          }${localization.attributes?.slug}`,
         }))}
     >
       <DefaultPageLayout
-        title={event.attributes?.title}
-        Seo={event.attributes?.Seo}
+        title={branch.attributes?.title}
+        // TODO add seo to Strapi
+        // Seo={branch.attributes?.Seo}
         menus={menus}
         footer={footer}
-        upcomingEvents={upcomingEvents ?? []}
       >
-        <EventPage event={event} />
+        <BranchPage branch={branch} />
       </DefaultPageLayout>
     </PageWrapper>
   )
@@ -64,29 +66,28 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
   if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
 
   const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.EventStaticPaths({ locale }))
+    locales.map((locale) => client.BranchStaticPaths({ locale }))
   )
-  const events = pathArraysForLocales
-    .flatMap(({ events: eventsInner }) => eventsInner?.data || [])
+  const branches = pathArraysForLocales
+    .flatMap(({ branches: branchesInner }) => branchesInner?.data || [])
     .filter(isDefined)
 
-  if (events.length > 0) {
-    paths = events
-      .filter((event) => event.attributes?.slug)
-      .map((event) => ({
+  if (branches.length > 0) {
+    paths = branches
+      .filter((branch) => branch.attributes?.slug)
+      .map((branch) => ({
         params: {
-          fullPath: `${
-            event.attributes?.locale === 'sk' ? '/zazite/podujatia/' : '/experience/events/'
-          }${event.attributes?.slug!}`
+          fullPath: `${branch.attributes?.locale === 'sk' ? '/navstivte/' : '/visit/'}${branch
+            .attributes?.slug!}`
             .split('/')
             .slice(1),
-          locale: event.attributes?.locale || '',
+          locale: branch.attributes?.locale || '',
         },
       }))
   }
 
   // eslint-disable-next-line no-console
-  console.log(`GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
+  console.log(`GENERATED STATIC PATHS FOR ${paths.length} BRANCHES`)
   return { paths, fallback: 'blocking' }
 }
 
@@ -98,31 +99,28 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
   if (!slug) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} event ${slug} on ${ctx?.params?.fullPath}`)
+  console.log(`Revalidating ${locale} branch ${slug} on ${ctx?.params?.fullPath}`)
 
   const translations = (await serverSideTranslations(locale, [
     'common',
     'forms',
     'newsletter',
-    'homepage',
   ])) as any
 
   try {
-    const { events, menus, footer, upcomingEvents } = await client.EventBySlug({
+    const { branches, menus, footer } = await client.BranchBySlug({
       slug,
       locale,
-      date: new Date().toISOString(),
     })
 
-    const event = events?.data[0] ?? null
+    const branch = branches?.data[0] ?? null
 
-    if (!event) return { notFound: true } as const
+    if (!branch) return { notFound: true } as const
 
     return {
       props: {
         slug,
-        upcomingEvents: upcomingEvents?.data,
-        event,
+        branch,
         locale,
         menus: menus?.data ?? [],
         footer: footer?.data,

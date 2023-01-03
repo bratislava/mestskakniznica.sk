@@ -21,7 +21,9 @@ export interface EventReservationFormProps {
 }
 
 const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
-  const { dateFrom, dateTo, title, eventLocality } = eventDetail?.attributes ?? {}
+  const { dateFrom, dateTo, title, branch } = eventDetail?.attributes ?? {}
+  const eventBranch = branch?.data?.attributes
+
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
   const [isDateEditDisabled, setIsDateEditDisabled] = React.useState(false)
@@ -280,9 +282,9 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                             dateTo={dateTo ?? new Date().toISOString()}
                           />
                         </div>
-                        {eventLocality?.data?.attributes?.title && (
+                        {eventBranch?.title && (
                           <div className="text-sm text-foreground-body">
-                            &#9679; {eventLocality.data.attributes?.title}
+                            &#9679; {eventBranch.title}
                           </div>
                         )}
                       </div>

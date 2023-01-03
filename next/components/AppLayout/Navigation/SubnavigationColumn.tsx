@@ -49,47 +49,50 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
             if (latestEvents && latestEvents?.length > 0) {
               return (
                 <div className="grid grid-flow-col grid-rows-2">
-                  {latestEvents.map((event) => (
-                    <div key={event.attributes?.slug}>
-                      <div className="h-23 w-[380px] cursor-pointer py-5">
-                        <NavigationMenu.Link
-                          className="h-10 pt-4 text-foreground-body"
-                          tabIndex={-1}
-                        >
-                          <MLink
-                            href={`${t('event_slug')}${event.attributes?.slug ?? ''}`}
-                            className="flex"
-                          >
-                            <div className="flex h-16 w-20 bg-promo-yellow text-center">
-                              <EventDetailsDateBox
-                                dateFrom={event.attributes?.dateFrom || ''}
-                                dateTo={event.attributes?.dateTo || ''}
-                                textClassname="text-[18px]"
-                              />
-                            </div>
+                  {latestEvents.map((event) => {
+                    const eventBranch = event.attributes?.branch?.data?.attributes
 
-                            <div className="w-full pl-5">
-                              <div className="text-foreground-heading hover:underline">
-                                {event?.attributes?.title}
-                              </div>
-                              <div className="text-sm text-foreground-body">
-                                <FormatEventDateRange
-                                  dateFrom={event.attributes?.dateFrom}
-                                  dateTo={event.attributes?.dateTo}
+                    return (
+                      <div key={event.attributes?.slug}>
+                        <div className="h-23 w-[380px] cursor-pointer py-5">
+                          <NavigationMenu.Link
+                            className="h-10 pt-4 text-foreground-body"
+                            tabIndex={-1}
+                          >
+                            <MLink
+                              href={`${t('event_slug')}${event.attributes?.slug ?? ''}`}
+                              className="flex"
+                            >
+                              <div className="flex h-16 w-20 bg-promo-yellow text-center">
+                                <EventDetailsDateBox
+                                  dateFrom={event.attributes?.dateFrom || ''}
+                                  dateTo={event.attributes?.dateTo || ''}
+                                  textClassname="text-[18px]"
                                 />
                               </div>
-                              {event?.attributes?.eventLocality?.data?.attributes?.title && (
-                                <div className="max-w-[250px] text-sm text-foreground-body">
-                                  &#9679;{' '}
-                                  {event?.attributes?.eventLocality?.data?.attributes?.title}
+
+                              <div className="w-full pl-5">
+                                <div className="text-foreground-heading hover:underline">
+                                  {event?.attributes?.title}
                                 </div>
-                              )}
-                            </div>
-                          </MLink>
-                        </NavigationMenu.Link>
+                                <div className="text-sm text-foreground-body">
+                                  <FormatEventDateRange
+                                    dateFrom={event.attributes?.dateFrom}
+                                    dateTo={event.attributes?.dateTo}
+                                  />
+                                </div>
+                                {eventBranch?.title && (
+                                  <div className="max-w-[250px] text-sm text-foreground-body">
+                                    &#9679; {eventBranch.title}
+                                  </div>
+                                )}
+                              </div>
+                            </MLink>
+                          </NavigationMenu.Link>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
               )
             }
