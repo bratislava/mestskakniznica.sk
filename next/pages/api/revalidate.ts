@@ -19,16 +19,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (typeof reqUrl === 'string') {
         const urlToRevalidate = `${reqUrl.startsWith('/') ? '' : '/'}${reqUrl}`
         console.log(`Revalidating ${urlToRevalidate}`)
-        await res.unstable_revalidate(urlToRevalidate)
+        await res.revalidate(urlToRevalidate)
       } else if (reqUrl[0]) {
         const urlToRevalidate = `/${reqUrl[0]}`
         console.log(`Revalidating ${urlToRevalidate}`)
-        await res.unstable_revalidate(urlToRevalidate)
+        await res.revalidate(urlToRevalidate)
       }
     } else {
       // If no custom url provided, always revalidate homepage
       console.log(`Revalidating /`)
-      await res.unstable_revalidate('/')
+      await res.revalidate('/')
     }
 
     // Check model
@@ -39,16 +39,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const isEn = payload?.entry?.locale === 'en'
 
       console.log(`Revalidating ${urlToRevalidate}`)
-      await res.unstable_revalidate(urlToRevalidate)
+      await res.revalidate(urlToRevalidate)
 
       if (isEn) {
         console.log(
           `Revalidating /en/services/education/articles due to change in ${urlToRevalidate}`
         )
-        await res.unstable_revalidate('/en/services/education/articles')
+        await res.revalidate('/en/services/education/articles')
       } else {
         console.log(`Revalidating /sluzby/vzdelavanie/clanky due to change in ${urlToRevalidate}`)
-        await res.unstable_revalidate('/sluzby/vzdelavanie/clanky')
+        await res.revalidate('/sluzby/vzdelavanie/clanky')
       }
     }
 
@@ -57,7 +57,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const urlToRevalidate = `/documents/${payload?.entry?.slug}`
       console.log(`Revalidating ${urlToRevalidate}`)
-      await res.unstable_revalidate(urlToRevalidate)
+      await res.revalidate(urlToRevalidate)
     }
 
     if (payload?.model === 'event') {
@@ -67,18 +67,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const isEn = payload?.entry?.locale === 'en'
 
       console.log(`Revalidating ${urlToRevalidate}`)
-      await res.unstable_revalidate(urlToRevalidate)
+      await res.revalidate(urlToRevalidate)
 
       if (isEn) {
         console.log(
           `Revalidating /en/experience/events, /en/experience due to change in ${urlToRevalidate}`
         )
-        await res.unstable_revalidate('/en/experience/events')
-        await res.unstable_revalidate('/en/experience')
+        await res.revalidate('/en/experience/events')
+        await res.revalidate('/en/experience')
       } else {
         console.log(`Revalidating /zazite/podujatia, /zazite due to change in ${urlToRevalidate}`)
-        await res.unstable_revalidate('/zazite/podujatia')
-        await res.unstable_revalidate('/zazite')
+        await res.revalidate('/zazite/podujatia')
+        await res.revalidate('/zazite')
       }
     }
 
@@ -90,19 +90,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const layout = payload?.entry?.layout as string
 
       console.log(`Revalidating ${urlToRevalidate}`)
-      await res.unstable_revalidate(urlToRevalidate)
+      await res.revalidate(urlToRevalidate)
 
       if (layout === 'news') {
         if (isEn) {
           console.log(
             `Revalidating /en/experience/news, /en/experience due to change in ${urlToRevalidate}`
           )
-          await res.unstable_revalidate('/en/experience/news')
-          await res.unstable_revalidate('/en/experience')
+          await res.revalidate('/en/experience/news')
+          await res.revalidate('/en/experience')
         } else {
           console.log(`Revalidating /zazite/aktuality, /zazite due to change in ${urlToRevalidate}`)
-          await res.unstable_revalidate('/zazite/aktuality')
-          await res.unstable_revalidate('/zazite')
+          await res.revalidate('/zazite/aktuality')
+          await res.revalidate('/zazite')
         }
       }
 
@@ -111,14 +111,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           console.log(
             `Revalidating /en/visit/our-locations, /en/visit due to change in ${urlToRevalidate}`
           )
-          await res.unstable_revalidate('/en/visit/our-locations')
-          await res.unstable_revalidate('/en/visit')
+          await res.revalidate('/en/visit/our-locations')
+          await res.revalidate('/en/visit')
         } else {
           console.log(
             `Revalidating /navstivte/nase-lokality, /navstivte due to change in ${urlToRevalidate}`
           )
-          await res.unstable_revalidate('/navstivte/nase-lokality')
-          await res.unstable_revalidate('/navstivte')
+          await res.revalidate('/navstivte/nase-lokality')
+          await res.revalidate('/navstivte')
         }
       }
     }
