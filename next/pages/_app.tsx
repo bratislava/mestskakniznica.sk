@@ -40,10 +40,8 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
               Link: ({ href, className, children, locale, target, rel }) => {
                 if (href === undefined || href === null) return null
                 return (
-                  <Link href={href} locale={locale}>
-                    <a target={target} rel={rel} href={href} className={className}>
-                      {children}
-                    </a>
+                  <Link href={href} locale={locale} target={target} rel={rel} className={className}>
+                    {children}
                   </Link>
                 )
               },

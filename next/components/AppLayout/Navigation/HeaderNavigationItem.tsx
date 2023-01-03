@@ -18,9 +18,7 @@ const HeaderNavigationItem = ({ url, children }: INavigationItemProps) => {
           'text-foreground-body': router.pathname.startsWith(url),
         })}
       >
-        <Link href={url} passHref>
-          <a href={url}>{children}</a>
-        </Link>
+        <Link href={url}>{children}</Link>
       </div>
     </div>
   )

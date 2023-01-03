@@ -35,20 +35,22 @@ const HeaderNavigation = () => {
       </div>
       <div className="border-l border-border-dark">
         <div className="border-border-dark py-[10px] text-sm font-normal md:flex">
-          <Link href="https://opac.mestskakniznica.sk/opac" passHref>
-            <a target="_blank" className="px-[12px] font-normal hover:underline">
-              {t('onlineCatalog')}
-            </a>
+          <Link
+            href="https://opac.mestskakniznica.sk/opac"
+            target="_blank"
+            className="px-[12px] font-normal hover:underline"
+          >
+            {t('onlineCatalog')}
           </Link>
         </div>
       </div>
-      <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
-        <a
-          aria-label={t('otherLocaleAriaLabel')}
-          className="border-l border-border-dark py-[10px] pl-[12px] text-base font-normal"
-        >
-          {otherLocaleData.locale.toUpperCase()}
-        </a>
+      <Link
+        href={otherLocaleData.path}
+        locale={otherLocaleData.locale}
+        aria-label={t('otherLocaleAriaLabel')}
+        className="border-l border-border-dark py-[10px] pl-[12px] text-base font-normal"
+      >
+        {otherLocaleData.locale.toUpperCase()}
       </Link>
     </div>
   )

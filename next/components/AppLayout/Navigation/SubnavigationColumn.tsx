@@ -105,13 +105,11 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
                 tabIndex={-1}
                 key={sectionLink.sectionLinkPage?.data?.attributes?.slug}
               >
-                <Link href={`/${sectionLink.sectionLinkPage?.data?.attributes?.slug}`} passHref>
-                  <a
-                    href={`/${sectionLink.sectionLinkPage?.data?.attributes?.slug}`}
-                    className="hover:underline"
-                  >
-                    {sectionLink.sectionLinkPage?.data?.attributes?.title}
-                  </a>
+                <Link
+                  href={`/${sectionLink.sectionLinkPage?.data?.attributes?.slug}`}
+                  className="hover:underline"
+                >
+                  {sectionLink.sectionLinkPage?.data?.attributes?.title}
                 </Link>
               </NavigationMenu.Link>
             )

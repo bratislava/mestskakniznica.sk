@@ -34,10 +34,12 @@ const NavigationItem = ({ menu, latestEvents }: navItemProps) => {
             'text-foreground-body': isCurrentLink,
           })}
         >
-          <Link href={`/${menu.menuSlug}`} passHref>
-            <a tabIndex={-1} className="h-full text-left text-foreground-heading hover:underline">
-              {menu?.menuTitle}
-            </a>
+          <Link
+            href={`/${menu.menuSlug}`}
+            tabIndex={-1}
+            className="h-full text-left text-foreground-heading hover:underline"
+          >
+            {menu?.menuTitle}
           </Link>
         </NavigationMenu.Trigger>
       )}

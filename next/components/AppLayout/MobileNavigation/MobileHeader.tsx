@@ -39,7 +39,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
     <>
       <div className="m-auto">
         <div className="flex justify-between border-b border-border-dark">
-          <Link href="/" passHref>
+          <Link href="/" passHref legacyBehavior>
             <>
               <a className="relative hidden w-full grid-cols-10 items-center pr-8 uppercase lg:grid">
                 {t('pageTitle')
@@ -58,22 +58,20 @@ const MobilHeader = ({ menus }: HeaderProps) => {
                   ))}
                 <div className="absolute top-1/2 -z-10 w-full border-b border-border-dark" />
               </a>
-              <Link href="/" passHref>
-                <a className="flex w-full flex-col justify-center">
-                  <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
-                    {t('pageTitle')
-                      .split(' ')
-                      .slice(0, 2)
-                      .map((word, index) => pageTitle(word, index))}
-                    <div className="absolute bottom-0 -z-10 w-full border-b border-border-dark" />
-                  </div>
-                  <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
-                    {t('pageTitle')
-                      .split(' ')
-                      .slice(2)
-                      .map((word, index) => pageTitle(word, index))}
-                  </div>
-                </a>
+              <Link href="/" className="flex w-full flex-col justify-center">
+                <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
+                  {t('pageTitle')
+                    .split(' ')
+                    .slice(0, 2)
+                    .map((word, index) => pageTitle(word, index))}
+                  <div className="absolute bottom-0 -z-10 w-full border-b border-border-dark" />
+                </div>
+                <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
+                  {t('pageTitle')
+                    .split(' ')
+                    .slice(2)
+                    .map((word, index) => pageTitle(word, index))}
+                </div>
               </Link>
             </>
           </Link>

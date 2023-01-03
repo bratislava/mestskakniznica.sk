@@ -38,12 +38,10 @@ const Localities = ({ localities }: LocalitiesProps) => {
                   </p>
                 </div>
                 <div className="border-r border-border-dark pl-6 text-base hover:underline">
-                  <Link href={locality.localitySlug || ''} passHref>
-                    <a className="uppercase" href={locality.localitySlug}>
-                      <div className="relative">
-                        {t('more', { ns: 'common' })} {'>'}
-                      </div>
-                    </a>
+                  <Link href={locality.localitySlug || ''} className="uppercase">
+                    <div className="relative">
+                      {t('more', { ns: 'common' })} {'>'}
+                    </div>
                   </Link>
                 </div>
               </div>
