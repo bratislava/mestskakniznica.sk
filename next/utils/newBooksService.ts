@@ -75,7 +75,8 @@ const checkCoverImages = async () => {
 }
 
 const fetchBooks = async () => {
-  // In localhost environments mock books are returned not to reset the service with each compilation.
+  // In localhost environments mock books are returned not to make unnecessary request as the service
+  // is restarted with each compilation.
   if (process.env.NEXT_PUBLIC_IS_LOCALHOST === 'true') {
     fetchedBooks = mockNewBooks
     return
