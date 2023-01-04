@@ -12,7 +12,6 @@ import ErrorPage from '../components/pages/ErrorPage'
 import EventsListingPage from '../components/pages/eventsListingPage'
 import FullContentPage from '../components/pages/fullContentPage'
 import ListingPage from '../components/pages/listingPage'
-import LocalityPage from '../components/pages/localityPage'
 import NewsListingPage from '../components/pages/newsListingPage'
 import PartnersPage from '../components/pages/partnersPage'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
@@ -86,10 +85,6 @@ const Page = ({ page, upcomingEvents, menus, footer, error }: IPageProps) => {
 
     case Enum_Page_Layout.NewsListing:
       pageComponentByLayout = <NewsListingPage page={page} />
-      break
-
-    case Enum_Page_Layout.Locality:
-      pageComponentByLayout = <LocalityPage page={page} />
       break
 
     case Enum_Page_Layout.BookNews:
