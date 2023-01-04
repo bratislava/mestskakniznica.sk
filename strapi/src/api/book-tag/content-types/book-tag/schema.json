@@ -4,7 +4,8 @@
   "info": {
     "singularName": "book-tag",
     "pluralName": "book-tags",
-    "displayName": "Book Tags"
+    "displayName": "Knihy: Tagy",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

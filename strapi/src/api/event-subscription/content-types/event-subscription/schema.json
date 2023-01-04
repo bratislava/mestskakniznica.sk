@@ -4,7 +4,8 @@
   "info": {
     "singularName": "event-subscription",
     "pluralName": "event-subscriptions",
-    "displayName": "Event Subscriptions"
+    "displayName": "Podujatia: Subscriptions",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
