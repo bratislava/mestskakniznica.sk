@@ -1,5 +1,6 @@
-import { EventCardEntityFragment, PageEntity, PromoNewsCardFragment } from '../../graphql'
-import { withAttributes } from '../../utils/isDefined'
+import { withAttributes } from '@utils/isDefined'
+
+import { EventCardEntityFragment, PromoNewsCardFragment } from '../../graphql'
 import PromoEventCard from './Promos/PromoEventCard'
 import PromoNewsCard from './Promos/PromoNewsCard'
 
@@ -7,28 +8,24 @@ interface SectionPromosProps {
   promos: (EventCardEntityFragment | PromoNewsCardFragment)[]
 }
 
+// TODO: sizes are now hardcoded, should be calculated to fit the screen
+
 const SectionPromos = ({ promos }: SectionPromosProps) => {
   return (
-    <section className="-mx-4 overflow-x-auto">
-      <div className="flex h-auto w-fit gap-4 px-4 py-10 lg:grid lg:grid-cols-3 lg:gap-8">
+    <section className="overflow-x-auto">
+      <div className="my-10 flex h-[350px] w-fit gap-4 md:h-[490px] lg:gap-5">
         {promos?.map((promo) => {
           switch (promo.__typename) {
             case 'EventEntity':
               return (
-                <div
-                  key={promo.attributes?.slug}
-                  className="w-[80vw] shrink-0 sm:w-[calc(50vw_-_24px)] lg:w-full"
-                >
+                <div key={promo.attributes?.slug} className="w-[268px] shrink-0 md:w-[379px]">
                   <PromoEventCard event={withAttributes(promo)} />
                 </div>
               )
 
             case 'PageEntity':
               return (
-                <div
-                  key={promo?.attributes?.slug}
-                  className="w-[80vw] shrink-0 sm:w-[calc(50vw_-_24px)] lg:w-full"
-                >
+                <div key={promo?.attributes?.slug} className="w-[268px] shrink-0 md:w-[379px]">
                   <PromoNewsCard
                     title={promo?.attributes?.title ?? ''}
                     slug={promo?.attributes?.slug ?? ''}
@@ -38,7 +35,6 @@ const SectionPromos = ({ promos }: SectionPromosProps) => {
 
             default:
               return null
-              break
           }
         })}
       </div>
