@@ -92,8 +92,8 @@ const fetchBooks = async () => {
       const coverUrl = book?.coverURL?._text
       return {
         title: book?.title?._text,
-        coverUrl: coverUrl === ' --- ' ? undefined : coverUrl,
         url: book?.recURL?._text,
+        ...(coverUrl === ' --- ' ? {} : { coverUrl }),
       }
       /* eslint-enable no-underscore-dangle */
     })
@@ -142,10 +142,15 @@ export const getNewBooks = async ({
           ? book.coverUrl
           : undefined
         : book.coverUrl
-      return {
+      const result = {
         ...book,
         coverUrl,
       }
+      if (!coverUrl) {
+        // `undefined` is not serializable by Next getStaticProps
+        delete result.coverUrl
+      }
+      return result
     }) ?? []
 
   if (isDefined(page) && isDefined(pageSize)) {
