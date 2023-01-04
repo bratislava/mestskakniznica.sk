@@ -27,10 +27,8 @@ const MobileSubnavigation = ({ menuSections, onClose }: SubnavigationProps) => {
           // eslint-disable-next-line react/no-array-index-key
           <div key={index} className="py-4 pl-4 text-lg">
             {mobilMenu?.sectionPage?.data?.attributes?.slug && (
-              <Link href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`} passHref>
-                <a href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`}>
-                  {mobilMenu?.sectionTitle}
-                </a>
+              <Link href={`/${mobilMenu?.sectionPage?.data?.attributes?.slug}`}>
+                {mobilMenu?.sectionTitle}
               </Link>
             )}
             {mobilMenu?.sectionLinks?.map((mobilSubMenu) => (
@@ -39,8 +37,8 @@ const MobileSubnavigation = ({ menuSections, onClose }: SubnavigationProps) => {
                 className="pt-3 text-[16px] text-foreground-body"
               >
                 {mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug && (
-                  <Link href={`/${mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug}`} passHref>
-                    <a>{mobilSubMenu?.sectionLinkPage?.data?.attributes?.title}</a>
+                  <Link href={`/${mobilSubMenu?.sectionLinkPage?.data?.attributes?.slug}`}>
+                    {mobilSubMenu?.sectionLinkPage?.data?.attributes?.title}
                   </Link>
                 )}
               </div>

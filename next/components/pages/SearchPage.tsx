@@ -143,30 +143,28 @@ const SearchPage = ({ pageEntity }: PageProps) => {
               <div ref={resultsRef} className="flex flex-col">
                 {dataToDisplay?.hits.map(({ title, link, type }, index) => (
                   // eslint-disable-next-line react/no-array-index-key
-                  <Link key={index} href={link} passHref>
-                    <a>
-                      <div
-                        className={cx(
-                          'group flex items-center justify-between border-b border-border-dark bg-white py-4 pr-2'
-                        )}
-                      >
-                        <div className="flex items-center gap-x-6">
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-x-4">
-                              <h2>{title}</h2>
-                              <span className="rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[12px]">
-                                {/* TODO proper translation keys */}
-                                {t(`searchTags.${type}`)}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-x-3 text-xs text-foreground-body">
-                              <span>/{link}</span>
-                            </div>
+                  <Link key={index} href={link}>
+                    <div
+                      className={cx(
+                        'group flex items-center justify-between border-b border-border-dark bg-white py-4 pr-2'
+                      )}
+                    >
+                      <div className="flex items-center gap-x-6">
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-x-4">
+                            <h2>{title}</h2>
+                            <span className="rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[12px]">
+                              {/* TODO proper translation keys */}
+                              {t(`searchTags.${type}`)}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-x-3 text-xs text-foreground-body">
+                            <span>/{link}</span>
                           </div>
                         </div>
-                        <ChevronRight className="ml-4 shrink-0" />
                       </div>
-                    </a>
+                      <ChevronRight className="ml-4 shrink-0" />
+                    </div>
                   </Link>
                 ))}
               </div>

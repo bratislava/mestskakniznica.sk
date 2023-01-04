@@ -38,10 +38,12 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
       <div className="flex h-[61px] justify-between border-b border-border-dark">
         <div className="flex h-full">
           <div className="flex h-full items-center px-5">
-            <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
-              <a className="border-border-dark text-base font-normal">
-                {otherLocaleData.locale.toUpperCase()}
-              </a>
+            <Link
+              href={otherLocaleData.path}
+              locale={otherLocaleData.locale}
+              className="border-border-dark text-base font-normal"
+            >
+              {otherLocaleData.locale.toUpperCase()}
             </Link>
           </div>
           {/* <div className="px-5 h-full flex items-center cursor-pointer"> */}
@@ -60,15 +62,13 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
       ))}
       <div className="px-4 pt-[47px] pb-4">
         <div className="border-b border-border-dark pb-4 text-[16px]">
-          <Link href={t('openingHoursPageLink')} passHref>
-            <a>{openingHours}</a>
-          </Link>
+          <Link href={t('openingHoursPageLink')}>{openingHours}</Link>
         </div>
       </div>
       <div className="px-4 pb-10">
         <div className="border-b border-border-dark pb-4 text-[16px]">
-          <Link href="https://opac.mestskakniznica.sk/opac" passHref>
-            <a target="_blank">{t('onlineCatalog')}</a>
+          <Link href="https://opac.mestskakniznica.sk/opac" target="_blank">
+            {t('onlineCatalog')}
           </Link>
         </div>
       </div>

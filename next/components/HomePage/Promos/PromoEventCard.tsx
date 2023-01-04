@@ -79,7 +79,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
             <Image
               width={600}
               height={360}
-              objectFit="cover"
+              className="object-cover"
               src={listingImage?.data?.attributes?.url || ''}
               // Decorative image - no alt text
               alt=""
@@ -92,7 +92,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
               <Image
                 width={600}
                 height={360}
-                objectFit="cover"
+                className="object-cover"
                 src={coverImage?.data?.attributes?.url || ''}
                 // Decorative image - empty alt on purpose
                 alt=""

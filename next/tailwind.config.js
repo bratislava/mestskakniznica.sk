@@ -106,7 +106,7 @@ module.exports = {
       error: '#ad1e13',
     },
     fontFamily: {
-      beausite: "'BeausiteMedium','BeausiteRegular', 'BeausiteBold'",
+      beausite: 'var(--font-beausite)',
       sans: [
         'Public Sans',
         'ui-sans-serif',

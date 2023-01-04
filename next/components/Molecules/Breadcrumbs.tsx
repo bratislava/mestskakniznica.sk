@@ -25,26 +25,24 @@ const DesktopBreadCrumbs = ({ crumbs }: BreadcrumbsProps) => {
         return (
           <Fragment key={i}>
             {crumb.url ? (
-              <Link href={crumb.url} passHref>
-                <a className="shrink" href={crumb.url}>
-                  {first ? (
-                    <>
-                      <Home className="cursor-pointer" />
-                      <span className="sr-only">{t('homepage')}</span>
-                    </>
-                  ) : (
-                    <span
-                      style={{
-                        textUnderlineOffset: 1,
-                      }}
-                      className={cx('cursor-pointer truncate text-sm', {
-                        underline: !last,
-                      })}
-                    >
-                      {crumb.title}
-                    </span>
-                  )}
-                </a>
+              <Link href={crumb.url} className="shrink">
+                {first ? (
+                  <>
+                    <Home className="cursor-pointer" />
+                    <span className="sr-only">{t('homepage')}</span>
+                  </>
+                ) : (
+                  <span
+                    style={{
+                      textUnderlineOffset: 1,
+                    }}
+                    className={cx('cursor-pointer truncate text-sm', {
+                      underline: !last,
+                    })}
+                  >
+                    {crumb.title}
+                  </span>
+                )}
               </Link>
             ) : (
               <span>{crumb.title}</span>
@@ -106,13 +104,11 @@ const MobileBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
       >
         <div className="flex flex-col space-y-3">
           {secondaryBreadcrumbs.map((crumb) => (
-            <Link href={crumb.url || ''} passHref key={crumb.title}>
-              <a>
-                <div className="flex items-center space-x-4" key={crumb.title}>
-                  <ArrowLeft />
-                  <span>{crumb.title}</span>
-                </div>
-              </a>
+            <Link href={crumb.url || ''} key={crumb.title}>
+              <div className="flex items-center space-x-4" key={crumb.title}>
+                <ArrowLeft />
+                <span>{crumb.title}</span>
+              </div>
             </Link>
           ))}
         </div>

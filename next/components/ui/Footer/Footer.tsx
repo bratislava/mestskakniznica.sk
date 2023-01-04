@@ -3,27 +3,13 @@ import IgLogo from '@assets/images/ig-logo.svg'
 import YtLogo from '@assets/images/yt-logo.svg'
 import { ComponentFooterFooterColumn, Maybe } from '@bratislava/strapi-sdk-city-library'
 import Accordion from '@modules/common/Accordion'
+import MLink from '@modules/common/MLink'
 import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { Link } from '../Link/Link'
-
-export interface IFooterColumn {
-  id: string
-  title: string
-  footerLink: {
-    id: string
-    title: string
-    otherSite: string
-    redirectTo: {
-      id: string
-      title: string
-      slug: string
-    }
-  }[]
-}
 
 export interface FooterProps {
   className?: string
@@ -35,6 +21,22 @@ export interface FooterProps {
   gdpr: { title: string; href: string }
   VOP: { title: string; href: string }
   copyrightText?: string
+}
+const FooterLinks = ({ footerLink }: { footerLink: ComponentFooterFooterColumn['footerLink'] }) => {
+  return (
+    <>
+      {footerLink?.filter(isDefined).map((link) => (
+        <MLink
+          key={link.id}
+          href={link.otherSite || link?.redirectTo?.data?.attributes?.slug || ''}
+          variant="basic"
+          className="text-base text-foreground-body"
+        >
+          {link.title}
+        </MLink>
+      ))}
+    </>
+  )
 }
 
 const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number }) => {
@@ -49,27 +51,7 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number
         {col?.title}
       </h6>
       <div className="mt-6 flex flex-col gap-y-3">
-        {col?.footerLink?.map((link) =>
-          link?.otherSite && link.otherSite !== '' ? (
-            <a
-              href={link.otherSite}
-              className="text-base text-foreground-body hover:underline"
-              key={link.id}
-            >
-              {link.title}
-            </a>
-          ) : (
-            <Link
-              key={link?.id}
-              variant="plain"
-              uppercase={false}
-              href={link?.redirectTo?.data?.attributes?.slug || ''}
-              className="text-base text-foreground-body hover:underline"
-            >
-              {link?.title}
-            </Link>
-          )
-        )}
+        <FooterLinks footerLink={col?.footerLink} />
       </div>
     </div>
   )
@@ -91,25 +73,34 @@ export const Footer = ({
   return (
     <div className={className}>
       <div className="border-y border-border-dark lg:container">
-        <div className="grid grid-cols-3 items-center">
-          <div className="flex items-center justify-center">
-            <a href={facebookUrl} target="_blank" rel="noreferrer">
-              <FbLogo className="cursor-pointer lg:p-0" />
-              <span className="sr-only">Facebook</span>
-            </a>
-          </div>
-          <div className="flex items-center justify-center border-x border-border-dark py-5 lg:py-6">
-            <a href={instagramUrl} target="_blank" rel="noreferrer">
-              <IgLogo className="cursor-pointer lg:p-0" />
-              <span className="sr-only">Instagram</span>
-            </a>
-          </div>
-          <div className="flex items-center justify-center">
-            <a href={youtubeUrl} target="_blank" rel="noreferrer">
-              <YtLogo className="cursor-pointer lg:p-0" />
-              <span className="sr-only">Youtube</span>
-            </a>
-          </div>
+        <div className="grid h-[60px] grid-cols-3 items-center lg:h-[80px]">
+          <MLink
+            href={facebookUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex h-full items-center justify-center"
+          >
+            <FbLogo className="cursor-pointer lg:p-0" />
+            <span className="sr-only">Facebook</span>
+          </MLink>
+          <MLink
+            href={instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex h-full items-center justify-center border-x border-border-dark"
+          >
+            <IgLogo className="cursor-pointer lg:p-0" />
+            <span className="sr-only">Instagram</span>
+          </MLink>
+          <MLink
+            href={youtubeUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex h-full items-center justify-center"
+          >
+            <YtLogo className="cursor-pointer lg:p-0" />
+            <span className="sr-only">Youtube</span>
+          </MLink>
         </div>
       </div>
       {/* Mobile */}
@@ -117,16 +108,7 @@ export const Footer = ({
         {footerColumns?.filter(isDefined).map((col) => (
           <Accordion key={col?.id} title={col?.title} type="divider-small">
             <div className="flex flex-col gap-y-2">
-              {col?.footerLink?.map((item) => (
-                <Link
-                  key={item?.title}
-                  uppercase={false}
-                  variant="plain"
-                  href={item?.redirectTo?.data?.attributes?.slug || ''}
-                >
-                  {item?.title}
-                </Link>
-              ))}
+              <FooterLinks footerLink={col?.footerLink} />
             </div>
           </Accordion>
         ))}

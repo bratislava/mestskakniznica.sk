@@ -42,10 +42,11 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
         shallow={shallow}
         locale={locale}
         passHref
+        className={styles}
+        ref={ref}
+        {...rest}
       >
-        <a className={styles} ref={ref} {...rest}>
-          {children}
-        </a>
+        {children}
       </NextLink>
     )
   }
