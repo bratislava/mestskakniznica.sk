@@ -1,7 +1,9 @@
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
+import SectionHomepageNewBooks from '@components/HomePage/SectionHomepageNewBooks'
+import type { Book } from '@modules/common/Cards/BookCard'
+import { newBooksHomePageServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
 import { client } from '@utils/gql'
 import { hasAttributes, isDefined } from '@utils/isDefined'
-import { getOpacBooks, OpacBook } from '@utils/opac'
 import { isPresent } from '@utils/utils'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -10,7 +12,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Section from '../components/AppLayout/Section'
 import SectionFaq from '../components/HomePage/SectionFaq'
 import SectionLibraryNews from '../components/HomePage/SectionLibraryNews'
-import SectionOpacBookNews from '../components/HomePage/SectionOpacBookNews'
 import SectionPromos from '../components/HomePage/SectionPromos'
 import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationInfo'
 import SectionTags from '../components/HomePage/SectionTags'
@@ -45,7 +46,7 @@ interface IIndexProps {
   upcomingEvents: EventCardEntityFragment[]
   promos: (EventCardEntityFragment | PromoNewsCardFragment)[]
   news: PageEntity[]
-  opacBookNews: OpacBook[]
+  newBooks: Book[] | null
   faqSection: ComponentHomepageFaqSection | null
   newsSection: ComponentHomepageNewsSection | null
   registrationInfoSection: ComponentHomepageRegistrationInfo
@@ -63,7 +64,7 @@ export const Index = ({
   upcomingEvents,
   promos,
   news,
-  opacBookNews,
+  newBooks,
   faqSection,
   newsSection,
   registrationInfoSection,
@@ -122,9 +123,11 @@ export const Index = ({
           </SectionContainer>
         )}
 
-        <SectionContainer>
-          <SectionOpacBookNews books={opacBookNews} />
-        </SectionContainer>
+        {newBooks && newBooks.length > 0 ? (
+          <SectionContainer>
+            <SectionHomepageNewBooks books={newBooks} />
+          </SectionContainer>
+        ) : null}
 
         {faqSection !== null && (
           <SectionContainer>
@@ -182,7 +185,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
     // running all requests parallel
     // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
     const [
-      opacBookNews,
+      newBooks,
       {
         homePage,
         menus,
@@ -194,7 +197,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         footer,
       },
     ] = await Promise.all([
-      getOpacBooks(),
+      newBooksHomePageServerSideFetcher(),
       client.HomePage({ locale, date: new Date().toISOString() }),
     ])
 
@@ -217,7 +220,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         upcomingEvents: upcomingEvents?.data ?? [],
         promos: [...(promotedNews?.data ?? []), ...(promotedEvents?.data ?? [])],
         news: latestNews?.data?.filter(hasAttributes) ?? [],
-        opacBookNews,
+        newBooks,
         faqSection: homePage?.data?.attributes?.faqSection ?? null,
         newsSection: homePage?.data?.attributes?.newsSection ?? null,
         registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection ?? null,
