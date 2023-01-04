@@ -53,8 +53,7 @@
         "event",
         "eventsListing",
         "news",
-        "newsListing",
-        "locality"
+        "newsListing"
       ]
     },
     "description": {
@@ -127,13 +126,11 @@
         "sections.subpages",
         "sections.table",
         "sections.accordion",
-        "sections.event-details",
         "sections.divider",
         "sections.columned-text",
         "sections.cta",
         "sections.flat-text-center",
         "sections.sub-listing",
-        "sections.locality-details",
         "sections.documents",
         "sections.external-links",
         "sections.video",
