@@ -15,9 +15,11 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
       <section className="relative flex w-full flex-col py-10">
         <h2 className="text-center text-h3 md:text-left">{t('newBooksTitle')}</h2>
         <div className="overflow-x-auto ">
-          <div className="grid grid-cols-6 py-6">
+          <div className="flex gap-x-4 py-6 xl:grid xl:grid-cols-6">
             {books.map((book) => (
-              <BookCard key={book.url} book={book} />
+              <div className="shrink-0">
+                <BookCard key={book.url} book={book} />
+              </div>
             ))}
           </div>
         </div>
