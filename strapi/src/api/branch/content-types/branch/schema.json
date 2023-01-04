@@ -48,6 +48,18 @@
         }
       }
     },
+    "listingImage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
     "body": {
       "pluginOptions": {
         "i18n": {
