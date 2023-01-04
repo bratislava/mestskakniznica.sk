@@ -146,8 +146,7 @@
     "page": "Page",
     "basic-document": "Document",
     "blog-post": "Article",
-    "event": "Event",
-    "premise": "Premise"
+    "event": "Event"
   },
   "searchOnPage": "On page",
   "searchInCatalogue": "In catalog",

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_blocks_branch_item_with_pages",
+  "info": {
+    "displayName": "branch item with page"
+  },
+  "options": {},
+  "attributes": {
+    "branch": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::branch.branch"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

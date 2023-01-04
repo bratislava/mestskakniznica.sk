@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_rentals",
+  "info": {
+    "displayName": "rental",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "richtext"
+    },
+    "branches": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.branch-item-with-page"
+    }
+  }
+}

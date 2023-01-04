@@ -22,6 +22,11 @@ fragment BranchCardEntity on BranchEntity {
     slug
     latitude
     longitude
+    listingImage {
+      data {
+        ...ImageEntity
+      }
+    }
     subBranches {
       data {
         id
@@ -34,11 +39,6 @@ fragment BranchCardEntity on BranchEntity {
 fragment BranchEntity on BranchEntity {
   ...BranchCardEntity
   attributes {
-    parentBranches {
-      data {
-        ...BranchPlaceEntity
-      }
-    }
     medias {
       data {
         id
