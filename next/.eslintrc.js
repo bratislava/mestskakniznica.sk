@@ -46,6 +46,8 @@ module.exports = {
     'lodash/prefer-noop': 'off',
     'jsx-a11y/img-redundant-alt': 'warn',
     '@next/next/no-img-element': 'off',
+    // https://github.com/jsx-eslint/eslint-plugin-react/issues/2584#issuecomment-1191175244
+    'react/jsx-no-useless-fragment': [2, { allowExpressions: true }],
   },
   ignorePatterns: ['*.config.*', 'graphql', '.eslintrc.js'],
 }

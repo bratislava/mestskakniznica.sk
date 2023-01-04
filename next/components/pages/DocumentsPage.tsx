@@ -92,17 +92,15 @@ const DocumentsPage = ({ page }: PageProps) => {
             <LoadingSpinner size="medium" className="mt-[30px]" />
           ) : (
             dataToDisplay?.hits.map((document) => (
-              <NextLink key={document.id} href={`${t('documents_slug')}${document?.slug}`} passHref>
-                <a href={document?.slug || ''}>
-                  <RowFile
-                    className="cursor-pointer"
-                    type={document?.file_category?.name || ''}
-                    title={document?.title || ''}
-                    metadata={<Metadata metadata={document?.metadata} />}
-                    dateAdded={document?.date_added}
-                    fileType={document?.attachment?.ext?.toUpperCase().replace('.', '')}
-                  />
-                </a>
+              <NextLink key={document.id} href={`${t('documents_slug')}${document?.slug}`}>
+                <RowFile
+                  className="cursor-pointer"
+                  type={document?.file_category?.name || ''}
+                  title={document?.title || ''}
+                  metadata={<Metadata metadata={document?.metadata} />}
+                  dateAdded={document?.date_added}
+                  fileType={document?.attachment?.ext?.toUpperCase().replace('.', '')}
+                />
               </NextLink>
             ))
           )}

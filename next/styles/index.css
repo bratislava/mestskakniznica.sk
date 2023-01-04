@@ -7,25 +7,6 @@
 @import '../modules/common/MDatePicker/MDatePicker.css';
 
 @layer base {
-  @font-face {
-    font-family: BeausiteMedium;
-    font-weight: 400;
-    src: url(/fonts/Medium/BeausiteClassicWeb-Medium.woff2) format('woff2');
-    src: url(/fonts/Medium/BeausiteClassicWeb-Medium.woff) format('woff');
-  }
-  @font-face {
-    font-family: BeausiteRegular;
-    font-weight: 400;
-    src: url(/fonts/Regular/BeausiteClassicWeb-Regular.woff2) format('woff2');
-    src: url(/fonts/Regular/BeausiteClassicWeb-Regular.woff) format('woff');
-  }
-  @font-face {
-    font-family: BeausiteBold;
-    font-weight: 700;
-    src: url(/fonts/Bold/BeausiteClassicWeb-Bold.woff2) format('woff2');
-    src: url(/fonts/Bold/BeausiteClassicWeb-Bold.woff) format('woff');
-  }
-
   h1,
   h2,
   h3,

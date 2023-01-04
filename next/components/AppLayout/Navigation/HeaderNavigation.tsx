@@ -1,55 +1,39 @@
-import Link from 'next/link'
+import MLink from '@modules/common/MLink'
 import { useTranslation } from 'next-i18next'
 
 import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
-import HeaderNavigationItem from './HeaderNavigationItem'
 
 const HeaderNavigation = () => {
   const { localizations, locale } = usePageWrapperContext()
   const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
   const { t } = useTranslation('common')
 
-  const openingHours = t('openingHours2')
-  // TODO load opening hours
-  // const openingHours = mainLocality?.isCurrentlyOpen
-  //   ? t('openingHours') +
-  //     ' ' +
-  //     Time24To12Format(mainLocality.localityOpenTo, locale)
-  //   : t('openingHoursClosed');
-
   return (
-    <div className="flex flex-wrap pr-0">
-      {/* <div className="border-border-dark border-l w-10 p-2.5"> */}
-      {/*  <Accessibility /> */}
-      {/* </div> */}
-      <div className="group border-l border-border-dark">
-        <HeaderNavigationItem url={t('openingHoursPageLink')}>
-          <div className="px-[12px] font-normal text-foreground-heading hover:underline">
-            {openingHours}
-          </div>
-          {/* TODO show the div below again once the one above contains dynamic opening hours */}
-          {/* <div className="mt-2 absolute w-40 bg-white text-center py-5 px-3 border z-50 transform scale-0 focus-within:scale-100 group-hover:scale-100 cursor-default">
-              {t('openHoursInfo')}
-            </div> */}
-        </HeaderNavigationItem>
-      </div>
-      <div className="border-l border-border-dark">
-        <div className="border-border-dark py-[10px] text-sm font-normal md:flex">
-          <Link href="https://opac.mestskakniznica.sk/opac" passHref>
-            <a target="_blank" className="px-[12px] font-normal hover:underline">
-              {t('onlineCatalog')}
-            </a>
-          </Link>
-        </div>
-      </div>
-      <Link href={otherLocaleData.path} locale={otherLocaleData.locale} passHref>
-        <a
-          aria-label={t('otherLocaleAriaLabel')}
-          className="border-l border-border-dark py-[10px] pl-[12px] text-base font-normal"
-        >
-          {otherLocaleData.locale.toUpperCase()}
-        </a>
-      </Link>
+    <div className="flex flex-wrap text-sm">
+      <MLink
+        href={t('openingHoursPageLink')}
+        variant="basic"
+        className="relative grid place-content-center border-l border-border-dark px-3"
+      >
+        {t('openingHours2')}
+      </MLink>
+      <MLink
+        href="https://opac.mestskakniznica.sk/opac"
+        variant="basic"
+        target="_blank"
+        className="grid place-content-center border-l border-border-dark px-3"
+      >
+        {t('onlineCatalog')}
+      </MLink>
+      <MLink
+        href={otherLocaleData.path}
+        locale={otherLocaleData.locale}
+        aria-label={t('otherLocaleAriaLabel')}
+        variant="basic"
+        className="grid place-content-center border-l border-border-dark pl-3"
+      >
+        {otherLocaleData.locale.toUpperCase()}
+      </MLink>
     </div>
   )
 }
