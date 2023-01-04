@@ -39,11 +39,6 @@ fragment BranchCardEntity on BranchEntity {
 fragment BranchEntity on BranchEntity {
   ...BranchCardEntity
   attributes {
-    parentBranches {
-      data {
-        ...BranchPlaceEntity
-      }
-    }
     medias {
       data {
         id
