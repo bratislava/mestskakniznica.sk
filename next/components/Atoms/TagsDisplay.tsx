@@ -1,4 +1,5 @@
 import { EventTagEntity } from '@bratislava/strapi-sdk-city-library'
+import { Fragment } from 'react'
 
 interface TagsDisplayProps {
   tags?: EventTagEntity[]
@@ -11,22 +12,26 @@ const TagsDisplay = ({ tags = [], category, tagsCount }: TagsDisplayProps) => {
   const slicedTags = tags?.slice(0, lower)
 
   return (
-    <div className="flex flex-wrap">
-      <div>
-        <span>{category}</span>
-        {tags?.length > 0 && <span>{'\u00A0\u2022\u00A0'}</span>}
-      </div>
-      {slicedTags?.map(({ attributes, id }, index) => (
-        <div className="" key={id}>
-          {attributes?.title}
-          {tags.length > 1 && index < lower - 1 ? ',\u00A0' : ''}
-        </div>
-      ))}
-      {slicedTags?.length < tags.length && (
-        <div>
-          &nbsp;
-          {` + ${(tags.length - slicedTags.length).toString()}`}
-        </div>
+    <div className="flex gap-x-3 truncate text-sm">
+      {category && <div className="shrink-0">{category}</div>}
+      {tags?.length > 0 && (
+        <>
+          <div>•</div>
+          <div className="truncate">
+            {slicedTags?.map(({ attributes, id }, index) => (
+              <Fragment key={id}>
+                {attributes?.title}
+                {tags.length > 1 && index < lower - 1 ? ',\u00A0' : ''}
+              </Fragment>
+            ))}
+            {slicedTags?.length < tags.length && (
+              <>
+                &nbsp;
+                {`+ ${(tags.length - slicedTags.length).toString()}`}
+              </>
+            )}
+          </div>
+        </>
       )}
     </div>
   )
