@@ -77,6 +77,7 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
                   variant="plain"
                   uppercase={false}
                   className="underline"
+                  target="_blank"
                 >
                   {t('form_footer_personal_details')}
                 </Link>
