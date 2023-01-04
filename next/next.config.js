@@ -88,6 +88,58 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Old localities --> New Branch URLs
+      {
+        source: '/navstivte/klariska',
+        destination: '/navstivte/nase-lokality/klariska',
+        permanent: true,
+      },
+      {
+        source: '/navstivte/kapucinska',
+        destination: '/navstivte/nase-lokality/kapucinska',
+        permanent: true,
+      },
+      {
+        source: '/navstivte/laurinska',
+        destination: '/navstivte/nase-lokality/laurinska',
+        permanent: true,
+      },
+      {
+        source: '/navstivte/ostatne/galeria-artoteka',
+        destination: '/navstivte/nase-lokality/galeria-artoteka',
+        permanent: true,
+      },
+      {
+        source: '/navstivte/letna-citaren-klariska',
+        destination: '/navstivte/nase-lokality/letna-citaren-klariska',
+        permanent: true,
+      },
+      {
+        source: '/visit/klariska',
+        destination: '/visit/our-locations/klariska-en',
+        permanent: true,
+      },
+      {
+        source: '/visit/kapucinska',
+        destination: '/visit/our-locations/kapucinska-en',
+        permanent: true,
+      },
+      {
+        source: '/visit/laurinska',
+        destination: '/visit/our-locations/laurinska-en',
+        permanent: true,
+      },
+      {
+        source: '/visit/other/artoteka-gallery',
+        destination: '/visit/our-locations/artoteka-gallery',
+        permanent: true,
+      },
+      {
+        source: '/visit/summer-reading-room-klariska',
+        destination: '/visit/our-locations/summer-reading-room-klariska',
+        permanent: true,
+      },
+      // Old event slugs --> New event slugs
       {
         source: '/zazite/podujatia/Najvacsie-myty-o-vede',
         destination: '/zazite/podujatia/najvacsie-myty-o-vede',
