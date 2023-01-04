@@ -194,28 +194,6 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
   }
 }
 
-fragment PremiseEntity on PremiseEntity {
-  id
-  attributes {
-    title
-    address
-    url
-    image {
-      data {
-        ...ImageEntity
-      }
-    }
-  }
-}
-
-query Premises($locale: I18NLocaleCode!) {
-  premises(locale: $locale) {
-    data {
-      ...PremiseEntity
-    }
-  }
-}
-
 query Menus($locale: I18NLocaleCode!) {
   menus(locale: $locale, sort: ["order:asc"]) {
     data {
@@ -421,6 +399,26 @@ fragment Sections on PageSectionsDynamicZone {
       branch {
         data {
           ...BranchCardEntity
+        }
+      }
+    }
+  }
+
+  ... on ComponentSectionsRental {
+    id
+    title
+    text
+    branches {
+      branch {
+        data {
+          ...BranchCardEntity
+        }
+      }
+      page {
+        data {
+          attributes {
+            slug
+          }
         }
       }
     }

@@ -52,7 +52,6 @@
         "documents",
         "event",
         "eventsListing",
-        "premises",
         "news",
         "newsListing",
         "locality"
@@ -139,7 +138,8 @@
         "sections.external-links",
         "sections.video",
         "sections.gallery",
-        "sections.map"
+        "sections.map",
+        "sections.rental"
       ]
     },
     "branchesServicesTo": {
