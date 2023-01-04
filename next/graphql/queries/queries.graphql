@@ -194,28 +194,6 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
   }
 }
 
-fragment PremiseEntity on PremiseEntity {
-  id
-  attributes {
-    title
-    address
-    url
-    image {
-      data {
-        ...ImageEntity
-      }
-    }
-  }
-}
-
-query Premises($locale: I18NLocaleCode!) {
-  premises(locale: $locale) {
-    data {
-      ...PremiseEntity
-    }
-  }
-}
-
 query Menus($locale: I18NLocaleCode!) {
   menus(locale: $locale, sort: ["order:asc"]) {
     data {
@@ -426,80 +404,21 @@ fragment Sections on PageSectionsDynamicZone {
     }
   }
 
-  ... on ComponentSectionsLocalityDetails {
+  ... on ComponentSectionsRental {
     id
-    localityTitle
-    localityDescription
-    localityLongitude
-    localityLatitude
-    displayOnHomePage
-    isMainLocality
-    localityCoverImage {
-      data {
-        id
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
+    title
+    text
+    branches {
+      branch {
+        data {
+          ...BranchCardEntity
         }
       }
-    }
-    localityMap {
-      data {
-        id
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
-        }
-      }
-    }
-    localityAddress {
-      id
-      title
-      navigateTo
-    }
-    localitySections {
-      id
-      localitySectionTitle
-      localitySectionPhone
-      localitySectionEmail
-      localitySectionDescription
-      isMainSection
-      openingHoursMondayFrom
-      openingHoursMondayTo
-      openingHoursTuesdayFrom
-      openingHoursTuesdayTo
-      openingHoursWednesdayFrom
-      openingHoursWednesdayTo
-      openingHoursThursdayFrom
-      openingHoursThursdayTo
-      openingHoursFridayFrom
-      openingHoursFridayTo
-      openingHoursSaturdayFrom
-      openingHoursSaturdayTo
-      openingHoursSundayFrom
-      openingHoursSundayTo
-    }
-    localityServices {
-      id
       page {
         data {
-          ...PageWithBaseFieldsEntity
+          attributes {
+            slug
+          }
         }
       }
     }

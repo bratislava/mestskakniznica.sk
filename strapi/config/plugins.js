@@ -36,7 +36,7 @@ const searchIndexSettings = {
   filterableAttributes: [
     // All
     "type",
-    // Page + Event + Premise
+    // Page + Event`
     "locale",
     // Basic document
     "basic-document.file_category.id",

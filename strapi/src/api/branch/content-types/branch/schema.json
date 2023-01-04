@@ -48,6 +48,19 @@
         }
       }
     },
+    "listingImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
     "body": {
       "pluginOptions": {
         "i18n": {
@@ -135,17 +148,10 @@
       },
       "component": "blocks.opening-hours"
     },
-    "parentBranches": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::branch.branch",
-      "inversedBy": "subBranches"
-    },
     "subBranches": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::branch.branch",
-      "mappedBy": "parentBranches"
+      "relation": "oneToMany",
+      "target": "api::branch.branch"
     },
     "events": {
       "type": "relation",

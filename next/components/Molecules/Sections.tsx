@@ -17,6 +17,7 @@ import {
   Table,
   Video,
 } from '@bratislava/ui-city-library'
+import BranchCard from '@components/Molecules/BranchCard'
 import Accordion from '@modules/common/Accordion'
 import Button from '@modules/common/Button'
 import { isDefined } from '@utils/isDefined'
@@ -278,6 +279,32 @@ const sectionContent = (
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
           branches={section.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []}
         />
+      )
+
+    case 'ComponentSectionsRental':
+      return (
+        <>
+          {section.title && <h2 className="pb-6 text-h2">{section.title}</h2>}
+          {section.text && <FlatText content={section.text} />}
+          {section.branches?.length ? (
+            <div className="grid gap-x-5 gap-y-8 py-9 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {section.branches?.filter(isDefined).map(({ branch, page }) => {
+                const { title, address, slug, listingImage } = branch?.data?.attributes ?? {}
+                const pageSlug = page?.data?.attributes?.slug
+
+                return (
+                  <BranchCard
+                    address={address || ''}
+                    image={listingImage?.data}
+                    title={title || ''}
+                    linkHref={pageSlug ? `/${pageSlug}` : ''}
+                    key={slug}
+                  />
+                )
+              })}
+            </div>
+          ) : null}
+        </>
       )
 
     default:

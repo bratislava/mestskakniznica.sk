@@ -66,19 +66,18 @@
         "sections.table",
         "sections.site-usefullness",
         "sections.accordion",
-        "sections.event-details",
         "sections.divider",
         "sections.columned-text",
         "sections.cta",
         "sections.sub-listing",
         "sections.external-links",
         "sections.flat-text-center",
-        "sections.locality-details",
         "sections.documents",
         "sections.video",
         "sections.flat-text",
         "sections.gallery",
-        "sections.map"
+        "sections.map",
+        "sections.rental"
       ]
     },
     "Seo": {
