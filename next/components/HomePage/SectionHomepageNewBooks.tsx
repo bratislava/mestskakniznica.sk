@@ -7,8 +7,7 @@ import React from 'react'
 type SectionHomepageNewBooksProps = { books: Book[] }
 
 const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
-  const { t } = useTranslation('homepage')
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation('homepage')
 
   return (
     <Section>
