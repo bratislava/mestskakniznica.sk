@@ -42,7 +42,7 @@ export const RowFile = ({
             <span className="hidden lg:block">{metadata}</span>
             <SingleDot className="hidden lg:block" />
             <span>
-              ${t('added')} <FormatDate value={dateAdded} valueType="ISO" />
+              {t('added')} <FormatDate value={dateAdded} valueType="ISO" />
             </span>
           </div>
         </div>
