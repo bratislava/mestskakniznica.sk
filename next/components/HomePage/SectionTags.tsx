@@ -1,4 +1,6 @@
+import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 import { BookTagEntityFragment } from '../../graphql'
 
@@ -27,14 +29,14 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
             ))}
           </div>
         </div>
-        <div className="pb-8 text-center text-base hover:underline">
-          <a
+        <div className="pb-8 text-center">
+          <ShowMoreLink
             target="_blank"
             href="https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchTitle"
             rel="noreferrer"
           >
-            {t('lookingForBookSearch')} {'>'}
-          </a>
+            {t('lookingForBookSearch')}
+          </ShowMoreLink>
         </div>
       </section>
     </>

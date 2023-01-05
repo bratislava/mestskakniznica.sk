@@ -1,6 +1,6 @@
 import Section from '@components/AppLayout/Section'
-import { Link } from '@components/ui'
 import BookCard, { Book } from '@modules/common/Cards/BookCard'
+import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -23,19 +23,15 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
           </div>
         </div>
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
-          <Link
+          <ShowMoreLink
             href={
               i18n.language === 'en'
                 ? '/en/services/reading/new-additions'
                 : '/sluzby/citanie/knizne-novinky'
             }
-            hasIcon
-            title={t('newBooksAll')}
-            size="large"
-            className="text-center"
           >
             {t('newBooksAll')}
-          </Link>
+          </ShowMoreLink>
         </div>
       </section>
     </Section>

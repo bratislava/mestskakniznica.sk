@@ -1,4 +1,3 @@
-import ChevronRightSvg from '@assets/images/chevron-right.svg'
 import { BranchEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import { CallToAction } from '@components/ui'
 import { isDefined } from '@utils/isDefined'
@@ -31,15 +30,8 @@ const LocalityDetailsServices = ({ branch }: LocalityDetailsServicesProps) => {
               title={service.attributes.title}
               // TODO links should start with slash '/'
               href={`/${service.attributes.slug}`}
-              bottomText={t('more')}
+              showMoreText={t('more')}
               className="h-[134px] pr-[24px]"
-              hasIcon={false}
-              uppercase={false}
-              customIcon={
-                <span className="ml-2 inline-flex">
-                  <ChevronRightSvg />
-                </span>
-              }
             />
           )
         })}
