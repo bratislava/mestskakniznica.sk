@@ -10,6 +10,8 @@ export const newBooksDefaultFilters: NewBooksFilters = {
   page: 1,
 }
 
+export const getNewBooksQueryKey = (filters: NewBooksFilters) => ['newBooks', filters]
+
 export const newBooksFetcher = async (filters: NewBooksFilters) => {
   const response = await fetch(`/api/new-books?page=${filters.page}&pageSize=${filters.pageSize}`)
   return (await response.json()) as NewBooksResponse

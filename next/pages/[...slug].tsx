@@ -1,3 +1,5 @@
+import { getNewBooksQueryKey, newBooksDefaultFilters } from '@utils/fetchers/new-books.fetcher'
+import { newBookServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
 import { getPartnersQueryKey, partnersFetcher } from '@utils/fetchers/partners.fetcher'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -8,7 +10,6 @@ import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
 import BlogPostsPage from '../components/pages/blogPostsPage'
-import BookNewsPage from '../components/pages/bookNewsPage'
 import DocumentsPage from '../components/pages/DocumentsPage'
 import ErrorPage from '../components/pages/ErrorPage'
 import EventsListingPage from '../components/pages/eventsListingPage'
@@ -83,10 +84,6 @@ const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: I
 
     case Enum_Page_Layout.NewsListing:
       pageComponentByLayout = <NewsListingPage page={page} />
-      break
-
-    case Enum_Page_Layout.BookNews:
-      pageComponentByLayout = <BookNewsPage page={page} />
       break
   }
 
@@ -170,6 +167,11 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
 
     if (sectionTypes.includes('ComponentSectionsPartners')) {
       await queryClient.prefetchQuery(getPartnersQueryKey(locale), () => partnersFetcher(locale))
+    }
+    if (sectionTypes.includes('ComponentSectionsNewBooksListing')) {
+      await queryClient.prefetchQuery(getNewBooksQueryKey(newBooksDefaultFilters), () =>
+        newBookServerSideFetcher()
+      )
     }
 
     return {

@@ -20,6 +20,7 @@ import {
 import BranchCard from '@components/Molecules/BranchCard'
 import Accordion from '@modules/common/Accordion'
 import Button from '@modules/common/Button'
+import NewBooksSection from '@modules/sections/NewBooksSection'
 import PartnersSection from '@modules/sections/PartnersSection'
 import { isDefined } from '@utils/isDefined'
 import {
@@ -312,6 +313,9 @@ const sectionContent = (
 
     case 'ComponentSectionsPartners':
       return <PartnersSection />
+
+    case 'ComponentSectionsNewBooksListing':
+      return <NewBooksSection />
 
     default:
       return null
