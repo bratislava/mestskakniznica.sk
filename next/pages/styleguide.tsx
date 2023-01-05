@@ -1,4 +1,5 @@
 import StyleguideAccordion from '@components/styleguide/StyleguideAccordion'
+import StyleguideCards from '@components/styleguide/StyleguideCards'
 import StyleguideTypography from '@components/styleguide/StyleguideTypography'
 import { isProductionDeployment } from '@utils/utils'
 import { GetServerSidePropsContext } from 'next'
@@ -20,6 +21,7 @@ const Styleguide = () => {
       <div className="container mx-auto">
         <StyleguideTypography />
         <StyleguideAccordion />
+        <StyleguideCards />
       </div>
     </>
   )
