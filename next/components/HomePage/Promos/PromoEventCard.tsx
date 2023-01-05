@@ -47,7 +47,8 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
           <MLink
             href={`${t('event_slug')}${slug}`}
             variant="basic"
-            className="after:absolute after:inset-0 after:z-[1]"
+            stretched
+            className="after:z-[1]"
           >
             {title}
           </MLink>

@@ -13,7 +13,6 @@ import { appWithTranslation } from 'next-i18next'
 import { NextAdapter } from 'next-query-params'
 import { QueryParamProvider } from 'use-query-params'
 
-import CookieConsent from '../components/Molecules/CookieConsent'
 import ErrorDisplay from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
 
@@ -67,7 +66,6 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
               <Component {...pageProps} />
             </UIContextProvider>
           </QueryParamProvider>
-          <CookieConsent />
         </MI18nProvider>
       </MQueryClientProvider>
     </div>

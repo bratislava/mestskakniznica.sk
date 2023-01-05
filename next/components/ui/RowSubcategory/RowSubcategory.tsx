@@ -1,27 +1,25 @@
-import ArrowRight from '@assets/images/arrow-right-strong.svg'
+import ChevronRight from '@assets/images/chevron-right.svg'
+import MLink from '@modules/common/MLink'
 import cx from 'classnames'
-import { ReactNode } from 'react'
 
 export interface RowSubcategoryProps {
   className?: string
   title: string
-  icon?: ReactNode
+  href: string
 }
 
-export const RowSubcategory = ({
-  className,
-  title,
-  icon = <ArrowRight />,
-}: RowSubcategoryProps) => {
+export const RowSubcategory = ({ className, title, href }: RowSubcategoryProps) => {
   return (
     <div
       className={cx(
-        'group flex cursor-pointer items-center justify-between border border-border-dark p-3 lg:p-4',
+        'relative flex cursor-pointer items-center justify-between border border-border-dark p-3 lg:p-4',
         className
       )}
     >
-      <p className="text-base text-foreground-heading group-hover:underline">{title}</p>
-      {icon}
+      <MLink href={href} stretched className="text-foreground-heading" variant="basic">
+        {title}
+      </MLink>
+      <ChevronRight />
     </div>
   )
 }
