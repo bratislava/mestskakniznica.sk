@@ -136,7 +136,13 @@
         "sections.video",
         "sections.gallery",
         "sections.map",
-        "sections.rental"
+        "sections.rental",
+        "sections.blog-posts-listing",
+        "sections.documents-listing",
+        "sections.events-listing",
+        "sections.new-books-listing",
+        "sections.news-listing",
+        "sections.partners"
       ]
     },
     "branchesServicesTo": {
