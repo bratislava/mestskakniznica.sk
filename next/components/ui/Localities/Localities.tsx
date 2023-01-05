@@ -141,7 +141,7 @@ export const Localities = ({
               <div
                 className={cx('relative', {
                   'lg:border-l-0': index === 0 && !altDesign,
-                  'w-70 flex-shrink-0 border border-border-dark lg:mb-8 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0':
+                  'w-70 flex-shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0':
                     !altDesign,
                   'w-full border border-border-dark py-4': altDesign,
                 })}
@@ -149,16 +149,16 @@ export const Localities = ({
               >
                 {/* TODO move link to title */}
 
-                <div className="group/showMore flex h-full w-full flex-col justify-between gap-4 p-6 lg:py-0">
+                <div className="group/showMore flex h-full w-full flex-col justify-between gap-8 p-6 lg:py-0">
                   <div>
                     <div className="text-h3">
                       <MLink href={linkHref} variant="basic" stretched>
                         {title}
                       </MLink>
                     </div>
-                    <div className="pt-8 text-base">
+                    <div className="mt-6 text-base">
                       {subBranches?.data.map((subBranch) => (
-                        <div key={subBranch.id} className="pt-1 text-foreground-body">
+                        <div key={subBranch.id} className="text-foreground-body not-first:pt-1">
                           {subBranch.attributes?.title}
                         </div>
                       ))}
