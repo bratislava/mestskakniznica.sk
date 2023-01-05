@@ -9,6 +9,11 @@ export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'>
   // TODO add more variants
   variant?: 'unstyled' | 'basic'
   className?: string
+  /**
+   * Similar to this:
+   * https://getbootstrap.com/docs/4.3/utilities/stretched-link/
+   */
+  stretched?: boolean
 }
 
 const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -23,6 +28,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
       children,
       variant = 'unstyled',
       className,
+      stretched = false,
       ...rest
     },
     ref
@@ -30,6 +36,8 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
     const styles = twMerge(
       cx({
         'hover:underline': variant === 'basic',
+        // https://github.com/tailwindlabs/tailwindcss/issues/1041#issuecomment-957425345
+        'after:absolute after:inset-0': stretched,
       }),
       className
     )
