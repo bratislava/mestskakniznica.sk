@@ -1,5 +1,7 @@
 import MLink from '@modules/common/MLink'
+import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 import { ImageEntityFragment } from '../../graphql'
 
@@ -13,7 +15,7 @@ interface BranchCardProps {
 const BranchCard = ({ title, address, linkHref, image }: BranchCardProps) => {
   const { t } = useTranslation('common')
   return (
-    <div className="relative flex w-full flex-col">
+    <div className="group/showMore relative flex w-full flex-col">
       <img
         src={image?.attributes?.url ?? ''}
         alt={image?.attributes?.alternativeText ?? ''}
@@ -21,14 +23,14 @@ const BranchCard = ({ title, address, linkHref, image }: BranchCardProps) => {
       />
       <div className="pt-4">
         <div>
-          <MLink href={linkHref} className="peer after:absolute after:inset-0">
+          <MLink href={linkHref} stretched>
             {title}
           </MLink>
         </div>
         <div className="pt-3 text-base text-foreground-body">{address}</div>
-        <div className="pt-6 text-base uppercase peer-hover:underline">
-          {t('showDetails')} {'>'}
-        </div>
+        <ShowMoreLink href={linkHref} tabIndex={-1} className="mt-6" parentGroup>
+          {t('showMore')}
+        </ShowMoreLink>
       </div>
     </div>
   )

@@ -1,37 +1,30 @@
+import MLink from '@modules/common/MLink'
+import ShowMoreLink from '@modules/common/ShowMoreLink'
 import cx from 'classnames'
+import React from 'react'
 
-import { Link } from '../Link/Link'
-
-export interface CtaProps {
+export interface CallToActionProps {
   className?: string
   title: string
   href: string
-  bottomText?: string
-  customIcon?: React.ReactNode
-  hasIcon: boolean
-  uppercase?: boolean
+  showMoreText?: string
 }
 
-export const CallToAction = ({
-  className,
-  title,
-  href,
-  bottomText,
-  customIcon,
-  hasIcon = true,
-  uppercase = true,
-}: CtaProps) => {
+export const CallToAction = ({ className, title, href, showMoreText }: CallToActionProps) => {
   return (
-    <div className="border border-border-dark">
-      <Link href={href} hasIcon={hasIcon} uppercase={uppercase}>
-        <div className={cx('relative flex flex-col space-y-4 p-4', className)}>
-          <div className="h-full overflow-hidden text-[20px]">{title}</div>
-          <div className="cursor-pointer text-base uppercase underline decoration-2">
-            {bottomText}
-            {customIcon}
-          </div>
+    <div className="group/showMore relative border border-border-dark">
+      <div className={cx('relative flex flex-col space-y-4 p-4', className)}>
+        <div className="h-full overflow-hidden text-[20px]">
+          <MLink href={href} variant="basic" stretched>
+            {title}
+          </MLink>
         </div>
-      </Link>
+        {showMoreText && (
+          <ShowMoreLink href={href} tabIndex={-1} parentGroup>
+            {showMoreText}
+          </ShowMoreLink>
+        )}
+      </div>
     </div>
   )
 }

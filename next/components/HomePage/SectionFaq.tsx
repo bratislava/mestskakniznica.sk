@@ -1,9 +1,8 @@
-import Arrow from '@assets/images/arrow-right.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { ComponentHomepageFaqSection } from '@bratislava/strapi-sdk-city-library'
 import { CallToAction } from '@bratislava/ui-city-library'
 import Accordion from '@modules/common/Accordion'
-import MLink from '@modules/common/MLink'
+import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -25,11 +24,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
                 <CallToAction
                   title={cta?.title || ''}
                   href={cta?.ctaRedirectTo?.data?.attributes.slug}
-                  bottomText=""
                   className="h-[222px] w-full p-4 text-h3 hover:underline"
-                  customIcon={<Arrow />}
-                  hasIcon={false}
-                  uppercase={false}
                 />
               )}
             </div>
@@ -44,13 +39,9 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
             </Accordion>
           ))}
           <div className="pt-6 text-sm">
-            <MLink
-              href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'}
-              variant="basic"
-              className="uppercase"
-            >
-              {t('showMore', { ns: 'common' })} {'>'}
-            </MLink>
+            <ShowMoreLink href={faqSection?.redirectTo?.data?.attributes?.slug ?? '#'}>
+              {t('showMore', { ns: 'common' })}
+            </ShowMoreLink>
           </div>
         </div>
       </div>

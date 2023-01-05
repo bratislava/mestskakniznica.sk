@@ -3,10 +3,11 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import MarkerIcon from '@assets/images/marker.svg'
 import { BranchCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import MLink from '@modules/common/MLink'
+import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
-import { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 import { useIsClient } from 'usehooks-ts'
 
@@ -134,45 +135,47 @@ export const Localities = ({
         >
           {branches.map((branch, index) => {
             const { slug, title, subBranches } = branch.attributes ?? {}
+            const linkHref = `${t('common:branch_slug')}${slug ?? ''}`
 
             return (
               <div
-                className={cx({
+                className={cx('relative', {
                   'lg:border-l-0': index === 0 && !altDesign,
-                  'relative w-70 flex-shrink-0 border border-border-dark lg:mb-8 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0':
+                  'w-70 flex-shrink-0 border border-border-dark lg:mb-8 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0':
                     !altDesign,
-                  'relative w-full border border-border-dark py-4': altDesign,
+                  'w-full border border-border-dark py-4': altDesign,
                 })}
                 key={branch.id}
               >
                 {/* TODO move link to title */}
-                <MLink href={`${t('common:branch_slug')}${slug ?? ''}`}>
-                  <div className="flex h-full w-full flex-col justify-between gap-4 p-6 lg:py-0">
-                    <div>
-                      <div className="text-h3">{title}</div>
-                      <div className="pt-8 text-base">
-                        {subBranches?.data.map((subBranch) => (
-                          <div key={subBranch.id} className="pt-1 text-foreground-body">
-                            {subBranch.attributes?.title}
-                          </div>
-                        ))}
-                      </div>
-                      {/* {!hideOpeningHours && ( */}
-                      {/*  <> */}
-                      {/*    <p className="pt-8 text-base">{t('localityOpeningText')}</p> */}
-                      {/*    <p className="text-base"> */}
-                      {/*      {localityOpenFrom} - {localityOpenTo} */}
-                      {/*    </p> */}
-                      {/*  </> */}
-                      {/* )} */}
+
+                <div className="group/showMore flex h-full w-full flex-col justify-between gap-4 p-6 lg:py-0">
+                  <div>
+                    <div className="text-h3">
+                      <MLink href={linkHref} variant="basic" stretched>
+                        {title}
+                      </MLink>
                     </div>
-                    <div className="text-base hover:underline">
-                      <div className="relative uppercase">
-                        {t('homepage:localityDetailText')} {'>'}
-                      </div>
+                    <div className="pt-8 text-base">
+                      {subBranches?.data.map((subBranch) => (
+                        <div key={subBranch.id} className="pt-1 text-foreground-body">
+                          {subBranch.attributes?.title}
+                        </div>
+                      ))}
                     </div>
+                    {/* {!hideOpeningHours && ( */}
+                    {/*  <> */}
+                    {/*    <p className="pt-8 text-base">{t('localityOpeningText')}</p> */}
+                    {/*    <p className="text-base"> */}
+                    {/*      {localityOpenFrom} - {localityOpenTo} */}
+                    {/*    </p> */}
+                    {/*  </> */}
+                    {/* )} */}
                   </div>
-                </MLink>
+                  <ShowMoreLink href={linkHref} tabIndex={-1} parentGroup>
+                    {t('homepage:localityDetailText')}
+                  </ShowMoreLink>
+                </div>
               </div>
             )
           })}

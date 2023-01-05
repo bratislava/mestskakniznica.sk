@@ -1,10 +1,8 @@
-import ChevronRight from '@assets/images/chevron-right.svg'
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import { CallToAction, RowSubcategory } from '@components/ui'
+import MLink from '@modules/common/MLink'
+import ShowMoreLink from '@modules/common/ShowMoreLink'
 import cx from 'classnames'
-
-import { CallToAction } from '../CallToAction/CallToAction'
-import { Link } from '../Link/Link'
-import { RowSubcategory } from '../RowSubcategory/RowSubcategory'
+import React from 'react'
 
 export interface ListingProps {
   className?: string
@@ -23,38 +21,36 @@ export const Listing = ({
   pages,
   hasDivider,
 }: ListingProps) => {
-  const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className)}>
       {moreLinkTitle && url && (
-        <Link href={url} hasIcon>
-          <div className="flex w-full items-center justify-between">
-            <h2 className="text-h3 normal-case">{title}</h2>
+        <div className="group/showMore relative flex w-full items-center justify-between">
+          <h2 className="text-h3 normal-case">
+            <MLink href={url} variant="basic" stretched>
+              {title}
+            </MLink>
+          </h2>
+          <ShowMoreLink href={url} tabIndex={-1} parentGroup>
             {moreLinkTitle}
-          </div>
-        </Link>
+          </ShowMoreLink>
+        </div>
       )}
 
       <div className="mt-4 grid grid-cols-1 gap-y-2 md:mt-6 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
         {pages?.map((page) => (
-          <UILink href={page.url} key={page.title}>
-            <CallToAction
-              className="mt-0 hidden h-[180px] w-full md:flex"
-              key={page.title}
-              title={page.title}
-              href={page.url}
-              bottomText={page.moreLinkTitle}
-              hasIcon={false}
-              uppercase={false}
-              customIcon={
-                <span className="ml-2 inline-flex">
-                  <ChevronRight />
-                </span>
-              }
-            />
+          <div>
+            <div className="hidden md:block">
+              <CallToAction
+                className="h-[180px]"
+                key={page.title}
+                title={page.title}
+                href={page.url}
+                showMoreText={page.moreLinkTitle}
+              />
+            </div>
 
-            <RowSubcategory className="md:hidden" title={page.title} icon={<ChevronRight />} />
-          </UILink>
+            <RowSubcategory className="md:hidden" title={page.title} href={page.url} />
+          </div>
         ))}
       </div>
       {hasDivider && (
