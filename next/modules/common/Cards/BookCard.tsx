@@ -32,7 +32,7 @@ const BookCard = ({ book }: BookProps) => {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             src={book.coverUrl!}
             className="object-contain"
-            alt={book.title ?? ''}
+            alt=""
             fill
             unoptimized
           />
@@ -45,7 +45,7 @@ const BookCard = ({ book }: BookProps) => {
           // Most of the books titles are two lines long, so we fix the height constant to avoid layout shifts when there
           // happens to be row with only single column book titles.
           // The default line height is leading-6, but if that changes this will break, so it's set to be sure.
-          className="line-clamp-2 after:absolute after:inset-0 after:z-[1] md:h-[48px] md:leading-6"
+          className="line-clamp-2 after:absolute after:inset-0 md:h-[48px] md:leading-6"
           target="_blank"
         >
           {book.title}
