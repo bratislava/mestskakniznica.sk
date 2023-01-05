@@ -1,4 +1,4 @@
-import Check from '@assets/images/check-done.svg'
+import CheckMark from '@assets/images/check-mark.svg'
 import RegisterToLibrary from '@assets/images/register-to-library.svg'
 import { ComponentHomepageRegistrationInfo } from '@bratislava/strapi-sdk-city-library'
 import Button from '@modules/common/Button'
@@ -25,8 +25,9 @@ const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) =>
 
             <ul>
               {registrationInfoSection?.registrationBenefits?.map((benefit) => (
-                <li className="pt-3 text-base" key={benefit?.id}>
-                  <Check className="inline-flex scale-75 text-base md:scale-100" />{' '}
+                <li className="flex pt-3 text-base" key={benefit?.id}>
+                  <CheckMark className="mr-4 mt-[6px] inline shrink-0" />{' '}
+                  {/* <Check className="inline-flex scale-75 text-base md:scale-100" />{' '} */}
                   {benefit?.benefit}
                 </li>
               ))}
