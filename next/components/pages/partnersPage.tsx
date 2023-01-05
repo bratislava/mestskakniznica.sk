@@ -1,24 +1,24 @@
-import { PageEntity, PartnerEntity } from '@bratislava/strapi-sdk-city-library'
+import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, Partner, SectionContainer } from '@bratislava/ui-city-library'
+import { getPartnersQueryKey, partnersFetcher } from '@utils/fetchers/partners.fetcher'
 import { useTranslation } from 'next-i18next'
-import useSWR from 'swr'
+import { useQuery } from 'react-query'
 
-import { client } from '../../utils/gql'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-import PartnerSkeleton from '../ui/Partner/PartnerSkeleton'
 
 export interface IPartnersPageProps {
   page: PageEntity
 }
 
 const PartnersPage = ({ page }: IPartnersPageProps) => {
-  const { t } = useTranslation('common')
-  const { locale = 'sk' } = usePageWrapperContext()
+  const { t, i18n } = useTranslation('common')
 
-  const { data: partners, error } = useSWR(['Partners', locale], (_key, locale) =>
-    client.SortedPartners({ locale })
-  )
+  // There's no need to handle loading, as the data are prefetched and never change.
+  const { data } = useQuery({
+    queryKey: getPartnersQueryKey(i18n.language),
+    queryFn: () => partnersFetcher(i18n.language),
+    staleTime: Infinity, // The data are static and don't need to be reloaded.
+  })
 
   return (
     <>
@@ -31,26 +31,9 @@ const PartnersPage = ({ page }: IPartnersPageProps) => {
           description={page?.attributes?.description ?? ''}
         />
 
-        {error || null}
-
-        {!partners && !error && (
-          <>
-            <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
-              {[1, 2, 3, 4, 5, 6].map((_, index) => (
-                <PartnerSkeleton key={index} featured />
-              ))}
-            </div>
-            <div className="mt-12 flex flex-col space-y-3">
-              {[1, 2, 3, 4, 5, 6].map((_, index) => (
-                <PartnerSkeleton key={index} />
-              ))}
-            </div>
-          </>
-        )}
-
-        {partners?.featuredPartners && partners.featuredPartners.data.length > 0 && (
+        {data?.featuredPartners && data.featuredPartners.data.length > 0 && (
           <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
-            {partners.featuredPartners.data.map((partner) => (
+            {data.featuredPartners.data.map((partner) => (
               <Partner
                 key={partner?.attributes?.title}
                 title={partner?.attributes?.title || ''}
@@ -66,9 +49,9 @@ const PartnersPage = ({ page }: IPartnersPageProps) => {
           </div>
         )}
 
-        {partners?.notFeaturedPartners && partners.notFeaturedPartners.data.length > 0 && (
+        {data?.notFeaturedPartners && data.notFeaturedPartners.data.length > 0 && (
           <div className="mt-12 flex flex-col space-y-3">
-            {partners.notFeaturedPartners.data.map((partner) => (
+            {data.notFeaturedPartners.data.map((partner) => (
               <Partner
                 key={partner?.attributes?.title}
                 title={partner?.attributes?.title || ''}

@@ -1,6 +1,8 @@
+import { getPartnersQueryKey, partnersFetcher } from '@utils/fetchers/partners.fetcher'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode } from 'react'
+import { dehydrate, DehydratedState, Hydrate, QueryClient } from 'react-query'
 
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
@@ -35,9 +37,10 @@ interface IPageProps {
   menus: MenuEntity[]
   footer: FooterEntity
   error?: IDisplayError
+  dehydratedState: DehydratedState
 }
 
-const Page = ({ page, upcomingEvents, menus, footer, error }: IPageProps) => {
+const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: IPageProps) => {
   if (error) {
     return (
       <ErrorPage code={500}>
@@ -93,26 +96,28 @@ const Page = ({ page, upcomingEvents, menus, footer, error }: IPageProps) => {
   }
 
   return (
-    <PageWrapper
-      locale={page?.attributes?.locale ?? ''}
-      slug={page?.attributes?.slug ?? ''}
-      localizations={page?.attributes?.localizations?.data
-        .filter(isPresent)
-        .map((localization) => ({
-          locale: localization.attributes?.locale,
-          slug: localization.attributes?.slug,
-        }))}
-    >
-      <DefaultPageLayout
-        title={page?.attributes?.title}
-        Seo={page?.attributes?.Seo}
-        menus={menus}
-        footer={footer}
-        upcomingEvents={upcomingEvents ?? []}
+    <Hydrate state={dehydratedState}>
+      <PageWrapper
+        locale={page?.attributes?.locale ?? ''}
+        slug={page?.attributes?.slug ?? ''}
+        localizations={page?.attributes?.localizations?.data
+          .filter(isPresent)
+          .map((localization) => ({
+            locale: localization.attributes?.locale,
+            slug: localization.attributes?.slug,
+          }))}
       >
-        {pageComponentByLayout}
-      </DefaultPageLayout>
-    </PageWrapper>
+        <DefaultPageLayout
+          title={page?.attributes?.title}
+          Seo={page?.attributes?.Seo}
+          menus={menus}
+          footer={footer}
+          upcomingEvents={upcomingEvents ?? []}
+        >
+          {pageComponentByLayout}
+        </DefaultPageLayout>
+      </PageWrapper>
+    </Hydrate>
   )
 }
 
@@ -163,6 +168,12 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
 
     if (!pageBySlug) return { notFound: true } as { notFound: true }
 
+    const queryClient = new QueryClient()
+
+    if (pageBySlug?.attributes?.layout === Enum_Page_Layout.Partners) {
+      await queryClient.prefetchQuery(getPartnersQueryKey(locale), () => partnersFetcher(locale))
+    }
+
     return {
       props: {
         slug,
@@ -171,6 +182,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         locale,
         menus: menus?.data ?? [],
         footer: footer?.data,
+        dehydratedState: dehydrate(queryClient),
         ...translations,
       },
       revalidate: 10,
