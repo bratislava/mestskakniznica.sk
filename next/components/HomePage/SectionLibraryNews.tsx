@@ -2,8 +2,9 @@ import {
   ComponentHomepageNewsSection,
   PageEntityFragment,
 } from '@bratislava/strapi-sdk-city-library'
-import { Link } from '@bratislava/ui-city-library'
+import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 import ListingCard from '../Molecules/ListingCard'
 
@@ -25,14 +26,9 @@ export default function SectionLibraryNews({ news, newsSection }: LibraryNewsPro
         </div>
       </div>
       <div className="flex justify-center">
-        <Link
-          href={newsSection?.redirectTo?.data?.attributes?.slug ?? '#'}
-          hasIcon
-          title={t('libraryNewsAll')}
-          size="large"
-        >
+        <ShowMoreLink href={newsSection?.redirectTo?.data?.attributes?.slug ?? '#'}>
           {t('libraryNewsAll')}
-        </Link>
+        </ShowMoreLink>
       </div>
     </div>
   )

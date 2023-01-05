@@ -59,6 +59,8 @@ interface dynamicObject {
   [key: string]: FormsProps
 }
 
+type SectionType = BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined
+
 const FORM: dynamicObject = {
   napiste_nam: AskLibraryForm,
   ako_sa_prihlasit_do_kniznice: CityLibraryRegistrationForm,
@@ -93,7 +95,7 @@ export const getForm = (formType: string, key: string, eventDetail?: EventCardEn
 
 const sectionContent = (
   pageTitle: string | null | undefined,
-  section: BlogPostSectionsDynamicZone,
+  section: NonNullable<SectionType>,
   events: EventCardEntityFragment[] | undefined,
   eventsListingUrl: string | undefined,
   t: TFunction
@@ -319,7 +321,7 @@ const Section = ({
   eventsListingUrl,
 }: {
   pageTitle?: string | null | undefined
-  section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null
+  section: SectionType
   events: EventCardEntityFragment[] | undefined
   eventsListingUrl: string | undefined
 }) => {
@@ -338,28 +340,23 @@ const Sections = ({
   className,
 }: {
   pageTitle?: string | null | undefined
-  sections: (BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined)[]
+  sections: SectionType[]
   events?: EventCardEntityFragment[] | undefined
   eventsListingUrl?: string | undefined
   className?: string | undefined
 }) => {
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
-      {sections.map(
-        (
-          section: BlogPostSectionsDynamicZone | PageSectionsDynamicZone | null | undefined,
-          index
-        ) => (
-          <Section
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
-            pageTitle={pageTitle}
-            section={section || null}
-            events={events}
-            eventsListingUrl={eventsListingUrl}
-          />
-        )
-      )}
+      {sections.map((section: SectionType, index) => (
+        <Section
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          pageTitle={pageTitle}
+          section={section || null}
+          events={events}
+          eventsListingUrl={eventsListingUrl}
+        />
+      ))}
     </div>
   )
 }

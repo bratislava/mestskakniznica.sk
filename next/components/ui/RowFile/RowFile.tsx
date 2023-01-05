@@ -3,6 +3,7 @@ import SingleDot from '@assets/images/dot.svg'
 import FormatDate from '@modules/common/FormatDate'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
+import { ReactNode } from 'react'
 
 import { FileIcon } from '../FileIcon/FileIcon'
 
@@ -10,7 +11,7 @@ export interface RowFileProps {
   className?: string
   type: string
   title: string
-  metadata: React.ReactNode
+  metadata: ReactNode
   dateAdded: string
   fileType?: string
 }
@@ -42,7 +43,7 @@ export const RowFile = ({
             <span className="hidden lg:block">{metadata}</span>
             <SingleDot className="hidden lg:block" />
             <span>
-              ${t('added')} <FormatDate value={dateAdded} valueType="ISO" />
+              {t('added')} <FormatDate value={dateAdded} valueType="ISO" />
             </span>
           </div>
         </div>

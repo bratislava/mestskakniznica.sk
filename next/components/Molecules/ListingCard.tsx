@@ -1,6 +1,8 @@
 import FormatDate from '@modules/common/FormatDate'
 import MLink from '@modules/common/MLink'
+import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 import { EventCardEntityFragment, PageEntityFragment } from '../../graphql'
 
@@ -14,10 +16,7 @@ const ListingCard = ({ card }: IListingCardProps) => {
   const linkPrefix = card.__typename === 'EventEntity' ? t('event_slug') : ''
 
   return (
-    <MLink
-      href={`${linkPrefix}${card.attributes?.slug ?? ''}`}
-      className="relative flex h-full w-full shrink-0 flex-col justify-between"
-    >
+    <div className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between">
       <div className="flex h-full flex-col">
         <img
           className="h-48 w-full object-cover"
@@ -25,7 +24,7 @@ const ListingCard = ({ card }: IListingCardProps) => {
           src={card.attributes?.listingImage?.data?.attributes?.url}
         />
 
-        <div className="pt-3 text-base">
+        <div className="mt-4 mb-2 text-sm text-foreground-body">
           <FormatDate
             value={
               card.__typename === 'EventEntity'
@@ -35,14 +34,19 @@ const ListingCard = ({ card }: IListingCardProps) => {
             valueType="ISO"
           />
         </div>
-        <div className="justify-end text-h5 text-black hover:underline">
+        <MLink
+          href={`${linkPrefix}${card.attributes?.slug ?? ''}`}
+          variant="basic"
+          stretched
+          className="mb-6 text-h5"
+        >
           {card.attributes?.title}
-        </div>
+        </MLink>
       </div>
-      <div className="bottom-0 justify-end pt-5 text-base uppercase text-black hover:underline">
-        {t('showMore')} {'>'}
-      </div>
-    </MLink>
+      <ShowMoreLink href={`${linkPrefix}${card.attributes?.slug ?? ''}`} tabIndex={-1} parentGroup>
+        {t('showMore')}
+      </ShowMoreLink>
+    </div>
   )
 }
 

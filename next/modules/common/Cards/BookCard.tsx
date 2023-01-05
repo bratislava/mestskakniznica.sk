@@ -42,10 +42,11 @@ const BookCard = ({ book }: BookProps) => {
         <MLink
           href={book.url ?? ''}
           variant="basic"
+          stretched
           // Most of the books titles are two lines long, so we fix the height constant to avoid layout shifts when there
           // happens to be row with only single column book titles.
           // The default line height is leading-6, but if that changes this will break, so it's set to be sure.
-          className="line-clamp-2 after:absolute after:inset-0 md:h-[48px] md:leading-6"
+          className="line-clamp-2 md:h-[48px] md:leading-6"
           target="_blank"
         >
           {book.title}
