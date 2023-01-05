@@ -120,7 +120,7 @@ export const getNewBooks = async ({
 }): Promise<NewBooksResponse> => {
   if (!refreshIntervalTimer) {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    refreshIntervalTimer = setInterval(() => fetchBooks(), 3_600_000)
+    refreshIntervalTimer = setInterval(() => fetchBooks(), 3_600_000 /* 1 hour */)
   }
 
   if (!fetchedBooks) {
