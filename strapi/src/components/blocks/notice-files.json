@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_blocks_notice_files",
+  "info": {
+    "displayName": "notice files",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "files": {
+      "displayName": "file item",
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.file-item"
+    }
+  }
+}
