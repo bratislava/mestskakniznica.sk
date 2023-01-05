@@ -15,7 +15,6 @@ import EventsListingPage from '../components/pages/eventsListingPage'
 import FullContentPage from '../components/pages/fullContentPage'
 import ListingPage from '../components/pages/listingPage'
 import NewsListingPage from '../components/pages/newsListingPage'
-import PartnersPage from '../components/pages/partnersPage'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
 import SublistingPage from '../components/pages/sublistingPage'
 import {
@@ -68,10 +67,6 @@ const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: I
 
     case Enum_Page_Layout.ContentWithSidebar:
       pageComponentByLayout = <SidebarContentPage page={page} />
-      break
-
-    case Enum_Page_Layout.Partners:
-      pageComponentByLayout = <PartnersPage page={page} />
       break
 
     case Enum_Page_Layout.BlogPosts:
@@ -170,7 +165,10 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
 
     const queryClient = new QueryClient()
 
-    if (pageBySlug?.attributes?.layout === Enum_Page_Layout.Partners) {
+    const sectionTypes =
+      pageBySlug?.attributes?.sections?.map((section) => section?.__typename) ?? []
+
+    if (sectionTypes.includes('ComponentSectionsPartners')) {
       await queryClient.prefetchQuery(getPartnersQueryKey(locale), () => partnersFetcher(locale))
     }
 

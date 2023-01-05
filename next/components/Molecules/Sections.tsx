@@ -20,6 +20,7 @@ import {
 import BranchCard from '@components/Molecules/BranchCard'
 import Accordion from '@modules/common/Accordion'
 import Button from '@modules/common/Button'
+import PartnersSection from '@modules/sections/PartnersSection'
 import { isDefined } from '@utils/isDefined'
 import {
   groupByAccordionCategory,
@@ -308,6 +309,9 @@ const sectionContent = (
           ) : null}
         </>
       )
+
+    case 'ComponentSectionsPartners':
+      return <PartnersSection />
 
     default:
       return null
