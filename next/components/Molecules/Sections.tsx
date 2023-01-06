@@ -107,8 +107,6 @@ const sectionContent = (
 ): React.ReactNode => {
   const eventDetail = events?.length ? events[0] : null
 
-  console.log(section)
-
   switch (section.__typename) {
     case 'ComponentSectionsFlatText':
       return (

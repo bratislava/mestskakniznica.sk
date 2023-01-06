@@ -23,7 +23,7 @@ const BranchCard = ({ title, address, linkHref, image }: BranchCardProps) => {
       />
       <div className="pt-4">
         <div>
-          <MLink href={linkHref} stretched>
+          <MLink href={linkHref} stretched variant="basic">
             {title}
           </MLink>
         </div>
