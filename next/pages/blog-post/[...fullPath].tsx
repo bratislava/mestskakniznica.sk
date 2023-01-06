@@ -1,4 +1,8 @@
-import { BlogPostEntity, FooterEntity, MenuEntity } from '@bratislava/strapi-sdk-city-library'
+import {
+  BlogPostEntityFragment,
+  FooterEntity,
+  MenuEntity,
+} from '@bratislava/strapi-sdk-city-library'
 import { client } from '@utils/gql'
 import { isDefined } from '@utils/isDefined'
 import { shouldSkipStaticPaths } from '@utils/utils'
@@ -13,13 +17,13 @@ import BlogPostPage from '../../components/pages/blogPostPage'
 
 interface IBlogPostPageProps {
   slug: string
-  blogPost: BlogPostEntity
+  blogPost: BlogPostEntityFragment
   menus: MenuEntity[]
   footer: FooterEntity
 }
 
 const Page = ({ blogPost, slug, menus, footer }: IBlogPostPageProps) => {
-  const { t } = useTranslation('common')
+  const { i18n } = useTranslation('common')
 
   if (!menus || !blogPost) {
     return null
@@ -27,7 +31,7 @@ const Page = ({ blogPost, slug, menus, footer }: IBlogPostPageProps) => {
 
   return (
     <PageWrapper
-      locale={blogPost.attributes?.locale ?? 'sk'}
+      locale={i18n.language}
       slug={slug ?? ''}
       localizations={blogPost.attributes?.localizations?.data
         .filter(isDefined)

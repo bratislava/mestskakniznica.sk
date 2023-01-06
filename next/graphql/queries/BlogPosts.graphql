@@ -16,6 +16,14 @@ fragment BlogPostEntity on BlogPostEntity {
     sections {
       ...Sections
     }
+    localizations {
+      data {
+        attributes {
+          slug
+          locale
+        }
+      }
+    }
   }
 }
 
