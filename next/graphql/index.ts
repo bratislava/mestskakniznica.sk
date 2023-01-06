@@ -5523,7 +5523,7 @@ export const HomePageDocument = gql`
   }
   latestNotices: notices(
     locale: $locale
-    pagination: {limit: 0, start: 4}
+    pagination: {limit: 4, start: 0}
     sort: "publishedAt:desc"
   ) {
     data {
