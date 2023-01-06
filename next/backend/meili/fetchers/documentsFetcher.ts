@@ -1,7 +1,6 @@
 import { Sort } from '@components/Atoms/SortSelect'
 import { isDefined } from '@utils/isDefined'
 import { meiliClient } from '@utils/meilisearch'
-import { Key } from 'swr'
 
 import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
 import { BasicDocumentMeili } from '../meiliTypes'
@@ -23,9 +22,9 @@ export const documentsDefaultFilters: DocumentsFilters = {
   sort: 'newest',
 }
 
-export const getDocumentsSwrKey = (filters: DocumentsFilters) => ['Documents', filters] as Key
+export const getDocumentsQueryKey = (filters: DocumentsFilters) => ['documents', filters]
 
-export const documentsFetcher = (filters: DocumentsFilters) => () => {
+export const documentsFetcher = (filters: DocumentsFilters) => {
   return meiliClient
     .index('search_index')
     .search<SearchIndexWrapped<'basic-document', BasicDocumentMeili>>(filters.searchValue, {

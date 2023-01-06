@@ -21,6 +21,7 @@ import BranchCard from '@components/Molecules/BranchCard'
 import Accordion from '@modules/common/Accordion'
 import Button from '@modules/common/Button'
 import BlogPostsListingSection from '@modules/sections/BlogPostsListingSection'
+import DocumentsListingSection from '@modules/sections/DocumentsListingSection'
 import NewBooksSection from '@modules/sections/NewBooksSection'
 import PartnersSection from '@modules/sections/PartnersSection'
 import { isDefined } from '@utils/isDefined'
@@ -320,6 +321,9 @@ const sectionContent = (
 
     case 'ComponentSectionsBlogPostsListing':
       return <BlogPostsListingSection />
+
+    case 'ComponentSectionsDocumentsListing':
+      return <DocumentsListingSection />
 
     default:
       return null

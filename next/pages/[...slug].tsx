@@ -11,10 +11,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode } from 'react'
 import { dehydrate, DehydratedState, Hydrate, QueryClient } from 'react-query'
 
+import {
+  documentsDefaultFilters,
+  documentsFetcher,
+  getDocumentsQueryKey,
+} from '../backend/meili/fetchers/documentsFetcher'
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
-import DocumentsPage from '../components/pages/DocumentsPage'
 import ErrorPage from '../components/pages/ErrorPage'
 import EventsListingPage from '../components/pages/eventsListingPage'
 import FullContentPage from '../components/pages/fullContentPage'
@@ -71,10 +75,6 @@ const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: I
 
     case Enum_Page_Layout.ContentWithSidebar:
       pageComponentByLayout = <SidebarContentPage page={page} />
-      break
-
-    case Enum_Page_Layout.Documents:
-      pageComponentByLayout = <DocumentsPage page={page} />
       break
 
     case Enum_Page_Layout.EventsListing:
@@ -175,6 +175,11 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     if (sectionTypes.includes('ComponentSectionsBlogPostsListing')) {
       await queryClient.prefetchQuery(getBlogPostsQueryKey(locale, blogPostsDefaultFilters), () =>
         blogPostsFetcher(locale, blogPostsDefaultFilters)
+      )
+    }
+    if (sectionTypes.includes('ComponentSectionsDocumentsListing')) {
+      await queryClient.prefetchQuery(getDocumentsQueryKey(documentsDefaultFilters), () =>
+        documentsFetcher(documentsDefaultFilters)
       )
     }
 
