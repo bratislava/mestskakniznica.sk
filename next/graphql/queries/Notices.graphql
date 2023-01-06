@@ -1,0 +1,32 @@
+fragment NoticeListingEntity on NoticeEntity {
+  __typename
+  id
+  attributes {
+    slug
+    title
+    dateAdded
+    publishedAt
+    listingImage {
+      data {
+        ...ImageEntity
+      }
+    }
+  }
+}
+
+query Notices(
+  $locale: I18NLocaleCode!
+  $limit: Int
+  $start: Int
+) {
+  notices(locale: $locale, pagination: { limit: $limit, start: $start }, sort: "publishedAt:desc") {
+    data {
+      ...NoticeListingEntity
+    }
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
+}
