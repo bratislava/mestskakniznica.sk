@@ -23,6 +23,7 @@ import Button from '@modules/common/Button'
 import BlogPostsListingSection from '@modules/sections/BlogPostsListingSection'
 import DocumentsListingSection from '@modules/sections/DocumentsListingSection'
 import NewBooksSection from '@modules/sections/NewBooksSection'
+import NoticesListingSection from '@modules/sections/NoticesListingSection'
 import PartnersSection from '@modules/sections/PartnersSection'
 import { isDefined } from '@utils/isDefined'
 import {
@@ -105,6 +106,8 @@ const sectionContent = (
   t: TFunction
 ): React.ReactNode => {
   const eventDetail = events?.length ? events[0] : null
+
+  console.log(section)
 
   switch (section.__typename) {
     case 'ComponentSectionsFlatText':
@@ -324,6 +327,9 @@ const sectionContent = (
 
     case 'ComponentSectionsDocumentsListing':
       return <DocumentsListingSection />
+
+    case 'ComponentSectionsNewsListing':
+      return <NoticesListingSection />
 
     default:
       return null
