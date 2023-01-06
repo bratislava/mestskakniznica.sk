@@ -83,6 +83,16 @@ const nextConfig = {
           source: '/vyhladavanie',
           destination: '/search',
         },
+
+        // Notices
+        {
+          source: '/zazite/aktuality/:slug',
+          destination: '/notice/:slug',
+        },
+        {
+          source: '/experience/news/:slug',
+          destination: '/notice/:slug',
+        },
       ],
     }
   },
