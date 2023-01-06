@@ -6,6 +6,11 @@ import {
 } from '@utils/fetchers/blog-posts.fetcher'
 import { getNewBooksQueryKey, newBooksDefaultFilters } from '@utils/fetchers/new-books.fetcher'
 import { newBookServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
+import {
+  getNoticesQueryKey,
+  noticesDefaultFilters,
+  noticesFetcher,
+} from '@utils/fetchers/notices.fetcher'
 import { getPartnersQueryKey, partnersFetcher } from '@utils/fetchers/partners.fetcher'
 import { dehydrate, QueryClient } from 'react-query'
 
@@ -36,6 +41,11 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
   if (sectionTypes.includes('ComponentSectionsDocumentsListing')) {
     await queryClient.prefetchQuery(getDocumentsQueryKey(documentsDefaultFilters), () =>
       documentsFetcher(documentsDefaultFilters)
+    )
+  }
+  if (sectionTypes.includes('ComponentSectionsNewsListing')) {
+    await queryClient.prefetchQuery(getNoticesQueryKey(locale, noticesDefaultFilters), () =>
+      noticesFetcher(locale, noticesDefaultFilters)
     )
   }
 
