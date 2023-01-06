@@ -29,8 +29,7 @@ import {
   EventCardEntityFragment,
   FooterEntity,
   MenuEntity,
-  PageEntity,
-  PageEntityFragment,
+  NoticeListingEntityFragment,
   PageLocalizationEntityFragment,
   PromoNewsCardFragment,
 } from '../graphql'
@@ -45,7 +44,7 @@ interface IIndexProps {
   menus: MenuEntity[]
   upcomingEvents: EventCardEntityFragment[]
   promos: (EventCardEntityFragment | PromoNewsCardFragment)[]
-  news: PageEntity[]
+  latestNotices: NoticeListingEntityFragment[]
   newBooks: Book[] | null
   faqSection: ComponentHomepageFaqSection | null
   newsSection: ComponentHomepageNewsSection | null
@@ -63,7 +62,7 @@ export const Index = ({
   menus,
   upcomingEvents,
   promos,
-  news,
+  latestNotices,
   newBooks,
   faqSection,
   newsSection,
@@ -145,10 +144,10 @@ export const Index = ({
           </SectionContainer>
         )}
 
-        {newsSection !== null && news.length > 0 && (
+        {newsSection !== null && latestNotices.length > 0 && (
           <SectionContainer>
             <Section>
-              <SectionLibraryNews newsSection={newsSection} news={news as PageEntityFragment[]} />
+              <SectionLibraryNews newsSection={newsSection} notices={latestNotices} />
             </Section>
           </SectionContainer>
         )}
@@ -192,7 +191,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         upcomingEvents,
         promotedNews,
         promotedEvents,
-        latestNews,
+        latestNotices,
         bookTags,
         footer,
       },
@@ -219,7 +218,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         menus: menus?.data,
         upcomingEvents: upcomingEvents?.data ?? [],
         promos: [...(promotedNews?.data ?? []), ...(promotedEvents?.data ?? [])],
-        news: latestNews?.data?.filter(hasAttributes) ?? [],
+        latestNotices: latestNotices?.data?.filter(hasAttributes) ?? [],
         newBooks,
         faqSection: homePage?.data?.attributes?.faqSection ?? null,
         newsSection: homePage?.data?.attributes?.newsSection ?? null,

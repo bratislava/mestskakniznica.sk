@@ -146,14 +146,13 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
       ...EventCardEntity
     }
   }
-  latestNews: pages(
-    filters: { layout: { eq: "news" } }
+  latestNotices: notices(
     locale: $locale
-    pagination: { start: 0, limit: 4 }
+    pagination: { limit: 4, start: 0 }
     sort: "publishedAt:desc"
   ) {
     data {
-      ...PageEntity
+      ...NoticeListingEntity
     }
   }
   bookTags(pagination: { limit: 100 }) {

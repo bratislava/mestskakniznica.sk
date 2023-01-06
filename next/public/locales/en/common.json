@@ -110,6 +110,7 @@
   "eventsUpcoming": "Upcoming events",
   "eventsEmpty": "No events found",
   "event_slug": "/experience/events/",
+  "notice_slug": "/experience/news/",
   "eventListImagePlaceholder": "Event card image",
   "eventDetailImagePlaceholder": "Event image",
   "resultsFound_zero": "No results found",

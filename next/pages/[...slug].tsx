@@ -1,21 +1,16 @@
-import { getNewBooksQueryKey, newBooksDefaultFilters } from '@utils/fetchers/new-books.fetcher'
-import { newBookServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
-import { getPartnersQueryKey, partnersFetcher } from '@utils/fetchers/partners.fetcher'
+import { prefetchPageSections } from '@utils/prefetchPageSections'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode } from 'react'
-import { dehydrate, DehydratedState, Hydrate, QueryClient } from 'react-query'
+import { DehydratedState, Hydrate } from 'react-query'
 
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
-import BlogPostsPage from '../components/pages/blogPostsPage'
-import DocumentsPage from '../components/pages/DocumentsPage'
 import ErrorPage from '../components/pages/ErrorPage'
 import EventsListingPage from '../components/pages/eventsListingPage'
 import FullContentPage from '../components/pages/fullContentPage'
 import ListingPage from '../components/pages/listingPage'
-import NewsListingPage from '../components/pages/newsListingPage'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
 import SublistingPage from '../components/pages/sublistingPage'
 import {
@@ -24,7 +19,6 @@ import {
   FooterEntity,
   MenuEntity,
   PageEntity,
-  PageEntityFragment,
 } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -61,7 +55,6 @@ const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: I
       pageComponentByLayout = <SublistingPage page={page} />
       break
 
-    case Enum_Page_Layout.News:
     case Enum_Page_Layout.FullContent:
       pageComponentByLayout = <FullContentPage page={page} />
       break
@@ -70,20 +63,8 @@ const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: I
       pageComponentByLayout = <SidebarContentPage page={page} />
       break
 
-    case Enum_Page_Layout.BlogPosts:
-      pageComponentByLayout = <BlogPostsPage page={page as PageEntityFragment} />
-      break
-
-    case Enum_Page_Layout.Documents:
-      pageComponentByLayout = <DocumentsPage page={page} />
-      break
-
     case Enum_Page_Layout.EventsListing:
       pageComponentByLayout = <EventsListingPage page={page} />
-      break
-
-    case Enum_Page_Layout.NewsListing:
-      pageComponentByLayout = <NewsListingPage page={page} />
       break
   }
 
@@ -160,19 +141,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
 
     if (!pageBySlug) return { notFound: true } as { notFound: true }
 
-    const queryClient = new QueryClient()
-
-    const sectionTypes =
-      pageBySlug?.attributes?.sections?.map((section) => section?.__typename) ?? []
-
-    if (sectionTypes.includes('ComponentSectionsPartners')) {
-      await queryClient.prefetchQuery(getPartnersQueryKey(locale), () => partnersFetcher(locale))
-    }
-    if (sectionTypes.includes('ComponentSectionsNewBooksListing')) {
-      await queryClient.prefetchQuery(getNewBooksQueryKey(newBooksDefaultFilters), () =>
-        newBookServerSideFetcher()
-      )
-    }
+    const dehydratedState = await prefetchPageSections(pageBySlug, locale)
 
     return {
       props: {
@@ -182,7 +151,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         locale,
         menus: menus?.data ?? [],
         footer: footer?.data,
-        dehydratedState: dehydrate(queryClient),
+        dehydratedState,
         ...translations,
       },
       revalidate: 10,

@@ -1,4 +1,7 @@
-import { BlogPostEntity, ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
+import {
+  BlogPostEntityFragment,
+  PageSectionsDynamicZone,
+} from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@components/Molecules/Breadcrumbs'
 import FormatDate from '@modules/common/FormatDate'
@@ -7,8 +10,7 @@ import { useTranslation } from 'next-i18next'
 import Sections from '../Molecules/Sections'
 
 export interface BlogPostPageProps {
-  blogPost: BlogPostEntity
-  Seo?: ComponentSeoSeo
+  blogPost: BlogPostEntityFragment
 }
 
 const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
@@ -67,7 +69,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
         <div className="flex">
           <div className="mt-10 w-full lg:mx-auto lg:w-8/12">
             {blogPost?.attributes?.sections && (
-              <Sections sections={blogPost?.attributes?.sections} />
+              <Sections sections={blogPost?.attributes?.sections as PageSectionsDynamicZone[]} />
             )}
           </div>
         </div>

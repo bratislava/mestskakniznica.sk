@@ -16,6 +16,14 @@ fragment BlogPostEntity on BlogPostEntity {
     sections {
       ...Sections
     }
+    localizations {
+      data {
+        attributes {
+          slug
+          locale
+        }
+      }
+    }
   }
 }
 
@@ -49,11 +57,6 @@ query BlogPosts(
     data {
       ...BlogPostEntity
     }
-  }
-}
-
-query BlogPostsCount($locale: I18NLocaleCode!) {
-  blogPosts(locale: $locale) {
     meta {
       pagination {
         total

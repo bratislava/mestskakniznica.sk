@@ -1,0 +1,87 @@
+fragment NoticeEntity on NoticeEntity {
+  __typename
+  id
+  attributes {
+    slug
+    title
+    body
+    dateAdded
+    publishedAt
+    listingImage {
+      data {
+        ...ImageEntity
+      }
+    }
+    # TODO: Create a fragment
+    seo {
+      id
+      metaTitle
+      metaDescription
+      keywords
+      metaRobots
+      metaViewport
+      canonicalURL
+    }
+    localizations {
+      data {
+        attributes {
+          slug
+          locale
+        }
+      }
+    }
+  }
+}
+
+query NoticesStaticPaths($locale: I18NLocaleCode!) {
+  notices(locale: $locale, pagination: { limit: -1 }) {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+
+fragment NoticeListingEntity on NoticeEntity {
+  __typename
+  id
+  attributes {
+    slug
+    title
+    dateAdded
+    publishedAt
+    listingImage {
+      data {
+        ...ImageEntity
+      }
+    }
+  }
+}
+
+query Notices(
+  $locale: I18NLocaleCode!
+  $limit: Int
+  $start: Int
+) {
+  notices(locale: $locale, pagination: { limit: $limit, start: $start }, sort: "publishedAt:desc") {
+    data {
+      ...NoticeListingEntity
+    }
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
+}
+
+query NoticeBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  notices(locale: $locale, filters: { slug: { eq: $slug } }) {
+    data {
+      ...NoticeEntity
+    }
+  }
+}
