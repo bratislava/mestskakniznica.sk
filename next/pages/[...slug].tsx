@@ -1,21 +1,9 @@
-import {
-  blogPostsDefaultFilters,
-  blogPostsFetcher,
-  getBlogPostsQueryKey,
-} from '@utils/fetchers/blog-posts.fetcher'
-import { getNewBooksQueryKey, newBooksDefaultFilters } from '@utils/fetchers/new-books.fetcher'
-import { newBookServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
-import { getPartnersQueryKey, partnersFetcher } from '@utils/fetchers/partners.fetcher'
+import { prefetchPageSections } from '@utils/prefetchPageSections'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode } from 'react'
-import { dehydrate, DehydratedState, Hydrate, QueryClient } from 'react-query'
+import { DehydratedState, Hydrate } from 'react-query'
 
-import {
-  documentsDefaultFilters,
-  documentsFetcher,
-  getDocumentsQueryKey,
-} from '../backend/meili/fetchers/documentsFetcher'
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
@@ -23,7 +11,6 @@ import ErrorPage from '../components/pages/ErrorPage'
 import EventsListingPage from '../components/pages/eventsListingPage'
 import FullContentPage from '../components/pages/fullContentPage'
 import ListingPage from '../components/pages/listingPage'
-import NewsListingPage from '../components/pages/newsListingPage'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
 import SublistingPage from '../components/pages/sublistingPage'
 import {
@@ -79,10 +66,6 @@ const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: I
 
     case Enum_Page_Layout.EventsListing:
       pageComponentByLayout = <EventsListingPage page={page} />
-      break
-
-    case Enum_Page_Layout.NewsListing:
-      pageComponentByLayout = <NewsListingPage page={page} />
       break
   }
 
@@ -159,29 +142,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
 
     if (!pageBySlug) return { notFound: true } as { notFound: true }
 
-    const queryClient = new QueryClient()
-
-    const sectionTypes =
-      pageBySlug?.attributes?.sections?.map((section) => section?.__typename) ?? []
-
-    if (sectionTypes.includes('ComponentSectionsPartners')) {
-      await queryClient.prefetchQuery(getPartnersQueryKey(locale), () => partnersFetcher(locale))
-    }
-    if (sectionTypes.includes('ComponentSectionsNewBooksListing')) {
-      await queryClient.prefetchQuery(getNewBooksQueryKey(newBooksDefaultFilters), () =>
-        newBookServerSideFetcher()
-      )
-    }
-    if (sectionTypes.includes('ComponentSectionsBlogPostsListing')) {
-      await queryClient.prefetchQuery(getBlogPostsQueryKey(locale, blogPostsDefaultFilters), () =>
-        blogPostsFetcher(locale, blogPostsDefaultFilters)
-      )
-    }
-    if (sectionTypes.includes('ComponentSectionsDocumentsListing')) {
-      await queryClient.prefetchQuery(getDocumentsQueryKey(documentsDefaultFilters), () =>
-        documentsFetcher(documentsDefaultFilters)
-      )
-    }
+    const dehydratedState = await prefetchPageSections(pageBySlug, locale)
 
     return {
       props: {
@@ -191,7 +152,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         locale,
         menus: menus?.data ?? [],
         footer: footer?.data,
-        dehydratedState: dehydrate(queryClient),
+        dehydratedState,
         ...translations,
       },
       revalidate: 10,
