@@ -1,10 +1,6 @@
 import { Pagination } from '@components/ui'
 import BookCard from '@modules/common/Cards/BookCard'
-import {
-  getNewBooksQueryKey,
-  newBooksDefaultFilters,
-  newBooksFetcher,
-} from '@utils/fetchers/new-books.fetcher'
+import { newBooksDefaultFilters, newBooksFetcher } from '@utils/fetchers/new-books.fetcher'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 
@@ -15,7 +11,7 @@ const NewBooksSection = () => {
   const [filters, setFilters] = useState(newBooksDefaultFilters)
 
   const { data } = useQuery({
-    queryKey: getNewBooksQueryKey(filters),
+    queryKey: ['newBooksSection', filters],
     queryFn: () => newBooksFetcher(filters),
     keepPreviousData: true,
   })
