@@ -1,3 +1,8 @@
+import {
+  blogPostsDefaultFilters,
+  blogPostsFetcher,
+  getBlogPostsQueryKey,
+} from '@utils/fetchers/blog-posts.fetcher'
 import { getNewBooksQueryKey, newBooksDefaultFilters } from '@utils/fetchers/new-books.fetcher'
 import { newBookServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
 import { getPartnersQueryKey, partnersFetcher } from '@utils/fetchers/partners.fetcher'
@@ -9,7 +14,6 @@ import { dehydrate, DehydratedState, Hydrate, QueryClient } from 'react-query'
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
-import BlogPostsPage from '../components/pages/blogPostsPage'
 import DocumentsPage from '../components/pages/DocumentsPage'
 import ErrorPage from '../components/pages/ErrorPage'
 import EventsListingPage from '../components/pages/eventsListingPage'
@@ -24,7 +28,6 @@ import {
   FooterEntity,
   MenuEntity,
   PageEntity,
-  PageEntityFragment,
 } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -68,10 +71,6 @@ const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: I
 
     case Enum_Page_Layout.ContentWithSidebar:
       pageComponentByLayout = <SidebarContentPage page={page} />
-      break
-
-    case Enum_Page_Layout.BlogPosts:
-      pageComponentByLayout = <BlogPostsPage page={page as PageEntityFragment} />
       break
 
     case Enum_Page_Layout.Documents:
@@ -171,6 +170,11 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     if (sectionTypes.includes('ComponentSectionsNewBooksListing')) {
       await queryClient.prefetchQuery(getNewBooksQueryKey(newBooksDefaultFilters), () =>
         newBookServerSideFetcher()
+      )
+    }
+    if (sectionTypes.includes('ComponentSectionsBlogPostsListing')) {
+      await queryClient.prefetchQuery(getBlogPostsQueryKey(locale, blogPostsDefaultFilters), () =>
+        blogPostsFetcher(locale, blogPostsDefaultFilters)
       )
     }
 

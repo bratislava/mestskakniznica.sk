@@ -49,11 +49,6 @@ query BlogPosts(
     data {
       ...BlogPostEntity
     }
-  }
-}
-
-query BlogPostsCount($locale: I18NLocaleCode!) {
-  blogPosts(locale: $locale) {
     meta {
       pagination {
         total
