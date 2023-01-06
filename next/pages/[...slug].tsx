@@ -55,7 +55,6 @@ const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: I
       pageComponentByLayout = <SublistingPage page={page} />
       break
 
-    case Enum_Page_Layout.News:
     case Enum_Page_Layout.FullContent:
       pageComponentByLayout = <FullContentPage page={page} />
       break
