@@ -55,6 +55,9 @@ module.exports = ({ env }) => ({
   graphql: {
     config: {
       defaultLimit: 100,
+      artifacts: {
+        schema: true,
+      },
     },
   },
   meilisearch: {
