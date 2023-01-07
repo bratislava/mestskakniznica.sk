@@ -29,7 +29,7 @@
   "registration": "Prihlásenie",
   "continue": "Pokračovať",
   "signup": "Zaregistrovať sa",
-  "homepage": "Domovská stránka",
+  "homepage": "Domov",
   "services": "Služby",
   "contactUs": "Kontaktujte nás",
   "writeMessage": "Napísať správu",
@@ -138,6 +138,7 @@
     "clearSearch": "Vyčistiť vyhľadávanie"
   },
   "searchResults": "Výsledky vyhľadávania",
+  "searchTitle": "Vyhľadávanie",
   "allCategories": "Všetky kategórie",
   "SortSelect": {
     "byNewest": "Od najnovšieho",

@@ -3,7 +3,7 @@ import {
   PageSectionsDynamicZone,
 } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
-import Breadcrumbs from '@components/Molecules/Breadcrumbs'
+import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import FormatDate from '@modules/common/FormatDate'
 import { useTranslation } from 'next-i18next'
 
@@ -20,7 +20,6 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
   const breadCrumbs =
     i18n.language === 'sk'
       ? [
-          { title: '', url: '/' },
           { title: 'Služby', url: '/sluzby' },
           { title: 'Vzdelávanie', url: '/sluzby/vzdelavanie' },
           { title: 'Články', url: '/sluzby/vzdelavanie/clanky' },
@@ -30,7 +29,6 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
           },
         ]
       : [
-          { title: '', url: '/' },
           { title: 'Services', url: '/services' },
           { title: 'Education', url: '/services/education' },
           { title: 'Articles', url: '/services/education/articles' },

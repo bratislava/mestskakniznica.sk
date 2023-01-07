@@ -5,8 +5,8 @@ import cx from 'classnames'
 import { ReactNode } from 'react'
 
 export type AccordionProps = {
-  type: 'boxed' | 'divider-small' | 'divider-big' | 'sublocation'
-  title: string | null | undefined | ReactNode
+  type: 'boxed' | 'divider-small' | 'divider-big' | 'sublocation' | 'breadcrumbs'
+  title: string | ReactNode | null | undefined
   additionalInfo?: ReactNode
   children?: ReactNode
   iconLeft?: ReactNode
@@ -25,13 +25,20 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
       type === 'divider-small' || type === 'divider-big' || type === 'sublocation',
   })
 
-  const headingStyles = cx('grow', type === 'divider-small' ? 'text-h6' : 'text-h5')
+  // min-w-0 used because of breadcrumbs:
+  // https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child
+  const headingStyles = cx('min-w-0 grow', {
+    'text-h6': type === 'divider-small',
+    'text-h5': type === 'boxed' || type === 'divider-big' || type === 'sublocation',
+    'text-sm': type === 'breadcrumbs',
+  })
 
-  const buttonStyles = cx('hover:text-underline flex items-center gap-4 text-left text-h5 ', {
+  const buttonStyles = cx('hover:text-underline flex items-center gap-4 text-left text-h5', {
     'py-[18.5px] px-4 md:px-6 md:py-5': type === 'boxed',
     'py-[18.5px] md:py-6': type === 'divider-big',
     'py-[14.5px] md:py-[18.5px]': type === 'divider-small',
     'py-4': type === 'sublocation',
+    'p-4 -mx-4': type === 'breadcrumbs',
   })
 
   const leftIconStyles = cx('mr-0 shrink-0 md:mr-2', {
@@ -49,11 +56,14 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
   })
 
   return (
-    <Disclosure>
+    <Disclosure as={type === 'breadcrumbs' ? 'nav' : undefined}>
       {({ open }) => {
         return (
           <div className={borderStyles}>
-            <Disclosure.Button className={buttonStyles}>
+            <Disclosure.Button
+              className={buttonStyles}
+              aria-label={type === 'breadcrumbs' ? 'Breadcrumbs' : undefined}
+            >
               {iconLeft && <div className={leftIconStyles}>{iconLeft}</div>}
               <h3 className={headingStyles}>{title}</h3>
               {additionalInfo && <div className="pr-6">{additionalInfo}</div>}
