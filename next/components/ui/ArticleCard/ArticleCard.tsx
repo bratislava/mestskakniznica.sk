@@ -1,5 +1,5 @@
 import ChevronRight from '@assets/images/chevron-right.svg'
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import MLink from '@modules/common/MLink'
 import FormatDate from '@modules/formatting/FormatDate'
 import cx from 'classnames'
 
@@ -20,10 +20,8 @@ export const ArticleCard = ({
   mediaType,
   publishedDate,
 }: ArticleCardProps) => {
-  const { Link: UILink } = useUIContext()
-
   return (
-    <UILink href={pageLink?.url ?? '#'}>
+    <MLink href={pageLink?.url ?? '#'}>
       <div className={cx(className, 'flex flex-col')}>
         <div className="flex w-full">
           {media && mediaType === 'image' && (
@@ -51,13 +49,13 @@ export const ArticleCard = ({
         <h5 className="mt-2">{title}</h5>
 
         {pageLink?.url && (
-          <UILink className="mt-6 flex items-center space-x-[9px]" href={pageLink?.url ?? '#'}>
+          <MLink className="mt-6 flex items-center space-x-[9px]" href={pageLink?.url ?? '#'}>
             <span className="text-sm text-foreground-heading">{pageLink?.title}</span>
             <ChevronRight />
-          </UILink>
+          </MLink>
         )}
       </div>
-    </UILink>
+    </MLink>
   )
 }
 

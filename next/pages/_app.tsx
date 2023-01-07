@@ -1,12 +1,10 @@
 import '../styles/globals.css'
 
-import { UIContextProvider } from '@bratislava/common-frontend-ui-context'
 import MI18nProvider from '@modules/providers/MI18nProvider'
 import MQueryClientProvider from '@modules/providers/MQueryClientProvider'
 import { beausiteFont } from '@utils/beausiteFont'
 import { isProductionDeployment } from '@utils/utils'
 import { AppProps } from 'next/app'
-import Link from 'next/link'
 import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next'
 import { NextAdapter } from 'next-query-params'
@@ -36,27 +34,7 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
       <MQueryClientProvider>
         <MI18nProvider>
           <QueryParamProvider adapter={NextAdapter}>
-            <UIContextProvider
-              components={{
-                Link: ({ href, className, children, locale, target, rel }) => {
-                  if (href === undefined || href === null) return null
-                  return (
-                    <Link
-                      href={href}
-                      locale={locale}
-                      target={target}
-                      rel={rel}
-                      className={className}
-                    >
-                      {children}
-                    </Link>
-                  )
-                },
-                Image: ({ alt, src }) => <img alt={alt} src={src} />,
-              }}
-            >
-              <Component {...pageProps} />
-            </UIContextProvider>
+            <Component {...pageProps} />
           </QueryParamProvider>
         </MI18nProvider>
       </MQueryClientProvider>
