@@ -4,7 +4,7 @@ import {
 } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
-import FormatDate from '@modules/common/FormatDate'
+import FormatDate from '@modules/formatting/FormatDate'
 import { useTranslation } from 'next-i18next'
 
 import Sections from '../Molecules/Sections'

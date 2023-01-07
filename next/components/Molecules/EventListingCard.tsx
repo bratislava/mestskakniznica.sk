@@ -1,6 +1,6 @@
 import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
-import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
+import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { useTranslation } from 'next-i18next'
 
 import Placeholder from '../../assets/images/event-list-placeholder.jpg'
