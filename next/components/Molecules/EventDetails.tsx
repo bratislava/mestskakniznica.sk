@@ -5,9 +5,9 @@ import Directions from '@assets/images/directions.svg'
 import Euro from '@assets/images/euro-symbol.svg'
 import Navigate from '@assets/images/navigate.svg'
 import Share from '@assets/images/share.svg'
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import AddToCalendar from '@culturehq/add-to-calendar'
-import FormatEventDateRange from '@modules/common/FormatEventDateRange'
+import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
+import RichText from '@modules/formatting/RichText'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
@@ -30,7 +30,6 @@ export interface PageProps {
 const EventDetails = ({ event }: PageProps) => {
   const { t } = useTranslation('common')
   const { asPath } = useRouter()
-  const { Markdown: UIMarkdown } = useUIContext()
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
 
   const eventBranch = event?.attributes?.branch?.data?.attributes
@@ -112,7 +111,7 @@ const EventDetails = ({ event }: PageProps) => {
           {!isEventInThePast && (
             <a
               href="#detail_podujatia"
-              className="base-button h-12 w-full border border-border-dark bg-button-dark text-white hover:bg-button-hover"
+              className="h-12 w-full border border-border-dark bg-button-dark text-white hover:bg-button-hover"
             >
               {t('eventReservation')}
             </a>
@@ -125,7 +124,7 @@ const EventDetails = ({ event }: PageProps) => {
           <div className="mt-8 border-b border-border-dark pb-10 lg:mt-0">
             <div className="text-[24px]">{t('description')}</div>
             <div className="pt-5 text-[16px] text-foreground-body">
-              <UIMarkdown content={event?.attributes?.description || ''} />
+              <RichText content={event?.attributes?.description ?? ''} />
             </div>
           </div>
           {(event?.attributes?.guests?.length || 0) > 0 && (

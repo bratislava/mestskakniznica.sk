@@ -1,8 +1,7 @@
-import '../styles/index.css'
+import '../styles/globals.css'
 
 import { UIContextProvider } from '@bratislava/common-frontend-ui-context'
-import { CityLibraryMarkdown } from '@components/Atoms/CityLibraryMarkdown'
-import MI18nProvider from '@modules/common/MI18nProvider'
+import MI18nProvider from '@modules/providers/MI18nProvider'
 import MQueryClientProvider from '@modules/providers/MQueryClientProvider'
 import { beausiteFont } from '@utils/beausiteFont'
 import { isProductionDeployment } from '@utils/utils'
@@ -54,13 +53,6 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
                   )
                 },
                 Image: ({ alt, src }) => <img alt={alt} src={src} />,
-                Markdown: ({ className, paragraphClassName, content }) => (
-                  <CityLibraryMarkdown
-                    className={className}
-                    paragraphClassName={paragraphClassName}
-                    content={content}
-                  />
-                ),
               }}
             >
               <Component {...pageProps} />

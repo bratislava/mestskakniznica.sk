@@ -1,8 +1,8 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { ComponentHomepageFaqSection } from '@bratislava/strapi-sdk-city-library'
 import { CallToAction } from '@bratislava/ui-city-library'
 import Accordion from '@modules/common/Accordion'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
+import RichText from '@modules/formatting/RichText'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -12,7 +12,6 @@ interface SectionFaqProps {
 
 const SectionFaq = ({ faqSection }: SectionFaqProps) => {
   const { t } = useTranslation(['homepage', 'common'])
-  const { Markdown: UIMarkdown } = useUIContext()
 
   return (
     <section className="py-12">
@@ -35,7 +34,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
           <h2 className="mb-8 text-h3">{faqSection?.title ?? t('faqTitle')}</h2>
           {faqSection?.faqs?.map((faq) => (
             <Accordion key={faq?.id} title={faq?.question} type="divider-big">
-              <UIMarkdown content={faq?.answer || ''} className="mb-0 text-base" />
+              <RichText content={faq?.answer || ''} />
             </Accordion>
           ))}
           <div className="pt-6 text-sm">

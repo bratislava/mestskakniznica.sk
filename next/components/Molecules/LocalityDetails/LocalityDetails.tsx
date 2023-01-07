@@ -1,10 +1,10 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { BranchEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
 import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
 import LocalityDetailsSubBranches from '@components/Molecules/LocalityDetails/LocalityDetailsSubBranches'
 import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
 import MLink from '@modules/common/MLink'
+import RichText from '@modules/formatting/RichText'
 import { useTranslation } from 'next-i18next'
 
 export interface PageProps {
@@ -12,7 +12,6 @@ export interface PageProps {
 }
 
 const LocalityDetails = ({ branch }: PageProps) => {
-  const { Markdown: UIMarkdown } = useUIContext()
   const { t } = useTranslation('common')
 
   const AnchorLink = (anchor: string, text: string) => (
@@ -51,7 +50,7 @@ const LocalityDetails = ({ branch }: PageProps) => {
             <div id="description">
               <h3 className="text-h3">{t('description')}</h3>
               <div className="pt-5 text-[16px] text-foreground-body">
-                <UIMarkdown content={body} paragraphClassName="text-base" />
+                <RichText content={body} />
               </div>
             </div>
           ) : null}
