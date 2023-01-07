@@ -1,5 +1,5 @@
-import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
+import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { WithAttributes } from '@utils/isDefined'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'

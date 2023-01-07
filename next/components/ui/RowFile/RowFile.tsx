@@ -1,6 +1,6 @@
 import ChevronRight from '@assets/images/chevron-right.svg'
 import SingleDot from '@assets/images/dot.svg'
-import FormatDate from '@modules/common/FormatDate'
+import FormatDate from '@modules/formatting/FormatDate'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'

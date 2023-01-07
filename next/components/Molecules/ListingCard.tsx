@@ -1,6 +1,6 @@
-import FormatDate from '@modules/common/FormatDate'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
+import FormatDate from '@modules/formatting/FormatDate'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 
