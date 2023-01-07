@@ -28,7 +28,8 @@ const ScrollToTop = () => {
       variant="unstyled"
       aria-label={t('goToTopAriaLabel')}
       id="backToTopBtn"
-      className={`fixed bottom-5 right-5 flex h-10 w-10 rotate-90 cursor-pointer items-center justify-center rounded-full border border-border-dark bg-white hover:border-button-hover md:bottom-10 md:right-10 ${
+      // z-index is here to display over mapbox info-button
+      className={`fixed bottom-5 right-5 z-10 flex h-10 w-10 rotate-90 cursor-pointer items-center justify-center rounded-full border border-border-dark bg-white hover:border-button-hover md:bottom-10 md:right-10 ${
         visible ? 'visible' : 'invisible'
       }`}
       onPress={handleScrollToTop}

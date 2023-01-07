@@ -4,10 +4,10 @@ import {
   FileCategoryEntity,
   PageEntity,
 } from '@bratislava/strapi-sdk-city-library'
+import Breadcrumbs, { BreadcrumbListItem } from '@modules/breadcrumbs/Breadcrumbs'
 import { useTranslation } from 'next-i18next'
 
 import { pagePath } from '../../utils/page'
-import Breadcrumbs from './Breadcrumbs'
 
 interface PageBreadcrumbsProps {
   page: PageEntity | null | undefined
@@ -19,7 +19,7 @@ interface PageBreadcrumbsProps {
 const PageBreadcrumbs = ({ page, blogPost, breadCrumbs }: PageBreadcrumbsProps) => {
   const { t } = useTranslation('common')
 
-  const crumbs: { title: string; url: string | null }[] = []
+  const crumbs: BreadcrumbListItem[] = []
 
   // blog post page
   if (page?.attributes?.layout === 'blog_posts' && blogPost) {
@@ -44,13 +44,10 @@ const PageBreadcrumbs = ({ page, blogPost, breadCrumbs }: PageBreadcrumbsProps) 
   while (current) {
     crumbs.push({
       title: current.pageLink?.page?.data?.attributes?.title ?? '',
-      url: current === page ? null : `/${pagePath(current.pageLink?.page?.data?.attributes)}`,
+      url: current === page ? undefined : `/${pagePath(current.pageLink?.page?.data?.attributes)}`,
     })
     current = current.parentCategory?.data?.attributes
   }
-
-  // homepage
-  crumbs.push({ title: '', url: '/' })
 
   crumbs.reverse()
 
