@@ -1,4 +1,3 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import MLink from '@modules/common/MLink'
 import NormalizeText from '@modules/formatting/NormalizeText/NormalizeText'
 import ReactMarkdown from 'react-markdown'
@@ -11,8 +10,6 @@ export interface HomepageMarkdownProps {
 }
 
 export const RichText = ({ className, paragraphClassName, content }: HomepageMarkdownProps) => {
-  const { Image: UIImage } = useUIContext()
-
   const topMargin = '[&:not(:first-child)]:mt-6'
 
   return (
@@ -50,7 +47,7 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
         li: ({ children, ordered, ...props }) => <li {...props}>{children}</li>,
         img: ({ src, alt }) => (
           <div className={`-mx-7.5 flex justify-center md:mx-0 ${topMargin}`}>
-            {src && <UIImage src={src} alt={alt} shadow={false} />}
+            {src && <img src={src} alt={alt} />}
           </div>
         ),
         strong: ({ children }) => <strong>{children}</strong>,
