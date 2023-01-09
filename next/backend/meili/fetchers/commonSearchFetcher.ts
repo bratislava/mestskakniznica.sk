@@ -47,8 +47,13 @@ export const getCommonSearchSwrKey = (filters: CommonSearchFilters, locale: stri
   ['HomepageSearch', filters, locale] as Key
 
 export const commonSearchFetcher =
+  (
+    filters: CommonSearchFilters,
+    locale: string,
+    slugs: { event: string; notice: string; blog: string; document: string }
+  ) =>
   // eslint-disable-next-line sonarjs/cognitive-complexity
-  (filters: CommonSearchFilters, locale: string, slugs: { event: string; notice: string }) => () => {
+  () => {
     // If no type is selected, no filters are generated, so all of them are displayed.
     const selectedTypesFilter = filters.selectedTypes.map((type) => `type = ${type}`).join(' OR ')
 
@@ -71,26 +76,22 @@ export const commonSearchFetcher =
           const link = (() => {
             if (type === 'blog-post') {
               // TODO: use function to get full path
-              return locale === 'sk'
-                ? `/sluzby/vzdelavanie/clanky/${slug}`
-                : `/en/services/education/articles/${slug}`
+              return locale === 'sk' ? `${slugs.blog}${slug}` : `/en${slugs.blog}${slug}`
             }
 
             if (type === 'basic-document') {
               // TODO IMPORTANT: use function to get full path, fix undefined in url, add english url
-              return locale === 'sk'
-                ? `/o-nas/dokumenty-a-zverejnovanie-informacii/${slug}`
-                : `/en/about-us/documents-and-public-disclosure-of-information/${slug}`
+              return locale === 'sk' ? `${slugs.document}${slug}` : `/en${slugs.document}${slug}`
             }
 
             if (type === 'event') {
               // TODO: use function to get full path
-              return `${slugs.event}${slug}`
+              return locale === 'sk' ? `${slugs.event}${slug}` : `/en${slugs.event}${slug}`
             }
 
             if (type === 'notice') {
               // TODO: use function to get full path
-              return `${slugs.notice}${slug}`
+              return locale === 'sk' ? `${slugs.notice}${slug}` : `/en${slugs.notice}${slug}`
             }
 
             return `/${dataInner.slug}`

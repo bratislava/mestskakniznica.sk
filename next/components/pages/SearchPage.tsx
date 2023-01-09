@@ -79,6 +79,8 @@ const SearchPage = ({ pageEntity }: PageProps) => {
     commonSearchFetcher(filters, i18n.language, {
       event: t('event_slug'),
       notice: t('notice_slug'),
+      blog: t('blog_slug'),
+      document: t('documents_slug'),
     })
   )
 
