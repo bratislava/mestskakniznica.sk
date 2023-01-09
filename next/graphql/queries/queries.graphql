@@ -129,12 +129,13 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
       ...EventCardEntity
     }
   }
-  promotedNews: pages(
-    filters: { promoted: { eq: true }, layout: { eq: "news" } }
+  promotedNews: notices(
     locale: $locale
+    sort: "publishedAt:desc"
+    filters: { promoted: { eq: true } }
   ) {
     data {
-      ...PromoNewsCard
+      ...NoticeListingEntity
     }
   }
   promotedEvents: events(

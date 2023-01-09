@@ -1,11 +1,11 @@
 import { withAttributes } from '@utils/isDefined'
 
-import { EventCardEntityFragment, PromoNewsCardFragment } from '../../graphql'
+import { EventCardEntityFragment, NoticeListingEntityFragment } from '../../graphql'
 import PromoEventCard from './Promos/PromoEventCard'
 import PromoNewsCard from './Promos/PromoNewsCard'
 
 interface SectionPromosProps {
-  promos: (EventCardEntityFragment | PromoNewsCardFragment)[]
+  promos: (EventCardEntityFragment | NoticeListingEntityFragment)[]
 }
 
 // TODO: sizes are now hardcoded, should be calculated to fit the screen
@@ -23,7 +23,7 @@ const SectionPromos = ({ promos }: SectionPromosProps) => {
                 </div>
               )
 
-            case 'PageEntity':
+            case 'NoticeEntity':
               return (
                 <div key={promo?.attributes?.slug} className="w-[268px] shrink-0 md:w-[379px]">
                   <PromoNewsCard
