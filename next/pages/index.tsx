@@ -31,7 +31,6 @@ import {
   MenuEntity,
   NoticeListingEntityFragment,
   PageLocalizationEntityFragment,
-  PromoNewsCardFragment,
 } from '../graphql'
 // used for example meili usage
 // import { useUpcomingEvents } from '../hooks/useUpcomingEvets'
@@ -43,7 +42,7 @@ interface IIndexProps {
   localizations?: PageLocalizationEntityFragment[]
   menus: MenuEntity[]
   upcomingEvents: EventCardEntityFragment[]
-  promos: (EventCardEntityFragment | PromoNewsCardFragment)[]
+  promos: (EventCardEntityFragment | NoticeListingEntityFragment)[]
   latestNotices: NoticeListingEntityFragment[]
   newBooks: Book[] | null
   faqSection: ComponentHomepageFaqSection | null

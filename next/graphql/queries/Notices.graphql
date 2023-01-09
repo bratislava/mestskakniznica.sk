@@ -2,14 +2,25 @@ fragment NoticeEntity on NoticeEntity {
   __typename
   id
   attributes {
+    publishedAt
     slug
     title
     body
-    dateAdded
-    publishedAt
     listingImage {
       data {
-        ...ImageEntity
+        ...UploadImageEntity
+      }
+    }
+    promoted
+    files {
+      title
+      files {
+        name
+        attachment {
+          data {
+            ...UploadFileEntity
+          }
+        }
       }
     }
     # TODO: Create a fragment
@@ -51,7 +62,6 @@ fragment NoticeListingEntity on NoticeEntity {
   attributes {
     slug
     title
-    dateAdded
     publishedAt
     listingImage {
       data {

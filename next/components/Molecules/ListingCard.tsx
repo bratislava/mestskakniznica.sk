@@ -25,7 +25,7 @@ const ListingCard = ({ card }: IListingCardProps) => {
       return {
         image: card.attributes?.listingImage?.data[0],
         linkPrefix: t('notice_slug'),
-        date: card?.attributes?.dateAdded ?? card.attributes?.publishedAt,
+        date: card.attributes?.publishedAt,
       }
     }
     return { image: null, linkPrefix: null, date: null }

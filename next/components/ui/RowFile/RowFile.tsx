@@ -11,8 +11,8 @@ export interface RowFileProps {
   className?: string
   type: string
   title: string
-  metadata: ReactNode
-  dateAdded: string
+  metadata?: ReactNode
+  dateAdded?: string
   fileType?: string
 }
 
@@ -37,14 +37,18 @@ export const RowFile = ({
         <FileIcon type={fileType ?? ''} />
 
         <div className="space-y-2">
-          <p className="hidden cursor-default text-sm text-foreground-body">{type}</p>
+          {type && <p className="hidden cursor-default text-sm text-foreground-body">{type}</p>}
           <h5 className="text-h5 lg:cursor-pointer lg:group-hover:underline">{title}</h5>
-          <div className="flex cursor-default items-center gap-x-3 text-sm text-foreground-body">
-            <span className="hidden lg:block">{metadata}</span>
-            <SingleDot className="hidden lg:block" />
-            <span>
-              {t('added')} <FormatDate value={dateAdded} valueType="ISO" />
-            </span>
+          <div className="flex cursor-default items-center gap-x-3 text-sm text-foreground-body empty:hidden">
+            {metadata && <span className="hidden lg:block">{metadata}</span>}
+            {dateAdded && (
+              <>
+                <SingleDot className="hidden lg:block" />
+                <span>
+                  {t('added')} <FormatDate value={dateAdded} valueType="ISO" />
+                </span>
+              </>
+            )}
           </div>
         </div>
       </div>

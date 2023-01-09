@@ -9,9 +9,16 @@ export interface DocumentsProps {
   title?: string
   moreLink?: { title?: string; url?: string }
   files?: { url?: string; content?: RowFileProps }[]
+  targetBlank?: boolean
 }
 
-export const Documents = ({ className, title, moreLink, files }: DocumentsProps) => {
+export const Documents = ({
+  className,
+  title,
+  moreLink,
+  files,
+  targetBlank = false,
+}: DocumentsProps) => {
   const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className, 'flex flex-col')}>
@@ -19,7 +26,7 @@ export const Documents = ({ className, title, moreLink, files }: DocumentsProps)
 
       <div className={cx('flex flex-col', { 'mt-6': !!title })}>
         {files?.map((file, index) => (
-          <UILink key={index} href={file.url ?? ''}>
+          <UILink key={index} href={file.url ?? ''} target={targetBlank ? '_blank' : undefined}>
             <RowFile
               className="cursor-pointer"
               type={file.content?.type ?? ''}
