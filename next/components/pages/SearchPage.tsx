@@ -76,7 +76,10 @@ const SearchPage = ({ pageEntity }: PageProps) => {
 
   const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useSwrWithExtras(
     getCommonSearchSwrKey(filters, i18n.language),
-    commonSearchFetcher(filters, i18n.language)
+    commonSearchFetcher(filters, i18n.language, {
+      event: t('event_slug'),
+      notice: t('notice_slug'),
+    })
   )
 
   return (
@@ -159,7 +162,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
                             </span>
                           </div>
                           <div className="flex items-center gap-x-3 text-xs text-foreground-body">
-                            <span>/{link}</span>
+                            <span>{link}</span>
                           </div>
                         </div>
                       </div>
