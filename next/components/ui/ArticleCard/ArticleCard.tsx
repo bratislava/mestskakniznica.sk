@@ -1,6 +1,6 @@
 import ChevronRight from '@assets/images/chevron-right.svg'
 import { useUIContext } from '@bratislava/common-frontend-ui-context'
-import FormatDate from '@modules/common/FormatDate'
+import FormatDate from '@modules/formatting/FormatDate'
 import cx from 'classnames'
 
 export interface ArticleCardProps {

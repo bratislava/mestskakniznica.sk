@@ -1,5 +1,5 @@
-import FormatEventDateRange from '@modules/common/FormatEventDateRange'
 import MLink from '@modules/common/MLink'
+import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
 import Link from 'next/link'

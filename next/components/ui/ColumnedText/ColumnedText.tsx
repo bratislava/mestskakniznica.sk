@@ -1,4 +1,4 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import RichText from '@modules/formatting/RichText'
 import cx from 'classnames'
 
 export interface ColumnedTextProps {
@@ -10,7 +10,6 @@ export interface ColumnedTextProps {
 export const ColumnedText = ({ className, content, title }: ColumnedTextProps) => {
   const breakWord = '<break>'
   const columns = content?.split(breakWord) || []
-  const { Markdown: UIMarkdown } = useUIContext()
 
   if (!content) return null
 
@@ -32,7 +31,7 @@ export const ColumnedText = ({ className, content, title }: ColumnedTextProps) =
     >
       {columns.map((column, i) => (
         <div key={i}>
-          <UIMarkdown content={column} className="text-base" />
+          <RichText content={column} />
         </div>
       ))}
     </div>

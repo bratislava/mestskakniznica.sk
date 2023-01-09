@@ -1,6 +1,6 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { SectionContainer, Sidebar } from '@bratislava/ui-city-library'
+import RichText from '@modules/formatting/RichText'
 import { parsePageLink, parseSidebar } from '@utils/page'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
@@ -11,7 +11,6 @@ export interface SidebarContentProps {
 }
 
 const SidebarContentPage = ({ page }: SidebarContentProps) => {
-  const { Markdown: UIMarkdown } = useUIContext()
   const sideBar = parseSidebar(
     page?.attributes?.pageCategory?.data ?? undefined,
     page?.attributes?.slug ?? ''
@@ -48,11 +47,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
           {/* Description */}
           <div className="col-span-12 mt-8 md:col-span-7">
             {page?.attributes?.description && (
-              <UIMarkdown
-                paragraphClassName="text-base"
-                className="w-full text-base"
-                content={page?.attributes?.description ?? ''}
-              />
+              <RichText className="w-full" content={page?.attributes?.description ?? ''} />
             )}
 
             {/* Sections */}

@@ -1,4 +1,4 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import RichText from '@modules/formatting/RichText'
 import cx from 'classnames'
 
 import { Video } from '../Video/Video'
@@ -12,7 +12,6 @@ export interface FlatTextProps {
 }
 
 export const FlatText = ({ className, media, alt, mediaType, content }: FlatTextProps) => {
-  const { Markdown: UIMarkdown } = useUIContext()
   return (
     <div className={cx(className, 'space-y-10 ')}>
       {media && mediaType === 'image' && <img src={media} alt={alt} />}
@@ -21,7 +20,7 @@ export const FlatText = ({ className, media, alt, mediaType, content }: FlatText
           <Video mediaUrl={media} />
         </div>
       )}
-      <UIMarkdown paragraphClassName="text-base" content={content ?? ''} />
+      <RichText content={content ?? ''} />
     </div>
   )
 }
