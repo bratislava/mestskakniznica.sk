@@ -16,8 +16,8 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
         <div className="overflow-x-auto ">
           <div className="flex gap-x-4 py-6 xl:grid xl:grid-cols-6">
             {books.map((book) => (
-              <div className="shrink-0">
-                <BookCard key={book.url} book={book} />
+              <div className="shrink-0" key={book.url}>
+                <BookCard book={book} />
               </div>
             ))}
           </div>
