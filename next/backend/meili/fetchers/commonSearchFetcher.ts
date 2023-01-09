@@ -10,6 +10,7 @@ export const allSearchTypes = [
   'blog-post' as const,
   'event' as const,
   'basic-document' as const,
+  'notice' as const,
   // 'premise' as const,
 ]
 
@@ -18,6 +19,7 @@ type CommonSearchResults =
   | SearchIndexWrapped<'basic-document', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'blog-post', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'event', { slug: string }> // TODO: Specify type if needed.
+  | SearchIndexWrapped<'notice', { slug: string }> // TODO: Specify type if needed.
 // | SearchIndexWrapped<'premise', { url: string }> // TODO: Specify type if needed.
 
 // https://stackoverflow.com/a/52331580
@@ -44,48 +46,60 @@ export type CommonSearchResult = {
 export const getCommonSearchSwrKey = (filters: CommonSearchFilters, locale: string) =>
   ['HomepageSearch', filters, locale] as Key
 
-export const commonSearchFetcher = (filters: CommonSearchFilters, locale: string) => () => {
-  // If no type is selected, no filters are generated, so all of them are displayed.
-  const selectedTypesFilter = filters.selectedTypes.map((type) => `type = ${type}`).join(' OR ')
+export const commonSearchFetcher =
+  (
+    filters: CommonSearchFilters,
+    locale: string,
+    slugs: { event: string; notice: string; blog: string; document: string }
+  ) =>
+  // eslint-disable-next-line sonarjs/cognitive-complexity
+  () => {
+    // If no type is selected, no filters are generated, so all of them are displayed.
+    const selectedTypesFilter = filters.selectedTypes.map((type) => `type = ${type}`).join(' OR ')
 
-  return meiliClient
-    .index('search_index')
-    .search<CommonSearchResults>(filters.searchValue, {
-      ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
-      filter: [selectedTypesFilter, `locale = ${locale} OR locale NOT EXISTS`],
-    })
-    .then((response) => {
-      const newHits = response.hits.map((hit) => {
-        const { type } = hit
-
-        // TODO: Fix types, but not worth it.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
-        const dataInner = (hit as any)[type]
-
-        if (type === 'blog-post') {
-          const { title, slug } = dataInner
-          // TODO: use function to get full path
-          const link =
-            locale === 'sk'
-              ? `sluzby/vzdelavanie/clanky/${slug}`
-              : `en/services/education/articles/${slug}`
-          return { type, title, link, data: dataInner } as CommonSearchResult
-        }
-
-        if (type === 'basic-document') {
-          const { title, slug } = dataInner
-          // TODO IMPORTANT: use function to get full path, fix undefined in url, add english url
-          const link =
-            locale === 'sk'
-              ? `o-nas/dokumenty-a-zverejnovanie-informacii/${slug}`
-              : `en/about-us/documents-and-public-disclosure-of-information/${slug}`
-          return { type, title, link, data: dataInner } as CommonSearchResult
-        }
-
-        const { title, slug: link } = dataInner
-        return { type, title, link, data: dataInner } as CommonSearchResult
+    return meiliClient
+      .index('search_index')
+      .search<CommonSearchResults>(filters.searchValue, {
+        ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
+        filter: [selectedTypesFilter, `locale = ${locale} OR locale NOT EXISTS`],
       })
+      .then((response) => {
+        const newHits = response.hits.map((hit) => {
+          const { type } = hit
 
-      return { ...response, hits: newHits }
-    })
-}
+          // TODO: Fix types, but not worth it.
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
+          const dataInner = (hit as any)[type]
+
+          const { slug, title } = dataInner
+
+          const link = (() => {
+            if (type === 'blog-post') {
+              // TODO: use function to get full path
+              return locale === 'sk' ? `${slugs.blog}${slug}` : `/en${slugs.blog}${slug}`
+            }
+
+            if (type === 'basic-document') {
+              // TODO IMPORTANT: use function to get full path, fix undefined in url, add english url
+              return locale === 'sk' ? `${slugs.document}${slug}` : `/en${slugs.document}${slug}`
+            }
+
+            if (type === 'event') {
+              // TODO: use function to get full path
+              return locale === 'sk' ? `${slugs.event}${slug}` : `/en${slugs.event}${slug}`
+            }
+
+            if (type === 'notice') {
+              // TODO: use function to get full path
+              return locale === 'sk' ? `${slugs.notice}${slug}` : `/en${slugs.notice}${slug}`
+            }
+
+            return `/${dataInner.slug}`
+          })()
+
+          return { type, title, link, data: dataInner } as CommonSearchResult
+        })
+
+        return { ...response, hits: newHits }
+      })
+  }
