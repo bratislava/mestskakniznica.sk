@@ -10,16 +10,18 @@ interface IPromoNewsCard {
 
 const PromoNewsCard = ({ title, slug }: IPromoNewsCard) => {
   const { t } = useTranslation('common')
+  const link = `${t('notice_slug')}${slug}`
+
   return (
     <div className="group/showMore relative h-full w-full bg-promo-peach">
       <div className="pt-[18px] pl-5 pr-[25px] text-h2 text-foreground-heading line-clamp-5">
-        <MLink href={slug} variant="basic" stretched className="after:z-[1]">
+        <MLink href={link} variant="basic" stretched className="after:z-[1]">
           {title}
         </MLink>
       </div>
 
       <div className="absolute bottom-4 left-5">
-        <ShowMoreLink href={slug} tabIndex={-1} parentGroup>
+        <ShowMoreLink href={link} tabIndex={-1} parentGroup>
           {t('showMore')}
         </ShowMoreLink>
       </div>
