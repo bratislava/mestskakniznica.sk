@@ -127,7 +127,8 @@
     "page": "Page",
     "basic-document": "Document",
     "blog-post": "Article",
-    "event": "Event"
+    "event": "Event",
+    "notice": "News"
   },
   "searchOnPage": "On page",
   "searchInCatalogue": "In catalog",

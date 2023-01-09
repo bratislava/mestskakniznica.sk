@@ -127,7 +127,8 @@
     "page": "Stránka",
     "basic-document": "Dokument",
     "blog-post": "Článok",
-    "event": "Podujatie"
+    "event": "Podujatie",
+    "notice": "Aktualita"
   },
   "searchOnPage": "Na stránke",
   "searchInCatalogue": "V katalógu",

@@ -32,6 +32,8 @@ const searchIndexSettings = {
     // Event
     "event.title",
     "event.description",
+    // Notice
+    "notice.title",
   ],
   filterableAttributes: [
     // All
@@ -101,6 +103,15 @@ module.exports = ({ env }) => ({
         },
         settings: searchIndexSettings,
         transformEntry: ({ entry }) => wrapSearchIndexEntry("event", entry),
+      },
+
+      notice: {
+        indexName: "search_index",
+        entriesQuery: {
+          locale: "all",
+        },
+        settings: searchIndexSettings,
+        transformEntry: ({ entry }) => wrapSearchIndexEntry("notice", entry),
       },
     },
   },
