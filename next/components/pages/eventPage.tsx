@@ -1,5 +1,5 @@
 import { Link, SectionContainer } from '@bratislava/ui-city-library'
-import Breadcrumbs from 'components/Molecules/Breadcrumbs'
+import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import EventDetails from 'components/Molecules/EventDetails'
 import { useUpcomingEvents } from 'hooks/useUpcomingEvets'
 import { useTranslation } from 'next-i18next'
@@ -20,13 +20,11 @@ const EventPage = ({ event }: PageProps) => {
   const breadCrumbs =
     i18n.language === 'sk'
       ? [
-          { title: '', url: '/' },
           { title: 'Zažite', url: '/zazite' },
           { title: 'Podujatia', url: '/zazite/podujatia' },
           { title: event.attributes?.title || '', url: event.attributes?.slug || '' },
         ]
       : [
-          { title: '', url: '/' },
           { title: 'Experience', url: '/experience' },
           { title: 'Events', url: '/experience/events' },
           { title: event.attributes?.title || '', url: event.attributes?.slug || '' },

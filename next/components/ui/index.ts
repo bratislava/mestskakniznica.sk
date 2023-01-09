@@ -1,6 +1,5 @@
 export * from './ArticleCard/ArticleCard'
 export * from './Banner/Banner'
-export * from './Breadcrumbs/Breadcrumbs'
 export * from './Bullet/Bullet'
 export * from './CallToAction/CallToAction'
 export * from './CheckBox/CheckBox'

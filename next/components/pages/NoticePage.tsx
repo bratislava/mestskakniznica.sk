@@ -1,6 +1,6 @@
 import { NoticeEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import { Documents, PageTitle, RowFileProps, SectionContainer } from '@bratislava/ui-city-library'
-import Breadcrumbs from '@components/Molecules/Breadcrumbs'
+import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
 
@@ -14,13 +14,11 @@ const NoticePage = ({ notice }: NoticePageProps) => {
   const breadCrumbs =
     i18n.language === 'sk'
       ? [
-          { title: '', url: '/' },
           { title: 'Zažite', url: '/zazite' },
           { title: 'Aktuality', url: '/zazite/aktuality' },
           { title: notice.attributes?.title || '', url: notice.attributes?.slug || '' },
         ]
       : [
-          { title: '', url: '/' },
           { title: 'Experience', url: '/experience' },
           { title: 'News', url: '/experience/news' },
           { title: notice.attributes?.title || '', url: notice.attributes?.slug || '' },

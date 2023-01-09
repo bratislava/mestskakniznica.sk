@@ -1,7 +1,7 @@
 import ChevronRight from '@assets/images/chevron-right.svg'
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
-import Button from '@modules/common/Button'
+import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -20,7 +20,6 @@ import useSwrWithExtras from '../../hooks/useSwrWithExtras'
 import { AnimateHeight } from '../Atoms/AnimateHeight'
 import SearchField from '../Atoms/SearchField'
 import TagToggle from '../Atoms/TagToggle'
-import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface PageProps {
   pageEntity: PageEntity | undefined
@@ -84,14 +83,16 @@ const SearchPage = ({ pageEntity }: PageProps) => {
     })
   )
 
+  const crumbs = [{ title: t('searchTitle') }]
+
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={pageEntity} />
+        <Breadcrumbs crumbs={crumbs} />
       </SectionContainer>
       <SectionContainer>
         <PageTitle
-          title={pageEntity?.attributes?.title ?? t('searchResults')}
+          title={pageEntity?.attributes?.title ?? t('searchTitle')}
           description={pageEntity?.attributes?.description ?? ''}
           hasDivider={false}
         />
@@ -102,8 +103,6 @@ const SearchPage = ({ pageEntity }: PageProps) => {
             setInput={setInput}
             setSearchValue={setSearchValue}
           />
-
-          <Button mobileFullWidth>{t('search')}</Button>
         </div>
         <div className="mt-5 flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
           <div className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
@@ -123,8 +122,10 @@ const SearchPage = ({ pageEntity }: PageProps) => {
             })}
           </div>
         </div>
+
+        <h2 className="sr-only">{t('searchResults')}</h2>
         <div className="mt-5 text-[16px] text-foreground-placeholder">
-          {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits })}
+          {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits ?? 0 })}
         </div>
 
         {/* eslint-disable-next-line sonarjs/no-redundant-boolean */}

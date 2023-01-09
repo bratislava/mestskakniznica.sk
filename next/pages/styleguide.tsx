@@ -1,4 +1,5 @@
 import StyleguideAccordion from '@components/styleguide/StyleguideAccordion'
+import StyleguideBreadcrumbs from '@components/styleguide/StyleguideBreadcrumbs'
 import StyleguideCards from '@components/styleguide/StyleguideCards'
 import StyleguideShowMoreLink from '@components/styleguide/StyleguideShowMoreLink'
 import StyleguideTypography from '@components/styleguide/StyleguideTypography'
@@ -16,6 +17,7 @@ const Styleguide = () => {
   return (
     <>
       <Head>
+        <title>Styleguide</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
@@ -24,6 +26,7 @@ const Styleguide = () => {
         <StyleguideAccordion />
         <StyleguideCards />
         <StyleguideShowMoreLink />
+        <StyleguideBreadcrumbs />
       </div>
     </>
   )

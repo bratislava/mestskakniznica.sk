@@ -1,0 +1,74 @@
+import { ChevronRightIcon, HomeIcon } from '@assets/icons'
+import BreadcrumbItem from '@modules/breadcrumbs/BreadcrumbItem'
+import { BreadcrumbsProps } from '@modules/breadcrumbs/Breadcrumbs'
+import Accordion from '@modules/common/Accordion'
+import dropRight from 'lodash/dropRight'
+import last from 'lodash/last'
+import { useTranslation } from 'next-i18next'
+import { ReactNode } from 'react'
+
+export const Ellipsis = () => <>…</>
+
+const MobileBreadcrumbsAccordionButton = ({
+  currentLabel,
+  isNested,
+}: {
+  currentLabel?: string
+  isNested: boolean
+}) => {
+  const accBtnFakeCrumbs: ReactNode[] = [
+    <HomeIcon />,
+    <ChevronRightIcon />,
+    ...(isNested ? [<Ellipsis />, <ChevronRightIcon />] : []),
+    currentLabel,
+  ]
+  return (
+    <div className="flex w-full grow items-center gap-x-1.5 overflow-hidden">
+      {accBtnFakeCrumbs.map((crumb, index) => (
+        // Works only if Accordion button has min-w-0
+        // https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child
+        <span
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          className={`${index === accBtnFakeCrumbs.length - 1 ? 'truncate' : 'shrink-0'}`}
+        >
+          {crumb}
+        </span>
+      ))}
+    </div>
+  )
+}
+
+const MobileBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
+  const { t } = useTranslation('common')
+
+  // Add homepage and safely remove current last item
+  const mobileCrumbs = [{ title: t('homepage'), url: '/' }, ...dropRight(crumbs)]
+
+  return (
+    <nav className="text-sm">
+      <Accordion
+        type="breadcrumbs"
+        title={
+          <MobileBreadcrumbsAccordionButton
+            currentLabel={last(crumbs)?.title}
+            isNested={crumbs.length > 1}
+          />
+        }
+      >
+        <ol className="flex flex-col">
+          {mobileCrumbs.map((crumb, index) => {
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <BreadcrumbItem key={index} url={crumb.url} isMobile>
+                {crumb.title}
+              </BreadcrumbItem>
+            )
+          })}
+        </ol>
+      </Accordion>
+    </nav>
+  )
+}
+
+export default MobileBreadcrumbs
