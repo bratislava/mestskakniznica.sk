@@ -1,96 +1,176 @@
-import { Select } from '@bratislava/ui-city-library'
+import DropdownIcon from '@assets/images/dropdown.svg'
+import { FilterModal } from '@components/Molecules/FilterModal'
+import { Select } from '@components/ui'
+import Button from '@modules/common/Button'
 import MDatePicker from '@modules/common/MDatePicker/MDatePicker'
+import { useControlledState } from '@react-stately/utils'
+import { client } from '@utils/gql'
 import { useTranslation } from 'next-i18next'
+import React, { useMemo } from 'react'
+import { useToggleState } from 'react-stately'
+import useSWR from 'swr'
 
-import { usePageWrapperContext } from '../layouts/PageWrapper'
+import { EventsFiltersShared } from '../../backend/meili/fetchers/eventsFetcher'
 
-interface IEventOptionItem {
-  key: string
-  title: string
+type EventFiltersProps = {
+  filters: EventsFiltersShared
+  onFiltersChange: (filters: EventsFiltersShared) => void
 }
 
-interface IEventFilters {
-  startDate: Date | null
-  endDate: Date | null
-  onStartChange: (date: Date | null) => void
-  onEndChange: (date: Date | null) => void
-  tags: IEventOptionItem[]
-  categories: IEventOptionItem[]
-  localities: IEventOptionItem[]
-  selectedEventTags: IEventOptionItem | null | undefined
-  selectedCategory: IEventOptionItem | null | undefined
-  selectedLocality: IEventOptionItem | null | undefined
-  setSelectedEventTags: (data: IEventOptionItem | null | undefined) => void
-  setSelectedCategory: (data: IEventOptionItem | null | undefined) => void
-  setSelectedLocality: (data: IEventOptionItem | null | undefined) => void
-}
+const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) => {
+  const [filters, setFilters] = useControlledState(filtersInput, {}, onFiltersChange)
 
-const EventFilters = ({
-  startDate,
-  endDate,
-  onStartChange,
-  onEndChange,
-  tags,
-  categories,
-  localities,
-  selectedEventTags,
-  selectedCategory,
-  selectedLocality,
-  setSelectedEventTags,
-  setSelectedCategory,
-  setSelectedLocality,
-}: IEventFilters) => {
-  const { t } = useTranslation('common')
-  const { locale } = usePageWrapperContext()
+  const { t, i18n } = useTranslation('common')
+
+  // TODO: Rewrite to `react-query`.
+  const { data: eventPropertiesResponse } = useSWR(['EventsProperties', i18n.language], () =>
+    client.EventProperties({ locale: i18n.language })
+  )
+
+  const tags = useMemo(() => {
+    const eventTags = eventPropertiesResponse?.eventTags?.data ?? []
+    const parsedTypes = eventTags.map(({ attributes, id }) => ({
+      key: id ?? '',
+      title: attributes?.title ?? '',
+    }))
+    return [{ key: '', title: t('eventType') }, ...parsedTypes]
+  }, [eventPropertiesResponse?.eventTags?.data, t])
+
+  const categories = useMemo(() => {
+    const eventCategories = eventPropertiesResponse?.eventCategories?.data ?? []
+    const parsedCategories = eventCategories.map(({ attributes, id }) => ({
+      key: id ?? '',
+      title: attributes?.title ?? '',
+    }))
+    return [{ key: '', title: t('eventCategory') }, ...parsedCategories]
+  }, [eventPropertiesResponse?.eventCategories?.data, t])
+
+  const localities = useMemo(() => {
+    const eventBranches = eventPropertiesResponse?.branches?.data ?? []
+    const parsedLocalities = eventBranches.map(({ attributes, id }) => ({
+      key: id ?? '',
+      title: attributes?.title ?? '',
+    }))
+    return [{ key: '', title: t('eventLocality') }, ...parsedLocalities]
+  }, [eventPropertiesResponse?.branches?.data, t])
+
+  const handleDateFromChange = (dateFrom: Date) => {
+    setFilters({ ...filters, dateFrom })
+  }
+
+  const handleDateToChange = (dateTo: Date) => {
+    setFilters({ ...filters, dateTo })
+  }
+
+  const handleEventTypeIdChange = (eventTypeId: string) => {
+    setFilters({ ...filters, eventTypeId })
+  }
+
+  const handleEventCategoryIdChange = (eventCategoryId: string) => {
+    setFilters({ ...filters, eventCategoryId })
+  }
+
+  const handleEventBranchIdChange = (eventBranchId: string) => {
+    setFilters({ ...filters, eventBranchId })
+  }
+
+  const resetFilters = () => {
+    setFilters({})
+  }
 
   return (
-    <>
-      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
-        <MDatePicker
-          onChange={onStartChange}
-          selected={startDate}
-          chooseDayAriaLabelPrefix={t('dateAriaLabel')}
-          className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
-          placeholderText={t('eventsDateFrom')}
-          dateFormat="dd. MM. yyyy"
-          calendarClassName="w-screen lg:w-auto"
-          shouldCloseOnSelect={false}
+    <div className="flex grow flex-col">
+      <div className="flex grow flex-col items-center gap-x-5 lg:mt-3 lg:flex-row">
+        <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
+          <MDatePicker
+            selected={filters.dateFrom}
+            onChange={handleDateFromChange}
+            chooseDayAriaLabelPrefix={t('dateAriaLabel')}
+            className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
+            placeholderText={t('eventsDateFrom')}
+            dateFormat="dd. MM. yyyy"
+            calendarClassName="w-screen lg:w-auto"
+            shouldCloseOnSelect={false}
+          />
+        </div>
+        <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
+          <MDatePicker
+            selected={filters.dateTo}
+            onChange={handleDateToChange}
+            chooseDayAriaLabelPrefix={t('dateAriaLabel')}
+            className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
+            placeholderText={t('eventsDateTo')}
+            dateFormat="dd. MM. yyyy"
+            calendarClassName="w-screen lg:w-auto"
+            shouldCloseOnSelect={false}
+          />
+        </div>
+        <Select
+          className="w-full border-b-[1px] border-b-[#000] py-3 lg:border-0 lg:border-border-light"
+          selectClassName="border-0 lg:border"
+          options={tags}
+          value={filters.eventTypeId ?? ''}
+          onChange={(ev) => handleEventTypeIdChange(ev.key)}
+        />
+        <Select
+          className="w-full border-b-[1px] border-b-[#000] py-3 lg:border-0 lg:border-border-light"
+          selectClassName="border-0 lg:border"
+          options={categories}
+          value={filters.eventCategoryId ?? ''}
+          onChange={(ev) => handleEventCategoryIdChange(ev.key)}
+        />
+        <Select
+          className="w-full border-b-[1px] border-b-[#000] py-3 lg:border-0 lg:border-border-light"
+          selectClassName="border-0 lg:border"
+          options={localities}
+          value={filters.eventBranchId ?? ''}
+          onChange={(ev) => handleEventBranchIdChange(ev.key)}
         />
       </div>
-      <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:w-[268px] lg:border lg:border-border-light lg:py-2">
-        <MDatePicker
-          onChange={onEndChange}
-          selected={endDate}
-          chooseDayAriaLabelPrefix={t('dateAriaLabel')}
-          className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
-          placeholderText={t('eventsDateTo')}
-          dateFormat="dd. MM. yyyy"
-          calendarClassName="w-screen lg:w-auto"
-          shouldCloseOnSelect={false}
-        />
+
+      <div className="shrink-0 p-3 text-center lg:mt-3 lg:p-0 lg:text-right">
+        <Button variant="secondary" className="w-1/2 lg:w-max" onPress={resetFilters}>
+          {t('reset_button')}
+        </Button>
       </div>
-      <Select
-        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-border-light"
-        selectClassName="border-0 lg:border"
-        options={tags}
-        value={selectedEventTags ?? tags[0].title}
-        onChange={(ev) => setSelectedEventTags(ev)}
-      />
-      <Select
-        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-border-light"
-        selectClassName="border-0 lg:border"
-        options={categories}
-        value={selectedCategory ?? categories[0].title}
-        onChange={(ev) => setSelectedCategory(ev)}
-      />
-      <Select
-        className="w-full border-b-[1px] border-b-[#000] py-3 lg:w-[268px] lg:border-0 lg:border-border-light"
-        selectClassName="border-0 lg:border"
-        options={localities}
-        value={selectedLocality ?? localities[0].title}
-        onChange={(ev) => setSelectedLocality(ev)}
-      />
-    </>
+    </div>
+  )
+}
+
+const EventFilters = ({ filters, onFiltersChange }: EventFiltersProps) => {
+  const { t } = useTranslation('common')
+
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { isSelected, toggle } = useToggleState({ defaultSelected: false })
+
+  return (
+    <div className="mt-4 mb-6 lg:mb-16 lg:mt-6 lg:block lg:border lg:border-border-dark lg:p-6">
+      {/* Mobile */}
+      <div className="flex w-full items-center justify-between border border-border-dark p-4 lg:hidden">
+        {/* TODO accessibility 'more content' */}
+        <Button
+          variant="unstyled"
+          className="z-10 flex w-full items-center justify-between gap-y-5"
+          onPress={toggle}
+        >
+          {t('eventsFilter')}
+          <DropdownIcon />
+        </Button>
+        {isSelected && (
+          <FilterModal onClose={toggle} title={t('eventsFilter')}>
+            <Inner filters={filters} onFiltersChange={onFiltersChange} />
+          </FilterModal>
+        )}
+      </div>
+
+      {/* Desktop */}
+      <div className="hidden lg:block">
+        <div className="flex items-center justify-between">
+          <h4 className="text-h4">{t('eventsFilter')}</h4>
+        </div>
+        <Inner filters={filters} onFiltersChange={onFiltersChange} />
+      </div>
+    </div>
   )
 }
 
