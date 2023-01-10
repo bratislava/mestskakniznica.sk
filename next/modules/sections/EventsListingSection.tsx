@@ -41,7 +41,7 @@ const InnerSection = ({
       <div className="text-h3">{t(titleTranslationKey)}</div>
       <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
         {data?.hits.map((event) => (
-          <EventListingCard event={event} key={event?.attributes?.slug} />
+          <EventListingCard event={event} key={event?.id} />
         ))}
       </div>
       <div className="flex justify-center pt-6 lg:justify-end">
