@@ -117,7 +117,7 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
       />
       <div id={`turnstile-widget-${cfId}`} className="!mt-0" />
 
-      <Button type="submit" className="m-auto ml-0">
+      <Button type="submit" className="m-auto ml-0" mobileFullWidth>
         {buttonContent}
       </Button>
     </div>
