@@ -19,6 +19,13 @@ import {
   documentsFetcher,
   getDocumentsQueryKey,
 } from '../backend/meili/fetchers/documentsFetcher'
+import {
+  eventsArchivedDefaultFilters,
+  eventsDefaultSharedFilters,
+  eventsFetcher,
+  eventsUpcomingDefaultFilters,
+  getEventsQueryKey,
+} from '../backend/meili/fetchers/eventsFetcher'
 
 export const prefetchPageSections = async (page: PageEntityFragment, locale: string) => {
   const queryClient = new QueryClient()
@@ -46,6 +53,17 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
   if (sectionTypes.includes('ComponentSectionsNewsListing')) {
     await queryClient.prefetchQuery(getNoticesQueryKey(locale, noticesDefaultFilters), () =>
       noticesFetcher(locale, noticesDefaultFilters)
+    )
+  }
+
+  if (sectionTypes.includes('ComponentSectionsEventsListing')) {
+    await queryClient.prefetchQuery(
+      getEventsQueryKey(eventsUpcomingDefaultFilters, eventsDefaultSharedFilters),
+      () => eventsFetcher(eventsUpcomingDefaultFilters, eventsDefaultSharedFilters)
+    )
+    await queryClient.prefetchQuery(
+      getEventsQueryKey(eventsArchivedDefaultFilters, eventsDefaultSharedFilters),
+      () => eventsFetcher(eventsArchivedDefaultFilters, eventsDefaultSharedFilters)
     )
   }
 
