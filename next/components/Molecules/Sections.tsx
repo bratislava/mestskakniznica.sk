@@ -22,6 +22,7 @@ import Accordion from '@modules/common/Accordion'
 import Button from '@modules/common/Button'
 import BlogPostsListingSection from '@modules/sections/BlogPostsListingSection'
 import DocumentsListingSection from '@modules/sections/DocumentsListingSection'
+import EventsListingSection from '@modules/sections/EventsListingSection'
 import NewBooksSection from '@modules/sections/NewBooksSection'
 import NoticesListingSection from '@modules/sections/NoticesListingSection'
 import PartnersSection from '@modules/sections/PartnersSection'
@@ -328,6 +329,9 @@ const sectionContent = (
 
     case 'ComponentSectionsNewsListing':
       return <NoticesListingSection />
+
+    case 'ComponentSectionsEventsListing':
+      return <EventsListingSection />
 
     default:
       return null
