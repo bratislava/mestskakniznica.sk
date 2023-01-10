@@ -1,16 +1,16 @@
-import { EventCardEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { useTranslation } from 'next-i18next'
 
 import Placeholder from '../../assets/images/event-list-placeholder.jpg'
+import { EventInListingMeili } from '../../backend/meili/meiliTypes'
 import TagsDisplay from '../Atoms/TagsDisplay'
 
 interface EventListingProps {
-  event: EventCardEntityFragment
+  event: EventInListingMeili
 }
 
-const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
+const EventListingCard = ({ event }: EventListingProps) => {
   const { t } = useTranslation('common')
 
   const {
@@ -23,9 +23,7 @@ const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
     eventTags,
     eventCategory,
     branch,
-  } = attributes ?? {}
-
-  const eventBranch = branch?.data?.attributes
+  } = event ?? {}
 
   return (
     // TODO refactor link to meet html validation standards
@@ -34,18 +32,14 @@ const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
       <img
         className="h-[200px] w-full flex-1 object-cover"
         alt={t('eventDetailImagePlaceholder')}
-        src={
-          listingImage?.data?.attributes?.url ||
-          coverImage?.data?.attributes?.url ||
-          Placeholder.src
-        }
+        src={listingImage?.url || coverImage?.url || Placeholder.src}
         height="200px"
       />
 
       <div className="flex pt-4 text-sm">
         <TagsDisplay
-          tags={eventTags?.data}
-          category={eventCategory?.data?.attributes?.title || ''}
+          tags={eventTags?.map((attributes) => ({ attributes }))}
+          category={eventCategory?.title || ''}
           tagsCount={2}
         />
       </div>
@@ -56,10 +50,10 @@ const EventListingCard = ({ event: { attributes } }: EventListingProps) => {
         </MLink>
       </div>
       <div className="pt-2 text-sm text-foreground-body">
-        <FormatEventDateRange dateFrom={attributes?.dateFrom} dateTo={attributes?.dateTo} />
+        <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} />
       </div>
-      {eventBranch?.title && (
-        <div className="pt-2 text-sm text-foreground-body">&#9679; {eventBranch.title}</div>
+      {branch?.title && (
+        <div className="pt-2 text-sm text-foreground-body">&#9679; {branch.title}</div>
       )}
     </div>
   )

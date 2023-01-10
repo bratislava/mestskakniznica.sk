@@ -8,7 +8,6 @@ import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
-import EventsListingPage from '../components/pages/eventsListingPage'
 import FullContentPage from '../components/pages/fullContentPage'
 import ListingPage from '../components/pages/listingPage'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
@@ -61,10 +60,6 @@ const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: I
 
     case Enum_Page_Layout.ContentWithSidebar:
       pageComponentByLayout = <SidebarContentPage page={page} />
-      break
-
-    case Enum_Page_Layout.EventsListing:
-      pageComponentByLayout = <EventsListingPage page={page} />
       break
   }
 

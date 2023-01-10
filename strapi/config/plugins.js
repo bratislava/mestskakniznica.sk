@@ -42,10 +42,18 @@ const searchIndexSettings = {
     "locale",
     // Basic document
     "basic-document.file_category.id",
+    // Event
+    "event.dateFromTimestamp",
+    "event.dateToTimestamp",
+    "event.eventTagsIds",
+    "event.eventCategory.id",
+    "event.branch.id",
   ],
   sortableAttributes: [
     // Basic document
     "basic-document.date_added",
+    // Event
+    "event.dateFromTimestamp",
   ],
   pagination: {
     // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
@@ -102,9 +110,22 @@ module.exports = ({ env }) => ({
           locale: "all",
         },
         settings: searchIndexSettings,
-        transformEntry: ({ entry }) => wrapSearchIndexEntry("event", entry),
+        transformEntry: ({ entry }) =>
+          wrapSearchIndexEntry("event", {
+            ...entry,
+            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+            // use (number) filters.
+            dateFromTimestamp: entry.dateFrom
+              ? new Date(entry.dateFrom).getTime()
+              : undefined,
+            dateToTimestamp: entry.dateTo
+              ? new Date(entry.dateTo).getTime()
+              : undefined,
+            // It is not possible to filter nested object in arrays in Meilisearch, so we map it to a basic array with
+            // string values.
+            eventTagsIds: (entry.eventTags ?? []).map(({ id }) => id),
+          }),
       },
-
       notice: {
         indexName: "search_index",
         entriesQuery: {
