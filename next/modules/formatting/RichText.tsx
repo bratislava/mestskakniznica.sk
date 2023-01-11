@@ -28,7 +28,7 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
         h5: ({ children }) => <h5 className={`text-h5 ${topMargin}`}>{children}</h5>,
         h6: ({ children }) => <h6 className={`text-h6 ${topMargin}`}>{children}</h6>,
         p: ({ children, ...props }) => (
-          <p className={paragraphClassName} {...props}>
+          <p className={twMerge('whitespace-pre-wrap', paragraphClassName)} {...props}>
             {children.map((child, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <NormalizeText key={index}>{child}</NormalizeText>
