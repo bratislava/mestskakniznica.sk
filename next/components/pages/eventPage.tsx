@@ -1,7 +1,7 @@
 import { Link, SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
+import { useGeneralContext } from '@utils/generalContext'
 import EventDetails from 'components/Molecules/EventDetails'
-import { useUpcomingEvents } from 'hooks/useUpcomingEvets'
 import { useTranslation } from 'next-i18next'
 
 import { EventEntityFragment } from '../../graphql'
@@ -15,7 +15,7 @@ export interface PageProps {
 const EventPage = ({ event }: PageProps) => {
   const { t, i18n } = useTranslation(['common', 'homepage'])
 
-  const { upcomingEvents } = useUpcomingEvents({ locale: i18n.language })
+  const { upcomingEvents } = useGeneralContext()
 
   const breadCrumbs =
     i18n.language === 'sk'
@@ -54,7 +54,7 @@ const EventPage = ({ event }: PageProps) => {
           </div>
           <section>
             <div className="grid grid-cols-1 items-stretch gap-1 py-10 pt-12 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-10">
-              {upcomingEvents?.map((upcomingEvent) => {
+              {upcomingEvents?.data.map((upcomingEvent) => {
                 return <ListingCard card={upcomingEvent} key={upcomingEvent.attributes?.slug} />
               })}
             </div>

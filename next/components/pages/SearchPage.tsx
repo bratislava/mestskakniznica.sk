@@ -1,5 +1,4 @@
 import ChevronRight from '@assets/images/chevron-right.svg'
-import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import cx from 'classnames'
@@ -21,11 +20,7 @@ import { AnimateHeight } from '../Atoms/AnimateHeight'
 import SearchField from '../Atoms/SearchField'
 import TagToggle from '../Atoms/TagToggle'
 
-export interface PageProps {
-  pageEntity: PageEntity | undefined
-}
-
-const SearchPage = ({ pageEntity }: PageProps) => {
+const SearchPage = () => {
   const { t, i18n } = useTranslation('common')
 
   const resultsRef = useRef<HTMLDivElement>(null)
@@ -91,11 +86,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
         <Breadcrumbs crumbs={crumbs} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle
-          title={pageEntity?.attributes?.title ?? t('searchTitle')}
-          description={pageEntity?.attributes?.description ?? ''}
-          hasDivider={false}
-        />
+        <PageTitle title={t('searchTitle')} hasDivider={false} />
         <div className="mt-6 flex flex-col gap-y-4 lg:flex-row lg:gap-y-0">
           <SearchField
             className="h-16"

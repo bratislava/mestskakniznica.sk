@@ -3,7 +3,7 @@ import SingleDot from '@assets/images/dot.svg'
 import Download from '@assets/images/download.svg'
 import ExternalLink from '@assets/images/external-link.svg'
 import Home from '@assets/images/home.svg'
-import { BasicDocumentEntity, FooterEntity, MenuEntity } from '@bratislava/strapi-sdk-city-library'
+import { BasicDocumentEntity } from '@bratislava/strapi-sdk-city-library'
 import { FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
 import FormatDate from '@modules/formatting/FormatDate'
@@ -15,8 +15,6 @@ import DefaultPageLayout from '../layouts/DefaultPageLayout'
 
 interface IProps {
   file: BasicDocumentEntity
-  menus: MenuEntity[]
-  footer: FooterEntity
 }
 
 interface FileMetadata {
@@ -46,7 +44,7 @@ const CustomPageBreadcrumbs = ({ file }: IProps) => {
   )
 }
 
-const BasicDocumentPage = ({ file, menus, footer }: IProps) => {
+const BasicDocumentPage = ({ file }: IProps) => {
   const { t } = useTranslation('common')
 
   const [expandDescription, setExpandDescription] = React.useState(false)
@@ -118,9 +116,9 @@ const BasicDocumentPage = ({ file, menus, footer }: IProps) => {
   const fullMetadata = Metadata?.concat(transformedMetadata)
 
   return (
-    <DefaultPageLayout title={file?.attributes?.title} menus={menus} footer={footer}>
+    <DefaultPageLayout title={file?.attributes?.title}>
       <SectionContainer>
-        <CustomPageBreadcrumbs file={file} menus={menus} footer={footer} />
+        <CustomPageBreadcrumbs file={file} />
         <div className="mt-6 flex gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:pb-32">
           <FileIcon
             className="hidden lg:flex"

@@ -1,8 +1,9 @@
 import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
+import { useGeneralContext } from '@utils/generalContext'
 import { useTranslation } from 'next-i18next'
 import useSWR from 'swr'
 
-import { EventCardEntityFragment, PageEntity } from '../../graphql'
+import { PageEntity } from '../../graphql'
 import { client } from '../../utils/gql'
 import { parseSubCategories } from '../../utils/page'
 import { usePageWrapperContext } from '../layouts/PageWrapper'
@@ -15,12 +16,7 @@ export interface PageProps {
 const ListingPage = ({ page }: PageProps) => {
   const { t } = useTranslation('common')
   const { locale = 'sk' } = usePageWrapperContext()
-
-  const { data: upcomingEventsResponse, error: upcomingEventsError } = useSWR(
-    ['UpcomingEvents', locale, new Date().toISOString()],
-    (_key, locale, date) => client.UpcomingEvents({ locale, date })
-  )
-  const upcomingEvents = upcomingEventsResponse?.events?.data
+  const { upcomingEvents } = useGeneralContext()
 
   const { data: latestNewsResponse, error: latestNewsError } = useSWR(
     ['LatestNews', locale],
@@ -59,7 +55,7 @@ const ListingPage = ({ page }: PageProps) => {
                       url: page.attributes?.slug ?? '',
                       moreLinkTitle: t('more'),
                     })) ?? []
-                  : upcomingEvents?.map((event) => ({
+                  : upcomingEvents?.data.map((event) => ({
                       title: event.attributes?.title ?? '',
                       url: event.attributes?.slug ?? '',
                       moreLinkTitle: t('more'),

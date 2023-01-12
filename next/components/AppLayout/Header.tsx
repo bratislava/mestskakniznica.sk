@@ -1,6 +1,6 @@
-import { EventCardEntityFragment, MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import MLink from '@modules/common/MLink'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import { useGeneralContext } from '@utils/generalContext'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
@@ -10,13 +10,9 @@ import HeaderSearchBox from './Navigation/HeaderSearchBox'
 import NavigationItem from './Navigation/NavigationItem'
 import SkipToContentButton from './SkipToContentButton'
 
-interface HeaderProps {
-  menus: MenuEntity[]
-  upcomingEvents?: EventCardEntityFragment[]
-}
-
-const Header = ({ menus, upcomingEvents }: HeaderProps) => {
+const Header = () => {
   const { t } = useTranslation('common')
+  const { menus } = useGeneralContext()
 
   const [isSearchOpen, setSearchOpen] = useState(false)
 
@@ -52,11 +48,10 @@ const Header = ({ menus, upcomingEvents }: HeaderProps) => {
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <NavigationMenu.Root aria-label={t('navAriaLabel')}>
                   <NavigationMenu.List className="flex">
-                    {menus?.map((menu, index) => (
+                    {menus?.data?.map((menu, index) => (
                       <NavigationItem
                         // eslint-disable-next-line react/no-array-index-key
                         key={index}
-                        latestEvents={upcomingEvents}
                         menu={menu.attributes}
                         isFirst={index === 0}
                       />

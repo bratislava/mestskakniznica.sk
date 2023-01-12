@@ -1,21 +1,22 @@
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import { useGeneralContext } from '@utils/generalContext'
 import cx from 'classnames'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
-import { ComponentMenuSections, Enum_Page_Layout, EventCardEntityFragment } from '../../../graphql'
+import { ComponentMenuSections, Enum_Page_Layout } from '../../../graphql'
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 
 interface ColumnProps {
   section: ComponentMenuSections
-  latestEvents?: EventCardEntityFragment[]
   classNames?: string
 }
 
-const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
+const Column = ({ section, classNames }: ColumnProps) => {
   const { t } = useTranslation('common')
+  const { upcomingEvents } = useGeneralContext()
 
   // TODO optionally load latestEvents here if needed
   const containsEvents = section?.sectionLinks?.some(
@@ -46,10 +47,10 @@ const Column = ({ section, latestEvents, classNames }: ColumnProps) => {
       >
         {section.sectionLinks?.map((sectionLink) => {
           if (sectionLink?.sectionLinkTitle === 'latestEvents') {
-            if (latestEvents && latestEvents?.length > 0) {
+            if (upcomingEvents?.data && upcomingEvents?.data.length > 0) {
               return (
                 <div className="grid grid-flow-col grid-rows-2">
-                  {latestEvents.map((event) => {
+                  {upcomingEvents.data.map((event) => {
                     const eventBranch = event.attributes?.branch?.data?.attributes
 
                     return (
