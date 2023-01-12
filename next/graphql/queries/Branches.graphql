@@ -103,40 +103,4 @@ query BranchBySlug($slug: String!, $locale: I18NLocaleCode!) {
       ...BranchEntity
     }
   }
-  menus(locale: $locale, sort: ["order:asc"]) {
-    data {
-      ...Menu
-    }
-  }
-  footer(locale: $locale) {
-    data {
-      id
-      attributes {
-        footerColumns {
-          id
-          title
-          footerLink {
-            id
-            redirectTo {
-              data {
-                ...PageWithBaseFieldsEntity
-              }
-            }
-            title
-            otherSite
-          }
-        }
-        siteMapLink {
-          data {
-            ...PageWithBaseFieldsEntity
-          }
-        }
-        privacyLink {
-          data {
-            ...PageWithBaseFieldsEntity
-          }
-        }
-      }
-    }
-  }
 }
