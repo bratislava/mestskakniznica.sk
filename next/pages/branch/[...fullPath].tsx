@@ -1,4 +1,6 @@
 import BranchPage from '@components/pages/BranchPage'
+import { generalFetcher } from '@utils/fetchers/general.fetcher'
+import { GeneralContextProvider } from '@utils/generalContext'
 import { client } from '@utils/gql'
 import { isDefined } from '@utils/isDefined'
 import { isPresent, shouldSkipStaticPaths } from '@utils/utils'
@@ -11,17 +13,16 @@ import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
 import PageWrapper from '../../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../../components/Molecules/ErrorDisplay'
 import ErrorPage from '../../components/pages/ErrorPage'
-import { BranchEntityFragment, FooterEntity, MenuEntity } from '../../graphql'
+import { BranchEntityFragment, GeneralQuery } from '../../graphql'
 
 interface IPageProps {
   locale: string
   branch: BranchEntityFragment
-  menus: MenuEntity[]
-  footer: FooterEntity
+  general: GeneralQuery
   error?: IDisplayError
 }
 
-const EventSlugPage = ({ branch, menus, footer, error }: IPageProps) => {
+const EventSlugPage = ({ branch, general, error }: IPageProps) => {
   const { t } = useTranslation(['common'])
 
   if (error) {
@@ -33,31 +34,31 @@ const EventSlugPage = ({ branch, menus, footer, error }: IPageProps) => {
   }
 
   return (
-    <PageWrapper
-      locale={branch.attributes?.locale ?? ''}
-      slug={`${t('branch_slug')}${branch.attributes?.slug}`}
-      localizations={branch.attributes?.localizations?.data
-        .filter(isPresent)
-        .map((localization) => ({
-          locale: localization.attributes?.locale,
-          // TODO locale is switched on purpose to get en url if user is on sk page and vice versa
-          slug: `${
-            branch.attributes?.locale === 'en'
-              ? '/navstivte/nase-lokality/'
-              : '/visit/our-locations/'
-          }${localization.attributes?.slug}`,
-        }))}
-    >
-      <DefaultPageLayout
-        title={branch.attributes?.title}
-        // TODO add seo to Strapi
-        // Seo={branch.attributes?.Seo}
-        menus={menus}
-        footer={footer}
+    <GeneralContextProvider general={general}>
+      <PageWrapper
+        locale={branch.attributes?.locale ?? ''}
+        slug={`${t('branch_slug')}${branch.attributes?.slug}`}
+        localizations={branch.attributes?.localizations?.data
+          .filter(isPresent)
+          .map((localization) => ({
+            locale: localization.attributes?.locale,
+            // TODO locale is switched on purpose to get en url if user is on sk page and vice versa
+            slug: `${
+              branch.attributes?.locale === 'en'
+                ? '/navstivte/nase-lokality/'
+                : '/visit/our-locations/'
+            }${localization.attributes?.slug}`,
+          }))}
       >
-        <BranchPage branch={branch} />
-      </DefaultPageLayout>
-    </PageWrapper>
+        <DefaultPageLayout
+          title={branch.attributes?.title}
+          // TODO add seo to Strapi
+          // Seo={branch.attributes?.Seo}
+        >
+          <BranchPage branch={branch} />
+        </DefaultPageLayout>
+      </PageWrapper>
+    </GeneralContextProvider>
   )
 }
 
@@ -108,10 +109,13 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
   ])) as any
 
   try {
-    const { branches, menus, footer } = await client.BranchBySlug({
-      slug,
-      locale,
-    })
+    const [{ branches }, general] = await Promise.all([
+      client.BranchBySlug({
+        slug,
+        locale,
+      }),
+      generalFetcher(locale),
+    ])
 
     const branch = branches?.data[0] ?? null
 
@@ -122,8 +126,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
         slug,
         branch,
         locale,
-        menus: menus?.data ?? [],
-        footer: footer?.data,
+        general,
         ...translations,
       },
       revalidate: 10,

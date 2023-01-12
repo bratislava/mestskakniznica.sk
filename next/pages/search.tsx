@@ -1,6 +1,6 @@
-import { FooterEntity, MenuEntity, PageEntity } from '@bratislava/strapi-sdk-city-library'
-import { client } from '@utils/gql'
-import { arrayify, isPresent } from '@utils/utils'
+import { GeneralQuery } from '@bratislava/strapi-sdk-city-library'
+import { generalFetcher } from '@utils/fetchers/general.fetcher'
+import { GeneralContextProvider } from '@utils/generalContext'
 import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -10,17 +10,10 @@ import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/E
 import ErrorPage from '../components/pages/ErrorPage'
 import SearchPage from '../components/pages/SearchPage'
 
-export const Search = ({ locale, error, page, menus, footer }: IProps) => {
+export const Search = ({ locale, error, general }: IProps) => {
   if (error) {
     return (
-      <PageWrapper
-        locale={locale ?? 'sk'}
-        slug="/"
-        localizations={page?.attributes?.localizations?.data
-          ?.filter(isPresent)
-          // add empty slug because it's expected in wrapper and index page does not have slug
-          .map((l) => ({ ...l, slug: '' }))}
-      >
+      <PageWrapper locale={locale ?? 'sk'} slug="/">
         <ErrorPage code={500}>
           <ErrorDisplay error={error} />
         </ErrorPage>
@@ -29,53 +22,46 @@ export const Search = ({ locale, error, page, menus, footer }: IProps) => {
   }
 
   return (
-    <PageWrapper
-      locale={locale ?? 'sk'}
-      slug="vyhladavanie"
-      localizations={[
-        {
-          locale: 'sk',
-          slug: 'vyhladavanie',
-        },
-        {
-          locale: 'en',
-          slug: 'search',
-        },
-      ]}
-    >
-      <DefaultPageLayout Seo={page?.attributes?.Seo} menus={menus} footer={footer}>
-        <SearchPage pageEntity={page} />
-      </DefaultPageLayout>
-    </PageWrapper>
+    <GeneralContextProvider general={general}>
+      <PageWrapper
+        locale={locale ?? 'sk'}
+        slug="vyhladavanie"
+        localizations={[
+          {
+            locale: 'sk',
+            slug: 'vyhladavanie',
+          },
+          {
+            locale: 'en',
+            slug: 'search',
+          },
+        ]}
+      >
+        <DefaultPageLayout>
+          <SearchPage />
+        </DefaultPageLayout>
+      </PageWrapper>
+    </GeneralContextProvider>
   )
 }
 
 interface IProps {
   locale?: string
   error?: IDisplayError
-  page?: PageEntity
-  menus: MenuEntity[]
-  footer: FooterEntity
+  general: GeneralQuery
 }
 
 export async function getServerSideProps(ctx: GetStaticPropsContext) {
   const locale = ctx?.locale ?? 'sk'
   const translations = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
 
-  const slug = arrayify(ctx?.params?.slug).join('/')
-
   try {
-    const today = new Date().toISOString()
-    const [{ menus, footer }] = await Promise.all([client.HomePage({ locale, date: today })])
-
-    const { pages } = await client.PageBySlug({ slug, locale, date: today })
+    const general = await generalFetcher(locale)
 
     return {
       props: {
         locale,
-        page: pages?.data[0] ?? [],
-        menus: menus?.data,
-        footer,
+        general,
         ...translations,
       },
     }

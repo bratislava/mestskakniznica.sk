@@ -1,8 +1,6 @@
-import {
-  BlogPostEntityFragment,
-  FooterEntity,
-  MenuEntity,
-} from '@bratislava/strapi-sdk-city-library'
+import { BlogPostEntityFragment, GeneralQuery } from '@bratislava/strapi-sdk-city-library'
+import { generalFetcher } from '@utils/fetchers/general.fetcher'
+import { GeneralContextProvider } from '@utils/generalContext'
 import { client } from '@utils/gql'
 import { isDefined } from '@utils/isDefined'
 import { shouldSkipStaticPaths } from '@utils/utils'
@@ -18,32 +16,33 @@ import BlogPostPage from '../../components/pages/blogPostPage'
 interface IBlogPostPageProps {
   slug: string
   blogPost: BlogPostEntityFragment
-  menus: MenuEntity[]
-  footer: FooterEntity
+  general: GeneralQuery
 }
 
-const Page = ({ blogPost, slug, menus, footer }: IBlogPostPageProps) => {
+const Page = ({ blogPost, slug, general }: IBlogPostPageProps) => {
   const { i18n } = useTranslation('common')
 
-  if (!menus || !blogPost) {
+  if (!blogPost) {
     return null
   }
 
   return (
-    <PageWrapper
-      locale={i18n.language}
-      slug={slug ?? ''}
-      localizations={blogPost.attributes?.localizations?.data
-        .filter(isDefined)
-        .map((localization) => ({
-          locale: localization.attributes?.locale,
-          slug: localization.attributes?.slug,
-        }))}
-    >
-      <DefaultPageLayout title={blogPost?.attributes?.title} menus={menus} footer={footer}>
-        <BlogPostPage blogPost={blogPost} />
-      </DefaultPageLayout>
-    </PageWrapper>
+    <GeneralContextProvider general={general}>
+      <PageWrapper
+        locale={i18n.language}
+        slug={slug ?? ''}
+        localizations={blogPost.attributes?.localizations?.data
+          .filter(isDefined)
+          .map((localization) => ({
+            locale: localization.attributes?.locale,
+            slug: localization.attributes?.slug,
+          }))}
+      >
+        <DefaultPageLayout title={blogPost?.attributes?.title}>
+          <BlogPostPage blogPost={blogPost} />
+        </DefaultPageLayout>
+      </PageWrapper>
+    </GeneralContextProvider>
   )
 }
 
@@ -91,24 +90,24 @@ export const getStaticProps: GetStaticProps<IBlogPostPageProps> = async (ctx) =>
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} blog post ${slug} on ${ctx?.params?.fullPath}`)
 
-  const { blogPosts } = await client.BlogPostBySlug({ slug, locale })
+  const [{ blogPosts }, general] = await Promise.all([
+    client.BlogPostBySlug({ slug, locale }),
+    generalFetcher(locale),
+  ])
   const blogPost = blogPosts?.data[0] ?? null
-  const { menus } = await client.Menus({ locale })
-  const { footer } = await client.Footer({ locale })
   const translations = (await serverSideTranslations(locale, [
     'common',
     'forms',
     'newsletter',
   ])) as any
 
-  if (!blogPost && !menus) return { notFound: true }
+  if (!blogPost) return { notFound: true }
 
   return {
     props: {
       slug,
-      menus: menus?.data ?? [],
-      footer: footer?.data,
       blogPost,
+      general,
       ...translations,
     },
     revalidate: 10,

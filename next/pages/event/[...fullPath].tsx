@@ -1,3 +1,5 @@
+import { generalFetcher } from '@utils/fetchers/general.fetcher'
+import { GeneralContextProvider } from '@utils/generalContext'
 import { client } from '@utils/gql'
 import { isDefined } from '@utils/isDefined'
 import { isPresent, shouldSkipStaticPaths } from '@utils/utils'
@@ -10,23 +12,16 @@ import PageWrapper from '../../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../../components/Molecules/ErrorDisplay'
 import ErrorPage from '../../components/pages/ErrorPage'
 import EventPage from '../../components/pages/eventPage'
-import {
-  EventCardEntityFragment,
-  EventEntityFragment,
-  FooterEntity,
-  MenuEntity,
-} from '../../graphql'
+import { EventEntityFragment, GeneralQuery } from '../../graphql'
 
 interface IPageProps {
   locale: string
   event: EventEntityFragment
-  upcomingEvents: EventCardEntityFragment[]
-  menus: MenuEntity[]
-  footer: FooterEntity
+  general: GeneralQuery
   error?: IDisplayError
 }
 
-const EventSlugPage = ({ event, upcomingEvents, menus, footer, error }: IPageProps) => {
+const EventSlugPage = ({ event, general, error }: IPageProps) => {
   if (error) {
     return (
       <ErrorPage code={500}>
@@ -36,26 +31,22 @@ const EventSlugPage = ({ event, upcomingEvents, menus, footer, error }: IPagePro
   }
 
   return (
-    <PageWrapper
-      locale={event.attributes?.locale ?? ''}
-      slug={event.attributes?.slug ?? ''}
-      localizations={event.attributes?.localizations?.data
-        .filter(isPresent)
-        .map((localization) => ({
-          locale: localization.attributes?.locale,
-          slug: localization.attributes?.slug,
-        }))}
-    >
-      <DefaultPageLayout
-        title={event.attributes?.title}
-        Seo={event.attributes?.Seo}
-        menus={menus}
-        footer={footer}
-        upcomingEvents={upcomingEvents ?? []}
+    <GeneralContextProvider general={general}>
+      <PageWrapper
+        locale={event.attributes?.locale ?? ''}
+        slug={event.attributes?.slug ?? ''}
+        localizations={event.attributes?.localizations?.data
+          .filter(isPresent)
+          .map((localization) => ({
+            locale: localization.attributes?.locale,
+            slug: localization.attributes?.slug,
+          }))}
       >
-        <EventPage event={event} />
-      </DefaultPageLayout>
-    </PageWrapper>
+        <DefaultPageLayout title={event.attributes?.title} Seo={event.attributes?.Seo}>
+          <EventPage event={event} />
+        </DefaultPageLayout>
+      </PageWrapper>
+    </GeneralContextProvider>
   )
 }
 
@@ -108,11 +99,13 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
   ])) as any
 
   try {
-    const { events, menus, footer, upcomingEvents } = await client.EventBySlug({
-      slug,
-      locale,
-      date: new Date().toISOString(),
-    })
+    const [{ events }, general] = await Promise.all([
+      client.EventBySlug({
+        slug,
+        locale,
+      }),
+      generalFetcher(locale),
+    ])
 
     const event = events?.data[0] ?? null
 
@@ -121,11 +114,9 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
     return {
       props: {
         slug,
-        upcomingEvents: upcomingEvents?.data,
         event,
         locale,
-        menus: menus?.data ?? [],
-        footer: footer?.data,
+        general,
         ...translations,
       },
       revalidate: 10,
