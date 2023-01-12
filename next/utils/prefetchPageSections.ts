@@ -1,9 +1,10 @@
-import { PageEntityFragment } from '@bratislava/strapi-sdk-city-library'
+import { Enum_Page_Layout, PageEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import {
   blogPostsDefaultFilters,
   blogPostsFetcher,
   getBlogPostsQueryKey,
 } from '@utils/fetchers/blog-posts.fetcher'
+import { getLatestNewsQueryKey, latestNewsFetcher } from '@utils/fetchers/latestNews.fetcher'
 import { getNewBooksQueryKey, newBooksDefaultFilters } from '@utils/fetchers/new-books.fetcher'
 import { newBookServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
 import {
@@ -65,6 +66,10 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
       getEventsQueryKey(eventsArchivedDefaultFilters, eventsDefaultSharedFilters),
       () => eventsFetcher(eventsArchivedDefaultFilters, eventsDefaultSharedFilters)
     )
+  }
+
+  if (page?.attributes?.layout === Enum_Page_Layout.Listing) {
+    await queryClient.prefetchQuery(getLatestNewsQueryKey(locale), () => latestNewsFetcher(locale))
   }
 
   return dehydrate(queryClient)
