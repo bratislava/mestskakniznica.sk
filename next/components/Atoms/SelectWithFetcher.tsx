@@ -1,26 +1,25 @@
 // TODO this component was copied from Marianum project
 import SelectField, { Option, SelectProps, SingleSelect } from '@components/Atoms/SelectField'
 import { useMemo } from 'react'
-import { Key } from 'swr'
-
-import useSwrWithExtras from '../../hooks/useSwrWithExtras'
+import { useQuery } from 'react-query'
+import { QueryKey } from 'react-query/types/core/types'
 
 type SelectWithFetcherProps = {
-  swrKey: Key
-  fetcher: () => Promise<Option[]>
+  queryKey: QueryKey
+  queryFn: () => Promise<Option[]>
   defaultOption: Option
 } & Pick<SelectProps, 'id' | 'placeholder' | 'label' | 'disabled'> &
   Pick<SingleSelect, 'onSelectionChange'>
 
 const SelectWithFetcher = ({
-  swrKey,
+  queryKey,
   defaultOption,
-  fetcher,
+  queryFn,
   disabled: originalDisabled,
   onSelectionChange,
   ...rest
 }: SelectWithFetcherProps) => {
-  const { data, error, loading } = useSwrWithExtras(swrKey, fetcher)
+  const { data, isError, isLoading } = useQuery({ queryKey, queryFn, staleTime: Infinity })
 
   const options = useMemo(() => {
     if (data) {
@@ -34,7 +33,7 @@ const SelectWithFetcher = ({
       options={options}
       defaultSelected={defaultOption.key}
       multiple={false}
-      disabled={loading || error || originalDisabled}
+      disabled={isLoading || isError || originalDisabled}
       onSelectionChange={onSelectionChange}
       {...rest}
     />

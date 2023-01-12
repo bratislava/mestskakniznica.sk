@@ -5,6 +5,10 @@ import {
   getBlogPostsQueryKey,
 } from '@utils/fetchers/blog-posts.fetcher'
 import {
+  documentCategoriesFetcher,
+  documentCategoriesQueryKey,
+} from '@utils/fetchers/document-categories.fetcher'
+import {
   eventPropertiesFetcher,
   getEventPropertiesQueryKey,
 } from '@utils/fetchers/event-properties.fetcher'
@@ -54,6 +58,7 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
     await queryClient.prefetchQuery(getDocumentsQueryKey(documentsDefaultFilters), () =>
       documentsFetcher(documentsDefaultFilters)
     )
+    await queryClient.prefetchQuery(documentCategoriesQueryKey, documentCategoriesFetcher)
   }
   if (sectionTypes.includes('ComponentSectionsNewsListing')) {
     await queryClient.prefetchQuery(getNoticesQueryKey(locale, noticesDefaultFilters), () =>
