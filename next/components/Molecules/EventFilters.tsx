@@ -4,11 +4,14 @@ import { Select } from '@components/ui'
 import Button from '@modules/common/Button'
 import MDatePicker from '@modules/common/MDatePicker/MDatePicker'
 import { useControlledState } from '@react-stately/utils'
-import { client } from '@utils/gql'
+import {
+  eventPropertiesFetcher,
+  getEventPropertiesQueryKey,
+} from '@utils/fetchers/event-properties.fetcher'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
+import { useQuery } from 'react-query'
 import { useToggleState } from 'react-stately'
-import useSWR from 'swr'
 
 import { EventsFiltersShared } from '../../backend/meili/fetchers/eventsFetcher'
 
@@ -22,37 +25,39 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
 
   const { t, i18n } = useTranslation('common')
 
-  // TODO: Rewrite to `react-query`.
-  const { data: eventPropertiesResponse } = useSWR(['EventsProperties', i18n.language], () =>
-    client.EventProperties({ locale: i18n.language })
-  )
+  // There's no need to handle loading, as the data are prefetched and never change.
+  const { data: eventPropertiesData } = useQuery({
+    queryKey: getEventPropertiesQueryKey(i18n.language),
+    queryFn: () => eventPropertiesFetcher(i18n.language),
+    staleTime: Infinity, // The data are static and don't need to be reloaded.
+  })
 
   const tags = useMemo(() => {
-    const eventTags = eventPropertiesResponse?.eventTags?.data ?? []
+    const eventTags = eventPropertiesData?.eventTags?.data ?? []
     const parsedTypes = eventTags.map(({ attributes, id }) => ({
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
     return [{ key: '', title: t('eventType') }, ...parsedTypes]
-  }, [eventPropertiesResponse?.eventTags?.data, t])
+  }, [eventPropertiesData?.eventTags?.data, t])
 
   const categories = useMemo(() => {
-    const eventCategories = eventPropertiesResponse?.eventCategories?.data ?? []
+    const eventCategories = eventPropertiesData?.eventCategories?.data ?? []
     const parsedCategories = eventCategories.map(({ attributes, id }) => ({
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
     return [{ key: '', title: t('eventCategory') }, ...parsedCategories]
-  }, [eventPropertiesResponse?.eventCategories?.data, t])
+  }, [eventPropertiesData?.eventCategories?.data, t])
 
   const localities = useMemo(() => {
-    const eventBranches = eventPropertiesResponse?.branches?.data ?? []
+    const eventBranches = eventPropertiesData?.branches?.data ?? []
     const parsedLocalities = eventBranches.map(({ attributes, id }) => ({
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
     return [{ key: '', title: t('eventLocality') }, ...parsedLocalities]
-  }, [eventPropertiesResponse?.branches?.data, t])
+  }, [eventPropertiesData?.branches?.data, t])
 
   const handleDateFromChange = (dateFrom: Date) => {
     setFilters({ ...filters, dateFrom })

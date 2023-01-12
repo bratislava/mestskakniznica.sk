@@ -4,6 +4,10 @@ import {
   blogPostsFetcher,
   getBlogPostsQueryKey,
 } from '@utils/fetchers/blog-posts.fetcher'
+import {
+  eventPropertiesFetcher,
+  getEventPropertiesQueryKey,
+} from '@utils/fetchers/event-properties.fetcher'
 import { getLatestNewsQueryKey, latestNewsFetcher } from '@utils/fetchers/latestNews.fetcher'
 import { getNewBooksQueryKey, newBooksDefaultFilters } from '@utils/fetchers/new-books.fetcher'
 import { newBookServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
@@ -65,6 +69,9 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
     await queryClient.prefetchQuery(
       getEventsQueryKey(eventsArchivedDefaultFilters, eventsDefaultSharedFilters),
       () => eventsFetcher(eventsArchivedDefaultFilters, eventsDefaultSharedFilters)
+    )
+    await queryClient.prefetchQuery(getEventPropertiesQueryKey(locale), () =>
+      eventPropertiesFetcher(locale)
     )
   }
 
