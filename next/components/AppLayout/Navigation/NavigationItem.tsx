@@ -1,9 +1,4 @@
-import {
-  ComponentMenuSections,
-  EventCardEntityFragment,
-  Maybe,
-  Menu,
-} from '@bratislava/strapi-sdk-city-library'
+import { ComponentMenuSections, Maybe, Menu } from '@bratislava/strapi-sdk-city-library'
 import MLink from '@modules/common/MLink'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
@@ -14,11 +9,10 @@ import Subnavigation from './Subnavigation'
 
 interface navItemProps {
   menu: Menu | undefined | null
-  latestEvents?: EventCardEntityFragment[]
   isFirst: boolean
 }
 
-const NavigationItem = ({ menu, latestEvents, isFirst }: navItemProps) => {
+const NavigationItem = ({ menu, isFirst }: navItemProps) => {
   const menuSections: Maybe<ComponentMenuSections>[] = menu?.menuSections || []
   const router = useRouter()
 
@@ -49,11 +43,7 @@ const NavigationItem = ({ menu, latestEvents, isFirst }: navItemProps) => {
       )}
       {menuSections && (
         <NavigationMenu.Content>
-          <Subnavigation
-            menuSections={menuSections}
-            latestEvents={latestEvents}
-            menuTotalColumns={menu?.menuTotalColumns}
-          />
+          <Subnavigation menuSections={menuSections} menuTotalColumns={menu?.menuTotalColumns} />
         </NavigationMenu.Content>
       )}
     </NavigationMenu.Item>

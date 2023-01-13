@@ -1,40 +1,4 @@
-# TODO refactor - move footer to fragment and get rid of unused data
-query Footer($locale: I18NLocaleCode!) {
-  footer(locale: $locale) {
-    data {
-      id
-      attributes {
-        footerColumns {
-          id
-          title
-          footerLink {
-            id
-            title
-            otherSite
-            redirectTo {
-              data {
-                ...PageWithBaseFieldsEntity
-              }
-            }
-          }
-        }
-        siteMapLink {
-          data {
-            ...PageWithBaseFieldsEntity
-          }
-        }
-        privacyLink {
-          data {
-            ...PageWithBaseFieldsEntity
-          }
-        }
-        copyrightText
-      }
-    }
-  }
-}
-
-query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
+query HomePage($locale: I18NLocaleCode!) {
   homePage(locale: $locale) {
     data {
       attributes {
@@ -114,21 +78,6 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
       }
     }
   }
-  menus(locale: $locale, sort: ["order:asc"]) {
-    data {
-      ...Menu
-    }
-  }
-  upcomingEvents: events(
-    locale: $locale
-    sort: ["dateFrom:asc"]
-    pagination: { start: 0, limit: 4 }
-    filters: { dateFrom: { gte: $date } }
-  ) {
-    data {
-      ...EventCardEntity
-    }
-  }
   promotedNews: notices(
     locale: $locale
     sort: "publishedAt:desc"
@@ -161,45 +110,6 @@ query HomePage($locale: I18NLocaleCode!, $date: DateTime!) {
       ...BookTagEntity
     }
   }
-  footer(locale: $locale) {
-    data {
-      id
-      attributes {
-        footerColumns {
-          id
-          title
-          footerLink {
-            id
-            redirectTo {
-              data {
-                ...PageWithBaseFieldsEntity
-              }
-            }
-            title
-            otherSite
-          }
-        }
-        siteMapLink {
-          data {
-            ...PageWithBaseFieldsEntity
-          }
-        }
-        privacyLink {
-          data {
-            ...PageWithBaseFieldsEntity
-          }
-        }
-      }
-    }
-  }
-}
-
-query Menus($locale: I18NLocaleCode!) {
-  menus(locale: $locale, sort: ["order:asc"]) {
-    data {
-      ...Menu
-    }
-  }
 }
 
 query LatestNews($locale: I18NLocaleCode!) {
@@ -215,7 +125,7 @@ query LatestNews($locale: I18NLocaleCode!) {
   }
 }
 
-fragment Menu on MenuEntity {
+fragment MenuEntity on MenuEntity {
   id
   attributes {
     menuTitle
@@ -515,4 +425,57 @@ fragment Pagination on Pagination {
   page
   pageSize
   pageCount
+}
+
+fragment FooterEntity on FooterEntity {
+  id
+  attributes {
+    footerColumns {
+      id
+      title
+      footerLink {
+        id
+        redirectTo {
+          data {
+            ...PageWithBaseFieldsEntity
+          }
+        }
+        title
+        otherSite
+      }
+    }
+    siteMapLink {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+    privacyLink {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+  }
+}
+
+query General($eventsFrom: DateTime!, $locale: I18NLocaleCode!) {
+  menus(locale: $locale, sort: ["order:asc"]) {
+    data {
+      ...MenuEntity
+    }
+  }
+  upcomingEvents: events(
+    locale: $locale
+    sort: "dateFrom:asc"
+    pagination: { start: 0, limit: 4 }
+    filters: { dateTo: { gte: $eventsFrom } }
+  ) {
+    data {
+      ...EventCardEntity
+    }
+  }
+  footer(locale: $locale) {
+    data {
+      ...FooterEntity
+    }
+  }
 }

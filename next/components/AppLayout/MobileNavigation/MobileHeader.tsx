@@ -1,5 +1,4 @@
 import Burger from '@assets/images/Burger.svg'
-import { MenuEntity } from '@bratislava/strapi-sdk-city-library'
 import cx from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -10,14 +9,10 @@ import HeaderSearchBox from '../Navigation/HeaderSearchBox'
 import SkipToContentButton from '../SkipToContentButton'
 import { MobileNavigation } from './MobileNavigation'
 
-interface HeaderProps {
-  menus: MenuEntity[]
-}
-
 const TITLE_CLASSES =
   'flex h-[30px] min-w-fit items-center border-r border-border-dark px-[7px] py-[2px]'
 
-const MobilHeader = ({ menus }: HeaderProps) => {
+const MobilHeader = () => {
   const [isMenuOpen, setMenuOpen] = useState(false)
   const router = useRouter()
   const { t } = useTranslation('common')
@@ -83,7 +78,7 @@ const MobilHeader = ({ menus }: HeaderProps) => {
 
           <div className="border-l border-border-dark">
             <Burger onClick={() => setMenuOpen(true)} className="m-4 cursor-pointer" />
-            {isMenuOpen && <MobileNavigation menus={menus} onClose={() => setMenuOpen(false)} />}
+            {isMenuOpen && <MobileNavigation onClose={() => setMenuOpen(false)} />}
           </div>
         </div>
       </div>

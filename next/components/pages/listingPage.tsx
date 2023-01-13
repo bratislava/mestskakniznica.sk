@@ -1,11 +1,11 @@
 import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
+import { getLatestNewsQueryKey, latestNewsFetcher } from '@utils/fetchers/latestNews.fetcher'
+import { useGeneralContext } from '@utils/generalContext'
 import { useTranslation } from 'next-i18next'
-import useSWR from 'swr'
+import { useQuery } from 'react-query'
 
-import { EventCardEntityFragment, PageEntity } from '../../graphql'
-import { client } from '../../utils/gql'
+import { PageEntity } from '../../graphql'
 import { parseSubCategories } from '../../utils/page'
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface PageProps {
@@ -13,20 +13,15 @@ export interface PageProps {
 }
 
 const ListingPage = ({ page }: PageProps) => {
-  const { t } = useTranslation('common')
-  const { locale = 'sk' } = usePageWrapperContext()
+  const { t, i18n } = useTranslation('common')
+  const { upcomingEvents } = useGeneralContext()
 
-  const { data: upcomingEventsResponse, error: upcomingEventsError } = useSWR(
-    ['UpcomingEvents', locale, new Date().toISOString()],
-    (_key, locale, date) => client.UpcomingEvents({ locale, date })
-  )
-  const upcomingEvents = upcomingEventsResponse?.events?.data
-
-  const { data: latestNewsResponse, error: latestNewsError } = useSWR(
-    ['LatestNews', locale],
-    (_key, locale) => client.LatestNews({ locale })
-  )
-  const latestNews = latestNewsResponse?.pages?.data
+  // There's no need to handle loading, as the data are prefetched and never change.
+  const { data: latestNewsData } = useQuery({
+    queryKey: getLatestNewsQueryKey(i18n.language),
+    queryFn: () => latestNewsFetcher(i18n.language),
+    staleTime: Infinity, // The data are static and don't need to be reloaded.
+  })
 
   const subCategories = parseSubCategories(
     page?.attributes?.pageCategory?.data?.attributes?.subCategories?.data ?? []
@@ -54,12 +49,12 @@ const ListingPage = ({ page }: PageProps) => {
               subCategory.pages[0]?.url === 'latestNews' ||
               subCategory.pages[0]?.url === 'latestEvents'
                 ? subCategory.pages[0]?.url === 'latestNews'
-                  ? latestNews?.map((page) => ({
+                  ? latestNewsData?.pages?.data?.map((page) => ({
                       title: page.attributes?.title ?? '',
                       url: page.attributes?.slug ?? '',
                       moreLinkTitle: t('more'),
                     })) ?? []
-                  : upcomingEvents?.map((event) => ({
+                  : upcomingEvents?.data.map((event) => ({
                       title: event.attributes?.title ?? '',
                       url: event.attributes?.slug ?? '',
                       moreLinkTitle: t('more'),

@@ -1,7 +1,9 @@
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
 import SectionHomepageNewBooks from '@components/HomePage/SectionHomepageNewBooks'
 import type { Book } from '@modules/common/Cards/BookCard'
+import { generalFetcher } from '@utils/fetchers/general.fetcher'
 import { newBooksHomePageServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
+import { GeneralContextProvider } from '@utils/generalContext'
 import { client } from '@utils/gql'
 import { hasAttributes, isDefined } from '@utils/isDefined'
 import { isPresent } from '@utils/utils'
@@ -27,8 +29,7 @@ import {
   ComponentSectionsMap,
   ComponentSeoSeo,
   EventCardEntityFragment,
-  FooterEntity,
-  MenuEntity,
+  GeneralQuery,
   NoticeListingEntityFragment,
   PageLocalizationEntityFragment,
 } from '../graphql'
@@ -40,8 +41,6 @@ import {
 interface IIndexProps {
   locale?: string
   localizations?: PageLocalizationEntityFragment[]
-  menus: MenuEntity[]
-  upcomingEvents: EventCardEntityFragment[]
   promos: (EventCardEntityFragment | NoticeListingEntityFragment)[]
   latestNotices: NoticeListingEntityFragment[]
   newBooks: Book[] | null
@@ -50,16 +49,14 @@ interface IIndexProps {
   registrationInfoSection: ComponentHomepageRegistrationInfo
   bookTags: BookTagEntityFragment[]
   mapSection: ComponentSectionsMap | null
-  footer: FooterEntity
   error?: IDisplayError
   Seo?: ComponentSeoSeo
+  general: GeneralQuery
 }
 
 export const Index = ({
   locale = 'sk',
   localizations,
-  menus,
-  upcomingEvents,
   promos,
   latestNotices,
   newBooks,
@@ -68,9 +65,9 @@ export const Index = ({
   registrationInfoSection,
   bookTags,
   mapSection,
-  footer,
   error,
   Seo,
+  general,
 }: IIndexProps) => {
   const { t } = useTranslation('common')
 
@@ -103,76 +100,79 @@ export const Index = ({
   }
 
   return (
-    <PageWrapper
-      locale={locale ?? 'sk'}
-      slug="/"
-      localizations={localizations
-        ?.filter(isPresent)
-        // add empty slug because it's expected in wrapper and index page does not have slug
-        .map((l) => ({ ...l, slug: '' }))}
-    >
-      <DefaultPageLayout Seo={Seo} menus={menus} footer={footer} upcomingEvents={upcomingEvents}>
-        <h1 className="sr-only">{t('pageTitle')}</h1>
-        {promos.length > 0 && (
-          <SectionContainer>
-            <Section>
-              <SectionPromos promos={promos} />
-            </Section>
-          </SectionContainer>
-        )}
+    <GeneralContextProvider general={general}>
+      <PageWrapper
+        locale={locale ?? 'sk'}
+        slug="/"
+        localizations={localizations
+          ?.filter(isPresent)
+          // add empty slug because it's expected in wrapper and index page does not have slug
+          .map((l) => ({ ...l, slug: '' }))}
+      >
+        <DefaultPageLayout Seo={Seo}>
+          <h1 className="sr-only">{t('pageTitle')}</h1>
+          {promos.length > 0 && (
+            <SectionContainer>
+              <Section>
+                <SectionPromos promos={promos} />
+              </Section>
+            </SectionContainer>
+          )}
 
-        {newBooks && newBooks.length > 0 ? (
-          <SectionContainer>
-            <SectionHomepageNewBooks books={newBooks} />
-          </SectionContainer>
-        ) : null}
+          {newBooks && newBooks.length > 0 ? (
+            <SectionContainer>
+              <SectionHomepageNewBooks books={newBooks} />
+            </SectionContainer>
+          ) : null}
 
-        {faqSection !== null && (
-          <SectionContainer>
-            <Section>
-              <SectionFaq faqSection={faqSection} />
-            </Section>
-          </SectionContainer>
-        )}
+          {faqSection !== null && (
+            <SectionContainer>
+              <Section>
+                <SectionFaq faqSection={faqSection} />
+              </Section>
+            </SectionContainer>
+          )}
 
-        {registrationInfoSection !== null && (
-          <SectionContainer>
-            <Section>
-              <SectionRegistrationInfo registrationInfoSection={registrationInfoSection} />
-            </Section>
-          </SectionContainer>
-        )}
+          {registrationInfoSection !== null && (
+            <SectionContainer>
+              <Section>
+                <SectionRegistrationInfo registrationInfoSection={registrationInfoSection} />
+              </Section>
+            </SectionContainer>
+          )}
 
-        {newsSection !== null && latestNotices.length > 0 && (
-          <SectionContainer>
-            <Section>
-              <SectionLibraryNews newsSection={newsSection} notices={latestNotices} />
-            </Section>
-          </SectionContainer>
-        )}
+          {newsSection !== null && latestNotices.length > 0 && (
+            <SectionContainer>
+              <Section>
+                <SectionLibraryNews newsSection={newsSection} notices={latestNotices} />
+              </Section>
+            </SectionContainer>
+          )}
 
-        {bookTags && bookTags.length > 0 && (
-          <SectionContainer>
-            <Section>
-              <SectionTags bookTags={bookTags} />
-            </Section>
-          </SectionContainer>
-        )}
+          {bookTags && bookTags.length > 0 && (
+            <SectionContainer>
+              <Section>
+                <SectionTags bookTags={bookTags} />
+              </Section>
+            </SectionContainer>
+          )}
 
-        {mapSection && (
-          <SectionContainer>
-            <Section noBorder>
-              <Localities
-                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
-                branches={
-                  mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []
-                }
-              />
-            </Section>
-          </SectionContainer>
-        )}
-      </DefaultPageLayout>
-    </PageWrapper>
+          {mapSection && (
+            <SectionContainer>
+              <Section noBorder>
+                <Localities
+                  mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
+                  branches={
+                    mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ??
+                    []
+                  }
+                />
+              </Section>
+            </SectionContainer>
+          )}
+        </DefaultPageLayout>
+      </PageWrapper>
+    </GeneralContextProvider>
   )
 }
 
@@ -182,22 +182,12 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
   try {
     // running all requests parallel
     // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
-    const [
-      newBooks,
-      {
-        homePage,
-        menus,
-        upcomingEvents,
-        promotedNews,
-        promotedEvents,
-        latestNotices,
-        bookTags,
-        footer,
-      },
-    ] = await Promise.all([
-      newBooksHomePageServerSideFetcher(),
-      client.HomePage({ locale, date: new Date().toISOString() }),
-    ])
+    const [newBooks, { homePage, promotedNews, promotedEvents, latestNotices, bookTags }, general] =
+      await Promise.all([
+        newBooksHomePageServerSideFetcher(),
+        client.HomePage({ locale }),
+        generalFetcher(locale),
+      ])
 
     if (!homePage) {
       return { notFound: true }
@@ -214,8 +204,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       props: {
         locale,
         localizations: homePage?.data?.attributes?.localizations?.data ?? null,
-        menus: menus?.data,
-        upcomingEvents: upcomingEvents?.data ?? [],
         promos: [...(promotedNews?.data ?? []), ...(promotedEvents?.data ?? [])],
         latestNotices: latestNotices?.data?.filter(hasAttributes) ?? [],
         newBooks,
@@ -224,8 +212,8 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
         registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection ?? null,
         bookTags: bookTags?.data?.filter(hasAttributes) ?? [],
         mapSection: homePage?.data?.attributes?.mapSection ?? null,
-        footer: footer?.data,
         Seo: homePage?.data?.attributes?.Seo ?? null,
+        general,
         ...translations,
       },
       revalidate: 10,

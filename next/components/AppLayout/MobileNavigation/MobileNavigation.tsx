@@ -1,18 +1,17 @@
+import { useGeneralContext } from '@utils/generalContext'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
-
-import { MenuEntity } from '../../../graphql'
 import { otherLocale, usePageWrapperContext } from '../../layouts/PageWrapper'
 import MobileNavigationItem from './MobileNavigationItem'
 
 interface MobileNavigationProps {
   onClose: () => void
-  menus: MenuEntity[]
 }
 
-export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
+export const MobileNavigation = ({ onClose }: MobileNavigationProps) => {
   const { t } = useTranslation(['common', 'homepage'])
+  const { menus } = useGeneralContext()
 
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow
@@ -56,7 +55,7 @@ export const MobileNavigation = ({ onClose, menus }: MobileNavigationProps) => {
         </button>
       </div>
 
-      {menus?.map((menu, index) => (
+      {menus?.data?.map((menu, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <MobileNavigationItem menu={menu} key={index} />
       ))}

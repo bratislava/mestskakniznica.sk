@@ -1,6 +1,5 @@
 import { meiliClient } from '@utils/meilisearch'
 import { SearchResponse } from 'meilisearch'
-import { Key } from 'swr'
 
 import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
 import { SearchIndexWrapped } from '../searchIndexWrapped'
@@ -43,8 +42,11 @@ export type CommonSearchResult = {
   link: string
 }
 
-export const getCommonSearchSwrKey = (filters: CommonSearchFilters, locale: string) =>
-  ['HomepageSearch', filters, locale] as Key
+export const getCommonSearchQueryKey = (filters: CommonSearchFilters, locale: string) => [
+  'HomepageSearch',
+  filters,
+  locale,
+]
 
 export const commonSearchFetcher =
   (

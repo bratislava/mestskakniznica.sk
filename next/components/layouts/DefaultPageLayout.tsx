@@ -1,10 +1,6 @@
-import {
-  ComponentSeoSeo,
-  EventCardEntityFragment,
-  FooterEntity,
-  MenuEntity,
-} from '@bratislava/strapi-sdk-city-library'
+import { ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
 import { Footer, SectionContainer } from '@bratislava/ui-city-library'
+import { useGeneralContext } from '@utils/generalContext'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 
@@ -19,15 +15,13 @@ interface IProps {
   children?: React.ReactNode
   title?: string | undefined | null
   Seo?: ComponentSeoSeo | undefined | null
-  menus: MenuEntity[]
-  footer: FooterEntity
-  upcomingEvents?: EventCardEntityFragment[]
 }
 
-const DefaultPageLayout = ({ children, title, Seo, menus, footer, upcomingEvents }: IProps) => {
+const DefaultPageLayout = ({ children, title, Seo }: IProps) => {
   const { localizations, locale } = usePageWrapperContext()
   const otherLangData = otherLocale(locale ?? 'sk', localizations)
   const currentLangData = otherLocale(otherLangData.locale, localizations)
+  const { footer } = useGeneralContext()
 
   const { t } = useTranslation('common')
 
@@ -72,10 +66,10 @@ const DefaultPageLayout = ({ children, title, Seo, menus, footer, upcomingEvents
       <div className="flex min-h-screen flex-1 flex-col justify-self-stretch">
         <header>
           <div className="hidden lg:block lg:px-8">
-            <Header menus={menus} upcomingEvents={upcomingEvents} />
+            <Header />
           </div>
           <div className="block lg:hidden">
-            <MobileHeader menus={menus} />
+            <MobileHeader />
           </div>
         </header>
         <main id="content-anchor">
@@ -88,7 +82,7 @@ const DefaultPageLayout = ({ children, title, Seo, menus, footer, upcomingEvents
         <footer>
           <SectionContainer>
             <Footer
-              footerColumns={footer?.attributes?.footerColumns || []}
+              footerColumns={footer?.data?.attributes?.footerColumns || []}
               // siteMap={{
               //   title: t('siteMap'),
               //   href: footer?.siteMapLink?.slug ?? '#',
@@ -97,7 +91,7 @@ const DefaultPageLayout = ({ children, title, Seo, menus, footer, upcomingEvents
                 title: t('privacy'),
                 // href: footer?.privacyLink?.slug ?? '#',
                 href:
-                  locale == 'sk'
+                  locale === 'sk'
                     ? '/o-nas/ochrana-osobnych-udajov'
                     : '/en/about-us/privacy-terms-and-conditions',
               }}

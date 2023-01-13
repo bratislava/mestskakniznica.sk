@@ -1,3 +1,5 @@
+import { generalFetcher } from '@utils/fetchers/general.fetcher'
+import { GeneralContextProvider } from '@utils/generalContext'
 import { prefetchPageSections } from '@utils/prefetchPageSections'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -12,13 +14,7 @@ import FullContentPage from '../components/pages/fullContentPage'
 import ListingPage from '../components/pages/listingPage'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
 import SublistingPage from '../components/pages/sublistingPage'
-import {
-  Enum_Page_Layout,
-  EventCardEntityFragment,
-  FooterEntity,
-  MenuEntity,
-  PageEntity,
-} from '../graphql'
+import { Enum_Page_Layout, GeneralQuery, PageEntity } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 import { arrayify, isPresent, shouldSkipStaticPaths } from '../utils/utils'
@@ -26,14 +22,12 @@ import { arrayify, isPresent, shouldSkipStaticPaths } from '../utils/utils'
 interface IPageProps {
   locale: string
   page: PageEntity
-  upcomingEvents: EventCardEntityFragment[]
-  menus: MenuEntity[]
-  footer: FooterEntity
+  general: GeneralQuery
   error?: IDisplayError
   dehydratedState: DehydratedState
 }
 
-const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: IPageProps) => {
+const Page = ({ page, general, error, dehydratedState }: IPageProps) => {
   if (error) {
     return (
       <ErrorPage code={500}>
@@ -65,26 +59,22 @@ const Page = ({ page, upcomingEvents, menus, footer, error, dehydratedState }: I
 
   return (
     <Hydrate state={dehydratedState}>
-      <PageWrapper
-        locale={page?.attributes?.locale ?? ''}
-        slug={page?.attributes?.slug ?? ''}
-        localizations={page?.attributes?.localizations?.data
-          .filter(isPresent)
-          .map((localization) => ({
-            locale: localization.attributes?.locale,
-            slug: localization.attributes?.slug,
-          }))}
-      >
-        <DefaultPageLayout
-          title={page?.attributes?.title}
-          Seo={page?.attributes?.Seo}
-          menus={menus}
-          footer={footer}
-          upcomingEvents={upcomingEvents ?? []}
+      <GeneralContextProvider general={general}>
+        <PageWrapper
+          locale={page?.attributes?.locale ?? ''}
+          slug={page?.attributes?.slug ?? ''}
+          localizations={page?.attributes?.localizations?.data
+            .filter(isPresent)
+            .map((localization) => ({
+              locale: localization.attributes?.locale,
+              slug: localization.attributes?.slug,
+            }))}
         >
-          {pageComponentByLayout}
-        </DefaultPageLayout>
-      </PageWrapper>
+          <DefaultPageLayout title={page?.attributes?.title} Seo={page?.attributes?.Seo}>
+            {pageComponentByLayout}
+          </DefaultPageLayout>
+        </PageWrapper>
+      </GeneralContextProvider>
     </Hydrate>
   )
 }
@@ -127,11 +117,13 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
   ])) as any
 
   try {
-    const { menus, footer, pages, upcomingEvents } = await client.PageBySlug({
-      slug,
-      locale,
-      date: new Date().toISOString(),
-    })
+    const [{ pages }, general] = await Promise.all([
+      await client.PageBySlug({
+        slug,
+        locale,
+      }),
+      generalFetcher(locale),
+    ])
     const pageBySlug = pages?.data[0]
 
     if (!pageBySlug) return { notFound: true } as { notFound: true }
@@ -142,11 +134,9 @@ export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
       props: {
         slug,
         page: pageBySlug || null,
-        upcomingEvents: upcomingEvents?.data,
         locale,
-        menus: menus?.data ?? [],
-        footer: footer?.data,
         dehydratedState,
+        general,
         ...translations,
       },
       revalidate: 10,

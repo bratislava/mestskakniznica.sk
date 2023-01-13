@@ -1,5 +1,4 @@
 import ChevronRight from '@assets/images/chevron-right.svg'
-import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import cx from 'classnames'
@@ -7,25 +6,21 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useQuery } from 'react-query'
 
 import {
   allSearchTypes,
   commonSearchFetcher,
   CommonSearchFilters,
   CommonSearchType,
-  getCommonSearchSwrKey,
+  getCommonSearchQueryKey,
 } from '../../backend/meili/fetchers/commonSearchFetcher'
 import { useSearch } from '../../hooks/useSearch'
-import useSwrWithExtras from '../../hooks/useSwrWithExtras'
 import { AnimateHeight } from '../Atoms/AnimateHeight'
 import SearchField from '../Atoms/SearchField'
 import TagToggle from '../Atoms/TagToggle'
 
-export interface PageProps {
-  pageEntity: PageEntity | undefined
-}
-
-const SearchPage = ({ pageEntity }: PageProps) => {
+const SearchPage = () => {
   const { t, i18n } = useTranslation('common')
 
   const resultsRef = useRef<HTMLDivElement>(null)
@@ -73,15 +68,17 @@ const SearchPage = ({ pageEntity }: PageProps) => {
     setFilters((prevFilters) => ({ ...prevFilters, searchValue }))
   }, [searchValue])
 
-  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useSwrWithExtras(
-    getCommonSearchSwrKey(filters, i18n.language),
-    commonSearchFetcher(filters, i18n.language, {
+  // TODO: Advanced loading and data fetching
+  const { data, isLoading } = useQuery({
+    queryKey: getCommonSearchQueryKey(filters, i18n.language),
+    queryFn: commonSearchFetcher(filters, i18n.language, {
       event: t('event_slug'),
       notice: t('notice_slug'),
       blog: t('blog_slug'),
       document: t('documents_slug'),
-    })
-  )
+    }),
+    keepPreviousData: true,
+  })
 
   const crumbs = [{ title: t('searchTitle') }]
 
@@ -91,11 +88,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
         <Breadcrumbs crumbs={crumbs} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle
-          title={pageEntity?.attributes?.title ?? t('searchTitle')}
-          description={pageEntity?.attributes?.description ?? ''}
-          hasDivider={false}
-        />
+        <PageTitle title={t('searchTitle')} hasDivider={false} />
         <div className="mt-6 flex flex-col gap-y-4 lg:flex-row lg:gap-y-0">
           <SearchField
             className="h-16"
@@ -125,19 +118,19 @@ const SearchPage = ({ pageEntity }: PageProps) => {
 
         <h2 className="sr-only">{t('searchResults')}</h2>
         <div className="mt-5 text-[16px] text-foreground-placeholder">
-          {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits ?? 0 })}
+          {t('resultsFound', { count: data?.estimatedTotalHits ?? 0 })}
         </div>
 
         {/* eslint-disable-next-line sonarjs/no-redundant-boolean */}
         <div className="mt-12 flex flex-col gap-6">
           <AnimateHeight isVisible>
-            {delayedLoading || loadingAndNoDataToDisplay ? (
+            {isLoading ? (
               <div className="flex select-none flex-col gap-3">
                 {Array.from({ length: filters.pageSize }, (_item, index) => (
                   <div key={index}>row</div>
                 ))}
               </div>
-            ) : dataToDisplay?.estimatedTotalHits === 0 ? (
+            ) : data?.estimatedTotalHits === 0 ? (
               <motion.div
                 initial={{ y: 48 }}
                 animate={{ y: 0 }}
@@ -147,7 +140,7 @@ const SearchPage = ({ pageEntity }: PageProps) => {
               </motion.div>
             ) : (
               <div ref={resultsRef} className="flex flex-col">
-                {dataToDisplay?.hits.map(({ title, link, type }, index) => (
+                {data?.hits.map(({ title, link, type }, index) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <Link key={index} href={link}>
                     <div
@@ -176,10 +169,10 @@ const SearchPage = ({ pageEntity }: PageProps) => {
               </div>
             )}
           </AnimateHeight>
-          {dataToDisplay?.estimatedTotalHits ? (
+          {data?.estimatedTotalHits ? (
             <div className="flex justify-center">
               <Pagination
-                max={Math.ceil(dataToDisplay.estimatedTotalHits / filters.pageSize)}
+                max={Math.ceil(data.estimatedTotalHits / filters.pageSize)}
                 onChangeNumber={handlePageChange}
                 value={filters.page}
                 previousButtonAriaLabel={t('previousPage')}

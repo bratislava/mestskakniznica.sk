@@ -1,16 +1,15 @@
 import cx from 'classnames'
 import { useMemo } from 'react'
 
-import { ComponentMenuSections, EventCardEntityFragment, Maybe } from '../../../graphql'
+import { ComponentMenuSections, Maybe } from '../../../graphql'
 import Column from './SubnavigationColumn'
 
 interface SubnavigationProps {
   menuTotalColumns: number | undefined | null
   menuSections: Maybe<ComponentMenuSections>[]
-  latestEvents?: EventCardEntityFragment[]
 }
 
-const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: SubnavigationProps) => {
+const Subnavigation = ({ menuTotalColumns, menuSections }: SubnavigationProps) => {
   const columns = useMemo(() => {
     const columnsTmp = []
     const temp: ComponentMenuSections[] = []
@@ -41,17 +40,12 @@ const Subnavigation = ({ latestEvents, menuTotalColumns, menuSections }: Subnavi
     >
       {columns?.map((column, index) => {
         if (!Array.isArray(column.sections)) {
-          return <Column latestEvents={latestEvents} section={column.sections} key={index} />
+          return <Column section={column.sections} key={index} />
         }
         return (
           <div key={`merged-column-${index}`}>
             {column.sections?.map((section, index) => (
-              <Column
-                latestEvents={latestEvents}
-                key={index}
-                section={section}
-                classNames={index !== 0 ? 'pt-8' : ''}
-              />
+              <Column key={index} section={section} classNames={index !== 0 ? 'pt-8' : ''} />
             ))}
           </div>
         )
