@@ -79,7 +79,7 @@ const SpaceReservationForm = () => {
       ;[...document.querySelectorAll('iframe')].forEach((iframe) => {
         iframe.className = 'hidden'
       })
-      const selectedIframe = document.getElementById(`${item}_cal`)
+      const selectedIframe = document.querySelector(`#${item}_cal`)
       if (selectedIframe) {
         selectedIframe.className = ''
       }
@@ -301,21 +301,18 @@ const SpaceReservationForm = () => {
             {/* hudobne studio */}
             <iframe
               id="kapucinska_1_hudobne_studio_cal"
-              src="https://calendar.google.com/calendar/embed?height=500&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showNav=1&showTitle=0&showDate=1&showPrint=0&showTabs=1&showCalendars=1&showTz=0&mode=WEEK&src=Y19mMTI0NmE0Njc1MmQ0OWM3OTljZWJhNDg5YzVhZTU0YTc1NjAzYmJjODY4NzZmODYyMzc5MTQyNGQ2ZDg2ZWY0QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F6BF26"
-              // style="border-width:0"
+              src="https://calendar.google.com/calendar/embed?height=500&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showNav=1&showTitle=0&showDate=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0&mode=WEEK&src=Y19mMTI0NmE0Njc1MmQ0OWM3OTljZWJhNDg5YzVhZTU0YTc1NjAzYmJjODY4NzZmODYyMzc5MTQyNGQ2ZDg2ZWY0QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F6BF26"
               width="100%"
               height="500"
-              className=""
+              className="hidden"
             />
 
             {/* kreativna miestnost */}
             <iframe
               id="kapucinska_3_kreativna_miestnost_cal"
-              src="https://calendar.google.com/calendar/embed?height=500&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showNav=1&showTitle=0&showDate=1&showPrint=0&showTabs=1&showCalendars=1&showTz=0&mode=WEEK&src=Y182YTE4ZTk2ZTUxOTliMzRhMzAwMmMwMTczZTFjODc1MmFhZDMxZjlkMDIwYmZhYjQyNDQ2NTdlZjVmMzE2YjhhQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F6BF26"
-              // style="border-width:0"
+              src="https://calendar.google.com/calendar/embed?height=500&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showNav=1&showTitle=0&showDate=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0&mode=WEEK&src=Y182YTE4ZTk2ZTUxOTliMzRhMzAwMmMwMTczZTFjODc1MmFhZDMxZjlkMDIwYmZhYjQyNDQ2NTdlZjVmMzE2YjhhQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F6BF26"
               width="100%"
               height="500"
-              className="hidden"
             />
           </div>
 
