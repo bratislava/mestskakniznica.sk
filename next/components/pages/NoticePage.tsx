@@ -1,5 +1,5 @@
 import { NoticeEntityFragment } from '@bratislava/strapi-sdk-city-library'
-import { Documents, PageTitle, RowFileProps, SectionContainer } from '@bratislava/ui-city-library'
+import { Documents, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
@@ -9,7 +9,7 @@ export interface NoticePageProps {
 }
 
 const NoticePage = ({ notice }: NoticePageProps) => {
-  const { i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
 
   const breadCrumbs =
     i18n.language === 'sk'
@@ -24,17 +24,17 @@ const NoticePage = ({ notice }: NoticePageProps) => {
           { title: notice.attributes?.title || '', url: notice.attributes?.slug || '' },
         ]
 
-  const files = notice.attributes?.files?.files?.map((file) => {
-    const fileAttributes = file?.attachment.data?.attributes
-
-    return {
-      url: fileAttributes?.url,
-      content: {
-        title: file?.name ?? fileAttributes?.name,
-        fileType: fileAttributes?.ext?.slice(1).toUpperCase(),
-      },
-    } as { url?: string; content?: RowFileProps }
-  })
+  const files = notice.attributes?.documents?.basicDocuments?.data?.map((document) => ({
+    url: `${t('documents_slug')}${document?.attributes?.slug}`,
+    content: {
+      type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
+      title: document?.attributes?.title ?? '',
+      dateAdded: document?.attributes?.date_added,
+      fileType:
+        document?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '') ??
+        '',
+    },
+  }))
 
   return (
     <>
