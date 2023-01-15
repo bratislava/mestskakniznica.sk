@@ -2564,7 +2564,7 @@ type Notice {
   body: String
   createdAt: DateTime
   dateAdded: Date
-  files: ComponentBlocksNoticeFiles
+  documents: ComponentSectionsDocuments
   listingImage(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   locale: String
   localizations(filters: NoticeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeRelationResponseCollection
@@ -2595,7 +2595,7 @@ input NoticeFiltersInput {
   body: StringFilterInput
   createdAt: DateTimeFilterInput
   dateAdded: DateFilterInput
-  files: ComponentBlocksNoticeFilesFiltersInput
+  documents: ComponentSectionsDocumentsFiltersInput
   id: IDFilterInput
   locale: StringFilterInput
   localizations: NoticeFiltersInput
@@ -2612,7 +2612,7 @@ input NoticeFiltersInput {
 input NoticeInput {
   body: String
   dateAdded: Date
-  files: ComponentBlocksNoticeFilesInput
+  documents: ComponentSectionsDocumentsInput
   listingImage: [ID]
   promoted: Boolean
   publishedAt: DateTime

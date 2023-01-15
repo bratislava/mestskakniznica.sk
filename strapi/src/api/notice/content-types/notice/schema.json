@@ -4,7 +4,7 @@
   "info": {
     "singularName": "notice",
     "pluralName": "notices",
-    "displayName": "Oznámenia",
+    "displayName": "Aktuality",
     "description": ""
   },
   "options": {
@@ -72,8 +72,7 @@
       },
       "type": "boolean"
     },
-    "files": {
-      "displayName": "notice files",
+    "documents": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -81,7 +80,7 @@
           "localized": true
         }
       },
-      "component": "blocks.notice-files"
+      "component": "sections.documents"
     },
     "seo": {
       "type": "component",

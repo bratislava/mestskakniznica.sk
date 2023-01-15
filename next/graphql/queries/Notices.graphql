@@ -12,14 +12,11 @@ fragment NoticeEntity on NoticeEntity {
       }
     }
     promoted
-    files {
+    documents {
       title
-      files {
-        name
-        attachment {
-          data {
-            ...UploadFileEntity
-          }
+      basicDocuments {
+        data {
+          ...BasicDocument
         }
       }
     }
