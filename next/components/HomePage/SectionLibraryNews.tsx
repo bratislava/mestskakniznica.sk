@@ -3,8 +3,8 @@ import { ComponentHomepageNewsSection, NoticeListingEntityFragment } from '@serv
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+import Carousel from '../Molecules/Carousel/Carousel'
 import ListingCard from '../Molecules/ListingCard'
-import Carousel from './Carousel'
 
 interface LibraryNewsProps {
   notices: NoticeListingEntityFragment[]

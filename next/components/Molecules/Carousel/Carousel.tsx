@@ -3,7 +3,7 @@ import ChevronRight from '@assets/images/chevron-right.svg'
 import cx from 'classnames'
 import React, { useRef } from 'react'
 
-import { VerticalCardButton } from './VerticalCardButton'
+import { VerticalCardButton } from '../../HomePage/VerticalCardButton'
 
 interface SectionPromosProps {
   listClassName?: string
