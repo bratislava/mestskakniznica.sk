@@ -1,20 +1,11 @@
 {
   "collectionName": "components_sections_flat_texts",
   "info": {
-    "displayName": "flatText"
+    "displayName": "flatText",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "media": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": false
-    },
     "content": {
       "type": "richtext"
     }

@@ -25,6 +25,7 @@ fragment PageEntity on PageEntity {
       }
     }
     layout
+    perex
     description
     pageCategory {
       data {

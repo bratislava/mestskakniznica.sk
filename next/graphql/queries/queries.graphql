@@ -186,46 +186,10 @@ fragment Sections on PageSectionsDynamicZone {
   ... on ComponentSectionsFlatTextCenter {
     id
     content
-    image {
-      data {
-        id
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
-          alternativeText
-        }
-      }
-    }
   }
   ... on ComponentSectionsFlatText {
     id
     content
-    media {
-      data {
-        id
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
-          alternativeText
-        }
-      }
-    }
   }
   ... on ComponentSectionsSiteUsefullness {
     id
@@ -257,7 +221,7 @@ fragment Sections on PageSectionsDynamicZone {
     }
   }
   ... on ComponentSectionsDivider {
-    shown
+    id
   }
   ... on ComponentSectionsColumnedText {
     title
