@@ -42,10 +42,7 @@ const NoticePage = ({ notice }: NoticePageProps) => {
         <Breadcrumbs crumbs={breadCrumbs} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle
-          title={notice?.attributes?.title ?? ''}
-          description={notice?.attributes?.body ?? ''}
-        />
+        <PageTitle title={notice?.attributes?.title ?? ''} perex={notice?.attributes?.body ?? ''} />
       </SectionContainer>
       <SectionContainer>
         <Documents files={files} targetBlank />

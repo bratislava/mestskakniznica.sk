@@ -1,7 +1,7 @@
 import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { SectionContainer, Sidebar } from '@bratislava/ui-city-library'
-import RichText from '@modules/formatting/RichText'
 import { parsePageLink, parseSidebar } from '@utils/page'
+import Image from 'next/image'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import Sections from '../Molecules/Sections'
@@ -42,12 +42,23 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
           <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-border-dark" />
           {/* Title */}
           <h1 className="col-span-12 row-start-1 mt-16 text-h1 md:col-span-7 md:col-start-6">
-            {page?.attributes?.title ?? ''}
+            {page?.attributes?.title}
           </h1>
-          {/* Description */}
           <div className="col-span-12 mt-8 md:col-span-7">
-            {page?.attributes?.description && (
-              <RichText className="w-full" content={page?.attributes?.description ?? ''} />
+            {/* Perex */}
+            {page?.attributes?.perex && (
+              <div className="mb-6 w-full text-h3">{page.attributes.perex}</div>
+            )}
+            {/* Cover image, empty alt on purpose */}
+            {page?.attributes?.listingImage?.data?.attributes?.url && (
+              <div className="aspect-w-16 aspect-h-9 mb-8">
+                <Image
+                  src={page.attributes.listingImage.data.attributes.url}
+                  alt=""
+                  fill
+                  className="object-cover"
+                />
+              </div>
             )}
 
             {/* Sections */}

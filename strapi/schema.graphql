@@ -1306,19 +1306,16 @@ input ComponentSectionsCtaInput {
 
 type ComponentSectionsDivider {
   id: ID!
-  shown: Boolean
 }
 
 input ComponentSectionsDividerFiltersInput {
   and: [ComponentSectionsDividerFiltersInput]
   not: ComponentSectionsDividerFiltersInput
   or: [ComponentSectionsDividerFiltersInput]
-  shown: BooleanFilterInput
 }
 
 input ComponentSectionsDividerInput {
   id: ID
-  shown: Boolean
 }
 
 type ComponentSectionsDocuments {
@@ -1418,13 +1415,11 @@ input ComponentSectionsFaqInput {
 type ComponentSectionsFlatText {
   content: String
   id: ID!
-  media: UploadFileEntityResponse
 }
 
 type ComponentSectionsFlatTextCenter {
   content: String
   id: ID!
-  image: UploadFileEntityResponse
 }
 
 input ComponentSectionsFlatTextCenterFiltersInput {
@@ -1437,7 +1432,6 @@ input ComponentSectionsFlatTextCenterFiltersInput {
 input ComponentSectionsFlatTextCenterInput {
   content: String
   id: ID
-  image: ID
 }
 
 input ComponentSectionsFlatTextFiltersInput {
@@ -1450,7 +1444,6 @@ input ComponentSectionsFlatTextFiltersInput {
 input ComponentSectionsFlatTextInput {
   content: String
   id: ID
-  media: ID
 }
 
 type ComponentSectionsForm {
@@ -2636,6 +2629,7 @@ type Page {
   locale: String
   localizations(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
   pageCategory: CategoryEntityResponse
+  perex: String
   promoted: Boolean
   publishedAt: DateTime
   sections: [PageSectionsDynamicZone]
@@ -2672,6 +2666,7 @@ input PageFiltersInput {
   not: PageFiltersInput
   or: [PageFiltersInput]
   pageCategory: CategoryFiltersInput
+  perex: StringFilterInput
   promoted: BooleanFilterInput
   publishedAt: DateTimeFilterInput
   slug: StringFilterInput
@@ -2687,6 +2682,7 @@ input PageInput {
   layout: ENUM_PAGE_LAYOUT
   listingImage: ID
   pageCategory: ID
+  perex: String
   promoted: Boolean
   publishedAt: DateTime
   sections: [PageSectionsDynamicZoneInput!]

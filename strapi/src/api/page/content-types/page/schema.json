@@ -56,6 +56,14 @@
         "newsListing"
       ]
     },
+    "perex": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
     "description": {
       "pluginOptions": {
         "i18n": {
