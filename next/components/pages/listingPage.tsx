@@ -32,10 +32,7 @@ const ListingPage = ({ page }: PageProps) => {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle
-          title={page?.attributes?.title ?? ''}
-          description={page?.attributes?.description ?? ''}
-        />
+        <PageTitle title={page?.attributes?.title ?? ''} perex={page?.attributes?.perex ?? ''} />
 
         {/* Subcategories */}
         {subCategories.map((subCategory, index) => (

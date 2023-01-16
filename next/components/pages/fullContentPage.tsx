@@ -16,10 +16,7 @@ const FullContentPage = ({ page }: FullContentPageProps) => {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle
-          title={page?.attributes?.title ?? ''}
-          description={page?.attributes?.description ?? ''}
-        />
+        <PageTitle title={page?.attributes?.title ?? ''} perex={page?.attributes?.perex ?? ''} />
 
         {/* Sections */}
         {page?.attributes?.sections && <Sections sections={page.attributes?.sections ?? []} />}

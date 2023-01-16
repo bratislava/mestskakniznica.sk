@@ -23,10 +23,7 @@ const SublistingPage = ({ page }: SublistingPageProps) => {
         <PageBreadcrumbs page={page} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle
-          title={page?.attributes?.title ?? ''}
-          description={page?.attributes?.description ?? ''}
-        />
+        <PageTitle title={page?.attributes?.title ?? ''} perex={page?.attributes?.perex ?? ''} />
 
         {/* Subcategory Pages */}
         {pages && (
