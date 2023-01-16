@@ -19,7 +19,7 @@
     "@strapi/strapi": "4.5.6",
     "pg": "^8.7.3",
     "strapi-plugin-config-sync": "^1.1.0",
-    "strapi-plugin-meilisearch": "^0.8.2",
+    "strapi-plugin-meilisearch": "^0.9.1",
     "strapi-provider-upload-ts-minio": "^3.1.0"
   },
   "author": {
