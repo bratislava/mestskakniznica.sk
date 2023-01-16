@@ -1,13 +1,11 @@
-import MLink from '@modules/common/MLink'
-import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
+import EventRow from '@modules/common/EventRow'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { useGeneralContext } from '@utils/generalContext'
+import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import Link from 'next/link'
-import { useTranslation } from 'next-i18next'
 
 import { ComponentMenuSections, Enum_Page_Layout } from '../../../graphql'
-import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 
 interface ColumnProps {
   section: ComponentMenuSections
@@ -15,7 +13,6 @@ interface ColumnProps {
 }
 
 const Column = ({ section, classNames }: ColumnProps) => {
-  const { t } = useTranslation('common')
   const { upcomingEvents } = useGeneralContext()
 
   // TODO optionally load latestEvents here if needed
@@ -49,52 +46,18 @@ const Column = ({ section, classNames }: ColumnProps) => {
           if (sectionLink?.sectionLinkTitle === 'latestEvents') {
             if (upcomingEvents?.data && upcomingEvents?.data.length > 0) {
               return (
-                <div className="grid grid-flow-col grid-rows-2">
-                  {upcomingEvents.data.map((event) => {
-                    const eventBranch = event.attributes?.branch?.data?.attributes
-
-                    return (
-                      <div key={event.attributes?.slug}>
-                        <div className="h-23 w-[380px] cursor-pointer py-5">
-                          <NavigationMenu.Link
-                            className="h-10 pt-4 text-foreground-body"
-                            tabIndex={-1}
-                          >
-                            <MLink
-                              href={`${t('event_slug')}${event.attributes?.slug ?? ''}`}
-                              className="flex"
-                            >
-                              <div className="flex h-16 w-20 bg-promo-yellow text-center">
-                                <EventDetailsDateBox
-                                  dateFrom={event.attributes?.dateFrom || ''}
-                                  dateTo={event.attributes?.dateTo || ''}
-                                  textClassname="text-[18px]"
-                                />
-                              </div>
-
-                              <div className="w-full pl-5">
-                                <div className="text-foreground-heading hover:underline">
-                                  {event?.attributes?.title}
-                                </div>
-                                <div className="text-sm text-foreground-body">
-                                  <FormatEventDateRange
-                                    dateFrom={event.attributes?.dateFrom}
-                                    dateTo={event.attributes?.dateTo}
-                                  />
-                                </div>
-                                {eventBranch?.title && (
-                                  <div className="max-w-[250px] text-sm text-foreground-body">
-                                    &#9679; {eventBranch.title}
-                                  </div>
-                                )}
-                              </div>
-                            </MLink>
-                          </NavigationMenu.Link>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
+                <ul className="mt-5 grid grid-flow-col grid-rows-2 gap-x-5 gap-y-3">
+                  {upcomingEvents.data
+                    .map((event) => event.attributes)
+                    .filter(isDefined)
+                    .map((event) => {
+                      return (
+                        <NavigationMenu.Link tabIndex={-1}>
+                          <EventRow event={event} />
+                        </NavigationMenu.Link>
+                      )
+                    })}
+                </ul>
               )
             }
           } else if (sectionLink?.sectionLinkPage)

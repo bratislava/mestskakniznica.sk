@@ -52,6 +52,7 @@
     "react-resize-detector": "^7.1.2",
     "react-stately": "^3.20.0",
     "react-tooltip": "^4.2.21",
+    "react-turnstile": "^1.0.6",
     "sweetalert2": "^11.4.0",
     "sweetalert2-react-content": "^4.2.0",
     "swiper": "^8.2.2",
