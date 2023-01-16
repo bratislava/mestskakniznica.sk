@@ -94,6 +94,7 @@ module.exports = {
         disabled: '#e0e0e0', // gray-20
       },
       button: {
+        white: '#ffffff',
         dark: '#121212', // gray-100
         gray: '#787878', // gray-60
         hover: '#3D3D3D', // gray-80

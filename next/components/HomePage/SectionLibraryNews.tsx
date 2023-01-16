@@ -4,24 +4,29 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import ListingCard from '../Molecules/ListingCard'
+import Carousel from './Carousel'
 
 interface LibraryNewsProps {
   notices: NoticeListingEntityFragment[]
   newsSection: ComponentHomepageNewsSection
 }
 
-export default function SectionLibraryNews({ notices, newsSection }: LibraryNewsProps) {
+const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
   const { t } = useTranslation('homepage')
+
   return (
     <div className="relative flex flex-col space-y-12 py-12">
       <h2 className="text-center text-h3 md:text-left">{newsSection.title}</h2>
-      <div className="-mx-4 overflow-x-auto">
-        <div className="flex w-fit gap-4 px-4 py-10 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:gap-8 xl:grid-cols-4">
-          {notices.map((notice) => (
-            <ListingCard key={notice.id} card={notice} />
-          ))}
-        </div>
-      </div>
+      <Carousel
+        listClassName="px-4 py-10 gap-4 lg:gap-8"
+        itemClassName="w-10/12 max-w-[268px] md:max-w-[271px]"
+        items={notices.map((notice) => {
+          const element = <ListingCard card={notice} />
+          return { element, key: notice.id ?? undefined }
+        })}
+        visibleItems={4}
+        shiftIndex={4}
+      />
       <div className="flex justify-center">
         <ShowMoreLink href={newsSection?.redirectTo?.data?.attributes?.slug ?? '#'}>
           {t('libraryNewsAll')}
@@ -30,3 +35,5 @@ export default function SectionLibraryNews({ notices, newsSection }: LibraryNews
     </div>
   )
 }
+
+export default SectionLibraryNews
