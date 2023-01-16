@@ -110,26 +110,13 @@ const sectionContent = (
 
   switch (section.__typename) {
     case 'ComponentSectionsFlatText':
-      return (
-        <FlatText
-          content={section?.content ?? ''}
-          media={section.media?.data?.attributes?.url || ''}
-          alt={section.media?.data?.attributes?.alternativeText || ''}
-          mediaType={section.media?.data?.attributes?.mime?.split('/')[0] ?? ''}
-        />
-      )
+      return <FlatText content={section?.content ?? ''} />
 
     case 'ComponentSectionsGallery':
       return <GalleryBanner gallery={section.Gallery || undefined} />
 
     case 'ComponentSectionsFlatTextCenter':
-      return (
-        <FlatTextCenter
-          content={section?.content ?? ''}
-          imgSrc={section.image?.data?.attributes?.url ?? ''}
-          alt={section.image?.data?.attributes?.alternativeText || ''}
-        />
-      )
+      return <FlatTextCenter content={section?.content ?? ''} />
 
     case 'ComponentSectionsSubListing':
       return (
@@ -213,7 +200,7 @@ const sectionContent = (
       return getForm(section.type || '', pageTitle ?? '', eventDetail || undefined)
 
     case 'ComponentSectionsDivider':
-      return section.shown && <div className="border-b border-border-dark" />
+      return <div className="border-b border-border-dark" />
 
     case 'ComponentSectionsColumnedText':
       return <ColumnedText title={section.title ?? ''} content={section.content ?? ''} />
