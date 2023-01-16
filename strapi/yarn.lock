@@ -2176,24 +2176,13 @@
     prettier "2.7.1"
     typescript "4.6.2"
 
-"@strapi/utils@4.5.6":
+"@strapi/utils@4.5.6", "@strapi/utils@^4.5.4":
   version "4.5.6"
   resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.5.6.tgz#445d82f22d4d0f29e31b0c69968bbe526ab131e9"
   integrity sha512-kSu7AIoJm0q6uQxiS94FA8huQ0VIvd4B38hDRZLv/BKEOORgfDTflxyxCOW1YIrvuCzJunWC2oZGCphOjMH8jQ==
   dependencies:
     "@sindresorhus/slugify" "1.1.0"
     date-fns "2.29.3"
-    http-errors "1.8.1"
-    lodash "4.17.21"
-    yup "0.32.9"
-
-"@strapi/utils@^4.5.2":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.5.3.tgz#87afacd1e087c4b3693a70c0086281ab0eb66945"
-  integrity sha512-0gq1RQQ+0iRKW60UqsKu+oc047+zO/6DrBmH6fxPrmbLZAvrVizjcXU3Vb6v7VEsYgpC1fN3m8b0ptE6CrwtUA==
-  dependencies:
-    "@sindresorhus/slugify" "1.1.0"
-    date-fns "2.29.2"
     http-errors "1.8.1"
     lodash "4.17.21"
     yup "0.32.9"
@@ -4449,11 +4438,6 @@ dashdash@^1.12.0:
   integrity sha512-jRFi8UDGo6j+odZiEpjazZaWqEal3w/basFjQHQEwVtZJGDpxbH1MeYluwCS8Xq5wmLJooDlMgvVarmWfGM44g==
   dependencies:
     assert-plus "^1.0.0"
-
-date-fns@2.29.2:
-  version "2.29.2"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.2.tgz#0d4b3d0f3dff0f920820a070920f0d9662c51931"
-  integrity sha512-0VNbwmWJDS/G3ySwFSJA3ayhbURMTJLtwM2DTxf9CWondCnh6DTNlO9JgRSq6ibf4eD0lfMJNBxUdEAHHix+bA==
 
 date-fns@2.29.3:
   version "2.29.3"
@@ -9990,12 +9974,12 @@ strapi-plugin-config-sync@^1.1.0:
     redux-immutable "^4.0.0"
     redux-thunk "^2.3.0"
 
-strapi-plugin-meilisearch@^0.8.2:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-meilisearch/-/strapi-plugin-meilisearch-0.8.2.tgz#5e76765bffcdf1427d348744d4c0c44f22ee0869"
-  integrity sha512-UMEtV7CcNmX0sC/4wgM04/szPDeEtI7CAERFNvxN3mpJpLXqm+UxyVAtboXQUqgONg6WndyY+isNCFeJ4iiaig==
+strapi-plugin-meilisearch@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-meilisearch/-/strapi-plugin-meilisearch-0.9.1.tgz#1f134866b6b77bd65d9869d6ab949514a5ff4ef7"
+  integrity sha512-kSZjqYJuuXulqPsIc1ZcpCG7xNbYfCYCNDNRN6CI/aisWFL65dQYVG7HkVOAaJfxdUaboFKNu9c5R1hzbtJwTQ==
   dependencies:
-    "@strapi/utils" "^4.5.2"
+    "@strapi/utils" "^4.5.4"
     meilisearch "^0.30.0"
 
 strapi-provider-upload-ts-minio@^3.1.0:

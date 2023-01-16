@@ -1,10 +1,10 @@
 import { CheckBox, Input, Link } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
 import cx from 'classnames'
-import Script from 'next/script'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
+import Turnstile from 'react-turnstile'
 
 import { usePageWrapperContext } from '../layouts/PageWrapper'
 
@@ -34,22 +34,6 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
   const { t } = useTranslation('forms')
   const { locale } = usePageWrapperContext()
 
-  const [cfId] = React.useState(Math.floor(Math.random() * 999))
-
-  const renderCfCaptcha = () => {
-    const widget = document.getElementById(`turnstile-widget-${cfId}`)
-    if (window.turnstile && widget && widget.childNodes.length === 0) {
-      window.turnstile.render(`#turnstile-widget-${cfId}`, {
-        sitekey: process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY ?? '',
-        callback(token: string) {
-          methods.setValue('cfTurnstile', token)
-        },
-        theme: 'light',
-      })
-    }
-  }
-  renderCfCaptcha()
-
   return (
     <div className={cx('w-full space-y-6', className)}>
       {hasDivider && <div className="border-t border-border-light" />}
@@ -70,7 +54,7 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
                 {t('form_footer_agree')}{' '}
                 <Link
                   href={
-                    locale == 'sk'
+                    locale === 'sk'
                       ? '/o-nas/ochrana-osobnych-udajov'
                       : '/about-us/privacy-terms-and-conditions'
                   }
@@ -109,13 +93,14 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
           />
         )}
       />
-      <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-        async
-        defer
-        onLoad={renderCfCaptcha}
+      <Turnstile
+        sitekey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY as string}
+        onVerify={(token) => methods.setValue('cfTurnstile', token)}
+        onError={() => methods.setValue('cfTurnstile', null)}
+        onTimeout={() => methods.setValue('cfTurnstile', null)}
+        onExpire={() => methods.setValue('cfTurnstile', null)}
+        className="!mt-0"
       />
-      <div id={`turnstile-widget-${cfId}`} className="!mt-0" />
 
       <Button type="submit" className="m-auto ml-0" mobileFullWidth>
         {buttonContent}

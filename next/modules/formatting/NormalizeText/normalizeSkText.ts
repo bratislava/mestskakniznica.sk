@@ -9,14 +9,14 @@ export const normalizeSkText = (text: string) => {
 
   prepositions.forEach((preposition) => {
     // eslint-disable-next-line security/detect-non-literal-regexp
-    const re = new RegExp(` [${preposition}] `, 'gmi')
-    normalized = normalized.replace(re, ` ${preposition}${String.fromCodePoint(160)}`)
+    const re = new RegExp(` ([${preposition}]) `, 'gmi')
+    normalized = normalized.replace(re, ` $1${String.fromCodePoint(160)}`)
   })
 
   symbols.forEach((symbol) => {
     // eslint-disable-next-line security/detect-non-literal-regexp
-    const re = new RegExp(` [${symbol}]`, 'gmi')
-    normalized = normalized.replace(re, `${String.fromCodePoint(160)}${symbol}`)
+    const re = new RegExp(` ([${symbol}])`, 'gmi')
+    normalized = normalized.replace(re, `${String.fromCodePoint(160)}$1`)
   })
 
   return normalized
