@@ -12,6 +12,7 @@ interface Props {
   showLinkInput?: boolean
 }
 
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 const BookListExtended = ({ className, showLinkInput = false }: Props) => {
   const methods = useFormContext()
   const { errors } = useFormState()
@@ -45,7 +46,9 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
         <div
           key={field.id}
           className={cx('relative mb-6 flex w-full flex-col gap-y-6 border p-6', {
+            // @ts-ignore
             'border-border-light': !errors?.books?.[index],
+            // @ts-ignore
             'base-input--with-error': errors?.books?.[index],
           })}
         >
@@ -82,6 +85,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
                 labelContent={t('author')}
                 inputClassName="px-3 w-full"
                 required
+                // @ts-ignore
                 hasError={errors.books && !!errors.books[index]?.author}
                 errorMessage={(errors.books && 'errors.books[index]?.author?.message') ?? ''}
                 {...field}
@@ -97,6 +101,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
                 labelContent={t('title')}
                 inputClassName="px-3 w-full"
                 required
+                // @ts-ignore
                 hasError={errors.books && !!errors.books[index]?.title}
                 errorMessage={errors.books && 'errors.books[index]?.title?.message'}
                 {...field}
@@ -189,5 +194,6 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
     </div>
   )
 }
+/* eslint-enable @typescript-eslint/ban-ts-comment */
 
 export default BookListExtended

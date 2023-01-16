@@ -87,6 +87,8 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
             labelContent={t('captcha')}
             labelClassName=""
             hasError={!!errors.cfTurnstile}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             errorMessage={errors.cfTurnstile?.message}
             required
             {...field}

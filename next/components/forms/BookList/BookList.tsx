@@ -11,6 +11,7 @@ interface Props {
   className?: string
 }
 
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 const BookList = ({ className }: Props) => {
   const methods = useFormContext()
   const { errors } = useFormState()
@@ -36,7 +37,9 @@ const BookList = ({ className }: Props) => {
           <div
             key={field.id}
             className={cx('relative w-full border p-6', {
+              // @ts-ignore
               'border-border-light': !errors?.books?.[index],
+              // @ts-ignore
               'base-input--with-error': errors?.books?.[index],
             })}
           >
@@ -61,6 +64,7 @@ const BookList = ({ className }: Props) => {
                     labelContent={t('book_number')}
                     inputClassName="px-3 w-full"
                     required
+                    // @ts-ignore
                     hasError={errors.books && !!errors.books[index]?.id}
                     {...field}
                   />
@@ -77,6 +81,7 @@ const BookList = ({ className }: Props) => {
                     labelContent={t('author')}
                     inputClassName="px-3 w-full"
                     required
+                    // @ts-ignore
                     hasError={errors.books && !!errors.books[index]?.author}
                     {...field}
                   />
@@ -92,6 +97,7 @@ const BookList = ({ className }: Props) => {
                     labelContent={t('title')}
                     inputClassName="px-3 w-full"
                     required
+                    // @ts-ignore
                     hasError={errors.books && !!errors.books[index]?.title}
                     {...field}
                   />
@@ -102,6 +108,7 @@ const BookList = ({ className }: Props) => {
             {/* Error Message */}
             <p
               className={cx('mt-2 text-sm text-error', {
+                // @ts-ignore
                 hidden: !(errors.books && errors.books[index]) ?? false,
               })}
             >
@@ -123,5 +130,6 @@ const BookList = ({ className }: Props) => {
     </div>
   )
 }
+/* eslint-enable @typescript-eslint/ban-ts-comment */
 
 export default BookList
