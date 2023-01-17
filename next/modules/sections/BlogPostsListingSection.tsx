@@ -3,7 +3,7 @@ import {
   blogPostsDefaultFilters,
   blogPostsFetcher,
   getBlogPostsQueryKey,
-} from '@utils/fetchers/blog-posts.fetcher'
+} from '@services/graphql/fetchers/blog-posts.fetcher'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'

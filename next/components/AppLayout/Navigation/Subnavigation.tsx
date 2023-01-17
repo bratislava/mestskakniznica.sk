@@ -1,7 +1,7 @@
+import { ComponentMenuSections, Maybe } from '@services/graphql'
 import cx from 'classnames'
 import { useMemo } from 'react'
 
-import { ComponentMenuSections, Maybe } from '../../../graphql'
 import Column from './SubnavigationColumn'
 
 interface SubnavigationProps {

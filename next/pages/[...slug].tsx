@@ -1,6 +1,10 @@
-import { generalFetcher } from '@utils/fetchers/general.fetcher'
+import { Enum_Page_Layout, GeneralQuery, PageEntity } from '@services/graphql'
+import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
+import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
+import { isDefined } from '@utils/isDefined'
 import { prefetchPageSections } from '@utils/prefetchPageSections'
+import { arrayify, isPresent, shouldSkipStaticPaths } from '@utils/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode } from 'react'
@@ -14,10 +18,6 @@ import FullContentPage from '../components/pages/fullContentPage'
 import ListingPage from '../components/pages/listingPage'
 import SidebarContentPage from '../components/pages/sidebarContentPage'
 import SublistingPage from '../components/pages/sublistingPage'
-import { Enum_Page_Layout, GeneralQuery, PageEntity } from '../graphql'
-import { client } from '../utils/gql'
-import { isDefined } from '../utils/isDefined'
-import { arrayify, isPresent, shouldSkipStaticPaths } from '../utils/utils'
 
 interface IPageProps {
   locale: string

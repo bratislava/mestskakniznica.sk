@@ -1,10 +1,6 @@
 import EventFilters from '@components/Molecules/EventFilters'
 import EventListingCard from '@components/Molecules/EventListingCard'
 import { Pagination } from '@components/ui'
-import { useTranslation } from 'next-i18next'
-import React, { useState } from 'react'
-import { useQuery, UseQueryResult } from 'react-query'
-
 import {
   eventsArchivedDefaultFilters,
   eventsDefaultSharedFilters,
@@ -13,7 +9,10 @@ import {
   EventsFiltersShared,
   eventsUpcomingDefaultFilters,
   getEventsQueryKey,
-} from '../../backend/meili/fetchers/eventsFetcher'
+} from '@services/meili/fetchers/eventsFetcher'
+import { useTranslation } from 'next-i18next'
+import React, { useState } from 'react'
+import { useQuery, UseQueryResult } from 'react-query'
 
 type EventsListingSectionXProps = {
   titleTranslationKey: string

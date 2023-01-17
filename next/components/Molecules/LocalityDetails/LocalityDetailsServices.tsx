@@ -1,5 +1,5 @@
-import { BranchEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import { CallToAction } from '@components/ui'
+import { BranchEntityFragment } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import { useTranslation } from 'next-i18next'
 import React from 'react'

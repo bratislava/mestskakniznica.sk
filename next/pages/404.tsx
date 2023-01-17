@@ -1,5 +1,4 @@
-import ClearCircle from '@assets/images/clear-circle.svg'
-import SearchIcon from '@assets/images/search-404.svg'
+import { CloseCircleIcon, SearchIcon } from '@assets/icons'
 import { SearchBar } from '@bratislava/ui-city-library'
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
@@ -41,7 +40,7 @@ const Custom404 = ({ locale }: ICustomProps) => {
           <SearchBar
             iconLeft={<SearchIcon onClick={onSubmit} />}
             iconRight={
-              searchedTerm.length > 0 && <ClearCircle onClick={() => setSearchedTerm('')} />
+              searchedTerm.length > 0 && <CloseCircleIcon onClick={() => setSearchedTerm('')} />
             }
             placeholder={t('whatAreYouLookingFor')}
             className="pt-10"

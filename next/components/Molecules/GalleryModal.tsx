@@ -1,5 +1,5 @@
 import Close from '@assets/images/hamburger-close.svg'
-import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library'
+import { ComponentLocalityPartsGalleryParts } from '@services/graphql'
 import React from 'react'
 import Modal from 'react-modal'
 

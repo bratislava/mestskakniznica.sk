@@ -4,7 +4,7 @@ import {
   getNewBooksQueryKey,
   newBooksDefaultFilters,
   newBooksFetcher,
-} from '@utils/fetchers/new-books.fetcher'
+} from '@services/opac/fetchers/new-books.fetcher'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 

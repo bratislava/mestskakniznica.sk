@@ -1,6 +1,5 @@
-import { GeneralQuery } from '@bratislava/strapi-sdk-city-library'
-import * as React from 'react'
-import { createContext, useContext } from 'react'
+import { GeneralQuery } from '@services/graphql'
+import { createContext, ReactNode, useContext } from 'react'
 
 const GeneralContext = createContext<GeneralQuery | null>(null)
 
@@ -8,7 +7,7 @@ export const GeneralContextProvider = ({
   children,
   general,
 }: {
-  children: React.ReactNode
+  children: ReactNode
   general: GeneralQuery
 }) => {
   return <GeneralContext.Provider value={general}>{children}</GeneralContext.Provider>

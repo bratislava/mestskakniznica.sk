@@ -1,5 +1,4 @@
 import Button from '@modules/common/Button'
-import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useEffect, useState } from 'react'
@@ -9,12 +8,11 @@ interface ClickableProps {
   text: string
   svgIcon: ReactNode
   actionLink: string | (() => void)
-  classA: string
   classDiv: string
   copyText?: boolean
 }
 
-const Clickable = ({ text, svgIcon, actionLink, classA, classDiv, copyText }: ClickableProps) => {
+const Clickable = ({ text, svgIcon, actionLink, classDiv, copyText }: ClickableProps) => {
   const [copied, setCopied] = useState(false)
   const { t } = useTranslation('common')
 
@@ -28,36 +26,37 @@ const Clickable = ({ text, svgIcon, actionLink, classA, classDiv, copyText }: Cl
   if (typeof actionLink === 'string')
     return (
       <div className={cx(classDiv)}>
-        <MLink href={actionLink} target="_blank" rel="noreferrer" className={cx(classA)}>
-          {svgIcon}
-          &nbsp; {text}
-        </MLink>
+        <Button
+          variant="plain-primary"
+          startIcon={svgIcon}
+          noPadding
+          href={actionLink}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {text}
+        </Button>
       </div>
     )
   return (
     <div className={cx(classDiv)}>
       {copyText && copied ? (
         <a data-for="main" data-delay-hide="3000" data-tip={t('linkCopied')} data-iscapture="true">
-          <Button variant="unstyled" onPress={() => actionLink()}>
-            <div className={cx(classA)}>
-              {svgIcon}
-              &nbsp; {text}
-            </div>
+          <Button variant="plain-primary" startIcon={svgIcon} onPress={() => actionLink()}>
+            {text}
           </Button>
           <ReactTooltip id="main" place="top" type="dark" effect="solid" multiline />
         </a>
       ) : (
         <Button
-          variant="unstyled"
+          variant="plain-primary"
+          startIcon={svgIcon}
           onPress={() => {
             actionLink()
             setCopied(true)
           }}
         >
-          <div className={cx(classA)}>
-            {svgIcon}
-            &nbsp; {text}
-          </div>
+          {text}
         </Button>
       )}
     </div>

@@ -1,7 +1,7 @@
-import { meiliClient } from '@utils/meilisearch'
 import { SearchResponse } from 'meilisearch'
 
 import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
+import { meiliClient } from '../meilisearch'
 import { SearchIndexWrapped } from '../searchIndexWrapped'
 
 export const allSearchTypes = [

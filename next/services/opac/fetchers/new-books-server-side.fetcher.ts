@@ -1,5 +1,5 @@
-import { newBooksDefaultFilters } from '@utils/fetchers/new-books.fetcher'
-import { getNewBooks } from '@utils/newBooksService'
+import { newBooksDefaultFilters } from '@services/opac/fetchers/new-books.fetcher'
+import { getNewBooks } from '@services/opac/newBooksService'
 
 /**
  * It is not possible to call Next.js API route on the server, therefore, the function handling it

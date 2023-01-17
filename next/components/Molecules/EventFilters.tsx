@@ -7,13 +7,12 @@ import { useControlledState } from '@react-stately/utils'
 import {
   eventPropertiesFetcher,
   getEventPropertiesQueryKey,
-} from '@utils/fetchers/event-properties.fetcher'
+} from '@services/graphql/fetchers/event-properties.fetcher'
+import { EventsFiltersShared } from '@services/meili/fetchers/eventsFetcher'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 import { useQuery } from 'react-query'
 import { useToggleState } from 'react-stately'
-
-import { EventsFiltersShared } from '../../backend/meili/fetchers/eventsFetcher'
 
 type EventFiltersProps = {
   filters: EventsFiltersShared

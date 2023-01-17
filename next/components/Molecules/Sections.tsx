@@ -1,9 +1,4 @@
 import {
-  BlogPostSectionsDynamicZone,
-  EventCardEntityFragment,
-  PageSectionsDynamicZone,
-} from '@bratislava/strapi-sdk-city-library'
-import {
   ColumnedText,
   Documents,
   ExternalLinks,
@@ -26,6 +21,11 @@ import EventsListingSection from '@modules/sections/EventsListingSection'
 import NewBooksSection from '@modules/sections/NewBooksSection'
 import NoticesListingSection from '@modules/sections/NoticesListingSection'
 import PartnersSection from '@modules/sections/PartnersSection'
+import {
+  BlogPostSectionsDynamicZone,
+  EventCardEntityFragment,
+  PageSectionsDynamicZone,
+} from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import {
   groupByAccordionCategory,

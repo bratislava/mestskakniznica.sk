@@ -1,8 +1,8 @@
-import { ComponentHomepageFaqSection } from '@bratislava/strapi-sdk-city-library'
 import { CallToAction } from '@bratislava/ui-city-library'
 import Accordion from '@modules/common/Accordion'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import RichText from '@modules/formatting/RichText'
+import { ComponentHomepageFaqSection } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 

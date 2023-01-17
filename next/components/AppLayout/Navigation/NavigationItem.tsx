@@ -1,6 +1,6 @@
-import { ComponentMenuSections, Maybe, Menu } from '@bratislava/strapi-sdk-city-library'
 import MLink from '@modules/common/MLink'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import { ComponentMenuSections, Maybe, Menu } from '@services/graphql'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'

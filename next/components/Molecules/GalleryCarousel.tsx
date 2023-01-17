@@ -1,7 +1,7 @@
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library'
+import { ComponentLocalityPartsGalleryParts } from '@services/graphql'
 import React from 'react'
 import { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'

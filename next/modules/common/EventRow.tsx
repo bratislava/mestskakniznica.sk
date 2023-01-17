@@ -1,7 +1,7 @@
-import { EventCardAttributesFragment } from '@bratislava/strapi-sdk-city-library'
 import EventDetailsDateBox from '@components/Atoms/EventDetailsDateBox'
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
+import { EventCardAttributesFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 

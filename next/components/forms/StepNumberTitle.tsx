@@ -1,7 +1,7 @@
-import CheckMark from '@assets/images/check-mark.svg'
+import { CheckNoPaddingIcon } from '@assets/icons'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 interface IProps {
   num: number
@@ -9,7 +9,7 @@ interface IProps {
   activeStep: number
   onClick: () => void
   className?: string
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 const StepNumberTitle = ({ num, title, activeStep, onClick, className, children }: IProps) => {
@@ -46,7 +46,7 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
             }
           )}
         >
-          {finished ? <CheckMark className="-m-6" /> : num}
+          {finished ? <CheckNoPaddingIcon className="-m-6" /> : num}
         </span>
         <p className="text-left text-h5 text-foreground-heading">{title}</p>
       </button>

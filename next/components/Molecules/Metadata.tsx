@@ -1,4 +1,4 @@
-import { BasicDocumentMetadataDynamicZone } from '@bratislava/strapi-sdk-city-library'
+import { BasicDocumentMetadataDynamicZone } from '@services/graphql'
 import React from 'react'
 
 const Metadata = ({

@@ -1,4 +1,4 @@
-import { getNewBooks, NewBooksResponse } from '@utils/newBooksService'
+import { getNewBooks, NewBooksResponse } from '@services/opac/newBooksService'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<NewBooksResponse>) => {

@@ -1,7 +1,4 @@
-import {
-  ComponentAddressAddress,
-  ComponentLocalityPartsLocalitySection,
-} from '@bratislava/strapi-sdk-city-library'
+import { ComponentAddressAddress, ComponentLocalityPartsLocalitySection } from '@services/graphql'
 
 export type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T
 

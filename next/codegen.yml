@@ -1,7 +1,7 @@
-schema: 'http://localhost:1338/graphql'
-documents: './graphql/queries/**/*.{gql,graphql}'
+schema: '../strapi/schema.graphql'
+documents: './services/graphql/queries/**/*.{gql,graphql}'
 generates:
-  graphql/index.ts:
+  services/graphql/index.ts:
     plugins:
       - typescript
       - typescript-operations

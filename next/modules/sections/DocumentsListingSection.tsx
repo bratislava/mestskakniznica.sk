@@ -3,17 +3,17 @@ import SearchField from '@components/Atoms/SearchField'
 import SortSelect, { Sort } from '@components/Atoms/SortSelect'
 import Metadata from '@components/Molecules/Metadata'
 import { Pagination, RowFile } from '@components/ui'
-import NextLink from 'next/link'
-import { useTranslation } from 'next-i18next'
-import React, { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
-
 import {
   documentsDefaultFilters,
   documentsFetcher,
   DocumentsFilters,
   getDocumentsQueryKey,
-} from '../../backend/meili/fetchers/documentsFetcher'
+} from '@services/meili/fetchers/documentsFetcher'
+import NextLink from 'next/link'
+import { useTranslation } from 'next-i18next'
+import React, { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
+
 import { useSearch } from '../../hooks/useSearch'
 
 const DocumentsListingSection = () => {

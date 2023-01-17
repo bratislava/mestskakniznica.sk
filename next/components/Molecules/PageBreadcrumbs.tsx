@@ -1,13 +1,7 @@
-import {
-  BlogPostEntity,
-  Category,
-  FileCategoryEntity,
-  PageEntity,
-} from '@bratislava/strapi-sdk-city-library'
 import Breadcrumbs, { BreadcrumbListItem } from '@modules/breadcrumbs/Breadcrumbs'
+import { BlogPostEntity, Category, FileCategoryEntity, PageEntity } from '@services/graphql'
+import { pagePath } from '@utils/page'
 import { useTranslation } from 'next-i18next'
-
-import { pagePath } from '../../utils/page'
 
 interface PageBreadcrumbsProps {
   page: PageEntity | null | undefined

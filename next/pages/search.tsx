@@ -1,5 +1,5 @@
-import { GeneralQuery } from '@bratislava/strapi-sdk-city-library'
-import { generalFetcher } from '@utils/fetchers/general.fetcher'
+import { GeneralQuery } from '@services/graphql'
+import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'

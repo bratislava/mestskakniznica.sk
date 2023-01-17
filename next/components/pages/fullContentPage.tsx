@@ -1,5 +1,5 @@
-import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, SectionContainer } from '@bratislava/ui-city-library'
+import { PageEntity } from '@services/graphql'
 import * as React from 'react'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'

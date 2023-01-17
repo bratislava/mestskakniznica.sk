@@ -1,7 +1,8 @@
 import BranchPage from '@components/pages/BranchPage'
-import { generalFetcher } from '@utils/fetchers/general.fetcher'
+import { BranchEntityFragment, GeneralQuery } from '@services/graphql'
+import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
+import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
-import { client } from '@utils/gql'
 import { isDefined } from '@utils/isDefined'
 import { isPresent, shouldSkipStaticPaths } from '@utils/utils'
 import last from 'lodash/last'
@@ -13,7 +14,6 @@ import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
 import PageWrapper from '../../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../../components/Molecules/ErrorDisplay'
 import ErrorPage from '../../components/pages/ErrorPage'
-import { BranchEntityFragment, GeneralQuery } from '../../graphql'
 
 interface IPageProps {
   locale: string

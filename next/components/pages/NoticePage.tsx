@@ -1,6 +1,6 @@
-import { NoticeEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import { Documents, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
+import { NoticeEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
 

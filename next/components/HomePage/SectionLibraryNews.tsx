@@ -1,8 +1,5 @@
-import {
-  ComponentHomepageNewsSection,
-  NoticeListingEntityFragment,
-} from '@bratislava/strapi-sdk-city-library'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
+import { ComponentHomepageNewsSection, NoticeListingEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 

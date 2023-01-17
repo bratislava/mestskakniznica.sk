@@ -1,4 +1,4 @@
-import UploadIcon from '@assets/images/upload.svg'
+import { UploadIcon } from '@assets/icons'
 import cx from 'classnames'
 import React from 'react'
 

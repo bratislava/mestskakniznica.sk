@@ -1,5 +1,5 @@
-import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { SectionContainer, Sidebar } from '@bratislava/ui-city-library'
+import { PageEntity } from '@services/graphql'
 import { parsePageLink, parseSidebar } from '@utils/page'
 import Image from 'next/image'
 

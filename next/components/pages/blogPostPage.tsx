@@ -1,10 +1,7 @@
-import {
-  BlogPostEntityFragment,
-  PageSectionsDynamicZone,
-} from '@bratislava/strapi-sdk-city-library'
 import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import FormatDate from '@modules/formatting/FormatDate'
+import { BlogPostEntityFragment, PageSectionsDynamicZone } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
 import Sections from '../Molecules/Sections'

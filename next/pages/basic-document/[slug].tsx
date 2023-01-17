@@ -1,13 +1,13 @@
 import BasicDocumentPage from '@components/pages/BasicDocumentPage'
-import { generalFetcher } from '@utils/fetchers/general.fetcher'
+import { BasicDocumentEntity, GeneralQuery } from '@services/graphql'
+import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
+import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
+import { arrayify } from '@utils/utils'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../../components/layouts/PageWrapper'
-import { BasicDocumentEntity, GeneralQuery } from '../../graphql'
-import { client } from '../../utils/gql'
-import { arrayify } from '../../utils/utils'
 
 interface IFilePageProps {
   basicDocument: BasicDocumentEntity

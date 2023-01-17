@@ -1,9 +1,9 @@
 import { now, parseAbsolute } from '@internationalized/date'
 import { bratislavaTimezone } from '@utils/consts'
 import { isDefined } from '@utils/isDefined'
-import { meiliClient } from '@utils/meilisearch'
 
 import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
+import { meiliClient } from '../meilisearch'
 import { EventInListingMeili } from '../meiliTypes'
 import { SearchIndexWrapped, unwrapFromSearchIndex } from '../searchIndexWrapped'
 

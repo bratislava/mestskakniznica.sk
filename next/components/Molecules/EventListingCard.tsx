@@ -1,9 +1,9 @@
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
+import { EventInListingMeili } from '@services/meili/meiliTypes'
 import { useTranslation } from 'next-i18next'
 
 import Placeholder from '../../assets/images/event-list-placeholder.jpg'
-import { EventInListingMeili } from '../../backend/meili/meiliTypes'
 import TagsDisplay from '../Atoms/TagsDisplay'
 
 interface EventListingProps {

@@ -6,7 +6,7 @@ import {
   EventTag,
   FileCategory,
   UploadFile,
-} from '@bratislava/strapi-sdk-city-library'
+} from '@services/graphql'
 
 export type BasicDocumentMeili = Omit<
   BasicDocument,
