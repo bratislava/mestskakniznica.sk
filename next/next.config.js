@@ -1,20 +1,15 @@
-// TODO use @ts-check
+const { i18n, reloadOnPrerender } = require('./next-i18next.config')
 
 /**
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  i18n: {
-    defaultLocale: 'sk',
-    locales: ['en', 'sk'],
-    localeDetection: false,
-  },
-  reloadOnPrerender: process.env.NODE_ENV === 'development',
-  images: {
-    domains: ['localhost', 'cdn-api.bratislava.sk', 'coverlinker.biblib.net'],
-  },
+  i18n,
+  reloadOnPrerender,
   reactStrictMode: true,
-  staticPageGenerationTimeout: 300,
+  images: {
+    domains: ['localhost', 'cdn-api.bratislava.sk', 'api.mapbox.com', 'coverlinker.biblib.net'],
+  },
   async rewrites() {
     return {
       beforeFiles: [

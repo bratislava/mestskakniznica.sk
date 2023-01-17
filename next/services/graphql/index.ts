@@ -4481,7 +4481,7 @@ export type FileCategoriesQuery = { __typename?: 'Query', fileCategories?: { __t
 
 export type BasicDocumentFileFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null };
 
-export type BasicDocumentFragment = { __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', slug: string, title: string, description?: string | null, date_added?: any | null, author?: string | null, link?: string | null, file_category?: { __typename?: 'FileCategoryEntityResponse', data?: { __typename?: 'FileCategoryEntity', id?: string | null, attributes?: { __typename?: 'FileCategory', name?: string | null, slug?: string | null } | null } | null } | null, metadata?: Array<{ __typename: 'ComponentMetadataFaktury', id: string, name?: string | null, date?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataMetadata', id: string, provider?: string | null, year?: number | null, grant_name?: string | null, grant_number?: string | null, amount?: string | null, description?: string | null } | { __typename: 'ComponentMetadataObchodnaVerejnaSutaz', id: string, subject?: string | null, description?: string | null, number?: string | null, date_added?: any | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataObjednavky', id: string, title?: string | null, date_period?: any | null, date_added?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataVerejneObstaravanie', id: string, subject?: string | null, description?: string | null, number?: string | null, date_added?: any | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataZmluvy', id: string, date?: any | null, number?: string | null, amount?: string | null, supplier?: string | null, subject?: string | null } | { __typename: 'Error' } | null> | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | null };
+export type BasicDocumentEntityFragment = { __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', slug: string, title: string, description?: string | null, date_added?: any | null, author?: string | null, link?: string | null, file_category?: { __typename?: 'FileCategoryEntityResponse', data?: { __typename?: 'FileCategoryEntity', id?: string | null, attributes?: { __typename?: 'FileCategory', name?: string | null, slug?: string | null } | null } | null } | null, metadata?: Array<{ __typename: 'ComponentMetadataFaktury', id: string, name?: string | null, date?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataMetadata', id: string, provider?: string | null, year?: number | null, grant_name?: string | null, grant_number?: string | null, amount?: string | null, description?: string | null } | { __typename: 'ComponentMetadataObchodnaVerejnaSutaz', id: string, subject?: string | null, description?: string | null, number?: string | null, date_added?: any | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataObjednavky', id: string, title?: string | null, date_period?: any | null, date_added?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataVerejneObstaravanie', id: string, subject?: string | null, description?: string | null, number?: string | null, date_added?: any | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | { __typename: 'ComponentMetadataZmluvy', id: string, date?: any | null, number?: string | null, amount?: string | null, supplier?: string | null, subject?: string | null } | { __typename: 'Error' } | null> | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null } | null };
 
 type Metadata_ComponentMetadataFaktury_Fragment = { __typename: 'ComponentMetadataFaktury', id: string, name?: string | null, date?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null } | null } | null } | null };
 
@@ -4967,8 +4967,8 @@ export const MetadataFragmentDoc = gql`
   }
 }
     ${BasicDocumentFileFragmentDoc}`;
-export const BasicDocumentFragmentDoc = gql`
-    fragment BasicDocument on BasicDocumentEntity {
+export const BasicDocumentEntityFragmentDoc = gql`
+    fragment BasicDocumentEntity on BasicDocumentEntity {
   id
   attributes {
     slug
@@ -5152,7 +5152,7 @@ export const SectionsFragmentDoc = gql`
     title
     basicDocuments {
       data {
-        ...BasicDocument
+        ...BasicDocumentEntity
       }
     }
     moreLink {
@@ -5220,7 +5220,7 @@ ${TableFragmentDoc}
 ${FlatTextFragmentDoc}
 ${TableRowFragmentDoc}
 ${ExternalLinkFragmentDoc}
-${BasicDocumentFragmentDoc}
+${BasicDocumentEntityFragmentDoc}
 ${PageLinkFragmentDoc}
 ${BranchCardEntityFragmentDoc}`;
 export const BlogPostEntityFragmentDoc = gql`
@@ -5446,7 +5446,7 @@ export const NoticeEntityFragmentDoc = gql`
       title
       basicDocuments {
         data {
-          ...BasicDocument
+          ...BasicDocumentEntity
         }
       }
     }
@@ -5470,7 +5470,7 @@ export const NoticeEntityFragmentDoc = gql`
   }
 }
     ${UploadImageEntityFragmentDoc}
-${BasicDocumentFragmentDoc}`;
+${BasicDocumentEntityFragmentDoc}`;
 export const NoticeListingEntityFragmentDoc = gql`
     fragment NoticeListingEntity on NoticeEntity {
   __typename
@@ -5761,11 +5761,11 @@ export const BasicDocumentBySlugDocument = gql`
     query BasicDocumentBySlug($slug: String!) {
   basicDocuments(filters: {slug: {eq: $slug}}) {
     data {
-      ...BasicDocument
+      ...BasicDocumentEntity
     }
   }
 }
-    ${BasicDocumentFragmentDoc}`;
+    ${BasicDocumentEntityFragmentDoc}`;
 export const FileCategoriesDocument = gql`
     query FileCategories {
   fileCategories {

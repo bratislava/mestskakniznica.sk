@@ -1,7 +1,7 @@
 query BasicDocumentBySlug($slug: String!) {
   basicDocuments(filters: { slug: { eq: $slug } }) {
     data {
-      ...BasicDocument
+      ...BasicDocumentEntity
     }
   }
 }
@@ -31,7 +31,7 @@ fragment BasicDocumentFile on UploadFileEntity {
   }
 }
 
-fragment BasicDocument on BasicDocumentEntity {
+fragment BasicDocumentEntity on BasicDocumentEntity {
   id
   attributes {
     slug

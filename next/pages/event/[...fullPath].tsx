@@ -3,33 +3,23 @@ import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
-import { isPresent, shouldSkipStaticPaths } from '@utils/utils'
+import { isPresent } from '@utils/utils'
 import last from 'lodash/last'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
+import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ParsedUrlQuery } from 'node:querystring'
 
 import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
 import PageWrapper from '../../components/layouts/PageWrapper'
-import ErrorDisplay, { getError, IDisplayError } from '../../components/Molecules/ErrorDisplay'
-import ErrorPage from '../../components/pages/ErrorPage'
 import EventPage from '../../components/pages/eventPage'
 
-interface IPageProps {
-  locale: string
+type PageProps = {
   event: EventEntityFragment
   general: GeneralQuery
-  error?: IDisplayError
-}
+} & SSRConfig
 
-const EventSlugPage = ({ event, general, error }: IPageProps) => {
-  if (error) {
-    return (
-      <ErrorPage code={500}>
-        <ErrorDisplay error={error} />
-      </ErrorPage>
-    )
-  }
-
+const EventSlugPage = ({ event, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
       <PageWrapper
@@ -50,88 +40,74 @@ const EventSlugPage = ({ event, general, error }: IPageProps) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
-  let paths: Array<{ params: { fullPath: string[]; locale: string } }> = []
-  if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
+// TODO use common functions to prevent duplicate code
+interface StaticParams extends ParsedUrlQuery {
+  fullPath: string[]
+}
+
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
+  let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
     locales.map((locale) => client.EventStaticPaths({ locale }))
   )
-  const events = pathArraysForLocales
-    .flatMap(({ events: eventsInner }) => eventsInner?.data || [])
+  const entities = pathArraysForLocales
+    .flatMap(({ events }) => events?.data || [])
     .filter(isDefined)
 
-  if (events.length > 0) {
-    paths = events
-      .filter((event) => event.attributes?.slug)
-      .map((event) => ({
+  if (entities.length > 0) {
+    paths = entities
+      .filter((entity) => entity.attributes?.slug)
+      .map((entity) => ({
         params: {
           fullPath: `${
-            event.attributes?.locale === 'sk' ? '/zazite/podujatia/' : '/experience/events/'
-          }${event.attributes?.slug!}`
+            entity.attributes?.locale === 'sk' ? '/zazite/podujatia/' : '/experience/events/'
+          }${entity.attributes?.slug!}`
             .split('/')
             .slice(1),
-          locale: event.attributes?.locale || '',
+          locale: entity.attributes?.locale || '',
         },
       }))
   }
 
   // eslint-disable-next-line no-console
-  console.log(`GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
+  console.log(`Events: Generated static paths for ${paths.length} slugs.`)
+
   return { paths, fallback: 'blocking' }
 }
 
-// TODO define type of fullPath to string[]
-export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
-  const locale = ctx.locale ?? 'sk'
-  const slug = last(ctx?.params?.fullPath)
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
+  locale = 'sk',
+  params,
+}) => {
+  const slug = last(params?.fullPath)
 
   if (!slug) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} event ${slug} on ${ctx?.params?.fullPath}`)
+  console.log(`Revalidating ${locale} event ${slug} on ${params?.fullPath.join('/') ?? ''}`)
 
-  const translations = (await serverSideTranslations(locale, [
-    'common',
-    'forms',
-    'newsletter',
-    'homepage',
-  ])) as any
+  const [{ events }, general, translations] = await Promise.all([
+    client.EventBySlug({
+      slug,
+      locale,
+    }),
+    generalFetcher(locale),
+    serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
+  ])
 
-  try {
-    const [{ events }, general] = await Promise.all([
-      client.EventBySlug({
-        slug,
-        locale,
-      }),
-      generalFetcher(locale),
-    ])
+  const event = events?.data[0] ?? null
 
-    const event = events?.data[0] ?? null
+  if (!event) return { notFound: true } as const
 
-    if (!event) return { notFound: true } as const
-
-    return {
-      props: {
-        slug,
-        event,
-        locale,
-        general,
-        ...translations,
-      },
-      revalidate: 10,
-    }
-  } catch (iError) {
-    console.error(iError)
-    const error = getError(iError)
-
-    return {
-      props: {
-        error,
-        ...translations,
-      },
-      revalidate: 10,
-    }
+  return {
+    props: {
+      slug,
+      event,
+      general,
+      ...translations,
+    },
+    revalidate: 10,
   }
 }
 

@@ -1,67 +1,58 @@
-import { CloseCircleIcon, SearchIcon } from '@assets/icons'
-import { SearchBar } from '@bratislava/ui-city-library'
+import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
+import Button from '@modules/common/Button'
+import { GeneralQuery } from '@services/graphql'
+import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
+import { GeneralContextProvider } from '@utils/generalContext'
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { FormEvent, useState } from 'react'
 
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorPage from '../components/pages/ErrorPage'
 
-interface ICustomProps {
-  locale: string
+type Error404PageProps = {
+  general: GeneralQuery
 }
 
-const onSubmit = (e: FormEvent) => {
-  e.preventDefault()
-  // TODO: search redirect
-}
+const Custom404 = ({ general }: Error404PageProps) => {
+  const { t, i18n } = useTranslation()
 
-const Custom404 = ({ locale }: ICustomProps) => {
-  const { t } = useTranslation()
-
-  const [searchedTerm, setSearchedTerm] = useState('')
-
-  const { asPath } = useRouter()
+  const { asPath, locale } = useRouter()
 
   return (
-    <PageWrapper locale={locale ?? 'sk'} slug="/404">
-      <ErrorPage code={404}>
-        <header className="text_xl_old mb-6">
-          <h1>{t('pageNotFound')}</h1>
-        </header>
-        <p className="text-base">{t('pageNotFoundSorry')}</p>
-        <p className="pt-10 text-base underline">
-          https://www.mestskakniznica.sk/{locale ?? 'sk'}
-          {asPath}
-        </p>
-        <form onSubmit={onSubmit}>
-          <SearchBar
-            iconLeft={<SearchIcon onClick={onSubmit} />}
-            iconRight={
-              searchedTerm.length > 0 && <CloseCircleIcon onClick={() => setSearchedTerm('')} />
-            }
-            placeholder={t('whatAreYouLookingFor')}
-            className="pt-10"
-            inputClassName="w-full h-14"
-            onChange={(e) => setSearchedTerm(e.target.value)}
-            value={searchedTerm}
-          />
-        </form>
-      </ErrorPage>
-    </PageWrapper>
+    <GeneralContextProvider general={general}>
+      <PageWrapper locale={i18n.language} slug="/404">
+        <DefaultPageLayout>
+          <ErrorPage code={404}>
+            <header className="mb-6 text-h1">
+              <h1>{t('pageNotFound')}</h1>
+            </header>
+            <p className="text-base">{t('pageNotFoundSorry')}</p>
+            <p className="pt-10 text-base underline">
+              {`https://www.mestskakniznica.sk/${locale ?? ''}${asPath}`}
+            </p>
+            <Button variant="primary" href="/" className="mt-8">
+              {t('homepage')}
+            </Button>
+          </ErrorPage>
+        </DefaultPageLayout>
+      </PageWrapper>
+    </GeneralContextProvider>
   )
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const locale = ctx.locale ?? 'sk'
 
-  const translations = await serverSideTranslations(locale, ['common'])
+  const [general, translations] = await Promise.all([
+    generalFetcher(locale),
+    serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
+  ])
 
   return {
     props: {
-      locale,
+      general,
       ...translations,
     },
   }

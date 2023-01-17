@@ -16,7 +16,7 @@ fragment NoticeEntity on NoticeEntity {
       title
       basicDocuments {
         data {
-          ...BasicDocument
+          ...BasicDocumentEntity
         }
       }
     }

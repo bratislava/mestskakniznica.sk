@@ -13,7 +13,7 @@ import { QueryParamProvider } from 'use-query-params'
 import ErrorDisplay from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
 
-const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
+const CustomApp = ({ Component, pageProps }: AppProps) => {
   if (pageProps.error) {
     return (
       <ErrorPage code={500}>
@@ -21,6 +21,7 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
       </ErrorPage>
     )
   }
+
   return (
     <div className={`${beausiteFont.variable} font-beausite`}>
       <Script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.sk" />
