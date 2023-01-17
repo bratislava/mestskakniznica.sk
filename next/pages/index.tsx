@@ -20,7 +20,7 @@ import { GeneralContextProvider } from '@utils/generalContext'
 import { hasAttributes, isDefined } from '@utils/isDefined'
 import { isPresent } from '@utils/utils'
 import { GetStaticProps } from 'next'
-import { useTranslation } from 'next-i18next'
+import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Section from '../components/AppLayout/Section'
@@ -31,15 +31,8 @@ import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationI
 import SectionTags from '../components/HomePage/SectionTags'
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
-import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
-import ErrorPage from '../components/pages/ErrorPage'
-// used for example meili usage
-// import { useUpcomingEvents } from '../hooks/useUpcomingEvets'
-// import { useEffect } from 'react'
-// import { meiliClient } from '@utils/meilisearch'
 
-interface IIndexProps {
-  locale?: string
+type HomeProps = {
   localizations?: PageLocalizationEntityFragment[]
   promos: (EventCardEntityFragment | NoticeListingEntityFragment)[]
   latestNotices: NoticeListingEntityFragment[]
@@ -49,13 +42,11 @@ interface IIndexProps {
   registrationInfoSection: ComponentHomepageRegistrationInfo
   bookTags: BookTagEntityFragment[]
   mapSection: ComponentSectionsMap | null
-  error?: IDisplayError
-  Seo?: ComponentSeoSeo
+  seo?: ComponentSeoSeo
   general: GeneralQuery
-}
+} & SSRConfig
 
 export const Index = ({
-  locale = 'sk',
   localizations,
   promos,
   latestNotices,
@@ -65,51 +56,22 @@ export const Index = ({
   registrationInfoSection,
   bookTags,
   mapSection,
-  error,
-  Seo,
+  seo,
   general,
-}: IIndexProps) => {
-  const { t } = useTranslation('common')
-
-  // example of how to search in hooked events with meilisearch
-  // useEffect(() => {
-  //   meiliClient
-  //     .index('event')
-  //     .search('eve', {
-  //       limit: 10,
-  //       filter: [`locale = ${locale}`],
-  //     })
-  //     .then(console.log)
-  // }, [locale])
-
-  if (error) {
-    return (
-      <PageWrapper
-        locale={locale}
-        slug="/"
-        localizations={localizations?.filter(isPresent).map((localization) => ({
-          locale: localization.attributes?.locale,
-          slug: localization.attributes?.slug,
-        }))}
-      >
-        <ErrorPage code={500}>
-          <ErrorDisplay error={error} />
-        </ErrorPage>
-      </PageWrapper>
-    )
-  }
+}: HomeProps) => {
+  const { t, i18n } = useTranslation('common')
 
   return (
     <GeneralContextProvider general={general}>
       <PageWrapper
-        locale={locale ?? 'sk'}
+        locale={i18n.language}
         slug="/"
         localizations={localizations
           ?.filter(isPresent)
           // add empty slug because it's expected in wrapper and index page does not have slug
           .map((l) => ({ ...l, slug: '' }))}
       >
-        <DefaultPageLayout Seo={Seo}>
+        <DefaultPageLayout Seo={seo}>
           <h1 className="sr-only">{t('pageTitle')}</h1>
           {promos.length > 0 && (
             <SectionContainer>
@@ -179,56 +141,35 @@ export const Index = ({
 export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
   const translations = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
 
-  try {
-    // running all requests parallel
-    // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
-    const [newBooks, { homePage, promotedNews, promotedEvents, latestNotices, bookTags }, general] =
-      await Promise.all([
-        newBooksHomePageServerSideFetcher(),
-        client.HomePage({ locale }),
-        generalFetcher(locale),
-      ])
+  // running all requests parallel
+  // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
+  const [newBooks, { homePage, promotedNews, promotedEvents, latestNotices, bookTags }, general] =
+    await Promise.all([
+      newBooksHomePageServerSideFetcher(),
+      client.HomePage({ locale }),
+      generalFetcher(locale),
+    ])
 
-    if (!homePage) {
-      return { notFound: true }
-    }
+  if (!homePage) {
+    return { notFound: true }
+  }
 
-    // const localities = convertPagesToLocalities(localityPages?.data ?? [], true).map(
-    //   (locality) => ({
-    //     ...locality,
-    //     hideOpeningHours: true,
-    //   })
-    // )
-
-    return {
-      props: {
-        locale,
-        localizations: homePage?.data?.attributes?.localizations?.data ?? null,
-        promos: [...(promotedNews?.data ?? []), ...(promotedEvents?.data ?? [])],
-        latestNotices: latestNotices?.data?.filter(hasAttributes) ?? [],
-        newBooks,
-        faqSection: homePage?.data?.attributes?.faqSection ?? null,
-        newsSection: homePage?.data?.attributes?.newsSection ?? null,
-        registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection ?? null,
-        bookTags: bookTags?.data?.filter(hasAttributes) ?? [],
-        mapSection: homePage?.data?.attributes?.mapSection ?? null,
-        Seo: homePage?.data?.attributes?.Seo ?? null,
-        general,
-        ...translations,
-      },
-      revalidate: 10,
-    }
-  } catch (iError) {
-    console.error(iError)
-    const error = getError(iError)
-
-    return {
-      props: {
-        error,
-        ...translations,
-      },
-      revalidate: 10,
-    }
+  return {
+    props: {
+      localizations: homePage?.data?.attributes?.localizations?.data ?? null,
+      promos: [...(promotedNews?.data ?? []), ...(promotedEvents?.data ?? [])],
+      latestNotices: latestNotices?.data?.filter(hasAttributes) ?? [],
+      newBooks,
+      faqSection: homePage?.data?.attributes?.faqSection ?? null,
+      newsSection: homePage?.data?.attributes?.newsSection ?? null,
+      registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection ?? null,
+      bookTags: bookTags?.data?.filter(hasAttributes) ?? [],
+      mapSection: homePage?.data?.attributes?.mapSection ?? null,
+      seo: homePage?.data?.attributes?.Seo ?? null,
+      general,
+      ...translations,
+    },
+    revalidate: 10,
   }
 }
 

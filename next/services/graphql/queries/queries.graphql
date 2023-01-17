@@ -258,7 +258,7 @@ fragment Sections on PageSectionsDynamicZone {
     title
     basicDocuments {
       data {
-        ...BasicDocument
+        ...BasicDocumentEntity
       }
     }
     moreLink {

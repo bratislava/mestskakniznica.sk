@@ -1,13 +1,5 @@
 import { ComponentLocalityPartsLocalitySection } from '@services/graphql'
 
-export const arrayify = (input: string | string[] | undefined | null) => {
-  if (input === undefined || input === null) {
-    return [] as undefined[]
-  }
-  if (typeof input === 'string') return [input]
-  return input
-}
-
 export const isPresent = <U>(value: U | null | undefined | void): value is U => {
   return value !== null && value !== undefined
 }
@@ -165,12 +157,6 @@ export const isEventPast = (dateTo: Date | string | null): boolean => {
   today.setHours(0, 0, 0, 0)
   endDate.setHours(0, 0, 0, 0)
   return today > endDate
-}
-
-// FIXME shouldn't be needed anymore - kept for a little while longer as constantly false in case we need to revert
-export const shouldSkipStaticPaths = () => {
-  return false
-  // return process.env.NODE_ENV === 'development' || tokenizedSrapiUrlNoAvailable()
 }
 
 export const isServer = () => typeof window === 'undefined'

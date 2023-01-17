@@ -4,34 +4,23 @@ import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
-import { isPresent, shouldSkipStaticPaths } from '@utils/utils'
+import { isPresent } from '@utils/utils'
 import last from 'lodash/last'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { useTranslation } from 'next-i18next'
+import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
+import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ParsedUrlQuery } from 'node:querystring'
 
 import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
 import PageWrapper from '../../components/layouts/PageWrapper'
-import ErrorDisplay, { getError, IDisplayError } from '../../components/Molecules/ErrorDisplay'
-import ErrorPage from '../../components/pages/ErrorPage'
 
-interface IPageProps {
-  locale: string
+type PageProps = {
   branch: BranchEntityFragment
   general: GeneralQuery
-  error?: IDisplayError
-}
+} & SSRConfig
 
-const EventSlugPage = ({ branch, general, error }: IPageProps) => {
+const EventSlugPage = ({ branch, general }: PageProps) => {
   const { t } = useTranslation(['common'])
-
-  if (error) {
-    return (
-      <ErrorPage code={500}>
-        <ErrorDisplay error={error} />
-      </ErrorPage>
-    )
-  }
 
   return (
     <GeneralContextProvider general={general}>
@@ -62,86 +51,74 @@ const EventSlugPage = ({ branch, general, error }: IPageProps) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
-  let paths: Array<{ params: { fullPath: string[]; locale: string } }> = []
-  if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
+// TODO use common functions to prevent duplicate code
+interface StaticParams extends ParsedUrlQuery {
+  fullPath: string[]
+}
+
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
+  let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
     locales.map((locale) => client.BranchStaticPaths({ locale }))
   )
-  const branches = pathArraysForLocales
-    .flatMap(({ branches: branchesInner }) => branchesInner?.data || [])
+  const entities = pathArraysForLocales
+    .flatMap(({ branches }) => branches?.data || [])
     .filter(isDefined)
 
-  if (branches.length > 0) {
-    paths = branches
-      .filter((branch) => branch.attributes?.slug)
-      .map((branch) => ({
+  if (entities.length > 0) {
+    paths = entities
+      .filter((entity) => entity.attributes?.slug)
+      .map((entity) => ({
         params: {
-          fullPath: `${branch.attributes?.locale === 'sk' ? '/navstivte/' : '/visit/'}${branch
+          fullPath: `${entity.attributes?.locale === 'sk' ? '/navstivte/' : '/visit/'}${entity
             .attributes?.slug!}`
             .split('/')
             .slice(1),
-          locale: branch.attributes?.locale || '',
+          locale: entity.attributes?.locale || '',
         },
       }))
   }
 
   // eslint-disable-next-line no-console
-  console.log(`GENERATED STATIC PATHS FOR ${paths.length} BRANCHES`)
+  console.log(`Branches: Generated static paths for ${paths.length} slugs.`)
+
   return { paths, fallback: 'blocking' }
 }
 
 // TODO define type of fullPath to string[]
-export const getStaticProps: GetStaticProps<IPageProps> = async (ctx) => {
-  const locale = ctx.locale ?? 'sk'
-  const slug = last(ctx?.params?.fullPath)
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
+  locale = 'sk',
+  params,
+}) => {
+  const slug = last(params?.fullPath)
 
   if (!slug) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} branch ${slug} on ${ctx?.params?.fullPath}`)
+  console.log(`Revalidating ${locale} branch ${slug} on ${params?.fullPath.join('/') ?? ''}`)
 
-  const translations = (await serverSideTranslations(locale, [
-    'common',
-    'forms',
-    'newsletter',
-  ])) as any
+  const [{ branches }, general, translations] = await Promise.all([
+    client.BranchBySlug({
+      slug,
+      locale,
+    }),
+    generalFetcher(locale),
+    serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
+  ])
 
-  try {
-    const [{ branches }, general] = await Promise.all([
-      client.BranchBySlug({
-        slug,
-        locale,
-      }),
-      generalFetcher(locale),
-    ])
+  const branch = branches?.data[0] ?? null
 
-    const branch = branches?.data[0] ?? null
+  if (!branch) return { notFound: true } as const
 
-    if (!branch) return { notFound: true } as const
-
-    return {
-      props: {
-        slug,
-        branch,
-        locale,
-        general,
-        ...translations,
-      },
-      revalidate: 10,
-    }
-  } catch (iError) {
-    console.error(iError)
-    const error = getError(iError)
-
-    return {
-      props: {
-        error,
-        ...translations,
-      },
-      revalidate: 10,
-    }
+  return {
+    props: {
+      slug,
+      branch,
+      general,
+      ...translations,
+    },
+    revalidate: 10,
   }
 }
 

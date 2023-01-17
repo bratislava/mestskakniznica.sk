@@ -4,20 +4,20 @@ import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
-import { shouldSkipStaticPaths } from '@utils/utils'
 import last from 'lodash/last'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { useTranslation } from 'next-i18next'
+import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
+import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ParsedUrlQuery } from 'node:querystring'
 
 import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
 import PageWrapper from '../../components/layouts/PageWrapper'
 
-interface NoticePageProps {
+type NoticePageProps = {
   slug: string
   notice: NoticeEntityFragment
   general: GeneralQuery
-}
+} & SSRConfig
 
 const Page = ({ notice, slug, general }: NoticePageProps) => {
   const { i18n } = useTranslation('common')
@@ -46,59 +46,60 @@ const Page = ({ notice, slug, general }: NoticePageProps) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
-  let paths: { params: { fullPath: string[]; locale: string } }[] = []
-  if (shouldSkipStaticPaths()) return { paths, fallback: 'blocking' }
+// TODO use common functions to prevent duplicate code
+interface StaticParams extends ParsedUrlQuery {
+  fullPath: string[]
+}
+
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
+  let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
     locales.map((locale) => client.NoticesStaticPaths({ locale }))
   )
 
-  const notices = pathArraysForLocales
-    .flatMap(({ notices: noticesInner }) => noticesInner?.data || [])
+  const entities = pathArraysForLocales
+    .flatMap(({ notices }) => notices?.data || [])
     .filter(isDefined)
 
-  if (notices) {
-    paths = notices
+  if (entities) {
+    paths = entities
       .filter(isDefined)
-      .filter((notice) => notice?.attributes?.slug)
-      .map((notice) => ({
+      .filter((entity) => entity?.attributes?.slug)
+      .map((entity) => ({
         params: {
           fullPath: `${
-            notice.attributes?.locale === 'sk' ? '/zazite/aktuality/' : '/experience/news/'
-          }${notice.attributes?.slug!}`
+            entity.attributes?.locale === 'sk' ? '/zazite/aktuality/' : '/experience/news/'
+          }${entity.attributes?.slug!}`
             .split('/')
             .slice(1),
-          locale: notice.attributes?.locale || '',
+          locale: entity.attributes?.locale || '',
         },
       }))
   }
   // eslint-disable-next-line no-console
-  console.log(`GENERATED STATIC PATHS FOR ${paths.length} NOTICES`)
+  console.log(`Notices: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<NoticePageProps> = async (ctx) => {
-  const locale = ctx.locale ?? 'sk'
-  const slug = last(ctx?.params?.fullPath)
+export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = async ({
+  locale = 'sk',
+  params,
+}) => {
+  const slug = last(params?.fullPath)
 
   if (!slug) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} notice ${slug} on ${ctx?.params?.fullPath}`)
+  console.log(`Revalidating ${locale} notice ${slug} on ${params?.fullPath.join('/') ?? ''}`)
 
-  const [{ notices }, general] = await Promise.all([
+  const [{ notices }, general, translations] = await Promise.all([
     client.NoticeBySlug({ slug, locale }),
     generalFetcher(locale),
+    serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
   ])
   const notice = notices?.data[0] ?? null
-
-  const translations = (await serverSideTranslations(locale, [
-    'common',
-    'forms',
-    'newsletter',
-  ])) as any
 
   if (!notice) return { notFound: true }
 
