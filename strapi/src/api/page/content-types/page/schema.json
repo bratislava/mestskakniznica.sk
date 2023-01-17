@@ -45,15 +45,7 @@
         "listing",
         "sublisting",
         "full_content",
-        "content_with_sidebar",
-        "partners",
-        "blog_posts",
-        "book_news",
-        "documents",
-        "event",
-        "eventsListing",
-        "news",
-        "newsListing"
+        "content_with_sidebar"
       ]
     },
     "perex": {
@@ -63,14 +55,6 @@
         }
       },
       "type": "text"
-    },
-    "description": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "richtext"
     },
     "listingImage": {
       "type": "media",
@@ -87,22 +71,6 @@
           "localized": true
         }
       }
-    },
-    "promoted": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "boolean"
-    },
-    "date_added": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "date"
     },
     "pageCategory": {
       "type": "relation",

@@ -15,14 +15,6 @@ const PageBreadcrumbs = ({ page, blogPost, breadCrumbs }: PageBreadcrumbsProps) 
 
   const crumbs: BreadcrumbListItem[] = []
 
-  // blog post page
-  if (page?.attributes?.layout === 'blog_posts' && blogPost) {
-    crumbs.push({
-      title: blogPost?.attributes?.title ?? '',
-      url: `${t('blog_slug') + pagePath(blogPost?.attributes)}`,
-    })
-  }
-
   // self, if is only subpage and not pagecategory, to avoid mutliple appearance
   if (
     page?.attributes?.pageCategory?.data?.attributes?.pageLink?.page?.data?.attributes?.slug !==
