@@ -6,7 +6,6 @@ fragment PageEntity on PageEntity {
     createdAt
     updatedAt
     publishedAt
-    date_added
     listingImage {
       data {
         attributes {
@@ -26,7 +25,6 @@ fragment PageEntity on PageEntity {
     }
     layout
     perex
-    description
     pageCategory {
       data {
         ...PageCategoryEntity
@@ -62,7 +60,6 @@ fragment SectionLinkPage on PageEntity {
     slug
     createdAt
     updatedAt
-    date_added
     listingImage {
       data {
         attributes {

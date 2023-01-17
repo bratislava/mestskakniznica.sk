@@ -1814,17 +1814,9 @@ enum ENUM_COMPONENTSECTIONSFORM_TYPE {
 }
 
 enum ENUM_PAGE_LAYOUT {
-  blog_posts
-  book_news
   content_with_sidebar
-  documents
-  event
-  eventsListing
   full_content
   listing
-  news
-  newsListing
-  partners
   sublisting
 }
 
@@ -2622,15 +2614,12 @@ type Page {
   Seo: ComponentSeoSeo
   branchesServicesTo(filters: BranchFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): BranchRelationResponseCollection
   createdAt: DateTime
-  date_added: Date
-  description: String
   layout: ENUM_PAGE_LAYOUT
   listingImage: UploadFileEntityResponse
   locale: String
   localizations(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
   pageCategory: CategoryEntityResponse
   perex: String
-  promoted: Boolean
   publishedAt: DateTime
   sections: [PageSectionsDynamicZone]
   slug: String!
@@ -2657,8 +2646,6 @@ input PageFiltersInput {
   and: [PageFiltersInput]
   branchesServicesTo: BranchFiltersInput
   createdAt: DateTimeFilterInput
-  date_added: DateFilterInput
-  description: StringFilterInput
   id: IDFilterInput
   layout: StringFilterInput
   locale: StringFilterInput
@@ -2667,7 +2654,6 @@ input PageFiltersInput {
   or: [PageFiltersInput]
   pageCategory: CategoryFiltersInput
   perex: StringFilterInput
-  promoted: BooleanFilterInput
   publishedAt: DateTimeFilterInput
   slug: StringFilterInput
   title: StringFilterInput
@@ -2677,13 +2663,10 @@ input PageFiltersInput {
 input PageInput {
   Seo: ComponentSeoSeoInput
   branchesServicesTo: [ID]
-  date_added: Date
-  description: String
   layout: ENUM_PAGE_LAYOUT
   listingImage: ID
   pageCategory: ID
   perex: String
-  promoted: Boolean
   publishedAt: DateTime
   sections: [PageSectionsDynamicZoneInput!]
   slug: String

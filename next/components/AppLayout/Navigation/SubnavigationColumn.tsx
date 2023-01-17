@@ -1,6 +1,6 @@
 import EventRow from '@modules/common/EventRow'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { ComponentMenuSections, Enum_Page_Layout } from '@services/graphql'
+import { ComponentMenuSections } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
@@ -14,11 +14,6 @@ interface ColumnProps {
 const Column = ({ section, classNames }: ColumnProps) => {
   const { upcomingEvents } = useGeneralContext()
 
-  // TODO optionally load latestEvents here if needed
-  const containsEvents = section?.sectionLinks?.some(
-    (sectionLink) =>
-      sectionLink?.sectionLinkPage?.data?.attributes?.layout === Enum_Page_Layout.Event
-  )
   const isLengthy = section?.sectionLinks ? section.sectionLinks.length >= 8 : false
 
   return (
@@ -38,7 +33,7 @@ const Column = ({ section, classNames }: ColumnProps) => {
 
       <div
         className={cx('grid', {
-          'grid-flow-col grid-rows-8 gap-x-10': !containsEvents && isLengthy,
+          'grid-flow-col grid-rows-8 gap-x-10': isLengthy,
         })}
       >
         {section.sectionLinks?.map((sectionLink) => {
@@ -63,7 +58,7 @@ const Column = ({ section, classNames }: ColumnProps) => {
             return (
               <NavigationMenu.Link
                 className={cx('h-auto cursor-pointer pt-4 text-foreground-body', {
-                  'h-[45px]': !containsEvents && isLengthy,
+                  'h-[45px]': isLengthy,
                 })}
                 tabIndex={-1}
                 key={sectionLink.sectionLinkPage?.data?.attributes?.slug}
