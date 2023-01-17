@@ -1,4 +1,4 @@
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 
 import { Link } from '../Link/Link'
@@ -19,14 +19,13 @@ export const Documents = ({
   files,
   targetBlank = false,
 }: DocumentsProps) => {
-  const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className, 'flex flex-col')}>
       <h3 className="text-h3">{title}</h3>
 
       <div className={cx('flex flex-col', { 'mt-6': !!title })}>
         {files?.map((file, index) => (
-          <UILink key={index} href={file.url ?? ''} target={targetBlank ? '_blank' : undefined}>
+          <MLink key={index} href={file.url ?? ''} target={targetBlank ? '_blank' : undefined}>
             <RowFile
               className="cursor-pointer"
               type={file.content?.type ?? ''}
@@ -35,7 +34,7 @@ export const Documents = ({
               dateAdded={file.content?.dateAdded || ''}
               fileType={file.content?.fileType}
             />
-          </UILink>
+          </MLink>
         ))}
       </div>
 

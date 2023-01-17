@@ -1,6 +1,6 @@
 import cx from 'classnames'
 
-import { SubpageItem, SubpageItemProps } from '../SubpageItem/SubpageItem'
+import SubpageItem, { SubpageItemProps } from '../SubpageItem/SubpageItem'
 
 export interface SubpagesProps {
   title?: string

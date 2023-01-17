@@ -1,5 +1,5 @@
 import Open from '@assets/images/open-in-new.svg'
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 
 import FlatText from '../FlatText/FlatText'
@@ -16,7 +16,6 @@ export interface ExternalLinksProps {
 }
 
 export const ExternalLinks = ({ className, title, sections }: ExternalLinksProps) => {
-  const { Link: UILink } = useUIContext()
   return (
     <div className={cx(className)}>
       {title && <h3 className="text-h3">{title}</h3>}
@@ -30,7 +29,7 @@ export const ExternalLinks = ({ className, title, sections }: ExternalLinksProps
               {section.links && (
                 <div className="mt-4 flex flex-col space-y-3">
                   {section?.links.map((link) => (
-                    <UILink
+                    <MLink
                       key={link.title}
                       className="flex items-center justify-between border border-border-dark p-4 text-base text-foreground-heading"
                       href={link.url ?? '#'}
@@ -39,7 +38,7 @@ export const ExternalLinks = ({ className, title, sections }: ExternalLinksProps
                     >
                       {link.title}
                       <Open />
-                    </UILink>
+                    </MLink>
                   ))}
                 </div>
               )}

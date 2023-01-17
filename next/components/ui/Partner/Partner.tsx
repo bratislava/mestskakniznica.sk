@@ -1,5 +1,5 @@
 import Globe from '@assets/images/language.svg'
-import { useUIContext } from '@bratislava/common-frontend-ui-context'
+import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 
 export interface PartnerProps {
@@ -12,7 +12,6 @@ export interface PartnerProps {
 }
 
 export const Partner = ({ className, title, pageLink, logo, alt, featured }: PartnerProps) => {
-  const { Link: UILink, Image: UIImage } = useUIContext()
   return (
     <div
       className={cx(className, 'flex w-full border-border-dark p-4 lg:p-5', {
@@ -38,7 +37,7 @@ export const Partner = ({ className, title, pageLink, logo, alt, featured }: Par
         {title}
       </h5>
 
-      <UILink
+      <MLink
         target="_blank"
         className={cx(className, 'flex items-center space-x-[9px]', {
           'mt-[6px] lg:mt-[13px]': featured,
@@ -53,7 +52,7 @@ export const Partner = ({ className, title, pageLink, logo, alt, featured }: Par
         >
           {pageLink?.title}
         </span>
-      </UILink>
+      </MLink>
     </div>
   )
 }
