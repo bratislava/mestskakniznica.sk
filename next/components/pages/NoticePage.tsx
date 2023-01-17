@@ -1,5 +1,6 @@
 import { Documents, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
+import RichText from '@modules/formatting/RichText'
 import { NoticeEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
@@ -42,7 +43,10 @@ const NoticePage = ({ notice }: NoticePageProps) => {
         <Breadcrumbs crumbs={breadCrumbs} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={notice?.attributes?.title ?? ''} perex={notice?.attributes?.body ?? ''} />
+        <PageTitle title={notice?.attributes?.title ?? ''} />
+        <div className="my-6">
+          <RichText content={notice?.attributes?.body ?? ''} />
+        </div>
       </SectionContainer>
       <SectionContainer>
         <Documents files={files} targetBlank />
