@@ -1,5 +1,5 @@
 import { Partner } from '@bratislava/ui-city-library'
-import { getPartnersQueryKey, partnersFetcher } from '@utils/fetchers/partners.fetcher'
+import { getPartnersQueryKey, partnersFetcher } from '@services/graphql/fetchers/partners.fetcher'
 import { useTranslation } from 'next-i18next'
 import { useQuery } from 'react-query'
 

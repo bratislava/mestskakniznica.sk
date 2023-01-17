@@ -1,4 +1,4 @@
-import Burger from '@assets/images/Burger.svg'
+import { BurgerIcon } from '@assets/icons'
 import cx from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -77,7 +77,7 @@ const MobilHeader = () => {
           <SkipToContentButton />
 
           <div className="border-l border-border-dark">
-            <Burger onClick={() => setMenuOpen(true)} className="m-4 cursor-pointer" />
+            <BurgerIcon onClick={() => setMenuOpen(true)} className="m-4 cursor-pointer" />
             {isMenuOpen && <MobileNavigation onClose={() => setMenuOpen(false)} />}
           </div>
         </div>

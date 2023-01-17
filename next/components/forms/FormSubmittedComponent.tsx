@@ -1,5 +1,4 @@
-import CheckMark from '@assets/images/check-mark.svg'
-import CloseIcon from '@assets/images/close.svg'
+import { CheckNoPaddingIcon, CloseIcon } from '@assets/icons'
 import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
@@ -30,7 +29,7 @@ const FormSubmittedComponent = ({
     <div className={cx('py-4', className)}>
       <div className="flex h-full w-full flex-col items-center justify-center gap-y-8 text-center">
         <span className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border-dark bg-button-dark text-base text-white">
-          {submitStatus == SubmitStatus.SUCCESS && <CheckMark />}
+          {submitStatus == SubmitStatus.SUCCESS && <CheckNoPaddingIcon />}
           {submitStatus == SubmitStatus.FAILURE && <CloseIcon />}
         </span>
         <div className="space-y-4">

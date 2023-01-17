@@ -1,5 +1,4 @@
-import ClearCircle from '@assets/images/clear-circle.svg'
-import PlusIcon from '@assets/images/plus.svg'
+import { CloseCircleIcon, PlusIcon } from '@assets/icons'
 import { Input } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
 import cx from 'classnames'
@@ -50,7 +49,7 @@ const BookList = ({ className }: Props) => {
                 aria-label={t('remove_book')}
                 onPress={() => handleRemoveBook(index)}
               >
-                <ClearCircle />
+                <CloseCircleIcon />
               </Button>
             )}
             <div className="flex w-full flex-col gap-y-6">

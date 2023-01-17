@@ -1,11 +1,10 @@
 import EventRow from '@modules/common/EventRow'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import { ComponentMenuSections, Enum_Page_Layout } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import Link from 'next/link'
-
-import { ComponentMenuSections, Enum_Page_Layout } from '../../../graphql'
 
 interface ColumnProps {
   section: ComponentMenuSections

@@ -1,11 +1,14 @@
 import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
-import { getLatestNewsQueryKey, latestNewsFetcher } from '@utils/fetchers/latestNews.fetcher'
+import { PageEntity } from '@services/graphql'
+import {
+  getLatestNewsQueryKey,
+  latestNewsFetcher,
+} from '@services/graphql/fetchers/latestNews.fetcher'
 import { useGeneralContext } from '@utils/generalContext'
+import { parseSubCategories } from '@utils/page'
 import { useTranslation } from 'next-i18next'
 import { useQuery } from 'react-query'
 
-import { PageEntity } from '../../graphql'
-import { parseSubCategories } from '../../utils/page'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface PageProps {

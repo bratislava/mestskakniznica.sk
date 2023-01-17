@@ -1,7 +1,7 @@
-import CheckMark from '@assets/images/check-mark.svg'
+import { CheckNoPaddingIcon } from '@assets/icons'
 import RegisterToLibrary from '@assets/images/register-to-library.svg'
-import { ComponentHomepageRegistrationInfo } from '@bratislava/strapi-sdk-city-library'
 import Button from '@modules/common/Button'
+import { ComponentHomepageRegistrationInfo } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -26,7 +26,7 @@ const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) =>
             <ul>
               {registrationInfoSection?.registrationBenefits?.map((benefit) => (
                 <li className="flex pt-3 text-base" key={benefit?.id}>
-                  <CheckMark className="mr-4 mt-[6px] inline shrink-0" />{' '}
+                  <CheckNoPaddingIcon className="mr-4 mt-[6px] inline shrink-0" />{' '}
                   {/* <Check className="inline-flex scale-75 text-base md:scale-100" />{' '} */}
                   {benefit?.benefit}
                 </li>

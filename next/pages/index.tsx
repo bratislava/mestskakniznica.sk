@@ -1,10 +1,22 @@
 import { Localities, SectionContainer } from '@bratislava/ui-city-library'
 import SectionHomepageNewBooks from '@components/HomePage/SectionHomepageNewBooks'
 import type { Book } from '@modules/common/Cards/BookCard'
-import { generalFetcher } from '@utils/fetchers/general.fetcher'
-import { newBooksHomePageServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
+import {
+  BookTagEntityFragment,
+  ComponentHomepageFaqSection,
+  ComponentHomepageNewsSection,
+  ComponentHomepageRegistrationInfo,
+  ComponentSectionsMap,
+  ComponentSeoSeo,
+  EventCardEntityFragment,
+  GeneralQuery,
+  NoticeListingEntityFragment,
+  PageLocalizationEntityFragment,
+} from '@services/graphql'
+import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
+import { client } from '@services/graphql/gql'
+import { newBooksHomePageServerSideFetcher } from '@services/opac/fetchers/new-books-server-side.fetcher'
 import { GeneralContextProvider } from '@utils/generalContext'
-import { client } from '@utils/gql'
 import { hasAttributes, isDefined } from '@utils/isDefined'
 import { isPresent } from '@utils/utils'
 import { GetStaticProps } from 'next'
@@ -21,18 +33,6 @@ import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorDisplay, { getError, IDisplayError } from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
-import {
-  BookTagEntityFragment,
-  ComponentHomepageFaqSection,
-  ComponentHomepageNewsSection,
-  ComponentHomepageRegistrationInfo,
-  ComponentSectionsMap,
-  ComponentSeoSeo,
-  EventCardEntityFragment,
-  GeneralQuery,
-  NoticeListingEntityFragment,
-  PageLocalizationEntityFragment,
-} from '../graphql'
 // used for example meili usage
 // import { useUpcomingEvents } from '../hooks/useUpcomingEvets'
 // import { useEffect } from 'react'

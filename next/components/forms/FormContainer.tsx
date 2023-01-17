@@ -1,11 +1,11 @@
-import CloseIcon from '@assets/images/close.svg'
+import { CloseIcon } from '@assets/icons'
 import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode, useEffect, useState } from 'react'
+import { useWindowSize } from 'usehooks-ts'
 
 import useLockedBodyScroll from '../../hooks/useLockedBodyScroll'
-import useWindowSize from '../../hooks/useWindowSize'
 import FormSubmittedComponent from './FormSubmittedComponent'
 
 export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/

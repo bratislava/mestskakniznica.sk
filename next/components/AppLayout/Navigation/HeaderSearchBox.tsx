@@ -1,5 +1,4 @@
-import ClearCircle from '@assets/images/clear-circle.svg'
-import SearchIcon from '@assets/images/search.svg'
+import { CloseCircleIcon, SearchIcon } from '@assets/icons'
 import { SearchBar, Select } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
 import cx from 'classnames'
@@ -94,7 +93,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
               variant="unstyled"
               className="flex items-center"
             >
-              <ClearCircle />
+              <CloseCircleIcon />
             </Button>
           )
         }

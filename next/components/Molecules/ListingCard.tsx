@@ -1,10 +1,9 @@
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import FormatDate from '@modules/formatting/FormatDate'
+import { EventCardEntityFragment, NoticeListingEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
-
-import { EventCardEntityFragment, NoticeListingEntityFragment } from '../../graphql'
 
 interface IListingCardProps {
   card: EventCardEntityFragment | NoticeListingEntityFragment

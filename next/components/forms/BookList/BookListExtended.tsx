@@ -1,5 +1,4 @@
-import ClearCircle from '@assets/images/clear-circle.svg'
-import PlusIcon from '@assets/images/plus.svg'
+import { CloseCircleIcon, PlusIcon } from '@assets/icons'
 import { Input } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
 import cx from 'classnames'
@@ -59,7 +58,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
               onPress={() => handleRemoveBook(index)}
               aria-label={t('remove_book')}
             >
-              <ClearCircle />
+              <CloseCircleIcon />
             </Button>
           )}
           {showLinkInput && (

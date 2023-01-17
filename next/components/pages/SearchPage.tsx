@@ -1,6 +1,13 @@
-import ChevronRight from '@assets/images/chevron-right.svg'
+import { ChevronRightIcon } from '@assets/icons'
 import { PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
+import {
+  allSearchTypes,
+  commonSearchFetcher,
+  CommonSearchFilters,
+  CommonSearchType,
+  getCommonSearchQueryKey,
+} from '@services/meili/fetchers/commonSearchFetcher'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -8,13 +15,6 @@ import { useTranslation } from 'next-i18next'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 
-import {
-  allSearchTypes,
-  commonSearchFetcher,
-  CommonSearchFilters,
-  CommonSearchType,
-  getCommonSearchQueryKey,
-} from '../../backend/meili/fetchers/commonSearchFetcher'
 import { useSearch } from '../../hooks/useSearch'
 import { AnimateHeight } from '../Atoms/AnimateHeight'
 import SearchField from '../Atoms/SearchField'
@@ -162,7 +162,7 @@ const SearchPage = () => {
                           </div>
                         </div>
                       </div>
-                      <ChevronRight className="ml-4 shrink-0" />
+                      <ChevronRightIcon className="ml-4 shrink-0" />
                     </div>
                   </Link>
                 ))}

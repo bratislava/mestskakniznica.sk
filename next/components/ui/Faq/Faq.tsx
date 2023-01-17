@@ -1,6 +1,6 @@
-import { ComponentSectionsFaq } from '@bratislava/strapi-sdk-city-library'
 import Accordion from '@modules/common/Accordion'
 import RichText from '@modules/formatting/RichText'
+import { ComponentSectionsFaq } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 

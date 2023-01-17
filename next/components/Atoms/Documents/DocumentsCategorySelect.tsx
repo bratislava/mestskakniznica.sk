@@ -2,7 +2,7 @@ import SelectWithFetcher from '@components/Atoms/SelectWithFetcher'
 import {
   documentCategoriesFetcher,
   documentCategoriesQueryKey,
-} from '@utils/fetchers/document-categories.fetcher'
+} from '@services/graphql/fetchers/document-categories.fetcher'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 

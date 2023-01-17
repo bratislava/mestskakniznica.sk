@@ -1,6 +1,6 @@
+import { EventCardEntityFragment, NoticeListingEntityFragment } from '@services/graphql'
 import { withAttributes } from '@utils/isDefined'
 
-import { EventCardEntityFragment, NoticeListingEntityFragment } from '../../graphql'
 import PromoEventCard from './Promos/PromoEventCard'
 import PromoNewsCard from './Promos/PromoNewsCard'
 

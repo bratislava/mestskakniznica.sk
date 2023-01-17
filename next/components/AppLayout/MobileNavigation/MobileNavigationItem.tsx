@@ -1,8 +1,8 @@
+import { MenuEntity } from '@services/graphql'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-import { MenuEntity } from '../../../graphql'
 import MobileSubnavigation from './MobileSubnavigation'
 
 interface navItemProps {

@@ -1,8 +1,4 @@
-import {
-  ComponentMenuSections,
-  Maybe,
-  MenuSectionFragment,
-} from '@bratislava/strapi-sdk-city-library'
+import { ComponentMenuSections, Maybe, MenuSectionFragment } from '@services/graphql'
 import Link from 'next/link'
 
 interface SubnavigationProps {

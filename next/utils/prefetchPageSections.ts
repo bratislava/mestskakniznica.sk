@@ -1,40 +1,45 @@
-import { Enum_Page_Layout, PageEntityFragment } from '@bratislava/strapi-sdk-city-library'
+import { Enum_Page_Layout, PageEntityFragment } from '@services/graphql'
 import {
   blogPostsDefaultFilters,
   blogPostsFetcher,
   getBlogPostsQueryKey,
-} from '@utils/fetchers/blog-posts.fetcher'
+} from '@services/graphql/fetchers/blog-posts.fetcher'
 import {
   documentCategoriesFetcher,
   documentCategoriesQueryKey,
-} from '@utils/fetchers/document-categories.fetcher'
+} from '@services/graphql/fetchers/document-categories.fetcher'
 import {
   eventPropertiesFetcher,
   getEventPropertiesQueryKey,
-} from '@utils/fetchers/event-properties.fetcher'
-import { getLatestNewsQueryKey, latestNewsFetcher } from '@utils/fetchers/latestNews.fetcher'
-import { getNewBooksQueryKey, newBooksDefaultFilters } from '@utils/fetchers/new-books.fetcher'
-import { newBookServerSideFetcher } from '@utils/fetchers/new-books-server-side.fetcher'
+} from '@services/graphql/fetchers/event-properties.fetcher'
+import {
+  getLatestNewsQueryKey,
+  latestNewsFetcher,
+} from '@services/graphql/fetchers/latestNews.fetcher'
 import {
   getNoticesQueryKey,
   noticesDefaultFilters,
   noticesFetcher,
-} from '@utils/fetchers/notices.fetcher'
-import { getPartnersQueryKey, partnersFetcher } from '@utils/fetchers/partners.fetcher'
-import { dehydrate, QueryClient } from 'react-query'
-
+} from '@services/graphql/fetchers/notices.fetcher'
+import { getPartnersQueryKey, partnersFetcher } from '@services/graphql/fetchers/partners.fetcher'
 import {
   documentsDefaultFilters,
   documentsFetcher,
   getDocumentsQueryKey,
-} from '../backend/meili/fetchers/documentsFetcher'
+} from '@services/meili/fetchers/documentsFetcher'
 import {
   eventsArchivedDefaultFilters,
   eventsDefaultSharedFilters,
   eventsFetcher,
   eventsUpcomingDefaultFilters,
   getEventsQueryKey,
-} from '../backend/meili/fetchers/eventsFetcher'
+} from '@services/meili/fetchers/eventsFetcher'
+import {
+  getNewBooksQueryKey,
+  newBooksDefaultFilters,
+} from '@services/opac/fetchers/new-books.fetcher'
+import { newBookServerSideFetcher } from '@services/opac/fetchers/new-books-server-side.fetcher'
+import { dehydrate, QueryClient } from 'react-query'
 
 export const prefetchPageSections = async (page: PageEntityFragment, locale: string) => {
   const queryClient = new QueryClient()

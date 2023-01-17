@@ -19,14 +19,13 @@
     "paths": {
       "@modules/*": ["./modules/*"],
       "@assets/icons": ["./assets/icons/index.ts"],
+      "@services/*": ["./services/*"],
       "@bratislava/ui-city-library": ["./components/ui/"],
       "@bratislava/ui-city-library/*": ["./components/ui/*"],
-      "@bratislava/common-frontend-ui-context": ["utils/ui-context.tsx"],
       "@utils/*": ["./utils/*"],
       "@components/*": ["./components/*"],
       "@assets/images": ["./assets/images/index.ts"],
       "@assets/images/*": ["./assets/images/*"],
-      "@bratislava/strapi-sdk-city-library": ["./graphql/index.ts"],
       "@culturehq/add-to-calendar": ["./customTypes/@culturehq/add-to-calendar"]
     }
   },

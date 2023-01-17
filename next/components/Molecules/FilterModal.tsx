@@ -1,4 +1,4 @@
-import CloseIcon from '@assets/images/close.svg'
+import { CloseIcon } from '@assets/icons'
 import Button from '@modules/common/Button'
 import { ReactNode } from 'react'
 

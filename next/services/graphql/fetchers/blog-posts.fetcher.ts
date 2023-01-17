@@ -1,4 +1,4 @@
-import { client } from '@utils/gql'
+import { client } from '@services/graphql/gql'
 
 export type BlogPostsFilters = {
   pageSize: number

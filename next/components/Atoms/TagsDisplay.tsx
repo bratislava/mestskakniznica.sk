@@ -1,4 +1,4 @@
-import { EventTagEntity } from '@bratislava/strapi-sdk-city-library'
+import { EventTagEntity } from '@services/graphql'
 import { Fragment } from 'react'
 
 interface TagsDisplayProps {

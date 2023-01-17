@@ -1,5 +1,6 @@
-import { ComponentSeoSeo } from '@bratislava/strapi-sdk-city-library'
 import { Footer, SectionContainer } from '@bratislava/ui-city-library'
+import ScrollToTopButton from '@modules/common/ScrollToTopButton'
+import { ComponentSeoSeo } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
@@ -8,7 +9,6 @@ import favicon from '../../assets/images/mkb_favicon.png'
 import Header from '../AppLayout/Header'
 import MobileHeader from '../AppLayout/MobileNavigation/MobileHeader'
 import NewsletterSection from '../HomePage/NewsletterSection'
-import ScrollToTop from '../ScrollToTop'
 import { otherLocale, usePageWrapperContext } from './PageWrapper'
 
 interface IProps {
@@ -77,7 +77,7 @@ const DefaultPageLayout = ({ children, title, Seo }: IProps) => {
           <div className="px-4">
             <NewsletterSection />
           </div>
-          <ScrollToTop />
+          <ScrollToTopButton />
         </main>
         <footer>
           <SectionContainer>

@@ -1,4 +1,4 @@
-import ChevronRight from '@assets/images/chevron-right.svg'
+import { ChevronRightIcon } from '@assets/icons'
 import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 
@@ -19,7 +19,7 @@ export const RowSubcategory = ({ className, title, href }: RowSubcategoryProps) 
       <MLink href={href} stretched className="text-foreground-heading" variant="basic">
         {title}
       </MLink>
-      <ChevronRight />
+      <ChevronRightIcon />
     </div>
   )
 }

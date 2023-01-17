@@ -1,4 +1,4 @@
-import ChevronDown from '@assets/images/chevron-down.svg'
+import { ChevronLeftIcon } from '@assets/icons'
 import { AnimateHeight } from '@components/Atoms/AnimateHeight'
 import { Disclosure } from '@headlessui/react'
 import cx from 'classnames'
@@ -68,9 +68,10 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
               <h3 className={headingStyles}>{title}</h3>
               {additionalInfo && <div className="pr-6">{additionalInfo}</div>}
               <div className="shrink-0">
-                <ChevronDown
+                <ChevronLeftIcon
                   className={cx('mr-1 transform transition-transform', {
-                    'rotate-180': open,
+                    'rotate-90': open,
+                    '-rotate-90': !open,
                   })}
                 />
               </div>

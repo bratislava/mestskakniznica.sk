@@ -1,4 +1,4 @@
-import { ComponentLocalityPartsLocalitySection } from '@bratislava/strapi-sdk-city-library'
+import { ComponentLocalityPartsLocalitySection } from '@services/graphql'
 
 export const arrayify = (input: string | string[] | undefined | null) => {
   if (input === undefined || input === null) {

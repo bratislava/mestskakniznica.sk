@@ -1,6 +1,6 @@
-import { getSdk } from '@bratislava/strapi-sdk-city-library'
 import { GraphQLClient } from 'graphql-request'
 import getConfig from 'next/config'
+import { getSdk } from '@services/graphql/index'
 
 const { serverRuntimeConfig } = getConfig()
 

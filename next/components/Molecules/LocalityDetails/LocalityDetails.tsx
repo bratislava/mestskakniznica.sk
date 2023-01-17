@@ -1,10 +1,10 @@
-import { BranchEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
 import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
 import LocalityDetailsSubBranches from '@components/Molecules/LocalityDetails/LocalityDetailsSubBranches'
 import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
 import MLink from '@modules/common/MLink'
 import RichText from '@modules/formatting/RichText'
+import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
 export interface PageProps {

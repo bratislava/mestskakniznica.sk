@@ -1,17 +1,17 @@
 import {
+  SidebarProps,
+  SubpageItemProps,
+  TableRowProps,
+  TExternalLinksSection,
+} from '@bratislava/ui-city-library'
+import {
   CategoryEntity,
   ComponentBlocksPageLink,
   ExternalLinkFragment,
   FlatTextFragment,
   SubpagesFragment,
   TableRowFragment,
-} from '@bratislava/strapi-sdk-city-library'
-import {
-  SidebarProps,
-  SubpageItemProps,
-  TableRowProps,
-  TExternalLinksSection,
-} from '@bratislava/ui-city-library'
+} from '@services/graphql'
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
 

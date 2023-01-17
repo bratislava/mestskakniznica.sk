@@ -18,6 +18,7 @@ type ButtonBase = {
     | 'plain-secondary'
     | 'plain-white'
     | 'unstyled'
+  noPadding?: boolean
   mobileFullWidth?: boolean
   className?: string
   disabled?: boolean
@@ -54,6 +55,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       className,
       shape = 'default',
       variant = 'primary',
+      noPadding = false,
       mobileFullWidth,
       disabled,
       ...rest
@@ -77,9 +79,10 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         : twMerge(
             cx(
               baseStyle,
-              'inline-flex items-center justify-center gap-x-3 px-5 py-[9px] text-center text-sm uppercase tracking-wider',
+              'inline-flex items-center justify-center gap-x-3 text-center text-sm uppercase tracking-wider',
               {
                 'w-full lg:w-auto': mobileFullWidth,
+                'px-5 py-[9px]': !noPadding,
 
                 // text colors
                 'text-white': variant === 'primary' || variant === 'plain-white',

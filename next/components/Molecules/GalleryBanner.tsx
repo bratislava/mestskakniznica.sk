@@ -1,4 +1,4 @@
-import { ComponentLocalityPartsGalleryParts } from '@bratislava/strapi-sdk-city-library'
+import { ComponentLocalityPartsGalleryParts } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 

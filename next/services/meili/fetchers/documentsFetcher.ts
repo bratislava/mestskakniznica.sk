@@ -1,8 +1,8 @@
 import { Sort } from '@components/Atoms/SortSelect'
 import { isDefined } from '@utils/isDefined'
-import { meiliClient } from '@utils/meilisearch'
 
 import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
+import { meiliClient } from '../meilisearch'
 import { BasicDocumentMeili } from '../meiliTypes'
 import { SearchIndexWrapped, unwrapFromSearchIndex } from '../searchIndexWrapped'
 

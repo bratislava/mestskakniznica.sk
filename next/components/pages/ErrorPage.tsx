@@ -1,12 +1,13 @@
-import ChevronRight from '@assets/images/chevron-right.svg'
+import { ChevronRightIcon } from '@assets/icons'
 import Home from '@assets/images/home.svg'
 import { SectionContainer } from '@bratislava/ui-city-library'
+import { ReactNode } from 'react'
 
 import book_reader from '../../assets/images/book-reader.png'
 
 interface IProps {
   code: number
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 const ErrorPage = ({ code, children }: IProps) => {
@@ -19,7 +20,7 @@ const ErrorPage = ({ code, children }: IProps) => {
           </a>
           <div className="flex">
             <div className="py-[23px] pl-[18px]">
-              <ChevronRight />
+              <ChevronRightIcon />
             </div>
             <div className="py-[18px] pl-3"> {code} </div>
           </div>

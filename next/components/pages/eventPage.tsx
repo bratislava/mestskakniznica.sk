@@ -1,10 +1,10 @@
 import { Link, SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
+import { EventEntityFragment } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
 import EventDetails from 'components/Molecules/EventDetails'
 import { useTranslation } from 'next-i18next'
 
-import { EventEntityFragment } from '../../graphql'
 import Section from '../AppLayout/Section'
 import ListingCard from '../Molecules/ListingCard'
 

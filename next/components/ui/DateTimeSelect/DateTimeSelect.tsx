@@ -1,5 +1,4 @@
-import CalendarIcon from '@assets/images/calendar.svg'
-import ClockIcon from '@assets/images/clock.svg'
+import { CalendarIcon, ClockIcon } from '@assets/icons'
 import cx from 'classnames'
 
 import { Input, InputProps } from '../Input/Input'

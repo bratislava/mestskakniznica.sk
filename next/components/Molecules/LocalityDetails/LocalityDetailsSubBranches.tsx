@@ -1,8 +1,8 @@
 import BusinessSvg from '@assets/images/business.svg'
 import MailSvg from '@assets/images/mail.svg'
 import PhoneSvg from '@assets/images/phone.svg'
-import { BranchEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import Accordion from '@modules/common/Accordion'
+import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 

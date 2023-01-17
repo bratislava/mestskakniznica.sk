@@ -1,5 +1,5 @@
-import { BranchEntityFragment } from '@bratislava/strapi-sdk-city-library'
 import { LocalityMap } from '@components/ui'
+import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
 type LocalityDetailsWhereProps = {

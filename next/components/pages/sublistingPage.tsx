@@ -1,9 +1,9 @@
-import { PageEntity } from '@bratislava/strapi-sdk-city-library'
 import { Listing, PageTitle, SectionContainer } from '@bratislava/ui-city-library'
+import { PageEntity } from '@services/graphql'
+import { parsePages } from '@utils/page'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
 
-import { parsePages } from '../../utils/page'
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 
 export interface SublistingPageProps {

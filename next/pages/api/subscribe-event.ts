@@ -1,7 +1,6 @@
+import { client } from '@services/graphql/gql'
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
-
-import { client } from '../../utils/gql'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const oauth2Client = new google.auth.OAuth2(

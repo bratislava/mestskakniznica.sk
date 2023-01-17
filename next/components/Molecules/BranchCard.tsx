@@ -1,9 +1,8 @@
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
+import { ImageEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-
-import { ImageEntityFragment } from '../../graphql'
 
 interface BranchCardProps {
   title: string

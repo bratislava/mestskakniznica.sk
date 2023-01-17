@@ -1,4 +1,4 @@
-import ArrowLeft from '@assets/images/arrow-left.svg'
+import { ChevronLeftIcon } from '@assets/icons'
 import Button from '@modules/common/Button'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
@@ -8,7 +8,7 @@ const handleScrollToTop = () => {
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
 }
 
-const ScrollToTop = () => {
+const ScrollToTopButton = () => {
   const { t } = useTranslation('common')
 
   const [visible, setVisible] = useState(false)
@@ -34,9 +34,9 @@ const ScrollToTop = () => {
       }`}
       onPress={handleScrollToTop}
     >
-      <ArrowLeft />
+      <ChevronLeftIcon />
     </Button>
   )
 }
 
-export default ScrollToTop
+export default ScrollToTopButton

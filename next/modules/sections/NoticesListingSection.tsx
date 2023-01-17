@@ -4,7 +4,7 @@ import {
   getNoticesQueryKey,
   noticesDefaultFilters,
   noticesFetcher,
-} from '@utils/fetchers/notices.fetcher'
+} from '@services/graphql/fetchers/notices.fetcher'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'

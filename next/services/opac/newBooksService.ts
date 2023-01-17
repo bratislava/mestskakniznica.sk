@@ -1,6 +1,6 @@
 import type { Book } from '@modules/common/Cards/BookCard'
+import { mockNewBooks } from '@services/opac/mockNewBooks'
 import { isDefined } from '@utils/isDefined'
-import { mockNewBooks } from '@utils/mockNewBooks'
 import ufs from 'url-file-size'
 import XMLConvertor from 'xml-js'
 

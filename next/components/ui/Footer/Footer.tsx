@@ -1,9 +1,9 @@
 import FbLogo from '@assets/images/fb-logo.svg'
 import IgLogo from '@assets/images/ig-logo.svg'
 import YtLogo from '@assets/images/yt-logo.svg'
-import { ComponentFooterFooterColumn, Maybe } from '@bratislava/strapi-sdk-city-library'
 import Accordion from '@modules/common/Accordion'
 import MLink from '@modules/common/MLink'
+import { ComponentFooterFooterColumn, Maybe } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
@@ -22,6 +22,7 @@ export interface FooterProps {
   VOP: { title: string; href: string }
   copyrightText?: string
 }
+
 const FooterLinks = ({ footerLink }: { footerLink: ComponentFooterFooterColumn['footerLink'] }) => {
   return (
     <>
