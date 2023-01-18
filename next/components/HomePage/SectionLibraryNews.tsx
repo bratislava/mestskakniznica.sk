@@ -24,7 +24,7 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
           const element = <ListingCard card={notice} />
           return { element, key: notice.id ?? undefined }
         })}
-        visibleItems={4}
+        visibleItemsCount={4}
         shiftIndex={4}
       />
       <div className="flex justify-center">

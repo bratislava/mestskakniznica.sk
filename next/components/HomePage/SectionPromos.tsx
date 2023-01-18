@@ -14,22 +14,31 @@ interface SectionPromosProps {
 const SectionPromos = ({ promos }: SectionPromosProps) => {
   return (
     <Carousel
-      listClassName="my-10 h-[350px] gap-4 px-4 md:h-[490px] lg:gap-5"
+      listClassName="my-10 h-[350px] gap-4 px-4 lg:px-0 md:h-[490px] lg:gap-5"
       itemClassName="w-10/12 max-w-[268px] md:max-w-[379px]"
       shiftIndex={3}
       items={promos?.map((promo) => {
-        let element = null
-        if (promo.__typename === 'EventEntity') {
-          element = <PromoEventCard event={withAttributes(promo)} />
-        } else if (promo.__typename === 'NoticeEntity') {
-          element = (
-            <PromoNewsCard
-              title={promo?.attributes?.title ?? ''}
-              slug={promo?.attributes?.slug ?? ''}
-            />
-          )
+        switch (promo.__typename) {
+          case 'EventEntity':
+            return {
+              element: <PromoEventCard event={withAttributes(promo)} />,
+              key: promo?.attributes?.slug,
+            }
+
+          case 'NoticeEntity':
+            return {
+              element: (
+                <PromoNewsCard
+                  title={promo?.attributes?.title ?? ''}
+                  slug={promo?.attributes?.slug ?? ''}
+                />
+              ),
+              key: promo?.attributes?.slug,
+            }
+
+          default:
+            return { element: null, key: undefined }
         }
-        return { element, key: promo.attributes?.slug }
       })}
     />
   )
