@@ -1,43 +1,33 @@
 import Breadcrumbs, { BreadcrumbListItem } from '@modules/breadcrumbs/Breadcrumbs'
-import { BlogPostEntity, Category, FileCategoryEntity, PageEntity } from '@services/graphql'
-import { pagePath } from '@utils/page'
-import { useTranslation } from 'next-i18next'
+import { PageEntity, PageSitemapParentFragment } from '@services/graphql'
+import { useMemo } from 'react'
 
 interface PageBreadcrumbsProps {
   page: PageEntity | null | undefined
-  blogPost?: BlogPostEntity
-  documentCategory?: FileCategoryEntity
-  breadCrumbs?: { title: string; url: string | null }[]
 }
 
-const PageBreadcrumbs = ({ page, blogPost, breadCrumbs }: PageBreadcrumbsProps) => {
-  const { t } = useTranslation('common')
+const PageBreadcrumbs = ({ page }: PageBreadcrumbsProps) => {
+  const breadcrumbs = useMemo(() => {
+    if (!page?.attributes) {
+      return []
+    }
 
-  const crumbs: BreadcrumbListItem[] = []
+    const crumbs: BreadcrumbListItem[] = [{ title: page.attributes.title }]
+    let current: PageSitemapParentFragment | null | undefined =
+      page?.attributes?.sitemapParent?.data
 
-  // self, if is only subpage and not pagecategory, to avoid mutliple appearance
-  if (
-    page?.attributes?.pageCategory?.data?.attributes?.pageLink?.page?.data?.attributes?.slug !==
-    page?.attributes?.slug
-  ) {
-    crumbs.push({ title: page?.attributes?.title ?? '', url: `/${pagePath(page?.attributes)}` })
-  }
+    while (current?.attributes) {
+      crumbs.push({
+        title: current.attributes?.title,
+        url: current.attributes.slug,
+      })
+      current = current.attributes?.sitemapParent?.data
+    }
 
-  // get parent pagecategory
-  let current: Pick<Category, 'parentCategory' | 'title' | 'pageLink'> | undefined | null =
-    page?.attributes?.pageCategory?.data?.attributes || null
+    return crumbs.reverse()
+  }, [page])
 
-  while (current) {
-    crumbs.push({
-      title: current.pageLink?.page?.data?.attributes?.title ?? '',
-      url: current === page ? undefined : `/${pagePath(current.pageLink?.page?.data?.attributes)}`,
-    })
-    current = current.parentCategory?.data?.attributes
-  }
-
-  crumbs.reverse()
-
-  return <Breadcrumbs crumbs={crumbs} />
+  return <Breadcrumbs crumbs={breadcrumbs} />
 }
 
 export default PageBreadcrumbs

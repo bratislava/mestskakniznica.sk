@@ -1,3 +1,27 @@
+fragment PageSitemapParent on PageEntity {
+  attributes {
+    title
+    slug
+    sitemapParent {
+      data {
+        attributes {
+          title
+          slug
+          sitemapParent {
+            data {
+              attributes {
+                title
+                slug
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
 fragment PageEntity on PageEntity {
   id
   attributes {
@@ -48,6 +72,11 @@ fragment PageEntity on PageEntity {
       metaRobots
       metaViewport
       canonicalURL
+    }
+    sitemapParent {
+      data {
+        ...PageSitemapParent
+      }
     }
   }
 }

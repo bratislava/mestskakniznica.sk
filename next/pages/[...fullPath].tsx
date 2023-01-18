@@ -88,7 +88,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       .filter((page) => page.attributes?.slug)
       .map((page) => ({
         params: {
-          fullPath: page.attributes?.slug?.split('/') ?? [],
+          fullPath: page.attributes?.slug?.split('/').slice(1) ?? [],
           locale: page?.attributes?.locale || '',
         },
       }))
@@ -104,7 +104,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }) => {
-  const fullPathJoined = params?.fullPath.join('/')
+  const fullPathJoined = `/${params?.fullPath.join('/') ?? ''}`
   if (!fullPathJoined) return { notFound: true } as const
 
   // eslint-disable-next-line no-console

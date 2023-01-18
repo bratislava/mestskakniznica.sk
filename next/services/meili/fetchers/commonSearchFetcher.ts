@@ -96,7 +96,7 @@ export const commonSearchFetcher =
               return locale === 'sk' ? `${slugs.notice}${slug}` : `/en${slugs.notice}${slug}`
             }
 
-            return `/${dataInner.slug}`
+            return `${dataInner.slug}`
           })()
 
           return { type, title, link, data: dataInner } as CommonSearchResult

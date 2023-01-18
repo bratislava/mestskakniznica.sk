@@ -25,7 +25,7 @@ const Column = ({ section, classNames }: ColumnProps) => {
     >
       {section.sectionTitle && section.sectionPage !== null && (
         <NavigationMenu.Link className="text-lg hover:underline" tabIndex={-1}>
-          <Link href={`/${section?.sectionPage?.data?.attributes?.slug}`}>
+          <Link href={section?.sectionPage?.data?.attributes?.slug ?? ''}>
             {section.sectionTitle}
           </Link>
         </NavigationMenu.Link>
@@ -64,7 +64,7 @@ const Column = ({ section, classNames }: ColumnProps) => {
                 key={sectionLink.sectionLinkPage?.data?.attributes?.slug}
               >
                 <Link
-                  href={`/${sectionLink.sectionLinkPage?.data?.attributes?.slug}`}
+                  href={sectionLink.sectionLinkPage?.data?.attributes?.slug ?? ''}
                   className="hover:underline"
                 >
                   {sectionLink.sectionLinkPage?.data?.attributes?.title}

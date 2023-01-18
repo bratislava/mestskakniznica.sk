@@ -292,7 +292,7 @@ const sectionContent = (
                     address={address || ''}
                     image={listingImage?.data}
                     title={title || ''}
-                    linkHref={pageSlug ? `/${pageSlug}` : ''}
+                    linkHref={pageSlug ?? ''}
                     key={slug}
                   />
                 )

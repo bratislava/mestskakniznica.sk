@@ -126,6 +126,18 @@
       "relation": "manyToMany",
       "target": "api::branch.branch",
       "inversedBy": "servicePages"
+    },
+    "sitemapParent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::page.page",
+      "inversedBy": "sitemapChildren"
+    },
+    "sitemapChildren": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::page.page",
+      "mappedBy": "sitemapParent"
     }
   }
 }

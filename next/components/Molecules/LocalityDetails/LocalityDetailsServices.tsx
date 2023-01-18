@@ -28,8 +28,7 @@ const LocalityDetailsServices = ({ branch }: LocalityDetailsServicesProps) => {
             <CallToAction
               key={service.id}
               title={service.attributes.title}
-              // TODO links should start with slash '/'
-              href={`/${service.attributes.slug}`}
+              href={`${service.attributes.slug}`}
               showMoreText={t('more')}
               className="h-[134px] pr-[24px]"
             />

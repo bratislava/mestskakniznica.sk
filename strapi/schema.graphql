@@ -2622,6 +2622,8 @@ type Page {
   perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZone]
+  sitemapChildren(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
+  sitemapParent: PageEntityResponse
   slug: String!
   title: String!
   updatedAt: DateTime
@@ -2655,6 +2657,8 @@ input PageFiltersInput {
   pageCategory: CategoryFiltersInput
   perex: StringFilterInput
   publishedAt: DateTimeFilterInput
+  sitemapChildren: PageFiltersInput
+  sitemapParent: PageFiltersInput
   slug: StringFilterInput
   title: StringFilterInput
   updatedAt: DateTimeFilterInput
@@ -2669,6 +2673,8 @@ input PageInput {
   perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZoneInput!]
+  sitemapChildren: [ID]
+  sitemapParent: ID
   slug: String
   title: String
 }

@@ -59,8 +59,8 @@ export const usePageWrapperContext = () => useContext(PageWrapperContext)
 const localePath = (locale: string, slug: string) => {
   // Special case for slovak homepage, so it is not empty string
   if (locale === 'sk' && (slug === '' || slug === '/')) return '/'
-  const localePrefix = locale === 'sk' ? '' : `${locale}/`
-  return `/${localePrefix}${slug}`
+  const localePrefix = locale === 'sk' ? '' : `/${locale}`
+  return `${localePrefix}${slug}`
 }
 
 export const otherLocale = (
