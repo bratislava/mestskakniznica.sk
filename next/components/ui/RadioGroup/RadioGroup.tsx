@@ -62,30 +62,35 @@ export const RadioGroup = <T extends IRadioOption>({
             <div
               key={opt.key}
               className={cx(
-                'base-input flex w-full cursor-pointer items-center gap-3.5 py-3 text-base',
+                'base-input m-0 flex w-full cursor-pointer items-center gap-3.5 p-0',
                 radioClassName,
                 {
                   'base-input--with-error': hasError,
                 }
               )}
             >
-              <RadioGroupPrimitive.Item
-                value={opt.key}
-                id={opt.key}
-                className="flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark "
-              >
-                <RadioGroupPrimitive.Indicator className="h-3 w-3 rounded-full bg-dark" />
-              </RadioGroupPrimitive.Item>
               <label
                 htmlFor={opt.key}
-                className={cx('flex-1 cursor-pointer text-foreground-body', {
-                  'base-input--disabled': opt.disabled,
-                })}
+                className={cx(
+                  'flex flex-1 cursor-pointer items-center justify-between gap-3.5 p-3 text-foreground-body',
+                  {
+                    'base-input--disabled': opt.disabled,
+                  }
+                )}
               >
-                <div className="flex justify-between">
-                  <span>{opt.title}</span>
-                  {opt.price && <span className="w-24 text-right">{opt.price}</span>}
+                <div>
+                  <RadioGroupPrimitive.Item
+                    value={opt.key}
+                    id={opt.key}
+                    className="box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark "
+                  >
+                    <RadioGroupPrimitive.Indicator className="h-3 w-3 rounded-full bg-dark" />
+                  </RadioGroupPrimitive.Item>
                 </div>
+
+                <div className="w-full text-left">{opt.title}</div>
+
+                {opt.price && <div className="w-24 text-right text-base">{opt.price}</div>}
               </label>
             </div>
           ))}

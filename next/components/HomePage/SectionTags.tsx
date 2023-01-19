@@ -19,7 +19,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
               <a
                 href={`https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchTitle=${tag?.attributes?.slug}`}
                 target="_blank"
-                className="h-9 whitespace-nowrap rounded-full border border-border-light py-2 px-4 text-sm hover:border-border-dark"
+                className="h-9 whitespace-nowrap rounded-full border border-border-light py-2 px-4 text-sm leading-tag hover:border-border-dark"
                 rel="noreferrer"
                 key={tag?.attributes?.slug}
               >

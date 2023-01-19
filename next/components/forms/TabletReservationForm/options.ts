@@ -2,17 +2,17 @@ import { IFormOption } from '@utils/form-constants'
 
 export const options: IFormOption[] = [
   {
-    key: 'kapucinska',
+    key: 'Kapucínska',
     label: [
       { locale: 'sk', label: 'Kapucínska' },
       { locale: 'en', label: 'At Kapucínska' },
     ],
   },
   {
-    key: 'klariska',
+    key: 'Laurinská',
     label: [
-      { locale: 'sk', label: 'Klariská' },
-      { locale: 'en', label: 'At Klariská' },
+      { locale: 'sk', label: 'Laurinská' },
+      { locale: 'en', label: 'At Laurinská' },
     ],
   },
 ]

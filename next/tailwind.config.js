@@ -218,6 +218,9 @@ module.exports = {
       letterSpacing: {
         wider: '.08em',
       },
+      lineHeight: {
+        tag: '1.1rem',
+      },
     },
   },
 }
