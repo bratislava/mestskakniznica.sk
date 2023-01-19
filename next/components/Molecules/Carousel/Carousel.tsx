@@ -1,12 +1,12 @@
-import cx from 'classnames'
-import React, { useRef } from 'react'
+import React, { ReactNode, useRef, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 
-import SliderControl, { SliderVariant } from './SliderControl/SliderControl'
+import SliderControl, { SliderDirection } from './SliderControl/SliderControl'
 
 interface SectionPromosProps {
   listClassName?: string
   itemClassName?: string
-  items: { element: React.ReactNode | null; key: string | undefined }[]
+  items: { element: ReactNode; key: string | undefined }[]
   shiftIndex?: number
   visibleItemsCount?: number
 }
@@ -18,7 +18,7 @@ const Carousel = ({
   shiftIndex = 1,
   visibleItemsCount = 3,
 }: SectionPromosProps) => {
-  const [currentItemIndex, setCurrentItemIndex] = React.useState(0)
+  const [currentItemIndex, setCurrentItemIndex] = useState(0)
 
   const scrollerRef = useRef<HTMLUListElement>(null)
 
@@ -53,10 +53,10 @@ const Carousel = ({
     scrollToItem(currentItemIndex - shiftIndex)
   }
 
-  const sliderVariantHidden = (variant: SliderVariant) => {
+  const sliderVariantHidden = (variant: SliderDirection) => {
     return (
-      (variant === SliderVariant.LEFT && currentItemIndex === 0) ||
-      (variant === SliderVariant.RIGHT && currentItemIndex >= items.length - visibleItemsCount)
+      (variant === 'left' && currentItemIndex === 0) ||
+      (variant === 'right' && currentItemIndex >= items.length - visibleItemsCount)
     )
   }
 
@@ -65,14 +65,14 @@ const Carousel = ({
       <div className="hidden lg:block">
         {items.length >= visibleItemsCount && (
           <SliderControl
-            variant={SliderVariant.LEFT}
+            direction="left"
             onPress={previousItem}
-            hidden={sliderVariantHidden(SliderVariant.LEFT)}
+            hidden={sliderVariantHidden('left')}
           />
         )}
       </div>
       <ul
-        className={cx(
+        className={twMerge(
           '-mx-4 flex snap-x snap-mandatory overflow-x-auto scrollbar-hide lg:mx-0',
           listClassName
         )}
@@ -82,7 +82,7 @@ const Carousel = ({
           return (
             <li
               key={item.key}
-              className={cx(
+              className={twMerge(
                 'flex-shrink-0 shrink-0 transform snap-center transition-all duration-200',
                 itemClassName
               )}
@@ -95,9 +95,9 @@ const Carousel = ({
       <div className="hidden lg:block">
         {items.length >= visibleItemsCount && (
           <SliderControl
-            variant={SliderVariant.RIGHT}
+            direction="right"
             onPress={nextItem}
-            hidden={sliderVariantHidden(SliderVariant.RIGHT)}
+            hidden={sliderVariantHidden('right')}
           />
         )}
       </div>

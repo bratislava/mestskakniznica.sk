@@ -20,10 +20,10 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
       <Carousel
         listClassName="px-4 py-10 gap-4 lg:gap-8"
         itemClassName="w-10/12 max-w-[268px] md:max-w-[271px]"
-        items={notices.map((notice) => {
-          const element = <ListingCard card={notice} />
-          return { element, key: notice.id ?? undefined }
-        })}
+        items={notices.map((notice) => ({
+          element: <ListingCard card={notice} />,
+          key: notice.id ?? undefined,
+        }))}
         visibleItemsCount={4}
         shiftIndex={4}
       />

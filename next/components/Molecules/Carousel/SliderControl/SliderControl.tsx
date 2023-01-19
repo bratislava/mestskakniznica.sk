@@ -4,29 +4,26 @@ import VerticalCardButton from '@components/HomePage/VerticalCardButton'
 import cx from 'classnames'
 import React from 'react'
 
-export enum SliderVariant {
-  LEFT,
-  RIGHT,
-}
+export type SliderDirection = 'left' | 'right'
 
 interface SliderControlProps {
-  variant: SliderVariant
+  direction: SliderDirection
   onPress: () => void
   hidden: boolean
 }
 
-const SliderControl = ({ variant, onPress, hidden }: SliderControlProps) => {
+const SliderControl = ({ direction, onPress, hidden }: SliderControlProps) => {
   return (
     <VerticalCardButton
       onPress={onPress}
       className={cx('absolute top-0 bottom-0 z-10 my-auto', {
-        'left-0 -translate-x-1/2 transform': variant === SliderVariant.LEFT,
-        'right-0 translate-x-1/2 transform': variant === SliderVariant.RIGHT,
+        'left-0 -translate-x-1/2 transform': direction === 'left',
+        'right-0 translate-x-1/2 transform': direction === 'right',
         hidden,
       })}
     >
-      {variant === SliderVariant.LEFT && <ChevronLeft className="w-2 cursor-pointer" />}
-      {variant === SliderVariant.RIGHT && <ChevronRight />}
+      {direction === 'left' && <ChevronLeft />}
+      {direction === 'right' && <ChevronRight />}
     </VerticalCardButton>
   )
 }
