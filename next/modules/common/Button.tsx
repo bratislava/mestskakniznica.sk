@@ -17,6 +17,7 @@ type ButtonBase = {
     | 'plain-primary'
     | 'plain-secondary'
     | 'plain-white'
+    | 'carousel'
     | 'unstyled'
   noPadding?: boolean
   mobileFullWidth?: boolean
@@ -96,6 +97,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
                 'border border-border-dark hover:border-button-hover hover:text-button-hover':
                   variant === 'secondary',
                 'border border-border-light hover:text-button-hover': variant === 'tertiary',
+                'border border-border-dark bg-button-white': variant === 'carousel',
 
                 // hover bg and border
                 'hover:bg-button-hover': variant === 'primary',
@@ -108,6 +110,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
                   variant === 'plain-primary' ||
                   variant === 'secondary',
                 'hover:text-white hover:text-opacity-80': variant === 'plain-white',
+                'hover:text-opacity-80': variant === 'carousel',
 
                 // shape
                 'rounded-full': shape === 'circle',

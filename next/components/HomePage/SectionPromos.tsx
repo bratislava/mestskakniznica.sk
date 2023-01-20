@@ -1,6 +1,7 @@
 import { EventCardEntityFragment, NoticeListingEntityFragment } from '@services/graphql'
-import { withAttributes } from '@utils/isDefined'
+import { isDefined, withAttributes } from '@utils/isDefined'
 
+import Carousel from '../Molecules/Carousel/Carousel'
 import PromoEventCard from './Promos/PromoEventCard'
 import PromoNewsCard from './Promos/PromoNewsCard'
 
@@ -12,33 +13,36 @@ interface SectionPromosProps {
 
 const SectionPromos = ({ promos }: SectionPromosProps) => {
   return (
-    <section className="overflow-x-auto">
-      <div className="my-10 flex h-[350px] w-fit gap-4 md:h-[490px] lg:gap-5">
-        {promos?.map((promo) => {
+    <Carousel
+      listClassName="my-10 h-[350px] gap-4 px-4 lg:px-0 md:h-[490px] lg:gap-5"
+      itemClassName="w-10/12 max-w-[268px] md:max-w-[379px]"
+      shiftIndex={3}
+      items={promos
+        ?.map((promo) => {
           switch (promo.__typename) {
             case 'EventEntity':
-              return (
-                <div key={promo.attributes?.slug} className="w-[268px] shrink-0 md:w-[379px]">
-                  <PromoEventCard event={withAttributes(promo)} />
-                </div>
-              )
+              return {
+                element: <PromoEventCard event={withAttributes(promo)} />,
+                key: promo?.attributes?.slug,
+              }
 
             case 'NoticeEntity':
-              return (
-                <div key={promo?.attributes?.slug} className="w-[268px] shrink-0 md:w-[379px]">
+              return {
+                element: (
                   <PromoNewsCard
                     title={promo?.attributes?.title ?? ''}
                     slug={promo?.attributes?.slug ?? ''}
                   />
-                </div>
-              )
+                ),
+                key: promo?.attributes?.slug,
+              }
 
             default:
-              return null
+              return { element: null, key: undefined }
           }
-        })}
-      </div>
-    </section>
+        })
+        .filter(isDefined)}
+    />
   )
 }
 
