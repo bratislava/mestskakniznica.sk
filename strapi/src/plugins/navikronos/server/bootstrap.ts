@@ -16,8 +16,6 @@ export default async ({ strapi }: { strapi: Strapi }) => {
     ])
   );
 
-  console.log(generatedRelationAttributes);
-
   const existing =
     strapi.contentTypes["api::navikronos-storage.navikronos-storage"];
 
@@ -56,6 +54,11 @@ export default async ({ strapi }: { strapi: Strapi }) => {
     if (existing.info?.description === hashedObject) {
       return;
     }
+
+    // https://github.com/strapi/strapi/blob/fc781681a34c5a1b0e21d8bf56d1d948ce82db37/packages/core/content-type-builder/server/controllers/content-types.js#L58
+    // @ts-ignore
+    strapi.reload.isWatching = false;
+
     await strapi
       .plugin("content-type-builder")
       .services["content-types"].editContentType(
@@ -64,11 +67,19 @@ export default async ({ strapi }: { strapi: Strapi }) => {
           contentType: contentTypeWithHashInDescription,
         }
       );
+
+    // https://github.com/strapi/strapi/blob/fc781681a34c5a1b0e21d8bf56d1d948ce82db37/packages/core/content-type-builder/server/controllers/content-types.js#L80
+    setImmediate(() => strapi.reload());
   } else {
+    // @ts-ignore
+    strapi.reload.isWatching = false;
+
     await strapi
       .plugin("content-type-builder")
       .services["content-types"].createContentType({
         contentType: contentTypeWithHashInDescription,
       });
+
+    setImmediate(() => strapi.reload());
   }
 };
