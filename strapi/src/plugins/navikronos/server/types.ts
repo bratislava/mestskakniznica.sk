@@ -1,49 +1,72 @@
-type X = StaticPath | SpreadPath | SpecificPath | EmptyPath;
+type MultipleRoute = {
+  type: "multiple";
+  entityType: string;
+};
 
-type StaticPath = {
+type SingleRouteChildren = (SingleRoute | MultipleRoute)[];
+
+type SingleRoute = {
+  type: "single";
+  children?: SingleRouteChildren;
+  content: SingleRouteContent;
+};
+
+type SingleRouteEmptyContent = {
+  type: "empty";
+  title: string;
+  path: string;
+};
+
+type SingleRouteListingContent = {
+  type: "listing";
+  title: string;
+  path: string;
+};
+
+type SingleRouteEntityContent = {
+  type: "entity";
+  entityType: string;
+  id: string;
+  overrideTitle?: string;
+  overridePath?: string;
+};
+
+type SingleRouteStaticContent = {
   type: "static";
-  key: string;
-  staticPage: string;
-  children?: X;
+  title: string;
+  path: string;
 };
 
-type SpreadPath = {
-  type: "spread";
-  contentType: string;
-};
+type SingleRouteContent =
+  | SingleRouteEmptyContent
+  | SingleRouteListingContent
+  | SingleRouteStaticContent
+  | SingleRouteEntityContent;
 
-type SpecificPath = {
-  type: "specific";
-  contentType: string;
-  id: "1";
-  key?: string;
-  children?: X[];
-};
-
-type EmptyPath = {
-  key: string;
-  children?: X[];
-};
-
-type Navigation = X[];
+type Navigation = SingleRouteChildren;
 
 const x: Navigation = [
   {
-    type: "static",
-    key: "vyhladavanie",
-    staticPage: "search",
+    type: "single",
+    content: { type: "static", title: "Vyhľadávanie", path: "vyhladavanie" },
   },
   {
-    key: "zazite",
+    type: "single",
+    content: { type: "listing", title: "Zažite", path: "zazite" },
     children: [
       {
-        type: "spread",
-        contentType: "api::branch.branch",
-      },
-      {
-        type: "specific",
-        contentType: "api::page:page",
-        id: "1",
+        type: "single",
+        content: {
+          type: "entity",
+          entityType: "page",
+          id: "1",
+        },
+        children: [
+          {
+            type: "multiple",
+            entityType: "event",
+          },
+        ],
       },
     ],
   },

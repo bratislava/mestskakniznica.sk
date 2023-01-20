@@ -1,16 +1,35 @@
 import { Strapi } from "@strapi/strapi";
 import { contentTypeToRelationName, getConfig } from "../helpers";
 
-const fix = (a: Navigation, map: any) => {
-  a.forEach((g: any) => {
-    if ((g as any).type === "specific" && (g as any).key == null) {
-      console.log(g.contentType, map[g.contentType]);
-      (g as any).key = map[g.contentType][String(g.id)];
-    }
-    if ((g as any).children) {
-      fix(g.children, map);
-    }
-  });
+const fix = (navigation: Navigation, map: any) => {
+  return navigation
+    .map((route) => {
+      if (route.type === "single" && route.content.type === "entity") {
+        const fromMap =
+          map &&
+          map[route.content.entityType] &&
+          map[route.content.entityType][route.content.id];
+        if (!fromMap || fromMap.isDraft) {
+          return;
+        }
+        return {
+          type: route.type,
+          content: {
+            type: "entity",
+            entityType: route.content.entityType,
+            id: route.content.id,
+            path: route.content.overridePath ?? fromMap.path,
+            title: route.content.overridePath ?? fromMap.title,
+          },
+          children: fix(route.children, map),
+        };
+      }
+      if (route.type === "single" && route.children) {
+        return { ...route, children: fix(route.children, map) };
+      }
+      return route;
+    })
+    .filter((c) => c != null);
 };
 
 export default ({ strapi }: { strapi: Strapi }) => ({
@@ -26,7 +45,9 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 
     const toPopulate = (config.specificContentTypes ?? []).map((type) => [
       contentTypeToRelationName(type.contentType),
-      { fields: ["id", type.entityRouteId] },
+      {
+        fields: ["id", type.pathAttribute, type.titleAttribute, "publishedAt"],
+      },
     ]);
 
     const result = await strapi.entityService.findMany(
@@ -36,13 +57,19 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       }
     );
 
+    // return result;
+
     const map = Object.fromEntries(
       (config.specificContentTypes ?? []).map((type) => [
         type.contentType,
         Object.fromEntries(
           result[contentTypeToRelationName(type.contentType)].map((e) => [
             String(e.id),
-            e[type.entityRouteId],
+            {
+              title: e[type.titleAttribute],
+              path: e[type.pathAttribute],
+              isDraft: !Boolean(e.publishedAt),
+            } as const,
           ])
         ),
       ])
@@ -50,9 +77,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 
     console.log(map);
 
-    fix(result.navigation, map);
-
-    console.log(result.navigation);
+    const fixed = { map, fixed: fix(result.navigation, map) };
+    return fixed;
     //
     // console.log("result", result);
 

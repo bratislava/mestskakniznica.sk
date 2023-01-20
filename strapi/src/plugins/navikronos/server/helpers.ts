@@ -11,6 +11,10 @@ export const getConfig = (strapi: Strapi) => {
   return strapi.config.get("plugin.navikronos") as {
     staticPages?: string[];
     spreadContentTypes?: string[];
-    specificContentTypes?: { contentType: string; entityRouteId: string }[];
+    specificContentTypes?: {
+      contentType: string;
+      pathAttribute: string;
+      titleAttribute: string;
+    }[];
   };
 };

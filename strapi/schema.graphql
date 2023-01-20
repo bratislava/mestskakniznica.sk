@@ -2553,7 +2553,6 @@ type NavikronosStorage {
   locale: String
   localizations: NavikronosStorageRelationResponseCollection
   navigation: JSON
-  relationsApiNoticeNotice(filters: NoticeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeRelationResponseCollection
   relationsApiPagePage(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
   updatedAt: DateTime
 }
@@ -2580,14 +2579,12 @@ input NavikronosStorageFiltersInput {
   navigation: JSONFilterInput
   not: NavikronosStorageFiltersInput
   or: [NavikronosStorageFiltersInput]
-  relationsApiNoticeNotice: NoticeFiltersInput
   relationsApiPagePage: PageFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input NavikronosStorageInput {
   navigation: JSON
-  relationsApiNoticeNotice: [ID]
   relationsApiPagePage: [ID]
 }
 

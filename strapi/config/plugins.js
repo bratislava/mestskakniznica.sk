@@ -77,8 +77,11 @@ module.exports = ({ env }) => ({
       staticPages: ["search"],
       spreadContentTypes: ["api::branch.branch"],
       specificContentTypes: [
-        { contentType: "api::page.page", entityRouteId: "slug" },
-        { contentType: "api::notice.notice", entityRouteId: "slug" },
+        {
+          contentType: "api::page.page",
+          pathAttribute: "slug",
+          titleAttribute: "title",
+        },
       ],
     },
   },
