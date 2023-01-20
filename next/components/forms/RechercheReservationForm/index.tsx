@@ -46,12 +46,12 @@ const RechercheReservationForm = () => {
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
-      rechercheTopic: yup.string().required(),
-      rechercheKeyWords: yup.string().required(),
-      recherchePurpose: yup.string().required(),
-      rechercheLiteratureTime: yup.string().required(),
-      rechercheDocumentsType: yup.string().required(),
-      rechercheDemandedLanguages: yup.string().required(),
+      rechercheTopic: yup.string(),
+      rechercheKeyWords: yup.string(),
+      recherchePurpose: yup.string(),
+      rechercheLiteratureTime: yup.string(),
+      rechercheDocumentsType: yup.string(),
+      rechercheDemandedLanguages: yup.string(),
       cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
     .required()
@@ -265,7 +265,6 @@ const RechercheReservationForm = () => {
                   inputClassName="px-3 w-full"
                   hasError={!!errors.rechercheTopic}
                   errorMessage={errors.rechercheTopic?.message}
-                  required
                   {...field}
                 />
               )}
@@ -280,7 +279,6 @@ const RechercheReservationForm = () => {
                   textAreaClassname="w-full h-[122px]"
                   hasError={!!errors.rechercheKeyWords}
                   errorMessage={errors.rechercheKeyWords?.message}
-                  required
                   {...field}
                 />
               )}
@@ -296,7 +294,6 @@ const RechercheReservationForm = () => {
                   inputClassName="px-3 w-full"
                   hasError={!!errors.recherchePurpose}
                   errorMessage={errors.recherchePurpose?.message}
-                  required
                   {...field}
                 />
               )}
@@ -312,7 +309,6 @@ const RechercheReservationForm = () => {
                   inputClassName="px-3 w-full"
                   hasError={!!errors.rechercheLiteratureTime}
                   errorMessage={errors.rechercheLiteratureTime?.message}
-                  required
                   {...field}
                 />
               )}
@@ -328,7 +324,6 @@ const RechercheReservationForm = () => {
                   inputClassName="px-3 w-full"
                   hasError={!!errors.rechercheDocumentsType}
                   errorMessage={errors.rechercheDocumentsType?.message}
-                  required
                   {...field}
                 />
               )}
@@ -344,7 +339,6 @@ const RechercheReservationForm = () => {
                   inputClassName="px-3 w-full"
                   hasError={!!errors.rechercheDemandedLanguages}
                   errorMessage={errors.rechercheDemandedLanguages?.message}
-                  required
                   {...field}
                 />
               )}

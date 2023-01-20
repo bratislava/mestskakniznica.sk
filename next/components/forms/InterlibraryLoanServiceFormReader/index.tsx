@@ -46,7 +46,7 @@ const InterlibraryLoanServiceFormReader = () => {
       lName: yup.string().required(),
       email: yup.string().email().required(),
       readerCardNumber: yup.string().required(),
-      phone: yup.string().matches(phoneRegexOrEmpty, t('validation_error_phone')).required(),
+      phone: yup.string().matches(phoneRegexOrEmpty, t('validation_error_phone')),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
       acceptFeesTerms: yup.boolean().isTrue(),
