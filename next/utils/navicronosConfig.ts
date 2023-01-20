@@ -1,5 +1,29 @@
 import { string } from 'yup'
 
+export const navicronosConfig2 = {
+  strapiUrl: process.env.STRAPI_URL,
+  redirectPrefix: 'redirect',
+  staticRoutes: [
+    {
+      name: 'search',
+      redirect: 'search',
+    } as const,
+  ] as const,
+  multipleRoutes: [
+    {
+      contentType: 'api:event',
+      alias: 'event',
+      redirect: (slug: string) => `event/${slug}`,
+    } as const,
+  ] as const,
+  entityRoutes: [
+    {
+      contentType: 'api:page',
+      alias: 'page',
+      redirect: (id: string) => `event/${id}`,
+    } as const,
+  ],
+}
 export const navicronosConfig = {
   strapiUrl: process.env.STRAPI_URL,
   staticRoutes: ['vyhladavanie', 'xx'] as const,
@@ -39,9 +63,9 @@ function x<
   // }
 
   function getRoute(x: StaticRoutes[number]): string
-  function getRoute(a: MultipleRouteTypes, details: { path: string }): string
+  function getRoute(a: MultipleRouteTypes, details: { slug: string }): string
   function getRoute(a: SpecificRouteTypes, details: { id: string }): string
-  function getRoute(x: string, details?: { path?: string; id?: string }): string {
+  function getRoute(x: string, details?: { slug?: string; id?: string }): string {
     return 'xx'
   }
 
@@ -50,6 +74,6 @@ function x<
 
 const b = x(navicronosConfig)
 b.getRoute('vyhladavanie')
-b.getRoute('event', { path: 'asd' })
+b.getRoute('event', { slug: 'asd' })
 b.getRoute('page', { id: 'asd' })
 // b.getRouteMultiple('event', 'asd')
