@@ -8,6 +8,7 @@
     "dev": "yarn develop",
     "start": "strapi start",
     "build": "strapi build",
+    "x": "strapi content-types:list",
     "strapi": "strapi",
     "cs": "config-sync"
   },

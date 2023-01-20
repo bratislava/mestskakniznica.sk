@@ -7,8 +7,12 @@
     "description": "Description of navikronos plugin",
     "kind": "plugin"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "object-hash": "^3.0.0"
+  },
   "devDependencies": {
+    "@types/object-hash": "^3.0.2",
     "typescript": "4.6.3"
   },
   "author": {
