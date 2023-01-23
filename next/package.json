@@ -20,7 +20,7 @@
     "@next/font": "^13.1.1",
     "@radix-ui/react-checkbox": "^0.1.5",
     "@radix-ui/react-navigation-menu": "^0.1.2",
-    "@radix-ui/react-radio-group": "^0.1.5",
+    "@radix-ui/react-radio-group": "^1.1.1",
     "@react-stately/utils": "^3.5.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.0",
