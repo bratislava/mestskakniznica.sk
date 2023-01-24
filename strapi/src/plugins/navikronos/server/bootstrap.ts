@@ -1,20 +1,21 @@
 import { Strapi } from "@strapi/strapi";
 import objectHash from "object-hash";
 import { contentTypeToRelationName, getConfig } from "./helpers";
+import { IStrapi } from "strapi-typed";
 
-export default async ({ strapi }: { strapi: Strapi }) => {
+export default async ({ strapi }: { strapi: IStrapi }) => {
   const config = getConfig(strapi);
 
-  const generatedRelationAttributes = Object.fromEntries(
-    (config.specificContentTypes ?? []).map((type) => [
-      contentTypeToRelationName(type.contentType),
-      {
-        type: "relation",
-        relation: "oneToMany",
-        target: type.contentType,
-      },
-    ])
-  );
+  // const generatedRelationAttributes = Object.fromEntries(
+  //   (config.specificContentTypes ?? []).map((type) => [
+  //     contentTypeToRelationName(type.contentType),
+  //     {
+  //       type: "relation",
+  //       relation: "oneToMany",
+  //       target: type.contentType,
+  //     },
+  //   ])
+  // );
 
   const existing =
     strapi.contentTypes["api::navikronos-storage.navikronos-storage"];
@@ -39,7 +40,7 @@ export default async ({ strapi }: { strapi: Strapi }) => {
         },
         type: "json",
       },
-      ...generatedRelationAttributes,
+      // ...generatedRelationAttributes,
     },
   };
 

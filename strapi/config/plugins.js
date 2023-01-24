@@ -82,6 +82,11 @@ module.exports = ({ env }) => ({
           pathAttribute: "slug",
           titleAttribute: "title",
         },
+        {
+          contentType: "api::event.event",
+          pathAttribute: "slug",
+          titleAttribute: "title",
+        },
       ],
     },
   },

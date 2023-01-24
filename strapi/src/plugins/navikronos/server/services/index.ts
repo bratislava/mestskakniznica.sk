@@ -1,5 +1,9 @@
-import myService from './my-service';
+// import myService from "./my-service";
+import { adminService } from "./admin";
+import { commonService } from "./common";
 
 export default {
-  myService,
+  common: commonService,
+  admin: adminService,
+  // myService,
 };

@@ -1,5 +1,6 @@
 import { Strapi } from "@strapi/strapi";
 import { contentTypeToRelationName, getConfig } from "../helpers";
+import { IStrapi } from "strapi-typed";
 
 const fix = (navigation: Navigation, map: any) => {
   return navigation
@@ -32,7 +33,7 @@ const fix = (navigation: Navigation, map: any) => {
     .filter((c) => c != null);
 };
 
-export default ({ strapi }: { strapi: Strapi }) => ({
+export default ({ strapi }: { strapi: IStrapi }) => ({
   async getWelcomeMessage() {
     const config = getConfig(strapi);
 
@@ -50,12 +51,11 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       },
     ]);
 
-    const result = await strapi.entityService.findMany(
-      "api::navikronos-storage.navikronos-storage",
-      {
+    const result = (await strapi
+      .query("api::navikronos-storage.navikronos-storage")
+      .findMany({
         populate: Object.fromEntries(toPopulate),
-      }
-    );
+      })) as any;
 
     // return result;
 

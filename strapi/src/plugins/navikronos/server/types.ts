@@ -1,29 +1,31 @@
-type MultipleRoute = {
+export type MultipleRoute = {
   type: "multiple";
   entityType: string;
 };
 
-type SingleRouteChildren = (SingleRoute | MultipleRoute)[];
+export type SingleRouteChild = SingleRoute | MultipleRoute;
 
-type SingleRoute = {
+export type SingleRouteChildren = SingleRouteChild[];
+
+export type SingleRoute = {
   type: "single";
   children?: SingleRouteChildren;
   content: SingleRouteContent;
 };
 
-type SingleRouteEmptyContent = {
+export type SingleRouteEmptyContent = {
   type: "empty";
   title: string;
   path: string;
 };
 
-type SingleRouteListingContent = {
+export type SingleRouteListingContent = {
   type: "listing";
   title: string;
   path: string;
 };
 
-type SingleRouteEntityContent = {
+export type SingleRouteEntityContent = {
   type: "entity";
   entityType: string;
   id: string;
@@ -31,19 +33,19 @@ type SingleRouteEntityContent = {
   overridePath?: string;
 };
 
-type SingleRouteStaticContent = {
+export type SingleRouteStaticContent = {
   type: "static";
   title: string;
   path: string;
 };
 
-type SingleRouteContent =
+export type SingleRouteContent =
   | SingleRouteEmptyContent
   | SingleRouteListingContent
   | SingleRouteStaticContent
   | SingleRouteEntityContent;
 
-type Navigation = SingleRouteChildren;
+export type Navigation = SingleRouteChildren;
 
 const x: Navigation = [
   {

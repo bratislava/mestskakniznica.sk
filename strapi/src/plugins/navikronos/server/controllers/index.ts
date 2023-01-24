@@ -1,5 +1,7 @@
-import myController from './my-controller';
+// import myController from "./my-controller";
+import { adminController } from "./admin";
 
 export default {
-  myController,
+  // myController,
+  admin: adminController,
 };
