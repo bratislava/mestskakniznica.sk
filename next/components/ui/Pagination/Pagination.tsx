@@ -47,10 +47,11 @@ export const Pagination = ({
   )
 
   return (
-    <div className="flex items-center gap-x-6">
+    <div className="flex items-center gap-x-3">
       {/* TODO replace by Button */}
       <button
-        className="flex cursor-pointer p-1"
+        className="flex cursor-pointer p-4"
+        type="button"
         onClick={() => {
           if (value - 1 > 0) onChangeNumber(value - 1)
         }}
@@ -77,7 +78,8 @@ export const Pagination = ({
         <span>{max}</span>
       </div>
       <button
-        className="flex cursor-pointer p-1"
+        className="flex cursor-pointer p-4"
+        type="button"
         onClick={() => {
           if (value + 1 <= max) onChangeNumber(value + 1)
         }}
