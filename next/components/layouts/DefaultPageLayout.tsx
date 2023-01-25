@@ -1,13 +1,12 @@
 import { Footer, SectionContainer } from '@bratislava/ui-city-library'
 import ScrollToTopButton from '@modules/common/ScrollToTopButton'
+import HeaderWrapper from '@modules/navigation/HeaderWrapper'
 import { ComponentSeoSeo } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 
 import favicon from '../../assets/images/mkb_favicon.png'
-import Header from '../AppLayout/Header'
-import MobileHeader from '../AppLayout/MobileNavigation/MobileHeader'
 import NewsletterSection from '../HomePage/NewsletterSection'
 import { otherLocale, usePageWrapperContext } from './PageWrapper'
 
@@ -65,12 +64,7 @@ const DefaultPageLayout = ({ children, title, Seo }: IProps) => {
       </Head>
       <div className="flex min-h-screen flex-1 flex-col justify-self-stretch">
         <header>
-          <div className="hidden lg:block lg:px-8">
-            <Header />
-          </div>
-          <div className="block lg:hidden">
-            <MobileHeader />
-          </div>
+          <HeaderWrapper />
         </header>
         <main id="content-anchor">
           {children}
