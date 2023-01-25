@@ -17,6 +17,7 @@ export const getConfig = (strapi: IStrapi) => {
       pathAttribute: string;
       titleAttribute: string;
     }[];
+    enableListing?: boolean;
   };
 };
 

@@ -2,13 +2,14 @@
 import React from "react";
 import { useData } from "../../utils/useData";
 import NavigationTreeChild from "../NavigationTreeChild/NavigationTreeChild";
+import { useNavigationData } from "../../utils/NavigationDataProvider";
 
 const NavigationTree = () => {
-  const { dataNavigation } = useData();
+  const { data } = useNavigationData();
 
   return (
     <div>
-      {dataNavigation?.map((a) => (
+      {data?.map((a) => (
         <NavigationTreeChild child={a} />
       ))}
     </div>

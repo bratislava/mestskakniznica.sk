@@ -1,6 +1,7 @@
 import { Strapi } from "@strapi/strapi";
 import { contentTypeToRelationName, getConfig } from "../helpers";
 import { IStrapi } from "strapi-typed";
+import { Navigation } from "../types";
 
 const fix = (navigation: Navigation, map: any) => {
   return navigation

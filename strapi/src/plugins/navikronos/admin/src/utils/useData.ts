@@ -1,27 +1,16 @@
 import { useQuery } from "react-query";
 import { fetchNavigation, fetchNavikronosConfig } from "./api";
+import { Navigation } from "../../../server/types";
+import { createContext, useContext } from "react";
 
 export const useData = () => {
-  const { data: dataConfig, isLoading: isLoadingConfig } = useQuery("config", {
+  const { data, isLoading } = useQuery("config", {
     queryFn: fetchNavikronosConfig,
     staleTime: Infinity,
   });
 
-  const { data: dataNavigation, isLoading: isLoadingNavigation } = useQuery(
-    "navigation",
-    {
-      queryFn: fetchNavigation,
-      staleTime: Infinity,
-    }
-  );
-
-  const isLoading = isLoadingConfig || isLoadingNavigation;
-
   return {
-    dataConfig,
-    dataNavigation,
+    data,
     isLoading,
-    isLoadingConfig,
-    isLoadingNavigation,
   };
 };

@@ -20,6 +20,13 @@ import XMLConvertor from 'xml-js'
  * The data are not persisted and are wiped when Next service shuts down (which is OK).
  */
 
+console.log('adsa')
+;(async () => {
+  const xxxx = await ufs('https://www.facebasdasdasdasdasdasdasook.com/')
+
+  console.log('cc', xxxx)
+})()
+
 const bookNewsUrl = 'https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchNews=60&rtrnxml=true'
 
 interface OpacBook {

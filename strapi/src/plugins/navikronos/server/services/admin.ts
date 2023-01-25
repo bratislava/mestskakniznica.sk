@@ -44,11 +44,23 @@ export const adminService = ({ strapi }: { strapi: IStrapi }) => {
         await Promise.all(n.map((g) => g()))
       );
 
+      const allContentTypes = [
+        ...specificContentTypes.map(({ contentType }) => contentType),
+        ...spreadContentTypes,
+      ];
+      const contentTypeInfos = Object.fromEntries(
+        allContentTypes.map((contentTypeUid) => [
+          contentTypeUid,
+          strapi.contentTypes[contentTypeUid].info,
+        ])
+      );
+
       return {
         i18n,
         specificContentTypesEntries,
         staticPages,
         spreadContentTypes,
+        contentTypeInfos,
       };
     },
 

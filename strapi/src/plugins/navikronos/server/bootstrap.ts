@@ -17,6 +17,8 @@ export default async ({ strapi }: { strapi: IStrapi }) => {
   //   ])
   // );
 
+  debugger;
+
   const existing =
     strapi.contentTypes["api::navikronos-storage.navikronos-storage"];
 
