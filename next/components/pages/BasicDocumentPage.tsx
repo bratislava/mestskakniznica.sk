@@ -7,6 +7,8 @@ import { FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
 import FormatDate from '@modules/formatting/FormatDate'
 import { BasicDocumentEntityFragment } from '@services/graphql'
+import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
+import { filesize } from 'filesize'
 import truncate from 'lodash/truncate'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode } from 'react'
@@ -45,11 +47,27 @@ const CustomPageBreadcrumbs = ({ basicDocument }: IProps) => {
 }
 
 const BasicDocumentPage = ({ basicDocument }: IProps) => {
-  const { t } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
+  const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const [expandDescription, setExpandDescription] = React.useState(false)
   const description = basicDocument?.attributes?.description
   const showExpandButton = description ? description.length > DESCRIPTION_LIMIT : false
+
+  let fileSize
+  if (basicDocument.attributes?.attachment?.data?.attributes?.size !== undefined) {
+    const tmpFileSize = filesize(
+      // eslint-disable-next-line no-unsafe-optional-chaining
+      basicDocument.attributes.attachment.data.attributes.size * 1000,
+      {
+        round: 1,
+        locale: i18n.language,
+      }
+    )
+    if (typeof tmpFileSize === 'string') {
+      fileSize = tmpFileSize
+    }
+  }
 
   const Metadata: FileMetadata[] = [
     {
@@ -61,6 +79,10 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
     {
       key: `${t('createdAt')}:`,
       content: <FormatDate valueType="ISO" value={basicDocument?.attributes?.date_added} />,
+    },
+    {
+      key: `${t('size')}:`,
+      content: fileSize,
     },
     {
       key: `${t('link')}:`,
@@ -161,7 +183,10 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
                     href={basicDocument?.attributes?.attachment?.data?.attributes?.url}
                     // TODO add download title
                     // download={file?.attributes?.attachment?.data?.attributes?.name}
-                    aria-label={`${t('download')} ${basicDocument?.attributes?.title}`}
+                    aria-label={getDownloadAriaLabel(
+                      { attributes: basicDocument.attributes.attachment.data.attributes },
+                      basicDocument?.attributes?.title
+                    )}
                     startIcon={<Download />}
                   >
                     {t('download')}
