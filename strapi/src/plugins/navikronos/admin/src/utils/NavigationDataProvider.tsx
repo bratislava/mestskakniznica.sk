@@ -23,10 +23,13 @@ export const NavigationDataProvider = ({ children }: PropsWithChildren) => {
   const { data, isLoading } = useQuery("navigation", {
     queryFn: fetchNavigation,
     staleTime: Infinity,
-    onSuccess: (data) => {
-      dispatch({ type: "initial", data });
-    },
   });
+
+  useEffect(() => {
+    if (data) {
+      dispatch({ type: "initial", data });
+    }
+  }, [data]);
 
   return (
     <NavigationDataContext.Provider value={navigationData}>
