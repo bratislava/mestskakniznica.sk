@@ -1,12 +1,12 @@
 import { Id, IStrapi, StrapiContentType, StrapiContext } from "strapi-typed";
 import { getI18nStatus } from "../../admin/src/utils/getI18nStatus";
 import { fetchEntities, getConfig } from "../helpers";
-import { Navigation, SingleRouteChildren } from "../types";
+import { NavikronosNavigation } from "../types";
 
-const traverseGetEntitiesToFetch = (navigation: Navigation) => {
+const traverseGetEntitiesToFetch = (navigation: NavikronosNavigation) => {
   let entitiesToFetch: Record<string, string[]> = {};
   // let multipleRoutesContentTypes = new Set();
-  const innerTraverse = (t: SingleRouteChildren) => {
+  const innerTraverse = (t: any) => {
     t.forEach((route) => {
       if (route.type === "single") {
         if (route.content.type === "entity") {
@@ -69,7 +69,7 @@ export const adminService = ({ strapi }: { strapi: IStrapi }) => {
         .query("api::navikronos-storage.navikronos-storage")
         .findMany({})) as any;
 
-      const nav = navigation[0].navigation as Navigation;
+      const nav = navigation[0].navigation as NavikronosNavigation;
       //
       // const { entitiesToFetch } = traverseGetEntitiesToFetch(nav);
       // console.log(entitiesToFetch);

@@ -1,72 +1,60 @@
-export type MultipleRoute = {
-  type: "multiple";
-  entityType: string;
+export type NavikronosRoute =
+  | NavikronosContentTypeRoute
+  | NavikronosEmptyRoute
+  | NavikronosEntryRoute
+  | NavikronosStaticRoute
+  | NavikronosListingRoute;
+
+export type NavikronosRoutes = NavikronosRoute[];
+
+export type NavikronosRouteWithTitlePath = { title: string; path: string };
+export type NavikronosRouteWithChildren = { children?: NavikronosRoute[] };
+
+export type NavikronosContentTypeRoute = {
+  type: "contentType";
+  contentTypeUid: string;
 };
 
-export type SingleRouteChild = SingleRoute | MultipleRoute;
-
-export type SingleRouteChildren = SingleRouteChild[];
-
-export type SingleRoute = {
-  type: "single";
-  children?: SingleRouteChildren;
-  content: SingleRouteContent;
-};
-
-export type SingleRouteEmptyContent = {
+export type NavikronosEmptyRoute = {
   type: "empty";
-  title: string;
-  path: string;
-};
+} & NavikronosRouteWithTitlePath &
+  NavikronosRouteWithChildren;
 
-export type SingleRouteListingContent = {
-  type: "listing";
-  title: string;
-  path: string;
-};
-
-export type SingleRouteEntityContent = {
-  type: "entity";
-  entityType: string;
-  id: string;
+export type NavikronosEntryRoute = {
+  type: "entry";
+  contentTypeUid: string;
+  entryId: string;
   overrideTitle?: string;
   overridePath?: string;
-};
+} & NavikronosRouteWithChildren;
 
-export type SingleRouteStaticContent = {
+export type NavikronosStaticRoute = {
   type: "static";
-  title: string;
-  path: string;
-};
+} & NavikronosRouteWithTitlePath &
+  NavikronosRouteWithChildren;
 
-export type SingleRouteContent =
-  | SingleRouteEmptyContent
-  | SingleRouteListingContent
-  | SingleRouteStaticContent
-  | SingleRouteEntityContent;
+export type NavikronosListingRoute = {
+  type: "listing";
+} & NavikronosRouteWithTitlePath &
+  NavikronosRouteWithChildren;
 
-export type Navigation = SingleRouteChildren;
+export type NavikronosNavigation = NavikronosRoutes;
 
-const x: Navigation = [
+const x: NavikronosNavigation = [
+  { type: "static", title: "Vyhľadávanie", path: "vyhladavanie" },
   {
-    type: "single",
-    content: { type: "static", title: "Vyhľadávanie", path: "vyhladavanie" },
-  },
-  {
-    type: "single",
-    content: { type: "listing", title: "Zažite", path: "zazite" },
+    type: "listing",
+    title: "Zažite",
+    path: "zazite",
     children: [
       {
-        type: "single",
-        content: {
-          type: "entity",
-          entityType: "page",
-          id: "1",
-        },
+        type: "entry",
+        contentTypeUid: "page",
+        entryId: "1",
         children: [
           {
-            type: "multiple",
-            entityType: "event",
+            type: "contentType",
+            contentTypeUid: "page",
           },
         ],
       },

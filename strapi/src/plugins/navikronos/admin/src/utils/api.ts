@@ -1,12 +1,14 @@
 import { request } from "@strapi/helper-plugin";
 import pluginId from "../pluginId";
-import { Navigation } from "../../../server/types";
+import { NavikronosNavigation } from "../../../server/types";
 
 export const fetchNavikronosConfig = () =>
   request(`/${pluginId}/allData`, { method: "GET" });
 
 export const fetchNavigation = () =>
-  request(`/${pluginId}/navigation`, { method: "GET" }) as Promise<Navigation>;
+  request(`/${pluginId}/navigation`, {
+    method: "GET",
+  }) as Promise<NavikronosNavigation>;
 
 export const fetchContentTypeEntries = (
   contentType: string,

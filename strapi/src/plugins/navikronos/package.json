@@ -8,6 +8,7 @@
     "kind": "plugin"
   },
   "dependencies": {
+    "immer": "^9.0.18",
     "lodash": "^4.17.21",
     "object-hash": "^3.0.0",
     "react-query": "^3.39.2",

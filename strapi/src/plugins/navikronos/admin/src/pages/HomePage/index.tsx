@@ -31,6 +31,7 @@ import {
   useNavigationData,
 } from "../../utils/NavigationDataProvider";
 import AddEditModal from "../../components/AddEditModal";
+import { EditAddModalProvider } from "../../utils/EditAddModalProvider";
 
 const HomePage = () => {
   const { data: dataConfig, isLoading } = useData();
@@ -133,6 +134,8 @@ const HomePage = () => {
 
 export default () => (
   <NavigationDataProvider>
-    <HomePage />
+    <EditAddModalProvider>
+      <HomePage />
+    </EditAddModalProvider>
   </NavigationDataProvider>
 );

@@ -9,8 +9,12 @@ const NavigationTree = () => {
 
   return (
     <div>
-      {data?.map((a) => (
-        <NavigationTreeChild child={a} />
+      {data?.map((child, index) => (
+        <NavigationTreeChild
+          key={index}
+          child={child}
+          locationIndexes={[index]}
+        />
       ))}
     </div>
   );

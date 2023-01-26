@@ -1,38 +1,38 @@
 import { Strapi } from "@strapi/strapi";
 import { contentTypeToRelationName, getConfig } from "../helpers";
 import { IStrapi } from "strapi-typed";
-import { Navigation } from "../types";
+import { NavikronosNavigation } from "../types";
 
-const fix = (navigation: Navigation, map: any) => {
-  return navigation
-    .map((route) => {
-      if (route.type === "single" && route.content.type === "entity") {
-        const fromMap =
-          map &&
-          map[route.content.entityType] &&
-          map[route.content.entityType][route.content.id];
-        if (!fromMap || fromMap.isDraft) {
-          return;
-        }
-        return {
-          type: route.type,
-          content: {
-            type: "entity",
-            entityType: route.content.entityType,
-            id: route.content.id,
-            path: route.content.overridePath ?? fromMap.path,
-            title: route.content.overridePath ?? fromMap.title,
-          },
-          children: fix(route.children, map),
-        };
-      }
-      if (route.type === "single" && route.children) {
-        return { ...route, children: fix(route.children, map) };
-      }
-      return route;
-    })
-    .filter((c) => c != null);
-};
+// const fix = (navigation: NavikronosNavigation, map: any) => {
+//   return navigation
+//     .map((route) => {
+//       if (route.type === "single" && route.content.type === "entity") {
+//         const fromMap =
+//           map &&
+//           map[route.content.entityType] &&
+//           map[route.content.entityType][route.content.id];
+//         if (!fromMap || fromMap.isDraft) {
+//           return;
+//         }
+//         return {
+//           type: route.type,
+//           content: {
+//             type: "entity",
+//             entityType: route.content.entityType,
+//             id: route.content.id,
+//             path: route.content.overridePath ?? fromMap.path,
+//             title: route.content.overridePath ?? fromMap.title,
+//           },
+//           children: fix(route.children, map),
+//         };
+//       }
+//       if (route.type === "single" && route.children) {
+//         return { ...route, children: fix(route.children, map) };
+//       }
+//       return route;
+//     })
+//     .filter((c) => c != null);
+// };
 
 export default ({ strapi }: { strapi: IStrapi }) => ({
   async getWelcomeMessage() {
@@ -78,8 +78,8 @@ export default ({ strapi }: { strapi: IStrapi }) => ({
 
     console.log(map);
 
-    const fixed = { map, fixed: fix(result.navigation, map) };
-    return fixed;
+    // const fixed = { map, fixed: fix(result.navigation, map) };
+    // return fixed;
     //
     // console.log("result", result);
 

@@ -1,8 +1,4 @@
 import React, { useMemo } from "react";
-import type {
-  SingleRouteChild,
-  SingleRouteChildren,
-} from "../../../../server/types";
 import styled from "styled-components";
 import { Card, CardBody } from "@strapi/design-system/Card";
 import { Stack } from "@strapi/design-system/Stack";
@@ -13,74 +9,84 @@ import { Flex } from "@strapi/design-system/Flex";
 import { IconButton } from "@strapi/design-system/IconButton";
 import { Pencil, Trash, Refresh, Plus } from "@strapi/icons";
 import { TextButton } from "@strapi/design-system/TextButton";
+import { useNavigationData } from "../../utils/NavigationDataProvider";
+import addEditModal from "../AddEditModal";
+import { useEditAddModal } from "../../utils/EditAddModalProvider";
+import { NavikronosRoute, NavikronosRoutes } from "../../../../server/types";
 
-type NavigationTreeChildProps = { child: SingleRouteChild };
+type NavigationTreeChildProps = {
+  child: NavikronosRoute;
+  locationIndexes: number[];
+};
 
 const Children = styled.div`
   margin-left: 20px;
 `;
 
-const NavigationTreeChild = ({ child }: NavigationTreeChildProps) => {
+const NavigationTreeChild = ({
+  child,
+  locationIndexes,
+}: NavigationTreeChildProps) => {
+  const { openEditModal, openAddModal } = useEditAddModal();
   const { data: config } = useData();
+  const { removeRoute } = useNavigationData();
 
-  const isSingle = child.type === "single";
-  const isMultiple = child.type === "multiple";
+  const canHaveChildren = child.type !== "contentType";
   const hasChildren =
-    isSingle && child?.children?.length && child.children.length > 0;
-  const canAddChildren = isSingle;
+    canHaveChildren && child?.children?.length && child.children.length > 0;
 
   const badge = useMemo(() => {
-    if (child.type === "multiple") {
-      return { title: "Entities", color: "primary500" };
-    }
-
-    switch (child.content.type) {
+    switch (child.type) {
+      case "contentType":
+        return { title: "Content type", color: "primary500" };
       case "static":
         return { title: "Static", color: "success500" };
       case "listing":
         return { title: "Listing", color: "danger500" };
       case "empty":
         return { title: "Empty", color: "warning500" };
-      case "entity":
-        return { title: "Entity", color: "secondary500" };
+      case "entry":
+        return { title: "Entry", color: "secondary500" };
     }
   }, [child]);
 
-  const url = useMemo(() => {
-    if (child.type === "multiple") {
-      return null;
-    }
-    switch (child.content.type) {
+  const path = useMemo(() => {
+    switch (child.type) {
+      case "contentType":
+        return null;
       case "static":
       case "listing":
       case "empty":
-        return child.content.path;
-      case "entity": {
-        const x = config.specificContentTypesEntries[child.content.entityType];
-        const y = x[child.content.id]?.slug;
-        return y ?? child.content.overridePath;
-      }
+        return child.path;
+      case "entry":
+        const x = config.specificContentTypesEntries[child.contentTypeUid];
+        if (!x) {
+          return null;
+        }
+        const y = x[child.entryId]?.slug;
+        return y ?? child.overridePath;
     }
   }, [child]);
 
   const title = useMemo(() => {
-    if (child.type === "multiple") {
-      const info = config.contentTypeInfos[child.entityType];
-      if (!info) {
-        return null;
-      }
-      return info.displayName;
-    }
-    switch (child.content.type) {
+    switch (child.type) {
+      case "contentType":
+        const info = config.contentTypeInfos[child.contentTypeUid];
+        if (!info) {
+          return null;
+        }
+        return info.displayName;
       case "static":
       case "listing":
       case "empty":
-        return child.content.title;
-      case "entity": {
-        const x = config.specificContentTypesEntries[child.content.entityType];
-        const y = x[child.content.id]?.title;
-        return y ?? child.content.overrideTitle;
-      }
+        return child.title;
+      case "entry":
+        const x = config.specificContentTypesEntries[child.contentTypeUid];
+        if (!x) {
+          return;
+        }
+        const y = x[child.entryId]?.title;
+        return y ?? child.overrideTitle;
     }
   }, [child]);
 
@@ -109,56 +115,61 @@ const NavigationTreeChild = ({ child }: NavigationTreeChildProps) => {
                   {title}
                 </Typography>
               )}
-              {url && (
+              {path && (
                 <Typography
                   variant="omega"
                   fontWeight="bold"
                   textColor="neutral500"
                 >
-                  /{url}
+                  /{path}
                 </Typography>
               )}
             </Flex>
             <Flex alignItems="center">
               <IconButton
-                onClick={() => {}}
+                onClick={() => {
+                  openEditModal(locationIndexes);
+                }}
                 label="Restore"
                 icon={<Pencil />}
               />
-              <IconButton onClick={() => {}} label="Remove" icon={<Trash />} />
+              <IconButton
+                onClick={() => {
+                  removeRoute(locationIndexes);
+                }}
+                label="Remove"
+                icon={<Trash />}
+              />
             </Flex>
           </Stack>
-          {/*<ItemCardHeader*/}
-          {/*  title={title}*/}
-          {/*  path={isExternal ? externalPath : absolutePath}*/}
-          {/*  icon={isExternal ? Earth : isWrapper ? Cog : LinkIcon}*/}
-          {/*  onItemRemove={() => onItemRemove(item)}*/}
-          {/*  onItemEdit={() => onItemEdit({*/}
-          {/*    ...item,*/}
-          {/*    isMenuAllowedLevel,*/}
-          {/*    isParentAttachedToMenu,*/}
-          {/*  }, levelPath, isParentAttachedToMenu)}*/}
-          {/*  onItemRestore={() => onItemRestore(item)}*/}
-          {/*  dragRef={refs.dragRef}*/}
-          {/*  removed={removed}*/}
-          {/*/>*/}
         </CardBody>
         {/*<Divider />*/}
       </Card>
       {hasChildren && (
         <Children>
-          {child.children!.map((innerChild) => (
-            <NavigationTreeChild child={innerChild} />
+          {child.children!.map((innerChild, index) => (
+            <NavigationTreeChild
+              key={index}
+              child={innerChild}
+              locationIndexes={[...locationIndexes, index]}
+            />
           ))}
         </Children>
       )}
-      {canAddChildren && (
+      {canHaveChildren && (
         <TextButton
           // disabled={removed}
           startIcon={<Plus />}
           // onClick={onNewItemClick}
         >
-          <Typography variant="pi" fontWeight="bold" textColor={"primary600"}>
+          <Typography
+            variant="pi"
+            fontWeight="bold"
+            textColor={"primary600"}
+            onClick={() => {
+              openAddModal(locationIndexes);
+            }}
+          >
             Add child
           </Typography>
         </TextButton>

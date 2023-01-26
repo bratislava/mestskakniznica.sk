@@ -8,23 +8,16 @@ import React, {
 } from "react";
 import { useQuery } from "react-query";
 import { fetchNavigation } from "./api";
-import { Navigation } from "../../../server/types";
+import { NavikronosNavigation, NavikronosRoute } from "../../../server/types";
+import produce from "immer";
+import { last } from "lodash";
 
-type ModalData =
-  | { open: false }
-  | { open: true; type: "edit" | "add"; location: number[] };
-
-const NavigationDataContext = createContext<Navigation | null>(null);
+const NavigationDataContext = createContext<NavikronosNavigation | null>(null);
 const NavigationDataDispatchContext =
-  createContext<React.Dispatch<Navigation> | null>(null);
-const ModalContext = createContext<{
-  modalData: ModalData;
-  setModalData: React.Dispatch<React.SetStateAction<ModalData>>;
-} | null>(null); // TODO: type
+  createContext<React.Dispatch<NavigationDataAction> | null>(null);
 
 export const NavigationDataProvider = ({ children }: PropsWithChildren) => {
   const [navigationData, dispatch] = useReducer(navigationDataReducer, null);
-  const [modalData, setModalData] = useState<ModalData>({ open: false });
 
   console.log("navigationData", navigationData);
   const { data, isLoading } = useQuery("navigation", {
@@ -36,56 +29,116 @@ export const NavigationDataProvider = ({ children }: PropsWithChildren) => {
   });
 
   return (
-    <ModalContext.Provider value={{ modalData, setModalData }}>
-      <NavigationDataContext.Provider value={navigationData}>
-        <NavigationDataDispatchContext.Provider value={dispatch}>
-          {children}
-        </NavigationDataDispatchContext.Provider>
-      </NavigationDataContext.Provider>
-    </ModalContext.Provider>
+    <NavigationDataContext.Provider value={navigationData}>
+      <NavigationDataDispatchContext.Provider value={dispatch}>
+        {children}
+      </NavigationDataDispatchContext.Provider>
+    </NavigationDataContext.Provider>
   );
 };
 
-function navigationDataReducer(navigationData, action) {
-  debugger;
-  switch (action.type) {
-    case "initial": {
-      return action.data;
-    }
-    case "add": {
-    }
-    case "edit": {
-    }
-    // case "changed": {
-    //   return navigationData.map((t) => {
-    //     if (t.id === action.task.id) {
-    //       return action.task;
-    //     } else {
-    //       return t;
-    //     }
-    //   });
-    // }
-    // case "deleted": {
-    //   return navigationData.filter((t) => t.id !== action.id);
-    // }
-    default: {
-      throw Error("Unknown action: " + action.type);
-    }
+interface InitialAction {
+  type: "initial";
+  data: NavikronosNavigation;
+}
+
+interface AddRouteAction {
+  type: "addRoute";
+  indexes: number[];
+  data: NavikronosRoute;
+}
+
+interface EditRouteAction {
+  type: "editRoute";
+  indexes: number[];
+  data: NavikronosRoute;
+}
+
+interface RemoveRouteAction {
+  type: "removeRoute";
+  indexes: number[];
+}
+
+type NavigationDataAction =
+  | InitialAction
+  | AddRouteAction
+  | EditRouteAction
+  | RemoveRouteAction;
+
+function navigationDataReducer(
+  navigationData: NavikronosNavigation | null,
+  action: NavigationDataAction
+) {
+  if (action.type === "initial") {
+    return action.data;
   }
+  if (!navigationData) {
+    return null;
+  }
+
+  return produce({ children: navigationData }, (draft) => {
+    switch (action.type) {
+      case "addRoute": {
+        let current = draft;
+        action.indexes.forEach((index) => {
+          // @ts-ignore
+          current = current.children[index];
+        });
+        current.children.push(action.data);
+        break;
+      }
+      case "editRoute":
+        let current = draft;
+        action.indexes.splice(-1).forEach((index) => {
+          // @ts-ignore
+          current = current.children[index];
+        });
+        const lastIndex = last(action.indexes) as number;
+        current.children[lastIndex] = action.data;
+        break;
+      case "removeRoute": {
+        let current = draft;
+        action.indexes.slice(0, -1).forEach((index) => {
+          // @ts-ignore
+          current = current.children[index];
+        });
+        const lastIndex = last(action.indexes) as number;
+        current.children.splice(lastIndex, 1);
+        break;
+      }
+      default: {
+        throw Error("Unknown action: " + (action as { type: string }).type);
+      }
+    }
+  }).children;
 }
 
 export const useNavigationData = () => {
   const data = useContext(NavigationDataContext);
+  const dispatch = useContext(NavigationDataDispatchContext) as any;
 
-  const { modalData, setModalData } = useContext(ModalContext)!;
-
-  const openAddModal = () => {
-    setModalData({ open: true, type: "add", location: [] });
+  const editRoute = (
+    locationIndexes: number[],
+    editedRoute: NavikronosRoute
+  ) => {
+    dispatch({
+      type: "editRoute",
+      indexes: locationIndexes,
+      data: editedRoute,
+    } as any);
   };
 
-  console.log(openAddModal);
+  const addRoute = (locationIndexes: number[], newRoute: NavikronosRoute) => {
+    dispatch({
+      type: "addRoute",
+      indexes: locationIndexes,
+      data: newRoute,
+    } as any);
+  };
 
-  console.log("xontet", data);
+  const removeRoute = (locationIndexes: number[]) => {
+    dispatch({ type: "removeRoute", indexes: locationIndexes });
+  };
 
-  return { data, openAddModal, modalData };
+  return { data, editRoute, addRoute, removeRoute };
 };

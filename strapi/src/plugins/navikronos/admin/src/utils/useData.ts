@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { fetchNavigation, fetchNavikronosConfig } from "./api";
-import { Navigation } from "../../../server/types";
+import { NavikronosNavigation } from "../../../server/types";
 import { createContext, useContext } from "react";
 
 export const useData = () => {
