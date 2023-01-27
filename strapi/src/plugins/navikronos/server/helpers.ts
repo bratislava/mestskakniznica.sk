@@ -4,6 +4,8 @@ import { NavikronosConfig } from "./types";
 export const getConfig = (strapi: IStrapi) =>
   strapi.config.get("plugin.navikronos") as NavikronosConfig;
 
+export const validateConfig = () => {};
+
 export type FetchedEntry = {
   id: string;
   title: string;
@@ -17,7 +19,8 @@ export const fetchEntries = async (
 ) => {
   const { entryRoutes } = getConfig(strapi);
   const contentTypeConfig = entryRoutes.find(
-    (specificContentType) => specificContentType.contentType === contentTypeUid
+    (specificContentType) =>
+      specificContentType.contentTypeUid === contentTypeUid
   );
   if (!contentTypeConfig) {
     return [] as FetchedEntry[];

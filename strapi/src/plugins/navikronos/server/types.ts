@@ -45,6 +45,8 @@ export type NavikronosListingRoute = {
 
 export type NavikronosNavigation = NavikronosRoutes;
 
+export type NavikronosLocaleNavigations = Record<string, NavikronosNavigation>;
+
 const x: NavikronosNavigation = [
   { type: "static", title: "Vyhľadávanie", path: "vyhladavanie" },
   {

@@ -6,6 +6,8 @@ import { IStrapi } from "strapi-typed";
 export default async ({ strapi }: { strapi: IStrapi }) => {
   const config = getConfig(strapi);
 
+  strapi.contentTypes;
+
   // const generatedRelationAttributes = Object.fromEntries(
   //   (config.specificContentTypes ?? []).map((type) => [
   //     contentTypeToRelationName(type.contentType),

@@ -1,4 +1,6 @@
 export default {
   default: {},
-  validator() {},
+  validator: (config) => {
+    console.log("config validator", config);
+  },
 };
