@@ -8,6 +8,7 @@ import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next'
 import { NextAdapter } from 'next-query-params'
+import { OverlayProvider, SSRProvider } from 'react-aria'
 import { QueryParamProvider } from 'use-query-params'
 
 import ErrorDisplay from '../components/Molecules/ErrorDisplay'
@@ -31,14 +32,18 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
           data-domain="mestskakniznica.sk"
           src="https://plausible.io/js/plausible.js"
         />
-      ) : null}{' '}
-      <MQueryClientProvider>
-        <MI18nProvider>
-          <QueryParamProvider adapter={NextAdapter}>
-            <Component {...pageProps} />
-          </QueryParamProvider>
-        </MI18nProvider>
-      </MQueryClientProvider>
+      ) : null}
+      <SSRProvider>
+        <MQueryClientProvider>
+          <MI18nProvider>
+            <OverlayProvider>
+              <QueryParamProvider adapter={NextAdapter}>
+                <Component {...pageProps} />
+              </QueryParamProvider>
+            </OverlayProvider>
+          </MI18nProvider>
+        </MQueryClientProvider>
+      </SSRProvider>
     </div>
   )
 }

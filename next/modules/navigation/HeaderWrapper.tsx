@@ -8,6 +8,9 @@ import React, { useMemo } from 'react'
 const HeaderWrapper = () => {
   const { menus } = useGeneralContext()
 
+  // TODO move parsing into context and return parsed menu from context
+  // TODO simplify parsing
+  // TODO move this component somewhere more appropriate or delete it
   const menusParsed: MenuItem[] = useMemo(() => {
     return (
       menus?.data
@@ -28,7 +31,8 @@ const HeaderWrapper = () => {
 
                       const linkLabel =
                         link.sectionLinkTitle ?? link.sectionLinkPage?.data?.attributes?.title
-                      const url = link.sectionLinkPage?.data?.attributes?.slug
+                      // TODO urls should be absolute
+                      const url = `/${link.sectionLinkPage?.data?.attributes?.slug}`
 
                       return { label: linkLabel, url }
                     })

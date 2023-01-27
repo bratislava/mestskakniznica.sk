@@ -87,7 +87,11 @@ const MobileHeader = ({ menus }: MobileHeaderProps) => {
             <Button variant="unstyled" className="p-4" onPress={() => setMenuOpen(true)}>
               <BurgerIcon />
             </Button>
-            {isMenuOpen && <MobileNavigation onClose={() => setMenuOpen(false)} menus={menus} />}
+            <MobileNavigation
+              isOpen={isMenuOpen}
+              onClose={() => setMenuOpen(false)}
+              menus={menus}
+            />
           </div>
         </div>
       </div>
