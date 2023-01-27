@@ -6,7 +6,6 @@ import Modal from '@modules/common/Modal'
 import MobileNavigationItem from '@modules/navigation/MobileNavigationItem'
 import { MenuItem } from '@modules/navigation/NavMenu'
 import { useTranslation } from 'next-i18next'
-import { useEffect } from 'react'
 
 interface MobileNavigationProps {
   isOpen: boolean
@@ -16,14 +15,6 @@ interface MobileNavigationProps {
 
 export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationProps) => {
   const { t } = useTranslation(['common', 'homepage'])
-
-  useEffect(() => {
-    const originalStyle = window.getComputedStyle(document.body).overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = originalStyle
-    }
-  }, [])
 
   const { localizations, locale } = usePageWrapperContext()
   const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
