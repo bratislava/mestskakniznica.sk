@@ -1,3 +1,8 @@
+// Admin navigation
+import { I18NStatus } from "../admin/src/utils/getI18nStatus";
+import { StrapiContentTypeInfo } from "strapi-typed";
+import { FetchedEntry } from "./helpers";
+
 export type NavikronosRoute =
   | NavikronosContentTypeRoute
   | NavikronosEmptyRoute
@@ -61,3 +66,77 @@ const x: NavikronosNavigation = [
     ],
   },
 ];
+
+// Client navigation
+export type NavikronosClientRoute =
+  | NavikronosClientContentTypeRoute
+  | NavikronosClientEmptyRoute
+  | NavikronosClientEntryRoute
+  | NavikronosClientStaticRoute
+  | NavikronosClientListingRoute;
+
+export type NavikronosClientRoutes = NavikronosClientRoute[];
+
+export type NavikronosClientRouteWithTitlePath = {
+  title: string;
+  path: string;
+};
+export type NavikronosClientRouteWithChildren = {
+  children?: NavikronosClientRoute[];
+};
+
+export type NavikronosClientContentTypeRoute = {
+  type: "contentType";
+  contentTypeUid: string;
+};
+
+export type NavikronosClientEmptyRoute = {
+  type: "empty";
+} & NavikronosClientRouteWithTitlePath &
+  NavikronosClientRouteWithChildren;
+
+export type NavikronosClientEntryRoute = {
+  type: "entry";
+} & NavikronosClientRouteWithTitlePath &
+  NavikronosClientRouteWithChildren;
+
+export type NavikronosClientStaticRoute = {
+  type: "static";
+} & NavikronosClientRouteWithTitlePath &
+  NavikronosClientRouteWithChildren;
+
+export type NavikronosClientListingRoute = {
+  type: "listing";
+} & NavikronosClientRouteWithTitlePath &
+  NavikronosClientRouteWithChildren;
+
+export type NavikronosClientNavigation = NavikronosClientRoutes;
+
+// Config
+export type NavikronosConfig = {
+  staticRouteIds?: string[];
+  contentTypeRoutes?: {
+    contentTypeUid: string;
+  }[];
+  entryRoutes?: {
+    contentTypeUid: string;
+    pathAttribute: string;
+    titleAttribute: string;
+  }[];
+  enableListing?: boolean;
+};
+
+export type AdminConfig = {
+  i18n: I18NStatus;
+  contentTypeRoutes: { contentTypeUid: string }[];
+  entryRouteEntries: Record<string, FetchedEntry[]>;
+  staticRouteIds: string[];
+  contentTypeInfos: Record<string, StrapiContentTypeInfo>;
+  listingEnabled: boolean;
+};
+
+// API
+export type ClientGetNavigationResponse = NavikronosClientNavigation;
+export type AdminGetNavigationResponse = NavikronosNavigation;
+export type AdminPutNavigationInput = NavikronosNavigation;
+export type AdminGetConfigResponse = AdminConfig;

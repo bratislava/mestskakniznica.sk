@@ -1,6 +1,6 @@
 import { Strapi } from "@strapi/strapi";
 import objectHash from "object-hash";
-import { contentTypeToRelationName, getConfig } from "./helpers";
+import { getConfig } from "./helpers";
 import { IStrapi } from "strapi-typed";
 
 export default async ({ strapi }: { strapi: IStrapi }) => {

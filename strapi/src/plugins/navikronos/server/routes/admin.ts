@@ -1,10 +1,10 @@
-export const adminRoutes = {
+export default {
   type: "admin",
   routes: [
     {
       method: "GET",
-      path: "/allData",
-      handler: "admin.getAllData",
+      path: "/config",
+      handler: "admin.getConfig",
     },
     {
       method: "GET",
@@ -16,15 +16,5 @@ export const adminRoutes = {
       path: "/navigation",
       handler: "admin.putNavigation",
     },
-    {
-      method: "GET",
-      path: "/content-type-items/:contentType",
-      handler: "admin.getContentTypeItems",
-    },
-    // {
-    //   method: "PUT",
-    //   path: "/",
-    //   handler: "admin.get",
-    // },
   ],
 };

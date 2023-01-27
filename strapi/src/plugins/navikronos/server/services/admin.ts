@@ -1,95 +1,68 @@
-import { Id, IStrapi, StrapiContentType, StrapiContext } from "strapi-typed";
+import {
+  Id,
+  IStrapi,
+  StrapiContentType,
+  StrapiContentTypeInfo,
+  StrapiContext,
+} from "strapi-typed";
 import { getI18nStatus } from "../../admin/src/utils/getI18nStatus";
-import { fetchEntities, getConfig } from "../helpers";
-import { NavikronosNavigation } from "../types";
+import { fetchEntries, getConfig } from "../helpers";
+import {
+  AdminConfig,
+  AdminGetConfigResponse,
+  AdminGetNavigationResponse,
+  ClientGetNavigationResponse,
+  NavikronosNavigation,
+} from "../types";
 
-const traverseGetEntitiesToFetch = (navigation: NavikronosNavigation) => {
-  let entitiesToFetch: Record<string, string[]> = {};
-  // let multipleRoutesContentTypes = new Set();
-  const innerTraverse = (t: any) => {
-    t.forEach((route) => {
-      if (route.type === "single") {
-        if (route.content.type === "entity") {
-          const { entityType, id } = route.content;
-          if (!entitiesToFetch[entityType]) {
-            entitiesToFetch[entityType] = [];
-          }
-          entitiesToFetch[entityType].push(id);
-        }
-        if (route.children) {
-          innerTraverse(route.children);
-        }
-      }
-      // verify multiple
-    });
-  };
-
-  innerTraverse(navigation);
-
-  return { entitiesToFetch };
-};
-
-export const adminService = ({ strapi }: { strapi: IStrapi }) => {
+export default ({ strapi }: { strapi: IStrapi }) => {
   return {
-    async getAllData() {
+    async getConfig(): Promise<AdminGetConfigResponse> {
       const i18n = await getI18nStatus({ strapi });
-      const { specificContentTypes, staticPages, spreadContentTypes } =
-        getConfig(strapi);
-      const n = specificContentTypes.map(({ contentType }) => async () => {
-        const fetched = await fetchEntities(strapi, contentType);
-        return [contentType, fetched];
-      });
 
-      const specificContentTypesEntries = Object.fromEntries(
-        await Promise.all(n.map((g) => g()))
+      const { entryRoutes, staticRouteIds, contentTypeRoutes, enableListing } =
+        getConfig(strapi);
+      const entryRouteEntriesPromises = entryRoutes.map(
+        ({ contentTypeUid }) =>
+          async () => {
+            const fetched = await fetchEntries(strapi, contentTypeUid);
+            return [contentTypeUid, fetched] as const;
+          }
       );
 
-      const allContentTypes = [
-        ...specificContentTypes.map(({ contentType }) => contentType),
-        ...spreadContentTypes,
+      const entryRouteEntries = Object.fromEntries(
+        await Promise.all(entryRouteEntriesPromises.map((p) => p()))
+      );
+
+      const allContentTypesUids = [
+        ...entryRoutes.map(({ contentTypeUid }) => contentTypeUid),
+        ...contentTypeRoutes.map(({ contentTypeUid }) => contentTypeUid),
       ];
-      const contentTypeInfos = Object.fromEntries(
-        allContentTypes.map((contentTypeUid) => [
-          contentTypeUid,
-          strapi.contentTypes[contentTypeUid].info,
-        ])
+      const contentTypeInfos = Object.fromEntries<StrapiContentTypeInfo>(
+        allContentTypesUids.map(
+          (contentTypeUid) =>
+            [contentTypeUid, strapi.contentTypes[contentTypeUid].info] as const
+        )
       );
 
       return {
         i18n,
-        specificContentTypesEntries,
-        staticPages,
-        spreadContentTypes,
+        contentTypeRoutes,
+        entryRouteEntries,
+        staticRouteIds,
         contentTypeInfos,
+        listingEnabled: enableListing,
       };
     },
 
-    async getNavigation() {
-      const navigation = (await strapi
-        .query("api::navikronos-storage.navikronos-storage")
-        .findMany({})) as any;
+    async getNavigation(): Promise<AdminGetNavigationResponse> {
+      const navigation = await strapi
+        .query<NavikronosNavigation>(
+          "api::navikronos-storage.navikronos-storage"
+        )
+        .findMany({});
 
-      const nav = navigation[0].navigation as NavikronosNavigation;
-      //
-      // const { entitiesToFetch } = traverseGetEntitiesToFetch(nav);
-      // console.log(entitiesToFetch);
-      // const promises = Object.entries(entitiesToFetch).map(
-      //   ([contentType, ids]) => {
-      //     return async () => {
-      //       const fetched = await fetchEntities(contentType, ids);
-      //       const mapped = Object.fromEntries(
-      //         fetched.map((entry) => [entry.id, entry])
-      //       );
-      //       return [contentType, mapped];
-      //     };
-      //   }
-      // );
-      //
-      // const entities = Object.fromEntries(
-      //   await Promise.all(promises.map((x) => x()))
-      // );
-
-      return nav;
+      return navigation[0];
     },
 
     async putNavigation() {},

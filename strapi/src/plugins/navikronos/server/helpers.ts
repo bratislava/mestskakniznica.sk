@@ -1,42 +1,37 @@
-import { camelCase } from "lodash";
-import { Strapi } from "@strapi/strapi";
 import { IStrapi, StrapiContentType } from "strapi-typed";
+import { NavikronosConfig } from "./types";
 
-/**
- * Converts e.g. "api::page.page" to "relationsApiPagePage"
- */
-export const contentTypeToRelationName = (contentType: string) =>
-  camelCase(`relations ${contentType.replace(/::|\./g, " ")}`);
+export const getConfig = (strapi: IStrapi) =>
+  strapi.config.get("plugin.navikronos") as NavikronosConfig;
 
-export const getConfig = (strapi: IStrapi) => {
-  return strapi.config.get("plugin.navikronos") as {
-    staticPages?: string[];
-    spreadContentTypes?: string[];
-    specificContentTypes?: {
-      contentType: string;
-      pathAttribute: string;
-      titleAttribute: string;
-    }[];
-    enableListing?: boolean;
-  };
+export type FetchedEntry = {
+  id: string;
+  title: string;
+  path: string;
 };
 
-export const fetchEntities = async (
+export const fetchEntries = async (
   strapi: IStrapi,
-  contentType: string,
+  contentTypeUid: string,
   ids?: string[]
 ) => {
-  const { specificContentTypes } = getConfig(strapi);
-  const x = specificContentTypes.find((a) => a.contentType === contentType);
-  if (!x) {
-    return;
+  const { entryRoutes } = getConfig(strapi);
+  const contentTypeConfig = entryRoutes.find(
+    (specificContentType) => specificContentType.contentType === contentTypeUid
+  );
+  if (!contentTypeConfig) {
+    return [] as FetchedEntry[];
   }
 
   // filter published
   const items = await strapi
-    .query<StrapiContentType<any>>(contentType)
+    .query<StrapiContentType<any>>(contentTypeUid)
     .findMany({
-      select: ["id", x.titleAttribute, x.pathAttribute],
+      select: [
+        "id",
+        contentTypeConfig.titleAttribute,
+        contentTypeConfig.pathAttribute,
+      ],
       where: ids
         ? {
             id: {
@@ -46,5 +41,12 @@ export const fetchEntities = async (
         : {},
     });
 
-  return items;
+  return items.map(
+    (entry) =>
+      ({
+        id: entry.id,
+        title: entry[contentTypeConfig.titleAttribute],
+        path: entry[contentTypeConfig.pathAttribute],
+      } as FetchedEntry)
+  );
 };

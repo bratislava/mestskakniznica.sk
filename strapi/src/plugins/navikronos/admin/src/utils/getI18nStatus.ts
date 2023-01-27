@@ -2,7 +2,7 @@ import { IStrapi } from "strapi-typed";
 
 // Copied from strapi-plugin-navigation/server/i18n/utils.ts
 
-export type NavigationPluginConfig = {
+type NavigationPluginConfig = {
   i18nEnabled: boolean;
 };
 
@@ -10,7 +10,7 @@ type GetI18nStatusInput = {
   strapi: IStrapi;
 };
 
-type I18NStatus = {
+export type I18NStatus = {
   hasI18NPlugin: boolean;
   enabled: boolean;
   defaultLocale?: string | null;

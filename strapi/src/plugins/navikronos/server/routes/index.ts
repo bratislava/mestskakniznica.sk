@@ -1,3 +1,4 @@
-import { adminRoutes } from "./admin";
+import admin from "./admin";
+import client from "./client";
 
-export default { adminRoutes };
+export default { admin, client };

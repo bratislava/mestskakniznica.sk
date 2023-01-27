@@ -6,11 +6,11 @@ services:
       POSTGRES_USER: strapi
       POSTGRES_PASSWORD: password
       POSTGRES_DB: strapi
-      PGPORT: 5432
+      PGPORT: 1234
     expose:
-      - "5432"
+      - "1234"
     ports:
-      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:1234:1234"
     volumes:
       - ./postgres:/var/lib/postgresql/data/
 
