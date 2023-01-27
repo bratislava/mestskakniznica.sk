@@ -2,7 +2,9 @@ import { ChevronLeftIcon } from '@assets/icons'
 import Button from '@modules/common/Button'
 import MLink from '@modules/common/MLink'
 import Modal from '@modules/common/Modal'
+import MobileLatestEvents from '@modules/navigation/MobileLatestEvents'
 import { MenuSection } from '@modules/navigation/NavMenu'
+import React from 'react'
 import { useWindowSize } from 'usehooks-ts'
 
 interface SubnavigationProps {
@@ -34,17 +36,24 @@ const MobileSubnavigation = ({ isOpen, menuSections, onClose }: SubnavigationPro
               <div className="pb-[10px] text-lg">{section.label}</div>
 
               <div className="flex flex-col">
-                {section.items.map((sectionItem, itemIndex) => (
-                  <MLink
+                {section.items.map((sectionItem, itemIndex) => {
+                  if (sectionItem?.label === 'latestEvents') {
                     // eslint-disable-next-line react/no-array-index-key
-                    key={itemIndex}
-                    href={sectionItem.url}
-                    variant="basic"
-                    className="py-1.5 text-base text-foreground-body"
-                  >
-                    {sectionItem.label}
-                  </MLink>
-                ))}
+                    return <MobileLatestEvents key={itemIndex} />
+                  }
+
+                  return (
+                    <MLink
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={itemIndex}
+                      href={sectionItem.url}
+                      variant="basic"
+                      className="py-1.5 text-base text-foreground-body"
+                    >
+                      {sectionItem.label}
+                    </MLink>
+                  )
+                })}
               </div>
             </div>
           ))}

@@ -15,7 +15,9 @@ const NavMenuTrigger = forwardRef<any, NavMenuTriggerProps>(
         // Uncomment this to disable "onHover" behaviour, needs to be uncommented also in NavMenuContent
         // onPointerMove={(event) => event.preventDefault()}
         // onPointerLeave={(event) => event.preventDefault()}
-        className={cx('flex h-full w-full items-end pb-1 text-h5', { 'pl-3': !isFirst })}
+        className={cx('flex h-full w-full cursor-default items-end pb-1 text-h5', {
+          'pl-3': !isFirst,
+        })}
       >
         {label}
       </NavigationMenu.Trigger>
