@@ -5,7 +5,7 @@ import {
   StrapiContentTypeInfo,
   StrapiContext,
 } from "strapi-typed";
-import { getI18nStatus } from "../../admin/src/utils/getI18nStatus";
+import { getI18nStatus } from "../getI18nStatus";
 import { fetchEntries, getConfig } from "../helpers";
 import {
   AdminConfig,

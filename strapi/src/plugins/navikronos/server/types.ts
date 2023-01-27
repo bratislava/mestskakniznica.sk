@@ -1,5 +1,5 @@
 // Admin navigation
-import { I18NStatus } from "../admin/src/utils/getI18nStatus";
+import { I18NStatus } from "./getI18nStatus";
 import { StrapiContentTypeInfo } from "strapi-typed";
 import { FetchedEntry } from "./helpers";
 

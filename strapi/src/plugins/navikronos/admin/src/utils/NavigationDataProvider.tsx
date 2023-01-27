@@ -1,10 +1,9 @@
 import React, {
-  useReducer,
-  PropsWithChildren,
-  useEffect,
   createContext,
+  PropsWithChildren,
   useContext,
-  useState,
+  useEffect,
+  useReducer,
 } from "react";
 import { useQuery } from "react-query";
 import { fetchNavigation } from "./api";
@@ -117,7 +116,7 @@ function navigationDataReducer(
 }
 
 export const useNavigationData = () => {
-  const data = useContext(NavigationDataContext);
+  const navigationData = useContext(NavigationDataContext);
   const dispatch = useContext(NavigationDataDispatchContext) as any;
 
   const editRoute = (
@@ -143,5 +142,5 @@ export const useNavigationData = () => {
     dispatch({ type: "removeRoute", indexes: locationIndexes });
   };
 
-  return { data, editRoute, addRoute, removeRoute };
+  return { navigationData, editRoute, addRoute, removeRoute };
 };

@@ -34,7 +34,7 @@ export const EditAddModalProvider = ({ children }: PropsWithChildren) => {
 
 export const useEditAddModal = () => {
   const { modalData, setModalData } = useContext(EditAddModalContext)!;
-  const { data } = useNavigationData();
+  const { navigationData } = useNavigationData();
 
   const openAddModal = (locationIndexes: number[]) => {
     setModalData({ open: true, type: "add", locationIndexes });
@@ -42,7 +42,7 @@ export const useEditAddModal = () => {
 
   const openEditModal = (locationIndexes: number[]) => {
     let defaultValues: NavikronosRoute | { children: NavikronosRoutes } = {
-      children: data as NavikronosRoutes,
+      children: navigationData as NavikronosRoutes,
     };
     locationIndexes.forEach((index) => {
       if (!defaultValues) {

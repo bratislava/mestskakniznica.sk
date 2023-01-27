@@ -3,10 +3,10 @@ import { ModalBody, ModalFooter } from "@strapi/design-system/ModalLayout";
 import { Button } from "@strapi/design-system/Button";
 import { GenericInput } from "@strapi/helper-plugin";
 import { Grid, GridItem } from "@strapi/design-system/Grid";
-import { Select, Option } from "@strapi/design-system/Select";
 import { useFormik } from "formik";
 import { isEmpty } from "lodash";
 import {
+  AdminGetConfigResponse,
   NavikronosContentTypeRoute,
   NavikronosEmptyRoute,
   NavikronosEntryRoute,
@@ -14,7 +14,7 @@ import {
   NavikronosRoute,
   NavikronosStaticRoute,
 } from "../../../server/types";
-import { useData } from "../utils/useData";
+import { useConfig } from "../utils/useConfig";
 
 const typeOptions = [
   ["entry", "Entry"],
@@ -34,9 +34,8 @@ const typeOptions = [
   label,
 }));
 
-const prepareContentTypesOptions = (config) => {
-  // todo type
-  return Object.entries<{ displayName: string }>(config.contentTypeInfos).map(
+const prepareContentTypesOptions = (config: AdminGetConfigResponse) => {
+  return Object.entries(config.contentTypeInfos).map(
     ([uid, { displayName }]) => ({
       key: uid,
       metadatas: {
@@ -71,10 +70,10 @@ const AddEditForm = ({ initialValues, onSubmit }: AddEditFormProps) => {
     // validateOnChange: false,
   });
 
-  const { data } = useData();
+  const { config } = useConfig();
   const contentTypeOptions = useMemo(
-    () => prepareContentTypesOptions(data),
-    [data]
+    () => prepareContentTypesOptions(config),
+    [config]
   );
 
   const defaultProps = useCallback(

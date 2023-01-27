@@ -5,26 +5,16 @@
  */
 
 import React from "react";
-import pluginId from "../../pluginId";
-import {
-  fetchContentTypeEntries,
-  fetchNavigation,
-  fetchNavikronosConfig,
-} from "../../utils/api";
-import { LoadingIndicatorPage, useNotification } from "@strapi/helper-plugin";
+import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 
 import { Main } from "@strapi/design-system/Main";
-import { Flex } from "@strapi/design-system/Flex";
-import { ContentLayout } from "@strapi/design-system/Layout";
-import { Typography } from "@strapi/design-system/Typography";
+import { ContentLayout, HeaderLayout } from "@strapi/design-system/Layout";
 import { Box } from "@strapi/design-system/Box";
-import { HeaderLayout } from "@strapi/design-system/Layout";
 import { Stack } from "@strapi/design-system/Stack";
-import { Icon } from "@strapi/design-system/Icon";
 import { Grid, GridItem } from "@strapi/design-system/Grid";
 import { Button } from "@strapi/design-system/Button";
-import { Select, Option } from "@strapi/design-system/Select";
-import { useData } from "../../utils/useData";
+import { Select } from "@strapi/design-system/Select";
+import { useConfig } from "../../utils/useConfig";
 import NavigationTree from "../../components/NavigationTree/NavigationTree";
 import {
   NavigationDataProvider,
@@ -34,9 +24,9 @@ import AddEditModal from "../../components/AddEditModal";
 import { EditAddModalProvider } from "../../utils/EditAddModalProvider";
 
 const HomePage = () => {
-  const { data: dataConfig, isLoading } = useData();
-  const { data } = useNavigationData();
-  console.log("nav", data);
+  const { configIsLoading } = useConfig();
+  const { navigationData } = useNavigationData();
+  console.log("nav", navigationData);
 
   return (
     <>
@@ -124,7 +114,7 @@ const HomePage = () => {
         />
         <ContentLayout>
           {isLoading && <LoadingIndicatorPage />}
-          {!isLoading && data && <NavigationTree />}
+          {!isLoading && navigationData && <NavigationTree />}
         </ContentLayout>
       </Main>
       <AddEditModal />

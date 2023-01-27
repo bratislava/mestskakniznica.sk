@@ -14,7 +14,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
 
-const App: React.VoidFunctionComponent = () => {
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <div>

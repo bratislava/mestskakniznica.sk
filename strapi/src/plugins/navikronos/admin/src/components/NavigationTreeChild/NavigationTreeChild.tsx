@@ -4,15 +4,14 @@ import { Card, CardBody } from "@strapi/design-system/Card";
 import { Stack } from "@strapi/design-system/Stack";
 import { Badge } from "@strapi/design-system/Badge";
 import { Typography } from "@strapi/design-system/Typography";
-import { useData } from "../../utils/useData";
+import { useConfig } from "../../utils/useConfig";
 import { Flex } from "@strapi/design-system/Flex";
 import { IconButton } from "@strapi/design-system/IconButton";
-import { Pencil, Trash, Refresh, Plus } from "@strapi/icons";
+import { Pencil, Plus, Trash } from "@strapi/icons";
 import { TextButton } from "@strapi/design-system/TextButton";
 import { useNavigationData } from "../../utils/NavigationDataProvider";
-import addEditModal from "../AddEditModal";
 import { useEditAddModal } from "../../utils/EditAddModalProvider";
-import { NavikronosRoute, NavikronosRoutes } from "../../../../server/types";
+import { NavikronosRoute } from "../../../../server/types";
 
 type NavigationTreeChildProps = {
   child: NavikronosRoute;
@@ -28,7 +27,7 @@ const NavigationTreeChild = ({
   locationIndexes,
 }: NavigationTreeChildProps) => {
   const { openEditModal, openAddModal } = useEditAddModal();
-  const { data: config } = useData();
+  const { config } = useConfig();
   const { removeRoute } = useNavigationData();
 
   const canHaveChildren = child.type !== "contentType";
@@ -59,12 +58,12 @@ const NavigationTreeChild = ({
       case "empty":
         return child.path;
       case "entry":
-        const x = config.specificContentTypesEntries[child.contentTypeUid];
-        if (!x) {
+        const entries = config.entryRouteEntries[child.contentTypeUid];
+        if (!entries) {
           return null;
         }
-        const y = x[child.entryId]?.slug;
-        return y ?? child.overridePath;
+        const pathInner = entries[child.entryId]?.path;
+        return child.overridePath ?? pathInner;
     }
   }, [child]);
 
@@ -81,12 +80,12 @@ const NavigationTreeChild = ({
       case "empty":
         return child.title;
       case "entry":
-        const x = config.specificContentTypesEntries[child.contentTypeUid];
-        if (!x) {
-          return;
+        const entries = config.entryRouteEntries[child.contentTypeUid];
+        if (!entries) {
+          return null;
         }
-        const y = x[child.entryId]?.title;
-        return y ?? child.overrideTitle;
+        const titleInner = entries[child.entryId]?.title;
+        return child.overrideTitle ?? titleInner;
     }
   }, [child]);
 

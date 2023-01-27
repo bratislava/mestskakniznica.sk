@@ -1,7 +1,6 @@
 import React from "react";
 import { Typography } from "@strapi/design-system/Typography";
 import { ModalHeader, ModalLayout } from "@strapi/design-system/ModalLayout";
-import { useNavigationData } from "../utils/NavigationDataProvider";
 import { useEditAddModal } from "../utils/EditAddModalProvider";
 import AddEditForm from "./AddEditForm";
 
