@@ -10,6 +10,7 @@ import {
   eventsUpcomingDefaultFilters,
   getEventsQueryKey,
 } from '@services/meili/fetchers/eventsFetcher'
+import { useRoutePreservedFilters } from '@utils/useRoutePreservedFilters'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 import { useQuery, UseQueryResult } from 'react-query'
@@ -60,40 +61,44 @@ const InnerSection = ({
 const EventsListingSection = () => {
   const { t } = useTranslation('common')
 
-  const [sharedFilters, setSharedFilters] = useState(eventsDefaultSharedFilters)
-  const [filtersUpcoming, setFiltersUpcoming] = useState(eventsUpcomingDefaultFilters)
-  const [filtersArchived, setFiltersArchived] = useState(eventsArchivedDefaultFilters)
+  const [filters, setFilters] = useRoutePreservedFilters({
+    upcoming: eventsUpcomingDefaultFilters,
+    archived: eventsArchivedDefaultFilters,
+    shared: eventsDefaultSharedFilters,
+  })
 
   const handleSharedFiltersChange = (newFilters: EventsFiltersShared) => {
-    setSharedFilters(newFilters)
-    setFiltersUpcoming((f) => ({ ...f, page: 1 }))
-    setFiltersArchived((f) => ({ ...f, page: 1 }))
+    setFilters((f) => ({
+      shared: newFilters,
+      upcoming: { ...f.upcoming, page: 1 },
+      archived: { ...f.archived, page: 1 },
+    }))
   }
 
   // TODO: Advanced loading + errors
   const queryResultUpcoming = useQuery({
-    queryKey: getEventsQueryKey(filtersUpcoming, sharedFilters),
-    queryFn: () => eventsFetcher(filtersUpcoming, sharedFilters),
+    queryKey: getEventsQueryKey(filters.upcoming, filters.shared),
+    queryFn: () => eventsFetcher(filters.upcoming, filters.shared),
     keepPreviousData: true,
   })
 
   const queryResultArchived = useQuery({
-    queryKey: getEventsQueryKey(filtersArchived, sharedFilters),
-    queryFn: () => eventsFetcher(filtersArchived, sharedFilters),
+    queryKey: getEventsQueryKey(filters.archived, filters.shared),
+    queryFn: () => eventsFetcher(filters.archived, filters.shared),
     keepPreviousData: true,
   })
 
   const handleUpcomingPageChange = (page: number) => {
-    setFiltersUpcoming((f) => ({ ...f, page }))
+    setFilters((f) => ({ ...f, upcoming: { ...f.upcoming, page } }))
   }
 
   const handleArchivedPageChange = (page: number) => {
-    setFiltersArchived((f) => ({ ...f, page }))
+    setFilters((f) => ({ ...f, archived: { ...f.archived, page } }))
   }
 
   return (
     <>
-      <EventFilters filters={sharedFilters} onFiltersChange={handleSharedFiltersChange} />
+      <EventFilters filters={filters.shared} onFiltersChange={handleSharedFiltersChange} />
       {queryResultUpcoming.data?.hits.length === 0 &&
       queryResultArchived.data?.hits.length === 0 ? (
         <div className="text-center text-h3">{t('eventsEmpty')}</div>
@@ -102,13 +107,13 @@ const EventsListingSection = () => {
         <InnerSection
           titleTranslationKey="eventsUpcoming"
           queryResult={queryResultUpcoming}
-          filters={filtersUpcoming}
+          filters={filters.upcoming}
           onPageChange={handleUpcomingPageChange}
         />
         <InnerSection
           titleTranslationKey="eventsArchived"
           queryResult={queryResultArchived}
-          filters={filtersArchived}
+          filters={filters.archived}
           onPageChange={handleArchivedPageChange}
         />
       </div>

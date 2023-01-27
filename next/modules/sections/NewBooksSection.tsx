@@ -5,14 +5,16 @@ import {
   newBooksDefaultFilters,
   newBooksFetcher,
 } from '@services/opac/fetchers/new-books.fetcher'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
+import { useRouter } from 'next/router'
+import { useRoutePreservedFilters } from '@utils/useRoutePreservedFilters'
 
 /**
  * Figma: https://www.figma.com/file/CY6Mh2f0SXJhBMY74HdS03/MKB?node-id=4803%3A27424&t=VZjq8OU1CZYXVuDm-0
  */
 const NewBooksSection = () => {
-  const [filters, setFilters] = useState(newBooksDefaultFilters)
+  const [filters, setFilters] = useRoutePreservedFilters(newBooksDefaultFilters)
 
   const { data } = useQuery({
     queryKey: getNewBooksQueryKey(filters),
