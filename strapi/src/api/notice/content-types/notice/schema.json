@@ -90,7 +90,7 @@
           "localized": true
         }
       },
-      "component": "seo.seo"
+      "component": "common.seo"
     }
   }
 }

@@ -77,16 +77,6 @@
       "relation": "oneToOne",
       "target": "api::category.category"
     },
-    "Seo": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "seo.seo"
-    },
     "sections": {
       "pluginOptions": {
         "i18n": {
@@ -126,6 +116,16 @@
       "relation": "manyToMany",
       "target": "api::branch.branch",
       "inversedBy": "servicePages"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "common.seo"
     }
   }
 }

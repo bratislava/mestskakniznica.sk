@@ -57,15 +57,15 @@
       },
       "component": "sections.map"
     },
-    "Seo": {
+    "seo": {
       "type": "component",
       "repeatable": false,
-      "component": "seo.seo",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "common.seo"
     }
   }
 }
