@@ -13,6 +13,7 @@ import {
   AdminGetNavigationResponse,
   AdminPutNavigationInput,
   ClientGetNavigationResponse,
+  NavikronosLocaleNavigations,
   NavikronosNavigation,
   NavikronosStorageContentType,
 } from "../types";
@@ -65,78 +66,42 @@ export default ({ strapi }: { strapi: IStrapi }) => {
         .query<NavikronosStorageContentType>(
           "plugin::navikronos.navikronos-storage"
         )
-        .findMany({});
+        .findOne({});
 
       console.log(navigation);
 
-      if (!navigation[0]) {
+      if (!navigation) {
         return {};
       }
 
-      return navigation[0].data ?? {};
+      return navigation.data ?? {};
     },
 
     async putNavigation(navigations: AdminPutNavigationInput) {
       try {
-        const parsed = navikronosLocaleNavigationsSchema.parse(navigations);
-        console.log(parsed);
+        navikronosLocaleNavigationsSchema.parse(navigations);
+      } catch (e) {
+        return "error";
+      }
+
+      const queriedNavigation = await strapi
+        .query<{ id: number }>("plugin::navikronos.navikronos-storage")
+        .findOne({});
+
+      const id = queriedNavigation ? queriedNavigation.id : null;
+
+      if (id) {
+        await strapi
+          .query<{ id: string; data: NavikronosLocaleNavigations }>(
+            "plugin::navikronos.navikronos-storage"
+          )
+          .update({ where: { id }, data: { data: navigations } });
+      } else {
         await strapi
           .query("plugin::navikronos.navikronos-storage")
-          .create({ data: parsed });
-
-        return "xx";
-      } catch (e) {
-        console.log(e);
+          .create({ data: { data: navigations } });
       }
+      return { success: true };
     },
-
-    //   async getContentTypeItems(contentType: string) {
-    //     contentType = "api::event.event";
-    //
-    //     const { specificContentTypes } = getConfig(strapi);
-    //     const x = specificContentTypes.find((a) => a.contentType === contentType);
-    //     if (!x) {
-    //       return;
-    //     }
-    //
-    //     // contentType = "api::file-category.file-category";
-    //
-    //     const populate = [];
-    //
-    //     let now = performance.now();
-    //
-    //     const contentTypeItems = await strapi
-    //       .query<StrapiContentType<any>>(contentType)
-    //       .findMany({
-    //         // populate,
-    //       });
-    //
-    //     console.log("a:", performance.now() - now);
-    //
-    //     const ids = contentTypeItems.map(({ id }) => id);
-    //
-    //     now = performance.now();
-    //
-    //     const contentTypeItems2 = await strapi
-    //       .query<StrapiContentType<any>>(contentType)
-    //       .findMany({
-    //         where: {
-    //           id: {
-    //             $in: ids.slice(0, 25),
-    //           },
-    //         },
-    //       });
-    //
-    //     console.log("b:", performance.now() - now);
-    //
-    //     return contentTypeItems.map(({ id, ...t }) => ({
-    //       id,
-    //       title: t[x.titleAttribute],
-    //       path: t[x.pathAttribute],
-    //     }));
-    //
-    //     // return contentTypeItems;
-    //   },
-    // };
   };
 };
