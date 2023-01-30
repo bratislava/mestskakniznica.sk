@@ -14,7 +14,7 @@ import {
   NavikronosRoute,
   NavikronosStaticRoute,
 } from "../../../server/types";
-import { useConfig } from "../utils/useConfig";
+import { useConfig, useConfigDefined } from "../utils/useConfig";
 
 const typeOptions = [
   ["entry", "Entry"],
@@ -50,12 +50,12 @@ const prepareContentTypesOptions = (config: AdminGetConfigResponse) => {
   );
 };
 
-type AddEditFormProps = {
+type EditAddFormProps = {
   initialValues: NavikronosRoute;
   onSubmit: (values: NavikronosRoute) => void;
 };
 
-const AddEditForm = ({ initialValues, onSubmit }: AddEditFormProps) => {
+const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
   const {
     handleChange,
     setFieldValue,
@@ -70,7 +70,7 @@ const AddEditForm = ({ initialValues, onSubmit }: AddEditFormProps) => {
     // validateOnChange: false,
   });
 
-  const { config } = useConfig();
+  const config = useConfigDefined();
   const contentTypeOptions = useMemo(
     () => prepareContentTypesOptions(config),
     [config]
@@ -232,4 +232,4 @@ const AddEditForm = ({ initialValues, onSubmit }: AddEditFormProps) => {
   );
 };
 
-export default AddEditForm;
+export default EditAddForm;

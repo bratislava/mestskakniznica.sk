@@ -7,7 +7,7 @@ import {
 } from "../../../server/types";
 
 export const fetchConfig = () =>
-  request(`/${pluginId}/allData`, {
+  request(`/${pluginId}/config`, {
     method: "GET",
   }) as Promise<AdminGetConfigResponse>;
 

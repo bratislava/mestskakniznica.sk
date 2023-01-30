@@ -13,7 +13,7 @@ export const adminController = ({ strapi }: { strapi: IStrapi }) => {
     },
 
     async putNavigation(ctx) {
-      ctx.body = await getService().getConfig();
+      ctx.body = await getService().putNavigation(ctx.request.body);
     },
   };
 };

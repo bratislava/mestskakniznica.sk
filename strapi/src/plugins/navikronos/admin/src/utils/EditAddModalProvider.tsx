@@ -4,40 +4,53 @@ import React, {
   useContext,
   useState,
 } from "react";
-import { useNavigationData } from "./NavigationDataProvider";
+import { useNavigationDataDefined } from "./NavigationDataProvider";
 import { NavikronosRoute, NavikronosRoutes } from "../../../server/types";
 
-type EditAddModalData =
+type EditAddData =
   | { open: false }
-  | { open: true; type: "add"; locationIndexes: number[] }
+  | {
+      open: true;
+      type: "add";
+      locationIndexes: number[];
+      defaultValues: Partial<NavikronosRoute>;
+    }
   | {
       open: true;
       type: "edit";
       locationIndexes: number[];
-      defaultValues: NavikronosRoute;
+      defaultValues: Partial<NavikronosRoute>;
     };
 
-const EditAddModalContext = createContext<{
-  modalData: EditAddModalData;
-  setModalData: React.Dispatch<React.SetStateAction<EditAddModalData>>;
+const EditAddContext = createContext<{
+  modalData: EditAddData;
+  setModalData: React.Dispatch<React.SetStateAction<EditAddData>>;
 } | null>(null); // TODO: type
 
 export const EditAddModalProvider = ({ children }: PropsWithChildren) => {
-  const [modalData, setModalData] = useState<EditAddModalData>({ open: false });
+  const [modalData, setModalData] = useState<EditAddData>({ open: false });
 
   return (
-    <EditAddModalContext.Provider value={{ modalData, setModalData }}>
+    <EditAddContext.Provider value={{ modalData, setModalData }}>
       {children}
-    </EditAddModalContext.Provider>
+    </EditAddContext.Provider>
   );
 };
 
-export const useEditAddModal = () => {
-  const { modalData, setModalData } = useContext(EditAddModalContext)!;
-  const { navigationData } = useNavigationData();
+export const useEditAdd = () => {
+  const { modalData, setModalData } = useContext(EditAddContext)!;
+  const { navigationData } = useNavigationDataDefined();
+
+  console.log(modalData);
 
   const openAddModal = (locationIndexes: number[]) => {
-    setModalData({ open: true, type: "add", locationIndexes });
+    console.log("asdasd", locationIndexes);
+    setModalData({
+      open: true,
+      type: "add",
+      locationIndexes,
+      defaultValues: {} as Partial<NavikronosRoute>,
+    });
   };
 
   const openEditModal = (locationIndexes: number[]) => {

@@ -5,13 +5,20 @@ import React, {
   useEffect,
   useReducer,
 } from "react";
-import { useQuery } from "react-query";
-import { fetchNavigation } from "./api";
-import { NavikronosNavigation, NavikronosRoute } from "../../../server/types";
+import { useMutation, useQuery } from "react-query";
+import { fetchNavigation, putNavigation } from "./api";
+import {
+  NavikronosLocaleNavigations,
+  NavikronosNavigation,
+  NavikronosRoute,
+} from "../../../server/types";
 import produce from "immer";
 import { last } from "lodash";
+import { NavikronosRoutes } from "../../../server/test";
 
-const NavigationDataContext = createContext<NavikronosNavigation | null>(null);
+const NavigationDataContext = createContext<NavikronosLocaleNavigations | null>(
+  null
+);
 const NavigationDataDispatchContext =
   createContext<React.Dispatch<NavigationDataAction> | null>(null);
 
@@ -26,7 +33,7 @@ export const NavigationDataProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (data) {
-      dispatch({ type: "initial", data });
+      dispatch({ type: "loaded", data });
     }
   }, [data]);
 
@@ -39,85 +46,128 @@ export const NavigationDataProvider = ({ children }: PropsWithChildren) => {
   );
 };
 
-interface InitialAction {
-  type: "initial";
-  data: NavikronosNavigation;
+interface LoadedAction {
+  type: "loaded";
+  data: NavikronosLocaleNavigations;
 }
 
 interface AddRouteAction {
   type: "addRoute";
   indexes: number[];
   data: NavikronosRoute;
+  locale: string;
 }
 
 interface EditRouteAction {
   type: "editRoute";
   indexes: number[];
   data: NavikronosRoute;
+  locale: string;
 }
 
 interface RemoveRouteAction {
   type: "removeRoute";
   indexes: number[];
+  locale: string;
 }
 
 type NavigationDataAction =
-  | InitialAction
+  | LoadedAction
   | AddRouteAction
   | EditRouteAction
   | RemoveRouteAction;
 
 function navigationDataReducer(
-  navigationData: NavikronosNavigation | null,
+  navigationData: NavikronosLocaleNavigations | null,
   action: NavigationDataAction
 ) {
-  if (action.type === "initial") {
+  if (action.type === "loaded") {
     return action.data;
   }
   if (!navigationData) {
     return null;
   }
 
-  return produce({ children: navigationData }, (draft) => {
-    switch (action.type) {
-      case "addRoute": {
-        let current = draft;
-        action.indexes.forEach((index) => {
+  debugger;
+  const editedLocale = produce(
+    { children: navigationData[action.locale] ?? ([] as NavikronosRoutes) },
+    (draft) => {
+      switch (action.type) {
+        case "addRoute": {
+          let current = draft;
+          action.indexes.forEach((index) => {
+            // @ts-ignore
+            current = current.children[index];
+          });
+          if (!current.children) {
+            current.children = [action.data];
+          } else {
+            current.children.push(action.data);
+          }
+          break;
+        }
+        case "editRoute":
+          let current = draft;
+          action.indexes.splice(-1).forEach((index) => {
+            // @ts-ignore
+            current = current.children[index];
+          });
+          const lastIndex = last(action.indexes) as number;
           // @ts-ignore
-          current = current.children[index];
-        });
-        current.children.push(action.data);
-        break;
-      }
-      case "editRoute":
-        let current = draft;
-        action.indexes.splice(-1).forEach((index) => {
+          current.children[lastIndex] = action.data;
+          break;
+        case "removeRoute": {
+          let current = draft;
+          action.indexes.slice(0, -1).forEach((index) => {
+            // @ts-ignore
+            current = current.children[index];
+          });
+          const lastIndex = last(action.indexes) as number;
+
           // @ts-ignore
-          current = current.children[index];
-        });
-        const lastIndex = last(action.indexes) as number;
-        current.children[lastIndex] = action.data;
-        break;
-      case "removeRoute": {
-        let current = draft;
-        action.indexes.slice(0, -1).forEach((index) => {
-          // @ts-ignore
-          current = current.children[index];
-        });
-        const lastIndex = last(action.indexes) as number;
-        current.children.splice(lastIndex, 1);
-        break;
-      }
-      default: {
-        throw Error("Unknown action: " + (action as { type: string }).type);
+          current.children.splice(lastIndex, 1);
+          break;
+        }
+        default: {
+          throw Error("Unknown action: " + (action as { type: string }).type);
+        }
       }
     }
-  }).children;
+  ).children;
+
+  return { ...navigationData, [action.locale]: editedLocale };
 }
 
 export const useNavigationData = () => {
   const navigationData = useContext(NavigationDataContext);
-  const dispatch = useContext(NavigationDataDispatchContext) as any;
+  // TODO: REFACTOR!!
+  const { isLoading } = useQuery("navigation", {
+    queryFn: fetchNavigation,
+    staleTime: Infinity,
+  });
+
+  return {
+    navigationData,
+    isLoading,
+  };
+};
+
+export const useNavigationDataDefined = () => {
+  const { navigationData } = useNavigationData();
+  const dispatch = useContext(NavigationDataDispatchContext);
+  const mutation = useMutation(
+    (newNavigationData: NavikronosLocaleNavigations) =>
+      putNavigation(newNavigationData)
+  );
+
+  if (!navigationData || !dispatch) {
+    // TODO
+    throw "asdas";
+  }
+
+  const saveNavigation = () => {
+    mutation.mutate(navigationData);
+  };
 
   const editRoute = (
     locationIndexes: number[],
@@ -127,7 +177,9 @@ export const useNavigationData = () => {
       type: "editRoute",
       indexes: locationIndexes,
       data: editedRoute,
-    } as any);
+      // TODO: locale
+      locale: "",
+    });
   };
 
   const addRoute = (locationIndexes: number[], newRoute: NavikronosRoute) => {
@@ -135,12 +187,25 @@ export const useNavigationData = () => {
       type: "addRoute",
       indexes: locationIndexes,
       data: newRoute,
-    } as any);
+      // TODO: locale
+      locale: "",
+    });
   };
 
   const removeRoute = (locationIndexes: number[]) => {
-    dispatch({ type: "removeRoute", indexes: locationIndexes });
+    dispatch({
+      type: "removeRoute",
+      indexes: locationIndexes,
+      // TODO: locale
+      locale: "",
+    });
   };
 
-  return { navigationData, editRoute, addRoute, removeRoute };
+  return {
+    navigationData: navigationData[""],
+    editRoute,
+    addRoute,
+    removeRoute,
+    saveNavigation,
+  };
 };

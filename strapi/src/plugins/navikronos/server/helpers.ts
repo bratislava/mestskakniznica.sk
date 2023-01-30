@@ -17,8 +17,10 @@ export const fetchEntries = async (
   contentTypeUid: string,
   ids?: string[]
 ) => {
-  const { entryRoutes } = getConfig(strapi);
-  const contentTypeConfig = entryRoutes.find(
+  const { entryRoutes } = getConfig(strapi)!;
+  // TODO remove !
+
+  const contentTypeConfig = (entryRoutes! ?? []).find(
     (specificContentType) =>
       specificContentType.contentTypeUid === contentTypeUid
   );

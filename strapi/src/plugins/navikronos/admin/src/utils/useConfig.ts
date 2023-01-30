@@ -9,6 +9,17 @@ export const useConfig = () => {
 
   return {
     config: data,
-    configIsLoading: isLoading,
+    isLoading,
   };
+};
+
+export const useConfigDefined = () => {
+  const { config } = useConfig();
+
+  if (!config) {
+    // TODO msg
+    throw new Error("");
+  }
+
+  return config;
 };

@@ -1,9 +1,3 @@
-/*
- *
- * HomePage
- *
- */
-
 import React from "react";
 import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 
@@ -20,13 +14,15 @@ import {
   NavigationDataProvider,
   useNavigationData,
 } from "../../utils/NavigationDataProvider";
-import AddEditModal from "../../components/AddEditModal";
+import EditAddModal from "../../components/EditAddModal";
 import { EditAddModalProvider } from "../../utils/EditAddModalProvider";
 
 const HomePage = () => {
-  const { configIsLoading } = useConfig();
-  const { navigationData } = useNavigationData();
-  console.log("nav", navigationData);
+  const { isLoading: configIsLoading } = useConfig();
+  const { navigationData, isLoading: navigationDataIsLoading } =
+    useNavigationData();
+
+  const isLoading = navigationDataIsLoading || configIsLoading;
 
   return (
     <>
@@ -113,19 +109,23 @@ const HomePage = () => {
           title={"Navikronos"}
         />
         <ContentLayout>
-          {isLoading && <LoadingIndicatorPage />}
-          {!isLoading && navigationData && <NavigationTree />}
+          {isLoading ? (
+            <LoadingIndicatorPage />
+          ) : (
+            <EditAddModalProvider>
+              <EditAddModal />
+
+              <NavigationTree />
+            </EditAddModalProvider>
+          )}
         </ContentLayout>
       </Main>
-      <AddEditModal />
     </>
   );
 };
 
 export default () => (
   <NavigationDataProvider>
-    <EditAddModalProvider>
-      <HomePage />
-    </EditAddModalProvider>
+    <HomePage />
   </NavigationDataProvider>
 );

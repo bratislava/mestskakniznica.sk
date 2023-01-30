@@ -10,7 +10,8 @@
     "build": "strapi build",
     "x": "strapi content-types:list",
     "strapi": "strapi",
-    "cs": "config-sync"
+    "cs": "config-sync",
+    "cf": "strapi console"
   },
   "devDependencies": {},
   "dependencies": {

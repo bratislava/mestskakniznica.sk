@@ -106,9 +106,7 @@ export default ({ strapi }: { strapi: IStrapi }) => {
   return {
     async getNavigation(): Promise<ClientGetNavigationResponse> {
       const navigationMany = await strapi
-        .query<NavikronosNavigation>(
-          "api::navikronos-storage.navikronos-storage"
-        )
+        .query<NavikronosNavigation>("plugin::navikronos.navikronos-storage")
         .findMany({});
 
       const navigation = navigationMany[0];

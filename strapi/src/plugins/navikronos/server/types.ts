@@ -45,7 +45,14 @@ export type NavikronosListingRoute = {
 
 export type NavikronosNavigation = NavikronosRoutes;
 
-export type NavikronosLocaleNavigations = Record<string, NavikronosNavigation>;
+export type NavikronosLocaleNavigations = Record<
+  string,
+  NavikronosNavigation | undefined
+>;
+
+export type NavikronosStorageContentType = {
+  data: NavikronosLocaleNavigations;
+};
 
 const x: NavikronosNavigation = [
   { type: "static", title: "Vyhľadávanie", path: "vyhladavanie" },
@@ -139,6 +146,6 @@ export type AdminConfig = {
 
 // API
 export type ClientGetNavigationResponse = NavikronosClientNavigation;
-export type AdminGetNavigationResponse = NavikronosNavigation;
-export type AdminPutNavigationInput = NavikronosNavigation;
+export type AdminGetNavigationResponse = NavikronosLocaleNavigations;
+export type AdminPutNavigationInput = NavikronosLocaleNavigations;
 export type AdminGetConfigResponse = AdminConfig;

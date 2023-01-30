@@ -26,6 +26,7 @@ export type I18nLocale = {
 export const getI18nStatus = async ({
   strapi,
 }: GetI18nStatusInput): Promise<I18NStatus> => {
+  debugger;
   const i18nPlugin: null | any = strapi.plugin("i18n");
   const hasI18NPlugin = !!i18nPlugin;
   const pluginStore = strapi.store({
@@ -45,7 +46,8 @@ export const getI18nStatus = async ({
   return hasI18NPlugin
     ? {
         hasI18NPlugin,
-        enabled: config.i18nEnabled,
+        // TODO FIX !!!!
+        enabled: config?.i18nEnabled ?? true,
         defaultLocale,
         locales,
       }

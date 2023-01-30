@@ -2177,7 +2177,7 @@ type FooterRelationResponseCollection {
   data: [FooterEntity!]!
 }
 
-union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | NavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   Seo: ComponentSeoSeo
@@ -2462,7 +2462,6 @@ type Mutation {
   createHomePageLocalization(data: HomePageInput, id: ID, locale: I18NLocaleCode): HomePageEntityResponse
   createMenu(data: MenuInput!, locale: I18NLocaleCode): MenuEntityResponse
   createMenuLocalization(data: MenuInput, id: ID, locale: I18NLocaleCode): MenuEntityResponse
-  createNavikronosStorageLocalization(data: NavikronosStorageInput, id: ID, locale: I18NLocaleCode): NavikronosStorageEntityResponse
   createNotice(data: NoticeInput!, locale: I18NLocaleCode): NoticeEntityResponse
   createNoticeLocalization(data: NoticeInput, id: ID, locale: I18NLocaleCode): NoticeEntityResponse
   createPage(data: PageInput!, locale: I18NLocaleCode): PageEntityResponse
@@ -2490,7 +2489,7 @@ type Mutation {
   deleteFooter(locale: I18NLocaleCode): FooterEntityResponse
   deleteHomePage(locale: I18NLocaleCode): HomePageEntityResponse
   deleteMenu(id: ID!, locale: I18NLocaleCode): MenuEntityResponse
-  deleteNavikronosStorage(locale: I18NLocaleCode): NavikronosStorageEntityResponse
+  deleteNavikronosNavikronosStorage: NavikronosNavikronosStorageEntityResponse
   deleteNotice(id: ID!, locale: I18NLocaleCode): NoticeEntityResponse
   deletePage(id: ID!, locale: I18NLocaleCode): PageEntityResponse
   deletePartner(id: ID!, locale: I18NLocaleCode): PartnerEntityResponse
@@ -2533,7 +2532,7 @@ type Mutation {
   updateFooter(data: FooterInput!, locale: I18NLocaleCode): FooterEntityResponse
   updateHomePage(data: HomePageInput!, locale: I18NLocaleCode): HomePageEntityResponse
   updateMenu(data: MenuInput!, id: ID!, locale: I18NLocaleCode): MenuEntityResponse
-  updateNavikronosStorage(data: NavikronosStorageInput!, locale: I18NLocaleCode): NavikronosStorageEntityResponse
+  updateNavikronosNavikronosStorage(data: NavikronosNavikronosStorageInput!): NavikronosNavikronosStorageEntityResponse
   updateNotice(data: NoticeInput!, id: ID!, locale: I18NLocaleCode): NoticeEntityResponse
   updatePage(data: PageInput!, id: ID!, locale: I18NLocaleCode): PageEntityResponse
   updatePartner(data: PartnerInput!, id: ID!, locale: I18NLocaleCode): PartnerEntityResponse
@@ -2548,45 +2547,41 @@ type Mutation {
   upload(field: String, file: Upload!, info: FileInfoInput, ref: String, refId: ID): UploadFileEntityResponse!
 }
 
-type NavikronosStorage {
+type NavikronosNavikronosStorage {
   createdAt: DateTime
-  locale: String
-  localizations: NavikronosStorageRelationResponseCollection
-  navigation: JSON
+  data: JSON
   updatedAt: DateTime
 }
 
-type NavikronosStorageEntity {
-  attributes: NavikronosStorage
+type NavikronosNavikronosStorageEntity {
+  attributes: NavikronosNavikronosStorage
   id: ID
 }
 
-type NavikronosStorageEntityResponse {
-  data: NavikronosStorageEntity
+type NavikronosNavikronosStorageEntityResponse {
+  data: NavikronosNavikronosStorageEntity
 }
 
-type NavikronosStorageEntityResponseCollection {
-  data: [NavikronosStorageEntity!]!
+type NavikronosNavikronosStorageEntityResponseCollection {
+  data: [NavikronosNavikronosStorageEntity!]!
   meta: ResponseCollectionMeta!
 }
 
-input NavikronosStorageFiltersInput {
-  and: [NavikronosStorageFiltersInput]
+input NavikronosNavikronosStorageFiltersInput {
+  and: [NavikronosNavikronosStorageFiltersInput]
   createdAt: DateTimeFilterInput
-  locale: StringFilterInput
-  localizations: NavikronosStorageFiltersInput
-  navigation: JSONFilterInput
-  not: NavikronosStorageFiltersInput
-  or: [NavikronosStorageFiltersInput]
+  data: JSONFilterInput
+  not: NavikronosNavikronosStorageFiltersInput
+  or: [NavikronosNavikronosStorageFiltersInput]
   updatedAt: DateTimeFilterInput
 }
 
-input NavikronosStorageInput {
-  navigation: JSON
+input NavikronosNavikronosStorageInput {
+  data: JSON
 }
 
-type NavikronosStorageRelationResponseCollection {
-  data: [NavikronosStorageEntity!]!
+type NavikronosNavikronosStorageRelationResponseCollection {
+  data: [NavikronosNavikronosStorageEntity!]!
 }
 
 type Notice {
@@ -2828,7 +2823,7 @@ type Query {
   me: UsersPermissionsMe
   menu(id: ID, locale: I18NLocaleCode): MenuEntityResponse
   menus(filters: MenuFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): MenuEntityResponseCollection
-  navikronosStorage(locale: I18NLocaleCode): NavikronosStorageEntityResponse
+  navikronosNavikronosStorage: NavikronosNavikronosStorageEntityResponse
   notice(id: ID, locale: I18NLocaleCode): NoticeEntityResponse
   notices(filters: NoticeFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeEntityResponseCollection
   page(id: ID, locale: I18NLocaleCode): PageEntityResponse

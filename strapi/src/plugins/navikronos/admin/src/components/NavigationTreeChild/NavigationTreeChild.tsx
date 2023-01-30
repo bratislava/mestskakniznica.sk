@@ -4,13 +4,13 @@ import { Card, CardBody } from "@strapi/design-system/Card";
 import { Stack } from "@strapi/design-system/Stack";
 import { Badge } from "@strapi/design-system/Badge";
 import { Typography } from "@strapi/design-system/Typography";
-import { useConfig } from "../../utils/useConfig";
+import { useConfigDefined } from "../../utils/useConfig";
 import { Flex } from "@strapi/design-system/Flex";
 import { IconButton } from "@strapi/design-system/IconButton";
 import { Pencil, Plus, Trash } from "@strapi/icons";
 import { TextButton } from "@strapi/design-system/TextButton";
-import { useNavigationData } from "../../utils/NavigationDataProvider";
-import { useEditAddModal } from "../../utils/EditAddModalProvider";
+import { useNavigationDataDefined } from "../../utils/NavigationDataProvider";
+import { useEditAdd } from "../../utils/EditAddModalProvider";
 import { NavikronosRoute } from "../../../../server/types";
 
 type NavigationTreeChildProps = {
@@ -26,9 +26,9 @@ const NavigationTreeChild = ({
   child,
   locationIndexes,
 }: NavigationTreeChildProps) => {
-  const { openEditModal, openAddModal } = useEditAddModal();
-  const { config } = useConfig();
-  const { removeRoute } = useNavigationData();
+  const { openEditModal, openAddModal } = useEditAdd();
+  const config = useConfigDefined();
+  const { removeRoute } = useNavigationDataDefined();
 
   const canHaveChildren = child.type !== "contentType";
   const hasChildren =
@@ -159,16 +159,11 @@ const NavigationTreeChild = ({
         <TextButton
           // disabled={removed}
           startIcon={<Plus />}
-          // onClick={onNewItemClick}
+          onClick={() => {
+            openAddModal(locationIndexes);
+          }}
         >
-          <Typography
-            variant="pi"
-            fontWeight="bold"
-            textColor={"primary600"}
-            onClick={() => {
-              openAddModal(locationIndexes);
-            }}
-          >
+          <Typography variant="pi" fontWeight="bold" textColor={"primary600"}>
             Add child
           </Typography>
         </TextButton>
