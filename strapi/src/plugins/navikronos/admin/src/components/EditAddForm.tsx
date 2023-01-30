@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { ModalBody, ModalFooter } from "@strapi/design-system/ModalLayout";
 import { Button } from "@strapi/design-system/Button";
 import { GenericInput } from "@strapi/helper-plugin";
@@ -14,7 +14,14 @@ import {
   NavikronosRoute,
   NavikronosStaticRoute,
 } from "../../../server/types";
-import { useConfig, useConfigDefined } from "../utils/useConfig";
+import { useConfigDefined } from "../utils/useConfig";
+
+const getMetadatas = (label: string) => ({
+  intlLabel: {
+    id: "fakeId",
+    defaultMessage: label,
+  },
+});
 
 const typeOptions = [
   ["entry", "Entry"],
@@ -24,12 +31,7 @@ const typeOptions = [
   ["static", "Static"],
 ].map(([value, label]) => ({
   key: value,
-  metadatas: {
-    intlLabel: {
-      id: "fakeId",
-      defaultMessage: label,
-    },
-  },
+  metadatas: getMetadatas(label),
   value,
   label,
 }));
@@ -38,16 +40,53 @@ const prepareContentTypesOptions = (config: AdminGetConfigResponse) => {
   return Object.entries(config.contentTypeInfos).map(
     ([uid, { displayName }]) => ({
       key: uid,
-      metadatas: {
-        intlLabel: {
-          id: "fakeId",
-          defaultMessage: displayName,
-        },
-      },
-      uid,
+      metadatas: getMetadatas(displayName),
+      value: uid,
       label: displayName,
     })
   );
+};
+
+const prepareStaticRouteIdsOptions = (config: AdminGetConfigResponse) => {
+  return Object.entries(config.staticRouteIds).map(([uid, id]) => ({
+    key: uid,
+    metadatas: getMetadatas(id),
+    value: uid,
+    label: id,
+  }));
+};
+
+const prepareEntryRouteContentTypesOptions = (
+  config: AdminGetConfigResponse
+) => {
+  return Object.entries(config.entryRouteEntries).map(([uid]) => {
+    const { displayName } = config.contentTypeInfos[uid];
+    return {
+      key: uid,
+      metadatas: getMetadatas(displayName),
+      value: uid,
+      label: displayName,
+    };
+  });
+};
+
+const prepareEntryRouteEntriesOptions = (
+  config: AdminGetConfigResponse,
+  values: NavikronosRoute
+) => {
+  if (values.type !== "entry" || !values.contentTypeUid) {
+    return undefined;
+  }
+  const entries = config.entryRouteEntries[values.contentTypeUid];
+
+  return entries.map(({ id, title }) => {
+    return {
+      key: id,
+      metadatas: getMetadatas(title),
+      value: id,
+      label: title,
+    };
+  });
 };
 
 type EditAddFormProps = {
@@ -74,6 +113,30 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
   const contentTypeOptions = useMemo(
     () => prepareContentTypesOptions(config),
     [config]
+  );
+
+  const staticRouteIdsOptions = useMemo(
+    () => prepareStaticRouteIdsOptions(config),
+    [config]
+  );
+
+  const entryContentTypesOptions = useMemo(
+    () => prepareEntryRouteContentTypesOptions(config),
+    [config]
+  );
+
+  const entryRouteEntries = useMemo(
+    () => prepareEntryRouteEntriesOptions(config, values),
+    [config, values]
+  );
+
+  useEffect(() => {
+    setFieldValue("entryId", undefined);
+  }, [(values as NavikronosEntryRoute).contentTypeUid]);
+  console.log(
+    contentTypeOptions,
+    staticRouteIdsOptions,
+    entryContentTypesOptions
   );
 
   const defaultProps = useCallback(
@@ -120,31 +183,71 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
               {...defaultProps("type")}
               options={typeOptions}
               type="select"
-              // disabled={isEditForm}
             />
+
+            {values.type === "static" && (
+              <GenericInput
+                {...defaultProps("id")}
+                options={staticRouteIdsOptions}
+                type="select"
+              />
+            )}
 
             {values.type === "contentType" && (
               <GenericInput
                 {...defaultProps("contentTypeUid")}
                 options={contentTypeOptions}
                 type="select"
-                // disabled={isEditForm}
               />
             )}
 
             {values.type === "entry" && (
               <>
                 <GenericInput
-                  {...defaultProps("overrideTitle")}
-                  type="checkbox"
-                  // disabled={isEditForm}
+                  {...defaultProps("contentTypeUid")}
+                  options={entryContentTypesOptions}
+                  type="select"
                 />
                 <GenericInput
-                  {...defaultProps("contentTypeUid")}
-                  options={contentTypeOptions}
+                  {...defaultProps("entryId")}
+                  options={entryRouteEntries}
                   type="select"
-                  // disabled={isEditForm}
                 />
+                <GenericInput
+                  type="checkbox"
+                  value={values.overrideTitle != null}
+                  name="overrideTitleCheckbox"
+                  intlLabel=""
+                  onChange={(e) => {
+                    console.log(e);
+                    return setFieldValue(
+                      "overrideTitle",
+                      e.target.value ? "" : undefined
+                    );
+                  }}
+                />
+                {values.overrideTitle != null && (
+                  <GenericInput
+                    {...defaultProps("overrideTitle")}
+                    type="text"
+                  />
+                )}
+                <GenericInput
+                  type="checkbox"
+                  value={values.overridePath != null}
+                  name="overridePathCheckbox"
+                  intlLabel=""
+                  onChange={(e) => {
+                    console.log(e);
+                    return setFieldValue(
+                      "overridePath",
+                      e.target.value ? "" : undefined
+                    );
+                  }}
+                />
+                {values.overridePath != null && (
+                  <GenericInput {...defaultProps("overridePath")} type="text" />
+                )}
               </>
             )}
 
@@ -170,7 +273,7 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
             {/*  // placeholder={getTrad(`${tradPrefix}name.placeholder`)}*/}
             {/*  // description={getTrad(`${tradPrefix}name.description`)}*/}
             {/*  type="text"*/}
-            {/*  // disabled={isEditForm}*/}
+            {/* */}
             {/*/>*/}
           </GridItem>
           <GridItem key="label" col={12}>
@@ -186,7 +289,7 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
             {/*  {...defaultProps("type")}*/}
             {/*  // options={typeSelectOptions}*/}
             {/*  type="select"*/}
-            {/*  // disabled={isEditForm}*/}
+            {/* */}
             {/*/>*/}
           </GridItem>
           {/*{values.type === "select" && (*/}

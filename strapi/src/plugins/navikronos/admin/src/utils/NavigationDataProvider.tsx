@@ -11,10 +11,10 @@ import {
   NavikronosLocaleNavigations,
   NavikronosNavigation,
   NavikronosRoute,
+  NavikronosRoutes,
 } from "../../../server/types";
-import produce from "immer";
+import produce, { original } from "immer";
 import { last } from "lodash";
-import { NavikronosRoutes } from "../../../server/test";
 
 const NavigationDataContext = createContext<NavikronosLocaleNavigations | null>(
   null
@@ -25,8 +25,7 @@ const NavigationDataDispatchContext =
 export const NavigationDataProvider = ({ children }: PropsWithChildren) => {
   const [navigationData, dispatch] = useReducer(navigationDataReducer, null);
 
-  console.log("navigationData", navigationData);
-  const { data, isLoading } = useQuery("navigation", {
+  const { data } = useQuery("navigation", {
     queryFn: fetchNavigation,
     staleTime: Infinity,
   });
@@ -88,7 +87,6 @@ function navigationDataReducer(
     return null;
   }
 
-  debugger;
   const editedLocale = produce(
     { children: navigationData[action.locale] ?? ([] as NavikronosRoutes) },
     (draft) => {
@@ -108,11 +106,11 @@ function navigationDataReducer(
         }
         case "editRoute":
           let current = draft;
-          action.indexes.splice(-1).forEach((index) => {
+          action.indexes.slice(0, -1).forEach((index) => {
             // @ts-ignore
             current = current.children[index];
           });
-          const lastIndex = last(action.indexes) as number;
+          const lastIndex = last(action.indexes);
           // @ts-ignore
           current.children[lastIndex] = action.data;
           break;
@@ -122,7 +120,7 @@ function navigationDataReducer(
             // @ts-ignore
             current = current.children[index];
           });
-          const lastIndex = last(action.indexes) as number;
+          const lastIndex = last(action.indexes);
 
           // @ts-ignore
           current.children.splice(lastIndex, 1);

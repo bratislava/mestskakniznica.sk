@@ -28,18 +28,20 @@ export type NavikronosEmptyRoute = {
 export type NavikronosEntryRoute = {
   type: "entry";
   contentTypeUid: string;
-  entryId: string;
+  entryId: number;
   overrideTitle?: string;
   overridePath?: string;
 } & NavikronosRouteWithChildren;
 
 export type NavikronosStaticRoute = {
   type: "static";
+  id: string;
 } & NavikronosRouteWithTitlePath &
   NavikronosRouteWithChildren;
 
 export type NavikronosListingRoute = {
   type: "listing";
+  id: string;
 } & NavikronosRouteWithTitlePath &
   NavikronosRouteWithChildren;
 
@@ -55,11 +57,12 @@ export type NavikronosStorageContentType = {
 };
 
 const x: NavikronosNavigation = [
-  { type: "static", title: "Vyhľadávanie", path: "vyhladavanie" },
+  { type: "static", title: "Vyhľadávanie", path: "vyhladavanie", id: "search" },
   {
     type: "listing",
     title: "Zažite",
     path: "zazite",
+    id: "asda",
     children: [
       {
         type: "entry",
@@ -132,7 +135,7 @@ export type NavikronosConfig = {
     pathAttribute: string;
     titleAttribute: string;
   }[];
-  enableListing?: boolean;
+  // enableListing?: boolean;
 };
 
 export type AdminConfig = {

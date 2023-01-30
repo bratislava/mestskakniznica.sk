@@ -74,16 +74,16 @@ module.exports = ({ env }) => ({
     enabled: true,
     resolve: "./src/plugins/navikronos",
     config: {
-      staticPages: ["search"],
-      spreadContentTypes: ["api::branch.branch"],
-      specificContentTypes: [
+      staticRouteIds: ["search"],
+      contentTypeRoutes: [{ contentTypeUid: "api::branch.branch" }],
+      entryRoutes: [
         {
-          contentType: "api::page.page",
+          contentTypeUid: "api::page.page",
           pathAttribute: "slug",
           titleAttribute: "title",
         },
         {
-          contentType: "api::event.event",
+          contentTypeUid: "api::event.event",
           pathAttribute: "slug",
           titleAttribute: "title",
         },

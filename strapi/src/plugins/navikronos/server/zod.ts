@@ -19,7 +19,7 @@ export const navikronosEmptyStaticListingRouteSchema = z.object({
 export const navikronosEntryRouteSchema = z.object({
   type: z.literal("entry"),
   contentTypeUid: z.string(),
-  entryId: z.string(),
+  entryId: z.number(),
   overrideTitle: z.string().optional(),
   overridePath: z.string().optional(),
   children: z.array(z.lazy(() => navikronosRouteSchema)).optional(),

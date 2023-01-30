@@ -7,7 +7,7 @@ export const getConfig = (strapi: IStrapi) =>
 export const validateConfig = () => {};
 
 export type FetchedEntry = {
-  id: string;
+  id: number;
   title: string;
   path: string;
 };

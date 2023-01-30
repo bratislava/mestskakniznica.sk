@@ -31,8 +31,8 @@ const NavigationTreeChild = ({
   const { removeRoute } = useNavigationDataDefined();
 
   const canHaveChildren = child.type !== "contentType";
-  const hasChildren =
-    canHaveChildren && child?.children?.length && child.children.length > 0;
+  // const hasChildren =
+  //   canHaveChildren && child?.children?.length && child.children.length > 0;
 
   const badge = useMemo(() => {
     switch (child.type) {
@@ -62,7 +62,9 @@ const NavigationTreeChild = ({
         if (!entries) {
           return null;
         }
-        const pathInner = entries[child.entryId]?.path;
+        const pathInner = entries.find(
+          (entry) => entry.id === child.entryId
+        )?.path;
         return child.overridePath ?? pathInner;
     }
   }, [child]);
@@ -84,7 +86,9 @@ const NavigationTreeChild = ({
         if (!entries) {
           return null;
         }
-        const titleInner = entries[child.entryId]?.title;
+        const titleInner = entries.find(
+          (entry) => entry.id === child.entryId
+        )?.title;
         return child.overrideTitle ?? titleInner;
     }
   }, [child]);
@@ -144,29 +148,28 @@ const NavigationTreeChild = ({
         </CardBody>
         {/*<Divider />*/}
       </Card>
-      {hasChildren && (
+      {canHaveChildren && (
         <Children>
-          {child.children!.map((innerChild, index) => (
+          {child.children?.map((innerChild, index) => (
             <NavigationTreeChild
               key={index}
               child={innerChild}
               locationIndexes={[...locationIndexes, index]}
             />
           ))}
+
+          <TextButton
+            // disabled={removed}
+            startIcon={<Plus />}
+            onClick={() => {
+              openAddModal(locationIndexes);
+            }}
+          >
+            <Typography variant="pi" fontWeight="bold" textColor={"primary600"}>
+              Add child
+            </Typography>
+          </TextButton>
         </Children>
-      )}
-      {canHaveChildren && (
-        <TextButton
-          // disabled={removed}
-          startIcon={<Plus />}
-          onClick={() => {
-            openAddModal(locationIndexes);
-          }}
-        >
-          <Typography variant="pi" fontWeight="bold" textColor={"primary600"}>
-            Add child
-          </Typography>
-        </TextButton>
       )}
     </>
   );

@@ -19,8 +19,7 @@ import { EditAddModalProvider } from "../../utils/EditAddModalProvider";
 
 const HomePage = () => {
   const { isLoading: configIsLoading } = useConfig();
-  const { navigationData, isLoading: navigationDataIsLoading } =
-    useNavigationData();
+  const { isLoading: navigationDataIsLoading } = useNavigationData();
 
   const isLoading = navigationDataIsLoading || configIsLoading;
 
