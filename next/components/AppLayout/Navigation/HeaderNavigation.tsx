@@ -15,7 +15,7 @@ const HeaderNavigation = () => {
         variant="basic"
         className="relative grid place-content-center border-l border-border-dark px-3"
       >
-        {t('openingHours2')}
+        {t('openingHours')}
       </MLink>
       <MLink
         href="https://opac.mestskakniznica.sk/opac"
