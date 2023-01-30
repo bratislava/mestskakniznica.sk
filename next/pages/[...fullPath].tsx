@@ -60,7 +60,7 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
               slug: localization.attributes?.slug,
             }))}
         >
-          <DefaultPageLayout title={page?.attributes?.title} Seo={page?.attributes?.Seo}>
+          <DefaultPageLayout title={page?.attributes?.title} seo={page?.attributes?.seo}>
             {pageComponentByLayout}
           </DefaultPageLayout>
         </PageWrapper>

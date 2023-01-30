@@ -38,7 +38,7 @@ const Page = ({ blogPost, slug, general }: PageProps) => {
             slug: localization.attributes?.slug,
           }))}
       >
-        <DefaultPageLayout title={blogPost?.attributes?.title}>
+        <DefaultPageLayout title={blogPost.attributes?.title} seo={blogPost.attributes?.seo}>
           <BlogPostPage blogPost={blogPost} />
         </DefaultPageLayout>
       </PageWrapper>
