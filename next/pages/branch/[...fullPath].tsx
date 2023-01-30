@@ -39,11 +39,7 @@ const EventSlugPage = ({ branch, general }: PageProps) => {
             }${localization.attributes?.slug}`,
           }))}
       >
-        <DefaultPageLayout
-          title={branch.attributes?.title}
-          // TODO add seo to Strapi
-          // Seo={branch.attributes?.Seo}
-        >
+        <DefaultPageLayout title={branch.attributes?.title} seo={branch.attributes?.seo}>
           <BranchPage branch={branch} />
         </DefaultPageLayout>
       </PageWrapper>

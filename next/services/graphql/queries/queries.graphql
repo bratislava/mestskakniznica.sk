@@ -66,14 +66,8 @@ query HomePage($locale: I18NLocaleCode!) {
             }
           }
         }
-        Seo {
-          id
-          metaTitle
-          metaDescription
-          keywords
-          metaRobots
-          metaViewport
-          canonicalURL
+        seo {
+          ...Seo
         }
       }
     }

@@ -41,16 +41,13 @@ const Column = ({ section, classNames }: ColumnProps) => {
             if (upcomingEvents?.data && upcomingEvents?.data.length > 0) {
               return (
                 <ul className="mt-5 grid grid-flow-col grid-rows-2 gap-x-5 gap-y-3">
-                  {upcomingEvents.data
-                    .map((event) => event.attributes)
-                    .filter(isDefined)
-                    .map((event) => {
-                      return (
-                        <NavigationMenu.Link tabIndex={-1}>
-                          <EventRow event={event} />
-                        </NavigationMenu.Link>
-                      )
-                    })}
+                  {upcomingEvents.data.filter(isDefined).map((event) => {
+                    return (
+                      <NavigationMenu.Link tabIndex={-1}>
+                        <EventRow event={event} />
+                      </NavigationMenu.Link>
+                    )
+                  })}
                 </ul>
               )
             }

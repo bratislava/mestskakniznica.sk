@@ -24,7 +24,7 @@ fragment BranchCardEntity on BranchEntity {
     longitude
     listingImage {
       data {
-        ...ImageEntity
+        ...UploadImageEntity
       }
     }
     subBranches {
@@ -81,6 +81,9 @@ fragment BranchEntity on BranchEntity {
           locale
         }
       }
+    }
+    seo {
+      ...Seo
     }
   }
 }

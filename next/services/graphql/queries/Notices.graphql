@@ -20,15 +20,8 @@ fragment NoticeEntity on NoticeEntity {
         }
       }
     }
-    # TODO: Create a fragment
     seo {
-      id
-      metaTitle
-      metaDescription
-      keywords
-      metaRobots
-      metaViewport
-      canonicalURL
+      ...Seo
     }
     localizations {
       data {
@@ -62,7 +55,7 @@ fragment NoticeListingEntity on NoticeEntity {
     publishedAt
     listingImage {
       data {
-        ...ImageEntity
+        ...UploadImageEntity
       }
     }
   }

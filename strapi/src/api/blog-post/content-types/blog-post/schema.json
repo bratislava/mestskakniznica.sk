@@ -80,7 +80,7 @@
         "sections.rental"
       ]
     },
-    "Seo": {
+    "seo": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -88,7 +88,7 @@
           "localized": true
         }
       },
-      "component": "seo.seo"
+      "component": "common.seo"
     }
   }
 }

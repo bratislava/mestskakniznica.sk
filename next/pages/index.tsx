@@ -3,11 +3,11 @@ import SectionHomepageNewBooks from '@components/HomePage/SectionHomepageNewBook
 import type { Book } from '@modules/common/Cards/BookCard'
 import {
   BookTagEntityFragment,
+  ComponentCommonSeo,
   ComponentHomepageFaqSection,
   ComponentHomepageNewsSection,
   ComponentHomepageRegistrationInfo,
   ComponentSectionsMap,
-  ComponentSeoSeo,
   EventCardEntityFragment,
   GeneralQuery,
   NoticeListingEntityFragment,
@@ -42,7 +42,7 @@ type HomeProps = {
   registrationInfoSection: ComponentHomepageRegistrationInfo
   bookTags: BookTagEntityFragment[]
   mapSection: ComponentSectionsMap | null
-  seo?: ComponentSeoSeo
+  seo?: ComponentCommonSeo
   general: GeneralQuery
 } & SSRConfig
 
@@ -71,7 +71,7 @@ export const Index = ({
           // add empty slug because it's expected in wrapper and index page does not have slug
           .map((l) => ({ ...l, slug: '' }))}
       >
-        <DefaultPageLayout Seo={seo}>
+        <DefaultPageLayout seo={seo}>
           <h1 className="sr-only">{t('pageTitle')}</h1>
           {promos.length > 0 && (
             <SectionContainer>
@@ -165,7 +165,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection ?? null,
       bookTags: bookTags?.data?.filter(hasAttributes) ?? [],
       mapSection: homePage?.data?.attributes?.mapSection ?? null,
-      seo: homePage?.data?.attributes?.Seo ?? null,
+      seo: homePage?.data?.attributes?.seo ?? null,
       general,
       ...translations,
     },
