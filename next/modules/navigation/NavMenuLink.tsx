@@ -3,6 +3,8 @@ import { MenuLink } from '@modules/navigation/NavMenu'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import React from 'react'
 
+// https://www.radix-ui.com/docs/primitives/components/navigation-menu#with-client-side-routing
+
 const NavMenuLink = ({ label, url }: MenuLink) => {
   return (
     <NavigationMenu.Link asChild>

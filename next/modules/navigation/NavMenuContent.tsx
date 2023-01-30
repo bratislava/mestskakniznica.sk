@@ -39,10 +39,10 @@ const NavMenuContent = ({ colCount, sections }: NavigationSectionProps) => {
 
   return (
     <NavigationMenu.Content
-      // Uncomment this to disable "onHover" behaviour, needs to be uncommented also in NavMenuTrigger
-      // TODO when uncommented, the menu popup (Viewport) needs some overlay to prevent event propagation on outside clicks
-      // onPointerMove={(event) => event.preventDefault()}
-      // onPointerLeave={(event) => event.preventDefault()}
+      // To disable "onHover" behaviour, needs to be set also in NavMenuTrigger
+      // https://github.com/radix-ui/primitives/issues/1630#issuecomment-1237106380
+      onPointerMove={(event) => event.preventDefault()}
+      onPointerLeave={(event) => event.preventDefault()}
       className={cx('grid w-full gap-x-10 border border-border-light bg-white px-4 py-8', {
         'grid-cols-3': colCount === 3,
         'grid-cols-4': colCount === 4,

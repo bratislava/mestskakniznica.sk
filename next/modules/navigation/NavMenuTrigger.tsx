@@ -7,17 +7,21 @@ type NavMenuTriggerProps = {
   isFirst?: boolean
 }
 
-const NavMenuTrigger = forwardRef<any, NavMenuTriggerProps>(
+const NavMenuTrigger = forwardRef<HTMLButtonElement, NavMenuTriggerProps>(
   ({ label, isFirst = false }, forwardedRef) => {
     return (
       <NavigationMenu.Trigger
         ref={forwardedRef}
-        // Uncomment this to disable "onHover" behaviour, needs to be uncommented also in NavMenuContent
-        // onPointerMove={(event) => event.preventDefault()}
-        // onPointerLeave={(event) => event.preventDefault()}
-        className={cx('flex h-full w-full cursor-default items-end pb-1 text-h5', {
-          'pl-3': !isFirst,
-        })}
+        // To disable "onHover" behaviour, needs to be set also in NavMenuContent
+        // https://github.com/radix-ui/primitives/issues/1630#issuecomment-1237106380
+        onPointerMove={(event) => event.preventDefault()}
+        onPointerLeave={(event) => event.preventDefault()}
+        className={cx(
+          'flex h-full w-full items-end pb-1 text-h5 hover:underline data-[state=open]:underline',
+          {
+            'pl-3': !isFirst,
+          }
+        )}
       >
         {label}
       </NavigationMenu.Trigger>

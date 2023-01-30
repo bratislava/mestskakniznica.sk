@@ -38,7 +38,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
         'hover:underline': variant === 'basic',
         'underline underline-offset-1 hover:text-foreground-body': variant === 'breadcrumb',
         'underline underline-offset-1 hover:text-foreground-dark': variant === 'richtext',
-        'hover:underline hover:underline-offset-1 hover:text-foreground-dark':
+        'text-foreground-body hover:underline hover:underline-offset-1 hover:text-foreground-dark':
           variant === 'navmenu',
 
         // https://github.com/tailwindlabs/tailwindcss/issues/1041#issuecomment-957425345

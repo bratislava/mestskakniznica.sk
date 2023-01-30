@@ -1,8 +1,10 @@
+import { useNavMenuContext } from '@modules/navigation/navMenuContext'
 import NavMenuItem from '@modules/navigation/NavMenuItem'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export type MenuLink = {
   label: string
@@ -29,12 +31,25 @@ type NavigationMenuProps = {
 
 const NavMenu = ({ menus, isSearchOpen }: NavigationMenuProps) => {
   const { t } = useTranslation('common')
+  const router = useRouter()
+
+  const { menuValue, setMenuValue } = useNavMenuContext()
+
+  useEffect(() => {
+    setMenuValue('')
+  }, [router.asPath, setMenuValue])
 
   return (
     <AnimatePresence>
       {!isSearchOpen && (
         <motion.div initial={{ opacity: 1 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <NavigationMenu.Root aria-label={t('navAriaLabel')}>
+          <NavigationMenu.Root
+            value={menuValue}
+            onValueChange={setMenuValue}
+            aria-label={t('navAriaLabel')}
+            // to re-enable pointer events when menu is open and whole page has pointer events disabled
+            className="pointer-events-auto"
+          >
             <NavigationMenu.List className="flex">
               {menus.map((menu, index) => (
                 // eslint-disable-next-line react/no-array-index-key
@@ -43,7 +58,7 @@ const NavMenu = ({ menus, isSearchOpen }: NavigationMenuProps) => {
             </NavigationMenu.List>
 
             {/* Viewport represents popup div with links that appears under menu button */}
-            <NavigationMenu.Viewport className="absolute z-50 m-auto w-1180 max-w-full bg-white text-foreground-body" />
+            <NavigationMenu.Viewport className="absolute z-50 w-full" />
           </NavigationMenu.Root>
         </motion.div>
       )}

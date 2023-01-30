@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 
+import { NavMenuContextProvider } from '@modules/navigation/navMenuContext'
 import MI18nProvider from '@modules/providers/MI18nProvider'
 import MQueryClientProvider from '@modules/providers/MQueryClientProvider'
 import { beausiteFont } from '@utils/beausiteFont'
@@ -38,7 +39,9 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
           <MI18nProvider>
             <OverlayProvider>
               <QueryParamProvider adapter={NextAdapter}>
-                <Component {...pageProps} />
+                <NavMenuContextProvider>
+                  <Component {...pageProps} />
+                </NavMenuContextProvider>
               </QueryParamProvider>
             </OverlayProvider>
           </MI18nProvider>
