@@ -1,18 +1,18 @@
 import MLink from '@modules/common/MLink'
-import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { useGeneralContext } from '@utils/generalContext'
-import { AnimatePresence, motion } from 'framer-motion'
+import NavMenu, { MenuItem } from '@modules/navigation/NavMenu'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import HeaderNavigation from './Navigation/HeaderNavigation'
 import HeaderSearchBox from './Navigation/HeaderSearchBox'
-import NavigationItem from './Navigation/NavigationItem'
 import SkipToContentButton from './SkipToContentButton'
 
-const Header = () => {
+type HeaderProps = {
+  menus: MenuItem[]
+}
+
+const Header = ({ menus }: HeaderProps) => {
   const { t } = useTranslation('common')
-  const { menus } = useGeneralContext()
 
   const [isSearchOpen, setSearchOpen] = useState(false)
 
@@ -43,26 +43,7 @@ const Header = () => {
       </div>
       <div className="m-auto max-w-[1180px] border-b border-border-dark">
         <div className="relative flex h-14 items-center justify-between">
-          <AnimatePresence>
-            {!isSearchOpen && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <NavigationMenu.Root aria-label={t('navAriaLabel')}>
-                  <NavigationMenu.List className="flex">
-                    {menus?.data?.map((menu, index) => (
-                      <NavigationItem
-                        // eslint-disable-next-line react/no-array-index-key
-                        key={index}
-                        menu={menu.attributes}
-                        isFirst={index === 0}
-                      />
-                    ))}
-                  </NavigationMenu.List>
-
-                  <NavigationMenu.Viewport className="absolute z-50 m-auto w-1180 max-w-full bg-white" />
-                </NavigationMenu.Root>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <NavMenu menus={menus} isSearchOpen={isSearchOpen} />
           <HeaderSearchBox isOpen={isSearchOpen} setOpen={setSearchOpen} />
         </div>
       </div>

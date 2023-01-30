@@ -1,4 +1,7 @@
 import { BurgerIcon } from '@assets/icons'
+import Button from '@modules/common/Button'
+import { MobileNavigation } from '@modules/navigation/MobileNavigation'
+import { MenuItem } from '@modules/navigation/NavMenu'
 import cx from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -7,12 +10,15 @@ import { useEffect, useState } from 'react'
 
 import HeaderSearchBox from '../Navigation/HeaderSearchBox'
 import SkipToContentButton from '../SkipToContentButton'
-import { MobileNavigation } from './MobileNavigation'
 
 const TITLE_CLASSES =
   'flex h-[30px] min-w-fit items-center border-r border-border-dark px-[7px] py-[2px]'
 
-const MobilHeader = () => {
+type MobileHeaderProps = {
+  menus: MenuItem[]
+}
+
+const MobileHeader = ({ menus }: MobileHeaderProps) => {
   const [isMenuOpen, setMenuOpen] = useState(false)
   const router = useRouter()
   const { t } = useTranslation('common')
@@ -76,9 +82,16 @@ const MobilHeader = () => {
 
           <SkipToContentButton />
 
-          <div className="border-l border-border-dark">
-            <BurgerIcon onClick={() => setMenuOpen(true)} className="m-4 cursor-pointer" />
-            {isMenuOpen && <MobileNavigation onClose={() => setMenuOpen(false)} />}
+          {/* This div should match in size with close menu button div */}
+          <div className="flex w-[61px] shrink-0 items-center justify-center border-l border-border-dark">
+            <Button variant="unstyled" className="p-4" onPress={() => setMenuOpen(true)}>
+              <BurgerIcon />
+            </Button>
+            <MobileNavigation
+              isOpen={isMenuOpen}
+              onClose={() => setMenuOpen(false)}
+              menus={menus}
+            />
           </div>
         </div>
       </div>
@@ -90,4 +103,4 @@ const MobilHeader = () => {
   )
 }
 
-export default MobilHeader
+export default MobileHeader
