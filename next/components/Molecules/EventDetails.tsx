@@ -6,6 +6,7 @@ import {
   PlaceIcon,
   ShareIcon,
 } from '@assets/icons'
+import { Documents } from '@components/ui'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import RichText from '@modules/formatting/RichText'
 import { EventEntityFragment } from '@services/graphql'
@@ -123,10 +124,29 @@ const EventDetails = ({ event }: PageProps) => {
         <div className="col-span-6">
           <div className="mt-8 border-b border-border-dark pb-10 lg:mt-0">
             <div className="text-[24px]">{t('description')}</div>
-            <div className="pt-5 text-[16px] text-foreground-body">
+            <div className="pt-5">
               <RichText content={event?.attributes?.description ?? ''} />
             </div>
           </div>
+          {event?.attributes?.documents && (
+            // TODO use function to parse documents
+            <Documents
+              className="mt-8"
+              title={event.attributes.documents.title || undefined}
+              files={event.attributes.documents.basicDocuments?.data?.map((document) => ({
+                url: `${t('documents_slug')}${document?.attributes?.slug}`,
+                content: {
+                  type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
+                  title: document?.attributes?.title ?? '',
+                  dateAdded: document?.attributes?.date_added,
+                  fileType:
+                    document?.attributes?.attachment?.data?.attributes?.ext
+                      ?.toUpperCase()
+                      .replace('.', '') ?? '',
+                },
+              }))}
+            />
+          )}
           {(event?.attributes?.guests?.length || 0) > 0 && (
             <div className="border-b border-border-dark py-10">
               <div className="text-[24px]">{t('eventGuests')}</div>

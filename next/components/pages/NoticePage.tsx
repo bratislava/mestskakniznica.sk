@@ -25,6 +25,7 @@ const NoticePage = ({ notice }: NoticePageProps) => {
           { title: notice.attributes?.title || '', url: notice.attributes?.slug || '' },
         ]
 
+  // TODO use function to parse documents
   const files = notice.attributes?.documents?.basicDocuments?.data?.map((document) => ({
     url: `${t('documents_slug')}${document?.attributes?.slug}`,
     content: {
