@@ -1,8 +1,13 @@
-import { string } from 'yup'
+/**
+ * @tsImport
+ * { "mode": "compile" }
+ */
+
+import { NavikronosConfig } from '../navikronos/types'
 
 export const navicronosConfig2 = {
   strapiUrl: process.env.STRAPI_URL,
-  redirectPrefix: 'redirect',
+  redirectPrefix: 'navicronosRedirect',
   staticRoutes: [
     {
       name: 'search',
@@ -24,19 +29,23 @@ export const navicronosConfig2 = {
     } as const,
   ],
 }
-export const navicronosConfig = {
-  strapiUrl: process.env.STRAPI_URL,
-  staticRoutes: ['vyhladavanie', 'xx'] as const,
-  multipleRoutesAliases: {
-    'api:event': 'event',
-  } as const,
-  specificRoutesAliases: {
-    'api:page': 'page',
-  } as const,
-  // aliases: [{
-  //   type: 'api:event',
-  //   alias: 'event',
-  // }]
+export const navikronosConfig: NavikronosConfig = {
+  strapiUrl: process.env.STRAPI_URL as string,
+  redirectPrefix: 'navikronosRedirect',
+  staticRoutes: {
+    search: { rewrite: 'search' },
+  },
+  entryRoutes: {
+    'api::page.page': { alias: 'page', rewrite: (slug) => `/asdasdasd/${slug}` },
+  },
+  contentTypeRoutes: {
+    'api::page.page': { alias: 'page', rewrite: (slug) => `/asdasdasd/${slug}` },
+    'api::event.event': { alias: 'event', rewrite: (slug) => `/asdaadsasdasdsdasd/${slug}` },
+    'api::branch.branch': {
+      alias: 'asd',
+      rewrite: (slug) => '/asdasdasd/',
+    },
+  },
 }
 
 function x<
@@ -72,7 +81,7 @@ function x<
   return { getRoute }
 }
 
-const b = x(navicronosConfig)
+const b = x(navikronosConfig)
 b.getRoute('vyhladavanie')
 b.getRoute('event', { slug: 'asd' })
 b.getRoute('page', { id: 'asd' })

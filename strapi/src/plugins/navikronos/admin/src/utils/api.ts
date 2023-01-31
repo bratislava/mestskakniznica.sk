@@ -16,8 +16,8 @@ export const fetchNavigation = () =>
     method: "GET",
   }) as Promise<AdminGetNavigationResponse>;
 
-export const putNavigation = (navigation: AdminPutNavigationInput) =>
+export const putNavigation = ({ navigation }: AdminPutNavigationInput) =>
   request(`/${pluginId}/navigation`, {
     method: "PUT",
-    body: navigation,
+    body: { navigation },
   }) as Promise<AdminGetNavigationResponse>;

@@ -1,30 +1,24 @@
+import { IStrapi, StrapiContentTypeInfo } from "strapi-typed";
+import { getI18nStatus } from "./helpers/getI18nStatus";
 import {
-  Id,
-  IStrapi,
-  StrapiContentType,
-  StrapiContentTypeInfo,
-  StrapiContext,
-} from "strapi-typed";
-import { getI18nStatus } from "../getI18nStatus";
-import { fetchEntries, getConfig } from "../helpers";
-import {
-  AdminConfig,
   AdminGetConfigResponse,
   AdminGetNavigationResponse,
   AdminPutNavigationInput,
-  ClientGetNavigationResponse,
+  AdminPutNavigationResponse,
+  AdminService,
   NavikronosLocaleNavigations,
-  NavikronosNavigation,
-  NavikronosStorageContentType,
 } from "../types";
 import { navikronosLocaleNavigationsSchema } from "../zod";
+import { getNavigation } from "./helpers/getNavigation";
+import { getConfig } from "./helpers/config";
+import { fetchEntries } from "./helpers/getEntries";
 
-export default ({ strapi }: { strapi: IStrapi }) => {
+export default ({ strapi }: { strapi: IStrapi }): AdminService => {
   return {
     async getConfig(): Promise<AdminGetConfigResponse> {
       const i18n = await getI18nStatus({ strapi });
 
-      const { entryRoutes, staticRouteIds, contentTypeRoutes, enableListing } =
+      const { entryRoutes, staticRouteIds, contentTypeRoutes } =
         getConfig(strapi);
       const entryRouteEntriesPromises = (entryRoutes ?? []).map(
         ({ contentTypeUid }) =>
@@ -57,31 +51,24 @@ export default ({ strapi }: { strapi: IStrapi }) => {
         entryRouteEntries,
         staticRouteIds: staticRouteIds ?? [],
         contentTypeInfos,
-        listingEnabled: enableListing,
+        // listingEnabled: enableListing,
       };
     },
 
     async getNavigation(): Promise<AdminGetNavigationResponse> {
-      const navigation = await strapi
-        .query<NavikronosStorageContentType>(
-          "plugin::navikronos.navikronos-storage"
-        )
-        .findOne({});
+      console.log("yes here");
 
-      console.log(navigation);
-
-      if (!navigation) {
-        return {};
-      }
-
-      return navigation.data ?? {};
+      return getNavigation(strapi);
     },
 
-    async putNavigation(navigations: AdminPutNavigationInput) {
+    async putNavigation({
+      navigation,
+    }: AdminPutNavigationInput): Promise<AdminPutNavigationResponse> {
       try {
-        navikronosLocaleNavigationsSchema.parse(navigations);
+        navikronosLocaleNavigationsSchema.parse(navigation);
       } catch (e) {
-        return "error";
+        // TODO error
+        // return "error";
       }
 
       const queriedNavigation = await strapi
@@ -95,11 +82,11 @@ export default ({ strapi }: { strapi: IStrapi }) => {
           .query<{ id: string; data: NavikronosLocaleNavigations }>(
             "plugin::navikronos.navikronos-storage"
           )
-          .update({ where: { id }, data: { data: navigations } });
+          .update({ where: { id }, data: { data: navigation } });
       } else {
         await strapi
           .query("plugin::navikronos.navikronos-storage")
-          .create({ data: { data: navigations } });
+          .create({ data: { data: navigation } });
       }
       return { success: true };
     },

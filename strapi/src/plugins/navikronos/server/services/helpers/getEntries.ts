@@ -1,21 +1,15 @@
 import { IStrapi, StrapiContentType } from "strapi-typed";
-import { NavikronosConfig } from "./types";
-
-export const getConfig = (strapi: IStrapi) =>
-  strapi.config.get("plugin.navikronos") as NavikronosConfig;
-
-export const validateConfig = () => {};
+import { getConfig } from "./config";
 
 export type FetchedEntry = {
   id: number;
   title: string;
   path: string;
 };
-
 export const fetchEntries = async (
   strapi: IStrapi,
   contentTypeUid: string,
-  ids?: string[]
+  ids?: number[]
 ) => {
   const { entryRoutes } = getConfig(strapi)!;
   // TODO remove !
@@ -28,7 +22,7 @@ export const fetchEntries = async (
     return [] as FetchedEntry[];
   }
 
-  // filter published
+  // filter published + locale
   const items = await strapi
     .query<StrapiContentType<any>>(contentTypeUid)
     .findMany({

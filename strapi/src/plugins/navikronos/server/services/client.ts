@@ -1,7 +1,7 @@
 import { IStrapi } from "strapi-typed";
-import { FetchedEntry, fetchEntries } from "../helpers";
 import {
   ClientGetNavigationResponse,
+  ClientService,
   NavikronosClientEntryRoute,
   NavikronosClientNavigation,
   NavikronosClientRoute,
@@ -9,8 +9,10 @@ import {
   NavikronosNavigation,
   NavikronosRoutes,
 } from "../types";
+import { getNavigation } from "./helpers/getNavigation";
+import { FetchedEntry, fetchEntries } from "./helpers/getEntries";
 
-type EntriesToFetchMap = Record<string, string[]>;
+type EntriesToFetchMap = Record<string, number[]>;
 type FetchedEntriesMap = Record<string, Record<string, FetchedEntry>>;
 
 const traverseGetEntriesToFetch = (
@@ -87,6 +89,8 @@ const traverseReplaceEntries = (
 
         return {
           type: "entry",
+          contentTypeUid,
+          entryId,
           ...fetchedEntry,
           children,
         } as NavikronosClientEntryRoute;
@@ -102,26 +106,18 @@ const traverseReplaceEntries = (
   return innerTraverse(navigation) as NavikronosClientNavigation;
 };
 
-export default ({ strapi }: { strapi: IStrapi }) => {
-  return {
-    async getNavigation(): Promise<ClientGetNavigationResponse> {
-      const navigationMany = await strapi
-        .query<NavikronosNavigation>("plugin::navikronos.navikronos-storage")
-        .findMany({});
+export default ({ strapi }: { strapi: IStrapi }): ClientService => ({
+  async getNavigation(): Promise<ClientGetNavigationResponse> {
+    const navigation = (await getNavigation(strapi))[""];
 
-      const navigation = navigationMany[0];
+    console.log("here");
 
-      if (!navigation) {
-        return null;
-      }
-
-      const entriesToFetch = traverseGetEntriesToFetch(navigation);
-      const fetchedEntries = await fetchSelectedEntries(
-        strapi,
-        navigation,
-        entriesToFetch
-      );
-      return traverseReplaceEntries(navigation, fetchedEntries);
-    },
-  };
-};
+    const entriesToFetch = traverseGetEntriesToFetch(navigation);
+    const fetchedEntries = await fetchSelectedEntries(
+      strapi,
+      navigation,
+      entriesToFetch
+    );
+    return traverseReplaceEntries(navigation, fetchedEntries);
+  },
+});

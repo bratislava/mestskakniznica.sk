@@ -1,7 +1,9 @@
 import { IStrapi } from "strapi-typed";
+import { AdminService } from "../types";
 
-export const adminController = ({ strapi }: { strapi: IStrapi }) => {
-  const getService = () => strapi.plugin("navikronos").service("admin");
+export default ({ strapi }: { strapi: IStrapi }) => {
+  const getService = () =>
+    strapi.plugin("navikronos").service("admin") as AdminService;
 
   return {
     async getConfig(ctx) {

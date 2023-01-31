@@ -1,4 +1,12 @@
 const { i18n, reloadOnPrerender } = require('./next-i18next.config')
+const { loadSync } = require('ts-import')
+
+const { generateRewrites } = loadSync('./navikronos/generateRewrites.ts', {
+  allowConfigurationWithComments: true,
+})
+const { navikronosConfig } = loadSync('./utils/navikronosConfig.ts', {
+  allowConfigurationWithComments: true,
+})
 
 /**
  * @type {import('next').NextConfig}
@@ -11,6 +19,9 @@ const nextConfig = {
     domains: ['localhost', 'cdn-api.bratislava.sk', 'api.mapbox.com', 'coverlinker.biblib.net'],
   },
   async rewrites() {
+    const navikronosRewrites = await generateRewrites(navikronosConfig)
+    console.log(navikronosRewrites)
+
     return {
       beforeFiles: [
         // Graphql Proxy
@@ -89,6 +100,7 @@ const nextConfig = {
           destination: '/notice/:slug',
         },
       ],
+      afterFiles: [{ source: '/test', destination: '/search?navikronosPath=adadsda' }],
     }
   },
   async redirects() {

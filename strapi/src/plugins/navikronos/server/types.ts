@@ -1,7 +1,7 @@
 // Admin navigation
-import { I18NStatus } from "./getI18nStatus";
+import { I18NStatus } from "./services/helpers/getI18nStatus";
 import { StrapiContentTypeInfo } from "strapi-typed";
-import { FetchedEntry } from "./helpers";
+import { FetchedEntry } from "./services/helpers/getEntries";
 
 export type NavikronosRoute =
   | NavikronosContentTypeRoute
@@ -67,7 +67,7 @@ const x: NavikronosNavigation = [
       {
         type: "entry",
         contentTypeUid: "page",
-        entryId: "1",
+        entryId: 1,
         children: [
           {
             type: "contentType",
@@ -109,16 +109,20 @@ export type NavikronosClientEmptyRoute = {
 
 export type NavikronosClientEntryRoute = {
   type: "entry";
+  contentTypeUid: string;
+  entryId: number;
 } & NavikronosClientRouteWithTitlePath &
   NavikronosClientRouteWithChildren;
 
 export type NavikronosClientStaticRoute = {
   type: "static";
+  id: string;
 } & NavikronosClientRouteWithTitlePath &
   NavikronosClientRouteWithChildren;
 
 export type NavikronosClientListingRoute = {
   type: "listing";
+  id: string;
 } & NavikronosClientRouteWithTitlePath &
   NavikronosClientRouteWithChildren;
 
@@ -144,11 +148,27 @@ export type AdminConfig = {
   entryRouteEntries: Record<string, FetchedEntry[]>;
   staticRouteIds: string[];
   contentTypeInfos: Record<string, StrapiContentTypeInfo>;
-  listingEnabled: boolean;
+  // listingEnabled: boolean;
 };
 
 // API
 export type ClientGetNavigationResponse = NavikronosClientNavigation;
 export type AdminGetNavigationResponse = NavikronosLocaleNavigations;
-export type AdminPutNavigationInput = NavikronosLocaleNavigations;
+export type AdminPutNavigationInput = {
+  navigation: NavikronosLocaleNavigations;
+};
+export type AdminPutNavigationResponse = { success: true };
 export type AdminGetConfigResponse = AdminConfig;
+
+// Services
+export type AdminService = {
+  getConfig: () => Promise<AdminGetConfigResponse>;
+  getNavigation: () => Promise<AdminGetNavigationResponse>;
+  putNavigation: ({
+    navigation,
+  }: AdminPutNavigationInput) => Promise<AdminPutNavigationResponse>;
+};
+
+export type ClientService = {
+  getNavigation: () => Promise<ClientGetNavigationResponse>;
+};

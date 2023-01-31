@@ -155,7 +155,7 @@ export const useNavigationDataDefined = () => {
   const dispatch = useContext(NavigationDataDispatchContext);
   const mutation = useMutation(
     (newNavigationData: NavikronosLocaleNavigations) =>
-      putNavigation(newNavigationData)
+      putNavigation({ navigation: newNavigationData })
   );
 
   if (!navigationData || !dispatch) {

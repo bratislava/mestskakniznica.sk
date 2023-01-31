@@ -52,6 +52,8 @@ interface IProps {
 }
 
 export async function getServerSideProps(ctx: GetStaticPropsContext) {
+  console.log(ctx)
+
   const locale = ctx?.locale ?? 'sk'
   const translations = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
 

@@ -2,8 +2,12 @@ export default {
   routes: [
     {
       method: "GET",
-      path: "/navigation",
-      handler: "admin.getNavigation",
-    }
+      path: "/",
+      handler: "client.getNavigation",
+      config: {
+        policies: [],
+        auth: false,
+      },
+    },
   ],
 };
