@@ -48,10 +48,10 @@ const prepareContentTypesOptions = (config: AdminGetConfigResponse) => {
 };
 
 const prepareStaticRouteIdsOptions = (config: AdminGetConfigResponse) => {
-  return Object.entries(config.staticRouteIds).map(([uid, id]) => ({
-    key: uid,
+  return config.staticRouteIds.map((id) => ({
+    key: id,
     metadatas: getMetadatas(id),
-    value: uid,
+    value: id,
     label: id,
   }));
 };

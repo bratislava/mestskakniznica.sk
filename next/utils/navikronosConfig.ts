@@ -33,18 +33,20 @@ export const navikronosConfig: NavikronosConfig = {
   strapiUrl: process.env.STRAPI_URL as string,
   redirectPrefix: 'navikronosRedirect',
   staticRoutes: {
-    search: { rewrite: 'search' },
+    search: { rewrite: '/search' },
   },
   entryRoutes: {
-    'api::page.page': { alias: 'page', rewrite: (slug) => `/asdasdasd/${slug}` },
+    'api::page.page': { alias: 'page', rewrite: (slug) => `/page/${slug}` },
   },
   contentTypeRoutes: {
-    'api::page.page': { alias: 'page', rewrite: (slug) => `/asdasdasd/${slug}` },
-    'api::event.event': { alias: 'event', rewrite: (slug) => `/asdaadsasdasdsdasd/${slug}` },
-    'api::branch.branch': {
-      alias: 'asd',
-      rewrite: (slug) => '/asdasdasd/',
+    'api::notice.notice': { alias: 'notice', rewrite: (slug) => `/notice/${slug}` },
+    'api::basic-document.basic-document': {
+      alias: 'basic-document',
+      rewrite: (slug) => `/basic-document/${slug}`,
     },
+    'api::branch.branch': { alias: 'branch', rewrite: (slug) => `/branch/${slug}` },
+    'api::event.event': { alias: 'event', rewrite: (slug) => `/event/${slug}` },
+    'api::blog-post.blog-post': { alias: 'blog-post', rewrite: (slug) => `/blog-post/${slug}` },
   },
 }
 

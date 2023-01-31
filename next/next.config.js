@@ -34,11 +34,6 @@ const nextConfig = {
           source: '/uploads/:file',
           destination: `${process.env.STRAPI_URL}/uploads/:file`,
         },
-        {
-          source: '/opacBookNews',
-          destination:
-            'https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchNews=60&rtrnxml=true',
-        },
         /**
          * Rewrites to make the translation of URL work. Based on an approached outlined here:
          * https://stackoverflow.com/questions/68723485/how-to-setup-i18n-translated-url-routes-in-next-js/68731057#68731057

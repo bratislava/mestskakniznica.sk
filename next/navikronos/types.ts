@@ -2,7 +2,7 @@ export type NavikronosConfig = {
   strapiUrl: string
   redirectPrefix: string
   staticRoutes: Record<string, { rewrite: string }>
-  entryRoutes: Record<string, { alias: string; rewrite: (slug: string) => string }>
+  entryRoutes: Record<string, { alias: string; rewrite: (id: number) => string }>
   contentTypeRoutes: Record<string, { alias: string; rewrite: (slug: string) => string }>
 }
 

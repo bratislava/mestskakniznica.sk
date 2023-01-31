@@ -28,9 +28,12 @@ export const generateRewrites = async (config: NavikronosConfig) => {
     switch (route.type) {
       case 'contentType': {
         const x = config.contentTypeRoutes[route.contentTypeUid]
+        if (!x) {
+          return null
+        }
         return {
           source: `/${path.join('/')}/:slug`,
-          destination: x.rewrite(':slug'),
+          destination: `/${config.redirectPrefix}${x.rewrite(':slug')}`,
         }
       }
 
@@ -40,18 +43,24 @@ export const generateRewrites = async (config: NavikronosConfig) => {
       case 'entry':
         {
           const x = config.entryRoutes[route.contentTypeUid]
+          if (!x) {
+            return null
+          }
           return {
             source: `/${[...path, route.path].join('/')}`,
-            destination: x.rewrite(route.path),
+            destination: `/${config.redirectPrefix}${x.rewrite(route.entryId)}`,
           }
         }
         break
 
       case 'static':
         const x = config.staticRoutes[route.id]
+        if (!x) {
+          return null
+        }
         return {
           source: `/${[...path, route.path].join('/')}`,
-          destination: x.rewrite,
+          destination: `/${config.redirectPrefix}${x.rewrite}`,
         }
         break
 

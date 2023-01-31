@@ -126,6 +126,15 @@
       "relation": "manyToMany",
       "target": "api::branch.branch",
       "inversedBy": "servicePages"
+    },
+    "newSlug": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": false
     }
   }
 }
