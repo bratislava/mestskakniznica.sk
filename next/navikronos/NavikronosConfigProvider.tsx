@@ -1,0 +1,24 @@
+import { createContext, PropsWithChildren, useContext, useState } from 'react'
+
+import { NavikronosConfig } from './types'
+
+const NavikronosConfigContext = createContext<NavikronosConfig | null>(null)
+
+export const NavikronosConfigProvider = ({
+  children,
+  config,
+}: PropsWithChildren<{ config: NavikronosConfig }>) => {
+  return (
+    <NavikronosConfigContext.Provider value={config}>{children}</NavikronosConfigContext.Provider>
+  )
+}
+
+export const useNavikronosConfig = () => {
+  const config = useContext(NavikronosConfigContext)
+
+  if (!config) {
+    throw new Error('TODO message')
+  }
+
+  return config
+}

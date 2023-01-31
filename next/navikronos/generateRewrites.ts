@@ -5,6 +5,7 @@
 
 import type { Rewrite } from 'next/dist/lib/load-custom-routes'
 
+import { navikronosQueryParam } from './const'
 import {
   NavikronosClientNavigation,
   NavikronosClientRoute,
@@ -12,7 +13,7 @@ import {
   NavikronosConfig,
 } from './types'
 
-export const fetchNavigation = async (config: NavikronosConfig) => {
+const fetchNavigation = async (config: NavikronosConfig) => {
   const fetched = await fetch(`${config.strapiUrl}/navikronos/`)
   const json = await fetched.json()
 
@@ -31,9 +32,12 @@ export const generateRewrites = async (config: NavikronosConfig) => {
         if (!x) {
           return null
         }
+        const source = `/${path.join('/')}/:slug`
         return {
-          source: `/${path.join('/')}/:slug`,
-          destination: `/${config.redirectPrefix}${x.rewrite(':slug')}`,
+          source,
+          destination: `/${config.redirectPrefix}${x.rewrite(
+            ':slug'
+          )}?${navikronosQueryParam}=${source}`,
         }
       }
 
@@ -46,9 +50,12 @@ export const generateRewrites = async (config: NavikronosConfig) => {
           if (!x) {
             return null
           }
+          const source = `/${[...path, route.path].join('/')}`
           return {
-            source: `/${[...path, route.path].join('/')}`,
-            destination: `/${config.redirectPrefix}${x.rewrite(route.entryId)}`,
+            source,
+            destination: `/${config.redirectPrefix}${x.rewrite(
+              route.entryId
+            )}?${navikronosQueryParam}=${source}`,
           }
         }
         break
