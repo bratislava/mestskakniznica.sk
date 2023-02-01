@@ -105,10 +105,9 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
 }
 
 export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ctx) => {
-  console.log('here', ctx)
-  const { params, locale = 'sk' } = ctx
+  const { params, locale } = ctx
   const id = params?.id
-  if (!id) return { notFound: true } as const
+  if (!id || !locale) return { notFound: true } as const
 
   const navikronosStaticProps = await navikronosGetStaticProps(navikronosConfig, ctx, {
     type: 'page',

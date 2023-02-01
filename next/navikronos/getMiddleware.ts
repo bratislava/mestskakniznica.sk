@@ -29,6 +29,7 @@ export const getMiddleware = (config: NavikronosConfig) => {
     const rewrite = localeRewrites[request.nextUrl.pathname]
     if (rewrite) {
       // TODO comment
+      console.log(rewrite)
       return NextResponse.rewrite(new URL(`/${locale}${rewrite}`, request.url))
     }
     // TODO fix

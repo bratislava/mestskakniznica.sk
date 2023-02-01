@@ -158,7 +158,7 @@ export const useNavigationDataDefined = () => {
       putNavigation({ navigation: newNavigationData })
   );
 
-  const locale = "en";
+  const locale = "sk";
 
   if (!navigationData || !dispatch) {
     // TODO
