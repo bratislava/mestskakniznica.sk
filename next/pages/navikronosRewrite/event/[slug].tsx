@@ -10,9 +10,9 @@ import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
-import PageWrapper from '../../components/layouts/PageWrapper'
-import EventPage from '../../components/pages/eventPage'
+import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
+import PageWrapper from '@components/layouts/PageWrapper'
+import EventPage from '@components/pages/eventPage'
 
 type PageProps = {
   event: EventEntityFragment
@@ -40,16 +40,15 @@ const EventSlugPage = ({ event, general }: PageProps) => {
   )
 }
 
-// TODO use common functions to prevent duplicate code
 interface StaticParams extends ParsedUrlQuery {
-  fullPath: string[]
+  slug: string
 }
 
-export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) => {
   let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.EventStaticPaths({ locale }))
+    locales!.map((locale) => client.EventStaticPaths({ locale }))
   )
   const entities = pathArraysForLocales
     .flatMap(({ events }) => events?.data || [])
@@ -60,11 +59,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       .filter((entity) => entity.attributes?.slug)
       .map((entity) => ({
         params: {
-          fullPath: `${
-            entity.attributes?.locale === 'sk' ? '/zazite/podujatia/' : '/experience/events/'
-          }${entity.attributes?.slug!}`
-            .split('/')
-            .slice(1),
+          slug: entity.attributes?.slug!,
           locale: entity.attributes?.locale || '',
         },
       }))
@@ -80,12 +75,12 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }) => {
-  const slug = last(params?.fullPath)
+  const slug = params?.slug
 
   if (!slug) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} event ${slug} on ${params?.fullPath.join('/') ?? ''}`)
+  console.log(`Revalidating ${locale} event ${slug} on ${slug}`)
 
   const [{ events }, general, translations] = await Promise.all([
     client.EventBySlug({

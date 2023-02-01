@@ -12,7 +12,7 @@ import {
   NavikronosNavigation,
   NavikronosRoute,
   NavikronosRoutes,
-} from "../../../server/types";
+} from "../../../types";
 import produce, { original } from "immer";
 import { last } from "lodash";
 
@@ -158,6 +158,8 @@ export const useNavigationDataDefined = () => {
       putNavigation({ navigation: newNavigationData })
   );
 
+  const locale = "en";
+
   if (!navigationData || !dispatch) {
     // TODO
     throw "asdas";
@@ -175,8 +177,7 @@ export const useNavigationDataDefined = () => {
       type: "editRoute",
       indexes: locationIndexes,
       data: editedRoute,
-      // TODO: locale
-      locale: "",
+      locale,
     });
   };
 
@@ -185,8 +186,7 @@ export const useNavigationDataDefined = () => {
       type: "addRoute",
       indexes: locationIndexes,
       data: newRoute,
-      // TODO: locale
-      locale: "",
+      locale,
     });
   };
 
@@ -194,13 +194,12 @@ export const useNavigationDataDefined = () => {
     dispatch({
       type: "removeRoute",
       indexes: locationIndexes,
-      // TODO: locale
-      locale: "",
+      locale,
     });
   };
 
   return {
-    navigationData: navigationData[""],
+    navigationData: navigationData[locale],
     editRoute,
     addRoute,
     removeRoute,

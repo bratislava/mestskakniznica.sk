@@ -1,11 +1,16 @@
-import { NavigationRewrites, NavikronosClientNavigation, NavikronosConfig } from './types'
+import {
+  NavigationRewrites,
+  NavikronosClientLocaleNavigations,
+  NavikronosClientNavigation,
+  NavikronosConfig,
+} from './types'
 import { getRewrites } from './getRewrites'
 
 let cache: {
   timestamp: number
   value: {
-    navigation: NavikronosClientNavigation
-    rewrites: NavigationRewrites
+    navigation: NavikronosClientLocaleNavigations
+    rewrites: Record<string, NavigationRewrites>
   }
 } | null = null
 
@@ -13,7 +18,7 @@ const fetchNonCached = async (config: NavikronosConfig) => {
   const fetched = await fetch(`${config.strapiUrl}/navikronos/`)
   const json = await fetched.json()
 
-  return json as NavikronosClientNavigation
+  return json as NavikronosClientLocaleNavigations
 }
 
 export const fetchNavigation = async (config: NavikronosConfig) => {

@@ -9,6 +9,7 @@ export type FetchedEntry = {
 export const fetchEntries = async (
   strapi: IStrapi,
   contentTypeUid: string,
+  locale?: string,
   ids?: number[]
 ) => {
   const { entryRoutes } = getConfig(strapi)!;
@@ -31,13 +32,20 @@ export const fetchEntries = async (
         contentTypeConfig.titleAttribute,
         contentTypeConfig.pathAttribute,
       ],
-      where: ids
-        ? {
-            id: {
-              $in: ids,
-            },
-          }
-        : {},
+      where: {
+        ...(ids
+          ? {
+              id: {
+                $in: ids,
+              },
+            }
+          : {}),
+        ...(locale
+          ? {
+              locale: { $eq: locale },
+            }
+          : {}),
+      },
     });
 
   return items.map(

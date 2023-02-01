@@ -1,7 +1,7 @@
 // Admin navigation
-import { I18NStatus } from "./services/helpers/getI18nStatus";
+import { I18NStatus } from "./server/services/helpers/getI18nStatus";
 import { StrapiContentTypeInfo } from "strapi-typed";
-import { FetchedEntry } from "./services/helpers/getEntries";
+import { FetchedEntry } from "./server/services/helpers/getEntries";
 
 export type NavikronosRoute =
   | NavikronosContentTypeRoute
@@ -128,6 +128,11 @@ export type NavikronosClientListingRoute = {
 
 export type NavikronosClientNavigation = NavikronosClientRoutes;
 
+export type NavikronosClientLocaleNavigations = Record<
+  string,
+  NavikronosClientNavigation | undefined
+>;
+
 // Config
 export type NavikronosConfig = {
   staticRouteIds?: string[];
@@ -152,7 +157,7 @@ export type AdminConfig = {
 };
 
 // API
-export type ClientGetNavigationResponse = NavikronosClientNavigation;
+export type ClientGetNavigationResponse = NavikronosClientLocaleNavigations;
 export type AdminGetNavigationResponse = NavikronosLocaleNavigations;
 export type AdminPutNavigationInput = {
   navigation: NavikronosLocaleNavigations;

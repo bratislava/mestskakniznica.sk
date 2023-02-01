@@ -8,9 +8,10 @@ import {
   NavikronosClientRoutes,
   NavikronosNavigation,
   NavikronosRoutes,
-} from "../types";
+} from "../../types";
 import { getNavigation } from "./helpers/getNavigation";
 import { FetchedEntry, fetchEntries } from "./helpers/getEntries";
+import { getI18nStatus } from "./helpers/getI18nStatus";
 
 type EntriesToFetchMap = Record<string, number[]>;
 type FetchedEntriesMap = Record<string, Record<string, FetchedEntry>>;
@@ -46,12 +47,13 @@ const traverseGetEntriesToFetch = (
 const fetchSelectedEntries = async (
   strapi: IStrapi,
   navigation: NavikronosNavigation,
-  entriesToFetch: EntriesToFetchMap
+  entriesToFetch: EntriesToFetchMap,
+  locale: string
 ): Promise<FetchedEntriesMap> => {
   const promises = Object.entries(entriesToFetch).map(
     ([contentTypeUid, ids]) => {
       return async () => {
-        const fetched = await fetchEntries(strapi, contentTypeUid, ids);
+        const fetched = await fetchEntries(strapi, contentTypeUid, locale, ids);
         const mapped = Object.fromEntries(
           fetched.map((entry) => [entry.id, entry])
         );
@@ -108,16 +110,26 @@ const traverseReplaceEntries = (
 
 export default ({ strapi }: { strapi: IStrapi }): ClientService => ({
   async getNavigation(): Promise<ClientGetNavigationResponse> {
-    const navigation = (await getNavigation(strapi))[""];
+    const navigation = await getNavigation(strapi);
+    const i18n = await getI18nStatus({ strapi });
 
-    console.log("here");
-
-    const entriesToFetch = traverseGetEntriesToFetch(navigation);
-    const fetchedEntries = await fetchSelectedEntries(
-      strapi,
-      navigation,
-      entriesToFetch
+    const allLocales = await Promise.all(
+      i18n.locales.map(async ({ code }) => {
+        const localeNavigation = navigation[code];
+        const entriesToFetch = traverseGetEntriesToFetch(localeNavigation);
+        const fetchedEntries = await fetchSelectedEntries(
+          strapi,
+          localeNavigation,
+          entriesToFetch,
+          code
+        );
+        return [
+          code,
+          traverseReplaceEntries(localeNavigation, fetchedEntries),
+        ] as const;
+      })
     );
-    return traverseReplaceEntries(navigation, fetchedEntries);
+
+    return Object.fromEntries<NavikronosClientNavigation>(allLocales);
   },
 });

@@ -1,50 +1,64 @@
+import transform from 'lodash/transform'
 import {
   NavigationRewrites,
+  NavikronosClientLocaleNavigations,
   NavikronosClientNavigation,
   NavikronosClientRoute,
   NavikronosClientRoutes,
   NavikronosConfig,
 } from './types'
 
-export const getRewrites = (config: NavikronosConfig, navigation: NavikronosClientNavigation) => {
-  const rewrites: [string, string][] = []
-
+export const getRewrites = (
+  config: NavikronosConfig,
+  navigation: NavikronosClientLocaleNavigations
+) => {
   const getRewrite = (route: NavikronosClientRoute, path: string[]): [string, string] | null => {
     switch (route.type) {
       case 'contentType': {
-        const x = config.contentTypeRoutes[route.contentTypeUid]
-        if (!x) {
+        const routeConfig = config.contentTypeRoutes[route.contentTypeUid]
+        if (!routeConfig) {
           return null
         }
         const source = `/${path.join('/')}/:slug`
-        return [source, `/${config.rewritePrefix}${x.rewrite(':slug')}`]
+        return [source, `/${config.rewritePrefix}${routeConfig.rewrite(':slug')}`]
       }
 
       case 'empty':
         return null
 
       case 'entry': {
-        const x = config.entryRoutes[route.contentTypeUid]
-        if (!x) {
+        const routeConfig = config.entryRoutes[route.contentTypeUid]
+        if (!routeConfig) {
           return null
         }
         const source = `/${[...path, route.path].join('/')}`
-        return [source, `/${config.rewritePrefix}${x.rewrite(route.entryId)}`]
+        return [source, `/${config.rewritePrefix}${routeConfig.rewrite(route.entryId)}`]
       }
 
       case 'static':
-        const x = config.staticRoutes[route.id]
-        if (!x) {
+        const routeConfig = config.staticRoutes[route.id]
+        if (!routeConfig) {
           return null
         }
-        return [`/${[...path, route.path].join('/')}`, `/${config.rewritePrefix}${x.rewrite}`]
+        return [
+          `/${[...path, route.path].join('/')}`,
+          `/${config.rewritePrefix}${routeConfig.rewrite}`,
+        ]
 
       case 'listing':
         return null
     }
   }
 
-  const innerTraverse = (routes: NavikronosClientRoutes, path: string[]) => {
+  const innerTraverse = (
+    routes: NavikronosClientRoutes | undefined,
+    path: string[] = [],
+    rewrites: [string, string][] = []
+  ) => {
+    if (!routes) {
+      return rewrites
+    }
+
     routes.forEach((route) => {
       const rewrite = getRewrite(route, path)
 
@@ -52,12 +66,14 @@ export const getRewrites = (config: NavikronosConfig, navigation: NavikronosClie
         rewrites.push(rewrite)
       }
       if (route.type !== 'contentType' && route.children) {
-        innerTraverse(route.children, [...path, route.path])
+        innerTraverse(route.children, [...path, route.path], rewrites)
       }
     })
+
+    return rewrites
   }
 
-  innerTraverse(navigation, [])
-
-  return Object.fromEntries(rewrites) as NavigationRewrites
+  return transform(navigation, (r: Record<string, NavigationRewrites>, localeNavigation, key) => {
+    r[key] = Object.fromEntries(innerTraverse(localeNavigation))
+  })
 }

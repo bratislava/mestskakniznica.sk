@@ -7,7 +7,7 @@ import {
   AdminPutNavigationResponse,
   AdminService,
   NavikronosLocaleNavigations,
-} from "../types";
+} from "../../types";
 import { navikronosLocaleNavigationsSchema } from "../zod";
 import { getNavigation } from "./helpers/getNavigation";
 import { getConfig } from "./helpers/config";
@@ -23,7 +23,8 @@ export default ({ strapi }: { strapi: IStrapi }): AdminService => {
       const entryRouteEntriesPromises = (entryRoutes ?? []).map(
         ({ contentTypeUid }) =>
           async () => {
-            const fetched = await fetchEntries(strapi, contentTypeUid);
+            // TODO locale
+            const fetched = await fetchEntries(strapi, contentTypeUid, "sk");
             return [contentTypeUid, fetched] as const;
           }
       );

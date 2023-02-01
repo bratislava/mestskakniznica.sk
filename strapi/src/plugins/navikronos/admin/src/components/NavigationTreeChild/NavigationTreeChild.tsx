@@ -11,7 +11,7 @@ import { Pencil, Plus, Trash } from "@strapi/icons";
 import { TextButton } from "@strapi/design-system/TextButton";
 import { useNavigationDataDefined } from "../../utils/NavigationDataProvider";
 import { useEditAdd } from "../../utils/EditAddModalProvider";
-import { NavikronosRoute } from "../../../../server/types";
+import { NavikronosRoute } from "../../../../types";
 
 type NavigationTreeChildProps = {
   child: NavikronosRoute;

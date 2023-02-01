@@ -13,7 +13,7 @@ import {
   NavikronosListingRoute,
   NavikronosRoute,
   NavikronosStaticRoute,
-} from "../../../server/types";
+} from "../../../types";
 import { useConfigDefined } from "../utils/useConfig";
 
 const getMetadatas = (label: string) => ({

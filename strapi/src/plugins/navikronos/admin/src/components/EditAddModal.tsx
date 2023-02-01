@@ -4,7 +4,7 @@ import { ModalHeader, ModalLayout } from "@strapi/design-system/ModalLayout";
 import { useEditAdd } from "../utils/EditAddModalProvider";
 import EditAddForm from "./EditAddForm";
 import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
-import { NavikronosRoute } from "../../../server/types";
+import { NavikronosRoute } from "../../../types";
 
 const EditAddModal = () => {
   const { modalData, closeModal } = useEditAdd();

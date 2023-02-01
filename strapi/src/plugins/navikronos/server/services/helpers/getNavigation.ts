@@ -2,7 +2,7 @@ import { IStrapi } from "strapi-typed";
 import {
   NavikronosLocaleNavigations,
   NavikronosStorageContentType,
-} from "../../types";
+} from "../../../types";
 
 export const getNavigation = async (strapi: IStrapi) => {
   const navigation = await strapi

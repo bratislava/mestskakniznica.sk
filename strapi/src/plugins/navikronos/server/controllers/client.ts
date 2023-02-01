@@ -1,5 +1,5 @@
 import { IStrapi } from "strapi-typed";
-import { ClientService } from "../types";
+import { ClientService } from "../../types";
 
 export default ({ strapi }: { strapi: IStrapi }) => {
   const getService = () =>

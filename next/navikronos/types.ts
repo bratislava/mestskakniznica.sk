@@ -55,8 +55,13 @@ export type NavikronosClientListingRoute = {
 
 export type NavikronosClientNavigation = NavikronosClientRoutes
 
+export type NavikronosClientLocaleNavigations = Record<
+  string,
+  NavikronosClientNavigation | undefined
+>
+
 export type NavikronosStaticProps = {
-  navigation: NavikronosClientNavigation
+  navigation: NavikronosClientLocaleNavigations
   currentRoute: { type: string; id: number }
   locale: string
 }
