@@ -23,17 +23,23 @@ const searchIndexSettings = {
   searchableAttributes: [
     // Page
     "page.title",
-    "page.description",
+    "page.seo.keywords",
+    "page.perex",
     // Basic documents
     "basic-document.title",
+    "basic-document.seo.keywords",
     "basic-document.description",
     // Blog post
     "blog-post.title",
+    "blog-post.seo.keywords",
     // Event
     "event.title",
+    "event.seo.keywords",
     "event.description",
     // Notice
     "notice.title",
+    "notice.seo.keywords",
+    "notice.body",
   ],
   filterableAttributes: [
     // All
