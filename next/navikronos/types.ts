@@ -1,6 +1,7 @@
 export type NavikronosConfig = {
   strapiUrl: string
-  redirectPrefix: string
+  cacheTtl: number
+  rewritePrefix: string
   staticRoutes: Record<string, { rewrite: string }>
   entryRoutes: Record<string, { alias: string; rewrite: (id: number) => string }>
   contentTypeRoutes: Record<string, { alias: string; rewrite: (slug: string) => string }>
@@ -53,3 +54,11 @@ export type NavikronosClientListingRoute = {
   NavikronosClientRouteWithChildren
 
 export type NavikronosClientNavigation = NavikronosClientRoutes
+
+export type NavikronosStaticProps = {
+  navigation: NavikronosClientNavigation
+  currentRoute: { type: string; id: number }
+  locale: string
+}
+
+export type NavigationRewrites = Record<string, string>

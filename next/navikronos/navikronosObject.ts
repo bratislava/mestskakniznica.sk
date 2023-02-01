@@ -1,11 +1,10 @@
-import { NavikronosClientNavigation, NavikronosConfig } from './types'
+import { NavikronosClientNavigation, NavikronosConfig, NavikronosStaticProps } from './types'
 
 export type NavikronosObject = {}
 
 export const getNavikronosObject = (
   config: NavikronosConfig,
-  navigation: NavikronosClientNavigation,
-  currentRoute: string
+  staticProps: NavikronosStaticProps
 ): NavikronosObject => {
   return {}
 }

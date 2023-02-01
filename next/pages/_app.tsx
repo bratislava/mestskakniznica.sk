@@ -14,6 +14,8 @@ import { QueryParamProvider } from 'use-query-params'
 
 import ErrorDisplay from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
+import { NavikronosConfigProvider } from '../navikronos/NavikronosConfigProvider'
+import { navikronosConfig } from '@utils/navikronosConfig'
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
   if (pageProps.error) {
@@ -35,17 +37,19 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
         />
       ) : null}
       <SSRProvider>
-        <MQueryClientProvider>
-          <MI18nProvider>
-            <OverlayProvider>
-              <QueryParamProvider adapter={NextAdapter}>
-                <NavMenuContextProvider>
-                  <Component {...pageProps} />
-                </NavMenuContextProvider>
-              </QueryParamProvider>
-            </OverlayProvider>
-          </MI18nProvider>
-        </MQueryClientProvider>
+        <NavikronosConfigProvider config={navikronosConfig}>
+          <MQueryClientProvider>
+            <MI18nProvider>
+              <OverlayProvider>
+                <QueryParamProvider adapter={NextAdapter}>
+                  <NavMenuContextProvider>
+                    <Component {...pageProps} />
+                  </NavMenuContextProvider>
+                </QueryParamProvider>
+              </OverlayProvider>
+            </MI18nProvider>
+          </MQueryClientProvider>
+        </NavikronosConfigProvider>
       </SSRProvider>
     </div>
   )

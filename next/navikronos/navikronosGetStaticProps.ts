@@ -1,17 +1,15 @@
 import { GetStaticPropsContext } from 'next/types'
 
-import { navikronosQueryParam } from './const'
 import { fetchNavigation } from './fetchNavigation'
-import { NavikronosConfig } from './types'
+import { NavikronosConfig, NavikronosStaticProps } from './types'
 
-export const navikronosGetStaticProps = async ({
-  navikronosConfig,
-  ctx: { params },
-}: {
-  navikronosConfig: NavikronosConfig
-  ctx: GetStaticPropsContext<{ [navikronosQueryParam]: string }>
-}) => {
-  const navigation = await fetchNavigation(navikronosConfig)
+export const navikronosGetStaticProps = async (
+  navikronosConfig: NavikronosConfig,
+  ctx: GetStaticPropsContext,
+  currentRoute: { type: string; id: number }
+) => {
+  const { navigation } = await fetchNavigation(navikronosConfig)
+  const { locale } = ctx
 
-  return { navigation }
+  return { navigation, currentRoute, locale } as NavikronosStaticProps
 }
