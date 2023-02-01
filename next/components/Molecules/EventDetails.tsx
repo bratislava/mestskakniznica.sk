@@ -10,6 +10,7 @@ import { Documents } from '@components/ui'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import RichText from '@modules/formatting/RichText'
 import { EventEntityFragment } from '@services/graphql'
+import { isDefined } from '@utils/isDefined'
 import { isEventPast } from '@utils/utils'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -129,22 +130,10 @@ const EventDetails = ({ event }: PageProps) => {
             </div>
           </div>
           {event?.attributes?.documents && (
-            // TODO use function to parse documents
             <Documents
               className="mt-8"
-              title={event.attributes.documents.title || undefined}
-              files={event.attributes.documents.basicDocuments?.data?.map((document) => ({
-                url: `${t('documents_slug')}${document?.attributes?.slug}`,
-                content: {
-                  type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
-                  title: document?.attributes?.title ?? '',
-                  dateAdded: document?.attributes?.date_added,
-                  fileType:
-                    document?.attributes?.attachment?.data?.attributes?.ext
-                      ?.toUpperCase()
-                      .replace('.', '') ?? '',
-                },
-              }))}
+              title={event.attributes.documents.title}
+              documents={event.attributes.documents.basicDocuments?.data.filter(isDefined) ?? []}
             />
           )}
           {(event?.attributes?.guests?.length || 0) > 0 && (

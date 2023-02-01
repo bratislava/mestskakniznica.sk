@@ -3,12 +3,14 @@ import SearchField from '@components/Atoms/SearchField'
 import SortSelect, { Sort } from '@components/Atoms/SortSelect'
 import Metadata from '@components/Molecules/Metadata'
 import { Pagination, RowFile } from '@components/ui'
+import { MetadataFragment } from '@services/graphql'
 import {
   documentsDefaultFilters,
   documentsFetcher,
   DocumentsFilters,
   getDocumentsQueryKey,
 } from '@services/meili/fetchers/documentsFetcher'
+import { isDefined } from '@utils/isDefined'
 import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
 import React, { useEffect, useState } from 'react'
@@ -77,7 +79,15 @@ const DocumentsListingSection = () => {
                   className="cursor-pointer"
                   type={document?.file_category?.name || ''}
                   title={document?.title || ''}
-                  metadata={<Metadata metadata={document?.metadata} />}
+                  metadata={
+                    <Metadata
+                      metadata={
+                        (document?.metadata
+                          ?.filter(isDefined)
+                          .filter((metadata) => metadata.__typename) as MetadataFragment[]) || []
+                      }
+                    />
+                  }
                   dateAdded={document?.date_added}
                   fileType={document?.attachment?.ext?.toUpperCase().replace('.', '')}
                 />

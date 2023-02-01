@@ -22,6 +22,7 @@ import NewBooksSection from '@modules/sections/NewBooksSection'
 import NoticesListingSection from '@modules/sections/NoticesListingSection'
 import PartnersSection from '@modules/sections/PartnersSection'
 import {
+  BasicDocumentEntityFragment,
   BlogPostSectionsDynamicZone,
   EventCardEntityFragment,
   PageSectionsDynamicZone,
@@ -54,7 +55,6 @@ import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm, { VenueRentalFormProps } from '../forms/VenueRentalForm'
 import GalleryBanner from './GalleryBanner'
-import Metadata from './Metadata'
 
 type FormsProps =
   | (() => JSX.Element)
@@ -242,7 +242,7 @@ const sectionContent = (
     case 'ComponentSectionsDocuments':
       return (
         <Documents
-          title={section.title || undefined}
+          title={section.title}
           moreLink={{
             url: parsePageLink(section?.moreLink?.[0])?.url ?? '',
             title:
@@ -250,19 +250,7 @@ const sectionContent = (
               section.moreLink?.[0]?.page?.data?.attributes?.title ??
               '',
           }}
-          files={section.basicDocuments?.data?.map((document) => ({
-            url: `${t('documents_slug')}${document?.attributes?.slug}`,
-            content: {
-              type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
-              title: document?.attributes?.title ?? '',
-              metadata: <Metadata metadata={document?.attributes?.metadata || []} /> ?? '',
-              dateAdded: document?.attributes?.date_added,
-              fileType:
-                document?.attributes?.attachment?.data?.attributes?.ext
-                  ?.toUpperCase()
-                  .replace('.', '') ?? '',
-            },
-          }))}
+          documents={(section.basicDocuments?.data as BasicDocumentEntityFragment[]) ?? []}
         />
       )
 

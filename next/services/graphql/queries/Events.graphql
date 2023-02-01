@@ -67,18 +67,8 @@ fragment EventEntity on EventEntity {
         }
       }
     }
-    # TODO replace by fragment
     documents {
-      id
-      title
-      basicDocuments {
-        data {
-          ...BasicDocumentEntity
-        }
-      }
-      moreLink {
-        ...PageLink
-      }
+      ...Documents
     }
     localizations {
       data {
