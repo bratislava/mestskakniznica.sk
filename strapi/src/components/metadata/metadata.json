@@ -3,7 +3,8 @@
   "info": {
     "name": "Granty",
     "icon": "folder",
-    "description": ""
+    "description": "",
+    "displayName": "Metadata"
   },
   "options": {},
   "attributes": {

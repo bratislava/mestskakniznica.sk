@@ -1826,6 +1826,7 @@ type Event {
   dateFrom: DateTime
   dateTo: DateTime
   description: String
+  documents: ComponentSectionsDocuments
   eventCategory: EventCategoryEntityResponse
   eventTags(filters: EventTagFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventTagRelationResponseCollection
   guests(filters: ComponentGuestsGuestFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentGuestsGuest]
@@ -1908,6 +1909,7 @@ input EventFiltersInput {
   dateFrom: DateTimeFilterInput
   dateTo: DateTimeFilterInput
   description: StringFilterInput
+  documents: ComponentSectionsDocumentsFiltersInput
   eventCategory: EventCategoryFiltersInput
   eventTags: EventTagFiltersInput
   guests: ComponentGuestsGuestFiltersInput
@@ -1932,6 +1934,7 @@ input EventInput {
   dateFrom: DateTime
   dateTo: DateTime
   description: String
+  documents: ComponentSectionsDocumentsInput
   eventCategory: ID
   eventTags: [ID]
   guests: [ComponentGuestsGuestInput]

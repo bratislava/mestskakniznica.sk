@@ -1,11 +1,7 @@
-import { BasicDocumentMetadataDynamicZone } from '@services/graphql'
+import { MetadataFragment } from '@services/graphql'
 import React from 'react'
 
-const Metadata = ({
-  metadata,
-}: {
-  metadata: (BasicDocumentMetadataDynamicZone | null | undefined)[] | null | undefined
-}) => {
+const Metadata = ({ metadata }: { metadata: MetadataFragment[] | null | undefined }) => {
   return (
     <>
       {metadata?.map(
@@ -18,13 +14,13 @@ const Metadata = ({
 const buildMetadata = (data: (string | number | undefined | null)[]) =>
   data.filter((d) => !!d).join(', ')
 
-const MetadataComponent = ({ metadata }: { metadata: BasicDocumentMetadataDynamicZone | null }) => {
+const MetadataComponent = ({ metadata }: { metadata: MetadataFragment | null }) => {
   if (!metadata) return null
 
   return <div>{metadataContent(metadata)}</div>
 }
 
-const metadataContent = (meta: BasicDocumentMetadataDynamicZone) => {
+const metadataContent = (meta: MetadataFragment) => {
   switch (meta.__typename) {
     case 'ComponentMetadataFaktury':
       return <div>{buildMetadata([meta.name, meta?.attachment?.data?.attributes?.name])}</div>

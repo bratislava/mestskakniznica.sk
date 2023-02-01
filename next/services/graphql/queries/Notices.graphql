@@ -13,12 +13,7 @@ fragment NoticeEntity on NoticeEntity {
     }
     promoted
     documents {
-      title
-      basicDocuments {
-        data {
-          ...BasicDocumentEntity
-        }
-      }
+      ...Documents
     }
     seo {
       ...Seo

@@ -67,6 +67,9 @@ fragment EventEntity on EventEntity {
         }
       }
     }
+    documents {
+      ...Documents
+    }
     localizations {
       data {
         attributes {
