@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint components pages utils hooks",
     "lint:fix": "yarn lint --fix",
-    "gen": "graphql-codegen"
+    "gen": "graphql-codegen && prettier services/graphql/index.ts --write"
   },
   "dependencies": {
     "@culturehq/add-to-calendar": "^1.1.2",
