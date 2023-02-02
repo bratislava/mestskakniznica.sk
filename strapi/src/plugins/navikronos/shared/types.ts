@@ -1,7 +1,7 @@
 // Admin navigation
-import { I18NStatus } from "./server/services/helpers/getI18nStatus";
+import { I18NStatus } from "../server/services/helpers/getI18nStatus";
 import { StrapiContentTypeInfo } from "strapi-typed";
-import { FetchedEntry } from "./server/services/helpers/getEntries";
+import { FetchedEntry } from "../server/services/helpers/getEntries";
 
 export type NavikronosRoute =
   | NavikronosContentTypeRoute

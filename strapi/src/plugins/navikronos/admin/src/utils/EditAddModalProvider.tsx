@@ -5,7 +5,7 @@ import React, {
   useState,
 } from "react";
 import { useNavigationDataDefined } from "./NavigationDataProvider";
-import { NavikronosRoute, NavikronosRoutes } from "../../../types";
+import { NavikronosRoute, NavikronosRoutes } from "../../../shared/types";
 
 type EditAddData =
   | { open: false }

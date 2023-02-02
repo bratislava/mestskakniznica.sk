@@ -4,14 +4,14 @@ import { Card, CardBody } from "@strapi/design-system/Card";
 import { Stack } from "@strapi/design-system/Stack";
 import { Badge } from "@strapi/design-system/Badge";
 import { Typography } from "@strapi/design-system/Typography";
-import { useConfigDefined } from "../../utils/useConfig";
+import { useConfigDefined } from "../utils/useConfig";
 import { Flex } from "@strapi/design-system/Flex";
 import { IconButton } from "@strapi/design-system/IconButton";
 import { Pencil, Plus, Trash } from "@strapi/icons";
 import { TextButton } from "@strapi/design-system/TextButton";
-import { useNavigationDataDefined } from "../../utils/NavigationDataProvider";
-import { useEditAdd } from "../../utils/EditAddModalProvider";
-import { NavikronosRoute } from "../../../../types";
+import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
+import { useEditAdd } from "../utils/EditAddModalProvider";
+import { NavikronosRoute } from "../../../shared/types";
 
 type NavigationTreeChildProps = {
   child: NavikronosRoute;

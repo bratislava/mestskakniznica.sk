@@ -1,5 +1,5 @@
 import { IStrapi } from "strapi-typed";
-import { NavikronosConfig } from "../../../types";
+import { NavikronosConfig } from "../../../shared/types";
 
 export const getConfig = (strapi: IStrapi) =>
   strapi.config.get("plugin.navikronos") as NavikronosConfig;

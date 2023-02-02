@@ -12,7 +12,7 @@ import {
   NavikronosNavigation,
   NavikronosRoute,
   NavikronosRoutes,
-} from "../../../types";
+} from "../../../shared/types";
 import produce, { original } from "immer";
 import { last } from "lodash";
 

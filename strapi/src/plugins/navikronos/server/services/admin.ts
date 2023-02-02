@@ -7,8 +7,8 @@ import {
   AdminPutNavigationResponse,
   AdminService,
   NavikronosLocaleNavigations,
-} from "../../types";
-import { navikronosLocaleNavigationsSchema } from "../zod";
+} from "../../shared/types";
+import { navikronosLocaleNavigationsSchema } from "../../shared/zod";
 import { getNavigation } from "./helpers/getNavigation";
 import { getConfig } from "./helpers/config";
 import { fetchEntries } from "./helpers/getEntries";

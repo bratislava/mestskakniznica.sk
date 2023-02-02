@@ -80,12 +80,12 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
 }
 
 export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
-  locale = 'sk',
+  locale,
   params,
 }) => {
   const slug = params?.slug
 
-  if (!slug) return { notFound: true } as const
+  if (!slug || !locale) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} blog posts ${slug}`)

@@ -4,7 +4,7 @@ import {
   AdminGetConfigResponse,
   AdminGetNavigationResponse,
   AdminPutNavigationInput,
-} from "../../../types";
+} from "../../../shared/types";
 
 export const fetchConfig = () =>
   request(`/${pluginId}/config`, {

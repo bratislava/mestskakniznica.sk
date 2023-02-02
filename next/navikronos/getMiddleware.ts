@@ -17,6 +17,13 @@ export const getMiddleware = (config: NavikronosConfig) => {
       return
     }
 
+    if (request.nextUrl.pathname.startsWith(`/${config.rewritePrefix}`)) {
+      const url = request.nextUrl.clone()
+
+      url.pathname = `/404`
+      return NextResponse.rewrite(url)
+    }
+
     const { rewrites } = await fetchNavigation(config)
     const { locale } = request.nextUrl
     const localeRewrites = rewrites[locale]

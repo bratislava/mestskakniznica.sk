@@ -8,7 +8,7 @@ import {
   NavikronosClientRoutes,
   NavikronosNavigation,
   NavikronosRoutes,
-} from "../../types";
+} from "../../shared/types";
 import { getNavigation } from "./helpers/getNavigation";
 import { FetchedEntry, fetchEntries } from "./helpers/getEntries";
 import { getI18nStatus } from "./helpers/getI18nStatus";
