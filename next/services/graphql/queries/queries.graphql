@@ -304,19 +304,7 @@ fragment Sections on PageSectionsDynamicZone {
       Description
       Photo {
         data {
-          id
-          attributes {
-            name
-            width
-            height
-            url
-            createdAt
-            hash
-            mime
-            provider
-            size
-            updatedAt
-          }
+          ...UploadImageEntity
         }
       }
     }

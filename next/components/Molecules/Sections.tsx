@@ -113,7 +113,16 @@ const sectionContent = (
       return <FlatText content={section?.content ?? ''} />
 
     case 'ComponentSectionsGallery':
-      return <GalleryBanner gallery={section.Gallery || undefined} />
+      return (
+        <GalleryBanner
+          gallery={
+            section.Gallery?.filter((item) => isDefined(item?.Photo))
+              .filter(isDefined)
+              .map((galleryItem) => galleryItem?.Photo?.data)
+              .filter(isDefined) || undefined
+          }
+        />
+      )
 
     case 'ComponentSectionsFlatTextCenter':
       return <FlatTextCenter content={section?.content ?? ''} />
