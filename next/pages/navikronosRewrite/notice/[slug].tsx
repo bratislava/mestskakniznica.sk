@@ -10,8 +10,8 @@ import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
-import PageWrapper from '../../components/layouts/PageWrapper'
+import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
+import PageWrapper from '@components/layouts/PageWrapper'
 
 type NoticePageProps = {
   slug: string
@@ -48,7 +48,7 @@ const Page = ({ notice, slug, general }: NoticePageProps) => {
 
 // TODO use common functions to prevent duplicate code
 interface StaticParams extends ParsedUrlQuery {
-  fullPath: string[]
+  slug: string
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
@@ -68,11 +68,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       .filter((entity) => entity?.attributes?.slug)
       .map((entity) => ({
         params: {
-          fullPath: `${
-            entity.attributes?.locale === 'sk' ? '/zazite/aktuality/' : '/experience/news/'
-          }${entity.attributes?.slug!}`
-            .split('/')
-            .slice(1),
+          slug: entity.attributes!.slug!,
           locale: entity.attributes?.locale || '',
         },
       }))
@@ -84,15 +80,15 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
 }
 
 export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = async ({
-  locale = 'sk',
+  locale,
   params,
 }) => {
-  const slug = last(params?.fullPath)
+  const slug = params?.slug
 
-  if (!slug) return { notFound: true } as const
+  if (!slug || !locale) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} notice ${slug} on ${params?.fullPath.join('/') ?? ''}`)
+  console.log(`Revalidating ${locale} notice ${slug}`)
 
   const [{ notices }, general, translations] = await Promise.all([
     client.NoticeBySlug({ slug, locale }),

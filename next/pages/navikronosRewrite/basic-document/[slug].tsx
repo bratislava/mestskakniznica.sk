@@ -3,13 +3,12 @@ import { BasicDocumentEntityFragment, GeneralQuery } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
-import last from 'lodash/last'
 import { GetServerSideProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import PageWrapper from '../../components/layouts/PageWrapper'
+import PageWrapper from '@components/layouts/PageWrapper'
 
 type PageProps = {
   basicDocument: BasicDocumentEntityFragment
@@ -30,21 +29,19 @@ const Page = ({ basicDocument, general, slug }: PageProps) => {
 }
 
 interface StaticParams extends ParsedUrlQuery {
-  fullPath: string[]
+  slug: string
 }
 
 export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = async ({
-  locale = 'sk',
+  locale,
   params,
 }) => {
-  const slug = last(params?.fullPath)
+  const slug = params?.slug
 
-  if (!slug) return { notFound: true } as const
+  if (!slug || !locale) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(
-    `Revalidating ${locale} basic document ${slug} on ${params?.fullPath.join('/') ?? ''}`
-  )
+  console.log(`Revalidating ${locale} basic document ${slug}}`)
 
   const [{ basicDocuments }, general, translations] = await Promise.all([
     await client.BasicDocumentBySlug({ slug }),
