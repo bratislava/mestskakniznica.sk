@@ -1,3 +1,4 @@
+import cx from 'classnames'
 import React, { ReactNode, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -9,6 +10,7 @@ interface SectionPromosProps {
   items: { element: ReactNode; key: string | undefined }[]
   shiftIndex?: number
   visibleItemsCount?: number
+  hideScrollbar?: boolean
 }
 
 const Carousel = ({
@@ -17,6 +19,7 @@ const Carousel = ({
   items,
   shiftIndex = 1,
   visibleItemsCount = 3,
+  hideScrollbar = true,
 }: SectionPromosProps) => {
   const [currentItemIndex, setCurrentItemIndex] = useState(0)
 
@@ -73,7 +76,9 @@ const Carousel = ({
       </div>
       <ul
         className={twMerge(
-          '-mx-4 flex snap-x snap-mandatory overflow-x-auto scrollbar-hide lg:mx-0',
+          cx('-mx-4 flex snap-x snap-mandatory overflow-x-auto  lg:mx-0', {
+            'scrollbar-hide': hideScrollbar,
+          }),
           listClassName
         )}
         ref={scrollerRef}
