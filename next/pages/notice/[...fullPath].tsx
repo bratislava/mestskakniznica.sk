@@ -38,7 +38,7 @@ const Page = ({ notice, slug, general }: NoticePageProps) => {
             slug: localization.attributes?.slug,
           }))}
       >
-        <DefaultPageLayout title={notice?.attributes?.title} Seo={notice?.attributes?.seo}>
+        <DefaultPageLayout title={notice.attributes?.title} seo={notice.attributes?.seo}>
           <NoticePage notice={notice} />
         </DefaultPageLayout>
       </PageWrapper>

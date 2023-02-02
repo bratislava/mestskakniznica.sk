@@ -22,15 +22,6 @@ query FileCategories {
   }
 }
 
-fragment BasicDocumentFile on UploadFileEntity {
-  id
-  attributes {
-    url
-    name
-    ext
-  }
-}
-
 fragment BasicDocumentEntity on BasicDocumentEntity {
   id
   attributes {
@@ -54,7 +45,7 @@ fragment BasicDocumentEntity on BasicDocumentEntity {
     }
     attachment {
       data {
-        ...BasicDocumentFile
+        ...UploadFileEntity
       }
     }
   }
@@ -69,7 +60,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     date
     attachment {
       data {
-        ...BasicDocumentFile
+        ...UploadFileEntity
       }
     }
   }
@@ -99,7 +90,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     amount
     attachment {
       data {
-        ...BasicDocumentFile
+        ...UploadFileEntity
       }
     }
   }
@@ -110,7 +101,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     date_added
     attachment {
       data {
-        ...BasicDocumentFile
+        ...UploadFileEntity
       }
     }
   }
@@ -123,7 +114,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     amount
     attachment {
       data {
-        ...BasicDocumentFile
+        ...UploadFileEntity
       }
     }
   }

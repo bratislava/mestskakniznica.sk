@@ -10,7 +10,7 @@ export interface NoticePageProps {
 }
 
 const NoticePage = ({ notice }: NoticePageProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { i18n } = useTranslation('common')
 
   const breadCrumbs =
     i18n.language === 'sk'
@@ -25,18 +25,6 @@ const NoticePage = ({ notice }: NoticePageProps) => {
           { title: notice.attributes?.title || '', url: notice.attributes?.slug || '' },
         ]
 
-  const files = notice.attributes?.documents?.basicDocuments?.data?.map((document) => ({
-    url: `${t('documents_slug')}${document?.attributes?.slug}`,
-    content: {
-      type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
-      title: document?.attributes?.title ?? '',
-      dateAdded: document?.attributes?.date_added,
-      fileType:
-        document?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '') ??
-        '',
-    },
-  }))
-
   return (
     <>
       <SectionContainer>
@@ -49,7 +37,10 @@ const NoticePage = ({ notice }: NoticePageProps) => {
         </div>
       </SectionContainer>
       <SectionContainer>
-        <Documents files={files} targetBlank />
+        <Documents
+          documents={notice.attributes?.documents?.basicDocuments?.data ?? []}
+          targetBlank
+        />
       </SectionContainer>
     </>
   )

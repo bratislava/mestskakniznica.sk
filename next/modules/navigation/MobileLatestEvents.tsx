@@ -13,12 +13,9 @@ const MobileLatestEvents = () => {
 
   return (
     <ul className="mt-2 flex flex-col gap-y-3">
-      {upcomingEvents.data
-        .map((event) => event.attributes)
-        .filter(isDefined)
-        .map((event) => {
-          return <EventRow event={event} />
-        })}
+      {upcomingEvents.data.filter(isDefined).map((event) => {
+        return <EventRow event={event} />
+      })}
     </ul>
   )
 }

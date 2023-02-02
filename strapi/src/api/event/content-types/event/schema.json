@@ -106,7 +106,7 @@
       "target": "api::branch.branch",
       "inversedBy": "events"
     },
-    "Seo": {
+    "seo": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -114,7 +114,17 @@
           "localized": true
         }
       },
-      "component": "seo.seo"
+      "component": "common.seo"
+    },
+    "documents": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.documents"
     }
   }
 }

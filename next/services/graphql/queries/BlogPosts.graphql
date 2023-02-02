@@ -24,6 +24,9 @@ fragment BlogPostEntity on BlogPostEntity {
         }
       }
     }
+    seo {
+      ...Seo
+    }
   }
 }
 
@@ -46,6 +49,7 @@ query BlogPostBySlug($slug: String!, $locale: I18NLocaleCode!) {
     }
   }
 }
+
 
 query BlogPosts(
   $locale: I18NLocaleCode!

@@ -1,78 +1,60 @@
-fragment ImageEntity on UploadFileEntity {
-  attributes {
-    name
-    width
-    height
-    url
-    hash
-    mime
-    size
-    alternativeText
-  }
-}
-
-fragment EventCardAttributes on Event {
-  slug
-  title
-  description
-  createdAt
-  updatedAt
-  publishedAt
-  locale
-  dateFrom
-  dateTo
-  price
-  eventCategory {
-    data {
-      id
-      attributes {
-        title
-        createdAt
-        updatedAt
-      }
-    }
-  }
-  branch {
-    data {
-      ...BranchPlaceEntity
-    }
-  }
-  eventTags {
-    data {
-      id
-      attributes {
-        title
-        slug
-        createdAt
-        publishedAt
-        updatedAt
-      }
-    }
-  }
-  listingImage {
-    data {
-      ...ImageEntity
-    }
-  }
-  coverImage {
-    data {
-      ...ImageEntity
-    }
-  }
-}
-
 fragment EventCardEntity on EventEntity {
   id
   __typename
   attributes {
-    ...EventCardAttributes
+    slug
+    title
+    description
+    createdAt
+    updatedAt
+    publishedAt
+    locale
+    dateFrom
+    dateTo
+    price
+    eventCategory {
+      data {
+        id
+        attributes {
+          title
+          createdAt
+          updatedAt
+        }
+      }
+    }
+    branch {
+      data {
+        ...BranchPlaceEntity
+      }
+    }
+    eventTags {
+      data {
+        id
+        attributes {
+          title
+          slug
+          createdAt
+          publishedAt
+          updatedAt
+        }
+      }
+    }
+    listingImage {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    coverImage {
+      data {
+        ...UploadImageEntity
+      }
+    }
   }
 }
 
 fragment EventEntity on EventEntity {
-  id
+  ...EventCardEntity
   attributes {
-    ...EventCardAttributes
     promoted
     showForm
     guests {
@@ -81,9 +63,12 @@ fragment EventEntity on EventEntity {
       surname
       avatar {
         data {
-          ...ImageEntity
+          ...UploadImageEntity
         }
       }
+    }
+    documents {
+      ...Documents
     }
     localizations {
       data {
@@ -93,14 +78,8 @@ fragment EventEntity on EventEntity {
         }
       }
     }
-    Seo {
-      id
-      metaTitle
-      metaDescription
-      keywords
-      metaRobots
-      metaViewport
-      canonicalURL
+    seo {
+      ...Seo
     }
   }
 }
@@ -136,70 +115,10 @@ query EventProperties($locale: I18NLocaleCode!) {
   }
 }
 
-query EventList(
-  $locale: I18NLocaleCode!
-  $start: Int
-  $limit: Int
-  $filters: EventFiltersInput
-  $sort: String = "dateFrom:desc"
-) {
-  events(
-    locale: $locale
-    sort: [$sort]
-    pagination: { start: $start, limit: $limit }
-    filters: $filters
-  ) {
-    data {
-      ...EventCardEntity
-    }
-    meta {
-      pagination {
-        ...Pagination
-      }
-    }
-  }
-}
-
-query UpcomingEvents($locale: I18NLocaleCode!, $date: DateTime!) {
-  events(
-    locale: $locale
-    sort: ["dateFrom:asc"]
-    pagination: { start: 0, limit: 4 }
-    filters: { dateFrom: { gte: $date } }
-  ) {
-    data {
-      ...EventCardEntity
-    }
-  }
-}
-
-query PromotedEvents($locale: I18NLocaleCode!, $start: Int, $limit: Int) {
-  promotedEvents: events(
-    locale: $locale
-    sort: "dateFrom:asc"
-    pagination: { start: $start, limit: $limit }
-    filters: { promoted: { eq: true } }
-  ) {
-    data {
-      ...EventCardEntity
-    }
-  }
-}
-
 query EventBySlug($slug: String!, $locale: I18NLocaleCode!) {
   events(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
       ...EventEntity
-    }
-  }
-}
-
-query EventsCount($locale: I18NLocaleCode!) {
-  events(locale: $locale) {
-    meta {
-      pagination {
-        total
-      }
     }
   }
 }

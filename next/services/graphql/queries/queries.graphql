@@ -66,14 +66,8 @@ query HomePage($locale: I18NLocaleCode!) {
             }
           }
         }
-        Seo {
-          id
-          metaTitle
-          metaDescription
-          keywords
-          metaRobots
-          metaViewport
-          canonicalURL
+        seo {
+          ...Seo
         }
       }
     }
@@ -168,6 +162,19 @@ fragment BookTagEntity on BookTagEntity {
   }
 }
 
+fragment Documents on ComponentSectionsDocuments {
+  title
+  basicDocuments {
+    data {
+      ...BasicDocumentEntity
+    }
+  }
+  moreLink {
+    ...PageLink
+  }
+}
+
+
 fragment Sections on PageSectionsDynamicZone {
   __typename
   ... on ComponentSectionsSubListing {
@@ -255,15 +262,7 @@ fragment Sections on PageSectionsDynamicZone {
 
   ... on ComponentSectionsDocuments {
     id
-    title
-    basicDocuments {
-      data {
-        ...BasicDocumentEntity
-      }
-    }
-    moreLink {
-      ...PageLink
-    }
+    ...Documents
   }
 
   ... on ComponentSectionsMap {

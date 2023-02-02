@@ -13,16 +13,13 @@ const NavMenuLatestEvents = () => {
 
   return (
     <ul className="mt-2 grid grid-flow-col grid-rows-2 gap-x-5 gap-y-3">
-      {upcomingEvents.data
-        .map((event) => event.attributes)
-        .filter(isDefined)
-        .map((event) => {
-          return (
-            <NavigationMenu.Link asChild>
-              <EventRow event={event} />
-            </NavigationMenu.Link>
-          )
-        })}
+      {upcomingEvents.data.filter(isDefined).map((event) => {
+        return (
+          <NavigationMenu.Link asChild>
+            <EventRow event={event} />
+          </NavigationMenu.Link>
+        )
+      })}
     </ul>
   )
 }

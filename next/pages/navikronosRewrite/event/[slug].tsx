@@ -32,7 +32,7 @@ const EventSlugPage = ({ event, general }: PageProps) => {
             slug: localization.attributes?.slug,
           }))}
       >
-        <DefaultPageLayout title={event.attributes?.title} Seo={event.attributes?.Seo}>
+        <DefaultPageLayout title={event.attributes?.title} seo={event.attributes?.seo}>
           <EventPage event={event} />
         </DefaultPageLayout>
       </PageWrapper>

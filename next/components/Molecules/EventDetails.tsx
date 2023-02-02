@@ -6,9 +6,11 @@ import {
   PlaceIcon,
   ShareIcon,
 } from '@assets/icons'
+import { Documents } from '@components/ui'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import RichText from '@modules/formatting/RichText'
 import { EventEntityFragment } from '@services/graphql'
+import { isDefined } from '@utils/isDefined'
 import { isEventPast } from '@utils/utils'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -123,10 +125,17 @@ const EventDetails = ({ event }: PageProps) => {
         <div className="col-span-6">
           <div className="mt-8 border-b border-border-dark pb-10 lg:mt-0">
             <div className="text-[24px]">{t('description')}</div>
-            <div className="pt-5 text-[16px] text-foreground-body">
+            <div className="pt-5">
               <RichText content={event?.attributes?.description ?? ''} />
             </div>
           </div>
+          {event?.attributes?.documents && (
+            <Documents
+              className="mt-8"
+              title={event.attributes.documents.title}
+              documents={event.attributes.documents.basicDocuments?.data.filter(isDefined) ?? []}
+            />
+          )}
           {(event?.attributes?.guests?.length || 0) > 0 && (
             <div className="border-b border-border-dark py-10">
               <div className="text-[24px]">{t('eventGuests')}</div>

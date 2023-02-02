@@ -1,6 +1,6 @@
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
-import { ImageEntityFragment } from '@services/graphql'
+import { UploadImageEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -8,7 +8,7 @@ interface BranchCardProps {
   title: string
   address: string
   linkHref: string
-  image: ImageEntityFragment | undefined | null
+  image: UploadImageEntityFragment | undefined | null
 }
 
 const BranchCard = ({ title, address, linkHref, image }: BranchCardProps) => {

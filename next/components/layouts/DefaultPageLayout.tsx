@@ -2,7 +2,7 @@ import { Footer, SectionContainer } from '@bratislava/ui-city-library'
 import ScrollToTopButton from '@modules/common/ScrollToTopButton'
 import HeaderWrapper from '@modules/navigation/HeaderWrapper'
 import { useNavMenuContext } from '@modules/navigation/navMenuContext'
-import { ComponentSeoSeo } from '@services/graphql'
+import { SeoFragment } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
 import cx from 'classnames'
 import Head from 'next/head'
@@ -15,10 +15,13 @@ import { otherLocale, usePageWrapperContext } from './PageWrapper'
 interface IProps {
   children?: React.ReactNode
   title?: string | undefined | null
-  Seo?: ComponentSeoSeo | undefined | null
+  seo?: SeoFragment | undefined | null
 }
 
-const DefaultPageLayout = ({ children, title, Seo }: IProps) => {
+const DefaultPageLayout = ({ children, title, seo }: IProps) => {
+  {
+    /* TODO fix for other content types */
+  }
   const { localizations, locale } = usePageWrapperContext()
   const otherLangData = otherLocale(locale ?? 'sk', localizations)
   const currentLangData = otherLocale(otherLangData.locale, localizations)
@@ -30,29 +33,18 @@ const DefaultPageLayout = ({ children, title, Seo }: IProps) => {
 
   return (
     <>
+      {/* TODO separate Seo info component */}
       <Head>
         <link rel="icon" type="image/x-icon" href={favicon.src} />
-        <title>
-          {`${
-            (title ?? t('pageTitle') ?? '') + ((title || t('pageTitle')) && ' | ')
-          }mestskakniznica.sk`}
-        </title>
-        {Seo && (
+        <title>{`${seo?.metaTitle || title || ''} – mestskakniznica.sk`}</title>
+        {seo && (
           <>
-            <meta
-              name="title"
-              content={`${
-                (Seo.metaTitle ?? title ?? '') + ((Seo.metaTitle || title) && ' | ')
-              }mestskakniznica.sk`}
-            />
-            <meta name="description" content={Seo.metaDescription ?? t('chooseYourBook')} />
-            <meta name="keywords" content={Seo.keywords ?? ''} />
-            <meta
-              name="viewport"
-              content={Seo.metaViewport ?? 'width=device-width, initial-scale=1'}
-            />
-            <meta name="robots" content={Seo.metaRobots ?? ''} />
-            <meta name="canonical" content={Seo.canonicalURL ?? ''} />
+            <meta name="title" content={`${seo?.metaTitle || title || ''} – mestskakniznica.sk`} />
+
+            {/* TODO add perex or similar field as description */}
+            <meta name="description" content={seo?.metaDescription || ''} />
+            <meta name="keywords" content={seo?.keywords ?? ''} />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
           </>
         )}
         <link

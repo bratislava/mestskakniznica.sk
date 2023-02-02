@@ -1,3 +1,9 @@
+fragment Seo on ComponentCommonSeo {
+  metaTitle
+  metaDescription
+  keywords
+}
+
 fragment UploadFileEntity on UploadFileEntity {
   id
   attributes {
