@@ -66,4 +66,6 @@ export type NavikronosStaticProps = {
   locale: string
 }
 
-export type NavigationRewrites = Record<string, string>
+export type NavigationLocaleRewrites = Map<string, string>
+
+export type NavigationRewrites = Map<string, NavigationLocaleRewrites>

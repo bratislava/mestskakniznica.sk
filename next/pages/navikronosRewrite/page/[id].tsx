@@ -1,7 +1,15 @@
+import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
+import PageWrapper from '@components/layouts/PageWrapper'
+import FullContentPage from '@components/pages/fullContentPage'
+import ListingPage from '@components/pages/listingPage'
+import SidebarContentPage from '@components/pages/sidebarContentPage'
+import SublistingPage from '@components/pages/sublistingPage'
 import { Enum_Page_Layout, GeneralQuery, PageEntity, PageEntityFragment } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
+import { isDefined } from '@utils/isDefined'
+import { navikronosConfig } from '@utils/navikronosConfig'
 import { prefetchPageSections } from '@utils/prefetchPageSections'
 import { isPresent } from '@utils/utils'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
@@ -10,17 +18,11 @@ import { ParsedUrlQuery } from 'node:querystring'
 import { ReactNode } from 'react'
 import { DehydratedState, Hydrate } from 'react-query'
 
+import { useNavikronosConfig } from '../../../navikronos/NavikronosConfigProvider'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
-import { navikronosConfig } from '@utils/navikronosConfig'
-import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
-import SublistingPage from '@components/pages/sublistingPage'
-import FullContentPage from '@components/pages/fullContentPage'
-import PageWrapper from '@components/layouts/PageWrapper'
-import ListingPage from '@components/pages/listingPage'
-import SidebarContentPage from '@components/pages/sidebarContentPage'
-import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-import { isDefined } from '@utils/isDefined'
+import { useNavikronos } from '../../../navikronos/NavikronosProvider'
 import { NavikronosStaticProps } from '../../../navikronos/types'
+import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 
 type PageProps = {
   page: PageEntityFragment
@@ -30,6 +32,8 @@ type PageProps = {
 }
 
 const Page = ({ page, general, dehydratedState }: PageProps) => {
+  const nav = useNavikronos()
+  console.log(nav)
   let pageComponentByLayout: ReactNode = null
 
   // TODO replace PageEntity by PageEntityFragment
@@ -88,14 +92,12 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
   const entities = pathArraysForLocales.flatMap(({ pages }) => pages?.data || []).filter(isDefined)
 
   if (entities.length > 0) {
-    paths = entities
-      .filter((page) => page.attributes?.slug)
-      .map((page) => ({
-        params: {
-          id: page.id as string,
-          locale: page?.attributes?.locale || '',
-        },
-      }))
+    paths = entities.map((page) => ({
+      params: {
+        id: page.id as string,
+        locale: page?.attributes?.locale || '',
+      },
+    }))
   }
 
   // eslint-disable-next-line no-console
@@ -118,7 +120,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
 
   const [{ pages }, general, translations] = await Promise.all([
     await client.PageById({
-      id: id as string,
+      id,
       locale,
     }),
     generalFetcher(locale),

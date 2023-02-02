@@ -18,7 +18,7 @@ export const NavikronosProvider = ({
   return <NavikronosContext.Provider value={navikronos}>{children}</NavikronosContext.Provider>
 }
 
-const useNavikronos = () => {
+export const useNavikronos = () => {
   const navikronos = useContext(NavikronosContext)
 
   if (!config) {

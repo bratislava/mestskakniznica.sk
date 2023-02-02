@@ -115,14 +115,16 @@ export default ({ strapi }: { strapi: IStrapi }): ClientService => ({
 
     const allLocales = await Promise.all(
       i18n.locales.map(async ({ code }) => {
-        const localeNavigation = navigation[code];
+        const localeNavigation: NavikronosNavigation = navigation[code] ?? [];
         const entriesToFetch = traverseGetEntriesToFetch(localeNavigation);
+        console.log(entriesToFetch);
         const fetchedEntries = await fetchSelectedEntries(
           strapi,
           localeNavigation,
           entriesToFetch,
           code
         );
+        // console.log(code, fetchedEntries, code);
         return [
           code,
           traverseReplaceEntries(localeNavigation, fetchedEntries),
