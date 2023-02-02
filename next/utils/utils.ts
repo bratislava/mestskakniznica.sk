@@ -1,4 +1,7 @@
 import { ComponentLocalityPartsLocalitySection } from '@services/graphql'
+import { filesize } from 'filesize'
+
+import { isDefined } from './isDefined'
 
 export const isPresent = <U>(value: U | null | undefined | void): value is U => {
   return value !== null && value !== undefined
@@ -162,3 +165,17 @@ export const isEventPast = (dateTo: Date | string | null): boolean => {
 export const isServer = () => typeof window === 'undefined'
 
 export const isProductionDeployment = () => process.env.NEXT_PUBLIC_IS_STAGING !== 'true'
+
+export const getFileSize = (size: number | undefined, language: string) => {
+  let fileSize
+  if (isDefined(size)) {
+    const tmpFileSize = filesize(size * 1000, {
+      round: 1,
+      locale: language,
+    })
+    if (typeof tmpFileSize === 'string') {
+      fileSize = tmpFileSize
+    }
+  }
+  return fileSize
+}

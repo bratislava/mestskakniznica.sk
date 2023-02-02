@@ -6,6 +6,7 @@ import { useCallback } from 'react'
 export const useDownloadAriaLabel = () => {
   const { t, i18n } = useTranslation('common')
 
+  // borrowed from project https://github.com/bratislava/marianum
   const getDownloadAriaLabel = useCallback(
     (file: UploadFileEntityFragment, title: string): string => {
       if (!file.attributes) {

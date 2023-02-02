@@ -8,7 +8,7 @@ import Button from '@modules/common/Button'
 import FormatDate from '@modules/formatting/FormatDate'
 import { BasicDocumentEntityFragment } from '@services/graphql'
 import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
-import { filesize } from 'filesize'
+import { getFileSize } from '@utils/utils'
 import truncate from 'lodash/truncate'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode } from 'react'
@@ -58,16 +58,7 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
 
   const showExpandButton = description ? description.length > DESCRIPTION_LIMIT : false
 
-  let fileSize
-  if (size !== undefined) {
-    const tmpFileSize = filesize(size * 1000, {
-      round: 1,
-      locale: i18n.language,
-    })
-    if (typeof tmpFileSize === 'string') {
-      fileSize = tmpFileSize
-    }
-  }
+  const fileSize = getFileSize(size, i18n.language)
 
   const Metadata: FileMetadata[] = [
     {
@@ -82,7 +73,7 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
     },
     {
       key: `${t('size')}:`,
-      content: fileSize,
+      content: fileSize ?? '',
     },
     {
       key: `${t('link')}:`,
