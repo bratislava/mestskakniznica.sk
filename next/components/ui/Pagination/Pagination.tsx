@@ -1,6 +1,7 @@
 import ChevronLeft from '@assets/images/chevron-left.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import { Input } from '@bratislava/ui-city-library'
+import Button from '@modules/common/Button'
 import cx from 'classnames'
 import React, { useCallback, useEffect, useState } from 'react'
 
@@ -48,17 +49,16 @@ export const Pagination = ({
 
   return (
     <div className="flex items-center gap-x-3">
-      {/* TODO replace by Button */}
-      <button
-        className="flex cursor-pointer p-4"
-        type="button"
-        onClick={() => {
+      <Button
+        className="p-4"
+        variant="plain-primary"
+        onPress={() => {
           if (value - 1 > 0) onChangeNumber(value - 1)
         }}
         aria-label={previousButtonAriaLabel}
       >
-        <ChevronLeft className="w-2 cursor-pointer" />
-      </button>
+        <ChevronLeft className="w-2" />
+      </Button>
       <div className="flex items-center gap-x-4 text-base">
         <Input
           labelClassName="sr-only"
@@ -77,16 +77,16 @@ export const Pagination = ({
         <span>/</span>
         <span>{max}</span>
       </div>
-      <button
-        className="flex cursor-pointer p-4"
-        type="button"
-        onClick={() => {
+      <Button
+        className="p-4"
+        variant="plain-primary"
+        onPress={() => {
           if (value + 1 <= max) onChangeNumber(value + 1)
         }}
         aria-label={nextButtonAriaLabel}
       >
         <ChevronRight className="w-2" />
-      </button>
+      </Button>
     </div>
   )
 }
