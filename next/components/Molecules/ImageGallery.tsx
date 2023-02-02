@@ -18,7 +18,7 @@ export type ImageGalleryProps = {
   variant?: 'below' | 'aside'
 }
 
-const ImageGalleryPreview = ({ images = [], variant = 'below' }: ImageGalleryProps) => {
+const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => {
   const { t } = useTranslation('common')
 
   const firstImage = useMemo(() => {
@@ -194,4 +194,4 @@ const ImageGalleryPreview = ({ images = [], variant = 'below' }: ImageGalleryPro
   )
 }
 
-export default ImageGalleryPreview
+export default ImageGallery
