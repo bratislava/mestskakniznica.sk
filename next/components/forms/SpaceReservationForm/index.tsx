@@ -300,7 +300,7 @@ const SpaceReservationForm = () => {
           <div>
             {/* hudobne studio */}
             <iframe
-              title="Hudobne studio"
+              title={t('iframe_title_music')}
               id="kapucinska_1_hudobne_studio_cal"
               src={`https://calendar.google.com/calendar/embed?height=500&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showNav=1&showTitle=0&showDate=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0&mode=WEEK&src=Y19mMTI0NmE0Njc1MmQ0OWM3OTljZWJhNDg5YzVhZTU0YTc1NjAzYmJjODY4NzZmODYyMzc5MTQyNGQ2ZDg2ZWY0QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F6BF26&hl=${
                 i18n.language ?? 'sk'
@@ -312,7 +312,7 @@ const SpaceReservationForm = () => {
 
             {/* kreativna miestnost */}
             <iframe
-              title="Kreativna miestnost"
+              title={t('iframe_title_creative')}
               id="kapucinska_3_kreativna_miestnost_cal"
               src={`https://calendar.google.com/calendar/embed?height=500&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showNav=1&showTitle=0&showDate=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0&mode=WEEK&src=Y182YTE4ZTk2ZTUxOTliMzRhMzAwMmMwMTczZTFjODc1MmFhZDMxZjlkMDIwYmZhYjQyNDQ2NTdlZjVmMzE2YjhhQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F6BF26&hl=${
                 i18n.language ?? 'sk'
