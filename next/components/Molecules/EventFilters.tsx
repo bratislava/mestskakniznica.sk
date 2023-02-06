@@ -20,9 +20,15 @@ type EventFiltersProps = {
 }
 
 const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) => {
-  const [filters, setFilters] = useControlledState(filtersInput, {}, onFiltersChange)
-
   const { t, i18n } = useTranslation('common')
+
+  const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
+
+  const [filters, setFilters] = useControlledState(
+    filtersInput,
+    defaultFiltersValue,
+    onFiltersChange
+  )
 
   // There's no need to handle loading, as the data are prefetched and never change.
   const { data: eventPropertiesData } = useQuery({
@@ -79,7 +85,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
   }
 
   const resetFilters = () => {
-    setFilters({})
+    setFilters(defaultFiltersValue)
   }
 
   return (
