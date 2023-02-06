@@ -1,8 +1,9 @@
 import { useQuery } from "react-query";
 import { fetchConfig } from "./api";
+import { useEffect, useState } from "react";
 
 export const useConfig = () => {
-  const { data, isLoading } = useQuery("config", {
+  const { data, isLoading, isError } = useQuery("config", {
     queryFn: fetchConfig,
     staleTime: Infinity,
   });
@@ -10,16 +11,24 @@ export const useConfig = () => {
   return {
     config: data,
     isLoading,
+    isError,
   };
+};
+
+export const useHasConfig = () => {
+  const { config, isLoading, isError } = useConfig();
+
+  return !isError && !isLoading && Boolean(config);
 };
 
 export const useConfigDefined = () => {
   const { config } = useConfig();
 
   if (!config) {
-    // TODO msg
-    throw new Error("");
+    throw new Error(
+      "useConfigDefined has been used on a place not protected by useConfigDefined"
+    );
   }
 
-  return config;
+  return { config };
 };

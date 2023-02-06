@@ -1,9 +1,13 @@
 import { IStrapi } from "strapi-typed";
 import { last } from "lodash";
+import { getConfig, validateConfig } from "./services/helpers/config";
 
 const symbol = Symbol("adsas");
 
 export default async ({ strapi }: { strapi: IStrapi }) => {
+  const config = getConfig(strapi);
+  validateConfig(strapi, config);
+
   // const x = (await strapi.query("api::page.page").findMany({})) as any[];
   //
   // for (let a of x) {
@@ -54,7 +58,7 @@ export default async ({ strapi }: { strapi: IStrapi }) => {
 
     return gg;
   };
-  const final = await { sk: await gett("sk"), en: await gett("en") };
-
-  console.log(JSON.stringify(final, null, 2));
+  // const final = await { sk: await gett("sk"), en: await gett("en") };
+  //
+  // console.log(JSON.stringify(final, null, 2));
 };

@@ -10,7 +10,7 @@ import {
   NavikronosRoutes,
 } from "../../shared/types";
 import { getNavigation } from "./helpers/getNavigation";
-import { FetchedEntry, fetchEntries } from "./helpers/getEntries";
+import { FetchedEntry, getEntries } from "./helpers/getEntries";
 import { getI18nStatus } from "./helpers/getI18nStatus";
 
 type EntriesToFetchMap = Record<string, number[]>;
@@ -53,7 +53,7 @@ const fetchSelectedEntries = async (
   const promises = Object.entries(entriesToFetch).map(
     ([contentTypeUid, ids]) => {
       return async () => {
-        const fetched = await fetchEntries(strapi, contentTypeUid, locale, ids);
+        const fetched = await getEntries(strapi, contentTypeUid, locale, ids);
         const mapped = Object.fromEntries(
           fetched.map((entry) => [entry.id, entry])
         );
@@ -117,14 +117,12 @@ export default ({ strapi }: { strapi: IStrapi }): ClientService => ({
       i18n.locales.map(async ({ code }) => {
         const localeNavigation: NavikronosNavigation = navigation[code] ?? [];
         const entriesToFetch = traverseGetEntriesToFetch(localeNavigation);
-        console.log(entriesToFetch);
         const fetchedEntries = await fetchSelectedEntries(
           strapi,
           localeNavigation,
           entriesToFetch,
           code
         );
-        // console.log(code, fetchedEntries, code);
         return [
           code,
           traverseReplaceEntries(localeNavigation, fetchedEntries),

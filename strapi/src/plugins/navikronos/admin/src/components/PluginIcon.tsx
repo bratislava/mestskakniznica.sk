@@ -1,12 +1,6 @@
-/**
- *
- * PluginIcon
- *
- */
+import React from "react";
+import Layer from "@strapi/icons/Layer";
 
-import React from 'react';
-import Puzzle from '@strapi/icons/Puzzle';
-
-const PluginIcon: React.VoidFunctionComponent = () => <Puzzle />;
+const PluginIcon = () => <Layer />;
 
 export default PluginIcon;

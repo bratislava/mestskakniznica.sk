@@ -15,6 +15,7 @@ import {
   NavikronosStaticRoute,
 } from "../../../shared/types";
 import { useConfigDefined } from "../utils/useConfig";
+import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
 
 const getMetadatas = (label: string) => ({
   intlLabel: {
@@ -57,9 +58,10 @@ const prepareStaticRouteIdsOptions = (config: AdminGetConfigResponse) => {
 };
 
 const prepareEntryRouteContentTypesOptions = (
-  config: AdminGetConfigResponse
+  config: AdminGetConfigResponse,
+  locale: string
 ) => {
-  return Object.entries(config.entryRouteEntries).map(([uid]) => {
+  return Object.entries(config.entryRouteEntries[locale]).map(([uid]) => {
     const { displayName } = config.contentTypeInfos[uid];
     return {
       key: uid,
@@ -72,12 +74,13 @@ const prepareEntryRouteContentTypesOptions = (
 
 const prepareEntryRouteEntriesOptions = (
   config: AdminGetConfigResponse,
-  values: NavikronosRoute
+  values: NavikronosRoute,
+  locale: string
 ) => {
   if (values.type !== "entry" || !values.contentTypeUid) {
     return undefined;
   }
-  const entries = config.entryRouteEntries[values.contentTypeUid];
+  const entries = config.entryRouteEntries[locale][values.contentTypeUid];
 
   return entries.map(({ id, title }) => {
     return {
@@ -90,8 +93,8 @@ const prepareEntryRouteEntriesOptions = (
 };
 
 type EditAddFormProps = {
-  initialValues: NavikronosRoute;
-  onSubmit: (values: NavikronosRoute) => void;
+  initialValues: Partial<NavikronosRoute>;
+  onSubmit: (values: Partial<NavikronosRoute>) => void;
 };
 
 const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
@@ -102,14 +105,16 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
     errors,
     handleSubmit,
     isSubmitting,
-  } = useFormik<NavikronosRoute>({
+  } = useFormik<Partial<NavikronosRoute>>({
     initialValues,
     onSubmit,
     // validationSchema: formDefinition.schemaFactory(usedCustomFieldNames),
     // validateOnChange: false,
   });
 
-  const config = useConfigDefined();
+  const { config } = useConfigDefined();
+  const { locale } = useNavigationDataDefined();
+
   const contentTypeOptions = useMemo(
     () => prepareContentTypesOptions(config),
     [config]
@@ -121,12 +126,17 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
   );
 
   const entryContentTypesOptions = useMemo(
-    () => prepareEntryRouteContentTypesOptions(config),
-    [config]
+    () => prepareEntryRouteContentTypesOptions(config, locale),
+    [config, locale]
   );
 
   const entryRouteEntries = useMemo(
-    () => prepareEntryRouteEntriesOptions(config, values),
+    () =>
+      prepareEntryRouteEntriesOptions(
+        config,
+        values as NavikronosRoute,
+        locale
+      ),
     [config, values]
   );
 
@@ -162,23 +172,6 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
       <ModalBody>
         <Grid gap={5}>
           <GridItem key="type" col={12}>
-            {/*<Select*/}
-            {/*  id="select1"*/}
-            {/*  label="Choose your meal"*/}
-            {/*  required*/}
-            {/*  placeholder="Your example"*/}
-            {/*  hint="Description line"*/}
-            {/*  clearLabel="Clear the meal"*/}
-            {/*  selectButtonTitle="Carret Down Button"*/}
-            {/*  {...defaultProps("type")}*/}
-            {/*>*/}
-            {/*  <Option value="entry">Entry</Option>*/}
-            {/*  <Option value="static">Static</Option>*/}
-            {/*  <Option value="content_type">Content type</Option>*/}
-            {/*  <Option value="listing">Listing</Option>*/}
-            {/*  <Option value="empty">Empty</Option>*/}
-            {/*</Select>*/}
-
             <GenericInput
               {...defaultProps("type")}
               options={typeOptions}
@@ -259,69 +252,10 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
                 <GenericInput {...defaultProps("path")} type="text" />
               </>
             )}
-
-            {/*<GenericInput*/}
-            {/*  {...defaultProps("name")}*/}
-            {/*  autoFocused={true}*/}
-            {/*  type="text"*/}
-            {/*  disabled={isEditForm}*/}
-            {/*/>*/}
-
-            {/*<GenericInput*/}
-            {/*  {...defaultProps("type")}*/}
-            {/*  autoFocused={true}*/}
-            {/*  // placeholder={getTrad(`${tradPrefix}name.placeholder`)}*/}
-            {/*  // description={getTrad(`${tradPrefix}name.description`)}*/}
-            {/*  type="text"*/}
-            {/* */}
-            {/*/>*/}
-          </GridItem>
-          <GridItem key="label" col={12}>
-            {/*<GenericInput*/}
-            {/*  //              /!*{...defaultProps("label")}*!/*/}
-            {/*  // placeholder={getTrad(`${tradPrefix}label.placeholder`)}*/}
-            {/*  // description={getTrad(`${tradPrefix}label.description`)}*/}
-            {/*  type="text"*/}
-            {/*/>*/}
-          </GridItem>
-          <GridItem key="type" col={12}>
-            {/*<GenericInput*/}
-            {/*  {...defaultProps("type")}*/}
-            {/*  // options={typeSelectOptions}*/}
-            {/*  type="select"*/}
-            {/* */}
-            {/*/>*/}
-          </GridItem>
-          {/*{values.type === "select" && (*/}
-          {/*  <>*/}
-          {/*    <GridItem key="multi" col={12}>*/}
-          {/*      <GenericInput {...defaultProps("multi")} type="bool" />*/}
-          {/*    </GridItem>*/}
-          {/*    <GridItem key="options" col={12}>*/}
-          {/*      <TextArrayInput*/}
-          {/*        {...defaultProps("options")}*/}
-          {/*        onChange={(v) => setFieldValue("options", v)}*/}
-          {/*        label={getMessage(`${tradPrefix}options.label`)}*/}
-          {/*        initialValue={values.options}*/}
-          {/*      />*/}
-          {/*    </GridItem>*/}
-          {/*  </>*/}
-          {/*)}*/}
-          <GridItem key="required" col={12}>
-            {/*<GenericInput*/}
-            {/*  {...defaultProps("required")}*/}
-            {/*  type="bool"*/}
-            {/*  description={getTrad(`${tradPrefix}required.description`)}*/}
-            {/*/>*/}
           </GridItem>
         </Grid>
       </ModalBody>
       <ModalFooter
-        startActions={
-          <Button onClick={() => {}} variant="tertiary">
-            {/*{getMessage("popup.item.form.button.cancel")}*/}
-          </Button>
-        }
         endActions={
           <Button
             onClick={handleSubmit}

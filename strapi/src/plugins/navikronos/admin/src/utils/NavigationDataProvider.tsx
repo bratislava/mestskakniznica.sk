@@ -1,34 +1,56 @@
 import React, {
   createContext,
+  Dispatch,
   PropsWithChildren,
+  SetStateAction,
   useContext,
   useEffect,
   useReducer,
+  useState,
 } from "react";
 import { useMutation, useQuery } from "react-query";
 import { fetchNavigation, putNavigation } from "./api";
 import {
   NavikronosLocaleNavigations,
-  NavikronosNavigation,
   NavikronosRoute,
   NavikronosRoutes,
 } from "../../../shared/types";
-import produce, { original } from "immer";
+import produce from "immer";
 import { last } from "lodash";
+import { useConfig, useConfigDefined } from "./useConfig";
 
-const NavigationDataContext = createContext<NavikronosLocaleNavigations | null>(
-  null
-);
+const NavigationDataContext = createContext<{
+  navigationData?: NavikronosLocaleNavigations | null;
+  isLoading: boolean;
+  isError: boolean;
+  locale: string;
+  setLocale: Dispatch<SetStateAction<string>>;
+} | null>(null);
 const NavigationDataDispatchContext =
   createContext<React.Dispatch<NavigationDataAction> | null>(null);
 
 export const NavigationDataProvider = ({ children }: PropsWithChildren) => {
   const [navigationData, dispatch] = useReducer(navigationDataReducer, null);
 
-  const { data } = useQuery("navigation", {
+  const { data, isLoading, isError } = useQuery("navigation", {
     queryFn: fetchNavigation,
     staleTime: Infinity,
   });
+
+  const [locale, setLocale] = useState("");
+
+  const { config } = useConfig();
+
+  useEffect(() => {
+    if (
+      config &&
+      config.i18n?.enabled &&
+      config.i18n?.locales &&
+      config.i18n?.locales[0]
+    ) {
+      setLocale(config.i18n.locales![0].code);
+    }
+  }, [config]);
 
   useEffect(() => {
     if (data) {
@@ -37,7 +59,9 @@ export const NavigationDataProvider = ({ children }: PropsWithChildren) => {
   }, [data]);
 
   return (
-    <NavigationDataContext.Provider value={navigationData}>
+    <NavigationDataContext.Provider
+      value={{ navigationData, isLoading, isError, locale, setLocale }}
+    >
       <NavigationDataDispatchContext.Provider value={dispatch}>
         {children}
       </NavigationDataDispatchContext.Provider>
@@ -88,7 +112,9 @@ function navigationDataReducer(
   }
 
   const editedLocale = produce(
-    { children: navigationData[action.locale] ?? ([] as NavikronosRoutes) },
+    {
+      children: navigationData[action.locale] ?? ([] as NavikronosRoutes),
+    },
     (draft) => {
       switch (action.type) {
         case "addRoute": {
@@ -136,33 +162,29 @@ function navigationDataReducer(
   return { ...navigationData, [action.locale]: editedLocale };
 }
 
-export const useNavigationData = () => {
-  const navigationData = useContext(NavigationDataContext);
-  // TODO: REFACTOR!!
-  const { isLoading } = useQuery("navigation", {
-    queryFn: fetchNavigation,
-    staleTime: Infinity,
-  });
+export const useHasNavigationData = () => {
+  const { isError, isLoading, navigationData } = useContext(
+    NavigationDataContext
+  )!;
+  const dispatch = useContext(NavigationDataDispatchContext);
 
-  return {
-    navigationData,
-    isLoading,
-  };
+  return !isError && !isLoading && Boolean(navigationData) && Boolean(dispatch);
 };
 
 export const useNavigationDataDefined = () => {
-  const { navigationData } = useNavigationData();
+  const { navigationData, locale, setLocale } = useContext(
+    NavigationDataContext
+  )!;
   const dispatch = useContext(NavigationDataDispatchContext);
   const mutation = useMutation(
     (newNavigationData: NavikronosLocaleNavigations) =>
       putNavigation({ navigation: newNavigationData })
   );
 
-  const locale = "sk";
-
   if (!navigationData || !dispatch) {
-    // TODO
-    throw "asdas";
+    throw new Error(
+      "useNavigationDataDefined has been used on a place not protected by useHasNavigationData"
+    );
   }
 
   const saveNavigation = () => {
@@ -200,6 +222,8 @@ export const useNavigationDataDefined = () => {
 
   return {
     navigationData: navigationData[locale],
+    locale,
+    setLocale,
     editRoute,
     addRoute,
     removeRoute,

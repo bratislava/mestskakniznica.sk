@@ -6,16 +6,15 @@ export type FetchedEntry = {
   title: string;
   path: string;
 };
-export const fetchEntries = async (
+export const getEntries = async (
   strapi: IStrapi,
   contentTypeUid: string,
   locale?: string,
   ids?: number[]
 ) => {
-  const { entryRoutes } = getConfig(strapi)!;
-  // TODO remove !
+  const { entryRoutes } = getConfig(strapi);
 
-  const contentTypeConfig = (entryRoutes! ?? []).find(
+  const contentTypeConfig = (entryRoutes ?? []).find(
     (specificContentType) =>
       specificContentType.contentTypeUid === contentTypeUid
   );

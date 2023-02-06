@@ -10,18 +10,17 @@ const EditAddModal = () => {
   const { modalData, closeModal } = useEditAdd();
   const { addRoute, editRoute } = useNavigationDataDefined();
 
-  console.log(modalData);
   if (!modalData.open) {
     return null;
   }
 
-  const handleSubmit = (x: NavikronosRoute) => {
+  const handleSubmit = (route: Partial<NavikronosRoute>) => {
     if (modalData.type === "add") {
-      addRoute(modalData.locationIndexes, x);
+      addRoute(modalData.locationIndexes, route as NavikronosRoute);
       closeModal();
     }
     if (modalData.type === "edit") {
-      editRoute(modalData.locationIndexes, x);
+      editRoute(modalData.locationIndexes, route as NavikronosRoute);
       closeModal();
     }
   };
@@ -36,11 +35,12 @@ const EditAddModal = () => {
           as="h2"
           id="asset-dialog-title"
         >
-          asdads
+          {modalData.type === "edit" && "Edit route"}
+          {modalData.type === "add" && "Add route"}
         </Typography>
       </ModalHeader>
       <EditAddForm
-        initialValues={(modalData as any).defaultValues}
+        initialValues={modalData.defaultValues}
         onSubmit={handleSubmit}
       />
     </ModalLayout>

@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+// TODO: Add TS types.
+
+// Admin navigation
 export const navikronosContentTypeRouteSchema = z.object({
   type: z.literal("contentType"),
   contentTypeUid: z.string(),
@@ -38,3 +41,24 @@ const navikronosNavigationSchema = navikronosRoutesSchema;
 export const navikronosLocaleNavigationsSchema = z.record(
   z.array(navikronosRouteSchema)
 );
+
+// Config
+export const navikronosConfigSchema = z.object({
+  staticRouteIds: z.array(z.string()).optional(),
+  contentTypeRoutes: z
+    .array(
+      z.object({
+        contentTypeUid: z.string(),
+      })
+    )
+    .optional(),
+  entryRoutes: z
+    .array(
+      z.object({
+        contentTypeUid: z.string(),
+        pathAttribute: z.string(),
+        titleAttribute: z.string(),
+      })
+    )
+    .optional(),
+});

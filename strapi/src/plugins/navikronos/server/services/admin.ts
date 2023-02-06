@@ -11,7 +11,8 @@ import {
 import { navikronosLocaleNavigationsSchema } from "../../shared/zod";
 import { getNavigation } from "./helpers/getNavigation";
 import { getConfig } from "./helpers/config";
-import { fetchEntries } from "./helpers/getEntries";
+import { getEntries } from "./helpers/getEntries";
+import { getEntryRouteEntries } from "./helpers/getEntryRouteEntries";
 
 export default ({ strapi }: { strapi: IStrapi }): AdminService => {
   return {
@@ -20,17 +21,11 @@ export default ({ strapi }: { strapi: IStrapi }): AdminService => {
 
       const { entryRoutes, staticRouteIds, contentTypeRoutes } =
         getConfig(strapi);
-      const entryRouteEntriesPromises = (entryRoutes ?? []).map(
-        ({ contentTypeUid }) =>
-          async () => {
-            // TODO locale
-            const fetched = await fetchEntries(strapi, contentTypeUid, "sk");
-            return [contentTypeUid, fetched] as const;
-          }
-      );
 
-      const entryRouteEntries = Object.fromEntries(
-        await Promise.all(entryRouteEntriesPromises.map((p) => p()))
+      const entryRouteEntries = await getEntryRouteEntries(
+        strapi,
+        entryRoutes,
+        i18n
       );
 
       const allContentTypesUids = [
@@ -57,8 +52,6 @@ export default ({ strapi }: { strapi: IStrapi }): AdminService => {
     },
 
     async getNavigation(): Promise<AdminGetNavigationResponse> {
-      console.log("yes here");
-
       return getNavigation(strapi);
     },
 

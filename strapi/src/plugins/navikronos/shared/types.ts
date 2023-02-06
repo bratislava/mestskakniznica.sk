@@ -1,8 +1,8 @@
-// Admin navigation
 import { I18NStatus } from "../server/services/helpers/getI18nStatus";
 import { StrapiContentTypeInfo } from "strapi-typed";
 import { FetchedEntry } from "../server/services/helpers/getEntries";
 
+// Admin navigation
 export type NavikronosRoute =
   | NavikronosContentTypeRoute
   | NavikronosEmptyRoute
@@ -55,29 +55,6 @@ export type NavikronosLocaleNavigations = Record<
 export type NavikronosStorageContentType = {
   data: NavikronosLocaleNavigations;
 };
-
-const x: NavikronosNavigation = [
-  { type: "static", title: "Vyhľadávanie", path: "vyhladavanie", id: "search" },
-  {
-    type: "listing",
-    title: "Zažite",
-    path: "zazite",
-    id: "asda",
-    children: [
-      {
-        type: "entry",
-        contentTypeUid: "page",
-        entryId: 1,
-        children: [
-          {
-            type: "contentType",
-            contentTypeUid: "page",
-          },
-        ],
-      },
-    ],
-  },
-];
 
 // Client navigation
 export type NavikronosClientRoute =
@@ -134,7 +111,7 @@ export type NavikronosClientLocaleNavigations = Record<
 >;
 
 // Config
-export type NavikronosConfig = {
+export type NavikronosPluginConfig = {
   staticRouteIds?: string[];
   contentTypeRoutes?: {
     contentTypeUid: string;
@@ -150,7 +127,7 @@ export type NavikronosConfig = {
 export type AdminConfig = {
   i18n: I18NStatus;
   contentTypeRoutes: { contentTypeUid: string }[];
-  entryRouteEntries: Record<string, FetchedEntry[]>;
+  entryRouteEntries: Record<string, Record<string, FetchedEntry[]>>;
   staticRouteIds: string[];
   contentTypeInfos: Record<string, StrapiContentTypeInfo>;
   // listingEnabled: boolean;

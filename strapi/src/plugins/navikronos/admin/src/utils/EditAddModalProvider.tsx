@@ -41,10 +41,7 @@ export const useEditAdd = () => {
   const { modalData, setModalData } = useContext(EditAddContext)!;
   const { navigationData } = useNavigationDataDefined();
 
-  console.log(modalData);
-
   const openAddModal = (locationIndexes: number[]) => {
-    console.log("asdasd", locationIndexes);
     setModalData({
       open: true,
       type: "add",

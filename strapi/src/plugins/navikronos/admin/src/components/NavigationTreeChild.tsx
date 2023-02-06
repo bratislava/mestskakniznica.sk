@@ -27,8 +27,8 @@ const NavigationTreeChild = ({
   locationIndexes,
 }: NavigationTreeChildProps) => {
   const { openEditModal, openAddModal } = useEditAdd();
-  const config = useConfigDefined();
-  const { removeRoute } = useNavigationDataDefined();
+  const { config } = useConfigDefined();
+  const { locale, removeRoute } = useNavigationDataDefined();
 
   const canHaveChildren = child.type !== "contentType";
   // const hasChildren =
@@ -58,7 +58,12 @@ const NavigationTreeChild = ({
       case "empty":
         return child.path;
       case "entry":
-        const entries = config.entryRouteEntries[child.contentTypeUid];
+        const localeEntries = config.entryRouteEntries[locale];
+        if (!localeEntries) {
+          return null;
+        }
+
+        const entries = localeEntries[child.contentTypeUid];
         if (!entries) {
           return null;
         }
@@ -67,7 +72,7 @@ const NavigationTreeChild = ({
         )?.path;
         return child.overridePath ?? pathInner;
     }
-  }, [child]);
+  }, [child, locale]);
 
   const title = useMemo(() => {
     switch (child.type) {
@@ -82,7 +87,12 @@ const NavigationTreeChild = ({
       case "empty":
         return child.title;
       case "entry":
-        const entries = config.entryRouteEntries[child.contentTypeUid];
+        const localeEntries = config.entryRouteEntries[locale];
+        if (!localeEntries) {
+          return null;
+        }
+
+        const entries = localeEntries[child.contentTypeUid];
         if (!entries) {
           return null;
         }
@@ -91,7 +101,7 @@ const NavigationTreeChild = ({
         )?.title;
         return child.overrideTitle ?? titleInner;
     }
-  }, [child]);
+  }, [child, locale]);
 
   return (
     <>
