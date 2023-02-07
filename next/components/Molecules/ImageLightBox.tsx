@@ -50,7 +50,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                 className="pointer-events-auto h-auto max-h-[86vh] w-full select-none object-contain"
                 sizes="100vw"
               />
-              {attributes?.caption !== attributes?.name && (
+              {attributes?.caption !== attributes?.name && attributes?.caption && (
                 <div className="mt-4 bg-white px-2.5 py-0.5">{attributes?.caption}</div>
               )}
             </div>
