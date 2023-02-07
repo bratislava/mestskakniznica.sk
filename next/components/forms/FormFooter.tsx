@@ -102,6 +102,7 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
         onTimeout={() => methods.setValue('cfTurnstile', null)}
         onExpire={() => methods.setValue('cfTurnstile', null)}
         className="!mt-0"
+        theme="light"
       />
 
       <Button type="submit" className="m-auto ml-0" mobileFullWidth>

@@ -66,11 +66,18 @@ const checkCoverImages = async () => {
       // eslint-disable-next-line no-await-in-loop
       const coverFileSize = await ufs(book.coverUrl)
 
+      if (coverFileSize === 0 || !isDefined(coverFileSize)) {
+        // eslint-disable-next-line no-continue
+        continue
+      }
+
       // Checking image size in bytes is a reliable way how to detect a generic cover.
       bookCoverMap[book.coverUrl] = coverFileSize !== 9149
 
       // eslint-disable-next-line no-empty
-    } catch (error) {}
+    } catch (error) {
+      console.error('newBooksService ERROR:', error)
+    }
   }
 }
 
@@ -97,11 +104,14 @@ const fetchBooks = async () => {
       }
       /* eslint-enable no-underscore-dangle */
     })
-    // Check is called asynchronously without waiting for a result.
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    checkCoverImages()
     // eslint-disable-next-line no-empty
-  } catch (error) {}
+  } catch (error) {
+    console.error('newBooksService ERROR:', error)
+  }
+
+  // Check is called asynchronously without waiting for a result.
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  checkCoverImages()
 }
 
 let refreshIntervalTimer: NodeJS.Timer | null = null

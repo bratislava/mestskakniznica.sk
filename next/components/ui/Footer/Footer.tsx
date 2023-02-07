@@ -44,7 +44,7 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number
   return (
     <div
       key={col?.title}
-      className={cx('pt-6 pb-40', {
+      className={cx('pt-6 pb-12', {
         'border-l border-border-dark pl-8': i !== 0,
       })}
     >
