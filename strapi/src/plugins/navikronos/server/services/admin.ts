@@ -18,6 +18,9 @@ const { ApplicationError } = utils.errors;
 
 export default ({ strapi }: { strapi: IStrapi }): AdminService => {
   return {
+    /**
+     * Returns a config for admin UI.
+     */
     async getConfig(): Promise<AdminGetConfigResponse> {
       const i18n = await getI18nStatus({ strapi });
 
@@ -49,7 +52,6 @@ export default ({ strapi }: { strapi: IStrapi }): AdminService => {
         entryRouteEntries,
         staticRouteIds: staticRouteIds ?? [],
         contentTypeInfos,
-        // listingEnabled: enableListing,
       };
     },
 
@@ -62,12 +64,15 @@ export default ({ strapi }: { strapi: IStrapi }): AdminService => {
     }: AdminPutNavigationInput): Promise<AdminPutNavigationResponse> {
       try {
         navikronosLocaleNavigationsSchema.parse(navigation);
-      } catch (e) {
+      } catch (error) {
         throw new ApplicationError("Navigation validation failed", {
-          error: e,
+          error,
         });
       }
 
+      // There's not a way in Strapi API to update already existing single type entry, it must be
+      // queried and created or updated. Beware, if we create a new entry if a one already exists
+      // it breaks the Strapi UI although database allows it.
       const queriedNavigation = await strapi
         .query<{ id: number }>("plugin::navikronos.navikronos-storage")
         .findOne({});

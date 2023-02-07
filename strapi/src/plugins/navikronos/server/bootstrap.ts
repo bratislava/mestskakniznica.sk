@@ -5,6 +5,8 @@ const symbol = Symbol("adsas");
 
 export default async ({ strapi }: { strapi: IStrapi }) => {
   const config = getConfig(strapi);
+
+  // Validation function throws an error so the app won't start.
   validateConfig(strapi, config);
 
   // const x = (await strapi.query("api::page.page").findMany({})) as any[];

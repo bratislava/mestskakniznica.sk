@@ -6,6 +6,11 @@ export type FetchedEntry = {
   title: string;
   path: string;
 };
+
+/**
+ * Returns entries from entry type routes for UI (to choose from) and for client navigation API
+ * (content types and ids of the entries are replaced with real ones with path and title).
+ */
 export const getEntries = async (
   strapi: IStrapi,
   contentTypeUid: string,
@@ -14,22 +19,20 @@ export const getEntries = async (
 ) => {
   const { entryRoutes } = getConfig(strapi);
 
-  const contentTypeConfig = (entryRoutes ?? []).find(
-    (specificContentType) =>
-      specificContentType.contentTypeUid === contentTypeUid
+  const entryRouteConfig = (entryRoutes ?? []).find(
+    (route) => route.contentTypeUid === contentTypeUid
   );
-  if (!contentTypeConfig) {
+  if (!entryRouteConfig) {
     return [] as FetchedEntry[];
   }
 
-  // filter published + locale
   const items = await strapi
     .query<StrapiContentType<any>>(contentTypeUid)
     .findMany({
       select: [
         "id",
-        contentTypeConfig.titleAttribute,
-        contentTypeConfig.pathAttribute,
+        entryRouteConfig.titleAttribute,
+        entryRouteConfig.pathAttribute,
       ],
       where: {
         ...(ids
@@ -44,6 +47,7 @@ export const getEntries = async (
               locale: { $eq: locale },
             }
           : {}),
+        publishedAt: { $notNull: true },
       },
     });
 
@@ -51,8 +55,8 @@ export const getEntries = async (
     (entry) =>
       ({
         id: entry.id,
-        title: entry[contentTypeConfig.titleAttribute],
-        path: entry[contentTypeConfig.pathAttribute],
+        title: entry[entryRouteConfig.titleAttribute],
+        path: entry[entryRouteConfig.pathAttribute],
       } as FetchedEntry)
   );
 };

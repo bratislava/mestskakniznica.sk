@@ -18,7 +18,6 @@ export default ({ strapi }: { strapi: IStrapi }) => {
       try {
         ctx.body = await getService().putNavigation(ctx.request.body);
       } catch (error) {
-        console.log(error);
         if (error instanceof Error) {
           return ctx.badRequest(error.message);
         }

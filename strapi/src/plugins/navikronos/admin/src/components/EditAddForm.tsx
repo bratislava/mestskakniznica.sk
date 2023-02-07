@@ -16,6 +16,7 @@ import {
 import { useConfigDefined } from "../utils/useConfig";
 import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
 import {
+  fixBeforeSubmit,
   getMetadatas,
   prepareContentTypesOptions,
   prepareEntryRouteContentTypesOptions,
@@ -30,9 +31,9 @@ type EditAddFormProps = {
 };
 
 const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
-  const fixBeforeSubmit = (values: Partial<NavikronosRoute>) => {
-    console.log(values);
-    onSubmit(values);
+  const fixAndSubmit = (values: Partial<NavikronosRoute>) => {
+    const fixed = fixBeforeSubmit(values as NavikronosRoute);
+    onSubmit(fixed);
   };
 
   const {
@@ -44,7 +45,7 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
     isSubmitting,
   } = useFormik<Partial<NavikronosRoute>>({
     initialValues,
-    onSubmit: fixBeforeSubmit,
+    onSubmit: fixAndSubmit,
   });
 
   const { config } = useConfigDefined();

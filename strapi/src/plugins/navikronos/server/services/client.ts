@@ -16,13 +16,16 @@ import { getI18nStatus } from "./helpers/getI18nStatus";
 type EntriesToFetchMap = Record<string, number[]>;
 type FetchedEntriesMap = Record<string, Record<string, FetchedEntry>>;
 
+/**
+ * Traverses the navigation and returns a list of entries to fetch.
+ */
 const traverseGetEntriesToFetch = (
   navigation: NavikronosNavigation
 ): EntriesToFetchMap => {
   const entriesToFetch: EntriesToFetchMap = {};
 
-  const innerTraverse = (t: NavikronosRoutes) => {
-    t.forEach((route) => {
+  const innerTraverse = (routes: NavikronosRoutes) => {
+    routes.forEach((route) => {
       if (route.type === "entry") {
         const { contentTypeUid, entryId } = route;
         if (!entriesToFetch[contentTypeUid]) {
@@ -42,7 +45,7 @@ const traverseGetEntriesToFetch = (
 };
 
 /**
- *
+ * Fetches the entries.
  */
 const fetchSelectedEntries = async (
   strapi: IStrapi,
@@ -67,48 +70,68 @@ const fetchSelectedEntries = async (
   );
 };
 
+/**
+ * Adds `title` and `path` for entry routes.
+ */
 const traverseReplaceEntries = (
   navigation: NavikronosNavigation,
   fetchedEntries: FetchedEntriesMap
 ): NavikronosClientNavigation => {
   const innerTraverse = (routes: NavikronosRoutes) => {
-    return routes.map((route) => {
-      let children: NavikronosClientRoutes | undefined;
-      if (route.type !== "contentType" && route.children) {
-        children = innerTraverse(route.children);
-      }
-      if (route.type === "entry") {
-        const { contentTypeUid, entryId } = route;
-        const contentTypeEntries = fetchedEntries[contentTypeUid];
-
-        if (!contentTypeEntries) {
-          return null;
+    return routes
+      .map((route) => {
+        let children: NavikronosClientRoutes | undefined;
+        if (route.type !== "contentType" && route.children) {
+          children = innerTraverse(route.children);
         }
-        const fetchedEntry = contentTypeEntries[entryId];
-        if (!fetchedEntry) {
-          return null;
+        if (route.type === "entry") {
+          const { contentTypeUid, entryId } = route;
+          const contentTypeEntries = fetchedEntries[contentTypeUid];
+
+          if (!contentTypeEntries) {
+            return null;
+          }
+          const fetchedEntry = contentTypeEntries[entryId];
+          if (!fetchedEntry) {
+            return null;
+          }
+
+          return {
+            type: "entry",
+            contentTypeUid,
+            entryId,
+            title: route.overrideTitle ?? fetchedEntry.title,
+            path: route.overridePath ?? fetchedEntry.path,
+            children,
+          } as NavikronosClientEntryRoute;
         }
 
         return {
-          type: "entry",
-          contentTypeUid,
-          entryId,
-          ...fetchedEntry,
+          ...route,
           children,
-        } as NavikronosClientEntryRoute;
-      }
-
-      return {
-        ...route,
-        children,
-      } as NavikronosClientRoute;
-    });
+        } as NavikronosClientRoute;
+      })
+      .filter((route) => route != null);
   };
 
   return innerTraverse(navigation) as NavikronosClientNavigation;
 };
 
 export default ({ strapi }: { strapi: IStrapi }): ClientService => ({
+  /**
+   * Returns a client navigation for Next.js library.
+   *
+   * The client navigation has all the entry routes enhanced with their title and path:
+   *  {
+   *    "type": "entry",
+   *    "contentTypeUid": "api::page.page",
+   *    "entryId": 122,
+   *    "title": "Work in the library", // Client navigation only
+   *    "path": "work-in-the-library" // Client navigation only
+   *  }
+   *
+   * If the entry doesn't exist (was unpublished / removed...) it is removed with all its children!)
+   */
   async getNavigation(): Promise<ClientGetNavigationResponse> {
     const navigation = await getNavigation(strapi);
     const i18n = await getI18nStatus({ strapi });

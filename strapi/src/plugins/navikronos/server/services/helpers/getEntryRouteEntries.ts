@@ -3,6 +3,25 @@ import { NavikronosPluginConfig } from "../../../shared/types";
 import { getEntries } from "./getEntries";
 import { I18NStatus } from "./getI18nStatus";
 
+/**
+ * Returns all published entries for all available locales for admin UI.
+ *
+ * E.g.:
+ * ```
+ * {
+ *   "en": {
+ *     "api::page.page": [
+ *       {
+ *         "id": 122,
+ *         "title": "Work in the library",
+ *         "path": "work-in-the-library"
+ *       },
+ *       ...
+ *     ]
+ *   }
+ *   ...
+ * }
+ */
 export const getEntryRouteEntries = async (
   strapi: IStrapi,
   entryRoutes: NavikronosPluginConfig["entryRoutes"],

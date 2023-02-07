@@ -1,4 +1,5 @@
 import { AdminGetConfigResponse, NavikronosRoute } from "../../../shared/types";
+import pick from "lodash/pick";
 
 export const getMetadatas = (label: string) => ({
   intlLabel: {
@@ -81,4 +82,34 @@ export const prepareEntryRouteEntriesOptions = (
   });
 };
 
-export const fixBeforeSubmit = () => {};
+// https://stackoverflow.com/a/67730037
+type FindByType<TWhere, T extends NavikronosRoute["type"]> = TWhere extends {
+  type: infer InferredT;
+}
+  ? InferredT extends T
+    ? TWhere & { type: T }
+    : never
+  : never;
+
+// The type checks whether the keys are valid keys for certain type.
+const pickTypeMap: {
+  [Type in NavikronosRoute["type"]]: (keyof FindByType<
+    NavikronosRoute,
+    Type
+  >)[];
+} = {
+  entry: ["type", "contentTypeUid", "entryId", "overrideTitle", "overridePath"],
+  contentType: ["type", "contentTypeUid"],
+  listing: ["type", "title", "path", "children"],
+  empty: ["type", "title", "path", "children"],
+  static: ["type", "title", "path", "id", "children"],
+};
+
+/**
+ * When changing a type in form it doesn't remove keys from other types. They are deleted here,
+ * before the submission.
+ * @param values
+ */
+export const fixBeforeSubmit = (values: NavikronosRoute) => {
+  return pick(values, pickTypeMap[values.type]) as NavikronosRoute;
+};

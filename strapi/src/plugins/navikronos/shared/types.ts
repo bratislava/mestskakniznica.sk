@@ -121,7 +121,6 @@ export type NavikronosPluginConfig = {
     pathAttribute: string;
     titleAttribute: string;
   }[];
-  // enableListing?: boolean;
 };
 
 export type AdminConfig = {
@@ -130,7 +129,6 @@ export type AdminConfig = {
   entryRouteEntries: Record<string, Record<string, FetchedEntry[]>>;
   staticRouteIds: string[];
   contentTypeInfos: Record<string, StrapiContentTypeInfo>;
-  // listingEnabled: boolean;
 };
 
 // API

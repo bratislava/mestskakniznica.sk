@@ -7,7 +7,6 @@ export const getConfig = (strapi: IStrapi) =>
 
 const smallLettersDashRegexp = /^[a-z-]+$/;
 
-// TODO validate config
 export const validateConfig = (
   strapi: IStrapi,
   config: NavikronosPluginConfig
