@@ -7,9 +7,10 @@
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
     "dev": "yarn develop",
     "start": "strapi start",
-    "build": "strapi build",
+    "build": "yarn --cwd ./src/plugins/navikronos/ build && strapi build",
     "strapi": "strapi",
-    "cs": "config-sync"
+    "cs": "config-sync",
+    "postinstall": "yarn --cwd ./src/plugins/navikronos/ install"
   },
   "devDependencies": {},
   "dependencies": {
