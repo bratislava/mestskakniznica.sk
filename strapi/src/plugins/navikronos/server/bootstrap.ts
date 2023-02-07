@@ -1,5 +1,4 @@
 import { IStrapi } from "strapi-typed";
-import { last } from "lodash";
 import { getConfig, validateConfig } from "./services/helpers/config";
 
 const symbol = Symbol("adsas");
@@ -20,10 +19,6 @@ export default async ({ strapi }: { strapi: IStrapi }) => {
   //       .update({ where: { id: a.id } as any, data: { newSlug } });
   //   }
   // }
-  // strapi
-  //   .query("api::page.page")
-  //   .update({ where: { id: 68 } as any, data: { newSlug: "xxx" } });
-  // console.log(x);
   // Convert pages to
 
   const gett = async (locale: string) => {

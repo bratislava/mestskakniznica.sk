@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { ModalBody, ModalFooter } from "@strapi/design-system/ModalLayout";
 import { Button } from "@strapi/design-system/Button";
 import { GenericInput } from "@strapi/helper-plugin";
@@ -6,7 +6,6 @@ import { Grid, GridItem } from "@strapi/design-system/Grid";
 import { useFormik } from "formik";
 import { isEmpty } from "lodash";
 import {
-  AdminGetConfigResponse,
   NavikronosContentTypeRoute,
   NavikronosEmptyRoute,
   NavikronosEntryRoute,
@@ -16,81 +15,14 @@ import {
 } from "../../../shared/types";
 import { useConfigDefined } from "../utils/useConfig";
 import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
-
-const getMetadatas = (label: string) => ({
-  intlLabel: {
-    id: "fakeId",
-    defaultMessage: label,
-  },
-});
-
-const typeOptions = [
-  ["entry", "Entry"],
-  ["contentType", "Content type"],
-  ["listing", "Listing"],
-  ["empty", "Empty"],
-  ["static", "Static"],
-].map(([value, label]) => ({
-  key: value,
-  metadatas: getMetadatas(label),
-  value,
-  label,
-}));
-
-const prepareContentTypesOptions = (config: AdminGetConfigResponse) => {
-  return Object.entries(config.contentTypeInfos).map(
-    ([uid, { displayName }]) => ({
-      key: uid,
-      metadatas: getMetadatas(displayName),
-      value: uid,
-      label: displayName,
-    })
-  );
-};
-
-const prepareStaticRouteIdsOptions = (config: AdminGetConfigResponse) => {
-  return config.staticRouteIds.map((id) => ({
-    key: id,
-    metadatas: getMetadatas(id),
-    value: id,
-    label: id,
-  }));
-};
-
-const prepareEntryRouteContentTypesOptions = (
-  config: AdminGetConfigResponse,
-  locale: string
-) => {
-  return Object.entries(config.entryRouteEntries[locale]).map(([uid]) => {
-    const { displayName } = config.contentTypeInfos[uid];
-    return {
-      key: uid,
-      metadatas: getMetadatas(displayName),
-      value: uid,
-      label: displayName,
-    };
-  });
-};
-
-const prepareEntryRouteEntriesOptions = (
-  config: AdminGetConfigResponse,
-  values: NavikronosRoute,
-  locale: string
-) => {
-  if (values.type !== "entry" || !values.contentTypeUid) {
-    return undefined;
-  }
-  const entries = config.entryRouteEntries[locale][values.contentTypeUid];
-
-  return entries.map(({ id, title }) => {
-    return {
-      key: id,
-      metadatas: getMetadatas(title),
-      value: id,
-      label: title,
-    };
-  });
-};
+import {
+  getMetadatas,
+  prepareContentTypesOptions,
+  prepareEntryRouteContentTypesOptions,
+  prepareEntryRouteEntriesOptions,
+  prepareStaticRouteIdsOptions,
+  typeOptions,
+} from "../utils/editAddFormHelpers";
 
 type EditAddFormProps = {
   initialValues: Partial<NavikronosRoute>;
@@ -98,6 +30,11 @@ type EditAddFormProps = {
 };
 
 const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
+  const fixBeforeSubmit = (values: Partial<NavikronosRoute>) => {
+    console.log(values);
+    onSubmit(values);
+  };
+
   const {
     handleChange,
     setFieldValue,
@@ -107,9 +44,7 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
     isSubmitting,
   } = useFormik<Partial<NavikronosRoute>>({
     initialValues,
-    onSubmit,
-    // validationSchema: formDefinition.schemaFactory(usedCustomFieldNames),
-    // validateOnChange: false,
+    onSubmit: fixBeforeSubmit,
   });
 
   const { config } = useConfigDefined();
@@ -130,7 +65,7 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
     [config, locale]
   );
 
-  const entryRouteEntries = useMemo(
+  const entryRouteEntriesOptions = useMemo(
     () =>
       prepareEntryRouteEntriesOptions(
         config,
@@ -138,15 +73,6 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
         locale
       ),
     [config, values]
-  );
-
-  useEffect(() => {
-    setFieldValue("entryId", undefined);
-  }, [(values as NavikronosEntryRoute).contentTypeUid]);
-  console.log(
-    contentTypeOptions,
-    staticRouteIdsOptions,
-    entryContentTypesOptions
   );
 
   const defaultProps = useCallback(
@@ -158,7 +84,7 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
         | keyof NavikronosStaticRoute
         | keyof NavikronosListingRoute
     ) => ({
-      intlLabel: "",
+      intlLabel: getMetadatas(fieldName),
       onChange: handleChange,
       name: fieldName,
       value: values[fieldName],
@@ -200,20 +126,23 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
                   {...defaultProps("contentTypeUid")}
                   options={entryContentTypesOptions}
                   type="select"
+                  onChange={(e) => {
+                    setFieldValue("contentTypeUid", e.target.value);
+                    setFieldValue("entryId", null);
+                  }}
                 />
                 <GenericInput
                   {...defaultProps("entryId")}
-                  options={entryRouteEntries}
+                  options={entryRouteEntriesOptions}
                   type="select"
                 />
                 <GenericInput
                   type="checkbox"
                   value={values.overrideTitle != null}
                   name="overrideTitleCheckbox"
-                  intlLabel=""
+                  intlLabel={getMetadatas("Override title")}
                   onChange={(e) => {
-                    console.log(e);
-                    return setFieldValue(
+                    setFieldValue(
                       "overrideTitle",
                       e.target.value ? "" : undefined
                     );
@@ -229,10 +158,9 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
                   type="checkbox"
                   value={values.overridePath != null}
                   name="overridePathCheckbox"
-                  intlLabel=""
+                  intlLabel={getMetadatas("Override path")}
                   onChange={(e) => {
-                    console.log(e);
-                    return setFieldValue(
+                    setFieldValue(
                       "overridePath",
                       e.target.value ? "" : undefined
                     );

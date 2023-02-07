@@ -4,13 +4,14 @@ import { Box } from "@strapi/design-system/Box";
 import { Stack } from "@strapi/design-system/Stack";
 import { Grid, GridItem } from "@strapi/design-system/Grid";
 import { Button } from "@strapi/design-system/Button";
-import { Select, Option } from "@strapi/design-system/Select";
+import { Option, Select } from "@strapi/design-system/Select";
 import { useConfigDefined } from "../utils/useConfig";
 import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
 
 const HomepageActions = () => {
   const { config } = useConfigDefined();
-  const { saveNavigation, locale, setLocale } = useNavigationDataDefined();
+  const { saveNavigation, isSaving, locale, setLocale } =
+    useNavigationDataDefined();
 
   const hasLocalizations = config.i18n.enabled;
 
@@ -42,7 +43,7 @@ const HomepageActions = () => {
           <GridItem col={3}>
             <Button
               onClick={saveNavigation}
-              // disabled={structureHasErrors || !structureHasChanged}
+              disabled={isSaving}
               type="submit"
               fullWidth
               size="S"

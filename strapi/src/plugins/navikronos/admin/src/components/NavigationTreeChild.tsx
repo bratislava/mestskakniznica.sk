@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
 import { Card, CardBody } from "@strapi/design-system/Card";
-import { Stack } from "@strapi/design-system/Stack";
 import { Badge } from "@strapi/design-system/Badge";
 import { Typography } from "@strapi/design-system/Typography";
 import { useConfigDefined } from "../utils/useConfig";
@@ -31,8 +30,6 @@ const NavigationTreeChild = ({
   const { locale, removeRoute } = useNavigationDataDefined();
 
   const canHaveChildren = child.type !== "contentType";
-  // const hasChildren =
-  //   canHaveChildren && child?.children?.length && child.children.length > 0;
 
   const badge = useMemo(() => {
     switch (child.type) {
@@ -111,18 +108,26 @@ const NavigationTreeChild = ({
           zIndex: 1,
           position: "relative",
           overflow: "hidden",
+          margin: "10px 0",
         }}
       >
         <CardBody>
-          <Stack horizontal spacing={1}>
-            <Flex alignItems="center">
-              <Badge
-                size="S"
-                backgroundColor={badge.color}
-                textColor="neutral0"
-              >
-                {badge.title}
-              </Badge>
+          <Flex
+            justifyContent="space-between"
+            style={{
+              width: "100%",
+            }}
+          >
+            <Flex alignItems="center" gap={1}>
+              {badge && (
+                <Badge
+                  size="S"
+                  backgroundColor={badge.color}
+                  textColor="neutral0"
+                >
+                  {badge.title}
+                </Badge>
+              )}
               {title && (
                 <Typography variant="omega" fontWeight="bold">
                   {title}
@@ -138,7 +143,7 @@ const NavigationTreeChild = ({
                 </Typography>
               )}
             </Flex>
-            <Flex alignItems="center">
+            <Flex alignItems="center" gap={1}>
               <IconButton
                 onClick={() => {
                   openEditModal(locationIndexes);
@@ -154,9 +159,8 @@ const NavigationTreeChild = ({
                 icon={<Trash />}
               />
             </Flex>
-          </Stack>
+          </Flex>
         </CardBody>
-        {/*<Divider />*/}
       </Card>
       {canHaveChildren && (
         <Children>
@@ -169,10 +173,12 @@ const NavigationTreeChild = ({
           ))}
 
           <TextButton
-            // disabled={removed}
             startIcon={<Plus />}
             onClick={() => {
               openAddModal(locationIndexes);
+            }}
+            style={{
+              margin: "5px 0",
             }}
           >
             <Typography variant="pi" fontWeight="bold" textColor={"primary600"}>

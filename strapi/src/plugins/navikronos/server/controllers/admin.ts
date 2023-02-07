@@ -15,7 +15,16 @@ export default ({ strapi }: { strapi: IStrapi }) => {
     },
 
     async putNavigation(ctx) {
-      ctx.body = await getService().putNavigation(ctx.request.body);
+      try {
+        ctx.body = await getService().putNavigation(ctx.request.body);
+      } catch (error) {
+        console.log(error);
+        if (error instanceof Error) {
+          return ctx.badRequest(error.message);
+        }
+
+        throw error;
+      }
     },
   };
 };

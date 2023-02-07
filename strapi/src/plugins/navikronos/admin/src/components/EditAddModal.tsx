@@ -26,14 +26,14 @@ const EditAddModal = () => {
   };
 
   return (
-    <ModalLayout onClose={closeModal}>
+    <ModalLayout onClose={closeModal} labelledBy="modal-title">
       <ModalHeader>
         <Typography
           variant="omega"
           fontWeight="bold"
           textColor="neutral800"
           as="h2"
-          id="asset-dialog-title"
+          id="modal-title"
         >
           {modalData.type === "edit" && "Edit route"}
           {modalData.type === "add" && "Add route"}

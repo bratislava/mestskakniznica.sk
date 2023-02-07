@@ -11,13 +11,15 @@ import React, {
 import { useMutation, useQuery } from "react-query";
 import { fetchNavigation, putNavigation } from "./api";
 import {
+  NavikronosEmptyRoute,
   NavikronosLocaleNavigations,
   NavikronosRoute,
   NavikronosRoutes,
 } from "../../../shared/types";
 import produce from "immer";
 import { last } from "lodash";
-import { useConfig, useConfigDefined } from "./useConfig";
+import { useConfig } from "./useConfig";
+import { useNotification } from "@strapi/helper-plugin";
 
 const NavigationDataContext = createContext<{
   navigationData?: NavikronosLocaleNavigations | null;
@@ -146,10 +148,24 @@ function navigationDataReducer(
             // @ts-ignore
             current = current.children[index];
           });
-          const lastIndex = last(action.indexes);
+          const lastIndex = last(action.indexes)!;
 
           // @ts-ignore
-          current.children.splice(lastIndex, 1);
+          const routeToRemove = current.children[lastIndex];
+
+          if (
+            routeToRemove.type !== "contentType" &&
+            routeToRemove.children &&
+            routeToRemove.children.length > 0
+          ) {
+            current.children[lastIndex] = {
+              type: "empty",
+              children: routeToRemove.children,
+            } as NavikronosEmptyRoute;
+          } else {
+            current.children.splice(lastIndex, 1);
+          }
+
           break;
         }
         default: {
@@ -175,10 +191,25 @@ export const useNavigationDataDefined = () => {
   const { navigationData, locale, setLocale } = useContext(
     NavigationDataContext
   )!;
+  const toggleNotification = useNotification();
   const dispatch = useContext(NavigationDataDispatchContext);
-  const mutation = useMutation(
+  const { mutate, isLoading: isSaving } = useMutation(
     (newNavigationData: NavikronosLocaleNavigations) =>
-      putNavigation({ navigation: newNavigationData })
+      putNavigation({ navigation: newNavigationData }),
+    {
+      onSuccess: () => {
+        toggleNotification({
+          type: "success",
+          message: "Navigation saved successfully.",
+        });
+      },
+      onError: () => {
+        toggleNotification({
+          type: "warning",
+          message: "Navigation failed to save.",
+        });
+      },
+    }
   );
 
   if (!navigationData || !dispatch) {
@@ -188,7 +219,7 @@ export const useNavigationDataDefined = () => {
   }
 
   const saveNavigation = () => {
-    mutation.mutate(navigationData);
+    mutate(navigationData);
   };
 
   const editRoute = (
@@ -228,5 +259,6 @@ export const useNavigationDataDefined = () => {
     addRoute,
     removeRoute,
     saveNavigation,
+    isSaving,
   };
 };

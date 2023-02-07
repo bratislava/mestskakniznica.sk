@@ -1,4 +1,4 @@
-import { IStrapi } from "strapi-typed";
+import { IStrapi } from 'strapi-typed'
 
 // Copied from strapi-plugin-navigation/server/i18n/utils.ts
 

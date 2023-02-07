@@ -11,8 +11,10 @@ import {
 import { navikronosLocaleNavigationsSchema } from "../../shared/zod";
 import { getNavigation } from "./helpers/getNavigation";
 import { getConfig } from "./helpers/config";
-import { getEntries } from "./helpers/getEntries";
 import { getEntryRouteEntries } from "./helpers/getEntryRouteEntries";
+import utils from "@strapi/utils";
+
+const { ApplicationError } = utils.errors;
 
 export default ({ strapi }: { strapi: IStrapi }): AdminService => {
   return {
@@ -61,8 +63,9 @@ export default ({ strapi }: { strapi: IStrapi }): AdminService => {
       try {
         navikronosLocaleNavigationsSchema.parse(navigation);
       } catch (e) {
-        // TODO error
-        // return "error";
+        throw new ApplicationError("Navigation validation failed", {
+          error: e,
+        });
       }
 
       const queriedNavigation = await strapi

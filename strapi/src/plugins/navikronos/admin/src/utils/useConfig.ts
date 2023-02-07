@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { fetchConfig } from "./api";
-import { useEffect, useState } from "react";
 
 export const useConfig = () => {
   const { data, isLoading, isError } = useQuery("config", {
