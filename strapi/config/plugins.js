@@ -76,6 +76,27 @@ module.exports = ({ env }) => ({
       },
     },
   },
+  navikronos: {
+    enabled: true,
+    resolve: "./src/plugins/navikronos",
+    config: {
+      staticRouteIds: ["search"],
+      contentTypeRoutes: [
+        { contentTypeUid: "api::notice.notice" },
+        { contentTypeUid: "api::basic-document.basic-document" },
+        { contentTypeUid: "api::branch.branch" },
+        { contentTypeUid: "api::event.event" },
+        { contentTypeUid: "api::blog-post.blog-post" },
+      ],
+      entryRoutes: [
+        {
+          contentTypeUid: "api::page.page",
+          titleAttribute: "title",
+          pathAttribute: "newSlug",
+        },
+      ],
+    },
+  },
   meilisearch: {
     config: {
       host: process.env.MEILISEARCH_HOST,
