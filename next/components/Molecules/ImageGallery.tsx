@@ -48,7 +48,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
 
   // number of not displayed images
   const moreImagesCount = useMemo(() => {
-    return Math.max(images.length - thumbnailCount, 0)
+    return Math.max(images.length - 1 - thumbnailCount, 0)
   }, [images.length, thumbnailCount])
 
   const smallImages = useMemo(() => {
@@ -117,7 +117,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   <div
                     onClick={() => openAtImageIndex(index + 1)}
                     key={image.id}
-                    className="relative h-[100%] w-full cursor-pointer"
+                    className="relative h-[100%] w-full cursor-pointer pt-[100%]"
                   >
                     <MImage
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -135,7 +135,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   className="relative w-full cursor-pointer border-2 pt-[100%]"
                 >
                   <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-2 text-center">
-                    {t('galleryMorePhotos', { count: moreImagesCount })}
+                    {t('morePhotos', { count: moreImagesCount })}
                   </div>
                 </div>
               )}
@@ -175,7 +175,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   className="relative w-[168px] cursor-pointer pt-[166px]"
                 >
                   <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-8 text-center">
-                    {t('galleryMorePhotos')}
+                    {t('morePhotos', { count: moreImagesCount })}
                   </div>
                 </div>
               )}

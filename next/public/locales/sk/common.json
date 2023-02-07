@@ -146,7 +146,9 @@
     "byNewest": "Od najnovšieho",
     "byOldest": "Od najstaršieho"
   },
-  "galleryMorePhotos": "Viac fotografií",
+  "morePhotos_one": "+{{count}} fotka",
+  "morePhotos_few": "+{{count}} fotky",
+  "morePhotos_other": "+{{count}} fotiek",
   "openImageGallery": "Otvoriť galériu obrázkov",
   "descriptionSlider": "Posúvač",
   "imageLightBoxDescription": "Galéria obrázkov. Stlačte šípku vľavo pre zobrazenie predchádzajúceho obrázku. Stlačte šípku vpravo pre zobrazenie nasledujúceho obrázku. Zatvorte stlačením klávesu Escape.",
