@@ -44,13 +44,8 @@ export const NavigationDataProvider = ({ children }: PropsWithChildren) => {
   const { config } = useConfig();
 
   useEffect(() => {
-    if (
-      config &&
-      config.i18n?.enabled &&
-      config.i18n?.locales &&
-      config.i18n?.locales[0]
-    ) {
-      setLocale(config.i18n.locales![0].code);
+    if (config?.i18n?.defaultLocale) {
+      setLocale(config?.i18n?.defaultLocale);
     }
   }, [config]);
 
@@ -122,6 +117,7 @@ function navigationDataReducer(
         case "addRoute": {
           let current = draft;
           action.indexes.forEach((index) => {
+            // TODO
             // @ts-ignore
             current = current.children[index];
           });
@@ -135,21 +131,25 @@ function navigationDataReducer(
         case "editRoute":
           let current = draft;
           action.indexes.slice(0, -1).forEach((index) => {
+            // TODO
             // @ts-ignore
             current = current.children[index];
           });
           const lastIndex = last(action.indexes);
+          // TODO
           // @ts-ignore
           current.children[lastIndex] = action.data;
           break;
         case "removeRoute": {
           let current = draft;
           action.indexes.slice(0, -1).forEach((index) => {
+            // TODO
             // @ts-ignore
             current = current.children[index];
           });
           const lastIndex = last(action.indexes)!;
 
+          // TODO
           // @ts-ignore
           const routeToRemove = current.children[lastIndex];
 
@@ -187,6 +187,9 @@ export const useHasNavigationData = () => {
   return !isError && !isLoading && Boolean(navigationData) && Boolean(dispatch);
 };
 
+/**
+ * To be used only on components that are displayed only when `useHasNavigationData` is `true`.
+ */
 export const useNavigationDataDefined = () => {
   const { navigationData, locale, setLocale } = useContext(
     NavigationDataContext

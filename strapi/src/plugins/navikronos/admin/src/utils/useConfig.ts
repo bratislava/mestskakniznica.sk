@@ -20,6 +20,9 @@ export const useHasConfig = () => {
   return !isError && !isLoading && Boolean(config);
 };
 
+/**
+ * To be used only on components that are displayed only when `useHasConfig` is `true`.
+ */
 export const useConfigDefined = () => {
   const { config } = useConfig();
 

@@ -25,7 +25,7 @@ type EditAddData =
 const EditAddContext = createContext<{
   modalData: EditAddData;
   setModalData: React.Dispatch<React.SetStateAction<EditAddData>>;
-} | null>(null); // TODO: type
+} | null>(null);
 
 export const EditAddModalProvider = ({ children }: PropsWithChildren) => {
   const [modalData, setModalData] = useState<EditAddData>({ open: false });
@@ -58,6 +58,7 @@ export const useEditAdd = () => {
       if (!defaultValues) {
         return;
       }
+      // TODO
       // @ts-ignore
       defaultValues = defaultValues?.children[index] as NavikronosRoute;
     });

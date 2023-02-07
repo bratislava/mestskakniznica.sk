@@ -1,4 +1,4 @@
-import { IStrapi } from 'strapi-typed'
+import { IStrapi } from "strapi-typed";
 
 // Copied from strapi-plugin-navigation/server/i18n/utils.ts
 
@@ -46,8 +46,9 @@ export const getI18nStatus = async ({
   return hasI18NPlugin
     ? {
         hasI18NPlugin,
-        // TODO FIX !!!!
-        enabled: config?.i18nEnabled ?? true,
+        // The condition from the original code fails.
+        // enabled: config.i18nEnabled,
+        enabled: locales && locales.length > 0,
         defaultLocale,
         locales,
       }
