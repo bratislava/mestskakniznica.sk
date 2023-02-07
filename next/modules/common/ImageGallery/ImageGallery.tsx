@@ -13,6 +13,8 @@ import { useOverlayTriggerState } from 'react-stately'
 
 import ImageLightBox from './ImageLightBox'
 
+// copied from marianum https://github.com/bratislava/marianum.sk/blob/master/next/components/molecules/ImageGallery.tsx
+
 export type ImageGalleryProps = {
   images: UploadImageEntityFragment[]
   variant?: 'below' | 'aside'

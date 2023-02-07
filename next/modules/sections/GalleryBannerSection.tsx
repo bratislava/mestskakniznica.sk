@@ -1,14 +1,14 @@
 import { UploadImageEntityFragment } from '@services/graphql'
 import React from 'react'
 
-import ImageGallery from './ImageGallery'
+import ImageGallery from '../common/ImageGallery/ImageGallery'
 
 export interface PageProps {
   gallery?: UploadImageEntityFragment[]
 }
 
-const GalleryBanner = ({ gallery }: PageProps) => {
+const GalleryBannerSection = ({ gallery }: PageProps) => {
   return <>{gallery && <ImageGallery images={gallery} variant="below" />}</>
 }
 
-export default GalleryBanner
+export default GalleryBannerSection

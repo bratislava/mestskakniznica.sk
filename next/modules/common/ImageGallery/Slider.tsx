@@ -3,6 +3,8 @@ import { useTranslation } from 'next-i18next'
 import { wrap } from 'popmotion'
 import { FC, forwardRef, KeyboardEvent, ReactNode, useCallback, useEffect, useState } from 'react'
 
+// copied from marianum https://github.com/bratislava/marianum.sk/blob/master/next/components/molecules/Slider.tsx
+
 type SliderProps = {
   pages: ReactNode[]
   autoSwipeDuration?: number

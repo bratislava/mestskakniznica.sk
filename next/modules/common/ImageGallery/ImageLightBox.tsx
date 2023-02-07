@@ -1,9 +1,8 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@assets/icons'
 import MImage from '@components/Atoms/MImage'
-// import SliderControl from '@components/Molecules/Carousel/SliderControl/SliderControl'
-import Modal, { ModalProps } from '@components/Molecules/Modal'
-import Slider from '@components/Molecules/Slider'
 import Button from '@modules/common/Button'
+import Slider from '@modules/common/ImageGallery/Slider'
+import Modal, { ModalProps } from '@modules/common/Modal'
 import { UploadImageEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef } from 'react'
@@ -12,6 +11,8 @@ export type ImageLightBoxProps = {
   images: UploadImageEntityFragment[]
   initialImageIndex: number
 } & Omit<ModalProps, 'children'>
+
+// copied from https://github.com/bratislava/marianum.sk/blob/master/next/components/molecules/ImageLightBox.tsx
 
 const ImageLightBox = (props: ImageLightBoxProps) => {
   const { images, initialImageIndex, ...rest } = props
@@ -30,7 +31,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
 
   return (
     // TODO is this pointer-events-none/auto necessary
-    <Modal overlayClassName="w-full h-screen pointer-events-none" {...rest}>
+    <Modal overlayClassName="w-full h-screen pointer-events-none" showCloseButton {...rest}>
       <Slider
         ref={sliderRef}
         description={t('imageLightBoxDescription')}
