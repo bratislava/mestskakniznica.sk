@@ -24,6 +24,7 @@ import Clickable from '../Atoms/EventClickable'
 import EventDetailsDateBox from '../Atoms/EventDetailsDateBox'
 import DetailsRow from '../Atoms/EventDetailsRow'
 import TagsDisplay from '../Atoms/TagsDisplay'
+import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
 
 export interface PageProps {
   event?: EventEntityFragment
@@ -129,6 +130,14 @@ const EventDetails = ({ event }: PageProps) => {
               <RichText content={event?.attributes?.description ?? ''} />
             </div>
           </div>
+          <ImageGallery
+            images={
+              event?.attributes?.gallery?.Gallery?.map((item) => item?.Photo?.data).filter(
+                isDefined
+              ) ?? []
+            }
+            variant="below"
+          />
           {event?.attributes?.documents && (
             <Documents
               className="mt-8"

@@ -1829,6 +1829,7 @@ type Event {
   documents: ComponentSectionsDocuments
   eventCategory: EventCategoryEntityResponse
   eventTags(filters: EventTagFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventTagRelationResponseCollection
+  gallery: ComponentSectionsGallery
   guests(filters: ComponentGuestsGuestFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentGuestsGuest]
   listingImage: UploadFileEntityResponse
   locale: String
@@ -1912,6 +1913,7 @@ input EventFiltersInput {
   documents: ComponentSectionsDocumentsFiltersInput
   eventCategory: EventCategoryFiltersInput
   eventTags: EventTagFiltersInput
+  gallery: ComponentSectionsGalleryFiltersInput
   guests: ComponentGuestsGuestFiltersInput
   id: IDFilterInput
   locale: StringFilterInput
@@ -1937,6 +1939,7 @@ input EventInput {
   documents: ComponentSectionsDocumentsInput
   eventCategory: ID
   eventTags: [ID]
+  gallery: ComponentSectionsGalleryInput
   guests: [ComponentGuestsGuestInput]
   listingImage: ID
   price: Float

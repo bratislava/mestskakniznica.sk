@@ -125,6 +125,16 @@
         }
       },
       "component": "sections.documents"
+    },
+    "gallery": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.gallery"
     }
   }
 }

@@ -2146,6 +2146,7 @@ export type Event = {
   documents?: Maybe<ComponentSectionsDocuments>
   eventCategory?: Maybe<EventCategoryEntityResponse>
   eventTags?: Maybe<EventTagRelationResponseCollection>
+  gallery?: Maybe<ComponentSectionsGallery>
   guests?: Maybe<Array<Maybe<ComponentGuestsGuest>>>
   listingImage?: Maybe<UploadFileEntityResponse>
   locale?: Maybe<Scalars['String']>
@@ -2264,6 +2265,7 @@ export type EventFiltersInput = {
   documents?: InputMaybe<ComponentSectionsDocumentsFiltersInput>
   eventCategory?: InputMaybe<EventCategoryFiltersInput>
   eventTags?: InputMaybe<EventTagFiltersInput>
+  gallery?: InputMaybe<ComponentSectionsGalleryFiltersInput>
   guests?: InputMaybe<ComponentGuestsGuestFiltersInput>
   id?: InputMaybe<IdFilterInput>
   locale?: InputMaybe<StringFilterInput>
@@ -2289,6 +2291,7 @@ export type EventInput = {
   documents?: InputMaybe<ComponentSectionsDocumentsInput>
   eventCategory?: InputMaybe<Scalars['ID']>
   eventTags?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  gallery?: InputMaybe<ComponentSectionsGalleryInput>
   guests?: InputMaybe<Array<InputMaybe<ComponentGuestsGuestInput>>>
   listingImage?: InputMaybe<Scalars['ID']>
   price?: InputMaybe<Scalars['Float']>
@@ -6991,6 +6994,32 @@ export type EventEntityFragment = {
         } | null
       } | null> | null
     } | null
+    gallery?: {
+      __typename?: 'ComponentSectionsGallery'
+      id: string
+      Gallery?: Array<{
+        __typename?: 'ComponentLocalityPartsGalleryParts'
+        id: string
+        Description?: string | null
+        Photo?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+      } | null> | null
+    } | null
     localizations?: {
       __typename?: 'EventRelationResponseCollection'
       data: Array<{
@@ -7368,6 +7397,32 @@ export type EventBySlugQuery = {
                   slug: string
                   createdAt?: any | null
                   updatedAt?: any | null
+                } | null
+              } | null
+            } | null
+          } | null> | null
+        } | null
+        gallery?: {
+          __typename?: 'ComponentSectionsGallery'
+          id: string
+          Gallery?: Array<{
+            __typename?: 'ComponentLocalityPartsGalleryParts'
+            id: string
+            Description?: string | null
+            Photo?: {
+              __typename?: 'UploadFileEntityResponse'
+              data?: {
+                __typename?: 'UploadFileEntity'
+                id?: string | null
+                attributes?: {
+                  __typename?: 'UploadFile'
+                  url: string
+                  name: string
+                  alternativeText?: string | null
+                  caption?: string | null
+                  size: number
+                  width?: number | null
+                  height?: number | null
                 } | null
               } | null
             } | null
@@ -12898,6 +12953,18 @@ export const EventEntityFragmentDoc = gql`
       }
       documents {
         ...Documents
+      }
+      gallery {
+        id
+        Gallery {
+          id
+          Description
+          Photo {
+            data {
+              ...UploadImageEntity
+            }
+          }
+        }
       }
       localizations {
         data {

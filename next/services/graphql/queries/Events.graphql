@@ -70,6 +70,18 @@ fragment EventEntity on EventEntity {
     documents {
       ...Documents
     }
+    gallery {
+      id
+      Gallery {
+        id
+        Description
+        Photo {
+          data {
+            ...UploadImageEntity
+          }
+        }
+      }
+    }
     localizations {
       data {
         attributes {
