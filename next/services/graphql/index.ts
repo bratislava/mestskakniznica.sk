@@ -4534,6 +4534,18 @@ export type FileCategoriesQuery = {
   } | null
 }
 
+export type BasicDocumentFileFragment = {
+  __typename?: 'UploadFileEntity'
+  id?: string | null
+  attributes?: {
+    __typename?: 'UploadFile'
+    url: string
+    name: string
+    ext?: string | null
+    size: number
+  } | null
+}
+
 export type BasicDocumentEntityFragment = {
   __typename?: 'BasicDocumentEntity'
   id?: string | null
@@ -12262,6 +12274,17 @@ export const FileCategoryEntityFragmentDoc = gql`
     attributes {
       name
       slug
+    }
+  }
+`
+export const BasicDocumentFileFragmentDoc = gql`
+  fragment BasicDocumentFile on UploadFileEntity {
+    id
+    attributes {
+      url
+      name
+      ext
+      size
     }
   }
 `
