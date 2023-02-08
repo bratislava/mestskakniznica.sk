@@ -1,7 +1,7 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@assets/icons'
-import MImage from '@components/Atoms/MImage'
 import Button from '@modules/common/Button'
 import Slider from '@modules/common/ImageGallery/Slider'
+import MImage from '@modules/common/MImage'
 import Modal, { ModalProps } from '@modules/common/Modal'
 import { UploadImageEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'

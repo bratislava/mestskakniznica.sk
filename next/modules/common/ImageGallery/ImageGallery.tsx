@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 
-import MImage from '@components/Atoms/MImage'
+import MImage from '@modules/common/MImage'
 import { UploadImageEntityFragment } from '@services/graphql'
 import { onEnterOrSpaceKeyDown } from '@utils/onEnterOrSpaceKeyDown'
 import cx from 'classnames'
