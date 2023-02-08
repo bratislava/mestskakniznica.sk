@@ -1,5 +1,5 @@
 import { ComponentLocalityPartsLocalitySection } from '@services/graphql'
-import { filesize } from 'filesize'
+import prettyBytes from 'pretty-bytes'
 
 import { isDefined } from './isDefined'
 
@@ -167,15 +167,10 @@ export const isServer = () => typeof window === 'undefined'
 export const isProductionDeployment = () => process.env.NEXT_PUBLIC_IS_STAGING !== 'true'
 
 export const getFileSize = (size: number | undefined, language: string) => {
-  let fileSize
   if (isDefined(size)) {
-    const tmpFileSize = filesize(size * 1000, {
-      round: 1,
+    return prettyBytes(size * 1000, {
       locale: language,
     })
-    if (typeof tmpFileSize === 'string') {
-      fileSize = tmpFileSize
-    }
   }
-  return fileSize
+  return size
 }

@@ -1,7 +1,8 @@
 import { UploadFileEntityFragment } from '@services/graphql'
-import { filesize } from 'filesize'
 import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
+
+import { getFileSize } from './utils'
 
 export const useDownloadAriaLabel = () => {
   const { t, i18n } = useTranslation('common')
@@ -13,7 +14,7 @@ export const useDownloadAriaLabel = () => {
         return t('downloadFile')
       }
       const { size, ext } = file.attributes
-      const formattedSize = filesize(size * 1000, { round: 1, locale: i18n.language })
+      const formattedSize = getFileSize(size, i18n.language)
       const extFormatted = ext ?? t('unknownFormat')
 
       return t('downloadFileAriaLabel', {
