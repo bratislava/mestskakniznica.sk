@@ -1,6 +1,5 @@
 import { AnimatePresence, motion, PanInfo, Variant } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-import { wrap } from 'popmotion'
 import { FC, forwardRef, KeyboardEvent, ReactNode, useCallback, useEffect, useState } from 'react'
 
 // copied from marianum https://github.com/bratislava/marianum.sk/blob/master/next/components/molecules/Slider.tsx
@@ -65,7 +64,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
 
     const [[page, direction], setPage] = useState([initialPage ?? 0, 0])
     const [isDragging, setDragging] = useState(false)
-    const index = wrap(0, pages.length, page)
+    const index = page % pages.length
 
     const paginate = useCallback((newDirection: number) => {
       setPage(([currentPage]) => [currentPage + newDirection, newDirection])
