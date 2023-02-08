@@ -18,6 +18,7 @@ import Button from '@modules/common/Button'
 import BlogPostsListingSection from '@modules/sections/BlogPostsListingSection'
 import DocumentsListingSection from '@modules/sections/DocumentsListingSection'
 import EventsListingSection from '@modules/sections/EventsListingSection'
+import GalleryBannerSection from '@modules/sections/GalleryBannerSection'
 import NewBooksSection from '@modules/sections/NewBooksSection'
 import NoticesListingSection from '@modules/sections/NoticesListingSection'
 import PartnersSection from '@modules/sections/PartnersSection'
@@ -54,7 +55,6 @@ import SpaceReservationForm from '../forms/SpaceReservationForm'
 import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm, { VenueRentalFormProps } from '../forms/VenueRentalForm'
-import GalleryBanner from './GalleryBanner'
 
 type FormsProps =
   | (() => JSX.Element)
@@ -113,7 +113,7 @@ const sectionContent = (
       return <FlatText content={section?.content ?? ''} />
 
     case 'ComponentSectionsGallery':
-      return <GalleryBanner gallery={section.Gallery || undefined} />
+      return <GalleryBannerSection section={section} />
 
     case 'ComponentSectionsFlatTextCenter':
       return <FlatTextCenter content={section?.content ?? ''} />
