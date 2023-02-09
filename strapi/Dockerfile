@@ -45,7 +45,7 @@ COPY --chown=node:node src/plugins/navikronos/yarn.lock ./src/plugins/navikronos
 RUN yarn config set network-timeout 600000 -g
 RUN yarn install --production
 
-COPY . ./
+COPY --chown=node:node . ./
 
 RUN yarn build
 
