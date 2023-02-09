@@ -22,6 +22,16 @@ query FileCategories {
   }
 }
 
+fragment BasicDocumentFile on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    ext
+    size
+  }
+}
+
 fragment BasicDocumentEntity on BasicDocumentEntity {
   id
   attributes {

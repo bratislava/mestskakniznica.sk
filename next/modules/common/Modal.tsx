@@ -3,6 +3,7 @@ import Button from '@modules/common/Button'
 import cx from 'classnames'
 import FocusTrap from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 import { ReactNode, useRef } from 'react'
 import {
   AriaOverlayProps,
@@ -23,6 +24,8 @@ export type ModalProps = {
   noAnimation?: boolean
 } & AriaOverlayProps
 
+// https://github.com/bratislava/marianum.sk/blob/master/next/components/atoms/Modal.tsx
+
 const Modal = (props: ModalProps) => {
   const {
     isOpen,
@@ -35,6 +38,7 @@ const Modal = (props: ModalProps) => {
     centerVertically = true,
     noAnimation = false,
   } = props
+  const { t } = useTranslation('common')
   const ref = useRef<HTMLDivElement | null>(null)
   const { overlayProps, underlayProps } = useOverlay(
     { ...props, isDismissable: isDismissable === undefined ? true : isDismissable },
@@ -72,10 +76,10 @@ const Modal = (props: ModalProps) => {
                   >
                     {showCloseButton && (
                       <Button
-                        variant="plain-white"
-                        className="fixed top-6 right-6 z-30"
+                        variant="primary"
+                        className="pointer-events-auto fixed top-6 right-6 z-30"
+                        aria-label={t('closeModal')}
                         onPress={onClose}
-                        shape="circle"
                       >
                         <CloseIcon />
                       </Button>
