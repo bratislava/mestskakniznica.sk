@@ -7,6 +7,8 @@ import { FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
 import FormatDate from '@modules/formatting/FormatDate'
 import { BasicDocumentEntityFragment } from '@services/graphql'
+import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
+import { getFileSize } from '@utils/utils'
 import truncate from 'lodash/truncate'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode } from 'react'
@@ -45,46 +47,57 @@ const CustomPageBreadcrumbs = ({ basicDocument }: IProps) => {
 }
 
 const BasicDocumentPage = ({ basicDocument }: IProps) => {
-  const { t } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
+  const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const [expandDescription, setExpandDescription] = React.useState(false)
-  const description = basicDocument?.attributes?.description
+  const { description, file_category, author, date_added, link, metadata, title, attachment } =
+    basicDocument?.attributes ?? {}
+  const { attributes } = attachment?.data ?? {}
+  const { size } = attributes ?? {}
+
   const showExpandButton = description ? description.length > DESCRIPTION_LIMIT : false
+
+  const fileSize = getFileSize(size, i18n.language)
 
   const Metadata: FileMetadata[] = [
     {
       key: `${t('type')}:`,
       // TODO: add link to filtered category
-      content: basicDocument?.attributes?.file_category?.data?.attributes?.name,
+      content: file_category?.data?.attributes?.name,
     },
-    { key: `${t('author')}:`, content: basicDocument?.attributes?.author },
+    { key: `${t('author')}:`, content: author },
     {
       key: `${t('createdAt')}:`,
-      content: <FormatDate valueType="ISO" value={basicDocument?.attributes?.date_added} />,
+      content: <FormatDate valueType="ISO" value={date_added} />,
+    },
+    {
+      key: `${t('size')}:`,
+      content: fileSize ?? '',
     },
     {
       key: `${t('link')}:`,
-      content: basicDocument?.attributes?.link ? (
+      content: link ? (
         <>
           {/* Mobile */}
           <Link
-            href={basicDocument?.attributes?.link ?? '#'}
+            href={link ?? '#'}
             uppercase={false}
             className="text-foreground-body underline lg:hidden"
             variant="plain"
             size="default"
           >
-            {basicDocument?.attributes?.link}
+            {link}
           </Link>
           {/* Desktop */}
           <Link
-            href={basicDocument?.attributes?.link ?? '#'}
+            href={link ?? '#'}
             uppercase={false}
             className="hidden text-foreground-body underline lg:block"
             variant="plain"
             size="large"
           >
-            {basicDocument?.attributes?.link}
+            {link}
           </Link>
         </>
       ) : null,
@@ -92,8 +105,8 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
   ]
 
   const transformedMetadata: Array<FileMetadata> =
-    basicDocument && basicDocument?.attributes?.metadata && basicDocument?.attributes?.metadata[0]
-      ? Object.entries(basicDocument?.attributes?.metadata[0])
+    metadata && metadata[0]
+      ? Object.entries(metadata[0])
           .filter(
             (entry) =>
               (entry[0] !== '__typename' && entry[0] !== 'id' && entry[0] !== 'attachment') ||
@@ -116,41 +129,36 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
   const fullMetadata = Metadata?.concat(transformedMetadata)
 
   return (
-    <DefaultPageLayout title={basicDocument?.attributes?.title}>
+    <DefaultPageLayout title={title}>
       <SectionContainer>
         <CustomPageBreadcrumbs basicDocument={basicDocument} />
         <div className="mt-6 flex gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:pb-32">
           <FileIcon
             className="hidden lg:flex"
-            type={basicDocument?.attributes?.attachment?.data?.attributes?.ext
-              ?.toUpperCase()
-              .replace('.', '')}
+            type={attributes?.ext?.toUpperCase().replace('.', '')}
           />
           <div className="w-full">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
               {/* Header */}
               <span className="flex h-14 w-14 items-center justify-center rounded-full border border-border-dark text-[12px] lg:hidden">
-                {basicDocument?.attributes?.attachment?.data?.attributes?.ext
-                  ?.toUpperCase()
-                  .replace('.', '')}
+                {attributes?.ext?.toUpperCase().replace('.', '')}
               </span>
-              <h1 className="mt-8 text-h1 lg:mt-0">{basicDocument?.attributes?.title}</h1>
+              <h1 className="mt-8 text-h1 lg:mt-0">{title}</h1>
               <div className="mt-2 items-center text-base text-foreground-body lg:flex lg:gap-x-3">
-                <p className="hidden lg:block">{basicDocument?.attributes?.author}</p>
+                <p className="hidden lg:block">{author}</p>
                 <SingleDot className="hidden lg:block" />
                 <p>
-                  {t('added')}{' '}
-                  <FormatDate valueType="ISO" value={basicDocument?.attributes?.date_added} />
+                  {t('added')} <FormatDate valueType="ISO" value={date_added} />
                 </p>
               </div>
-              {basicDocument?.attributes?.attachment?.data?.attributes?.url && (
+              {attachment?.data?.attributes?.url && (
                 <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
                   <Button
-                    href={basicDocument?.attributes?.attachment?.data?.attributes?.url}
+                    href={attachment?.data?.attributes?.url}
                     target="_blank"
                     rel="noreferrer"
                     mobileFullWidth
-                    aria-label={`${t('open')} ${basicDocument?.attributes?.title}`}
+                    aria-label={title && `${t('open')} ${title}`}
                     startIcon={<ExternalLink />}
                   >
                     {t('open')}
@@ -158,10 +166,10 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
                   <Button
                     variant="secondary"
                     mobileFullWidth
-                    href={basicDocument?.attributes?.attachment?.data?.attributes?.url}
+                    href={attachment?.data?.attributes?.url}
                     // TODO add download title
                     // download={file?.attributes?.attachment?.data?.attributes?.name}
-                    aria-label={`${t('download')} ${basicDocument?.attributes?.title}`}
+                    aria-label={title && getDownloadAriaLabel(attachment.data, title)}
                     startIcon={<Download />}
                   >
                     {t('download')}

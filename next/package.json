@@ -39,6 +39,7 @@
     "next": "^13.1.1",
     "next-i18next": "^11.0.0",
     "next-query-params": "^4.1.0",
+    "pretty-bytes": "^6.1.0",
     "qrcode.react": "^3.0.2",
     "react": "^18.2.0",
     "react-aria": "^3.20.0",
@@ -47,7 +48,6 @@
     "react-hook-form": "^7.42.1",
     "react-map-gl": "^7.0.15",
     "react-markdown": "^8.0.3",
-    "react-modal": "^3.15.1",
     "react-popper": "^2.3.0",
     "react-query": "^3.39.2",
     "react-resize-detector": "^7.1.2",
@@ -120,5 +120,14 @@
     "prettier-plugin-tailwindcss": "^0.2.1",
     "sharp": "^0.31.3",
     "typescript": "4.9.4"
+  },
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0",
+    "yarn": "1.22"
+  },
+  "volta": {
+    "node": "16.18.0",
+    "yarn": "1.22.18"
   }
 }

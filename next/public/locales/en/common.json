@@ -145,5 +145,15 @@
   "SortSelect": {
     "byNewest": "From newest",
     "byOldest": "From oldest"
-  }
+  },
+  "openImageGallery": "Open image gallery",
+  "descriptionSlider": "Slider",
+  "imageLightBoxDescription": "Image gallery. Press left arrow key to go to previous image. Press right arrow key to go to next image. Press Escape key to close image gallery.",
+  "previousImage": "Previous image",
+  "nextImage": "Next image",
+  "closeModal": "Close modal",
+  "downloadFile": "Download file",
+  "downloadFileAriaLabel": "Download file {{title}}, format {{ext}}, {{size}}",
+  "unknownFormat": "unknown",
+  "size": "Size"
 }
