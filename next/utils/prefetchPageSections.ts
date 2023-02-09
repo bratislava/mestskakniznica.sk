@@ -29,7 +29,7 @@ import {
 } from '@services/meili/fetchers/documentsFetcher'
 import {
   eventsArchivedDefaultFilters,
-  eventsDefaultSharedFilters,
+  getEventsDefaultSharedFilters,
   eventsFetcher,
   eventsUpcomingDefaultFilters,
   getEventsQueryKey,
@@ -73,12 +73,12 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
 
   if (sectionTypes.includes('ComponentSectionsEventsListing')) {
     await queryClient.prefetchQuery(
-      getEventsQueryKey(eventsUpcomingDefaultFilters, eventsDefaultSharedFilters),
-      () => eventsFetcher(eventsUpcomingDefaultFilters, eventsDefaultSharedFilters)
+      getEventsQueryKey(eventsUpcomingDefaultFilters, getEventsDefaultSharedFilters(locale)),
+      () => eventsFetcher(eventsUpcomingDefaultFilters, getEventsDefaultSharedFilters(locale))
     )
     await queryClient.prefetchQuery(
-      getEventsQueryKey(eventsArchivedDefaultFilters, eventsDefaultSharedFilters),
-      () => eventsFetcher(eventsArchivedDefaultFilters, eventsDefaultSharedFilters)
+      getEventsQueryKey(eventsArchivedDefaultFilters, getEventsDefaultSharedFilters(locale)),
+      () => eventsFetcher(eventsArchivedDefaultFilters, getEventsDefaultSharedFilters(locale))
     )
     await queryClient.prefetchQuery(getEventPropertiesQueryKey(locale), () =>
       eventPropertiesFetcher(locale)

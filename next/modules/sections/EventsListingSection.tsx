@@ -3,7 +3,7 @@ import EventListingCard from '@components/Molecules/EventListingCard'
 import { Pagination } from '@components/ui'
 import {
   eventsArchivedDefaultFilters,
-  eventsDefaultSharedFilters,
+  getEventsDefaultSharedFilters,
   eventsFetcher,
   EventsFilters,
   EventsFiltersShared,
@@ -58,9 +58,9 @@ const InnerSection = ({
 }
 
 const EventsListingSection = () => {
-  const { t } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
 
-  const [sharedFilters, setSharedFilters] = useState(eventsDefaultSharedFilters)
+  const [sharedFilters, setSharedFilters] = useState(getEventsDefaultSharedFilters(i18n.language))
   const [filtersUpcoming, setFiltersUpcoming] = useState(eventsUpcomingDefaultFilters)
   const [filtersArchived, setFiltersArchived] = useState(eventsArchivedDefaultFilters)
 
