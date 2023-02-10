@@ -24,15 +24,19 @@ export type EventsFiltersShared = {
   eventTypeId?: string | null
   eventCategoryId?: string | null
   eventBranchId?: string | null
+  locale: string
 }
 
-export const eventsDefaultSharedFilters: EventsFiltersShared = {
+export const getEventsDefaultSharedFilters: (locale: string) => EventsFiltersShared = (
+  locale: string
+) => ({
   dateFrom: null,
   dateTo: null,
   eventTypeId: null,
   eventCategoryId: null,
   eventBranchId: null,
-}
+  locale,
+})
 
 export const getEventsQueryKey = (filters: EventsFilters, sharedFilters: EventsFiltersShared) => [
   'eventsListing',
@@ -83,6 +87,7 @@ export const eventsFetcher = (filters: EventsFilters, sharedFilters: EventsFilte
       ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
       filter: [
         'type = "event"',
+        `event.locale = ${sharedFilters.locale}`,
         filters.type === EventListingType.Archived
           ? `event.dateToTimestamp < ${midnightTimestamp}`
           : null,

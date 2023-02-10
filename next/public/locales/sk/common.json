@@ -145,5 +145,18 @@
   "SortSelect": {
     "byNewest": "Od najnovšieho",
     "byOldest": "Od najstaršieho"
-  }
+  },
+  "morePhotos_one": "+{{count}} fotka",
+  "morePhotos_few": "+{{count}} fotky",
+  "morePhotos_other": "+{{count}} fotiek",
+  "openImageGallery": "Otvoriť galériu obrázkov",
+  "descriptionSlider": "Posúvač",
+  "imageLightBoxDescription": "Galéria obrázkov. Stlačte šípku vľavo pre zobrazenie predchádzajúceho obrázku. Stlačte šípku vpravo pre zobrazenie nasledujúceho obrázku. Zatvorte stlačením klávesu Escape.",
+  "previousImage": "Predošlý obrázok",
+  "nextImage": "Nasledujúci obrázok",
+  "closeModal": "Zavrieť modálne okno",
+  "downloadFile": "Stiahnuť súbor",
+  "downloadFileAriaLabel": "Stiahnuť súbor {{title}}, formát {{ext}}, {{size}}",
+  "unknownFormat": "neznámy",
+  "size": "Velkosť"
 }

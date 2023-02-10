@@ -4534,6 +4534,18 @@ export type FileCategoriesQuery = {
   } | null
 }
 
+export type BasicDocumentFileFragment = {
+  __typename?: 'UploadFileEntity'
+  id?: string | null
+  attributes?: {
+    __typename?: 'UploadFile'
+    url: string
+    name: string
+    ext?: string | null
+    size: number
+  } | null
+}
+
 export type BasicDocumentEntityFragment = {
   __typename?: 'BasicDocumentEntity'
   id?: string | null
@@ -5080,16 +5092,13 @@ export type BlogPostEntityFragment = {
                 id?: string | null
                 attributes?: {
                   __typename?: 'UploadFile'
+                  url: string
                   name: string
+                  alternativeText?: string | null
+                  caption?: string | null
+                  size: number
                   width?: number | null
                   height?: number | null
-                  url: string
-                  createdAt?: any | null
-                  hash: string
-                  mime: string
-                  provider: string
-                  size: number
-                  updatedAt?: any | null
                 } | null
               } | null
             } | null
@@ -5605,16 +5614,13 @@ export type BlogPostBySlugQuery = {
                     id?: string | null
                     attributes?: {
                       __typename?: 'UploadFile'
+                      url: string
                       name: string
+                      alternativeText?: string | null
+                      caption?: string | null
+                      size: number
                       width?: number | null
                       height?: number | null
-                      url: string
-                      createdAt?: any | null
-                      hash: string
-                      mime: string
-                      provider: string
-                      size: number
-                      updatedAt?: any | null
                     } | null
                   } | null
                 } | null
@@ -6118,16 +6124,13 @@ export type BlogPostsQuery = {
                     id?: string | null
                     attributes?: {
                       __typename?: 'UploadFile'
+                      url: string
                       name: string
+                      alternativeText?: string | null
+                      caption?: string | null
+                      size: number
                       width?: number | null
                       height?: number | null
-                      url: string
-                      createdAt?: any | null
-                      hash: string
-                      mime: string
-                      provider: string
-                      size: number
-                      updatedAt?: any | null
                     } | null
                   } | null
                 } | null
@@ -8512,16 +8515,13 @@ export type PageEntityFragment = {
                 id?: string | null
                 attributes?: {
                   __typename?: 'UploadFile'
+                  url: string
                   name: string
+                  alternativeText?: string | null
+                  caption?: string | null
+                  size: number
                   width?: number | null
                   height?: number | null
-                  url: string
-                  createdAt?: any | null
-                  hash: string
-                  mime: string
-                  provider: string
-                  size: number
-                  updatedAt?: any | null
                 } | null
               } | null
             } | null
@@ -9566,16 +9566,13 @@ export type PageBySlugQuery = {
                     id?: string | null
                     attributes?: {
                       __typename?: 'UploadFile'
+                      url: string
                       name: string
+                      alternativeText?: string | null
+                      caption?: string | null
+                      size: number
                       width?: number | null
                       height?: number | null
-                      url: string
-                      createdAt?: any | null
-                      hash: string
-                      mime: string
-                      provider: string
-                      size: number
-                      updatedAt?: any | null
                     } | null
                   } | null
                 } | null
@@ -10777,16 +10774,13 @@ export type LatestNewsQuery = {
                     id?: string | null
                     attributes?: {
                       __typename?: 'UploadFile'
+                      url: string
                       name: string
+                      alternativeText?: string | null
+                      caption?: string | null
+                      size: number
                       width?: number | null
                       height?: number | null
-                      url: string
-                      createdAt?: any | null
-                      hash: string
-                      mime: string
-                      provider: string
-                      size: number
-                      updatedAt?: any | null
                     } | null
                   } | null
                 } | null
@@ -11616,16 +11610,13 @@ type Sections_ComponentSectionsGallery_Fragment = {
         id?: string | null
         attributes?: {
           __typename?: 'UploadFile'
+          url: string
           name: string
+          alternativeText?: string | null
+          caption?: string | null
+          size: number
           width?: number | null
           height?: number | null
-          url: string
-          createdAt?: any | null
-          hash: string
-          mime: string
-          provider: string
-          size: number
-          updatedAt?: any | null
         } | null
       } | null
     } | null
@@ -12286,6 +12277,17 @@ export const FileCategoryEntityFragmentDoc = gql`
     }
   }
 `
+export const BasicDocumentFileFragmentDoc = gql`
+  fragment BasicDocumentFile on UploadFileEntity {
+    id
+    attributes {
+      url
+      name
+      ext
+      size
+    }
+  }
+`
 export const AccordionItemFragmentDoc = gql`
   fragment AccordionItem on ComponentBlocksAccordionItem {
     id
@@ -12674,19 +12676,7 @@ export const SectionsFragmentDoc = gql`
         Description
         Photo {
           data {
-            id
-            attributes {
-              name
-              width
-              height
-              url
-              createdAt
-              hash
-              mime
-              provider
-              size
-              updatedAt
-            }
+            ...UploadImageEntity
           }
         }
       }
@@ -12700,6 +12690,7 @@ export const SectionsFragmentDoc = gql`
   ${ExternalLinkFragmentDoc}
   ${DocumentsFragmentDoc}
   ${BranchCardEntityFragmentDoc}
+  ${UploadImageEntityFragmentDoc}
 `
 export const SeoFragmentDoc = gql`
   fragment Seo on ComponentCommonSeo {
