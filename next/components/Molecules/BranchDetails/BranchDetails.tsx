@@ -1,7 +1,7 @@
-import LocalityDetailsContactUs from '@components/Molecules/LocalityDetails/LocalityDetailsContactUs'
-import LocalityDetailsServices from '@components/Molecules/LocalityDetails/LocalityDetailsServices'
-import LocalityDetailsSubBranches from '@components/Molecules/LocalityDetails/LocalityDetailsSubBranches'
-import LocalityDetailsWhere from '@components/Molecules/LocalityDetails/LocalityDetailsWhere'
+import LocalityDetailsContactUs from '@components/Molecules/BranchDetails/BranchDetailsContactUs'
+import BranchDetailsServices from '@components/Molecules/BranchDetails/BranchDetailsServices'
+import LocalityDetailsSubBranches from '@components/Molecules/BranchDetails/BranchDetailsSubBranches'
+import BranchDetailsWhere from '@components/Molecules/BranchDetails/BranchDetailsWhere'
 import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
 import MLink from '@modules/common/MLink'
 import RichText from '@modules/formatting/RichText'
@@ -61,7 +61,7 @@ const LocalityDetails = ({ branch }: PageProps) => {
             ) : null}
           </div>
 
-          <LocalityDetailsServices branch={branch} />
+          <BranchDetailsServices branch={branch} />
 
           {/* TODO: Extract events */}
           {/* {(events?.length || 0) > 0 && ( */}
@@ -119,7 +119,7 @@ const LocalityDetails = ({ branch }: PageProps) => {
           {/* )} */}
 
           <LocalityDetailsSubBranches branch={branch} />
-          <LocalityDetailsWhere branch={branch} />
+          <BranchDetailsWhere branch={branch} />
         </div>
         <LocalityDetailsContactUs branch={branch} />
       </div>

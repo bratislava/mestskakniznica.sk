@@ -2,11 +2,11 @@ import { LocalityMap } from '@components/ui'
 import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
-type LocalityDetailsWhereProps = {
+type BranchDetailsWhereProps = {
   branch: BranchEntityFragment
 }
 
-const LocalityDetailsWhere = ({ branch }: LocalityDetailsWhereProps) => {
+const BranchDetailsWhere = ({ branch }: BranchDetailsWhereProps) => {
   const { t } = useTranslation('common')
 
   if (!branch?.attributes) {
@@ -53,4 +53,4 @@ const LocalityDetailsWhere = ({ branch }: LocalityDetailsWhereProps) => {
   )
 }
 
-export default LocalityDetailsWhere
+export default BranchDetailsWhere
