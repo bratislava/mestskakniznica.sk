@@ -1,5 +1,5 @@
 import React from "react";
-import Layer from "@strapi/icons/Layer";
+import { Layer } from "@strapi/icons";
 
 const PluginIcon = () => <Layer />;
 

@@ -1,9 +1,8 @@
 import React from "react";
 import NavigationTreeChild from "./NavigationTreeChild";
 import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
-import { Typography } from "@strapi/design-system/Typography";
+import { TextButton, Typography } from "@strapi/design-system";
 import { Plus } from "@strapi/icons";
-import { TextButton } from "@strapi/design-system/TextButton";
 import { useEditAdd } from "../utils/EditAddModalProvider";
 
 const NavigationTree = () => {

@@ -1,8 +1,7 @@
 import React from "react";
 import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 
-import { Main } from "@strapi/design-system/Main";
-import { ContentLayout, HeaderLayout } from "@strapi/design-system/Layout";
+import { ContentLayout, HeaderLayout, Main } from "@strapi/design-system";
 import { useHasConfig } from "../utils/useConfig";
 import NavigationTree from "../components/NavigationTree";
 import {
