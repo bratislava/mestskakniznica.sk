@@ -22,9 +22,11 @@ type EventFiltersProps = {
 const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) => {
   const { t, i18n } = useTranslation('common')
 
+  const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
+
   const [filters, setFilters] = useControlledState(
     filtersInput,
-    { locale: i18n.language },
+    defaultFiltersValue,
     onFiltersChange
   )
 
@@ -83,7 +85,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
   }
 
   const resetFilters = () => {
-    setFilters({})
+    setFilters(defaultFiltersValue)
   }
 
   return (
