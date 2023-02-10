@@ -1,8 +1,12 @@
 import React, { useCallback, useMemo } from "react";
-import { ModalBody, ModalFooter } from "@strapi/design-system/ModalLayout";
-import { Button } from "@strapi/design-system/Button";
+import {
+  Button,
+  Grid,
+  GridItem,
+  ModalBody,
+  ModalFooter,
+} from "@strapi/design-system";
 import { GenericInput } from "@strapi/helper-plugin";
-import { Grid, GridItem } from "@strapi/design-system/Grid";
 import { useFormik } from "formik";
 import { isEmpty } from "lodash";
 import {

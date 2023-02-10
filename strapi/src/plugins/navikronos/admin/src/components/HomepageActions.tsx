@@ -1,10 +1,14 @@
 import React from "react";
 
-import { Box } from "@strapi/design-system/Box";
-import { Stack } from "@strapi/design-system/Stack";
-import { Grid, GridItem } from "@strapi/design-system/Grid";
-import { Button } from "@strapi/design-system/Button";
-import { Option, Select } from "@strapi/design-system/Select";
+import {
+  Box,
+  Button,
+  Grid,
+  GridItem,
+  Option,
+  Select,
+  Stack,
+} from "@strapi/design-system";
 import { useConfigDefined } from "../utils/useConfig";
 import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
 

@@ -1,13 +1,16 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import { Card, CardBody } from "@strapi/design-system/Card";
-import { Badge } from "@strapi/design-system/Badge";
-import { Typography } from "@strapi/design-system/Typography";
+import {
+  Badge,
+  Card,
+  CardBody,
+  Flex,
+  IconButton,
+  TextButton,
+  Typography,
+} from "@strapi/design-system";
 import { useConfigDefined } from "../utils/useConfig";
-import { Flex } from "@strapi/design-system/Flex";
-import { IconButton } from "@strapi/design-system/IconButton";
 import { Pencil, Plus, Trash } from "@strapi/icons";
-import { TextButton } from "@strapi/design-system/TextButton";
 import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
 import { useEditAdd } from "../utils/EditAddModalProvider";
 import { NavikronosRoute } from "../../../shared/types";
