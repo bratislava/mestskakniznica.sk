@@ -174,7 +174,6 @@ fragment Documents on ComponentSectionsDocuments {
   }
 }
 
-
 fragment Sections on PageSectionsDynamicZone {
   __typename
   ... on ComponentSectionsSubListing {

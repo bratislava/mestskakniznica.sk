@@ -6450,10 +6450,13 @@ export type BranchEntityFragment = {
         id?: string | null
         attributes?: {
           __typename?: 'UploadFile'
-          name: string
           url: string
-          caption?: string | null
+          name: string
           alternativeText?: string | null
+          caption?: string | null
+          size: number
+          width?: number | null
+          height?: number | null
         } | null
       }>
     } | null
@@ -6582,10 +6585,13 @@ export type BranchBySlugQuery = {
             id?: string | null
             attributes?: {
               __typename?: 'UploadFile'
-              name: string
               url: string
-              caption?: string | null
+              name: string
               alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
             } | null
           }>
         } | null
@@ -12740,13 +12746,7 @@ export const BranchEntityFragmentDoc = gql`
     attributes {
       medias {
         data {
-          id
-          attributes {
-            name
-            url
-            caption
-            alternativeText
-          }
+          ...UploadImageEntity
         }
       }
       body
@@ -12787,6 +12787,7 @@ export const BranchEntityFragmentDoc = gql`
     }
   }
   ${BranchCardEntityFragmentDoc}
+  ${UploadImageEntityFragmentDoc}
   ${SeoFragmentDoc}
 `
 export const EventCardEntityFragmentDoc = gql`

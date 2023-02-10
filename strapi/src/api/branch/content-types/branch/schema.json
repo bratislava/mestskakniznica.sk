@@ -39,9 +39,7 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -52,9 +50,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -116,11 +112,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "pristupny",
-        "ciastocne_pristupny",
-        "nepristupny"
-      ]
+      "enum": ["pristupny", "ciastocne_pristupny", "nepristupny"]
     },
     "phone": {
       "pluginOptions": {

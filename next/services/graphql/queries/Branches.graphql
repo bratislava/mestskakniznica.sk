@@ -41,13 +41,7 @@ fragment BranchEntity on BranchEntity {
   attributes {
     medias {
       data {
-        id
-        attributes {
-          name
-          url
-          caption
-          alternativeText
-        }
+        ...UploadImageEntity
       }
     }
     body
@@ -98,7 +92,6 @@ query BranchStaticPaths($locale: I18NLocaleCode!) {
     }
   }
 }
-
 
 query BranchBySlug($slug: String!, $locale: I18NLocaleCode!) {
   branches(locale: $locale, filters: { slug: { eq: $slug } }) {
