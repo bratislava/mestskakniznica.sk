@@ -174,6 +174,19 @@ fragment Documents on ComponentSectionsDocuments {
   }
 }
 
+fragment Gallery on ComponentSectionsGallery {
+  id
+  Gallery {
+    id
+    Description
+    Photo {
+      data {
+        ...UploadImageEntity
+      }
+    }
+  }
+}
+
 fragment Sections on PageSectionsDynamicZone {
   __typename
   ... on ComponentSectionsSubListing {
@@ -297,16 +310,7 @@ fragment Sections on PageSectionsDynamicZone {
   }
 
   ... on ComponentSectionsGallery {
-    id
-    Gallery {
-      id
-      Description
-      Photo {
-        data {
-          ...UploadImageEntity
-        }
-      }
-    }
+    ...Gallery
   }
 }
 

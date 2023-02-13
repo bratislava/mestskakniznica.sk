@@ -1,6 +1,6 @@
-import LocalityDetailsContactUs from '@components/Molecules/BranchDetails/BranchDetailsContactUs'
+import BranchDetailsContactUs from '@components/Molecules/BranchDetails/BranchDetailsContactUs'
 import BranchDetailsServices from '@components/Molecules/BranchDetails/BranchDetailsServices'
-import LocalityDetailsSubBranches from '@components/Molecules/BranchDetails/BranchDetailsSubBranches'
+import BranchDetailsSubBranches from '@components/Molecules/BranchDetails/BranchDetailsSubBranches'
 import BranchDetailsWhere from '@components/Molecules/BranchDetails/BranchDetailsWhere'
 import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
 import MLink from '@modules/common/MLink'
@@ -12,7 +12,7 @@ export interface PageProps {
   branch: BranchEntityFragment
 }
 
-const LocalityDetails = ({ branch }: PageProps) => {
+const BranchDetails = ({ branch }: PageProps) => {
   const { t } = useTranslation('common')
 
   const AnchorLink = (anchor: string, text: string) => (
@@ -118,13 +118,13 @@ const LocalityDetails = ({ branch }: PageProps) => {
           {/*  </div> */}
           {/* )} */}
 
-          <LocalityDetailsSubBranches branch={branch} />
+          <BranchDetailsSubBranches branch={branch} />
           <BranchDetailsWhere branch={branch} />
         </div>
-        <LocalityDetailsContactUs branch={branch} />
+        <BranchDetailsContactUs branch={branch} />
       </div>
     </>
   )
 }
 
-export default LocalityDetails
+export default BranchDetails
