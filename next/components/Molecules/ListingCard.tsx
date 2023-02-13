@@ -49,7 +49,7 @@ const ListingCard = ({ card }: IListingCardProps) => {
           href={`${linkPrefix}${card.attributes?.slug ?? ''}`}
           variant="basic"
           stretched
-          className="mb-6 text-h5"
+          className="mb-6 text-h5 line-clamp-5"
         >
           {card.attributes?.title}
         </MLink>
