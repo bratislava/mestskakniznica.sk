@@ -98,12 +98,16 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
               })}
             >
               {firstImage.attributes && (
-                <MImage
-                  image={firstImage.attributes}
-                  fill
-                  className="absolute top-0 object-cover"
-                  label="1/12"
-                />
+                <div>
+                  <MImage
+                    image={firstImage.attributes}
+                    fill
+                    className="absolute top-0 object-cover"
+                  />
+                  <div className="absolute bottom-2 right-2 rounded bg-button-dark py-1 px-2 text-white md:hidden">
+                    {`1/${images.length}`}
+                  </div>
+                </div>
               )}
             </div>
           )}
