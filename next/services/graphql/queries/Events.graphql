@@ -71,15 +71,8 @@ fragment EventEntity on EventEntity {
       ...Documents
     }
     gallery {
-      id
-      Gallery {
-        id
-        Description
-        Photo {
-          data {
-            ...UploadImageEntity
-          }
-        }
+      data {
+        ...UploadImageEntity
       }
     }
     localizations {

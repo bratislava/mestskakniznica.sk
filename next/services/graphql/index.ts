@@ -2146,7 +2146,7 @@ export type Event = {
   documents?: Maybe<ComponentSectionsDocuments>
   eventCategory?: Maybe<EventCategoryEntityResponse>
   eventTags?: Maybe<EventTagRelationResponseCollection>
-  gallery?: Maybe<ComponentSectionsGallery>
+  gallery?: Maybe<UploadFileRelationResponseCollection>
   guests?: Maybe<Array<Maybe<ComponentGuestsGuest>>>
   listingImage?: Maybe<UploadFileEntityResponse>
   locale?: Maybe<Scalars['String']>
@@ -2165,6 +2165,12 @@ export type EventEventTagsArgs = {
   filters?: InputMaybe<EventTagFiltersInput>
   pagination?: InputMaybe<PaginationArg>
   publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type EventGalleryArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
@@ -2265,7 +2271,6 @@ export type EventFiltersInput = {
   documents?: InputMaybe<ComponentSectionsDocumentsFiltersInput>
   eventCategory?: InputMaybe<EventCategoryFiltersInput>
   eventTags?: InputMaybe<EventTagFiltersInput>
-  gallery?: InputMaybe<ComponentSectionsGalleryFiltersInput>
   guests?: InputMaybe<ComponentGuestsGuestFiltersInput>
   id?: InputMaybe<IdFilterInput>
   locale?: InputMaybe<StringFilterInput>
@@ -2291,7 +2296,7 @@ export type EventInput = {
   documents?: InputMaybe<ComponentSectionsDocumentsInput>
   eventCategory?: InputMaybe<Scalars['ID']>
   eventTags?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
-  gallery?: InputMaybe<ComponentSectionsGalleryInput>
+  gallery?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   guests?: InputMaybe<Array<InputMaybe<ComponentGuestsGuestInput>>>
   listingImage?: InputMaybe<Scalars['ID']>
   price?: InputMaybe<Scalars['Float']>
@@ -6995,30 +7000,21 @@ export type EventEntityFragment = {
       } | null> | null
     } | null
     gallery?: {
-      __typename?: 'ComponentSectionsGallery'
-      id: string
-      Gallery?: Array<{
-        __typename?: 'ComponentLocalityPartsGalleryParts'
-        id: string
-        Description?: string | null
-        Photo?: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
-              width?: number | null
-              height?: number | null
-            } | null
-          } | null
+      __typename?: 'UploadFileRelationResponseCollection'
+      data: Array<{
+        __typename?: 'UploadFileEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'UploadFile'
+          url: string
+          name: string
+          alternativeText?: string | null
+          caption?: string | null
+          size: number
+          width?: number | null
+          height?: number | null
         } | null
-      } | null> | null
+      }>
     } | null
     localizations?: {
       __typename?: 'EventRelationResponseCollection'
@@ -7403,30 +7399,21 @@ export type EventBySlugQuery = {
           } | null> | null
         } | null
         gallery?: {
-          __typename?: 'ComponentSectionsGallery'
-          id: string
-          Gallery?: Array<{
-            __typename?: 'ComponentLocalityPartsGalleryParts'
-            id: string
-            Description?: string | null
-            Photo?: {
-              __typename?: 'UploadFileEntityResponse'
-              data?: {
-                __typename?: 'UploadFileEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'UploadFile'
-                  url: string
-                  name: string
-                  alternativeText?: string | null
-                  caption?: string | null
-                  size: number
-                  width?: number | null
-                  height?: number | null
-                } | null
-              } | null
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
             } | null
-          } | null> | null
+          }>
         } | null
         localizations?: {
           __typename?: 'EventRelationResponseCollection'
@@ -12955,15 +12942,8 @@ export const EventEntityFragmentDoc = gql`
         ...Documents
       }
       gallery {
-        id
-        Gallery {
-          id
-          Description
-          Photo {
-            data {
-              ...UploadImageEntity
-            }
-          }
+        data {
+          ...UploadImageEntity
         }
       }
       localizations {

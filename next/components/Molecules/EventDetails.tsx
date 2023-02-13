@@ -7,6 +7,7 @@ import {
   ShareIcon,
 } from '@assets/icons'
 import { Documents } from '@components/ui'
+import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import RichText from '@modules/formatting/RichText'
 import { EventEntityFragment } from '@services/graphql'
@@ -24,7 +25,6 @@ import Clickable from '../Atoms/EventClickable'
 import EventDetailsDateBox from '../Atoms/EventDetailsDateBox'
 import DetailsRow from '../Atoms/EventDetailsRow'
 import TagsDisplay from '../Atoms/TagsDisplay'
-import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
 
 export interface PageProps {
   event?: EventEntityFragment
@@ -129,15 +129,13 @@ const EventDetails = ({ event }: PageProps) => {
             <div className="pt-5">
               <RichText content={event?.attributes?.description ?? ''} />
             </div>
+            <div className="pt-5">
+              <ImageGallery
+                images={event?.attributes?.gallery?.data.filter(isDefined) ?? []}
+                variant="below"
+              />
+            </div>
           </div>
-          <ImageGallery
-            images={
-              event?.attributes?.gallery?.Gallery?.map((item) => item?.Photo?.data).filter(
-                isDefined
-              ) ?? []
-            }
-            variant="below"
-          />
           {event?.attributes?.documents && (
             <Documents
               className="mt-8"

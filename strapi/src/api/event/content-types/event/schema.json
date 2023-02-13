@@ -127,14 +127,16 @@
       "component": "sections.documents"
     },
     "gallery": {
-      "type": "component",
-      "repeatable": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
-      },
-      "component": "sections.gallery"
+      }
     }
   }
 }
