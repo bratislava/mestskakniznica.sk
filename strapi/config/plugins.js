@@ -54,6 +54,7 @@ const searchIndexSettings = {
     "event.eventTagsIds",
     "event.eventCategory.id",
     "event.branch.id",
+    "event.locale",
   ],
   sortableAttributes: [
     // Basic document
