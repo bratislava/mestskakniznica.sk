@@ -2066,6 +2066,212 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']>
 }
 
+export type Disclosure = {
+  __typename?: 'Disclosure'
+  addedAt: Scalars['DateTime']
+  amount?: Maybe<Scalars['Float']>
+  contractor?: Maybe<Scalars['String']>
+  createdAt?: Maybe<Scalars['DateTime']>
+  dateFrom?: Maybe<Scalars['Date']>
+  dateTo?: Maybe<Scalars['Date']>
+  description?: Maybe<Scalars['String']>
+  file: UploadFileEntityResponse
+  grantProvider?: Maybe<Scalars['String']>
+  grantYear?: Maybe<Scalars['String']>
+  idNumber?: Maybe<Scalars['String']>
+  originalSlug?: Maybe<Scalars['String']>
+  originalTitle?: Maybe<Scalars['String']>
+  slug: Scalars['String']
+  title: Scalars['String']
+  type: Enum_Disclosure_Type
+  updatedAt?: Maybe<Scalars['DateTime']>
+}
+
+export type DisclosureEntity = {
+  __typename?: 'DisclosureEntity'
+  attributes?: Maybe<Disclosure>
+  id?: Maybe<Scalars['ID']>
+}
+
+export type DisclosureEntityResponse = {
+  __typename?: 'DisclosureEntityResponse'
+  data?: Maybe<DisclosureEntity>
+}
+
+export type DisclosureEntityResponseCollection = {
+  __typename?: 'DisclosureEntityResponseCollection'
+  data: Array<DisclosureEntity>
+  meta: ResponseCollectionMeta
+}
+
+export type DisclosureFiltersInput = {
+  addedAt?: InputMaybe<DateTimeFilterInput>
+  amount?: InputMaybe<FloatFilterInput>
+  and?: InputMaybe<Array<InputMaybe<DisclosureFiltersInput>>>
+  contractor?: InputMaybe<StringFilterInput>
+  createdAt?: InputMaybe<DateTimeFilterInput>
+  dateFrom?: InputMaybe<DateFilterInput>
+  dateTo?: InputMaybe<DateFilterInput>
+  description?: InputMaybe<StringFilterInput>
+  grantProvider?: InputMaybe<StringFilterInput>
+  grantYear?: InputMaybe<StringFilterInput>
+  id?: InputMaybe<IdFilterInput>
+  idNumber?: InputMaybe<StringFilterInput>
+  not?: InputMaybe<DisclosureFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<DisclosureFiltersInput>>>
+  originalSlug?: InputMaybe<StringFilterInput>
+  originalTitle?: InputMaybe<StringFilterInput>
+  slug?: InputMaybe<StringFilterInput>
+  title?: InputMaybe<StringFilterInput>
+  type?: InputMaybe<StringFilterInput>
+  updatedAt?: InputMaybe<DateTimeFilterInput>
+}
+
+export type DisclosureInput = {
+  addedAt?: InputMaybe<Scalars['DateTime']>
+  amount?: InputMaybe<Scalars['Float']>
+  contractor?: InputMaybe<Scalars['String']>
+  dateFrom?: InputMaybe<Scalars['Date']>
+  dateTo?: InputMaybe<Scalars['Date']>
+  description?: InputMaybe<Scalars['String']>
+  file?: InputMaybe<Scalars['ID']>
+  grantProvider?: InputMaybe<Scalars['String']>
+  grantYear?: InputMaybe<Scalars['String']>
+  idNumber?: InputMaybe<Scalars['String']>
+  originalSlug?: InputMaybe<Scalars['String']>
+  originalTitle?: InputMaybe<Scalars['String']>
+  slug?: InputMaybe<Scalars['String']>
+  title?: InputMaybe<Scalars['String']>
+  type?: InputMaybe<Enum_Disclosure_Type>
+}
+
+export type DisclosureRelationResponseCollection = {
+  __typename?: 'DisclosureRelationResponseCollection'
+  data: Array<DisclosureEntity>
+}
+
+export type Document = {
+  __typename?: 'Document'
+  addedAt: Scalars['DateTime']
+  createdAt?: Maybe<Scalars['DateTime']>
+  description?: Maybe<Scalars['String']>
+  documentCategory?: Maybe<DocumentCategoryEntityResponse>
+  file: UploadFileEntityResponse
+  originalSlug?: Maybe<Scalars['String']>
+  originalTitle?: Maybe<Scalars['String']>
+  publishedAt?: Maybe<Scalars['DateTime']>
+  slug: Scalars['String']
+  title: Scalars['String']
+  updatedAt?: Maybe<Scalars['DateTime']>
+}
+
+export type DocumentCategory = {
+  __typename?: 'DocumentCategory'
+  createdAt?: Maybe<Scalars['DateTime']>
+  documents?: Maybe<DocumentRelationResponseCollection>
+  label: Scalars['String']
+  slug: Scalars['String']
+  updatedAt?: Maybe<Scalars['DateTime']>
+}
+
+export type DocumentCategoryDocumentsArgs = {
+  filters?: InputMaybe<DocumentFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type DocumentCategoryEntity = {
+  __typename?: 'DocumentCategoryEntity'
+  attributes?: Maybe<DocumentCategory>
+  id?: Maybe<Scalars['ID']>
+}
+
+export type DocumentCategoryEntityResponse = {
+  __typename?: 'DocumentCategoryEntityResponse'
+  data?: Maybe<DocumentCategoryEntity>
+}
+
+export type DocumentCategoryEntityResponseCollection = {
+  __typename?: 'DocumentCategoryEntityResponseCollection'
+  data: Array<DocumentCategoryEntity>
+  meta: ResponseCollectionMeta
+}
+
+export type DocumentCategoryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<DocumentCategoryFiltersInput>>>
+  createdAt?: InputMaybe<DateTimeFilterInput>
+  documents?: InputMaybe<DocumentFiltersInput>
+  id?: InputMaybe<IdFilterInput>
+  label?: InputMaybe<StringFilterInput>
+  not?: InputMaybe<DocumentCategoryFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<DocumentCategoryFiltersInput>>>
+  slug?: InputMaybe<StringFilterInput>
+  updatedAt?: InputMaybe<DateTimeFilterInput>
+}
+
+export type DocumentCategoryInput = {
+  documents?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  label?: InputMaybe<Scalars['String']>
+  slug?: InputMaybe<Scalars['String']>
+}
+
+export type DocumentCategoryRelationResponseCollection = {
+  __typename?: 'DocumentCategoryRelationResponseCollection'
+  data: Array<DocumentCategoryEntity>
+}
+
+export type DocumentEntity = {
+  __typename?: 'DocumentEntity'
+  attributes?: Maybe<Document>
+  id?: Maybe<Scalars['ID']>
+}
+
+export type DocumentEntityResponse = {
+  __typename?: 'DocumentEntityResponse'
+  data?: Maybe<DocumentEntity>
+}
+
+export type DocumentEntityResponseCollection = {
+  __typename?: 'DocumentEntityResponseCollection'
+  data: Array<DocumentEntity>
+  meta: ResponseCollectionMeta
+}
+
+export type DocumentFiltersInput = {
+  addedAt?: InputMaybe<DateTimeFilterInput>
+  and?: InputMaybe<Array<InputMaybe<DocumentFiltersInput>>>
+  createdAt?: InputMaybe<DateTimeFilterInput>
+  description?: InputMaybe<StringFilterInput>
+  documentCategory?: InputMaybe<DocumentCategoryFiltersInput>
+  id?: InputMaybe<IdFilterInput>
+  not?: InputMaybe<DocumentFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<DocumentFiltersInput>>>
+  originalSlug?: InputMaybe<StringFilterInput>
+  originalTitle?: InputMaybe<StringFilterInput>
+  publishedAt?: InputMaybe<DateTimeFilterInput>
+  slug?: InputMaybe<StringFilterInput>
+  title?: InputMaybe<StringFilterInput>
+  updatedAt?: InputMaybe<DateTimeFilterInput>
+}
+
+export type DocumentInput = {
+  addedAt?: InputMaybe<Scalars['DateTime']>
+  description?: InputMaybe<Scalars['String']>
+  documentCategory?: InputMaybe<Scalars['ID']>
+  file?: InputMaybe<Scalars['ID']>
+  originalSlug?: InputMaybe<Scalars['String']>
+  originalTitle?: InputMaybe<Scalars['String']>
+  publishedAt?: InputMaybe<Scalars['DateTime']>
+  slug?: InputMaybe<Scalars['String']>
+  title?: InputMaybe<Scalars['String']>
+}
+
+export type DocumentRelationResponseCollection = {
+  __typename?: 'DocumentRelationResponseCollection'
+  data: Array<DocumentEntity>
+}
+
 export enum Enum_Branch_Barrierfreestate {
   CiastocnePristupny = 'ciastocne_pristupny',
   Nepristupny = 'nepristupny',
@@ -2120,6 +2326,16 @@ export enum Enum_Componentsectionsform_Type {
   PrenajmiteSiPriestor = 'prenajmite_si_priestor',
   Tablety = 'tablety',
   TabletyACitacky = 'tablety_a_citacky',
+}
+
+export enum Enum_Disclosure_Type {
+  Faktury = 'Faktury',
+  Grant = 'Grant',
+  ObchodnaVerejnaSutaz = 'Obchodna_verejna_sutaz',
+  Objednavky = 'Objednavky',
+  Ostatne = 'Ostatne',
+  VerejneObstaravanie = 'Verejne_obstaravanie',
+  Zmluva = 'Zmluva',
 }
 
 export enum Enum_Page_Layout {
@@ -2591,6 +2807,9 @@ export type GenericMorph =
   | ComponentSectionsSubpages
   | ComponentSectionsTable
   | ComponentSectionsVideo
+  | Disclosure
+  | Document
+  | DocumentCategory
   | Event
   | EventCategory
   | EventTag
@@ -2599,6 +2818,7 @@ export type GenericMorph =
   | HomePage
   | I18NLocale
   | Menu
+  | NavikronosNavikronosStorage
   | Notice
   | Page
   | Partner
@@ -2895,6 +3115,9 @@ export type Mutation = {
   createBranchLocalization?: Maybe<BranchEntityResponse>
   createCategory?: Maybe<CategoryEntityResponse>
   createCategoryLocalization?: Maybe<CategoryEntityResponse>
+  createDisclosure?: Maybe<DisclosureEntityResponse>
+  createDocument?: Maybe<DocumentEntityResponse>
+  createDocumentCategory?: Maybe<DocumentCategoryEntityResponse>
   createEvent?: Maybe<EventEntityResponse>
   createEventCategory?: Maybe<EventCategoryEntityResponse>
   createEventCategoryLocalization?: Maybe<EventCategoryEntityResponse>
@@ -2923,6 +3146,9 @@ export type Mutation = {
   deleteBookTag?: Maybe<BookTagEntityResponse>
   deleteBranch?: Maybe<BranchEntityResponse>
   deleteCategory?: Maybe<CategoryEntityResponse>
+  deleteDisclosure?: Maybe<DisclosureEntityResponse>
+  deleteDocument?: Maybe<DocumentEntityResponse>
+  deleteDocumentCategory?: Maybe<DocumentCategoryEntityResponse>
   deleteEvent?: Maybe<EventEntityResponse>
   deleteEventCategory?: Maybe<EventCategoryEntityResponse>
   deleteEventTag?: Maybe<EventTagEntityResponse>
@@ -2930,6 +3156,7 @@ export type Mutation = {
   deleteFooter?: Maybe<FooterEntityResponse>
   deleteHomePage?: Maybe<HomePageEntityResponse>
   deleteMenu?: Maybe<MenuEntityResponse>
+  deleteNavikronosNavikronosStorage?: Maybe<NavikronosNavikronosStorageEntityResponse>
   deleteNotice?: Maybe<NoticeEntityResponse>
   deletePage?: Maybe<PageEntityResponse>
   deletePartner?: Maybe<PartnerEntityResponse>
@@ -2955,6 +3182,9 @@ export type Mutation = {
   updateBookTag?: Maybe<BookTagEntityResponse>
   updateBranch?: Maybe<BranchEntityResponse>
   updateCategory?: Maybe<CategoryEntityResponse>
+  updateDisclosure?: Maybe<DisclosureEntityResponse>
+  updateDocument?: Maybe<DocumentEntityResponse>
+  updateDocumentCategory?: Maybe<DocumentCategoryEntityResponse>
   updateEvent?: Maybe<EventEntityResponse>
   updateEventCategory?: Maybe<EventCategoryEntityResponse>
   updateEventTag?: Maybe<EventTagEntityResponse>
@@ -2963,6 +3193,7 @@ export type Mutation = {
   updateFooter?: Maybe<FooterEntityResponse>
   updateHomePage?: Maybe<HomePageEntityResponse>
   updateMenu?: Maybe<MenuEntityResponse>
+  updateNavikronosNavikronosStorage?: Maybe<NavikronosNavikronosStorageEntityResponse>
   updateNotice?: Maybe<NoticeEntityResponse>
   updatePage?: Maybe<PageEntityResponse>
   updatePartner?: Maybe<PartnerEntityResponse>
@@ -3020,6 +3251,18 @@ export type MutationCreateCategoryLocalizationArgs = {
   data?: InputMaybe<CategoryInput>
   id?: InputMaybe<Scalars['ID']>
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
+}
+
+export type MutationCreateDisclosureArgs = {
+  data: DisclosureInput
+}
+
+export type MutationCreateDocumentArgs = {
+  data: DocumentInput
+}
+
+export type MutationCreateDocumentCategoryArgs = {
+  data: DocumentCategoryInput
 }
 
 export type MutationCreateEventArgs = {
@@ -3154,6 +3397,18 @@ export type MutationDeleteCategoryArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
 }
 
+export type MutationDeleteDisclosureArgs = {
+  id: Scalars['ID']
+}
+
+export type MutationDeleteDocumentArgs = {
+  id: Scalars['ID']
+}
+
+export type MutationDeleteDocumentCategoryArgs = {
+  id: Scalars['ID']
+}
+
 export type MutationDeleteEventArgs = {
   id: Scalars['ID']
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
@@ -3278,6 +3533,21 @@ export type MutationUpdateCategoryArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
 }
 
+export type MutationUpdateDisclosureArgs = {
+  data: DisclosureInput
+  id: Scalars['ID']
+}
+
+export type MutationUpdateDocumentArgs = {
+  data: DocumentInput
+  id: Scalars['ID']
+}
+
+export type MutationUpdateDocumentCategoryArgs = {
+  data: DocumentCategoryInput
+  id: Scalars['ID']
+}
+
 export type MutationUpdateEventArgs = {
   data: EventInput
   id: Scalars['ID']
@@ -3320,6 +3590,10 @@ export type MutationUpdateMenuArgs = {
   data: MenuInput
   id: Scalars['ID']
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
+}
+
+export type MutationUpdateNavikronosNavikronosStorageArgs = {
+  data: NavikronosNavikronosStorageInput
 }
 
 export type MutationUpdateNoticeArgs = {
@@ -3366,6 +3640,48 @@ export type MutationUploadArgs = {
   info?: InputMaybe<FileInfoInput>
   ref?: InputMaybe<Scalars['String']>
   refId?: InputMaybe<Scalars['ID']>
+}
+
+export type NavikronosNavikronosStorage = {
+  __typename?: 'NavikronosNavikronosStorage'
+  createdAt?: Maybe<Scalars['DateTime']>
+  data?: Maybe<Scalars['JSON']>
+  updatedAt?: Maybe<Scalars['DateTime']>
+}
+
+export type NavikronosNavikronosStorageEntity = {
+  __typename?: 'NavikronosNavikronosStorageEntity'
+  attributes?: Maybe<NavikronosNavikronosStorage>
+  id?: Maybe<Scalars['ID']>
+}
+
+export type NavikronosNavikronosStorageEntityResponse = {
+  __typename?: 'NavikronosNavikronosStorageEntityResponse'
+  data?: Maybe<NavikronosNavikronosStorageEntity>
+}
+
+export type NavikronosNavikronosStorageEntityResponseCollection = {
+  __typename?: 'NavikronosNavikronosStorageEntityResponseCollection'
+  data: Array<NavikronosNavikronosStorageEntity>
+  meta: ResponseCollectionMeta
+}
+
+export type NavikronosNavikronosStorageFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<NavikronosNavikronosStorageFiltersInput>>>
+  createdAt?: InputMaybe<DateTimeFilterInput>
+  data?: InputMaybe<JsonFilterInput>
+  not?: InputMaybe<NavikronosNavikronosStorageFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<NavikronosNavikronosStorageFiltersInput>>>
+  updatedAt?: InputMaybe<DateTimeFilterInput>
+}
+
+export type NavikronosNavikronosStorageInput = {
+  data?: InputMaybe<Scalars['JSON']>
+}
+
+export type NavikronosNavikronosStorageRelationResponseCollection = {
+  __typename?: 'NavikronosNavikronosStorageRelationResponseCollection'
+  data: Array<NavikronosNavikronosStorageEntity>
 }
 
 export type Notice = {
@@ -3459,6 +3775,7 @@ export type Page = {
   listingImage?: Maybe<UploadFileEntityResponse>
   locale?: Maybe<Scalars['String']>
   localizations?: Maybe<PageRelationResponseCollection>
+  newSlug: Scalars['String']
   pageCategory?: Maybe<CategoryEntityResponse>
   perex?: Maybe<Scalars['String']>
   publishedAt?: Maybe<Scalars['DateTime']>
@@ -3507,6 +3824,7 @@ export type PageFiltersInput = {
   layout?: InputMaybe<StringFilterInput>
   locale?: InputMaybe<StringFilterInput>
   localizations?: InputMaybe<PageFiltersInput>
+  newSlug?: InputMaybe<StringFilterInput>
   not?: InputMaybe<PageFiltersInput>
   or?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>
   pageCategory?: InputMaybe<CategoryFiltersInput>
@@ -3522,6 +3840,7 @@ export type PageInput = {
   branchesServicesTo?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   layout?: InputMaybe<Enum_Page_Layout>
   listingImage?: InputMaybe<Scalars['ID']>
+  newSlug?: InputMaybe<Scalars['String']>
   pageCategory?: InputMaybe<Scalars['ID']>
   perex?: InputMaybe<Scalars['String']>
   publishedAt?: InputMaybe<Scalars['DateTime']>
@@ -3663,6 +3982,12 @@ export type Query = {
   branches?: Maybe<BranchEntityResponseCollection>
   categories?: Maybe<CategoryEntityResponseCollection>
   category?: Maybe<CategoryEntityResponse>
+  disclosure?: Maybe<DisclosureEntityResponse>
+  disclosures?: Maybe<DisclosureEntityResponseCollection>
+  document?: Maybe<DocumentEntityResponse>
+  documentCategories?: Maybe<DocumentCategoryEntityResponseCollection>
+  documentCategory?: Maybe<DocumentCategoryEntityResponse>
+  documents?: Maybe<DocumentEntityResponseCollection>
   event?: Maybe<EventEntityResponse>
   eventCategories?: Maybe<EventCategoryEntityResponseCollection>
   eventCategory?: Maybe<EventCategoryEntityResponse>
@@ -3678,6 +4003,7 @@ export type Query = {
   me?: Maybe<UsersPermissionsMe>
   menu?: Maybe<MenuEntityResponse>
   menus?: Maybe<MenuEntityResponseCollection>
+  navikronosNavikronosStorage?: Maybe<NavikronosNavikronosStorageEntityResponse>
   notice?: Maybe<NoticeEntityResponse>
   notices?: Maybe<NoticeEntityResponseCollection>
   page?: Maybe<PageEntityResponse>
@@ -3752,6 +4078,37 @@ export type QueryCategoriesArgs = {
 export type QueryCategoryArgs = {
   id?: InputMaybe<Scalars['ID']>
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
+}
+
+export type QueryDisclosureArgs = {
+  id?: InputMaybe<Scalars['ID']>
+}
+
+export type QueryDisclosuresArgs = {
+  filters?: InputMaybe<DisclosureFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type QueryDocumentArgs = {
+  id?: InputMaybe<Scalars['ID']>
+}
+
+export type QueryDocumentCategoriesArgs = {
+  filters?: InputMaybe<DocumentCategoryFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type QueryDocumentCategoryArgs = {
+  id?: InputMaybe<Scalars['ID']>
+}
+
+export type QueryDocumentsArgs = {
+  filters?: InputMaybe<DocumentFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
 export type QueryEventArgs = {
