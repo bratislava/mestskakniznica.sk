@@ -32,7 +32,6 @@ const BranchPage = ({ branch }: PageProps) => {
         <Breadcrumbs crumbs={breadCrumbs} />
       </SectionContainer>
       <SectionContainer>
-        {/* TODO add gallery */}
         <Section>
           <BranchDetails branch={branch} />
         </Section>
