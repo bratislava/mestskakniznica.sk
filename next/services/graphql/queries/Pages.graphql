@@ -79,6 +79,7 @@ fragment PageWithBaseFieldsEntity on PageEntity {
   attributes {
     title
     slug
+    newSlug
     createdAt
     updatedAt
   }

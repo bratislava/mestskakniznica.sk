@@ -5403,6 +5403,7 @@ export type BlogPostEntityFragment = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -5632,6 +5633,7 @@ export type BlogPostEntityFragment = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -5925,6 +5927,7 @@ export type BlogPostBySlugQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -6154,6 +6157,7 @@ export type BlogPostBySlugQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -6435,6 +6439,7 @@ export type BlogPostsQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -6664,6 +6669,7 @@ export type BlogPostsQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -7349,6 +7355,7 @@ export type EventEntityFragment = {
               __typename?: 'Page'
               title: string
               slug: string
+              newSlug: string
               createdAt?: any | null
               updatedAt?: any | null
             } | null
@@ -7748,6 +7755,7 @@ export type EventBySlugQuery = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -8084,6 +8092,7 @@ export type NoticeEntityFragment = {
               __typename?: 'Page'
               title: string
               slug: string
+              newSlug: string
               createdAt?: any | null
               updatedAt?: any | null
             } | null
@@ -8399,6 +8408,7 @@ export type NoticeBySlugQuery = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -8491,6 +8501,7 @@ export type PageEntityFragment = {
                         __typename?: 'Page'
                         title: string
                         slug: string
+                        newSlug: string
                         createdAt?: any | null
                         updatedAt?: any | null
                       } | null
@@ -8510,6 +8521,7 @@ export type PageEntityFragment = {
                         __typename?: 'Page'
                         title: string
                         slug: string
+                        newSlug: string
                         createdAt?: any | null
                         updatedAt?: any | null
                       } | null
@@ -8554,6 +8566,7 @@ export type PageEntityFragment = {
                               __typename?: 'Page'
                               title: string
                               slug: string
+                              newSlug: string
                               createdAt?: any | null
                               updatedAt?: any | null
                             } | null
@@ -8573,6 +8586,7 @@ export type PageEntityFragment = {
                               __typename?: 'Page'
                               title: string
                               slug: string
+                              newSlug: string
                               createdAt?: any | null
                               updatedAt?: any | null
                             } | null
@@ -8595,6 +8609,7 @@ export type PageEntityFragment = {
                         __typename?: 'Page'
                         title: string
                         slug: string
+                        newSlug: string
                         createdAt?: any | null
                         updatedAt?: any | null
                       } | null
@@ -8614,6 +8629,7 @@ export type PageEntityFragment = {
                         __typename?: 'Page'
                         title: string
                         slug: string
+                        newSlug: string
                         createdAt?: any | null
                         updatedAt?: any | null
                       } | null
@@ -8636,6 +8652,7 @@ export type PageEntityFragment = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -8655,6 +8672,7 @@ export type PageEntityFragment = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -8864,6 +8882,7 @@ export type PageEntityFragment = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -9098,6 +9117,7 @@ export type PageEntityFragment = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -9188,6 +9208,7 @@ export type PageWithBaseFieldsEntityFragment = {
     __typename?: 'Page'
     title: string
     slug: string
+    newSlug: string
     createdAt?: any | null
     updatedAt?: any | null
   } | null
@@ -9218,6 +9239,7 @@ export type CategoryFragment = {
           __typename?: 'Page'
           title: string
           slug: string
+          newSlug: string
           createdAt?: any | null
           updatedAt?: any | null
         } | null
@@ -9237,6 +9259,7 @@ export type CategoryFragment = {
           __typename?: 'Page'
           title: string
           slug: string
+          newSlug: string
           createdAt?: any | null
           updatedAt?: any | null
         } | null
@@ -9277,6 +9300,7 @@ export type PageCategoryEntityFragment = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -9296,6 +9320,7 @@ export type PageCategoryEntityFragment = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -9340,6 +9365,7 @@ export type PageCategoryEntityFragment = {
                         __typename?: 'Page'
                         title: string
                         slug: string
+                        newSlug: string
                         createdAt?: any | null
                         updatedAt?: any | null
                       } | null
@@ -9359,6 +9385,7 @@ export type PageCategoryEntityFragment = {
                         __typename?: 'Page'
                         title: string
                         slug: string
+                        newSlug: string
                         createdAt?: any | null
                         updatedAt?: any | null
                       } | null
@@ -9381,6 +9408,7 @@ export type PageCategoryEntityFragment = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -9400,6 +9428,7 @@ export type PageCategoryEntityFragment = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -9422,6 +9451,7 @@ export type PageCategoryEntityFragment = {
             __typename?: 'Page'
             title: string
             slug: string
+            newSlug: string
             createdAt?: any | null
             updatedAt?: any | null
           } | null
@@ -9441,6 +9471,7 @@ export type PageCategoryEntityFragment = {
             __typename?: 'Page'
             title: string
             slug: string
+            newSlug: string
             createdAt?: any | null
             updatedAt?: any | null
           } | null
@@ -9542,6 +9573,7 @@ export type PageBySlugQuery = {
                             __typename?: 'Page'
                             title: string
                             slug: string
+                            newSlug: string
                             createdAt?: any | null
                             updatedAt?: any | null
                           } | null
@@ -9561,6 +9593,7 @@ export type PageBySlugQuery = {
                             __typename?: 'Page'
                             title: string
                             slug: string
+                            newSlug: string
                             createdAt?: any | null
                             updatedAt?: any | null
                           } | null
@@ -9605,6 +9638,7 @@ export type PageBySlugQuery = {
                                   __typename?: 'Page'
                                   title: string
                                   slug: string
+                                  newSlug: string
                                   createdAt?: any | null
                                   updatedAt?: any | null
                                 } | null
@@ -9624,6 +9658,7 @@ export type PageBySlugQuery = {
                                   __typename?: 'Page'
                                   title: string
                                   slug: string
+                                  newSlug: string
                                   createdAt?: any | null
                                   updatedAt?: any | null
                                 } | null
@@ -9646,6 +9681,7 @@ export type PageBySlugQuery = {
                             __typename?: 'Page'
                             title: string
                             slug: string
+                            newSlug: string
                             createdAt?: any | null
                             updatedAt?: any | null
                           } | null
@@ -9665,6 +9701,7 @@ export type PageBySlugQuery = {
                             __typename?: 'Page'
                             title: string
                             slug: string
+                            newSlug: string
                             createdAt?: any | null
                             updatedAt?: any | null
                           } | null
@@ -9687,6 +9724,7 @@ export type PageBySlugQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -9706,6 +9744,7 @@ export type PageBySlugQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -9915,6 +9954,7 @@ export type PageBySlugQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -10149,6 +10189,7 @@ export type PageBySlugQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -10344,6 +10385,7 @@ export type HomePageQuery = {
                 __typename?: 'Page'
                 title: string
                 slug: string
+                newSlug: string
                 createdAt?: any | null
                 updatedAt?: any | null
               } | null
@@ -10368,6 +10410,7 @@ export type HomePageQuery = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -10389,6 +10432,7 @@ export type HomePageQuery = {
                 __typename?: 'Page'
                 title: string
                 slug: string
+                newSlug: string
                 createdAt?: any | null
                 updatedAt?: any | null
               } | null
@@ -10413,6 +10457,7 @@ export type HomePageQuery = {
                 __typename?: 'Page'
                 title: string
                 slug: string
+                newSlug: string
                 createdAt?: any | null
                 updatedAt?: any | null
               } | null
@@ -10750,6 +10795,7 @@ export type LatestNewsQuery = {
                             __typename?: 'Page'
                             title: string
                             slug: string
+                            newSlug: string
                             createdAt?: any | null
                             updatedAt?: any | null
                           } | null
@@ -10769,6 +10815,7 @@ export type LatestNewsQuery = {
                             __typename?: 'Page'
                             title: string
                             slug: string
+                            newSlug: string
                             createdAt?: any | null
                             updatedAt?: any | null
                           } | null
@@ -10813,6 +10860,7 @@ export type LatestNewsQuery = {
                                   __typename?: 'Page'
                                   title: string
                                   slug: string
+                                  newSlug: string
                                   createdAt?: any | null
                                   updatedAt?: any | null
                                 } | null
@@ -10832,6 +10880,7 @@ export type LatestNewsQuery = {
                                   __typename?: 'Page'
                                   title: string
                                   slug: string
+                                  newSlug: string
                                   createdAt?: any | null
                                   updatedAt?: any | null
                                 } | null
@@ -10854,6 +10903,7 @@ export type LatestNewsQuery = {
                             __typename?: 'Page'
                             title: string
                             slug: string
+                            newSlug: string
                             createdAt?: any | null
                             updatedAt?: any | null
                           } | null
@@ -10873,6 +10923,7 @@ export type LatestNewsQuery = {
                             __typename?: 'Page'
                             title: string
                             slug: string
+                            newSlug: string
                             createdAt?: any | null
                             updatedAt?: any | null
                           } | null
@@ -10895,6 +10946,7 @@ export type LatestNewsQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -10914,6 +10966,7 @@ export type LatestNewsQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -11123,6 +11176,7 @@ export type LatestNewsQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -11357,6 +11411,7 @@ export type LatestNewsQuery = {
                       __typename?: 'Page'
                       title: string
                       slug: string
+                      newSlug: string
                       createdAt?: any | null
                       updatedAt?: any | null
                     } | null
@@ -11434,6 +11489,7 @@ export type MenuEntityFragment = {
             __typename?: 'Page'
             title: string
             slug: string
+            newSlug: string
             createdAt?: any | null
             updatedAt?: any | null
           } | null
@@ -11497,6 +11553,7 @@ export type MenuSectionFragment = {
         __typename?: 'Page'
         title: string
         slug: string
+        newSlug: string
         createdAt?: any | null
         updatedAt?: any | null
       } | null
@@ -11718,6 +11775,7 @@ export type DocumentsFragment = {
           __typename?: 'Page'
           title: string
           slug: string
+          newSlug: string
           createdAt?: any | null
           updatedAt?: any | null
         } | null
@@ -11966,6 +12024,7 @@ type Sections_ComponentSectionsDocuments_Fragment = {
           __typename?: 'Page'
           title: string
           slug: string
+          newSlug: string
           createdAt?: any | null
           updatedAt?: any | null
         } | null
@@ -12230,6 +12289,7 @@ type Sections_ComponentSectionsSubpages_Fragment = {
           __typename?: 'Page'
           title: string
           slug: string
+          newSlug: string
           createdAt?: any | null
           updatedAt?: any | null
         } | null
@@ -12337,6 +12397,7 @@ export type SubpagesFragment = {
           __typename?: 'Page'
           title: string
           slug: string
+          newSlug: string
           createdAt?: any | null
           updatedAt?: any | null
         } | null
@@ -12372,6 +12433,7 @@ export type PageLinkFragment = {
         __typename?: 'Page'
         title: string
         slug: string
+        newSlug: string
         createdAt?: any | null
         updatedAt?: any | null
       } | null
@@ -12410,6 +12472,7 @@ export type FooterEntityFragment = {
               __typename?: 'Page'
               title: string
               slug: string
+              newSlug: string
               createdAt?: any | null
               updatedAt?: any | null
             } | null
@@ -12426,6 +12489,7 @@ export type FooterEntityFragment = {
           __typename?: 'Page'
           title: string
           slug: string
+          newSlug: string
           createdAt?: any | null
           updatedAt?: any | null
         } | null
@@ -12440,6 +12504,7 @@ export type FooterEntityFragment = {
           __typename?: 'Page'
           title: string
           slug: string
+          newSlug: string
           createdAt?: any | null
           updatedAt?: any | null
         } | null
@@ -12482,6 +12547,7 @@ export type GeneralQuery = {
                 __typename?: 'Page'
                 title: string
                 slug: string
+                newSlug: string
                 createdAt?: any | null
                 updatedAt?: any | null
               } | null
@@ -12660,6 +12726,7 @@ export type GeneralQuery = {
                   __typename?: 'Page'
                   title: string
                   slug: string
+                  newSlug: string
                   createdAt?: any | null
                   updatedAt?: any | null
                 } | null
@@ -12676,6 +12743,7 @@ export type GeneralQuery = {
               __typename?: 'Page'
               title: string
               slug: string
+              newSlug: string
               createdAt?: any | null
               updatedAt?: any | null
             } | null
@@ -12690,6 +12758,7 @@ export type GeneralQuery = {
               __typename?: 'Page'
               title: string
               slug: string
+              newSlug: string
               createdAt?: any | null
               updatedAt?: any | null
             } | null
@@ -12733,6 +12802,7 @@ export const PageWithBaseFieldsEntityFragmentDoc = gql`
     attributes {
       title
       slug
+      newSlug
       createdAt
       updatedAt
     }
