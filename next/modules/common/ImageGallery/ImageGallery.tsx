@@ -98,11 +98,16 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
               })}
             >
               {firstImage.attributes && (
-                <MImage
-                  image={firstImage.attributes}
-                  fill
-                  className="absolute top-0 object-cover"
-                />
+                <div>
+                  <MImage
+                    image={firstImage.attributes}
+                    fill
+                    className="absolute top-0 object-cover"
+                  />
+                  <div className="absolute bottom-2 right-2 rounded bg-button-dark py-1 px-2 text-white md:hidden">
+                    {`1/${images.length}`}
+                  </div>
+                </div>
               )}
             </div>
           )}
@@ -147,7 +152,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           {/* aside images */}
           {variant === 'aside' && smallImages.length > 0 && (
             <div
-              className={cx('ml-6 hidden grid-flow-col grid-rows-2 gap-6', {
+              className={cx('ml-4 hidden grid-flow-col grid-rows-2 gap-4', {
                 'grid-cols-2 md:grid': images.length > 3,
                 'md:grid': images.length > 1 && images.length <= 3,
                 hidden: images.length === 1,
@@ -174,7 +179,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
               {moreImagesCount > 0 && (
                 <div
                   onClick={() => openAtImageIndex(0)}
-                  className="relative w-[168px] cursor-pointer pt-[166px]"
+                  className="relative w-[168px] cursor-pointer border-2 pt-[166px]"
                 >
                   <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-8 text-center">
                     {t('morePhotos', { count: moreImagesCount })}

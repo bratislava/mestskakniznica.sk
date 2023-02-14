@@ -4,11 +4,11 @@ import { isDefined } from '@utils/isDefined'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-type LocalityDetailsServicesProps = {
+type BranchDetailsServicesProps = {
   branch: BranchEntityFragment
 }
 
-const LocalityDetailsServices = ({ branch }: LocalityDetailsServicesProps) => {
+const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
   const { t } = useTranslation('common')
 
   if (!branch.attributes?.servicePages?.data.length) {
@@ -40,4 +40,4 @@ const LocalityDetailsServices = ({ branch }: LocalityDetailsServicesProps) => {
   )
 }
 
-export default LocalityDetailsServices
+export default BranchDetailsServices

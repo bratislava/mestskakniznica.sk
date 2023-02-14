@@ -6450,10 +6450,13 @@ export type BranchEntityFragment = {
         id?: string | null
         attributes?: {
           __typename?: 'UploadFile'
-          name: string
           url: string
-          caption?: string | null
+          name: string
           alternativeText?: string | null
+          caption?: string | null
+          size: number
+          width?: number | null
+          height?: number | null
         } | null
       }>
     } | null
@@ -6582,10 +6585,13 @@ export type BranchBySlugQuery = {
             id?: string | null
             attributes?: {
               __typename?: 'UploadFile'
-              name: string
               url: string
-              caption?: string | null
+              name: string
               alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
             } | null
           }>
         } | null
@@ -11321,6 +11327,33 @@ export type DocumentsFragment = {
   } | null> | null
 }
 
+export type GalleryFragment = {
+  __typename?: 'ComponentSectionsGallery'
+  id: string
+  Gallery?: Array<{
+    __typename?: 'ComponentLocalityPartsGalleryParts'
+    id: string
+    Description?: string | null
+    Photo?: {
+      __typename?: 'UploadFileEntityResponse'
+      data?: {
+        __typename?: 'UploadFileEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'UploadFile'
+          url: string
+          name: string
+          alternativeText?: string | null
+          caption?: string | null
+          size: number
+          width?: number | null
+          height?: number | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
 type Sections_ComponentSectionsAccordion_Fragment = {
   __typename: 'ComponentSectionsAccordion'
   title?: string | null
@@ -12552,6 +12585,21 @@ export const BranchCardEntityFragmentDoc = gql`
   ${UploadImageEntityFragmentDoc}
   ${BranchPlaceEntityFragmentDoc}
 `
+export const GalleryFragmentDoc = gql`
+  fragment Gallery on ComponentSectionsGallery {
+    id
+    Gallery {
+      id
+      Description
+      Photo {
+        data {
+          ...UploadImageEntity
+        }
+      }
+    }
+  }
+  ${UploadImageEntityFragmentDoc}
+`
 export const SectionsFragmentDoc = gql`
   fragment Sections on PageSectionsDynamicZone {
     __typename
@@ -12670,16 +12718,7 @@ export const SectionsFragmentDoc = gql`
       }
     }
     ... on ComponentSectionsGallery {
-      id
-      Gallery {
-        id
-        Description
-        Photo {
-          data {
-            ...UploadImageEntity
-          }
-        }
-      }
+      ...Gallery
     }
   }
   ${AccordionItemFragmentDoc}
@@ -12690,7 +12729,7 @@ export const SectionsFragmentDoc = gql`
   ${ExternalLinkFragmentDoc}
   ${DocumentsFragmentDoc}
   ${BranchCardEntityFragmentDoc}
-  ${UploadImageEntityFragmentDoc}
+  ${GalleryFragmentDoc}
 `
 export const SeoFragmentDoc = gql`
   fragment Seo on ComponentCommonSeo {
@@ -12740,13 +12779,7 @@ export const BranchEntityFragmentDoc = gql`
     attributes {
       medias {
         data {
-          id
-          attributes {
-            name
-            url
-            caption
-            alternativeText
-          }
+          ...UploadImageEntity
         }
       }
       body
@@ -12787,6 +12820,7 @@ export const BranchEntityFragmentDoc = gql`
     }
   }
   ${BranchCardEntityFragmentDoc}
+  ${UploadImageEntityFragmentDoc}
   ${SeoFragmentDoc}
 `
 export const EventCardEntityFragmentDoc = gql`

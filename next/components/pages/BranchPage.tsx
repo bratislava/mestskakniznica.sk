@@ -1,5 +1,5 @@
 import { SectionContainer } from '@bratislava/ui-city-library'
-import LocalityDetails from '@components/Molecules/LocalityDetails/LocalityDetails'
+import BranchDetails from '@components/Molecules/BranchDetails/BranchDetails'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
@@ -34,7 +34,7 @@ const BranchPage = ({ branch }: PageProps) => {
       <SectionContainer>
         {/* TODO add gallery */}
         <Section>
-          <LocalityDetails branch={branch} />
+          <BranchDetails branch={branch} />
         </Section>
       </SectionContainer>
     </>

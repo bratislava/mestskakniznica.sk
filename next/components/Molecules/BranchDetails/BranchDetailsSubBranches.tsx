@@ -6,11 +6,11 @@ import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-type LocalityDetailsContactUsProps = {
+type BranchDetailsContactUsProps = {
   branch: BranchEntityFragment
 }
 
-const LocalityDetailsContactUs = ({ branch }: LocalityDetailsContactUsProps) => {
+const BranchDetailsContactUs = ({ branch }: BranchDetailsContactUsProps) => {
   const { t } = useTranslation('common')
 
   if (!branch?.attributes?.subBranches?.data.length) {
@@ -69,4 +69,4 @@ const LocalityDetailsContactUs = ({ branch }: LocalityDetailsContactUsProps) => 
   )
 }
 
-export default LocalityDetailsContactUs
+export default BranchDetailsContactUs
