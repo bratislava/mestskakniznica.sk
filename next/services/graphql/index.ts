@@ -2146,6 +2146,7 @@ export type Event = {
   documents?: Maybe<ComponentSectionsDocuments>
   eventCategory?: Maybe<EventCategoryEntityResponse>
   eventTags?: Maybe<EventTagRelationResponseCollection>
+  gallery?: Maybe<UploadFileRelationResponseCollection>
   guests?: Maybe<Array<Maybe<ComponentGuestsGuest>>>
   listingImage?: Maybe<UploadFileEntityResponse>
   locale?: Maybe<Scalars['String']>
@@ -2164,6 +2165,12 @@ export type EventEventTagsArgs = {
   filters?: InputMaybe<EventTagFiltersInput>
   pagination?: InputMaybe<PaginationArg>
   publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type EventGalleryArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
@@ -2289,6 +2296,7 @@ export type EventInput = {
   documents?: InputMaybe<ComponentSectionsDocumentsInput>
   eventCategory?: InputMaybe<Scalars['ID']>
   eventTags?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  gallery?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   guests?: InputMaybe<Array<InputMaybe<ComponentGuestsGuestInput>>>
   listingImage?: InputMaybe<Scalars['ID']>
   price?: InputMaybe<Scalars['Float']>
@@ -6991,6 +6999,23 @@ export type EventEntityFragment = {
         } | null
       } | null> | null
     } | null
+    gallery?: {
+      __typename?: 'UploadFileRelationResponseCollection'
+      data: Array<{
+        __typename?: 'UploadFileEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'UploadFile'
+          url: string
+          name: string
+          alternativeText?: string | null
+          caption?: string | null
+          size: number
+          width?: number | null
+          height?: number | null
+        } | null
+      }>
+    } | null
     localizations?: {
       __typename?: 'EventRelationResponseCollection'
       data: Array<{
@@ -7372,6 +7397,23 @@ export type EventBySlugQuery = {
               } | null
             } | null
           } | null> | null
+        } | null
+        gallery?: {
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          }>
         } | null
         localizations?: {
           __typename?: 'EventRelationResponseCollection'
@@ -12898,6 +12940,11 @@ export const EventEntityFragmentDoc = gql`
       }
       documents {
         ...Documents
+      }
+      gallery {
+        data {
+          ...UploadImageEntity
+        }
       }
       localizations {
         data {

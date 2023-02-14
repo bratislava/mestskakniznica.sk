@@ -7,6 +7,7 @@ import {
   ShareIcon,
 } from '@assets/icons'
 import { Documents } from '@components/ui'
+import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import RichText from '@modules/formatting/RichText'
 import { EventEntityFragment } from '@services/graphql'
@@ -127,6 +128,12 @@ const EventDetails = ({ event }: PageProps) => {
             <div className="text-[24px]">{t('description')}</div>
             <div className="pt-5">
               <RichText content={event?.attributes?.description ?? ''} />
+            </div>
+            <div className="pt-5">
+              <ImageGallery
+                images={event?.attributes?.gallery?.data.filter(isDefined) ?? []}
+                variant="below"
+              />
             </div>
           </div>
           {event?.attributes?.documents && (
