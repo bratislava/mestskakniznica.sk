@@ -2,8 +2,8 @@ import EventDetailsDateBox from '@components/Atoms/EventDetailsDateBox'
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@services/graphql'
-import { useTranslation } from 'next-i18next'
 import React from 'react'
+import { useNavikronos } from '@utils/navikronos'
 
 type EventRowProps = { event: EventCardEntityFragment }
 
@@ -14,7 +14,7 @@ type EventRowProps = { event: EventCardEntityFragment }
  * Events navigation Figma: https://www.figma.com/file/CY6Mh2f0SXJhBMY74HdS03/MKB?node-id=1309%3A24039&t=HeHnRSNxyY2Meuli-0
  */
 const EventRow = ({ event }: EventRowProps) => {
-  const { t } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
 
   if (!event.attributes) {
     return null
@@ -32,7 +32,7 @@ const EventRow = ({ event }: EventRowProps) => {
       <div className="flex flex-col justify-center gap-y-[5px]">
         <MLink
           className="text-h6 line-clamp-1"
-          href={`${t('event_slug')}${slug}`}
+          href={getPathForEntity({ type: 'event', slug }) ?? ''}
           variant="basic"
           stretched
         >

@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { Link } from '../Link/Link'
+import { useNavikronos } from '@utils/navikronos'
 
 export interface FooterProps {
   className?: string
@@ -24,12 +25,18 @@ export interface FooterProps {
 }
 
 const FooterLinks = ({ footerLink }: { footerLink: ComponentFooterFooterColumn['footerLink'] }) => {
+  const { getPathForEntity } = useNavikronos()
+
   return (
     <>
       {footerLink?.filter(isDefined).map((link) => (
         <MLink
           key={link.id}
-          href={link.otherSite || link?.redirectTo?.data?.attributes?.slug || ''}
+          href={
+            link.otherSite ||
+            getPathForEntity({ type: 'page', id: link.redirectTo?.data?.id }) ||
+            ''
+          }
           variant="basic"
           className="text-base text-foreground-body"
         >

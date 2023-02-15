@@ -4,6 +4,7 @@ import FormatDate from '@modules/formatting/FormatDate'
 import { EventCardEntityFragment, NoticeListingEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
+import { useNavikronos } from '@utils/navikronos'
 
 interface IListingCardProps {
   card: EventCardEntityFragment | NoticeListingEntityFragment
@@ -11,23 +12,24 @@ interface IListingCardProps {
 
 const ListingCard = ({ card }: IListingCardProps) => {
   const { t } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
 
-  const { image, linkPrefix, date } = useMemo(() => {
+  const { image, link, date } = useMemo(() => {
     if (card.__typename === 'EventEntity') {
       return {
         image: card.attributes?.listingImage?.data,
-        linkPrefix: t('event_slug'),
+        link: getPathForEntity({ type: 'event', slug: card?.attributes?.slug }),
         date: card.attributes?.dateFrom,
       }
     }
     if (card.__typename === 'NoticeEntity') {
       return {
         image: card.attributes?.listingImage?.data[0],
-        linkPrefix: t('notice_slug'),
+        link: getPathForEntity({ type: 'notice', slug: card.attributes?.slug }),
         date: card.attributes?.publishedAt,
       }
     }
-    return { image: null, linkPrefix: null, date: null }
+    return { image: null, link: null, date: null }
   }, [card, t])
 
   return (
@@ -45,16 +47,11 @@ const ListingCard = ({ card }: IListingCardProps) => {
         <div className="mb-2 text-sm text-foreground-body">
           <FormatDate value={date} valueType="ISO" />
         </div>
-        <MLink
-          href={`${linkPrefix}${card.attributes?.slug ?? ''}`}
-          variant="basic"
-          stretched
-          className="mb-6 text-h5"
-        >
+        <MLink href={link ?? ''} variant="basic" stretched className="mb-6 text-h5">
           {card.attributes?.title}
         </MLink>
       </div>
-      <ShowMoreLink href={`${linkPrefix}${card.attributes?.slug ?? ''}`} tabIndex={-1} parentGroup>
+      <ShowMoreLink href={link ?? ''} tabIndex={-1} parentGroup>
         {t('showMore')}
       </ShowMoreLink>
     </div>

@@ -53,6 +53,7 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
               <div className="text-sm">
                 {t('form_footer_agree')}{' '}
                 <Link
+                  // TODO: Navikronos
                   href={
                     locale === 'sk'
                       ? '/o-nas/ochrana-osobnych-udajov'

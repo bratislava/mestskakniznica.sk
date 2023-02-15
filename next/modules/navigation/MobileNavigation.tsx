@@ -35,6 +35,7 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
       <div className="fixed inset-x-0 top-0 z-30 m-auto h-screen border-border-dark bg-white">
         <div className="flex h-[61px] items-center justify-between border-b border-border-dark">
           <MLink
+            // TODO: Navikronos
             // TODO paths should be absolute
             href={`/${otherLocaleData.path}`}
             locale={otherLocaleData.locale}

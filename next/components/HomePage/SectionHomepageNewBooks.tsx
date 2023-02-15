@@ -24,6 +24,7 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
         </div>
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
           <ShowMoreLink
+            // TODO: Navikronos
             href={
               i18n.language === 'en'
                 ? '/en/services/reading/new-additions'

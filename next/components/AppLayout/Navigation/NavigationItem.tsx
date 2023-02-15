@@ -30,6 +30,7 @@ const NavigationItem = ({ menu, isFirst }: navItemProps) => {
           })}
         >
           <MLink
+            // TODO: Navikronos
             href={`/${menu.menuSlug}`}
             tabIndex={-1}
             variant="basic"

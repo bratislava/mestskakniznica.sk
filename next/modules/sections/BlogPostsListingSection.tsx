@@ -7,10 +7,13 @@ import {
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
+import { useNavikronos } from '@utils/navikronos'
 
 const BlogPostsListingSection = () => {
   const { t, i18n } = useTranslation('common')
   const [filters, setFilters] = useState(blogPostsDefaultFilters)
+
+  const { getPathForEntity } = useNavikronos()
 
   const { data } = useQuery({
     queryKey: getBlogPostsQueryKey(i18n.language, filters),
@@ -42,7 +45,8 @@ const BlogPostsListingSection = () => {
                 publishedDate={blogPost?.attributes?.publishedAt}
                 pageLink={{
                   title: t('showMore'),
-                  url: `${t('blog_slug') + blogPost?.attributes?.slug}`,
+                  url:
+                    getPathForEntity({ type: 'blog-post', slug: blogPost?.attributes?.slug }) ?? '',
                 }}
               />
             </div>

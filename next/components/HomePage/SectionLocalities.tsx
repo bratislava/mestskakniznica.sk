@@ -4,13 +4,16 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import Map from '../../assets/images/mapa.png'
+import { useNavikronos } from '@utils/navikronos'
 
 interface LocalitiesProps {
   localities: ILocality[]
 }
 
+// TODO: Check usage
 const Localities = ({ localities }: LocalitiesProps) => {
   const { t } = useTranslation(['homepage', 'common'])
+  const { getPathForEntity } = useNavikronos()
 
   return (
     <div className="m-auto w-1180">
@@ -38,7 +41,10 @@ const Localities = ({ localities }: LocalitiesProps) => {
                   </p>
                 </div>
                 <div className="border-r border-border-dark pl-6 text-base hover:underline">
-                  <Link href={locality.localitySlug || ''} className="uppercase">
+                  <Link
+                    href={getPathForEntity({ type: 'branch', slug: locality.localitySlug }) ?? ''}
+                    className="uppercase"
+                  >
                     <div className="relative">
                       {t('more', { ns: 'common' })} {'>'}
                     </div>

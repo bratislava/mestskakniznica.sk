@@ -11,6 +11,7 @@ const HeaderNavigation = () => {
   return (
     <div className="flex flex-wrap text-sm">
       <MLink
+        // TODO: Navikronos
         href={t('openingHoursPageLink')}
         variant="basic"
         className="relative grid place-content-center border-l border-border-dark px-3"
@@ -25,6 +26,7 @@ const HeaderNavigation = () => {
       >
         {t('onlineCatalog')}
       </MLink>
+      {/* TODO: Navikronos */}
       <MLink
         href={otherLocaleData.path}
         locale={otherLocaleData.locale}

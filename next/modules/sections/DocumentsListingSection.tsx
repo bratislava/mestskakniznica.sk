@@ -17,9 +17,11 @@ import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 
 import { useSearch } from '../../hooks/useSearch'
+import { useNavikronos } from '@utils/navikronos'
 
 const DocumentsListingSection = () => {
   const { t } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
 
   // TODO add scroll to results
 
@@ -74,7 +76,10 @@ const DocumentsListingSection = () => {
         {/* Documents */}
         {data
           ? data?.hits.map((document) => (
-              <NextLink key={document.id} href={`${t('documents_slug')}${document?.slug}`}>
+              <NextLink
+                key={document.id}
+                href={getPathForEntity({ type: 'basic-document', slug: document.slug }) ?? ''}
+              >
                 <RowFile
                   className="cursor-pointer"
                   type={document?.file_category?.name || ''}

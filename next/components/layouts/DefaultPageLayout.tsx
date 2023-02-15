@@ -85,6 +85,7 @@ const DefaultPageLayout = ({ children, title, seo }: IProps) => {
               gdpr={{
                 title: t('privacy'),
                 // href: footer?.privacyLink?.slug ?? '#',
+                // TODO: Navikronos
                 href:
                   locale === 'sk'
                     ? '/o-nas/ochrana-osobnych-udajov'

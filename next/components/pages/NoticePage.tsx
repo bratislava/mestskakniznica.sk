@@ -2,7 +2,6 @@ import { Documents, PageTitle, SectionContainer } from '@bratislava/ui-city-libr
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import RichText from '@modules/formatting/RichText'
 import { NoticeEntityFragment } from '@services/graphql'
-import { useTranslation } from 'next-i18next'
 import * as React from 'react'
 import { useNavikronos } from '@utils/navikronos'
 
