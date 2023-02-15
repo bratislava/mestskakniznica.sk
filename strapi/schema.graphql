@@ -2332,6 +2332,7 @@ type General {
   locale: String
   localizations: GeneralRelationResponseCollection
   newBooksPage: PageEntityResponse
+  openingHoursPage: PageEntityResponse
   privacyTermsAndConditionsPage: PageEntityResponse
   updatedAt: DateTime
 }
@@ -2358,6 +2359,7 @@ input GeneralFiltersInput {
   localizations: GeneralFiltersInput
   newBooksPage: PageFiltersInput
   not: GeneralFiltersInput
+  openingHoursPage: PageFiltersInput
   or: [GeneralFiltersInput]
   privacyTermsAndConditionsPage: PageFiltersInput
   updatedAt: DateTimeFilterInput
@@ -2366,6 +2368,7 @@ input GeneralFiltersInput {
 input GeneralInput {
   eventsPage: ID
   newBooksPage: ID
+  openingHoursPage: ID
   privacyTermsAndConditionsPage: ID
 }
 
