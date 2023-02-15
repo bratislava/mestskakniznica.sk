@@ -6,7 +6,8 @@ import React from 'react'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 import Turnstile from 'react-turnstile'
 
-import { usePageWrapperContext } from '../layouts/PageWrapper'
+import { useNavikronos } from '@utils/navikronos'
+import { useGeneralContext } from '@utils/generalContext'
 
 interface IProps {
   className?: string
@@ -32,7 +33,8 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation('forms')
-  const { locale } = usePageWrapperContext()
+  const { general } = useGeneralContext()
+  const { getPathForEntity } = useNavikronos()
 
   return (
     <div className={cx('w-full space-y-6', className)}>
@@ -53,11 +55,11 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
               <div className="text-sm">
                 {t('form_footer_agree')}{' '}
                 <Link
-                  // TODO: Navikronos
                   href={
-                    locale === 'sk'
-                      ? '/o-nas/ochrana-osobnych-udajov'
-                      : '/about-us/privacy-terms-and-conditions'
+                    getPathForEntity({
+                      type: 'page',
+                      id: general?.data?.attributes?.privacyTermsAndConditionsPage?.data?.id,
+                    }) ?? ''
                   }
                   variant="plain"
                   uppercase={false}

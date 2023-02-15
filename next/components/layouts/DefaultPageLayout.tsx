@@ -11,6 +11,7 @@ import { useTranslation } from 'next-i18next'
 import favicon from '../../assets/images/mkb_favicon.png'
 import NewsletterSection from '../HomePage/NewsletterSection'
 import { otherLocale, usePageWrapperContext } from './PageWrapper'
+import { useNavikronos } from '@utils/navikronos'
 
 interface IProps {
   children?: React.ReactNode
@@ -25,7 +26,8 @@ const DefaultPageLayout = ({ children, title, seo }: IProps) => {
   const { localizations, locale } = usePageWrapperContext()
   const otherLangData = otherLocale(locale ?? 'sk', localizations)
   const currentLangData = otherLocale(otherLangData.locale, localizations)
-  const { footer } = useGeneralContext()
+  const { footer, general } = useGeneralContext()
+  const { getPathForEntity } = useNavikronos()
 
   const { t } = useTranslation('common')
 
@@ -87,9 +89,10 @@ const DefaultPageLayout = ({ children, title, seo }: IProps) => {
                 // href: footer?.privacyLink?.slug ?? '#',
                 // TODO: Navikronos
                 href:
-                  locale === 'sk'
-                    ? '/o-nas/ochrana-osobnych-udajov'
-                    : '/en/about-us/privacy-terms-and-conditions',
+                  getPathForEntity({
+                    type: 'page',
+                    id: general?.data?.attributes?.privacyTermsAndConditionsPage?.data?.id,
+                  }) ?? '',
               }}
               VOP={{
                 title: t('VOP'),
