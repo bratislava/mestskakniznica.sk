@@ -9492,17 +9492,17 @@ export type PagesStaticPathsQuery = {
     data: Array<{
       __typename?: 'PageEntity'
       id?: string | null
-      attributes?: { __typename?: 'Page'; slug: string; locale?: string | null } | null
+      attributes?: { __typename?: 'Page'; locale?: string | null } | null
     }>
   } | null
 }
 
-export type PageBySlugQueryVariables = Exact<{
-  slug: Scalars['String']
+export type PageByIdQueryVariables = Exact<{
+  id: Scalars['ID']
   locale: Scalars['I18NLocaleCode']
 }>
 
-export type PageBySlugQuery = {
+export type PageByIdQuery = {
   __typename?: 'Query'
   pages?: {
     __typename?: 'PageEntityResponseCollection'
@@ -13877,16 +13877,15 @@ export const PagesStaticPathsDocument = gql`
       data {
         id
         attributes {
-          slug
           locale
         }
       }
     }
   }
 `
-export const PageBySlugDocument = gql`
-  query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
-    pages(filters: { slug: { eq: $slug } }, locale: $locale) {
+export const PageByIdDocument = gql`
+  query PageById($id: ID!, $locale: I18NLocaleCode!) {
+    pages(filters: { id: { eq: $id } }, locale: $locale) {
       data {
         ...PageEntity
       }
@@ -14283,17 +14282,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         'query'
       )
     },
-    PageBySlug(
-      variables: PageBySlugQueryVariables,
+    PageById(
+      variables: PageByIdQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<PageBySlugQuery> {
+    ): Promise<PageByIdQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<PageBySlugQuery>(PageBySlugDocument, variables, {
+          client.request<PageByIdQuery>(PageByIdDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'PageBySlug',
+        'PageById',
         'query'
       )
     },
