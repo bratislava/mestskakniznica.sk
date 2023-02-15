@@ -25,22 +25,20 @@ const Custom404 = ({ general }: Error404PageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper slug="/404">
-        <DefaultPageLayout>
-          <ErrorPage code={404}>
-            <header className="mb-6 text-h1">
-              <h1>{t('pageNotFound')}</h1>
-            </header>
-            <p className="text-base">{t('pageNotFoundSorry')}</p>
-            <p className="pt-10 text-base underline">
-              {`https://www.mestskakniznica.sk/${locale ?? ''}${asPath}`}
-            </p>
-            <Button variant="primary" href="/" className="mt-8">
-              {t('homepage')}
-            </Button>
-          </ErrorPage>
-        </DefaultPageLayout>
-      </PageWrapper>
+      <DefaultPageLayout>
+        <ErrorPage code={404}>
+          <header className="mb-6 text-h1">
+            <h1>{t('pageNotFound')}</h1>
+          </header>
+          <p className="text-base">{t('pageNotFoundSorry')}</p>
+          <p className="pt-10 text-base underline">
+            {`https://www.mestskakniznica.sk/${locale ?? ''}${asPath}`}
+          </p>
+          <Button variant="primary" href="/" className="mt-8">
+            {t('homepage')}
+          </Button>
+        </ErrorPage>
+      </DefaultPageLayout>
     </GeneralContextProvider>
   )
 }

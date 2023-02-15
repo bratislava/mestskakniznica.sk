@@ -10,7 +10,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
 import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-import PageWrapper from '@components/layouts/PageWrapper'
+
 import EventPage from '@components/pages/eventPage'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
@@ -25,19 +25,19 @@ type PageProps = {
 const EventSlugPage = ({ event, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper
-        slug={event.attributes?.slug ?? ''}
-        localizations={event.attributes?.localizations?.data
-          .filter(isPresent)
-          .map((localization) => ({
-            locale: localization.attributes?.locale,
-            slug: localization.attributes?.slug,
-          }))}
-      >
-        <DefaultPageLayout title={event.attributes?.title} seo={event.attributes?.seo}>
-          <EventPage event={event} />
-        </DefaultPageLayout>
-      </PageWrapper>
+      {/*<PageWrapper*/}
+      {/*  slug={event.attributes?.slug ?? ''}*/}
+      {/*  localizations={event.attributes?.localizations?.data*/}
+      {/*    .filter(isPresent)*/}
+      {/*    .map((localization) => ({*/}
+      {/*      locale: localization.attributes?.locale,*/}
+      {/*      slug: localization.attributes?.slug,*/}
+      {/*    }))}*/}
+      {/*>*/}
+      <DefaultPageLayout title={event.attributes?.title} seo={event.attributes?.seo}>
+        <EventPage event={event} />
+      </DefaultPageLayout>
+      {/*</PageWrapper>*/}
     </GeneralContextProvider>
   )
 }

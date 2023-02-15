@@ -8,7 +8,6 @@ import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import PageWrapper from '@components/layouts/PageWrapper'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
@@ -23,9 +22,7 @@ type PageProps = {
 const Page = ({ basicDocument, general, slug }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper slug={slug}>
-        <BasicDocumentPage basicDocument={basicDocument} />
-      </PageWrapper>
+      <BasicDocumentPage basicDocument={basicDocument} />
     </GeneralContextProvider>
   )
 }

@@ -5,7 +5,7 @@ import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-import PageWrapper from '@components/layouts/PageWrapper'
+
 import ErrorDisplay, { getError, IDisplayError } from '@components/Molecules/ErrorDisplay'
 import ErrorPage from '@components/pages/ErrorPage'
 import SearchPage from '@components/pages/SearchPage'
@@ -16,33 +16,17 @@ import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 export const Search = ({ error, general }: PageProps) => {
   if (error) {
     return (
-      <PageWrapper slug="/">
-        <ErrorPage code={500}>
-          <ErrorDisplay error={error} />
-        </ErrorPage>
-      </PageWrapper>
+      <ErrorPage code={500}>
+        <ErrorDisplay error={error} />
+      </ErrorPage>
     )
   }
 
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper
-        slug="vyhladavanie"
-        localizations={[
-          {
-            locale: 'sk',
-            slug: 'vyhladavanie',
-          },
-          {
-            locale: 'en',
-            slug: 'search',
-          },
-        ]}
-      >
-        <DefaultPageLayout>
-          <SearchPage />
-        </DefaultPageLayout>
-      </PageWrapper>
+      <DefaultPageLayout>
+        <SearchPage />
+      </DefaultPageLayout>
     </GeneralContextProvider>
   )
 }

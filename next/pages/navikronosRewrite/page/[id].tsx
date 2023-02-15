@@ -1,5 +1,5 @@
 import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-import PageWrapper from '@components/layouts/PageWrapper'
+
 import FullContentPage from '@components/pages/fullContentPage'
 import ListingPage from '@components/pages/listingPage'
 import SidebarContentPage from '@components/pages/sidebarContentPage'
@@ -55,19 +55,18 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
   return (
     <Hydrate state={dehydratedState}>
       <GeneralContextProvider general={general}>
-        <PageWrapper
-          slug={page?.attributes?.slug ?? ''}
-          localizations={page?.attributes?.localizations?.data
-            .filter(isPresent)
-            .map((localization) => ({
-              locale: localization.attributes?.locale,
-              slug: localization.attributes?.slug,
-            }))}
-        >
-          <DefaultPageLayout title={page?.attributes?.title} seo={page?.attributes?.seo}>
-            {pageComponentByLayout}
-          </DefaultPageLayout>
-        </PageWrapper>
+        {/*<PageWrapper*/}
+        {/*  slug={page?.attributes?.slug ?? ''}*/}
+        {/*  localizations={page?.attributes?.localizations?.data*/}
+        {/*    .filter(isPresent)*/}
+        {/*    .map((localization) => ({*/}
+        {/*      locale: localization.attributes?.locale,*/}
+        {/*      slug: localization.attributes?.slug,*/}
+        {/*    }))}*/}
+        {/*>*/}
+        <DefaultPageLayout title={page?.attributes?.title} seo={page?.attributes?.seo}>
+          {pageComponentByLayout}
+        </DefaultPageLayout>
       </GeneralContextProvider>
     </Hydrate>
   )

@@ -51,7 +51,7 @@ type HomeProps = {
   CLNavikronosPageProps
 
 export const Index = ({
-  localizations,
+  localizations, // TODO examine
   promos,
   latestNotices,
   newBooks,
@@ -67,76 +67,67 @@ export const Index = ({
 
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper
-        slug="/"
-        localizations={localizations
-          ?.filter(isPresent)
-          // add empty slug because it's expected in wrapper and index page does not have slug
-          .map((l) => ({ ...l, slug: '' }))}
-      >
-        <DefaultPageLayout seo={seo}>
-          <h1 className="sr-only">{t('pageTitle')}</h1>
-          {promos.length > 0 && (
-            <SectionContainer>
-              <Section>
-                <SectionPromos promos={promos} />
-              </Section>
-            </SectionContainer>
-          )}
+      <DefaultPageLayout seo={seo}>
+        <h1 className="sr-only">{t('pageTitle')}</h1>
+        {promos.length > 0 && (
+          <SectionContainer>
+            <Section>
+              <SectionPromos promos={promos} />
+            </Section>
+          </SectionContainer>
+        )}
 
-          {newBooks && newBooks.length > 0 ? (
-            <SectionContainer>
-              <SectionHomepageNewBooks books={newBooks} />
-            </SectionContainer>
-          ) : null}
+        {newBooks && newBooks.length > 0 ? (
+          <SectionContainer>
+            <SectionHomepageNewBooks books={newBooks} />
+          </SectionContainer>
+        ) : null}
 
-          {faqSection !== null && (
-            <SectionContainer>
-              <Section>
-                <SectionFaq faqSection={faqSection} />
-              </Section>
-            </SectionContainer>
-          )}
+        {faqSection !== null && (
+          <SectionContainer>
+            <Section>
+              <SectionFaq faqSection={faqSection} />
+            </Section>
+          </SectionContainer>
+        )}
 
-          {registrationInfoSection !== null && (
-            <SectionContainer>
-              <Section>
-                <SectionRegistrationInfo registrationInfoSection={registrationInfoSection} />
-              </Section>
-            </SectionContainer>
-          )}
+        {registrationInfoSection !== null && (
+          <SectionContainer>
+            <Section>
+              <SectionRegistrationInfo registrationInfoSection={registrationInfoSection} />
+            </Section>
+          </SectionContainer>
+        )}
 
-          {newsSection !== null && latestNotices.length > 0 && (
-            <SectionContainer>
-              <Section>
-                <SectionLibraryNews newsSection={newsSection} notices={latestNotices} />
-              </Section>
-            </SectionContainer>
-          )}
+        {newsSection !== null && latestNotices.length > 0 && (
+          <SectionContainer>
+            <Section>
+              <SectionLibraryNews newsSection={newsSection} notices={latestNotices} />
+            </Section>
+          </SectionContainer>
+        )}
 
-          {bookTags && bookTags.length > 0 && (
-            <SectionContainer>
-              <Section>
-                <SectionTags bookTags={bookTags} />
-              </Section>
-            </SectionContainer>
-          )}
+        {bookTags && bookTags.length > 0 && (
+          <SectionContainer>
+            <Section>
+              <SectionTags bookTags={bookTags} />
+            </Section>
+          </SectionContainer>
+        )}
 
-          {mapSection && (
-            <SectionContainer>
-              <Section noBorder>
-                <Localities
-                  mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
-                  branches={
-                    mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ??
-                    []
-                  }
-                />
-              </Section>
-            </SectionContainer>
-          )}
-        </DefaultPageLayout>
-      </PageWrapper>
+        {mapSection && (
+          <SectionContainer>
+            <Section noBorder>
+              <Localities
+                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
+                branches={
+                  mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []
+                }
+              />
+            </Section>
+          </SectionContainer>
+        )}
+      </DefaultPageLayout>
     </GeneralContextProvider>
   )
 }

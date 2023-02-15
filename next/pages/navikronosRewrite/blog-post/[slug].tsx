@@ -9,7 +9,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
 import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-import PageWrapper from '@components/layouts/PageWrapper'
+
 import BlogPostPage from '@components/pages/blogPostPage'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
@@ -31,19 +31,18 @@ const Page = ({ blogPost, slug, general }: PageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper
-        slug={slug ?? ''}
-        localizations={blogPost.attributes?.localizations?.data
-          .filter(isDefined)
-          .map((localization) => ({
-            locale: localization.attributes?.locale,
-            slug: localization.attributes?.slug,
-          }))}
-      >
-        <DefaultPageLayout title={blogPost.attributes?.title} seo={blogPost.attributes?.seo}>
-          <BlogPostPage blogPost={blogPost} />
-        </DefaultPageLayout>
-      </PageWrapper>
+      {/*<PageWrapper*/}
+      {/*  slug={slug ?? ''}*/}
+      {/*  localizations={blogPost.attributes?.localizations?.data*/}
+      {/*    .filter(isDefined)*/}
+      {/*    .map((localization) => ({*/}
+      {/*      locale: localization.attributes?.locale,*/}
+      {/*      slug: localization.attributes?.slug,*/}
+      {/*    }))}*/}
+      {/*>*/}
+      <DefaultPageLayout title={blogPost.attributes?.title} seo={blogPost.attributes?.seo}>
+        <BlogPostPage blogPost={blogPost} />
+      </DefaultPageLayout>
     </GeneralContextProvider>
   )
 }

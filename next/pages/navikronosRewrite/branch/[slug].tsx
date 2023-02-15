@@ -1,5 +1,5 @@
 import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-import PageWrapper from '@components/layouts/PageWrapper'
+
 import BranchPage from '@components/pages/BranchPage'
 import { BranchEntityFragment, GeneralQuery } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
@@ -27,24 +27,23 @@ const Page = ({ branch, general }: PageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper
-        slug={`${t('branch_slug')}${branch.attributes?.slug}`}
-        localizations={branch.attributes?.localizations?.data
-          .filter(isPresent)
-          .map((localization) => ({
-            locale: localization.attributes?.locale,
-            // TODO locale is switched on purpose to get en url if user is on sk page and vice versa
-            slug: `${
-              branch.attributes?.locale === 'en'
-                ? '/navstivte/nase-lokality/'
-                : '/visit/our-locations/'
-            }${localization.attributes?.slug}`,
-          }))}
-      >
-        <DefaultPageLayout title={branch.attributes?.title} seo={branch.attributes?.seo}>
-          <BranchPage branch={branch} />
-        </DefaultPageLayout>
-      </PageWrapper>
+      {/*<PageWrapper*/}
+      {/*  slug={`${t('branch_slug')}${branch.attributes?.slug}`}*/}
+      {/*  localizations={branch.attributes?.localizations?.data*/}
+      {/*    .filter(isPresent)*/}
+      {/*    .map((localization) => ({*/}
+      {/*      locale: localization.attributes?.locale,*/}
+      {/*      // TODO locale is switched on purpose to get en url if user is on sk page and vice versa*/}
+      {/*      slug: `${*/}
+      {/*        branch.attributes?.locale === 'en'*/}
+      {/*          ? '/navstivte/nase-lokality/'*/}
+      {/*          : '/visit/our-locations/'*/}
+      {/*      }${localization.attributes?.slug}`,*/}
+      {/*    }))}*/}
+      {/*>*/}
+      <DefaultPageLayout title={branch.attributes?.title} seo={branch.attributes?.seo}>
+        <BranchPage branch={branch} />
+      </DefaultPageLayout>
     </GeneralContextProvider>
   )
 }
