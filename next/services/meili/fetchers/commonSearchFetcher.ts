@@ -39,7 +39,8 @@ export type CommonSearchData = SearchResponse<CommonSearchResult>
 export type CommonSearchResult = {
   type: CommonSearchType
   title: string
-  link: string
+  id: number
+  slug: string
 }
 
 export const getCommonSearchQueryKey = (filters: CommonSearchFilters, locale: string) => [
@@ -49,11 +50,7 @@ export const getCommonSearchQueryKey = (filters: CommonSearchFilters, locale: st
 ]
 
 export const commonSearchFetcher =
-  (
-    filters: CommonSearchFilters,
-    locale: string,
-    slugs: { event: string; notice: string; blog: string; document: string }
-  ) =>
+  (filters: CommonSearchFilters, locale: string) =>
   // eslint-disable-next-line sonarjs/cognitive-complexity
   () => {
     // If no type is selected, no filters are generated, so all of them are displayed.
@@ -73,33 +70,12 @@ export const commonSearchFetcher =
           // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
           const dataInner = (hit as any)[type]
 
-          const { slug, title } = dataInner
-
-          const link = (() => {
-            if (type === 'blog-post') {
-              // TODO: use function to get full path
-              return locale === 'sk' ? `${slugs.blog}${slug}` : `/en${slugs.blog}${slug}`
-            }
-
-            if (type === 'basic-document') {
-              // TODO IMPORTANT: use function to get full path, fix undefined in url, add english url
-              return locale === 'sk' ? `${slugs.document}${slug}` : `/en${slugs.document}${slug}`
-            }
-
-            if (type === 'event') {
-              // TODO: use function to get full path
-              return locale === 'sk' ? `${slugs.event}${slug}` : `/en${slugs.event}${slug}`
-            }
-
-            if (type === 'notice') {
-              // TODO: use function to get full path
-              return locale === 'sk' ? `${slugs.notice}${slug}` : `/en${slugs.notice}${slug}`
-            }
-
-            return `/${dataInner.slug}`
-          })()
-
-          return { type, title, link, data: dataInner } as CommonSearchResult
+          return {
+            type,
+            title: dataInner.title,
+            id: dataInner.id,
+            slug: dataInner.slug,
+          } as CommonSearchResult
         })
 
         return { ...response, hits: newHits }
