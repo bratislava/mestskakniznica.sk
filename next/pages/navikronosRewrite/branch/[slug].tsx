@@ -1,3 +1,5 @@
+import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
+import PageWrapper from '@components/layouts/PageWrapper'
 import BranchPage from '@components/pages/BranchPage'
 import { BranchEntityFragment, GeneralQuery } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
@@ -5,22 +7,23 @@ import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
 import { isPresent } from '@utils/utils'
-import last from 'lodash/last'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
-
-import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
-import PageWrapper from '../../components/layouts/PageWrapper'
+import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
+import { CLNavikronosPageProps, navikronosConfig, useNavikronos } from '@utils/navikronos'
+import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 
 type PageProps = {
   branch: BranchEntityFragment
   general: GeneralQuery
-} & SSRConfig
+} & SSRConfig &
+  CLNavikronosPageProps
 
-const EventSlugPage = ({ branch, general }: PageProps) => {
+const Page = ({ branch, general }: PageProps) => {
   const { t } = useTranslation(['common'])
+  const { getPathForEntity } = useNavikronos()
 
   return (
     <GeneralContextProvider general={general}>
@@ -49,7 +52,7 @@ const EventSlugPage = ({ branch, general }: PageProps) => {
 
 // TODO use common functions to prevent duplicate code
 interface StaticParams extends ParsedUrlQuery {
-  fullPath: string[]
+  slug: string
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
@@ -67,10 +70,8 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       .filter((entity) => entity.attributes?.slug)
       .map((entity) => ({
         params: {
-          fullPath: `${entity.attributes?.locale === 'sk' ? '/navstivte/' : '/visit/'}${entity
-            .attributes?.slug!}`
-            .split('/')
-            .slice(1),
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          slug: entity.attributes!.slug,
           locale: entity.attributes?.locale || '',
         },
       }))
@@ -82,25 +83,26 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   return { paths, fallback: 'blocking' }
 }
 
-// TODO define type of fullPath to string[]
-export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
-  locale = 'sk',
-  params,
-}) => {
-  const slug = last(params?.fullPath)
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ctx) => {
+  const { locale, params } = ctx
+  const slug = params?.slug
 
-  if (!slug) return { notFound: true } as const
+  if (!slug || !locale) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} branch ${slug} on ${params?.fullPath.join('/') ?? ''}`)
+  console.log(`Revalidating ${locale} branch ${slug}`)
 
-  const [{ branches }, general, translations] = await Promise.all([
+  const [{ branches }, general, translations, navikronosStaticProps] = await Promise.all([
     client.BranchBySlug({
       slug,
       locale,
     }),
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
+    navikronosGetStaticProps(navikronosConfig, ctx, {
+      type: 'branch',
+      slug,
+    }),
   ])
 
   const branch = branches?.data[0] ?? null
@@ -112,10 +114,11 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
       slug,
       branch,
       general,
+      navikronosStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default EventSlugPage
+export default wrapNavikronosProvider(Page)

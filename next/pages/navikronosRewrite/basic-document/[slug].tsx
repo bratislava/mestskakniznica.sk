@@ -3,19 +3,22 @@ import { BasicDocumentEntityFragment, GeneralQuery } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
-import last from 'lodash/last'
 import { GetServerSideProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import PageWrapper from '../../components/layouts/PageWrapper'
+import PageWrapper from '@components/layouts/PageWrapper'
+import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
+import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
+import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 
 type PageProps = {
   basicDocument: BasicDocumentEntityFragment
   slug: string
   general: GeneralQuery
-} & SSRConfig
+} & SSRConfig &
+  CLNavikronosPageProps
 
 const Page = ({ basicDocument, general, slug }: PageProps) => {
   const { i18n } = useTranslation('common')
@@ -30,26 +33,26 @@ const Page = ({ basicDocument, general, slug }: PageProps) => {
 }
 
 interface StaticParams extends ParsedUrlQuery {
-  fullPath: string[]
+  slug: string
 }
 
-export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = async ({
-  locale = 'sk',
-  params,
-}) => {
-  const slug = last(params?.fullPath)
+export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = async (ctx) => {
+  const { locale, params } = ctx
+  const slug = params?.slug
 
-  if (!slug) return { notFound: true } as const
+  if (!slug || !locale) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(
-    `Revalidating ${locale} basic document ${slug} on ${params?.fullPath.join('/') ?? ''}`
-  )
+  console.log(`Revalidating ${locale} basic document ${slug}}`)
 
-  const [{ basicDocuments }, general, translations] = await Promise.all([
+  const [{ basicDocuments }, general, translations, navikronosStaticProps] = await Promise.all([
     await client.BasicDocumentBySlug({ slug }),
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'newsletter']),
+    navikronosGetStaticProps(navikronosConfig, ctx, {
+      type: 'basic-document',
+      slug,
+    }),
   ])
 
   const basicDocument = basicDocuments?.data[0] ?? null
@@ -61,9 +64,10 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
       slug,
       basicDocument,
       general,
+      navikronosStaticProps,
       ...translations,
     },
   }
 }
 
-export default Page
+export default wrapNavikronosProvider(Page)

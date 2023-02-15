@@ -10,10 +10,13 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorPage from '../components/pages/ErrorPage'
+import { navikronosGetStaticProps } from '../navikronos/navikronosGetStaticProps'
+import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
+import { wrapNavikronosProvider } from '../navikronos/wrapNavikronosProvider'
 
 type Error404PageProps = {
   general: GeneralQuery
-}
+} & CLNavikronosPageProps
 
 const Custom404 = ({ general }: Error404PageProps) => {
   const { t, i18n } = useTranslation()
@@ -45,17 +48,19 @@ const Custom404 = ({ general }: Error404PageProps) => {
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const locale = ctx.locale ?? 'sk'
 
-  const [general, translations] = await Promise.all([
+  const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
+    await navikronosGetStaticProps(navikronosConfig, ctx),
   ])
 
   return {
     props: {
       general,
+      navikronosStaticProps,
       ...translations,
     },
   }
 }
 
-export default Custom404
+export default wrapNavikronosProvider(Custom404)

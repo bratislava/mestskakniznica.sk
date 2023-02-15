@@ -31,6 +31,9 @@ import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationI
 import SectionTags from '../components/HomePage/SectionTags'
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
 import PageWrapper from '../components/layouts/PageWrapper'
+import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
+import { navikronosGetStaticProps } from '../navikronos/navikronosGetStaticProps'
+import { wrapNavikronosProvider } from '../navikronos/wrapNavikronosProvider'
 
 type HomeProps = {
   localizations?: PageLocalizationEntityFragment[]
@@ -44,7 +47,8 @@ type HomeProps = {
   mapSection: ComponentSectionsMap | null
   seo?: ComponentCommonSeo
   general: GeneralQuery
-} & SSRConfig
+} & SSRConfig &
+  CLNavikronosPageProps
 
 export const Index = ({
   localizations,
@@ -138,17 +142,27 @@ export const Index = ({
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const { locale } = ctx
+  if (!locale) {
+    return { notFound: true }
+  }
+
   const translations = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
 
   // running all requests parallel
   // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
-  const [newBooks, { homePage, promotedNews, promotedEvents, latestNotices, bookTags }, general] =
-    await Promise.all([
-      newBooksHomePageServerSideFetcher(),
-      client.HomePage({ locale }),
-      generalFetcher(locale),
-    ])
+  const [
+    newBooks,
+    { homePage, promotedNews, promotedEvents, latestNotices, bookTags },
+    general,
+    navikronosStaticProps,
+  ] = await Promise.all([
+    newBooksHomePageServerSideFetcher(),
+    client.HomePage({ locale }),
+    generalFetcher(locale),
+    navikronosGetStaticProps(navikronosConfig, ctx),
+  ])
 
   if (!homePage) {
     return { notFound: true }
@@ -167,10 +181,11 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       mapSection: homePage?.data?.attributes?.mapSection ?? null,
       seo: homePage?.data?.attributes?.seo ?? null,
       general,
+      navikronosStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default Index
+export default wrapNavikronosProvider(Index)
