@@ -6,6 +6,8 @@ import Modal from '@modules/common/Modal'
 import MobileNavigationItem from '@modules/navigation/MobileNavigationItem'
 import { MenuItem } from '@modules/navigation/NavMenu'
 import { useTranslation } from 'next-i18next'
+import { useNavikronos } from '@utils/navikronos'
+import { useGeneralContext } from '@utils/generalContext'
 
 interface MobileNavigationProps {
   isOpen: boolean
@@ -15,13 +17,21 @@ interface MobileNavigationProps {
 
 export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationProps) => {
   const { t } = useTranslation(['common', 'homepage'])
+  const { getPathForEntity } = useNavikronos()
+  const { general } = useGeneralContext()
 
   const { localizations, locale } = usePageWrapperContext()
   const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
 
-  // TODO replace by proper page urls
   const moreLinks = [
-    { label: t('openingHours'), url: t('openingHoursPageLink') },
+    {
+      label: t('openingHours'),
+      url:
+        getPathForEntity({
+          type: 'page',
+          id: general?.data?.attributes?.openingHoursPage?.data?.id,
+        }) ?? '',
+    },
     { label: t('onlineCatalog'), url: 'https://opac.mestskakniznica.sk/opac', target: '_blank' },
   ]
 

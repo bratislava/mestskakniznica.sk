@@ -14,11 +14,13 @@ export interface PageProps {
 }
 
 const EventPage = ({ event }: PageProps) => {
-  const { t, i18n } = useTranslation(['common', 'homepage'])
+  const { t } = useTranslation(['common', 'homepage'])
 
   const { upcomingEvents } = useGeneralContext()
   const { getBreadcrumbs } = useNavikronos()
   const breadcrumbs = getBreadcrumbs(event.attributes?.title)
+  const { general } = useGeneralContext()
+  const { getPathForEntity } = useNavikronos()
 
   return (
     <>
@@ -33,8 +35,12 @@ const EventPage = ({ event }: PageProps) => {
           <div className="inline-flex w-full pt-10">
             <h2 className="text-h3">{t('otherEvents')}</h2>
             <Link
-              // TODO: Navikronos
-              href={t('event_slug')}
+              href={
+                getPathForEntity({
+                  type: 'page',
+                  id: general?.data?.attributes?.eventsPage?.data?.id,
+                }) ?? ''
+              }
               hasIcon
               title={t('eventsAll')}
               size="large"
