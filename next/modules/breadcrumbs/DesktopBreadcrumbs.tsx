@@ -16,12 +16,12 @@ const DesktopBreadcrumbs = ({ crumbs, ...rest }: BreadcrumbsProps) => {
           <span className="sr-only">{t('homepage')}</span>
         </BreadcrumbItem>
 
-        {crumbs.map((crumb, index) => {
+        {crumbs?.map((crumb, index) => {
           const isLast = index === crumbs.length - 1
 
           return (
             // eslint-disable-next-line react/no-array-index-key
-            <BreadcrumbItem key={index} url={crumb.url} isCurrent={isLast}>
+            <BreadcrumbItem key={index} url={crumb.path} isCurrent={isLast}>
               {crumb.title}
             </BreadcrumbItem>
           )

@@ -1,43 +1,11 @@
-import Breadcrumbs, { BreadcrumbListItem } from '@modules/breadcrumbs/Breadcrumbs'
-import { BlogPostEntity, Category, FileCategoryEntity, PageEntity } from '@services/graphql'
-import { pagePath } from '@utils/page'
-import { useTranslation } from 'next-i18next'
+import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
+import { useNavikronos } from '@utils/navikronos'
 
-interface PageBreadcrumbsProps {
-  page: PageEntity | null | undefined
-  blogPost?: BlogPostEntity
-  documentCategory?: FileCategoryEntity
-  breadCrumbs?: { title: string; url: string | null }[]
-}
+const PageBreadcrumbs = () => {
+  const { getBreadcrumbs } = useNavikronos()
+  const breadcrumbs = getBreadcrumbs()
 
-const PageBreadcrumbs = ({ page, blogPost, breadCrumbs }: PageBreadcrumbsProps) => {
-  const { t } = useTranslation('common')
-
-  const crumbs: BreadcrumbListItem[] = []
-
-  // self, if is only subpage and not pagecategory, to avoid mutliple appearance
-  if (
-    page?.attributes?.pageCategory?.data?.attributes?.pageLink?.page?.data?.attributes?.slug !==
-    page?.attributes?.slug
-  ) {
-    crumbs.push({ title: page?.attributes?.title ?? '', url: `/${pagePath(page?.attributes)}` })
-  }
-
-  // get parent pagecategory
-  let current: Pick<Category, 'parentCategory' | 'title' | 'pageLink'> | undefined | null =
-    page?.attributes?.pageCategory?.data?.attributes || null
-
-  while (current) {
-    crumbs.push({
-      title: current.pageLink?.page?.data?.attributes?.title ?? '',
-      url: current === page ? undefined : `/${pagePath(current.pageLink?.page?.data?.attributes)}`,
-    })
-    current = current.parentCategory?.data?.attributes
-  }
-
-  crumbs.reverse()
-
-  return <Breadcrumbs crumbs={crumbs} />
+  return <Breadcrumbs crumbs={breadcrumbs} />
 }
 
 export default PageBreadcrumbs

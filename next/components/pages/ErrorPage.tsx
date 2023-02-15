@@ -12,7 +12,7 @@ const ErrorPage = ({ code, children }: IProps) => {
   return (
     <SectionContainer>
       <div className="border-border-dark">
-        <Breadcrumbs crumbs={[{ title: `${code}` }]} />
+        <Breadcrumbs crumbs={[{ title: `${code}`, path: String(code) }]} />
         <div className="flex grid-cols-2 flex-col items-center py-12 md:grid">
           <div>{children}</div>
           <img

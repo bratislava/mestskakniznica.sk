@@ -4,31 +4,20 @@ import RichText from '@modules/formatting/RichText'
 import { NoticeEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
+import { useNavikronos } from '@utils/navikronos'
 
 export interface NoticePageProps {
   notice: NoticeEntityFragment
 }
 
 const NoticePage = ({ notice }: NoticePageProps) => {
-  const { i18n } = useTranslation('common')
-
-  const breadCrumbs =
-    i18n.language === 'sk'
-      ? [
-          { title: 'Zažite', url: '/zazite' },
-          { title: 'Aktuality', url: '/zazite/aktuality' },
-          { title: notice.attributes?.title || '', url: notice.attributes?.slug || '' },
-        ]
-      : [
-          { title: 'Experience', url: '/experience' },
-          { title: 'News', url: '/experience/news' },
-          { title: notice.attributes?.title || '', url: notice.attributes?.slug || '' },
-        ]
+  const { getBreadcrumbs } = useNavikronos()
+  const breadcrumbs = getBreadcrumbs(notice.attributes?.title)
 
   return (
     <>
       <SectionContainer>
-        <Breadcrumbs crumbs={breadCrumbs} />
+        <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
         <PageTitle title={notice?.attributes?.title ?? ''} />

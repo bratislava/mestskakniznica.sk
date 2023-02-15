@@ -5,31 +5,20 @@ import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
 import Section from '../AppLayout/Section'
+import { useNavikronos } from '@utils/navikronos'
 
 export interface PageProps {
   branch: BranchEntityFragment
 }
 
 const BranchPage = ({ branch }: PageProps) => {
-  const { t, i18n } = useTranslation(['common', 'homepage'])
-
-  const breadCrumbs =
-    i18n.language === 'sk'
-      ? [
-          { title: 'Navštívte', url: '/navstivte' },
-          { title: 'Naše lokality', url: '/navstivte/nase-lokality' },
-          { title: branch.attributes?.title || '', url: branch.attributes?.slug || '' },
-        ]
-      : [
-          { title: 'Visit', url: '/visit' },
-          { title: 'Our locations', url: '/visit/our-locations' },
-          { title: branch.attributes?.title || '', url: branch.attributes?.slug || '' },
-        ]
+  const { getBreadcrumbs } = useNavikronos()
+  const breadcrumbs = getBreadcrumbs(branch.attributes?.title)
 
   return (
     <>
       <SectionContainer>
-        <Breadcrumbs crumbs={breadCrumbs} />
+        <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
         <Section>

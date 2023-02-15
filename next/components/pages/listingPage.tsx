@@ -32,7 +32,7 @@ const ListingPage = ({ page }: PageProps) => {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs />
       </SectionContainer>
       <SectionContainer>
         <PageTitle title={page?.attributes?.title ?? ''} perex={page?.attributes?.perex ?? ''} />

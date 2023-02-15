@@ -14,6 +14,8 @@ import { useTranslation } from 'next-i18next'
 import React, { ReactNode } from 'react'
 
 import DefaultPageLayout from '../layouts/DefaultPageLayout'
+import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
+import { useNavikronos } from '@utils/navikronos'
 
 interface IProps {
   basicDocument: BasicDocumentEntityFragment
@@ -26,28 +28,10 @@ interface FileMetadata {
 
 const DESCRIPTION_LIMIT = 100
 
-const CustomPageBreadcrumbs = ({ basicDocument }: IProps) => {
-  const { t } = useTranslation('common')
-
-  return (
-    <div className="mt-4.5 flex items-center gap-x-4">
-      <Link variant="plain" href="/">
-        <Home className="cursor-pointer" />
-      </Link>
-      <ChevronRight className="ml-1" />
-      {/* TODO use default link styles */}
-      <Link variant="default" href={t('documents_slug')} className="normal-case underline">
-        {t('documents_page_name')}
-      </Link>
-      <ChevronRight className="ml-1" />
-
-      <span className="text-sm">{basicDocument?.attributes?.title}</span>
-    </div>
-  )
-}
-
 const BasicDocumentPage = ({ basicDocument }: IProps) => {
   const { t, i18n } = useTranslation('common')
+  const { getBreadcrumbs } = useNavikronos()
+  const breadcrumbs = getBreadcrumbs(basicDocument.attributes?.title)
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const [expandDescription, setExpandDescription] = React.useState(false)
@@ -80,6 +64,7 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
       content: link ? (
         <>
           {/* Mobile */}
+          {/* TODO: Navikronos */}
           <Link
             href={link ?? '#'}
             uppercase={false}
@@ -90,6 +75,7 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
             {link}
           </Link>
           {/* Desktop */}
+          {/* TODO: Navikronos */}
           <Link
             href={link ?? '#'}
             uppercase={false}
@@ -131,7 +117,8 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
   return (
     <DefaultPageLayout title={title}>
       <SectionContainer>
-        <CustomPageBreadcrumbs basicDocument={basicDocument} />
+        <Breadcrumbs crumbs={breadcrumbs} />
+
         <div className="mt-6 flex gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:pb-32">
           <FileIcon
             className="hidden lg:flex"
