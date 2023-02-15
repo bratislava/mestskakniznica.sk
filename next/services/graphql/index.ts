@@ -2739,6 +2739,58 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>
 }
 
+export type General = {
+  __typename?: 'General'
+  createdAt?: Maybe<Scalars['DateTime']>
+  eventsPage?: Maybe<PageEntityResponse>
+  locale?: Maybe<Scalars['String']>
+  localizations?: Maybe<GeneralRelationResponseCollection>
+  newBooksPage?: Maybe<PageEntityResponse>
+  privacyTermsAndConditionsPage?: Maybe<PageEntityResponse>
+  updatedAt?: Maybe<Scalars['DateTime']>
+}
+
+export type GeneralEntity = {
+  __typename?: 'GeneralEntity'
+  attributes?: Maybe<General>
+  id?: Maybe<Scalars['ID']>
+}
+
+export type GeneralEntityResponse = {
+  __typename?: 'GeneralEntityResponse'
+  data?: Maybe<GeneralEntity>
+}
+
+export type GeneralEntityResponseCollection = {
+  __typename?: 'GeneralEntityResponseCollection'
+  data: Array<GeneralEntity>
+  meta: ResponseCollectionMeta
+}
+
+export type GeneralFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<GeneralFiltersInput>>>
+  createdAt?: InputMaybe<DateTimeFilterInput>
+  eventsPage?: InputMaybe<PageFiltersInput>
+  locale?: InputMaybe<StringFilterInput>
+  localizations?: InputMaybe<GeneralFiltersInput>
+  newBooksPage?: InputMaybe<PageFiltersInput>
+  not?: InputMaybe<GeneralFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<GeneralFiltersInput>>>
+  privacyTermsAndConditionsPage?: InputMaybe<PageFiltersInput>
+  updatedAt?: InputMaybe<DateTimeFilterInput>
+}
+
+export type GeneralInput = {
+  eventsPage?: InputMaybe<Scalars['ID']>
+  newBooksPage?: InputMaybe<Scalars['ID']>
+  privacyTermsAndConditionsPage?: InputMaybe<Scalars['ID']>
+}
+
+export type GeneralRelationResponseCollection = {
+  __typename?: 'GeneralRelationResponseCollection'
+  data: Array<GeneralEntity>
+}
+
 export type GenericMorph =
   | BasicDocument
   | BlogPost
@@ -2815,6 +2867,7 @@ export type GenericMorph =
   | EventTag
   | FileCategory
   | Footer
+  | General
   | HomePage
   | I18NLocale
   | Menu
@@ -3126,6 +3179,7 @@ export type Mutation = {
   createEventTagLocalization?: Maybe<EventTagEntityResponse>
   createFileCategory?: Maybe<FileCategoryEntityResponse>
   createFooterLocalization?: Maybe<FooterEntityResponse>
+  createGeneralLocalization?: Maybe<GeneralEntityResponse>
   createHomePageLocalization?: Maybe<HomePageEntityResponse>
   createMenu?: Maybe<MenuEntityResponse>
   createMenuLocalization?: Maybe<MenuEntityResponse>
@@ -3154,6 +3208,7 @@ export type Mutation = {
   deleteEventTag?: Maybe<EventTagEntityResponse>
   deleteFileCategory?: Maybe<FileCategoryEntityResponse>
   deleteFooter?: Maybe<FooterEntityResponse>
+  deleteGeneral?: Maybe<GeneralEntityResponse>
   deleteHomePage?: Maybe<HomePageEntityResponse>
   deleteMenu?: Maybe<MenuEntityResponse>
   deleteNavikronosNavikronosStorage?: Maybe<NavikronosNavikronosStorageEntityResponse>
@@ -3191,6 +3246,7 @@ export type Mutation = {
   updateFileCategory?: Maybe<FileCategoryEntityResponse>
   updateFileInfo: UploadFileEntityResponse
   updateFooter?: Maybe<FooterEntityResponse>
+  updateGeneral?: Maybe<GeneralEntityResponse>
   updateHomePage?: Maybe<HomePageEntityResponse>
   updateMenu?: Maybe<MenuEntityResponse>
   updateNavikronosNavikronosStorage?: Maybe<NavikronosNavikronosStorageEntityResponse>
@@ -3304,6 +3360,12 @@ export type MutationCreateFileCategoryArgs = {
 
 export type MutationCreateFooterLocalizationArgs = {
   data?: InputMaybe<FooterInput>
+  id?: InputMaybe<Scalars['ID']>
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>
+}
+
+export type MutationCreateGeneralLocalizationArgs = {
+  data?: InputMaybe<GeneralInput>
   id?: InputMaybe<Scalars['ID']>
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
 }
@@ -3429,6 +3491,10 @@ export type MutationDeleteFileCategoryArgs = {
 }
 
 export type MutationDeleteFooterArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>
+}
+
+export type MutationDeleteGeneralArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
 }
 
@@ -3578,6 +3644,11 @@ export type MutationUpdateFileInfoArgs = {
 
 export type MutationUpdateFooterArgs = {
   data: FooterInput
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>
+}
+
+export type MutationUpdateGeneralArgs = {
+  data: GeneralInput
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
 }
 
@@ -3997,6 +4068,7 @@ export type Query = {
   fileCategories?: Maybe<FileCategoryEntityResponseCollection>
   fileCategory?: Maybe<FileCategoryEntityResponse>
   footer?: Maybe<FooterEntityResponse>
+  general?: Maybe<GeneralEntityResponse>
   homePage?: Maybe<HomePageEntityResponse>
   i18NLocale?: Maybe<I18NLocaleEntityResponse>
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>
@@ -4164,6 +4236,10 @@ export type QueryFileCategoryArgs = {
 export type QueryFooterArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
   publicationState?: InputMaybe<PublicationState>
+}
+
+export type QueryGeneralArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>
 }
 
 export type QueryHomePageArgs = {
@@ -11539,6 +11615,25 @@ export type MenuEntityFragment = {
   } | null
 }
 
+export type GeneralEntityFragment = {
+  __typename?: 'GeneralEntity'
+  attributes?: {
+    __typename?: 'General'
+    eventsPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+    } | null
+    newBooksPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+    } | null
+    privacyTermsAndConditionsPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+    } | null
+  } | null
+}
+
 export type MenuSectionFragment = {
   __typename?: 'ComponentMenuSections'
   id: string
@@ -12767,6 +12862,27 @@ export type GeneralQuery = {
       } | null
     } | null
   } | null
+  general?: {
+    __typename?: 'GeneralEntityResponse'
+    data?: {
+      __typename?: 'GeneralEntity'
+      attributes?: {
+        __typename?: 'General'
+        eventsPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+        } | null
+        newBooksPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+        } | null
+        privacyTermsAndConditionsPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+        } | null
+      } | null
+    } | null
+  } | null
 }
 
 export const FileCategoryEntityFragmentDoc = gql`
@@ -13640,6 +13756,27 @@ export const MenuEntityFragmentDoc = gql`
   }
   ${MenuSectionFragmentDoc}
 `
+export const GeneralEntityFragmentDoc = gql`
+  fragment GeneralEntity on GeneralEntity {
+    attributes {
+      eventsPage {
+        data {
+          id
+        }
+      }
+      newBooksPage {
+        data {
+          id
+        }
+      }
+      privacyTermsAndConditionsPage {
+        data {
+          id
+        }
+      }
+    }
+  }
+`
 export const BookTagEntityFragmentDoc = gql`
   fragment BookTagEntity on BookTagEntity {
     id
@@ -14070,10 +14207,16 @@ export const GeneralDocument = gql`
         ...FooterEntity
       }
     }
+    general(locale: $locale) {
+      data {
+        ...GeneralEntity
+      }
+    }
   }
   ${MenuEntityFragmentDoc}
   ${EventCardEntityFragmentDoc}
   ${FooterEntityFragmentDoc}
+  ${GeneralEntityFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
