@@ -123,6 +123,7 @@ export type NavikronosStaticProps<Config extends NavikronosConfig> = {
   navigation: NavikronosClientLocaleNavigations
   locale: string
   currentEntity: RouteEntity<Config> | null
+  currentEntityLocalizations: RouteEntityWithLocale<Config>[]
 }
 
 export type NavikronosBreadcrumb = {

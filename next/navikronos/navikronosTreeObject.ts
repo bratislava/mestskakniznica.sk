@@ -110,16 +110,24 @@ type GetPathForEntity<Config> = (
   routeEntity: RouteEntityWithLocaleOptional<Config, true>
 ) => string | null
 
+type CurrentRouteLocalization = { locale: string; path: string }
+
 export type NavikronosObject<Config> = {
   getPathForEntity: GetPathForEntity<Config>
   currentPath: string | null
   sitemap: NavikronosSitemap | null
   getBreadcrumbs(title?: string): NavikronosBreadcrumb[] | null
+  currentRouteLocalizations: CurrentRouteLocalization[]
 }
 
 export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>(
   config: Config,
-  { navigation, currentEntity, locale: globalLocale }: NavikronosStaticProps<Config>
+  {
+    navigation,
+    currentEntity,
+    locale: globalLocale,
+    currentEntityLocalizations,
+  }: NavikronosStaticProps<Config>
 ): NavikronosObject<Config> => {
   const originalObject = getNavikronosTreeObject(config, navigation)
 
@@ -155,6 +163,13 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
 
     return route?.fullPath() ?? null
   }
+
+  const currentRouteLocalizations = currentEntityLocalizations
+    .map((entity) => ({
+      locale: entity.locale,
+      path: getPathForEntity(entity as RouteEntityWithLocaleOptional<Config, true>),
+    }))
+    .filter((entity) => isDefined(entity.path)) as CurrentRouteLocalization[]
 
   const getBreadcrumbs = (title: string) => {
     if (!currentEntityNode) {
@@ -216,5 +231,6 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     getBreadcrumbs,
     currentPath,
     sitemap: sitemap as any, // todo
+    currentRouteLocalizations,
   }
 }
