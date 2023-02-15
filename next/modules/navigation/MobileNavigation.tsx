@@ -1,5 +1,4 @@
 import { CloseIcon } from '@assets/icons'
-import { otherLocale, usePageWrapperContext } from '@components/layouts/PageWrapper'
 import Button from '@modules/common/Button'
 import MLink from '@modules/common/MLink'
 import Modal from '@modules/common/Modal'
@@ -8,6 +7,7 @@ import { MenuItem } from '@modules/navigation/NavMenu'
 import { useTranslation } from 'next-i18next'
 import { useNavikronos } from '@utils/navikronos'
 import { useGeneralContext } from '@utils/generalContext'
+import { useGetOtherLocale } from '@utils/useGetOtherLocale'
 
 interface MobileNavigationProps {
   isOpen: boolean
@@ -19,9 +19,7 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
   const { t } = useTranslation(['common', 'homepage'])
   const { getPathForEntity } = useNavikronos()
   const { general } = useGeneralContext()
-
-  const { localizations, locale } = usePageWrapperContext()
-  const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
+  const otherLocale = useGetOtherLocale()
 
   const moreLinks = [
     {
@@ -44,14 +42,8 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
     >
       <div className="fixed inset-x-0 top-0 z-30 m-auto h-screen border-border-dark bg-white">
         <div className="flex h-[61px] items-center justify-between border-b border-border-dark">
-          <MLink
-            // TODO: Navikronos
-            // TODO paths should be absolute
-            href={`/${otherLocaleData.path}`}
-            locale={otherLocaleData.locale}
-            className="p-4 text-h3"
-          >
-            {otherLocaleData.locale.toUpperCase()}
+          <MLink href={otherLocale.path} locale={otherLocale.locale} className="p-4 text-h3">
+            {otherLocale.locale.toUpperCase()}
           </MLink>
 
           {/* This div should match in size with burger menu button div */}
