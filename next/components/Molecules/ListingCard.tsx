@@ -47,7 +47,7 @@ const ListingCard = ({ card }: IListingCardProps) => {
         <div className="mb-2 text-sm text-foreground-body">
           <FormatDate value={date} valueType="ISO" />
         </div>
-        <MLink href={link ?? ''} variant="basic" stretched className="mb-6 text-h5">
+        <MLink href={link ?? ''} variant="basic" stretched className="mb-6 text-h5 line-clamp-5">
           {card.attributes?.title}
         </MLink>
       </div>
