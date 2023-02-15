@@ -18,13 +18,13 @@ const PageWrapperContext = createContext<IPageWrapperContext>({
 
 interface IProps {
   children?: React.ReactNode
-  locale?: string | undefined | null
   localizations?: Partial<PageLocalization>[] | undefined | null
   slug?: string
 }
 
-const PageWrapper = ({ children, locale, localizations = [], slug }: IProps) => {
-  const [_, { language }] = useTranslation()
+const PageWrapper = ({ children, localizations = [], slug }: IProps) => {
+  const { i18n } = useTranslation()
+  const locale = i18n.language
 
   const pageLocalizations: PageLocalization[] = useMemo(() => {
     const base: PageLocalization[] = []
@@ -45,9 +45,7 @@ const PageWrapper = ({ children, locale, localizations = [], slug }: IProps) => 
   }, [localizations, locale, slug])
 
   return (
-    <PageWrapperContext.Provider
-      value={{ locale: locale ?? language, localizations: pageLocalizations }}
-    >
+    <PageWrapperContext.Provider value={{ locale, localizations: pageLocalizations }}>
       {children}
     </PageWrapperContext.Provider>
   )

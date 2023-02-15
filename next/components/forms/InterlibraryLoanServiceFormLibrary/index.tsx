@@ -19,8 +19,7 @@ import StepNumberTitle from '../StepNumberTitle'
 const InterlibraryLoanServiceFormLibrary = () => {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
-  const { t } = useTranslation(['forms', 'common'])
-  const { locale } = usePageWrapperContext()
+  const { t, i18n } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
   yup.setLocale({
@@ -328,7 +327,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
                       {t('interlibrary_accept_fees')}{' '}
                       <Link
                         href={
-                          locale == 'sk'
+                          i18n.language == 'sk'
                             ? '/file/cennik-poplatkov-a-sluzieb'
                             : '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
                         }

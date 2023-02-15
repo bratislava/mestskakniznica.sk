@@ -56,7 +56,6 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
     <Hydrate state={dehydratedState}>
       <GeneralContextProvider general={general}>
         <PageWrapper
-          locale={page?.attributes?.locale ?? ''}
           slug={page?.attributes?.slug ?? ''}
           localizations={page?.attributes?.localizations?.data
             .filter(isPresent)

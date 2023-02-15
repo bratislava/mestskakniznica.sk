@@ -23,8 +23,6 @@ type NoticePageProps = {
   CLNavikronosPageProps
 
 const Page = ({ notice, slug, general }: NoticePageProps) => {
-  const { i18n } = useTranslation('common')
-
   if (!notice) {
     return null
   }
@@ -32,7 +30,6 @@ const Page = ({ notice, slug, general }: NoticePageProps) => {
   return (
     <GeneralContextProvider general={general}>
       <PageWrapper
-        locale={i18n.language}
         slug={slug ?? ''}
         localizations={notice.attributes?.localizations?.data
           .filter(isDefined)

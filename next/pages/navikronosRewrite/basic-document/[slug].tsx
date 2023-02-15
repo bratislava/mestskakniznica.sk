@@ -21,11 +21,9 @@ type PageProps = {
   CLNavikronosPageProps
 
 const Page = ({ basicDocument, general, slug }: PageProps) => {
-  const { i18n } = useTranslation('common')
-
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper locale={i18n.language} slug={slug}>
+      <PageWrapper slug={slug}>
         <BasicDocumentPage basicDocument={basicDocument} />
       </PageWrapper>
     </GeneralContextProvider>

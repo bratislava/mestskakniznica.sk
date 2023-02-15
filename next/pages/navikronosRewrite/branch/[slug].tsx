@@ -28,7 +28,6 @@ const Page = ({ branch, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
       <PageWrapper
-        locale={branch.attributes?.locale ?? ''}
         slug={`${t('branch_slug')}${branch.attributes?.slug}`}
         localizations={branch.attributes?.localizations?.data
           .filter(isPresent)

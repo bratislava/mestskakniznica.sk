@@ -13,10 +13,10 @@ import { wrapNavikronosProvider } from '../../navikronos/wrapNavikronosProvider'
 import { navikronosGetStaticProps } from '../../navikronos/navikronosGetStaticProps'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 
-export const Search = ({ locale, error, general }: PageProps) => {
+export const Search = ({ error, general }: PageProps) => {
   if (error) {
     return (
-      <PageWrapper locale={locale ?? 'sk'} slug="/">
+      <PageWrapper slug="/">
         <ErrorPage code={500}>
           <ErrorDisplay error={error} />
         </ErrorPage>
@@ -27,7 +27,6 @@ export const Search = ({ locale, error, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
       <PageWrapper
-        locale={locale ?? 'sk'}
         slug="vyhladavanie"
         localizations={[
           {
@@ -49,7 +48,6 @@ export const Search = ({ locale, error, general }: PageProps) => {
 }
 
 type PageProps = {
-  locale?: string
   error?: IDisplayError
   general: GeneralQuery
 } & CLNavikronosPageProps
@@ -68,7 +66,6 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
 
     return {
       props: {
-        locale,
         general,
         navikronosStaticProps,
         ...translations,

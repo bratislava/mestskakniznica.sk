@@ -32,7 +32,6 @@ const Page = ({ blogPost, slug, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
       <PageWrapper
-        locale={i18n.language}
         slug={slug ?? ''}
         localizations={blogPost.attributes?.localizations?.data
           .filter(isDefined)

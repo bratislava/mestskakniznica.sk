@@ -19,13 +19,13 @@ type Error404PageProps = {
 } & CLNavikronosPageProps
 
 const Custom404 = ({ general }: Error404PageProps) => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   const { asPath, locale } = useRouter()
 
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper locale={i18n.language} slug="/404">
+      <PageWrapper slug="/404">
         <DefaultPageLayout>
           <ErrorPage code={404}>
             <header className="mb-6 text-h1">

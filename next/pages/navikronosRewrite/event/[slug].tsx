@@ -26,7 +26,6 @@ const EventSlugPage = ({ event, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
       <PageWrapper
-        locale={event.attributes?.locale ?? ''}
         slug={event.attributes?.slug ?? ''}
         localizations={event.attributes?.localizations?.data
           .filter(isPresent)

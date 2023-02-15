@@ -63,12 +63,11 @@ export const Index = ({
   seo,
   general,
 }: HomeProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t } = useTranslation('common')
 
   return (
     <GeneralContextProvider general={general}>
       <PageWrapper
-        locale={i18n.language}
         slug="/"
         localizations={localizations
           ?.filter(isPresent)
