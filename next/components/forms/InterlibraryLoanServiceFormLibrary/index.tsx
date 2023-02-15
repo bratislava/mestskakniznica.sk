@@ -10,7 +10,6 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { usePageWrapperContext } from '../../layouts/PageWrapper'
 import BookListExtended from '../BookList/BookListExtended'
 import FormContainer, { IBANRegex, phoneRegexOrEmpty, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
