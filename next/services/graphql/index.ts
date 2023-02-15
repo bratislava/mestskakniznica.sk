@@ -2746,6 +2746,7 @@ export type General = {
   locale?: Maybe<Scalars['String']>
   localizations?: Maybe<GeneralRelationResponseCollection>
   newBooksPage?: Maybe<PageEntityResponse>
+  openingHoursPage?: Maybe<PageEntityResponse>
   privacyTermsAndConditionsPage?: Maybe<PageEntityResponse>
   updatedAt?: Maybe<Scalars['DateTime']>
 }
@@ -2775,6 +2776,7 @@ export type GeneralFiltersInput = {
   localizations?: InputMaybe<GeneralFiltersInput>
   newBooksPage?: InputMaybe<PageFiltersInput>
   not?: InputMaybe<GeneralFiltersInput>
+  openingHoursPage?: InputMaybe<PageFiltersInput>
   or?: InputMaybe<Array<InputMaybe<GeneralFiltersInput>>>
   privacyTermsAndConditionsPage?: InputMaybe<PageFiltersInput>
   updatedAt?: InputMaybe<DateTimeFilterInput>
@@ -2783,6 +2785,7 @@ export type GeneralFiltersInput = {
 export type GeneralInput = {
   eventsPage?: InputMaybe<Scalars['ID']>
   newBooksPage?: InputMaybe<Scalars['ID']>
+  openingHoursPage?: InputMaybe<Scalars['ID']>
   privacyTermsAndConditionsPage?: InputMaybe<Scalars['ID']>
 }
 
@@ -11631,6 +11634,10 @@ export type GeneralEntityFragment = {
       __typename?: 'PageEntityResponse'
       data?: { __typename?: 'PageEntity'; id?: string | null } | null
     } | null
+    openingHoursPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+    } | null
   } | null
 }
 
@@ -12880,6 +12887,10 @@ export type GeneralQuery = {
           __typename?: 'PageEntityResponse'
           data?: { __typename?: 'PageEntity'; id?: string | null } | null
         } | null
+        openingHoursPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+        } | null
       } | null
     } | null
   } | null
@@ -13770,6 +13781,11 @@ export const GeneralEntityFragmentDoc = gql`
         }
       }
       privacyTermsAndConditionsPage {
+        data {
+          id
+        }
+      }
+      openingHoursPage {
         data {
           id
         }

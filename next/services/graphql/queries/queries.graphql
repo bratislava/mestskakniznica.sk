@@ -151,6 +151,11 @@ fragment GeneralEntity on GeneralEntity {
         id
       }
     }
+    openingHoursPage {
+      data {
+        id
+      }
+    }
   }
 }
 
