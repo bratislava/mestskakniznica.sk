@@ -15,6 +15,7 @@ import EventPage from '@components/pages/eventPage'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
+import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 
 type PageProps = {
   event: EventEntityFragment
@@ -25,19 +26,9 @@ type PageProps = {
 const EventSlugPage = ({ event, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
-      {/*<PageWrapper*/}
-      {/*  slug={event.attributes?.slug ?? ''}*/}
-      {/*  localizations={event.attributes?.localizations?.data*/}
-      {/*    .filter(isPresent)*/}
-      {/*    .map((localization) => ({*/}
-      {/*      locale: localization.attributes?.locale,*/}
-      {/*      slug: localization.attributes?.slug,*/}
-      {/*    }))}*/}
-      {/*>*/}
       <DefaultPageLayout title={event.attributes?.title} seo={event.attributes?.seo}>
         <EventPage event={event} />
       </DefaultPageLayout>
-      {/*</PageWrapper>*/}
     </GeneralContextProvider>
   )
 }
@@ -82,22 +73,28 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} event ${slug} on ${slug}`)
 
-  const [{ events }, general, translations, navikronosStaticProps] = await Promise.all([
-    client.EventBySlug({
-      slug,
-      locale,
-    }),
+  const { events } = await client.EventBySlug({
+    slug,
+    locale,
+  })
+  const event = events?.data[0] ?? null
+  if (!event) return { notFound: true } as const
+
+  const localizations = extractLocalizationsWithSlug('event', event)
+
+  const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
-    navikronosGetStaticProps(navikronosConfig, ctx, {
-      type: 'event',
-      slug,
-    }),
+    navikronosGetStaticProps(
+      navikronosConfig,
+      ctx,
+      {
+        type: 'event',
+        slug,
+      },
+      localizations
+    ),
   ])
-
-  const event = events?.data[0] ?? null
-
-  if (!event) return { notFound: true } as const
 
   return {
     props: {

@@ -14,6 +14,7 @@ import BlogPostPage from '@components/pages/blogPostPage'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
+import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 
 type PageProps = {
   slug: string
@@ -31,15 +32,6 @@ const Page = ({ blogPost, slug, general }: PageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      {/*<PageWrapper*/}
-      {/*  slug={slug ?? ''}*/}
-      {/*  localizations={blogPost.attributes?.localizations?.data*/}
-      {/*    .filter(isDefined)*/}
-      {/*    .map((localization) => ({*/}
-      {/*      locale: localization.attributes?.locale,*/}
-      {/*      slug: localization.attributes?.slug,*/}
-      {/*    }))}*/}
-      {/*>*/}
       <DefaultPageLayout title={blogPost.attributes?.title} seo={blogPost.attributes?.seo}>
         <BlogPostPage blogPost={blogPost} />
       </DefaultPageLayout>
@@ -89,18 +81,25 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} blog posts ${slug}`)
 
-  const [{ blogPosts }, general, translations, navikronosStaticProps] = await Promise.all([
-    client.BlogPostBySlug({ slug, locale }),
+  const { blogPosts } = await client.BlogPostBySlug({ slug, locale })
+  const blogPost = blogPosts?.data[0] ?? null
+  if (!blogPost) return { notFound: true }
+
+  const localizations = extractLocalizationsWithSlug('blog-post', blogPost)
+
+  const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
-    navikronosGetStaticProps(navikronosConfig, ctx, {
-      type: 'blog-post',
-      slug,
-    }),
+    navikronosGetStaticProps(
+      navikronosConfig,
+      ctx,
+      {
+        type: 'blog-post',
+        slug,
+      },
+      localizations
+    ),
   ])
-  const blogPost = blogPosts?.data[0] ?? null
-
-  if (!blogPost) return { notFound: true }
 
   return {
     props: {

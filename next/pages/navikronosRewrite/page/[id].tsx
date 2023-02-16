@@ -8,7 +8,7 @@ import { Enum_Page_Layout, GeneralQuery, PageEntity, PageEntityFragment } from '
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
-import { isDefined } from '@utils/isDefined'
+import { hasAttributes, isDefined } from '@utils/isDefined'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { prefetchPageSections } from '@utils/prefetchPageSections'
 import { isPresent } from '@utils/utils'
@@ -21,6 +21,7 @@ import { DehydratedState, Hydrate } from 'react-query'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 import { SSRConfig } from 'next-i18next'
+import { extractLocalizationsWithId } from '@utils/extractLocalizations'
 
 type PageProps = {
   page: PageEntityFragment
@@ -55,15 +56,6 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
   return (
     <Hydrate state={dehydratedState}>
       <GeneralContextProvider general={general}>
-        {/*<PageWrapper*/}
-        {/*  slug={page?.attributes?.slug ?? ''}*/}
-        {/*  localizations={page?.attributes?.localizations?.data*/}
-        {/*    .filter(isPresent)*/}
-        {/*    .map((localization) => ({*/}
-        {/*      locale: localization.attributes?.locale,*/}
-        {/*      slug: localization.attributes?.slug,*/}
-        {/*    }))}*/}
-        {/*>*/}
         <DefaultPageLayout title={page?.attributes?.title} seo={page?.attributes?.seo}>
           {pageComponentByLayout}
         </DefaultPageLayout>
@@ -109,21 +101,30 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} page ${id}`)
 
-  const [{ pages }, general, translations, navikronosStaticProps] = await Promise.all([
-    await client.PageById({
-      id,
-      locale,
-    }),
-    generalFetcher(locale),
-    serverSideTranslations(locale, ['common', 'forms', 'newsletter', 'homepage']),
-    navikronosGetStaticProps(navikronosConfig, ctx, {
-      type: 'page',
-      id,
-    }),
-  ])
+  const { pages } = await client.PageById({
+    id,
+    locale,
+  })
+
   const page = pages?.data[0] ?? null
 
-  if (!page) return { notFound: true } as { notFound: true }
+  if (!page) return { notFound: true } as const
+
+  const localizations = extractLocalizationsWithId('page', page)
+
+  const [general, translations, navikronosStaticProps] = await Promise.all([
+    generalFetcher(locale),
+    serverSideTranslations(locale, ['common', 'forms', 'newsletter', 'homepage']),
+    navikronosGetStaticProps(
+      navikronosConfig,
+      ctx,
+      {
+        type: 'page',
+        id,
+      },
+      localizations
+    ),
+  ])
 
   const dehydratedState = await prefetchPageSections(page, locale)
 

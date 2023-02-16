@@ -14,6 +14,7 @@ import { ParsedUrlQuery } from 'node:querystring'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
 import { CLNavikronosPageProps, navikronosConfig, useNavikronos } from '@utils/navikronos'
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
+import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 
 type PageProps = {
   branch: BranchEntityFragment
@@ -27,20 +28,6 @@ const Page = ({ branch, general }: PageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      {/*<PageWrapper*/}
-      {/*  slug={`${t('branch_slug')}${branch.attributes?.slug}`}*/}
-      {/*  localizations={branch.attributes?.localizations?.data*/}
-      {/*    .filter(isPresent)*/}
-      {/*    .map((localization) => ({*/}
-      {/*      locale: localization.attributes?.locale,*/}
-      {/*      // TODO locale is switched on purpose to get en url if user is on sk page and vice versa*/}
-      {/*      slug: `${*/}
-      {/*        branch.attributes?.locale === 'en'*/}
-      {/*          ? '/navstivte/nase-lokality/'*/}
-      {/*          : '/visit/our-locations/'*/}
-      {/*      }${localization.attributes?.slug}`,*/}
-      {/*    }))}*/}
-      {/*>*/}
       <DefaultPageLayout title={branch.attributes?.title} seo={branch.attributes?.seo}>
         <BranchPage branch={branch} />
       </DefaultPageLayout>
@@ -90,22 +77,24 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} branch ${slug}`)
 
-  const [{ branches }, general, translations, navikronosStaticProps] = await Promise.all([
-    client.BranchBySlug({
-      slug,
-      locale,
-    }),
+  const { branches } = await client.BranchBySlug({
+    slug,
+    locale,
+  })
+  const branch = branches?.data[0] ?? null
+  if (!branch) return { notFound: true } as const
+
+  const localizations = extractLocalizationsWithSlug('branch', branch)
+
+  const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
     navikronosGetStaticProps(navikronosConfig, ctx, {
       type: 'branch',
       slug,
     }),
+    localizations,
   ])
-
-  const branch = branches?.data[0] ?? null
-
-  if (!branch) return { notFound: true } as const
 
   return {
     props: {

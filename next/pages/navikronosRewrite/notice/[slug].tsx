@@ -14,30 +14,21 @@ import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
+import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 
 type NoticePageProps = {
-  slug: string
   notice: NoticeEntityFragment
   general: GeneralQuery
 } & SSRConfig &
   CLNavikronosPageProps
 
-const Page = ({ notice, slug, general }: NoticePageProps) => {
+const Page = ({ notice, general }: NoticePageProps) => {
   if (!notice) {
     return null
   }
 
   return (
     <GeneralContextProvider general={general}>
-      {/*<PageWrapper*/}
-      {/*  slug={slug ?? ''}*/}
-      {/*  localizations={notice.attributes?.localizations?.data*/}
-      {/*    .filter(isDefined)*/}
-      {/*    .map((localization) => ({*/}
-      {/*      locale: localization.attributes?.locale,*/}
-      {/*      slug: localization.attributes?.slug,*/}
-      {/*    }))}*/}
-      {/*>*/}
       <DefaultPageLayout title={notice.attributes?.title} seo={notice.attributes?.seo}>
         <NoticePage notice={notice} />
       </DefaultPageLayout>
@@ -87,22 +78,28 @@ export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = asy
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} notice ${slug}`)
 
-  const [{ notices }, general, translations, navikronosStaticProps] = await Promise.all([
-    client.NoticeBySlug({ slug, locale }),
+  const { notices } = await client.NoticeBySlug({ slug, locale })
+  const notice = notices?.data[0] ?? null
+  if (!notice) return { notFound: true }
+
+  const localizations = extractLocalizationsWithSlug('notice', notice)
+
+  const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
-    await navikronosGetStaticProps(navikronosConfig, ctx, {
-      type: 'notice',
-      slug,
-    }),
+    await navikronosGetStaticProps(
+      navikronosConfig,
+      ctx,
+      {
+        type: 'notice',
+        slug,
+      },
+      localizations
+    ),
   ])
-  const notice = notices?.data[0] ?? null
-
-  if (!notice) return { notFound: true }
 
   return {
     props: {
-      slug,
       notice,
       general,
       navikronosStaticProps,

@@ -32,7 +32,7 @@ interface StaticParams extends ParsedUrlQuery {
 }
 
 export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = async (ctx) => {
-  const { locale, params } = ctx
+  const { locale, params, locales } = ctx
   const slug = params?.slug
 
   if (!slug || !locale) return { notFound: true } as const
@@ -40,19 +40,30 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} basic document ${slug}}`)
 
-  const [{ basicDocuments }, general, translations, navikronosStaticProps] = await Promise.all([
-    await client.BasicDocumentBySlug({ slug }),
+  const { basicDocuments } = await client.BasicDocumentBySlug({ slug })
+  const basicDocument = basicDocuments?.data[0] ?? null
+  if (!basicDocument) return { notFound: true } as const
+
+  const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'newsletter']),
-    navikronosGetStaticProps(navikronosConfig, ctx, {
-      type: 'basic-document',
-      slug,
-    }),
+    navikronosGetStaticProps(
+      navikronosConfig,
+      ctx,
+      {
+        type: 'basic-document',
+        slug,
+      },
+      // TODO: Improve for unlocalized entities.
+      locales
+        ?.filter((innerLocale) => innerLocale !== locale)
+        .map((innerLocale) => ({
+          type: 'basic-document',
+          slug,
+          locale: innerLocale,
+        }))
+    ),
   ])
-
-  const basicDocument = basicDocuments?.data[0] ?? null
-
-  if (!basicDocument) return { notFound: true } as const
 
   return {
     props: {
