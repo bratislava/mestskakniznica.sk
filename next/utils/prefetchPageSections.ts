@@ -29,9 +29,9 @@ import {
 } from '@services/meili/fetchers/documentsFetcher'
 import {
   eventsArchivedDefaultFilters,
-  getEventsDefaultSharedFilters,
   eventsFetcher,
   eventsUpcomingDefaultFilters,
+  getEventsDefaultSharedFilters,
   getEventsQueryKey,
 } from '@services/meili/fetchers/eventsFetcher'
 import {

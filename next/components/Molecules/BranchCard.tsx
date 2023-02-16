@@ -1,6 +1,6 @@
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
-import { Maybe, UploadImageEntityFragment } from '@services/graphql'
+import { UploadImageEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useNavikronos } from '@utils/navikronos'

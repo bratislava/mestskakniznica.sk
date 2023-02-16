@@ -5,7 +5,7 @@ import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 

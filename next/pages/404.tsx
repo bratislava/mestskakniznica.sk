@@ -7,8 +7,6 @@ import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
-import PageWrapper from '../components/layouts/PageWrapper'
 import ErrorPage from '../components/pages/ErrorPage'
 import { navikronosGetStaticProps } from '../navikronos/navikronosGetStaticProps'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'

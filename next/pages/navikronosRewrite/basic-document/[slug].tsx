@@ -4,7 +4,7 @@ import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { GetServerSideProps } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 

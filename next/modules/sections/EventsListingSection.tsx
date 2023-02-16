@@ -3,11 +3,11 @@ import EventListingCard from '@components/Molecules/EventListingCard'
 import { Pagination } from '@components/ui'
 import {
   eventsArchivedDefaultFilters,
-  getEventsDefaultSharedFilters,
   eventsFetcher,
   EventsFilters,
   EventsFiltersShared,
   eventsUpcomingDefaultFilters,
+  getEventsDefaultSharedFilters,
   getEventsQueryKey,
 } from '@services/meili/fetchers/eventsFetcher'
 import { useTranslation } from 'next-i18next'
