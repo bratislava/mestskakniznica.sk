@@ -64,7 +64,6 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
       content: link ? (
         <>
           {/* Mobile */}
-          {/* TODO: Navikronos */}
           <Link
             href={link ?? '#'}
             uppercase={false}
@@ -75,7 +74,6 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
             {link}
           </Link>
           {/* Desktop */}
-          {/* TODO: Navikronos */}
           <Link
             href={link ?? '#'}
             uppercase={false}
