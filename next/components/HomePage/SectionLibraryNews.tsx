@@ -6,6 +6,7 @@ import React from 'react'
 
 import Carousel from '../../modules/common/Carousel/Carousel'
 import ListingCard from '../Molecules/ListingCard'
+import { useNavikronos } from '@utils/navikronos'
 
 interface LibraryNewsProps {
   notices: NoticeListingEntityFragment[]
@@ -14,6 +15,8 @@ interface LibraryNewsProps {
 
 const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
   const { t } = useTranslation('homepage')
+  const { getPathForEntity } = useNavikronos()
+  const showMoreId = newsSection?.redirectTo?.data?.id
 
   return (
     <Section>
@@ -33,9 +36,11 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
           />
         </div>
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
-          <ShowMoreLink href={newsSection?.redirectTo?.data?.attributes?.slug ?? '#'}>
-            {t('libraryNewsAll')}
-          </ShowMoreLink>
+          {showMoreId && (
+            <ShowMoreLink href={getPathForEntity({ type: 'page', id: showMoreId }) ?? ''}>
+              {t('libraryNewsAll')}
+            </ShowMoreLink>
+          )}
         </div>
       </section>
     </Section>

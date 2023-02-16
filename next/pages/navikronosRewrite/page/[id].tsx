@@ -1,28 +1,33 @@
+import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
+
+import FullContentPage from '@components/pages/fullContentPage'
+import ListingPage from '@components/pages/listingPage'
+import SidebarContentPage from '@components/pages/sidebarContentPage'
+import SublistingPage from '@components/pages/sublistingPage'
 import { Enum_Page_Layout, GeneralQuery, PageEntity, PageEntityFragment } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
+import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { prefetchPageSections } from '@utils/prefetchPageSections'
-import { isPresent } from '@utils/utils'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 import { ReactNode } from 'react'
 import { DehydratedState, Hydrate } from 'react-query'
 
-import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
-import PageWrapper from '../components/layouts/PageWrapper'
-import FullContentPage from '../components/pages/fullContentPage'
-import ListingPage from '../components/pages/listingPage'
-import SidebarContentPage from '../components/pages/sidebarContentPage'
-import SublistingPage from '../components/pages/sublistingPage'
+import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
+import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
+import { SSRConfig } from 'next-i18next'
+import { extractLocalizationsWithId } from '@utils/extractLocalizations'
 
 type PageProps = {
   page: PageEntityFragment
   general: GeneralQuery
   dehydratedState: DehydratedState
-}
+} & SSRConfig &
+  CLNavikronosPageProps
 
 const Page = ({ page, general, dehydratedState }: PageProps) => {
   let pageComponentByLayout: ReactNode = null
@@ -50,48 +55,34 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
   return (
     <Hydrate state={dehydratedState}>
       <GeneralContextProvider general={general}>
-        <PageWrapper
-          locale={page?.attributes?.locale ?? ''}
-          slug={page?.attributes?.slug ?? ''}
-          localizations={page?.attributes?.localizations?.data
-            .filter(isPresent)
-            .map((localization) => ({
-              locale: localization.attributes?.locale,
-              slug: localization.attributes?.slug,
-            }))}
-        >
-          <DefaultPageLayout title={page?.attributes?.title} seo={page?.attributes?.seo}>
-            {pageComponentByLayout}
-          </DefaultPageLayout>
-        </PageWrapper>
+        <DefaultPageLayout title={page?.attributes?.title} seo={page?.attributes?.seo}>
+          {pageComponentByLayout}
+        </DefaultPageLayout>
       </GeneralContextProvider>
     </Hydrate>
   )
 }
 
-// TODO use common functions to prevent duplicate code
 interface StaticParams extends ParsedUrlQuery {
-  fullPath: string[]
+  id: string
 }
 
-export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) => {
   let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.PagesStaticPaths({ locale }))
+    (locales ?? []).map((locale) => client.PagesStaticPaths({ locale }))
   )
 
   const entities = pathArraysForLocales.flatMap(({ pages }) => pages?.data || []).filter(isDefined)
 
   if (entities.length > 0) {
-    paths = entities
-      .filter((page) => page.attributes?.slug)
-      .map((page) => ({
-        params: {
-          fullPath: page.attributes?.slug?.split('/') ?? [],
-          locale: page?.attributes?.locale || '',
-        },
-      }))
+    paths = entities.map((page) => ({
+      params: {
+        id: page.id!,
+        locale: page?.attributes?.locale || '',
+      },
+    }))
   }
 
   // eslint-disable-next-line no-console
@@ -100,40 +91,52 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
-  locale = 'sk',
-  params,
-}) => {
-  const fullPathJoined = params?.fullPath.join('/')
-  if (!fullPathJoined) return { notFound: true } as const
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ctx) => {
+  const { params, locale } = ctx
+  const id = params?.id
+
+  if (!id || !locale) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} page ${fullPathJoined ?? ''}`)
+  console.log(`Revalidating ${locale} page ${id}`)
 
-  const [{ pages }, general, translations] = await Promise.all([
-    await client.PageBySlug({
-      slug: fullPathJoined,
-      locale,
-    }),
-    generalFetcher(locale),
-    serverSideTranslations(locale, ['common', 'forms', 'newsletter', 'homepage']),
-  ])
+  const { pages } = await client.PageById({
+    id,
+    locale,
+  })
+
   const page = pages?.data[0] ?? null
 
-  if (!page) return { notFound: true } as { notFound: true }
+  if (!page) return { notFound: true } as const
+
+  const localizations = extractLocalizationsWithId('page', page)
+
+  const [general, translations, navikronosStaticProps] = await Promise.all([
+    generalFetcher(locale),
+    serverSideTranslations(locale, ['common', 'forms', 'newsletter', 'homepage']),
+    navikronosGetStaticProps(
+      navikronosConfig,
+      ctx,
+      {
+        type: 'page',
+        id,
+      },
+      localizations
+    ),
+  ])
 
   const dehydratedState = await prefetchPageSections(page, locale)
 
   return {
     props: {
-      slug: fullPathJoined,
       page,
       dehydratedState,
       general,
+      navikronosStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default Page
+export default wrapNavikronosProvider(Page)

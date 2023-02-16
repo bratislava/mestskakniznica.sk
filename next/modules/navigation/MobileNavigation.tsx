@@ -1,11 +1,13 @@
 import { CloseIcon } from '@assets/icons'
-import { otherLocale, usePageWrapperContext } from '@components/layouts/PageWrapper'
 import Button from '@modules/common/Button'
 import MLink from '@modules/common/MLink'
 import Modal from '@modules/common/Modal'
 import MobileNavigationItem from '@modules/navigation/MobileNavigationItem'
 import { MenuItem } from '@modules/navigation/NavMenu'
 import { useTranslation } from 'next-i18next'
+import { useNavikronos } from '@utils/navikronos'
+import { useGeneralContext } from '@utils/generalContext'
+import { useGetOtherLocale } from '@utils/useGetOtherLocale'
 
 interface MobileNavigationProps {
   isOpen: boolean
@@ -15,13 +17,19 @@ interface MobileNavigationProps {
 
 export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationProps) => {
   const { t } = useTranslation(['common', 'homepage'])
+  const { getPathForEntity } = useNavikronos()
+  const { general } = useGeneralContext()
+  const otherLocale = useGetOtherLocale()
 
-  const { localizations, locale } = usePageWrapperContext()
-  const otherLocaleData = otherLocale(locale ?? 'sk', localizations)
-
-  // TODO replace by proper page urls
   const moreLinks = [
-    { label: t('openingHours'), url: t('openingHoursPageLink') },
+    {
+      label: t('openingHours'),
+      url:
+        getPathForEntity({
+          type: 'page',
+          id: general?.data?.attributes?.openingHoursPage?.data?.id,
+        }) ?? '',
+    },
     { label: t('onlineCatalog'), url: 'https://opac.mestskakniznica.sk/opac', target: '_blank' },
   ]
 
@@ -34,13 +42,8 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
     >
       <div className="fixed inset-x-0 top-0 z-30 m-auto h-screen border-border-dark bg-white">
         <div className="flex h-[61px] items-center justify-between border-b border-border-dark">
-          <MLink
-            // TODO paths should be absolute
-            href={`/${otherLocaleData.path}`}
-            locale={otherLocaleData.locale}
-            className="p-4 text-h3"
-          >
-            {otherLocaleData.locale.toUpperCase()}
+          <MLink href={otherLocale.path} locale={otherLocale.locale} className="p-4 text-h3">
+            {otherLocale.locale.toUpperCase()}
           </MLink>
 
           {/* This div should match in size with burger menu button div */}

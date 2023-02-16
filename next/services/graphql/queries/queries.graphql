@@ -134,6 +134,31 @@ fragment MenuEntity on MenuEntity {
   }
 }
 
+fragment GeneralEntity on GeneralEntity {
+  attributes {
+    eventsPage {
+      data {
+        id
+      }
+    }
+    newBooksPage {
+      data {
+        id
+      }
+    }
+    privacyTermsAndConditionsPage {
+      data {
+        id
+      }
+    }
+    openingHoursPage {
+      data {
+        id
+      }
+    }
+  }
+}
+
 fragment MenuSection on ComponentMenuSections {
   id
   sectionTitle
@@ -430,6 +455,11 @@ query General($eventsFrom: DateTime!, $locale: I18NLocaleCode!) {
   footer(locale: $locale) {
     data {
       ...FooterEntity
+    }
+  }
+  general(locale: $locale) {
+    data {
+      ...GeneralEntity
     }
   }
 }

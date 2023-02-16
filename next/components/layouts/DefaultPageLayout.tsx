@@ -10,7 +10,7 @@ import { useTranslation } from 'next-i18next'
 
 import favicon from '../../assets/images/mkb_favicon.png'
 import NewsletterSection from '../HomePage/NewsletterSection'
-import { otherLocale, usePageWrapperContext } from './PageWrapper'
+import { useNavikronos } from '@utils/navikronos'
 
 interface IProps {
   children?: React.ReactNode
@@ -19,16 +19,10 @@ interface IProps {
 }
 
 const DefaultPageLayout = ({ children, title, seo }: IProps) => {
-  {
-    /* TODO fix for other content types */
-  }
-  const { localizations, locale } = usePageWrapperContext()
-  const otherLangData = otherLocale(locale ?? 'sk', localizations)
-  const currentLangData = otherLocale(otherLangData.locale, localizations)
-  const { footer } = useGeneralContext()
+  const { footer, general } = useGeneralContext()
+  const { getPathForEntity, currentRouteLocalizations } = useNavikronos()
 
   const { t } = useTranslation('common')
-
   const { menuValue } = useNavMenuContext()
 
   return (
@@ -47,16 +41,13 @@ const DefaultPageLayout = ({ children, title, seo }: IProps) => {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
           </>
         )}
-        <link
-          rel="alternate"
-          href={process.env.ORIGIN_ROOT_URL + currentLangData.path}
-          hrefLang={`${locale}-sk`}
-        />
-        <link
-          rel="alternate"
-          href={process.env.ORIGIN_ROOT_URL + otherLangData.path}
-          hrefLang={`${otherLangData.locale}-sk`}
-        />
+        {currentRouteLocalizations.map(({ locale, path }) => (
+          <link
+            rel="alternate"
+            href={(locale === 'sk' ? '' : `/${locale}`) + path}
+            hrefLang={locale}
+          />
+        ))}
       </Head>
       <div
         className={cx('flex min-h-screen flex-1 flex-col justify-self-stretch', {
@@ -84,11 +75,11 @@ const DefaultPageLayout = ({ children, title, seo }: IProps) => {
               // }}
               gdpr={{
                 title: t('privacy'),
-                // href: footer?.privacyLink?.slug ?? '#',
                 href:
-                  locale === 'sk'
-                    ? '/o-nas/ochrana-osobnych-udajov'
-                    : '/en/about-us/privacy-terms-and-conditions',
+                  getPathForEntity({
+                    type: 'page',
+                    id: general?.data?.attributes?.privacyTermsAndConditionsPage?.data?.id,
+                  }) ?? '',
               }}
               VOP={{
                 title: t('VOP'),

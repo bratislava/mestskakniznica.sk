@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 
 import Placeholder from '../../assets/images/event-list-placeholder.jpg'
 import TagsDisplay from '../Atoms/TagsDisplay'
+import { useNavikronos } from '@utils/navikronos'
 
 interface EventListingProps {
   event: EventInListingMeili
@@ -12,6 +13,7 @@ interface EventListingProps {
 
 const EventListingCard = ({ event }: EventListingProps) => {
   const { t } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
 
   const {
     title,
@@ -45,7 +47,7 @@ const EventListingCard = ({ event }: EventListingProps) => {
       </div>
 
       <div className="justify-end pt-2 text-h5 line-clamp-3">
-        <MLink variant="basic" stretched href={`${t('event_slug')}${slug ?? ''}`}>
+        <MLink variant="basic" stretched href={getPathForEntity({ type: 'event', slug }) ?? ''}>
           {title}
         </MLink>
       </div>

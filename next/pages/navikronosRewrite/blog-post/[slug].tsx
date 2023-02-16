@@ -3,21 +3,25 @@ import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
-import last from 'lodash/last'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
-import PageWrapper from '../../components/layouts/PageWrapper'
-import BlogPostPage from '../../components/pages/blogPostPage'
+import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
+
+import BlogPostPage from '@components/pages/blogPostPage'
+import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
+import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
+import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
+import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 
 type PageProps = {
   slug: string
   blogPost: BlogPostEntityFragment
   general: GeneralQuery
-} & SSRConfig
+} & SSRConfig &
+  CLNavikronosPageProps
 
 const Page = ({ blogPost, slug, general }: PageProps) => {
   const { i18n } = useTranslation('common')
@@ -28,27 +32,16 @@ const Page = ({ blogPost, slug, general }: PageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper
-        locale={i18n.language}
-        slug={slug ?? ''}
-        localizations={blogPost.attributes?.localizations?.data
-          .filter(isDefined)
-          .map((localization) => ({
-            locale: localization.attributes?.locale,
-            slug: localization.attributes?.slug,
-          }))}
-      >
-        <DefaultPageLayout title={blogPost.attributes?.title} seo={blogPost.attributes?.seo}>
-          <BlogPostPage blogPost={blogPost} />
-        </DefaultPageLayout>
-      </PageWrapper>
+      <DefaultPageLayout title={blogPost.attributes?.title} seo={blogPost.attributes?.seo}>
+        <BlogPostPage blogPost={blogPost} />
+      </DefaultPageLayout>
     </GeneralContextProvider>
   )
 }
 
 // TODO use common functions to prevent duplicate code
 interface StaticParams extends ParsedUrlQuery {
-  fullPath: string[]
+  slug: string
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
@@ -68,13 +61,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       .filter((entity) => entity?.attributes?.slug)
       .map((entity) => ({
         params: {
-          fullPath: `${
-            entity.attributes?.locale === 'sk'
-              ? '/sluzby/vzdelavanie/clanky/'
-              : '/services/education/articles/'
-          }${entity.attributes?.slug!}`
-            .split('/')
-            .slice(1),
+          slug: entity.attributes!.slug!,
           locale: entity.attributes?.locale || '',
         },
       }))
@@ -85,35 +72,45 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
-  locale = 'sk',
-  params,
-}) => {
-  const slug = last(params?.fullPath)
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ctx) => {
+  const { locale, params } = ctx
+  const slug = params?.slug
 
-  if (!slug) return { notFound: true } as const
+  if (!slug || !locale) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} blog posts ${slug} on ${params?.fullPath.join('/') ?? ''}`)
+  console.log(`Revalidating ${locale} blog posts ${slug}`)
 
-  const [{ blogPosts }, general, translations] = await Promise.all([
-    client.BlogPostBySlug({ slug, locale }),
+  const { blogPosts } = await client.BlogPostBySlug({ slug, locale })
+  const blogPost = blogPosts?.data[0] ?? null
+  if (!blogPost) return { notFound: true }
+
+  const localizations = extractLocalizationsWithSlug('blog-post', blogPost)
+
+  const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
+    navikronosGetStaticProps(
+      navikronosConfig,
+      ctx,
+      {
+        type: 'blog-post',
+        slug,
+      },
+      localizations
+    ),
   ])
-  const blogPost = blogPosts?.data[0] ?? null
-
-  if (!blogPost) return { notFound: true }
 
   return {
     props: {
       slug,
       blogPost,
       general,
+      navikronosStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default Page
+export default wrapNavikronosProvider(Page)

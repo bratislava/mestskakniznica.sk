@@ -5,6 +5,7 @@ import { useGeneralContext } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import Link from 'next/link'
+import { useNavikronos } from '@utils/navikronos'
 
 interface ColumnProps {
   section: ComponentMenuSections
@@ -13,6 +14,7 @@ interface ColumnProps {
 
 const Column = ({ section, classNames }: ColumnProps) => {
   const { upcomingEvents } = useGeneralContext()
+  const { getPathForEntity } = useNavikronos()
 
   const isLengthy = section?.sectionLinks ? section.sectionLinks.length >= 8 : false
 
@@ -25,7 +27,7 @@ const Column = ({ section, classNames }: ColumnProps) => {
     >
       {section.sectionTitle && section.sectionPage !== null && (
         <NavigationMenu.Link className="text-lg hover:underline" tabIndex={-1}>
-          <Link href={`/${section?.sectionPage?.data?.attributes?.slug}`}>
+          <Link href={getPathForEntity({ type: 'page', id: section.sectionPage?.data?.id }) ?? ''}>
             {section.sectionTitle}
           </Link>
         </NavigationMenu.Link>
@@ -61,7 +63,10 @@ const Column = ({ section, classNames }: ColumnProps) => {
                 key={sectionLink.sectionLinkPage?.data?.attributes?.slug}
               >
                 <Link
-                  href={`/${sectionLink.sectionLinkPage?.data?.attributes?.slug}`}
+                  href={
+                    getPathForEntity({ type: 'page', id: sectionLink.sectionLinkPage?.data?.id }) ??
+                    ''
+                  }
                   className="hover:underline"
                 >
                   {sectionLink.sectionLinkPage?.data?.attributes?.title}

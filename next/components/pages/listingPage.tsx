@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next'
 import { useQuery } from 'react-query'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
+import { useNavikronos } from '@utils/navikronos'
 
 export interface PageProps {
   page: PageEntity
@@ -18,6 +19,7 @@ export interface PageProps {
 const ListingPage = ({ page }: PageProps) => {
   const { t, i18n } = useTranslation('common')
   const { upcomingEvents } = useGeneralContext()
+  const { getPathForEntity } = useNavikronos()
 
   // There's no need to handle loading, as the data are prefetched and never change.
   const { data: latestNewsData } = useQuery({
@@ -32,7 +34,7 @@ const ListingPage = ({ page }: PageProps) => {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs />
       </SectionContainer>
       <SectionContainer>
         <PageTitle title={page?.attributes?.title ?? ''} perex={page?.attributes?.perex ?? ''} />
@@ -43,7 +45,7 @@ const ListingPage = ({ page }: PageProps) => {
             className="mt-8 md:mt-16"
             key={index}
             title={subCategory.title}
-            url={subCategory.url}
+            url={subCategory.url ?? getPathForEntity({ type: 'page', id: subCategory.id }) ?? '#'}
             moreLinkTitle={subCategory.moreLinkTitle}
             pages={
               subCategory.pages[0]?.url === 'latestNews' ||
@@ -51,17 +53,17 @@ const ListingPage = ({ page }: PageProps) => {
                 ? subCategory.pages[0]?.url === 'latestNews'
                   ? latestNewsData?.pages?.data?.map((page) => ({
                       title: page.attributes?.title ?? '',
-                      url: page.attributes?.slug ?? '',
+                      url: getPathForEntity({ type: 'page', id: page.id }) ?? '#',
                       moreLinkTitle: t('more'),
                     })) ?? []
                   : upcomingEvents?.data.map((event) => ({
                       title: event.attributes?.title ?? '',
-                      url: event.attributes?.slug ?? '',
+                      url: getPathForEntity({ type: 'event', slug: event.attributes?.slug }) ?? '#',
                       moreLinkTitle: t('more'),
                     })) ?? []
                 : subCategory.pages.map((page) => ({
                     title: page.title ?? '',
-                    url: page.url ?? '',
+                    url: page.url ?? getPathForEntity({ type: 'page', id: subCategory.id }) ?? '#',
                     moreLinkTitle: t('more'),
                   }))
             }

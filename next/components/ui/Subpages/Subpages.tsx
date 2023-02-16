@@ -18,6 +18,7 @@ export const Subpages = ({ title, subpages }: SubpagesProps) => {
             title={subpage.title}
             description={subpage.description}
             url={subpage.url}
+            id={subpage.id}
           />
         ))}
       </div>

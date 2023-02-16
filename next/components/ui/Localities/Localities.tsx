@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useRef } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 import { useIsClient } from 'usehooks-ts'
+import { useNavikronos } from '@utils/navikronos'
 
 export interface LocalitiesProps {
   branches: BranchCardEntityFragment[]
@@ -37,6 +38,7 @@ export const Localities = ({
   altDesign = false,
 }: LocalitiesProps) => {
   const { t } = useTranslation()
+  const { getPathForEntity } = useNavikronos()
 
   const isClient = useIsClient()
 
@@ -135,7 +137,7 @@ export const Localities = ({
         >
           {branches.map((branch, index) => {
             const { slug, title, subBranches } = branch.attributes ?? {}
-            const linkHref = `${t('common:branch_slug')}${slug ?? ''}`
+            const linkHref = getPathForEntity({ type: 'branch', slug }) ?? ''
 
             return (
               <div

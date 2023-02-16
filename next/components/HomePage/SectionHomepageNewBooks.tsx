@@ -3,11 +3,15 @@ import BookCard, { Book } from '@modules/common/Cards/BookCard'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+import { useGeneralContext } from '@utils/generalContext'
+import { useNavikronos } from '@utils/navikronos'
 
 type SectionHomepageNewBooksProps = { books: Book[] }
 
 const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
-  const { t, i18n } = useTranslation('homepage')
+  const { t } = useTranslation('homepage')
+  const { general } = useGeneralContext()
+  const { getPathForEntity } = useNavikronos()
 
   return (
     <Section>
@@ -25,9 +29,10 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
           <ShowMoreLink
             href={
-              i18n.language === 'en'
-                ? '/en/services/reading/new-additions'
-                : '/sluzby/citanie/knizne-novinky'
+              getPathForEntity({
+                type: 'page',
+                id: general?.data?.attributes?.newBooksPage?.data?.id,
+              }) ?? ''
             }
           >
             {t('newBooksAll')}

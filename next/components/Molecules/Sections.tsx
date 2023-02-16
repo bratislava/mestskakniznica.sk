@@ -273,14 +273,13 @@ const sectionContent = (
             <div className="grid gap-x-5 gap-y-8 py-9 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {section.branches?.filter(isDefined).map(({ branch, page }) => {
                 const { title, address, slug, listingImage } = branch?.data?.attributes ?? {}
-                const pageSlug = page?.data?.attributes?.slug
 
                 return (
                   <BranchCard
                     address={address || ''}
                     image={listingImage?.data}
                     title={title || ''}
-                    linkHref={pageSlug ? `/${pageSlug}` : ''}
+                    pageId={page?.data?.id}
                     key={slug}
                   />
                 )

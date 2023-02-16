@@ -19,9 +19,11 @@ import { useSearch } from '../../hooks/useSearch'
 import { AnimateHeight } from '../Atoms/AnimateHeight'
 import SearchField from '../Atoms/SearchField'
 import TagToggle from '../Atoms/TagToggle'
+import { useNavikronos } from '@utils/navikronos'
 
 const SearchPage = () => {
   const { t, i18n } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
 
   const resultsRef = useRef<HTMLDivElement>(null)
 
@@ -71,21 +73,17 @@ const SearchPage = () => {
   // TODO: Advanced loading and data fetching
   const { data, isLoading } = useQuery({
     queryKey: getCommonSearchQueryKey(filters, i18n.language),
-    queryFn: commonSearchFetcher(filters, i18n.language, {
-      event: t('event_slug'),
-      notice: t('notice_slug'),
-      blog: t('blog_slug'),
-      document: t('documents_slug'),
-    }),
+    queryFn: commonSearchFetcher(filters, i18n.language),
     keepPreviousData: true,
   })
 
-  const crumbs = [{ title: t('searchTitle') }]
+  const { getBreadcrumbs } = useNavikronos()
+  const breadcrumbs = getBreadcrumbs()
 
   return (
     <>
       <SectionContainer>
-        <Breadcrumbs crumbs={crumbs} />
+        <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
         <PageTitle title={t('searchTitle')} hasDivider={false} />
@@ -140,32 +138,38 @@ const SearchPage = () => {
               </motion.div>
             ) : (
               <div ref={resultsRef} className="flex flex-col">
-                {data?.hits.map(({ title, link, type }, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Link key={index} href={link}>
-                    <div
-                      className={cx(
-                        'group flex items-center justify-between border-b border-border-dark bg-white py-4 pr-2'
-                      )}
-                    >
-                      <div className="flex items-center gap-x-6">
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-x-4">
-                            <h2>{title}</h2>
-                            <span className="rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[12px]">
-                              {/* TODO proper translation keys */}
-                              {t(`searchTags.${type}`)}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-x-3 text-xs text-foreground-body">
-                            <span>{link}</span>
+                {data?.hits.map(({ title, type, id, slug }, index) => {
+                  const link = getPathForEntity(
+                    type === 'page' ? { type, id: String(id) } : { type, slug }
+                  )
+
+                  return (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Link key={index} href={link ?? '#'}>
+                      <div
+                        className={cx(
+                          'group flex items-center justify-between border-b border-border-dark bg-white py-4 pr-2'
+                        )}
+                      >
+                        <div className="flex items-center gap-x-6">
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-x-4">
+                              <h2>{title}</h2>
+                              <span className="rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[12px]">
+                                {/* TODO proper translation keys */}
+                                {t(`searchTags.${type}`)}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-x-3 text-xs text-foreground-body">
+                              <span>{link}</span>
+                            </div>
                           </div>
                         </div>
+                        <ChevronRightIcon className="ml-4 shrink-0" />
                       </div>
-                      <ChevronRightIcon className="ml-4 shrink-0" />
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  )
+                })}
               </div>
             )}
           </AnimateHeight>

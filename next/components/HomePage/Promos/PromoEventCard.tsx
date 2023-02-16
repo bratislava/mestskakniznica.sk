@@ -3,17 +3,17 @@ import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@services/graphql'
 import { WithAttributes } from '@utils/isDefined'
 import Image from 'next/image'
-import { useTranslation } from 'next-i18next'
 
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import TagsDisplay from '../../Atoms/TagsDisplay'
+import { useNavikronos } from '@utils/navikronos'
 
 interface IPromoEventCardProps {
   event: WithAttributes<EventCardEntityFragment> | null | undefined
 }
 
 const PromoEventCard = ({ event }: IPromoEventCardProps) => {
-  const { t } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
 
   if (!event) {
     return null
@@ -45,7 +45,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
 
         <div className="text-h2 text-foreground-heading line-clamp-3">
           <MLink
-            href={`${t('event_slug')}${slug}`}
+            href={getPathForEntity({ type: 'event', slug }) ?? ''}
             variant="basic"
             stretched
             className="after:z-[1]"

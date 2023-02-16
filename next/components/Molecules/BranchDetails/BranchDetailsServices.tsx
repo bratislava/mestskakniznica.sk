@@ -3,6 +3,7 @@ import { BranchEntityFragment } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+import { useNavikronos } from '@utils/navikronos'
 
 type BranchDetailsServicesProps = {
   branch: BranchEntityFragment
@@ -10,6 +11,7 @@ type BranchDetailsServicesProps = {
 
 const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
   const { t } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
 
   if (!branch.attributes?.servicePages?.data.length) {
     return null
@@ -28,8 +30,7 @@ const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
             <CallToAction
               key={service.id}
               title={service.attributes.title}
-              // TODO links should start with slash '/'
-              href={`/${service.attributes.slug}`}
+              href={getPathForEntity({ type: 'page', id: service.id }) ?? ''}
               showMoreText={t('more')}
               className="h-[134px] pr-[24px]"
             />

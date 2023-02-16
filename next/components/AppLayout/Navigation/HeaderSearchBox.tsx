@@ -10,6 +10,7 @@ import { useFocusWithin } from 'react-aria'
 import { useIsClient } from 'usehooks-ts'
 
 import { useSearch } from '../../../hooks/useSearch'
+import { useNavikronos } from '@utils/navikronos'
 
 const opacBaseUrl = 'https://opac.mestskakniznica.sk/opac'
 
@@ -20,6 +21,7 @@ type HeaderSearchBoxProps = {
 const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const router = useRouter()
   const { t } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
 
   const SEARCH_OPTIONS: { key: 'on_page' | 'in_catalogue'; title: string }[] = [
     { key: 'on_page', title: t('searchOnPage') },
@@ -50,7 +52,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
     }
     // TODO replace by proper url
     // input is here on purpose, because searchValue is debounced
-    router.push(`${t('search_slug')}?query=${input}`)
+    router.push(`${getPathForEntity({ type: 'static', id: 'search' })}?query=${input}`)
   }
 
   const handleClear = () => {

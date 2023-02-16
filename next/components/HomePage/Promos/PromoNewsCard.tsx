@@ -2,6 +2,7 @@ import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+import { useNavikronos } from '@utils/navikronos'
 
 interface IPromoNewsCard {
   title: string
@@ -10,7 +11,9 @@ interface IPromoNewsCard {
 
 const PromoNewsCard = ({ title, slug }: IPromoNewsCard) => {
   const { t } = useTranslation('common')
-  const link = `${t('notice_slug')}${slug}`
+  const { getPathForEntity } = useNavikronos()
+
+  const link = getPathForEntity({ type: 'notice', slug }) ?? ''
 
   return (
     <div className="group/showMore relative h-full w-full bg-promo-peach">

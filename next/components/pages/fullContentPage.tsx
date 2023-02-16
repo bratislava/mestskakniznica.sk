@@ -13,7 +13,7 @@ const FullContentPage = ({ page }: FullContentPageProps) => {
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs />
       </SectionContainer>
       <SectionContainer>
         <PageTitle title={page?.attributes?.title ?? ''} perex={page?.attributes?.perex ?? ''} />

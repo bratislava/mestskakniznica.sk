@@ -1,55 +1,42 @@
+import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
+
 import BranchPage from '@components/pages/BranchPage'
 import { BranchEntityFragment, GeneralQuery } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
-import { isPresent } from '@utils/utils'
-import last from 'lodash/last'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
-
-import DefaultPageLayout from '../../components/layouts/DefaultPageLayout'
-import PageWrapper from '../../components/layouts/PageWrapper'
+import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
+import { CLNavikronosPageProps, navikronosConfig, useNavikronos } from '@utils/navikronos'
+import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
+import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 
 type PageProps = {
   branch: BranchEntityFragment
   general: GeneralQuery
-} & SSRConfig
+} & SSRConfig &
+  CLNavikronosPageProps
 
-const EventSlugPage = ({ branch, general }: PageProps) => {
+const Page = ({ branch, general }: PageProps) => {
   const { t } = useTranslation(['common'])
+  const { getPathForEntity } = useNavikronos()
 
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper
-        locale={branch.attributes?.locale ?? ''}
-        slug={`${t('branch_slug')}${branch.attributes?.slug}`}
-        localizations={branch.attributes?.localizations?.data
-          .filter(isPresent)
-          .map((localization) => ({
-            locale: localization.attributes?.locale,
-            // TODO locale is switched on purpose to get en url if user is on sk page and vice versa
-            slug: `${
-              branch.attributes?.locale === 'en'
-                ? '/navstivte/nase-lokality/'
-                : '/visit/our-locations/'
-            }${localization.attributes?.slug}`,
-          }))}
-      >
-        <DefaultPageLayout title={branch.attributes?.title} seo={branch.attributes?.seo}>
-          <BranchPage branch={branch} />
-        </DefaultPageLayout>
-      </PageWrapper>
+      <DefaultPageLayout title={branch.attributes?.title} seo={branch.attributes?.seo}>
+        <BranchPage branch={branch} />
+      </DefaultPageLayout>
     </GeneralContextProvider>
   )
 }
 
 // TODO use common functions to prevent duplicate code
 interface StaticParams extends ParsedUrlQuery {
-  fullPath: string[]
+  slug: string
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
@@ -67,10 +54,8 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       .filter((entity) => entity.attributes?.slug)
       .map((entity) => ({
         params: {
-          fullPath: `${entity.attributes?.locale === 'sk' ? '/navstivte/' : '/visit/'}${entity
-            .attributes?.slug!}`
-            .split('/')
-            .slice(1),
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          slug: entity.attributes!.slug,
           locale: entity.attributes?.locale || '',
         },
       }))
@@ -82,40 +67,44 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   return { paths, fallback: 'blocking' }
 }
 
-// TODO define type of fullPath to string[]
-export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
-  locale = 'sk',
-  params,
-}) => {
-  const slug = last(params?.fullPath)
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ctx) => {
+  const { locale, params } = ctx
+  const slug = params?.slug
 
-  if (!slug) return { notFound: true } as const
+  if (!slug || !locale) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} branch ${slug} on ${params?.fullPath.join('/') ?? ''}`)
+  console.log(`Revalidating ${locale} branch ${slug}`)
 
-  const [{ branches }, general, translations] = await Promise.all([
-    client.BranchBySlug({
-      slug,
-      locale,
-    }),
+  const { branches } = await client.BranchBySlug({
+    slug,
+    locale,
+  })
+  const branch = branches?.data[0] ?? null
+  if (!branch) return { notFound: true } as const
+
+  const localizations = extractLocalizationsWithSlug('branch', branch)
+
+  const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
+    navikronosGetStaticProps(navikronosConfig, ctx, {
+      type: 'branch',
+      slug,
+    }),
+    localizations,
   ])
-
-  const branch = branches?.data[0] ?? null
-
-  if (!branch) return { notFound: true } as const
 
   return {
     props: {
       slug,
       branch,
       general,
+      navikronosStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default EventSlugPage
+export default wrapNavikronosProvider(Page)

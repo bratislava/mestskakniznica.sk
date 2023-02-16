@@ -7,33 +7,25 @@ import { useTranslation } from 'next-i18next'
 
 import Section from '../AppLayout/Section'
 import ListingCard from '../Molecules/ListingCard'
+import { useNavikronos } from '@utils/navikronos'
 
 export interface PageProps {
   event: EventEntityFragment
 }
 
 const EventPage = ({ event }: PageProps) => {
-  const { t, i18n } = useTranslation(['common', 'homepage'])
+  const { t } = useTranslation(['common', 'homepage'])
 
   const { upcomingEvents } = useGeneralContext()
-
-  const breadCrumbs =
-    i18n.language === 'sk'
-      ? [
-          { title: 'Zažite', url: '/zazite' },
-          { title: 'Podujatia', url: '/zazite/podujatia' },
-          { title: event.attributes?.title || '', url: event.attributes?.slug || '' },
-        ]
-      : [
-          { title: 'Experience', url: '/experience' },
-          { title: 'Events', url: '/experience/events' },
-          { title: event.attributes?.title || '', url: event.attributes?.slug || '' },
-        ]
+  const { getBreadcrumbs } = useNavikronos()
+  const breadcrumbs = getBreadcrumbs(event.attributes?.title)
+  const { general } = useGeneralContext()
+  const { getPathForEntity } = useNavikronos()
 
   return (
     <>
       <SectionContainer>
-        <Breadcrumbs crumbs={breadCrumbs} />
+        <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
         <div className="py-16">
@@ -43,7 +35,12 @@ const EventPage = ({ event }: PageProps) => {
           <div className="inline-flex w-full pt-10">
             <h2 className="text-h3">{t('otherEvents')}</h2>
             <Link
-              href={t('event_slug')}
+              href={
+                getPathForEntity({
+                  type: 'page',
+                  id: general?.data?.attributes?.eventsPage?.data?.id,
+                }) ?? ''
+              }
               hasIcon
               title={t('eventsAll')}
               size="large"

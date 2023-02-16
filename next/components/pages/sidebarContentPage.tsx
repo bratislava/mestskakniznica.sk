@@ -1,6 +1,6 @@
 import { SectionContainer, Sidebar } from '@bratislava/ui-city-library'
 import { PageEntity } from '@services/graphql'
-import { parsePageLink, parseSidebar } from '@utils/page'
+import { parseSidebar } from '@utils/page'
 import Image from 'next/image'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
@@ -11,15 +11,12 @@ export interface SidebarContentProps {
 }
 
 const SidebarContentPage = ({ page }: SidebarContentProps) => {
-  const sideBar = parseSidebar(
-    page?.attributes?.pageCategory?.data ?? undefined,
-    page?.attributes?.slug ?? ''
-  )
+  const sideBar = parseSidebar(page?.attributes?.pageCategory?.data ?? undefined, page?.id ?? null)
 
   return (
     <>
       <SectionContainer>
-        <PageBreadcrumbs page={page} />
+        <PageBreadcrumbs />
       </SectionContainer>
       <SectionContainer>
         <div className="grid grid-cols-12">
@@ -28,12 +25,9 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
           {sideBar && (
             <div className="col-start-1 row-start-3 mt-8 hidden md:col-span-5 md:flex">
               <Sidebar
-                href={
-                  parsePageLink(page?.attributes?.pageCategory?.data?.attributes?.pageLink)?.url ??
-                  '#'
-                }
                 className="w-4/5"
                 title={sideBar.title}
+                id={sideBar.id}
                 categories={sideBar.categories}
                 activeCategory={sideBar.activeCategory}
               />
