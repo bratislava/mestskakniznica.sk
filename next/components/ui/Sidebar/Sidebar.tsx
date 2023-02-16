@@ -3,26 +3,29 @@ import ChevronRight from '@assets/images/chevron-right.svg'
 import Button from '@modules/common/Button'
 import MLink from '@modules/common/MLink'
 import cx from 'classnames'
+import { useNavikronos } from '@utils/navikronos'
 
 export interface SidebarProps {
   className?: string
   title: string
-  href: string
+  id: string | null
   categories: ICategory[]
   activeCategory: number
 }
 
 export interface ICategory {
   title: string
-  href: string
+  id: string | null
 }
 
-export const Sidebar = ({ className, title, href, categories, activeCategory }: SidebarProps) => {
+export const Sidebar = ({ className, title, id, categories, activeCategory }: SidebarProps) => {
+  const { getPathForEntity } = useNavikronos()
+
   return (
     <div className={className}>
       {/* TODO create component for this button or update Button variants */}
       <Button
-        href={href}
+        href={getPathForEntity({ type: 'page', id }) ?? '#'}
         variant="unstyled"
         startIcon={<ArrowLeftIcon />}
         className="inline-flex items-center gap-x-4 text-base uppercase"
@@ -35,7 +38,7 @@ export const Sidebar = ({ className, title, href, categories, activeCategory }: 
           return (
             <MLink
               key={category.title}
-              href={category.href}
+              href={getPathForEntity({ type: 'page', id: category.id }) ?? '#'}
               variant="basic"
               className={cx('transform border-b py-3 transition-all duration-200 ease-linear', {
                 'border-border-light text-foreground-body': !isActive,
