@@ -19,14 +19,10 @@ interface IProps {
 }
 
 const DefaultPageLayout = ({ children, title, seo }: IProps) => {
-  {
-    /* TODO fix for other content types */
-  }
   const { footer, general } = useGeneralContext()
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity, currentRouteLocalizations } = useNavikronos()
 
   const { t } = useTranslation('common')
-
   const { menuValue } = useNavMenuContext()
 
   return (
@@ -45,16 +41,13 @@ const DefaultPageLayout = ({ children, title, seo }: IProps) => {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
           </>
         )}
-        {/*<link*/}
-        {/*  rel="alternate"*/}
-        {/*  href={process.env.ORIGIN_ROOT_URL + currentLangData.path}*/}
-        {/*  hrefLang={`${locale}-sk`}*/}
-        {/*/>*/}
-        {/*<link*/}
-        {/*  rel="alternate"*/}
-        {/*  href={process.env.ORIGIN_ROOT_URL + otherLangData.path}*/}
-        {/*  hrefLang={`${otherLangData.locale}-sk`}*/}
-        {/*/>*/}
+        {currentRouteLocalizations.map(({ locale, path }) => (
+          <link
+            rel="alternate"
+            href={(locale === 'sk' ? '' : `/${locale}`) + path}
+            hrefLang={locale}
+          />
+        ))}
       </Head>
       <div
         className={cx('flex min-h-screen flex-1 flex-col justify-self-stretch', {
