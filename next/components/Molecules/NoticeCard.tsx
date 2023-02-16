@@ -6,11 +6,11 @@ import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 
-interface IListingCardProps {
+type NoticeCardProps = {
   card: NoticeListingEntityFragment
 }
 
-const ListingCard = ({ card }: IListingCardProps) => {
+const NoticeCard = ({ card }: NoticeCardProps) => {
   const { t } = useTranslation('common')
   const { getPathForEntity } = useNavikronos()
 
@@ -48,4 +48,4 @@ const ListingCard = ({ card }: IListingCardProps) => {
   )
 }
 
-export default ListingCard
+export default NoticeCard
