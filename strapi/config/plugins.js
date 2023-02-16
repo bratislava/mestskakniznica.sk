@@ -32,6 +32,13 @@ const searchIndexSettings = {
     // Blog post
     "blog-post.title",
     "blog-post.seo.keywords",
+    // Documents
+    "document.title",
+    "document.description",
+    // Disclosures
+    "disclosure.title",
+    "disclosure.description",
+    "disclosure.contractor",
     // Event
     "event.title",
     "event.seo.keywords",
@@ -48,6 +55,10 @@ const searchIndexSettings = {
     "locale",
     // Basic document
     "basic-document.file_category.id",
+    // Document
+    "document.documentCategory.id",
+    // Disclosure
+    "disclosure.type",
     // Event
     "event.dateFromTimestamp",
     "event.dateToTimestamp",
@@ -61,6 +72,10 @@ const searchIndexSettings = {
     "basic-document.date_added",
     // Event
     "event.dateFromTimestamp",
+    // Document
+    "document.publishedAtTimestamp",
+    // Disclosure
+    "disclosure.addedAtTimestamp",
   ],
   pagination: {
     // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
@@ -132,6 +147,35 @@ module.exports = ({ env }) => ({
         transformEntry: ({ entry }) => wrapSearchIndexEntry("blog-post", entry),
       },
 
+      document: {
+        indexName: "search_index",
+        settings: searchIndexSettings,
+        transformEntry: ({ entry }) =>
+          wrapSearchIndexEntry("document", {
+            ...entry,
+            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+            // use (number) filters.
+            // Name addedAt is used on purpose to match Disclosures
+            addedAtTimestamp: entry.publishedAt
+              ? new Date(entry.publishedAt).getTime()
+              : undefined,
+          }),
+      },
+
+      disclosure: {
+        indexName: "search_index",
+        settings: searchIndexSettings,
+        transformEntry: ({ entry }) =>
+          wrapSearchIndexEntry("disclosure", {
+            ...entry,
+            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+            // use (number) filters.
+            addedAtTimestamp: entry.addedAt
+              ? new Date(entry.addedAt).getTime()
+              : undefined,
+          }),
+      },
+
       event: {
         indexName: "search_index",
         entriesQuery: {
@@ -154,6 +198,7 @@ module.exports = ({ env }) => ({
             eventTagsIds: (entry.eventTags ?? []).map(({ id }) => id),
           }),
       },
+
       notice: {
         indexName: "search_index",
         entriesQuery: {
