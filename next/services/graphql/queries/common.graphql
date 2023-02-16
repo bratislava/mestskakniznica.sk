@@ -17,12 +17,43 @@ fragment UploadFileEntity on UploadFileEntity {
 fragment UploadImageEntity on UploadFileEntity {
   id
   attributes {
-    url
-    name
-    alternativeText
-    caption
-    size
-    width
-    height
+    ...UploadImage
+  }
+}
+
+fragment UploadImage on UploadFile {
+  url
+  name
+  alternativeText
+  caption
+  size
+  width
+  height
+}
+
+fragment EventTags on EventTag {
+  title
+  slug
+  createdAt
+  publishedAt
+  updatedAt
+}
+
+fragment EventCategory on EventCategory {
+  title
+  createdAt
+  updatedAt
+}
+
+fragment Branch on Branch {
+  title
+  address
+  phone
+  email
+  openingHours {
+    days {
+      label
+      time
+    }
   }
 }

@@ -1,16 +1,7 @@
 fragment BranchPlaceEntity on BranchEntity {
   id
   attributes {
-    title
-    address
-    phone
-    email
-    openingHours {
-      days {
-        label
-        time
-      }
-    }
+    ...Branch
   }
 }
 

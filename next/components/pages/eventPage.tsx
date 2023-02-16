@@ -1,13 +1,14 @@
 import { Link, SectionContainer } from '@bratislava/ui-city-library'
+import EventListingCard from '@components/Molecules/EventListingCard'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import { EventEntityFragment } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
+import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import EventDetails from 'components/Molecules/EventDetails'
 import { useTranslation } from 'next-i18next'
 
 import Section from '../AppLayout/Section'
-import ListingCard from '../Molecules/ListingCard'
 
 export interface PageProps {
   event: EventEntityFragment
@@ -52,7 +53,32 @@ const EventPage = ({ event }: PageProps) => {
           <section>
             <div className="grid grid-cols-1 items-stretch gap-1 py-10 pt-12 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-10">
               {upcomingEvents?.data.map((upcomingEvent) => {
-                return <ListingCard card={upcomingEvent} key={upcomingEvent.attributes?.slug} />
+                const {
+                  title,
+                  dateFrom,
+                  dateTo,
+                  slug,
+                  listingImage,
+                  coverImage,
+                  eventTags,
+                  eventCategory,
+                  branch,
+                } = upcomingEvent.attributes ?? {}
+                return upcomingEvent.attributes ? (
+                  <EventListingCard
+                    title={title}
+                    dateFrom={dateFrom}
+                    dateTo={dateTo}
+                    slug={slug}
+                    listingImage={listingImage?.data?.attributes}
+                    coverImage={coverImage?.data?.attributes}
+                    eventTags={eventTags?.data
+                      .map((eventTagEntity) => eventTagEntity.attributes)
+                      .filter(isDefined)}
+                    eventCategory={eventCategory?.data?.attributes}
+                    branch={branch?.data?.attributes}
+                  />
+                ) : null
               })}
             </div>
           </section>

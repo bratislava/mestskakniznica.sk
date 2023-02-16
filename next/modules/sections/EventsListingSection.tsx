@@ -39,9 +39,33 @@ const InnerSection = ({
     <div>
       <div className="text-h3">{t(titleTranslationKey)}</div>
       <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
-        {data?.hits.map((event) => (
-          <EventListingCard event={event} key={event?.id} />
-        ))}
+        {data?.hits.map((event) => {
+          const {
+            title,
+            dateFrom,
+            dateTo,
+            slug,
+            listingImage,
+            coverImage,
+            eventTags,
+            eventCategory,
+            branch,
+          } = event ?? {}
+          return (
+            <EventListingCard
+              key={event.slug}
+              title={title}
+              dateFrom={dateFrom}
+              dateTo={dateTo}
+              slug={slug}
+              listingImage={listingImage}
+              coverImage={coverImage}
+              eventTags={eventTags}
+              eventCategory={eventCategory}
+              branch={branch}
+            />
+          )
+        })}
       </div>
       <div className="flex justify-center pt-6 lg:justify-end">
         <Pagination
