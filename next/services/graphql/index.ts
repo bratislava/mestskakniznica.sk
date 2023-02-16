@@ -1592,6 +1592,7 @@ export type ComponentSectionsDividerInput = {
 export type ComponentSectionsDocuments = {
   __typename?: 'ComponentSectionsDocuments'
   basicDocuments?: Maybe<BasicDocumentRelationResponseCollection>
+  documents?: Maybe<DocumentRelationResponseCollection>
   id: Scalars['ID']
   moreLink?: Maybe<Array<Maybe<ComponentBlocksPageLink>>>
   title?: Maybe<Scalars['String']>
@@ -1599,6 +1600,13 @@ export type ComponentSectionsDocuments = {
 
 export type ComponentSectionsDocumentsBasicDocumentsArgs = {
   filters?: InputMaybe<BasicDocumentFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type ComponentSectionsDocumentsDocumentsArgs = {
+  filters?: InputMaybe<DocumentFiltersInput>
   pagination?: InputMaybe<PaginationArg>
   publicationState?: InputMaybe<PublicationState>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
@@ -1613,6 +1621,7 @@ export type ComponentSectionsDocumentsMoreLinkArgs = {
 export type ComponentSectionsDocumentsFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>
   basicDocuments?: InputMaybe<BasicDocumentFiltersInput>
+  documents?: InputMaybe<DocumentFiltersInput>
   moreLink?: InputMaybe<ComponentBlocksPageLinkFiltersInput>
   not?: InputMaybe<ComponentSectionsDocumentsFiltersInput>
   or?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>
@@ -1621,6 +1630,7 @@ export type ComponentSectionsDocumentsFiltersInput = {
 
 export type ComponentSectionsDocumentsInput = {
   basicDocuments?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  documents?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   id?: InputMaybe<Scalars['ID']>
   moreLink?: InputMaybe<Array<InputMaybe<ComponentBlocksPageLinkInput>>>
   title?: InputMaybe<Scalars['String']>
