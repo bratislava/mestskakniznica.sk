@@ -18,6 +18,11 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::basic-document.basic-document"
+    },
+    "documents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::document.document"
     }
   }
 }

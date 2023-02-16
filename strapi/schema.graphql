@@ -1346,6 +1346,7 @@ input ComponentSectionsDividerInput {
 
 type ComponentSectionsDocuments {
   basicDocuments(filters: BasicDocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BasicDocumentRelationResponseCollection
+  documents(filters: DocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): DocumentRelationResponseCollection
   id: ID!
   moreLink(filters: ComponentBlocksPageLinkFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksPageLink]
   title: String
@@ -1354,6 +1355,7 @@ type ComponentSectionsDocuments {
 input ComponentSectionsDocumentsFiltersInput {
   and: [ComponentSectionsDocumentsFiltersInput]
   basicDocuments: BasicDocumentFiltersInput
+  documents: DocumentFiltersInput
   moreLink: ComponentBlocksPageLinkFiltersInput
   not: ComponentSectionsDocumentsFiltersInput
   or: [ComponentSectionsDocumentsFiltersInput]
@@ -1362,6 +1364,7 @@ input ComponentSectionsDocumentsFiltersInput {
 
 input ComponentSectionsDocumentsInput {
   basicDocuments: [ID]
+  documents: [ID]
   id: ID
   moreLink: [ComponentBlocksPageLinkInput]
   title: String
