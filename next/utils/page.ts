@@ -1,60 +1,11 @@
-import {
-  SidebarProps,
-  SubpageItemProps,
-  TableRowProps,
-  TExternalLinksSection,
-} from '@bratislava/ui-city-library'
+import { SidebarProps, TableRowProps, TExternalLinksSection } from '@bratislava/ui-city-library'
 import {
   CategoryEntity,
-  ComponentBlocksPageLink,
   ExternalLinkFragment,
   FlatTextFragment,
-  SubpagesFragment,
   TableRowFragment,
 } from '@services/graphql'
 import groupBy from 'lodash/groupBy'
-import sortBy from 'lodash/sortBy'
-
-import { isPresent } from './utils'
-
-export const parsePageLink = (
-  pageLink?: Omit<ComponentBlocksPageLink, '__typename'> | null
-): { title: string; url: string | null; id: string | null } | null => {
-  if (!pageLink) return null
-
-  return {
-    title: pageLink.page?.data?.attributes?.title || '',
-    url: pageLink.url ?? null,
-    id: pageLink?.page?.data?.id ?? null,
-  }
-}
-
-// Pages (PageLinks)
-export const parsePages = (
-  pages: (Omit<ComponentBlocksPageLink, '__typename'> | undefined | null)[] | undefined | null
-): {
-  title: string
-  url: string | null
-  id: string | null
-}[] => pages?.map((page) => parsePageLink(page)).filter(isPresent) ?? []
-
-// Listing categories in listing and sublisting page
-export const parseSubCategories = (
-  subCategories: (CategoryEntity | undefined | null)[]
-): {
-  title: string
-  url: string | null
-  id: string | null
-  moreLinkTitle: string
-  pages: { title: string; url: string | null; id: string | null }[]
-}[] =>
-  sortBy(subCategories ?? [], ['priority']).map((subCategory) => ({
-    title: parsePageLink(subCategory?.attributes?.pageLink)?.title ?? '',
-    url: parsePageLink(subCategory?.attributes?.pageLink)?.url ?? null,
-    id: parsePageLink(subCategory?.attributes?.pageLink)?.id ?? null,
-    moreLinkTitle: subCategory?.attributes?.pageLink?.title ?? 'VIAC',
-    pages: parsePages(subCategory?.attributes?.pages?.filter(isPresent) ?? []),
-  }))
 
 // SideBar for content with sidebar
 export const parseSidebar = (
@@ -75,15 +26,6 @@ export const parseSidebar = (
       pageCategory?.attributes?.pages?.findIndex((x) => x?.page?.data?.id === activePageId) ?? 0,
   }
 }
-
-// Subpages
-export const parseSubpages = (subpages: SubpagesFragment): SubpageItemProps[] =>
-  subpages?.subpages?.filter(isPresent).map((subpage) => ({
-    title: subpage?.title ?? '',
-    description: subpage?.description ?? '',
-    url: parsePageLink(subpage)?.url,
-    id: parsePageLink(subpage)?.id,
-  })) ?? []
 
 export const groupByTableCategory = (
   tableRows: (TableRowFragment | undefined | null)[]
