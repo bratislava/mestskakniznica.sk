@@ -40,7 +40,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
 
   const mappedLatestNews = useMemo(
     () =>
-      latestNewsData?.pages?.data.map((notice) => ({
+      latestNewsData?.latestNotices?.data.map((notice) => ({
         title: notice.attributes?.title ?? '',
         path: getPathForEntity({ type: 'notice', slug: notice.attributes?.slug }) ?? '#',
       })) ?? [],

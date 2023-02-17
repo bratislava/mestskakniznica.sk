@@ -1,3 +1,15 @@
+fragment LatestNoticesQuery on Query {
+  latestNotices: notices(
+    locale: $locale
+    pagination: { limit: 4, start: 0 }
+    sort: "publishedAt:desc"
+  ) {
+    data {
+      ...NoticeListingEntity
+    }
+  }
+}
+
 query HomePage($locale: I18NLocaleCode!) {
   homePage(locale: $locale) {
     data {
@@ -90,15 +102,7 @@ query HomePage($locale: I18NLocaleCode!) {
       ...EventCardEntity
     }
   }
-  latestNotices: notices(
-    locale: $locale
-    pagination: { limit: 4, start: 0 }
-    sort: "publishedAt:desc"
-  ) {
-    data {
-      ...NoticeListingEntity
-    }
-  }
+  ...LatestNoticesQuery
   bookTags(pagination: { limit: 100 }) {
     data {
       ...BookTagEntity
@@ -106,17 +110,8 @@ query HomePage($locale: I18NLocaleCode!) {
   }
 }
 
-query LatestNews($locale: I18NLocaleCode!) {
-  pages(
-    filters: { layout: { eq: "news" } }
-    locale: $locale
-    pagination: { start: 0, limit: 4 }
-    sort: "publishedAt:desc"
-  ) {
-    data {
-      ...PageEntity
-    }
-  }
+query LatestNotices($locale: I18NLocaleCode!) {
+  ...LatestNoticesQuery
 }
 
 fragment MenuEntity on MenuEntity {
