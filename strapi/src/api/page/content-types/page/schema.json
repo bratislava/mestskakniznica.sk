@@ -117,7 +117,8 @@
         "sections.events-listing",
         "sections.new-books-listing",
         "sections.news-listing",
-        "sections.partners"
+        "sections.partners",
+        "sections.children-listing"
       ]
     },
     "branchesServicesTo": {
