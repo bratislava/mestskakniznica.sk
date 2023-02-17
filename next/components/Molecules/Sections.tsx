@@ -55,6 +55,7 @@ import SpaceReservationForm from '../forms/SpaceReservationForm'
 import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm, { VenueRentalFormProps } from '../forms/VenueRentalForm'
+import ChildrenListingSection from '@modules/sections/ChildrenListingSection'
 
 type FormsProps =
   | (() => JSX.Element)
@@ -306,6 +307,9 @@ const sectionContent = (
 
     case 'ComponentSectionsEventsListing':
       return <EventsListingSection />
+
+    case 'ComponentSectionsChildrenListing':
+      return <ChildrenListingSection section={section} />
 
     default:
       return null
