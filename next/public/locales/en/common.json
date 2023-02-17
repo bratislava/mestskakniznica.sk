@@ -125,8 +125,9 @@
   "searchOnPagePlaceholder": "Search on page…",
   "searchTags": {
     "page": "Page",
-    "basic-document": "Document",
     "blog-post": "Article",
+    "document": "Document",
+    "disclosure": "Disclosure",
     "event": "Event",
     "notice": "News"
   },
