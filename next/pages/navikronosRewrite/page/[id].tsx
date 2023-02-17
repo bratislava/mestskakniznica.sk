@@ -1,9 +1,7 @@
 import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
 
 import FullContentPage from '@components/pages/fullContentPage'
-import ListingPage from '@components/pages/listingPage'
 import SidebarContentPage from '@components/pages/sidebarContentPage'
-import SublistingPage from '@components/pages/sublistingPage'
 import { Enum_Page_Layout, GeneralQuery, PageEntity, PageEntityFragment } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
@@ -35,14 +33,6 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
   // TODO replace PageEntity by PageEntityFragment
   // eslint-disable-next-line default-case
   switch (page?.attributes?.layout) {
-    case Enum_Page_Layout.Listing:
-      pageComponentByLayout = <ListingPage page={page as PageEntity} />
-      break
-
-    case Enum_Page_Layout.Sublisting:
-      pageComponentByLayout = <SublistingPage page={page as PageEntity} />
-      break
-
     case Enum_Page_Layout.FullContent:
       pageComponentByLayout = <FullContentPage page={page as PageEntity} />
       break
