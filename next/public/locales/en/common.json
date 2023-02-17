@@ -154,5 +154,16 @@
   "downloadFile": "Download file",
   "downloadFileAriaLabel": "Download file {{title}}, format {{ext}}, {{size}}",
   "unknownFormat": "unknown",
-  "size": "Size"
+  "size": "Size",
+  "DocumentMetadata": {
+    "category": "Category",
+    "addedAt": "Added on",
+    "period": "Period",
+    "idNumber": "Number",
+    "amount": "Amount",
+    "description": "Description",
+    "contractor": "Supplier/Contractor",
+    "grantSupplier": "Provider",
+    "grantYear": "Year"
+  }
 }
