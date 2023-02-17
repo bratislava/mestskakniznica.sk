@@ -1,7 +1,6 @@
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import gql from 'graphql-tag'
-
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
@@ -1533,6 +1532,24 @@ export type ComponentSectionsBlogPostsListingInput = {
   id?: InputMaybe<Scalars['ID']>
 }
 
+export type ComponentSectionsChildrenListing = {
+  __typename?: 'ComponentSectionsChildrenListing'
+  depth: Enum_Componentsectionschildrenlisting_Depth
+  id: Scalars['ID']
+}
+
+export type ComponentSectionsChildrenListingFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsChildrenListingFiltersInput>>>
+  depth?: InputMaybe<StringFilterInput>
+  not?: InputMaybe<ComponentSectionsChildrenListingFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsChildrenListingFiltersInput>>>
+}
+
+export type ComponentSectionsChildrenListingInput = {
+  depth?: InputMaybe<Enum_Componentsectionschildrenlisting_Depth>
+  id?: InputMaybe<Scalars['ID']>
+}
+
 export type ComponentSectionsColumnedText = {
   __typename?: 'ComponentSectionsColumnedText'
   content?: Maybe<Scalars['String']>
@@ -2319,6 +2336,11 @@ export enum Enum_Componentblockstablerow_Valuealign {
   Start = 'start',
 }
 
+export enum Enum_Componentsectionschildrenlisting_Depth {
+  Depth_1 = 'depth_1',
+  Depth_2 = 'depth_2',
+}
+
 export enum Enum_Componentsectionsform_Type {
   AkaKnihaVamVKnizniciChyba = 'aka_kniha_vam_v_kniznici_chyba',
   AkoSaPrihlasitDoKniznice = 'ako_sa_prihlasit_do_kniznice',
@@ -2757,6 +2779,7 @@ export type General = {
   locale?: Maybe<Scalars['String']>
   localizations?: Maybe<GeneralRelationResponseCollection>
   newBooksPage?: Maybe<PageEntityResponse>
+  noticesPage?: Maybe<PageEntityResponse>
   openingHoursPage?: Maybe<PageEntityResponse>
   privacyTermsAndConditionsPage?: Maybe<PageEntityResponse>
   updatedAt?: Maybe<Scalars['DateTime']>
@@ -2787,6 +2810,7 @@ export type GeneralFiltersInput = {
   localizations?: InputMaybe<GeneralFiltersInput>
   newBooksPage?: InputMaybe<PageFiltersInput>
   not?: InputMaybe<GeneralFiltersInput>
+  noticesPage?: InputMaybe<PageFiltersInput>
   openingHoursPage?: InputMaybe<PageFiltersInput>
   or?: InputMaybe<Array<InputMaybe<GeneralFiltersInput>>>
   privacyTermsAndConditionsPage?: InputMaybe<PageFiltersInput>
@@ -2796,6 +2820,7 @@ export type GeneralFiltersInput = {
 export type GeneralInput = {
   eventsPage?: InputMaybe<Scalars['ID']>
   newBooksPage?: InputMaybe<Scalars['ID']>
+  noticesPage?: InputMaybe<Scalars['ID']>
   openingHoursPage?: InputMaybe<Scalars['ID']>
   privacyTermsAndConditionsPage?: InputMaybe<Scalars['ID']>
 }
@@ -2851,6 +2876,7 @@ export type GenericMorph =
   | ComponentMetadataZmluvy
   | ComponentSectionsAccordion
   | ComponentSectionsBlogPostsListing
+  | ComponentSectionsChildrenListing
   | ComponentSectionsColumnedText
   | ComponentSectionsCta
   | ComponentSectionsDivider
@@ -3943,6 +3969,7 @@ export type PageRelationResponseCollection = {
 export type PageSectionsDynamicZone =
   | ComponentSectionsAccordion
   | ComponentSectionsBlogPostsListing
+  | ComponentSectionsChildrenListing
   | ComponentSectionsColumnedText
   | ComponentSectionsCta
   | ComponentSectionsDivider
@@ -8797,6 +8824,11 @@ export type PageEntityFragment = {
         }
       | { __typename: 'ComponentSectionsBlogPostsListing' }
       | {
+          __typename: 'ComponentSectionsChildrenListing'
+          id: string
+          depth: Enum_Componentsectionschildrenlisting_Depth
+        }
+      | {
           __typename: 'ComponentSectionsColumnedText'
           title?: string | null
           content?: string | null
@@ -9868,6 +9900,11 @@ export type PageByIdQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsBlogPostsListing' }
+          | {
+              __typename: 'ComponentSectionsChildrenListing'
+              id: string
+              depth: Enum_Componentsectionschildrenlisting_Depth
+            }
           | {
               __typename: 'ComponentSectionsColumnedText'
               title?: string | null
@@ -11091,6 +11128,11 @@ export type LatestNewsQuery = {
             }
           | { __typename: 'ComponentSectionsBlogPostsListing' }
           | {
+              __typename: 'ComponentSectionsChildrenListing'
+              id: string
+              depth: Enum_Componentsectionschildrenlisting_Depth
+            }
+          | {
               __typename: 'ComponentSectionsColumnedText'
               title?: string | null
               content?: string | null
@@ -11649,6 +11691,10 @@ export type GeneralEntityFragment = {
       __typename?: 'PageEntityResponse'
       data?: { __typename?: 'PageEntity'; id?: string | null } | null
     } | null
+    noticesPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+    } | null
   } | null
 }
 
@@ -11924,6 +11970,12 @@ export type GalleryFragment = {
   } | null> | null
 }
 
+export type ChildrenListingSectionFragment = {
+  __typename?: 'ComponentSectionsChildrenListing'
+  id: string
+  depth: Enum_Componentsectionschildrenlisting_Depth
+}
+
 type Sections_ComponentSectionsAccordion_Fragment = {
   __typename: 'ComponentSectionsAccordion'
   title?: string | null
@@ -11949,6 +12001,12 @@ type Sections_ComponentSectionsAccordion_Fragment = {
 
 type Sections_ComponentSectionsBlogPostsListing_Fragment = {
   __typename: 'ComponentSectionsBlogPostsListing'
+}
+
+type Sections_ComponentSectionsChildrenListing_Fragment = {
+  __typename: 'ComponentSectionsChildrenListing'
+  id: string
+  depth: Enum_Componentsectionschildrenlisting_Depth
 }
 
 type Sections_ComponentSectionsColumnedText_Fragment = {
@@ -12441,6 +12499,7 @@ type Sections_Error_Fragment = { __typename: 'Error' }
 export type SectionsFragment =
   | Sections_ComponentSectionsAccordion_Fragment
   | Sections_ComponentSectionsBlogPostsListing_Fragment
+  | Sections_ComponentSectionsChildrenListing_Fragment
   | Sections_ComponentSectionsColumnedText_Fragment
   | Sections_ComponentSectionsCta_Fragment
   | Sections_ComponentSectionsDivider_Fragment
@@ -12902,6 +12961,10 @@ export type GeneralQuery = {
           __typename?: 'PageEntityResponse'
           data?: { __typename?: 'PageEntity'; id?: string | null } | null
         } | null
+        noticesPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+        } | null
       } | null
     } | null
   } | null
@@ -13207,6 +13270,12 @@ export const GalleryFragmentDoc = gql`
   }
   ${UploadImageEntityFragmentDoc}
 `
+export const ChildrenListingSectionFragmentDoc = gql`
+  fragment ChildrenListingSection on ComponentSectionsChildrenListing {
+    id
+    depth
+  }
+`
 export const SectionsFragmentDoc = gql`
   fragment Sections on PageSectionsDynamicZone {
     __typename
@@ -13327,6 +13396,9 @@ export const SectionsFragmentDoc = gql`
     ... on ComponentSectionsGallery {
       ...Gallery
     }
+    ... on ComponentSectionsChildrenListing {
+      ...ChildrenListingSection
+    }
   }
   ${AccordionItemFragmentDoc}
   ${SubpagesFragmentDoc}
@@ -13337,6 +13409,7 @@ export const SectionsFragmentDoc = gql`
   ${DocumentsFragmentDoc}
   ${BranchCardEntityFragmentDoc}
   ${GalleryFragmentDoc}
+  ${ChildrenListingSectionFragmentDoc}
 `
 export const SeoFragmentDoc = gql`
   fragment Seo on ComponentCommonSeo {
@@ -13797,6 +13870,11 @@ export const GeneralEntityFragmentDoc = gql`
         }
       }
       openingHoursPage {
+        data {
+          id
+        }
+      }
+      noticesPage {
         data {
           id
         }

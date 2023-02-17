@@ -156,6 +156,11 @@ fragment GeneralEntity on GeneralEntity {
         id
       }
     }
+    noticesPage {
+      data {
+        id
+      }
+    }
   }
 }
 
@@ -211,6 +216,12 @@ fragment Gallery on ComponentSectionsGallery {
     }
   }
 }
+
+fragment ChildrenListingSection on ComponentSectionsChildrenListing {
+  id
+  depth
+}
+
 
 fragment Sections on PageSectionsDynamicZone {
   __typename
@@ -336,6 +347,10 @@ fragment Sections on PageSectionsDynamicZone {
 
   ... on ComponentSectionsGallery {
     ...Gallery
+  }
+
+  ... on ComponentSectionsChildrenListing {
+    ...ChildrenListingSection
   }
 }
 

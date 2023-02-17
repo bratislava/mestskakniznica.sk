@@ -4,7 +4,8 @@
   "info": {
     "singularName": "general",
     "pluralName": "generals",
-    "displayName": "General"
+    "displayName": "General",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -31,6 +32,11 @@
       "target": "api::page.page"
     },
     "openingHoursPage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    },
+    "noticesPage": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::page.page"
