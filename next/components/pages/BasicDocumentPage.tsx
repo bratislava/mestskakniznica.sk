@@ -1,115 +1,58 @@
-import ChevronRight from '@assets/images/chevron-right.svg'
-import SingleDot from '@assets/images/dot.svg'
-import Download from '@assets/images/download.svg'
-import ExternalLink from '@assets/images/external-link.svg'
-import { FileIcon, Link, SectionContainer } from '@bratislava/ui-city-library'
+import { DownloadIcon } from '@assets/icons'
+import { FileIcon, SectionContainer } from '@bratislava/ui-city-library'
+import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import Button from '@modules/common/Button'
 import FormatDate from '@modules/formatting/FormatDate'
-import { BasicDocumentEntityFragment } from '@services/graphql'
+import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
+import { useNavikronos } from '@utils/navikronos'
+import { useDisclosureMetadata } from '@utils/useDisclosureMetadata'
 import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
 import { getFileSize } from '@utils/utils'
-import truncate from 'lodash/truncate'
 import { useTranslation } from 'next-i18next'
-import React, { ReactNode } from 'react'
+import React, { Fragment } from 'react'
 
 import DefaultPageLayout from '../layouts/DefaultPageLayout'
-import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
-import { useNavikronos } from '@utils/navikronos'
 
 interface IProps {
-  basicDocument: BasicDocumentEntityFragment
+  entity: DocumentEntityFragment | DisclosureEntityFragment
 }
 
-interface FileMetadata {
-  key: string
-  content: ReactNode
-}
-
-const DESCRIPTION_LIMIT = 100
-
-const BasicDocumentPage = ({ basicDocument }: IProps) => {
+const BasicDocumentPage = ({ entity }: IProps) => {
   const { t, i18n } = useTranslation('common')
   const { getBreadcrumbs } = useNavikronos()
-  const breadcrumbs = getBreadcrumbs(basicDocument.attributes?.title)
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
+  const { getDisclosureMetadata } = useDisclosureMetadata()
 
-  const [expandDescription, setExpandDescription] = React.useState(false)
-  const { description, file_category, author, date_added, link, metadata, title, attachment } =
-    basicDocument?.attributes ?? {}
-  const { attributes } = attachment?.data ?? {}
-  const { size } = attributes ?? {}
+  const breadcrumbs = getBreadcrumbs(entity.attributes?.title)
 
-  const showExpandButton = description ? description.length > DESCRIPTION_LIMIT : false
+  if (!entity.attributes) {
+    return null
+  }
+
+  const { title, file, addedAt, description } = entity.attributes
+
+  if (!file.data?.attributes) {
+    return null
+  }
+
+  const { size, ext, url } = file.data.attributes
+
+  const isDisclosure = entity.__typename === 'DisclosureEntity'
 
   const fileSize = getFileSize(size, i18n.language)
-
-  const Metadata: FileMetadata[] = [
-    {
-      key: `${t('type')}:`,
-      // TODO: add link to filtered category
-      content: file_category?.data?.attributes?.name,
-    },
-    { key: `${t('author')}:`, content: author },
-    {
-      key: `${t('createdAt')}:`,
-      content: <FormatDate valueType="ISO" value={date_added} />,
-    },
-    {
-      key: `${t('size')}:`,
-      content: fileSize ?? '',
-    },
-    {
-      key: `${t('link')}:`,
-      content: link ? (
-        <>
-          {/* Mobile */}
-          <Link
-            href={link ?? '#'}
-            uppercase={false}
-            className="text-foreground-body underline lg:hidden"
-            variant="plain"
-            size="default"
-          >
-            {link}
-          </Link>
-          {/* Desktop */}
-          <Link
-            href={link ?? '#'}
-            uppercase={false}
-            className="hidden text-foreground-body underline lg:block"
-            variant="plain"
-            size="large"
-          >
-            {link}
-          </Link>
-        </>
-      ) : null,
-    },
-  ]
-
-  const transformedMetadata: Array<FileMetadata> =
-    metadata && metadata[0]
-      ? Object.entries(metadata[0])
-          .filter(
-            (entry) =>
-              (entry[0] !== '__typename' && entry[0] !== 'id' && entry[0] !== 'attachment') ||
-              entry[0] === 'attachment'
-          )
-          .map((entry) => {
-            if (entry[0] !== '__typename' && entry[0] !== 'id' && entry[0] !== 'attachment') {
-              return {
-                key: `${t(entry[0])}:`,
-                content: entry[1],
-              }
-            }
-            return {
-              key: 'Attachment',
-              content: entry[1].name,
-            }
-          })
-      : []
-
-  const fullMetadata = Metadata?.concat(transformedMetadata)
+  const fileExt = ext?.toUpperCase().replace('.', '')
+  const dlData = isDisclosure
+    ? getDisclosureMetadata(entity)
+    : [
+        {
+          label: t('DocumentMetadata.category'),
+          value: entity.attributes.documentCategory?.data?.attributes?.label,
+        },
+        {
+          label: t('DocumentMetadata.addedAt'),
+          value: <FormatDate value={addedAt} valueType="ISO" />,
+        },
+      ]
 
   return (
     <DefaultPageLayout title={title}>
@@ -117,82 +60,75 @@ const BasicDocumentPage = ({ basicDocument }: IProps) => {
         <Breadcrumbs crumbs={breadcrumbs} />
 
         <div className="mt-6 flex gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:pb-32">
-          <FileIcon
-            className="hidden lg:flex"
-            type={attributes?.ext?.toUpperCase().replace('.', '')}
-          />
-          <div className="w-full">
-            <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <FileIcon className="hidden lg:flex" type={fileExt} />
+
+          <div className="w-full text-foreground-body">
+            <div className="flex flex-col items-center border-b border-border-dark text-center lg:items-start lg:text-left">
               {/* Header */}
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-border-dark text-[12px] lg:hidden">
-                {attributes?.ext?.toUpperCase().replace('.', '')}
+              {/* TODO use FileIcon component with border */}
+              <span className="mb-8 flex h-14 w-14 items-center justify-center rounded-full border border-border-dark text-[12px] text-foreground-dark lg:hidden">
+                {fileExt}
               </span>
-              <h1 className="mt-8 text-h1 lg:mt-0">{title}</h1>
-              <div className="mt-2 items-center text-base text-foreground-body lg:flex lg:gap-x-3">
-                <p className="hidden lg:block">{author}</p>
-                <SingleDot className="hidden lg:block" />
-                <p>
-                  {t('added')} <FormatDate valueType="ISO" value={date_added} />
-                </p>
+
+              <h1 className="text-h1 lg:mt-0">{title}</h1>
+
+              <div className="mt-2 flex items-center gap-x-3">
+                <span>{fileSize}</span>
+                <span>&bull;</span>
+                <span>{fileExt}</span>
               </div>
-              {attachment?.data?.attributes?.url && (
-                <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
-                  <Button
-                    href={attachment?.data?.attributes?.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    mobileFullWidth
-                    aria-label={title && `${t('open')} ${title}`}
-                    startIcon={<ExternalLink />}
-                  >
-                    {t('open')}
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    mobileFullWidth
-                    href={attachment?.data?.attributes?.url}
-                    // TODO add download title
-                    // download={file?.attributes?.attachment?.data?.attributes?.name}
-                    aria-label={title && getDownloadAriaLabel(attachment.data, title)}
-                    startIcon={<Download />}
-                  >
-                    {t('download')}
-                  </Button>
-                </div>
-              )}
+
+              <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
+                <Button
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  mobileFullWidth
+                  aria-label={`${t('open')} ${title}`}
+                  // Change to 'ExternalLinkIcon' when download button is added
+                  // startIcon={<ExternalLinkIcon />}
+                  startIcon={<DownloadIcon />}
+                >
+                  {/* Change to 'Open' when download button is added */}
+                  {/* {t('open')} */}
+                  {t('download')}
+                </Button>
+                {/* TODO add direct download */}
+                {/* <Button */}
+                {/*  variant="secondary" */}
+                {/*  mobileFullWidth */}
+                {/*  href={url} */}
+                {/*  // TODO add download title */}
+                {/*  // download={file?.attributes?.attachment?.data?.attributes?.name} */}
+                {/*  aria-label={getDownloadAriaLabel(file.data, title)} */}
+                {/*  startIcon={<DownloadIcon />} */}
+                {/* > */}
+                {/*  {t('download')} */}
+                {/* </Button> */}
+              </div>
             </div>
 
             {/* Description */}
-            <div className="space-y-4 border-y border-border-dark py-6 lg:space-y-6 lg:py-10">
-              <h3 className="text-h3">{t('description')}</h3>
-              <p className="text-sm text-foreground-body lg:text-base">
-                {truncate(description || undefined, {
-                  length: expandDescription ? description?.length : DESCRIPTION_LIMIT,
-                })}
-              </p>
-
-              {showExpandButton && (
-                <Button
-                  variant="plain-primary"
-                  endIcon={<ChevronRight />}
-                  onPress={() => setExpandDescription((prev) => !prev)}
-                >
-                  {expandDescription ? t('showLess') : t('showMore')}
-                </Button>
-              )}
-            </div>
+            {!isDisclosure && description ? (
+              <div className="border-b border-border-dark py-6 lg:py-10">
+                <h2 className="text-h3">{t('description')}</h2>
+                <div className="mt-4 text-sm text-foreground-body lg:mt-6 lg:text-base">
+                  {description}
+                </div>
+              </div>
+            ) : null}
 
             {/* Metadata */}
-            <ul className="mt-6 space-y-3 text-sm text-foreground-body lg:mt-10 lg:text-base">
-              {fullMetadata
-                .filter((data) => data?.content)
-                .map((data, i) => (
-                  <li className="flex items-center gap-x-4 lg:gap-x-6" key={i}>
-                    <span className="w-24 lg:w-28">{data && data.key}</span>
-                    <span>{data && data.content}</span>
-                  </li>
-                ))}
-            </ul>
+            <dl className="mt-6 text-sm lg:mt-10 lg:text-base">
+              {dlData.map((dItem) => (
+                <Fragment key={dItem.label}>
+                  <dt className="float-left clear-left w-40 after:content-[':'] not-first:mt-3 lg:w-48">
+                    {dItem.label}
+                  </dt>
+                  <dd className="ml-40 not-first:mt-3 lg:ml-48">{dItem.value}</dd>
+                </Fragment>
+              ))}
+            </dl>
           </div>
         </div>
       </SectionContainer>
