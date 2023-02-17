@@ -98,8 +98,9 @@ module.exports = ({ env }) => ({
       staticRouteIds: ["search"],
       contentTypeRoutes: [
         { contentTypeUid: "api::notice.notice" },
-        { contentTypeUid: "api::basic-document.basic-document" },
         { contentTypeUid: "api::branch.branch" },
+        { contentTypeUid: "api::document.document" },
+        { contentTypeUid: "api::disclosure.disclosure" },
         { contentTypeUid: "api::event.event" },
         { contentTypeUid: "api::blog-post.blog-post" },
       ],
@@ -124,20 +125,6 @@ module.exports = ({ env }) => ({
         },
         settings: searchIndexSettings,
         transformEntry: ({ entry }) => wrapSearchIndexEntry("page", entry),
-      },
-
-      "basic-document": {
-        indexName: "search_index",
-        settings: searchIndexSettings,
-        transformEntry: ({ entry }) =>
-          wrapSearchIndexEntry("basic-document", {
-            ...entry,
-            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
-            // use (number) filters.
-            date_added: entry.date_added
-              ? new Date(entry.date_added).getTime()
-              : undefined,
-          }),
       },
 
       "blog-post": {

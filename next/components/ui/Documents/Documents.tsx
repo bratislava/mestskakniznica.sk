@@ -35,7 +35,7 @@ export const Documents = ({
 
         return {
           id: document.id,
-          linkHref: getPathForEntity({ type: 'basic-document', slug }) ?? '',
+          linkHref: getPathForEntity({ type: 'disclosure', slug }) ?? '',
           content: {
             category: type,
             title: docTitle,
@@ -53,7 +53,7 @@ export const Documents = ({
 
         return {
           id: document.id,
-          linkHref: getPathForEntity({ type: 'basic-document', slug }) ?? '',
+          linkHref: getPathForEntity({ type: 'document', slug }) ?? '',
           content: {
             category: documentCategory?.data?.attributes?.label,
             title: docTitle,

@@ -90,10 +90,11 @@ const DocumentsListingSection = () => {
                 <DocumentRow
                   key={document.id}
                   title={document.title}
-                  linkHref={getPathForEntity({ type: 'basic-document', slug: document.slug }) ?? ''}
+                  linkHref={getPathForEntity({ type: document.type, slug: document.slug }) ?? ''}
                   fileExt={document.file?.ext?.toUpperCase().replace('.', '') ?? ''}
                   category={document.category ?? undefined}
                   addedAt={document.addedAt}
+                  // TODO add some metadata
                   // metadata={
                   //   <Metadata
                   //     metadata={

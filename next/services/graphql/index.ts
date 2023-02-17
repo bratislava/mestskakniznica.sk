@@ -6832,6 +6832,50 @@ export type DisclosureEntityFragment = {
   } | null
 }
 
+export type DisclosureBySlugQueryVariables = Exact<{
+  slug: Scalars['String']
+}>
+
+export type DisclosureBySlugQuery = {
+  __typename?: 'Query'
+  disclosures?: {
+    __typename?: 'DisclosureEntityResponseCollection'
+    data: Array<{
+      __typename: 'DisclosureEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Disclosure'
+        slug: string
+        title: string
+        description?: string | null
+        addedAt: any
+        type: Enum_Disclosure_Type
+        dateFrom?: any | null
+        dateTo?: any | null
+        idNumber?: string | null
+        amount?: number | null
+        contractor?: string | null
+        grantProvider?: string | null
+        grantYear?: string | null
+        file: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              size: number
+              ext?: string | null
+            } | null
+          } | null
+        }
+      } | null
+    }>
+  } | null
+}
+
 export type DocumentCategoryEntityFragment = {
   __typename?: 'DocumentCategoryEntity'
   id?: string | null
@@ -6911,42 +6955,6 @@ export type DocumentBySlugQuery = {
             attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
           } | null
         } | null
-        file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              size: number
-              ext?: string | null
-            } | null
-          } | null
-        }
-      } | null
-    }>
-  } | null
-  disclosures?: {
-    __typename?: 'DisclosureEntityResponseCollection'
-    data: Array<{
-      __typename: 'DisclosureEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Disclosure'
-        slug: string
-        title: string
-        description?: string | null
-        addedAt: any
-        type: Enum_Disclosure_Type
-        dateFrom?: any | null
-        dateTo?: any | null
-        idNumber?: string | null
-        amount?: number | null
-        contractor?: string | null
-        grantProvider?: string | null
-        grantYear?: string | null
         file: {
           __typename?: 'UploadFileEntityResponse'
           data?: {
@@ -12804,6 +12812,16 @@ export const BranchBySlugDocument = gql`
   }
   ${BranchEntityFragmentDoc}
 `
+export const DisclosureBySlugDocument = gql`
+  query DisclosureBySlug($slug: String!) {
+    disclosures(filters: { slug: { eq: $slug } }) {
+      data {
+        ...DisclosureEntity
+      }
+    }
+  }
+  ${DisclosureEntityFragmentDoc}
+`
 export const DocumentCategoriesDocument = gql`
   query DocumentCategories {
     documentCategories {
@@ -12821,14 +12839,8 @@ export const DocumentBySlugDocument = gql`
         ...DocumentEntity
       }
     }
-    disclosures(filters: { slug: { eq: $slug } }) {
-      data {
-        ...DisclosureEntity
-      }
-    }
   }
   ${DocumentEntityFragmentDoc}
-  ${DisclosureEntityFragmentDoc}
 `
 export const EventPropertiesDocument = gql`
   query EventProperties($locale: I18NLocaleCode!) {
@@ -13243,6 +13255,20 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'BranchBySlug',
+        'query'
+      )
+    },
+    DisclosureBySlug(
+      variables: DisclosureBySlugQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<DisclosureBySlugQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DisclosureBySlugQuery>(DisclosureBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'DisclosureBySlug',
         'query'
       )
     },

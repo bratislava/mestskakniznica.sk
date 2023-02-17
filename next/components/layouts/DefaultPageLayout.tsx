@@ -4,13 +4,13 @@ import HeaderWrapper from '@modules/navigation/HeaderWrapper'
 import { useNavMenuContext } from '@modules/navigation/navMenuContext'
 import { SeoFragment } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
+import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 
 import favicon from '../../assets/images/mkb_favicon.png'
 import NewsletterSection from '../HomePage/NewsletterSection'
-import { useNavikronos } from '@utils/navikronos'
 
 interface IProps {
   children?: React.ReactNode
@@ -43,6 +43,7 @@ const DefaultPageLayout = ({ children, title, seo }: IProps) => {
         )}
         {currentRouteLocalizations.map(({ locale, path }) => (
           <link
+            key={locale}
             rel="alternate"
             href={(locale === 'sk' ? '' : `/${locale}`) + path}
             hrefLang={locale}

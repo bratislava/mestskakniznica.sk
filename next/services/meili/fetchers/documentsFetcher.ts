@@ -67,6 +67,7 @@ export const documentsFetcher = (filters: DocumentsFilters) => {
           category: type === 'document' ? dataInner.documentCategory.label : dataInner.type,
           file: dataInner.file,
         } as {
+          type: typeof hit.type
           id: string
           title: string
           slug: string

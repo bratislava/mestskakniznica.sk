@@ -17,7 +17,7 @@ interface IProps {
   entity: DocumentEntityFragment | DisclosureEntityFragment
 }
 
-const BasicDocumentPage = ({ entity }: IProps) => {
+const DocumentPage = ({ entity }: IProps) => {
   const { t, i18n } = useTranslation('common')
   const { getBreadcrumbs } = useNavikronos()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
@@ -136,4 +136,4 @@ const BasicDocumentPage = ({ entity }: IProps) => {
   )
 }
 
-export default BasicDocumentPage
+export default DocumentPage

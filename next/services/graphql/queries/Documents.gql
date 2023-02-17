@@ -45,9 +45,4 @@ query DocumentBySlug($slug: String!) {
       ...DocumentEntity
     }
   }
-  disclosures(filters: { slug: { eq: $slug } }) {
-    data {
-      ...DisclosureEntity
-    }
-  }
 }

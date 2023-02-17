@@ -23,3 +23,13 @@ fragment DisclosureEntity on DisclosureEntity {
     grantYear
   }
 }
+
+### Queries
+
+query DisclosureBySlug($slug: String!) {
+  disclosures(filters: { slug: { eq: $slug } }) {
+    data {
+      ...DisclosureEntity
+    }
+  }
+}

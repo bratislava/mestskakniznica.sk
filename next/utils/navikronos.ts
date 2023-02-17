@@ -1,9 +1,9 @@
-import { NavikronosConfig, NavikronosStaticProps } from '../navikronos/types'
 import { createUseNavikronosHook } from '../navikronos/NavikronosProvider'
+import { NavikronosConfig, NavikronosStaticProps } from '../navikronos/types'
 
 export const navikronosConfig = {
   strapiUrl: process.env.STRAPI_URL as string,
-  cacheTtl: 10000,
+  cacheTtl: 10_000,
   rewritePrefix: 'navikronosRewrite',
   staticRoutes: {
     search: { rewrite: '/search' },
@@ -19,13 +19,17 @@ export const navikronosConfig = {
       alias: 'notice' as const,
       rewrite: (slug) => `/notice/${slug}`,
     },
-    'api::basic-document.basic-document': {
-      alias: 'basic-document' as const,
-      rewrite: (slug) => `/basic-document/${slug}`,
-    },
     'api::branch.branch': {
       alias: 'branch' as const,
       rewrite: (slug) => `/branch/${slug}`,
+    },
+    'api::document.document': {
+      alias: 'document' as const,
+      rewrite: (slug) => `/document/${slug}`,
+    },
+    'api::disclosure.disclosure': {
+      alias: 'disclosure' as const,
+      rewrite: (slug) => `/disclosure/${slug}`,
     },
     'api::event.event': {
       alias: 'event' as const,
