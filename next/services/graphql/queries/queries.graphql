@@ -189,9 +189,9 @@ fragment BookTagEntity on BookTagEntity {
 
 fragment Documents on ComponentSectionsDocuments {
   title
-  basicDocuments {
+  documents {
     data {
-      ...BasicDocumentEntity
+      ...DocumentEntity
     }
   }
   moreLink {
