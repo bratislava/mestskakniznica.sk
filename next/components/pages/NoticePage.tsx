@@ -2,8 +2,8 @@ import { Documents, PageTitle, SectionContainer } from '@bratislava/ui-city-libr
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import RichText from '@modules/formatting/RichText'
 import { NoticeEntityFragment } from '@services/graphql'
-import * as React from 'react'
 import { useNavikronos } from '@utils/navikronos'
+import * as React from 'react'
 
 export interface NoticePageProps {
   notice: NoticeEntityFragment
@@ -25,10 +25,7 @@ const NoticePage = ({ notice }: NoticePageProps) => {
         </div>
       </SectionContainer>
       <SectionContainer>
-        <Documents
-          documents={notice.attributes?.documents?.basicDocuments?.data ?? []}
-          targetBlank
-        />
+        <Documents documents={notice.attributes?.documents?.documents?.data ?? []} targetBlank />
       </SectionContainer>
     </>
   )
