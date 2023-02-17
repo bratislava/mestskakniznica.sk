@@ -5,6 +5,8 @@ import {
   EntryRouteEntity,
   NavikronosBreadcrumb,
   NavikronosBreadcrumbs,
+  NavikronosChild,
+  NavikronosChildren,
   NavikronosClientLocaleNavigations,
   NavikronosConfig,
   NavikronosSitemap,
@@ -118,6 +120,7 @@ export type NavikronosObject<Config> = {
   sitemap: NavikronosSitemap | null
   getBreadcrumbs(title?: string): NavikronosBreadcrumb[] | null
   currentRouteLocalizations: CurrentRouteLocalization[]
+  children: NavikronosChildren
 }
 
 export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>(
@@ -224,6 +227,25 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     return currentEntityNode?.fullPath() ?? null
   })()
 
+  const children = (() => {
+    if (!currentEntityNode) {
+      return []
+    }
+
+    const mapFn = (child: NavikronosTreeNode): NavikronosChild | null => {
+      if (child.original.type === 'contentType') {
+        return null
+      }
+      return {
+        title: child.original.title,
+        path: child.fullPath(),
+        children: child.children?.map(mapFn).filter(isDefined),
+      } as NavikronosChild
+    }
+
+    return (currentEntityNode.children ?? []).map(mapFn).filter(isDefined)
+  })()
+
   const sitemap = getSiteMap()
 
   return {
@@ -232,5 +254,6 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     currentPath,
     sitemap: sitemap as any, // todo
     currentRouteLocalizations,
+    children,
   }
 }

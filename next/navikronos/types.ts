@@ -129,10 +129,15 @@ export type NavikronosStaticProps<Config extends NavikronosConfig> = {
 export type NavikronosBreadcrumb = {
   title: string
   path: string
-  children?: NavikronosBreadcrumb[]
 }
 
 export type NavikronosBreadcrumbs = NavikronosBreadcrumb[]
+
+export type NavikronosChild = NavikronosBreadcrumb & {
+  children?: NavikronosChildren
+}
+
+export type NavikronosChildren = NavikronosChild[]
 
 export type NavikronosSitemapEntry = {
   title: string
