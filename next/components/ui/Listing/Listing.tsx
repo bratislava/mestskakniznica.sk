@@ -3,13 +3,15 @@ import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import cx from 'classnames'
 import React from 'react'
+import { NavikronosChildren } from '../../../navikronos/types'
+import { useTranslation } from 'next-i18next'
 
 export interface ListingProps {
   className?: string
   title?: string
   url?: string
   moreLinkTitle?: string
-  pages: { title: string; url: string; moreLinkTitle: string }[]
+  children: NavikronosChildren
   hasDivider?: boolean
 }
 
@@ -18,9 +20,11 @@ export const Listing = ({
   title,
   url,
   moreLinkTitle,
-  pages,
+  children,
   hasDivider,
 }: ListingProps) => {
+  const { t } = useTranslation()
+
   return (
     <div className={cx(className)}>
       {moreLinkTitle && url && (
@@ -37,19 +41,19 @@ export const Listing = ({
       )}
 
       <div className="mt-4 grid grid-cols-1 gap-y-2 md:mt-6 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
-        {pages?.map((page) => (
+        {children?.map((page) => (
           <div>
             <div className="hidden md:block">
               <CallToAction
                 className="h-[180px]"
                 key={page.title}
                 title={page.title}
-                href={page.url}
-                showMoreText={page.moreLinkTitle}
+                href={page.path}
+                showMoreText={t('more')}
               />
             </div>
 
-            <RowSubcategory className="md:hidden" title={page.title} href={page.url} />
+            <RowSubcategory className="md:hidden" title={page.title} href={page.path} />
           </div>
         ))}
       </div>
