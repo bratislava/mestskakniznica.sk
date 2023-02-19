@@ -84,30 +84,20 @@ const DocumentsListingSection = () => {
 
       <div className="mt-6 border-y border-border-dark pb-10 lg:mt-16 lg:pb-32">
         {/* Documents */}
-        {data
-          ? data?.hits.map((document) => {
-              return (
-                <DocumentRow
-                  key={document.id}
-                  title={document.title}
-                  linkHref={getPathForEntity({ type: document.type, slug: document.slug }) ?? ''}
-                  fileExt={document.file?.ext?.toUpperCase().replace('.', '') ?? ''}
-                  category={document.category ?? undefined}
-                  addedAt={document.addedAt}
-                  // TODO add some metadata
-                  // metadata={
-                  //   <Metadata
-                  //     metadata={
-                  //       (document?.metadata
-                  //         ?.filter(isDefined)
-                  //         .filter((metadata) => metadata.__typename) as MetadataFragment[]) || []
-                  //     }
-                  //   />
-                  // }
-                />
-              )
-            })
-          : null}
+        {data?.hits.map((document) => {
+          const { id, title, type, slug, file, category, addedAt } = document
+          return (
+            <DocumentRow
+              key={id}
+              title={title}
+              linkHref={getPathForEntity({ type, slug }) ?? ''}
+              fileExt={file?.ext?.toUpperCase().replace('.', '') ?? ''}
+              category={category}
+              addedAt={addedAt}
+              // TODO add some metadata
+            />
+          )
+        })}
         {data?.estimatedTotalHits ? (
           <div className="mt-6 flex justify-center lg:justify-end">
             <Pagination

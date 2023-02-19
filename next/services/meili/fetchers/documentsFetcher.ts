@@ -1,5 +1,4 @@
 import { Sort } from '@components/Atoms/SortSelect'
-import { UploadFile } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import { Enum_Disclosure_Type_Fixed } from '@utils/types'
 
@@ -51,31 +50,32 @@ export const documentsFetcher = (filters: DocumentsFilters) => {
       ].filter(Boolean) as string[],
     })
     .then((response) => {
-      const newHits = response.hits.map((hit) => {
-        const { type } = hit
+      const newHits = response.hits
+        .map((hit) => {
+          const { type } = hit
+          const isDocument = type === 'document'
+          const isDisclosure = type === 'disclosure'
 
-        // TODO: Fix types, but not worth it.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
-        const dataInner = (hit as any)[type]
+          /* eslint-disable unicorn/consistent-destructuring */
+          if (isDocument) {
+            return {
+              ...hit.document,
+              category: hit.document.documentCategory.label,
+              type,
+            }
+          }
+          if (isDisclosure) {
+            return {
+              ...hit.disclosure,
+              category: hit.disclosure.type,
+              type,
+            }
+          }
+          /* eslint-enable unicorn/consistent-destructuring */
 
-        return {
-          type,
-          id: dataInner.id,
-          title: dataInner.title,
-          slug: dataInner.slug,
-          addedAt: dataInner.addedAt,
-          category: type === 'document' ? dataInner.documentCategory.label : dataInner.type,
-          file: dataInner.file,
-        } as {
-          type: typeof hit.type
-          id: string
-          title: string
-          slug: string
-          addedAt: string
-          category: string | null | undefined
-          file: Omit<UploadFile, '__typename'>
-        }
-      })
+          return null
+        })
+        .filter(isDefined)
 
       return { ...response, hits: newHits }
     })
