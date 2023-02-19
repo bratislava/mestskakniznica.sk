@@ -2,7 +2,7 @@
  * The indexes that are used in search are stored in one shared index. This wraps them to have a unified way for search
  * and easily unwrappable structure to be used separately.
  */
-const wrapSearchIndexEntry = (type, data) => {
+const wrapSearchIndexEntry = (type, data, commonAttributes) => {
   // Remove when https://github.com/meilisearch/strapi-plugin-meilisearch/pull/554 merged
   const newData = { ...data };
   delete newData.createdBy;
@@ -14,6 +14,7 @@ const wrapSearchIndexEntry = (type, data) => {
     locale: data.locale,
     // [type] is used instead of "data", to avoid  naming clashes of filterable / sortable / searchable attributes
     [type]: newData,
+    commonAttributes,
   };
 };
 
@@ -72,10 +73,8 @@ const searchIndexSettings = {
     "basic-document.date_added",
     // Event
     "event.dateFromTimestamp",
-    // Document
-    "document.publishedAtTimestamp",
-    // Disclosure
-    "disclosure.addedAtTimestamp",
+    // Document, Disclosure
+    "commonAttributes.addedAtTimestamp",
   ],
   pagination: {
     // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
@@ -99,8 +98,9 @@ module.exports = ({ env }) => ({
       staticRouteIds: ["search"],
       contentTypeRoutes: [
         { contentTypeUid: "api::notice.notice" },
-        { contentTypeUid: "api::basic-document.basic-document" },
         { contentTypeUid: "api::branch.branch" },
+        { contentTypeUid: "api::document.document" },
+        { contentTypeUid: "api::disclosure.disclosure" },
         { contentTypeUid: "api::event.event" },
         { contentTypeUid: "api::blog-post.blog-post" },
       ],
@@ -127,20 +127,6 @@ module.exports = ({ env }) => ({
         transformEntry: ({ entry }) => wrapSearchIndexEntry("page", entry),
       },
 
-      "basic-document": {
-        indexName: "search_index",
-        settings: searchIndexSettings,
-        transformEntry: ({ entry }) =>
-          wrapSearchIndexEntry("basic-document", {
-            ...entry,
-            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
-            // use (number) filters.
-            date_added: entry.date_added
-              ? new Date(entry.date_added).getTime()
-              : undefined,
-          }),
-      },
-
       "blog-post": {
         indexName: "search_index",
         settings: searchIndexSettings,
@@ -151,29 +137,38 @@ module.exports = ({ env }) => ({
         indexName: "search_index",
         settings: searchIndexSettings,
         transformEntry: ({ entry }) =>
-          wrapSearchIndexEntry("document", {
-            ...entry,
-            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
-            // use (number) filters.
-            // Name addedAt is used on purpose to match Disclosures
-            addedAtTimestamp: entry.publishedAt
-              ? new Date(entry.publishedAt).getTime()
-              : undefined,
-          }),
+          wrapSearchIndexEntry(
+            "document",
+            {
+              ...entry,
+            },
+            {
+              // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+              // use (number) filters.
+              addedAtTimestamp: entry.publishedAt
+                ? new Date(entry.publishedAt).getTime()
+                : undefined,
+            }
+          ),
       },
 
       disclosure: {
         indexName: "search_index",
         settings: searchIndexSettings,
         transformEntry: ({ entry }) =>
-          wrapSearchIndexEntry("disclosure", {
-            ...entry,
-            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
-            // use (number) filters.
-            addedAtTimestamp: entry.addedAt
-              ? new Date(entry.addedAt).getTime()
-              : undefined,
-          }),
+          wrapSearchIndexEntry(
+            "disclosure",
+            {
+              ...entry,
+            },
+            {
+              // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+              // use (number) filters.
+              addedAtTimestamp: entry.addedAt
+                ? new Date(entry.addedAt).getTime()
+                : undefined,
+            }
+          ),
       },
 
       event: {

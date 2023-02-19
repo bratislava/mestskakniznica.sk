@@ -1,18 +1,17 @@
-import Metadata from '@components/Molecules/Metadata'
-import { RowFile } from '@components/ui'
-import MLink from '@modules/common/MLink'
-import { BasicDocumentEntityFragment } from '@services/graphql'
+import { DocumentRow } from '@modules/cards-and-rows/DocumentRow'
+import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
 import { hasAttributes, isDefined } from '@utils/isDefined'
+import { useNavikronos } from '@utils/navikronos'
+import { useDisclosureMetadata } from '@utils/useDisclosureMetadata'
 import cx from 'classnames'
 
 import { Link } from '../Link/Link'
-import { useNavikronos } from '@utils/navikronos'
 
 export interface DocumentsProps {
   className?: string
   title?: string | null | undefined
   moreLink?: { title?: string; url?: string }
-  documents: BasicDocumentEntityFragment[]
+  documents: (DocumentEntityFragment | DisclosureEntityFragment)[]
   targetBlank?: boolean
 }
 
@@ -21,49 +20,67 @@ export const Documents = ({
   title,
   moreLink,
   documents,
-  targetBlank = false,
+  targetBlank = false, // TODO investigate if needed
 }: DocumentsProps) => {
   const { getPathForEntity } = useNavikronos()
+  const { getDisclosureMetadata } = useDisclosureMetadata()
 
-  const parsedDocuments = documents.filter(hasAttributes).map((document) => {
-    const {
-      slug,
-      file_category,
-      title: titleInner,
-      metadata,
-      date_added,
-      attachment,
-    } = document.attributes
+  const parsedDocuments = documents
+    .filter(hasAttributes)
+    .map((document) => {
+      const { title: docTitle, slug, addedAt, file } = document.attributes
 
-    return {
-      key: document.id,
-      url: getPathForEntity({ type: 'basic-document', slug }) ?? '',
-      content: {
-        type: file_category?.data?.attributes?.name ?? '',
-        title: titleInner ?? '',
-        metadata: <Metadata metadata={metadata?.filter(isDefined) || []} /> ?? '',
-        dateAdded: date_added,
-        fileType: attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
-      },
-    }
-  })
+      if (document.__typename === 'DisclosureEntity') {
+        const { type } = document.attributes
+
+        return {
+          id: document.id,
+          linkHref: getPathForEntity({ type: 'disclosure', slug }) ?? '',
+          content: {
+            category: type,
+            title: docTitle,
+            metadata: getDisclosureMetadata(document)
+              .map(({ label, value }) => `${label}: ${value}`)
+              .join(', '),
+            addedAt,
+            fileExt: file?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
+          },
+        }
+      }
+
+      if (document.__typename === 'DocumentEntity') {
+        const { documentCategory } = document.attributes
+
+        return {
+          id: document.id,
+          linkHref: getPathForEntity({ type: 'document', slug }) ?? '',
+          content: {
+            category: documentCategory?.data?.attributes?.label,
+            title: docTitle,
+            addedAt,
+            fileExt: file.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
+          },
+        }
+      }
+
+      return null
+    })
+    .filter(isDefined)
 
   return (
     <div className={cx(className, 'flex flex-col')}>
       <h3 className="text-h3">{title}</h3>
 
       <div className={cx('flex flex-col', { 'mt-6': !!title })}>
-        {parsedDocuments?.map((file) => (
-          <MLink key={file.key} href={file.url ?? ''} target={targetBlank ? '_blank' : undefined}>
-            <RowFile
-              className="cursor-pointer"
-              type={file.content?.type ?? ''}
-              title={file.content?.title ?? ''}
-              metadata={file.content?.metadata}
-              dateAdded={file.content?.dateAdded || ''}
-              fileType={file.content?.fileType}
-            />
-          </MLink>
+        {parsedDocuments?.map((doc) => (
+          <DocumentRow
+            title={doc.content.title}
+            fileExt={doc.content.fileExt}
+            linkHref={doc.linkHref}
+            category={doc.content.category}
+            addedAt={doc.content.addedAt}
+            metadata={doc.content.metadata}
+          />
         ))}
       </div>
 

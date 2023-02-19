@@ -28,6 +28,30 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: '/sk/o-nas/dokumenty-a-zverejnovanie-informacii/dokumenty',
+        destination: '/o-nas/dokumenty-a-zverejnovanie-informacii/',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/en/about-us/documents-and-public-disclosure-of-information/documents',
+        destination: '/en/about-us/documents-and-public-disclosure-of-information/',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/sk/o-nas/dokumenty-a-zverejnovanie-informacii/zverejnovanie',
+        destination: '/o-nas/dokumenty-a-zverejnovanie-informacii/',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/en/about-us/documents-and-public-disclosure-of-information/disclosure',
+        destination: '/en/about-us/documents-and-public-disclosure-of-information/',
+        permanent: true,
+        locale: false,
+      },
       // Old localities --> New Branch URLs
       {
         source: '/navstivte/klariska',
@@ -5099,19 +5123,6 @@ const nextConfig = {
         locale: false,
         permanent: true,
       },
-      {
-        source: '/sk/o-nas/dokumenty-a-zverejnovanie-informacii/:categorySlug/:slug',
-        destination: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
-        permanent: true,
-        locale: false,
-      },
-      {
-        source: '/en/o-nas/dokumenty-a-zverejnovanie-informacii/:categorySlug/:slug',
-        destination: '/en/about-us/documents-and-public-disclosure-of-information/:slug',
-        permanent: true,
-        locale: false,
-      },
-
       {
         source: '/online-katalog',
         destination: '/sluzby/citanie/online-katalog',

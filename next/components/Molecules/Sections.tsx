@@ -23,8 +23,8 @@ import NewBooksSection from '@modules/sections/NewBooksSection'
 import NoticesListingSection from '@modules/sections/NoticesListingSection'
 import PartnersSection from '@modules/sections/PartnersSection'
 import {
-  BasicDocumentEntityFragment,
   BlogPostSectionsDynamicZone,
+  DocumentEntityFragment,
   EventCardEntityFragment,
   PageSectionsDynamicZone,
 } from '@services/graphql'
@@ -250,7 +250,7 @@ const sectionContent = (
               section.moreLink?.[0]?.page?.data?.attributes?.title ??
               '',
           }}
-          documents={(section.basicDocuments?.data as BasicDocumentEntityFragment[]) ?? []}
+          documents={(section.documents?.data as DocumentEntityFragment[]) ?? []}
         />
       )
 

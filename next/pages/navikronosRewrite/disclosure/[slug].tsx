@@ -1,28 +1,27 @@
-import BasicDocumentPage from '@components/pages/BasicDocumentPage'
-import { BasicDocumentEntityFragment, GeneralQuery } from '@services/graphql'
+import DocumentPage from '@components/pages/DocumentPage'
+import { DisclosureEntityFragment, GeneralQuery } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { GeneralContextProvider } from '@utils/generalContext'
+import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { GetServerSideProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
-import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 
 type PageProps = {
-  basicDocument: BasicDocumentEntityFragment
-  slug: string
+  disclosure: DisclosureEntityFragment
   general: GeneralQuery
 } & SSRConfig &
   CLNavikronosPageProps
 
-const Page = ({ basicDocument, general, slug }: PageProps) => {
+const Page = ({ disclosure, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
-      <BasicDocumentPage basicDocument={basicDocument} />
+      <DocumentPage entity={disclosure} />
     </GeneralContextProvider>
   )
 }
@@ -38,11 +37,11 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
   if (!slug || !locale) return { notFound: true } as const
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} basic document ${slug}}`)
+  console.log(`Revalidating ${locale} disclosure ${slug}`)
 
-  const { basicDocuments } = await client.BasicDocumentBySlug({ slug })
-  const basicDocument = basicDocuments?.data[0] ?? null
-  if (!basicDocument) return { notFound: true } as const
+  const { disclosures } = await client.DisclosureBySlug({ slug })
+  const disclosure = disclosures?.data[0] ?? null
+  if (!disclosure) return { notFound: true } as const
 
   const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
@@ -51,14 +50,14 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
       navikronosConfig,
       ctx,
       {
-        type: 'basic-document',
+        type: 'disclosure',
         slug,
       },
       // TODO: Improve for unlocalized entities.
       locales
         ?.filter((innerLocale) => innerLocale !== locale)
         .map((innerLocale) => ({
-          type: 'basic-document',
+          type: 'disclosure',
           slug,
           locale: innerLocale,
         }))
@@ -68,7 +67,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
   return {
     props: {
       slug,
-      basicDocument,
+      disclosure,
       general,
       navikronosStaticProps,
       ...translations,
