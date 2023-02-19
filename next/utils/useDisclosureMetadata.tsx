@@ -2,6 +2,7 @@ import FormatCurrency from '@modules/formatting/FormatCurrency'
 import FormatDate from '@modules/formatting/FormatDate'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { DisclosureEntityFragment } from '@services/graphql'
+import { getDisclosureTypeFixed } from '@utils/getDisclosureTypeFixed'
 import { useTranslation } from 'next-i18next'
 
 export const useDisclosureMetadata = () => {
@@ -29,7 +30,7 @@ export const useDisclosureMetadata = () => {
       dateFrom && dateTo ? <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} /> : null
 
     const dataToTake = [
-      { label: t('category'), value: type },
+      { label: t('category'), value: getDisclosureTypeFixed(type) },
       { label: t('addedAt'), value: <FormatDate value={addedAt} valueType="ISO" /> },
       { label: t('period'), value: period },
       { label: t('idNumber'), value: idNumber },

@@ -86,6 +86,10 @@ const DocumentsListingSection = () => {
         {/* Documents */}
         {data?.hits.map((document) => {
           const { id, title, type, slug, file, category, addedAt } = document
+          const metadata =
+            // eslint-disable-next-line unicorn/consistent-destructuring
+            type === 'disclosure' && document.contractor ? `${document.contractor}` : undefined
+
           return (
             <DocumentRow
               key={id}
@@ -94,7 +98,7 @@ const DocumentsListingSection = () => {
               fileExt={file?.ext?.toUpperCase().replace('.', '') ?? ''}
               category={category}
               addedAt={addedAt}
-              // TODO add some metadata
+              metadata={metadata}
             />
           )
         })}
