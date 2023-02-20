@@ -33,7 +33,6 @@ import {
   groupByAccordionCategory,
   groupByCategory,
   groupByLinksCategory,
-  parsePageLink,
   parseSubpages,
 } from '@utils/page'
 import { TFunction, useTranslation } from 'next-i18next'
@@ -243,13 +242,6 @@ const sectionContent = (
       return (
         <Documents
           title={section.title}
-          moreLink={{
-            url: parsePageLink(section?.moreLink?.[0])?.url ?? '',
-            title:
-              section.moreLink?.[0]?.title ??
-              section.moreLink?.[0]?.page?.data?.attributes?.title ??
-              '',
-          }}
           documents={(section.documents?.data as DocumentEntityFragment[]) ?? []}
         />
       )

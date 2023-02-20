@@ -9,11 +9,6 @@
     "title": {
       "type": "string"
     },
-    "moreLink": {
-      "type": "component",
-      "repeatable": true,
-      "component": "blocks.page-link"
-    },
     "basicDocuments": {
       "type": "relation",
       "relation": "oneToMany",

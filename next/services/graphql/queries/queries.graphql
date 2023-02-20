@@ -194,9 +194,6 @@ fragment Documents on ComponentSectionsDocuments {
       ...DocumentEntity
     }
   }
-  moreLink {
-    ...PageLink
-  }
 }
 
 fragment Gallery on ComponentSectionsGallery {

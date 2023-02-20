@@ -1,19 +1,19 @@
 import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-
 import BranchPage from '@components/pages/BranchPage'
 import { BranchEntityFragment, GeneralQuery } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
+import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
+import { CLNavikronosPageProps, navikronosConfig, useNavikronos } from '@utils/navikronos'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
+
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
-import { CLNavikronosPageProps, navikronosConfig, useNavikronos } from '@utils/navikronos'
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
-import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 
 type PageProps = {
   branch: BranchEntityFragment
@@ -27,7 +27,11 @@ const Page = ({ branch, general }: PageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      <DefaultPageLayout title={branch.attributes?.title} seo={branch.attributes?.seo}>
+      <DefaultPageLayout
+        title={branch.attributes?.title}
+        seo={branch.attributes?.seo}
+        defaultMetaDescription={branch.attributes?.body}
+      >
         <BranchPage branch={branch} />
       </DefaultPageLayout>
     </GeneralContextProvider>

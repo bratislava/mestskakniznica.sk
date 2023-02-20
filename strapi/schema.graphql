@@ -1365,7 +1365,6 @@ type ComponentSectionsDocuments {
   basicDocuments(filters: BasicDocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BasicDocumentRelationResponseCollection
   documents(filters: DocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): DocumentRelationResponseCollection
   id: ID!
-  moreLink(filters: ComponentBlocksPageLinkFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksPageLink]
   title: String
 }
 
@@ -1373,7 +1372,6 @@ input ComponentSectionsDocumentsFiltersInput {
   and: [ComponentSectionsDocumentsFiltersInput]
   basicDocuments: BasicDocumentFiltersInput
   documents: DocumentFiltersInput
-  moreLink: ComponentBlocksPageLinkFiltersInput
   not: ComponentSectionsDocumentsFiltersInput
   or: [ComponentSectionsDocumentsFiltersInput]
   title: StringFilterInput
@@ -1383,7 +1381,6 @@ input ComponentSectionsDocumentsInput {
   basicDocuments: [ID]
   documents: [ID]
   id: ID
-  moreLink: [ComponentBlocksPageLinkInput]
   title: String
 }
 
@@ -1851,7 +1848,6 @@ type DisclosureRelationResponseCollection {
 }
 
 type Document {
-  addedAt: DateTime!
   createdAt: DateTime
   description: String
   documentCategory: DocumentCategoryEntityResponse
@@ -1923,7 +1919,6 @@ type DocumentEntityResponseCollection {
 }
 
 input DocumentFiltersInput {
-  addedAt: DateTimeFilterInput
   and: [DocumentFiltersInput]
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -1940,7 +1935,6 @@ input DocumentFiltersInput {
 }
 
 input DocumentInput {
-  addedAt: DateTime
   description: String
   documentCategory: ID
   file: ID

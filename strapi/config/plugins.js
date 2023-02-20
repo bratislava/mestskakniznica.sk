@@ -145,6 +145,7 @@ module.exports = ({ env }) => ({
             {
               // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
               // use (number) filters.
+              // Transforming publishedAt to addedAtTimestamp to be able to use the same sort as for Disclosures.
               addedAtTimestamp: entry.publishedAt
                 ? new Date(entry.publishedAt).getTime()
                 : undefined,
