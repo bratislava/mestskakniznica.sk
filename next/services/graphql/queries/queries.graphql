@@ -209,6 +209,29 @@ fragment Gallery on ComponentSectionsGallery {
   }
 }
 
+fragment OpeningHoursDays on ComponentBlocksOpeningHours {
+  days {
+    label
+    time
+  }
+}
+
+fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
+  id
+  title
+  branchList {
+    data {
+      id
+      attributes {
+        title
+        openingHours {
+          ...OpeningHoursDays
+        }
+      }
+    }
+  }
+}
+
 fragment Sections on PageSectionsDynamicZone {
   __typename
   ... on ComponentSectionsSubListing {
@@ -315,6 +338,10 @@ fragment Sections on PageSectionsDynamicZone {
 
   ... on ComponentSectionsGallery {
     ...Gallery
+  }
+
+  ... on ComponentSectionsOpeningHoursSection {
+    ...OpeningHoursSection
   }
 }
 

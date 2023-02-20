@@ -18,6 +18,7 @@ import EventsListingSection from '@modules/sections/EventsListingSection'
 import GalleryBannerSection from '@modules/sections/GalleryBannerSection'
 import NewBooksSection from '@modules/sections/NewBooksSection'
 import NoticesListingSection from '@modules/sections/NoticesListingSection'
+import OpeningHoursSection from '@modules/sections/OpeningHoursSection'
 import PartnersSection from '@modules/sections/PartnersSection'
 import {
   BlogPostSectionsDynamicZone,
@@ -220,6 +221,9 @@ const sectionContent = (
           documents={(section.documents?.data as DocumentEntityFragment[]) ?? []}
         />
       )
+
+    case 'ComponentSectionsOpeningHoursSection':
+      return <OpeningHoursSection title={section.title} branchList={section.branchList} />
 
     case 'ComponentSectionsMap':
       return (

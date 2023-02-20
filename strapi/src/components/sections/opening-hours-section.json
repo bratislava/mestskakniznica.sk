@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_opening_hours_sections",
+  "info": {
+    "displayName": "Otváracie hodiny"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "branchList": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::branch.branch"
+    }
+  }
+}
