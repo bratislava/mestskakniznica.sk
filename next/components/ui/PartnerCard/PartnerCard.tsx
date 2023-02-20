@@ -1,20 +1,22 @@
-import Globe from '@assets/images/language.svg'
+import Globe from '@assets/icons/language.svg'
 import MLink from '@modules/common/MLink'
 import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
 
 export interface PartnerProps {
-  className?: string
+  id?: string | null
   title?: string
-  pageLink?: { title?: string; url?: string }
+  linkHref?: string
   logo?: string
   alt?: string
   featured?: boolean | null | undefined
 }
 
-export const PartnerCard = ({ className, title, pageLink, logo, alt, featured }: PartnerProps) => {
+export const PartnerCard = ({ id, title, linkHref, logo, alt, featured }: PartnerProps) => {
+  const { t } = useTranslation('common')
   return (
     <li
-      className={cx(className, 'relative flex w-full border-border-dark p-4 lg:p-5', {
+      className={cx('relative flex w-full border-border-dark p-4 lg:p-5', {
         'min-h-[199px] flex-col items-center justify-end border': featured,
         'flex-row justify-between border-b last:border-0 lg:border lg:last:border': !featured,
       })}
@@ -33,27 +35,29 @@ export const PartnerCard = ({ className, title, pageLink, logo, alt, featured }:
           'mt-4 text-center lg:mt-5': featured,
           'max-w-[246px] lg:max-w-full': !featured,
         })}
+        id={id ?? title}
       >
         {title}
       </h5>
 
-      <MLink
-        target="_blank"
-        className={cx(className, 'flex items-center space-x-[9px]', {
-          'mt-[6px] lg:mt-[13px]': featured,
+      <div
+        className={cx('mt-[6px] flex text-xs font-medium leading-[1.2] lg:mt-[13px] lg:text-sm', {
+          'hidden lg:inline-flex': !featured,
         })}
-        stretched
-        href={pageLink?.url ?? '#'}
       >
-        <Globe />
-        <span
-          className={cx('text-[12px] font-medium lg:text-sm', {
-            'hidden lg:inline-flex': !featured,
+        <MLink
+          target="_blank"
+          className={cx('flex items-center space-x-[9px]', {
+            '': featured,
           })}
+          stretched
+          aria-labelledby={id ?? title}
+          href={linkHref ?? '#'}
         >
-          {pageLink?.title}
-        </span>
-      </MLink>
+          <Globe />
+          <span className="uppercase">{t('showWeb')}</span>
+        </MLink>
+      </div>
     </li>
   )
 }

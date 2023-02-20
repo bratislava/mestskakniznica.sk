@@ -19,14 +19,12 @@ const PartnersSection = () => {
         <ul className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
           {data.featuredPartners.data.map((partner) => (
             <PartnerCard
-              key={partner?.attributes?.title}
+              key={partner?.id}
+              id={partner?.id}
               title={partner?.attributes?.title || ''}
               logo={partner?.attributes?.logo?.data?.attributes?.url ?? ''}
               alt={partner?.attributes?.logo?.data?.attributes?.alternativeText ?? ''}
-              pageLink={{
-                title: t('showWeb').toUpperCase(),
-                url: partner?.attributes?.url || '',
-              }}
+              linkHref={partner?.attributes?.url || ''}
               featured={partner?.attributes?.featured}
             />
           ))}
@@ -39,10 +37,7 @@ const PartnersSection = () => {
             <PartnerCard
               key={partner?.attributes?.title}
               title={partner?.attributes?.title || ''}
-              pageLink={{
-                title: t('showWeb').toUpperCase(),
-                url: partner?.attributes?.url || '',
-              }}
+              linkHref={partner?.attributes?.url || ''}
               featured={partner?.attributes?.featured}
             />
           ))}
