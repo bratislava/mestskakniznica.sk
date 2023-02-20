@@ -61,11 +61,11 @@ const EventCard = ({
         )}
       </div>
 
-      <div className="justify-end pt-2 text-h5 line-clamp-3">
+      <h3 className="justify-end pt-2 text-h5 line-clamp-3">
         <MLink variant="basic" stretched href={getPathForEntity({ type: 'event', slug }) ?? ''}>
           {title}
         </MLink>
-      </div>
+      </h3>
       <div className="pt-2 text-sm text-foreground-body">
         <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} />
       </div>

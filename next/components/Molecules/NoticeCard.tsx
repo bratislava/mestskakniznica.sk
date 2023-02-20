@@ -37,9 +37,11 @@ const NoticeCard = ({ card }: NoticeCardProps) => {
         <div className="mb-2 text-sm text-foreground-body">
           <FormatDate value={date} valueType="ISO" />
         </div>
-        <MLink href={link ?? ''} variant="basic" stretched className="mb-6 text-h5 line-clamp-5">
-          {card.attributes?.title}
-        </MLink>
+        <h3 className="mb-6 text-h5 line-clamp-5">
+          <MLink href={link ?? ''} variant="basic" stretched>
+            {card.attributes?.title}
+          </MLink>
+        </h3>
       </div>
       <ShowMoreLink href={link ?? ''} tabIndex={-1} parentGroup>
         {t('showMore')}

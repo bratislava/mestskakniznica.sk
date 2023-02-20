@@ -13,7 +13,7 @@ interface LibraryNewsProps {
   newsSection: ComponentHomepageNewsSection
 }
 
-const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
+const SectionLibraryNotices = ({ notices, newsSection }: LibraryNewsProps) => {
   const { t } = useTranslation('homepage')
   const { getPathForEntity } = useNavikronos()
   const showMoreId = newsSection?.redirectTo?.data?.id
@@ -47,4 +47,4 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
   )
 }
 
-export default SectionLibraryNews
+export default SectionLibraryNotices

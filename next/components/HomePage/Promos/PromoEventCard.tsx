@@ -44,7 +44,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
           tagsCount={3}
         />
 
-        <div className="text-h2 text-foreground-heading line-clamp-3">
+        <h3 className="text-h2 text-foreground-heading line-clamp-3">
           <MLink
             href={getPathForEntity({ type: 'event', slug }) ?? ''}
             variant="basic"
@@ -53,7 +53,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
           >
             {title}
           </MLink>
-        </div>
+        </h3>
       </div>
       <div>
         <div className="flex items-center gap-x-4 overflow-hidden px-4 pb-1 md:px-5 md:pb-5">

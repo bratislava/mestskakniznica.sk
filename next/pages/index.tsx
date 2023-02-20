@@ -25,7 +25,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Section from '../components/AppLayout/Section'
 import SectionFaq from '../components/HomePage/SectionFaq'
-import SectionLibraryNews from '../components/HomePage/SectionLibraryNews'
+import SectionLibraryNotices from '../components/HomePage/SectionLibraryNotices'
 import SectionPromos from '../components/HomePage/SectionPromos'
 import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationInfo'
 import SectionTags from '../components/HomePage/SectionTags'
@@ -100,7 +100,7 @@ export const Index = ({
         {newsSection !== null && latestNotices.length > 0 && (
           <SectionContainer>
             <Section>
-              <SectionLibraryNews newsSection={newsSection} notices={latestNotices} />
+              <SectionLibraryNotices newsSection={newsSection} notices={latestNotices} />
             </Section>
           </SectionContainer>
         )}
