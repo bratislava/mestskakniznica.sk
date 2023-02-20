@@ -1,4 +1,4 @@
-import Globe from '@assets/icons/language.svg'
+import { GlobeIcon } from '@assets/icons'
 import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
@@ -54,7 +54,7 @@ export const PartnerCard = ({ id, title, linkHref, logo, alt, featured }: Partne
           aria-labelledby={id ?? title}
           href={linkHref ?? '#'}
         >
-          <Globe />
+          <GlobeIcon />
           <span className="uppercase">{t('showWeb')}</span>
         </MLink>
       </div>
