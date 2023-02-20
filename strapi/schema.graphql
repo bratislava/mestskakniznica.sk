@@ -1511,6 +1511,26 @@ input ComponentSectionsNewsListingInput {
   id: ID
 }
 
+type ComponentSectionsOpeningHoursSection {
+  branchList(filters: BranchFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): BranchRelationResponseCollection
+  id: ID!
+  title: String
+}
+
+input ComponentSectionsOpeningHoursSectionFiltersInput {
+  and: [ComponentSectionsOpeningHoursSectionFiltersInput]
+  branchList: BranchFiltersInput
+  not: ComponentSectionsOpeningHoursSectionFiltersInput
+  or: [ComponentSectionsOpeningHoursSectionFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentSectionsOpeningHoursSectionInput {
+  branchList: [ID]
+  id: ID
+  title: String
+}
+
 type ComponentSectionsPartners {
   id: ID!
 }
@@ -2338,7 +2358,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2889,7 +2909,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
 
 scalar PageSectionsDynamicZoneInput
 

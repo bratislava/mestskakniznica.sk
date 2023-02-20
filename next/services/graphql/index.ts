@@ -1795,6 +1795,33 @@ export type ComponentSectionsNewsListingInput = {
   id?: InputMaybe<Scalars['ID']>
 }
 
+export type ComponentSectionsOpeningHoursSection = {
+  __typename?: 'ComponentSectionsOpeningHoursSection'
+  branchList?: Maybe<BranchRelationResponseCollection>
+  id: Scalars['ID']
+  title?: Maybe<Scalars['String']>
+}
+
+export type ComponentSectionsOpeningHoursSectionBranchListArgs = {
+  filters?: InputMaybe<BranchFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type ComponentSectionsOpeningHoursSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsOpeningHoursSectionFiltersInput>>>
+  branchList?: InputMaybe<BranchFiltersInput>
+  not?: InputMaybe<ComponentSectionsOpeningHoursSectionFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsOpeningHoursSectionFiltersInput>>>
+  title?: InputMaybe<StringFilterInput>
+}
+
+export type ComponentSectionsOpeningHoursSectionInput = {
+  branchList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id?: InputMaybe<Scalars['ID']>
+  title?: InputMaybe<Scalars['String']>
+}
+
 export type ComponentSectionsPartners = {
   __typename?: 'ComponentSectionsPartners'
   id: Scalars['ID']
@@ -2799,6 +2826,7 @@ export type GenericMorph =
   | ComponentSectionsMap
   | ComponentSectionsNewBooksListing
   | ComponentSectionsNewsListing
+  | ComponentSectionsOpeningHoursSection
   | ComponentSectionsPartners
   | ComponentSectionsRental
   | ComponentSectionsSiteUsefullness
@@ -3889,6 +3917,7 @@ export type PageSectionsDynamicZone =
   | ComponentSectionsMap
   | ComponentSectionsNewBooksListing
   | ComponentSectionsNewsListing
+  | ComponentSectionsOpeningHoursSection
   | ComponentSectionsPartners
   | ComponentSectionsRental
   | ComponentSectionsSiteUsefullness
@@ -8065,6 +8094,30 @@ export type PageEntityFragment = {
         }
       | { __typename: 'ComponentSectionsNewBooksListing' }
       | { __typename: 'ComponentSectionsNewsListing' }
+      | {
+          __typename: 'ComponentSectionsOpeningHoursSection'
+          id: string
+          title?: string | null
+          branchList?: {
+            __typename?: 'BranchRelationResponseCollection'
+            data: Array<{
+              __typename?: 'BranchEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Branch'
+                title: string
+                openingHours?: {
+                  __typename?: 'ComponentBlocksOpeningHours'
+                  days: Array<{
+                    __typename?: 'ComponentBlocksOpeningHoursItem'
+                    label?: string | null
+                    time: string
+                  } | null>
+                } | null
+              } | null
+            }>
+          } | null
+        }
       | { __typename: 'ComponentSectionsPartners' }
       | {
           __typename: 'ComponentSectionsRental'
@@ -8985,6 +9038,30 @@ export type PageByIdQuery = {
             }
           | { __typename: 'ComponentSectionsNewBooksListing' }
           | { __typename: 'ComponentSectionsNewsListing' }
+          | {
+              __typename: 'ComponentSectionsOpeningHoursSection'
+              id: string
+              title?: string | null
+              branchList?: {
+                __typename?: 'BranchRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'BranchEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Branch'
+                    title: string
+                    openingHours?: {
+                      __typename?: 'ComponentBlocksOpeningHours'
+                      days: Array<{
+                        __typename?: 'ComponentBlocksOpeningHoursItem'
+                        label?: string | null
+                        time: string
+                      } | null>
+                    } | null
+                  } | null
+                }>
+              } | null
+            }
           | { __typename: 'ComponentSectionsPartners' }
           | {
               __typename: 'ComponentSectionsRental'
@@ -10055,6 +10132,30 @@ export type LatestNewsQuery = {
             }
           | { __typename: 'ComponentSectionsNewBooksListing' }
           | { __typename: 'ComponentSectionsNewsListing' }
+          | {
+              __typename: 'ComponentSectionsOpeningHoursSection'
+              id: string
+              title?: string | null
+              branchList?: {
+                __typename?: 'BranchRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'BranchEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Branch'
+                    title: string
+                    openingHours?: {
+                      __typename?: 'ComponentBlocksOpeningHours'
+                      days: Array<{
+                        __typename?: 'ComponentBlocksOpeningHoursItem'
+                        label?: string | null
+                        time: string
+                      } | null>
+                    } | null
+                  } | null
+                }>
+              } | null
+            }
           | { __typename: 'ComponentSectionsPartners' }
           | {
               __typename: 'ComponentSectionsRental'
@@ -10444,6 +10545,40 @@ export type GalleryFragment = {
   } | null> | null
 }
 
+export type OpeningHoursDaysFragment = {
+  __typename?: 'ComponentBlocksOpeningHours'
+  days: Array<{
+    __typename?: 'ComponentBlocksOpeningHoursItem'
+    label?: string | null
+    time: string
+  } | null>
+}
+
+export type OpeningHoursSectionFragment = {
+  __typename?: 'ComponentSectionsOpeningHoursSection'
+  id: string
+  title?: string | null
+  branchList?: {
+    __typename?: 'BranchRelationResponseCollection'
+    data: Array<{
+      __typename?: 'BranchEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Branch'
+        title: string
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
+        } | null
+      } | null
+    }>
+  } | null
+}
+
 type Sections_ComponentSectionsAccordion_Fragment = {
   __typename: 'ComponentSectionsAccordion'
   title?: string | null
@@ -10656,6 +10791,31 @@ type Sections_ComponentSectionsNewBooksListing_Fragment = {
 
 type Sections_ComponentSectionsNewsListing_Fragment = { __typename: 'ComponentSectionsNewsListing' }
 
+type Sections_ComponentSectionsOpeningHoursSection_Fragment = {
+  __typename: 'ComponentSectionsOpeningHoursSection'
+  id: string
+  title?: string | null
+  branchList?: {
+    __typename?: 'BranchRelationResponseCollection'
+    data: Array<{
+      __typename?: 'BranchEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Branch'
+        title: string
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
+        } | null
+      } | null
+    }>
+  } | null
+}
+
 type Sections_ComponentSectionsPartners_Fragment = { __typename: 'ComponentSectionsPartners' }
 
 type Sections_ComponentSectionsRental_Fragment = {
@@ -10814,6 +10974,7 @@ export type SectionsFragment =
   | Sections_ComponentSectionsMap_Fragment
   | Sections_ComponentSectionsNewBooksListing_Fragment
   | Sections_ComponentSectionsNewsListing_Fragment
+  | Sections_ComponentSectionsOpeningHoursSection_Fragment
   | Sections_ComponentSectionsPartners_Fragment
   | Sections_ComponentSectionsRental_Fragment
   | Sections_ComponentSectionsSiteUsefullness_Fragment
@@ -11575,6 +11736,32 @@ export const GalleryFragmentDoc = gql`
   }
   ${UploadImageEntityFragmentDoc}
 `
+export const OpeningHoursDaysFragmentDoc = gql`
+  fragment OpeningHoursDays on ComponentBlocksOpeningHours {
+    days {
+      label
+      time
+    }
+  }
+`
+export const OpeningHoursSectionFragmentDoc = gql`
+  fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
+    id
+    title
+    branchList {
+      data {
+        id
+        attributes {
+          title
+          openingHours {
+            ...OpeningHoursDays
+          }
+        }
+      }
+    }
+  }
+  ${OpeningHoursDaysFragmentDoc}
+`
 export const SectionsFragmentDoc = gql`
   fragment Sections on PageSectionsDynamicZone {
     __typename
@@ -11678,6 +11865,9 @@ export const SectionsFragmentDoc = gql`
     ... on ComponentSectionsGallery {
       ...Gallery
     }
+    ... on ComponentSectionsOpeningHoursSection {
+      ...OpeningHoursSection
+    }
   }
   ${AccordionItemFragmentDoc}
   ${SubpagesFragmentDoc}
@@ -11687,6 +11877,7 @@ export const SectionsFragmentDoc = gql`
   ${DocumentsFragmentDoc}
   ${BranchCardEntityFragmentDoc}
   ${GalleryFragmentDoc}
+  ${OpeningHoursSectionFragmentDoc}
 `
 export const SeoFragmentDoc = gql`
   fragment Seo on ComponentCommonSeo {
