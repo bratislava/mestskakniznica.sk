@@ -178,14 +178,11 @@ export type BlogPostRelationResponseCollection = {
 
 export type BlogPostSectionsDynamicZone =
   | ComponentSectionsAccordion
-  | ComponentSectionsColumnedText
   | ComponentSectionsCta
   | ComponentSectionsDivider
   | ComponentSectionsDocuments
-  | ComponentSectionsExternalLinks
   | ComponentSectionsFaq
   | ComponentSectionsFlatText
-  | ComponentSectionsFlatTextCenter
   | ComponentSectionsForm
   | ComponentSectionsGallery
   | ComponentSectionsMap
@@ -1532,25 +1529,22 @@ export type ComponentSectionsBlogPostsListingInput = {
   id?: InputMaybe<Scalars['ID']>
 }
 
-export type ComponentSectionsColumnedText = {
-  __typename?: 'ComponentSectionsColumnedText'
-  content?: Maybe<Scalars['String']>
+export type ComponentSectionsChildrenListing = {
+  __typename?: 'ComponentSectionsChildrenListing'
+  depth: Enum_Componentsectionschildrenlisting_Depth
   id: Scalars['ID']
-  title?: Maybe<Scalars['String']>
 }
 
-export type ComponentSectionsColumnedTextFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentSectionsColumnedTextFiltersInput>>>
-  content?: InputMaybe<StringFilterInput>
-  not?: InputMaybe<ComponentSectionsColumnedTextFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<ComponentSectionsColumnedTextFiltersInput>>>
-  title?: InputMaybe<StringFilterInput>
+export type ComponentSectionsChildrenListingFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsChildrenListingFiltersInput>>>
+  depth?: InputMaybe<StringFilterInput>
+  not?: InputMaybe<ComponentSectionsChildrenListingFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsChildrenListingFiltersInput>>>
 }
 
-export type ComponentSectionsColumnedTextInput = {
-  content?: InputMaybe<Scalars['String']>
+export type ComponentSectionsChildrenListingInput = {
+  depth?: InputMaybe<Enum_Componentsectionschildrenlisting_Depth>
   id?: InputMaybe<Scalars['ID']>
-  title?: InputMaybe<Scalars['String']>
 }
 
 export type ComponentSectionsCta = {
@@ -1594,7 +1588,6 @@ export type ComponentSectionsDocuments = {
   basicDocuments?: Maybe<BasicDocumentRelationResponseCollection>
   documents?: Maybe<DocumentRelationResponseCollection>
   id: Scalars['ID']
-  moreLink?: Maybe<Array<Maybe<ComponentBlocksPageLink>>>
   title?: Maybe<Scalars['String']>
 }
 
@@ -1612,17 +1605,10 @@ export type ComponentSectionsDocumentsDocumentsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
-export type ComponentSectionsDocumentsMoreLinkArgs = {
-  filters?: InputMaybe<ComponentBlocksPageLinkFiltersInput>
-  pagination?: InputMaybe<PaginationArg>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
 export type ComponentSectionsDocumentsFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>
   basicDocuments?: InputMaybe<BasicDocumentFiltersInput>
   documents?: InputMaybe<DocumentFiltersInput>
-  moreLink?: InputMaybe<ComponentBlocksPageLinkFiltersInput>
   not?: InputMaybe<ComponentSectionsDocumentsFiltersInput>
   or?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>
   title?: InputMaybe<StringFilterInput>
@@ -1632,7 +1618,6 @@ export type ComponentSectionsDocumentsInput = {
   basicDocuments?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   documents?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   id?: InputMaybe<Scalars['ID']>
-  moreLink?: InputMaybe<Array<InputMaybe<ComponentBlocksPageLinkInput>>>
   title?: InputMaybe<Scalars['String']>
 }
 
@@ -1666,42 +1651,6 @@ export type ComponentSectionsEventsListingInput = {
   id?: InputMaybe<Scalars['ID']>
 }
 
-export type ComponentSectionsExternalLinks = {
-  __typename?: 'ComponentSectionsExternalLinks'
-  descriptions?: Maybe<Array<Maybe<ComponentAccordionItemsFlatText>>>
-  externalLinks?: Maybe<Array<Maybe<ComponentBlocksExternalLink>>>
-  id: Scalars['ID']
-  title?: Maybe<Scalars['String']>
-}
-
-export type ComponentSectionsExternalLinksDescriptionsArgs = {
-  filters?: InputMaybe<ComponentAccordionItemsFlatTextFiltersInput>
-  pagination?: InputMaybe<PaginationArg>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type ComponentSectionsExternalLinksExternalLinksArgs = {
-  filters?: InputMaybe<ComponentBlocksExternalLinkFiltersInput>
-  pagination?: InputMaybe<PaginationArg>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type ComponentSectionsExternalLinksFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentSectionsExternalLinksFiltersInput>>>
-  descriptions?: InputMaybe<ComponentAccordionItemsFlatTextFiltersInput>
-  externalLinks?: InputMaybe<ComponentBlocksExternalLinkFiltersInput>
-  not?: InputMaybe<ComponentSectionsExternalLinksFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<ComponentSectionsExternalLinksFiltersInput>>>
-  title?: InputMaybe<StringFilterInput>
-}
-
-export type ComponentSectionsExternalLinksInput = {
-  descriptions?: InputMaybe<Array<InputMaybe<ComponentAccordionItemsFlatTextInput>>>
-  externalLinks?: InputMaybe<Array<InputMaybe<ComponentBlocksExternalLinkInput>>>
-  id?: InputMaybe<Scalars['ID']>
-  title?: InputMaybe<Scalars['String']>
-}
-
 export type ComponentSectionsFaq = {
   __typename?: 'ComponentSectionsFaq'
   id: Scalars['ID']
@@ -1733,24 +1682,6 @@ export type ComponentSectionsFlatText = {
   __typename?: 'ComponentSectionsFlatText'
   content?: Maybe<Scalars['String']>
   id: Scalars['ID']
-}
-
-export type ComponentSectionsFlatTextCenter = {
-  __typename?: 'ComponentSectionsFlatTextCenter'
-  content?: Maybe<Scalars['String']>
-  id: Scalars['ID']
-}
-
-export type ComponentSectionsFlatTextCenterFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentSectionsFlatTextCenterFiltersInput>>>
-  content?: InputMaybe<StringFilterInput>
-  not?: InputMaybe<ComponentSectionsFlatTextCenterFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<ComponentSectionsFlatTextCenterFiltersInput>>>
-}
-
-export type ComponentSectionsFlatTextCenterInput = {
-  content?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['ID']>
 }
 
 export type ComponentSectionsFlatTextFiltersInput = {
@@ -2162,7 +2093,6 @@ export type DisclosureRelationResponseCollection = {
 
 export type Document = {
   __typename?: 'Document'
-  addedAt: Scalars['DateTime']
   createdAt?: Maybe<Scalars['DateTime']>
   description?: Maybe<Scalars['String']>
   documentCategory?: Maybe<DocumentCategoryEntityResponse>
@@ -2249,7 +2179,6 @@ export type DocumentEntityResponseCollection = {
 }
 
 export type DocumentFiltersInput = {
-  addedAt?: InputMaybe<DateTimeFilterInput>
   and?: InputMaybe<Array<InputMaybe<DocumentFiltersInput>>>
   createdAt?: InputMaybe<DateTimeFilterInput>
   description?: InputMaybe<StringFilterInput>
@@ -2266,7 +2195,6 @@ export type DocumentFiltersInput = {
 }
 
 export type DocumentInput = {
-  addedAt?: InputMaybe<Scalars['DateTime']>
   description?: InputMaybe<Scalars['String']>
   documentCategory?: InputMaybe<Scalars['ID']>
   file?: InputMaybe<Scalars['ID']>
@@ -2316,6 +2244,11 @@ export enum Enum_Componentaccordionitemstablerow_Valuealign {
 export enum Enum_Componentblockstablerow_Valuealign {
   Center = 'center',
   Start = 'start',
+}
+
+export enum Enum_Componentsectionschildrenlisting_Depth {
+  Depth_1 = 'depth_1',
+  Depth_2 = 'depth_2',
 }
 
 export enum Enum_Componentsectionsform_Type {
@@ -2756,6 +2689,7 @@ export type General = {
   locale?: Maybe<Scalars['String']>
   localizations?: Maybe<GeneralRelationResponseCollection>
   newBooksPage?: Maybe<PageEntityResponse>
+  noticesPage?: Maybe<PageEntityResponse>
   openingHoursPage?: Maybe<PageEntityResponse>
   privacyTermsAndConditionsPage?: Maybe<PageEntityResponse>
   updatedAt?: Maybe<Scalars['DateTime']>
@@ -2786,6 +2720,7 @@ export type GeneralFiltersInput = {
   localizations?: InputMaybe<GeneralFiltersInput>
   newBooksPage?: InputMaybe<PageFiltersInput>
   not?: InputMaybe<GeneralFiltersInput>
+  noticesPage?: InputMaybe<PageFiltersInput>
   openingHoursPage?: InputMaybe<PageFiltersInput>
   or?: InputMaybe<Array<InputMaybe<GeneralFiltersInput>>>
   privacyTermsAndConditionsPage?: InputMaybe<PageFiltersInput>
@@ -2795,6 +2730,7 @@ export type GeneralFiltersInput = {
 export type GeneralInput = {
   eventsPage?: InputMaybe<Scalars['ID']>
   newBooksPage?: InputMaybe<Scalars['ID']>
+  noticesPage?: InputMaybe<Scalars['ID']>
   openingHoursPage?: InputMaybe<Scalars['ID']>
   privacyTermsAndConditionsPage?: InputMaybe<Scalars['ID']>
 }
@@ -2850,16 +2786,14 @@ export type GenericMorph =
   | ComponentMetadataZmluvy
   | ComponentSectionsAccordion
   | ComponentSectionsBlogPostsListing
-  | ComponentSectionsColumnedText
+  | ComponentSectionsChildrenListing
   | ComponentSectionsCta
   | ComponentSectionsDivider
   | ComponentSectionsDocuments
   | ComponentSectionsDocumentsListing
   | ComponentSectionsEventsListing
-  | ComponentSectionsExternalLinks
   | ComponentSectionsFaq
   | ComponentSectionsFlatText
-  | ComponentSectionsFlatTextCenter
   | ComponentSectionsForm
   | ComponentSectionsGallery
   | ComponentSectionsMap
@@ -3942,16 +3876,14 @@ export type PageRelationResponseCollection = {
 export type PageSectionsDynamicZone =
   | ComponentSectionsAccordion
   | ComponentSectionsBlogPostsListing
-  | ComponentSectionsColumnedText
+  | ComponentSectionsChildrenListing
   | ComponentSectionsCta
   | ComponentSectionsDivider
   | ComponentSectionsDocuments
   | ComponentSectionsDocumentsListing
   | ComponentSectionsEventsListing
-  | ComponentSectionsExternalLinks
   | ComponentSectionsFaq
   | ComponentSectionsFlatText
-  | ComponentSectionsFlatTextCenter
   | ComponentSectionsForm
   | ComponentSectionsGallery
   | ComponentSectionsMap
@@ -5316,11 +5248,6 @@ export type BlogPostEntityFragment = {
             type?: Enum_Componentaccordionitemsform_Type | null
           } | null> | null
         }
-      | {
-          __typename: 'ComponentSectionsColumnedText'
-          title?: string | null
-          content?: string | null
-        }
       | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
       | { __typename: 'ComponentSectionsDivider'; id: string }
       | {
@@ -5336,8 +5263,8 @@ export type BlogPostEntityFragment = {
                 __typename?: 'Document'
                 title: string
                 slug: string
-                addedAt: any
                 description?: string | null
+                publishedAt?: any | null
                 documentCategory?: {
                   __typename?: 'DocumentCategoryEntityResponse'
                   data?: {
@@ -5367,41 +5294,6 @@ export type BlogPostEntityFragment = {
               } | null
             }>
           } | null
-          moreLink?: Array<{
-            __typename?: 'ComponentBlocksPageLink'
-            title?: string | null
-            url?: string | null
-            page?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
-        }
-      | {
-          __typename: 'ComponentSectionsExternalLinks'
-          title?: string | null
-          externalLinks?: Array<{
-            __typename?: 'ComponentBlocksExternalLink'
-            category?: string | null
-            title?: string | null
-            url?: string | null
-          } | null> | null
-          descriptions?: Array<{
-            __typename?: 'ComponentAccordionItemsFlatText'
-            category?: string | null
-            content?: string | null
-          } | null> | null
         }
       | {
           __typename: 'ComponentSectionsFaq'
@@ -5415,7 +5307,6 @@ export type BlogPostEntityFragment = {
           } | null> | null
         }
       | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-      | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
       | {
           __typename: 'ComponentSectionsForm'
           id: string
@@ -5728,11 +5619,6 @@ export type BlogPostBySlugQuery = {
                 type?: Enum_Componentaccordionitemsform_Type | null
               } | null> | null
             }
-          | {
-              __typename: 'ComponentSectionsColumnedText'
-              title?: string | null
-              content?: string | null
-            }
           | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
           | { __typename: 'ComponentSectionsDivider'; id: string }
           | {
@@ -5748,8 +5634,8 @@ export type BlogPostBySlugQuery = {
                     __typename?: 'Document'
                     title: string
                     slug: string
-                    addedAt: any
                     description?: string | null
+                    publishedAt?: any | null
                     documentCategory?: {
                       __typename?: 'DocumentCategoryEntityResponse'
                       data?: {
@@ -5779,41 +5665,6 @@ export type BlogPostBySlugQuery = {
                   } | null
                 }>
               } | null
-              moreLink?: Array<{
-                __typename?: 'ComponentBlocksPageLink'
-                title?: string | null
-                url?: string | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Page'
-                      title: string
-                      slug: string
-                      newSlug: string
-                      createdAt?: any | null
-                      updatedAt?: any | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
-            }
-          | {
-              __typename: 'ComponentSectionsExternalLinks'
-              title?: string | null
-              externalLinks?: Array<{
-                __typename?: 'ComponentBlocksExternalLink'
-                category?: string | null
-                title?: string | null
-                url?: string | null
-              } | null> | null
-              descriptions?: Array<{
-                __typename?: 'ComponentAccordionItemsFlatText'
-                category?: string | null
-                content?: string | null
-              } | null> | null
             }
           | {
               __typename: 'ComponentSectionsFaq'
@@ -5827,7 +5678,6 @@ export type BlogPostBySlugQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-          | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
           | {
               __typename: 'ComponentSectionsForm'
               id: string
@@ -6128,11 +5978,6 @@ export type BlogPostsQuery = {
                 type?: Enum_Componentaccordionitemsform_Type | null
               } | null> | null
             }
-          | {
-              __typename: 'ComponentSectionsColumnedText'
-              title?: string | null
-              content?: string | null
-            }
           | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
           | { __typename: 'ComponentSectionsDivider'; id: string }
           | {
@@ -6148,8 +5993,8 @@ export type BlogPostsQuery = {
                     __typename?: 'Document'
                     title: string
                     slug: string
-                    addedAt: any
                     description?: string | null
+                    publishedAt?: any | null
                     documentCategory?: {
                       __typename?: 'DocumentCategoryEntityResponse'
                       data?: {
@@ -6179,41 +6024,6 @@ export type BlogPostsQuery = {
                   } | null
                 }>
               } | null
-              moreLink?: Array<{
-                __typename?: 'ComponentBlocksPageLink'
-                title?: string | null
-                url?: string | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Page'
-                      title: string
-                      slug: string
-                      newSlug: string
-                      createdAt?: any | null
-                      updatedAt?: any | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
-            }
-          | {
-              __typename: 'ComponentSectionsExternalLinks'
-              title?: string | null
-              externalLinks?: Array<{
-                __typename?: 'ComponentBlocksExternalLink'
-                category?: string | null
-                title?: string | null
-                url?: string | null
-              } | null> | null
-              descriptions?: Array<{
-                __typename?: 'ComponentAccordionItemsFlatText'
-                category?: string | null
-                content?: string | null
-              } | null> | null
             }
           | {
               __typename: 'ComponentSectionsFaq'
@@ -6227,7 +6037,6 @@ export type BlogPostsQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-          | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
           | {
               __typename: 'ComponentSectionsForm'
               id: string
@@ -6889,8 +6698,8 @@ export type DocumentEntityFragment = {
     __typename?: 'Document'
     title: string
     slug: string
-    addedAt: any
     description?: string | null
+    publishedAt?: any | null
     documentCategory?: {
       __typename?: 'DocumentCategoryEntityResponse'
       data?: {
@@ -6945,8 +6754,8 @@ export type DocumentBySlugQuery = {
         __typename?: 'Document'
         title: string
         slug: string
-        addedAt: any
         description?: string | null
+        publishedAt?: any | null
         documentCategory?: {
           __typename?: 'DocumentCategoryEntityResponse'
           data?: {
@@ -7128,8 +6937,8 @@ export type EventEntityFragment = {
             __typename?: 'Document'
             title: string
             slug: string
-            addedAt: any
             description?: string | null
+            publishedAt?: any | null
             documentCategory?: {
               __typename?: 'DocumentCategoryEntityResponse'
               data?: {
@@ -7155,26 +6964,6 @@ export type EventEntityFragment = {
           } | null
         }>
       } | null
-      moreLink?: Array<{
-        __typename?: 'ComponentBlocksPageLink'
-        title?: string | null
-        url?: string | null
-        page?: {
-          __typename?: 'PageEntityResponse'
-          data?: {
-            __typename?: 'PageEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'Page'
-              title: string
-              slug: string
-              newSlug: string
-              createdAt?: any | null
-              updatedAt?: any | null
-            } | null
-          } | null
-        } | null
-      } | null> | null
     } | null
     gallery?: {
       __typename?: 'UploadFileRelationResponseCollection'
@@ -7412,8 +7201,8 @@ export type EventBySlugQuery = {
                 __typename?: 'Document'
                 title: string
                 slug: string
-                addedAt: any
                 description?: string | null
+                publishedAt?: any | null
                 documentCategory?: {
                   __typename?: 'DocumentCategoryEntityResponse'
                   data?: {
@@ -7443,26 +7232,6 @@ export type EventBySlugQuery = {
               } | null
             }>
           } | null
-          moreLink?: Array<{
-            __typename?: 'ComponentBlocksPageLink'
-            title?: string | null
-            url?: string | null
-            page?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
         } | null
         gallery?: {
           __typename?: 'UploadFileRelationResponseCollection'
@@ -7637,8 +7406,8 @@ export type NoticeEntityFragment = {
             __typename?: 'Document'
             title: string
             slug: string
-            addedAt: any
             description?: string | null
+            publishedAt?: any | null
             documentCategory?: {
               __typename?: 'DocumentCategoryEntityResponse'
               data?: {
@@ -7664,26 +7433,6 @@ export type NoticeEntityFragment = {
           } | null
         }>
       } | null
-      moreLink?: Array<{
-        __typename?: 'ComponentBlocksPageLink'
-        title?: string | null
-        url?: string | null
-        page?: {
-          __typename?: 'PageEntityResponse'
-          data?: {
-            __typename?: 'PageEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'Page'
-              title: string
-              slug: string
-              newSlug: string
-              createdAt?: any | null
-              updatedAt?: any | null
-            } | null
-          } | null
-        } | null
-      } | null> | null
     } | null
     seo?: {
       __typename?: 'ComponentCommonSeo'
@@ -7837,8 +7586,8 @@ export type NoticeBySlugQuery = {
                 __typename?: 'Document'
                 title: string
                 slug: string
-                addedAt: any
                 description?: string | null
+                publishedAt?: any | null
                 documentCategory?: {
                   __typename?: 'DocumentCategoryEntityResponse'
                   data?: {
@@ -7868,26 +7617,6 @@ export type NoticeBySlugQuery = {
               } | null
             }>
           } | null
-          moreLink?: Array<{
-            __typename?: 'ComponentBlocksPageLink'
-            title?: string | null
-            url?: string | null
-            page?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
         } | null
         seo?: {
           __typename?: 'ComponentCommonSeo'
@@ -8179,11 +7908,7 @@ export type PageEntityFragment = {
           } | null> | null
         }
       | { __typename: 'ComponentSectionsBlogPostsListing' }
-      | {
-          __typename: 'ComponentSectionsColumnedText'
-          title?: string | null
-          content?: string | null
-        }
+      | { __typename: 'ComponentSectionsChildrenListing' }
       | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
       | { __typename: 'ComponentSectionsDivider'; id: string }
       | {
@@ -8199,8 +7924,8 @@ export type PageEntityFragment = {
                 __typename?: 'Document'
                 title: string
                 slug: string
-                addedAt: any
                 description?: string | null
+                publishedAt?: any | null
                 documentCategory?: {
                   __typename?: 'DocumentCategoryEntityResponse'
                   data?: {
@@ -8230,44 +7955,9 @@ export type PageEntityFragment = {
               } | null
             }>
           } | null
-          moreLink?: Array<{
-            __typename?: 'ComponentBlocksPageLink'
-            title?: string | null
-            url?: string | null
-            page?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
         }
       | { __typename: 'ComponentSectionsDocumentsListing' }
       | { __typename: 'ComponentSectionsEventsListing' }
-      | {
-          __typename: 'ComponentSectionsExternalLinks'
-          title?: string | null
-          externalLinks?: Array<{
-            __typename?: 'ComponentBlocksExternalLink'
-            category?: string | null
-            title?: string | null
-            url?: string | null
-          } | null> | null
-          descriptions?: Array<{
-            __typename?: 'ComponentAccordionItemsFlatText'
-            category?: string | null
-            content?: string | null
-          } | null> | null
-        }
       | {
           __typename: 'ComponentSectionsFaq'
           id: string
@@ -8280,7 +7970,6 @@ export type PageEntityFragment = {
           } | null> | null
         }
       | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-      | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
       | {
           __typename: 'ComponentSectionsForm'
           id: string
@@ -9139,11 +8828,7 @@ export type PageByIdQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsBlogPostsListing' }
-          | {
-              __typename: 'ComponentSectionsColumnedText'
-              title?: string | null
-              content?: string | null
-            }
+          | { __typename: 'ComponentSectionsChildrenListing' }
           | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
           | { __typename: 'ComponentSectionsDivider'; id: string }
           | {
@@ -9159,8 +8844,8 @@ export type PageByIdQuery = {
                     __typename?: 'Document'
                     title: string
                     slug: string
-                    addedAt: any
                     description?: string | null
+                    publishedAt?: any | null
                     documentCategory?: {
                       __typename?: 'DocumentCategoryEntityResponse'
                       data?: {
@@ -9190,44 +8875,9 @@ export type PageByIdQuery = {
                   } | null
                 }>
               } | null
-              moreLink?: Array<{
-                __typename?: 'ComponentBlocksPageLink'
-                title?: string | null
-                url?: string | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Page'
-                      title: string
-                      slug: string
-                      newSlug: string
-                      createdAt?: any | null
-                      updatedAt?: any | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
             }
           | { __typename: 'ComponentSectionsDocumentsListing' }
           | { __typename: 'ComponentSectionsEventsListing' }
-          | {
-              __typename: 'ComponentSectionsExternalLinks'
-              title?: string | null
-              externalLinks?: Array<{
-                __typename?: 'ComponentBlocksExternalLink'
-                category?: string | null
-                title?: string | null
-                url?: string | null
-              } | null> | null
-              descriptions?: Array<{
-                __typename?: 'ComponentAccordionItemsFlatText'
-                category?: string | null
-                content?: string | null
-              } | null> | null
-            }
           | {
               __typename: 'ComponentSectionsFaq'
               id: string
@@ -9240,7 +8890,6 @@ export type PageByIdQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-          | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
           | {
               __typename: 'ComponentSectionsForm'
               id: string
@@ -10249,11 +9898,7 @@ export type LatestNewsQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsBlogPostsListing' }
-          | {
-              __typename: 'ComponentSectionsColumnedText'
-              title?: string | null
-              content?: string | null
-            }
+          | { __typename: 'ComponentSectionsChildrenListing' }
           | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
           | { __typename: 'ComponentSectionsDivider'; id: string }
           | {
@@ -10269,8 +9914,8 @@ export type LatestNewsQuery = {
                     __typename?: 'Document'
                     title: string
                     slug: string
-                    addedAt: any
                     description?: string | null
+                    publishedAt?: any | null
                     documentCategory?: {
                       __typename?: 'DocumentCategoryEntityResponse'
                       data?: {
@@ -10300,44 +9945,9 @@ export type LatestNewsQuery = {
                   } | null
                 }>
               } | null
-              moreLink?: Array<{
-                __typename?: 'ComponentBlocksPageLink'
-                title?: string | null
-                url?: string | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Page'
-                      title: string
-                      slug: string
-                      newSlug: string
-                      createdAt?: any | null
-                      updatedAt?: any | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
             }
           | { __typename: 'ComponentSectionsDocumentsListing' }
           | { __typename: 'ComponentSectionsEventsListing' }
-          | {
-              __typename: 'ComponentSectionsExternalLinks'
-              title?: string | null
-              externalLinks?: Array<{
-                __typename?: 'ComponentBlocksExternalLink'
-                category?: string | null
-                title?: string | null
-                url?: string | null
-              } | null> | null
-              descriptions?: Array<{
-                __typename?: 'ComponentAccordionItemsFlatText'
-                category?: string | null
-                content?: string | null
-              } | null> | null
-            }
           | {
               __typename: 'ComponentSectionsFaq'
               id: string
@@ -10350,7 +9960,6 @@ export type LatestNewsQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-          | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
           | {
               __typename: 'ComponentSectionsForm'
               id: string
@@ -10779,8 +10388,8 @@ export type DocumentsFragment = {
         __typename?: 'Document'
         title: string
         slug: string
-        addedAt: any
         description?: string | null
+        publishedAt?: any | null
         documentCategory?: {
           __typename?: 'DocumentCategoryEntityResponse'
           data?: {
@@ -10806,26 +10415,6 @@ export type DocumentsFragment = {
       } | null
     }>
   } | null
-  moreLink?: Array<{
-    __typename?: 'ComponentBlocksPageLink'
-    title?: string | null
-    url?: string | null
-    page?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename?: 'PageEntity'
-        id?: string | null
-        attributes?: {
-          __typename?: 'Page'
-          title: string
-          slug: string
-          newSlug: string
-          createdAt?: any | null
-          updatedAt?: any | null
-        } | null
-      } | null
-    } | null
-  } | null> | null
 }
 
 export type GalleryFragment = {
@@ -10882,10 +10471,8 @@ type Sections_ComponentSectionsBlogPostsListing_Fragment = {
   __typename: 'ComponentSectionsBlogPostsListing'
 }
 
-type Sections_ComponentSectionsColumnedText_Fragment = {
-  __typename: 'ComponentSectionsColumnedText'
-  title?: string | null
-  content?: string | null
+type Sections_ComponentSectionsChildrenListing_Fragment = {
+  __typename: 'ComponentSectionsChildrenListing'
 }
 
 type Sections_ComponentSectionsCta_Fragment = {
@@ -10912,8 +10499,8 @@ type Sections_ComponentSectionsDocuments_Fragment = {
         __typename?: 'Document'
         title: string
         slug: string
-        addedAt: any
         description?: string | null
+        publishedAt?: any | null
         documentCategory?: {
           __typename?: 'DocumentCategoryEntityResponse'
           data?: {
@@ -10939,26 +10526,6 @@ type Sections_ComponentSectionsDocuments_Fragment = {
       } | null
     }>
   } | null
-  moreLink?: Array<{
-    __typename?: 'ComponentBlocksPageLink'
-    title?: string | null
-    url?: string | null
-    page?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename?: 'PageEntity'
-        id?: string | null
-        attributes?: {
-          __typename?: 'Page'
-          title: string
-          slug: string
-          newSlug: string
-          createdAt?: any | null
-          updatedAt?: any | null
-        } | null
-      } | null
-    } | null
-  } | null> | null
 }
 
 type Sections_ComponentSectionsDocumentsListing_Fragment = {
@@ -10967,22 +10534,6 @@ type Sections_ComponentSectionsDocumentsListing_Fragment = {
 
 type Sections_ComponentSectionsEventsListing_Fragment = {
   __typename: 'ComponentSectionsEventsListing'
-}
-
-type Sections_ComponentSectionsExternalLinks_Fragment = {
-  __typename: 'ComponentSectionsExternalLinks'
-  title?: string | null
-  externalLinks?: Array<{
-    __typename?: 'ComponentBlocksExternalLink'
-    category?: string | null
-    title?: string | null
-    url?: string | null
-  } | null> | null
-  descriptions?: Array<{
-    __typename?: 'ComponentAccordionItemsFlatText'
-    category?: string | null
-    content?: string | null
-  } | null> | null
 }
 
 type Sections_ComponentSectionsFaq_Fragment = {
@@ -10999,12 +10550,6 @@ type Sections_ComponentSectionsFaq_Fragment = {
 
 type Sections_ComponentSectionsFlatText_Fragment = {
   __typename: 'ComponentSectionsFlatText'
-  id: string
-  content?: string | null
-}
-
-type Sections_ComponentSectionsFlatTextCenter_Fragment = {
-  __typename: 'ComponentSectionsFlatTextCenter'
   id: string
   content?: string | null
 }
@@ -11256,16 +10801,14 @@ type Sections_Error_Fragment = { __typename: 'Error' }
 export type SectionsFragment =
   | Sections_ComponentSectionsAccordion_Fragment
   | Sections_ComponentSectionsBlogPostsListing_Fragment
-  | Sections_ComponentSectionsColumnedText_Fragment
+  | Sections_ComponentSectionsChildrenListing_Fragment
   | Sections_ComponentSectionsCta_Fragment
   | Sections_ComponentSectionsDivider_Fragment
   | Sections_ComponentSectionsDocuments_Fragment
   | Sections_ComponentSectionsDocumentsListing_Fragment
   | Sections_ComponentSectionsEventsListing_Fragment
-  | Sections_ComponentSectionsExternalLinks_Fragment
   | Sections_ComponentSectionsFaq_Fragment
   | Sections_ComponentSectionsFlatText_Fragment
-  | Sections_ComponentSectionsFlatTextCenter_Fragment
   | Sections_ComponentSectionsForm_Fragment
   | Sections_ComponentSectionsGallery_Fragment
   | Sections_ComponentSectionsMap_Fragment
@@ -11917,13 +11460,6 @@ export const TableRowFragmentDoc = gql`
     valueAlign
   }
 `
-export const ExternalLinkFragmentDoc = gql`
-  fragment ExternalLink on ComponentBlocksExternalLink {
-    category
-    title
-    url
-  }
-`
 export const DocumentCategoryEntityFragmentDoc = gql`
   fragment DocumentCategoryEntity on DocumentCategoryEntity {
     id
@@ -11940,8 +11476,8 @@ export const DocumentEntityFragmentDoc = gql`
     attributes {
       title
       slug
-      addedAt
       description
+      publishedAt
       documentCategory {
         data {
           ...DocumentCategoryEntity
@@ -11957,18 +11493,6 @@ export const DocumentEntityFragmentDoc = gql`
   ${DocumentCategoryEntityFragmentDoc}
   ${UploadFileEntityFragmentDoc}
 `
-export const PageLinkFragmentDoc = gql`
-  fragment PageLink on ComponentBlocksPageLink {
-    title
-    url
-    page {
-      data {
-        ...PageWithBaseFieldsEntity
-      }
-    }
-  }
-  ${PageWithBaseFieldsEntityFragmentDoc}
-`
 export const DocumentsFragmentDoc = gql`
   fragment Documents on ComponentSectionsDocuments {
     title
@@ -11977,12 +11501,8 @@ export const DocumentsFragmentDoc = gql`
         ...DocumentEntity
       }
     }
-    moreLink {
-      ...PageLink
-    }
   }
   ${DocumentEntityFragmentDoc}
-  ${PageLinkFragmentDoc}
 `
 export const UploadImageEntityFragmentDoc = gql`
   fragment UploadImageEntity on UploadFileEntity {
@@ -12070,10 +11590,6 @@ export const SectionsFragmentDoc = gql`
         ...AccordionItem
       }
     }
-    ... on ComponentSectionsFlatTextCenter {
-      id
-      content
-    }
     ... on ComponentSectionsFlatText {
       id
       content
@@ -12099,7 +11615,7 @@ export const SectionsFragmentDoc = gql`
       flatText {
         ...FlatText
       }
-      tableRows(pagination: { limit: 100 }) {
+      tableRows(pagination: { limit: -1 }) {
         ...TableRow
       }
       forms {
@@ -12109,19 +11625,6 @@ export const SectionsFragmentDoc = gql`
     }
     ... on ComponentSectionsDivider {
       id
-    }
-    ... on ComponentSectionsColumnedText {
-      title
-      content
-    }
-    ... on ComponentSectionsExternalLinks {
-      title
-      externalLinks {
-        ...ExternalLink
-      }
-      descriptions {
-        ...FlatText
-      }
     }
     ... on ComponentSectionsCta {
       title
@@ -12181,7 +11684,6 @@ export const SectionsFragmentDoc = gql`
   ${TableFragmentDoc}
   ${FlatTextFragmentDoc}
   ${TableRowFragmentDoc}
-  ${ExternalLinkFragmentDoc}
   ${DocumentsFragmentDoc}
   ${BranchCardEntityFragmentDoc}
   ${GalleryFragmentDoc}
@@ -12455,6 +11957,18 @@ export const NoticeListingEntityFragmentDoc = gql`
   }
   ${UploadImageEntityFragmentDoc}
 `
+export const PageLinkFragmentDoc = gql`
+  fragment PageLink on ComponentBlocksPageLink {
+    title
+    url
+    page {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
 export const CategoryFragmentDoc = gql`
   fragment Category on Category {
     title
@@ -12622,7 +12136,7 @@ export const MenuSectionFragmentDoc = gql`
         ...PageWithBaseFieldsEntity
       }
     }
-    sectionLinks(pagination: { limit: 20 }) {
+    sectionLinks(pagination: { limit: -1 }) {
       id
       sectionLinkTitle
       sectionLinkPage {
@@ -12685,6 +12199,13 @@ export const BookTagEntityFragmentDoc = gql`
       displayName
       slug
     }
+  }
+`
+export const ExternalLinkFragmentDoc = gql`
+  fragment ExternalLink on ComponentBlocksExternalLink {
+    category
+    title
+    url
   }
 `
 export const PaginationFragmentDoc = gql`

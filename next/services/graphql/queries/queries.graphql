@@ -168,7 +168,7 @@ fragment MenuSection on ComponentMenuSections {
       ...PageWithBaseFieldsEntity
     }
   }
-  sectionLinks(pagination: { limit: 20 }) {
+  sectionLinks(pagination: { limit: -1 }) {
     id
     sectionLinkTitle
     sectionLinkPage {
@@ -194,9 +194,6 @@ fragment Documents on ComponentSectionsDocuments {
       ...DocumentEntity
     }
   }
-  moreLink {
-    ...PageLink
-  }
 }
 
 fragment Gallery on ComponentSectionsGallery {
@@ -219,17 +216,12 @@ fragment Sections on PageSectionsDynamicZone {
     title
     url
   }
-
   ... on ComponentSectionsFaq {
     id
     title
     questions {
       ...AccordionItem
     }
-  }
-  ... on ComponentSectionsFlatTextCenter {
-    id
-    content
   }
   ... on ComponentSectionsFlatText {
     id
@@ -256,7 +248,7 @@ fragment Sections on PageSectionsDynamicZone {
     flatText {
       ...FlatText
     }
-    tableRows(pagination: { limit: 100 }) {
+    tableRows(pagination: { limit: -1 }) {
       ...TableRow
     }
     forms {
@@ -266,19 +258,6 @@ fragment Sections on PageSectionsDynamicZone {
   }
   ... on ComponentSectionsDivider {
     id
-  }
-  ... on ComponentSectionsColumnedText {
-    title
-    content
-  }
-  ... on ComponentSectionsExternalLinks {
-    title
-    externalLinks {
-      ...ExternalLink
-    }
-    descriptions {
-      ...FlatText
-    }
   }
   ... on ComponentSectionsCta {
     title

@@ -25,7 +25,7 @@ const NoticePage = ({ notice }: NoticePageProps) => {
         </div>
       </SectionContainer>
       <SectionContainer>
-        <Documents documents={notice.attributes?.documents?.documents?.data ?? []} targetBlank />
+        <Documents documents={notice.attributes?.documents?.documents?.data ?? []} />
       </SectionContainer>
     </>
   )

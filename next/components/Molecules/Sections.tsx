@@ -1,10 +1,7 @@
 import {
-  ColumnedText,
   Documents,
-  ExternalLinks,
   Faq,
   FlatText,
-  FlatTextCenter,
   Localities,
   SiteUsefullness,
   SubListing,
@@ -29,13 +26,7 @@ import {
   PageSectionsDynamicZone,
 } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
-import {
-  groupByAccordionCategory,
-  groupByCategory,
-  groupByLinksCategory,
-  parsePageLink,
-  parseSubpages,
-} from '@utils/page'
+import { groupByAccordionCategory, groupByCategory, parseSubpages } from '@utils/page'
 import { TFunction, useTranslation } from 'next-i18next'
 
 import AskLibraryForm from '../forms/AskLibraryForm.tsx'
@@ -114,9 +105,6 @@ const sectionContent = (
 
     case 'ComponentSectionsGallery':
       return <GalleryBannerSection section={section} />
-
-    case 'ComponentSectionsFlatTextCenter':
-      return <FlatTextCenter content={section?.content ?? ''} />
 
     case 'ComponentSectionsSubListing':
       return (
@@ -202,9 +190,6 @@ const sectionContent = (
     case 'ComponentSectionsDivider':
       return <div className="border-b border-border-dark" />
 
-    case 'ComponentSectionsColumnedText':
-      return <ColumnedText title={section.title ?? ''} content={section.content ?? ''} />
-
     case 'ComponentSectionsCta':
       return (
         <div className="flex w-full justify-center">
@@ -212,17 +197,6 @@ const sectionContent = (
             {section.title}
           </Button>
         </div>
-      )
-
-    case 'ComponentSectionsExternalLinks':
-      return (
-        <ExternalLinks
-          title={section.title ?? ''}
-          sections={groupByLinksCategory(
-            section.descriptions || undefined,
-            section.externalLinks || undefined
-          )}
-        />
       )
 
     case 'ComponentSectionsVideo':
@@ -243,13 +217,6 @@ const sectionContent = (
       return (
         <Documents
           title={section.title}
-          moreLink={{
-            url: parsePageLink(section?.moreLink?.[0])?.url ?? '',
-            title:
-              section.moreLink?.[0]?.title ??
-              section.moreLink?.[0]?.page?.data?.attributes?.title ??
-              '',
-          }}
           documents={(section.documents?.data as DocumentEntityFragment[]) ?? []}
         />
       )
@@ -345,7 +312,7 @@ const Sections = ({
 }) => {
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
-      {sections.map((section: SectionType, index) => (
+      {sections.map((section, index) => (
         <Section
           // eslint-disable-next-line react/no-array-index-key
           key={index}

@@ -14,8 +14,8 @@ fragment DocumentEntity on DocumentEntity {
   attributes {
     title
     slug
-    addedAt
     description
+    publishedAt
     documentCategory {
       data {
         ...DocumentCategoryEntity

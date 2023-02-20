@@ -1,20 +1,19 @@
+import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
+import EventPage from '@components/pages/eventPage'
 import { EventEntityFragment, GeneralQuery } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
+import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
+import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-
-import EventPage from '@components/pages/eventPage'
-import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
-import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 
 type PageProps = {
   event: EventEntityFragment
@@ -25,7 +24,11 @@ type PageProps = {
 const EventSlugPage = ({ event, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
-      <DefaultPageLayout title={event.attributes?.title} seo={event.attributes?.seo}>
+      <DefaultPageLayout
+        title={event.attributes?.title}
+        seo={event.attributes?.seo}
+        defaultMetaDescription={event.attributes?.description}
+      >
         <EventPage event={event} />
       </DefaultPageLayout>
     </GeneralContextProvider>
