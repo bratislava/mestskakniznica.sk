@@ -1,7 +1,8 @@
 import { DownloadIcon } from '@assets/icons'
-import { FileIcon, SectionContainer } from '@bratislava/ui-city-library'
+import { SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import Button from '@modules/common/Button'
+import FileExtBadge from '@modules/common/FileExtBadge'
 import FormatDate from '@modules/formatting/FormatDate'
 import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
 import { useNavikronos } from '@utils/navikronos'
@@ -40,7 +41,7 @@ const DocumentPage = ({ entity }: IProps) => {
   const isDisclosure = entity.__typename === 'DisclosureEntity'
 
   const fileSize = getFileSize(size, i18n.language)
-  const fileExt = ext?.toUpperCase().replace('.', '')
+  const fileExt = ext?.toUpperCase().replace('.', '') ?? ''
   const dlData = isDisclosure
     ? getDisclosureMetadata(entity)
     : [
@@ -59,17 +60,12 @@ const DocumentPage = ({ entity }: IProps) => {
       <SectionContainer>
         <Breadcrumbs crumbs={breadcrumbs} />
 
-        <div className="mt-6 flex gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:pb-32">
-          <FileIcon className="hidden lg:flex" type={fileExt} />
+        <div className="mt-6 flex flex-col gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:flex-row lg:pb-32">
+          <FileExtBadge className="mb-8 h-16 w-16 self-center lg:self-auto" fileExt={fileExt} />
 
           <div className="w-full text-foreground-body">
             <div className="flex flex-col items-center border-b border-border-dark text-center lg:items-start lg:text-left">
               {/* Header */}
-              {/* TODO use FileIcon component with border */}
-              <span className="mb-8 flex h-14 w-14 items-center justify-center rounded-full border border-border-dark text-[12px] text-foreground-dark lg:hidden">
-                {fileExt}
-              </span>
-
               <h1 className="text-h1 lg:mt-0">{title}</h1>
 
               <div className="mt-2 flex items-center gap-x-3">
