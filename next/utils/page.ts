@@ -1,5 +1,6 @@
-import { TableRowProps } from '@bratislava/ui-city-library'
-import { TableRowFragment } from '@services/graphql'
+import { SubpageItemProps, TableRowProps } from '@bratislava/ui-city-library'
+import { SubpagesFragment, TableRowFragment } from '@services/graphql'
+import { isPresent } from '@utils/utils'
 import groupBy from 'lodash/groupBy'
 
 export const groupByTableCategory = (
@@ -21,6 +22,14 @@ export const groupByTableCategory = (
       })) ?? [],
   }))
 }
+
+// Subpages
+export const parseSubpages = (subpages: SubpagesFragment): SubpageItemProps[] =>
+  subpages?.subpages?.filter(isPresent).map((subpage) => ({
+    title: subpage?.title ?? '',
+    description: subpage?.description ?? '',
+    id: subpage?.page?.data?.id,
+  })) ?? []
 
 // Group by for accordion
 export const groupByAccordionCategory = (
