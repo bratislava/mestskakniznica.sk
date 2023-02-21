@@ -1,10 +1,10 @@
 import Section from '@components/AppLayout/Section'
 import BookCard, { Book } from '@modules/common/Cards/BookCard'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
-import { useTranslation } from 'next-i18next'
-import React from 'react'
 import { useGeneralContext } from '@utils/generalContext'
 import { useNavikronos } from '@utils/navikronos'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 type SectionHomepageNewBooksProps = { books: Book[] }
 

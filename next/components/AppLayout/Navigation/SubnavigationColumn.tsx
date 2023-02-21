@@ -3,9 +3,9 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { ComponentMenuSections } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
+import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import Link from 'next/link'
-import { useNavikronos } from '@utils/navikronos'
 
 interface ColumnProps {
   section: ComponentMenuSections

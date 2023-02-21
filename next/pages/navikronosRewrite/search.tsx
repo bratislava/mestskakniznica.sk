@@ -1,17 +1,16 @@
-import { GeneralQuery } from '@services/graphql'
-import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
-import { GeneralContextProvider } from '@utils/generalContext'
-import { GetStaticPropsContext } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-
 import ErrorDisplay, { getError, IDisplayError } from '@components/Molecules/ErrorDisplay'
 import ErrorPage from '@components/pages/ErrorPage'
 import SearchPage from '@components/pages/SearchPage'
-import { wrapNavikronosProvider } from '../../navikronos/wrapNavikronosProvider'
-import { navikronosGetStaticProps } from '../../navikronos/navikronosGetStaticProps'
+import { GeneralQuery } from '@services/graphql'
+import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
+import { GeneralContextProvider } from '@utils/generalContext'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
+import { GetStaticPropsContext } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { navikronosGetStaticProps } from '../../navikronos/navikronosGetStaticProps'
+import { wrapNavikronosProvider } from '../../navikronos/wrapNavikronosProvider'
 
 export const Search = ({ error, general }: PageProps) => {
   if (error) {

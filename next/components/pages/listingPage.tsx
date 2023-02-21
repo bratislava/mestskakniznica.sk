@@ -5,12 +5,12 @@ import {
   latestNewsFetcher,
 } from '@services/graphql/fetchers/latestNews.fetcher'
 import { useGeneralContext } from '@utils/generalContext'
+import { useNavikronos } from '@utils/navikronos'
 import { parseSubCategories } from '@utils/page'
 import { useTranslation } from 'next-i18next'
 import { useQuery } from 'react-query'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-import { useNavikronos } from '@utils/navikronos'
 
 export interface PageProps {
   page: PageEntity

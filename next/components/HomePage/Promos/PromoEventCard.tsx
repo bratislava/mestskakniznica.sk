@@ -2,11 +2,11 @@ import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@services/graphql'
 import { WithAttributes } from '@utils/isDefined'
+import { useNavikronos } from '@utils/navikronos'
 import Image from 'next/image'
 
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import TagsDisplay from '../../Atoms/TagsDisplay'
-import { useNavikronos } from '@utils/navikronos'
 
 interface IPromoEventCardProps {
   event: WithAttributes<EventCardEntityFragment> | null | undefined
