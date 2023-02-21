@@ -123,6 +123,7 @@ export type NavikronosObject<Config> = {
   currentRouteLocalizations: CurrentRouteLocalization[]
   children: NavikronosChildren
   siblings: NavikronosChildren
+  parent: NavikronosChild | null
 }
 
 export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>(
@@ -229,27 +230,28 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     return currentEntityNode?.fullPath() ?? null
   })()
 
+  const nodeToChild = (child: NavikronosTreeNode): NavikronosChild | null => {
+    if (child.original.type === 'contentType') {
+      return null
+    }
+    return {
+      title: child.original.title,
+      path: child.fullPath(),
+      children: child.children?.map(nodeToChild).filter(isDefined),
+    } as NavikronosChild
+  }
+
   const getChildren = (node = currentEntityNode) => {
     if (!node) {
       return []
     }
 
-    const mapFn = (child: NavikronosTreeNode): NavikronosChild | null => {
-      if (child.original.type === 'contentType') {
-        return null
-      }
-      return {
-        title: child.original.title,
-        path: child.fullPath(),
-        children: child.children?.map(mapFn).filter(isDefined),
-      } as NavikronosChild
-    }
-
-    return (node.children ?? []).map(mapFn).filter(isDefined)
+    return (node.children ?? []).map(nodeToChild).filter(isDefined)
   }
 
   const children = getChildren()
   const siblings = getChildren(currentEntityNode?.parent)
+  const parent = currentEntityNode?.parent ? nodeToChild(currentEntityNode.parent) : null
 
   const sitemap = getSiteMap()
 
@@ -261,5 +263,6 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     currentRouteLocalizations,
     children,
     siblings,
+    parent,
   }
 }
