@@ -1346,6 +1346,7 @@ input ComponentSectionsDividerInput {
 
 type ComponentSectionsDocuments {
   basicDocuments(filters: BasicDocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BasicDocumentRelationResponseCollection
+  disclosures(filters: DisclosureFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): DisclosureRelationResponseCollection
   documents(filters: DocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): DocumentRelationResponseCollection
   id: ID!
   title: String
@@ -1354,6 +1355,7 @@ type ComponentSectionsDocuments {
 input ComponentSectionsDocumentsFiltersInput {
   and: [ComponentSectionsDocumentsFiltersInput]
   basicDocuments: BasicDocumentFiltersInput
+  disclosures: DisclosureFiltersInput
   documents: DocumentFiltersInput
   not: ComponentSectionsDocumentsFiltersInput
   or: [ComponentSectionsDocumentsFiltersInput]
@@ -1362,6 +1364,7 @@ input ComponentSectionsDocumentsFiltersInput {
 
 input ComponentSectionsDocumentsInput {
   basicDocuments: [ID]
+  disclosures: [ID]
   documents: [ID]
   id: ID
   title: String
@@ -2782,7 +2785,7 @@ type Notice {
   createdAt: DateTime
   dateAdded: Date
   documents: ComponentSectionsDocuments
-  listingImage(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  listingImage: UploadFileEntityResponse
   locale: String
   localizations(filters: NoticeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeRelationResponseCollection
   promoted: Boolean
@@ -2830,7 +2833,7 @@ input NoticeInput {
   body: String
   dateAdded: Date
   documents: ComponentSectionsDocumentsInput
-  listingImage: [ID]
+  listingImage: ID
   promoted: Boolean
   publishedAt: DateTime
   seo: ComponentCommonSeoInput

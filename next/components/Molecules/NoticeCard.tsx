@@ -16,7 +16,7 @@ const NoticeCard = ({ card }: NoticeCardProps) => {
 
   const { image, link, date } = useMemo(() => {
     return {
-      image: card.attributes?.listingImage?.data[0],
+      image: card.attributes?.listingImage?.data,
       link: getPathForEntity({ type: 'notice', slug: card.attributes?.slug }),
       date: card.attributes?.publishedAt,
     }

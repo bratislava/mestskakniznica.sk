@@ -13,6 +13,7 @@ import BranchCard from '@components/Molecules/BranchCard'
 import Accordion from '@modules/common/Accordion'
 import Button from '@modules/common/Button'
 import BlogPostsListingSection from '@modules/sections/BlogPostsListingSection'
+import ChildrenListingSection from '@modules/sections/ChildrenListingSection'
 import DocumentsListingSection from '@modules/sections/DocumentsListingSection'
 import EventsListingSection from '@modules/sections/EventsListingSection'
 import GalleryBannerSection from '@modules/sections/GalleryBannerSection'
@@ -22,6 +23,7 @@ import OpeningHoursSection from '@modules/sections/OpeningHoursSection'
 import PartnersSection from '@modules/sections/PartnersSection'
 import {
   BlogPostSectionsDynamicZone,
+  DisclosureEntityFragment,
   DocumentEntityFragment,
   EventCardEntityFragment,
   PageSectionsDynamicZone,
@@ -47,7 +49,6 @@ import SpaceReservationForm from '../forms/SpaceReservationForm'
 import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm, { VenueRentalFormProps } from '../forms/VenueRentalForm'
-import ChildrenListingSection from '@modules/sections/ChildrenListingSection'
 
 type FormsProps =
   | (() => JSX.Element)
@@ -219,7 +220,10 @@ const sectionContent = (
       return (
         <Documents
           title={section.title}
-          documents={(section.documents?.data as DocumentEntityFragment[]) ?? []}
+          documents={[
+            ...((section.documents?.data as DocumentEntityFragment[]) ?? []),
+            ...((section.disclosures?.data as DisclosureEntityFragment[]) ?? []),
+          ]}
         />
       )
 
