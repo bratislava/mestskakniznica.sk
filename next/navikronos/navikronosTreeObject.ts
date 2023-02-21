@@ -1,3 +1,5 @@
+import { isDefined } from '@utils/isDefined'
+
 import { getAliasContentTypeMap } from './navikronosObject/getAliasContentTypeMap'
 import { NavikronosTree, NavikronosTreeNode, traverseTree } from './navikronosObject/traverseTree'
 import {
@@ -16,7 +18,6 @@ import {
   RouteEntityWithLocaleOptional,
   StaticRouteEntity,
 } from './types'
-import { isDefined } from '@utils/isDefined'
 
 const replaceLastPartWithSlug = (path: string) => {
   const parts = path.split('/')
@@ -121,6 +122,7 @@ export type NavikronosObject<Config> = {
   getBreadcrumbs(title?: string): NavikronosBreadcrumb[] | null
   currentRouteLocalizations: CurrentRouteLocalization[]
   children: NavikronosChildren
+  siblings: NavikronosChildren
 }
 
 export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>(
@@ -156,7 +158,7 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     }
 
     if (route.original.type === 'contentType') {
-      const slug = (entity as ContentRouteEntity<Config, true>).slug
+      const { slug } = entity as ContentRouteEntity<Config, true>
       if (!slug) {
         return null
       }
@@ -215,7 +217,7 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     }
 
     if (currentEntityNode.original.type === 'contentType') {
-      const slug = (currentEntity as ContentRouteEntity<Config>).slug
+      const { slug } = currentEntity as ContentRouteEntity<Config>
 
       if (!slug) {
         return null
@@ -227,8 +229,8 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     return currentEntityNode?.fullPath() ?? null
   })()
 
-  const children = (() => {
-    if (!currentEntityNode) {
+  const getChildren = (node = currentEntityNode) => {
+    if (!node) {
       return []
     }
 
@@ -243,8 +245,11 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
       } as NavikronosChild
     }
 
-    return (currentEntityNode.children ?? []).map(mapFn).filter(isDefined)
-  })()
+    return (node.children ?? []).map(mapFn).filter(isDefined)
+  }
+
+  const children = getChildren()
+  const siblings = getChildren(currentEntityNode?.parent)
 
   const sitemap = getSiteMap()
 
@@ -255,5 +260,6 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     sitemap: sitemap as any, // todo
     currentRouteLocalizations,
     children,
+    siblings,
   }
 }
