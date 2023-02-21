@@ -178,14 +178,11 @@ export type BlogPostRelationResponseCollection = {
 
 export type BlogPostSectionsDynamicZone =
   | ComponentSectionsAccordion
-  | ComponentSectionsColumnedText
   | ComponentSectionsCta
   | ComponentSectionsDivider
   | ComponentSectionsDocuments
-  | ComponentSectionsExternalLinks
   | ComponentSectionsFaq
   | ComponentSectionsFlatText
-  | ComponentSectionsFlatTextCenter
   | ComponentSectionsForm
   | ComponentSectionsGallery
   | ComponentSectionsMap
@@ -1550,27 +1547,6 @@ export type ComponentSectionsChildrenListingInput = {
   id?: InputMaybe<Scalars['ID']>
 }
 
-export type ComponentSectionsColumnedText = {
-  __typename?: 'ComponentSectionsColumnedText'
-  content?: Maybe<Scalars['String']>
-  id: Scalars['ID']
-  title?: Maybe<Scalars['String']>
-}
-
-export type ComponentSectionsColumnedTextFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentSectionsColumnedTextFiltersInput>>>
-  content?: InputMaybe<StringFilterInput>
-  not?: InputMaybe<ComponentSectionsColumnedTextFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<ComponentSectionsColumnedTextFiltersInput>>>
-  title?: InputMaybe<StringFilterInput>
-}
-
-export type ComponentSectionsColumnedTextInput = {
-  content?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['ID']>
-  title?: InputMaybe<Scalars['String']>
-}
-
 export type ComponentSectionsCta = {
   __typename?: 'ComponentSectionsCta'
   id: Scalars['ID']
@@ -1612,7 +1588,6 @@ export type ComponentSectionsDocuments = {
   basicDocuments?: Maybe<BasicDocumentRelationResponseCollection>
   documents?: Maybe<DocumentRelationResponseCollection>
   id: Scalars['ID']
-  moreLink?: Maybe<Array<Maybe<ComponentBlocksPageLink>>>
   title?: Maybe<Scalars['String']>
 }
 
@@ -1630,17 +1605,10 @@ export type ComponentSectionsDocumentsDocumentsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
-export type ComponentSectionsDocumentsMoreLinkArgs = {
-  filters?: InputMaybe<ComponentBlocksPageLinkFiltersInput>
-  pagination?: InputMaybe<PaginationArg>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
 export type ComponentSectionsDocumentsFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>
   basicDocuments?: InputMaybe<BasicDocumentFiltersInput>
   documents?: InputMaybe<DocumentFiltersInput>
-  moreLink?: InputMaybe<ComponentBlocksPageLinkFiltersInput>
   not?: InputMaybe<ComponentSectionsDocumentsFiltersInput>
   or?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>
   title?: InputMaybe<StringFilterInput>
@@ -1650,7 +1618,6 @@ export type ComponentSectionsDocumentsInput = {
   basicDocuments?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   documents?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   id?: InputMaybe<Scalars['ID']>
-  moreLink?: InputMaybe<Array<InputMaybe<ComponentBlocksPageLinkInput>>>
   title?: InputMaybe<Scalars['String']>
 }
 
@@ -1684,42 +1651,6 @@ export type ComponentSectionsEventsListingInput = {
   id?: InputMaybe<Scalars['ID']>
 }
 
-export type ComponentSectionsExternalLinks = {
-  __typename?: 'ComponentSectionsExternalLinks'
-  descriptions?: Maybe<Array<Maybe<ComponentAccordionItemsFlatText>>>
-  externalLinks?: Maybe<Array<Maybe<ComponentBlocksExternalLink>>>
-  id: Scalars['ID']
-  title?: Maybe<Scalars['String']>
-}
-
-export type ComponentSectionsExternalLinksDescriptionsArgs = {
-  filters?: InputMaybe<ComponentAccordionItemsFlatTextFiltersInput>
-  pagination?: InputMaybe<PaginationArg>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type ComponentSectionsExternalLinksExternalLinksArgs = {
-  filters?: InputMaybe<ComponentBlocksExternalLinkFiltersInput>
-  pagination?: InputMaybe<PaginationArg>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type ComponentSectionsExternalLinksFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentSectionsExternalLinksFiltersInput>>>
-  descriptions?: InputMaybe<ComponentAccordionItemsFlatTextFiltersInput>
-  externalLinks?: InputMaybe<ComponentBlocksExternalLinkFiltersInput>
-  not?: InputMaybe<ComponentSectionsExternalLinksFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<ComponentSectionsExternalLinksFiltersInput>>>
-  title?: InputMaybe<StringFilterInput>
-}
-
-export type ComponentSectionsExternalLinksInput = {
-  descriptions?: InputMaybe<Array<InputMaybe<ComponentAccordionItemsFlatTextInput>>>
-  externalLinks?: InputMaybe<Array<InputMaybe<ComponentBlocksExternalLinkInput>>>
-  id?: InputMaybe<Scalars['ID']>
-  title?: InputMaybe<Scalars['String']>
-}
-
 export type ComponentSectionsFaq = {
   __typename?: 'ComponentSectionsFaq'
   id: Scalars['ID']
@@ -1751,24 +1682,6 @@ export type ComponentSectionsFlatText = {
   __typename?: 'ComponentSectionsFlatText'
   content?: Maybe<Scalars['String']>
   id: Scalars['ID']
-}
-
-export type ComponentSectionsFlatTextCenter = {
-  __typename?: 'ComponentSectionsFlatTextCenter'
-  content?: Maybe<Scalars['String']>
-  id: Scalars['ID']
-}
-
-export type ComponentSectionsFlatTextCenterFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentSectionsFlatTextCenterFiltersInput>>>
-  content?: InputMaybe<StringFilterInput>
-  not?: InputMaybe<ComponentSectionsFlatTextCenterFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<ComponentSectionsFlatTextCenterFiltersInput>>>
-}
-
-export type ComponentSectionsFlatTextCenterInput = {
-  content?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['ID']>
 }
 
 export type ComponentSectionsFlatTextFiltersInput = {
@@ -1880,6 +1793,33 @@ export type ComponentSectionsNewsListingFiltersInput = {
 
 export type ComponentSectionsNewsListingInput = {
   id?: InputMaybe<Scalars['ID']>
+}
+
+export type ComponentSectionsOpeningHoursSection = {
+  __typename?: 'ComponentSectionsOpeningHoursSection'
+  branchList?: Maybe<BranchRelationResponseCollection>
+  id: Scalars['ID']
+  title?: Maybe<Scalars['String']>
+}
+
+export type ComponentSectionsOpeningHoursSectionBranchListArgs = {
+  filters?: InputMaybe<BranchFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type ComponentSectionsOpeningHoursSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsOpeningHoursSectionFiltersInput>>>
+  branchList?: InputMaybe<BranchFiltersInput>
+  not?: InputMaybe<ComponentSectionsOpeningHoursSectionFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsOpeningHoursSectionFiltersInput>>>
+  title?: InputMaybe<StringFilterInput>
+}
+
+export type ComponentSectionsOpeningHoursSectionInput = {
+  branchList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id?: InputMaybe<Scalars['ID']>
+  title?: InputMaybe<Scalars['String']>
 }
 
 export type ComponentSectionsPartners = {
@@ -2180,7 +2120,6 @@ export type DisclosureRelationResponseCollection = {
 
 export type Document = {
   __typename?: 'Document'
-  addedAt: Scalars['DateTime']
   createdAt?: Maybe<Scalars['DateTime']>
   description?: Maybe<Scalars['String']>
   documentCategory?: Maybe<DocumentCategoryEntityResponse>
@@ -2267,7 +2206,6 @@ export type DocumentEntityResponseCollection = {
 }
 
 export type DocumentFiltersInput = {
-  addedAt?: InputMaybe<DateTimeFilterInput>
   and?: InputMaybe<Array<InputMaybe<DocumentFiltersInput>>>
   createdAt?: InputMaybe<DateTimeFilterInput>
   description?: InputMaybe<StringFilterInput>
@@ -2284,7 +2222,6 @@ export type DocumentFiltersInput = {
 }
 
 export type DocumentInput = {
-  addedAt?: InputMaybe<Scalars['DateTime']>
   description?: InputMaybe<Scalars['String']>
   documentCategory?: InputMaybe<Scalars['ID']>
   file?: InputMaybe<Scalars['ID']>
@@ -2877,21 +2814,19 @@ export type GenericMorph =
   | ComponentSectionsAccordion
   | ComponentSectionsBlogPostsListing
   | ComponentSectionsChildrenListing
-  | ComponentSectionsColumnedText
   | ComponentSectionsCta
   | ComponentSectionsDivider
   | ComponentSectionsDocuments
   | ComponentSectionsDocumentsListing
   | ComponentSectionsEventsListing
-  | ComponentSectionsExternalLinks
   | ComponentSectionsFaq
   | ComponentSectionsFlatText
-  | ComponentSectionsFlatTextCenter
   | ComponentSectionsForm
   | ComponentSectionsGallery
   | ComponentSectionsMap
   | ComponentSectionsNewBooksListing
   | ComponentSectionsNewsListing
+  | ComponentSectionsOpeningHoursSection
   | ComponentSectionsPartners
   | ComponentSectionsRental
   | ComponentSectionsSiteUsefullness
@@ -3970,21 +3905,19 @@ export type PageSectionsDynamicZone =
   | ComponentSectionsAccordion
   | ComponentSectionsBlogPostsListing
   | ComponentSectionsChildrenListing
-  | ComponentSectionsColumnedText
   | ComponentSectionsCta
   | ComponentSectionsDivider
   | ComponentSectionsDocuments
   | ComponentSectionsDocumentsListing
   | ComponentSectionsEventsListing
-  | ComponentSectionsExternalLinks
   | ComponentSectionsFaq
   | ComponentSectionsFlatText
-  | ComponentSectionsFlatTextCenter
   | ComponentSectionsForm
   | ComponentSectionsGallery
   | ComponentSectionsMap
   | ComponentSectionsNewBooksListing
   | ComponentSectionsNewsListing
+  | ComponentSectionsOpeningHoursSection
   | ComponentSectionsPartners
   | ComponentSectionsRental
   | ComponentSectionsSiteUsefullness
@@ -5344,153 +5277,36 @@ export type BlogPostEntityFragment = {
             type?: Enum_Componentaccordionitemsform_Type | null
           } | null> | null
         }
-      | {
-          __typename: 'ComponentSectionsColumnedText'
-          title?: string | null
-          content?: string | null
-        }
       | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
       | { __typename: 'ComponentSectionsDivider'; id: string }
       | {
           __typename: 'ComponentSectionsDocuments'
           id: string
           title?: string | null
-          basicDocuments?: {
-            __typename?: 'BasicDocumentRelationResponseCollection'
+          documents?: {
+            __typename?: 'DocumentRelationResponseCollection'
             data: Array<{
-              __typename?: 'BasicDocumentEntity'
+              __typename: 'DocumentEntity'
               id?: string | null
               attributes?: {
-                __typename?: 'BasicDocument'
-                slug: string
+                __typename?: 'Document'
                 title: string
+                slug: string
                 description?: string | null
-                date_added?: any | null
-                author?: string | null
-                link?: string | null
-                file_category?: {
-                  __typename?: 'FileCategoryEntityResponse'
+                publishedAt?: any | null
+                documentCategory?: {
+                  __typename?: 'DocumentCategoryEntityResponse'
                   data?: {
-                    __typename?: 'FileCategoryEntity'
+                    __typename?: 'DocumentCategoryEntity'
                     id?: string | null
                     attributes?: {
-                      __typename?: 'FileCategory'
-                      name?: string | null
-                      slug?: string | null
+                      __typename?: 'DocumentCategory'
+                      label: string
+                      slug: string
                     } | null
                   } | null
                 } | null
-                metadata?: Array<
-                  | {
-                      __typename: 'ComponentMetadataFaktury'
-                      id: string
-                      name?: string | null
-                      date?: any | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataMetadata'
-                      id: string
-                      provider?: string | null
-                      year?: number | null
-                      grant_name?: string | null
-                      grant_number?: string | null
-                      amount?: string | null
-                      description?: string | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-                      id: string
-                      subject?: string | null
-                      description?: string | null
-                      number?: string | null
-                      date_added?: any | null
-                      amount?: string | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataObjednavky'
-                      id: string
-                      title?: string | null
-                      date_period?: any | null
-                      date_added?: any | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataVerejneObstaravanie'
-                      id: string
-                      subject?: string | null
-                      description?: string | null
-                      number?: string | null
-                      date_added?: any | null
-                      amount?: string | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataZmluvy'
-                      id: string
-                      date?: any | null
-                      number?: string | null
-                      amount?: string | null
-                      supplier?: string | null
-                      subject?: string | null
-                    }
-                  | { __typename: 'Error' }
-                  | null
-                > | null
-                attachment?: {
+                file: {
                   __typename?: 'UploadFileEntityResponse'
                   data?: {
                     __typename?: 'UploadFileEntity'
@@ -5503,45 +5319,10 @@ export type BlogPostEntityFragment = {
                       ext?: string | null
                     } | null
                   } | null
-                } | null
+                }
               } | null
             }>
           } | null
-          moreLink?: Array<{
-            __typename?: 'ComponentBlocksPageLink'
-            title?: string | null
-            url?: string | null
-            page?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
-        }
-      | {
-          __typename: 'ComponentSectionsExternalLinks'
-          title?: string | null
-          externalLinks?: Array<{
-            __typename?: 'ComponentBlocksExternalLink'
-            category?: string | null
-            title?: string | null
-            url?: string | null
-          } | null> | null
-          descriptions?: Array<{
-            __typename?: 'ComponentAccordionItemsFlatText'
-            category?: string | null
-            content?: string | null
-          } | null> | null
         }
       | {
           __typename: 'ComponentSectionsFaq'
@@ -5555,7 +5336,6 @@ export type BlogPostEntityFragment = {
           } | null> | null
         }
       | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-      | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
       | {
           __typename: 'ComponentSectionsForm'
           id: string
@@ -5868,153 +5648,36 @@ export type BlogPostBySlugQuery = {
                 type?: Enum_Componentaccordionitemsform_Type | null
               } | null> | null
             }
-          | {
-              __typename: 'ComponentSectionsColumnedText'
-              title?: string | null
-              content?: string | null
-            }
           | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
           | { __typename: 'ComponentSectionsDivider'; id: string }
           | {
               __typename: 'ComponentSectionsDocuments'
               id: string
               title?: string | null
-              basicDocuments?: {
-                __typename?: 'BasicDocumentRelationResponseCollection'
+              documents?: {
+                __typename?: 'DocumentRelationResponseCollection'
                 data: Array<{
-                  __typename?: 'BasicDocumentEntity'
+                  __typename: 'DocumentEntity'
                   id?: string | null
                   attributes?: {
-                    __typename?: 'BasicDocument'
-                    slug: string
+                    __typename?: 'Document'
                     title: string
+                    slug: string
                     description?: string | null
-                    date_added?: any | null
-                    author?: string | null
-                    link?: string | null
-                    file_category?: {
-                      __typename?: 'FileCategoryEntityResponse'
+                    publishedAt?: any | null
+                    documentCategory?: {
+                      __typename?: 'DocumentCategoryEntityResponse'
                       data?: {
-                        __typename?: 'FileCategoryEntity'
+                        __typename?: 'DocumentCategoryEntity'
                         id?: string | null
                         attributes?: {
-                          __typename?: 'FileCategory'
-                          name?: string | null
-                          slug?: string | null
+                          __typename?: 'DocumentCategory'
+                          label: string
+                          slug: string
                         } | null
                       } | null
                     } | null
-                    metadata?: Array<
-                      | {
-                          __typename: 'ComponentMetadataFaktury'
-                          id: string
-                          name?: string | null
-                          date?: any | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataMetadata'
-                          id: string
-                          provider?: string | null
-                          year?: number | null
-                          grant_name?: string | null
-                          grant_number?: string | null
-                          amount?: string | null
-                          description?: string | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-                          id: string
-                          subject?: string | null
-                          description?: string | null
-                          number?: string | null
-                          date_added?: any | null
-                          amount?: string | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataObjednavky'
-                          id: string
-                          title?: string | null
-                          date_period?: any | null
-                          date_added?: any | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataVerejneObstaravanie'
-                          id: string
-                          subject?: string | null
-                          description?: string | null
-                          number?: string | null
-                          date_added?: any | null
-                          amount?: string | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataZmluvy'
-                          id: string
-                          date?: any | null
-                          number?: string | null
-                          amount?: string | null
-                          supplier?: string | null
-                          subject?: string | null
-                        }
-                      | { __typename: 'Error' }
-                      | null
-                    > | null
-                    attachment?: {
+                    file: {
                       __typename?: 'UploadFileEntityResponse'
                       data?: {
                         __typename?: 'UploadFileEntity'
@@ -6027,45 +5690,10 @@ export type BlogPostBySlugQuery = {
                           ext?: string | null
                         } | null
                       } | null
-                    } | null
+                    }
                   } | null
                 }>
               } | null
-              moreLink?: Array<{
-                __typename?: 'ComponentBlocksPageLink'
-                title?: string | null
-                url?: string | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Page'
-                      title: string
-                      slug: string
-                      newSlug: string
-                      createdAt?: any | null
-                      updatedAt?: any | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
-            }
-          | {
-              __typename: 'ComponentSectionsExternalLinks'
-              title?: string | null
-              externalLinks?: Array<{
-                __typename?: 'ComponentBlocksExternalLink'
-                category?: string | null
-                title?: string | null
-                url?: string | null
-              } | null> | null
-              descriptions?: Array<{
-                __typename?: 'ComponentAccordionItemsFlatText'
-                category?: string | null
-                content?: string | null
-              } | null> | null
             }
           | {
               __typename: 'ComponentSectionsFaq'
@@ -6079,7 +5707,6 @@ export type BlogPostBySlugQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-          | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
           | {
               __typename: 'ComponentSectionsForm'
               id: string
@@ -6380,153 +6007,36 @@ export type BlogPostsQuery = {
                 type?: Enum_Componentaccordionitemsform_Type | null
               } | null> | null
             }
-          | {
-              __typename: 'ComponentSectionsColumnedText'
-              title?: string | null
-              content?: string | null
-            }
           | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
           | { __typename: 'ComponentSectionsDivider'; id: string }
           | {
               __typename: 'ComponentSectionsDocuments'
               id: string
               title?: string | null
-              basicDocuments?: {
-                __typename?: 'BasicDocumentRelationResponseCollection'
+              documents?: {
+                __typename?: 'DocumentRelationResponseCollection'
                 data: Array<{
-                  __typename?: 'BasicDocumentEntity'
+                  __typename: 'DocumentEntity'
                   id?: string | null
                   attributes?: {
-                    __typename?: 'BasicDocument'
-                    slug: string
+                    __typename?: 'Document'
                     title: string
+                    slug: string
                     description?: string | null
-                    date_added?: any | null
-                    author?: string | null
-                    link?: string | null
-                    file_category?: {
-                      __typename?: 'FileCategoryEntityResponse'
+                    publishedAt?: any | null
+                    documentCategory?: {
+                      __typename?: 'DocumentCategoryEntityResponse'
                       data?: {
-                        __typename?: 'FileCategoryEntity'
+                        __typename?: 'DocumentCategoryEntity'
                         id?: string | null
                         attributes?: {
-                          __typename?: 'FileCategory'
-                          name?: string | null
-                          slug?: string | null
+                          __typename?: 'DocumentCategory'
+                          label: string
+                          slug: string
                         } | null
                       } | null
                     } | null
-                    metadata?: Array<
-                      | {
-                          __typename: 'ComponentMetadataFaktury'
-                          id: string
-                          name?: string | null
-                          date?: any | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataMetadata'
-                          id: string
-                          provider?: string | null
-                          year?: number | null
-                          grant_name?: string | null
-                          grant_number?: string | null
-                          amount?: string | null
-                          description?: string | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-                          id: string
-                          subject?: string | null
-                          description?: string | null
-                          number?: string | null
-                          date_added?: any | null
-                          amount?: string | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataObjednavky'
-                          id: string
-                          title?: string | null
-                          date_period?: any | null
-                          date_added?: any | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataVerejneObstaravanie'
-                          id: string
-                          subject?: string | null
-                          description?: string | null
-                          number?: string | null
-                          date_added?: any | null
-                          amount?: string | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataZmluvy'
-                          id: string
-                          date?: any | null
-                          number?: string | null
-                          amount?: string | null
-                          supplier?: string | null
-                          subject?: string | null
-                        }
-                      | { __typename: 'Error' }
-                      | null
-                    > | null
-                    attachment?: {
+                    file: {
                       __typename?: 'UploadFileEntityResponse'
                       data?: {
                         __typename?: 'UploadFileEntity'
@@ -6539,45 +6049,10 @@ export type BlogPostsQuery = {
                           ext?: string | null
                         } | null
                       } | null
-                    } | null
+                    }
                   } | null
                 }>
               } | null
-              moreLink?: Array<{
-                __typename?: 'ComponentBlocksPageLink'
-                title?: string | null
-                url?: string | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Page'
-                      title: string
-                      slug: string
-                      newSlug: string
-                      createdAt?: any | null
-                      updatedAt?: any | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
-            }
-          | {
-              __typename: 'ComponentSectionsExternalLinks'
-              title?: string | null
-              externalLinks?: Array<{
-                __typename?: 'ComponentBlocksExternalLink'
-                category?: string | null
-                title?: string | null
-                url?: string | null
-              } | null> | null
-              descriptions?: Array<{
-                __typename?: 'ComponentAccordionItemsFlatText'
-                category?: string | null
-                content?: string | null
-              } | null> | null
             }
           | {
               __typename: 'ComponentSectionsFaq'
@@ -6591,7 +6066,6 @@ export type BlogPostsQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-          | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
           | {
               __typename: 'ComponentSectionsForm'
               id: string
@@ -7162,6 +6636,182 @@ export type BranchBySlugQuery = {
   } | null
 }
 
+export type DisclosureEntityFragment = {
+  __typename: 'DisclosureEntity'
+  id?: string | null
+  attributes?: {
+    __typename?: 'Disclosure'
+    slug: string
+    title: string
+    description?: string | null
+    addedAt: any
+    type: Enum_Disclosure_Type
+    dateFrom?: any | null
+    dateTo?: any | null
+    idNumber?: string | null
+    amount?: number | null
+    contractor?: string | null
+    grantProvider?: string | null
+    grantYear?: string | null
+    file: {
+      __typename?: 'UploadFileEntityResponse'
+      data?: {
+        __typename?: 'UploadFileEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'UploadFile'
+          url: string
+          name: string
+          size: number
+          ext?: string | null
+        } | null
+      } | null
+    }
+  } | null
+}
+
+export type DisclosureBySlugQueryVariables = Exact<{
+  slug: Scalars['String']
+}>
+
+export type DisclosureBySlugQuery = {
+  __typename?: 'Query'
+  disclosures?: {
+    __typename?: 'DisclosureEntityResponseCollection'
+    data: Array<{
+      __typename: 'DisclosureEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Disclosure'
+        slug: string
+        title: string
+        description?: string | null
+        addedAt: any
+        type: Enum_Disclosure_Type
+        dateFrom?: any | null
+        dateTo?: any | null
+        idNumber?: string | null
+        amount?: number | null
+        contractor?: string | null
+        grantProvider?: string | null
+        grantYear?: string | null
+        file: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              size: number
+              ext?: string | null
+            } | null
+          } | null
+        }
+      } | null
+    }>
+  } | null
+}
+
+export type DocumentCategoryEntityFragment = {
+  __typename?: 'DocumentCategoryEntity'
+  id?: string | null
+  attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
+}
+
+export type DocumentEntityFragment = {
+  __typename: 'DocumentEntity'
+  id?: string | null
+  attributes?: {
+    __typename?: 'Document'
+    title: string
+    slug: string
+    description?: string | null
+    publishedAt?: any | null
+    documentCategory?: {
+      __typename?: 'DocumentCategoryEntityResponse'
+      data?: {
+        __typename?: 'DocumentCategoryEntity'
+        id?: string | null
+        attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
+      } | null
+    } | null
+    file: {
+      __typename?: 'UploadFileEntityResponse'
+      data?: {
+        __typename?: 'UploadFileEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'UploadFile'
+          url: string
+          name: string
+          size: number
+          ext?: string | null
+        } | null
+      } | null
+    }
+  } | null
+}
+
+export type DocumentCategoriesQueryVariables = Exact<{ [key: string]: never }>
+
+export type DocumentCategoriesQuery = {
+  __typename?: 'Query'
+  documentCategories?: {
+    __typename?: 'DocumentCategoryEntityResponseCollection'
+    data: Array<{
+      __typename?: 'DocumentCategoryEntity'
+      id?: string | null
+      attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
+    }>
+  } | null
+}
+
+export type DocumentBySlugQueryVariables = Exact<{
+  slug: Scalars['String']
+}>
+
+export type DocumentBySlugQuery = {
+  __typename?: 'Query'
+  documents?: {
+    __typename?: 'DocumentEntityResponseCollection'
+    data: Array<{
+      __typename: 'DocumentEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Document'
+        title: string
+        slug: string
+        description?: string | null
+        publishedAt?: any | null
+        documentCategory?: {
+          __typename?: 'DocumentCategoryEntityResponse'
+          data?: {
+            __typename?: 'DocumentCategoryEntity'
+            id?: string | null
+            attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
+          } | null
+        } | null
+        file: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              size: number
+              ext?: string | null
+            } | null
+          } | null
+        }
+      } | null
+    }>
+  } | null
+}
+
 export type EventCardEntityFragment = {
   __typename: 'EventEntity'
   id?: string | null
@@ -7307,142 +6957,26 @@ export type EventEntityFragment = {
     documents?: {
       __typename?: 'ComponentSectionsDocuments'
       title?: string | null
-      basicDocuments?: {
-        __typename?: 'BasicDocumentRelationResponseCollection'
+      documents?: {
+        __typename?: 'DocumentRelationResponseCollection'
         data: Array<{
-          __typename?: 'BasicDocumentEntity'
+          __typename: 'DocumentEntity'
           id?: string | null
           attributes?: {
-            __typename?: 'BasicDocument'
-            slug: string
+            __typename?: 'Document'
             title: string
+            slug: string
             description?: string | null
-            date_added?: any | null
-            author?: string | null
-            link?: string | null
-            file_category?: {
-              __typename?: 'FileCategoryEntityResponse'
+            publishedAt?: any | null
+            documentCategory?: {
+              __typename?: 'DocumentCategoryEntityResponse'
               data?: {
-                __typename?: 'FileCategoryEntity'
+                __typename?: 'DocumentCategoryEntity'
                 id?: string | null
-                attributes?: {
-                  __typename?: 'FileCategory'
-                  name?: string | null
-                  slug?: string | null
-                } | null
+                attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
               } | null
             } | null
-            metadata?: Array<
-              | {
-                  __typename: 'ComponentMetadataFaktury'
-                  id: string
-                  name?: string | null
-                  date?: any | null
-                  attachment?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        size: number
-                        ext?: string | null
-                      } | null
-                    } | null
-                  } | null
-                }
-              | {
-                  __typename: 'ComponentMetadataMetadata'
-                  id: string
-                  provider?: string | null
-                  year?: number | null
-                  grant_name?: string | null
-                  grant_number?: string | null
-                  amount?: string | null
-                  description?: string | null
-                }
-              | {
-                  __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-                  id: string
-                  subject?: string | null
-                  description?: string | null
-                  number?: string | null
-                  date_added?: any | null
-                  amount?: string | null
-                  attachment?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        size: number
-                        ext?: string | null
-                      } | null
-                    } | null
-                  } | null
-                }
-              | {
-                  __typename: 'ComponentMetadataObjednavky'
-                  id: string
-                  title?: string | null
-                  date_period?: any | null
-                  date_added?: any | null
-                  attachment?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        size: number
-                        ext?: string | null
-                      } | null
-                    } | null
-                  } | null
-                }
-              | {
-                  __typename: 'ComponentMetadataVerejneObstaravanie'
-                  id: string
-                  subject?: string | null
-                  description?: string | null
-                  number?: string | null
-                  date_added?: any | null
-                  amount?: string | null
-                  attachment?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        size: number
-                        ext?: string | null
-                      } | null
-                    } | null
-                  } | null
-                }
-              | {
-                  __typename: 'ComponentMetadataZmluvy'
-                  id: string
-                  date?: any | null
-                  number?: string | null
-                  amount?: string | null
-                  supplier?: string | null
-                  subject?: string | null
-                }
-              | { __typename: 'Error' }
-              | null
-            > | null
-            attachment?: {
+            file: {
               __typename?: 'UploadFileEntityResponse'
               data?: {
                 __typename?: 'UploadFileEntity'
@@ -7455,30 +6989,10 @@ export type EventEntityFragment = {
                   ext?: string | null
                 } | null
               } | null
-            } | null
+            }
           } | null
         }>
       } | null
-      moreLink?: Array<{
-        __typename?: 'ComponentBlocksPageLink'
-        title?: string | null
-        url?: string | null
-        page?: {
-          __typename?: 'PageEntityResponse'
-          data?: {
-            __typename?: 'PageEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'Page'
-              title: string
-              slug: string
-              newSlug: string
-              createdAt?: any | null
-              updatedAt?: any | null
-            } | null
-          } | null
-        } | null
-      } | null> | null
     } | null
     gallery?: {
       __typename?: 'UploadFileRelationResponseCollection'
@@ -7707,142 +7221,30 @@ export type EventBySlugQuery = {
         documents?: {
           __typename?: 'ComponentSectionsDocuments'
           title?: string | null
-          basicDocuments?: {
-            __typename?: 'BasicDocumentRelationResponseCollection'
+          documents?: {
+            __typename?: 'DocumentRelationResponseCollection'
             data: Array<{
-              __typename?: 'BasicDocumentEntity'
+              __typename: 'DocumentEntity'
               id?: string | null
               attributes?: {
-                __typename?: 'BasicDocument'
-                slug: string
+                __typename?: 'Document'
                 title: string
+                slug: string
                 description?: string | null
-                date_added?: any | null
-                author?: string | null
-                link?: string | null
-                file_category?: {
-                  __typename?: 'FileCategoryEntityResponse'
+                publishedAt?: any | null
+                documentCategory?: {
+                  __typename?: 'DocumentCategoryEntityResponse'
                   data?: {
-                    __typename?: 'FileCategoryEntity'
+                    __typename?: 'DocumentCategoryEntity'
                     id?: string | null
                     attributes?: {
-                      __typename?: 'FileCategory'
-                      name?: string | null
-                      slug?: string | null
+                      __typename?: 'DocumentCategory'
+                      label: string
+                      slug: string
                     } | null
                   } | null
                 } | null
-                metadata?: Array<
-                  | {
-                      __typename: 'ComponentMetadataFaktury'
-                      id: string
-                      name?: string | null
-                      date?: any | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataMetadata'
-                      id: string
-                      provider?: string | null
-                      year?: number | null
-                      grant_name?: string | null
-                      grant_number?: string | null
-                      amount?: string | null
-                      description?: string | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-                      id: string
-                      subject?: string | null
-                      description?: string | null
-                      number?: string | null
-                      date_added?: any | null
-                      amount?: string | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataObjednavky'
-                      id: string
-                      title?: string | null
-                      date_period?: any | null
-                      date_added?: any | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataVerejneObstaravanie'
-                      id: string
-                      subject?: string | null
-                      description?: string | null
-                      number?: string | null
-                      date_added?: any | null
-                      amount?: string | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataZmluvy'
-                      id: string
-                      date?: any | null
-                      number?: string | null
-                      amount?: string | null
-                      supplier?: string | null
-                      subject?: string | null
-                    }
-                  | { __typename: 'Error' }
-                  | null
-                > | null
-                attachment?: {
+                file: {
                   __typename?: 'UploadFileEntityResponse'
                   data?: {
                     __typename?: 'UploadFileEntity'
@@ -7855,30 +7257,10 @@ export type EventBySlugQuery = {
                       ext?: string | null
                     } | null
                   } | null
-                } | null
+                }
               } | null
             }>
           } | null
-          moreLink?: Array<{
-            __typename?: 'ComponentBlocksPageLink'
-            title?: string | null
-            url?: string | null
-            page?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
         } | null
         gallery?: {
           __typename?: 'UploadFileRelationResponseCollection'
@@ -8044,142 +7426,26 @@ export type NoticeEntityFragment = {
     documents?: {
       __typename?: 'ComponentSectionsDocuments'
       title?: string | null
-      basicDocuments?: {
-        __typename?: 'BasicDocumentRelationResponseCollection'
+      documents?: {
+        __typename?: 'DocumentRelationResponseCollection'
         data: Array<{
-          __typename?: 'BasicDocumentEntity'
+          __typename: 'DocumentEntity'
           id?: string | null
           attributes?: {
-            __typename?: 'BasicDocument'
-            slug: string
+            __typename?: 'Document'
             title: string
+            slug: string
             description?: string | null
-            date_added?: any | null
-            author?: string | null
-            link?: string | null
-            file_category?: {
-              __typename?: 'FileCategoryEntityResponse'
+            publishedAt?: any | null
+            documentCategory?: {
+              __typename?: 'DocumentCategoryEntityResponse'
               data?: {
-                __typename?: 'FileCategoryEntity'
+                __typename?: 'DocumentCategoryEntity'
                 id?: string | null
-                attributes?: {
-                  __typename?: 'FileCategory'
-                  name?: string | null
-                  slug?: string | null
-                } | null
+                attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
               } | null
             } | null
-            metadata?: Array<
-              | {
-                  __typename: 'ComponentMetadataFaktury'
-                  id: string
-                  name?: string | null
-                  date?: any | null
-                  attachment?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        size: number
-                        ext?: string | null
-                      } | null
-                    } | null
-                  } | null
-                }
-              | {
-                  __typename: 'ComponentMetadataMetadata'
-                  id: string
-                  provider?: string | null
-                  year?: number | null
-                  grant_name?: string | null
-                  grant_number?: string | null
-                  amount?: string | null
-                  description?: string | null
-                }
-              | {
-                  __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-                  id: string
-                  subject?: string | null
-                  description?: string | null
-                  number?: string | null
-                  date_added?: any | null
-                  amount?: string | null
-                  attachment?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        size: number
-                        ext?: string | null
-                      } | null
-                    } | null
-                  } | null
-                }
-              | {
-                  __typename: 'ComponentMetadataObjednavky'
-                  id: string
-                  title?: string | null
-                  date_period?: any | null
-                  date_added?: any | null
-                  attachment?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        size: number
-                        ext?: string | null
-                      } | null
-                    } | null
-                  } | null
-                }
-              | {
-                  __typename: 'ComponentMetadataVerejneObstaravanie'
-                  id: string
-                  subject?: string | null
-                  description?: string | null
-                  number?: string | null
-                  date_added?: any | null
-                  amount?: string | null
-                  attachment?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        size: number
-                        ext?: string | null
-                      } | null
-                    } | null
-                  } | null
-                }
-              | {
-                  __typename: 'ComponentMetadataZmluvy'
-                  id: string
-                  date?: any | null
-                  number?: string | null
-                  amount?: string | null
-                  supplier?: string | null
-                  subject?: string | null
-                }
-              | { __typename: 'Error' }
-              | null
-            > | null
-            attachment?: {
+            file: {
               __typename?: 'UploadFileEntityResponse'
               data?: {
                 __typename?: 'UploadFileEntity'
@@ -8192,30 +7458,10 @@ export type NoticeEntityFragment = {
                   ext?: string | null
                 } | null
               } | null
-            } | null
+            }
           } | null
         }>
       } | null
-      moreLink?: Array<{
-        __typename?: 'ComponentBlocksPageLink'
-        title?: string | null
-        url?: string | null
-        page?: {
-          __typename?: 'PageEntityResponse'
-          data?: {
-            __typename?: 'PageEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'Page'
-              title: string
-              slug: string
-              newSlug: string
-              createdAt?: any | null
-              updatedAt?: any | null
-            } | null
-          } | null
-        } | null
-      } | null> | null
     } | null
     seo?: {
       __typename?: 'ComponentCommonSeo'
@@ -8360,142 +7606,30 @@ export type NoticeBySlugQuery = {
         documents?: {
           __typename?: 'ComponentSectionsDocuments'
           title?: string | null
-          basicDocuments?: {
-            __typename?: 'BasicDocumentRelationResponseCollection'
+          documents?: {
+            __typename?: 'DocumentRelationResponseCollection'
             data: Array<{
-              __typename?: 'BasicDocumentEntity'
+              __typename: 'DocumentEntity'
               id?: string | null
               attributes?: {
-                __typename?: 'BasicDocument'
-                slug: string
+                __typename?: 'Document'
                 title: string
+                slug: string
                 description?: string | null
-                date_added?: any | null
-                author?: string | null
-                link?: string | null
-                file_category?: {
-                  __typename?: 'FileCategoryEntityResponse'
+                publishedAt?: any | null
+                documentCategory?: {
+                  __typename?: 'DocumentCategoryEntityResponse'
                   data?: {
-                    __typename?: 'FileCategoryEntity'
+                    __typename?: 'DocumentCategoryEntity'
                     id?: string | null
                     attributes?: {
-                      __typename?: 'FileCategory'
-                      name?: string | null
-                      slug?: string | null
+                      __typename?: 'DocumentCategory'
+                      label: string
+                      slug: string
                     } | null
                   } | null
                 } | null
-                metadata?: Array<
-                  | {
-                      __typename: 'ComponentMetadataFaktury'
-                      id: string
-                      name?: string | null
-                      date?: any | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataMetadata'
-                      id: string
-                      provider?: string | null
-                      year?: number | null
-                      grant_name?: string | null
-                      grant_number?: string | null
-                      amount?: string | null
-                      description?: string | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-                      id: string
-                      subject?: string | null
-                      description?: string | null
-                      number?: string | null
-                      date_added?: any | null
-                      amount?: string | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataObjednavky'
-                      id: string
-                      title?: string | null
-                      date_period?: any | null
-                      date_added?: any | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataVerejneObstaravanie'
-                      id: string
-                      subject?: string | null
-                      description?: string | null
-                      number?: string | null
-                      date_added?: any | null
-                      amount?: string | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataZmluvy'
-                      id: string
-                      date?: any | null
-                      number?: string | null
-                      amount?: string | null
-                      supplier?: string | null
-                      subject?: string | null
-                    }
-                  | { __typename: 'Error' }
-                  | null
-                > | null
-                attachment?: {
+                file: {
                   __typename?: 'UploadFileEntityResponse'
                   data?: {
                     __typename?: 'UploadFileEntity'
@@ -8508,30 +7642,10 @@ export type NoticeBySlugQuery = {
                       ext?: string | null
                     } | null
                   } | null
-                } | null
+                }
               } | null
             }>
           } | null
-          moreLink?: Array<{
-            __typename?: 'ComponentBlocksPageLink'
-            title?: string | null
-            url?: string | null
-            page?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
         } | null
         seo?: {
           __typename?: 'ComponentCommonSeo'
@@ -8823,158 +7937,37 @@ export type PageEntityFragment = {
           } | null> | null
         }
       | { __typename: 'ComponentSectionsBlogPostsListing' }
-      | {
-          __typename: 'ComponentSectionsChildrenListing'
-          id: string
-          depth: Enum_Componentsectionschildrenlisting_Depth
-        }
-      | {
-          __typename: 'ComponentSectionsColumnedText'
-          title?: string | null
-          content?: string | null
-        }
+      | { __typename: 'ComponentSectionsChildrenListing' }
       | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
       | { __typename: 'ComponentSectionsDivider'; id: string }
       | {
           __typename: 'ComponentSectionsDocuments'
           id: string
           title?: string | null
-          basicDocuments?: {
-            __typename?: 'BasicDocumentRelationResponseCollection'
+          documents?: {
+            __typename?: 'DocumentRelationResponseCollection'
             data: Array<{
-              __typename?: 'BasicDocumentEntity'
+              __typename: 'DocumentEntity'
               id?: string | null
               attributes?: {
-                __typename?: 'BasicDocument'
-                slug: string
+                __typename?: 'Document'
                 title: string
+                slug: string
                 description?: string | null
-                date_added?: any | null
-                author?: string | null
-                link?: string | null
-                file_category?: {
-                  __typename?: 'FileCategoryEntityResponse'
+                publishedAt?: any | null
+                documentCategory?: {
+                  __typename?: 'DocumentCategoryEntityResponse'
                   data?: {
-                    __typename?: 'FileCategoryEntity'
+                    __typename?: 'DocumentCategoryEntity'
                     id?: string | null
                     attributes?: {
-                      __typename?: 'FileCategory'
-                      name?: string | null
-                      slug?: string | null
+                      __typename?: 'DocumentCategory'
+                      label: string
+                      slug: string
                     } | null
                   } | null
                 } | null
-                metadata?: Array<
-                  | {
-                      __typename: 'ComponentMetadataFaktury'
-                      id: string
-                      name?: string | null
-                      date?: any | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataMetadata'
-                      id: string
-                      provider?: string | null
-                      year?: number | null
-                      grant_name?: string | null
-                      grant_number?: string | null
-                      amount?: string | null
-                      description?: string | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-                      id: string
-                      subject?: string | null
-                      description?: string | null
-                      number?: string | null
-                      date_added?: any | null
-                      amount?: string | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataObjednavky'
-                      id: string
-                      title?: string | null
-                      date_period?: any | null
-                      date_added?: any | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataVerejneObstaravanie'
-                      id: string
-                      subject?: string | null
-                      description?: string | null
-                      number?: string | null
-                      date_added?: any | null
-                      amount?: string | null
-                      attachment?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            size: number
-                            ext?: string | null
-                          } | null
-                        } | null
-                      } | null
-                    }
-                  | {
-                      __typename: 'ComponentMetadataZmluvy'
-                      id: string
-                      date?: any | null
-                      number?: string | null
-                      amount?: string | null
-                      supplier?: string | null
-                      subject?: string | null
-                    }
-                  | { __typename: 'Error' }
-                  | null
-                > | null
-                attachment?: {
+                file: {
                   __typename?: 'UploadFileEntityResponse'
                   data?: {
                     __typename?: 'UploadFileEntity'
@@ -8987,48 +7980,13 @@ export type PageEntityFragment = {
                       ext?: string | null
                     } | null
                   } | null
-                } | null
+                }
               } | null
             }>
           } | null
-          moreLink?: Array<{
-            __typename?: 'ComponentBlocksPageLink'
-            title?: string | null
-            url?: string | null
-            page?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
         }
       | { __typename: 'ComponentSectionsDocumentsListing' }
       | { __typename: 'ComponentSectionsEventsListing' }
-      | {
-          __typename: 'ComponentSectionsExternalLinks'
-          title?: string | null
-          externalLinks?: Array<{
-            __typename?: 'ComponentBlocksExternalLink'
-            category?: string | null
-            title?: string | null
-            url?: string | null
-          } | null> | null
-          descriptions?: Array<{
-            __typename?: 'ComponentAccordionItemsFlatText'
-            category?: string | null
-            content?: string | null
-          } | null> | null
-        }
       | {
           __typename: 'ComponentSectionsFaq'
           id: string
@@ -9041,7 +7999,6 @@ export type PageEntityFragment = {
           } | null> | null
         }
       | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-      | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
       | {
           __typename: 'ComponentSectionsForm'
           id: string
@@ -9137,6 +8094,30 @@ export type PageEntityFragment = {
         }
       | { __typename: 'ComponentSectionsNewBooksListing' }
       | { __typename: 'ComponentSectionsNewsListing' }
+      | {
+          __typename: 'ComponentSectionsOpeningHoursSection'
+          id: string
+          title?: string | null
+          branchList?: {
+            __typename?: 'BranchRelationResponseCollection'
+            data: Array<{
+              __typename?: 'BranchEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Branch'
+                title: string
+                openingHours?: {
+                  __typename?: 'ComponentBlocksOpeningHours'
+                  days: Array<{
+                    __typename?: 'ComponentBlocksOpeningHoursItem'
+                    label?: string | null
+                    time: string
+                  } | null>
+                } | null
+              } | null
+            }>
+          } | null
+        }
       | { __typename: 'ComponentSectionsPartners' }
       | {
           __typename: 'ComponentSectionsRental'
@@ -9900,158 +8881,37 @@ export type PageByIdQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsBlogPostsListing' }
-          | {
-              __typename: 'ComponentSectionsChildrenListing'
-              id: string
-              depth: Enum_Componentsectionschildrenlisting_Depth
-            }
-          | {
-              __typename: 'ComponentSectionsColumnedText'
-              title?: string | null
-              content?: string | null
-            }
+          | { __typename: 'ComponentSectionsChildrenListing' }
           | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
           | { __typename: 'ComponentSectionsDivider'; id: string }
           | {
               __typename: 'ComponentSectionsDocuments'
               id: string
               title?: string | null
-              basicDocuments?: {
-                __typename?: 'BasicDocumentRelationResponseCollection'
+              documents?: {
+                __typename?: 'DocumentRelationResponseCollection'
                 data: Array<{
-                  __typename?: 'BasicDocumentEntity'
+                  __typename: 'DocumentEntity'
                   id?: string | null
                   attributes?: {
-                    __typename?: 'BasicDocument'
-                    slug: string
+                    __typename?: 'Document'
                     title: string
+                    slug: string
                     description?: string | null
-                    date_added?: any | null
-                    author?: string | null
-                    link?: string | null
-                    file_category?: {
-                      __typename?: 'FileCategoryEntityResponse'
+                    publishedAt?: any | null
+                    documentCategory?: {
+                      __typename?: 'DocumentCategoryEntityResponse'
                       data?: {
-                        __typename?: 'FileCategoryEntity'
+                        __typename?: 'DocumentCategoryEntity'
                         id?: string | null
                         attributes?: {
-                          __typename?: 'FileCategory'
-                          name?: string | null
-                          slug?: string | null
+                          __typename?: 'DocumentCategory'
+                          label: string
+                          slug: string
                         } | null
                       } | null
                     } | null
-                    metadata?: Array<
-                      | {
-                          __typename: 'ComponentMetadataFaktury'
-                          id: string
-                          name?: string | null
-                          date?: any | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataMetadata'
-                          id: string
-                          provider?: string | null
-                          year?: number | null
-                          grant_name?: string | null
-                          grant_number?: string | null
-                          amount?: string | null
-                          description?: string | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-                          id: string
-                          subject?: string | null
-                          description?: string | null
-                          number?: string | null
-                          date_added?: any | null
-                          amount?: string | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataObjednavky'
-                          id: string
-                          title?: string | null
-                          date_period?: any | null
-                          date_added?: any | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataVerejneObstaravanie'
-                          id: string
-                          subject?: string | null
-                          description?: string | null
-                          number?: string | null
-                          date_added?: any | null
-                          amount?: string | null
-                          attachment?: {
-                            __typename?: 'UploadFileEntityResponse'
-                            data?: {
-                              __typename?: 'UploadFileEntity'
-                              id?: string | null
-                              attributes?: {
-                                __typename?: 'UploadFile'
-                                url: string
-                                name: string
-                                size: number
-                                ext?: string | null
-                              } | null
-                            } | null
-                          } | null
-                        }
-                      | {
-                          __typename: 'ComponentMetadataZmluvy'
-                          id: string
-                          date?: any | null
-                          number?: string | null
-                          amount?: string | null
-                          supplier?: string | null
-                          subject?: string | null
-                        }
-                      | { __typename: 'Error' }
-                      | null
-                    > | null
-                    attachment?: {
+                    file: {
                       __typename?: 'UploadFileEntityResponse'
                       data?: {
                         __typename?: 'UploadFileEntity'
@@ -10064,48 +8924,13 @@ export type PageByIdQuery = {
                           ext?: string | null
                         } | null
                       } | null
-                    } | null
+                    }
                   } | null
                 }>
               } | null
-              moreLink?: Array<{
-                __typename?: 'ComponentBlocksPageLink'
-                title?: string | null
-                url?: string | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Page'
-                      title: string
-                      slug: string
-                      newSlug: string
-                      createdAt?: any | null
-                      updatedAt?: any | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
             }
           | { __typename: 'ComponentSectionsDocumentsListing' }
           | { __typename: 'ComponentSectionsEventsListing' }
-          | {
-              __typename: 'ComponentSectionsExternalLinks'
-              title?: string | null
-              externalLinks?: Array<{
-                __typename?: 'ComponentBlocksExternalLink'
-                category?: string | null
-                title?: string | null
-                url?: string | null
-              } | null> | null
-              descriptions?: Array<{
-                __typename?: 'ComponentAccordionItemsFlatText'
-                category?: string | null
-                content?: string | null
-              } | null> | null
-            }
           | {
               __typename: 'ComponentSectionsFaq'
               id: string
@@ -10118,7 +8943,6 @@ export type PageByIdQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
-          | { __typename: 'ComponentSectionsFlatTextCenter'; id: string; content?: string | null }
           | {
               __typename: 'ComponentSectionsForm'
               id: string
@@ -10214,6 +9038,30 @@ export type PageByIdQuery = {
             }
           | { __typename: 'ComponentSectionsNewBooksListing' }
           | { __typename: 'ComponentSectionsNewsListing' }
+          | {
+              __typename: 'ComponentSectionsOpeningHoursSection'
+              id: string
+              title?: string | null
+              branchList?: {
+                __typename?: 'BranchRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'BranchEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Branch'
+                    title: string
+                    openingHours?: {
+                      __typename?: 'ComponentBlocksOpeningHours'
+                      days: Array<{
+                        __typename?: 'ComponentBlocksOpeningHoursItem'
+                        label?: string | null
+                        time: string
+                      } | null>
+                    } | null
+                  } | null
+                }>
+              } | null
+            }
           | { __typename: 'ComponentSectionsPartners' }
           | {
               __typename: 'ComponentSectionsRental'
@@ -10484,40 +9332,6 @@ export type UploadImageEntityFragment = {
     size: number
     width?: number | null
     height?: number | null
-  } | null
-}
-
-export type LatestNoticesQueryFragment = {
-  __typename?: 'Query'
-  latestNotices?: {
-    __typename?: 'NoticeEntityResponseCollection'
-    data: Array<{
-      __typename: 'NoticeEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Notice'
-        slug: string
-        title: string
-        publishedAt?: any | null
-        listingImage?: {
-          __typename?: 'UploadFileRelationResponseCollection'
-          data: Array<{
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
-              width?: number | null
-              height?: number | null
-            } | null
-          }>
-        } | null
-      } | null
-    }>
   } | null
 }
 
@@ -10837,18 +9651,6 @@ export type HomePageQuery = {
       } | null
     }>
   } | null
-  bookTags?: {
-    __typename?: 'BookTagEntityResponseCollection'
-    data: Array<{
-      __typename?: 'BookTagEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'BookTag'
-        displayName?: string | null
-        slug?: string | null
-      } | null
-    }>
-  } | null
   latestNotices?: {
     __typename?: 'NoticeEntityResponseCollection'
     data: Array<{
@@ -10879,40 +9681,630 @@ export type HomePageQuery = {
       } | null
     }>
   } | null
+  bookTags?: {
+    __typename?: 'BookTagEntityResponseCollection'
+    data: Array<{
+      __typename?: 'BookTagEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'BookTag'
+        displayName?: string | null
+        slug?: string | null
+      } | null
+    }>
+  } | null
 }
 
-export type LatestNoticesQueryVariables = Exact<{
+export type LatestNewsQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']
 }>
 
-export type LatestNoticesQuery = {
+export type LatestNewsQuery = {
   __typename?: 'Query'
-  latestNotices?: {
-    __typename?: 'NoticeEntityResponseCollection'
+  pages?: {
+    __typename?: 'PageEntityResponseCollection'
     data: Array<{
-      __typename: 'NoticeEntity'
+      __typename?: 'PageEntity'
       id?: string | null
       attributes?: {
-        __typename?: 'Notice'
+        __typename?: 'Page'
         slug: string
         title: string
+        createdAt?: any | null
+        updatedAt?: any | null
         publishedAt?: any | null
+        layout?: Enum_Page_Layout | null
+        perex?: string | null
+        locale?: string | null
         listingImage?: {
-          __typename?: 'UploadFileRelationResponseCollection'
-          data: Array<{
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
             __typename?: 'UploadFileEntity'
-            id?: string | null
             attributes?: {
               __typename?: 'UploadFile'
-              url: string
               name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
               width?: number | null
               height?: number | null
+              url: string
+              createdAt?: any | null
+              hash: string
+              mime: string
+              provider: string
+              size: number
+              alternativeText?: string | null
+              updatedAt?: any | null
             } | null
+          } | null
+        } | null
+        pageCategory?: {
+          __typename?: 'CategoryEntityResponse'
+          data?: {
+            __typename?: 'CategoryEntity'
+            attributes?: {
+              __typename?: 'Category'
+              title?: string | null
+              priority?: number | null
+              createdAt?: any | null
+              updatedAt?: any | null
+              subCategories?: {
+                __typename?: 'CategoryRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'CategoryEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Category'
+                    title?: string | null
+                    priority?: number | null
+                    createdAt?: any | null
+                    updatedAt?: any | null
+                    pages?: Array<{
+                      __typename?: 'ComponentBlocksPageLink'
+                      title?: string | null
+                      url?: string | null
+                      page?: {
+                        __typename?: 'PageEntityResponse'
+                        data?: {
+                          __typename?: 'PageEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'Page'
+                            title: string
+                            slug: string
+                            newSlug: string
+                            createdAt?: any | null
+                            updatedAt?: any | null
+                          } | null
+                        } | null
+                      } | null
+                    } | null> | null
+                    pageLink?: {
+                      __typename?: 'ComponentBlocksPageLink'
+                      title?: string | null
+                      url?: string | null
+                      page?: {
+                        __typename?: 'PageEntityResponse'
+                        data?: {
+                          __typename?: 'PageEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'Page'
+                            title: string
+                            slug: string
+                            newSlug: string
+                            createdAt?: any | null
+                            updatedAt?: any | null
+                          } | null
+                        } | null
+                      } | null
+                    } | null
+                  } | null
+                }>
+              } | null
+              parentCategory?: {
+                __typename?: 'CategoryEntityResponse'
+                data?: {
+                  __typename?: 'CategoryEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Category'
+                    title?: string | null
+                    priority?: number | null
+                    createdAt?: any | null
+                    updatedAt?: any | null
+                    parentCategory?: {
+                      __typename?: 'CategoryEntityResponse'
+                      data?: {
+                        __typename?: 'CategoryEntity'
+                        id?: string | null
+                        attributes?: {
+                          __typename?: 'Category'
+                          title?: string | null
+                          priority?: number | null
+                          createdAt?: any | null
+                          updatedAt?: any | null
+                          pages?: Array<{
+                            __typename?: 'ComponentBlocksPageLink'
+                            title?: string | null
+                            url?: string | null
+                            page?: {
+                              __typename?: 'PageEntityResponse'
+                              data?: {
+                                __typename?: 'PageEntity'
+                                id?: string | null
+                                attributes?: {
+                                  __typename?: 'Page'
+                                  title: string
+                                  slug: string
+                                  newSlug: string
+                                  createdAt?: any | null
+                                  updatedAt?: any | null
+                                } | null
+                              } | null
+                            } | null
+                          } | null> | null
+                          pageLink?: {
+                            __typename?: 'ComponentBlocksPageLink'
+                            title?: string | null
+                            url?: string | null
+                            page?: {
+                              __typename?: 'PageEntityResponse'
+                              data?: {
+                                __typename?: 'PageEntity'
+                                id?: string | null
+                                attributes?: {
+                                  __typename?: 'Page'
+                                  title: string
+                                  slug: string
+                                  newSlug: string
+                                  createdAt?: any | null
+                                  updatedAt?: any | null
+                                } | null
+                              } | null
+                            } | null
+                          } | null
+                        } | null
+                      } | null
+                    } | null
+                    pages?: Array<{
+                      __typename?: 'ComponentBlocksPageLink'
+                      title?: string | null
+                      url?: string | null
+                      page?: {
+                        __typename?: 'PageEntityResponse'
+                        data?: {
+                          __typename?: 'PageEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'Page'
+                            title: string
+                            slug: string
+                            newSlug: string
+                            createdAt?: any | null
+                            updatedAt?: any | null
+                          } | null
+                        } | null
+                      } | null
+                    } | null> | null
+                    pageLink?: {
+                      __typename?: 'ComponentBlocksPageLink'
+                      title?: string | null
+                      url?: string | null
+                      page?: {
+                        __typename?: 'PageEntityResponse'
+                        data?: {
+                          __typename?: 'PageEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'Page'
+                            title: string
+                            slug: string
+                            newSlug: string
+                            createdAt?: any | null
+                            updatedAt?: any | null
+                          } | null
+                        } | null
+                      } | null
+                    } | null
+                  } | null
+                } | null
+              } | null
+              pages?: Array<{
+                __typename?: 'ComponentBlocksPageLink'
+                title?: string | null
+                url?: string | null
+                page?: {
+                  __typename?: 'PageEntityResponse'
+                  data?: {
+                    __typename?: 'PageEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'Page'
+                      title: string
+                      slug: string
+                      newSlug: string
+                      createdAt?: any | null
+                      updatedAt?: any | null
+                    } | null
+                  } | null
+                } | null
+              } | null> | null
+              pageLink?: {
+                __typename?: 'ComponentBlocksPageLink'
+                title?: string | null
+                url?: string | null
+                page?: {
+                  __typename?: 'PageEntityResponse'
+                  data?: {
+                    __typename?: 'PageEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'Page'
+                      title: string
+                      slug: string
+                      newSlug: string
+                      createdAt?: any | null
+                      updatedAt?: any | null
+                    } | null
+                  } | null
+                } | null
+              } | null
+            } | null
+          } | null
+        } | null
+        sections?: Array<
+          | {
+              __typename: 'ComponentSectionsAccordion'
+              title?: string | null
+              flatText?: Array<{
+                __typename?: 'ComponentAccordionItemsFlatText'
+                category?: string | null
+                content?: string | null
+              } | null> | null
+              tableRows?: Array<{
+                __typename?: 'ComponentAccordionItemsTableRow'
+                accordionCategory?: string | null
+                tableCategory?: string | null
+                label?: string | null
+                value?: string | null
+                valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+              } | null> | null
+              forms?: Array<{
+                __typename?: 'ComponentAccordionItemsForm'
+                category?: string | null
+                type?: Enum_Componentaccordionitemsform_Type | null
+              } | null> | null
+            }
+          | { __typename: 'ComponentSectionsBlogPostsListing' }
+          | { __typename: 'ComponentSectionsChildrenListing' }
+          | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
+          | { __typename: 'ComponentSectionsDivider'; id: string }
+          | {
+              __typename: 'ComponentSectionsDocuments'
+              id: string
+              title?: string | null
+              documents?: {
+                __typename?: 'DocumentRelationResponseCollection'
+                data: Array<{
+                  __typename: 'DocumentEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Document'
+                    title: string
+                    slug: string
+                    description?: string | null
+                    publishedAt?: any | null
+                    documentCategory?: {
+                      __typename?: 'DocumentCategoryEntityResponse'
+                      data?: {
+                        __typename?: 'DocumentCategoryEntity'
+                        id?: string | null
+                        attributes?: {
+                          __typename?: 'DocumentCategory'
+                          label: string
+                          slug: string
+                        } | null
+                      } | null
+                    } | null
+                    file: {
+                      __typename?: 'UploadFileEntityResponse'
+                      data?: {
+                        __typename?: 'UploadFileEntity'
+                        id?: string | null
+                        attributes?: {
+                          __typename?: 'UploadFile'
+                          url: string
+                          name: string
+                          size: number
+                          ext?: string | null
+                        } | null
+                      } | null
+                    }
+                  } | null
+                }>
+              } | null
+            }
+          | { __typename: 'ComponentSectionsDocumentsListing' }
+          | { __typename: 'ComponentSectionsEventsListing' }
+          | {
+              __typename: 'ComponentSectionsFaq'
+              id: string
+              title?: string | null
+              questions?: Array<{
+                __typename?: 'ComponentBlocksAccordionItem'
+                id: string
+                label?: string | null
+                content?: string | null
+              } | null> | null
+            }
+          | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
+          | {
+              __typename: 'ComponentSectionsForm'
+              id: string
+              type?: Enum_Componentsectionsform_Type | null
+            }
+          | {
+              __typename: 'ComponentSectionsGallery'
+              id: string
+              Gallery?: Array<{
+                __typename?: 'ComponentLocalityPartsGalleryParts'
+                id: string
+                Description?: string | null
+                Photo?: {
+                  __typename?: 'UploadFileEntityResponse'
+                  data?: {
+                    __typename?: 'UploadFileEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'UploadFile'
+                      url: string
+                      name: string
+                      alternativeText?: string | null
+                      caption?: string | null
+                      size: number
+                      width?: number | null
+                      height?: number | null
+                    } | null
+                  } | null
+                } | null
+              } | null> | null
+            }
+          | {
+              __typename: 'ComponentSectionsMap'
+              id: string
+              title?: string | null
+              branches?: Array<{
+                __typename?: 'ComponentBlocksBranchItem'
+                branch?: {
+                  __typename?: 'BranchEntityResponse'
+                  data?: {
+                    __typename?: 'BranchEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'Branch'
+                      title: string
+                      address?: string | null
+                      slug: string
+                      latitude?: number | null
+                      longitude?: number | null
+                      listingImage?: {
+                        __typename?: 'UploadFileEntityResponse'
+                        data?: {
+                          __typename?: 'UploadFileEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'UploadFile'
+                            url: string
+                            name: string
+                            alternativeText?: string | null
+                            caption?: string | null
+                            size: number
+                            width?: number | null
+                            height?: number | null
+                          } | null
+                        } | null
+                      } | null
+                      subBranches?: {
+                        __typename?: 'BranchRelationResponseCollection'
+                        data: Array<{
+                          __typename?: 'BranchEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'Branch'
+                            title: string
+                            address?: string | null
+                            phone?: string | null
+                            email?: string | null
+                            openingHours?: {
+                              __typename?: 'ComponentBlocksOpeningHours'
+                              days: Array<{
+                                __typename?: 'ComponentBlocksOpeningHoursItem'
+                                label?: string | null
+                                time: string
+                              } | null>
+                            } | null
+                          } | null
+                        }>
+                      } | null
+                    } | null
+                  } | null
+                } | null
+              } | null> | null
+            }
+          | { __typename: 'ComponentSectionsNewBooksListing' }
+          | { __typename: 'ComponentSectionsNewsListing' }
+          | {
+              __typename: 'ComponentSectionsOpeningHoursSection'
+              id: string
+              title?: string | null
+              branchList?: {
+                __typename?: 'BranchRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'BranchEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Branch'
+                    title: string
+                    openingHours?: {
+                      __typename?: 'ComponentBlocksOpeningHours'
+                      days: Array<{
+                        __typename?: 'ComponentBlocksOpeningHoursItem'
+                        label?: string | null
+                        time: string
+                      } | null>
+                    } | null
+                  } | null
+                }>
+              } | null
+            }
+          | { __typename: 'ComponentSectionsPartners' }
+          | {
+              __typename: 'ComponentSectionsRental'
+              id: string
+              title?: string | null
+              text?: string | null
+              branches?: Array<{
+                __typename?: 'ComponentBlocksBranchItemWithPage'
+                branch?: {
+                  __typename?: 'BranchEntityResponse'
+                  data?: {
+                    __typename?: 'BranchEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'Branch'
+                      title: string
+                      address?: string | null
+                      slug: string
+                      latitude?: number | null
+                      longitude?: number | null
+                      listingImage?: {
+                        __typename?: 'UploadFileEntityResponse'
+                        data?: {
+                          __typename?: 'UploadFileEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'UploadFile'
+                            url: string
+                            name: string
+                            alternativeText?: string | null
+                            caption?: string | null
+                            size: number
+                            width?: number | null
+                            height?: number | null
+                          } | null
+                        } | null
+                      } | null
+                      subBranches?: {
+                        __typename?: 'BranchRelationResponseCollection'
+                        data: Array<{
+                          __typename?: 'BranchEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'Branch'
+                            title: string
+                            address?: string | null
+                            phone?: string | null
+                            email?: string | null
+                            openingHours?: {
+                              __typename?: 'ComponentBlocksOpeningHours'
+                              days: Array<{
+                                __typename?: 'ComponentBlocksOpeningHoursItem'
+                                label?: string | null
+                                time: string
+                              } | null>
+                            } | null
+                          } | null
+                        }>
+                      } | null
+                    } | null
+                  } | null
+                } | null
+                page?: {
+                  __typename?: 'PageEntityResponse'
+                  data?: {
+                    __typename?: 'PageEntity'
+                    attributes?: { __typename?: 'Page'; slug: string } | null
+                  } | null
+                } | null
+              } | null> | null
+            }
+          | {
+              __typename: 'ComponentSectionsSiteUsefullness'
+              id: string
+              title?: string | null
+              thankYouMessage?: string | null
+            }
+          | {
+              __typename: 'ComponentSectionsSubListing'
+              id: string
+              title?: string | null
+              url?: string | null
+            }
+          | {
+              __typename: 'ComponentSectionsSubpages'
+              id: string
+              title?: string | null
+              subpages?: Array<{
+                __typename?: 'ComponentBlocksSubpage'
+                id: string
+                title?: string | null
+                description?: string | null
+                url?: string | null
+                page?: {
+                  __typename?: 'PageEntityResponse'
+                  data?: {
+                    __typename?: 'PageEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'Page'
+                      title: string
+                      slug: string
+                      newSlug: string
+                      createdAt?: any | null
+                      updatedAt?: any | null
+                    } | null
+                  } | null
+                } | null
+              } | null> | null
+            }
+          | {
+              __typename: 'ComponentSectionsTable'
+              primaryTitle?: string | null
+              secondaryTitle?: string | null
+              rows?: Array<{
+                __typename?: 'ComponentAccordionItemsTableRow'
+                label?: string | null
+                value?: string | null
+                valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+              } | null> | null
+            }
+          | {
+              __typename: 'ComponentSectionsVideo'
+              id: string
+              youtube_url?: string | null
+              media?: {
+                __typename?: 'UploadFileEntityResponse'
+                data?: {
+                  __typename?: 'UploadFileEntity'
+                  attributes?: { __typename?: 'UploadFile'; url: string } | null
+                } | null
+              } | null
+            }
+          | { __typename: 'Error' }
+          | null
+        > | null
+        localizations?: {
+          __typename?: 'PageRelationResponseCollection'
+          data: Array<{
+            __typename?: 'PageEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Page'; slug: string; locale?: string | null } | null
           }>
+        } | null
+        seo?: {
+          __typename?: 'ComponentCommonSeo'
+          metaTitle?: string | null
+          metaDescription?: string | null
+          keywords?: string | null
         } | null
       } | null
     }>
@@ -11014,10 +10406,6 @@ export type GeneralEntityFragment = {
       __typename?: 'PageEntityResponse'
       data?: { __typename?: 'PageEntity'; id?: string | null } | null
     } | null
-    noticesPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
-    } | null
   } | null
 }
 
@@ -11092,142 +10480,26 @@ export type BookTagEntityFragment = {
 export type DocumentsFragment = {
   __typename?: 'ComponentSectionsDocuments'
   title?: string | null
-  basicDocuments?: {
-    __typename?: 'BasicDocumentRelationResponseCollection'
+  documents?: {
+    __typename?: 'DocumentRelationResponseCollection'
     data: Array<{
-      __typename?: 'BasicDocumentEntity'
+      __typename: 'DocumentEntity'
       id?: string | null
       attributes?: {
-        __typename?: 'BasicDocument'
-        slug: string
+        __typename?: 'Document'
         title: string
+        slug: string
         description?: string | null
-        date_added?: any | null
-        author?: string | null
-        link?: string | null
-        file_category?: {
-          __typename?: 'FileCategoryEntityResponse'
+        publishedAt?: any | null
+        documentCategory?: {
+          __typename?: 'DocumentCategoryEntityResponse'
           data?: {
-            __typename?: 'FileCategoryEntity'
+            __typename?: 'DocumentCategoryEntity'
             id?: string | null
-            attributes?: {
-              __typename?: 'FileCategory'
-              name?: string | null
-              slug?: string | null
-            } | null
+            attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
           } | null
         } | null
-        metadata?: Array<
-          | {
-              __typename: 'ComponentMetadataFaktury'
-              id: string
-              name?: string | null
-              date?: any | null
-              attachment?: {
-                __typename?: 'UploadFileEntityResponse'
-                data?: {
-                  __typename?: 'UploadFileEntity'
-                  id?: string | null
-                  attributes?: {
-                    __typename?: 'UploadFile'
-                    url: string
-                    name: string
-                    size: number
-                    ext?: string | null
-                  } | null
-                } | null
-              } | null
-            }
-          | {
-              __typename: 'ComponentMetadataMetadata'
-              id: string
-              provider?: string | null
-              year?: number | null
-              grant_name?: string | null
-              grant_number?: string | null
-              amount?: string | null
-              description?: string | null
-            }
-          | {
-              __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-              id: string
-              subject?: string | null
-              description?: string | null
-              number?: string | null
-              date_added?: any | null
-              amount?: string | null
-              attachment?: {
-                __typename?: 'UploadFileEntityResponse'
-                data?: {
-                  __typename?: 'UploadFileEntity'
-                  id?: string | null
-                  attributes?: {
-                    __typename?: 'UploadFile'
-                    url: string
-                    name: string
-                    size: number
-                    ext?: string | null
-                  } | null
-                } | null
-              } | null
-            }
-          | {
-              __typename: 'ComponentMetadataObjednavky'
-              id: string
-              title?: string | null
-              date_period?: any | null
-              date_added?: any | null
-              attachment?: {
-                __typename?: 'UploadFileEntityResponse'
-                data?: {
-                  __typename?: 'UploadFileEntity'
-                  id?: string | null
-                  attributes?: {
-                    __typename?: 'UploadFile'
-                    url: string
-                    name: string
-                    size: number
-                    ext?: string | null
-                  } | null
-                } | null
-              } | null
-            }
-          | {
-              __typename: 'ComponentMetadataVerejneObstaravanie'
-              id: string
-              subject?: string | null
-              description?: string | null
-              number?: string | null
-              date_added?: any | null
-              amount?: string | null
-              attachment?: {
-                __typename?: 'UploadFileEntityResponse'
-                data?: {
-                  __typename?: 'UploadFileEntity'
-                  id?: string | null
-                  attributes?: {
-                    __typename?: 'UploadFile'
-                    url: string
-                    name: string
-                    size: number
-                    ext?: string | null
-                  } | null
-                } | null
-              } | null
-            }
-          | {
-              __typename: 'ComponentMetadataZmluvy'
-              id: string
-              date?: any | null
-              number?: string | null
-              amount?: string | null
-              supplier?: string | null
-              subject?: string | null
-            }
-          | { __typename: 'Error' }
-          | null
-        > | null
-        attachment?: {
+        file: {
           __typename?: 'UploadFileEntityResponse'
           data?: {
             __typename?: 'UploadFileEntity'
@@ -11240,30 +10512,10 @@ export type DocumentsFragment = {
               ext?: string | null
             } | null
           } | null
-        } | null
+        }
       } | null
     }>
   } | null
-  moreLink?: Array<{
-    __typename?: 'ComponentBlocksPageLink'
-    title?: string | null
-    url?: string | null
-    page?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename?: 'PageEntity'
-        id?: string | null
-        attributes?: {
-          __typename?: 'Page'
-          title: string
-          slug: string
-          newSlug: string
-          createdAt?: any | null
-          updatedAt?: any | null
-        } | null
-      } | null
-    } | null
-  } | null> | null
 }
 
 export type GalleryFragment = {
@@ -11293,10 +10545,38 @@ export type GalleryFragment = {
   } | null> | null
 }
 
-export type ChildrenListingSectionFragment = {
-  __typename?: 'ComponentSectionsChildrenListing'
+export type OpeningHoursDaysFragment = {
+  __typename?: 'ComponentBlocksOpeningHours'
+  days: Array<{
+    __typename?: 'ComponentBlocksOpeningHoursItem'
+    label?: string | null
+    time: string
+  } | null>
+}
+
+export type OpeningHoursSectionFragment = {
+  __typename?: 'ComponentSectionsOpeningHoursSection'
   id: string
-  depth: Enum_Componentsectionschildrenlisting_Depth
+  title?: string | null
+  branchList?: {
+    __typename?: 'BranchRelationResponseCollection'
+    data: Array<{
+      __typename?: 'BranchEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Branch'
+        title: string
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
+        } | null
+      } | null
+    }>
+  } | null
 }
 
 type Sections_ComponentSectionsAccordion_Fragment = {
@@ -11328,14 +10608,6 @@ type Sections_ComponentSectionsBlogPostsListing_Fragment = {
 
 type Sections_ComponentSectionsChildrenListing_Fragment = {
   __typename: 'ComponentSectionsChildrenListing'
-  id: string
-  depth: Enum_Componentsectionschildrenlisting_Depth
-}
-
-type Sections_ComponentSectionsColumnedText_Fragment = {
-  __typename: 'ComponentSectionsColumnedText'
-  title?: string | null
-  content?: string | null
 }
 
 type Sections_ComponentSectionsCta_Fragment = {
@@ -11353,142 +10625,26 @@ type Sections_ComponentSectionsDocuments_Fragment = {
   __typename: 'ComponentSectionsDocuments'
   id: string
   title?: string | null
-  basicDocuments?: {
-    __typename?: 'BasicDocumentRelationResponseCollection'
+  documents?: {
+    __typename?: 'DocumentRelationResponseCollection'
     data: Array<{
-      __typename?: 'BasicDocumentEntity'
+      __typename: 'DocumentEntity'
       id?: string | null
       attributes?: {
-        __typename?: 'BasicDocument'
-        slug: string
+        __typename?: 'Document'
         title: string
+        slug: string
         description?: string | null
-        date_added?: any | null
-        author?: string | null
-        link?: string | null
-        file_category?: {
-          __typename?: 'FileCategoryEntityResponse'
+        publishedAt?: any | null
+        documentCategory?: {
+          __typename?: 'DocumentCategoryEntityResponse'
           data?: {
-            __typename?: 'FileCategoryEntity'
+            __typename?: 'DocumentCategoryEntity'
             id?: string | null
-            attributes?: {
-              __typename?: 'FileCategory'
-              name?: string | null
-              slug?: string | null
-            } | null
+            attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
           } | null
         } | null
-        metadata?: Array<
-          | {
-              __typename: 'ComponentMetadataFaktury'
-              id: string
-              name?: string | null
-              date?: any | null
-              attachment?: {
-                __typename?: 'UploadFileEntityResponse'
-                data?: {
-                  __typename?: 'UploadFileEntity'
-                  id?: string | null
-                  attributes?: {
-                    __typename?: 'UploadFile'
-                    url: string
-                    name: string
-                    size: number
-                    ext?: string | null
-                  } | null
-                } | null
-              } | null
-            }
-          | {
-              __typename: 'ComponentMetadataMetadata'
-              id: string
-              provider?: string | null
-              year?: number | null
-              grant_name?: string | null
-              grant_number?: string | null
-              amount?: string | null
-              description?: string | null
-            }
-          | {
-              __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
-              id: string
-              subject?: string | null
-              description?: string | null
-              number?: string | null
-              date_added?: any | null
-              amount?: string | null
-              attachment?: {
-                __typename?: 'UploadFileEntityResponse'
-                data?: {
-                  __typename?: 'UploadFileEntity'
-                  id?: string | null
-                  attributes?: {
-                    __typename?: 'UploadFile'
-                    url: string
-                    name: string
-                    size: number
-                    ext?: string | null
-                  } | null
-                } | null
-              } | null
-            }
-          | {
-              __typename: 'ComponentMetadataObjednavky'
-              id: string
-              title?: string | null
-              date_period?: any | null
-              date_added?: any | null
-              attachment?: {
-                __typename?: 'UploadFileEntityResponse'
-                data?: {
-                  __typename?: 'UploadFileEntity'
-                  id?: string | null
-                  attributes?: {
-                    __typename?: 'UploadFile'
-                    url: string
-                    name: string
-                    size: number
-                    ext?: string | null
-                  } | null
-                } | null
-              } | null
-            }
-          | {
-              __typename: 'ComponentMetadataVerejneObstaravanie'
-              id: string
-              subject?: string | null
-              description?: string | null
-              number?: string | null
-              date_added?: any | null
-              amount?: string | null
-              attachment?: {
-                __typename?: 'UploadFileEntityResponse'
-                data?: {
-                  __typename?: 'UploadFileEntity'
-                  id?: string | null
-                  attributes?: {
-                    __typename?: 'UploadFile'
-                    url: string
-                    name: string
-                    size: number
-                    ext?: string | null
-                  } | null
-                } | null
-              } | null
-            }
-          | {
-              __typename: 'ComponentMetadataZmluvy'
-              id: string
-              date?: any | null
-              number?: string | null
-              amount?: string | null
-              supplier?: string | null
-              subject?: string | null
-            }
-          | { __typename: 'Error' }
-          | null
-        > | null
-        attachment?: {
+        file: {
           __typename?: 'UploadFileEntityResponse'
           data?: {
             __typename?: 'UploadFileEntity'
@@ -11501,30 +10657,10 @@ type Sections_ComponentSectionsDocuments_Fragment = {
               ext?: string | null
             } | null
           } | null
-        } | null
+        }
       } | null
     }>
   } | null
-  moreLink?: Array<{
-    __typename?: 'ComponentBlocksPageLink'
-    title?: string | null
-    url?: string | null
-    page?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename?: 'PageEntity'
-        id?: string | null
-        attributes?: {
-          __typename?: 'Page'
-          title: string
-          slug: string
-          newSlug: string
-          createdAt?: any | null
-          updatedAt?: any | null
-        } | null
-      } | null
-    } | null
-  } | null> | null
 }
 
 type Sections_ComponentSectionsDocumentsListing_Fragment = {
@@ -11533,22 +10669,6 @@ type Sections_ComponentSectionsDocumentsListing_Fragment = {
 
 type Sections_ComponentSectionsEventsListing_Fragment = {
   __typename: 'ComponentSectionsEventsListing'
-}
-
-type Sections_ComponentSectionsExternalLinks_Fragment = {
-  __typename: 'ComponentSectionsExternalLinks'
-  title?: string | null
-  externalLinks?: Array<{
-    __typename?: 'ComponentBlocksExternalLink'
-    category?: string | null
-    title?: string | null
-    url?: string | null
-  } | null> | null
-  descriptions?: Array<{
-    __typename?: 'ComponentAccordionItemsFlatText'
-    category?: string | null
-    content?: string | null
-  } | null> | null
 }
 
 type Sections_ComponentSectionsFaq_Fragment = {
@@ -11565,12 +10685,6 @@ type Sections_ComponentSectionsFaq_Fragment = {
 
 type Sections_ComponentSectionsFlatText_Fragment = {
   __typename: 'ComponentSectionsFlatText'
-  id: string
-  content?: string | null
-}
-
-type Sections_ComponentSectionsFlatTextCenter_Fragment = {
-  __typename: 'ComponentSectionsFlatTextCenter'
   id: string
   content?: string | null
 }
@@ -11676,6 +10790,31 @@ type Sections_ComponentSectionsNewBooksListing_Fragment = {
 }
 
 type Sections_ComponentSectionsNewsListing_Fragment = { __typename: 'ComponentSectionsNewsListing' }
+
+type Sections_ComponentSectionsOpeningHoursSection_Fragment = {
+  __typename: 'ComponentSectionsOpeningHoursSection'
+  id: string
+  title?: string | null
+  branchList?: {
+    __typename?: 'BranchRelationResponseCollection'
+    data: Array<{
+      __typename?: 'BranchEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Branch'
+        title: string
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
+        } | null
+      } | null
+    }>
+  } | null
+}
 
 type Sections_ComponentSectionsPartners_Fragment = { __typename: 'ComponentSectionsPartners' }
 
@@ -11823,21 +10962,19 @@ export type SectionsFragment =
   | Sections_ComponentSectionsAccordion_Fragment
   | Sections_ComponentSectionsBlogPostsListing_Fragment
   | Sections_ComponentSectionsChildrenListing_Fragment
-  | Sections_ComponentSectionsColumnedText_Fragment
   | Sections_ComponentSectionsCta_Fragment
   | Sections_ComponentSectionsDivider_Fragment
   | Sections_ComponentSectionsDocuments_Fragment
   | Sections_ComponentSectionsDocumentsListing_Fragment
   | Sections_ComponentSectionsEventsListing_Fragment
-  | Sections_ComponentSectionsExternalLinks_Fragment
   | Sections_ComponentSectionsFaq_Fragment
   | Sections_ComponentSectionsFlatText_Fragment
-  | Sections_ComponentSectionsFlatTextCenter_Fragment
   | Sections_ComponentSectionsForm_Fragment
   | Sections_ComponentSectionsGallery_Fragment
   | Sections_ComponentSectionsMap_Fragment
   | Sections_ComponentSectionsNewBooksListing_Fragment
   | Sections_ComponentSectionsNewsListing_Fragment
+  | Sections_ComponentSectionsOpeningHoursSection_Fragment
   | Sections_ComponentSectionsPartners_Fragment
   | Sections_ComponentSectionsRental_Fragment
   | Sections_ComponentSectionsSiteUsefullness_Fragment
@@ -12284,10 +11421,6 @@ export type GeneralQuery = {
           __typename?: 'PageEntityResponse'
           data?: { __typename?: 'PageEntity'; id?: string | null } | null
         } | null
-        noticesPage?: {
-          __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
-        } | null
       } | null
     } | null
   } | null
@@ -12311,75 +11444,6 @@ export const BasicDocumentFileFragmentDoc = gql`
       ext
       size
     }
-  }
-`
-export const AccordionItemFragmentDoc = gql`
-  fragment AccordionItem on ComponentBlocksAccordionItem {
-    id
-    label
-    content
-  }
-`
-export const PageWithBaseFieldsEntityFragmentDoc = gql`
-  fragment PageWithBaseFieldsEntity on PageEntity {
-    id
-    attributes {
-      title
-      slug
-      newSlug
-      createdAt
-      updatedAt
-    }
-  }
-`
-export const SubpagesFragmentDoc = gql`
-  fragment Subpages on ComponentSectionsSubpages {
-    title
-    subpages {
-      id
-      title
-      description
-      url
-      page {
-        data {
-          ...PageWithBaseFieldsEntity
-        }
-      }
-    }
-  }
-  ${PageWithBaseFieldsEntityFragmentDoc}
-`
-export const TableFragmentDoc = gql`
-  fragment Table on ComponentSectionsTable {
-    primaryTitle
-    secondaryTitle
-    rows {
-      label
-      value
-      valueAlign
-    }
-  }
-`
-export const FlatTextFragmentDoc = gql`
-  fragment FlatText on ComponentAccordionItemsFlatText {
-    category
-    content
-  }
-`
-export const TableRowFragmentDoc = gql`
-  fragment TableRow on ComponentAccordionItemsTableRow {
-    accordionCategory
-    tableCategory
-    label
-    value
-    valueAlign
-  }
-`
-export const ExternalLinkFragmentDoc = gql`
-  fragment ExternalLink on ComponentBlocksExternalLink {
-    category
-    title
-    url
   }
 `
 export const UploadFileEntityFragmentDoc = gql`
@@ -12495,32 +11559,111 @@ export const BasicDocumentEntityFragmentDoc = gql`
   ${MetadataFragmentDoc}
   ${UploadFileEntityFragmentDoc}
 `
-export const PageLinkFragmentDoc = gql`
-  fragment PageLink on ComponentBlocksPageLink {
+export const AccordionItemFragmentDoc = gql`
+  fragment AccordionItem on ComponentBlocksAccordionItem {
+    id
+    label
+    content
+  }
+`
+export const PageWithBaseFieldsEntityFragmentDoc = gql`
+  fragment PageWithBaseFieldsEntity on PageEntity {
+    id
+    attributes {
+      title
+      slug
+      newSlug
+      createdAt
+      updatedAt
+    }
+  }
+`
+export const SubpagesFragmentDoc = gql`
+  fragment Subpages on ComponentSectionsSubpages {
     title
-    url
-    page {
-      data {
-        ...PageWithBaseFieldsEntity
+    subpages {
+      id
+      title
+      description
+      url
+      page {
+        data {
+          ...PageWithBaseFieldsEntity
+        }
       }
     }
   }
   ${PageWithBaseFieldsEntityFragmentDoc}
 `
+export const TableFragmentDoc = gql`
+  fragment Table on ComponentSectionsTable {
+    primaryTitle
+    secondaryTitle
+    rows {
+      label
+      value
+      valueAlign
+    }
+  }
+`
+export const FlatTextFragmentDoc = gql`
+  fragment FlatText on ComponentAccordionItemsFlatText {
+    category
+    content
+  }
+`
+export const TableRowFragmentDoc = gql`
+  fragment TableRow on ComponentAccordionItemsTableRow {
+    accordionCategory
+    tableCategory
+    label
+    value
+    valueAlign
+  }
+`
+export const DocumentCategoryEntityFragmentDoc = gql`
+  fragment DocumentCategoryEntity on DocumentCategoryEntity {
+    id
+    attributes {
+      label
+      slug
+    }
+  }
+`
+export const DocumentEntityFragmentDoc = gql`
+  fragment DocumentEntity on DocumentEntity {
+    id
+    __typename
+    attributes {
+      title
+      slug
+      description
+      publishedAt
+      documentCategory {
+        data {
+          ...DocumentCategoryEntity
+        }
+      }
+      file {
+        data {
+          ...UploadFileEntity
+        }
+      }
+    }
+  }
+  ${DocumentCategoryEntityFragmentDoc}
+  ${UploadFileEntityFragmentDoc}
+`
 export const DocumentsFragmentDoc = gql`
   fragment Documents on ComponentSectionsDocuments {
     title
-    basicDocuments {
+    documents {
       data {
-        ...BasicDocumentEntity
+        ...DocumentEntity
       }
     }
-    moreLink {
-      ...PageLink
-    }
   }
-  ${BasicDocumentEntityFragmentDoc}
-  ${PageLinkFragmentDoc}
+  ${DocumentEntityFragmentDoc}
 `
 export const UploadImageEntityFragmentDoc = gql`
   fragment UploadImageEntity on UploadFileEntity {
@@ -12593,11 +11736,31 @@ export const GalleryFragmentDoc = gql`
   }
   ${UploadImageEntityFragmentDoc}
 `
-export const ChildrenListingSectionFragmentDoc = gql`
-  fragment ChildrenListingSection on ComponentSectionsChildrenListing {
-    id
-    depth
+export const OpeningHoursDaysFragmentDoc = gql`
+  fragment OpeningHoursDays on ComponentBlocksOpeningHours {
+    days {
+      label
+      time
+    }
   }
+`
+export const OpeningHoursSectionFragmentDoc = gql`
+  fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
+    id
+    title
+    branchList {
+      data {
+        id
+        attributes {
+          title
+          openingHours {
+            ...OpeningHoursDays
+          }
+        }
+      }
+    }
+  }
+  ${OpeningHoursDaysFragmentDoc}
 `
 export const SectionsFragmentDoc = gql`
   fragment Sections on PageSectionsDynamicZone {
@@ -12613,10 +11776,6 @@ export const SectionsFragmentDoc = gql`
       questions {
         ...AccordionItem
       }
-    }
-    ... on ComponentSectionsFlatTextCenter {
-      id
-      content
     }
     ... on ComponentSectionsFlatText {
       id
@@ -12643,7 +11802,7 @@ export const SectionsFragmentDoc = gql`
       flatText {
         ...FlatText
       }
-      tableRows(pagination: { limit: 100 }) {
+      tableRows(pagination: { limit: -1 }) {
         ...TableRow
       }
       forms {
@@ -12653,19 +11812,6 @@ export const SectionsFragmentDoc = gql`
     }
     ... on ComponentSectionsDivider {
       id
-    }
-    ... on ComponentSectionsColumnedText {
-      title
-      content
-    }
-    ... on ComponentSectionsExternalLinks {
-      title
-      externalLinks {
-        ...ExternalLink
-      }
-      descriptions {
-        ...FlatText
-      }
     }
     ... on ComponentSectionsCta {
       title
@@ -12719,8 +11865,8 @@ export const SectionsFragmentDoc = gql`
     ... on ComponentSectionsGallery {
       ...Gallery
     }
-    ... on ComponentSectionsChildrenListing {
-      ...ChildrenListingSection
+    ... on ComponentSectionsOpeningHoursSection {
+      ...OpeningHoursSection
     }
   }
   ${AccordionItemFragmentDoc}
@@ -12728,11 +11874,10 @@ export const SectionsFragmentDoc = gql`
   ${TableFragmentDoc}
   ${FlatTextFragmentDoc}
   ${TableRowFragmentDoc}
-  ${ExternalLinkFragmentDoc}
   ${DocumentsFragmentDoc}
   ${BranchCardEntityFragmentDoc}
   ${GalleryFragmentDoc}
-  ${ChildrenListingSectionFragmentDoc}
+  ${OpeningHoursSectionFragmentDoc}
 `
 export const SeoFragmentDoc = gql`
   fragment Seo on ComponentCommonSeo {
@@ -12825,6 +11970,32 @@ export const BranchEntityFragmentDoc = gql`
   ${BranchCardEntityFragmentDoc}
   ${UploadImageEntityFragmentDoc}
   ${SeoFragmentDoc}
+`
+export const DisclosureEntityFragmentDoc = gql`
+  fragment DisclosureEntity on DisclosureEntity {
+    id
+    __typename
+    attributes {
+      slug
+      title
+      description
+      addedAt
+      type
+      file {
+        data {
+          ...UploadFileEntity
+        }
+      }
+      dateFrom
+      dateTo
+      idNumber
+      amount
+      contractor
+      grantProvider
+      grantYear
+    }
+  }
+  ${UploadFileEntityFragmentDoc}
 `
 export const EventCardEntityFragmentDoc = gql`
   fragment EventCardEntity on EventEntity {
@@ -12960,6 +12131,35 @@ export const NoticeEntityFragmentDoc = gql`
   ${DocumentsFragmentDoc}
   ${SeoFragmentDoc}
 `
+export const NoticeListingEntityFragmentDoc = gql`
+  fragment NoticeListingEntity on NoticeEntity {
+    __typename
+    id
+    attributes {
+      slug
+      title
+      publishedAt
+      listingImage {
+        data {
+          ...UploadImageEntity
+        }
+      }
+    }
+  }
+  ${UploadImageEntityFragmentDoc}
+`
+export const PageLinkFragmentDoc = gql`
+  fragment PageLink on ComponentBlocksPageLink {
+    title
+    url
+    page {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
 export const CategoryFragmentDoc = gql`
   fragment Category on Category {
     title
@@ -13088,37 +12288,6 @@ export const PartnerEntityFragmentDoc = gql`
     }
   }
 `
-export const NoticeListingEntityFragmentDoc = gql`
-  fragment NoticeListingEntity on NoticeEntity {
-    __typename
-    id
-    attributes {
-      slug
-      title
-      publishedAt
-      listingImage {
-        data {
-          ...UploadImageEntity
-        }
-      }
-    }
-  }
-  ${UploadImageEntityFragmentDoc}
-`
-export const LatestNoticesQueryFragmentDoc = gql`
-  fragment LatestNoticesQuery on Query {
-    latestNotices: notices(
-      locale: $locale
-      pagination: { limit: 4, start: 0 }
-      sort: "publishedAt:desc"
-    ) {
-      data {
-        ...NoticeListingEntity
-      }
-    }
-  }
-  ${NoticeListingEntityFragmentDoc}
-`
 export const SectionLinkPageFragmentDoc = gql`
   fragment SectionLinkPage on PageEntity {
     id
@@ -13158,7 +12327,7 @@ export const MenuSectionFragmentDoc = gql`
         ...PageWithBaseFieldsEntity
       }
     }
-    sectionLinks(pagination: { limit: 20 }) {
+    sectionLinks(pagination: { limit: -1 }) {
       id
       sectionLinkTitle
       sectionLinkPage {
@@ -13211,11 +12380,6 @@ export const GeneralEntityFragmentDoc = gql`
           id
         }
       }
-      noticesPage {
-        data {
-          id
-        }
-      }
     }
   }
 `
@@ -13226,6 +12390,13 @@ export const BookTagEntityFragmentDoc = gql`
       displayName
       slug
     }
+  }
+`
+export const ExternalLinkFragmentDoc = gql`
+  fragment ExternalLink on ComponentBlocksExternalLink {
+    category
+    title
+    url
   }
 `
 export const PaginationFragmentDoc = gql`
@@ -13352,6 +12523,36 @@ export const BranchBySlugDocument = gql`
     }
   }
   ${BranchEntityFragmentDoc}
+`
+export const DisclosureBySlugDocument = gql`
+  query DisclosureBySlug($slug: String!) {
+    disclosures(filters: { slug: { eq: $slug } }) {
+      data {
+        ...DisclosureEntity
+      }
+    }
+  }
+  ${DisclosureEntityFragmentDoc}
+`
+export const DocumentCategoriesDocument = gql`
+  query DocumentCategories {
+    documentCategories {
+      data {
+        ...DocumentCategoryEntity
+      }
+    }
+  }
+  ${DocumentCategoryEntityFragmentDoc}
+`
+export const DocumentBySlugDocument = gql`
+  query DocumentBySlug($slug: String!) {
+    documents(filters: { slug: { eq: $slug } }) {
+      data {
+        ...DocumentEntity
+      }
+    }
+  }
+  ${DocumentEntityFragmentDoc}
 `
 export const EventPropertiesDocument = gql`
   query EventProperties($locale: I18NLocaleCode!) {
@@ -13590,7 +12791,15 @@ export const HomePageDocument = gql`
         ...EventCardEntity
       }
     }
-    ...LatestNoticesQuery
+    latestNotices: notices(
+      locale: $locale
+      pagination: { limit: 4, start: 0 }
+      sort: "publishedAt:desc"
+    ) {
+      data {
+        ...NoticeListingEntity
+      }
+    }
     bookTags(pagination: { limit: 100 }) {
       data {
         ...BookTagEntity
@@ -13602,14 +12811,22 @@ export const HomePageDocument = gql`
   ${SeoFragmentDoc}
   ${NoticeListingEntityFragmentDoc}
   ${EventCardEntityFragmentDoc}
-  ${LatestNoticesQueryFragmentDoc}
   ${BookTagEntityFragmentDoc}
 `
-export const LatestNoticesDocument = gql`
-  query LatestNotices($locale: I18NLocaleCode!) {
-    ...LatestNoticesQuery
+export const LatestNewsDocument = gql`
+  query LatestNews($locale: I18NLocaleCode!) {
+    pages(
+      filters: { layout: { eq: "news" } }
+      locale: $locale
+      pagination: { start: 0, limit: 4 }
+      sort: "publishedAt:desc"
+    ) {
+      data {
+        ...PageEntity
+      }
+    }
   }
-  ${LatestNoticesQueryFragmentDoc}
+  ${PageEntityFragmentDoc}
 `
 export const GeneralDocument = gql`
   query General($eventsFrom: DateTime!, $locale: I18NLocaleCode!) {
@@ -13753,6 +12970,48 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         'query'
       )
     },
+    DisclosureBySlug(
+      variables: DisclosureBySlugQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<DisclosureBySlugQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DisclosureBySlugQuery>(DisclosureBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'DisclosureBySlug',
+        'query'
+      )
+    },
+    DocumentCategories(
+      variables?: DocumentCategoriesQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<DocumentCategoriesQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DocumentCategoriesQuery>(DocumentCategoriesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'DocumentCategories',
+        'query'
+      )
+    },
+    DocumentBySlug(
+      variables: DocumentBySlugQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<DocumentBySlugQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DocumentBySlugQuery>(DocumentBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'DocumentBySlug',
+        'query'
+      )
+    },
     EventProperties(
       variables: EventPropertiesQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
@@ -13893,17 +13152,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         'query'
       )
     },
-    LatestNotices(
-      variables: LatestNoticesQueryVariables,
+    LatestNews(
+      variables: LatestNewsQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<LatestNoticesQuery> {
+    ): Promise<LatestNewsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<LatestNoticesQuery>(LatestNoticesDocument, variables, {
+          client.request<LatestNewsQuery>(LatestNewsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'LatestNotices',
+        'LatestNews',
         'query'
       )
     },

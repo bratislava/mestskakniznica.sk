@@ -1,3 +1,4 @@
+import { DisclosureMeili, DocumentMeili } from '@services/meili/meiliTypes'
 import { SearchResponse } from 'meilisearch'
 
 import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
@@ -7,19 +8,19 @@ import { SearchIndexWrapped } from '../searchIndexWrapped'
 export const allSearchTypes = [
   'page' as const,
   'blog-post' as const,
+  'document' as const,
+  'disclosure' as const,
   'event' as const,
-  'basic-document' as const,
   'notice' as const,
-  // 'premise' as const,
 ]
 
 type CommonSearchResults =
   | SearchIndexWrapped<'page', { slug: string; title: string | null | undefined }> // TODO: Specify type if needed.
-  | SearchIndexWrapped<'basic-document', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'blog-post', { slug: string }> // TODO: Specify type if needed.
+  | SearchIndexWrapped<'document', DocumentMeili>
+  | SearchIndexWrapped<'disclosure', DisclosureMeili>
   | SearchIndexWrapped<'event', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'notice', { slug: string }> // TODO: Specify type if needed.
-// | SearchIndexWrapped<'premise', { url: string }> // TODO: Specify type if needed.
 
 // https://stackoverflow.com/a/52331580
 export type Unpacked<T> = T extends (infer U)[] ? U : T

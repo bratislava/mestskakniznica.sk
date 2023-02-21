@@ -2,8 +2,8 @@ import { ArrowLeftIcon } from '@assets/icons'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import Button from '@modules/common/Button'
 import MLink from '@modules/common/MLink'
-import cx from 'classnames'
 import { useNavikronos } from '@utils/navikronos'
+import cx from 'classnames'
 
 export interface SidebarProps {
   className?: string

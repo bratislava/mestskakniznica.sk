@@ -1,8 +1,7 @@
 {
   "collectionName": "components_sections_maps",
   "info": {
-    "displayName": "map",
-    "icon": "map-marked"
+    "displayName": "Mapa pobočiek"
   },
   "options": {},
   "attributes": {

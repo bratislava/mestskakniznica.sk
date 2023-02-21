@@ -36,10 +36,6 @@
         "files"
       ]
     },
-    "addedAt": {
-      "type": "datetime",
-      "required": true
-    },
     "description": {
       "type": "text",
       "required": false

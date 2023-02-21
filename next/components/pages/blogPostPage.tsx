@@ -2,10 +2,10 @@ import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import FormatDate from '@modules/formatting/FormatDate'
 import { BlogPostEntityFragment, PageSectionsDynamicZone } from '@services/graphql'
+import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 
 import Sections from '../Molecules/Sections'
-import { useNavikronos } from '@utils/navikronos'
 
 export interface BlogPostPageProps {
   blogPost: BlogPostEntityFragment

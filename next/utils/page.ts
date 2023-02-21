@@ -1,8 +1,6 @@
-import { SidebarProps, TableRowProps, TExternalLinksSection } from '@bratislava/ui-city-library'
+import { SidebarProps, TableRowProps } from '@bratislava/ui-city-library'
 import {
   CategoryEntity,
-  ExternalLinkFragment,
-  FlatTextFragment,
   TableRowFragment,
 } from '@services/graphql'
 import groupBy from 'lodash/groupBy'
@@ -64,23 +62,5 @@ export const groupByCategory = <T>(items: T[]) => {
   return Object.keys(grouped).map((key) => ({
     category: key,
     items: grouped[key],
-  }))
-}
-
-// Page external links sections
-export const groupByLinksCategory = (
-  descriptions?: Array<FlatTextFragment | null | undefined>,
-  links?: Array<ExternalLinkFragment | null | undefined>
-): TExternalLinksSection[] => {
-  const groupedLinks = links ? groupByCategory(links) : []
-  const groupedDescriptions = descriptions ? groupByCategory(descriptions) : []
-
-  return groupedLinks.map((link) => ({
-    description:
-      groupedDescriptions.find((d) => d.category === link.category)?.items[0]?.content ?? undefined,
-    links: link.items?.map((item) => ({
-      title: item?.title ?? '',
-      url: item?.url ?? '#',
-    })),
   }))
 }

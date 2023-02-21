@@ -1,6 +1,9 @@
 import {
   BasicDocument,
   Branch,
+  Disclosure,
+  Document,
+  DocumentCategory,
   Event,
   EventCategory,
   EventTag,
@@ -15,6 +18,17 @@ export type BasicDocumentMeili = Omit<
   id: string
   file_category: Omit<FileCategory, '__typename' | 'page'>
   attachment: Omit<UploadFile, '__typename'>
+}
+
+export type DocumentMeili = Omit<Document, '__typename' | 'documentCategory' | 'file'> & {
+  id: string
+  documentCategory: Omit<DocumentCategory, '__typename' | 'documents'>
+  file: Omit<UploadFile, '__typename'>
+}
+
+export type DisclosureMeili = Omit<Disclosure, '__typename' | 'file'> & {
+  id: string
+  file: Omit<UploadFile, '__typename'>
 }
 
 /**

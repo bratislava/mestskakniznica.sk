@@ -1,20 +1,19 @@
+import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
 import NoticePage from '@components/pages/NoticePage'
 import { GeneralQuery, NoticeEntityFragment } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
+import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
+import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-
-import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
-import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
-import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
+import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 
 type NoticePageProps = {
   notice: NoticeEntityFragment
@@ -29,7 +28,11 @@ const Page = ({ notice, general }: NoticePageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      <DefaultPageLayout title={notice.attributes?.title} seo={notice.attributes?.seo}>
+      <DefaultPageLayout
+        title={notice.attributes?.title}
+        seo={notice.attributes?.seo}
+        defaultMetaDescription={notice.attributes?.body}
+      >
         <NoticePage notice={notice} />
       </DefaultPageLayout>
     </GeneralContextProvider>
@@ -58,7 +61,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       .filter((entity) => entity?.attributes?.slug)
       .map((entity) => ({
         params: {
-          slug: entity.attributes!.slug!,
+          slug: entity.attributes!.slug,
           locale: entity.attributes?.locale || '',
         },
       }))

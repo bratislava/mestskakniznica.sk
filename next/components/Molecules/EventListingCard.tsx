@@ -1,11 +1,11 @@
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { EventInListingMeili } from '@services/meili/meiliTypes'
+import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 
 import Placeholder from '../../assets/images/event-list-placeholder.jpg'
 import TagsDisplay from '../Atoms/TagsDisplay'
-import { useNavikronos } from '@utils/navikronos'
 
 interface EventListingProps {
   event: EventInListingMeili

@@ -5,12 +5,12 @@ import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { BranchCardEntityFragment } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
+import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useRef } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 import { useIsClient } from 'usehooks-ts'
-import { useNavikronos } from '@utils/navikronos'
 
 export interface LocalitiesProps {
   branches: BranchCardEntityFragment[]

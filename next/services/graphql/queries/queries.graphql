@@ -168,7 +168,7 @@ fragment MenuSection on ComponentMenuSections {
       ...PageWithBaseFieldsEntity
     }
   }
-  sectionLinks(pagination: { limit: 20 }) {
+  sectionLinks(pagination: { limit: -1 }) {
     id
     sectionLinkTitle
     sectionLinkPage {
@@ -189,13 +189,10 @@ fragment BookTagEntity on BookTagEntity {
 
 fragment Documents on ComponentSectionsDocuments {
   title
-  basicDocuments {
+  documents {
     data {
-      ...BasicDocumentEntity
+      ...DocumentEntity
     }
-  }
-  moreLink {
-    ...PageLink
   }
 }
 
@@ -207,6 +204,29 @@ fragment Gallery on ComponentSectionsGallery {
     Photo {
       data {
         ...UploadImageEntity
+      }
+    }
+  }
+}
+
+fragment OpeningHoursDays on ComponentBlocksOpeningHours {
+  days {
+    label
+    time
+  }
+}
+
+fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
+  id
+  title
+  branchList {
+    data {
+      id
+      attributes {
+        title
+        openingHours {
+          ...OpeningHoursDays
+        }
       }
     }
   }
@@ -225,17 +245,12 @@ fragment Sections on PageSectionsDynamicZone {
     title
     url
   }
-
   ... on ComponentSectionsFaq {
     id
     title
     questions {
       ...AccordionItem
     }
-  }
-  ... on ComponentSectionsFlatTextCenter {
-    id
-    content
   }
   ... on ComponentSectionsFlatText {
     id
@@ -262,7 +277,7 @@ fragment Sections on PageSectionsDynamicZone {
     flatText {
       ...FlatText
     }
-    tableRows(pagination: { limit: 100 }) {
+    tableRows(pagination: { limit: -1 }) {
       ...TableRow
     }
     forms {
@@ -272,19 +287,6 @@ fragment Sections on PageSectionsDynamicZone {
   }
   ... on ComponentSectionsDivider {
     id
-  }
-  ... on ComponentSectionsColumnedText {
-    title
-    content
-  }
-  ... on ComponentSectionsExternalLinks {
-    title
-    externalLinks {
-      ...ExternalLink
-    }
-    descriptions {
-      ...FlatText
-    }
   }
   ... on ComponentSectionsCta {
     title
@@ -342,6 +344,10 @@ fragment Sections on PageSectionsDynamicZone {
 
   ... on ComponentSectionsGallery {
     ...Gallery
+  }
+
+  ... on ComponentSectionsOpeningHoursSection {
+    ...OpeningHoursSection
   }
 
   ... on ComponentSectionsChildrenListing {

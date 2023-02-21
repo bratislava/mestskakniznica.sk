@@ -1,23 +1,21 @@
 import DocumentsCategorySelect from '@components/Atoms/Documents/DocumentsCategorySelect'
 import SearchField from '@components/Atoms/SearchField'
 import SortSelect, { Sort } from '@components/Atoms/SortSelect'
-import Metadata from '@components/Molecules/Metadata'
-import { Pagination, RowFile } from '@components/ui'
-import { MetadataFragment } from '@services/graphql'
+import { Pagination } from '@components/ui'
+import { DocumentRow } from '@modules/cards-and-rows/DocumentRow'
 import {
   documentsDefaultFilters,
   documentsFetcher,
   DocumentsFilters,
   getDocumentsQueryKey,
 } from '@services/meili/fetchers/documentsFetcher'
-import { isDefined } from '@utils/isDefined'
-import NextLink from 'next/link'
+import { useNavikronos } from '@utils/navikronos'
+import { Enum_Disclosure_Type_Fixed } from '@utils/types'
 import { useTranslation } from 'next-i18next'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 
 import { useSearch } from '../../hooks/useSearch'
-import { useNavikronos } from '@utils/navikronos'
 
 const DocumentsListingSection = () => {
   const { t } = useTranslation('common')
@@ -40,7 +38,19 @@ const DocumentsListingSection = () => {
   }
 
   const handleCategoryChange = (categoryId: string | null) => {
-    setFilters({ ...filters, page: 1, categoryId })
+    if (
+      categoryId &&
+      Object.values(Enum_Disclosure_Type_Fixed).includes(categoryId as Enum_Disclosure_Type_Fixed)
+    ) {
+      setFilters({
+        ...filters,
+        page: 1,
+        documentCategoryId: null,
+        disclosureType: categoryId as Enum_Disclosure_Type_Fixed,
+      })
+    } else {
+      setFilters({ ...filters, page: 1, documentCategoryId: categoryId, disclosureType: null })
+    }
   }
 
   const handleSortChange = (sort: Sort) => {
@@ -74,31 +84,25 @@ const DocumentsListingSection = () => {
 
       <div className="mt-6 border-y border-border-dark pb-10 lg:mt-16 lg:pb-32">
         {/* Documents */}
-        {data
-          ? data?.hits.map((document) => (
-              <NextLink
-                key={document.id}
-                href={getPathForEntity({ type: 'basic-document', slug: document.slug }) ?? ''}
-              >
-                <RowFile
-                  className="cursor-pointer"
-                  type={document?.file_category?.name || ''}
-                  title={document?.title || ''}
-                  metadata={
-                    <Metadata
-                      metadata={
-                        (document?.metadata
-                          ?.filter(isDefined)
-                          .filter((metadata) => metadata.__typename) as MetadataFragment[]) || []
-                      }
-                    />
-                  }
-                  dateAdded={document?.date_added}
-                  fileType={document?.attachment?.ext?.toUpperCase().replace('.', '')}
-                />
-              </NextLink>
-            ))
-          : null}
+        {data?.hits.map((document) => {
+          const { id, title, type, slug, file, category } = document
+          const metadata =
+            // eslint-disable-next-line unicorn/consistent-destructuring
+            type === 'disclosure' && document.contractor ? `${document.contractor}` : undefined
+
+          return (
+            <DocumentRow
+              key={id}
+              title={title}
+              linkHref={getPathForEntity({ type, slug }) ?? ''}
+              fileExt={file?.ext?.toUpperCase().replace('.', '') ?? ''}
+              category={category}
+              // eslint-disable-next-line unicorn/consistent-destructuring
+              addedAt={type === 'disclosure' ? document.addedAt : document.publishedAt}
+              metadata={metadata}
+            />
+          )
+        })}
         {data?.estimatedTotalHits ? (
           <div className="mt-6 flex justify-center lg:justify-end">
             <Pagination

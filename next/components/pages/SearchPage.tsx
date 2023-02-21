@@ -8,6 +8,7 @@ import {
   CommonSearchType,
   getCommonSearchQueryKey,
 } from '@services/meili/fetchers/commonSearchFetcher'
+import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -19,7 +20,6 @@ import { useSearch } from '../../hooks/useSearch'
 import { AnimateHeight } from '../Atoms/AnimateHeight'
 import SearchField from '../Atoms/SearchField'
 import TagToggle from '../Atoms/TagToggle'
-import { useNavikronos } from '@utils/navikronos'
 
 const SearchPage = () => {
   const { t, i18n } = useTranslation('common')

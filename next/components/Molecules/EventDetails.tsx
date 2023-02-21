@@ -140,7 +140,7 @@ const EventDetails = ({ event }: PageProps) => {
             <Documents
               className="mt-8"
               title={event.attributes.documents.title}
-              documents={event.attributes.documents.basicDocuments?.data.filter(isDefined) ?? []}
+              documents={event.attributes.documents.documents?.data.filter(isDefined) ?? []}
             />
           )}
           {(event?.attributes?.guests?.length || 0) > 0 && (

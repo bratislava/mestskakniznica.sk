@@ -4,21 +4,23 @@ import HeaderWrapper from '@modules/navigation/HeaderWrapper'
 import { useNavMenuContext } from '@modules/navigation/navMenuContext'
 import { SeoFragment } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
+import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
+import { ReactNode } from 'react'
 
 import favicon from '../../assets/images/mkb_favicon.png'
 import NewsletterSection from '../HomePage/NewsletterSection'
-import { useNavikronos } from '@utils/navikronos'
 
 interface IProps {
-  children?: React.ReactNode
+  children?: ReactNode
   title?: string | undefined | null
   seo?: SeoFragment | undefined | null
+  defaultMetaDescription?: string | undefined | null
 }
 
-const DefaultPageLayout = ({ children, title, seo }: IProps) => {
+const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IProps) => {
   const { footer, general } = useGeneralContext()
   const { getPathForEntity, currentRouteLocalizations } = useNavikronos()
 
@@ -27,22 +29,19 @@ const DefaultPageLayout = ({ children, title, seo }: IProps) => {
 
   return (
     <>
-      {/* TODO separate Seo info component */}
       <Head>
         <link rel="icon" type="image/x-icon" href={favicon.src} />
         <title>{`${seo?.metaTitle || title || ''} – mestskakniznica.sk`}</title>
-        {seo && (
-          <>
-            <meta name="title" content={`${seo?.metaTitle || title || ''} – mestskakniznica.sk`} />
 
-            {/* TODO add perex or similar field as description */}
-            <meta name="description" content={seo?.metaDescription || ''} />
-            <meta name="keywords" content={seo?.keywords ?? ''} />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-          </>
-        )}
+        <meta name="title" content={`${seo?.metaTitle || title || ''} – mestskakniznica.sk`} />
+        <meta name="description" content={seo?.metaDescription || defaultMetaDescription || ''} />
+        <meta name="keywords" content={seo?.keywords ?? ''} />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         {currentRouteLocalizations.map(({ locale, path }) => (
           <link
+            key={locale}
             rel="alternate"
             href={(locale === 'sk' ? '' : `/${locale}`) + path}
             hrefLang={locale}

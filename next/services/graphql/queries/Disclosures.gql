@@ -1,0 +1,35 @@
+### Fragments
+
+fragment DisclosureEntity on DisclosureEntity {
+  id
+  __typename
+  attributes {
+    slug
+    title
+    description
+    addedAt
+    type
+    file {
+      data {
+        ...UploadFileEntity
+      }
+    }
+    dateFrom
+    dateTo
+    idNumber
+    amount
+    contractor
+    grantProvider
+    grantYear
+  }
+}
+
+### Queries
+
+query DisclosureBySlug($slug: String!) {
+  disclosures(filters: { slug: { eq: $slug } }) {
+    data {
+      ...DisclosureEntity
+    }
+  }
+}

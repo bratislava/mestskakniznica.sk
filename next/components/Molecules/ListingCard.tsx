@@ -2,9 +2,9 @@ import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import FormatDate from '@modules/formatting/FormatDate'
 import { EventCardEntityFragment, NoticeListingEntityFragment } from '@services/graphql'
+import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
-import { useNavikronos } from '@utils/navikronos'
 
 interface IListingCardProps {
   card: EventCardEntityFragment | NoticeListingEntityFragment

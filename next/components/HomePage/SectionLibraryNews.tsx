@@ -1,12 +1,12 @@
 import Section from '@components/AppLayout/Section'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { ComponentHomepageNewsSection, NoticeListingEntityFragment } from '@services/graphql'
+import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import Carousel from '../../modules/common/Carousel/Carousel'
 import ListingCard from '../Molecules/ListingCard'
-import { useNavikronos } from '@utils/navikronos'
 
 interface LibraryNewsProps {
   notices: NoticeListingEntityFragment[]
