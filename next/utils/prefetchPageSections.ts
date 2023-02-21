@@ -85,7 +85,7 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
     )
   }
 
-  if (page?.attributes?.layout === Enum_Page_Layout.Listing) {
+  if (sectionTypes.includes('ComponentSectionsChildrenListing')) {
     await queryClient.prefetchQuery(getLatestNewsQueryKey(locale), () => latestNewsFetcher(locale))
   }
 

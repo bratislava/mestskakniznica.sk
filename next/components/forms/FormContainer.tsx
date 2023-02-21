@@ -3,9 +3,8 @@ import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode, useEffect, useState } from 'react'
-import { useWindowSize } from 'usehooks-ts'
+import { useLockedBody, useWindowSize } from 'usehooks-ts'
 
-import useLockedBodyScroll from '../../hooks/useLockedBodyScroll'
 import FormSubmittedComponent from './FormSubmittedComponent'
 
 export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
@@ -51,7 +50,7 @@ const FormContainer = ({
 
   const { width } = useWindowSize()
 
-  const [lockedBodyScroll, setLockedBodyScroll] = useLockedBodyScroll()
+  const [, setLockedBodyScroll] = useLockedBody(false)
 
   useEffect(() => {
     setFormOpen(isFormOpen && width !== undefined && width > 767)

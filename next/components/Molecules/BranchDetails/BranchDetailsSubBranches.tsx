@@ -11,7 +11,7 @@ type BranchDetailsContactUsProps = {
   branch: BranchEntityFragment
 }
 
-const BranchDetailsContactUs = ({ branch }: BranchDetailsContactUsProps) => {
+const BranchDetailsSubBranches = ({ branch }: BranchDetailsContactUsProps) => {
   const { t } = useTranslation('common')
 
   if (!branch?.attributes?.subBranches?.data.length) {
@@ -68,4 +68,4 @@ const BranchDetailsContactUs = ({ branch }: BranchDetailsContactUsProps) => {
   )
 }
 
-export default BranchDetailsContactUs
+export default BranchDetailsSubBranches

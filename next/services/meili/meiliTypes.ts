@@ -4,11 +4,13 @@ import {
   Disclosure,
   Document,
   DocumentCategory,
+  BranchPlaceEntityFragment,
   Event,
   EventCategory,
   EventTag,
   FileCategory,
   UploadFile,
+  UploadImageEntityFragment,
 } from '@services/graphql'
 
 export type BasicDocumentMeili = Omit<
