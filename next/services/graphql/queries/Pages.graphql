@@ -49,28 +49,15 @@ fragment PageEntity on PageEntity {
 fragment SectionLinkPage on PageEntity {
   id
   attributes {
-    layout
     title
+  }
+}
+
+fragment SectionLinkBranch on BranchEntity {
+  id
+  attributes {
     slug
-    createdAt
-    updatedAt
-    listingImage {
-      data {
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
-          alternativeText
-        }
-      }
-    }
+    title
   }
 }
 
