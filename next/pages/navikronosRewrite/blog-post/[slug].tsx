@@ -8,7 +8,7 @@ import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
@@ -16,15 +16,12 @@ import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStati
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 
 type PageProps = {
-  slug: string
   blogPost: BlogPostEntityFragment
   general: GeneralQuery
 } & SSRConfig &
   CLNavikronosPageProps
 
-const Page = ({ blogPost, slug, general }: PageProps) => {
-  const { i18n } = useTranslation('common')
-
+const Page = ({ blogPost, general }: PageProps) => {
   if (!blogPost) {
     return null
   }
@@ -38,7 +35,6 @@ const Page = ({ blogPost, slug, general }: PageProps) => {
   )
 }
 
-// TODO use common functions to prevent duplicate code
 interface StaticParams extends ParsedUrlQuery {
   slug: string
 }
@@ -60,6 +56,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       .filter((entity) => entity?.attributes?.slug)
       .map((entity) => ({
         params: {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           slug: entity.attributes!.slug,
           locale: entity.attributes?.locale || '',
         },
@@ -102,7 +99,6 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
 
   return {
     props: {
-      slug,
       blogPost,
       general,
       navikronosStaticProps,

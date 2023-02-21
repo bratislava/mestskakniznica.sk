@@ -82,6 +82,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
   if (entities.length > 0) {
     paths = entities.map((page) => ({
       params: {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         id: page.id!,
         locale: page?.attributes?.locale || '',
       },
