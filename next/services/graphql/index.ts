@@ -6316,6 +6316,12 @@ export type BlogPostsQuery = {
   } | null
 }
 
+export type EventBranchPlaceEntityFragment = {
+  __typename?: 'BranchEntity'
+  id?: string | null
+  attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
+}
+
 export type BranchPlaceEntityFragment = {
   __typename?: 'BranchEntity'
   id?: string | null
@@ -6845,21 +6851,7 @@ export type EventCardEntityFragment = {
       data?: {
         __typename?: 'BranchEntity'
         id?: string | null
-        attributes?: {
-          __typename?: 'Branch'
-          title: string
-          address?: string | null
-          phone?: string | null
-          email?: string | null
-          openingHours?: {
-            __typename?: 'ComponentBlocksOpeningHours'
-            days: Array<{
-              __typename?: 'ComponentBlocksOpeningHoursItem'
-              label?: string | null
-              time: string
-            } | null>
-          } | null
-        } | null
+        attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
       } | null
     } | null
     eventTags?: {
@@ -7042,21 +7034,7 @@ export type EventEntityFragment = {
       data?: {
         __typename?: 'BranchEntity'
         id?: string | null
-        attributes?: {
-          __typename?: 'Branch'
-          title: string
-          address?: string | null
-          phone?: string | null
-          email?: string | null
-          openingHours?: {
-            __typename?: 'ComponentBlocksOpeningHours'
-            days: Array<{
-              __typename?: 'ComponentBlocksOpeningHoursItem'
-              label?: string | null
-              time: string
-            } | null>
-          } | null
-        } | null
+        attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
       } | null
     } | null
     eventTags?: {
@@ -7310,21 +7288,7 @@ export type EventBySlugQuery = {
           data?: {
             __typename?: 'BranchEntity'
             id?: string | null
-            attributes?: {
-              __typename?: 'Branch'
-              title: string
-              address?: string | null
-              phone?: string | null
-              email?: string | null
-              openingHours?: {
-                __typename?: 'ComponentBlocksOpeningHours'
-                days: Array<{
-                  __typename?: 'ComponentBlocksOpeningHoursItem'
-                  label?: string | null
-                  time: string
-                } | null>
-              } | null
-            } | null
+            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
           } | null
         } | null
         eventTags?: {
@@ -9335,6 +9299,51 @@ export type UploadImageEntityFragment = {
   } | null
 }
 
+export type UploadImageFragment = {
+  __typename?: 'UploadFile'
+  url: string
+  name: string
+  alternativeText?: string | null
+  caption?: string | null
+  size: number
+  width?: number | null
+  height?: number | null
+}
+
+export type EventTagsFragment = {
+  __typename?: 'EventTag'
+  title?: string | null
+  slug?: string | null
+  createdAt?: any | null
+  publishedAt?: any | null
+  updatedAt?: any | null
+}
+
+export type EventCategoryFragment = {
+  __typename?: 'EventCategory'
+  title?: string | null
+  createdAt?: any | null
+  updatedAt?: any | null
+}
+
+export type EventBranchFragment = { __typename?: 'Branch'; title: string; address?: string | null }
+
+export type BranchFragment = {
+  __typename?: 'Branch'
+  title: string
+  address?: string | null
+  phone?: string | null
+  email?: string | null
+  openingHours?: {
+    __typename?: 'ComponentBlocksOpeningHours'
+    days: Array<{
+      __typename?: 'ComponentBlocksOpeningHoursItem'
+      label?: string | null
+      time: string
+    } | null>
+  } | null
+}
+
 export type HomePageQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']
 }>
@@ -9582,21 +9591,7 @@ export type HomePageQuery = {
           data?: {
             __typename?: 'BranchEntity'
             id?: string | null
-            attributes?: {
-              __typename?: 'Branch'
-              title: string
-              address?: string | null
-              phone?: string | null
-              email?: string | null
-              openingHours?: {
-                __typename?: 'ComponentBlocksOpeningHours'
-                days: Array<{
-                  __typename?: 'ComponentBlocksOpeningHoursItem'
-                  label?: string | null
-                  time: string
-                } | null>
-              } | null
-            } | null
+            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
           } | null
         } | null
         eventTags?: {
@@ -11264,21 +11259,7 @@ export type GeneralQuery = {
           data?: {
             __typename?: 'BranchEntity'
             id?: string | null
-            attributes?: {
-              __typename?: 'Branch'
-              title: string
-              address?: string | null
-              phone?: string | null
-              email?: string | null
-              openingHours?: {
-                __typename?: 'ComponentBlocksOpeningHours'
-                days: Array<{
-                  __typename?: 'ComponentBlocksOpeningHoursItem'
-                  label?: string | null
-                  time: string
-                } | null>
-              } | null
-            } | null
+            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
           } | null
         } | null
         eventTags?: {
@@ -11665,17 +11646,37 @@ export const DocumentsFragmentDoc = gql`
   }
   ${DocumentEntityFragmentDoc}
 `
+export const UploadImageFragmentDoc = gql`
+  fragment UploadImage on UploadFile {
+    url
+    name
+    alternativeText
+    caption
+    size
+    width
+    height
+  }
+`
 export const UploadImageEntityFragmentDoc = gql`
   fragment UploadImageEntity on UploadFileEntity {
     id
     attributes {
-      url
-      name
-      alternativeText
-      caption
-      size
-      width
-      height
+      ...UploadImage
+    }
+  }
+  ${UploadImageFragmentDoc}
+`
+export const BranchFragmentDoc = gql`
+  fragment Branch on Branch {
+    title
+    address
+    phone
+    email
+    openingHours {
+      days {
+        label
+        time
+      }
     }
   }
 `
@@ -11683,18 +11684,10 @@ export const BranchPlaceEntityFragmentDoc = gql`
   fragment BranchPlaceEntity on BranchEntity {
     id
     attributes {
-      title
-      address
-      phone
-      email
-      openingHours {
-        days {
-          label
-          time
-        }
-      }
+      ...Branch
     }
   }
+  ${BranchFragmentDoc}
 `
 export const BranchCardEntityFragmentDoc = gql`
   fragment BranchCardEntity on BranchEntity {
@@ -11997,6 +11990,37 @@ export const DisclosureEntityFragmentDoc = gql`
   }
   ${UploadFileEntityFragmentDoc}
 `
+export const EventCategoryFragmentDoc = gql`
+  fragment EventCategory on EventCategory {
+    title
+    createdAt
+    updatedAt
+  }
+`
+export const EventBranchFragmentDoc = gql`
+  fragment EventBranch on Branch {
+    title
+    address
+  }
+`
+export const EventBranchPlaceEntityFragmentDoc = gql`
+  fragment EventBranchPlaceEntity on BranchEntity {
+    id
+    attributes {
+      ...EventBranch
+    }
+  }
+  ${EventBranchFragmentDoc}
+`
+export const EventTagsFragmentDoc = gql`
+  fragment EventTags on EventTag {
+    title
+    slug
+    createdAt
+    publishedAt
+    updatedAt
+  }
+`
 export const EventCardEntityFragmentDoc = gql`
   fragment EventCardEntity on EventEntity {
     id
@@ -12016,26 +12040,20 @@ export const EventCardEntityFragmentDoc = gql`
         data {
           id
           attributes {
-            title
-            createdAt
-            updatedAt
+            ...EventCategory
           }
         }
       }
       branch {
         data {
-          ...BranchPlaceEntity
+          ...EventBranchPlaceEntity
         }
       }
       eventTags {
         data {
           id
           attributes {
-            title
-            slug
-            createdAt
-            publishedAt
-            updatedAt
+            ...EventTags
           }
         }
       }
@@ -12051,7 +12069,9 @@ export const EventCardEntityFragmentDoc = gql`
       }
     }
   }
-  ${BranchPlaceEntityFragmentDoc}
+  ${EventCategoryFragmentDoc}
+  ${EventBranchPlaceEntityFragmentDoc}
+  ${EventTagsFragmentDoc}
   ${UploadImageEntityFragmentDoc}
 `
 export const EventEntityFragmentDoc = gql`

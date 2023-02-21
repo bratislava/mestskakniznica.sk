@@ -96,7 +96,11 @@ const EventDetails = ({ event }: PageProps) => {
         <div className="col-span-5">
           <div className="text-sm">
             <TagsDisplay
-              tags={event?.attributes?.eventTags?.data || []}
+              tags={
+                event?.attributes?.eventTags?.data
+                  .map((eventTagEntity) => eventTagEntity.attributes)
+                  .filter(isDefined) || []
+              }
               category={event?.attributes?.eventCategory?.data?.attributes?.title || ''}
               tagsCount={5}
             />
