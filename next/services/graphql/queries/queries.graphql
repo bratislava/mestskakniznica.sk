@@ -405,16 +405,6 @@ fragment AccordionItem on ComponentBlocksAccordionItem {
   content
 }
 
-fragment PageLink on ComponentBlocksPageLink {
-  title
-  url
-  page {
-    data {
-      ...PageWithBaseFieldsEntity
-    }
-  }
-}
-
 fragment Pagination on Pagination {
   total
   page
