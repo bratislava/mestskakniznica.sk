@@ -8,23 +8,22 @@ import cx from 'classnames'
 
 export interface SidebarProps {
   className?: string
-  page: PageEntity
 }
 
-export const Sidebar = ({ className, page }: SidebarProps) => {
-  const { siblings, currentPath, getPathForEntity } = useNavikronos()
+export const Sidebar = ({ className }: SidebarProps) => {
+  const { siblings, currentPath, parent } = useNavikronos()
 
   return (
     <div className={className}>
       {/* TODO create component for this button or update Button variants */}
-      {page && (
+      {parent && (
         <Button
-          href={getPathForEntity({ type: 'page', id: page.id }) ?? '#'}
+          href={parent.path}
           variant="unstyled"
           startIcon={<ArrowLeftIcon />}
           className="inline-flex items-center gap-x-4 text-base uppercase"
         >
-          {page.attributes?.title}
+          {parent?.title}
         </Button>
       )}
       <div className={cx('flex flex-col')}>

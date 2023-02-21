@@ -21,7 +21,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
           {/* Sidebar */}
 
           <div className="col-start-1 row-start-3 mt-8 hidden md:col-span-5 md:flex">
-            <Sidebar className="w-4/5" page={page} />
+            <Sidebar className="w-4/5" />
           </div>
           <div className="col-span-12 row-start-2 mt-6 border-b-[1px] border-border-dark" />
           {/* Title */}
