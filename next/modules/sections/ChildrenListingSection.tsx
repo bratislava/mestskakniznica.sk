@@ -1,18 +1,18 @@
 import { Listing } from '@components/ui'
-import { useTranslation } from 'next-i18next'
-import React, { useMemo } from 'react'
-import { useQuery } from 'react-query'
-import { useNavikronos } from '@utils/navikronos'
 import {
   ComponentSectionsChildrenListing,
   Enum_Componentsectionschildrenlisting_Depth,
 } from '@services/graphql'
-import { useGeneralContext } from '@utils/generalContext'
-import { isDefined } from '@utils/isDefined'
 import {
   getLatestNewsQueryKey,
   latestNewsFetcher,
 } from '@services/graphql/fetchers/latestNews.fetcher'
+import { useGeneralContext } from '@utils/generalContext'
+import { isDefined } from '@utils/isDefined'
+import { useNavikronos } from '@utils/navikronos'
+import { useTranslation } from 'next-i18next'
+import React, { useMemo } from 'react'
+import { useQuery } from 'react-query'
 
 type ChildrenListingSectionProps = {
   section: ComponentSectionsChildrenListing
@@ -48,7 +48,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
   )
 
   if (section.depth === Enum_Componentsectionschildrenlisting_Depth.Depth_1) {
-    return <Listing className="mt-8 md:mt-16" title={'TODO title'} children={children} />
+    return <Listing className="mt-8 md:mt-16" title="TODO title" listingChildren={children} />
   }
 
   if (section.depth === Enum_Componentsectionschildrenlisting_Depth.Depth_2) {
@@ -90,7 +90,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
               title={child.title}
               url={child.path ?? '#'}
               moreLinkTitle={t('more')}
-              children={listingChildren}
+              listingChildren={listingChildren}
               hasDivider={children.length > 1 && index != children.length - 1}
             />
           )

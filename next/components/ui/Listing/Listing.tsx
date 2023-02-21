@@ -12,7 +12,7 @@ export interface ListingProps {
   title?: string
   url?: string
   moreLinkTitle?: string
-  children: NavikronosChildren
+  listingChildren: NavikronosChildren
   hasDivider?: boolean
 }
 
@@ -21,7 +21,7 @@ export const Listing = ({
   title,
   url,
   moreLinkTitle,
-  children,
+  listingChildren,
   hasDivider,
 }: ListingProps) => {
   const { t } = useTranslation()
@@ -42,7 +42,7 @@ export const Listing = ({
       )}
 
       <div className="mt-4 grid grid-cols-1 gap-y-2 md:mt-6 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
-        {children?.map((page, index) => (
+        {listingChildren?.map((page, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <div key={index}>
             <div className="hidden md:block">
