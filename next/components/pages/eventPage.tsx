@@ -1,5 +1,5 @@
 import { Link, SectionContainer } from '@bratislava/ui-city-library'
-import EventListingCard from '@components/Molecules/EventListingCard'
+import EventCard from '@components/Molecules/EventCard'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import { EventEntityFragment } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
@@ -65,7 +65,7 @@ const EventPage = ({ event }: PageProps) => {
                   branch,
                 } = upcomingEvent.attributes ?? {}
                 return upcomingEvent.attributes ? (
-                  <EventListingCard
+                  <EventCard
                     title={title}
                     dateFrom={dateFrom}
                     dateTo={dateTo}

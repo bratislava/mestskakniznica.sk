@@ -5411,16 +5411,6 @@ export type BlogPostEntityFragment = {
                         __typename?: 'Branch'
                         title: string
                         address?: string | null
-                        phone?: string | null
-                        email?: string | null
-                        openingHours?: {
-                          __typename?: 'ComponentBlocksOpeningHours'
-                          days: Array<{
-                            __typename?: 'ComponentBlocksOpeningHoursItem'
-                            label?: string | null
-                            time: string
-                          } | null>
-                        } | null
                       } | null
                     }>
                   } | null
@@ -5474,16 +5464,6 @@ export type BlogPostEntityFragment = {
                         __typename?: 'Branch'
                         title: string
                         address?: string | null
-                        phone?: string | null
-                        email?: string | null
-                        openingHours?: {
-                          __typename?: 'ComponentBlocksOpeningHours'
-                          days: Array<{
-                            __typename?: 'ComponentBlocksOpeningHoursItem'
-                            label?: string | null
-                            time: string
-                          } | null>
-                        } | null
                       } | null
                     }>
                   } | null
@@ -5782,16 +5762,6 @@ export type BlogPostBySlugQuery = {
                             __typename?: 'Branch'
                             title: string
                             address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
                           } | null
                         }>
                       } | null
@@ -5845,16 +5815,6 @@ export type BlogPostBySlugQuery = {
                             __typename?: 'Branch'
                             title: string
                             address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
                           } | null
                         }>
                       } | null
@@ -6141,16 +6101,6 @@ export type BlogPostsQuery = {
                             __typename?: 'Branch'
                             title: string
                             address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
                           } | null
                         }>
                       } | null
@@ -6204,16 +6154,6 @@ export type BlogPostsQuery = {
                             __typename?: 'Branch'
                             title: string
                             address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
                           } | null
                         }>
                       } | null
@@ -6319,21 +6259,7 @@ export type BlogPostsQuery = {
 export type BranchPlaceEntityFragment = {
   __typename?: 'BranchEntity'
   id?: string | null
-  attributes?: {
-    __typename?: 'Branch'
-    title: string
-    address?: string | null
-    phone?: string | null
-    email?: string | null
-    openingHours?: {
-      __typename?: 'ComponentBlocksOpeningHours'
-      days: Array<{
-        __typename?: 'ComponentBlocksOpeningHoursItem'
-        label?: string | null
-        time: string
-      } | null>
-    } | null
-  } | null
+  attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
 }
 
 export type BranchCardEntityFragment = {
@@ -6368,21 +6294,7 @@ export type BranchCardEntityFragment = {
       data: Array<{
         __typename?: 'BranchEntity'
         id?: string | null
-        attributes?: {
-          __typename?: 'Branch'
-          title: string
-          address?: string | null
-          phone?: string | null
-          email?: string | null
-          openingHours?: {
-            __typename?: 'ComponentBlocksOpeningHours'
-            days: Array<{
-              __typename?: 'ComponentBlocksOpeningHoursItem'
-              label?: string | null
-              time: string
-            } | null>
-          } | null
-        } | null
+        attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
       }>
     } | null
   } | null
@@ -6479,21 +6391,7 @@ export type BranchEntityFragment = {
       data: Array<{
         __typename?: 'BranchEntity'
         id?: string | null
-        attributes?: {
-          __typename?: 'Branch'
-          title: string
-          address?: string | null
-          phone?: string | null
-          email?: string | null
-          openingHours?: {
-            __typename?: 'ComponentBlocksOpeningHours'
-            days: Array<{
-              __typename?: 'ComponentBlocksOpeningHoursItem'
-              label?: string | null
-              time: string
-            } | null>
-          } | null
-        } | null
+        attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
       }>
     } | null
   } | null
@@ -6614,21 +6512,7 @@ export type BranchBySlugQuery = {
           data: Array<{
             __typename?: 'BranchEntity'
             id?: string | null
-            attributes?: {
-              __typename?: 'Branch'
-              title: string
-              address?: string | null
-              phone?: string | null
-              email?: string | null
-              openingHours?: {
-                __typename?: 'ComponentBlocksOpeningHours'
-                days: Array<{
-                  __typename?: 'ComponentBlocksOpeningHoursItem'
-                  label?: string | null
-                  time: string
-                } | null>
-              } | null
-            } | null
+            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
           }>
         } | null
       } | null
@@ -6845,21 +6729,7 @@ export type EventCardEntityFragment = {
       data?: {
         __typename?: 'BranchEntity'
         id?: string | null
-        attributes?: {
-          __typename?: 'Branch'
-          title: string
-          address?: string | null
-          phone?: string | null
-          email?: string | null
-          openingHours?: {
-            __typename?: 'ComponentBlocksOpeningHours'
-            days: Array<{
-              __typename?: 'ComponentBlocksOpeningHoursItem'
-              label?: string | null
-              time: string
-            } | null>
-          } | null
-        } | null
+        attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
       } | null
     } | null
     eventTags?: {
@@ -7042,21 +6912,7 @@ export type EventEntityFragment = {
       data?: {
         __typename?: 'BranchEntity'
         id?: string | null
-        attributes?: {
-          __typename?: 'Branch'
-          title: string
-          address?: string | null
-          phone?: string | null
-          email?: string | null
-          openingHours?: {
-            __typename?: 'ComponentBlocksOpeningHours'
-            days: Array<{
-              __typename?: 'ComponentBlocksOpeningHoursItem'
-              label?: string | null
-              time: string
-            } | null>
-          } | null
-        } | null
+        attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
       } | null
     } | null
     eventTags?: {
@@ -7135,21 +6991,7 @@ export type EventPropertiesQuery = {
     data: Array<{
       __typename?: 'BranchEntity'
       id?: string | null
-      attributes?: {
-        __typename?: 'Branch'
-        title: string
-        address?: string | null
-        phone?: string | null
-        email?: string | null
-        openingHours?: {
-          __typename?: 'ComponentBlocksOpeningHours'
-          days: Array<{
-            __typename?: 'ComponentBlocksOpeningHoursItem'
-            label?: string | null
-            time: string
-          } | null>
-        } | null
-      } | null
+      attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
     }>
   } | null
   eventTags?: {
@@ -7310,21 +7152,7 @@ export type EventBySlugQuery = {
           data?: {
             __typename?: 'BranchEntity'
             id?: string | null
-            attributes?: {
-              __typename?: 'Branch'
-              title: string
-              address?: string | null
-              phone?: string | null
-              email?: string | null
-              openingHours?: {
-                __typename?: 'ComponentBlocksOpeningHours'
-                days: Array<{
-                  __typename?: 'ComponentBlocksOpeningHoursItem'
-                  label?: string | null
-                  time: string
-                } | null>
-              } | null
-            } | null
+            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
           } | null
         } | null
         eventTags?: {
@@ -8074,16 +7902,6 @@ export type PageEntityFragment = {
                         __typename?: 'Branch'
                         title: string
                         address?: string | null
-                        phone?: string | null
-                        email?: string | null
-                        openingHours?: {
-                          __typename?: 'ComponentBlocksOpeningHours'
-                          days: Array<{
-                            __typename?: 'ComponentBlocksOpeningHoursItem'
-                            label?: string | null
-                            time: string
-                          } | null>
-                        } | null
                       } | null
                     }>
                   } | null
@@ -8164,16 +7982,6 @@ export type PageEntityFragment = {
                         __typename?: 'Branch'
                         title: string
                         address?: string | null
-                        phone?: string | null
-                        email?: string | null
-                        openingHours?: {
-                          __typename?: 'ComponentBlocksOpeningHours'
-                          days: Array<{
-                            __typename?: 'ComponentBlocksOpeningHoursItem'
-                            label?: string | null
-                            time: string
-                          } | null>
-                        } | null
                       } | null
                     }>
                   } | null
@@ -9018,16 +8826,6 @@ export type PageByIdQuery = {
                             __typename?: 'Branch'
                             title: string
                             address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
                           } | null
                         }>
                       } | null
@@ -9108,16 +8906,6 @@ export type PageByIdQuery = {
                             __typename?: 'Branch'
                             title: string
                             address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
                           } | null
                         }>
                       } | null
@@ -9362,21 +9150,7 @@ export type EventCategoryFragment = {
   updatedAt?: any | null
 }
 
-export type BranchFragment = {
-  __typename?: 'Branch'
-  title: string
-  address?: string | null
-  phone?: string | null
-  email?: string | null
-  openingHours?: {
-    __typename?: 'ComponentBlocksOpeningHours'
-    days: Array<{
-      __typename?: 'ComponentBlocksOpeningHoursItem'
-      label?: string | null
-      time: string
-    } | null>
-  } | null
-}
+export type EventBranchFragment = { __typename?: 'Branch'; title: string; address?: string | null }
 
 export type HomePageQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']
@@ -9526,16 +9300,6 @@ export type HomePageQuery = {
                         __typename?: 'Branch'
                         title: string
                         address?: string | null
-                        phone?: string | null
-                        email?: string | null
-                        openingHours?: {
-                          __typename?: 'ComponentBlocksOpeningHours'
-                          days: Array<{
-                            __typename?: 'ComponentBlocksOpeningHoursItem'
-                            label?: string | null
-                            time: string
-                          } | null>
-                        } | null
                       } | null
                     }>
                   } | null
@@ -9625,21 +9389,7 @@ export type HomePageQuery = {
           data?: {
             __typename?: 'BranchEntity'
             id?: string | null
-            attributes?: {
-              __typename?: 'Branch'
-              title: string
-              address?: string | null
-              phone?: string | null
-              email?: string | null
-              openingHours?: {
-                __typename?: 'ComponentBlocksOpeningHours'
-                days: Array<{
-                  __typename?: 'ComponentBlocksOpeningHoursItem'
-                  label?: string | null
-                  time: string
-                } | null>
-              } | null
-            } | null
+            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
           } | null
         } | null
         eventTags?: {
@@ -10155,16 +9905,6 @@ export type LatestNewsQuery = {
                             __typename?: 'Branch'
                             title: string
                             address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
                           } | null
                         }>
                       } | null
@@ -10245,16 +9985,6 @@ export type LatestNewsQuery = {
                             __typename?: 'Branch'
                             title: string
                             address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
                           } | null
                         }>
                       } | null
@@ -10805,21 +10535,7 @@ type Sections_ComponentSectionsMap_Fragment = {
             data: Array<{
               __typename?: 'BranchEntity'
               id?: string | null
-              attributes?: {
-                __typename?: 'Branch'
-                title: string
-                address?: string | null
-                phone?: string | null
-                email?: string | null
-                openingHours?: {
-                  __typename?: 'ComponentBlocksOpeningHours'
-                  days: Array<{
-                    __typename?: 'ComponentBlocksOpeningHoursItem'
-                    label?: string | null
-                    time: string
-                  } | null>
-                } | null
-              } | null
+              attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
             }>
           } | null
         } | null
@@ -10902,21 +10618,7 @@ type Sections_ComponentSectionsRental_Fragment = {
             data: Array<{
               __typename?: 'BranchEntity'
               id?: string | null
-              attributes?: {
-                __typename?: 'Branch'
-                title: string
-                address?: string | null
-                phone?: string | null
-                email?: string | null
-                openingHours?: {
-                  __typename?: 'ComponentBlocksOpeningHours'
-                  days: Array<{
-                    __typename?: 'ComponentBlocksOpeningHoursItem'
-                    label?: string | null
-                    time: string
-                  } | null>
-                } | null
-              } | null
+              attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
             }>
           } | null
         } | null
@@ -11307,21 +11009,7 @@ export type GeneralQuery = {
           data?: {
             __typename?: 'BranchEntity'
             id?: string | null
-            attributes?: {
-              __typename?: 'Branch'
-              title: string
-              address?: string | null
-              phone?: string | null
-              email?: string | null
-              openingHours?: {
-                __typename?: 'ComponentBlocksOpeningHours'
-                days: Array<{
-                  __typename?: 'ComponentBlocksOpeningHoursItem'
-                  label?: string | null
-                  time: string
-                } | null>
-              } | null
-            } | null
+            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
           } | null
         } | null
         eventTags?: {
@@ -11728,28 +11416,20 @@ export const UploadImageEntityFragmentDoc = gql`
   }
   ${UploadImageFragmentDoc}
 `
-export const BranchFragmentDoc = gql`
-  fragment Branch on Branch {
+export const EventBranchFragmentDoc = gql`
+  fragment EventBranch on Branch {
     title
     address
-    phone
-    email
-    openingHours {
-      days {
-        label
-        time
-      }
-    }
   }
 `
 export const BranchPlaceEntityFragmentDoc = gql`
   fragment BranchPlaceEntity on BranchEntity {
     id
     attributes {
-      ...Branch
+      ...EventBranch
     }
   }
-  ${BranchFragmentDoc}
+  ${EventBranchFragmentDoc}
 `
 export const BranchCardEntityFragmentDoc = gql`
   fragment BranchCardEntity on BranchEntity {

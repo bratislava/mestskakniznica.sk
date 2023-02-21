@@ -45,15 +45,7 @@ fragment EventCategory on EventCategory {
   updatedAt
 }
 
-fragment Branch on Branch {
+fragment EventBranch on Branch {
   title
   address
-  phone
-  email
-  openingHours {
-    days {
-      label
-      time
-    }
-  }
 }

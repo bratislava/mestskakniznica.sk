@@ -1,7 +1,7 @@
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import {
-  BranchFragment,
+  EventBranchFragment,
   EventCategoryFragment,
   EventTagsFragment,
   UploadImageFragment,
@@ -14,7 +14,7 @@ import { useTranslation } from 'next-i18next'
 import Placeholder from '../../assets/images/event-list-placeholder.jpg'
 import TagsDisplay from '../Atoms/TagsDisplay'
 
-type EventListingProps = {
+type EventCardProps = {
   title?: string
   dateFrom?: string
   dateTo?: string
@@ -23,10 +23,10 @@ type EventListingProps = {
   coverImage?: UploadImageFragment | null
   eventTags?: EventTagsFragment[]
   eventCategory?: EventCategoryFragment | null
-  branch?: BranchFragment | null
+  branch?: EventBranchFragment | null
 }
 
-const EventListingCard = ({
+const EventCard = ({
   title,
   dateFrom,
   dateTo,
@@ -36,7 +36,7 @@ const EventListingCard = ({
   eventTags,
   eventCategory,
   branch,
-}: EventListingProps) => {
+}: EventCardProps) => {
   const { t } = useTranslation('common')
   const { getPathForEntity } = useNavikronos()
 
@@ -76,4 +76,4 @@ const EventListingCard = ({
   )
 }
 
-export default EventListingCard
+export default EventCard

@@ -1,5 +1,5 @@
+import EventCard from '@components/Molecules/EventCard'
 import EventFilters from '@components/Molecules/EventFilters'
-import EventListingCard from '@components/Molecules/EventListingCard'
 import { Pagination } from '@components/ui'
 import {
   eventsArchivedDefaultFilters,
@@ -50,10 +50,10 @@ const InnerSection = ({
             eventTags,
             eventCategory,
             branch,
-          } = event ?? {}
+          } = event
           return (
-            <EventListingCard
-              key={event.slug}
+            <EventCard
+              key={slug}
               title={title}
               dateFrom={dateFrom}
               dateTo={dateTo}
