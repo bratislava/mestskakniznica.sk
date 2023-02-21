@@ -990,6 +990,7 @@ input ComponentLocalityPartsLocalityServicesInput {
 
 type ComponentMenuSectionLinks {
   id: ID!
+  sectionLinkBranch: BranchEntityResponse
   sectionLinkPage: PageEntityResponse
   sectionLinkTitle: String
 }
@@ -998,12 +999,14 @@ input ComponentMenuSectionLinksFiltersInput {
   and: [ComponentMenuSectionLinksFiltersInput]
   not: ComponentMenuSectionLinksFiltersInput
   or: [ComponentMenuSectionLinksFiltersInput]
+  sectionLinkBranch: BranchFiltersInput
   sectionLinkPage: PageFiltersInput
   sectionLinkTitle: StringFilterInput
 }
 
 input ComponentMenuSectionLinksInput {
   id: ID
+  sectionLinkBranch: ID
   sectionLinkPage: ID
   sectionLinkTitle: String
 }
