@@ -1188,6 +1188,7 @@ export type ComponentLocalityPartsLocalityServicesInput = {
 export type ComponentMenuSectionLinks = {
   __typename?: 'ComponentMenuSectionLinks'
   id: Scalars['ID']
+  sectionLinkBranch?: Maybe<BranchEntityResponse>
   sectionLinkPage?: Maybe<PageEntityResponse>
   sectionLinkTitle?: Maybe<Scalars['String']>
 }
@@ -1196,12 +1197,14 @@ export type ComponentMenuSectionLinksFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentMenuSectionLinksFiltersInput>>>
   not?: InputMaybe<ComponentMenuSectionLinksFiltersInput>
   or?: InputMaybe<Array<InputMaybe<ComponentMenuSectionLinksFiltersInput>>>
+  sectionLinkBranch?: InputMaybe<BranchFiltersInput>
   sectionLinkPage?: InputMaybe<PageFiltersInput>
   sectionLinkTitle?: InputMaybe<StringFilterInput>
 }
 
 export type ComponentMenuSectionLinksInput = {
   id?: InputMaybe<Scalars['ID']>
+  sectionLinkBranch?: InputMaybe<Scalars['ID']>
   sectionLinkPage?: InputMaybe<Scalars['ID']>
   sectionLinkTitle?: InputMaybe<Scalars['String']>
 }
@@ -8027,34 +8030,13 @@ export type PageEntityFragment = {
 export type SectionLinkPageFragment = {
   __typename?: 'PageEntity'
   id?: string | null
-  attributes?: {
-    __typename?: 'Page'
-    layout?: Enum_Page_Layout | null
-    title: string
-    slug: string
-    createdAt?: any | null
-    updatedAt?: any | null
-    listingImage?: {
-      __typename?: 'UploadFileEntityResponse'
-      data?: {
-        __typename?: 'UploadFileEntity'
-        attributes?: {
-          __typename?: 'UploadFile'
-          name: string
-          width?: number | null
-          height?: number | null
-          url: string
-          createdAt?: any | null
-          hash: string
-          mime: string
-          provider: string
-          size: number
-          updatedAt?: any | null
-          alternativeText?: string | null
-        } | null
-      } | null
-    } | null
-  } | null
+  attributes?: { __typename?: 'Page'; title: string } | null
+}
+
+export type SectionLinkBranchFragment = {
+  __typename?: 'BranchEntity'
+  id?: string | null
+  attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
 }
 
 export type PageWithBaseFieldsEntityFragment = {
@@ -9119,34 +9101,15 @@ export type MenuEntityFragment = {
           data?: {
             __typename?: 'PageEntity'
             id?: string | null
-            attributes?: {
-              __typename?: 'Page'
-              layout?: Enum_Page_Layout | null
-              title: string
-              slug: string
-              createdAt?: any | null
-              updatedAt?: any | null
-              listingImage?: {
-                __typename?: 'UploadFileEntityResponse'
-                data?: {
-                  __typename?: 'UploadFileEntity'
-                  attributes?: {
-                    __typename?: 'UploadFile'
-                    name: string
-                    width?: number | null
-                    height?: number | null
-                    url: string
-                    createdAt?: any | null
-                    hash: string
-                    mime: string
-                    provider: string
-                    size: number
-                    updatedAt?: any | null
-                    alternativeText?: string | null
-                  } | null
-                } | null
-              } | null
-            } | null
+            attributes?: { __typename?: 'Page'; title: string } | null
+          } | null
+        } | null
+        sectionLinkBranch?: {
+          __typename?: 'BranchEntityResponse'
+          data?: {
+            __typename?: 'BranchEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
           } | null
         } | null
       } | null> | null
@@ -9210,34 +9173,15 @@ export type MenuSectionFragment = {
       data?: {
         __typename?: 'PageEntity'
         id?: string | null
-        attributes?: {
-          __typename?: 'Page'
-          layout?: Enum_Page_Layout | null
-          title: string
-          slug: string
-          createdAt?: any | null
-          updatedAt?: any | null
-          listingImage?: {
-            __typename?: 'UploadFileEntityResponse'
-            data?: {
-              __typename?: 'UploadFileEntity'
-              attributes?: {
-                __typename?: 'UploadFile'
-                name: string
-                width?: number | null
-                height?: number | null
-                url: string
-                createdAt?: any | null
-                hash: string
-                mime: string
-                provider: string
-                size: number
-                updatedAt?: any | null
-                alternativeText?: string | null
-              } | null
-            } | null
-          } | null
-        } | null
+        attributes?: { __typename?: 'Page'; title: string } | null
+      } | null
+    } | null
+    sectionLinkBranch?: {
+      __typename?: 'BranchEntityResponse'
+      data?: {
+        __typename?: 'BranchEntity'
+        id?: string | null
+        attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
       } | null
     } | null
   } | null> | null
@@ -9953,34 +9897,15 @@ export type GeneralQuery = {
               data?: {
                 __typename?: 'PageEntity'
                 id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  layout?: Enum_Page_Layout | null
-                  title: string
-                  slug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                  listingImage?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        name: string
-                        width?: number | null
-                        height?: number | null
-                        url: string
-                        createdAt?: any | null
-                        hash: string
-                        mime: string
-                        provider: string
-                        size: number
-                        updatedAt?: any | null
-                        alternativeText?: string | null
-                      } | null
-                    } | null
-                  } | null
-                } | null
+                attributes?: { __typename?: 'Page'; title: string } | null
+              } | null
+            } | null
+            sectionLinkBranch?: {
+              __typename?: 'BranchEntityResponse'
+              data?: {
+                __typename?: 'BranchEntity'
+                id?: string | null
+                attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
               } | null
             } | null
           } | null> | null
@@ -11039,28 +10964,16 @@ export const SectionLinkPageFragmentDoc = gql`
   fragment SectionLinkPage on PageEntity {
     id
     attributes {
-      layout
       title
+    }
+  }
+`
+export const SectionLinkBranchFragmentDoc = gql`
+  fragment SectionLinkBranch on BranchEntity {
+    id
+    attributes {
       slug
-      createdAt
-      updatedAt
-      listingImage {
-        data {
-          attributes {
-            name
-            width
-            height
-            url
-            createdAt
-            hash
-            mime
-            provider
-            size
-            updatedAt
-            alternativeText
-          }
-        }
-      }
+      title
     }
   }
 `
@@ -11082,10 +10995,16 @@ export const MenuSectionFragmentDoc = gql`
           ...SectionLinkPage
         }
       }
+      sectionLinkBranch {
+        data {
+          ...SectionLinkBranch
+        }
+      }
     }
   }
   ${PageWithBaseFieldsEntityFragmentDoc}
   ${SectionLinkPageFragmentDoc}
+  ${SectionLinkBranchFragmentDoc}
 `
 export const MenuEntityFragmentDoc = gql`
   fragment MenuEntity on MenuEntity {

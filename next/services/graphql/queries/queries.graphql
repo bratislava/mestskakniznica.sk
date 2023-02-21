@@ -176,6 +176,11 @@ fragment MenuSection on ComponentMenuSections {
         ...SectionLinkPage
       }
     }
+    sectionLinkBranch {
+      data {
+        ...SectionLinkBranch
+      }
+    }
   }
 }
 
