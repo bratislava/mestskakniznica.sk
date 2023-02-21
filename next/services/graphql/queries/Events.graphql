@@ -22,7 +22,7 @@ fragment EventCardEntity on EventEntity {
     }
     branch {
       data {
-        ...BranchPlaceEntity
+        ...EventBranchPlaceEntity
       }
     }
     eventTags {
