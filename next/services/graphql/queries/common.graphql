@@ -49,3 +49,16 @@ fragment EventBranch on Branch {
   title
   address
 }
+
+fragment Branch on Branch {
+  title
+  address
+  phone
+  email
+  openingHours {
+    days {
+      label
+      time
+    }
+  }
+}

@@ -1,7 +1,14 @@
-fragment BranchPlaceEntity on BranchEntity {
+fragment EventBranchPlaceEntity on BranchEntity {
   id
   attributes {
     ...EventBranch
+  }
+}
+
+fragment BranchPlaceEntity on BranchEntity {
+  id
+  attributes {
+    ...Branch
   }
 }
 
