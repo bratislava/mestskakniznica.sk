@@ -25,11 +25,6 @@ fragment PageEntity on PageEntity {
     }
     layout
     perex
-    pageCategory {
-      data {
-        ...PageCategoryEntity
-      }
-    }
     sections {
       ...Sections
     }
@@ -90,51 +85,6 @@ fragment PageLocalizationEntity on PageEntity {
   attributes {
     slug
     locale
-  }
-}
-
-fragment Category on Category {
-  title
-  priority
-  pages(pagination: { limit: 20 }) {
-    ...PageLink
-  }
-  pageLink {
-    ...PageLink
-  }
-  createdAt
-  updatedAt
-}
-
-fragment PageCategoryEntity on CategoryEntity {
-  attributes {
-    ...Category
-
-    subCategories {
-      data {
-        id
-        attributes {
-          ...Category
-        }
-      }
-    }
-
-    parentCategory {
-      data {
-        id
-        attributes {
-          ...Category
-          parentCategory {
-            data {
-              id
-              attributes {
-                ...Category
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 
