@@ -2,9 +2,10 @@ import { CallToAction, RowSubcategory } from '@components/ui'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import cx from 'classnames'
-import React from 'react'
-import { NavikronosChildren } from '../../../navikronos/types'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
+
+import { NavikronosChildren } from '../../../navikronos/types'
 
 export interface ListingProps {
   className?: string
@@ -41,8 +42,9 @@ export const Listing = ({
       )}
 
       <div className="mt-4 grid grid-cols-1 gap-y-2 md:mt-6 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
-        {children?.map((page) => (
-          <div>
+        {children?.map((page, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div key={index}>
             <div className="hidden md:block">
               <CallToAction
                 className="h-[180px]"
