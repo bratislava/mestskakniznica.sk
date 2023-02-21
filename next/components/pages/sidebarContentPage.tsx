@@ -49,6 +49,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
                 <Image
                   src={page.attributes.listingImage.data.attributes.url}
                   alt=""
+                  key={page.attributes.listingImage.data.id}
                   fill
                   className="object-cover"
                 />
