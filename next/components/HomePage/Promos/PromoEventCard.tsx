@@ -1,7 +1,7 @@
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@services/graphql'
-import { WithAttributes } from '@utils/isDefined'
+import { isDefined, WithAttributes } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import Image from 'next/image'
 
@@ -23,7 +23,6 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
     title,
     slug,
     eventTags,
-    description,
     eventCategory,
     dateFrom,
     dateTo,
@@ -38,7 +37,9 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
     <div className="relative m-auto flex h-full w-full flex-col justify-between bg-promo-yellow">
       <div className="flex flex-col gap-y-3 py-3 px-4 md:gap-y-4 md:py-4 md:px-5">
         <TagsDisplay
-          tags={eventTags?.data || []}
+          tags={eventTags?.data
+            .map((eventTagEntity) => eventTagEntity.attributes)
+            .filter(isDefined)}
           category={eventCategory?.data?.attributes?.title || ''}
           tagsCount={3}
         />

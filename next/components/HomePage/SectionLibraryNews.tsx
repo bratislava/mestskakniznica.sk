@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import Carousel from '../../modules/common/Carousel/Carousel'
-import ListingCard from '../Molecules/ListingCard'
+import NoticeCard from '../Molecules/NoticeCard'
 
 interface LibraryNewsProps {
   notices: NoticeListingEntityFragment[]
@@ -27,7 +27,7 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
             listClassName="py-10 gap-4 lg:gap-8"
             itemClassName="w-10/12 max-w-[268px] md:max-w-[271px]"
             items={notices.map((notice) => ({
-              element: <ListingCard card={notice} />,
+              element: <NoticeCard card={notice} />,
               key: notice.id ?? undefined,
             }))}
             visibleItemsCount={4}

@@ -1,16 +1,14 @@
+fragment EventBranchPlaceEntity on BranchEntity {
+  id
+  attributes {
+    ...EventBranch
+  }
+}
+
 fragment BranchPlaceEntity on BranchEntity {
   id
   attributes {
-    title
-    address
-    phone
-    email
-    openingHours {
-      days {
-        label
-        time
-      }
-    }
+    ...Branch
   }
 }
 

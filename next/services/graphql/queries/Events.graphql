@@ -16,26 +16,20 @@ fragment EventCardEntity on EventEntity {
       data {
         id
         attributes {
-          title
-          createdAt
-          updatedAt
+          ...EventCategory
         }
       }
     }
     branch {
       data {
-        ...BranchPlaceEntity
+        ...EventBranchPlaceEntity
       }
     }
     eventTags {
       data {
         id
         attributes {
-          title
-          slug
-          createdAt
-          publishedAt
-          updatedAt
+          ...EventTags
         }
       }
     }
