@@ -13,6 +13,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::page.page"
+    },
+    "sectionLinkBranch": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::branch.branch"
     }
   }
 }
