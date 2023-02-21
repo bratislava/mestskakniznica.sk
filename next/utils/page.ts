@@ -1,29 +1,6 @@
-import { SidebarProps, TableRowProps } from '@bratislava/ui-city-library'
-import {
-  CategoryEntity,
-  TableRowFragment,
-} from '@services/graphql'
+import { TableRowProps } from '@bratislava/ui-city-library'
+import { TableRowFragment } from '@services/graphql'
 import groupBy from 'lodash/groupBy'
-
-// SideBar for content with sidebar
-export const parseSidebar = (
-  pageCategory: CategoryEntity | undefined,
-  activePageId: string | null
-): SidebarProps | undefined => {
-  if (!pageCategory) return undefined
-
-  return {
-    title: pageCategory?.attributes?.pageLink?.title ?? '',
-    id: pageCategory?.attributes?.pageLink?.page?.data?.id ?? null,
-    categories:
-      pageCategory?.attributes?.pages?.map((p) => ({
-        title: p?.page?.data?.attributes?.title ?? '',
-        id: p?.page?.data?.id ?? null,
-      })) ?? [],
-    activeCategory:
-      pageCategory?.attributes?.pages?.findIndex((x) => x?.page?.data?.id === activePageId) ?? 0,
-  }
-}
 
 export const groupByTableCategory = (
   tableRows: (TableRowFragment | undefined | null)[]
