@@ -5534,10 +5534,7 @@ export type BlogPostEntityFragment = {
             } | null
             page?: {
               __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                attributes?: { __typename?: 'Page'; slug: string } | null
-              } | null
+              data?: { __typename?: 'PageEntity'; id?: string | null } | null
             } | null
           } | null> | null
         }
@@ -5941,10 +5938,7 @@ export type BlogPostBySlugQuery = {
                 } | null
                 page?: {
                   __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    attributes?: { __typename?: 'Page'; slug: string } | null
-                  } | null
+                  data?: { __typename?: 'PageEntity'; id?: string | null } | null
                 } | null
               } | null> | null
             }
@@ -6336,10 +6330,7 @@ export type BlogPostsQuery = {
                 } | null
                 page?: {
                   __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    attributes?: { __typename?: 'Page'; slug: string } | null
-                  } | null
+                  data?: { __typename?: 'PageEntity'; id?: string | null } | null
                 } | null
               } | null> | null
             }
@@ -8229,10 +8220,7 @@ export type PageEntityFragment = {
             } | null
             page?: {
               __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                attributes?: { __typename?: 'Page'; slug: string } | null
-              } | null
+              data?: { __typename?: 'PageEntity'; id?: string | null } | null
             } | null
           } | null> | null
         }
@@ -8716,10 +8704,7 @@ export type PageByIdQuery = {
                 } | null
                 page?: {
                   __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    attributes?: { __typename?: 'Page'; slug: string } | null
-                  } | null
+                  data?: { __typename?: 'PageEntity'; id?: string | null } | null
                 } | null
               } | null> | null
             }
@@ -10004,10 +9989,7 @@ type Sections_ComponentSectionsRental_Fragment = {
     } | null
     page?: {
       __typename?: 'PageEntityResponse'
-      data?: {
-        __typename?: 'PageEntity'
-        attributes?: { __typename?: 'Page'; slug: string } | null
-      } | null
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
     } | null
   } | null> | null
 }
@@ -10978,9 +10960,7 @@ export const SectionsFragmentDoc = gql`
         }
         page {
           data {
-            attributes {
-              slug
-            }
+            id
           }
         }
       }
