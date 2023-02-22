@@ -5,13 +5,14 @@ import {
   noticesDefaultFilters,
   noticesFetcher,
 } from '@services/graphql/fetchers/notices.fetcher'
+import { useRoutePreservedState } from '@utils/useRoutePreservedState'
 import { useTranslation } from 'next-i18next'
-import React, { useState } from 'react'
+import React from 'react'
 import { useQuery } from 'react-query'
 
 const NoticesListingSection = () => {
   const { t, i18n } = useTranslation('common')
-  const [filters, setFilters] = useState(noticesDefaultFilters)
+  const [filters, setFilters] = useRoutePreservedState(noticesDefaultFilters)
 
   const { data } = useQuery({
     queryKey: getNoticesQueryKey(i18n.language, filters),
