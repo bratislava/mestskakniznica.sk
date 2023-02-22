@@ -7,28 +7,27 @@ type UseSearchOptions = {
 }
 
 export const useSearch = ({ syncWithUrlQuery = false }: UseSearchOptions) => {
-  const [routerQueryValue] = useQueryParam('query', withDefault(StringParam, ''), {
-    removeDefaultsFromUrl: true,
-  })
+  const [routerQueryValue, setRouterQueryValue] = useQueryParam(
+    'query',
+    withDefault(StringParam, ''),
+    {
+      removeDefaultsFromUrl: true,
+    }
+  )
   const [input, setInput] = useState<string>('')
-  const debouncedInput = useDebounce<string>(input, 300)
-  const [searchValue, setSearchValue] = useState<string>('')
+  const value = syncWithUrlQuery ? routerQueryValue : input
+  const debouncedInput = useDebounce<string>(value, 300)
+  const [searchValue, setSearchValue] = useState<string>(value)
 
   const emptyValue = debouncedInput.trim() === ''
-
-  useEffect(() => {
-    if (syncWithUrlQuery) {
-      setInput(routerQueryValue)
-    }
-  }, [routerQueryValue, syncWithUrlQuery])
 
   useEffect(() => {
     setSearchValue(debouncedInput)
   }, [debouncedInput])
 
   return {
-    input,
-    setInput,
+    input: value,
+    setInput: syncWithUrlQuery ? setRouterQueryValue : setInput,
     searchValue,
     setSearchValue,
     emptyValue,
