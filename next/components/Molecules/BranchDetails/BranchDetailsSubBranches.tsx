@@ -3,18 +3,18 @@ import MailSvg from '@assets/images/mail.svg'
 import PhoneSvg from '@assets/images/phone.svg'
 import BranchOpeningHours from '@components/Molecules/BranchDetails/BranchOpeningHours'
 import Accordion from '@modules/common/Accordion'
-import { BranchEntityFragment } from '@services/graphql'
+import { BranchPlaceEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 type BranchDetailsContactUsProps = {
-  branch: BranchEntityFragment
+  branches: BranchPlaceEntityFragment[]
 }
 
-const BranchDetailsSubBranches = ({ branch }: BranchDetailsContactUsProps) => {
+const BranchDetailsSubBranches = ({ branches }: BranchDetailsContactUsProps) => {
   const { t } = useTranslation('common')
 
-  if (!branch?.attributes?.subBranches?.data.length) {
+  if (branches.length === 0) {
     return null
   }
 
@@ -22,7 +22,7 @@ const BranchDetailsSubBranches = ({ branch }: BranchDetailsContactUsProps) => {
     <div className="pt-10" id="sections">
       <div className="text-[24px]">{t('sections')}</div>
       <div className="pt-5">
-        {branch.attributes.subBranches.data.map((subBranch) => (
+        {branches.map((subBranch) => (
           <Accordion
             key={subBranch?.id}
             title={subBranch?.attributes?.title}

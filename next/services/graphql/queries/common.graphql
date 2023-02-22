@@ -51,6 +51,7 @@ fragment EventBranch on Branch {
 }
 
 fragment Branch on Branch {
+  body
   title
   address
   phone
