@@ -25,7 +25,12 @@ const NoticePage = ({ notice }: NoticePageProps) => {
         </div>
       </SectionContainer>
       <SectionContainer>
-        <Documents documents={notice.attributes?.documents?.documents?.data ?? []} />
+        <Documents
+          documents={[
+            ...(notice.attributes?.documents?.documents?.data ?? []),
+            ...(notice.attributes?.documents?.disclosures?.data ?? []),
+          ]}
+        />
       </SectionContainer>
     </>
   )

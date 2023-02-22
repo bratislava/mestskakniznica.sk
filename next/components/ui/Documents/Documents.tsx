@@ -21,7 +21,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
       const { title: docTitle, slug, file } = document.attributes
 
       if (document.__typename === 'DisclosureEntity') {
-        const { type } = document.attributes
+        const { type, contractor } = document.attributes
 
         return {
           id: document.id,
@@ -29,9 +29,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
           content: {
             category: type,
             title: docTitle,
-            metadata: getDisclosureMetadata(document)
-              .map(({ label, value }) => `${label}: ${value}`)
-              .join(', '),
+            metadata: contractor ? `${contractor}` : undefined,
             // eslint-disable-next-line unicorn/consistent-destructuring
             addedAt: document.attributes?.addedAt,
             fileExt: file?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',

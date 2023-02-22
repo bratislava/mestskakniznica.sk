@@ -199,6 +199,11 @@ fragment Documents on ComponentSectionsDocuments {
       ...DocumentEntity
     }
   }
+  disclosures {
+    data {
+      ...DisclosureEntity
+    }
+  }
 }
 
 fragment Gallery on ComponentSectionsGallery {
