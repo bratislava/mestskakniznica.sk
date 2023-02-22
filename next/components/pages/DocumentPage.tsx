@@ -30,7 +30,7 @@ const DocumentPage = ({ entity }: IProps) => {
     return null
   }
 
-  const { title, file, addedAt, description } = entity.attributes
+  const { title, file, description } = entity.attributes
 
   if (!file.data?.attributes) {
     return null
@@ -47,11 +47,13 @@ const DocumentPage = ({ entity }: IProps) => {
     : [
         {
           label: t('DocumentMetadata.category'),
+          // eslint-disable-next-line unicorn/consistent-destructuring
           value: entity.attributes.documentCategory?.data?.attributes?.label,
         },
         {
           label: t('DocumentMetadata.addedAt'),
-          value: <FormatDate value={addedAt} valueType="ISO" />,
+          // eslint-disable-next-line unicorn/consistent-destructuring
+          value: <FormatDate value={entity.attributes.publishedAt} valueType="ISO" />,
         },
       ]
 

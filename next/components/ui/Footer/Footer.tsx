@@ -5,12 +5,12 @@ import Accordion from '@modules/common/Accordion'
 import MLink from '@modules/common/MLink'
 import { ComponentFooterFooterColumn, Maybe } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
+import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { Link } from '../Link/Link'
-import { useNavikronos } from '@utils/navikronos'
 
 export interface FooterProps {
   className?: string

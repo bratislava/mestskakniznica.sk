@@ -1,17 +1,16 @@
 import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-
 import FullContentPage from '@components/pages/fullContentPage'
-import ListingPage from '@components/pages/listingPage'
 import SidebarContentPage from '@components/pages/sidebarContentPage'
-import SublistingPage from '@components/pages/sublistingPage'
 import { Enum_Page_Layout, GeneralQuery, PageEntity, PageEntityFragment } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
+import { extractLocalizationsWithId } from '@utils/extractLocalizations'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
 import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { prefetchPageSections } from '@utils/prefetchPageSections'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
+import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 import { ReactNode } from 'react'
@@ -19,8 +18,6 @@ import { DehydratedState, Hydrate } from 'react-query'
 
 import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
 import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
-import { SSRConfig } from 'next-i18next'
-import { extractLocalizationsWithId } from '@utils/extractLocalizations'
 
 type PageProps = {
   page: PageEntityFragment
@@ -35,14 +32,6 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
   // TODO replace PageEntity by PageEntityFragment
   // eslint-disable-next-line default-case
   switch (page?.attributes?.layout) {
-    case Enum_Page_Layout.Listing:
-      pageComponentByLayout = <ListingPage page={page as PageEntity} />
-      break
-
-    case Enum_Page_Layout.Sublisting:
-      pageComponentByLayout = <SublistingPage page={page as PageEntity} />
-      break
-
     case Enum_Page_Layout.FullContent:
       pageComponentByLayout = <FullContentPage page={page as PageEntity} />
       break
@@ -55,7 +44,11 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
   return (
     <Hydrate state={dehydratedState}>
       <GeneralContextProvider general={general}>
-        <DefaultPageLayout title={page?.attributes?.title} seo={page?.attributes?.seo}>
+        <DefaultPageLayout
+          title={page.attributes?.title}
+          seo={page.attributes?.seo}
+          defaultMetaDescription={page.attributes?.perex}
+        >
           {pageComponentByLayout}
         </DefaultPageLayout>
       </GeneralContextProvider>

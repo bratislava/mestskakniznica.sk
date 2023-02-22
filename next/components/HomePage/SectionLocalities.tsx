@@ -1,10 +1,10 @@
+import { useNavikronos } from '@utils/navikronos'
 import { ILocality } from '@utils/types'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import Map from '../../assets/images/mapa.png'
-import { useNavikronos } from '@utils/navikronos'
 
 interface LocalitiesProps {
   localities: ILocality[]

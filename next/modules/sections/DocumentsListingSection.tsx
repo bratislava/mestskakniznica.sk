@@ -85,7 +85,7 @@ const DocumentsListingSection = () => {
       <div className="mt-6 border-y border-border-dark pb-10 lg:mt-16 lg:pb-32">
         {/* Documents */}
         {data?.hits.map((document) => {
-          const { id, title, type, slug, file, category, addedAt } = document
+          const { id, title, type, slug, file, category } = document
           const metadata =
             // eslint-disable-next-line unicorn/consistent-destructuring
             type === 'disclosure' && document.contractor ? `${document.contractor}` : undefined
@@ -97,7 +97,8 @@ const DocumentsListingSection = () => {
               linkHref={getPathForEntity({ type, slug }) ?? ''}
               fileExt={file?.ext?.toUpperCase().replace('.', '') ?? ''}
               category={category}
-              addedAt={addedAt}
+              // eslint-disable-next-line unicorn/consistent-destructuring
+              addedAt={type === 'disclosure' ? document.addedAt : document.publishedAt}
               metadata={metadata}
             />
           )

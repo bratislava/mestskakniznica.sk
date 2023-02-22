@@ -1,10 +1,7 @@
 import {
-  ColumnedText,
   Documents,
-  ExternalLinks,
   Faq,
   FlatText,
-  FlatTextCenter,
   Localities,
   SiteUsefullness,
   SubListing,
@@ -21,6 +18,7 @@ import EventsListingSection from '@modules/sections/EventsListingSection'
 import GalleryBannerSection from '@modules/sections/GalleryBannerSection'
 import NewBooksSection from '@modules/sections/NewBooksSection'
 import NoticesListingSection from '@modules/sections/NoticesListingSection'
+import OpeningHoursSection from '@modules/sections/OpeningHoursSection'
 import PartnersSection from '@modules/sections/PartnersSection'
 import {
   BlogPostSectionsDynamicZone,
@@ -29,13 +27,7 @@ import {
   PageSectionsDynamicZone,
 } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
-import {
-  groupByAccordionCategory,
-  groupByCategory,
-  groupByLinksCategory,
-  parsePageLink,
-  parseSubpages,
-} from '@utils/page'
+import { groupByAccordionCategory, groupByCategory, parseSubpages } from '@utils/page'
 import { TFunction, useTranslation } from 'next-i18next'
 
 import AskLibraryForm from '../forms/AskLibraryForm.tsx'
@@ -55,6 +47,7 @@ import SpaceReservationForm from '../forms/SpaceReservationForm'
 import TabletReservationForm from '../forms/TabletReservationForm'
 import TheaterTechReservationForm from '../forms/TheaterTechReservationForm'
 import VenueRentalForm, { VenueRentalFormProps } from '../forms/VenueRentalForm'
+import ChildrenListingSection from '@modules/sections/ChildrenListingSection'
 
 type FormsProps =
   | (() => JSX.Element)
@@ -114,9 +107,6 @@ const sectionContent = (
 
     case 'ComponentSectionsGallery':
       return <GalleryBannerSection section={section} />
-
-    case 'ComponentSectionsFlatTextCenter':
-      return <FlatTextCenter content={section?.content ?? ''} />
 
     case 'ComponentSectionsSubListing':
       return (
@@ -202,9 +192,6 @@ const sectionContent = (
     case 'ComponentSectionsDivider':
       return <div className="border-b border-border-dark" />
 
-    case 'ComponentSectionsColumnedText':
-      return <ColumnedText title={section.title ?? ''} content={section.content ?? ''} />
-
     case 'ComponentSectionsCta':
       return (
         <div className="flex w-full justify-center">
@@ -212,17 +199,6 @@ const sectionContent = (
             {section.title}
           </Button>
         </div>
-      )
-
-    case 'ComponentSectionsExternalLinks':
-      return (
-        <ExternalLinks
-          title={section.title ?? ''}
-          sections={groupByLinksCategory(
-            section.descriptions || undefined,
-            section.externalLinks || undefined
-          )}
-        />
       )
 
     case 'ComponentSectionsVideo':
@@ -243,16 +219,12 @@ const sectionContent = (
       return (
         <Documents
           title={section.title}
-          moreLink={{
-            url: parsePageLink(section?.moreLink?.[0])?.url ?? '',
-            title:
-              section.moreLink?.[0]?.title ??
-              section.moreLink?.[0]?.page?.data?.attributes?.title ??
-              '',
-          }}
           documents={(section.documents?.data as DocumentEntityFragment[]) ?? []}
         />
       )
+
+    case 'ComponentSectionsOpeningHoursSection':
+      return <OpeningHoursSection title={section.title} branchList={section.branchList} />
 
     case 'ComponentSectionsMap':
       return (
@@ -307,6 +279,9 @@ const sectionContent = (
     case 'ComponentSectionsEventsListing':
       return <EventsListingSection />
 
+    case 'ComponentSectionsChildrenListing':
+      return <ChildrenListingSection section={section} />
+
     default:
       return null
   }
@@ -345,7 +320,7 @@ const Sections = ({
 }) => {
   return (
     <div className={className ?? 'flex flex-col space-y-8'}>
-      {sections.map((section: SectionType, index) => (
+      {sections.map((section, index) => (
         <Section
           // eslint-disable-next-line react/no-array-index-key
           key={index}

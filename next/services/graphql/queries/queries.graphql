@@ -1,3 +1,15 @@
+fragment LatestNoticesQuery on Query {
+  latestNotices: notices(
+    locale: $locale
+    pagination: { limit: 4, start: 0 }
+    sort: "publishedAt:desc"
+  ) {
+    data {
+      ...NoticeListingEntity
+    }
+  }
+}
+
 query HomePage($locale: I18NLocaleCode!) {
   homePage(locale: $locale) {
     data {
@@ -90,15 +102,7 @@ query HomePage($locale: I18NLocaleCode!) {
       ...EventCardEntity
     }
   }
-  latestNotices: notices(
-    locale: $locale
-    pagination: { limit: 4, start: 0 }
-    sort: "publishedAt:desc"
-  ) {
-    data {
-      ...NoticeListingEntity
-    }
-  }
+  ...LatestNoticesQuery
   bookTags(pagination: { limit: 100 }) {
     data {
       ...BookTagEntity
@@ -106,17 +110,8 @@ query HomePage($locale: I18NLocaleCode!) {
   }
 }
 
-query LatestNews($locale: I18NLocaleCode!) {
-  pages(
-    filters: { layout: { eq: "news" } }
-    locale: $locale
-    pagination: { start: 0, limit: 4 }
-    sort: "publishedAt:desc"
-  ) {
-    data {
-      ...PageEntity
-    }
-  }
+query LatestNotices($locale: I18NLocaleCode!) {
+  ...LatestNoticesQuery
 }
 
 fragment MenuEntity on MenuEntity {
@@ -156,6 +151,11 @@ fragment GeneralEntity on GeneralEntity {
         id
       }
     }
+    noticesPage {
+      data {
+        id
+      }
+    }
   }
 }
 
@@ -168,12 +168,17 @@ fragment MenuSection on ComponentMenuSections {
       ...PageWithBaseFieldsEntity
     }
   }
-  sectionLinks(pagination: { limit: 20 }) {
+  sectionLinks(pagination: { limit: -1 }) {
     id
     sectionLinkTitle
     sectionLinkPage {
       data {
         ...SectionLinkPage
+      }
+    }
+    sectionLinkBranch {
+      data {
+        ...SectionLinkBranch
       }
     }
   }
@@ -194,9 +199,6 @@ fragment Documents on ComponentSectionsDocuments {
       ...DocumentEntity
     }
   }
-  moreLink {
-    ...PageLink
-  }
 }
 
 fragment Gallery on ComponentSectionsGallery {
@@ -212,6 +214,35 @@ fragment Gallery on ComponentSectionsGallery {
   }
 }
 
+fragment OpeningHoursDays on ComponentBlocksOpeningHours {
+  days {
+    label
+    time
+  }
+}
+
+fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
+  id
+  title
+  branchList {
+    data {
+      id
+      attributes {
+        title
+        openingHours {
+          ...OpeningHoursDays
+        }
+      }
+    }
+  }
+}
+
+fragment ChildrenListingSection on ComponentSectionsChildrenListing {
+  id
+  depth
+}
+
+
 fragment Sections on PageSectionsDynamicZone {
   __typename
   ... on ComponentSectionsSubListing {
@@ -219,17 +250,12 @@ fragment Sections on PageSectionsDynamicZone {
     title
     url
   }
-
   ... on ComponentSectionsFaq {
     id
     title
     questions {
       ...AccordionItem
     }
-  }
-  ... on ComponentSectionsFlatTextCenter {
-    id
-    content
   }
   ... on ComponentSectionsFlatText {
     id
@@ -256,7 +282,7 @@ fragment Sections on PageSectionsDynamicZone {
     flatText {
       ...FlatText
     }
-    tableRows(pagination: { limit: 100 }) {
+    tableRows(pagination: { limit: -1 }) {
       ...TableRow
     }
     forms {
@@ -266,19 +292,6 @@ fragment Sections on PageSectionsDynamicZone {
   }
   ... on ComponentSectionsDivider {
     id
-  }
-  ... on ComponentSectionsColumnedText {
-    title
-    content
-  }
-  ... on ComponentSectionsExternalLinks {
-    title
-    externalLinks {
-      ...ExternalLink
-    }
-    descriptions {
-      ...FlatText
-    }
   }
   ... on ComponentSectionsCta {
     title
@@ -337,6 +350,14 @@ fragment Sections on PageSectionsDynamicZone {
   ... on ComponentSectionsGallery {
     ...Gallery
   }
+
+  ... on ComponentSectionsOpeningHoursSection {
+    ...OpeningHoursSection
+  }
+
+  ... on ComponentSectionsChildrenListing {
+    ...ChildrenListingSection
+  }
 }
 
 fragment FlatText on ComponentAccordionItemsFlatText {
@@ -387,16 +408,6 @@ fragment AccordionItem on ComponentBlocksAccordionItem {
   id
   label
   content
-}
-
-fragment PageLink on ComponentBlocksPageLink {
-  title
-  url
-  page {
-    data {
-      ...PageWithBaseFieldsEntity
-    }
-  }
 }
 
 fragment Pagination on Pagination {

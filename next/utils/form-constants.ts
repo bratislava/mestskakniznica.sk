@@ -9,7 +9,6 @@ import isNull from 'lodash/isNull'
 import isNumber from 'lodash/isNumber'
 import isPlainObject from 'lodash/isPlainObject'
 import isString from 'lodash/isString'
-
 import { useTranslation } from 'next-i18next'
 
 export interface IFormOption {

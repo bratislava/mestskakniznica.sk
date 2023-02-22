@@ -1,6 +1,7 @@
 import BusinessSvg from '@assets/images/business.svg'
 import MailSvg from '@assets/images/mail.svg'
 import PhoneSvg from '@assets/images/phone.svg'
+import BranchOpeningHours from '@components/Molecules/BranchDetails/BranchOpeningHours'
 import Accordion from '@modules/common/Accordion'
 import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
@@ -10,7 +11,7 @@ type BranchDetailsContactUsProps = {
   branch: BranchEntityFragment
 }
 
-const BranchDetailsContactUs = ({ branch }: BranchDetailsContactUsProps) => {
+const BranchDetailsSubBranches = ({ branch }: BranchDetailsContactUsProps) => {
   const { t } = useTranslation('common')
 
   if (!branch?.attributes?.subBranches?.data.length) {
@@ -54,14 +55,12 @@ const BranchDetailsContactUs = ({ branch }: BranchDetailsContactUsProps) => {
                 </div>
               )}
             </div>
-            <div className="flex flex-col gap-2 py-2">
-              {subBranch.attributes?.openingHours?.days.map((day) => (
-                <div className="flex max-w-[340px] justify-between">
-                  <div>{day?.label}</div>
-                  <div>{day?.time}</div>
-                </div>
-              ))}
-            </div>
+
+            {subBranch.attributes?.openingHours?.days && (
+              <div className="py-2">
+                <BranchOpeningHours days={subBranch.attributes?.openingHours?.days} />
+              </div>
+            )}
           </Accordion>
         ))}
       </div>
@@ -69,4 +68,4 @@ const BranchDetailsContactUs = ({ branch }: BranchDetailsContactUsProps) => {
   )
 }
 
-export default BranchDetailsContactUs
+export default BranchDetailsSubBranches

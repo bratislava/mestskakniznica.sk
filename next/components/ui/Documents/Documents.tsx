@@ -5,30 +5,20 @@ import { useNavikronos } from '@utils/navikronos'
 import { useDisclosureMetadata } from '@utils/useDisclosureMetadata'
 import cx from 'classnames'
 
-import { Link } from '../Link/Link'
-
 export interface DocumentsProps {
   className?: string
   title?: string | null | undefined
-  moreLink?: { title?: string; url?: string }
   documents: (DocumentEntityFragment | DisclosureEntityFragment)[]
-  targetBlank?: boolean
 }
 
-export const Documents = ({
-  className,
-  title,
-  moreLink,
-  documents,
-  targetBlank = false, // TODO investigate if needed
-}: DocumentsProps) => {
+export const Documents = ({ className, title, documents }: DocumentsProps) => {
   const { getPathForEntity } = useNavikronos()
   const { getDisclosureMetadata } = useDisclosureMetadata()
 
   const parsedDocuments = documents
     .filter(hasAttributes)
     .map((document) => {
-      const { title: docTitle, slug, addedAt, file } = document.attributes
+      const { title: docTitle, slug, file } = document.attributes
 
       if (document.__typename === 'DisclosureEntity') {
         const { type } = document.attributes
@@ -42,7 +32,8 @@ export const Documents = ({
             metadata: getDisclosureMetadata(document)
               .map(({ label, value }) => `${label}: ${value}`)
               .join(', '),
-            addedAt,
+            // eslint-disable-next-line unicorn/consistent-destructuring
+            addedAt: document.attributes?.addedAt,
             fileExt: file?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
           },
         }
@@ -57,7 +48,8 @@ export const Documents = ({
           content: {
             category: documentCategory?.data?.attributes?.label,
             title: docTitle,
-            addedAt,
+            // eslint-disable-next-line unicorn/consistent-destructuring
+            addedAt: document.attributes.publishedAt,
             fileExt: file.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
           },
         }
@@ -69,7 +61,7 @@ export const Documents = ({
 
   return (
     <div className={cx(className, 'flex flex-col')}>
-      <h3 className="text-h3">{title}</h3>
+      {title && <h3 className="text-h3">{title}</h3>}
 
       <div className={cx('flex flex-col', { 'mt-6': !!title })}>
         {parsedDocuments?.map((doc) => (
@@ -83,12 +75,6 @@ export const Documents = ({
           />
         ))}
       </div>
-
-      {moreLink?.url && (
-        <Link className="mt-6" href={moreLink?.url ?? ''} hasIcon>
-          {moreLink?.title}
-        </Link>
-      )}
     </div>
   )
 }

@@ -102,23 +102,21 @@
         "sections.table",
         "sections.accordion",
         "sections.divider",
-        "sections.columned-text",
         "sections.cta",
-        "sections.flat-text-center",
         "sections.sub-listing",
         "sections.documents",
-        "sections.external-links",
         "sections.video",
         "sections.gallery",
         "sections.map",
         "sections.rental",
+        "sections.opening-hours-section",
+        "sections.partners",
+        "sections.children-listing",
         "sections.blog-posts-listing",
         "sections.documents-listing",
         "sections.events-listing",
         "sections.new-books-listing",
-        "sections.news-listing",
-        "sections.partners",
-        "sections.children-listing"
+        "sections.news-listing"
       ]
     },
     "branchesServicesTo": {

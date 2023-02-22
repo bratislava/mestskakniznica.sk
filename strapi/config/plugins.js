@@ -20,6 +20,7 @@ const wrapSearchIndexEntry = (type, data, commonAttributes) => {
 
 // Because a bug in Meilisearch shared index, only the last added entity's settings are used and the old ones are overwritten
 // instead of merging. Therefore, for all entities we must provide shared settings.
+// In order to take effect of this settings change you need to unhook and rehook index you are modifying.
 const searchIndexSettings = {
   searchableAttributes: [
     // Page
@@ -145,6 +146,7 @@ module.exports = ({ env }) => ({
             {
               // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
               // use (number) filters.
+              // Transforming publishedAt to addedAtTimestamp to be able to use the same sort as for Disclosures.
               addedAtTimestamp: entry.publishedAt
                 ? new Date(entry.publishedAt).getTime()
                 : undefined,

@@ -124,7 +124,7 @@ type BlogPostRelationResponseCollection {
   data: [BlogPostEntity!]!
 }
 
-union BlogPostSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
+union BlogPostSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
 
 scalar BlogPostSectionsDynamicZoneInput
 
@@ -990,6 +990,7 @@ input ComponentLocalityPartsLocalityServicesInput {
 
 type ComponentMenuSectionLinks {
   id: ID!
+  sectionLinkBranch: BranchEntityResponse
   sectionLinkPage: PageEntityResponse
   sectionLinkTitle: String
 }
@@ -998,12 +999,14 @@ input ComponentMenuSectionLinksFiltersInput {
   and: [ComponentMenuSectionLinksFiltersInput]
   not: ComponentMenuSectionLinksFiltersInput
   or: [ComponentMenuSectionLinksFiltersInput]
+  sectionLinkBranch: BranchFiltersInput
   sectionLinkPage: PageFiltersInput
   sectionLinkTitle: StringFilterInput
 }
 
 input ComponentMenuSectionLinksInput {
   id: ID
+  sectionLinkBranch: ID
   sectionLinkPage: ID
   sectionLinkTitle: String
 }
@@ -1307,26 +1310,6 @@ input ComponentSectionsChildrenListingInput {
   id: ID
 }
 
-type ComponentSectionsColumnedText {
-  content: String
-  id: ID!
-  title: String
-}
-
-input ComponentSectionsColumnedTextFiltersInput {
-  and: [ComponentSectionsColumnedTextFiltersInput]
-  content: StringFilterInput
-  not: ComponentSectionsColumnedTextFiltersInput
-  or: [ComponentSectionsColumnedTextFiltersInput]
-  title: StringFilterInput
-}
-
-input ComponentSectionsColumnedTextInput {
-  content: String
-  id: ID
-  title: String
-}
-
 type ComponentSectionsCta {
   id: ID!
   title: String
@@ -1365,7 +1348,6 @@ type ComponentSectionsDocuments {
   basicDocuments(filters: BasicDocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BasicDocumentRelationResponseCollection
   documents(filters: DocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): DocumentRelationResponseCollection
   id: ID!
-  moreLink(filters: ComponentBlocksPageLinkFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksPageLink]
   title: String
 }
 
@@ -1373,7 +1355,6 @@ input ComponentSectionsDocumentsFiltersInput {
   and: [ComponentSectionsDocumentsFiltersInput]
   basicDocuments: BasicDocumentFiltersInput
   documents: DocumentFiltersInput
-  moreLink: ComponentBlocksPageLinkFiltersInput
   not: ComponentSectionsDocumentsFiltersInput
   or: [ComponentSectionsDocumentsFiltersInput]
   title: StringFilterInput
@@ -1383,7 +1364,6 @@ input ComponentSectionsDocumentsInput {
   basicDocuments: [ID]
   documents: [ID]
   id: ID
-  moreLink: [ComponentBlocksPageLinkInput]
   title: String
 }
 
@@ -1415,29 +1395,6 @@ input ComponentSectionsEventsListingInput {
   id: ID
 }
 
-type ComponentSectionsExternalLinks {
-  descriptions(filters: ComponentAccordionItemsFlatTextFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentAccordionItemsFlatText]
-  externalLinks(filters: ComponentBlocksExternalLinkFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksExternalLink]
-  id: ID!
-  title: String
-}
-
-input ComponentSectionsExternalLinksFiltersInput {
-  and: [ComponentSectionsExternalLinksFiltersInput]
-  descriptions: ComponentAccordionItemsFlatTextFiltersInput
-  externalLinks: ComponentBlocksExternalLinkFiltersInput
-  not: ComponentSectionsExternalLinksFiltersInput
-  or: [ComponentSectionsExternalLinksFiltersInput]
-  title: StringFilterInput
-}
-
-input ComponentSectionsExternalLinksInput {
-  descriptions: [ComponentAccordionItemsFlatTextInput]
-  externalLinks: [ComponentBlocksExternalLinkInput]
-  id: ID
-  title: String
-}
-
 type ComponentSectionsFaq {
   id: ID!
   questions(filters: ComponentBlocksAccordionItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksAccordionItem]
@@ -1461,23 +1418,6 @@ input ComponentSectionsFaqInput {
 type ComponentSectionsFlatText {
   content: String
   id: ID!
-}
-
-type ComponentSectionsFlatTextCenter {
-  content: String
-  id: ID!
-}
-
-input ComponentSectionsFlatTextCenterFiltersInput {
-  and: [ComponentSectionsFlatTextCenterFiltersInput]
-  content: StringFilterInput
-  not: ComponentSectionsFlatTextCenterFiltersInput
-  or: [ComponentSectionsFlatTextCenterFiltersInput]
-}
-
-input ComponentSectionsFlatTextCenterInput {
-  content: String
-  id: ID
 }
 
 input ComponentSectionsFlatTextFiltersInput {
@@ -1572,6 +1512,26 @@ input ComponentSectionsNewsListingFiltersInput {
 
 input ComponentSectionsNewsListingInput {
   id: ID
+}
+
+type ComponentSectionsOpeningHoursSection {
+  branchList(filters: BranchFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): BranchRelationResponseCollection
+  id: ID!
+  title: String
+}
+
+input ComponentSectionsOpeningHoursSectionFiltersInput {
+  and: [ComponentSectionsOpeningHoursSectionFiltersInput]
+  branchList: BranchFiltersInput
+  not: ComponentSectionsOpeningHoursSectionFiltersInput
+  or: [ComponentSectionsOpeningHoursSectionFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentSectionsOpeningHoursSectionInput {
+  branchList: [ID]
+  id: ID
+  title: String
 }
 
 type ComponentSectionsPartners {
@@ -1851,7 +1811,6 @@ type DisclosureRelationResponseCollection {
 }
 
 type Document {
-  addedAt: DateTime!
   createdAt: DateTime
   description: String
   documentCategory: DocumentCategoryEntityResponse
@@ -1923,7 +1882,6 @@ type DocumentEntityResponseCollection {
 }
 
 input DocumentFiltersInput {
-  addedAt: DateTimeFilterInput
   and: [DocumentFiltersInput]
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -1940,7 +1898,6 @@ input DocumentFiltersInput {
 }
 
 input DocumentInput {
-  addedAt: DateTime
   description: String
   documentCategory: ID
   file: ID
@@ -2404,7 +2361,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2955,7 +2912,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
 
 scalar PageSectionsDynamicZoneInput
 

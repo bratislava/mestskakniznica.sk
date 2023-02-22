@@ -15,7 +15,7 @@ const NavMenuLatestEvents = () => {
     <ul className="mt-2 grid grid-flow-col grid-rows-2 gap-x-5 gap-y-3">
       {upcomingEvents.data.filter(isDefined).map((event) => {
         return (
-          <NavigationMenu.Link asChild>
+          <NavigationMenu.Link asChild key={event.id}>
             <EventRow event={event} />
           </NavigationMenu.Link>
         )

@@ -1,9 +1,9 @@
 import { CallToAction } from '@components/ui'
 import { BranchEntityFragment } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
+import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { useNavikronos } from '@utils/navikronos'
 
 type BranchDetailsServicesProps = {
   branch: BranchEntityFragment

@@ -1,8 +1,8 @@
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
+import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { useNavikronos } from '@utils/navikronos'
 
 interface IPromoNewsCard {
   title: string
