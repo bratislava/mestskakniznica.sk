@@ -147,5 +147,7 @@
   "generic_error_title": "Chyba",
   "form_city_accept_newsletter": "Súhlasím s odoberaním noviniek z online katalógu.",
   "validation_error_captcha": "overenie je potrebné.",
-  "captcha": "Captcha"
+  "captcha": "Captcha",
+  "iframe_title_music": "Hudobné štúdio",
+  "iframe_title_creative": "Kreatívna miestnosť"
 }

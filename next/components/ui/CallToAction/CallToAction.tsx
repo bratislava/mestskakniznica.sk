@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from '@assets/icons'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import cx from 'classnames'
@@ -23,6 +24,12 @@ export const CallToAction = ({ className, title, href, showMoreText }: CallToAct
           <ShowMoreLink href={href} tabIndex={-1} parentGroup>
             {showMoreText}
           </ShowMoreLink>
+        )}
+        {!showMoreText && (
+          <div className="ml-0.5 mr-1 mt-[-3px] group-hover/showMore:ml-1.5 group-hover/showMore:mr-0">
+            {/* TODO: Proper icon resizing. */}
+            <ArrowRightIcon className="m-[-3px] scale-[0.75] md:m-[-2px] md:scale-[0.833333333]" />
+          </div>
         )}
       </div>
     </div>

@@ -9,8 +9,7 @@ import isNull from 'lodash/isNull'
 import isNumber from 'lodash/isNumber'
 import isPlainObject from 'lodash/isPlainObject'
 import isString from 'lodash/isString'
-
-import { usePageWrapperContext } from '../components/layouts/PageWrapper'
+import { useTranslation } from 'next-i18next'
 
 export interface IFormOption {
   key: string
@@ -145,12 +144,12 @@ export const convertDataToBody = (data: object, t: (arg0: string, args1: any) =>
 
 export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRadioOption[] => {
   const temp: IRadioOption[] = []
-  const { locale } = usePageWrapperContext()
+  const { i18n } = useTranslation()
 
   options.forEach((item) =>
     temp.push({
       key: item.key,
-      title: `${item.label.find((l) => l.locale === (locale ?? 'sk'))?.label ?? '-'} ${
+      title: `${item.label.find((l) => l.locale === (i18n.language ?? 'sk'))?.label ?? '-'} ${
         showPrice ? item.price ?? '' : ''
       }`,
       price: item.price ?? null,

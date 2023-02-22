@@ -29,9 +29,9 @@ import {
 } from '@services/meili/fetchers/documentsFetcher'
 import {
   eventsArchivedDefaultFilters,
-  eventsDefaultSharedFilters,
   eventsFetcher,
   eventsUpcomingDefaultFilters,
+  getEventsDefaultSharedFilters,
   getEventsQueryKey,
 } from '@services/meili/fetchers/eventsFetcher'
 import {
@@ -73,19 +73,19 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
 
   if (sectionTypes.includes('ComponentSectionsEventsListing')) {
     await queryClient.prefetchQuery(
-      getEventsQueryKey(eventsUpcomingDefaultFilters, eventsDefaultSharedFilters),
-      () => eventsFetcher(eventsUpcomingDefaultFilters, eventsDefaultSharedFilters)
+      getEventsQueryKey(eventsUpcomingDefaultFilters, getEventsDefaultSharedFilters(locale)),
+      () => eventsFetcher(eventsUpcomingDefaultFilters, getEventsDefaultSharedFilters(locale))
     )
     await queryClient.prefetchQuery(
-      getEventsQueryKey(eventsArchivedDefaultFilters, eventsDefaultSharedFilters),
-      () => eventsFetcher(eventsArchivedDefaultFilters, eventsDefaultSharedFilters)
+      getEventsQueryKey(eventsArchivedDefaultFilters, getEventsDefaultSharedFilters(locale)),
+      () => eventsFetcher(eventsArchivedDefaultFilters, getEventsDefaultSharedFilters(locale))
     )
     await queryClient.prefetchQuery(getEventPropertiesQueryKey(locale), () =>
       eventPropertiesFetcher(locale)
     )
   }
 
-  if (page?.attributes?.layout === Enum_Page_Layout.Listing) {
+  if (sectionTypes.includes('ComponentSectionsChildrenListing')) {
     await queryClient.prefetchQuery(getLatestNewsQueryKey(locale), () => latestNewsFetcher(locale))
   }
 

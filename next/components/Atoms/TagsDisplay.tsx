@@ -1,8 +1,8 @@
-import { EventTagEntity } from '@services/graphql'
+import { EventTag } from '@services/graphql'
 import { Fragment } from 'react'
 
 interface TagsDisplayProps {
-  tags?: EventTagEntity[]
+  tags?: EventTag[]
   category: string
   tagsCount: number
 }
@@ -18,9 +18,9 @@ const TagsDisplay = ({ tags = [], category, tagsCount }: TagsDisplayProps) => {
         <>
           <div>•</div>
           <div className="truncate">
-            {slicedTags?.map(({ attributes, id }, index) => (
-              <Fragment key={id}>
-                {attributes?.title}
+            {slicedTags?.map(({ title, slug }, index) => (
+              <Fragment key={slug}>
+                {title}
                 {tags.length > 1 && index < lower - 1 ? ',\u00A0' : ''}
               </Fragment>
             ))}

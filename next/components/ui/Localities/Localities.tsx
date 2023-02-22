@@ -5,6 +5,7 @@ import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { BranchCardEntityFragment } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
+import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useRef } from 'react'
@@ -37,6 +38,7 @@ export const Localities = ({
   altDesign = false,
 }: LocalitiesProps) => {
   const { t } = useTranslation()
+  const { getPathForEntity } = useNavikronos()
 
   const isClient = useIsClient()
 
@@ -135,7 +137,7 @@ export const Localities = ({
         >
           {branches.map((branch, index) => {
             const { slug, title, subBranches } = branch.attributes ?? {}
-            const linkHref = `${t('common:branch_slug')}${slug ?? ''}`
+            const linkHref = getPathForEntity({ type: 'branch', slug }) ?? ''
 
             return (
               <div

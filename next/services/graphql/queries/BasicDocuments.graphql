@@ -28,6 +28,7 @@ fragment BasicDocumentFile on UploadFileEntity {
     url
     name
     ext
+    size
   }
 }
 
@@ -54,7 +55,7 @@ fragment BasicDocumentEntity on BasicDocumentEntity {
     }
     attachment {
       data {
-        ...BasicDocumentFile
+        ...UploadFileEntity
       }
     }
   }
@@ -69,7 +70,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     date
     attachment {
       data {
-        ...BasicDocumentFile
+        ...UploadFileEntity
       }
     }
   }
@@ -99,7 +100,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     amount
     attachment {
       data {
-        ...BasicDocumentFile
+        ...UploadFileEntity
       }
     }
   }
@@ -110,7 +111,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     date_added
     attachment {
       data {
-        ...BasicDocumentFile
+        ...UploadFileEntity
       }
     }
   }
@@ -123,7 +124,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     amount
     attachment {
       data {
-        ...BasicDocumentFile
+        ...UploadFileEntity
       }
     }
   }

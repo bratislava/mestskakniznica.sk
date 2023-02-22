@@ -1,12 +1,12 @@
 import { CheckBox, Input, Link } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
+import { useGeneralContext } from '@utils/generalContext'
+import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 import Turnstile from 'react-turnstile'
-
-import { usePageWrapperContext } from '../layouts/PageWrapper'
 
 interface IProps {
   className?: string
@@ -32,7 +32,8 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation('forms')
-  const { locale } = usePageWrapperContext()
+  const { general } = useGeneralContext()
+  const { getPathForEntity } = useNavikronos()
 
   return (
     <div className={cx('w-full space-y-6', className)}>
@@ -54,9 +55,10 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
                 {t('form_footer_agree')}{' '}
                 <Link
                   href={
-                    locale === 'sk'
-                      ? '/o-nas/ochrana-osobnych-udajov'
-                      : '/about-us/privacy-terms-and-conditions'
+                    getPathForEntity({
+                      type: 'page',
+                      id: general?.data?.attributes?.privacyTermsAndConditionsPage?.data?.id,
+                    }) ?? ''
                   }
                   variant="plain"
                   uppercase={false}
@@ -102,6 +104,7 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
         onTimeout={() => methods.setValue('cfTurnstile', null)}
         onExpire={() => methods.setValue('cfTurnstile', null)}
         className="!mt-0"
+        theme="light"
       />
 
       <Button type="submit" className="m-auto ml-0" mobileFullWidth>

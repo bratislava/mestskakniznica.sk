@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge'
 export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'> & {
   children: ReactNode
   // TODO add more variants
-  variant?: 'unstyled' | 'basic' | 'breadcrumb' | 'richtext'
+  variant?: 'unstyled' | 'basic' | 'breadcrumb' | 'richtext' | 'navmenu'
   className?: string
   /**
    * Similar to this:
@@ -38,6 +38,8 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
         'hover:underline': variant === 'basic',
         'underline underline-offset-1 hover:text-foreground-body': variant === 'breadcrumb',
         'underline underline-offset-1 hover:text-foreground-dark': variant === 'richtext',
+        'text-foreground-body hover:underline hover:underline-offset-1 hover:text-foreground-dark':
+          variant === 'navmenu',
 
         // https://github.com/tailwindlabs/tailwindcss/issues/1041#issuecomment-957425345
         'after:absolute after:inset-0': stretched,

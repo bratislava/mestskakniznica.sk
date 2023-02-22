@@ -5,6 +5,7 @@ import Accordion from '@modules/common/Accordion'
 import MLink from '@modules/common/MLink'
 import { ComponentFooterFooterColumn, Maybe } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
+import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -24,12 +25,18 @@ export interface FooterProps {
 }
 
 const FooterLinks = ({ footerLink }: { footerLink: ComponentFooterFooterColumn['footerLink'] }) => {
+  const { getPathForEntity } = useNavikronos()
+
   return (
     <>
       {footerLink?.filter(isDefined).map((link) => (
         <MLink
           key={link.id}
-          href={link.otherSite || link?.redirectTo?.data?.attributes?.slug || ''}
+          href={
+            link.otherSite ||
+            getPathForEntity({ type: 'page', id: link.redirectTo?.data?.id }) ||
+            ''
+          }
           variant="basic"
           className="text-base text-foreground-body"
         >
@@ -44,7 +51,7 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number
   return (
     <div
       key={col?.title}
-      className={cx('pt-6 pb-40', {
+      className={cx('pt-6 pb-12', {
         'border-l border-border-dark pl-8': i !== 0,
       })}
     >

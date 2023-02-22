@@ -1,9 +1,11 @@
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
+import { useNavikronos } from '@utils/navikronos'
 import { ILocality } from '@utils/types'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+// TODO: Usage
 const LocalityCard = ({
   localityTitle,
   localityAddress,
@@ -13,11 +15,15 @@ const LocalityCard = ({
   localityOpenTo,
 }: ILocality) => {
   const { t } = useTranslation('homepage')
+  const { getPathForEntity } = useNavikronos()
+
+  const href = getPathForEntity({ type: 'branch', slug: localitySlug }) ?? ''
+
   return (
     <div key={localityTitle} className="group/showMore relative w-[280px] pb-5">
       <div className="h-[400px] w-[580px] border-[1px] border-border-dark pb-16 pl-8">
         <div className="pt-6 text-[28px] hover:underline">
-          <MLink href={localitySlug || ''} variant="basic" stretched>
+          <MLink href={href} variant="basic" stretched>
             {localityTitle}
           </MLink>
         </div>
@@ -34,7 +40,7 @@ const LocalityCard = ({
           </div>
         </div>
         <div className="absolute bottom-[-25px] left-8 cursor-pointer pt-6 pb-16 text-[14px]">
-          <ShowMoreLink href={localitySlug || ''} tabIndex={-1} parentGroup>
+          <ShowMoreLink href={href} tabIndex={-1} parentGroup>
             {t('localityDetailText')}
           </ShowMoreLink>
         </div>

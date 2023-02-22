@@ -1,4 +1,7 @@
 import { ComponentLocalityPartsLocalitySection } from '@services/graphql'
+import prettyBytes from 'pretty-bytes'
+
+import { isDefined } from './isDefined'
 
 export const isPresent = <U>(value: U | null | undefined | void): value is U => {
   return value !== null && value !== undefined
@@ -162,3 +165,12 @@ export const isEventPast = (dateTo: Date | string | null): boolean => {
 export const isServer = () => typeof window === 'undefined'
 
 export const isProductionDeployment = () => process.env.NEXT_PUBLIC_IS_STAGING !== 'true'
+
+export const getFileSize = (size: number | undefined, language: string) => {
+  if (isDefined(size)) {
+    return prettyBytes(size * 1000, {
+      locale: language,
+    })
+  }
+  return size
+}

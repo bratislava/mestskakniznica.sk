@@ -43,7 +43,7 @@ const MobileBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
   const { t } = useTranslation('common')
 
   // Add homepage and safely remove current last item
-  const mobileCrumbs = [{ title: t('homepage'), url: '/' }, ...dropRight(crumbs)]
+  const mobileCrumbs = [{ title: t('homepage'), path: '/' }, ...dropRight(crumbs)]
 
   return (
     <nav className="text-sm">
@@ -52,15 +52,15 @@ const MobileBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
         title={
           <MobileBreadcrumbsAccordionButton
             currentLabel={last(crumbs)?.title}
-            isNested={crumbs.length > 1}
+            isNested={crumbs ? crumbs.length > 1 : false}
           />
         }
       >
         <ol className="flex flex-col">
-          {mobileCrumbs.map((crumb, index) => {
+          {mobileCrumbs?.map((crumb, index) => {
             return (
               // eslint-disable-next-line react/no-array-index-key
-              <BreadcrumbItem key={index} url={crumb.url} isMobile>
+              <BreadcrumbItem key={index} url={crumb.path} isMobile>
                 {crumb.title}
               </BreadcrumbItem>
             )

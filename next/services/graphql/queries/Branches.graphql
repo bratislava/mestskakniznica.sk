@@ -1,16 +1,14 @@
+fragment EventBranchPlaceEntity on BranchEntity {
+  id
+  attributes {
+    ...EventBranch
+  }
+}
+
 fragment BranchPlaceEntity on BranchEntity {
   id
   attributes {
-    title
-    address
-    phone
-    email
-    openingHours {
-      days {
-        label
-        time
-      }
-    }
+    ...Branch
   }
 }
 
@@ -24,7 +22,7 @@ fragment BranchCardEntity on BranchEntity {
     longitude
     listingImage {
       data {
-        ...ImageEntity
+        ...UploadImageEntity
       }
     }
     subBranches {
@@ -41,13 +39,7 @@ fragment BranchEntity on BranchEntity {
   attributes {
     medias {
       data {
-        id
-        attributes {
-          name
-          url
-          caption
-          alternativeText
-        }
+        ...UploadImageEntity
       }
     }
     body
@@ -82,6 +74,9 @@ fragment BranchEntity on BranchEntity {
         }
       }
     }
+    seo {
+      ...Seo
+    }
   }
 }
 
@@ -95,7 +90,6 @@ query BranchStaticPaths($locale: I18NLocaleCode!) {
     }
   }
 }
-
 
 query BranchBySlug($slug: String!, $locale: I18NLocaleCode!) {
   branches(locale: $locale, filters: { slug: { eq: $slug } }) {

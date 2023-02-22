@@ -1,13 +1,13 @@
+import EventCard from '@components/Molecules/EventCard'
 import EventFilters from '@components/Molecules/EventFilters'
-import EventListingCard from '@components/Molecules/EventListingCard'
 import { Pagination } from '@components/ui'
 import {
   eventsArchivedDefaultFilters,
-  eventsDefaultSharedFilters,
   eventsFetcher,
   EventsFilters,
   EventsFiltersShared,
   eventsUpcomingDefaultFilters,
+  getEventsDefaultSharedFilters,
   getEventsQueryKey,
 } from '@services/meili/fetchers/eventsFetcher'
 import { useRoutePreservedFilters } from '@utils/useRoutePreservedFilters'
@@ -40,9 +40,33 @@ const InnerSection = ({
     <div>
       <div className="text-h3">{t(titleTranslationKey)}</div>
       <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
-        {data?.hits.map((event) => (
-          <EventListingCard event={event} key={event?.id} />
-        ))}
+        {data?.hits.map((event) => {
+          const {
+            title,
+            dateFrom,
+            dateTo,
+            slug,
+            listingImage,
+            coverImage,
+            eventTags,
+            eventCategory,
+            branch,
+          } = event
+          return (
+            <EventCard
+              key={slug}
+              title={title}
+              dateFrom={dateFrom}
+              dateTo={dateTo}
+              slug={slug}
+              listingImage={listingImage}
+              coverImage={coverImage}
+              eventTags={eventTags}
+              eventCategory={eventCategory}
+              branch={branch}
+            />
+          )
+        })}
       </div>
       <div className="flex justify-center pt-6 lg:justify-end">
         <Pagination
@@ -59,12 +83,12 @@ const InnerSection = ({
 }
 
 const EventsListingSection = () => {
-  const { t } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
 
   const [filters, setFilters] = useRoutePreservedFilters({
     upcoming: eventsUpcomingDefaultFilters,
     archived: eventsArchivedDefaultFilters,
-    shared: eventsDefaultSharedFilters,
+    shared: getEventsDefaultSharedFilters(i18n.language),
   })
 
   const handleSharedFiltersChange = (newFilters: EventsFiltersShared) => {

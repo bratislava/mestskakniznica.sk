@@ -1,48 +1,78 @@
-import MLink from '@modules/common/MLink'
+import { DocumentRow } from '@modules/cards-and-rows/DocumentRow'
+import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
+import { hasAttributes, isDefined } from '@utils/isDefined'
+import { useNavikronos } from '@utils/navikronos'
+import { useDisclosureMetadata } from '@utils/useDisclosureMetadata'
 import cx from 'classnames'
-
-import { Link } from '../Link/Link'
-import { RowFile, RowFileProps } from '../RowFile/RowFile'
 
 export interface DocumentsProps {
   className?: string
-  title?: string
-  moreLink?: { title?: string; url?: string }
-  files?: { url?: string; content?: RowFileProps }[]
-  targetBlank?: boolean
+  title?: string | null | undefined
+  documents: (DocumentEntityFragment | DisclosureEntityFragment)[]
 }
 
-export const Documents = ({
-  className,
-  title,
-  moreLink,
-  files,
-  targetBlank = false,
-}: DocumentsProps) => {
+export const Documents = ({ className, title, documents }: DocumentsProps) => {
+  const { getPathForEntity } = useNavikronos()
+  const { getDisclosureMetadata } = useDisclosureMetadata()
+
+  const parsedDocuments = documents
+    .filter(hasAttributes)
+    .map((document) => {
+      const { title: docTitle, slug, file } = document.attributes
+
+      if (document.__typename === 'DisclosureEntity') {
+        const { type, contractor } = document.attributes
+
+        return {
+          id: document.id,
+          linkHref: getPathForEntity({ type: 'disclosure', slug }) ?? '',
+          content: {
+            category: type,
+            title: docTitle,
+            metadata: contractor ? `${contractor}` : undefined,
+            // eslint-disable-next-line unicorn/consistent-destructuring
+            addedAt: document.attributes?.addedAt,
+            fileExt: file?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
+          },
+        }
+      }
+
+      if (document.__typename === 'DocumentEntity') {
+        const { documentCategory } = document.attributes
+
+        return {
+          id: document.id,
+          linkHref: getPathForEntity({ type: 'document', slug }) ?? '',
+          content: {
+            category: documentCategory?.data?.attributes?.label,
+            title: docTitle,
+            // eslint-disable-next-line unicorn/consistent-destructuring
+            addedAt: document.attributes.publishedAt,
+            fileExt: file.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
+          },
+        }
+      }
+
+      return null
+    })
+    .filter(isDefined)
+
   return (
     <div className={cx(className, 'flex flex-col')}>
-      <h3 className="text-h3">{title}</h3>
+      {title && <h3 className="text-h3">{title}</h3>}
 
       <div className={cx('flex flex-col', { 'mt-6': !!title })}>
-        {files?.map((file, index) => (
-          <MLink key={index} href={file.url ?? ''} target={targetBlank ? '_blank' : undefined}>
-            <RowFile
-              className="cursor-pointer"
-              type={file.content?.type ?? ''}
-              title={file.content?.title ?? ''}
-              metadata={file.content?.metadata}
-              dateAdded={file.content?.dateAdded || ''}
-              fileType={file.content?.fileType}
-            />
-          </MLink>
+        {parsedDocuments?.map((doc) => (
+          <DocumentRow
+            title={doc.content.title}
+            fileExt={doc.content.fileExt}
+            linkHref={doc.linkHref}
+            category={doc.content.category}
+            addedAt={doc.content.addedAt}
+            metadata={doc.content.metadata}
+          />
         ))}
       </div>
-
-      {moreLink?.url && (
-        <Link className="mt-6" href={moreLink?.url ?? ''} hasIcon>
-          {moreLink?.title}
-        </Link>
-      )}
     </div>
   )
 }

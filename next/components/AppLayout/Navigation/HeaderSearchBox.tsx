@@ -1,6 +1,7 @@
 import { CloseCircleIcon, SearchIcon } from '@assets/icons'
 import { SearchBar, Select } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
+import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
@@ -20,6 +21,7 @@ type HeaderSearchBoxProps = {
 const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const router = useRouter()
   const { t } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
 
   const SEARCH_OPTIONS: { key: 'on_page' | 'in_catalogue'; title: string }[] = [
     { key: 'on_page', title: t('searchOnPage') },
@@ -50,7 +52,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
     }
     // TODO replace by proper url
     // input is here on purpose, because searchValue is debounced
-    router.push(`${t('search_slug')}?query=${input}`)
+    router.push(`${getPathForEntity({ type: 'static', id: 'search' })}?query=${input}`)
   }
 
   const handleClear = () => {

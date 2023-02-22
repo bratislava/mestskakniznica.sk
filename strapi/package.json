@@ -7,9 +7,10 @@
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
     "dev": "yarn develop",
     "start": "strapi start",
-    "build": "strapi build",
+    "build": "yarn --cwd ./src/plugins/navikronos/ build && strapi build",
     "strapi": "strapi",
-    "cs": "config-sync"
+    "cs": "config-sync",
+    "postinstall": "yarn --cwd ./src/plugins/navikronos/ install"
   },
   "devDependencies": {},
   "dependencies": {
@@ -30,7 +31,12 @@
   },
   "engines": {
     "node": ">=12.x.x <=16.x.x",
-    "npm": ">=6.0.0"
+    "npm": ">=6.0.0",
+    "yarn": "1.22"
+  },
+  "volta": {
+    "node": "16.18.0",
+    "yarn": "1.22.18"
   },
   "license": "MIT"
 }

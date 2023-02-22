@@ -1,7 +1,6 @@
 import type { Book } from '@modules/common/Cards/BookCard'
 import { mockNewBooks } from '@services/opac/mockNewBooks'
 import { isDefined } from '@utils/isDefined'
-import ufs from 'url-file-size'
 import XMLConvertor from 'xml-js'
 
 /*
@@ -64,13 +63,24 @@ const checkCoverImages = async () => {
       // `url-file-size` gets only filesize information from the server, there's no need to download
       // the whole image.
       // eslint-disable-next-line no-await-in-loop
-      const coverFileSize = await ufs(book.coverUrl)
+      const coverRequest = await fetch(book.coverUrl)
+      const coverRequestContentLength = coverRequest.headers.get('content-length')
+      const coverFileSize =
+        typeof coverRequestContentLength === 'string' ? Number(coverRequestContentLength) : NaN
+
+      if (coverFileSize === 0 || Number.isNaN(coverFileSize)) {
+        // eslint-disable-next-line no-continue
+        continue
+      }
 
       // Checking image size in bytes is a reliable way how to detect a generic cover.
       bookCoverMap[book.coverUrl] = coverFileSize !== 9149
 
       // eslint-disable-next-line no-empty
-    } catch (error) {}
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('newBooksService ERROR:', error)
+    }
   }
 }
 
@@ -97,11 +107,15 @@ const fetchBooks = async () => {
       }
       /* eslint-enable no-underscore-dangle */
     })
-    // Check is called asynchronously without waiting for a result.
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    checkCoverImages()
     // eslint-disable-next-line no-empty
-  } catch (error) {}
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('newBooksService ERROR:', error)
+  }
+
+  // Check is called asynchronously without waiting for a result.
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  checkCoverImages()
 }
 
 let refreshIntervalTimer: NodeJS.Timer | null = null

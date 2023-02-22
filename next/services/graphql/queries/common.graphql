@@ -1,0 +1,64 @@
+fragment Seo on ComponentCommonSeo {
+  metaTitle
+  metaDescription
+  keywords
+}
+
+fragment UploadFileEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    size
+    ext
+  }
+}
+
+fragment UploadImageEntity on UploadFileEntity {
+  id
+  attributes {
+    ...UploadImage
+  }
+}
+
+fragment UploadImage on UploadFile {
+  url
+  name
+  alternativeText
+  caption
+  size
+  width
+  height
+}
+
+fragment EventTags on EventTag {
+  title
+  slug
+  createdAt
+  publishedAt
+  updatedAt
+}
+
+fragment EventCategory on EventCategory {
+  title
+  createdAt
+  updatedAt
+}
+
+fragment EventBranch on Branch {
+  title
+  address
+}
+
+fragment Branch on Branch {
+  title
+  address
+  phone
+  email
+  openingHours {
+    days {
+      label
+      time
+    }
+  }
+}

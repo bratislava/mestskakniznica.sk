@@ -25,6 +25,15 @@
       "type": "string",
       "required": true
     },
+    "newSlug": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
     "title": {
       "pluginOptions": {
         "i18n": {
@@ -77,16 +86,6 @@
       "relation": "oneToOne",
       "target": "api::category.category"
     },
-    "Seo": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "seo.seo"
-    },
     "sections": {
       "pluginOptions": {
         "i18n": {
@@ -103,22 +102,21 @@
         "sections.table",
         "sections.accordion",
         "sections.divider",
-        "sections.columned-text",
         "sections.cta",
-        "sections.flat-text-center",
         "sections.sub-listing",
         "sections.documents",
-        "sections.external-links",
         "sections.video",
         "sections.gallery",
         "sections.map",
         "sections.rental",
+        "sections.opening-hours-section",
+        "sections.partners",
+        "sections.children-listing",
         "sections.blog-posts-listing",
         "sections.documents-listing",
         "sections.events-listing",
         "sections.new-books-listing",
-        "sections.news-listing",
-        "sections.partners"
+        "sections.news-listing"
       ]
     },
     "branchesServicesTo": {
@@ -126,6 +124,16 @@
       "relation": "manyToMany",
       "target": "api::branch.branch",
       "inversedBy": "servicePages"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "common.seo"
     }
   }
 }

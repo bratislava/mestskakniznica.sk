@@ -50,7 +50,7 @@ COPY --chown=node:node yarn.lock ./
 RUN yarn config set network-timeout 600000 -g
 RUN yarn install --production
 
-COPY . ./
+COPY --chown=node:node . ./
 COPY --chown=node:node --from=build /root/app/.next ./.next
 
 EXPOSE 3000

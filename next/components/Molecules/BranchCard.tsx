@@ -1,18 +1,22 @@
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
-import { ImageEntityFragment } from '@services/graphql'
+import { UploadImageEntityFragment } from '@services/graphql'
+import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 interface BranchCardProps {
   title: string
   address: string
-  linkHref: string
-  image: ImageEntityFragment | undefined | null
+  pageId: string | null | undefined
+  image: UploadImageEntityFragment | undefined | null
 }
 
-const BranchCard = ({ title, address, linkHref, image }: BranchCardProps) => {
+const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
   const { t } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
+  const href = (pageId ? getPathForEntity({ type: 'page', id: pageId }) : null) ?? ''
+
   return (
     <div className="group/showMore relative flex w-full flex-col">
       <img
@@ -22,12 +26,12 @@ const BranchCard = ({ title, address, linkHref, image }: BranchCardProps) => {
       />
       <div className="pt-4">
         <div>
-          <MLink href={linkHref} stretched variant="basic">
+          <MLink href={href} stretched variant="basic">
             {title}
           </MLink>
         </div>
         <div className="pt-3 text-base text-foreground-body">{address}</div>
-        <ShowMoreLink href={linkHref} tabIndex={-1} className="mt-6" parentGroup>
+        <ShowMoreLink href={href} tabIndex={-1} className="mt-6" parentGroup>
           {t('showMore')}
         </ShowMoreLink>
       </div>

@@ -1,3 +1,15 @@
+fragment LatestNoticesQuery on Query {
+  latestNotices: notices(
+    locale: $locale
+    pagination: { limit: 4, start: 0 }
+    sort: "publishedAt:desc"
+  ) {
+    data {
+      ...NoticeListingEntity
+    }
+  }
+}
+
 query HomePage($locale: I18NLocaleCode!) {
   homePage(locale: $locale) {
     data {
@@ -66,14 +78,8 @@ query HomePage($locale: I18NLocaleCode!) {
             }
           }
         }
-        Seo {
-          id
-          metaTitle
-          metaDescription
-          keywords
-          metaRobots
-          metaViewport
-          canonicalURL
+        seo {
+          ...Seo
         }
       }
     }
@@ -96,15 +102,7 @@ query HomePage($locale: I18NLocaleCode!) {
       ...EventCardEntity
     }
   }
-  latestNotices: notices(
-    locale: $locale
-    pagination: { limit: 4, start: 0 }
-    sort: "publishedAt:desc"
-  ) {
-    data {
-      ...NoticeListingEntity
-    }
-  }
+  ...LatestNoticesQuery
   bookTags(pagination: { limit: 100 }) {
     data {
       ...BookTagEntity
@@ -112,17 +110,8 @@ query HomePage($locale: I18NLocaleCode!) {
   }
 }
 
-query LatestNews($locale: I18NLocaleCode!) {
-  pages(
-    filters: { layout: { eq: "news" } }
-    locale: $locale
-    pagination: { start: 0, limit: 4 }
-    sort: "publishedAt:desc"
-  ) {
-    data {
-      ...PageEntity
-    }
-  }
+query LatestNotices($locale: I18NLocaleCode!) {
+  ...LatestNoticesQuery
 }
 
 fragment MenuEntity on MenuEntity {
@@ -140,6 +129,36 @@ fragment MenuEntity on MenuEntity {
   }
 }
 
+fragment GeneralEntity on GeneralEntity {
+  attributes {
+    eventsPage {
+      data {
+        id
+      }
+    }
+    newBooksPage {
+      data {
+        id
+      }
+    }
+    privacyTermsAndConditionsPage {
+      data {
+        id
+      }
+    }
+    openingHoursPage {
+      data {
+        id
+      }
+    }
+    noticesPage {
+      data {
+        id
+      }
+    }
+  }
+}
+
 fragment MenuSection on ComponentMenuSections {
   id
   sectionTitle
@@ -149,12 +168,17 @@ fragment MenuSection on ComponentMenuSections {
       ...PageWithBaseFieldsEntity
     }
   }
-  sectionLinks(pagination: { limit: 20 }) {
+  sectionLinks(pagination: { limit: -1 }) {
     id
     sectionLinkTitle
     sectionLinkPage {
       data {
         ...SectionLinkPage
+      }
+    }
+    sectionLinkBranch {
+      data {
+        ...SectionLinkBranch
       }
     }
   }
@@ -168,6 +192,62 @@ fragment BookTagEntity on BookTagEntity {
   }
 }
 
+fragment Documents on ComponentSectionsDocuments {
+  title
+  documents {
+    data {
+      ...DocumentEntity
+    }
+  }
+  disclosures {
+    data {
+      ...DisclosureEntity
+    }
+  }
+}
+
+fragment Gallery on ComponentSectionsGallery {
+  id
+  Gallery {
+    id
+    Description
+    Photo {
+      data {
+        ...UploadImageEntity
+      }
+    }
+  }
+}
+
+fragment OpeningHoursDays on ComponentBlocksOpeningHours {
+  days {
+    label
+    time
+  }
+}
+
+fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
+  id
+  title
+  branchList {
+    data {
+      id
+      attributes {
+        title
+        openingHours {
+          ...OpeningHoursDays
+        }
+      }
+    }
+  }
+}
+
+fragment ChildrenListingSection on ComponentSectionsChildrenListing {
+  id
+  depth
+}
+
+
 fragment Sections on PageSectionsDynamicZone {
   __typename
   ... on ComponentSectionsSubListing {
@@ -175,17 +255,12 @@ fragment Sections on PageSectionsDynamicZone {
     title
     url
   }
-
   ... on ComponentSectionsFaq {
     id
     title
     questions {
       ...AccordionItem
     }
-  }
-  ... on ComponentSectionsFlatTextCenter {
-    id
-    content
   }
   ... on ComponentSectionsFlatText {
     id
@@ -212,7 +287,7 @@ fragment Sections on PageSectionsDynamicZone {
     flatText {
       ...FlatText
     }
-    tableRows(pagination: { limit: 100 }) {
+    tableRows(pagination: { limit: -1 }) {
       ...TableRow
     }
     forms {
@@ -222,19 +297,6 @@ fragment Sections on PageSectionsDynamicZone {
   }
   ... on ComponentSectionsDivider {
     id
-  }
-  ... on ComponentSectionsColumnedText {
-    title
-    content
-  }
-  ... on ComponentSectionsExternalLinks {
-    title
-    externalLinks {
-      ...ExternalLink
-    }
-    descriptions {
-      ...FlatText
-    }
   }
   ... on ComponentSectionsCta {
     title
@@ -255,15 +317,7 @@ fragment Sections on PageSectionsDynamicZone {
 
   ... on ComponentSectionsDocuments {
     id
-    title
-    basicDocuments {
-      data {
-        ...BasicDocumentEntity
-      }
-    }
-    moreLink {
-      ...PageLink
-    }
+    ...Documents
   }
 
   ... on ComponentSectionsMap {
@@ -299,28 +353,15 @@ fragment Sections on PageSectionsDynamicZone {
   }
 
   ... on ComponentSectionsGallery {
-    id
-    Gallery {
-      id
-      Description
-      Photo {
-        data {
-          id
-          attributes {
-            name
-            width
-            height
-            url
-            createdAt
-            hash
-            mime
-            provider
-            size
-            updatedAt
-          }
-        }
-      }
-    }
+    ...Gallery
+  }
+
+  ... on ComponentSectionsOpeningHoursSection {
+    ...OpeningHoursSection
+  }
+
+  ... on ComponentSectionsChildrenListing {
+    ...ChildrenListingSection
   }
 }
 
@@ -372,16 +413,6 @@ fragment AccordionItem on ComponentBlocksAccordionItem {
   id
   label
   content
-}
-
-fragment PageLink on ComponentBlocksPageLink {
-  title
-  url
-  page {
-    data {
-      ...PageWithBaseFieldsEntity
-    }
-  }
 }
 
 fragment Pagination on Pagination {
@@ -440,6 +471,11 @@ query General($eventsFrom: DateTime!, $locale: I18NLocaleCode!) {
   footer(locale: $locale) {
     data {
       ...FooterEntity
+    }
+  }
+  general(locale: $locale) {
+    data {
+      ...GeneralEntity
     }
   }
 }

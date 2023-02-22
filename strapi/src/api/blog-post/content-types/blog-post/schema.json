@@ -67,11 +67,8 @@
         "sections.site-usefullness",
         "sections.accordion",
         "sections.divider",
-        "sections.columned-text",
         "sections.cta",
         "sections.sub-listing",
-        "sections.external-links",
-        "sections.flat-text-center",
         "sections.documents",
         "sections.video",
         "sections.flat-text",
@@ -80,7 +77,7 @@
         "sections.rental"
       ]
     },
-    "Seo": {
+    "seo": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -88,7 +85,7 @@
           "localized": true
         }
       },
-      "component": "seo.seo"
+      "component": "common.seo"
     }
   }
 }

@@ -2,7 +2,7 @@ import { Documents, PageTitle, SectionContainer } from '@bratislava/ui-city-libr
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import RichText from '@modules/formatting/RichText'
 import { NoticeEntityFragment } from '@services/graphql'
-import { useTranslation } from 'next-i18next'
+import { useNavikronos } from '@utils/navikronos'
 import * as React from 'react'
 
 export interface NoticePageProps {
@@ -10,37 +10,13 @@ export interface NoticePageProps {
 }
 
 const NoticePage = ({ notice }: NoticePageProps) => {
-  const { t, i18n } = useTranslation('common')
-
-  const breadCrumbs =
-    i18n.language === 'sk'
-      ? [
-          { title: 'Zažite', url: '/zazite' },
-          { title: 'Aktuality', url: '/zazite/aktuality' },
-          { title: notice.attributes?.title || '', url: notice.attributes?.slug || '' },
-        ]
-      : [
-          { title: 'Experience', url: '/experience' },
-          { title: 'News', url: '/experience/news' },
-          { title: notice.attributes?.title || '', url: notice.attributes?.slug || '' },
-        ]
-
-  const files = notice.attributes?.documents?.basicDocuments?.data?.map((document) => ({
-    url: `${t('documents_slug')}${document?.attributes?.slug}`,
-    content: {
-      type: document?.attributes?.file_category?.data?.attributes?.name ?? '',
-      title: document?.attributes?.title ?? '',
-      dateAdded: document?.attributes?.date_added,
-      fileType:
-        document?.attributes?.attachment?.data?.attributes?.ext?.toUpperCase().replace('.', '') ??
-        '',
-    },
-  }))
+  const { getBreadcrumbs } = useNavikronos()
+  const breadcrumbs = getBreadcrumbs(notice.attributes?.title)
 
   return (
     <>
       <SectionContainer>
-        <Breadcrumbs crumbs={breadCrumbs} />
+        <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
         <PageTitle title={notice?.attributes?.title ?? ''} />
@@ -49,7 +25,12 @@ const NoticePage = ({ notice }: NoticePageProps) => {
         </div>
       </SectionContainer>
       <SectionContainer>
-        <Documents files={files} targetBlank />
+        <Documents
+          documents={[
+            ...(notice.attributes?.documents?.documents?.data ?? []),
+            ...(notice.attributes?.documents?.disclosures?.data ?? []),
+          ]}
+        />
       </SectionContainer>
     </>
   )

@@ -6,9 +6,12 @@ import {
   PlaceIcon,
   ShareIcon,
 } from '@assets/icons'
+import { Documents } from '@components/ui'
+import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import RichText from '@modules/formatting/RichText'
 import { EventEntityFragment } from '@services/graphql'
+import { isDefined } from '@utils/isDefined'
 import { isEventPast } from '@utils/utils'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -93,7 +96,11 @@ const EventDetails = ({ event }: PageProps) => {
         <div className="col-span-5">
           <div className="text-sm">
             <TagsDisplay
-              tags={event?.attributes?.eventTags?.data || []}
+              tags={
+                event?.attributes?.eventTags?.data
+                  .map((eventTagEntity) => eventTagEntity.attributes)
+                  .filter(isDefined) || []
+              }
               category={event?.attributes?.eventCategory?.data?.attributes?.title || ''}
               tagsCount={5}
             />
@@ -123,10 +130,26 @@ const EventDetails = ({ event }: PageProps) => {
         <div className="col-span-6">
           <div className="mt-8 border-b border-border-dark pb-10 lg:mt-0">
             <div className="text-[24px]">{t('description')}</div>
-            <div className="pt-5 text-[16px] text-foreground-body">
+            <div className="pt-5">
               <RichText content={event?.attributes?.description ?? ''} />
             </div>
+            <div className="pt-5">
+              <ImageGallery
+                images={event?.attributes?.gallery?.data.filter(isDefined) ?? []}
+                variant="below"
+              />
+            </div>
           </div>
+          {event?.attributes?.documents && (
+            <Documents
+              className="mt-8"
+              title={event.attributes.documents.title}
+              documents={[
+                ...(event.attributes.documents.documents?.data.filter(isDefined) ?? []),
+                ...(event.attributes.documents.disclosures?.data.filter(isDefined) ?? []),
+              ]}
+            />
+          )}
           {(event?.attributes?.guests?.length || 0) > 0 && (
             <div className="border-b border-border-dark py-10">
               <div className="text-[24px]">{t('eventGuests')}</div>

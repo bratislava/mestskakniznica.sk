@@ -25,11 +25,6 @@ fragment PageEntity on PageEntity {
     }
     layout
     perex
-    pageCategory {
-      data {
-        ...PageCategoryEntity
-      }
-    }
     sections {
       ...Sections
     }
@@ -40,14 +35,8 @@ fragment PageEntity on PageEntity {
         ...PageLocalizationEntity
       }
     }
-    Seo {
-      id
-      metaTitle
-      metaDescription
-      keywords
-      metaRobots
-      metaViewport
-      canonicalURL
+    seo {
+      ...Seo
     }
   }
 }
@@ -55,28 +44,15 @@ fragment PageEntity on PageEntity {
 fragment SectionLinkPage on PageEntity {
   id
   attributes {
-    layout
     title
+  }
+}
+
+fragment SectionLinkBranch on BranchEntity {
+  id
+  attributes {
     slug
-    createdAt
-    updatedAt
-    listingImage {
-      data {
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          updatedAt
-          alternativeText
-        }
-      }
-    }
+    title
   }
 }
 
@@ -85,6 +61,7 @@ fragment PageWithBaseFieldsEntity on PageEntity {
   attributes {
     title
     slug
+    newSlug
     createdAt
     updatedAt
   }
@@ -98,74 +75,6 @@ fragment PageLocalizationEntity on PageEntity {
   }
 }
 
-fragment Category on Category {
-  title
-  priority
-  pages(pagination: { limit: 20 }) {
-    ...PageLink
-  }
-  pageLink {
-    ...PageLink
-  }
-  createdAt
-  updatedAt
-}
-
-fragment PageCategoryEntity on CategoryEntity {
-  attributes {
-    ...Category
-
-    subCategories {
-      data {
-        id
-        attributes {
-          ...Category
-        }
-      }
-    }
-
-    parentCategory {
-      data {
-        id
-        attributes {
-          ...Category
-          parentCategory {
-            data {
-              id
-              attributes {
-                ...Category
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-fragment ParentPage on PageEntity {
-  id
-  attributes {
-    title
-    slug
-    layout
-    pageCategory {
-      data {
-        ...PageCategoryEntity
-      }
-    }
-  }
-}
-
-fragment PromoNewsCard on PageEntity {
-  id
-  __typename
-  attributes {
-    title
-    slug
-  }
-}
-
 # strapi returns just the default locale if no locale is provided
 # easiest way to get all static paths is to ask for all locales sequentially
 query PagesStaticPaths($locale: I18NLocaleCode) {
@@ -173,70 +82,16 @@ query PagesStaticPaths($locale: I18NLocaleCode) {
     data {
       id
       attributes {
-        slug
         locale
       }
     }
   }
 }
 
-query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
-  pages(filters: { slug: { eq: $slug } }, locale: $locale) {
+query PageById($id: ID!, $locale: I18NLocaleCode!) {
+  pages(filters: { id: { eq: $id } }, locale: $locale) {
     data {
       ...PageEntity
-    }
-  }
-}
-
-query PagesByLayout(
-  $layout: String!
-  $locale: I18NLocaleCode!
-  $start: Int
-  $limit: Int
-  $sort: String = "publishedAt:desc"
-) {
-  pages(
-    filters: { layout: { eq: $layout } }
-    locale: $locale
-    pagination: { start: $start, limit: $limit }
-    sort: [$sort]
-  ) {
-    data {
-      ...PageEntity
-    }
-  }
-}
-
-query PagesByLayoutPaginated(
-  $layout: String!
-  $locale: I18NLocaleCode!
-  $start: Int
-  $limit: Int
-  $sort: String = "publishedAt:desc"
-) {
-  pages(
-    filters: { layout: { eq: $layout } }
-    locale: $locale
-    pagination: { start: $start, limit: $limit }
-    sort: [$sort]
-  ) {
-    data {
-      ...PageEntity
-    }
-    meta {
-      pagination {
-        ...Pagination
-      }
-    }
-  }
-}
-
-query PagesByLayoutCount($layout: String!, $locale: I18NLocaleCode!) {
-  pages(filters: { layout: { eq: $layout } }, locale: $locale) {
-    meta {
-      pagination {
-        total
-      }
     }
   }
 }

@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "disclosures",
+  "info": {
+    "singularName": "disclosure",
+    "pluralName": "disclosures",
+    "displayName": "Zverejňovanie",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "originalTitle": {
+      "type": "string"
+    },
+    "originalSlug": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Faktúry",
+        "Objednávky",
+        "Zmluva",
+        "Verejné obstarávanie",
+        "Obchodná verejná súťaž",
+        "Grant",
+        "Ostatné"
+      ],
+      "required": true
+    },
+    "addedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "dateFrom": {
+      "type": "date"
+    },
+    "dateTo": {
+      "type": "date"
+    },
+    "idNumber": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "decimal"
+    },
+    "description": {
+      "type": "string"
+    },
+    "contractor": {
+      "type": "string"
+    },
+    "grantProvider": {
+      "type": "string"
+    },
+    "grantYear": {
+      "type": "string"
+    }
+  }
+}

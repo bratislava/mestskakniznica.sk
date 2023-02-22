@@ -1,8 +1,8 @@
 import { SectionContainer } from '@bratislava/ui-city-library'
-import LocalityDetails from '@components/Molecules/LocalityDetails/LocalityDetails'
+import BranchDetails from '@components/Molecules/BranchDetails/BranchDetails'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import { BranchEntityFragment } from '@services/graphql'
-import { useTranslation } from 'next-i18next'
+import { useNavikronos } from '@utils/navikronos'
 
 import Section from '../AppLayout/Section'
 
@@ -11,30 +11,17 @@ export interface PageProps {
 }
 
 const BranchPage = ({ branch }: PageProps) => {
-  const { t, i18n } = useTranslation(['common', 'homepage'])
-
-  const breadCrumbs =
-    i18n.language === 'sk'
-      ? [
-          { title: 'Navštívte', url: '/navstivte' },
-          { title: 'Naše lokality', url: '/navstivte/nase-lokality' },
-          { title: branch.attributes?.title || '', url: branch.attributes?.slug || '' },
-        ]
-      : [
-          { title: 'Visit', url: '/visit' },
-          { title: 'Our locations', url: '/visit/our-locations' },
-          { title: branch.attributes?.title || '', url: branch.attributes?.slug || '' },
-        ]
+  const { getBreadcrumbs } = useNavikronos()
+  const breadcrumbs = getBreadcrumbs(branch.attributes?.title)
 
   return (
     <>
       <SectionContainer>
-        <Breadcrumbs crumbs={breadCrumbs} />
+        <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
-        {/* TODO add gallery */}
         <Section>
-          <LocalityDetails branch={branch} />
+          <BranchDetails branch={branch} />
         </Section>
       </SectionContainer>
     </>

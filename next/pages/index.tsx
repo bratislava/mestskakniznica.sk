@@ -3,11 +3,11 @@ import SectionHomepageNewBooks from '@components/HomePage/SectionHomepageNewBook
 import type { Book } from '@modules/common/Cards/BookCard'
 import {
   BookTagEntityFragment,
+  ComponentCommonSeo,
   ComponentHomepageFaqSection,
   ComponentHomepageNewsSection,
   ComponentHomepageRegistrationInfo,
   ComponentSectionsMap,
-  ComponentSeoSeo,
   EventCardEntityFragment,
   GeneralQuery,
   NoticeListingEntityFragment,
@@ -18,7 +18,7 @@ import { client } from '@services/graphql/gql'
 import { newBooksHomePageServerSideFetcher } from '@services/opac/fetchers/new-books-server-side.fetcher'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { hasAttributes, isDefined } from '@utils/isDefined'
-import { isPresent } from '@utils/utils'
+import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -30,7 +30,8 @@ import SectionPromos from '../components/HomePage/SectionPromos'
 import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationInfo'
 import SectionTags from '../components/HomePage/SectionTags'
 import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
-import PageWrapper from '../components/layouts/PageWrapper'
+import { navikronosGetStaticProps } from '../navikronos/navikronosGetStaticProps'
+import { wrapNavikronosProvider } from '../navikronos/wrapNavikronosProvider'
 
 type HomeProps = {
   localizations?: PageLocalizationEntityFragment[]
@@ -42,12 +43,13 @@ type HomeProps = {
   registrationInfoSection: ComponentHomepageRegistrationInfo
   bookTags: BookTagEntityFragment[]
   mapSection: ComponentSectionsMap | null
-  seo?: ComponentSeoSeo
+  seo?: ComponentCommonSeo
   general: GeneralQuery
-} & SSRConfig
+} & SSRConfig &
+  CLNavikronosPageProps
 
 export const Index = ({
-  localizations,
+  localizations, // TODO examine
   promos,
   latestNotices,
   newBooks,
@@ -59,96 +61,96 @@ export const Index = ({
   seo,
   general,
 }: HomeProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t } = useTranslation('common')
 
   return (
     <GeneralContextProvider general={general}>
-      <PageWrapper
-        locale={i18n.language}
-        slug="/"
-        localizations={localizations
-          ?.filter(isPresent)
-          // add empty slug because it's expected in wrapper and index page does not have slug
-          .map((l) => ({ ...l, slug: '' }))}
-      >
-        <DefaultPageLayout Seo={seo}>
-          <h1 className="sr-only">{t('pageTitle')}</h1>
-          {promos.length > 0 && (
-            <SectionContainer>
-              <Section>
-                <SectionPromos promos={promos} />
-              </Section>
-            </SectionContainer>
-          )}
+      <DefaultPageLayout seo={seo}>
+        <h1 className="sr-only">{t('pageTitle')}</h1>
+        {promos.length > 0 && (
+          <SectionContainer>
+            <Section>
+              <SectionPromos promos={promos} />
+            </Section>
+          </SectionContainer>
+        )}
 
-          {newBooks && newBooks.length > 0 ? (
-            <SectionContainer>
-              <SectionHomepageNewBooks books={newBooks} />
-            </SectionContainer>
-          ) : null}
+        {newBooks && newBooks.length > 0 ? (
+          <SectionContainer>
+            <SectionHomepageNewBooks books={newBooks} />
+          </SectionContainer>
+        ) : null}
 
-          {faqSection !== null && (
-            <SectionContainer>
-              <Section>
-                <SectionFaq faqSection={faqSection} />
-              </Section>
-            </SectionContainer>
-          )}
+        {faqSection !== null && (
+          <SectionContainer>
+            <Section>
+              <SectionFaq faqSection={faqSection} />
+            </Section>
+          </SectionContainer>
+        )}
 
-          {registrationInfoSection !== null && (
-            <SectionContainer>
-              <Section>
-                <SectionRegistrationInfo registrationInfoSection={registrationInfoSection} />
-              </Section>
-            </SectionContainer>
-          )}
+        {registrationInfoSection !== null && (
+          <SectionContainer>
+            <Section>
+              <SectionRegistrationInfo registrationInfoSection={registrationInfoSection} />
+            </Section>
+          </SectionContainer>
+        )}
 
-          {newsSection !== null && latestNotices.length > 0 && (
-            <SectionContainer>
-              <Section>
-                <SectionLibraryNews newsSection={newsSection} notices={latestNotices} />
-              </Section>
-            </SectionContainer>
-          )}
+        {newsSection !== null && latestNotices.length > 0 && (
+          <SectionContainer>
+            <Section>
+              <SectionLibraryNews newsSection={newsSection} notices={latestNotices} />
+            </Section>
+          </SectionContainer>
+        )}
 
-          {bookTags && bookTags.length > 0 && (
-            <SectionContainer>
-              <Section>
-                <SectionTags bookTags={bookTags} />
-              </Section>
-            </SectionContainer>
-          )}
+        {bookTags && bookTags.length > 0 && (
+          <SectionContainer>
+            <Section>
+              <SectionTags bookTags={bookTags} />
+            </Section>
+          </SectionContainer>
+        )}
 
-          {mapSection && (
-            <SectionContainer>
-              <Section noBorder>
-                <Localities
-                  mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
-                  branches={
-                    mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ??
-                    []
-                  }
-                />
-              </Section>
-            </SectionContainer>
-          )}
-        </DefaultPageLayout>
-      </PageWrapper>
+        {mapSection && (
+          <SectionContainer>
+            <Section noBorder>
+              <Localities
+                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
+                branches={
+                  mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []
+                }
+              />
+            </Section>
+          </SectionContainer>
+        )}
+      </DefaultPageLayout>
     </GeneralContextProvider>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const { locale } = ctx
+  if (!locale) {
+    return { notFound: true }
+  }
+
   const translations = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
 
   // running all requests parallel
   // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used
-  const [newBooks, { homePage, promotedNews, promotedEvents, latestNotices, bookTags }, general] =
-    await Promise.all([
-      newBooksHomePageServerSideFetcher(),
-      client.HomePage({ locale }),
-      generalFetcher(locale),
-    ])
+  const [
+    newBooks,
+    { homePage, promotedNews, promotedEvents, latestNotices, bookTags },
+    general,
+    navikronosStaticProps,
+  ] = await Promise.all([
+    newBooksHomePageServerSideFetcher(),
+    client.HomePage({ locale }),
+    generalFetcher(locale),
+    navikronosGetStaticProps(navikronosConfig, ctx),
+  ])
 
   if (!homePage) {
     return { notFound: true }
@@ -165,12 +167,13 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
       registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection ?? null,
       bookTags: bookTags?.data?.filter(hasAttributes) ?? [],
       mapSection: homePage?.data?.attributes?.mapSection ?? null,
-      seo: homePage?.data?.attributes?.Seo ?? null,
+      seo: homePage?.data?.attributes?.seo ?? null,
       general,
+      navikronosStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default Index
+export default wrapNavikronosProvider(Index)

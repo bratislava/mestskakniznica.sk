@@ -9,8 +9,8 @@
   "language_short.en": "EN",
   "answer_yes": "Yes",
   "answer_no": "No",
-  "openingHours": "Open until",
-  "openingHoursPageLink": "/en/visit/other/opening-hours",
+  "openingHours": "Opening hours",
+  "openingHoursOpenUntil": "Open until",
   "openingHoursClosed": "Currently closed",
   "copyright": "Bratislava City Library",
   "category": "Category",
@@ -64,7 +64,6 @@
   "otherEvents": "Other events",
   "moreEvents": "More events",
   "howToRegister": "How to register",
-  "openingHours2": "Opening hours",
   "closed": "Closed",
   "close": "Close",
   "city": "City",
@@ -102,7 +101,8 @@
   "previousPage": "Previous page",
   "nextPage": "Next page",
   "currentPage": "Please enter a current page number",
-  "navAriaLabel": "Main",
+  "navAriaLabel": "Main navigation",
+  "closeMobileNavMenu": "Close navigation menu",
   "goToTopAriaLabel": "Go to top header",
   "documents_slug": "/about-us/documents-and-public-disclosure-of-information/",
   "documents_page_name": "Documents and public disclosure of information",
@@ -125,8 +125,9 @@
   "searchOnPagePlaceholder": "Search on page…",
   "searchTags": {
     "page": "Page",
-    "basic-document": "Document",
     "blog-post": "Article",
+    "document": "Document",
+    "disclosure": "Disclosure",
     "event": "Event",
     "notice": "News"
   },
@@ -144,5 +145,26 @@
   "SortSelect": {
     "byNewest": "From newest",
     "byOldest": "From oldest"
+  },
+  "openImageGallery": "Open image gallery",
+  "descriptionSlider": "Slider",
+  "imageLightBoxDescription": "Image gallery. Press left arrow key to go to previous image. Press right arrow key to go to next image. Press Escape key to close image gallery.",
+  "previousImage": "Previous image",
+  "nextImage": "Next image",
+  "closeModal": "Close modal",
+  "downloadFile": "Download file",
+  "downloadFileAriaLabel": "Download file {{title}}, format {{ext}}, {{size}}",
+  "unknownFormat": "unknown",
+  "size": "Size",
+  "DocumentMetadata": {
+    "category": "Category",
+    "addedAt": "Added on",
+    "period": "Period",
+    "idNumber": "Number",
+    "amount": "Amount",
+    "description": "Description",
+    "contractor": "Supplier/Contractor",
+    "grantSupplier": "Provider",
+    "grantYear": "Year"
   }
 }

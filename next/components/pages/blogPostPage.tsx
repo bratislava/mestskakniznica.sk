@@ -2,6 +2,7 @@ import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import FormatDate from '@modules/formatting/FormatDate'
 import { BlogPostEntityFragment, PageSectionsDynamicZone } from '@services/graphql'
+import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 
 import Sections from '../Molecules/Sections'
@@ -14,31 +15,13 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
   const { t, i18n } = useTranslation('common')
   const mediaType = blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
 
-  const breadCrumbs =
-    i18n.language === 'sk'
-      ? [
-          { title: 'Služby', url: '/sluzby' },
-          { title: 'Vzdelávanie', url: '/sluzby/vzdelavanie' },
-          { title: 'Články', url: '/sluzby/vzdelavanie/clanky' },
-          {
-            title: blogPost.attributes?.title || '',
-            url: `/sluzby/vzdelavanie/clanky/${blogPost.attributes?.slug ?? ''}`,
-          },
-        ]
-      : [
-          { title: 'Services', url: '/services' },
-          { title: 'Education', url: '/services/education' },
-          { title: 'Articles', url: '/services/education/articles' },
-          {
-            title: blogPost.attributes?.title || '',
-            url: `/services/education/articles/${blogPost.attributes?.slug ?? ''}`,
-          },
-        ]
+  const { getBreadcrumbs } = useNavikronos()
+  const breadcrumbs = getBreadcrumbs(blogPost.attributes?.title)
 
   return (
     <>
       <SectionContainer>
-        <Breadcrumbs crumbs={breadCrumbs} />
+        <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
         <PageTitle title={blogPost?.attributes?.title ?? ''} hasDivider={false} />

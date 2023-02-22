@@ -1,7 +1,7 @@
 {
   "collectionName": "components_sections_documents",
   "info": {
-    "displayName": "documents",
+    "displayName": "Dokumenty",
     "description": ""
   },
   "options": {},
@@ -9,15 +9,20 @@
     "title": {
       "type": "string"
     },
-    "moreLink": {
-      "type": "component",
-      "repeatable": true,
-      "component": "blocks.page-link"
-    },
     "basicDocuments": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::basic-document.basic-document"
+    },
+    "documents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::document.document"
+    },
+    "disclosures": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::disclosure.disclosure"
     }
   }
 }

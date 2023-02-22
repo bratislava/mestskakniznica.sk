@@ -2,14 +2,17 @@ import { CallToAction, RowSubcategory } from '@components/ui'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
+
+import { NavikronosChildren } from '../../../navikronos/types'
 
 export interface ListingProps {
   className?: string
   title?: string
   url?: string
   moreLinkTitle?: string
-  pages: { title: string; url: string; moreLinkTitle: string }[]
+  listingChildren: NavikronosChildren
   hasDivider?: boolean
 }
 
@@ -18,9 +21,11 @@ export const Listing = ({
   title,
   url,
   moreLinkTitle,
-  pages,
+  listingChildren,
   hasDivider,
 }: ListingProps) => {
+  const { t } = useTranslation()
+
   return (
     <div className={cx(className)}>
       {moreLinkTitle && url && (
@@ -37,19 +42,20 @@ export const Listing = ({
       )}
 
       <div className="mt-4 grid grid-cols-1 gap-y-2 md:mt-6 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
-        {pages?.map((page) => (
-          <div>
+        {listingChildren?.map((page, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div key={index}>
             <div className="hidden md:block">
               <CallToAction
                 className="h-[180px]"
                 key={page.title}
                 title={page.title}
-                href={page.url}
-                showMoreText={page.moreLinkTitle}
+                href={page.path}
+                showMoreText={t('more')}
               />
             </div>
 
-            <RowSubcategory className="md:hidden" title={page.title} href={page.url} />
+            <RowSubcategory className="md:hidden" title={page.title} href={page.path} />
           </div>
         ))}
       </div>

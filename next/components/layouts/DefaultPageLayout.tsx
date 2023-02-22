@@ -1,76 +1,61 @@
 import { Footer, SectionContainer } from '@bratislava/ui-city-library'
 import ScrollToTopButton from '@modules/common/ScrollToTopButton'
-import { ComponentSeoSeo } from '@services/graphql'
+import HeaderWrapper from '@modules/navigation/HeaderWrapper'
+import { useNavMenuContext } from '@modules/navigation/navMenuContext'
+import { SeoFragment } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
+import { useNavikronos } from '@utils/navikronos'
+import cx from 'classnames'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
+import { ReactNode } from 'react'
 
 import favicon from '../../assets/images/mkb_favicon.png'
-import Header from '../AppLayout/Header'
-import MobileHeader from '../AppLayout/MobileNavigation/MobileHeader'
 import NewsletterSection from '../HomePage/NewsletterSection'
-import { otherLocale, usePageWrapperContext } from './PageWrapper'
 
 interface IProps {
-  children?: React.ReactNode
+  children?: ReactNode
   title?: string | undefined | null
-  Seo?: ComponentSeoSeo | undefined | null
+  seo?: SeoFragment | undefined | null
+  defaultMetaDescription?: string | undefined | null
 }
 
-const DefaultPageLayout = ({ children, title, Seo }: IProps) => {
-  const { localizations, locale } = usePageWrapperContext()
-  const otherLangData = otherLocale(locale ?? 'sk', localizations)
-  const currentLangData = otherLocale(otherLangData.locale, localizations)
-  const { footer } = useGeneralContext()
+const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IProps) => {
+  const { footer, general } = useGeneralContext()
+  const { getPathForEntity, currentRouteLocalizations } = useNavikronos()
 
   const { t } = useTranslation('common')
+  const { menuValue } = useNavMenuContext()
 
   return (
     <>
       <Head>
         <link rel="icon" type="image/x-icon" href={favicon.src} />
-        <title>
-          {`${
-            (title ?? t('pageTitle') ?? '') + ((title || t('pageTitle')) && ' | ')
-          }mestskakniznica.sk`}
-        </title>
-        {Seo && (
-          <>
-            <meta
-              name="title"
-              content={`${
-                (Seo.metaTitle ?? title ?? '') + ((Seo.metaTitle || title) && ' | ')
-              }mestskakniznica.sk`}
-            />
-            <meta name="description" content={Seo.metaDescription ?? t('chooseYourBook')} />
-            <meta name="keywords" content={Seo.keywords ?? ''} />
-            <meta
-              name="viewport"
-              content={Seo.metaViewport ?? 'width=device-width, initial-scale=1'}
-            />
-            <meta name="robots" content={Seo.metaRobots ?? ''} />
-            <meta name="canonical" content={Seo.canonicalURL ?? ''} />
-          </>
-        )}
-        <link
-          rel="alternate"
-          href={process.env.ORIGIN_ROOT_URL + currentLangData.path}
-          hrefLang={`${locale}-sk`}
-        />
-        <link
-          rel="alternate"
-          href={process.env.ORIGIN_ROOT_URL + otherLangData.path}
-          hrefLang={`${otherLangData.locale}-sk`}
-        />
+        <title>{`${seo?.metaTitle || title || ''} – mestskakniznica.sk`}</title>
+
+        <meta name="title" content={`${seo?.metaTitle || title || ''} – mestskakniznica.sk`} />
+        <meta name="description" content={seo?.metaDescription || defaultMetaDescription || ''} />
+        <meta name="keywords" content={seo?.keywords ?? ''} />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {currentRouteLocalizations.map(({ locale, path }) => (
+          <link
+            key={locale}
+            rel="alternate"
+            href={(locale === 'sk' ? '' : `/${locale}`) + path}
+            hrefLang={locale}
+          />
+        ))}
       </Head>
-      <div className="flex min-h-screen flex-1 flex-col justify-self-stretch">
+      <div
+        className={cx('flex min-h-screen flex-1 flex-col justify-self-stretch', {
+          // If menu is open, disable pointer events on the whole page (pointer events on menu must be re-enabled)
+          'pointer-events-none': menuValue !== '',
+        })}
+      >
         <header>
-          <div className="hidden lg:block lg:px-8">
-            <Header />
-          </div>
-          <div className="block lg:hidden">
-            <MobileHeader />
-          </div>
+          <HeaderWrapper />
         </header>
         <main id="content-anchor">
           {children}
@@ -89,11 +74,11 @@ const DefaultPageLayout = ({ children, title, Seo }: IProps) => {
               // }}
               gdpr={{
                 title: t('privacy'),
-                // href: footer?.privacyLink?.slug ?? '#',
                 href:
-                  locale === 'sk'
-                    ? '/o-nas/ochrana-osobnych-udajov'
-                    : '/en/about-us/privacy-terms-and-conditions',
+                  getPathForEntity({
+                    type: 'page',
+                    id: general?.data?.attributes?.privacyTermsAndConditionsPage?.data?.id,
+                  }) ?? '',
               }}
               VOP={{
                 title: t('VOP'),

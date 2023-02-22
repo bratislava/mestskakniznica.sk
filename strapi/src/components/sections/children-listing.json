@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_children_listings",
+  "info": {
+    "displayName": "Zoznam podstránok"
+  },
+  "options": {},
+  "attributes": {
+    "depth": {
+      "type": "enumeration",
+      "enum": [
+        "depth-1",
+        "depth-2"
+      ],
+      "default": "depth-1",
+      "required": true
+    }
+  }
+}

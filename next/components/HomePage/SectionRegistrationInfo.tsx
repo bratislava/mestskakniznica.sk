@@ -2,6 +2,7 @@ import { CheckNoPaddingIcon } from '@assets/icons'
 import RegisterToLibrary from '@assets/images/register-to-library.svg'
 import Button from '@modules/common/Button'
 import { ComponentHomepageRegistrationInfo } from '@services/graphql'
+import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -11,6 +12,8 @@ interface RegistrationInfoProps {
 
 const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) => {
   const { t } = useTranslation('homepage')
+  const { getPathForEntity } = useNavikronos()
+  const registerToLibraryId = registrationInfoSection?.redirectTo?.data?.id
 
   return (
     <section className="pb-12">
@@ -34,9 +37,11 @@ const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) =>
             </ul>
 
             <div className="pt-8">
-              <Button href={registrationInfoSection?.redirectTo?.data?.attributes?.slug ?? ''}>
-                {t('registerToLibraryButton')}
-              </Button>
+              {registerToLibraryId && (
+                <Button href={getPathForEntity({ type: 'page', id: registerToLibraryId }) ?? ''}>
+                  {t('registerToLibraryButton')}
+                </Button>
+              )}
             </div>
           </div>
         </div>

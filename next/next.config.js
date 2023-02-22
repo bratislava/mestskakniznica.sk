@@ -23,76 +23,35 @@ const nextConfig = {
           source: '/uploads/:file',
           destination: `${process.env.STRAPI_URL}/uploads/:file`,
         },
-        {
-          source: '/opacBookNews',
-          destination:
-            'https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchNews=60&rtrnxml=true',
-        },
-        /**
-         * Rewrites to make the translation of URL work. Based on an approached outlined here:
-         * https://stackoverflow.com/questions/68723485/how-to-setup-i18n-translated-url-routes-in-next-js/68731057#68731057
-         */
-
-        // Articles
-        {
-          source: '/sluzby/vzdelavanie/clanky/:slug',
-          destination: '/blog-post/:slug',
-        },
-        {
-          source: '/services/education/articles/:slug',
-          destination: '/blog-post/:slug',
-        },
-
-        // Branches
-        {
-          source: '/navstivte/nase-lokality/:slug',
-          destination: '/branch/:slug',
-        },
-        {
-          source: '/visit/our-locations/:slug',
-          destination: '/branch/:slug',
-        },
-
-        // Documents
-        {
-          source: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
-          destination: '/basic-document/:slug',
-        },
-        {
-          source: '/about-us/documents-and-public-disclosure-of-information/:slug',
-          destination: '/basic-document/:slug',
-        },
-
-        // Events
-        {
-          source: '/zazite/podujatia/:slug',
-          destination: '/event/:slug',
-        },
-        {
-          source: '/experience/events/:slug',
-          destination: '/event/:slug',
-        },
-
-        // Search
-        {
-          source: '/vyhladavanie',
-          destination: '/search',
-        },
-
-        // Notices
-        {
-          source: '/zazite/aktuality/:slug',
-          destination: '/notice/:slug',
-        },
-        {
-          source: '/experience/news/:slug',
-          destination: '/notice/:slug',
-        },
       ],
     }
   },
   async redirects() {
     return [
+      {
+        source: '/sk/o-nas/dokumenty-a-zverejnovanie-informacii/dokumenty',
+        destination: '/o-nas/dokumenty-a-zverejnovanie-informacii/',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/en/about-us/documents-and-public-disclosure-of-information/documents',
+        destination: '/en/about-us/documents-and-public-disclosure-of-information/',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/sk/o-nas/dokumenty-a-zverejnovanie-informacii/zverejnovanie',
+        destination: '/o-nas/dokumenty-a-zverejnovanie-informacii/',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/en/about-us/documents-and-public-disclosure-of-information/disclosure',
+        destination: '/en/about-us/documents-and-public-disclosure-of-information/',
+        permanent: true,
+        locale: false,
+      },
       // Old localities --> New Branch URLs
       {
         source: '/navstivte/klariska',
@@ -5164,19 +5123,6 @@ const nextConfig = {
         locale: false,
         permanent: true,
       },
-      {
-        source: '/sk/o-nas/dokumenty-a-zverejnovanie-informacii/:categorySlug/:slug',
-        destination: '/o-nas/dokumenty-a-zverejnovanie-informacii/:slug',
-        permanent: true,
-        locale: false,
-      },
-      {
-        source: '/en/o-nas/dokumenty-a-zverejnovanie-informacii/:categorySlug/:slug',
-        destination: '/en/about-us/documents-and-public-disclosure-of-information/:slug',
-        permanent: true,
-        locale: false,
-      },
-
       {
         source: '/online-katalog',
         destination: '/sluzby/citanie/online-katalog',

@@ -1,17 +1,21 @@
 import '../styles/globals.css'
 
+import { NavMenuContextProvider } from '@modules/navigation/navMenuContext'
 import MI18nProvider from '@modules/providers/MI18nProvider'
 import MQueryClientProvider from '@modules/providers/MQueryClientProvider'
 import { beausiteFont } from '@utils/beausiteFont'
+import { navikronosConfig } from '@utils/navikronos'
 import { isProductionDeployment } from '@utils/utils'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next'
 import { NextAdapter } from 'next-query-params'
+import { OverlayProvider, SSRProvider } from 'react-aria'
 import { QueryParamProvider } from 'use-query-params'
 
 import ErrorDisplay from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'
+import { NavikronosConfigProvider } from '../navikronos/NavikronosConfigProvider'
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
   if (pageProps.error) {
@@ -31,14 +35,22 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
           data-domain="mestskakniznica.sk"
           src="https://plausible.io/js/plausible.js"
         />
-      ) : null}{' '}
-      <MQueryClientProvider>
-        <MI18nProvider>
-          <QueryParamProvider adapter={NextAdapter}>
-            <Component {...pageProps} />
-          </QueryParamProvider>
-        </MI18nProvider>
-      </MQueryClientProvider>
+      ) : null}
+      <SSRProvider>
+        <NavikronosConfigProvider config={navikronosConfig}>
+          <MQueryClientProvider>
+            <MI18nProvider>
+              <OverlayProvider>
+                <QueryParamProvider adapter={NextAdapter}>
+                  <NavMenuContextProvider>
+                    <Component {...pageProps} />
+                  </NavMenuContextProvider>
+                </QueryParamProvider>
+              </OverlayProvider>
+            </MI18nProvider>
+          </MQueryClientProvider>
+        </NavikronosConfigProvider>
+      </SSRProvider>
     </div>
   )
 }

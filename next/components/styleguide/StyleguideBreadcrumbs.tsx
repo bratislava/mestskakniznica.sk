@@ -6,20 +6,20 @@ import React from 'react'
 
 const StyleguideBreadcrumbs = () => {
   const crumbs = [
-    { title: 'Zažite', url: '/zazite' },
-    { title: 'Aktuality', url: '/zazite/aktuality' },
+    { title: 'Zažite', path: '/zazite' },
+    { title: 'Aktuality', path: '/zazite/aktuality' },
     {
       title: 'Detské e-knihy v Mestskej knižnici',
-      url: '/zazite/aktuality/detske-knihy-v-mestskej-kniznici',
+      path: '/zazite/aktuality/detske-knihy-v-mestskej-kniznici',
     },
   ]
   const crumbsLong = [
-    { title: 'Zažite', url: '/zazite' },
-    { title: 'Aktuality', url: '/zazite/aktuality' },
+    { title: 'Zažite', path: '/zazite' },
+    { title: 'Aktuality', path: '/zazite/aktuality' },
     {
       title:
         'Oddelenie pre nevidiacich a slabozrakých bude otvorené v skrátených otváracích hodinách',
-      url: '/zazite/aktuality/skratene-otvaracie-hodiny-oddelenia-pre-nevidiacich-26-9-2022y',
+      path: '/zazite/aktuality/skratene-otvaracie-hodiny-oddelenia-pre-nevidiacich-26-9-2022y',
     },
   ]
 
