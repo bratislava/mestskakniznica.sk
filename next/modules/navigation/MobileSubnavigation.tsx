@@ -31,7 +31,7 @@ const MobileSubnavigation = ({ isOpen, menuSections, onClose }: SubnavigationPro
           </div>
           {menuSections.map((section, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <div key={index} className="py-4 pl-4">
+            <div key={index} className="p-4">
               {/* class pb-[10px] with py-1.5 on MLink makes 16px gap */}
               <div className="pb-[10px] text-lg">{section.label}</div>
 

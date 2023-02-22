@@ -4,16 +4,10 @@ import cx from 'classnames'
 import FocusTrap from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-import { ReactNode, useRef } from 'react'
-import {
-  AriaOverlayProps,
-  OverlayContainer,
-  useModal,
-  useOverlay,
-  usePreventScroll,
-} from 'react-aria'
+import { ReactNode, useEffect, useRef } from 'react'
+import { AriaOverlayProps, OverlayContainer, useModal, useOverlay } from 'react-aria'
 import { twMerge } from 'tailwind-merge'
-import { useIsClient } from 'usehooks-ts'
+import { useIsClient, useLockedBody } from 'usehooks-ts'
 
 export type ModalProps = {
   children: ReactNode
@@ -44,7 +38,12 @@ const Modal = (props: ModalProps) => {
     { ...props, isDismissable: isDismissable === undefined ? true : isDismissable },
     ref
   )
-  usePreventScroll({ isDisabled: !isOpen })
+  const [, setLockedBody] = useLockedBody(isOpen)
+
+  useEffect(() => {
+    setLockedBody(isOpen ?? false)
+  }, [isOpen, setLockedBody])
+
   const { modalProps } = useModal()
 
   const isClient = useIsClient()
