@@ -19,6 +19,8 @@ const NavigationTree = () => {
               key={index}
               child={child}
               locationIndexes={[index]}
+              isFirst={index === 0}
+              isLast={index === navigationData!.length - 1}
             />
           ))}
         </>

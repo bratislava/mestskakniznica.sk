@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@strapi/design-system";
 import { useConfigDefined } from "../utils/useConfig";
-import { Pencil, Plus, Trash } from "@strapi/icons";
+import { Pencil, Plus, Trash, ArrowDown, ArrowUp } from "@strapi/icons";
 import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
 import { useEditAdd } from "../utils/EditAddModalProvider";
 import { NavikronosRoute } from "../../../shared/types";
@@ -18,6 +18,8 @@ import { NavikronosRoute } from "../../../shared/types";
 type NavigationTreeChildProps = {
   child: NavikronosRoute;
   locationIndexes: number[];
+  isFirst: boolean;
+  isLast: boolean;
 };
 
 const Children = styled.div`
@@ -27,10 +29,13 @@ const Children = styled.div`
 const NavigationTreeChild = ({
   child,
   locationIndexes,
+  isFirst,
+  isLast,
 }: NavigationTreeChildProps) => {
   const { openEditModal, openAddModal } = useEditAdd();
   const { config } = useConfigDefined();
-  const { locale, removeRoute } = useNavigationDataDefined();
+  const { locale, removeRoute, moveRouteUp, moveRouteDown } =
+    useNavigationDataDefined();
 
   const canHaveChildren = child.type !== "contentType";
 
@@ -149,9 +154,25 @@ const NavigationTreeChild = ({
             <Flex alignItems="center" gap={1}>
               <IconButton
                 onClick={() => {
+                  moveRouteUp(locationIndexes);
+                }}
+                label="Move up"
+                disabled={isFirst}
+                icon={<ArrowUp />}
+              />
+              <IconButton
+                onClick={() => {
+                  moveRouteDown(locationIndexes);
+                }}
+                label="Move down"
+                disabled={isLast}
+                icon={<ArrowDown />}
+              />
+              <IconButton
+                onClick={() => {
                   openEditModal(locationIndexes);
                 }}
-                label="Restore"
+                label="Edit"
                 icon={<Pencil />}
               />
               <IconButton
@@ -172,6 +193,8 @@ const NavigationTreeChild = ({
               key={index}
               child={innerChild}
               locationIndexes={[...locationIndexes, index]}
+              isFirst={index === 0}
+              isLast={index === child.children!.length - 1}
             />
           ))}
 
