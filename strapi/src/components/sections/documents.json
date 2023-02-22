@@ -18,6 +18,11 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::document.document"
+    },
+    "disclosures": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::disclosure.disclosure"
     }
   }
 }

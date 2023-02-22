@@ -1,35 +1,25 @@
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import FormatDate from '@modules/formatting/FormatDate'
-import { EventCardEntityFragment, NoticeListingEntityFragment } from '@services/graphql'
+import { NoticeListingEntityFragment } from '@services/graphql'
 import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 
-interface IListingCardProps {
-  card: EventCardEntityFragment | NoticeListingEntityFragment
+type NoticeCardProps = {
+  card: NoticeListingEntityFragment
 }
 
-const ListingCard = ({ card }: IListingCardProps) => {
+const NoticeCard = ({ card }: NoticeCardProps) => {
   const { t } = useTranslation('common')
   const { getPathForEntity } = useNavikronos()
 
   const { image, link, date } = useMemo(() => {
-    if (card.__typename === 'EventEntity') {
-      return {
-        image: card.attributes?.listingImage?.data,
-        link: getPathForEntity({ type: 'event', slug: card?.attributes?.slug }),
-        date: card.attributes?.dateFrom,
-      }
+    return {
+      image: card.attributes?.listingImage?.data,
+      link: getPathForEntity({ type: 'notice', slug: card.attributes?.slug }),
+      date: card.attributes?.publishedAt,
     }
-    if (card.__typename === 'NoticeEntity') {
-      return {
-        image: card.attributes?.listingImage?.data[0],
-        link: getPathForEntity({ type: 'notice', slug: card.attributes?.slug }),
-        date: card.attributes?.publishedAt,
-      }
-    }
-    return { image: null, link: null, date: null }
   }, [card, t])
 
   return (
@@ -58,4 +48,4 @@ const ListingCard = ({ card }: IListingCardProps) => {
   )
 }
 
-export default ListingCard
+export default NoticeCard

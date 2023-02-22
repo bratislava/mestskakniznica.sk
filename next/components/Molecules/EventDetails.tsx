@@ -96,7 +96,11 @@ const EventDetails = ({ event }: PageProps) => {
         <div className="col-span-5">
           <div className="text-sm">
             <TagsDisplay
-              tags={event?.attributes?.eventTags?.data || []}
+              tags={
+                event?.attributes?.eventTags?.data
+                  .map((eventTagEntity) => eventTagEntity.attributes)
+                  .filter(isDefined) || []
+              }
               category={event?.attributes?.eventCategory?.data?.attributes?.title || ''}
               tagsCount={5}
             />
@@ -140,7 +144,10 @@ const EventDetails = ({ event }: PageProps) => {
             <Documents
               className="mt-8"
               title={event.attributes.documents.title}
-              documents={event.attributes.documents.documents?.data.filter(isDefined) ?? []}
+              documents={[
+                ...(event.attributes.documents.documents?.data.filter(isDefined) ?? []),
+                ...(event.attributes.documents.disclosures?.data.filter(isDefined) ?? []),
+              ]}
             />
           )}
           {(event?.attributes?.guests?.length || 0) > 0 && (
