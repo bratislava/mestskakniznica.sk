@@ -61,7 +61,7 @@ const Modal = (props: ModalProps) => {
             <div
               {...underlayProps}
               className={twMerge(
-                'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black/40',
+                'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-dark/40',
                 underlayClassName
               )}
             >

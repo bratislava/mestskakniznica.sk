@@ -1,0 +1,166 @@
+fragment DocumentsSection on ComponentSectionsDocuments {
+  id
+  title
+  documents {
+    data {
+      ...DocumentEntity
+    }
+  }
+  disclosures {
+    data {
+      ...DisclosureEntity
+    }
+  }
+}
+
+fragment GallerySection on ComponentSectionsGallery {
+  id
+  Gallery {
+    id
+    Description
+    Photo {
+      data {
+        ...UploadImageEntity
+      }
+    }
+  }
+}
+
+fragment RentalSection on ComponentSectionsRental {
+  id
+  title
+  text
+  branches {
+    branch {
+      data {
+        ...BranchCardEntity
+      }
+    }
+    page {
+      data {
+        id
+        attributes {
+          slug
+        }
+      }
+    }
+  }
+}
+
+fragment MapSection on ComponentSectionsMap {
+  id
+  title
+  branches {
+    branch {
+      data {
+        ...BranchCardEntity
+      }
+    }
+  }
+}
+
+fragment VideoSection on ComponentSectionsVideo {
+  id
+  youtube_url
+  media {
+    data {
+      attributes {
+        url
+      }
+    }
+  }
+}
+
+fragment CtaSection on ComponentSectionsCta {
+  id
+  title
+  url
+}
+
+fragment AccordionSection on ComponentSectionsAccordion {
+  id
+  title
+  flatText {
+    ...FlatText
+  }
+  tableRows(pagination: { limit: -1 }) {
+    ...TableRow
+  }
+  forms {
+    category
+    type
+  }
+}
+
+fragment TableSection on ComponentSectionsTable {
+  id
+  primaryTitle
+  secondaryTitle
+  rows {
+    label
+    value
+    valueAlign
+  }
+}
+
+fragment SubpagesSection on ComponentSectionsSubpages {
+  id
+  title
+  subpages {
+    id
+    title
+    description
+    url
+    page {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+  }
+}
+
+fragment FormSection on ComponentSectionsForm {
+  id
+  type
+}
+
+fragment SiteUsefulnessSection on ComponentSectionsSiteUsefullness {
+  id
+  title
+  thankYouMessage
+}
+
+fragment FlatTextSection on ComponentSectionsFlatText {
+  id
+  content
+}
+
+fragment FaqSection on ComponentSectionsFaq {
+  id
+  title
+  questions {
+    ...AccordionItem
+  }
+}
+
+fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
+  id
+  title
+  branchList {
+    data {
+      id
+      attributes {
+        title
+        openingHours {
+          ...OpeningHoursDays
+        }
+      }
+    }
+  }
+}
+
+fragment ChildrenListingSection on ComponentSectionsChildrenListing {
+  id
+  depth
+}
+

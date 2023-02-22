@@ -1,4 +1,4 @@
-import Section from '@components/AppLayout/Section'
+import { SectionContainer } from '@components/ui'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { ComponentHomepageNewsSection, NoticeListingEntityFragment } from '@services/graphql'
 import { useNavikronos } from '@utils/navikronos'
@@ -19,8 +19,8 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
   const showMoreId = newsSection?.redirectTo?.data?.id
 
   return (
-    <Section>
-      <section className="relative flex w-full flex-col py-10">
+    <SectionContainer hasBorder>
+      <div className="relative flex w-full flex-col py-10">
         <h2 className="text-center text-h3 md:text-left">{newsSection.title}</h2>
         <div className="w-full px-4 lg:px-0">
           <Carousel
@@ -42,8 +42,8 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
             </ShowMoreLink>
           )}
         </div>
-      </section>
-    </Section>
+      </div>
+    </SectionContainer>
   )
 }
 

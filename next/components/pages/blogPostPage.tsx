@@ -1,7 +1,8 @@
 import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import FormatDate from '@modules/formatting/FormatDate'
-import { BlogPostEntityFragment, PageSectionsDynamicZone } from '@services/graphql'
+import { BlogPostEntityFragment } from '@services/graphql'
+import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 
@@ -12,7 +13,8 @@ export interface BlogPostPageProps {
 }
 
 const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t } = useTranslation('common')
+
   const mediaType = blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
 
   const { getBreadcrumbs } = useNavikronos()
@@ -46,9 +48,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
         {/* Sections */}
         <div className="flex">
           <div className="mt-10 w-full lg:mx-auto lg:w-8/12">
-            {blogPost?.attributes?.sections && (
-              <Sections sections={blogPost?.attributes?.sections as PageSectionsDynamicZone[]} />
-            )}
+            <Sections sections={blogPost?.attributes?.sections?.filter(isDefined) ?? []} />
           </div>
         </div>
       </SectionContainer>

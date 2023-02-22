@@ -8,7 +8,7 @@ export interface FlatTextProps {
 
 export const FlatText = ({ className, content }: FlatTextProps) => {
   return (
-    <div className={cx(className, 'space-y-10 ')}>
+    <div className={cx(className, 'space-y-10')}>
       <RichText content={content ?? ''} />
     </div>
   )

@@ -23,7 +23,6 @@ import { GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import Section from '../components/AppLayout/Section'
 import SectionFaq from '../components/HomePage/SectionFaq'
 import SectionLibraryNews from '../components/HomePage/SectionLibraryNews'
 import SectionPromos from '../components/HomePage/SectionPromos'
@@ -68,61 +67,33 @@ export const Index = ({
       <DefaultPageLayout seo={seo}>
         <h1 className="sr-only">{t('pageTitle')}</h1>
         {promos.length > 0 && (
-          <SectionContainer>
-            <Section>
-              <SectionPromos promos={promos} />
-            </Section>
+          <SectionContainer hasBorder>
+            <SectionPromos promos={promos} />
           </SectionContainer>
         )}
 
-        {newBooks && newBooks.length > 0 ? (
-          <SectionContainer>
-            <SectionHomepageNewBooks books={newBooks} />
-          </SectionContainer>
-        ) : null}
+        {newBooks && newBooks.length > 0 ? <SectionHomepageNewBooks books={newBooks} /> : null}
 
-        {faqSection !== null && (
-          <SectionContainer>
-            <Section>
-              <SectionFaq faqSection={faqSection} />
-            </Section>
-          </SectionContainer>
-        )}
+        {faqSection && <SectionFaq faqSection={faqSection} />}
 
-        {registrationInfoSection !== null && (
-          <SectionContainer>
-            <Section>
-              <SectionRegistrationInfo registrationInfoSection={registrationInfoSection} />
-            </Section>
-          </SectionContainer>
+        {registrationInfoSection && (
+          <SectionRegistrationInfo registrationInfoSection={registrationInfoSection} />
         )}
 
         {newsSection !== null && latestNotices.length > 0 && (
-          <SectionContainer>
-            <Section>
-              <SectionLibraryNews newsSection={newsSection} notices={latestNotices} />
-            </Section>
-          </SectionContainer>
+          <SectionLibraryNews newsSection={newsSection} notices={latestNotices} />
         )}
 
-        {bookTags && bookTags.length > 0 && (
-          <SectionContainer>
-            <Section>
-              <SectionTags bookTags={bookTags} />
-            </Section>
-          </SectionContainer>
-        )}
+        {bookTags && bookTags.length > 0 && <SectionTags bookTags={bookTags} />}
 
         {mapSection && (
           <SectionContainer>
-            <Section noBorder>
-              <Localities
-                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
-                branches={
-                  mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []
-                }
-              />
-            </Section>
+            <Localities
+              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
+              branches={
+                mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []
+              }
+            />
           </SectionContainer>
         )}
       </DefaultPageLayout>

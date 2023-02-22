@@ -1,12 +1,13 @@
 import { PageTitle, SectionContainer } from '@bratislava/ui-city-library'
-import { PageEntity } from '@services/graphql'
+import { PageEntityFragment } from '@services/graphql'
+import { isDefined } from '@utils/isDefined'
 import * as React from 'react'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import Sections from '../Molecules/Sections'
 
 export interface FullContentPageProps {
-  page: PageEntity
+  page: PageEntityFragment
 }
 
 const FullContentPage = ({ page }: FullContentPageProps) => {
@@ -18,8 +19,9 @@ const FullContentPage = ({ page }: FullContentPageProps) => {
       <SectionContainer>
         <PageTitle title={page?.attributes?.title ?? ''} perex={page?.attributes?.perex ?? ''} />
 
-        {/* Sections */}
-        {page?.attributes?.sections && <Sections sections={page.attributes?.sections ?? []} />}
+        <div className="mt-8">
+          <Sections sections={page.attributes?.sections?.filter(isDefined) ?? []} />
+        </div>
       </SectionContainer>
     </>
   )

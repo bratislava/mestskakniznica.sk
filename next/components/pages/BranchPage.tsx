@@ -4,8 +4,6 @@ import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import { BranchEntityFragment } from '@services/graphql'
 import { useNavikronos } from '@utils/navikronos'
 
-import Section from '../AppLayout/Section'
-
 export interface PageProps {
   branch: BranchEntityFragment
 }
@@ -20,9 +18,7 @@ const BranchPage = ({ branch }: PageProps) => {
         <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
-        <Section>
-          <BranchDetails branch={branch} />
-        </Section>
+        <BranchDetails branch={branch} />
       </SectionContainer>
     </>
   )

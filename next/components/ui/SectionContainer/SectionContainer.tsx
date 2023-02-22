@@ -1,21 +1,21 @@
 import cx from 'classnames'
-import { HTMLAttributes } from 'react'
+import { ReactNode } from 'react'
 
-interface SectionContainerProps {
-  hasBackground?: boolean
-  noPadding?: boolean
+type SectionContainerProps = {
+  children: ReactNode
+  hasBorder?: boolean
 }
 
-export const SectionContainer = ({
-  children,
-  className,
-  hasBackground = false,
-  noPadding = false,
-  ...rest
-}: HTMLAttributes<HTMLDivElement> & SectionContainerProps) => {
+export const SectionContainer = ({ children, hasBorder = false }: SectionContainerProps) => {
   return (
-    <div className={cx({ 'px-4 lg:px-8': !noPadding }, className)} {...rest}>
-      <div className="mx-auto max-w-[1180px]">{children}</div>
+    <div className="mx-auto w-full px-4 lg:max-w-[1244px] lg:px-8">
+      <div
+        className={cx({
+          'border-b border-border-dark': hasBorder,
+        })}
+      >
+        {children}
+      </div>
     </div>
   )
 }

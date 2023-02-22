@@ -1,11 +1,11 @@
-import { ComponentSectionsGallery } from '@services/graphql'
+import { GallerySectionFragment } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import React from 'react'
 
 import ImageGallery from '../common/ImageGallery/ImageGallery'
 
 type GalleryBannerSectionProps = {
-  section: ComponentSectionsGallery
+  section: GallerySectionFragment
 }
 
 const GalleryBannerSection = ({ section }: GalleryBannerSectionProps) => {
