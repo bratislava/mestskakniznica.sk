@@ -1979,11 +1979,13 @@ enum ENUM_COMPONENTSECTIONSFORM_TYPE {
 enum ENUM_DISCLOSURE_TYPE {
   Faktury
   Grant
+  Granty
   Obchodna_verejna_sutaz
   Objednavky
   Ostatne
   Verejne_obstaravanie
   Zmluva
+  Zmluvy
 }
 
 enum ENUM_PAGE_LAYOUT {

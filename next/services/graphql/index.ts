@@ -2313,11 +2313,13 @@ export enum Enum_Componentsectionsform_Type {
 export enum Enum_Disclosure_Type {
   Faktury = 'Faktury',
   Grant = 'Grant',
+  Granty = 'Granty',
   ObchodnaVerejnaSutaz = 'Obchodna_verejna_sutaz',
   Objednavky = 'Objednavky',
   Ostatne = 'Ostatne',
   VerejneObstaravanie = 'Verejne_obstaravanie',
   Zmluva = 'Zmluva',
+  Zmluvy = 'Zmluvy',
 }
 
 export enum Enum_Page_Layout {
