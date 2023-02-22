@@ -287,66 +287,6 @@ type BranchRelationResponseCollection {
   data: [BranchEntity!]!
 }
 
-type Category {
-  createdAt: DateTime
-  locale: String
-  localizations(filters: CategoryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CategoryRelationResponseCollection
-  pageLink: ComponentBlocksPageLink
-  pages(filters: ComponentBlocksPageLinkFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksPageLink]
-  parentCategory: CategoryEntityResponse
-  priority: Int
-  publishedAt: DateTime
-  subCategories(filters: CategoryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CategoryRelationResponseCollection
-  title: String
-  updatedAt: DateTime
-}
-
-type CategoryEntity {
-  attributes: Category
-  id: ID
-}
-
-type CategoryEntityResponse {
-  data: CategoryEntity
-}
-
-type CategoryEntityResponseCollection {
-  data: [CategoryEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input CategoryFiltersInput {
-  and: [CategoryFiltersInput]
-  createdAt: DateTimeFilterInput
-  id: IDFilterInput
-  locale: StringFilterInput
-  localizations: CategoryFiltersInput
-  not: CategoryFiltersInput
-  or: [CategoryFiltersInput]
-  pageLink: ComponentBlocksPageLinkFiltersInput
-  pages: ComponentBlocksPageLinkFiltersInput
-  parentCategory: CategoryFiltersInput
-  priority: IntFilterInput
-  publishedAt: DateTimeFilterInput
-  subCategories: CategoryFiltersInput
-  title: StringFilterInput
-  updatedAt: DateTimeFilterInput
-}
-
-input CategoryInput {
-  pageLink: ComponentBlocksPageLinkInput
-  pages: [ComponentBlocksPageLinkInput]
-  parentCategory: ID
-  priority: Int
-  publishedAt: DateTime
-  subCategories: [ID]
-  title: String
-}
-
-type CategoryRelationResponseCollection {
-  data: [CategoryEntity!]!
-}
-
 type ComponentAccordionItemsFlatText {
   category: String
   content: String
@@ -2344,7 +2284,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2615,8 +2555,6 @@ type Mutation {
   createBookTag(data: BookTagInput!): BookTagEntityResponse
   createBranch(data: BranchInput!, locale: I18NLocaleCode): BranchEntityResponse
   createBranchLocalization(data: BranchInput, id: ID, locale: I18NLocaleCode): BranchEntityResponse
-  createCategory(data: CategoryInput!, locale: I18NLocaleCode): CategoryEntityResponse
-  createCategoryLocalization(data: CategoryInput, id: ID, locale: I18NLocaleCode): CategoryEntityResponse
   createDisclosure(data: DisclosureInput!): DisclosureEntityResponse
   createDocument(data: DocumentInput!): DocumentEntityResponse
   createDocumentCategory(data: DocumentCategoryInput!): DocumentCategoryEntityResponse
@@ -2650,7 +2588,6 @@ type Mutation {
   deleteBlogPost(id: ID!, locale: I18NLocaleCode): BlogPostEntityResponse
   deleteBookTag(id: ID!): BookTagEntityResponse
   deleteBranch(id: ID!, locale: I18NLocaleCode): BranchEntityResponse
-  deleteCategory(id: ID!, locale: I18NLocaleCode): CategoryEntityResponse
   deleteDisclosure(id: ID!): DisclosureEntityResponse
   deleteDocument(id: ID!): DocumentEntityResponse
   deleteDocumentCategory(id: ID!): DocumentCategoryEntityResponse
@@ -2695,7 +2632,6 @@ type Mutation {
   updateBlogPost(data: BlogPostInput!, id: ID!, locale: I18NLocaleCode): BlogPostEntityResponse
   updateBookTag(data: BookTagInput!, id: ID!): BookTagEntityResponse
   updateBranch(data: BranchInput!, id: ID!, locale: I18NLocaleCode): BranchEntityResponse
-  updateCategory(data: CategoryInput!, id: ID!, locale: I18NLocaleCode): CategoryEntityResponse
   updateDisclosure(data: DisclosureInput!, id: ID!): DisclosureEntityResponse
   updateDocument(data: DocumentInput!, id: ID!): DocumentEntityResponse
   updateDocumentCategory(data: DocumentCategoryInput!, id: ID!): DocumentCategoryEntityResponse
@@ -2833,7 +2769,6 @@ type Page {
   locale: String
   localizations(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
   newSlug: String!
-  pageCategory: CategoryEntityResponse
   perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZone]
@@ -2868,7 +2803,6 @@ input PageFiltersInput {
   newSlug: StringFilterInput
   not: PageFiltersInput
   or: [PageFiltersInput]
-  pageCategory: CategoryFiltersInput
   perex: StringFilterInput
   publishedAt: DateTimeFilterInput
   seo: ComponentCommonSeoFiltersInput
@@ -2882,7 +2816,6 @@ input PageInput {
   layout: ENUM_PAGE_LAYOUT
   listingImage: ID
   newSlug: String
-  pageCategory: ID
   perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZoneInput!]
@@ -2983,8 +2916,6 @@ type Query {
   bookTags(filters: BookTagFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BookTagEntityResponseCollection
   branch(id: ID, locale: I18NLocaleCode): BranchEntityResponse
   branches(filters: BranchFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): BranchEntityResponseCollection
-  categories(filters: CategoryFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CategoryEntityResponseCollection
-  category(id: ID, locale: I18NLocaleCode): CategoryEntityResponse
   disclosure(id: ID): DisclosureEntityResponse
   disclosures(filters: DisclosureFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): DisclosureEntityResponseCollection
   document(id: ID): DocumentEntityResponse
