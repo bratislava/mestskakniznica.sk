@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 import { useDebounce } from 'usehooks-ts'
 
@@ -27,7 +27,9 @@ export const useSearch = ({ syncWithUrlQuery = false }: UseSearchOptions) => {
 
   return {
     input: value,
-    setInput: syncWithUrlQuery ? setRouterQueryValue : setInput,
+    setInput: syncWithUrlQuery
+      ? (setRouterQueryValue as Dispatch<SetStateAction<string>>)
+      : setInput,
     searchValue,
     setSearchValue,
     emptyValue,
