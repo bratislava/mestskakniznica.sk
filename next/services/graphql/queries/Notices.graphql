@@ -13,7 +13,7 @@ fragment NoticeEntity on NoticeEntity {
     }
     promoted
     documents {
-      ...Documents
+      ...DocumentsSection
     }
     seo {
       ...Seo
@@ -29,18 +29,6 @@ fragment NoticeEntity on NoticeEntity {
   }
 }
 
-query NoticesStaticPaths($locale: I18NLocaleCode!) {
-  notices(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      id
-      attributes {
-        slug
-        locale
-      }
-    }
-  }
-}
-
 fragment NoticeListingEntity on NoticeEntity {
   __typename
   id
@@ -51,6 +39,36 @@ fragment NoticeListingEntity on NoticeEntity {
     listingImage {
       data {
         ...UploadImageEntity
+      }
+    }
+  }
+}
+
+fragment LatestNoticesQuery on Query {
+  latestNotices: notices(
+    locale: $locale
+    pagination: { limit: 4, start: 0 }
+    sort: "publishedAt:desc"
+  ) {
+    data {
+      ...NoticeListingEntity
+    }
+  }
+}
+
+### Queries
+
+query LatestNotices($locale: I18NLocaleCode!) {
+  ...LatestNoticesQuery
+}
+
+query NoticesStaticPaths($locale: I18NLocaleCode!) {
+  notices(locale: $locale, pagination: { limit: -1 }) {
+    data {
+      id
+      attributes {
+        slug
+        locale
       }
     }
   }

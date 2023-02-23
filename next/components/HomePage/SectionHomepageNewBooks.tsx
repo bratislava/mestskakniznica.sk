@@ -1,4 +1,4 @@
-import Section from '@components/AppLayout/Section'
+import { SectionContainer } from '@components/ui'
 import BookCard, { Book } from '@modules/common/Cards/BookCard'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { useGeneralContext } from '@utils/generalContext'
@@ -14,10 +14,10 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
   const { getPathForEntity } = useNavikronos()
 
   return (
-    <Section>
+    <SectionContainer hasBorder>
       <section className="relative flex w-full flex-col py-10">
         <h2 className="text-center text-h3 md:text-left">{t('newBooksTitle')}</h2>
-        <div className="overflow-x-auto ">
+        <div className="overflow-x-auto">
           <div className="flex gap-x-4 py-6 xl:grid xl:grid-cols-6">
             {books.map((book) => (
               <div key={book.url} className="shrink-0">
@@ -39,7 +39,7 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
           </ShowMoreLink>
         </div>
       </section>
-    </Section>
+    </SectionContainer>
   )
 }
 

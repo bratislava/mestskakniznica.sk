@@ -1,3 +1,42 @@
+fragment BlogPostSections on BlogPostSectionsDynamicZone {
+  __typename
+  ... on ComponentSectionsFaq {
+    ...FaqSection
+  }
+  ... on ComponentSectionsFlatText {
+    ...FlatTextSection
+  }
+  ... on ComponentSectionsSiteUsefullness {
+    ...SiteUsefulnessSection
+  }
+  ... on ComponentSectionsTable {
+    ...TableSection
+  }
+  ... on ComponentSectionsAccordion {
+    ...AccordionSection
+  }
+  ... on ComponentSectionsDivider {
+    id
+  }
+  ... on ComponentSectionsCta {
+    ...CtaSection
+  }
+
+  ... on ComponentSectionsVideo {
+    ...VideoSection
+  }
+
+  ... on ComponentSectionsDocuments {
+    ...DocumentsSection
+  }
+
+  ... on ComponentSectionsGallery {
+    ...GallerySection
+  }
+}
+
+
+
 fragment BlogPostEntity on BlogPostEntity {
   id
   attributes {
@@ -14,7 +53,7 @@ fragment BlogPostEntity on BlogPostEntity {
       }
     }
     sections {
-      ...Sections
+      ...BlogPostSections
     }
     localizations {
       data {
