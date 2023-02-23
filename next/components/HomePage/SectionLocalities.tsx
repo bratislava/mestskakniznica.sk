@@ -1,3 +1,4 @@
+import { SectionContainer } from '@components/ui'
 import { useNavikronos } from '@utils/navikronos'
 import { ILocality } from '@utils/types'
 import Link from 'next/link'
@@ -16,12 +17,12 @@ const Localities = ({ localities }: LocalitiesProps) => {
   const { getPathForEntity } = useNavikronos()
 
   return (
-    <div className="m-auto w-1180">
+    <SectionContainer>
       <h2 className="py-10 text-h3">{t('localitiesTitle')}</h2>
 
       <section className="border border-border-dark pb-10">
         <img src={Map.src} alt="Mapa lokalit" height={Map.height} width={Map.width} />
-        <div className="inline-flex h-[376px] w-1180">
+        <div className="inline-flex h-[376px]">
           {localities &&
             localities?.map((locality) => (
               <div key={locality.localityTitle}>
@@ -54,7 +55,7 @@ const Localities = ({ localities }: LocalitiesProps) => {
             ))}
         </div>
       </section>
-    </div>
+    </SectionContainer>
   )
 }
 export default Localities

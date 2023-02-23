@@ -1,5 +1,6 @@
 import { CheckNoPaddingIcon } from '@assets/icons'
 import RegisterToLibrary from '@assets/images/register-to-library.svg'
+import { SectionContainer } from '@components/ui'
 import Button from '@modules/common/Button'
 import { ComponentHomepageRegistrationInfo } from '@services/graphql'
 import { useNavikronos } from '@utils/navikronos'
@@ -16,7 +17,7 @@ const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) =>
   const registerToLibraryId = registrationInfoSection?.redirectTo?.data?.id
 
   return (
-    <section className="pb-12">
+    <SectionContainer hasBorder>
       <div className="flex w-full">
         <div className="flex w-full flex-col pt-12 md:flex-row md:space-x-8 md:px-8 lg:px-16">
           <div className="mx-auto w-full max-w-sm">
@@ -46,7 +47,7 @@ const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) =>
           </div>
         </div>
       </div>
-    </section>
+    </SectionContainer>
   )
 }
 

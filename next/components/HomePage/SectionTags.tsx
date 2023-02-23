@@ -1,3 +1,4 @@
+import { SectionContainer } from '@components/ui'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { BookTagEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
@@ -10,7 +11,7 @@ interface BookTagsProps {
 const BooksTags = ({ bookTags }: BookTagsProps) => {
   const { t } = useTranslation('homepage')
   return (
-    <>
+    <SectionContainer hasBorder>
       <h2 className="object-none pt-10 text-center text-h3">{t('lookingForBook')}</h2>
       <section className="object-center">
         <div className="flex grow-0 flex-col items-center py-8 text-center">
@@ -38,7 +39,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
           </ShowMoreLink>
         </div>
       </section>
-    </>
+    </SectionContainer>
   )
 }
 export default BooksTags

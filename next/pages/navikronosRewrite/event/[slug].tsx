@@ -43,6 +43,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
   let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     locales!.map((locale) => client.EventStaticPaths({ locale }))
   )
   const entities = pathArraysForLocales
@@ -54,6 +55,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
       .filter((entity) => entity.attributes?.slug)
       .map((entity) => ({
         params: {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain,@typescript-eslint/no-non-null-assertion
           slug: entity.attributes?.slug!,
           locale: entity.attributes?.locale || '',
         },

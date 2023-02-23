@@ -1,7 +1,7 @@
 import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
 import FullContentPage from '@components/pages/fullContentPage'
 import SidebarContentPage from '@components/pages/sidebarContentPage'
-import { Enum_Page_Layout, GeneralQuery, PageEntity, PageEntityFragment } from '@services/graphql'
+import { Enum_Page_Layout, GeneralQuery, PageEntityFragment } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
 import { extractLocalizationsWithId } from '@utils/extractLocalizations'
@@ -33,11 +33,11 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
   // eslint-disable-next-line default-case
   switch (page?.attributes?.layout) {
     case Enum_Page_Layout.FullContent:
-      pageComponentByLayout = <FullContentPage page={page as PageEntity} />
+      pageComponentByLayout = <FullContentPage page={page} />
       break
 
     case Enum_Page_Layout.ContentWithSidebar:
-      pageComponentByLayout = <SidebarContentPage page={page as PageEntity} />
+      pageComponentByLayout = <SidebarContentPage page={page} />
       break
   }
 
@@ -72,6 +72,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
   if (entities.length > 0) {
     paths = entities.map((page) => ({
       params: {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         id: page.id!,
         locale: page?.attributes?.locale || '',
       },

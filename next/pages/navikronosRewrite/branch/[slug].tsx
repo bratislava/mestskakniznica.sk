@@ -6,9 +6,9 @@ import { client } from '@services/graphql/gql'
 import { extractLocalizationsWithSlug } from '@utils/extractLocalizations'
 import { GeneralContextProvider } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
-import { CLNavikronosPageProps, navikronosConfig, useNavikronos } from '@utils/navikronos'
+import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
@@ -22,9 +22,6 @@ type PageProps = {
   CLNavikronosPageProps
 
 const Page = ({ branch, general }: PageProps) => {
-  const { t } = useTranslation(['common'])
-  const { getPathForEntity } = useNavikronos()
-
   return (
     <GeneralContextProvider general={general}>
       <DefaultPageLayout

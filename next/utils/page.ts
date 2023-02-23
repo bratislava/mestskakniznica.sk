@@ -1,5 +1,5 @@
 import { SubpageItemProps, TableRowProps } from '@bratislava/ui-city-library'
-import { SubpagesFragment, TableRowFragment } from '@services/graphql'
+import { SubpagesSectionFragment, TableRowFragment } from '@services/graphql'
 import { isPresent } from '@utils/utils'
 import groupBy from 'lodash/groupBy'
 
@@ -24,7 +24,7 @@ export const groupByTableCategory = (
 }
 
 // Subpages
-export const parseSubpages = (subpages: SubpagesFragment): SubpageItemProps[] =>
+export const parseSubpages = (subpages: SubpagesSectionFragment): SubpageItemProps[] =>
   subpages?.subpages?.filter(isPresent).map((subpage) => ({
     title: subpage?.title ?? '',
     description: subpage?.description ?? '',

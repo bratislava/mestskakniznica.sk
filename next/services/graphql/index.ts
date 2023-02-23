@@ -183,13 +183,8 @@ export type BlogPostSectionsDynamicZone =
   | ComponentSectionsDocuments
   | ComponentSectionsFaq
   | ComponentSectionsFlatText
-  | ComponentSectionsForm
   | ComponentSectionsGallery
-  | ComponentSectionsMap
-  | ComponentSectionsRental
   | ComponentSectionsSiteUsefullness
-  | ComponentSectionsSubListing
-  | ComponentSectionsSubpages
   | ComponentSectionsTable
   | ComponentSectionsVideo
   | Error
@@ -1900,27 +1895,6 @@ export type ComponentSectionsSiteUsefullnessInput = {
   title?: InputMaybe<Scalars['String']>
 }
 
-export type ComponentSectionsSubListing = {
-  __typename?: 'ComponentSectionsSubListing'
-  id: Scalars['ID']
-  title?: Maybe<Scalars['String']>
-  url?: Maybe<Scalars['String']>
-}
-
-export type ComponentSectionsSubListingFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentSectionsSubListingFiltersInput>>>
-  not?: InputMaybe<ComponentSectionsSubListingFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<ComponentSectionsSubListingFiltersInput>>>
-  title?: InputMaybe<StringFilterInput>
-  url?: InputMaybe<StringFilterInput>
-}
-
-export type ComponentSectionsSubListingInput = {
-  id?: InputMaybe<Scalars['ID']>
-  title?: InputMaybe<Scalars['String']>
-  url?: InputMaybe<Scalars['String']>
-}
-
 export type ComponentSectionsSubpages = {
   __typename?: 'ComponentSectionsSubpages'
   id: Scalars['ID']
@@ -2842,7 +2816,6 @@ export type GenericMorph =
   | ComponentSectionsPartners
   | ComponentSectionsRental
   | ComponentSectionsSiteUsefullness
-  | ComponentSectionsSubListing
   | ComponentSectionsSubpages
   | ComponentSectionsTable
   | ComponentSectionsVideo
@@ -3927,7 +3900,6 @@ export type PageSectionsDynamicZone =
   | ComponentSectionsPartners
   | ComponentSectionsRental
   | ComponentSectionsSiteUsefullness
-  | ComponentSectionsSubListing
   | ComponentSectionsSubpages
   | ComponentSectionsTable
   | ComponentSectionsVideo
@@ -5240,6 +5212,213 @@ export type MetadataFragment =
   | Metadata_ComponentMetadataZmluvy_Fragment
   | Metadata_Error_Fragment
 
+type BlogPostSections_ComponentSectionsAccordion_Fragment = {
+  __typename: 'ComponentSectionsAccordion'
+  id: string
+  title?: string | null
+  flatText?: Array<{
+    __typename?: 'ComponentAccordionItemsFlatText'
+    category?: string | null
+    content?: string | null
+  } | null> | null
+  tableRows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
+    accordionCategory?: string | null
+    tableCategory?: string | null
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+  } | null> | null
+  forms?: Array<{
+    __typename?: 'ComponentAccordionItemsForm'
+    category?: string | null
+    type?: Enum_Componentaccordionitemsform_Type | null
+  } | null> | null
+}
+
+type BlogPostSections_ComponentSectionsCta_Fragment = {
+  __typename: 'ComponentSectionsCta'
+  id: string
+  title?: string | null
+  url?: string | null
+}
+
+type BlogPostSections_ComponentSectionsDivider_Fragment = {
+  __typename: 'ComponentSectionsDivider'
+  id: string
+}
+
+type BlogPostSections_ComponentSectionsDocuments_Fragment = {
+  __typename: 'ComponentSectionsDocuments'
+  id: string
+  title?: string | null
+  documents?: {
+    __typename?: 'DocumentRelationResponseCollection'
+    data: Array<{
+      __typename: 'DocumentEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Document'
+        title: string
+        slug: string
+        description?: string | null
+        publishedAt?: any | null
+        documentCategory?: {
+          __typename?: 'DocumentCategoryEntityResponse'
+          data?: {
+            __typename?: 'DocumentCategoryEntity'
+            id?: string | null
+            attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
+          } | null
+        } | null
+        file: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              size: number
+              ext?: string | null
+            } | null
+          } | null
+        }
+      } | null
+    }>
+  } | null
+  disclosures?: {
+    __typename?: 'DisclosureRelationResponseCollection'
+    data: Array<{
+      __typename: 'DisclosureEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Disclosure'
+        slug: string
+        title: string
+        description?: string | null
+        addedAt: any
+        type: Enum_Disclosure_Type
+        dateFrom?: any | null
+        dateTo?: any | null
+        idNumber?: string | null
+        amount?: number | null
+        contractor?: string | null
+        grantProvider?: string | null
+        grantYear?: string | null
+        file: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              size: number
+              ext?: string | null
+            } | null
+          } | null
+        }
+      } | null
+    }>
+  } | null
+}
+
+type BlogPostSections_ComponentSectionsFaq_Fragment = {
+  __typename: 'ComponentSectionsFaq'
+  id: string
+  title?: string | null
+  questions?: Array<{
+    __typename?: 'ComponentBlocksAccordionItem'
+    id: string
+    label?: string | null
+    content?: string | null
+  } | null> | null
+}
+
+type BlogPostSections_ComponentSectionsFlatText_Fragment = {
+  __typename: 'ComponentSectionsFlatText'
+  id: string
+  content?: string | null
+}
+
+type BlogPostSections_ComponentSectionsGallery_Fragment = {
+  __typename: 'ComponentSectionsGallery'
+  id: string
+  Gallery?: Array<{
+    __typename?: 'ComponentLocalityPartsGalleryParts'
+    id: string
+    Description?: string | null
+    Photo?: {
+      __typename?: 'UploadFileEntityResponse'
+      data?: {
+        __typename?: 'UploadFileEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'UploadFile'
+          url: string
+          name: string
+          alternativeText?: string | null
+          caption?: string | null
+          size: number
+          width?: number | null
+          height?: number | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
+type BlogPostSections_ComponentSectionsSiteUsefullness_Fragment = {
+  __typename: 'ComponentSectionsSiteUsefullness'
+  id: string
+  title?: string | null
+  thankYouMessage?: string | null
+}
+
+type BlogPostSections_ComponentSectionsTable_Fragment = {
+  __typename: 'ComponentSectionsTable'
+  id: string
+  primaryTitle?: string | null
+  secondaryTitle?: string | null
+  rows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+  } | null> | null
+}
+
+type BlogPostSections_ComponentSectionsVideo_Fragment = {
+  __typename: 'ComponentSectionsVideo'
+  id: string
+  youtube_url?: string | null
+  media?: {
+    __typename?: 'UploadFileEntityResponse'
+    data?: {
+      __typename?: 'UploadFileEntity'
+      attributes?: { __typename?: 'UploadFile'; url: string } | null
+    } | null
+  } | null
+}
+
+type BlogPostSections_Error_Fragment = { __typename: 'Error' }
+
+export type BlogPostSectionsFragment =
+  | BlogPostSections_ComponentSectionsAccordion_Fragment
+  | BlogPostSections_ComponentSectionsCta_Fragment
+  | BlogPostSections_ComponentSectionsDivider_Fragment
+  | BlogPostSections_ComponentSectionsDocuments_Fragment
+  | BlogPostSections_ComponentSectionsFaq_Fragment
+  | BlogPostSections_ComponentSectionsFlatText_Fragment
+  | BlogPostSections_ComponentSectionsGallery_Fragment
+  | BlogPostSections_ComponentSectionsSiteUsefullness_Fragment
+  | BlogPostSections_ComponentSectionsTable_Fragment
+  | BlogPostSections_ComponentSectionsVideo_Fragment
+  | BlogPostSections_Error_Fragment
+
 export type BlogPostEntityFragment = {
   __typename?: 'BlogPostEntity'
   id?: string | null
@@ -5263,6 +5442,7 @@ export type BlogPostEntityFragment = {
     sections?: Array<
       | {
           __typename: 'ComponentSectionsAccordion'
+          id: string
           title?: string | null
           flatText?: Array<{
             __typename?: 'ComponentAccordionItemsFlatText'
@@ -5283,7 +5463,12 @@ export type BlogPostEntityFragment = {
             type?: Enum_Componentaccordionitemsform_Type | null
           } | null> | null
         }
-      | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
+      | {
+          __typename: 'ComponentSectionsCta'
+          id: string
+          title?: string | null
+          url?: string | null
+        }
       | { __typename: 'ComponentSectionsDivider'; id: string }
       | {
           __typename: 'ComponentSectionsDocuments'
@@ -5379,11 +5564,6 @@ export type BlogPostEntityFragment = {
         }
       | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
       | {
-          __typename: 'ComponentSectionsForm'
-          id: string
-          type?: Enum_Componentsectionsform_Type | null
-        }
-      | {
           __typename: 'ComponentSectionsGallery'
           id: string
           Gallery?: Array<{
@@ -5410,178 +5590,14 @@ export type BlogPostEntityFragment = {
           } | null> | null
         }
       | {
-          __typename: 'ComponentSectionsMap'
-          id: string
-          title?: string | null
-          branches?: Array<{
-            __typename?: 'ComponentBlocksBranchItem'
-            branch?: {
-              __typename?: 'BranchEntityResponse'
-              data?: {
-                __typename?: 'BranchEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Branch'
-                  title: string
-                  address?: string | null
-                  slug: string
-                  latitude?: number | null
-                  longitude?: number | null
-                  listingImage?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        alternativeText?: string | null
-                        caption?: string | null
-                        size: number
-                        width?: number | null
-                        height?: number | null
-                      } | null
-                    } | null
-                  } | null
-                  subBranches?: {
-                    __typename?: 'BranchRelationResponseCollection'
-                    data: Array<{
-                      __typename?: 'BranchEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'Branch'
-                        title: string
-                        address?: string | null
-                        phone?: string | null
-                        email?: string | null
-                        openingHours?: {
-                          __typename?: 'ComponentBlocksOpeningHours'
-                          days: Array<{
-                            __typename?: 'ComponentBlocksOpeningHoursItem'
-                            label?: string | null
-                            time: string
-                          } | null>
-                        } | null
-                      } | null
-                    }>
-                  } | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
-        }
-      | {
-          __typename: 'ComponentSectionsRental'
-          id: string
-          title?: string | null
-          text?: string | null
-          branches?: Array<{
-            __typename?: 'ComponentBlocksBranchItemWithPage'
-            branch?: {
-              __typename?: 'BranchEntityResponse'
-              data?: {
-                __typename?: 'BranchEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Branch'
-                  title: string
-                  address?: string | null
-                  slug: string
-                  latitude?: number | null
-                  longitude?: number | null
-                  listingImage?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        alternativeText?: string | null
-                        caption?: string | null
-                        size: number
-                        width?: number | null
-                        height?: number | null
-                      } | null
-                    } | null
-                  } | null
-                  subBranches?: {
-                    __typename?: 'BranchRelationResponseCollection'
-                    data: Array<{
-                      __typename?: 'BranchEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'Branch'
-                        title: string
-                        address?: string | null
-                        phone?: string | null
-                        email?: string | null
-                        openingHours?: {
-                          __typename?: 'ComponentBlocksOpeningHours'
-                          days: Array<{
-                            __typename?: 'ComponentBlocksOpeningHoursItem'
-                            label?: string | null
-                            time: string
-                          } | null>
-                        } | null
-                      } | null
-                    }>
-                  } | null
-                } | null
-              } | null
-            } | null
-            page?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                attributes?: { __typename?: 'Page'; slug: string } | null
-              } | null
-            } | null
-          } | null> | null
-        }
-      | {
           __typename: 'ComponentSectionsSiteUsefullness'
           id: string
           title?: string | null
           thankYouMessage?: string | null
         }
       | {
-          __typename: 'ComponentSectionsSubListing'
-          id: string
-          title?: string | null
-          url?: string | null
-        }
-      | {
-          __typename: 'ComponentSectionsSubpages'
-          id: string
-          title?: string | null
-          subpages?: Array<{
-            __typename?: 'ComponentBlocksSubpage'
-            id: string
-            title?: string | null
-            description?: string | null
-            url?: string | null
-            page?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
-        }
-      | {
           __typename: 'ComponentSectionsTable'
+          id: string
           primaryTitle?: string | null
           secondaryTitle?: string | null
           rows?: Array<{
@@ -5670,6 +5686,7 @@ export type BlogPostBySlugQuery = {
         sections?: Array<
           | {
               __typename: 'ComponentSectionsAccordion'
+              id: string
               title?: string | null
               flatText?: Array<{
                 __typename?: 'ComponentAccordionItemsFlatText'
@@ -5690,7 +5707,12 @@ export type BlogPostBySlugQuery = {
                 type?: Enum_Componentaccordionitemsform_Type | null
               } | null> | null
             }
-          | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
+          | {
+              __typename: 'ComponentSectionsCta'
+              id: string
+              title?: string | null
+              url?: string | null
+            }
           | { __typename: 'ComponentSectionsDivider'; id: string }
           | {
               __typename: 'ComponentSectionsDocuments'
@@ -5786,11 +5808,6 @@ export type BlogPostBySlugQuery = {
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
           | {
-              __typename: 'ComponentSectionsForm'
-              id: string
-              type?: Enum_Componentsectionsform_Type | null
-            }
-          | {
               __typename: 'ComponentSectionsGallery'
               id: string
               Gallery?: Array<{
@@ -5817,178 +5834,14 @@ export type BlogPostBySlugQuery = {
               } | null> | null
             }
           | {
-              __typename: 'ComponentSectionsMap'
-              id: string
-              title?: string | null
-              branches?: Array<{
-                __typename?: 'ComponentBlocksBranchItem'
-                branch?: {
-                  __typename?: 'BranchEntityResponse'
-                  data?: {
-                    __typename?: 'BranchEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Branch'
-                      title: string
-                      address?: string | null
-                      slug: string
-                      latitude?: number | null
-                      longitude?: number | null
-                      listingImage?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            alternativeText?: string | null
-                            caption?: string | null
-                            size: number
-                            width?: number | null
-                            height?: number | null
-                          } | null
-                        } | null
-                      } | null
-                      subBranches?: {
-                        __typename?: 'BranchRelationResponseCollection'
-                        data: Array<{
-                          __typename?: 'BranchEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'Branch'
-                            title: string
-                            address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
-                          } | null
-                        }>
-                      } | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
-            }
-          | {
-              __typename: 'ComponentSectionsRental'
-              id: string
-              title?: string | null
-              text?: string | null
-              branches?: Array<{
-                __typename?: 'ComponentBlocksBranchItemWithPage'
-                branch?: {
-                  __typename?: 'BranchEntityResponse'
-                  data?: {
-                    __typename?: 'BranchEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Branch'
-                      title: string
-                      address?: string | null
-                      slug: string
-                      latitude?: number | null
-                      longitude?: number | null
-                      listingImage?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            alternativeText?: string | null
-                            caption?: string | null
-                            size: number
-                            width?: number | null
-                            height?: number | null
-                          } | null
-                        } | null
-                      } | null
-                      subBranches?: {
-                        __typename?: 'BranchRelationResponseCollection'
-                        data: Array<{
-                          __typename?: 'BranchEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'Branch'
-                            title: string
-                            address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
-                          } | null
-                        }>
-                      } | null
-                    } | null
-                  } | null
-                } | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    attributes?: { __typename?: 'Page'; slug: string } | null
-                  } | null
-                } | null
-              } | null> | null
-            }
-          | {
               __typename: 'ComponentSectionsSiteUsefullness'
               id: string
               title?: string | null
               thankYouMessage?: string | null
             }
           | {
-              __typename: 'ComponentSectionsSubListing'
-              id: string
-              title?: string | null
-              url?: string | null
-            }
-          | {
-              __typename: 'ComponentSectionsSubpages'
-              id: string
-              title?: string | null
-              subpages?: Array<{
-                __typename?: 'ComponentBlocksSubpage'
-                id: string
-                title?: string | null
-                description?: string | null
-                url?: string | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Page'
-                      title: string
-                      slug: string
-                      newSlug: string
-                      createdAt?: any | null
-                      updatedAt?: any | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
-            }
-          | {
               __typename: 'ComponentSectionsTable'
+              id: string
               primaryTitle?: string | null
               secondaryTitle?: string | null
               rows?: Array<{
@@ -6065,6 +5918,7 @@ export type BlogPostsQuery = {
         sections?: Array<
           | {
               __typename: 'ComponentSectionsAccordion'
+              id: string
               title?: string | null
               flatText?: Array<{
                 __typename?: 'ComponentAccordionItemsFlatText'
@@ -6085,7 +5939,12 @@ export type BlogPostsQuery = {
                 type?: Enum_Componentaccordionitemsform_Type | null
               } | null> | null
             }
-          | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
+          | {
+              __typename: 'ComponentSectionsCta'
+              id: string
+              title?: string | null
+              url?: string | null
+            }
           | { __typename: 'ComponentSectionsDivider'; id: string }
           | {
               __typename: 'ComponentSectionsDocuments'
@@ -6181,11 +6040,6 @@ export type BlogPostsQuery = {
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
           | {
-              __typename: 'ComponentSectionsForm'
-              id: string
-              type?: Enum_Componentsectionsform_Type | null
-            }
-          | {
               __typename: 'ComponentSectionsGallery'
               id: string
               Gallery?: Array<{
@@ -6212,178 +6066,14 @@ export type BlogPostsQuery = {
               } | null> | null
             }
           | {
-              __typename: 'ComponentSectionsMap'
-              id: string
-              title?: string | null
-              branches?: Array<{
-                __typename?: 'ComponentBlocksBranchItem'
-                branch?: {
-                  __typename?: 'BranchEntityResponse'
-                  data?: {
-                    __typename?: 'BranchEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Branch'
-                      title: string
-                      address?: string | null
-                      slug: string
-                      latitude?: number | null
-                      longitude?: number | null
-                      listingImage?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            alternativeText?: string | null
-                            caption?: string | null
-                            size: number
-                            width?: number | null
-                            height?: number | null
-                          } | null
-                        } | null
-                      } | null
-                      subBranches?: {
-                        __typename?: 'BranchRelationResponseCollection'
-                        data: Array<{
-                          __typename?: 'BranchEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'Branch'
-                            title: string
-                            address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
-                          } | null
-                        }>
-                      } | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
-            }
-          | {
-              __typename: 'ComponentSectionsRental'
-              id: string
-              title?: string | null
-              text?: string | null
-              branches?: Array<{
-                __typename?: 'ComponentBlocksBranchItemWithPage'
-                branch?: {
-                  __typename?: 'BranchEntityResponse'
-                  data?: {
-                    __typename?: 'BranchEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Branch'
-                      title: string
-                      address?: string | null
-                      slug: string
-                      latitude?: number | null
-                      longitude?: number | null
-                      listingImage?: {
-                        __typename?: 'UploadFileEntityResponse'
-                        data?: {
-                          __typename?: 'UploadFileEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'UploadFile'
-                            url: string
-                            name: string
-                            alternativeText?: string | null
-                            caption?: string | null
-                            size: number
-                            width?: number | null
-                            height?: number | null
-                          } | null
-                        } | null
-                      } | null
-                      subBranches?: {
-                        __typename?: 'BranchRelationResponseCollection'
-                        data: Array<{
-                          __typename?: 'BranchEntity'
-                          id?: string | null
-                          attributes?: {
-                            __typename?: 'Branch'
-                            title: string
-                            address?: string | null
-                            phone?: string | null
-                            email?: string | null
-                            openingHours?: {
-                              __typename?: 'ComponentBlocksOpeningHours'
-                              days: Array<{
-                                __typename?: 'ComponentBlocksOpeningHoursItem'
-                                label?: string | null
-                                time: string
-                              } | null>
-                            } | null
-                          } | null
-                        }>
-                      } | null
-                    } | null
-                  } | null
-                } | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    attributes?: { __typename?: 'Page'; slug: string } | null
-                  } | null
-                } | null
-              } | null> | null
-            }
-          | {
               __typename: 'ComponentSectionsSiteUsefullness'
               id: string
               title?: string | null
               thankYouMessage?: string | null
             }
           | {
-              __typename: 'ComponentSectionsSubListing'
-              id: string
-              title?: string | null
-              url?: string | null
-            }
-          | {
-              __typename: 'ComponentSectionsSubpages'
-              id: string
-              title?: string | null
-              subpages?: Array<{
-                __typename?: 'ComponentBlocksSubpage'
-                id: string
-                title?: string | null
-                description?: string | null
-                url?: string | null
-                page?: {
-                  __typename?: 'PageEntityResponse'
-                  data?: {
-                    __typename?: 'PageEntity'
-                    id?: string | null
-                    attributes?: {
-                      __typename?: 'Page'
-                      title: string
-                      slug: string
-                      newSlug: string
-                      createdAt?: any | null
-                      updatedAt?: any | null
-                    } | null
-                  } | null
-                } | null
-              } | null> | null
-            }
-          | {
               __typename: 'ComponentSectionsTable'
+              id: string
               primaryTitle?: string | null
               secondaryTitle?: string | null
               rows?: Array<{
@@ -7062,6 +6752,7 @@ export type EventEntityFragment = {
     } | null> | null
     documents?: {
       __typename?: 'ComponentSectionsDocuments'
+      id: string
       title?: string | null
       documents?: {
         __typename?: 'DocumentRelationResponseCollection'
@@ -7348,6 +7039,7 @@ export type EventBySlugQuery = {
         } | null> | null
         documents?: {
           __typename?: 'ComponentSectionsDocuments'
+          id: string
           title?: string | null
           documents?: {
             __typename?: 'DocumentRelationResponseCollection'
@@ -7546,6 +7238,460 @@ export type EventStaticPathsQuery = {
   } | null
 }
 
+export type SectionLinkPageEntityFragment = {
+  __typename?: 'PageEntity'
+  id?: string | null
+  attributes?: { __typename?: 'Page'; title: string } | null
+}
+
+export type SectionLinkBranchEntityFragment = {
+  __typename?: 'BranchEntity'
+  id?: string | null
+  attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
+}
+
+export type MenuSectionFragment = {
+  __typename?: 'ComponentMenuSections'
+  id: string
+  sectionTitle?: string | null
+  sectionColumnSpan?: number | null
+  sectionPage?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
+  sectionLinks?: Array<{
+    __typename?: 'ComponentMenuSectionLinks'
+    id: string
+    sectionLinkTitle?: string | null
+    sectionLinkPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: {
+        __typename?: 'PageEntity'
+        id?: string | null
+        attributes?: { __typename?: 'Page'; title: string } | null
+      } | null
+    } | null
+    sectionLinkBranch?: {
+      __typename?: 'BranchEntityResponse'
+      data?: {
+        __typename?: 'BranchEntity'
+        id?: string | null
+        attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
+export type MenuEntityFragment = {
+  __typename?: 'MenuEntity'
+  id?: string | null
+  attributes?: {
+    __typename?: 'Menu'
+    menuTitle?: string | null
+    menuSlug?: string | null
+    menuTotalColumns?: number | null
+    order?: number | null
+    createdAt?: any | null
+    updatedAt?: any | null
+    menuSections?: Array<{
+      __typename?: 'ComponentMenuSections'
+      id: string
+      sectionTitle?: string | null
+      sectionColumnSpan?: number | null
+      sectionPage?: {
+        __typename?: 'PageEntityResponse'
+        data?: {
+          __typename?: 'PageEntity'
+          id?: string | null
+          attributes?: {
+            __typename?: 'Page'
+            title: string
+            slug: string
+            newSlug: string
+            createdAt?: any | null
+            updatedAt?: any | null
+          } | null
+        } | null
+      } | null
+      sectionLinks?: Array<{
+        __typename?: 'ComponentMenuSectionLinks'
+        id: string
+        sectionLinkTitle?: string | null
+        sectionLinkPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: {
+            __typename?: 'PageEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Page'; title: string } | null
+          } | null
+        } | null
+        sectionLinkBranch?: {
+          __typename?: 'BranchEntityResponse'
+          data?: {
+            __typename?: 'BranchEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
+          } | null
+        } | null
+      } | null> | null
+    } | null> | null
+  } | null
+}
+
+export type FooterEntityFragment = {
+  __typename?: 'FooterEntity'
+  id?: string | null
+  attributes?: {
+    __typename?: 'Footer'
+    footerColumns?: Array<{
+      __typename?: 'ComponentFooterFooterColumn'
+      id: string
+      title?: string | null
+      footerLink?: Array<{
+        __typename?: 'ComponentFooterFooterLink'
+        id: string
+        title?: string | null
+        otherSite?: string | null
+        redirectTo?: {
+          __typename?: 'PageEntityResponse'
+          data?: {
+            __typename?: 'PageEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'Page'
+              title: string
+              slug: string
+              newSlug: string
+              createdAt?: any | null
+              updatedAt?: any | null
+            } | null
+          } | null
+        } | null
+      } | null> | null
+    } | null> | null
+    siteMapLink?: {
+      __typename?: 'PageEntityResponse'
+      data?: {
+        __typename?: 'PageEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Page'
+          title: string
+          slug: string
+          newSlug: string
+          createdAt?: any | null
+          updatedAt?: any | null
+        } | null
+      } | null
+    } | null
+    privacyLink?: {
+      __typename?: 'PageEntityResponse'
+      data?: {
+        __typename?: 'PageEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Page'
+          title: string
+          slug: string
+          newSlug: string
+          createdAt?: any | null
+          updatedAt?: any | null
+        } | null
+      } | null
+    } | null
+  } | null
+}
+
+export type GeneralEntityFragment = {
+  __typename?: 'GeneralEntity'
+  attributes?: {
+    __typename?: 'General'
+    eventsPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+    } | null
+    newBooksPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+    } | null
+    privacyTermsAndConditionsPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+    } | null
+    openingHoursPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+    } | null
+    noticesPage?: {
+      __typename?: 'PageEntityResponse'
+      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+    } | null
+  } | null
+}
+
+export type GeneralQueryVariables = Exact<{
+  eventsFrom: Scalars['DateTime']
+  locale: Scalars['I18NLocaleCode']
+}>
+
+export type GeneralQuery = {
+  __typename?: 'Query'
+  menus?: {
+    __typename?: 'MenuEntityResponseCollection'
+    data: Array<{
+      __typename?: 'MenuEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Menu'
+        menuTitle?: string | null
+        menuSlug?: string | null
+        menuTotalColumns?: number | null
+        order?: number | null
+        createdAt?: any | null
+        updatedAt?: any | null
+        menuSections?: Array<{
+          __typename?: 'ComponentMenuSections'
+          id: string
+          sectionTitle?: string | null
+          sectionColumnSpan?: number | null
+          sectionPage?: {
+            __typename?: 'PageEntityResponse'
+            data?: {
+              __typename?: 'PageEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Page'
+                title: string
+                slug: string
+                newSlug: string
+                createdAt?: any | null
+                updatedAt?: any | null
+              } | null
+            } | null
+          } | null
+          sectionLinks?: Array<{
+            __typename?: 'ComponentMenuSectionLinks'
+            id: string
+            sectionLinkTitle?: string | null
+            sectionLinkPage?: {
+              __typename?: 'PageEntityResponse'
+              data?: {
+                __typename?: 'PageEntity'
+                id?: string | null
+                attributes?: { __typename?: 'Page'; title: string } | null
+              } | null
+            } | null
+            sectionLinkBranch?: {
+              __typename?: 'BranchEntityResponse'
+              data?: {
+                __typename?: 'BranchEntity'
+                id?: string | null
+                attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
+              } | null
+            } | null
+          } | null> | null
+        } | null> | null
+      } | null
+    }>
+  } | null
+  upcomingEvents?: {
+    __typename?: 'EventEntityResponseCollection'
+    data: Array<{
+      __typename: 'EventEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Event'
+        slug: string
+        title: string
+        description?: string | null
+        createdAt?: any | null
+        updatedAt?: any | null
+        publishedAt?: any | null
+        locale?: string | null
+        dateFrom?: any | null
+        dateTo?: any | null
+        price?: number | null
+        eventCategory?: {
+          __typename?: 'EventCategoryEntityResponse'
+          data?: {
+            __typename?: 'EventCategoryEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'EventCategory'
+              title?: string | null
+              createdAt?: any | null
+              updatedAt?: any | null
+            } | null
+          } | null
+        } | null
+        branch?: {
+          __typename?: 'BranchEntityResponse'
+          data?: {
+            __typename?: 'BranchEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
+          } | null
+        } | null
+        eventTags?: {
+          __typename?: 'EventTagRelationResponseCollection'
+          data: Array<{
+            __typename?: 'EventTagEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'EventTag'
+              title?: string | null
+              slug?: string | null
+              createdAt?: any | null
+              publishedAt?: any | null
+              updatedAt?: any | null
+            } | null
+          }>
+        } | null
+        listingImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+        coverImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+      } | null
+    }>
+  } | null
+  footer?: {
+    __typename?: 'FooterEntityResponse'
+    data?: {
+      __typename?: 'FooterEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Footer'
+        footerColumns?: Array<{
+          __typename?: 'ComponentFooterFooterColumn'
+          id: string
+          title?: string | null
+          footerLink?: Array<{
+            __typename?: 'ComponentFooterFooterLink'
+            id: string
+            title?: string | null
+            otherSite?: string | null
+            redirectTo?: {
+              __typename?: 'PageEntityResponse'
+              data?: {
+                __typename?: 'PageEntity'
+                id?: string | null
+                attributes?: {
+                  __typename?: 'Page'
+                  title: string
+                  slug: string
+                  newSlug: string
+                  createdAt?: any | null
+                  updatedAt?: any | null
+                } | null
+              } | null
+            } | null
+          } | null> | null
+        } | null> | null
+        siteMapLink?: {
+          __typename?: 'PageEntityResponse'
+          data?: {
+            __typename?: 'PageEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'Page'
+              title: string
+              slug: string
+              newSlug: string
+              createdAt?: any | null
+              updatedAt?: any | null
+            } | null
+          } | null
+        } | null
+        privacyLink?: {
+          __typename?: 'PageEntityResponse'
+          data?: {
+            __typename?: 'PageEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'Page'
+              title: string
+              slug: string
+              newSlug: string
+              createdAt?: any | null
+              updatedAt?: any | null
+            } | null
+          } | null
+        } | null
+      } | null
+    } | null
+  } | null
+  general?: {
+    __typename?: 'GeneralEntityResponse'
+    data?: {
+      __typename?: 'GeneralEntity'
+      attributes?: {
+        __typename?: 'General'
+        eventsPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+        } | null
+        newBooksPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+        } | null
+        privacyTermsAndConditionsPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+        } | null
+        openingHoursPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+        } | null
+        noticesPage?: {
+          __typename?: 'PageEntityResponse'
+          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+        } | null
+      } | null
+    } | null
+  } | null
+}
+
 export type NoticeEntityFragment = {
   __typename: 'NoticeEntity'
   id?: string | null
@@ -7575,6 +7721,7 @@ export type NoticeEntityFragment = {
     } | null
     documents?: {
       __typename?: 'ComponentSectionsDocuments'
+      id: string
       title?: string | null
       documents?: {
         __typename?: 'DocumentRelationResponseCollection'
@@ -7665,22 +7812,6 @@ export type NoticeEntityFragment = {
   } | null
 }
 
-export type NoticesStaticPathsQueryVariables = Exact<{
-  locale: Scalars['I18NLocaleCode']
-}>
-
-export type NoticesStaticPathsQuery = {
-  __typename?: 'Query'
-  notices?: {
-    __typename?: 'NoticeEntityResponseCollection'
-    data: Array<{
-      __typename?: 'NoticeEntity'
-      id?: string | null
-      attributes?: { __typename?: 'Notice'; slug: string; locale?: string | null } | null
-    }>
-  } | null
-}
-
 export type NoticeListingEntityFragment = {
   __typename: 'NoticeEntity'
   id?: string | null
@@ -7706,6 +7837,94 @@ export type NoticeListingEntityFragment = {
         } | null
       } | null
     } | null
+  } | null
+}
+
+export type LatestNoticesQueryFragment = {
+  __typename?: 'Query'
+  latestNotices?: {
+    __typename?: 'NoticeEntityResponseCollection'
+    data: Array<{
+      __typename: 'NoticeEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Notice'
+        slug: string
+        title: string
+        publishedAt?: any | null
+        listingImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+      } | null
+    }>
+  } | null
+}
+
+export type LatestNoticesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']
+}>
+
+export type LatestNoticesQuery = {
+  __typename?: 'Query'
+  latestNotices?: {
+    __typename?: 'NoticeEntityResponseCollection'
+    data: Array<{
+      __typename: 'NoticeEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Notice'
+        slug: string
+        title: string
+        publishedAt?: any | null
+        listingImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+      } | null
+    }>
+  } | null
+}
+
+export type NoticesStaticPathsQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']
+}>
+
+export type NoticesStaticPathsQuery = {
+  __typename?: 'Query'
+  notices?: {
+    __typename?: 'NoticeEntityResponseCollection'
+    data: Array<{
+      __typename?: 'NoticeEntity'
+      id?: string | null
+      attributes?: { __typename?: 'Notice'; slug: string; locale?: string | null } | null
+    }>
   } | null
 }
 
@@ -7791,6 +8010,7 @@ export type NoticeBySlugQuery = {
         } | null
         documents?: {
           __typename?: 'ComponentSectionsDocuments'
+          id: string
           title?: string | null
           documents?: {
             __typename?: 'DocumentRelationResponseCollection'
@@ -7887,6 +8107,447 @@ export type NoticeBySlugQuery = {
   } | null
 }
 
+type PageSections_ComponentSectionsAccordion_Fragment = {
+  __typename: 'ComponentSectionsAccordion'
+  id: string
+  title?: string | null
+  flatText?: Array<{
+    __typename?: 'ComponentAccordionItemsFlatText'
+    category?: string | null
+    content?: string | null
+  } | null> | null
+  tableRows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
+    accordionCategory?: string | null
+    tableCategory?: string | null
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+  } | null> | null
+  forms?: Array<{
+    __typename?: 'ComponentAccordionItemsForm'
+    category?: string | null
+    type?: Enum_Componentaccordionitemsform_Type | null
+  } | null> | null
+}
+
+type PageSections_ComponentSectionsBlogPostsListing_Fragment = {
+  __typename: 'ComponentSectionsBlogPostsListing'
+}
+
+type PageSections_ComponentSectionsChildrenListing_Fragment = {
+  __typename: 'ComponentSectionsChildrenListing'
+  id: string
+  depth: Enum_Componentsectionschildrenlisting_Depth
+}
+
+type PageSections_ComponentSectionsCta_Fragment = {
+  __typename: 'ComponentSectionsCta'
+  id: string
+  title?: string | null
+  url?: string | null
+}
+
+type PageSections_ComponentSectionsDivider_Fragment = {
+  __typename: 'ComponentSectionsDivider'
+  id: string
+}
+
+type PageSections_ComponentSectionsDocuments_Fragment = {
+  __typename: 'ComponentSectionsDocuments'
+  id: string
+  title?: string | null
+  documents?: {
+    __typename?: 'DocumentRelationResponseCollection'
+    data: Array<{
+      __typename: 'DocumentEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Document'
+        title: string
+        slug: string
+        description?: string | null
+        publishedAt?: any | null
+        documentCategory?: {
+          __typename?: 'DocumentCategoryEntityResponse'
+          data?: {
+            __typename?: 'DocumentCategoryEntity'
+            id?: string | null
+            attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
+          } | null
+        } | null
+        file: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              size: number
+              ext?: string | null
+            } | null
+          } | null
+        }
+      } | null
+    }>
+  } | null
+  disclosures?: {
+    __typename?: 'DisclosureRelationResponseCollection'
+    data: Array<{
+      __typename: 'DisclosureEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Disclosure'
+        slug: string
+        title: string
+        description?: string | null
+        addedAt: any
+        type: Enum_Disclosure_Type
+        dateFrom?: any | null
+        dateTo?: any | null
+        idNumber?: string | null
+        amount?: number | null
+        contractor?: string | null
+        grantProvider?: string | null
+        grantYear?: string | null
+        file: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              size: number
+              ext?: string | null
+            } | null
+          } | null
+        }
+      } | null
+    }>
+  } | null
+}
+
+type PageSections_ComponentSectionsDocumentsListing_Fragment = {
+  __typename: 'ComponentSectionsDocumentsListing'
+}
+
+type PageSections_ComponentSectionsEventsListing_Fragment = {
+  __typename: 'ComponentSectionsEventsListing'
+}
+
+type PageSections_ComponentSectionsFaq_Fragment = {
+  __typename: 'ComponentSectionsFaq'
+  id: string
+  title?: string | null
+  questions?: Array<{
+    __typename?: 'ComponentBlocksAccordionItem'
+    id: string
+    label?: string | null
+    content?: string | null
+  } | null> | null
+}
+
+type PageSections_ComponentSectionsFlatText_Fragment = {
+  __typename: 'ComponentSectionsFlatText'
+  id: string
+  content?: string | null
+}
+
+type PageSections_ComponentSectionsForm_Fragment = {
+  __typename: 'ComponentSectionsForm'
+  id: string
+  type?: Enum_Componentsectionsform_Type | null
+}
+
+type PageSections_ComponentSectionsGallery_Fragment = {
+  __typename: 'ComponentSectionsGallery'
+  id: string
+  Gallery?: Array<{
+    __typename?: 'ComponentLocalityPartsGalleryParts'
+    id: string
+    Description?: string | null
+    Photo?: {
+      __typename?: 'UploadFileEntityResponse'
+      data?: {
+        __typename?: 'UploadFileEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'UploadFile'
+          url: string
+          name: string
+          alternativeText?: string | null
+          caption?: string | null
+          size: number
+          width?: number | null
+          height?: number | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
+type PageSections_ComponentSectionsMap_Fragment = {
+  __typename: 'ComponentSectionsMap'
+  id: string
+  title?: string | null
+  branches?: Array<{
+    __typename?: 'ComponentBlocksBranchItem'
+    branch?: {
+      __typename?: 'BranchEntityResponse'
+      data?: {
+        __typename?: 'BranchEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Branch'
+          title: string
+          address?: string | null
+          slug: string
+          latitude?: number | null
+          longitude?: number | null
+          listingImage?: {
+            __typename?: 'UploadFileEntityResponse'
+            data?: {
+              __typename?: 'UploadFileEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'UploadFile'
+                url: string
+                name: string
+                alternativeText?: string | null
+                caption?: string | null
+                size: number
+                width?: number | null
+                height?: number | null
+              } | null
+            } | null
+          } | null
+          subBranches?: {
+            __typename?: 'BranchRelationResponseCollection'
+            data: Array<{
+              __typename?: 'BranchEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Branch'
+                title: string
+                address?: string | null
+                phone?: string | null
+                email?: string | null
+                openingHours?: {
+                  __typename?: 'ComponentBlocksOpeningHours'
+                  days: Array<{
+                    __typename?: 'ComponentBlocksOpeningHoursItem'
+                    label?: string | null
+                    time: string
+                  } | null>
+                } | null
+              } | null
+            }>
+          } | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
+type PageSections_ComponentSectionsNewBooksListing_Fragment = {
+  __typename: 'ComponentSectionsNewBooksListing'
+}
+
+type PageSections_ComponentSectionsNewsListing_Fragment = {
+  __typename: 'ComponentSectionsNewsListing'
+}
+
+type PageSections_ComponentSectionsOpeningHoursSection_Fragment = {
+  __typename: 'ComponentSectionsOpeningHoursSection'
+  id: string
+  title?: string | null
+  branchList?: {
+    __typename?: 'BranchRelationResponseCollection'
+    data: Array<{
+      __typename?: 'BranchEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Branch'
+        title: string
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
+        } | null
+      } | null
+    }>
+  } | null
+}
+
+type PageSections_ComponentSectionsPartners_Fragment = { __typename: 'ComponentSectionsPartners' }
+
+type PageSections_ComponentSectionsRental_Fragment = {
+  __typename: 'ComponentSectionsRental'
+  id: string
+  title?: string | null
+  text?: string | null
+  branches?: Array<{
+    __typename?: 'ComponentBlocksBranchItemWithPage'
+    branch?: {
+      __typename?: 'BranchEntityResponse'
+      data?: {
+        __typename?: 'BranchEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Branch'
+          title: string
+          address?: string | null
+          slug: string
+          latitude?: number | null
+          longitude?: number | null
+          listingImage?: {
+            __typename?: 'UploadFileEntityResponse'
+            data?: {
+              __typename?: 'UploadFileEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'UploadFile'
+                url: string
+                name: string
+                alternativeText?: string | null
+                caption?: string | null
+                size: number
+                width?: number | null
+                height?: number | null
+              } | null
+            } | null
+          } | null
+          subBranches?: {
+            __typename?: 'BranchRelationResponseCollection'
+            data: Array<{
+              __typename?: 'BranchEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Branch'
+                title: string
+                address?: string | null
+                phone?: string | null
+                email?: string | null
+                openingHours?: {
+                  __typename?: 'ComponentBlocksOpeningHours'
+                  days: Array<{
+                    __typename?: 'ComponentBlocksOpeningHoursItem'
+                    label?: string | null
+                    time: string
+                  } | null>
+                } | null
+              } | null
+            }>
+          } | null
+        } | null
+      } | null
+    } | null
+    page?: {
+      __typename?: 'PageEntityResponse'
+      data?: {
+        __typename?: 'PageEntity'
+        id?: string | null
+        attributes?: { __typename?: 'Page'; slug: string } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
+type PageSections_ComponentSectionsSiteUsefullness_Fragment = {
+  __typename: 'ComponentSectionsSiteUsefullness'
+  id: string
+  title?: string | null
+  thankYouMessage?: string | null
+}
+
+type PageSections_ComponentSectionsSubpages_Fragment = {
+  __typename: 'ComponentSectionsSubpages'
+  id: string
+  title?: string | null
+  subpages?: Array<{
+    __typename?: 'ComponentBlocksSubpage'
+    id: string
+    title?: string | null
+    description?: string | null
+    url?: string | null
+    page?: {
+      __typename?: 'PageEntityResponse'
+      data?: {
+        __typename?: 'PageEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Page'
+          title: string
+          slug: string
+          newSlug: string
+          createdAt?: any | null
+          updatedAt?: any | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
+type PageSections_ComponentSectionsTable_Fragment = {
+  __typename: 'ComponentSectionsTable'
+  id: string
+  primaryTitle?: string | null
+  secondaryTitle?: string | null
+  rows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+  } | null> | null
+}
+
+type PageSections_ComponentSectionsVideo_Fragment = {
+  __typename: 'ComponentSectionsVideo'
+  id: string
+  youtube_url?: string | null
+  media?: {
+    __typename?: 'UploadFileEntityResponse'
+    data?: {
+      __typename?: 'UploadFileEntity'
+      attributes?: { __typename?: 'UploadFile'; url: string } | null
+    } | null
+  } | null
+}
+
+type PageSections_Error_Fragment = { __typename: 'Error' }
+
+export type PageSectionsFragment =
+  | PageSections_ComponentSectionsAccordion_Fragment
+  | PageSections_ComponentSectionsBlogPostsListing_Fragment
+  | PageSections_ComponentSectionsChildrenListing_Fragment
+  | PageSections_ComponentSectionsCta_Fragment
+  | PageSections_ComponentSectionsDivider_Fragment
+  | PageSections_ComponentSectionsDocuments_Fragment
+  | PageSections_ComponentSectionsDocumentsListing_Fragment
+  | PageSections_ComponentSectionsEventsListing_Fragment
+  | PageSections_ComponentSectionsFaq_Fragment
+  | PageSections_ComponentSectionsFlatText_Fragment
+  | PageSections_ComponentSectionsForm_Fragment
+  | PageSections_ComponentSectionsGallery_Fragment
+  | PageSections_ComponentSectionsMap_Fragment
+  | PageSections_ComponentSectionsNewBooksListing_Fragment
+  | PageSections_ComponentSectionsNewsListing_Fragment
+  | PageSections_ComponentSectionsOpeningHoursSection_Fragment
+  | PageSections_ComponentSectionsPartners_Fragment
+  | PageSections_ComponentSectionsRental_Fragment
+  | PageSections_ComponentSectionsSiteUsefullness_Fragment
+  | PageSections_ComponentSectionsSubpages_Fragment
+  | PageSections_ComponentSectionsTable_Fragment
+  | PageSections_ComponentSectionsVideo_Fragment
+  | PageSections_Error_Fragment
+
 export type PageEntityFragment = {
   __typename?: 'PageEntity'
   id?: string | null
@@ -7923,6 +8584,7 @@ export type PageEntityFragment = {
     sections?: Array<
       | {
           __typename: 'ComponentSectionsAccordion'
+          id: string
           title?: string | null
           flatText?: Array<{
             __typename?: 'ComponentAccordionItemsFlatText'
@@ -7949,7 +8611,12 @@ export type PageEntityFragment = {
           id: string
           depth: Enum_Componentsectionschildrenlisting_Depth
         }
-      | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
+      | {
+          __typename: 'ComponentSectionsCta'
+          id: string
+          title?: string | null
+          url?: string | null
+        }
       | { __typename: 'ComponentSectionsDivider'; id: string }
       | {
           __typename: 'ComponentSectionsDocuments'
@@ -8231,6 +8898,7 @@ export type PageEntityFragment = {
               __typename?: 'PageEntityResponse'
               data?: {
                 __typename?: 'PageEntity'
+                id?: string | null
                 attributes?: { __typename?: 'Page'; slug: string } | null
               } | null
             } | null
@@ -8241,12 +8909,6 @@ export type PageEntityFragment = {
           id: string
           title?: string | null
           thankYouMessage?: string | null
-        }
-      | {
-          __typename: 'ComponentSectionsSubListing'
-          id: string
-          title?: string | null
-          url?: string | null
         }
       | {
           __typename: 'ComponentSectionsSubpages'
@@ -8277,6 +8939,7 @@ export type PageEntityFragment = {
         }
       | {
           __typename: 'ComponentSectionsTable'
+          id: string
           primaryTitle?: string | null
           secondaryTitle?: string | null
           rows?: Array<{
@@ -8316,18 +8979,6 @@ export type PageEntityFragment = {
       keywords?: string | null
     } | null
   } | null
-}
-
-export type SectionLinkPageFragment = {
-  __typename?: 'PageEntity'
-  id?: string | null
-  attributes?: { __typename?: 'Page'; title: string } | null
-}
-
-export type SectionLinkBranchFragment = {
-  __typename?: 'BranchEntity'
-  id?: string | null
-  attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
 }
 
 export type PageWithBaseFieldsEntityFragment = {
@@ -8410,6 +9061,7 @@ export type PageByIdQuery = {
         sections?: Array<
           | {
               __typename: 'ComponentSectionsAccordion'
+              id: string
               title?: string | null
               flatText?: Array<{
                 __typename?: 'ComponentAccordionItemsFlatText'
@@ -8436,7 +9088,12 @@ export type PageByIdQuery = {
               id: string
               depth: Enum_Componentsectionschildrenlisting_Depth
             }
-          | { __typename: 'ComponentSectionsCta'; title?: string | null; url?: string | null }
+          | {
+              __typename: 'ComponentSectionsCta'
+              id: string
+              title?: string | null
+              url?: string | null
+            }
           | { __typename: 'ComponentSectionsDivider'; id: string }
           | {
               __typename: 'ComponentSectionsDocuments'
@@ -8718,6 +9375,7 @@ export type PageByIdQuery = {
                   __typename?: 'PageEntityResponse'
                   data?: {
                     __typename?: 'PageEntity'
+                    id?: string | null
                     attributes?: { __typename?: 'Page'; slug: string } | null
                   } | null
                 } | null
@@ -8728,12 +9386,6 @@ export type PageByIdQuery = {
               id: string
               title?: string | null
               thankYouMessage?: string | null
-            }
-          | {
-              __typename: 'ComponentSectionsSubListing'
-              id: string
-              title?: string | null
-              url?: string | null
             }
           | {
               __typename: 'ComponentSectionsSubpages'
@@ -8764,6 +9416,7 @@ export type PageByIdQuery = {
             }
           | {
               __typename: 'ComponentSectionsTable'
+              id: string
               primaryTitle?: string | null
               secondaryTitle?: string | null
               rows?: Array<{
@@ -8967,40 +9620,6 @@ export type BranchFragment = {
       label?: string | null
       time: string
     } | null>
-  } | null
-}
-
-export type LatestNoticesQueryFragment = {
-  __typename?: 'Query'
-  latestNotices?: {
-    __typename?: 'NoticeEntityResponseCollection'
-    data: Array<{
-      __typename: 'NoticeEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Notice'
-        slug: string
-        title: string
-        publishedAt?: any | null
-        listingImage?: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
-              width?: number | null
-              height?: number | null
-            } | null
-          } | null
-        } | null
-      } | null
-    }>
   } | null
 }
 
@@ -9350,178 +9969,61 @@ export type HomePageQuery = {
   } | null
 }
 
-export type LatestNoticesQueryVariables = Exact<{
-  locale: Scalars['I18NLocaleCode']
-}>
-
-export type LatestNoticesQuery = {
-  __typename?: 'Query'
-  latestNotices?: {
-    __typename?: 'NoticeEntityResponseCollection'
-    data: Array<{
-      __typename: 'NoticeEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Notice'
-        slug: string
-        title: string
-        publishedAt?: any | null
-        listingImage?: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
-              width?: number | null
-              height?: number | null
-            } | null
-          } | null
-        } | null
-      } | null
-    }>
-  } | null
-}
-
-export type MenuEntityFragment = {
-  __typename?: 'MenuEntity'
-  id?: string | null
-  attributes?: {
-    __typename?: 'Menu'
-    menuTitle?: string | null
-    menuSlug?: string | null
-    menuTotalColumns?: number | null
-    order?: number | null
-    createdAt?: any | null
-    updatedAt?: any | null
-    menuSections?: Array<{
-      __typename?: 'ComponentMenuSections'
-      id: string
-      sectionTitle?: string | null
-      sectionColumnSpan?: number | null
-      sectionPage?: {
-        __typename?: 'PageEntityResponse'
-        data?: {
-          __typename?: 'PageEntity'
-          id?: string | null
-          attributes?: {
-            __typename?: 'Page'
-            title: string
-            slug: string
-            newSlug: string
-            createdAt?: any | null
-            updatedAt?: any | null
-          } | null
-        } | null
-      } | null
-      sectionLinks?: Array<{
-        __typename?: 'ComponentMenuSectionLinks'
-        id: string
-        sectionLinkTitle?: string | null
-        sectionLinkPage?: {
-          __typename?: 'PageEntityResponse'
-          data?: {
-            __typename?: 'PageEntity'
-            id?: string | null
-            attributes?: { __typename?: 'Page'; title: string } | null
-          } | null
-        } | null
-        sectionLinkBranch?: {
-          __typename?: 'BranchEntityResponse'
-          data?: {
-            __typename?: 'BranchEntity'
-            id?: string | null
-            attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
-          } | null
-        } | null
-      } | null> | null
-    } | null> | null
-  } | null
-}
-
-export type GeneralEntityFragment = {
-  __typename?: 'GeneralEntity'
-  attributes?: {
-    __typename?: 'General'
-    eventsPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
-    } | null
-    newBooksPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
-    } | null
-    privacyTermsAndConditionsPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
-    } | null
-    openingHoursPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
-    } | null
-    noticesPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
-    } | null
-  } | null
-}
-
-export type MenuSectionFragment = {
-  __typename?: 'ComponentMenuSections'
-  id: string
-  sectionTitle?: string | null
-  sectionColumnSpan?: number | null
-  sectionPage?: {
-    __typename?: 'PageEntityResponse'
-    data?: {
-      __typename?: 'PageEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Page'
-        title: string
-        slug: string
-        newSlug: string
-        createdAt?: any | null
-        updatedAt?: any | null
-      } | null
-    } | null
-  } | null
-  sectionLinks?: Array<{
-    __typename?: 'ComponentMenuSectionLinks'
-    id: string
-    sectionLinkTitle?: string | null
-    sectionLinkPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename?: 'PageEntity'
-        id?: string | null
-        attributes?: { __typename?: 'Page'; title: string } | null
-      } | null
-    } | null
-    sectionLinkBranch?: {
-      __typename?: 'BranchEntityResponse'
-      data?: {
-        __typename?: 'BranchEntity'
-        id?: string | null
-        attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
-      } | null
-    } | null
-  } | null> | null
-}
-
 export type BookTagEntityFragment = {
   __typename?: 'BookTagEntity'
   id?: string | null
   attributes?: { __typename?: 'BookTag'; displayName?: string | null; slug?: string | null } | null
 }
 
-export type DocumentsFragment = {
+export type OpeningHoursDaysFragment = {
+  __typename?: 'ComponentBlocksOpeningHours'
+  days: Array<{
+    __typename?: 'ComponentBlocksOpeningHoursItem'
+    label?: string | null
+    time: string
+  } | null>
+}
+
+export type FlatTextFragment = {
+  __typename?: 'ComponentAccordionItemsFlatText'
+  category?: string | null
+  content?: string | null
+}
+
+export type TableRowFragment = {
+  __typename?: 'ComponentAccordionItemsTableRow'
+  accordionCategory?: string | null
+  tableCategory?: string | null
+  label?: string | null
+  value?: string | null
+  valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+}
+
+export type ExternalLinkFragment = {
+  __typename?: 'ComponentBlocksExternalLink'
+  category?: string | null
+  title?: string | null
+  url?: string | null
+}
+
+export type AccordionItemFragment = {
+  __typename?: 'ComponentBlocksAccordionItem'
+  id: string
+  label?: string | null
+  content?: string | null
+}
+
+export type PaginationFragment = {
+  __typename?: 'Pagination'
+  total: number
+  page: number
+  pageSize: number
+  pageCount: number
+}
+
+export type DocumentsSectionFragment = {
   __typename?: 'ComponentSectionsDocuments'
+  id: string
   title?: string | null
   documents?: {
     __typename?: 'DocumentRelationResponseCollection'
@@ -9597,7 +10099,7 @@ export type DocumentsFragment = {
   } | null
 }
 
-export type GalleryFragment = {
+export type GallerySectionFragment = {
   __typename?: 'ComponentSectionsGallery'
   id: string
   Gallery?: Array<{
@@ -9624,325 +10126,8 @@ export type GalleryFragment = {
   } | null> | null
 }
 
-export type OpeningHoursDaysFragment = {
-  __typename?: 'ComponentBlocksOpeningHours'
-  days: Array<{
-    __typename?: 'ComponentBlocksOpeningHoursItem'
-    label?: string | null
-    time: string
-  } | null>
-}
-
-export type OpeningHoursSectionFragment = {
-  __typename?: 'ComponentSectionsOpeningHoursSection'
-  id: string
-  title?: string | null
-  branchList?: {
-    __typename?: 'BranchRelationResponseCollection'
-    data: Array<{
-      __typename?: 'BranchEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Branch'
-        title: string
-        openingHours?: {
-          __typename?: 'ComponentBlocksOpeningHours'
-          days: Array<{
-            __typename?: 'ComponentBlocksOpeningHoursItem'
-            label?: string | null
-            time: string
-          } | null>
-        } | null
-      } | null
-    }>
-  } | null
-}
-
-export type ChildrenListingSectionFragment = {
-  __typename?: 'ComponentSectionsChildrenListing'
-  id: string
-  depth: Enum_Componentsectionschildrenlisting_Depth
-}
-
-type Sections_ComponentSectionsAccordion_Fragment = {
-  __typename: 'ComponentSectionsAccordion'
-  title?: string | null
-  flatText?: Array<{
-    __typename?: 'ComponentAccordionItemsFlatText'
-    category?: string | null
-    content?: string | null
-  } | null> | null
-  tableRows?: Array<{
-    __typename?: 'ComponentAccordionItemsTableRow'
-    accordionCategory?: string | null
-    tableCategory?: string | null
-    label?: string | null
-    value?: string | null
-    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
-  } | null> | null
-  forms?: Array<{
-    __typename?: 'ComponentAccordionItemsForm'
-    category?: string | null
-    type?: Enum_Componentaccordionitemsform_Type | null
-  } | null> | null
-}
-
-type Sections_ComponentSectionsBlogPostsListing_Fragment = {
-  __typename: 'ComponentSectionsBlogPostsListing'
-}
-
-type Sections_ComponentSectionsChildrenListing_Fragment = {
-  __typename: 'ComponentSectionsChildrenListing'
-  id: string
-  depth: Enum_Componentsectionschildrenlisting_Depth
-}
-
-type Sections_ComponentSectionsCta_Fragment = {
-  __typename: 'ComponentSectionsCta'
-  title?: string | null
-  url?: string | null
-}
-
-type Sections_ComponentSectionsDivider_Fragment = {
-  __typename: 'ComponentSectionsDivider'
-  id: string
-}
-
-type Sections_ComponentSectionsDocuments_Fragment = {
-  __typename: 'ComponentSectionsDocuments'
-  id: string
-  title?: string | null
-  documents?: {
-    __typename?: 'DocumentRelationResponseCollection'
-    data: Array<{
-      __typename: 'DocumentEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Document'
-        title: string
-        slug: string
-        description?: string | null
-        publishedAt?: any | null
-        documentCategory?: {
-          __typename?: 'DocumentCategoryEntityResponse'
-          data?: {
-            __typename?: 'DocumentCategoryEntity'
-            id?: string | null
-            attributes?: { __typename?: 'DocumentCategory'; label: string; slug: string } | null
-          } | null
-        } | null
-        file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              size: number
-              ext?: string | null
-            } | null
-          } | null
-        }
-      } | null
-    }>
-  } | null
-  disclosures?: {
-    __typename?: 'DisclosureRelationResponseCollection'
-    data: Array<{
-      __typename: 'DisclosureEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Disclosure'
-        slug: string
-        title: string
-        description?: string | null
-        addedAt: any
-        type: Enum_Disclosure_Type
-        dateFrom?: any | null
-        dateTo?: any | null
-        idNumber?: string | null
-        amount?: number | null
-        contractor?: string | null
-        grantProvider?: string | null
-        grantYear?: string | null
-        file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              size: number
-              ext?: string | null
-            } | null
-          } | null
-        }
-      } | null
-    }>
-  } | null
-}
-
-type Sections_ComponentSectionsDocumentsListing_Fragment = {
-  __typename: 'ComponentSectionsDocumentsListing'
-}
-
-type Sections_ComponentSectionsEventsListing_Fragment = {
-  __typename: 'ComponentSectionsEventsListing'
-}
-
-type Sections_ComponentSectionsFaq_Fragment = {
-  __typename: 'ComponentSectionsFaq'
-  id: string
-  title?: string | null
-  questions?: Array<{
-    __typename?: 'ComponentBlocksAccordionItem'
-    id: string
-    label?: string | null
-    content?: string | null
-  } | null> | null
-}
-
-type Sections_ComponentSectionsFlatText_Fragment = {
-  __typename: 'ComponentSectionsFlatText'
-  id: string
-  content?: string | null
-}
-
-type Sections_ComponentSectionsForm_Fragment = {
-  __typename: 'ComponentSectionsForm'
-  id: string
-  type?: Enum_Componentsectionsform_Type | null
-}
-
-type Sections_ComponentSectionsGallery_Fragment = {
-  __typename: 'ComponentSectionsGallery'
-  id: string
-  Gallery?: Array<{
-    __typename?: 'ComponentLocalityPartsGalleryParts'
-    id: string
-    Description?: string | null
-    Photo?: {
-      __typename?: 'UploadFileEntityResponse'
-      data?: {
-        __typename?: 'UploadFileEntity'
-        id?: string | null
-        attributes?: {
-          __typename?: 'UploadFile'
-          url: string
-          name: string
-          alternativeText?: string | null
-          caption?: string | null
-          size: number
-          width?: number | null
-          height?: number | null
-        } | null
-      } | null
-    } | null
-  } | null> | null
-}
-
-type Sections_ComponentSectionsMap_Fragment = {
-  __typename: 'ComponentSectionsMap'
-  id: string
-  title?: string | null
-  branches?: Array<{
-    __typename?: 'ComponentBlocksBranchItem'
-    branch?: {
-      __typename?: 'BranchEntityResponse'
-      data?: {
-        __typename?: 'BranchEntity'
-        id?: string | null
-        attributes?: {
-          __typename?: 'Branch'
-          title: string
-          address?: string | null
-          slug: string
-          latitude?: number | null
-          longitude?: number | null
-          listingImage?: {
-            __typename?: 'UploadFileEntityResponse'
-            data?: {
-              __typename?: 'UploadFileEntity'
-              id?: string | null
-              attributes?: {
-                __typename?: 'UploadFile'
-                url: string
-                name: string
-                alternativeText?: string | null
-                caption?: string | null
-                size: number
-                width?: number | null
-                height?: number | null
-              } | null
-            } | null
-          } | null
-          subBranches?: {
-            __typename?: 'BranchRelationResponseCollection'
-            data: Array<{
-              __typename?: 'BranchEntity'
-              id?: string | null
-              attributes?: {
-                __typename?: 'Branch'
-                title: string
-                address?: string | null
-                phone?: string | null
-                email?: string | null
-                openingHours?: {
-                  __typename?: 'ComponentBlocksOpeningHours'
-                  days: Array<{
-                    __typename?: 'ComponentBlocksOpeningHoursItem'
-                    label?: string | null
-                    time: string
-                  } | null>
-                } | null
-              } | null
-            }>
-          } | null
-        } | null
-      } | null
-    } | null
-  } | null> | null
-}
-
-type Sections_ComponentSectionsNewBooksListing_Fragment = {
-  __typename: 'ComponentSectionsNewBooksListing'
-}
-
-type Sections_ComponentSectionsNewsListing_Fragment = { __typename: 'ComponentSectionsNewsListing' }
-
-type Sections_ComponentSectionsOpeningHoursSection_Fragment = {
-  __typename: 'ComponentSectionsOpeningHoursSection'
-  id: string
-  title?: string | null
-  branchList?: {
-    __typename?: 'BranchRelationResponseCollection'
-    data: Array<{
-      __typename?: 'BranchEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Branch'
-        title: string
-        openingHours?: {
-          __typename?: 'ComponentBlocksOpeningHours'
-          days: Array<{
-            __typename?: 'ComponentBlocksOpeningHoursItem'
-            label?: string | null
-            time: string
-          } | null>
-        } | null
-      } | null
-    }>
-  } | null
-}
-
-type Sections_ComponentSectionsPartners_Fragment = { __typename: 'ComponentSectionsPartners' }
-
-type Sections_ComponentSectionsRental_Fragment = {
-  __typename: 'ComponentSectionsRental'
+export type RentalSectionFragment = {
+  __typename?: 'ComponentSectionsRental'
   id: string
   title?: string | null
   text?: string | null
@@ -10006,68 +10191,78 @@ type Sections_ComponentSectionsRental_Fragment = {
       __typename?: 'PageEntityResponse'
       data?: {
         __typename?: 'PageEntity'
+        id?: string | null
         attributes?: { __typename?: 'Page'; slug: string } | null
       } | null
     } | null
   } | null> | null
 }
 
-type Sections_ComponentSectionsSiteUsefullness_Fragment = {
-  __typename: 'ComponentSectionsSiteUsefullness'
+export type MapSectionFragment = {
+  __typename?: 'ComponentSectionsMap'
   id: string
   title?: string | null
-  thankYouMessage?: string | null
-}
-
-type Sections_ComponentSectionsSubListing_Fragment = {
-  __typename: 'ComponentSectionsSubListing'
-  id: string
-  title?: string | null
-  url?: string | null
-}
-
-type Sections_ComponentSectionsSubpages_Fragment = {
-  __typename: 'ComponentSectionsSubpages'
-  id: string
-  title?: string | null
-  subpages?: Array<{
-    __typename?: 'ComponentBlocksSubpage'
-    id: string
-    title?: string | null
-    description?: string | null
-    url?: string | null
-    page?: {
-      __typename?: 'PageEntityResponse'
+  branches?: Array<{
+    __typename?: 'ComponentBlocksBranchItem'
+    branch?: {
+      __typename?: 'BranchEntityResponse'
       data?: {
-        __typename?: 'PageEntity'
+        __typename?: 'BranchEntity'
         id?: string | null
         attributes?: {
-          __typename?: 'Page'
+          __typename?: 'Branch'
           title: string
+          address?: string | null
           slug: string
-          newSlug: string
-          createdAt?: any | null
-          updatedAt?: any | null
+          latitude?: number | null
+          longitude?: number | null
+          listingImage?: {
+            __typename?: 'UploadFileEntityResponse'
+            data?: {
+              __typename?: 'UploadFileEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'UploadFile'
+                url: string
+                name: string
+                alternativeText?: string | null
+                caption?: string | null
+                size: number
+                width?: number | null
+                height?: number | null
+              } | null
+            } | null
+          } | null
+          subBranches?: {
+            __typename?: 'BranchRelationResponseCollection'
+            data: Array<{
+              __typename?: 'BranchEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Branch'
+                title: string
+                address?: string | null
+                phone?: string | null
+                email?: string | null
+                openingHours?: {
+                  __typename?: 'ComponentBlocksOpeningHours'
+                  days: Array<{
+                    __typename?: 'ComponentBlocksOpeningHoursItem'
+                    label?: string | null
+                    time: string
+                  } | null>
+                } | null
+              } | null
+            }>
+          } | null
         } | null
       } | null
     } | null
   } | null> | null
 }
 
-type Sections_ComponentSectionsTable_Fragment = {
-  __typename: 'ComponentSectionsTable'
-  primaryTitle?: string | null
-  secondaryTitle?: string | null
-  rows?: Array<{
-    __typename?: 'ComponentAccordionItemsTableRow'
-    label?: string | null
-    value?: string | null
-    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
-  } | null> | null
-}
-
-type Sections_ComponentSectionsVideo_Fragment = {
-  __typename: 'ComponentSectionsVideo'
+export type VideoSectionFragment = {
+  __typename?: 'ComponentSectionsVideo'
   id: string
   youtube_url?: string | null
   media?: {
@@ -10079,51 +10274,40 @@ type Sections_ComponentSectionsVideo_Fragment = {
   } | null
 }
 
-type Sections_Error_Fragment = { __typename: 'Error' }
-
-export type SectionsFragment =
-  | Sections_ComponentSectionsAccordion_Fragment
-  | Sections_ComponentSectionsBlogPostsListing_Fragment
-  | Sections_ComponentSectionsChildrenListing_Fragment
-  | Sections_ComponentSectionsCta_Fragment
-  | Sections_ComponentSectionsDivider_Fragment
-  | Sections_ComponentSectionsDocuments_Fragment
-  | Sections_ComponentSectionsDocumentsListing_Fragment
-  | Sections_ComponentSectionsEventsListing_Fragment
-  | Sections_ComponentSectionsFaq_Fragment
-  | Sections_ComponentSectionsFlatText_Fragment
-  | Sections_ComponentSectionsForm_Fragment
-  | Sections_ComponentSectionsGallery_Fragment
-  | Sections_ComponentSectionsMap_Fragment
-  | Sections_ComponentSectionsNewBooksListing_Fragment
-  | Sections_ComponentSectionsNewsListing_Fragment
-  | Sections_ComponentSectionsOpeningHoursSection_Fragment
-  | Sections_ComponentSectionsPartners_Fragment
-  | Sections_ComponentSectionsRental_Fragment
-  | Sections_ComponentSectionsSiteUsefullness_Fragment
-  | Sections_ComponentSectionsSubListing_Fragment
-  | Sections_ComponentSectionsSubpages_Fragment
-  | Sections_ComponentSectionsTable_Fragment
-  | Sections_ComponentSectionsVideo_Fragment
-  | Sections_Error_Fragment
-
-export type FlatTextFragment = {
-  __typename?: 'ComponentAccordionItemsFlatText'
-  category?: string | null
-  content?: string | null
+export type CtaSectionFragment = {
+  __typename?: 'ComponentSectionsCta'
+  id: string
+  title?: string | null
+  url?: string | null
 }
 
-export type TableRowFragment = {
-  __typename?: 'ComponentAccordionItemsTableRow'
-  accordionCategory?: string | null
-  tableCategory?: string | null
-  label?: string | null
-  value?: string | null
-  valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+export type AccordionSectionFragment = {
+  __typename?: 'ComponentSectionsAccordion'
+  id: string
+  title?: string | null
+  flatText?: Array<{
+    __typename?: 'ComponentAccordionItemsFlatText'
+    category?: string | null
+    content?: string | null
+  } | null> | null
+  tableRows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
+    accordionCategory?: string | null
+    tableCategory?: string | null
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+  } | null> | null
+  forms?: Array<{
+    __typename?: 'ComponentAccordionItemsForm'
+    category?: string | null
+    type?: Enum_Componentaccordionitemsform_Type | null
+  } | null> | null
 }
 
-export type TableFragment = {
+export type TableSectionFragment = {
   __typename?: 'ComponentSectionsTable'
+  id: string
   primaryTitle?: string | null
   secondaryTitle?: string | null
   rows?: Array<{
@@ -10134,8 +10318,9 @@ export type TableFragment = {
   } | null> | null
 }
 
-export type SubpagesFragment = {
+export type SubpagesSectionFragment = {
   __typename?: 'ComponentSectionsSubpages'
+  id: string
   title?: string | null
   subpages?: Array<{
     __typename?: 'ComponentBlocksSubpage'
@@ -10161,342 +10346,66 @@ export type SubpagesFragment = {
   } | null> | null
 }
 
-export type ExternalLinkFragment = {
-  __typename?: 'ComponentBlocksExternalLink'
-  category?: string | null
-  title?: string | null
-  url?: string | null
+export type FormSectionFragment = {
+  __typename?: 'ComponentSectionsForm'
+  id: string
+  type?: Enum_Componentsectionsform_Type | null
 }
 
-export type AccordionItemFragment = {
-  __typename?: 'ComponentBlocksAccordionItem'
+export type SiteUsefulnessSectionFragment = {
+  __typename?: 'ComponentSectionsSiteUsefullness'
   id: string
-  label?: string | null
+  title?: string | null
+  thankYouMessage?: string | null
+}
+
+export type FlatTextSectionFragment = {
+  __typename?: 'ComponentSectionsFlatText'
+  id: string
   content?: string | null
 }
 
-export type PaginationFragment = {
-  __typename?: 'Pagination'
-  total: number
-  page: number
-  pageSize: number
-  pageCount: number
+export type FaqSectionFragment = {
+  __typename?: 'ComponentSectionsFaq'
+  id: string
+  title?: string | null
+  questions?: Array<{
+    __typename?: 'ComponentBlocksAccordionItem'
+    id: string
+    label?: string | null
+    content?: string | null
+  } | null> | null
 }
 
-export type FooterEntityFragment = {
-  __typename?: 'FooterEntity'
-  id?: string | null
-  attributes?: {
-    __typename?: 'Footer'
-    footerColumns?: Array<{
-      __typename?: 'ComponentFooterFooterColumn'
-      id: string
-      title?: string | null
-      footerLink?: Array<{
-        __typename?: 'ComponentFooterFooterLink'
-        id: string
-        title?: string | null
-        otherSite?: string | null
-        redirectTo?: {
-          __typename?: 'PageEntityResponse'
-          data?: {
-            __typename?: 'PageEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'Page'
-              title: string
-              slug: string
-              newSlug: string
-              createdAt?: any | null
-              updatedAt?: any | null
-            } | null
-          } | null
-        } | null
-      } | null> | null
-    } | null> | null
-    siteMapLink?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename?: 'PageEntity'
-        id?: string | null
-        attributes?: {
-          __typename?: 'Page'
-          title: string
-          slug: string
-          newSlug: string
-          createdAt?: any | null
-          updatedAt?: any | null
-        } | null
-      } | null
-    } | null
-    privacyLink?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename?: 'PageEntity'
-        id?: string | null
-        attributes?: {
-          __typename?: 'Page'
-          title: string
-          slug: string
-          newSlug: string
-          createdAt?: any | null
-          updatedAt?: any | null
-        } | null
-      } | null
-    } | null
-  } | null
-}
-
-export type GeneralQueryVariables = Exact<{
-  eventsFrom: Scalars['DateTime']
-  locale: Scalars['I18NLocaleCode']
-}>
-
-export type GeneralQuery = {
-  __typename?: 'Query'
-  menus?: {
-    __typename?: 'MenuEntityResponseCollection'
+export type OpeningHoursSectionFragment = {
+  __typename?: 'ComponentSectionsOpeningHoursSection'
+  id: string
+  title?: string | null
+  branchList?: {
+    __typename?: 'BranchRelationResponseCollection'
     data: Array<{
-      __typename?: 'MenuEntity'
+      __typename?: 'BranchEntity'
       id?: string | null
       attributes?: {
-        __typename?: 'Menu'
-        menuTitle?: string | null
-        menuSlug?: string | null
-        menuTotalColumns?: number | null
-        order?: number | null
-        createdAt?: any | null
-        updatedAt?: any | null
-        menuSections?: Array<{
-          __typename?: 'ComponentMenuSections'
-          id: string
-          sectionTitle?: string | null
-          sectionColumnSpan?: number | null
-          sectionPage?: {
-            __typename?: 'PageEntityResponse'
-            data?: {
-              __typename?: 'PageEntity'
-              id?: string | null
-              attributes?: {
-                __typename?: 'Page'
-                title: string
-                slug: string
-                newSlug: string
-                createdAt?: any | null
-                updatedAt?: any | null
-              } | null
-            } | null
-          } | null
-          sectionLinks?: Array<{
-            __typename?: 'ComponentMenuSectionLinks'
-            id: string
-            sectionLinkTitle?: string | null
-            sectionLinkPage?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: { __typename?: 'Page'; title: string } | null
-              } | null
-            } | null
-            sectionLinkBranch?: {
-              __typename?: 'BranchEntityResponse'
-              data?: {
-                __typename?: 'BranchEntity'
-                id?: string | null
-                attributes?: { __typename?: 'Branch'; slug: string; title: string } | null
-              } | null
-            } | null
-          } | null> | null
-        } | null> | null
-      } | null
-    }>
-  } | null
-  upcomingEvents?: {
-    __typename?: 'EventEntityResponseCollection'
-    data: Array<{
-      __typename: 'EventEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Event'
-        slug: string
+        __typename?: 'Branch'
         title: string
-        description?: string | null
-        createdAt?: any | null
-        updatedAt?: any | null
-        publishedAt?: any | null
-        locale?: string | null
-        dateFrom?: any | null
-        dateTo?: any | null
-        price?: number | null
-        eventCategory?: {
-          __typename?: 'EventCategoryEntityResponse'
-          data?: {
-            __typename?: 'EventCategoryEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'EventCategory'
-              title?: string | null
-              createdAt?: any | null
-              updatedAt?: any | null
-            } | null
-          } | null
-        } | null
-        branch?: {
-          __typename?: 'BranchEntityResponse'
-          data?: {
-            __typename?: 'BranchEntity'
-            id?: string | null
-            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
-          } | null
-        } | null
-        eventTags?: {
-          __typename?: 'EventTagRelationResponseCollection'
-          data: Array<{
-            __typename?: 'EventTagEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'EventTag'
-              title?: string | null
-              slug?: string | null
-              createdAt?: any | null
-              publishedAt?: any | null
-              updatedAt?: any | null
-            } | null
-          }>
-        } | null
-        listingImage?: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
-              width?: number | null
-              height?: number | null
-            } | null
-          } | null
-        } | null
-        coverImage?: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
-              width?: number | null
-              height?: number | null
-            } | null
-          } | null
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
         } | null
       } | null
     }>
   } | null
-  footer?: {
-    __typename?: 'FooterEntityResponse'
-    data?: {
-      __typename?: 'FooterEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Footer'
-        footerColumns?: Array<{
-          __typename?: 'ComponentFooterFooterColumn'
-          id: string
-          title?: string | null
-          footerLink?: Array<{
-            __typename?: 'ComponentFooterFooterLink'
-            id: string
-            title?: string | null
-            otherSite?: string | null
-            redirectTo?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
-        } | null> | null
-        siteMapLink?: {
-          __typename?: 'PageEntityResponse'
-          data?: {
-            __typename?: 'PageEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'Page'
-              title: string
-              slug: string
-              newSlug: string
-              createdAt?: any | null
-              updatedAt?: any | null
-            } | null
-          } | null
-        } | null
-        privacyLink?: {
-          __typename?: 'PageEntityResponse'
-          data?: {
-            __typename?: 'PageEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'Page'
-              title: string
-              slug: string
-              newSlug: string
-              createdAt?: any | null
-              updatedAt?: any | null
-            } | null
-          } | null
-        } | null
-      } | null
-    } | null
-  } | null
-  general?: {
-    __typename?: 'GeneralEntityResponse'
-    data?: {
-      __typename?: 'GeneralEntity'
-      attributes?: {
-        __typename?: 'General'
-        eventsPage?: {
-          __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
-        } | null
-        newBooksPage?: {
-          __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
-        } | null
-        privacyTermsAndConditionsPage?: {
-          __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
-        } | null
-        openingHoursPage?: {
-          __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
-        } | null
-        noticesPage?: {
-          __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
-        } | null
-      } | null
-    } | null
-  } | null
+}
+
+export type ChildrenListingSectionFragment = {
+  __typename?: 'ComponentSectionsChildrenListing'
+  id: string
+  depth: Enum_Componentsectionschildrenlisting_Depth
 }
 
 export const FileCategoryEntityFragmentDoc = gql`
@@ -10639,37 +10548,32 @@ export const AccordionItemFragmentDoc = gql`
     content
   }
 `
-export const PageWithBaseFieldsEntityFragmentDoc = gql`
-  fragment PageWithBaseFieldsEntity on PageEntity {
+export const FaqSectionFragmentDoc = gql`
+  fragment FaqSection on ComponentSectionsFaq {
     id
-    attributes {
-      title
-      slug
-      newSlug
-      createdAt
-      updatedAt
-    }
-  }
-`
-export const SubpagesFragmentDoc = gql`
-  fragment Subpages on ComponentSectionsSubpages {
     title
-    subpages {
-      id
-      title
-      description
-      url
-      page {
-        data {
-          ...PageWithBaseFieldsEntity
-        }
-      }
+    questions {
+      ...AccordionItem
     }
   }
-  ${PageWithBaseFieldsEntityFragmentDoc}
+  ${AccordionItemFragmentDoc}
 `
-export const TableFragmentDoc = gql`
-  fragment Table on ComponentSectionsTable {
+export const FlatTextSectionFragmentDoc = gql`
+  fragment FlatTextSection on ComponentSectionsFlatText {
+    id
+    content
+  }
+`
+export const SiteUsefulnessSectionFragmentDoc = gql`
+  fragment SiteUsefulnessSection on ComponentSectionsSiteUsefullness {
+    id
+    title
+    thankYouMessage
+  }
+`
+export const TableSectionFragmentDoc = gql`
+  fragment TableSection on ComponentSectionsTable {
+    id
     primaryTitle
     secondaryTitle
     rows {
@@ -10692,6 +10596,44 @@ export const TableRowFragmentDoc = gql`
     label
     value
     valueAlign
+  }
+`
+export const AccordionSectionFragmentDoc = gql`
+  fragment AccordionSection on ComponentSectionsAccordion {
+    id
+    title
+    flatText {
+      ...FlatText
+    }
+    tableRows(pagination: { limit: -1 }) {
+      ...TableRow
+    }
+    forms {
+      category
+      type
+    }
+  }
+  ${FlatTextFragmentDoc}
+  ${TableRowFragmentDoc}
+`
+export const CtaSectionFragmentDoc = gql`
+  fragment CtaSection on ComponentSectionsCta {
+    id
+    title
+    url
+  }
+`
+export const VideoSectionFragmentDoc = gql`
+  fragment VideoSection on ComponentSectionsVideo {
+    id
+    youtube_url
+    media {
+      data {
+        attributes {
+          url
+        }
+      }
+    }
   }
 `
 export const DocumentCategoryEntityFragmentDoc = gql`
@@ -10753,8 +10695,9 @@ export const DisclosureEntityFragmentDoc = gql`
   }
   ${UploadFileEntityFragmentDoc}
 `
-export const DocumentsFragmentDoc = gql`
-  fragment Documents on ComponentSectionsDocuments {
+export const DocumentsSectionFragmentDoc = gql`
+  fragment DocumentsSection on ComponentSectionsDocuments {
+    id
     title
     documents {
       data {
@@ -10789,6 +10732,107 @@ export const UploadImageEntityFragmentDoc = gql`
     }
   }
   ${UploadImageFragmentDoc}
+`
+export const GallerySectionFragmentDoc = gql`
+  fragment GallerySection on ComponentSectionsGallery {
+    id
+    Gallery {
+      id
+      Description
+      Photo {
+        data {
+          ...UploadImageEntity
+        }
+      }
+    }
+  }
+  ${UploadImageEntityFragmentDoc}
+`
+export const BlogPostSectionsFragmentDoc = gql`
+  fragment BlogPostSections on BlogPostSectionsDynamicZone {
+    __typename
+    ... on ComponentSectionsFaq {
+      ...FaqSection
+    }
+    ... on ComponentSectionsFlatText {
+      ...FlatTextSection
+    }
+    ... on ComponentSectionsSiteUsefullness {
+      ...SiteUsefulnessSection
+    }
+    ... on ComponentSectionsTable {
+      ...TableSection
+    }
+    ... on ComponentSectionsAccordion {
+      ...AccordionSection
+    }
+    ... on ComponentSectionsDivider {
+      id
+    }
+    ... on ComponentSectionsCta {
+      ...CtaSection
+    }
+    ... on ComponentSectionsVideo {
+      ...VideoSection
+    }
+    ... on ComponentSectionsDocuments {
+      ...DocumentsSection
+    }
+    ... on ComponentSectionsGallery {
+      ...GallerySection
+    }
+  }
+  ${FaqSectionFragmentDoc}
+  ${FlatTextSectionFragmentDoc}
+  ${SiteUsefulnessSectionFragmentDoc}
+  ${TableSectionFragmentDoc}
+  ${AccordionSectionFragmentDoc}
+  ${CtaSectionFragmentDoc}
+  ${VideoSectionFragmentDoc}
+  ${DocumentsSectionFragmentDoc}
+  ${GallerySectionFragmentDoc}
+`
+export const SeoFragmentDoc = gql`
+  fragment Seo on ComponentCommonSeo {
+    metaTitle
+    metaDescription
+    keywords
+  }
+`
+export const BlogPostEntityFragmentDoc = gql`
+  fragment BlogPostEntity on BlogPostEntity {
+    id
+    attributes {
+      slug
+      title
+      publishedAt
+      coverMedia {
+        data {
+          attributes {
+            url
+            mime
+            alternativeText
+          }
+        }
+      }
+      sections {
+        ...BlogPostSections
+      }
+      localizations {
+        data {
+          attributes {
+            slug
+            locale
+          }
+        }
+      }
+      seo {
+        ...Seo
+      }
+    }
+  }
+  ${BlogPostSectionsFragmentDoc}
+  ${SeoFragmentDoc}
 `
 export const BranchFragmentDoc = gql`
   fragment Branch on Branch {
@@ -10837,216 +10881,6 @@ export const BranchCardEntityFragmentDoc = gql`
   }
   ${UploadImageEntityFragmentDoc}
   ${BranchPlaceEntityFragmentDoc}
-`
-export const GalleryFragmentDoc = gql`
-  fragment Gallery on ComponentSectionsGallery {
-    id
-    Gallery {
-      id
-      Description
-      Photo {
-        data {
-          ...UploadImageEntity
-        }
-      }
-    }
-  }
-  ${UploadImageEntityFragmentDoc}
-`
-export const OpeningHoursDaysFragmentDoc = gql`
-  fragment OpeningHoursDays on ComponentBlocksOpeningHours {
-    days {
-      label
-      time
-    }
-  }
-`
-export const OpeningHoursSectionFragmentDoc = gql`
-  fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
-    id
-    title
-    branchList {
-      data {
-        id
-        attributes {
-          title
-          openingHours {
-            ...OpeningHoursDays
-          }
-        }
-      }
-    }
-  }
-  ${OpeningHoursDaysFragmentDoc}
-`
-export const ChildrenListingSectionFragmentDoc = gql`
-  fragment ChildrenListingSection on ComponentSectionsChildrenListing {
-    id
-    depth
-  }
-`
-export const SectionsFragmentDoc = gql`
-  fragment Sections on PageSectionsDynamicZone {
-    __typename
-    ... on ComponentSectionsSubListing {
-      id
-      title
-      url
-    }
-    ... on ComponentSectionsFaq {
-      id
-      title
-      questions {
-        ...AccordionItem
-      }
-    }
-    ... on ComponentSectionsFlatText {
-      id
-      content
-    }
-    ... on ComponentSectionsSiteUsefullness {
-      id
-      title
-      thankYouMessage
-    }
-    ... on ComponentSectionsForm {
-      id
-      type
-    }
-    ... on ComponentSectionsSubpages {
-      id
-      ...Subpages
-    }
-    ... on ComponentSectionsTable {
-      ...Table
-    }
-    ... on ComponentSectionsAccordion {
-      title
-      flatText {
-        ...FlatText
-      }
-      tableRows(pagination: { limit: -1 }) {
-        ...TableRow
-      }
-      forms {
-        category
-        type
-      }
-    }
-    ... on ComponentSectionsDivider {
-      id
-    }
-    ... on ComponentSectionsCta {
-      title
-      url
-    }
-    ... on ComponentSectionsVideo {
-      id
-      youtube_url
-      media {
-        data {
-          attributes {
-            url
-          }
-        }
-      }
-    }
-    ... on ComponentSectionsDocuments {
-      id
-      ...Documents
-    }
-    ... on ComponentSectionsMap {
-      id
-      title
-      branches {
-        branch {
-          data {
-            ...BranchCardEntity
-          }
-        }
-      }
-    }
-    ... on ComponentSectionsRental {
-      id
-      title
-      text
-      branches {
-        branch {
-          data {
-            ...BranchCardEntity
-          }
-        }
-        page {
-          data {
-            attributes {
-              slug
-            }
-          }
-        }
-      }
-    }
-    ... on ComponentSectionsGallery {
-      ...Gallery
-    }
-    ... on ComponentSectionsOpeningHoursSection {
-      ...OpeningHoursSection
-    }
-    ... on ComponentSectionsChildrenListing {
-      ...ChildrenListingSection
-    }
-  }
-  ${AccordionItemFragmentDoc}
-  ${SubpagesFragmentDoc}
-  ${TableFragmentDoc}
-  ${FlatTextFragmentDoc}
-  ${TableRowFragmentDoc}
-  ${DocumentsFragmentDoc}
-  ${BranchCardEntityFragmentDoc}
-  ${GalleryFragmentDoc}
-  ${OpeningHoursSectionFragmentDoc}
-  ${ChildrenListingSectionFragmentDoc}
-`
-export const SeoFragmentDoc = gql`
-  fragment Seo on ComponentCommonSeo {
-    metaTitle
-    metaDescription
-    keywords
-  }
-`
-export const BlogPostEntityFragmentDoc = gql`
-  fragment BlogPostEntity on BlogPostEntity {
-    id
-    attributes {
-      slug
-      title
-      publishedAt
-      coverMedia {
-        data {
-          attributes {
-            url
-            mime
-            alternativeText
-          }
-        }
-      }
-      sections {
-        ...Sections
-      }
-      localizations {
-        data {
-          attributes {
-            slug
-            locale
-          }
-        }
-      }
-      seo {
-        ...Seo
-      }
-    }
-  }
-  ${SectionsFragmentDoc}
-  ${SeoFragmentDoc}
 `
 export const BranchEntityFragmentDoc = gql`
   fragment BranchEntity on BranchEntity {
@@ -11199,7 +11033,7 @@ export const EventEntityFragmentDoc = gql`
         }
       }
       documents {
-        ...Documents
+        ...DocumentsSection
       }
       gallery {
         data {
@@ -11221,8 +11055,146 @@ export const EventEntityFragmentDoc = gql`
   }
   ${EventCardEntityFragmentDoc}
   ${UploadImageEntityFragmentDoc}
-  ${DocumentsFragmentDoc}
+  ${DocumentsSectionFragmentDoc}
   ${SeoFragmentDoc}
+`
+export const PageWithBaseFieldsEntityFragmentDoc = gql`
+  fragment PageWithBaseFieldsEntity on PageEntity {
+    id
+    attributes {
+      title
+      slug
+      newSlug
+      createdAt
+      updatedAt
+    }
+  }
+`
+export const SectionLinkPageEntityFragmentDoc = gql`
+  fragment SectionLinkPageEntity on PageEntity {
+    id
+    attributes {
+      title
+    }
+  }
+`
+export const SectionLinkBranchEntityFragmentDoc = gql`
+  fragment SectionLinkBranchEntity on BranchEntity {
+    id
+    attributes {
+      slug
+      title
+    }
+  }
+`
+export const MenuSectionFragmentDoc = gql`
+  fragment MenuSection on ComponentMenuSections {
+    id
+    sectionTitle
+    sectionColumnSpan
+    sectionPage {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+    sectionLinks(pagination: { limit: -1 }) {
+      id
+      sectionLinkTitle
+      sectionLinkPage {
+        data {
+          ...SectionLinkPageEntity
+        }
+      }
+      sectionLinkBranch {
+        data {
+          ...SectionLinkBranchEntity
+        }
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+  ${SectionLinkPageEntityFragmentDoc}
+  ${SectionLinkBranchEntityFragmentDoc}
+`
+export const MenuEntityFragmentDoc = gql`
+  fragment MenuEntity on MenuEntity {
+    id
+    attributes {
+      menuTitle
+      menuSlug
+      menuTotalColumns
+      order
+      menuSections {
+        ...MenuSection
+      }
+      createdAt
+      updatedAt
+    }
+  }
+  ${MenuSectionFragmentDoc}
+`
+export const FooterEntityFragmentDoc = gql`
+  fragment FooterEntity on FooterEntity {
+    id
+    attributes {
+      footerColumns {
+        id
+        title
+        footerLink {
+          id
+          redirectTo {
+            data {
+              ...PageWithBaseFieldsEntity
+            }
+          }
+          title
+          otherSite
+        }
+      }
+      siteMapLink {
+        data {
+          ...PageWithBaseFieldsEntity
+        }
+      }
+      privacyLink {
+        data {
+          ...PageWithBaseFieldsEntity
+        }
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
+export const GeneralEntityFragmentDoc = gql`
+  fragment GeneralEntity on GeneralEntity {
+    attributes {
+      eventsPage {
+        data {
+          id
+        }
+      }
+      newBooksPage {
+        data {
+          id
+        }
+      }
+      privacyTermsAndConditionsPage {
+        data {
+          id
+        }
+      }
+      openingHoursPage {
+        data {
+          id
+        }
+      }
+      noticesPage {
+        data {
+          id
+        }
+      }
+    }
+  }
 `
 export const NoticeEntityFragmentDoc = gql`
   fragment NoticeEntity on NoticeEntity {
@@ -11240,7 +11212,7 @@ export const NoticeEntityFragmentDoc = gql`
       }
       promoted
       documents {
-        ...Documents
+        ...DocumentsSection
       }
       seo {
         ...Seo
@@ -11256,8 +11228,202 @@ export const NoticeEntityFragmentDoc = gql`
     }
   }
   ${UploadImageEntityFragmentDoc}
-  ${DocumentsFragmentDoc}
+  ${DocumentsSectionFragmentDoc}
   ${SeoFragmentDoc}
+`
+export const NoticeListingEntityFragmentDoc = gql`
+  fragment NoticeListingEntity on NoticeEntity {
+    __typename
+    id
+    attributes {
+      slug
+      title
+      publishedAt
+      listingImage {
+        data {
+          ...UploadImageEntity
+        }
+      }
+    }
+  }
+  ${UploadImageEntityFragmentDoc}
+`
+export const LatestNoticesQueryFragmentDoc = gql`
+  fragment LatestNoticesQuery on Query {
+    latestNotices: notices(
+      locale: $locale
+      pagination: { limit: 4, start: 0 }
+      sort: "publishedAt:desc"
+    ) {
+      data {
+        ...NoticeListingEntity
+      }
+    }
+  }
+  ${NoticeListingEntityFragmentDoc}
+`
+export const FormSectionFragmentDoc = gql`
+  fragment FormSection on ComponentSectionsForm {
+    id
+    type
+  }
+`
+export const SubpagesSectionFragmentDoc = gql`
+  fragment SubpagesSection on ComponentSectionsSubpages {
+    id
+    title
+    subpages {
+      id
+      title
+      description
+      url
+      page {
+        data {
+          ...PageWithBaseFieldsEntity
+        }
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
+export const MapSectionFragmentDoc = gql`
+  fragment MapSection on ComponentSectionsMap {
+    id
+    title
+    branches {
+      branch {
+        data {
+          ...BranchCardEntity
+        }
+      }
+    }
+  }
+  ${BranchCardEntityFragmentDoc}
+`
+export const RentalSectionFragmentDoc = gql`
+  fragment RentalSection on ComponentSectionsRental {
+    id
+    title
+    text
+    branches {
+      branch {
+        data {
+          ...BranchCardEntity
+        }
+      }
+      page {
+        data {
+          id
+          attributes {
+            slug
+          }
+        }
+      }
+    }
+  }
+  ${BranchCardEntityFragmentDoc}
+`
+export const OpeningHoursDaysFragmentDoc = gql`
+  fragment OpeningHoursDays on ComponentBlocksOpeningHours {
+    days {
+      label
+      time
+    }
+  }
+`
+export const OpeningHoursSectionFragmentDoc = gql`
+  fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
+    id
+    title
+    branchList {
+      data {
+        id
+        attributes {
+          title
+          openingHours {
+            ...OpeningHoursDays
+          }
+        }
+      }
+    }
+  }
+  ${OpeningHoursDaysFragmentDoc}
+`
+export const ChildrenListingSectionFragmentDoc = gql`
+  fragment ChildrenListingSection on ComponentSectionsChildrenListing {
+    id
+    depth
+  }
+`
+export const PageSectionsFragmentDoc = gql`
+  fragment PageSections on PageSectionsDynamicZone {
+    __typename
+    ... on ComponentSectionsFaq {
+      ...FaqSection
+    }
+    ... on ComponentSectionsFlatText {
+      ...FlatTextSection
+    }
+    ... on ComponentSectionsSiteUsefullness {
+      ...SiteUsefulnessSection
+    }
+    ... on ComponentSectionsForm {
+      ...FormSection
+    }
+    ... on ComponentSectionsSubpages {
+      id
+      ...SubpagesSection
+    }
+    ... on ComponentSectionsTable {
+      ...TableSection
+    }
+    ... on ComponentSectionsAccordion {
+      ...AccordionSection
+    }
+    ... on ComponentSectionsDivider {
+      id
+    }
+    ... on ComponentSectionsCta {
+      ...CtaSection
+    }
+    ... on ComponentSectionsVideo {
+      ...VideoSection
+    }
+    ... on ComponentSectionsDocuments {
+      id
+      ...DocumentsSection
+    }
+    ... on ComponentSectionsMap {
+      ...MapSection
+    }
+    ... on ComponentSectionsRental {
+      ...RentalSection
+    }
+    ... on ComponentSectionsGallery {
+      ...GallerySection
+    }
+    ... on ComponentSectionsOpeningHoursSection {
+      ...OpeningHoursSection
+    }
+    ... on ComponentSectionsChildrenListing {
+      ...ChildrenListingSection
+    }
+  }
+  ${FaqSectionFragmentDoc}
+  ${FlatTextSectionFragmentDoc}
+  ${SiteUsefulnessSectionFragmentDoc}
+  ${FormSectionFragmentDoc}
+  ${SubpagesSectionFragmentDoc}
+  ${TableSectionFragmentDoc}
+  ${AccordionSectionFragmentDoc}
+  ${CtaSectionFragmentDoc}
+  ${VideoSectionFragmentDoc}
+  ${DocumentsSectionFragmentDoc}
+  ${MapSectionFragmentDoc}
+  ${RentalSectionFragmentDoc}
+  ${GallerySectionFragmentDoc}
+  ${OpeningHoursSectionFragmentDoc}
+  ${ChildrenListingSectionFragmentDoc}
 `
 export const PageLocalizationEntityFragmentDoc = gql`
   fragment PageLocalizationEntity on PageEntity {
@@ -11297,7 +11463,7 @@ export const PageEntityFragmentDoc = gql`
       layout
       perex
       sections {
-        ...Sections
+        ...PageSections
       }
       locale
       localizations {
@@ -11310,7 +11476,7 @@ export const PageEntityFragmentDoc = gql`
       }
     }
   }
-  ${SectionsFragmentDoc}
+  ${PageSectionsFragmentDoc}
   ${PageLocalizationEntityFragmentDoc}
   ${SeoFragmentDoc}
 `
@@ -11331,131 +11497,6 @@ export const PartnerEntityFragmentDoc = gql`
       }
       priority
       featured
-    }
-  }
-`
-export const NoticeListingEntityFragmentDoc = gql`
-  fragment NoticeListingEntity on NoticeEntity {
-    __typename
-    id
-    attributes {
-      slug
-      title
-      publishedAt
-      listingImage {
-        data {
-          ...UploadImageEntity
-        }
-      }
-    }
-  }
-  ${UploadImageEntityFragmentDoc}
-`
-export const LatestNoticesQueryFragmentDoc = gql`
-  fragment LatestNoticesQuery on Query {
-    latestNotices: notices(
-      locale: $locale
-      pagination: { limit: 4, start: 0 }
-      sort: "publishedAt:desc"
-    ) {
-      data {
-        ...NoticeListingEntity
-      }
-    }
-  }
-  ${NoticeListingEntityFragmentDoc}
-`
-export const SectionLinkPageFragmentDoc = gql`
-  fragment SectionLinkPage on PageEntity {
-    id
-    attributes {
-      title
-    }
-  }
-`
-export const SectionLinkBranchFragmentDoc = gql`
-  fragment SectionLinkBranch on BranchEntity {
-    id
-    attributes {
-      slug
-      title
-    }
-  }
-`
-export const MenuSectionFragmentDoc = gql`
-  fragment MenuSection on ComponentMenuSections {
-    id
-    sectionTitle
-    sectionColumnSpan
-    sectionPage {
-      data {
-        ...PageWithBaseFieldsEntity
-      }
-    }
-    sectionLinks(pagination: { limit: -1 }) {
-      id
-      sectionLinkTitle
-      sectionLinkPage {
-        data {
-          ...SectionLinkPage
-        }
-      }
-      sectionLinkBranch {
-        data {
-          ...SectionLinkBranch
-        }
-      }
-    }
-  }
-  ${PageWithBaseFieldsEntityFragmentDoc}
-  ${SectionLinkPageFragmentDoc}
-  ${SectionLinkBranchFragmentDoc}
-`
-export const MenuEntityFragmentDoc = gql`
-  fragment MenuEntity on MenuEntity {
-    id
-    attributes {
-      menuTitle
-      menuSlug
-      menuTotalColumns
-      order
-      menuSections {
-        ...MenuSection
-      }
-      createdAt
-      updatedAt
-    }
-  }
-  ${MenuSectionFragmentDoc}
-`
-export const GeneralEntityFragmentDoc = gql`
-  fragment GeneralEntity on GeneralEntity {
-    attributes {
-      eventsPage {
-        data {
-          id
-        }
-      }
-      newBooksPage {
-        data {
-          id
-        }
-      }
-      privacyTermsAndConditionsPage {
-        data {
-          id
-        }
-      }
-      openingHoursPage {
-        data {
-          id
-        }
-      }
-      noticesPage {
-        data {
-          id
-        }
-      }
     }
   }
 `
@@ -11482,38 +11523,6 @@ export const PaginationFragmentDoc = gql`
     pageSize
     pageCount
   }
-`
-export const FooterEntityFragmentDoc = gql`
-  fragment FooterEntity on FooterEntity {
-    id
-    attributes {
-      footerColumns {
-        id
-        title
-        footerLink {
-          id
-          redirectTo {
-            data {
-              ...PageWithBaseFieldsEntity
-            }
-          }
-          title
-          otherSite
-        }
-      }
-      siteMapLink {
-        data {
-          ...PageWithBaseFieldsEntity
-        }
-      }
-      privacyLink {
-        data {
-          ...PageWithBaseFieldsEntity
-        }
-      }
-    }
-  }
-  ${PageWithBaseFieldsEntityFragmentDoc}
 `
 export const BasicDocumentBySlugDocument = gql`
   query BasicDocumentBySlug($slug: String!) {
@@ -11684,6 +11693,45 @@ export const EventStaticPathsDocument = gql`
       }
     }
   }
+`
+export const GeneralDocument = gql`
+  query General($eventsFrom: DateTime!, $locale: I18NLocaleCode!) {
+    menus(locale: $locale, sort: ["order:asc"]) {
+      data {
+        ...MenuEntity
+      }
+    }
+    upcomingEvents: events(
+      locale: $locale
+      sort: "dateFrom:asc"
+      pagination: { start: 0, limit: 4 }
+      filters: { dateTo: { gte: $eventsFrom } }
+    ) {
+      data {
+        ...EventCardEntity
+      }
+    }
+    footer(locale: $locale) {
+      data {
+        ...FooterEntity
+      }
+    }
+    general(locale: $locale) {
+      data {
+        ...GeneralEntity
+      }
+    }
+  }
+  ${MenuEntityFragmentDoc}
+  ${EventCardEntityFragmentDoc}
+  ${FooterEntityFragmentDoc}
+  ${GeneralEntityFragmentDoc}
+`
+export const LatestNoticesDocument = gql`
+  query LatestNotices($locale: I18NLocaleCode!) {
+    ...LatestNoticesQuery
+  }
+  ${LatestNoticesQueryFragmentDoc}
 `
 export const NoticesStaticPathsDocument = gql`
   query NoticesStaticPaths($locale: I18NLocaleCode!) {
@@ -11882,45 +11930,6 @@ export const HomePageDocument = gql`
   ${LatestNoticesQueryFragmentDoc}
   ${BookTagEntityFragmentDoc}
 `
-export const LatestNoticesDocument = gql`
-  query LatestNotices($locale: I18NLocaleCode!) {
-    ...LatestNoticesQuery
-  }
-  ${LatestNoticesQueryFragmentDoc}
-`
-export const GeneralDocument = gql`
-  query General($eventsFrom: DateTime!, $locale: I18NLocaleCode!) {
-    menus(locale: $locale, sort: ["order:asc"]) {
-      data {
-        ...MenuEntity
-      }
-    }
-    upcomingEvents: events(
-      locale: $locale
-      sort: "dateFrom:asc"
-      pagination: { start: 0, limit: 4 }
-      filters: { dateTo: { gte: $eventsFrom } }
-    ) {
-      data {
-        ...EventCardEntity
-      }
-    }
-    footer(locale: $locale) {
-      data {
-        ...FooterEntity
-      }
-    }
-    general(locale: $locale) {
-      data {
-        ...GeneralEntity
-      }
-    }
-  }
-  ${MenuEntityFragmentDoc}
-  ${EventCardEntityFragmentDoc}
-  ${FooterEntityFragmentDoc}
-  ${GeneralEntityFragmentDoc}
-`
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -12114,6 +12123,34 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         'query'
       )
     },
+    General(
+      variables: GeneralQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GeneralQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GeneralQuery>(GeneralDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'General',
+        'query'
+      )
+    },
+    LatestNotices(
+      variables: LatestNoticesQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<LatestNoticesQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<LatestNoticesQuery>(LatestNoticesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'LatestNotices',
+        'query'
+      )
+    },
     NoticesStaticPaths(
       variables: NoticesStaticPathsQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
@@ -12209,34 +12246,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'HomePage',
-        'query'
-      )
-    },
-    LatestNotices(
-      variables: LatestNoticesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<LatestNoticesQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<LatestNoticesQuery>(LatestNoticesDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'LatestNotices',
-        'query'
-      )
-    },
-    General(
-      variables: GeneralQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<GeneralQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GeneralQuery>(GeneralDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'General',
         'query'
       )
     },
