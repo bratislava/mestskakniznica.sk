@@ -1,7 +1,7 @@
-import BranchDetailsContactUs from '@components/Molecules/BranchDetails/BranchDetailsContactUs'
 import BranchDetailsServices from '@components/Molecules/BranchDetails/BranchDetailsServices'
-import BranchDetailsSubBranches from '@components/Molecules/BranchDetails/BranchDetailsSubBranches'
 import BranchDetailsWhere from '@components/Molecules/BranchDetails/BranchDetailsWhere'
+import ContactsAndOpeningHours from '@components/Molecules/BranchDetails/ContactsAndOpeningHours'
+import ContactUsSidebar from '@components/Molecules/BranchDetails/ContactUsSidebar/ContactUsSidebar'
 import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
 import MLink from '@modules/common/MLink'
 import RichText from '@modules/formatting/RichText'
@@ -58,10 +58,7 @@ const BranchDetails = ({ branch }: PageProps) => {
                   {subBranches?.data.map((subBranch) => {
                     const { body: subBranchBody, title: subBranchTitle } =
                       subBranch.attributes ?? {}
-                    return subBranchBody &&
-                      subBranchBody.trim() &&
-                      // we don't want to show description when branch is subBranch of itself ()
-                      subBranch.id !== branch.id ? (
+                    return subBranchBody && subBranchBody.trim() ? (
                       <>
                         <h3 className="text-h3 [&:not(:first-child)]:mt-6">{subBranchTitle}</h3>
                         <RichText content={subBranchBody} />
@@ -130,10 +127,12 @@ const BranchDetails = ({ branch }: PageProps) => {
           {/*  </div> */}
           {/* )} */}
 
-          {subBranches && <BranchDetailsSubBranches branches={subBranches.data} />}
+          {(subBranches || branch) && (
+            <ContactsAndOpeningHours branch={branch} branches={subBranches?.data} />
+          )}
           <BranchDetailsWhere branch={branch} />
         </div>
-        <BranchDetailsContactUs branch={branch} />
+        <ContactUsSidebar branch={branch} />
       </div>
     </>
   )

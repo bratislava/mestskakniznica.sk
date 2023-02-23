@@ -1,4 +1,4 @@
-import BranchOpeningHours from '@components/Molecules/BranchDetails/BranchOpeningHours'
+import BranchOpeningHours from '@components/Molecules/BranchDetails/ContactUsOpeningHours/BranchOpeningHours'
 import { OpeningHoursSectionFragment } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import React from 'react'

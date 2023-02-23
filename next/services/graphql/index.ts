@@ -6001,6 +6001,7 @@ export type BranchPlaceEntityFragment = {
   id?: string | null
   attributes?: {
     __typename?: 'Branch'
+    body?: string | null
     title: string
     address?: string | null
     phone?: string | null
@@ -6050,6 +6051,7 @@ export type BranchCardEntityFragment = {
         id?: string | null
         attributes?: {
           __typename?: 'Branch'
+          body?: string | null
           title: string
           address?: string | null
           phone?: string | null
@@ -6161,6 +6163,7 @@ export type BranchEntityFragment = {
         id?: string | null
         attributes?: {
           __typename?: 'Branch'
+          body?: string | null
           title: string
           address?: string | null
           phone?: string | null
@@ -6296,6 +6299,7 @@ export type BranchBySlugQuery = {
             id?: string | null
             attributes?: {
               __typename?: 'Branch'
+              body?: string | null
               title: string
               address?: string | null
               phone?: string | null
@@ -6826,6 +6830,7 @@ export type EventPropertiesQuery = {
       id?: string | null
       attributes?: {
         __typename?: 'Branch'
+        body?: string | null
         title: string
         address?: string | null
         phone?: string | null
@@ -7562,6 +7567,353 @@ export type GeneralQuery = {
   } | null
 }
 
+export type HomePageQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']
+}>
+
+export type HomePageQuery = {
+  __typename?: 'Query'
+  homePage?: {
+    __typename?: 'HomePageEntityResponse'
+    data?: {
+      __typename?: 'HomePageEntity'
+      attributes?: {
+        __typename?: 'HomePage'
+        faqSection?: {
+          __typename?: 'ComponentHomepageFaqSection'
+          id: string
+          title?: string | null
+          redirectTo?: {
+            __typename?: 'PageEntityResponse'
+            data?: {
+              __typename?: 'PageEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Page'
+                title: string
+                slug: string
+                newSlug: string
+                createdAt?: any | null
+                updatedAt?: any | null
+              } | null
+            } | null
+          } | null
+          faqs?: Array<{
+            __typename?: 'ComponentHomepageFaqs'
+            id: string
+            question?: string | null
+            answer?: string | null
+          } | null> | null
+          ctas?: Array<{
+            __typename?: 'ComponentHomepageCta'
+            id: string
+            title?: string | null
+            ctaRedirectTo?: {
+              __typename?: 'PageEntityResponse'
+              data?: {
+                __typename?: 'PageEntity'
+                id?: string | null
+                attributes?: {
+                  __typename?: 'Page'
+                  title: string
+                  slug: string
+                  newSlug: string
+                  createdAt?: any | null
+                  updatedAt?: any | null
+                } | null
+              } | null
+            } | null
+          } | null> | null
+        } | null
+        registrationInfoSection?: {
+          __typename?: 'ComponentHomepageRegistrationInfo'
+          id: string
+          title?: string | null
+          description?: string | null
+          redirectTo?: {
+            __typename?: 'PageEntityResponse'
+            data?: {
+              __typename?: 'PageEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Page'
+                title: string
+                slug: string
+                newSlug: string
+                createdAt?: any | null
+                updatedAt?: any | null
+              } | null
+            } | null
+          } | null
+          registrationBenefits?: Array<{
+            __typename?: 'ComponentHomepageBenefits'
+            id: string
+            benefit?: string | null
+          } | null> | null
+        } | null
+        newsSection?: {
+          __typename?: 'ComponentHomepageNewsSection'
+          id: string
+          title?: string | null
+          redirectTo?: {
+            __typename?: 'PageEntityResponse'
+            data?: {
+              __typename?: 'PageEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Page'
+                title: string
+                slug: string
+                newSlug: string
+                createdAt?: any | null
+                updatedAt?: any | null
+              } | null
+            } | null
+          } | null
+        } | null
+        mapSection?: {
+          __typename?: 'ComponentSectionsMap'
+          id: string
+          title?: string | null
+          branches?: Array<{
+            __typename?: 'ComponentBlocksBranchItem'
+            branch?: {
+              __typename?: 'BranchEntityResponse'
+              data?: {
+                __typename?: 'BranchEntity'
+                id?: string | null
+                attributes?: {
+                  __typename?: 'Branch'
+                  title: string
+                  address?: string | null
+                  slug: string
+                  latitude?: number | null
+                  longitude?: number | null
+                  listingImage?: {
+                    __typename?: 'UploadFileEntityResponse'
+                    data?: {
+                      __typename?: 'UploadFileEntity'
+                      id?: string | null
+                      attributes?: {
+                        __typename?: 'UploadFile'
+                        url: string
+                        name: string
+                        alternativeText?: string | null
+                        caption?: string | null
+                        size: number
+                        width?: number | null
+                        height?: number | null
+                      } | null
+                    } | null
+                  } | null
+                  subBranches?: {
+                    __typename?: 'BranchRelationResponseCollection'
+                    data: Array<{
+                      __typename?: 'BranchEntity'
+                      id?: string | null
+                      attributes?: {
+                        __typename?: 'Branch'
+                        body?: string | null
+                        title: string
+                        address?: string | null
+                        phone?: string | null
+                        email?: string | null
+                        openingHours?: {
+                          __typename?: 'ComponentBlocksOpeningHours'
+                          days: Array<{
+                            __typename?: 'ComponentBlocksOpeningHoursItem'
+                            label?: string | null
+                            time: string
+                          } | null>
+                        } | null
+                      } | null
+                    }>
+                  } | null
+                } | null
+              } | null
+            } | null
+          } | null> | null
+        } | null
+        localizations?: {
+          __typename?: 'HomePageRelationResponseCollection'
+          data: Array<{
+            __typename?: 'HomePageEntity'
+            attributes?: { __typename?: 'HomePage'; locale?: string | null } | null
+          }>
+        } | null
+        seo?: {
+          __typename?: 'ComponentCommonSeo'
+          metaTitle?: string | null
+          metaDescription?: string | null
+          keywords?: string | null
+        } | null
+      } | null
+    } | null
+  } | null
+  promotedNews?: {
+    __typename?: 'NoticeEntityResponseCollection'
+    data: Array<{
+      __typename: 'NoticeEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Notice'
+        slug: string
+        title: string
+        publishedAt?: any | null
+        listingImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+      } | null
+    }>
+  } | null
+  promotedEvents?: {
+    __typename?: 'EventEntityResponseCollection'
+    data: Array<{
+      __typename: 'EventEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Event'
+        slug: string
+        title: string
+        description?: string | null
+        createdAt?: any | null
+        updatedAt?: any | null
+        publishedAt?: any | null
+        locale?: string | null
+        dateFrom?: any | null
+        dateTo?: any | null
+        price?: number | null
+        eventCategory?: {
+          __typename?: 'EventCategoryEntityResponse'
+          data?: {
+            __typename?: 'EventCategoryEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'EventCategory'
+              title?: string | null
+              createdAt?: any | null
+              updatedAt?: any | null
+            } | null
+          } | null
+        } | null
+        branch?: {
+          __typename?: 'BranchEntityResponse'
+          data?: {
+            __typename?: 'BranchEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
+          } | null
+        } | null
+        eventTags?: {
+          __typename?: 'EventTagRelationResponseCollection'
+          data: Array<{
+            __typename?: 'EventTagEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'EventTag'
+              title?: string | null
+              slug?: string | null
+              createdAt?: any | null
+              publishedAt?: any | null
+              updatedAt?: any | null
+            } | null
+          }>
+        } | null
+        listingImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+        coverImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+      } | null
+    }>
+  } | null
+  bookTags?: {
+    __typename?: 'BookTagEntityResponseCollection'
+    data: Array<{
+      __typename?: 'BookTagEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'BookTag'
+        displayName?: string | null
+        slug?: string | null
+      } | null
+    }>
+  } | null
+  latestNotices?: {
+    __typename?: 'NoticeEntityResponseCollection'
+    data: Array<{
+      __typename: 'NoticeEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Notice'
+        slug: string
+        title: string
+        publishedAt?: any | null
+        listingImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+      } | null
+    }>
+  } | null
+}
+
 export type NoticeEntityFragment = {
   __typename: 'NoticeEntity'
   id?: string | null
@@ -8202,6 +8554,7 @@ type PageSections_ComponentSectionsMap_Fragment = {
               id?: string | null
               attributes?: {
                 __typename?: 'Branch'
+                body?: string | null
                 title: string
                 address?: string | null
                 phone?: string | null
@@ -8301,6 +8654,7 @@ type PageSections_ComponentSectionsRental_Fragment = {
               id?: string | null
               attributes?: {
                 __typename?: 'Branch'
+                body?: string | null
                 title: string
                 address?: string | null
                 phone?: string | null
@@ -8656,6 +9010,7 @@ export type PageEntityFragment = {
                       id?: string | null
                       attributes?: {
                         __typename?: 'Branch'
+                        body?: string | null
                         title: string
                         address?: string | null
                         phone?: string | null
@@ -8746,6 +9101,7 @@ export type PageEntityFragment = {
                       id?: string | null
                       attributes?: {
                         __typename?: 'Branch'
+                        body?: string | null
                         title: string
                         address?: string | null
                         phone?: string | null
@@ -9133,6 +9489,7 @@ export type PageByIdQuery = {
                           id?: string | null
                           attributes?: {
                             __typename?: 'Branch'
+                            body?: string | null
                             title: string
                             address?: string | null
                             phone?: string | null
@@ -9223,6 +9580,7 @@ export type PageByIdQuery = {
                           id?: string | null
                           attributes?: {
                             __typename?: 'Branch'
+                            body?: string | null
                             title: string
                             address?: string | null
                             phone?: string | null
@@ -9479,6 +9837,7 @@ export type EventBranchFragment = { __typename?: 'Branch'; title: string; addres
 
 export type BranchFragment = {
   __typename?: 'Branch'
+  body?: string | null
   title: string
   address?: string | null
   phone?: string | null
@@ -9490,352 +9849,6 @@ export type BranchFragment = {
       label?: string | null
       time: string
     } | null>
-  } | null
-}
-
-export type HomePageQueryVariables = Exact<{
-  locale: Scalars['I18NLocaleCode']
-}>
-
-export type HomePageQuery = {
-  __typename?: 'Query'
-  homePage?: {
-    __typename?: 'HomePageEntityResponse'
-    data?: {
-      __typename?: 'HomePageEntity'
-      attributes?: {
-        __typename?: 'HomePage'
-        faqSection?: {
-          __typename?: 'ComponentHomepageFaqSection'
-          id: string
-          title?: string | null
-          redirectTo?: {
-            __typename?: 'PageEntityResponse'
-            data?: {
-              __typename?: 'PageEntity'
-              id?: string | null
-              attributes?: {
-                __typename?: 'Page'
-                title: string
-                slug: string
-                newSlug: string
-                createdAt?: any | null
-                updatedAt?: any | null
-              } | null
-            } | null
-          } | null
-          faqs?: Array<{
-            __typename?: 'ComponentHomepageFaqs'
-            id: string
-            question?: string | null
-            answer?: string | null
-          } | null> | null
-          ctas?: Array<{
-            __typename?: 'ComponentHomepageCta'
-            id: string
-            title?: string | null
-            ctaRedirectTo?: {
-              __typename?: 'PageEntityResponse'
-              data?: {
-                __typename?: 'PageEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Page'
-                  title: string
-                  slug: string
-                  newSlug: string
-                  createdAt?: any | null
-                  updatedAt?: any | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
-        } | null
-        registrationInfoSection?: {
-          __typename?: 'ComponentHomepageRegistrationInfo'
-          id: string
-          title?: string | null
-          description?: string | null
-          redirectTo?: {
-            __typename?: 'PageEntityResponse'
-            data?: {
-              __typename?: 'PageEntity'
-              id?: string | null
-              attributes?: {
-                __typename?: 'Page'
-                title: string
-                slug: string
-                newSlug: string
-                createdAt?: any | null
-                updatedAt?: any | null
-              } | null
-            } | null
-          } | null
-          registrationBenefits?: Array<{
-            __typename?: 'ComponentHomepageBenefits'
-            id: string
-            benefit?: string | null
-          } | null> | null
-        } | null
-        newsSection?: {
-          __typename?: 'ComponentHomepageNewsSection'
-          id: string
-          title?: string | null
-          redirectTo?: {
-            __typename?: 'PageEntityResponse'
-            data?: {
-              __typename?: 'PageEntity'
-              id?: string | null
-              attributes?: {
-                __typename?: 'Page'
-                title: string
-                slug: string
-                newSlug: string
-                createdAt?: any | null
-                updatedAt?: any | null
-              } | null
-            } | null
-          } | null
-        } | null
-        mapSection?: {
-          __typename?: 'ComponentSectionsMap'
-          id: string
-          title?: string | null
-          branches?: Array<{
-            __typename?: 'ComponentBlocksBranchItem'
-            branch?: {
-              __typename?: 'BranchEntityResponse'
-              data?: {
-                __typename?: 'BranchEntity'
-                id?: string | null
-                attributes?: {
-                  __typename?: 'Branch'
-                  title: string
-                  address?: string | null
-                  slug: string
-                  latitude?: number | null
-                  longitude?: number | null
-                  listingImage?: {
-                    __typename?: 'UploadFileEntityResponse'
-                    data?: {
-                      __typename?: 'UploadFileEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'UploadFile'
-                        url: string
-                        name: string
-                        alternativeText?: string | null
-                        caption?: string | null
-                        size: number
-                        width?: number | null
-                        height?: number | null
-                      } | null
-                    } | null
-                  } | null
-                  subBranches?: {
-                    __typename?: 'BranchRelationResponseCollection'
-                    data: Array<{
-                      __typename?: 'BranchEntity'
-                      id?: string | null
-                      attributes?: {
-                        __typename?: 'Branch'
-                        title: string
-                        address?: string | null
-                        phone?: string | null
-                        email?: string | null
-                        openingHours?: {
-                          __typename?: 'ComponentBlocksOpeningHours'
-                          days: Array<{
-                            __typename?: 'ComponentBlocksOpeningHoursItem'
-                            label?: string | null
-                            time: string
-                          } | null>
-                        } | null
-                      } | null
-                    }>
-                  } | null
-                } | null
-              } | null
-            } | null
-          } | null> | null
-        } | null
-        localizations?: {
-          __typename?: 'HomePageRelationResponseCollection'
-          data: Array<{
-            __typename?: 'HomePageEntity'
-            attributes?: { __typename?: 'HomePage'; locale?: string | null } | null
-          }>
-        } | null
-        seo?: {
-          __typename?: 'ComponentCommonSeo'
-          metaTitle?: string | null
-          metaDescription?: string | null
-          keywords?: string | null
-        } | null
-      } | null
-    } | null
-  } | null
-  promotedNews?: {
-    __typename?: 'NoticeEntityResponseCollection'
-    data: Array<{
-      __typename: 'NoticeEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Notice'
-        slug: string
-        title: string
-        publishedAt?: any | null
-        listingImage?: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
-              width?: number | null
-              height?: number | null
-            } | null
-          } | null
-        } | null
-      } | null
-    }>
-  } | null
-  promotedEvents?: {
-    __typename?: 'EventEntityResponseCollection'
-    data: Array<{
-      __typename: 'EventEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Event'
-        slug: string
-        title: string
-        description?: string | null
-        createdAt?: any | null
-        updatedAt?: any | null
-        publishedAt?: any | null
-        locale?: string | null
-        dateFrom?: any | null
-        dateTo?: any | null
-        price?: number | null
-        eventCategory?: {
-          __typename?: 'EventCategoryEntityResponse'
-          data?: {
-            __typename?: 'EventCategoryEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'EventCategory'
-              title?: string | null
-              createdAt?: any | null
-              updatedAt?: any | null
-            } | null
-          } | null
-        } | null
-        branch?: {
-          __typename?: 'BranchEntityResponse'
-          data?: {
-            __typename?: 'BranchEntity'
-            id?: string | null
-            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
-          } | null
-        } | null
-        eventTags?: {
-          __typename?: 'EventTagRelationResponseCollection'
-          data: Array<{
-            __typename?: 'EventTagEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'EventTag'
-              title?: string | null
-              slug?: string | null
-              createdAt?: any | null
-              publishedAt?: any | null
-              updatedAt?: any | null
-            } | null
-          }>
-        } | null
-        listingImage?: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
-              width?: number | null
-              height?: number | null
-            } | null
-          } | null
-        } | null
-        coverImage?: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
-              width?: number | null
-              height?: number | null
-            } | null
-          } | null
-        } | null
-      } | null
-    }>
-  } | null
-  bookTags?: {
-    __typename?: 'BookTagEntityResponseCollection'
-    data: Array<{
-      __typename?: 'BookTagEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'BookTag'
-        displayName?: string | null
-        slug?: string | null
-      } | null
-    }>
-  } | null
-  latestNotices?: {
-    __typename?: 'NoticeEntityResponseCollection'
-    data: Array<{
-      __typename: 'NoticeEntity'
-      id?: string | null
-      attributes?: {
-        __typename?: 'Notice'
-        slug: string
-        title: string
-        publishedAt?: any | null
-        listingImage?: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
-            __typename?: 'UploadFileEntity'
-            id?: string | null
-            attributes?: {
-              __typename?: 'UploadFile'
-              url: string
-              name: string
-              alternativeText?: string | null
-              caption?: string | null
-              size: number
-              width?: number | null
-              height?: number | null
-            } | null
-          } | null
-        } | null
-      } | null
-    }>
   } | null
 }
 
@@ -10039,6 +10052,7 @@ export type RentalSectionFragment = {
               id?: string | null
               attributes?: {
                 __typename?: 'Branch'
+                body?: string | null
                 title: string
                 address?: string | null
                 phone?: string | null
@@ -10110,6 +10124,7 @@ export type MapSectionFragment = {
               id?: string | null
               attributes?: {
                 __typename?: 'Branch'
+                body?: string | null
                 title: string
                 address?: string | null
                 phone?: string | null
@@ -10706,6 +10721,7 @@ export const BlogPostEntityFragmentDoc = gql`
 `
 export const BranchFragmentDoc = gql`
   fragment Branch on Branch {
+    body
     title
     address
     phone
@@ -10743,7 +10759,6 @@ export const BranchCardEntityFragmentDoc = gql`
       }
       subBranches {
         data {
-          id
           ...BranchPlaceEntity
         }
       }
@@ -11597,101 +11612,6 @@ export const GeneralDocument = gql`
   ${FooterEntityFragmentDoc}
   ${GeneralEntityFragmentDoc}
 `
-export const LatestNoticesDocument = gql`
-  query LatestNotices($locale: I18NLocaleCode!) {
-    ...LatestNoticesQuery
-  }
-  ${LatestNoticesQueryFragmentDoc}
-`
-export const NoticesStaticPathsDocument = gql`
-  query NoticesStaticPaths($locale: I18NLocaleCode!) {
-    notices(locale: $locale, pagination: { limit: -1 }) {
-      data {
-        id
-        attributes {
-          slug
-          locale
-        }
-      }
-    }
-  }
-`
-export const NoticesDocument = gql`
-  query Notices($locale: I18NLocaleCode!, $limit: Int, $start: Int) {
-    notices(
-      locale: $locale
-      pagination: { limit: $limit, start: $start }
-      sort: "publishedAt:desc"
-    ) {
-      data {
-        ...NoticeListingEntity
-      }
-      meta {
-        pagination {
-          total
-        }
-      }
-    }
-  }
-  ${NoticeListingEntityFragmentDoc}
-`
-export const NoticeBySlugDocument = gql`
-  query NoticeBySlug($slug: String!, $locale: I18NLocaleCode!) {
-    notices(locale: $locale, filters: { slug: { eq: $slug } }) {
-      data {
-        ...NoticeEntity
-      }
-    }
-  }
-  ${NoticeEntityFragmentDoc}
-`
-export const PagesStaticPathsDocument = gql`
-  query PagesStaticPaths($locale: I18NLocaleCode) {
-    pages(locale: $locale) {
-      data {
-        id
-        attributes {
-          locale
-        }
-      }
-    }
-  }
-`
-export const PageByIdDocument = gql`
-  query PageById($id: ID!, $locale: I18NLocaleCode!) {
-    pages(filters: { id: { eq: $id } }, locale: $locale) {
-      data {
-        ...PageEntity
-      }
-    }
-  }
-  ${PageEntityFragmentDoc}
-`
-export const SortedPartnersDocument = gql`
-  query SortedPartners($locale: I18NLocaleCode!) {
-    featuredPartners: partners(
-      locale: $locale
-      pagination: { limit: 100 }
-      filters: { featured: { eq: true } }
-      sort: "priority:asc"
-    ) {
-      data {
-        ...PartnerEntity
-      }
-    }
-    notFeaturedPartners: partners(
-      locale: $locale
-      pagination: { limit: 100 }
-      filters: { featured: { eq: false } }
-      sort: "priority:asc"
-    ) {
-      data {
-        ...PartnerEntity
-      }
-    }
-  }
-  ${PartnerEntityFragmentDoc}
-`
 export const HomePageDocument = gql`
   query HomePage($locale: I18NLocaleCode!) {
     homePage(locale: $locale) {
@@ -11799,6 +11719,101 @@ export const HomePageDocument = gql`
   ${EventCardEntityFragmentDoc}
   ${LatestNoticesQueryFragmentDoc}
   ${BookTagEntityFragmentDoc}
+`
+export const LatestNoticesDocument = gql`
+  query LatestNotices($locale: I18NLocaleCode!) {
+    ...LatestNoticesQuery
+  }
+  ${LatestNoticesQueryFragmentDoc}
+`
+export const NoticesStaticPathsDocument = gql`
+  query NoticesStaticPaths($locale: I18NLocaleCode!) {
+    notices(locale: $locale, pagination: { limit: -1 }) {
+      data {
+        id
+        attributes {
+          slug
+          locale
+        }
+      }
+    }
+  }
+`
+export const NoticesDocument = gql`
+  query Notices($locale: I18NLocaleCode!, $limit: Int, $start: Int) {
+    notices(
+      locale: $locale
+      pagination: { limit: $limit, start: $start }
+      sort: "publishedAt:desc"
+    ) {
+      data {
+        ...NoticeListingEntity
+      }
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+  }
+  ${NoticeListingEntityFragmentDoc}
+`
+export const NoticeBySlugDocument = gql`
+  query NoticeBySlug($slug: String!, $locale: I18NLocaleCode!) {
+    notices(locale: $locale, filters: { slug: { eq: $slug } }) {
+      data {
+        ...NoticeEntity
+      }
+    }
+  }
+  ${NoticeEntityFragmentDoc}
+`
+export const PagesStaticPathsDocument = gql`
+  query PagesStaticPaths($locale: I18NLocaleCode) {
+    pages(locale: $locale) {
+      data {
+        id
+        attributes {
+          locale
+        }
+      }
+    }
+  }
+`
+export const PageByIdDocument = gql`
+  query PageById($id: ID!, $locale: I18NLocaleCode!) {
+    pages(filters: { id: { eq: $id } }, locale: $locale) {
+      data {
+        ...PageEntity
+      }
+    }
+  }
+  ${PageEntityFragmentDoc}
+`
+export const SortedPartnersDocument = gql`
+  query SortedPartners($locale: I18NLocaleCode!) {
+    featuredPartners: partners(
+      locale: $locale
+      pagination: { limit: 100 }
+      filters: { featured: { eq: true } }
+      sort: "priority:asc"
+    ) {
+      data {
+        ...PartnerEntity
+      }
+    }
+    notFeaturedPartners: partners(
+      locale: $locale
+      pagination: { limit: 100 }
+      filters: { featured: { eq: false } }
+      sort: "priority:asc"
+    ) {
+      data {
+        ...PartnerEntity
+      }
+    }
+  }
+  ${PartnerEntityFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -12007,6 +12022,20 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         'query'
       )
     },
+    HomePage(
+      variables: HomePageQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<HomePageQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<HomePageQuery>(HomePageDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'HomePage',
+        'query'
+      )
+    },
     LatestNotices(
       variables: LatestNoticesQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
@@ -12102,20 +12131,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'SortedPartners',
-        'query'
-      )
-    },
-    HomePage(
-      variables: HomePageQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<HomePageQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<HomePageQuery>(HomePageDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'HomePage',
         'query'
       )
     },

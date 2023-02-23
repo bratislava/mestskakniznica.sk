@@ -27,7 +27,6 @@ fragment BranchCardEntity on BranchEntity {
     }
     subBranches {
       data {
-        id
         ...BranchPlaceEntity
       }
     }
