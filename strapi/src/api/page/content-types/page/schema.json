@@ -81,11 +81,6 @@
         }
       }
     },
-    "pageCategory": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::category.category"
-    },
     "sections": {
       "pluginOptions": {
         "i18n": {

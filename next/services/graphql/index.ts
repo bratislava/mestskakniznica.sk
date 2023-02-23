@@ -390,91 +390,6 @@ export type BranchRelationResponseCollection = {
   data: Array<BranchEntity>
 }
 
-export type Category = {
-  __typename?: 'Category'
-  createdAt?: Maybe<Scalars['DateTime']>
-  locale?: Maybe<Scalars['String']>
-  localizations?: Maybe<CategoryRelationResponseCollection>
-  pageLink?: Maybe<ComponentBlocksPageLink>
-  pages?: Maybe<Array<Maybe<ComponentBlocksPageLink>>>
-  parentCategory?: Maybe<CategoryEntityResponse>
-  priority?: Maybe<Scalars['Int']>
-  publishedAt?: Maybe<Scalars['DateTime']>
-  subCategories?: Maybe<CategoryRelationResponseCollection>
-  title?: Maybe<Scalars['String']>
-  updatedAt?: Maybe<Scalars['DateTime']>
-}
-
-export type CategoryLocalizationsArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>
-  pagination?: InputMaybe<PaginationArg>
-  publicationState?: InputMaybe<PublicationState>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type CategoryPagesArgs = {
-  filters?: InputMaybe<ComponentBlocksPageLinkFiltersInput>
-  pagination?: InputMaybe<PaginationArg>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type CategorySubCategoriesArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>
-  pagination?: InputMaybe<PaginationArg>
-  publicationState?: InputMaybe<PublicationState>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type CategoryEntity = {
-  __typename?: 'CategoryEntity'
-  attributes?: Maybe<Category>
-  id?: Maybe<Scalars['ID']>
-}
-
-export type CategoryEntityResponse = {
-  __typename?: 'CategoryEntityResponse'
-  data?: Maybe<CategoryEntity>
-}
-
-export type CategoryEntityResponseCollection = {
-  __typename?: 'CategoryEntityResponseCollection'
-  data: Array<CategoryEntity>
-  meta: ResponseCollectionMeta
-}
-
-export type CategoryFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>
-  createdAt?: InputMaybe<DateTimeFilterInput>
-  id?: InputMaybe<IdFilterInput>
-  locale?: InputMaybe<StringFilterInput>
-  localizations?: InputMaybe<CategoryFiltersInput>
-  not?: InputMaybe<CategoryFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>
-  pageLink?: InputMaybe<ComponentBlocksPageLinkFiltersInput>
-  pages?: InputMaybe<ComponentBlocksPageLinkFiltersInput>
-  parentCategory?: InputMaybe<CategoryFiltersInput>
-  priority?: InputMaybe<IntFilterInput>
-  publishedAt?: InputMaybe<DateTimeFilterInput>
-  subCategories?: InputMaybe<CategoryFiltersInput>
-  title?: InputMaybe<StringFilterInput>
-  updatedAt?: InputMaybe<DateTimeFilterInput>
-}
-
-export type CategoryInput = {
-  pageLink?: InputMaybe<ComponentBlocksPageLinkInput>
-  pages?: InputMaybe<Array<InputMaybe<ComponentBlocksPageLinkInput>>>
-  parentCategory?: InputMaybe<Scalars['ID']>
-  priority?: InputMaybe<Scalars['Int']>
-  publishedAt?: InputMaybe<Scalars['DateTime']>
-  subCategories?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
-  title?: InputMaybe<Scalars['String']>
-}
-
-export type CategoryRelationResponseCollection = {
-  __typename?: 'CategoryRelationResponseCollection'
-  data: Array<CategoryEntity>
-}
-
 export type ComponentAccordionItemsFlatText = {
   __typename?: 'ComponentAccordionItemsFlatText'
   category?: Maybe<Scalars['String']>
@@ -2758,7 +2673,6 @@ export type GenericMorph =
   | BlogPost
   | BookTag
   | Branch
-  | Category
   | ComponentAccordionItemsFlatText
   | ComponentAccordionItemsForm
   | ComponentAccordionItemsTableRow
@@ -3126,8 +3040,6 @@ export type Mutation = {
   createBookTag?: Maybe<BookTagEntityResponse>
   createBranch?: Maybe<BranchEntityResponse>
   createBranchLocalization?: Maybe<BranchEntityResponse>
-  createCategory?: Maybe<CategoryEntityResponse>
-  createCategoryLocalization?: Maybe<CategoryEntityResponse>
   createDisclosure?: Maybe<DisclosureEntityResponse>
   createDocument?: Maybe<DocumentEntityResponse>
   createDocumentCategory?: Maybe<DocumentCategoryEntityResponse>
@@ -3159,7 +3071,6 @@ export type Mutation = {
   deleteBlogPost?: Maybe<BlogPostEntityResponse>
   deleteBookTag?: Maybe<BookTagEntityResponse>
   deleteBranch?: Maybe<BranchEntityResponse>
-  deleteCategory?: Maybe<CategoryEntityResponse>
   deleteDisclosure?: Maybe<DisclosureEntityResponse>
   deleteDocument?: Maybe<DocumentEntityResponse>
   deleteDocumentCategory?: Maybe<DocumentCategoryEntityResponse>
@@ -3196,7 +3107,6 @@ export type Mutation = {
   updateBlogPost?: Maybe<BlogPostEntityResponse>
   updateBookTag?: Maybe<BookTagEntityResponse>
   updateBranch?: Maybe<BranchEntityResponse>
-  updateCategory?: Maybe<CategoryEntityResponse>
   updateDisclosure?: Maybe<DisclosureEntityResponse>
   updateDocument?: Maybe<DocumentEntityResponse>
   updateDocumentCategory?: Maybe<DocumentCategoryEntityResponse>
@@ -3254,17 +3164,6 @@ export type MutationCreateBranchArgs = {
 
 export type MutationCreateBranchLocalizationArgs = {
   data?: InputMaybe<BranchInput>
-  id?: InputMaybe<Scalars['ID']>
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>
-}
-
-export type MutationCreateCategoryArgs = {
-  data: CategoryInput
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>
-}
-
-export type MutationCreateCategoryLocalizationArgs = {
-  data?: InputMaybe<CategoryInput>
   id?: InputMaybe<Scalars['ID']>
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
 }
@@ -3414,11 +3313,6 @@ export type MutationDeleteBranchArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
 }
 
-export type MutationDeleteCategoryArgs = {
-  id: Scalars['ID']
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>
-}
-
 export type MutationDeleteDisclosureArgs = {
   id: Scalars['ID']
 }
@@ -3549,12 +3443,6 @@ export type MutationUpdateBookTagArgs = {
 
 export type MutationUpdateBranchArgs = {
   data: BranchInput
-  id: Scalars['ID']
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>
-}
-
-export type MutationUpdateCategoryArgs = {
-  data: CategoryInput
   id: Scalars['ID']
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
 }
@@ -3801,7 +3689,6 @@ export type Page = {
   locale?: Maybe<Scalars['String']>
   localizations?: Maybe<PageRelationResponseCollection>
   newSlug: Scalars['String']
-  pageCategory?: Maybe<CategoryEntityResponse>
   perex?: Maybe<Scalars['String']>
   publishedAt?: Maybe<Scalars['DateTime']>
   sections?: Maybe<Array<Maybe<PageSectionsDynamicZone>>>
@@ -3852,7 +3739,6 @@ export type PageFiltersInput = {
   newSlug?: InputMaybe<StringFilterInput>
   not?: InputMaybe<PageFiltersInput>
   or?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>
-  pageCategory?: InputMaybe<CategoryFiltersInput>
   perex?: InputMaybe<StringFilterInput>
   publishedAt?: InputMaybe<DateTimeFilterInput>
   seo?: InputMaybe<ComponentCommonSeoFiltersInput>
@@ -3866,7 +3752,6 @@ export type PageInput = {
   layout?: InputMaybe<Enum_Page_Layout>
   listingImage?: InputMaybe<Scalars['ID']>
   newSlug?: InputMaybe<Scalars['String']>
-  pageCategory?: InputMaybe<Scalars['ID']>
   perex?: InputMaybe<Scalars['String']>
   publishedAt?: InputMaybe<Scalars['DateTime']>
   sections?: InputMaybe<Array<Scalars['PageSectionsDynamicZoneInput']>>
@@ -4003,8 +3888,6 @@ export type Query = {
   bookTags?: Maybe<BookTagEntityResponseCollection>
   branch?: Maybe<BranchEntityResponse>
   branches?: Maybe<BranchEntityResponseCollection>
-  categories?: Maybe<CategoryEntityResponseCollection>
-  category?: Maybe<CategoryEntityResponse>
   disclosure?: Maybe<DisclosureEntityResponse>
   disclosures?: Maybe<DisclosureEntityResponseCollection>
   document?: Maybe<DocumentEntityResponse>
@@ -4089,19 +3972,6 @@ export type QueryBranchesArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>
   pagination?: InputMaybe<PaginationArg>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type QueryCategoriesArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>
-  pagination?: InputMaybe<PaginationArg>
-  publicationState?: InputMaybe<PublicationState>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type QueryCategoryArgs = {
-  id?: InputMaybe<Scalars['ID']>
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>
 }
 
 export type QueryDisclosureArgs = {
