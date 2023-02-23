@@ -7,6 +7,7 @@ import MLink from '@modules/common/MLink'
 import RichText from '@modules/formatting/RichText'
 import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
+import { Fragment } from 'react'
 
 export interface PageProps {
   branch: BranchEntityFragment
@@ -58,11 +59,11 @@ const BranchDetails = ({ branch }: PageProps) => {
                   {subBranches?.data.map((subBranch) => {
                     const { body: subBranchBody, title: subBranchTitle } =
                       subBranch.attributes ?? {}
-                    return subBranchBody && subBranchBody.trim() ? (
-                      <>
+                    return subBranchBody?.trim() ? (
+                      <Fragment key={subBranch.id}>
                         <h3 className="text-h3 [&:not(:first-child)]:mt-6">{subBranchTitle}</h3>
                         <RichText content={subBranchBody} />
-                      </>
+                      </Fragment>
                     ) : null
                   })}
                 </div>
