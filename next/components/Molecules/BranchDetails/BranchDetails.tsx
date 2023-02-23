@@ -1,12 +1,13 @@
-import BranchDetailsContactUs from '@components/Molecules/BranchDetails/BranchDetailsContactUs'
 import BranchDetailsServices from '@components/Molecules/BranchDetails/BranchDetailsServices'
-import BranchDetailsSubBranches from '@components/Molecules/BranchDetails/BranchDetailsSubBranches'
 import BranchDetailsWhere from '@components/Molecules/BranchDetails/BranchDetailsWhere'
+import ContactsAndOpeningHours from '@components/Molecules/BranchDetails/ContactsAndOpeningHours'
+import ContactUsSidebar from '@components/Molecules/BranchDetails/ContactUsSidebar/ContactUsSidebar'
 import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
 import MLink from '@modules/common/MLink'
 import RichText from '@modules/formatting/RichText'
 import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
+import { Fragment } from 'react'
 
 export interface PageProps {
   branch: BranchEntityFragment
@@ -50,12 +51,21 @@ const BranchDetails = ({ branch }: PageProps) => {
               </div>
             </div>
 
-            {/* TODO: Extract description from subbranches */}
             {body?.trim() ? (
               <div id="description">
-                <h3 className="text-h3">{t('description')}</h3>
-                <div className="pt-5 text-[16px] text-foreground-body">
+                <h2 className="text-h3">{t('description')}</h2>
+                <div className="flex flex-col gap-4 pt-5 text-[16px] text-foreground-body">
                   <RichText content={body} />
+                  {subBranches?.data.map((subBranch) => {
+                    const { body: subBranchBody, title: subBranchTitle } =
+                      subBranch.attributes ?? {}
+                    return subBranchBody?.trim() ? (
+                      <Fragment key={subBranch.id}>
+                        <h3 className="text-h3 [&:not(:first-child)]:mt-6">{subBranchTitle}</h3>
+                        <RichText content={subBranchBody} />
+                      </Fragment>
+                    ) : null
+                  })}
                 </div>
               </div>
             ) : null}
@@ -118,10 +128,12 @@ const BranchDetails = ({ branch }: PageProps) => {
           {/*  </div> */}
           {/* )} */}
 
-          <BranchDetailsSubBranches branch={branch} />
+          {(subBranches || branch) && (
+            <ContactsAndOpeningHours branch={branch} branches={subBranches?.data} />
+          )}
           <BranchDetailsWhere branch={branch} />
         </div>
-        <BranchDetailsContactUs branch={branch} />
+        <ContactUsSidebar branch={branch} />
       </div>
     </>
   )
