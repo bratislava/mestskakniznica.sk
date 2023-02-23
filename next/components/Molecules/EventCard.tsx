@@ -11,7 +11,7 @@ import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 
-import Placeholder from '../../assets/images/event-list-placeholder.jpg'
+import Placeholder from '../../assets/images/list-item-thumbnail.jpeg'
 import TagsDisplay from '../Atoms/TagsDisplay'
 
 type EventCardProps = {

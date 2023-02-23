@@ -3,6 +3,8 @@ import MLink from '@modules/common/MLink'
 import FormatDate from '@modules/formatting/FormatDate'
 import cx from 'classnames'
 
+import Placeholder from '../../../assets/images/list-item-thumbnail.jpeg'
+
 export interface ArticleCardProps {
   className?: string
   title?: string
@@ -38,6 +40,7 @@ export const ArticleCard = ({
               Your browser does not support HTML video.
             </video>
           )}{' '}
+          {!media && <img src={Placeholder.src} alt={title} className="h-48 w-full object-cover" />}
         </div>
 
         {publishedDate && (

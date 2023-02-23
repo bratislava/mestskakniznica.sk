@@ -6,6 +6,8 @@ import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 
+import Placeholder from '../../assets/images/list-item-thumbnail.jpeg'
+
 type NoticeCardProps = {
   card: NoticeListingEntityFragment
 }
@@ -31,6 +33,13 @@ const NoticeCard = ({ card }: NoticeCardProps) => {
             className="mb-4 h-48 w-full object-cover"
             alt={t('coverImageFor', { title: card.attributes?.title })}
             src={image.attributes?.url}
+          />
+        )}
+        {!image && (
+          <img
+            className="mb-4 h-48 w-full object-cover"
+            alt={t('coverImageFor', { title: card.attributes?.title })}
+            src={Placeholder.src}
           />
         )}
 
