@@ -83,7 +83,7 @@ const EventDetails = ({ event }: PageProps) => {
         width={bannerProps.width || 0}
         height={bannerProps.height || 0}
         alt={bannerProps.alternativeText || t('eventDetailImagePlaceholder')}
-        className="object-cover object-center md:h-[300px] lg:h-[400px]"
+        className="w-full object-cover object-center md:h-[300px] lg:h-[400px]"
       />
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
         <div className="col-span-1 hidden h-[108px] w-[108px] bg-promo-yellow text-center lg:flex">
