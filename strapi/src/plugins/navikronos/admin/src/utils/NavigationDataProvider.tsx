@@ -91,11 +91,25 @@ interface RemoveRouteAction {
   locale: string;
 }
 
+interface MoveRouteUpAction {
+  type: "moveRouteUp";
+  indexes: number[];
+  locale: string;
+}
+
+interface MoveRouteDownAction {
+  type: "moveRouteDown";
+  indexes: number[];
+  locale: string;
+}
+
 type NavigationDataAction =
   | LoadedAction
   | AddRouteAction
   | EditRouteAction
-  | RemoveRouteAction;
+  | RemoveRouteAction
+  | MoveRouteUpAction
+  | MoveRouteDownAction;
 
 function navigationDataReducer(
   navigationData: NavikronosLocaleNavigations | null,
@@ -168,6 +182,43 @@ function navigationDataReducer(
 
           break;
         }
+        case "moveRouteUp": {
+          let current = draft;
+          action.indexes.slice(0, -1).forEach((index) => {
+            // TODO
+            // @ts-ignore
+            current = current.children[index];
+          });
+          const lastIndex = last(action.indexes)!;
+
+          if (lastIndex === 0) {
+            break;
+          }
+          const routeToMove = current.children[lastIndex];
+          current.children[lastIndex] = current.children[lastIndex - 1];
+          current.children[lastIndex - 1] = routeToMove;
+          break;
+        }
+
+        case "moveRouteDown": {
+          let current = draft;
+          action.indexes.slice(0, -1).forEach((index) => {
+            // TODO
+            // @ts-ignore
+            current = current.children[index];
+          });
+          const lastIndex = last(action.indexes)!;
+
+          if (current.children.length <= lastIndex + 1) {
+            break;
+          }
+
+          const routeToMove = current.children[lastIndex];
+          current.children[lastIndex] = current.children[lastIndex + 1];
+          current.children[lastIndex + 1] = routeToMove;
+          break;
+        }
+
         default: {
           throw Error("Unknown action: " + (action as { type: string }).type);
         }
@@ -254,6 +305,22 @@ export const useNavigationDataDefined = () => {
     });
   };
 
+  const moveRouteUp = (locationIndexes: number[]) => {
+    dispatch({
+      type: "moveRouteUp",
+      indexes: locationIndexes,
+      locale,
+    });
+  };
+
+  const moveRouteDown = (locationIndexes: number[]) => {
+    dispatch({
+      type: "moveRouteDown",
+      indexes: locationIndexes,
+      locale,
+    });
+  };
+
   return {
     navigationData: navigationData[locale],
     locale,
@@ -261,6 +328,8 @@ export const useNavigationDataDefined = () => {
     editRoute,
     addRoute,
     removeRoute,
+    moveRouteUp,
+    moveRouteDown,
     saveNavigation,
     isSaving,
   };
