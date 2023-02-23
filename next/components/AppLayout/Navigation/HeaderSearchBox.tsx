@@ -8,9 +8,6 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { KeyboardEventHandler, useState } from 'react'
 import { useFocusWithin } from 'react-aria'
-import { useIsClient } from 'usehooks-ts'
-
-import { useSearch } from '../../../hooks/useSearch'
 
 const opacBaseUrl = 'https://opac.mestskakniznica.sk/opac'
 
@@ -32,27 +29,27 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
     onBlurWithin: () => setOpen(false),
   })
 
-  const {
-    // we use just input, because we don't actually perform any search here
-    // add searchValue if e.g. suggestions are needed
-    input,
-    setInput,
-  } = useSearch({ syncWithUrlQuery: false })
+  const [input, setInput] = useState('')
 
-  const isClient = useIsClient()
   const [searchOptions, setSearchOptions] = useState(SEARCH_OPTIONS[0].key)
 
   const handleSearch = () => {
-    if (searchOptions === 'in_catalogue' && isClient) {
+    if (searchOptions === 'in_catalogue') {
       if (input === '') {
+        // eslint-disable-next-line security/detect-non-literal-fs-filename
         window.open(opacBaseUrl, '_blank')
       } else {
+        // eslint-disable-next-line security/detect-non-literal-fs-filename
         window.open(`${opacBaseUrl}?fn=searchform&extSrchTitle=${input}`, '_blank')
       }
     }
-    // TODO replace by proper url
-    // input is here on purpose, because searchValue is debounced
-    router.push(`${getPathForEntity({ type: 'static', id: 'search' })}?query=${input}`)
+    if (searchOptions === 'on_page') {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      router.push({
+        pathname: getPathForEntity({ type: 'static', id: 'search' }),
+        query: { query: input },
+      })
+    }
   }
 
   const handleClear = () => {

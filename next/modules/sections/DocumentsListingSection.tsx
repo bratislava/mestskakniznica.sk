@@ -11,8 +11,9 @@ import {
 } from '@services/meili/fetchers/documentsFetcher'
 import { useNavikronos } from '@utils/navikronos'
 import { Enum_Disclosure_Type_Fixed } from '@utils/types'
+import { useRoutePreservedState } from '@utils/useRoutePreservedState'
 import { useTranslation } from 'next-i18next'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
 
 import { useSearch } from '../../hooks/useSearch'
@@ -23,7 +24,7 @@ const DocumentsListingSection = () => {
 
   // TODO add scroll to results
 
-  const [filters, setFilters] = useState<DocumentsFilters>(documentsDefaultFilters)
+  const [filters, setFilters] = useRoutePreservedState<DocumentsFilters>(documentsDefaultFilters)
 
   const { input, setInput, searchValue, setSearchValue } = useSearch({ syncWithUrlQuery: false })
 
@@ -58,8 +59,12 @@ const DocumentsListingSection = () => {
   }
 
   useEffect(() => {
+    if (filters.searchValue === searchValue) {
+      return
+    }
+
     setFilters((prevFilters) => ({ ...prevFilters, page: 1, searchValue }))
-  }, [searchValue])
+  }, [filters.searchValue, searchValue, setFilters])
 
   // TODO: Advanced data fetching + no results message
 

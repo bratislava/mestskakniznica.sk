@@ -4,14 +4,15 @@ import {
   blogPostsFetcher,
   getBlogPostsQueryKey,
 } from '@services/graphql/fetchers/blog-posts.fetcher'
-import { useTranslation } from 'next-i18next'
-import React, { useState } from 'react'
-import { useQuery } from 'react-query'
 import { useNavikronos } from '@utils/navikronos'
+import { useRoutePreservedState } from '@utils/useRoutePreservedState'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { useQuery } from 'react-query'
 
 const BlogPostsListingSection = () => {
   const { t, i18n } = useTranslation('common')
-  const [filters, setFilters] = useState(blogPostsDefaultFilters)
+  const [filters, setFilters] = useRoutePreservedState(blogPostsDefaultFilters)
 
   const { getPathForEntity } = useNavikronos()
 
