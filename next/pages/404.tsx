@@ -18,9 +18,9 @@ type Error404PageProps = {
 } & CLNavikronosPageProps
 
 const Custom404 = ({ general }: Error404PageProps) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
-  const { asPath, locale } = useRouter()
+  const { asPath } = useRouter()
 
   return (
     <GeneralContextProvider general={general}>
@@ -31,7 +31,9 @@ const Custom404 = ({ general }: Error404PageProps) => {
           </header>
           <p className="text-base">{t('pageNotFoundSorry')}</p>
           <p className="pt-10 text-base underline">
-            {`https://www.mestskakniznica.sk/${locale ?? ''}${asPath}`}
+            {`https://www.mestskakniznica.sk${
+              i18n.language === 'sk' ? '' : `/${i18n.language}`
+            }${asPath}`}
           </p>
           <Button variant="primary" href="/" className="mt-8">
             {t('homepage')}
