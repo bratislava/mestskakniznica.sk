@@ -1,4 +1,4 @@
-import { CallToAction } from '@bratislava/ui-city-library'
+import { CallToAction, SectionContainer } from '@bratislava/ui-city-library'
 import Accordion from '@modules/common/Accordion'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import RichText from '@modules/formatting/RichText'
@@ -17,8 +17,8 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
   const showMoreId = faqSection?.redirectTo?.data?.id
 
   return (
-    <section className="py-12">
-      <div className="flex flex-col space-y-8 md:flex-row md:space-y-0 md:space-x-8">
+    <SectionContainer hasBorder>
+      <div className="flex flex-col space-y-8 py-12 md:flex-row md:space-y-0 md:space-x-8">
         <div className="w-full space-y-4 md:w-96">
           {faqSection?.ctas?.map((cta) => {
             const ctaId = cta?.ctaRedirectTo?.data?.id
@@ -55,7 +55,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
           </div>
         </div>
       </div>
-    </section>
+    </SectionContainer>
   )
 }
 

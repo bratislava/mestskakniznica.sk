@@ -62,7 +62,7 @@ fragment EventEntity on EventEntity {
       }
     }
     documents {
-      ...Documents
+      ...DocumentsSection
     }
     gallery {
       data {

@@ -1,3 +1,64 @@
+fragment PageSections on PageSectionsDynamicZone {
+  __typename
+  ... on ComponentSectionsFaq {
+    ...FaqSection
+  }
+  ... on ComponentSectionsFlatText {
+    ...FlatTextSection
+  }
+  ... on ComponentSectionsSiteUsefullness {
+    ...SiteUsefulnessSection
+  }
+  ... on ComponentSectionsForm {
+    ...FormSection
+  }
+  ... on ComponentSectionsSubpages {
+    id
+    ...SubpagesSection
+  }
+  ... on ComponentSectionsTable {
+    ...TableSection
+  }
+  ... on ComponentSectionsAccordion {
+    ...AccordionSection
+  }
+  ... on ComponentSectionsDivider {
+    id
+  }
+  ... on ComponentSectionsCta {
+    ...CtaSection
+  }
+
+  ... on ComponentSectionsVideo {
+    ...VideoSection
+  }
+
+  ... on ComponentSectionsDocuments {
+    id
+    ...DocumentsSection
+  }
+
+  ... on ComponentSectionsMap {
+    ...MapSection
+  }
+
+  ... on ComponentSectionsRental {
+    ...RentalSection
+  }
+
+  ... on ComponentSectionsGallery {
+    ...GallerySection
+  }
+
+  ... on ComponentSectionsOpeningHoursSection {
+    ...OpeningHoursSection
+  }
+
+  ... on ComponentSectionsChildrenListing {
+    ...ChildrenListingSection
+  }
+}
+
 fragment PageEntity on PageEntity {
   id
   attributes {
@@ -26,7 +87,7 @@ fragment PageEntity on PageEntity {
     layout
     perex
     sections {
-      ...Sections
+      ...PageSections
     }
 
     locale
@@ -38,21 +99,6 @@ fragment PageEntity on PageEntity {
     seo {
       ...Seo
     }
-  }
-}
-
-fragment SectionLinkPage on PageEntity {
-  id
-  attributes {
-    title
-  }
-}
-
-fragment SectionLinkBranch on BranchEntity {
-  id
-  attributes {
-    slug
-    title
   }
 }
 

@@ -1,12 +1,13 @@
 import { SectionContainer, Sidebar } from '@bratislava/ui-city-library'
-import { PageEntity } from '@services/graphql'
+import { PageEntityFragment } from '@services/graphql'
+import { isDefined } from '@utils/isDefined'
 import Image from 'next/image'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import Sections from '../Molecules/Sections'
 
 export interface SidebarContentProps {
-  page: PageEntity
+  page: PageEntityFragment
 }
 
 const SidebarContentPage = ({ page }: SidebarContentProps) => {
@@ -39,7 +40,6 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
                 <Image
                   src={page.attributes.listingImage.data.attributes.url}
                   alt=""
-                  key={page.attributes.listingImage.data.id}
                   fill
                   className="object-cover"
                 />
@@ -47,9 +47,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
             )}
 
             {/* Sections */}
-            {page?.attributes?.sections && (
-              <Sections pageTitle={page?.attributes?.title} sections={page?.attributes.sections} />
-            )}
+            <Sections sections={page?.attributes?.sections?.filter(isDefined) ?? []} />
           </div>
         </div>
 

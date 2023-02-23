@@ -1,0 +1,99 @@
+query HomePage($locale: I18NLocaleCode!) {
+  homePage(locale: $locale) {
+    data {
+      attributes {
+        faqSection {
+          id
+          title
+          redirectTo {
+            data {
+              ...PageWithBaseFieldsEntity
+            }
+          }
+          faqs(pagination: { limit: 100 }) {
+            id
+            question
+            answer
+          }
+          ctas(pagination: { limit: 100 }) {
+            id
+            title
+            ctaRedirectTo {
+              data {
+                ...PageWithBaseFieldsEntity
+              }
+            }
+          }
+        }
+        registrationInfoSection {
+          id
+          title
+          description
+          redirectTo {
+            data {
+              ...PageWithBaseFieldsEntity
+            }
+          }
+          registrationBenefits {
+            id
+            benefit
+          }
+        }
+        newsSection {
+          id
+          title
+          redirectTo {
+            data {
+              ...PageWithBaseFieldsEntity
+            }
+          }
+        }
+        mapSection {
+          id
+          title
+          branches {
+            branch {
+              data {
+                ...BranchCardEntity
+              }
+            }
+          }
+        }
+        localizations {
+          data {
+            attributes {
+              locale
+            }
+          }
+        }
+        seo {
+          ...Seo
+        }
+      }
+    }
+  }
+  promotedNews: notices(
+    locale: $locale
+    sort: "publishedAt:desc"
+    filters: { promoted: { eq: true } }
+  ) {
+    data {
+      ...NoticeListingEntity
+    }
+  }
+  promotedEvents: events(
+    locale: $locale
+    sort: "dateFrom:asc"
+    filters: { promoted: { eq: true } }
+  ) {
+    data {
+      ...EventCardEntity
+    }
+  }
+  ...LatestNoticesQuery
+  bookTags(pagination: { limit: 100 }) {
+    data {
+      ...BookTagEntity
+    }
+  }
+}

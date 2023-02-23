@@ -60,21 +60,16 @@
       },
       "type": "dynamiczone",
       "components": [
-        "sections.form",
-        "sections.subpages",
         "sections.faq",
         "sections.table",
-        "sections.site-usefullness",
         "sections.accordion",
         "sections.divider",
         "sections.cta",
-        "sections.sub-listing",
         "sections.documents",
         "sections.video",
         "sections.flat-text",
         "sections.gallery",
-        "sections.map",
-        "sections.rental"
+        "sections.site-usefullness"
       ]
     },
     "seo": {
