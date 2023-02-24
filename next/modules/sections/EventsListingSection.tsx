@@ -1,6 +1,6 @@
-import EventCard from '@components/Molecules/EventCard'
 import EventFilters from '@components/Molecules/EventFilters'
 import { Pagination } from '@components/ui'
+import EventCard from '@modules/cards-and-rows/EventCard'
 import {
   eventsArchivedDefaultFilters,
   eventsFetcher,

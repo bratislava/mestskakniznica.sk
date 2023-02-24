@@ -1,4 +1,5 @@
-import { CallToAction, SectionContainer } from '@bratislava/ui-city-library'
+import { SectionContainer } from '@bratislava/ui-city-library'
+import PageCard from '@modules/cards-and-rows/PageCard'
 import Accordion from '@modules/common/Accordion'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import RichText from '@modules/formatting/RichText'
@@ -24,7 +25,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
             const ctaId = cta?.ctaRedirectTo?.data?.id
             return ctaId ? (
               <div key={cta?.title}>
-                <CallToAction
+                <PageCard
                   title={cta?.title || ''}
                   href={
                     getPathForEntity({

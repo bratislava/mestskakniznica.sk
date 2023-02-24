@@ -89,7 +89,6 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
               key={index}
               title={child.title}
               url={child.path ?? '#'}
-              moreLinkTitle={t('more')}
               listingChildren={listingChildren}
               hasDivider={children.length > 1 && index != children.length - 1}
             />

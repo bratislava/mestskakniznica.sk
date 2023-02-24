@@ -38,7 +38,7 @@ const BookCard = ({ book }: BookProps) => {
           />
         )}
       </div>
-      <div>
+      <h3>
         <MLink
           href={book.url ?? ''}
           variant="basic"
@@ -51,7 +51,7 @@ const BookCard = ({ book }: BookProps) => {
         >
           {book.title}
         </MLink>
-      </div>
+      </h3>
     </div>
   )
 }

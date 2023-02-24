@@ -1,20 +1,20 @@
 import ChevronLeft from '@assets/images/chevron-left.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
-import VerticalCardButton from '@components/HomePage/VerticalCardButton'
+import CarouselControlButton from '@modules/common/Carousel/CarouselControlButton'
 import cx from 'classnames'
 import React from 'react'
 
-export type SliderDirection = 'left' | 'right'
+export type CarouselControlDirection = 'left' | 'right'
 
-interface SliderControlProps {
-  direction: SliderDirection
+interface CarouselControlProps {
+  direction: CarouselControlDirection
   onPress: () => void
   hidden: boolean
 }
 
-const SliderControl = ({ direction, onPress, hidden }: SliderControlProps) => {
+const CarouselControl = ({ direction, onPress, hidden }: CarouselControlProps) => {
   return (
-    <VerticalCardButton
+    <CarouselControlButton
       onPress={onPress}
       className={cx('absolute top-0 bottom-0 z-10 my-auto', {
         'left-0 -translate-x-1/2 transform': direction === 'left',
@@ -24,8 +24,8 @@ const SliderControl = ({ direction, onPress, hidden }: SliderControlProps) => {
     >
       {direction === 'left' && <ChevronLeft />}
       {direction === 'right' && <ChevronRight />}
-    </VerticalCardButton>
+    </CarouselControlButton>
   )
 }
 
-export default SliderControl
+export default CarouselControl

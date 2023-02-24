@@ -1,4 +1,4 @@
-import EventRow from '@modules/common/EventRow'
+import EventRow from '@modules/cards-and-rows/EventRow'
 import { useGeneralContext } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
 import React from 'react'

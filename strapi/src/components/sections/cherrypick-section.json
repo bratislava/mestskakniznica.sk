@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_cherrypick_sections",
+  "info": {
+    "displayName": "Výber podstránok",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "pages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::page.page"
+    }
+  }
+}

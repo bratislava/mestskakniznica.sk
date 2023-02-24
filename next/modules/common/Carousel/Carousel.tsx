@@ -2,7 +2,7 @@ import cx from 'classnames'
 import React, { ReactNode, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-import SliderControl, { SliderDirection } from './SliderControl/SliderControl'
+import CarouselControl, { CarouselControlDirection } from './CarouselControl'
 
 interface SectionPromosProps {
   listClassName?: string
@@ -56,10 +56,10 @@ const Carousel = ({
     scrollToItem(currentItemIndex - shiftIndex)
   }
 
-  const sliderVariantHidden = (variant: SliderDirection) => {
+  const isControlHidden = (direction: CarouselControlDirection) => {
     return (
-      (variant === 'left' && currentItemIndex === 0) ||
-      (variant === 'right' && currentItemIndex >= items.length - visibleItemsCount)
+      (direction === 'left' && currentItemIndex === 0) ||
+      (direction === 'right' && currentItemIndex >= items.length - visibleItemsCount)
     )
   }
 
@@ -67,10 +67,10 @@ const Carousel = ({
     <div className="relative">
       <div className="hidden lg:block">
         {items.length >= visibleItemsCount && (
-          <SliderControl
+          <CarouselControl
             direction="left"
             onPress={previousItem}
-            hidden={sliderVariantHidden('left')}
+            hidden={isControlHidden('left')}
           />
         )}
       </div>
@@ -99,11 +99,7 @@ const Carousel = ({
       </ul>
       <div className="hidden lg:block">
         {items.length >= visibleItemsCount && (
-          <SliderControl
-            direction="right"
-            onPress={nextItem}
-            hidden={sliderVariantHidden('right')}
-          />
+          <CarouselControl direction="right" onPress={nextItem} hidden={isControlHidden('right')} />
         )}
       </div>
     </div>

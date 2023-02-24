@@ -1,4 +1,4 @@
-import EventRow from '@modules/common/EventRow'
+import EventRow from '@modules/cards-and-rows/EventRow'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { useGeneralContext } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'

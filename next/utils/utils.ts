@@ -1,4 +1,3 @@
-import { ComponentLocalityPartsLocalitySection } from '@services/graphql'
 import prettyBytes from 'pretty-bytes'
 
 import { isDefined } from './isDefined'
@@ -57,98 +56,6 @@ export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = f
   })
 
   return { day, month, year, date: dFrom }
-}
-
-export const getIsCurrentlyOpen = (
-  today: Date,
-  time: {
-    from: { minutes: number; hours: number }
-    to: { minutes: number; hours: number }
-  }
-): boolean => today.getHours() < time.to.hours && today.getHours() > time.from.hours
-
-const getHoursAndMinutes = (time: string) => {
-  if (!time)
-    return {
-      minutes: 0,
-      hours: 0,
-    }
-  const splitted = time.split(':')
-
-  return {
-    minutes: Number(splitted[1]),
-    hours: Number(splitted[0]),
-  }
-}
-
-const formatTime = (time: number) => {
-  const temp = time.toString()
-  if (temp.length === 1) return `0${temp}`
-  return temp
-}
-
-const getMainOpeningHours = (sections: ComponentLocalityPartsLocalitySection[]) => {
-  const mainSection = sections.find((section) => section.isMainSection)
-
-  if (!mainSection)
-    return {
-      localityOpenFrom: '00:00',
-      localityOpenTo: '00:00',
-      isCurrentlyOpen: false,
-    }
-
-  // find day when the section is open for the most time
-  // opening hours are like this, because strapi did not allow another nested custom component
-  let openFrom = '00:00'
-  let openTo = '00:00'
-  const customArray = [
-    {
-      from: getHoursAndMinutes(mainSection.openingHoursSundayFrom),
-      to: getHoursAndMinutes(mainSection.openingHoursSundayTo),
-    },
-    {
-      from: getHoursAndMinutes(mainSection.openingHoursMondayFrom),
-      to: getHoursAndMinutes(mainSection.openingHoursMondayTo),
-    },
-    {
-      from: getHoursAndMinutes(mainSection.openingHoursTuesdayFrom),
-      to: getHoursAndMinutes(mainSection.openingHoursTuesdayTo),
-    },
-    {
-      from: getHoursAndMinutes(mainSection.openingHoursWednesdayFrom),
-      to: getHoursAndMinutes(mainSection.openingHoursWednesdayTo),
-    },
-    {
-      from: getHoursAndMinutes(mainSection.openingHoursThursdayFrom),
-      to: getHoursAndMinutes(mainSection.openingHoursThursdayTo),
-    },
-    {
-      from: getHoursAndMinutes(mainSection.openingHoursFridayFrom),
-      to: getHoursAndMinutes(mainSection.openingHoursFridayTo),
-    },
-    {
-      from: getHoursAndMinutes(mainSection.openingHoursSaturdayFrom),
-      to: getHoursAndMinutes(mainSection.openingHoursSaturdayTo),
-    },
-  ]
-
-  const today = new Date()
-  const isCurrentlyOpen = getIsCurrentlyOpen(today, customArray[today.getDay()])
-
-  customArray.sort((a, b) => {
-    if (a.to.hours - a.from.hours < b.to.hours - b.from.hours) return 1
-    if (a.to.hours - a.from.hours > b.to.hours - b.from.hours) return -1
-    return 0
-  })
-
-  openFrom = `${formatTime(customArray[0].from.hours)}:${formatTime(customArray[0].from.minutes)}`
-  openTo = `${formatTime(customArray[1].to.hours)}:${formatTime(customArray[1].to.minutes)}`
-
-  return {
-    localityOpenFrom: openFrom,
-    localityOpenTo: openTo,
-    isCurrentlyOpen,
-  }
 }
 
 // method for determining if event already happened

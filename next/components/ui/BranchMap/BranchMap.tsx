@@ -4,19 +4,19 @@ import MarkerIcon from '@assets/images/marker.svg'
 import { useEffect, useRef, useState } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
-export interface LocalityMapProps {
-  localityName?: string | null
-  localityLongitude?: number
-  localityLatitude?: number
+export interface BranchMapProps {
+  branchName?: string | null
+  branchLongitude?: number
+  branchLatitude?: number
   mapboxAccessToken: string
 }
 
-export const LocalityMap = ({
-  localityName,
-  localityLongitude,
-  localityLatitude,
+export const BranchMap = ({
+  branchName,
+  branchLongitude,
+  branchLatitude,
   mapboxAccessToken,
-}: LocalityMapProps) => {
+}: BranchMapProps) => {
   const [isBrowser, setBrowser] = useState(false)
 
   const mapRef = useRef<MapRef>(null)
@@ -25,7 +25,7 @@ export const LocalityMap = ({
     setBrowser(!!typeof window)
   }, [])
 
-  return localityLongitude && localityLatitude ? (
+  return branchLongitude && branchLatitude ? (
     <div className="mb-4 h-full w-full text-black lg:mb-8">
       {isBrowser && (
         <Mapbox
@@ -39,24 +39,24 @@ export const LocalityMap = ({
           }}
           onLoad={() => {
             mapRef.current?.getMap().jumpTo({
-              center: [localityLongitude, localityLatitude],
+              center: [branchLongitude, branchLatitude],
             })
           }}
           cooperativeGestures
         >
-          <Marker anchor="bottom" longitude={localityLongitude} latitude={localityLatitude}>
+          <Marker anchor="bottom" longitude={branchLongitude} latitude={branchLatitude}>
             <div className="group flex flex-col items-center">
               <MarkerIcon
                 onClick={() => {
-                  window.location.href = `https://www.google.com/maps/search/?api=1&query=${localityLatitude},${localityLongitude}`
-                  // https: window.location.href = `https://www.google.com/maps/@${localityLatitude},${localityLongitude},16z`;
+                  window.location.href = `https://www.google.com/maps/search/?api=1&query=${branchLatitude},${branchLongitude}`
+                  // https: window.location.href = `https://www.google.com/maps/@${branchLatitude},${branchLongitude},16z`;
                 }}
                 width={48}
                 height={48}
               />
-              {localityName && (
+              {branchName && (
                 <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-promo-yellow px-2 group-hover:visible">
-                  {localityName}
+                  {branchName}
                 </div>
               )}
             </div>
@@ -67,4 +67,4 @@ export const LocalityMap = ({
   ) : null
 }
 
-export default LocalityMap
+export default BranchMap

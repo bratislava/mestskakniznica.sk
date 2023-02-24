@@ -26,12 +26,6 @@ fragment TableRow on ComponentAccordionItemsTableRow {
   valueAlign
 }
 
-fragment ExternalLink on ComponentBlocksExternalLink {
-  category
-  title
-  url
-}
-
 fragment AccordionItem on ComponentBlocksAccordionItem {
   id
   label

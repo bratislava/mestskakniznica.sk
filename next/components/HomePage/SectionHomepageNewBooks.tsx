@@ -1,5 +1,5 @@
 import { SectionContainer } from '@components/ui'
-import BookCard, { Book } from '@modules/common/Cards/BookCard'
+import BookCard, { Book } from '@modules/cards-and-rows/BookCard'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { useGeneralContext } from '@utils/generalContext'
 import { useNavikronos } from '@utils/navikronos'

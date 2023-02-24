@@ -543,30 +543,6 @@ export type ComponentBlocksBranchItemWithPageInput = {
   page?: InputMaybe<Scalars['ID']>
 }
 
-export type ComponentBlocksExternalLink = {
-  __typename?: 'ComponentBlocksExternalLink'
-  category?: Maybe<Scalars['String']>
-  id: Scalars['ID']
-  title?: Maybe<Scalars['String']>
-  url?: Maybe<Scalars['String']>
-}
-
-export type ComponentBlocksExternalLinkFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentBlocksExternalLinkFiltersInput>>>
-  category?: InputMaybe<StringFilterInput>
-  not?: InputMaybe<ComponentBlocksExternalLinkFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<ComponentBlocksExternalLinkFiltersInput>>>
-  title?: InputMaybe<StringFilterInput>
-  url?: InputMaybe<StringFilterInput>
-}
-
-export type ComponentBlocksExternalLinkInput = {
-  category?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['ID']>
-  title?: InputMaybe<Scalars['String']>
-  url?: InputMaybe<Scalars['String']>
-}
-
 export type ComponentBlocksFileItem = {
   __typename?: 'ComponentBlocksFileItem'
   attachment: UploadFileEntityResponse
@@ -1005,96 +981,6 @@ export type ComponentLocalityPartsGalleryPartsInput = {
   id?: InputMaybe<Scalars['ID']>
 }
 
-export type ComponentLocalityPartsLocalitySection = {
-  __typename?: 'ComponentLocalityPartsLocalitySection'
-  id: Scalars['ID']
-  isMainSection?: Maybe<Scalars['Boolean']>
-  localitySectionDescription?: Maybe<Scalars['String']>
-  localitySectionEmail?: Maybe<Scalars['String']>
-  localitySectionPhone?: Maybe<Scalars['String']>
-  localitySectionTitle?: Maybe<Scalars['String']>
-  openingHoursFridayFrom?: Maybe<Scalars['Time']>
-  openingHoursFridayTo?: Maybe<Scalars['Time']>
-  openingHoursMondayFrom?: Maybe<Scalars['Time']>
-  openingHoursMondayTo?: Maybe<Scalars['Time']>
-  openingHoursSaturdayFrom?: Maybe<Scalars['Time']>
-  openingHoursSaturdayTo?: Maybe<Scalars['Time']>
-  openingHoursSundayFrom?: Maybe<Scalars['Time']>
-  openingHoursSundayTo?: Maybe<Scalars['Time']>
-  openingHoursThursdayFrom?: Maybe<Scalars['Time']>
-  openingHoursThursdayTo?: Maybe<Scalars['Time']>
-  openingHoursTuesdayFrom?: Maybe<Scalars['Time']>
-  openingHoursTuesdayTo?: Maybe<Scalars['Time']>
-  openingHoursWednesdayFrom?: Maybe<Scalars['Time']>
-  openingHoursWednesdayTo?: Maybe<Scalars['Time']>
-}
-
-export type ComponentLocalityPartsLocalitySectionFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentLocalityPartsLocalitySectionFiltersInput>>>
-  isMainSection?: InputMaybe<BooleanFilterInput>
-  localitySectionDescription?: InputMaybe<StringFilterInput>
-  localitySectionEmail?: InputMaybe<StringFilterInput>
-  localitySectionPhone?: InputMaybe<StringFilterInput>
-  localitySectionTitle?: InputMaybe<StringFilterInput>
-  not?: InputMaybe<ComponentLocalityPartsLocalitySectionFiltersInput>
-  openingHoursFridayFrom?: InputMaybe<TimeFilterInput>
-  openingHoursFridayTo?: InputMaybe<TimeFilterInput>
-  openingHoursMondayFrom?: InputMaybe<TimeFilterInput>
-  openingHoursMondayTo?: InputMaybe<TimeFilterInput>
-  openingHoursSaturdayFrom?: InputMaybe<TimeFilterInput>
-  openingHoursSaturdayTo?: InputMaybe<TimeFilterInput>
-  openingHoursSundayFrom?: InputMaybe<TimeFilterInput>
-  openingHoursSundayTo?: InputMaybe<TimeFilterInput>
-  openingHoursThursdayFrom?: InputMaybe<TimeFilterInput>
-  openingHoursThursdayTo?: InputMaybe<TimeFilterInput>
-  openingHoursTuesdayFrom?: InputMaybe<TimeFilterInput>
-  openingHoursTuesdayTo?: InputMaybe<TimeFilterInput>
-  openingHoursWednesdayFrom?: InputMaybe<TimeFilterInput>
-  openingHoursWednesdayTo?: InputMaybe<TimeFilterInput>
-  or?: InputMaybe<Array<InputMaybe<ComponentLocalityPartsLocalitySectionFiltersInput>>>
-}
-
-export type ComponentLocalityPartsLocalitySectionInput = {
-  id?: InputMaybe<Scalars['ID']>
-  isMainSection?: InputMaybe<Scalars['Boolean']>
-  localitySectionDescription?: InputMaybe<Scalars['String']>
-  localitySectionEmail?: InputMaybe<Scalars['String']>
-  localitySectionPhone?: InputMaybe<Scalars['String']>
-  localitySectionTitle?: InputMaybe<Scalars['String']>
-  openingHoursFridayFrom?: InputMaybe<Scalars['Time']>
-  openingHoursFridayTo?: InputMaybe<Scalars['Time']>
-  openingHoursMondayFrom?: InputMaybe<Scalars['Time']>
-  openingHoursMondayTo?: InputMaybe<Scalars['Time']>
-  openingHoursSaturdayFrom?: InputMaybe<Scalars['Time']>
-  openingHoursSaturdayTo?: InputMaybe<Scalars['Time']>
-  openingHoursSundayFrom?: InputMaybe<Scalars['Time']>
-  openingHoursSundayTo?: InputMaybe<Scalars['Time']>
-  openingHoursThursdayFrom?: InputMaybe<Scalars['Time']>
-  openingHoursThursdayTo?: InputMaybe<Scalars['Time']>
-  openingHoursTuesdayFrom?: InputMaybe<Scalars['Time']>
-  openingHoursTuesdayTo?: InputMaybe<Scalars['Time']>
-  openingHoursWednesdayFrom?: InputMaybe<Scalars['Time']>
-  openingHoursWednesdayTo?: InputMaybe<Scalars['Time']>
-}
-
-export type ComponentLocalityPartsLocalityServices = {
-  __typename?: 'ComponentLocalityPartsLocalityServices'
-  id: Scalars['ID']
-  page?: Maybe<PageEntityResponse>
-}
-
-export type ComponentLocalityPartsLocalityServicesFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentLocalityPartsLocalityServicesFiltersInput>>>
-  not?: InputMaybe<ComponentLocalityPartsLocalityServicesFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<ComponentLocalityPartsLocalityServicesFiltersInput>>>
-  page?: InputMaybe<PageFiltersInput>
-}
-
-export type ComponentLocalityPartsLocalityServicesInput = {
-  id?: InputMaybe<Scalars['ID']>
-  page?: InputMaybe<Scalars['ID']>
-}
-
 export type ComponentMenuSectionLinks = {
   __typename?: 'ComponentMenuSectionLinks'
   id: Scalars['ID']
@@ -1440,6 +1326,34 @@ export type ComponentSectionsBlogPostsListingFiltersInput = {
 
 export type ComponentSectionsBlogPostsListingInput = {
   id?: InputMaybe<Scalars['ID']>
+}
+
+export type ComponentSectionsCherrypickSection = {
+  __typename?: 'ComponentSectionsCherrypickSection'
+  id: Scalars['ID']
+  pages?: Maybe<PageRelationResponseCollection>
+  title?: Maybe<Scalars['String']>
+}
+
+export type ComponentSectionsCherrypickSectionPagesArgs = {
+  filters?: InputMaybe<PageFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type ComponentSectionsCherrypickSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsCherrypickSectionFiltersInput>>>
+  not?: InputMaybe<ComponentSectionsCherrypickSectionFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsCherrypickSectionFiltersInput>>>
+  pages?: InputMaybe<PageFiltersInput>
+  title?: InputMaybe<StringFilterInput>
+}
+
+export type ComponentSectionsCherrypickSectionInput = {
+  id?: InputMaybe<Scalars['ID']>
+  pages?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  title?: InputMaybe<Scalars['String']>
 }
 
 export type ComponentSectionsChildrenListing = {
@@ -2680,7 +2594,6 @@ export type GenericMorph =
   | ComponentBlocksAccordionItem
   | ComponentBlocksBranchItem
   | ComponentBlocksBranchItemWithPage
-  | ComponentBlocksExternalLink
   | ComponentBlocksFileItem
   | ComponentBlocksNoticeFiles
   | ComponentBlocksOpeningHours
@@ -2699,8 +2612,6 @@ export type GenericMorph =
   | ComponentHomepageNewsSection
   | ComponentHomepageRegistrationInfo
   | ComponentLocalityPartsGalleryParts
-  | ComponentLocalityPartsLocalitySection
-  | ComponentLocalityPartsLocalityServices
   | ComponentMenuSectionLinks
   | ComponentMenuSections
   | ComponentMenuSubsection
@@ -2713,6 +2624,7 @@ export type GenericMorph =
   | ComponentMetadataZmluvy
   | ComponentSectionsAccordion
   | ComponentSectionsBlogPostsListing
+  | ComponentSectionsCherrypickSection
   | ComponentSectionsChildrenListing
   | ComponentSectionsCta
   | ComponentSectionsDivider
@@ -3768,6 +3680,7 @@ export type PageRelationResponseCollection = {
 export type PageSectionsDynamicZone =
   | ComponentSectionsAccordion
   | ComponentSectionsBlogPostsListing
+  | ComponentSectionsCherrypickSection
   | ComponentSectionsChildrenListing
   | ComponentSectionsCta
   | ComponentSectionsDivider
@@ -8357,6 +8270,27 @@ type PageSections_ComponentSectionsBlogPostsListing_Fragment = {
   __typename: 'ComponentSectionsBlogPostsListing'
 }
 
+type PageSections_ComponentSectionsCherrypickSection_Fragment = {
+  __typename: 'ComponentSectionsCherrypickSection'
+  id: string
+  title?: string | null
+  pages?: {
+    __typename?: 'PageRelationResponseCollection'
+    data: Array<{
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    }>
+  } | null
+}
+
 type PageSections_ComponentSectionsChildrenListing_Fragment = {
   __typename: 'ComponentSectionsChildrenListing'
   id: string
@@ -8750,6 +8684,7 @@ type PageSections_Error_Fragment = { __typename: 'Error' }
 export type PageSectionsFragment =
   | PageSections_ComponentSectionsAccordion_Fragment
   | PageSections_ComponentSectionsBlogPostsListing_Fragment
+  | PageSections_ComponentSectionsCherrypickSection_Fragment
   | PageSections_ComponentSectionsChildrenListing_Fragment
   | PageSections_ComponentSectionsCta_Fragment
   | PageSections_ComponentSectionsDivider_Fragment
@@ -8830,6 +8765,26 @@ export type PageEntityFragment = {
           } | null> | null
         }
       | { __typename: 'ComponentSectionsBlogPostsListing' }
+      | {
+          __typename: 'ComponentSectionsCherrypickSection'
+          id: string
+          title?: string | null
+          pages?: {
+            __typename?: 'PageRelationResponseCollection'
+            data: Array<{
+              __typename?: 'PageEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Page'
+                title: string
+                slug: string
+                newSlug: string
+                createdAt?: any | null
+                updatedAt?: any | null
+              } | null
+            }>
+          } | null
+        }
       | {
           __typename: 'ComponentSectionsChildrenListing'
           id: string
@@ -9309,6 +9264,26 @@ export type PageByIdQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsBlogPostsListing' }
+          | {
+              __typename: 'ComponentSectionsCherrypickSection'
+              id: string
+              title?: string | null
+              pages?: {
+                __typename?: 'PageRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'PageEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Page'
+                    title: string
+                    slug: string
+                    newSlug: string
+                    createdAt?: any | null
+                    updatedAt?: any | null
+                  } | null
+                }>
+              } | null
+            }
           | {
               __typename: 'ComponentSectionsChildrenListing'
               id: string
@@ -9882,13 +9857,6 @@ export type TableRowFragment = {
   valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
 }
 
-export type ExternalLinkFragment = {
-  __typename?: 'ComponentBlocksExternalLink'
-  category?: string | null
-  title?: string | null
-  url?: string | null
-}
-
 export type AccordionItemFragment = {
   __typename?: 'ComponentBlocksAccordionItem'
   id: string
@@ -10291,6 +10259,27 @@ export type ChildrenListingSectionFragment = {
   __typename?: 'ComponentSectionsChildrenListing'
   id: string
   depth: Enum_Componentsectionschildrenlisting_Depth
+}
+
+export type CherrypickSectionFragment = {
+  __typename?: 'ComponentSectionsCherrypickSection'
+  id: string
+  title?: string | null
+  pages?: {
+    __typename?: 'PageRelationResponseCollection'
+    data: Array<{
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    }>
+  } | null
 }
 
 export const FileCategoryEntityFragmentDoc = gql`
@@ -11240,6 +11229,18 @@ export const ChildrenListingSectionFragmentDoc = gql`
     depth
   }
 `
+export const CherrypickSectionFragmentDoc = gql`
+  fragment CherrypickSection on ComponentSectionsCherrypickSection {
+    id
+    title
+    pages {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
 export const PageSectionsFragmentDoc = gql`
   fragment PageSections on PageSectionsDynamicZone {
     __typename
@@ -11293,6 +11294,9 @@ export const PageSectionsFragmentDoc = gql`
     ... on ComponentSectionsChildrenListing {
       ...ChildrenListingSection
     }
+    ... on ComponentSectionsCherrypickSection {
+      ...CherrypickSection
+    }
   }
   ${FaqSectionFragmentDoc}
   ${FlatTextSectionFragmentDoc}
@@ -11309,6 +11313,7 @@ export const PageSectionsFragmentDoc = gql`
   ${GallerySectionFragmentDoc}
   ${OpeningHoursSectionFragmentDoc}
   ${ChildrenListingSectionFragmentDoc}
+  ${CherrypickSectionFragmentDoc}
 `
 export const PageLocalizationEntityFragmentDoc = gql`
   fragment PageLocalizationEntity on PageEntity {
@@ -11392,13 +11397,6 @@ export const BookTagEntityFragmentDoc = gql`
       displayName
       slug
     }
-  }
-`
-export const ExternalLinkFragmentDoc = gql`
-  fragment ExternalLink on ComponentBlocksExternalLink {
-    category
-    title
-    url
   }
 `
 export const PaginationFragmentDoc = gql`
