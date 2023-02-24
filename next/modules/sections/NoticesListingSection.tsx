@@ -1,5 +1,5 @@
-import NoticeCard from '@components/Molecules/NoticeCard'
 import { Pagination } from '@components/ui'
+import NoticeCard from '@modules/cards-and-rows/NoticeCard'
 import {
   getNoticesQueryKey,
   noticesDefaultFilters,
@@ -34,7 +34,7 @@ const NoticesListingSection = () => {
       {data.notices?.data?.length ? (
         <div className="m-auto grid items-stretch gap-4 gap-y-10 pt-6 pb-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
           {data.notices.data?.map((notice) => (
-            <NoticeCard card={notice} key={notice?.id} />
+            <NoticeCard notice={notice} key={notice?.id} />
           ))}
         </div>
       ) : null}

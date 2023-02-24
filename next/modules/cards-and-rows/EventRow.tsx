@@ -2,8 +2,8 @@ import EventDetailsDateBox from '@components/Atoms/EventDetailsDateBox'
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@services/graphql'
-import React from 'react'
 import { useNavikronos } from '@utils/navikronos'
+import React from 'react'
 
 type EventRowProps = { event: EventCardEntityFragment }
 

@@ -1,4 +1,5 @@
-import { CallToAction, RowSubcategory } from '@components/ui'
+import PageCard from '@modules/cards-and-rows/PageCard'
+import PageRow from '@modules/cards-and-rows/PageRow'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import cx from 'classnames'
@@ -46,7 +47,7 @@ export const Listing = ({
           // eslint-disable-next-line react/no-array-index-key
           <div key={index}>
             <div className="hidden md:block">
-              <CallToAction
+              <PageCard
                 className="h-[180px]"
                 key={page.title}
                 title={page.title}
@@ -55,7 +56,7 @@ export const Listing = ({
               />
             </div>
 
-            <RowSubcategory className="md:hidden" title={page.title} href={page.path} />
+            <PageRow className="md:hidden" title={page.title} href={page.path} />
           </div>
         ))}
       </div>

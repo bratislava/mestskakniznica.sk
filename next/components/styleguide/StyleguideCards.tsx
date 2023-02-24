@@ -1,6 +1,6 @@
 import { Stack } from '@components/styleguide/Stack'
 import { Wrapper } from '@components/styleguide/Wrapper'
-import BookCard from '@modules/common/Cards/BookCard'
+import BookCard from '@modules/cards-and-rows/BookCard'
 import React from 'react'
 
 const StyleguideCards = () => {

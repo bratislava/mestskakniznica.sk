@@ -1,6 +1,7 @@
-import { Localities, SectionContainer } from '@bratislava/ui-city-library'
+import { SectionContainer } from '@bratislava/ui-city-library'
 import SectionHomepageNewBooks from '@components/HomePage/SectionHomepageNewBooks'
-import type { Book } from '@modules/common/Cards/BookCard'
+import MapSection from '@components/ui/MapSection/MapSection'
+import type { Book } from '@modules/cards-and-rows/BookCard'
 import {
   BookTagEntityFragment,
   ComponentCommonSeo,
@@ -88,7 +89,7 @@ export const Index = ({
 
         {mapSection && (
           <SectionContainer>
-            <Localities
+            <MapSection
               mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
               branches={
                 mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []

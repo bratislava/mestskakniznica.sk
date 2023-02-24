@@ -1,5 +1,5 @@
 import { Pagination } from '@components/ui'
-import BookCard from '@modules/common/Cards/BookCard'
+import BookCard from '@modules/cards-and-rows/BookCard'
 import {
   getNewBooksQueryKey,
   newBooksDefaultFilters,

@@ -2,7 +2,6 @@ import {
   Documents,
   Faq,
   FlatText,
-  Localities,
   SiteUsefullness,
   Subpages,
   Table,
@@ -10,6 +9,7 @@ import {
 } from '@bratislava/ui-city-library'
 import AccordionSection from '@components/Molecules/AccordionSection'
 import RentalSection from '@components/Molecules/RentalSection'
+import MapSection from '@components/ui/MapSection/MapSection'
 import Button from '@modules/common/Button'
 import BlogPostsListingSection from '@modules/sections/BlogPostsListingSection'
 import ChildrenListingSection from '@modules/sections/ChildrenListingSection'
@@ -179,7 +179,7 @@ const Sections = ({
 
           case 'ComponentSectionsMap':
             return (
-              <Localities
+              <MapSection
                 altDesign
                 title={section.title}
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}

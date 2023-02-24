@@ -2,7 +2,7 @@ import DocumentsCategorySelect from '@components/Atoms/Documents/DocumentsCatego
 import SearchField from '@components/Atoms/SearchField'
 import SortSelect, { Sort } from '@components/Atoms/SortSelect'
 import { Pagination } from '@components/ui'
-import { DocumentRow } from '@modules/cards-and-rows/DocumentRow'
+import DocumentRow from '@modules/cards-and-rows/DocumentRow'
 import {
   documentsDefaultFilters,
   documentsFetcher,
