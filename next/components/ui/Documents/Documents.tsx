@@ -58,8 +58,10 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
       {title && <h3 className="text-h3">{title}</h3>}
 
       <div className={cx('flex flex-col', { 'mt-6': !!title })}>
-        {parsedDocuments?.map((doc) => (
+        {parsedDocuments?.map((doc, index) => (
           <DocumentRow
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
             title={doc.content.title}
             fileExt={doc.content.fileExt}
             linkHref={doc.linkHref}

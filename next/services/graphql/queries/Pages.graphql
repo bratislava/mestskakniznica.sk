@@ -57,6 +57,10 @@ fragment PageSections on PageSectionsDynamicZone {
   ... on ComponentSectionsChildrenListing {
     ...ChildrenListingSection
   }
+
+  ... on ComponentSectionsCherrypickSection {
+    ...CherrypickSection
+  }
 }
 
 fragment PageEntity on PageEntity {
