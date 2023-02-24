@@ -110,7 +110,8 @@
         "sections.documents-listing",
         "sections.events-listing",
         "sections.new-books-listing",
-        "sections.news-listing"
+        "sections.news-listing",
+        "sections.cherrypick-section"
       ]
     },
     "branchesServicesTo": {

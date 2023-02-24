@@ -61,8 +61,13 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
   }, [fitLocalities, branches])
 
   return (
-    <section>
-      <h2 className="py-12 text-center text-h3 md:text-left">
+    <div>
+      <h2
+        className={cx('text-center text-h3 md:text-left', {
+          'py-12': !altDesign,
+          'py-6': altDesign,
+        })}
+      >
         {title || t('homepage:localitiesTitle')}
       </h2>
 
@@ -178,7 +183,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
           })}
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

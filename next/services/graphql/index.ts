@@ -1442,6 +1442,34 @@ export type ComponentSectionsBlogPostsListingInput = {
   id?: InputMaybe<Scalars['ID']>
 }
 
+export type ComponentSectionsCherrypickSection = {
+  __typename?: 'ComponentSectionsCherrypickSection'
+  id: Scalars['ID']
+  pages?: Maybe<PageRelationResponseCollection>
+  title?: Maybe<Scalars['String']>
+}
+
+export type ComponentSectionsCherrypickSectionPagesArgs = {
+  filters?: InputMaybe<PageFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type ComponentSectionsCherrypickSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsCherrypickSectionFiltersInput>>>
+  not?: InputMaybe<ComponentSectionsCherrypickSectionFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsCherrypickSectionFiltersInput>>>
+  pages?: InputMaybe<PageFiltersInput>
+  title?: InputMaybe<StringFilterInput>
+}
+
+export type ComponentSectionsCherrypickSectionInput = {
+  id?: InputMaybe<Scalars['ID']>
+  pages?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  title?: InputMaybe<Scalars['String']>
+}
+
 export type ComponentSectionsChildrenListing = {
   __typename?: 'ComponentSectionsChildrenListing'
   depth: Enum_Componentsectionschildrenlisting_Depth
@@ -2713,6 +2741,7 @@ export type GenericMorph =
   | ComponentMetadataZmluvy
   | ComponentSectionsAccordion
   | ComponentSectionsBlogPostsListing
+  | ComponentSectionsCherrypickSection
   | ComponentSectionsChildrenListing
   | ComponentSectionsCta
   | ComponentSectionsDivider
@@ -3768,6 +3797,7 @@ export type PageRelationResponseCollection = {
 export type PageSectionsDynamicZone =
   | ComponentSectionsAccordion
   | ComponentSectionsBlogPostsListing
+  | ComponentSectionsCherrypickSection
   | ComponentSectionsChildrenListing
   | ComponentSectionsCta
   | ComponentSectionsDivider
@@ -8357,6 +8387,27 @@ type PageSections_ComponentSectionsBlogPostsListing_Fragment = {
   __typename: 'ComponentSectionsBlogPostsListing'
 }
 
+type PageSections_ComponentSectionsCherrypickSection_Fragment = {
+  __typename: 'ComponentSectionsCherrypickSection'
+  id: string
+  title?: string | null
+  pages?: {
+    __typename?: 'PageRelationResponseCollection'
+    data: Array<{
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    }>
+  } | null
+}
+
 type PageSections_ComponentSectionsChildrenListing_Fragment = {
   __typename: 'ComponentSectionsChildrenListing'
   id: string
@@ -8750,6 +8801,7 @@ type PageSections_Error_Fragment = { __typename: 'Error' }
 export type PageSectionsFragment =
   | PageSections_ComponentSectionsAccordion_Fragment
   | PageSections_ComponentSectionsBlogPostsListing_Fragment
+  | PageSections_ComponentSectionsCherrypickSection_Fragment
   | PageSections_ComponentSectionsChildrenListing_Fragment
   | PageSections_ComponentSectionsCta_Fragment
   | PageSections_ComponentSectionsDivider_Fragment
@@ -8830,6 +8882,26 @@ export type PageEntityFragment = {
           } | null> | null
         }
       | { __typename: 'ComponentSectionsBlogPostsListing' }
+      | {
+          __typename: 'ComponentSectionsCherrypickSection'
+          id: string
+          title?: string | null
+          pages?: {
+            __typename?: 'PageRelationResponseCollection'
+            data: Array<{
+              __typename?: 'PageEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Page'
+                title: string
+                slug: string
+                newSlug: string
+                createdAt?: any | null
+                updatedAt?: any | null
+              } | null
+            }>
+          } | null
+        }
       | {
           __typename: 'ComponentSectionsChildrenListing'
           id: string
@@ -9309,6 +9381,26 @@ export type PageByIdQuery = {
               } | null> | null
             }
           | { __typename: 'ComponentSectionsBlogPostsListing' }
+          | {
+              __typename: 'ComponentSectionsCherrypickSection'
+              id: string
+              title?: string | null
+              pages?: {
+                __typename?: 'PageRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'PageEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Page'
+                    title: string
+                    slug: string
+                    newSlug: string
+                    createdAt?: any | null
+                    updatedAt?: any | null
+                  } | null
+                }>
+              } | null
+            }
           | {
               __typename: 'ComponentSectionsChildrenListing'
               id: string
@@ -10293,6 +10385,27 @@ export type ChildrenListingSectionFragment = {
   depth: Enum_Componentsectionschildrenlisting_Depth
 }
 
+export type CherrypickSectionFragment = {
+  __typename?: 'ComponentSectionsCherrypickSection'
+  id: string
+  title?: string | null
+  pages?: {
+    __typename?: 'PageRelationResponseCollection'
+    data: Array<{
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    }>
+  } | null
+}
+
 export const FileCategoryEntityFragmentDoc = gql`
   fragment FileCategoryEntity on FileCategoryEntity {
     id
@@ -11240,6 +11353,18 @@ export const ChildrenListingSectionFragmentDoc = gql`
     depth
   }
 `
+export const CherrypickSectionFragmentDoc = gql`
+  fragment CherrypickSection on ComponentSectionsCherrypickSection {
+    id
+    title
+    pages {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
 export const PageSectionsFragmentDoc = gql`
   fragment PageSections on PageSectionsDynamicZone {
     __typename
@@ -11293,6 +11418,9 @@ export const PageSectionsFragmentDoc = gql`
     ... on ComponentSectionsChildrenListing {
       ...ChildrenListingSection
     }
+    ... on ComponentSectionsCherrypickSection {
+      ...CherrypickSection
+    }
   }
   ${FaqSectionFragmentDoc}
   ${FlatTextSectionFragmentDoc}
@@ -11309,6 +11437,7 @@ export const PageSectionsFragmentDoc = gql`
   ${GallerySectionFragmentDoc}
   ${OpeningHoursSectionFragmentDoc}
   ${ChildrenListingSectionFragmentDoc}
+  ${CherrypickSectionFragmentDoc}
 `
 export const PageLocalizationEntityFragmentDoc = gql`
   fragment PageLocalizationEntity on PageEntity {

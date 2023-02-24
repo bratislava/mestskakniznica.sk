@@ -164,3 +164,13 @@ fragment ChildrenListingSection on ComponentSectionsChildrenListing {
   depth
 }
 
+fragment CherrypickSection on ComponentSectionsCherrypickSection {
+  id
+  title
+  pages {
+    data {
+      ...PageWithBaseFieldsEntity
+    }
+  }
+}
+

@@ -12,6 +12,7 @@ import RentalSection from '@components/Molecules/RentalSection'
 import MapSection from '@components/ui/MapSection/MapSection'
 import Button from '@modules/common/Button'
 import BlogPostsListingSection from '@modules/sections/BlogPostsListingSection'
+import CherrypickSection from '@modules/sections/CherrypickSection'
 import ChildrenListingSection from '@modules/sections/ChildrenListingSection'
 import DocumentsListingSection from '@modules/sections/DocumentsListingSection'
 import EventsListingSection from '@modules/sections/EventsListingSection'
@@ -212,6 +213,9 @@ const Sections = ({
 
           case 'ComponentSectionsChildrenListing':
             return <ChildrenListingSection section={section} />
+
+          case 'ComponentSectionsCherrypickSection':
+            return <CherrypickSection section={section} />
 
           default:
             return null
