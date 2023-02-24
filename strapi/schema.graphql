@@ -433,29 +433,6 @@ input ComponentBlocksBranchItemWithPageInput {
   page: ID
 }
 
-type ComponentBlocksExternalLink {
-  category: String
-  id: ID!
-  title: String
-  url: String
-}
-
-input ComponentBlocksExternalLinkFiltersInput {
-  and: [ComponentBlocksExternalLinkFiltersInput]
-  category: StringFilterInput
-  not: ComponentBlocksExternalLinkFiltersInput
-  or: [ComponentBlocksExternalLinkFiltersInput]
-  title: StringFilterInput
-  url: StringFilterInput
-}
-
-input ComponentBlocksExternalLinkInput {
-  category: String
-  id: ID
-  title: String
-  url: String
-}
-
 type ComponentBlocksFileItem {
   attachment: UploadFileEntityResponse!
   id: ID!
@@ -838,94 +815,6 @@ input ComponentLocalityPartsGalleryPartsInput {
   Description: String
   Photo: ID
   id: ID
-}
-
-type ComponentLocalityPartsLocalitySection {
-  id: ID!
-  isMainSection: Boolean
-  localitySectionDescription: String
-  localitySectionEmail: String
-  localitySectionPhone: String
-  localitySectionTitle: String
-  openingHoursFridayFrom: Time
-  openingHoursFridayTo: Time
-  openingHoursMondayFrom: Time
-  openingHoursMondayTo: Time
-  openingHoursSaturdayFrom: Time
-  openingHoursSaturdayTo: Time
-  openingHoursSundayFrom: Time
-  openingHoursSundayTo: Time
-  openingHoursThursdayFrom: Time
-  openingHoursThursdayTo: Time
-  openingHoursTuesdayFrom: Time
-  openingHoursTuesdayTo: Time
-  openingHoursWednesdayFrom: Time
-  openingHoursWednesdayTo: Time
-}
-
-input ComponentLocalityPartsLocalitySectionFiltersInput {
-  and: [ComponentLocalityPartsLocalitySectionFiltersInput]
-  isMainSection: BooleanFilterInput
-  localitySectionDescription: StringFilterInput
-  localitySectionEmail: StringFilterInput
-  localitySectionPhone: StringFilterInput
-  localitySectionTitle: StringFilterInput
-  not: ComponentLocalityPartsLocalitySectionFiltersInput
-  openingHoursFridayFrom: TimeFilterInput
-  openingHoursFridayTo: TimeFilterInput
-  openingHoursMondayFrom: TimeFilterInput
-  openingHoursMondayTo: TimeFilterInput
-  openingHoursSaturdayFrom: TimeFilterInput
-  openingHoursSaturdayTo: TimeFilterInput
-  openingHoursSundayFrom: TimeFilterInput
-  openingHoursSundayTo: TimeFilterInput
-  openingHoursThursdayFrom: TimeFilterInput
-  openingHoursThursdayTo: TimeFilterInput
-  openingHoursTuesdayFrom: TimeFilterInput
-  openingHoursTuesdayTo: TimeFilterInput
-  openingHoursWednesdayFrom: TimeFilterInput
-  openingHoursWednesdayTo: TimeFilterInput
-  or: [ComponentLocalityPartsLocalitySectionFiltersInput]
-}
-
-input ComponentLocalityPartsLocalitySectionInput {
-  id: ID
-  isMainSection: Boolean
-  localitySectionDescription: String
-  localitySectionEmail: String
-  localitySectionPhone: String
-  localitySectionTitle: String
-  openingHoursFridayFrom: Time
-  openingHoursFridayTo: Time
-  openingHoursMondayFrom: Time
-  openingHoursMondayTo: Time
-  openingHoursSaturdayFrom: Time
-  openingHoursSaturdayTo: Time
-  openingHoursSundayFrom: Time
-  openingHoursSundayTo: Time
-  openingHoursThursdayFrom: Time
-  openingHoursThursdayTo: Time
-  openingHoursTuesdayFrom: Time
-  openingHoursTuesdayTo: Time
-  openingHoursWednesdayFrom: Time
-  openingHoursWednesdayTo: Time
-}
-
-type ComponentLocalityPartsLocalityServices {
-  id: ID!
-  page: PageEntityResponse
-}
-
-input ComponentLocalityPartsLocalityServicesFiltersInput {
-  and: [ComponentLocalityPartsLocalityServicesFiltersInput]
-  not: ComponentLocalityPartsLocalityServicesFiltersInput
-  or: [ComponentLocalityPartsLocalityServicesFiltersInput]
-  page: PageFiltersInput
-}
-
-input ComponentLocalityPartsLocalityServicesInput {
-  id: ID
-  page: ID
 }
 
 type ComponentMenuSectionLinks {
@@ -2304,7 +2193,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
