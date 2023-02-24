@@ -1,4 +1,5 @@
 import { SectionContainer } from '@components/ui'
+import NoticeCard from '@modules/cards-and-rows/NoticeCard'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { ComponentHomepageNewsSection, NoticeListingEntityFragment } from '@services/graphql'
 import { useNavikronos } from '@utils/navikronos'
@@ -6,7 +7,6 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import Carousel from '../../modules/common/Carousel/Carousel'
-import NoticeCard from '../Molecules/NoticeCard'
 
 interface LibraryNewsProps {
   notices: NoticeListingEntityFragment[]
@@ -27,7 +27,7 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
             listClassName="py-10 gap-4 lg:gap-8"
             itemClassName="w-10/12 max-w-[268px] md:max-w-[271px]"
             items={notices.map((notice) => ({
-              element: <NoticeCard card={notice} />,
+              element: <NoticeCard notice={notice} />,
               key: notice.id ?? undefined,
             }))}
             visibleItemsCount={4}

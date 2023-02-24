@@ -3,20 +3,19 @@ import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 
-export interface PartnerProps {
-  id?: string | null
-  title?: string
-  linkHref?: string
+type PartnerCardRowProps = {
+  title: string
+  linkHref: string
+  id: string
   logo?: string
-  alt?: string
-  featured?: boolean | null | undefined
+  featured?: boolean
 }
 
-export const PartnerCard = ({ id, title, linkHref, logo, alt, featured }: PartnerProps) => {
+const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: PartnerCardRowProps) => {
   const { t } = useTranslation('common')
   return (
     <li
-      className={cx('relative flex w-full border-border-dark p-4 lg:p-5', {
+      className={cx('relative flex w-full border-border-dark py-4 lg:p-5', {
         'min-h-[199px] flex-col items-center justify-end border': featured,
         'flex-row justify-between border-b last:border-0 lg:border lg:last:border': !featured,
       })}
@@ -26,40 +25,45 @@ export const PartnerCard = ({ id, title, linkHref, logo, alt, featured }: Partne
           <img
             className="h-full w-full max-w-[250px] object-contain"
             src={logo ?? ''}
-            alt={alt ?? ''}
+            // empty alt on purpose
+            alt=""
           />
         </div>
       )}
-      <h5
+      <h3
         className={cx('text-h5', {
           'mt-4 text-center lg:mt-5': featured,
-          'max-w-[246px] lg:max-w-full': !featured,
         })}
-        id={id ?? title}
+        id={id}
       >
         {title}
-      </h5>
+      </h3>
 
       <div
-        className={cx('mt-[6px] flex text-xs font-medium leading-[1.2] lg:mt-[13px] lg:text-sm', {
-          'hidden lg:inline-flex': !featured,
+        className={cx('text-xs font-medium leading-[1.2] lg:text-sm', {
+          'mt-[6px] lg:mt-[13px]': featured,
         })}
       >
         <MLink
           target="_blank"
-          className={cx('flex items-center space-x-[9px]', {
-            '': featured,
-          })}
+          variant="basic"
           stretched
-          aria-labelledby={id ?? title}
-          href={linkHref ?? '#'}
+          aria-labelledby={id}
+          href={linkHref}
+          className="flex items-center gap-x-[9px] uppercase"
         >
           <GlobeIcon />
-          <span className="uppercase">{t('showWeb')}</span>
+          <span
+            className={cx({
+              'hidden lg:inline-flex': !featured,
+            })}
+          >
+            {t('showWeb')}
+          </span>
         </MLink>
       </div>
     </li>
   )
 }
 
-export default PartnerCard
+export default PartnerCardRow

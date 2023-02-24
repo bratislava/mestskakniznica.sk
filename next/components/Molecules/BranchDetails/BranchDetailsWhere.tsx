@@ -1,4 +1,4 @@
-import { LocalityMap } from '@components/ui'
+import { BranchMap } from '@components/ui'
 import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
@@ -21,10 +21,10 @@ const BranchDetailsWhere = ({ branch }: BranchDetailsWhereProps) => {
       <div className="pb-6 text-h3">{t('localityWhereToFind')}</div>
       <div className="flex grid-cols-2 flex-col gap-x-5 space-y-4 md:grid">
         <div className="h-64 w-full md:h-[415px]">
-          <LocalityMap
-            localityName={title}
-            localityLatitude={latitude ?? undefined}
-            localityLongitude={longitude ?? undefined}
+          <BranchMap
+            branchName={title}
+            branchLatitude={latitude ?? undefined}
+            branchLongitude={longitude ?? undefined}
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
           />
         </div>

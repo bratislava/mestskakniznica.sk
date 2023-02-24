@@ -1,6 +1,6 @@
 import { Link, SectionContainer } from '@bratislava/ui-city-library'
-import EventCard from '@components/Molecules/EventCard'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
+import EventCard from '@modules/cards-and-rows/EventCard'
 import { EventEntityFragment } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'

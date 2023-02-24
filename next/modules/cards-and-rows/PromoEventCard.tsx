@@ -1,3 +1,5 @@
+import EventDetailsDateBox from '@components/Atoms/EventDetailsDateBox'
+import TagsDisplay from '@components/Atoms/TagsDisplay'
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@services/graphql'
@@ -5,14 +7,11 @@ import { isDefined, WithAttributes } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import Image from 'next/image'
 
-import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
-import TagsDisplay from '../../Atoms/TagsDisplay'
-
-interface IPromoEventCardProps {
+type PromoEventCardProps = {
   event: WithAttributes<EventCardEntityFragment> | null | undefined
 }
 
-const PromoEventCard = ({ event }: IPromoEventCardProps) => {
+const PromoEventCard = ({ event }: PromoEventCardProps) => {
   const { getPathForEntity } = useNavikronos()
 
   if (!event) {
@@ -44,7 +43,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
           tagsCount={3}
         />
 
-        <div className="text-h2 text-foreground-heading line-clamp-3">
+        <h3 className="text-h2 line-clamp-3">
           <MLink
             href={getPathForEntity({ type: 'event', slug }) ?? ''}
             variant="basic"
@@ -53,7 +52,7 @@ const PromoEventCard = ({ event }: IPromoEventCardProps) => {
           >
             {title}
           </MLink>
-        </div>
+        </h3>
       </div>
       <div>
         <div className="flex items-center gap-x-4 overflow-hidden px-4 pb-1 md:px-5 md:pb-5">

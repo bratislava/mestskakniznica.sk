@@ -2,13 +2,13 @@ import { ChevronRightIcon } from '@assets/icons'
 import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 
-export interface RowSubcategoryProps {
+type PageRowProps = {
   className?: string
   title: string
   href: string
 }
 
-export const RowSubcategory = ({ className, title, href }: RowSubcategoryProps) => {
+const PageRow = ({ className, title, href }: PageRowProps) => {
   return (
     <div
       className={cx(
@@ -23,3 +23,5 @@ export const RowSubcategory = ({ className, title, href }: RowSubcategoryProps) 
     </div>
   )
 }
+
+export default PageRow

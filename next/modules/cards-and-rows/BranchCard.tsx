@@ -5,7 +5,7 @@ import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-interface BranchCardProps {
+type BranchCardProps = {
   title: string
   address: string
   pageId: string | null | undefined
@@ -25,12 +25,14 @@ const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
         className="h-48 w-full object-cover"
       />
       <div className="pt-4">
-        <div>
+        <h3>
           <MLink href={href} stretched variant="basic">
             {title}
           </MLink>
-        </div>
+        </h3>
+
         <div className="pt-3 text-base text-foreground-body">{address}</div>
+
         <ShowMoreLink href={href} tabIndex={-1} className="mt-6" parentGroup>
           {t('showMore')}
         </ShowMoreLink>

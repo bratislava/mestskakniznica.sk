@@ -12,7 +12,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 import { useIsClient } from 'usehooks-ts'
 
-export interface LocalitiesProps {
+type MapSectionProps = {
   branches: BranchCardEntityFragment[]
   mapboxAccessToken: string
   title?: string | null | undefined
@@ -31,12 +31,7 @@ const getBoundsForLocalities = (branches: BranchCardEntityFragment[]) => {
   ] as [[number, number], [number, number]]
 }
 
-export const Localities = ({
-  branches,
-  mapboxAccessToken,
-  title,
-  altDesign = false,
-}: LocalitiesProps) => {
+const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: MapSectionProps) => {
   const { t } = useTranslation()
   const { getPathForEntity } = useNavikronos()
 
@@ -187,4 +182,4 @@ export const Localities = ({
   )
 }
 
-export default Localities
+export default MapSection

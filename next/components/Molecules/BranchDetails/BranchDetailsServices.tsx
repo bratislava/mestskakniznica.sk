@@ -1,4 +1,4 @@
-import { CallToAction } from '@components/ui'
+import PageCard from '@modules/cards-and-rows/PageCard'
 import { BranchEntityFragment } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
@@ -27,7 +27,7 @@ const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
           }
 
           return (
-            <CallToAction
+            <PageCard
               key={service.id}
               title={service.attributes.title}
               href={getPathForEntity({ type: 'page', id: service.id }) ?? ''}

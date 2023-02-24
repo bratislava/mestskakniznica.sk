@@ -5,7 +5,7 @@ import FormatDate from '@modules/formatting/FormatDate'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
-export interface RowFileProps {
+type DocumentRowProps = {
   title: string
   fileExt: string
   linkHref: string
@@ -14,14 +14,14 @@ export interface RowFileProps {
   addedAt?: string
 }
 
-export const DocumentRow = ({
+const DocumentRow = ({
   title,
   fileExt,
   linkHref,
   category,
   addedAt,
   metadata,
-}: RowFileProps) => {
+}: DocumentRowProps) => {
   const { t } = useTranslation('common')
 
   return (
@@ -50,3 +50,5 @@ export const DocumentRow = ({
     </div>
   )
 }
+
+export default DocumentRow

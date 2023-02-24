@@ -11,7 +11,7 @@ interface RegistrationInfoProps {
   registrationInfoSection: ComponentHomepageRegistrationInfo
 }
 
-const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) => {
+const SectionRegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) => {
   const { t } = useTranslation('homepage')
   const { getPathForEntity } = useNavikronos()
   const registerToLibraryId = registrationInfoSection?.redirectTo?.data?.id
@@ -19,7 +19,7 @@ const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) =>
   return (
     <SectionContainer hasBorder>
       <div className="flex w-full">
-        <div className="flex w-full flex-col pt-12 md:flex-row md:space-x-8 md:px-8 lg:px-16">
+        <div className="flex w-full flex-col py-12 md:flex-row md:space-x-8 md:px-8 lg:px-16">
           <div className="mx-auto w-full max-w-sm">
             <RegisterToLibrary />
           </div>
@@ -51,4 +51,4 @@ const RegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) =>
   )
 }
 
-export default RegistrationInfo
+export default SectionRegistrationInfo

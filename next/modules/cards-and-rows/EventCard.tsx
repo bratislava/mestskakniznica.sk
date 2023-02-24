@@ -1,3 +1,5 @@
+import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
+import TagsDisplay from '@components/Atoms/TagsDisplay'
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import {
@@ -6,13 +8,9 @@ import {
   EventTagsFragment,
   UploadImageFragment,
 } from '@services/graphql'
-import { EventInListingMeili } from '@services/meili/meiliTypes'
 import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
-
-import Placeholder from '../../assets/images/list-item-thumbnail.jpeg'
-import TagsDisplay from '../Atoms/TagsDisplay'
 
 type EventCardProps = {
   title?: string
@@ -41,8 +39,6 @@ const EventCard = ({
   const { getPathForEntity } = useNavikronos()
 
   return (
-    // TODO refactor link to meet html validation standards
-
     <div className="relative">
       <img
         className="h-[200px] w-full flex-1 object-cover"
@@ -61,14 +57,16 @@ const EventCard = ({
         )}
       </div>
 
-      <div className="justify-end pt-2 text-h5 line-clamp-3">
+      <h3 className="pt-2 text-h5 line-clamp-3">
         <MLink variant="basic" stretched href={getPathForEntity({ type: 'event', slug }) ?? ''}>
           {title}
         </MLink>
-      </div>
+      </h3>
+
       <div className="pt-2 text-sm text-foreground-body">
         <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} />
       </div>
+
       {branch?.title && (
         <div className="pt-2 text-sm text-foreground-body">&#9679; {branch.title}</div>
       )}

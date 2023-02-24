@@ -1,8 +1,7 @@
-import { DocumentRow } from '@modules/cards-and-rows/DocumentRow'
+import DocumentRow from '@modules/cards-and-rows/DocumentRow'
 import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
 import { hasAttributes, isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
-import { useDisclosureMetadata } from '@utils/useDisclosureMetadata'
 import cx from 'classnames'
 
 export interface DocumentsProps {
@@ -13,7 +12,6 @@ export interface DocumentsProps {
 
 export const Documents = ({ className, title, documents }: DocumentsProps) => {
   const { getPathForEntity } = useNavikronos()
-  const { getDisclosureMetadata } = useDisclosureMetadata()
 
   const parsedDocuments = documents
     .filter(hasAttributes)
@@ -31,7 +29,6 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
             title: docTitle,
             metadata: contractor ? `${contractor}` : undefined,
             // eslint-disable-next-line unicorn/consistent-destructuring
-            addedAt: document.attributes?.addedAt,
             fileExt: file?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
           },
         }
@@ -47,7 +44,6 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
             category: documentCategory?.data?.attributes?.label,
             title: docTitle,
             // eslint-disable-next-line unicorn/consistent-destructuring
-            addedAt: document.attributes.publishedAt,
             fileExt: file.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
           },
         }
@@ -68,7 +64,6 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
             fileExt={doc.content.fileExt}
             linkHref={doc.linkHref}
             category={doc.content.category}
-            addedAt={doc.content.addedAt}
             metadata={doc.content.metadata}
           />
         ))}
