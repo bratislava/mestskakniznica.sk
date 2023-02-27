@@ -1248,22 +1248,28 @@ input ComponentSectionsEventsListingInput {
 }
 
 type ComponentSectionsFaq {
+  ctaButton: String
   id: ID!
   questions(filters: ComponentBlocksAccordionItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksAccordionItem]
+  redirectTo: PageEntityResponse
   title: String
 }
 
 input ComponentSectionsFaqFiltersInput {
   and: [ComponentSectionsFaqFiltersInput]
+  ctaButton: StringFilterInput
   not: ComponentSectionsFaqFiltersInput
   or: [ComponentSectionsFaqFiltersInput]
   questions: ComponentBlocksAccordionItemFiltersInput
+  redirectTo: PageFiltersInput
   title: StringFilterInput
 }
 
 input ComponentSectionsFaqInput {
+  ctaButton: String
   id: ID
   questions: [ComponentBlocksAccordionItemInput]
+  redirectTo: ID
   title: String
 }
 

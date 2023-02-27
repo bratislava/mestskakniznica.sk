@@ -1489,8 +1489,10 @@ export type ComponentSectionsEventsListingInput = {
 
 export type ComponentSectionsFaq = {
   __typename?: 'ComponentSectionsFaq'
+  ctaButton?: Maybe<Scalars['String']>
   id: Scalars['ID']
   questions?: Maybe<Array<Maybe<ComponentBlocksAccordionItem>>>
+  redirectTo?: Maybe<PageEntityResponse>
   title?: Maybe<Scalars['String']>
 }
 
@@ -1502,15 +1504,19 @@ export type ComponentSectionsFaqQuestionsArgs = {
 
 export type ComponentSectionsFaqFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentSectionsFaqFiltersInput>>>
+  ctaButton?: InputMaybe<StringFilterInput>
   not?: InputMaybe<ComponentSectionsFaqFiltersInput>
   or?: InputMaybe<Array<InputMaybe<ComponentSectionsFaqFiltersInput>>>
   questions?: InputMaybe<ComponentBlocksAccordionItemFiltersInput>
+  redirectTo?: InputMaybe<PageFiltersInput>
   title?: InputMaybe<StringFilterInput>
 }
 
 export type ComponentSectionsFaqInput = {
+  ctaButton?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   questions?: InputMaybe<Array<InputMaybe<ComponentBlocksAccordionItemInput>>>
+  redirectTo?: InputMaybe<Scalars['ID']>
   title?: InputMaybe<Scalars['String']>
 }
 
@@ -5113,12 +5119,28 @@ type BlogPostSections_ComponentSectionsFaq_Fragment = {
   __typename: 'ComponentSectionsFaq'
   id: string
   title?: string | null
+  ctaButton?: string | null
   questions?: Array<{
     __typename?: 'ComponentBlocksAccordionItem'
     id: string
     label?: string | null
     content?: string | null
   } | null> | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
 }
 
 type BlogPostSections_ComponentSectionsFlatText_Fragment = {
@@ -5338,12 +5360,28 @@ export type BlogPostEntityFragment = {
           __typename: 'ComponentSectionsFaq'
           id: string
           title?: string | null
+          ctaButton?: string | null
           questions?: Array<{
             __typename?: 'ComponentBlocksAccordionItem'
             id: string
             label?: string | null
             content?: string | null
           } | null> | null
+          redirectTo?: {
+            __typename?: 'PageEntityResponse'
+            data?: {
+              __typename?: 'PageEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Page'
+                title: string
+                slug: string
+                newSlug: string
+                createdAt?: any | null
+                updatedAt?: any | null
+              } | null
+            } | null
+          } | null
         }
       | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
       | {
@@ -5582,12 +5620,28 @@ export type BlogPostBySlugQuery = {
               __typename: 'ComponentSectionsFaq'
               id: string
               title?: string | null
+              ctaButton?: string | null
               questions?: Array<{
                 __typename?: 'ComponentBlocksAccordionItem'
                 id: string
                 label?: string | null
                 content?: string | null
               } | null> | null
+              redirectTo?: {
+                __typename?: 'PageEntityResponse'
+                data?: {
+                  __typename?: 'PageEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Page'
+                    title: string
+                    slug: string
+                    newSlug: string
+                    createdAt?: any | null
+                    updatedAt?: any | null
+                  } | null
+                } | null
+              } | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
           | {
@@ -5814,12 +5868,28 @@ export type BlogPostsQuery = {
               __typename: 'ComponentSectionsFaq'
               id: string
               title?: string | null
+              ctaButton?: string | null
               questions?: Array<{
                 __typename?: 'ComponentBlocksAccordionItem'
                 id: string
                 label?: string | null
                 content?: string | null
               } | null> | null
+              redirectTo?: {
+                __typename?: 'PageEntityResponse'
+                data?: {
+                  __typename?: 'PageEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Page'
+                    title: string
+                    slug: string
+                    newSlug: string
+                    createdAt?: any | null
+                    updatedAt?: any | null
+                  } | null
+                } | null
+              } | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
           | {
@@ -8399,12 +8469,28 @@ type PageSections_ComponentSectionsFaq_Fragment = {
   __typename: 'ComponentSectionsFaq'
   id: string
   title?: string | null
+  ctaButton?: string | null
   questions?: Array<{
     __typename?: 'ComponentBlocksAccordionItem'
     id: string
     label?: string | null
     content?: string | null
   } | null> | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
 }
 
 type PageSections_ComponentSectionsFlatText_Fragment = {
@@ -8884,12 +8970,28 @@ export type PageEntityFragment = {
           __typename: 'ComponentSectionsFaq'
           id: string
           title?: string | null
+          ctaButton?: string | null
           questions?: Array<{
             __typename?: 'ComponentBlocksAccordionItem'
             id: string
             label?: string | null
             content?: string | null
           } | null> | null
+          redirectTo?: {
+            __typename?: 'PageEntityResponse'
+            data?: {
+              __typename?: 'PageEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Page'
+                title: string
+                slug: string
+                newSlug: string
+                createdAt?: any | null
+                updatedAt?: any | null
+              } | null
+            } | null
+          } | null
         }
       | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
       | {
@@ -9383,12 +9485,28 @@ export type PageByIdQuery = {
               __typename: 'ComponentSectionsFaq'
               id: string
               title?: string | null
+              ctaButton?: string | null
               questions?: Array<{
                 __typename?: 'ComponentBlocksAccordionItem'
                 id: string
                 label?: string | null
                 content?: string | null
               } | null> | null
+              redirectTo?: {
+                __typename?: 'PageEntityResponse'
+                data?: {
+                  __typename?: 'PageEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Page'
+                    title: string
+                    slug: string
+                    newSlug: string
+                    createdAt?: any | null
+                    updatedAt?: any | null
+                  } | null
+                } | null
+              } | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
           | {
@@ -10222,12 +10340,28 @@ export type FaqSectionFragment = {
   __typename?: 'ComponentSectionsFaq'
   id: string
   title?: string | null
+  ctaButton?: string | null
   questions?: Array<{
     __typename?: 'ComponentBlocksAccordionItem'
     id: string
     label?: string | null
     content?: string | null
   } | null> | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
 }
 
 export type OpeningHoursSectionFragment = {
@@ -10422,6 +10556,18 @@ export const AccordionItemFragmentDoc = gql`
     content
   }
 `
+export const PageWithBaseFieldsEntityFragmentDoc = gql`
+  fragment PageWithBaseFieldsEntity on PageEntity {
+    id
+    attributes {
+      title
+      slug
+      newSlug
+      createdAt
+      updatedAt
+    }
+  }
+`
 export const FaqSectionFragmentDoc = gql`
   fragment FaqSection on ComponentSectionsFaq {
     id
@@ -10429,8 +10575,15 @@ export const FaqSectionFragmentDoc = gql`
     questions {
       ...AccordionItem
     }
+    ctaButton
+    redirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
   }
   ${AccordionItemFragmentDoc}
+  ${PageWithBaseFieldsEntityFragmentDoc}
 `
 export const FlatTextSectionFragmentDoc = gql`
   fragment FlatTextSection on ComponentSectionsFlatText {
@@ -10931,18 +11084,6 @@ export const EventEntityFragmentDoc = gql`
   ${UploadImageEntityFragmentDoc}
   ${DocumentsSectionFragmentDoc}
   ${SeoFragmentDoc}
-`
-export const PageWithBaseFieldsEntityFragmentDoc = gql`
-  fragment PageWithBaseFieldsEntity on PageEntity {
-    id
-    attributes {
-      title
-      slug
-      newSlug
-      createdAt
-      updatedAt
-    }
-  }
 `
 export const SectionLinkPageEntityFragmentDoc = gql`
   fragment SectionLinkPageEntity on PageEntity {
