@@ -39,7 +39,7 @@ export const TextArea = ({
           })}
           aria-invalid={hasError}
           aria-required={required}
-          aria-errormessage={errorMessage ? `${id}_err` : ''}
+          aria-errormessage={errorMessage ? `${id ?? ''}_err` : ''}
           {...props}
         >
           {children}
@@ -49,7 +49,7 @@ export const TextArea = ({
       {/* Error Message */}
       {errorMessage && (
         <p
-          id={`${id}_err`}
+          id={`${id ?? ''}_err`}
           className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
           aria-labelledby={id}
         >

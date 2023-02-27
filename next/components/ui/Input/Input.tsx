@@ -35,7 +35,7 @@ export const Input = ({
       {labelContent && (
         <label
           className={cx(labelClassName, 'mb-0.5 text-sm text-foreground-heading opacity-80')}
-          id={`${id}_label`}
+          id={`${id ?? ''}_label`}
           htmlFor={id}
         >
           {labelContent}
@@ -60,7 +60,7 @@ export const Input = ({
           })}
           aria-invalid={hasError}
           aria-required={required}
-          aria-errormessage={errorMessage ? `${id}_err` : ''}
+          aria-errormessage={errorMessage ? `${id ?? ''}_err` : ''}
           {...props}
         />
 
@@ -77,9 +77,9 @@ export const Input = ({
       {/* Error Message */}
       {hasError && errorMessage && (
         <p
-          id={`${id}_err`}
+          id={`${id ?? ''}_err`}
           className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
-          aria-labelledby={`${id}_label`}
+          aria-labelledby={`${id ?? ''}_label`}
         >
           {labelContent} {errorMessage}
         </p>
