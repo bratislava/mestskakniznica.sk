@@ -40,7 +40,7 @@ module.exports = {
     join(__dirname, 'modules/**/*.{js,ts,jsx,tsx}'),
   ],
   corePlugins: {
-    // aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
+    aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
   },
   plugins: [
     scrollBarHide,
