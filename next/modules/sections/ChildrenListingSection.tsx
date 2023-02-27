@@ -48,7 +48,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
   )
 
   if (section.depth === Enum_Componentsectionschildrenlisting_Depth.Depth_1) {
-    return <Listing className="mt-8 md:mt-16" title="TODO title" listingChildren={children} />
+    return <Listing className="mt-8 md:mt-16" listingChildren={children} />
   }
 
   if (section.depth === Enum_Componentsectionschildrenlisting_Depth.Depth_2) {
