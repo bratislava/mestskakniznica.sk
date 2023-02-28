@@ -27,8 +27,8 @@ const DocumentsCategorySelect = ({ onCategoryChange = () => {} }: DocumentsCateg
         label: Enum_Disclosure_Type_Fixed.Objednavky,
       },
       {
-        key: Enum_Disclosure_Type_Fixed.Zmluva,
-        label: Enum_Disclosure_Type_Fixed.Zmluva,
+        key: Enum_Disclosure_Type_Fixed.Zmluvy,
+        label: Enum_Disclosure_Type_Fixed.Zmluvy,
       },
       {
         key: Enum_Disclosure_Type_Fixed.VerejneObstaravanie,
@@ -39,8 +39,8 @@ const DocumentsCategorySelect = ({ onCategoryChange = () => {} }: DocumentsCateg
         label: Enum_Disclosure_Type_Fixed.ObchodnaVerejnaSutaz,
       },
       {
-        key: Enum_Disclosure_Type_Fixed.Grant,
-        label: Enum_Disclosure_Type_Fixed.Grant,
+        key: Enum_Disclosure_Type_Fixed.Granty,
+        label: Enum_Disclosure_Type_Fixed.Granty,
       },
       {
         key: Enum_Disclosure_Type_Fixed.Ostatne,
