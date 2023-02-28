@@ -9,9 +9,6 @@ export const getDisclosureTypeFixed = (type: Enum_Disclosure_Type) => {
     case Enum_Disclosure_Type.Objednavky:
       return Enum_Disclosure_Type_Fixed.Objednavky
 
-    case Enum_Disclosure_Type.Zmluva:
-      return Enum_Disclosure_Type_Fixed.Zmluva
-
     case Enum_Disclosure_Type.Zmluvy:
       return Enum_Disclosure_Type_Fixed.Zmluvy
 
@@ -20,9 +17,6 @@ export const getDisclosureTypeFixed = (type: Enum_Disclosure_Type) => {
 
     case Enum_Disclosure_Type.ObchodnaVerejnaSutaz:
       return Enum_Disclosure_Type_Fixed.ObchodnaVerejnaSutaz
-
-    case Enum_Disclosure_Type.Grant:
-      return Enum_Disclosure_Type_Fixed.Grant
 
     case Enum_Disclosure_Type.Granty:
       return Enum_Disclosure_Type_Fixed.Granty
