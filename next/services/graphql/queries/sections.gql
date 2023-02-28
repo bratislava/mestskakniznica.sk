@@ -84,7 +84,7 @@ fragment AccordionSection on ComponentSectionsAccordion {
     ...FlatText
   }
   tableRows(pagination: { limit: -1 }) {
-    ...TableRow
+    ...TableRowWithId
   }
   forms {
     category
@@ -97,6 +97,7 @@ fragment TableSection on ComponentSectionsTable {
   primaryTitle
   secondaryTitle
   rows {
+    id
     label
     value
     valueAlign
@@ -179,4 +180,3 @@ fragment CherrypickSection on ComponentSectionsCherrypickSection {
     }
   }
 }
-

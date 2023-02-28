@@ -49,6 +49,7 @@ type HomeProps = {
   CLNavikronosPageProps
 
 export const Index = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   localizations, // TODO examine
   promos,
   latestNotices,

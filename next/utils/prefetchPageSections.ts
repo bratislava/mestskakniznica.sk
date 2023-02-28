@@ -1,4 +1,4 @@
-import { Enum_Page_Layout, PageEntityFragment } from '@services/graphql'
+import { PageEntityFragment } from '@services/graphql'
 import {
   blogPostsDefaultFilters,
   blogPostsFetcher,

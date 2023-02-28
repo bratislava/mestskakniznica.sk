@@ -53,7 +53,7 @@ export const RadioGroup = <T extends IRadioOption>({
         <RadioGroupPrimitive.Root
           aria-label={labelContent}
           aria-invalid={hasError}
-          aria-errormessage={errorMessage ? `${id}_err` : ''}
+          aria-errormessage={errorMessage ? `${id ?? ''}_err` : ''}
           className={className}
           onValueChange={onChange}
           value={value}
@@ -99,7 +99,7 @@ export const RadioGroup = <T extends IRadioOption>({
         {/* Error Message */}
         {hasError && errorMessage && (
           <p
-            id={`${id}_err`}
+            id={`${id ?? ''}_err`}
             className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
             aria-labelledby={id}
           >

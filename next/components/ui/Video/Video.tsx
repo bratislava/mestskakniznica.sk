@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 interface IVideo {
   id?: string
@@ -12,9 +12,9 @@ interface IVideo {
 export const Video = ({ id, className, youTubeUrl, mediaUrl, size = 'default' }: IVideo) => {
   const [embedUrl, setEmbedUrl] = React.useState('')
 
-  React.useEffect(() => {
+  useEffect(() => {
     const parseYoutubeUrl = async () => {
-      const oembedUrl = `https://www.youtube.com/oembed?url=${youTubeUrl}&format=json`
+      const oembedUrl = `https://www.youtube.com/oembed?url=${youTubeUrl ?? ''}&format=json`
       const res = await fetch(oembedUrl)
       const { html }: { html: string } = await res.json()
 
@@ -25,7 +25,9 @@ export const Video = ({ id, className, youTubeUrl, mediaUrl, size = 'default' }:
       setEmbedUrl(embedUrlInner)
     }
 
-    if (youTubeUrl) parseYoutubeUrl()
+    if (youTubeUrl)
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      parseYoutubeUrl()
   }, [youTubeUrl])
 
   return (
