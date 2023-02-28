@@ -60,7 +60,7 @@ export const Input = ({
           })}
           aria-invalid={hasError}
           aria-required={required}
-          aria-errormessage={errorMessage ? `${id ?? ''}_err` : ''}
+          aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}
           {...props}
         />
 

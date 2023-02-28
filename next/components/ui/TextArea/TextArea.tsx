@@ -39,7 +39,7 @@ export const TextArea = ({
           })}
           aria-invalid={hasError}
           aria-required={required}
-          aria-errormessage={errorMessage ? `${id ?? ''}_err` : ''}
+          aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}
           {...props}
         >
           {children}

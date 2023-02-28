@@ -53,7 +53,7 @@ export const RadioGroup = <T extends IRadioOption>({
         <RadioGroupPrimitive.Root
           aria-label={labelContent}
           aria-invalid={hasError}
-          aria-errormessage={errorMessage ? `${id ?? ''}_err` : ''}
+          aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}
           className={className}
           onValueChange={onChange}
           value={value}
