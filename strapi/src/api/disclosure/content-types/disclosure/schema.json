@@ -33,9 +33,11 @@
         "Faktúry",
         "Objednávky",
         "Zmluva",
+        "Zmluvy",
         "Verejné obstarávanie",
         "Obchodná verejná súťaž",
         "Grant",
+        "Granty",
         "Ostatné"
       ],
       "required": true

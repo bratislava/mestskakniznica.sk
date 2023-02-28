@@ -25,9 +25,11 @@ export type AsyncServerProps<
 export enum Enum_Disclosure_Type_Fixed {
   Faktury = 'Faktúry',
   Grant = 'Grant',
+  Granty = 'Granty',
   ObchodnaVerejnaSutaz = 'Obchodná verejná súťaž',
   Objednavky = 'Objednávky',
   Ostatne = 'Ostatné',
   VerejneObstaravanie = 'Verejné obstarávanie',
   Zmluva = 'Zmluva',
+  Zmluvy = 'Zmluvy',
 }

@@ -11,7 +11,7 @@ type ContactUsSidebarProps = {
 const ContactUsSidebar = ({ branch }: ContactUsSidebarProps) => {
   const { t } = useTranslation('common')
 
-  if (!branch?.attributes?.subBranches?.data.length) {
+  if (!branch?.attributes?.subBranches?.data.length && !branch) {
     return null
   }
 
