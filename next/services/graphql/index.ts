@@ -1489,8 +1489,10 @@ export type ComponentSectionsEventsListingInput = {
 
 export type ComponentSectionsFaq = {
   __typename?: 'ComponentSectionsFaq'
+  ctaButton?: Maybe<Scalars['String']>
   id: Scalars['ID']
   questions?: Maybe<Array<Maybe<ComponentBlocksAccordionItem>>>
+  redirectTo?: Maybe<PageEntityResponse>
   title?: Maybe<Scalars['String']>
 }
 
@@ -1502,15 +1504,19 @@ export type ComponentSectionsFaqQuestionsArgs = {
 
 export type ComponentSectionsFaqFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentSectionsFaqFiltersInput>>>
+  ctaButton?: InputMaybe<StringFilterInput>
   not?: InputMaybe<ComponentSectionsFaqFiltersInput>
   or?: InputMaybe<Array<InputMaybe<ComponentSectionsFaqFiltersInput>>>
   questions?: InputMaybe<ComponentBlocksAccordionItemFiltersInput>
+  redirectTo?: InputMaybe<PageFiltersInput>
   title?: InputMaybe<StringFilterInput>
 }
 
 export type ComponentSectionsFaqInput = {
+  ctaButton?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   questions?: InputMaybe<Array<InputMaybe<ComponentBlocksAccordionItemInput>>>
+  redirectTo?: InputMaybe<Scalars['ID']>
   title?: InputMaybe<Scalars['String']>
 }
 
@@ -5006,6 +5012,7 @@ type BlogPostSections_ComponentSectionsAccordion_Fragment = {
   } | null> | null
   tableRows?: Array<{
     __typename?: 'ComponentAccordionItemsTableRow'
+    id: string
     accordionCategory?: string | null
     tableCategory?: string | null
     label?: string | null
@@ -5113,12 +5120,28 @@ type BlogPostSections_ComponentSectionsFaq_Fragment = {
   __typename: 'ComponentSectionsFaq'
   id: string
   title?: string | null
+  ctaButton?: string | null
   questions?: Array<{
     __typename?: 'ComponentBlocksAccordionItem'
     id: string
     label?: string | null
     content?: string | null
   } | null> | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
 }
 
 type BlogPostSections_ComponentSectionsFlatText_Fragment = {
@@ -5168,6 +5191,7 @@ type BlogPostSections_ComponentSectionsTable_Fragment = {
   secondaryTitle?: string | null
   rows?: Array<{
     __typename?: 'ComponentAccordionItemsTableRow'
+    id: string
     label?: string | null
     value?: string | null
     valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
@@ -5234,6 +5258,7 @@ export type BlogPostEntityFragment = {
           } | null> | null
           tableRows?: Array<{
             __typename?: 'ComponentAccordionItemsTableRow'
+            id: string
             accordionCategory?: string | null
             tableCategory?: string | null
             label?: string | null
@@ -5338,12 +5363,28 @@ export type BlogPostEntityFragment = {
           __typename: 'ComponentSectionsFaq'
           id: string
           title?: string | null
+          ctaButton?: string | null
           questions?: Array<{
             __typename?: 'ComponentBlocksAccordionItem'
             id: string
             label?: string | null
             content?: string | null
           } | null> | null
+          redirectTo?: {
+            __typename?: 'PageEntityResponse'
+            data?: {
+              __typename?: 'PageEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Page'
+                title: string
+                slug: string
+                newSlug: string
+                createdAt?: any | null
+                updatedAt?: any | null
+              } | null
+            } | null
+          } | null
         }
       | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
       | {
@@ -5385,6 +5426,7 @@ export type BlogPostEntityFragment = {
           secondaryTitle?: string | null
           rows?: Array<{
             __typename?: 'ComponentAccordionItemsTableRow'
+            id: string
             label?: string | null
             value?: string | null
             valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
@@ -5478,6 +5520,7 @@ export type BlogPostBySlugQuery = {
               } | null> | null
               tableRows?: Array<{
                 __typename?: 'ComponentAccordionItemsTableRow'
+                id: string
                 accordionCategory?: string | null
                 tableCategory?: string | null
                 label?: string | null
@@ -5582,12 +5625,28 @@ export type BlogPostBySlugQuery = {
               __typename: 'ComponentSectionsFaq'
               id: string
               title?: string | null
+              ctaButton?: string | null
               questions?: Array<{
                 __typename?: 'ComponentBlocksAccordionItem'
                 id: string
                 label?: string | null
                 content?: string | null
               } | null> | null
+              redirectTo?: {
+                __typename?: 'PageEntityResponse'
+                data?: {
+                  __typename?: 'PageEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Page'
+                    title: string
+                    slug: string
+                    newSlug: string
+                    createdAt?: any | null
+                    updatedAt?: any | null
+                  } | null
+                } | null
+              } | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
           | {
@@ -5629,6 +5688,7 @@ export type BlogPostBySlugQuery = {
               secondaryTitle?: string | null
               rows?: Array<{
                 __typename?: 'ComponentAccordionItemsTableRow'
+                id: string
                 label?: string | null
                 value?: string | null
                 valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
@@ -5710,6 +5770,7 @@ export type BlogPostsQuery = {
               } | null> | null
               tableRows?: Array<{
                 __typename?: 'ComponentAccordionItemsTableRow'
+                id: string
                 accordionCategory?: string | null
                 tableCategory?: string | null
                 label?: string | null
@@ -5814,12 +5875,28 @@ export type BlogPostsQuery = {
               __typename: 'ComponentSectionsFaq'
               id: string
               title?: string | null
+              ctaButton?: string | null
               questions?: Array<{
                 __typename?: 'ComponentBlocksAccordionItem'
                 id: string
                 label?: string | null
                 content?: string | null
               } | null> | null
+              redirectTo?: {
+                __typename?: 'PageEntityResponse'
+                data?: {
+                  __typename?: 'PageEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Page'
+                    title: string
+                    slug: string
+                    newSlug: string
+                    createdAt?: any | null
+                    updatedAt?: any | null
+                  } | null
+                } | null
+              } | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
           | {
@@ -5861,6 +5938,7 @@ export type BlogPostsQuery = {
               secondaryTitle?: string | null
               rows?: Array<{
                 __typename?: 'ComponentAccordionItemsTableRow'
+                id: string
                 label?: string | null
                 value?: string | null
                 valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
@@ -8253,6 +8331,7 @@ type PageSections_ComponentSectionsAccordion_Fragment = {
   } | null> | null
   tableRows?: Array<{
     __typename?: 'ComponentAccordionItemsTableRow'
+    id: string
     accordionCategory?: string | null
     tableCategory?: string | null
     label?: string | null
@@ -8399,12 +8478,28 @@ type PageSections_ComponentSectionsFaq_Fragment = {
   __typename: 'ComponentSectionsFaq'
   id: string
   title?: string | null
+  ctaButton?: string | null
   questions?: Array<{
     __typename?: 'ComponentBlocksAccordionItem'
     id: string
     label?: string | null
     content?: string | null
   } | null> | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
 }
 
 type PageSections_ComponentSectionsFlatText_Fragment = {
@@ -8660,6 +8755,7 @@ type PageSections_ComponentSectionsTable_Fragment = {
   secondaryTitle?: string | null
   rows?: Array<{
     __typename?: 'ComponentAccordionItemsTableRow'
+    id: string
     label?: string | null
     value?: string | null
     valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
@@ -8752,6 +8848,7 @@ export type PageEntityFragment = {
           } | null> | null
           tableRows?: Array<{
             __typename?: 'ComponentAccordionItemsTableRow'
+            id: string
             accordionCategory?: string | null
             tableCategory?: string | null
             label?: string | null
@@ -8884,12 +8981,28 @@ export type PageEntityFragment = {
           __typename: 'ComponentSectionsFaq'
           id: string
           title?: string | null
+          ctaButton?: string | null
           questions?: Array<{
             __typename?: 'ComponentBlocksAccordionItem'
             id: string
             label?: string | null
             content?: string | null
           } | null> | null
+          redirectTo?: {
+            __typename?: 'PageEntityResponse'
+            data?: {
+              __typename?: 'PageEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Page'
+                title: string
+                slug: string
+                newSlug: string
+                createdAt?: any | null
+                updatedAt?: any | null
+              } | null
+            } | null
+          } | null
         }
       | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
       | {
@@ -9125,6 +9238,7 @@ export type PageEntityFragment = {
           secondaryTitle?: string | null
           rows?: Array<{
             __typename?: 'ComponentAccordionItemsTableRow'
+            id: string
             label?: string | null
             value?: string | null
             valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
@@ -9251,6 +9365,7 @@ export type PageByIdQuery = {
               } | null> | null
               tableRows?: Array<{
                 __typename?: 'ComponentAccordionItemsTableRow'
+                id: string
                 accordionCategory?: string | null
                 tableCategory?: string | null
                 label?: string | null
@@ -9383,12 +9498,28 @@ export type PageByIdQuery = {
               __typename: 'ComponentSectionsFaq'
               id: string
               title?: string | null
+              ctaButton?: string | null
               questions?: Array<{
                 __typename?: 'ComponentBlocksAccordionItem'
                 id: string
                 label?: string | null
                 content?: string | null
               } | null> | null
+              redirectTo?: {
+                __typename?: 'PageEntityResponse'
+                data?: {
+                  __typename?: 'PageEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Page'
+                    title: string
+                    slug: string
+                    newSlug: string
+                    createdAt?: any | null
+                    updatedAt?: any | null
+                  } | null
+                } | null
+              } | null
             }
           | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
           | {
@@ -9624,6 +9755,7 @@ export type PageByIdQuery = {
               secondaryTitle?: string | null
               rows?: Array<{
                 __typename?: 'ComponentAccordionItemsTableRow'
+                id: string
                 label?: string | null
                 value?: string | null
                 valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
@@ -9850,6 +9982,16 @@ export type FlatTextFragment = {
 
 export type TableRowFragment = {
   __typename?: 'ComponentAccordionItemsTableRow'
+  accordionCategory?: string | null
+  tableCategory?: string | null
+  label?: string | null
+  value?: string | null
+  valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+}
+
+export type TableRowWithIdFragment = {
+  __typename?: 'ComponentAccordionItemsTableRow'
+  id: string
   accordionCategory?: string | null
   tableCategory?: string | null
   label?: string | null
@@ -10145,6 +10287,7 @@ export type AccordionSectionFragment = {
   } | null> | null
   tableRows?: Array<{
     __typename?: 'ComponentAccordionItemsTableRow'
+    id: string
     accordionCategory?: string | null
     tableCategory?: string | null
     label?: string | null
@@ -10165,6 +10308,7 @@ export type TableSectionFragment = {
   secondaryTitle?: string | null
   rows?: Array<{
     __typename?: 'ComponentAccordionItemsTableRow'
+    id: string
     label?: string | null
     value?: string | null
     valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
@@ -10222,12 +10366,28 @@ export type FaqSectionFragment = {
   __typename?: 'ComponentSectionsFaq'
   id: string
   title?: string | null
+  ctaButton?: string | null
   questions?: Array<{
     __typename?: 'ComponentBlocksAccordionItem'
     id: string
     label?: string | null
     content?: string | null
   } | null> | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename?: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
 }
 
 export type OpeningHoursSectionFragment = {
@@ -10422,6 +10582,18 @@ export const AccordionItemFragmentDoc = gql`
     content
   }
 `
+export const PageWithBaseFieldsEntityFragmentDoc = gql`
+  fragment PageWithBaseFieldsEntity on PageEntity {
+    id
+    attributes {
+      title
+      slug
+      newSlug
+      createdAt
+      updatedAt
+    }
+  }
+`
 export const FaqSectionFragmentDoc = gql`
   fragment FaqSection on ComponentSectionsFaq {
     id
@@ -10429,8 +10601,15 @@ export const FaqSectionFragmentDoc = gql`
     questions {
       ...AccordionItem
     }
+    ctaButton
+    redirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
   }
   ${AccordionItemFragmentDoc}
+  ${PageWithBaseFieldsEntityFragmentDoc}
 `
 export const FlatTextSectionFragmentDoc = gql`
   fragment FlatTextSection on ComponentSectionsFlatText {
@@ -10451,6 +10630,7 @@ export const TableSectionFragmentDoc = gql`
     primaryTitle
     secondaryTitle
     rows {
+      id
       label
       value
       valueAlign
@@ -10463,8 +10643,9 @@ export const FlatTextFragmentDoc = gql`
     content
   }
 `
-export const TableRowFragmentDoc = gql`
-  fragment TableRow on ComponentAccordionItemsTableRow {
+export const TableRowWithIdFragmentDoc = gql`
+  fragment TableRowWithId on ComponentAccordionItemsTableRow {
+    id
     accordionCategory
     tableCategory
     label
@@ -10480,7 +10661,7 @@ export const AccordionSectionFragmentDoc = gql`
       ...FlatText
     }
     tableRows(pagination: { limit: -1 }) {
-      ...TableRow
+      ...TableRowWithId
     }
     forms {
       category
@@ -10488,7 +10669,7 @@ export const AccordionSectionFragmentDoc = gql`
     }
   }
   ${FlatTextFragmentDoc}
-  ${TableRowFragmentDoc}
+  ${TableRowWithIdFragmentDoc}
 `
 export const CtaSectionFragmentDoc = gql`
   fragment CtaSection on ComponentSectionsCta {
@@ -10931,18 +11112,6 @@ export const EventEntityFragmentDoc = gql`
   ${UploadImageEntityFragmentDoc}
   ${DocumentsSectionFragmentDoc}
   ${SeoFragmentDoc}
-`
-export const PageWithBaseFieldsEntityFragmentDoc = gql`
-  fragment PageWithBaseFieldsEntity on PageEntity {
-    id
-    attributes {
-      title
-      slug
-      newSlug
-      createdAt
-      updatedAt
-    }
-  }
 `
 export const SectionLinkPageEntityFragmentDoc = gql`
   fragment SectionLinkPageEntity on PageEntity {
@@ -11397,6 +11566,15 @@ export const BookTagEntityFragmentDoc = gql`
       displayName
       slug
     }
+  }
+`
+export const TableRowFragmentDoc = gql`
+  fragment TableRow on ComponentAccordionItemsTableRow {
+    accordionCategory
+    tableCategory
+    label
+    value
+    valueAlign
   }
 `
 export const PaginationFragmentDoc = gql`

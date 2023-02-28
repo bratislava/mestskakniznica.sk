@@ -13,6 +13,8 @@ const NavMenuSection = ({ section, classNames }: NavigationSectionProps) => {
   // TODO cols sizing needs revisit
   const isLengthy = section?.items ? section.items.length >= 8 : false
 
+  console.log(section)
+
   return (
     <div className={classNames}>
       {section.label && <div className="pb-2 text-lg text-foreground-dark">{section.label}</div>}

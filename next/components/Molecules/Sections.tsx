@@ -105,7 +105,14 @@ const Sections = ({
             return <GalleryBannerSection section={section} />
 
           case 'ComponentSectionsFaq':
-            return <Faq title={section.title ?? ''} questions={section?.questions ?? []} />
+            return (
+              <Faq
+                title={section.title ?? ''}
+                questions={section?.questions ?? []}
+                ctaButton={section?.ctaButton ?? ''}
+                redirectTo={section?.redirectTo ?? null}
+              />
+            )
 
           case 'ComponentSectionsSiteUsefullness':
             return (
@@ -128,7 +135,7 @@ const Sections = ({
               <Table
                 primaryTitle={section.primaryTitle ?? ''}
                 secondaryTitle={section.secondaryTitle ?? ''}
-                rows={section.rows ?? []}
+                rows={section.rows?.filter(isDefined) ?? []}
               />
             )
 

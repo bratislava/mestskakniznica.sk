@@ -57,7 +57,7 @@ const BookList = ({ className }: Props) => {
                 control={methods.control}
                 name={`books[${index}].id` as const}
                 defaultValue=""
-                render={({ field: { ref, ...field } }) => (
+                render={({ field: { ref, ...rest } }) => (
                   <Input
                     id={`books_number_[${index}]_input` as const}
                     labelContent={t('book_number')}
@@ -65,7 +65,7 @@ const BookList = ({ className }: Props) => {
                     required
                     // @ts-ignore
                     hasError={errors.books && !!errors.books[index]?.id}
-                    {...field}
+                    {...rest}
                   />
                 )}
               />
@@ -74,7 +74,7 @@ const BookList = ({ className }: Props) => {
                 control={methods.control}
                 name={`books[${index}].author` as const}
                 defaultValue=""
-                render={({ field: { ref, ...field } }) => (
+                render={({ field: { ref, ...rest } }) => (
                   <Input
                     id={`author_[${index}]_input` as const}
                     labelContent={t('author')}
@@ -82,7 +82,7 @@ const BookList = ({ className }: Props) => {
                     required
                     // @ts-ignore
                     hasError={errors.books && !!errors.books[index]?.author}
-                    {...field}
+                    {...rest}
                   />
                 )}
               />
@@ -90,7 +90,7 @@ const BookList = ({ className }: Props) => {
                 control={methods.control}
                 name={`books[${index}].title` as const}
                 defaultValue=""
-                render={({ field: { ref, ...field } }) => (
+                render={({ field: { ref, ...rest } }) => (
                   <Input
                     id={`title_[${index}]_input` as const}
                     labelContent={t('title')}
@@ -98,7 +98,7 @@ const BookList = ({ className }: Props) => {
                     required
                     // @ts-ignore
                     hasError={errors.books && !!errors.books[index]?.title}
-                    {...field}
+                    {...rest}
                   />
                 )}
               />

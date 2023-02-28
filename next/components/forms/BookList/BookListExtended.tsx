@@ -65,12 +65,12 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
             <Controller
               control={methods.control}
               name={`books[${index}].link` as const}
-              render={({ field: { ref, ...field } }) => (
+              render={({ field: { ref, ...rest } }) => (
                 <Input
                   id={`books[${index}]_link_input` as const}
                   labelContent={t('book_number')}
                   inputClassName="px-3 w-full"
-                  {...field}
+                  {...rest}
                 />
               )}
             />
@@ -78,7 +78,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
           <Controller
             control={methods.control}
             name={`books[${index}].author` as const}
-            render={({ field: { ref, ...field } }) => (
+            render={({ field: { ref, ...rest } }) => (
               <Input
                 id={`books[${index}]_author_input` as const}
                 labelContent={t('author')}
@@ -87,14 +87,14 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
                 // @ts-ignore
                 hasError={errors.books && !!errors.books[index]?.author}
                 errorMessage={(errors.books && 'errors.books[index]?.author?.message') ?? ''}
-                {...field}
+                {...rest}
               />
             )}
           />
           <Controller
             control={methods.control}
             name={`books[${index}].title` as const}
-            render={({ field: { ref, ...field } }) => (
+            render={({ field: { ref, ...rest } }) => (
               <Input
                 id={`books[${index}]_title_input` as const}
                 labelContent={t('title')}
@@ -103,7 +103,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
                 // @ts-ignore
                 hasError={errors.books && !!errors.books[index]?.title}
                 errorMessage={errors.books && 'errors.books[index]?.title?.message'}
-                {...field}
+                {...rest}
               />
             )}
           />
@@ -111,26 +111,26 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
             <Controller
               control={methods.control}
               name={`books[${index}].placeOfIssue` as const}
-              render={({ field: { ref, ...field } }) => (
+              render={({ field: { ref, ...rest } }) => (
                 <Input
                   id={`books[${index}]_placeOfIssue_input` as const}
                   labelContent={t('place_of_issue')}
                   className="w-full"
                   inputClassName="px-3 w-full"
-                  {...field}
+                  {...rest}
                 />
               )}
             />
             <Controller
               control={methods.control}
               name={`books[${index}].issuer` as const}
-              render={({ field: { ref, ...field } }) => (
+              render={({ field: { ref, ...rest } }) => (
                 <Input
                   id={`books[${index}]_issuer_input` as const}
                   labelContent={t('issuer')}
                   className="w-full"
                   inputClassName="px-3 w-full"
-                  {...field}
+                  {...rest}
                 />
               )}
             />
@@ -139,26 +139,26 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
             <Controller
               control={methods.control}
               name={`books[${index}].packageNumber` as const}
-              render={({ field: { ref, ...field } }) => (
+              render={({ field: { ref, ...rest } }) => (
                 <Input
                   id={`books[${index}]_package_number_input` as const}
                   labelContent={t('package_number')}
                   className="w-full"
                   inputClassName="px-3 w-full"
-                  {...field}
+                  {...rest}
                 />
               )}
             />
             <Controller
               control={methods.control}
               name={`books[${index}].issueDate` as const}
-              render={({ field: { ref, ...field } }) => (
+              render={({ field: { ref, ...rest } }) => (
                 <Input
                   id={`books[${index}]_issue_date_input` as const}
                   labelContent={t('issue_date')}
                   className="w-full"
                   inputClassName="px-3 w-full"
-                  {...field}
+                  {...rest}
                 />
               )}
             />
@@ -167,13 +167,13 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
             <Controller
               control={methods.control}
               name={`books[${index}].ISBN` as const}
-              render={({ field: { ref, ...field } }) => (
+              render={({ field: { ref, ...rest } }) => (
                 <Input
                   id={`books[${index}]_isbn_input` as const}
                   labelContent={t('ISBN')}
                   className="w-full"
                   inputClassName="px-3 w-full"
-                  {...field}
+                  {...rest}
                 />
               )}
             />
