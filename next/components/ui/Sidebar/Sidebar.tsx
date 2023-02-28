@@ -2,7 +2,6 @@ import { ArrowLeftIcon } from '@assets/icons'
 import ChevronRight from '@assets/images/chevron-right.svg'
 import Button from '@modules/common/Button'
 import MLink from '@modules/common/MLink'
-import { PageEntity } from '@services/graphql'
 import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 

@@ -1,12 +1,18 @@
+import { TableRowWithIdFragment } from '@services/graphql'
 import cx from 'classnames'
 
-import { TableRow, TableRowProps } from '../TableRow/TableRow'
+import { TableRow } from '../TableRow/TableRow'
+
+export type TableRowWithIdProp = Pick<
+  TableRowWithIdFragment,
+  'id' | 'value' | 'label' | 'valueAlign'
+>
 
 export interface TableProps {
   className?: string
   primaryTitle?: string
   secondaryTitle?: string
-  rows?: (TableRowProps | undefined | null)[]
+  rows?: TableRowWithIdProp[]
 }
 
 export const Table = ({ className, primaryTitle, secondaryTitle, rows }: TableProps) => {
@@ -17,9 +23,9 @@ export const Table = ({ className, primaryTitle, secondaryTitle, rows }: TablePr
 
       <table className={cx(className, 'w-full table-fixed border-collapse')}>
         <tbody>
-          {rows?.map((row, index) => (
+          {rows?.map((row) => (
             <TableRow
-              key={index}
+              key={row.id}
               value={row?.value ?? ''}
               label={row?.label ?? ''}
               valueAlign={row?.valueAlign ?? 'start'}

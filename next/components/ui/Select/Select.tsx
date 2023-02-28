@@ -67,7 +67,7 @@ export const Select = <T extends ISelectOption>({
           value={value}
           placeholder={placeholder ?? placeholder}
           aria-invalid={hasError}
-          aria-errormessage={errorMessage ? `${id}_err` : ''}
+          aria-errormessage={errorMessage ? `${id ?? ''}_err` : ''}
           {...rest}
         >
           {options.map((option) => (
@@ -82,7 +82,7 @@ export const Select = <T extends ISelectOption>({
       {/* Error Message */}
       {hasError && errorMessage && (
         <p
-          id={`${id}_err`}
+          id={`${id ?? ''}_err`}
           className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
           aria-labelledby={id}
         >

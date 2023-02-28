@@ -128,7 +128,7 @@ const Sections = ({
               <Table
                 primaryTitle={section.primaryTitle ?? ''}
                 secondaryTitle={section.secondaryTitle ?? ''}
-                rows={section.rows ?? []}
+                rows={section.rows?.filter(isDefined) ?? []}
               />
             )
 

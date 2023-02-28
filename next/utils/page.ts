@@ -1,11 +1,15 @@
-import { SubpageItemProps, TableRowProps } from '@bratislava/ui-city-library'
-import { SubpagesSectionFragment, TableRowFragment } from '@services/graphql'
+import { SubpageItemProps, TableRowWithIdProp } from '@bratislava/ui-city-library'
+import {
+  Enum_Componentaccordionitemstablerow_Valuealign,
+  SubpagesSectionFragment,
+  TableRowWithIdFragment,
+} from '@services/graphql'
 import { isPresent } from '@utils/utils'
 import groupBy from 'lodash/groupBy'
 
 export const groupByTableCategory = (
-  tableRows: (TableRowFragment | undefined | null)[]
-): { title: string; rows: TableRowProps[] }[] => {
+  tableRows: (TableRowWithIdFragment | undefined | null)[]
+): { title: string; rows: TableRowWithIdProp[] }[] => {
   const grouped = groupBy(tableRows, 'tableCategory')
   const groupedRows = Object.keys(grouped).map((key) => ({
     title: key,
@@ -16,9 +20,10 @@ export const groupByTableCategory = (
     title: groupedRow.title,
     rows:
       groupedRow.rows?.map((row) => ({
+        id: row?.id ?? '',
         label: row?.label ?? '',
         value: row?.value ?? '',
-        valueAlign: row?.valueAlign ?? 'start',
+        valueAlign: row?.valueAlign ?? Enum_Componentaccordionitemstablerow_Valuealign.Start,
       })) ?? [],
   }))
 }
@@ -33,8 +38,8 @@ export const parseSubpages = (subpages: SubpagesSectionFragment): SubpageItemPro
 
 // Group by for accordion
 export const groupByAccordionCategory = (
-  tableRows: (TableRowFragment | undefined | null)[]
-): { title: string; tables: { title: string; rows: TableRowProps[] }[] }[] => {
+  tableRows: (TableRowWithIdFragment | undefined | null)[]
+): { title: string; tables: { title: string; rows: TableRowWithIdProp[] }[] }[] => {
   const groupedItems = groupBy(tableRows, 'accordionCategory')
   return Object.keys(groupedItems).map((key) => ({
     title: key,

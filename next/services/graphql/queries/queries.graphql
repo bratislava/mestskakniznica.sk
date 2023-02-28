@@ -26,6 +26,15 @@ fragment TableRow on ComponentAccordionItemsTableRow {
   valueAlign
 }
 
+fragment TableRowWithId on ComponentAccordionItemsTableRow {
+  id
+  accordionCategory
+  tableCategory
+  label
+  value
+  valueAlign
+}
+
 fragment AccordionItem on ComponentBlocksAccordionItem {
   id
   label

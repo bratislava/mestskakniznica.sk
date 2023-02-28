@@ -27,6 +27,7 @@ export const ssrTranslations = async (
   const cachedValue = cachedSsrTranslations[locale][namespaceString]
   // TODO don't do this in development
   if (cachedValue) {
+    // eslint-disable-next-line no-console
     console.log(`Loading translations under cache key: ${namespaceString}`)
     return cachedValue
   }
@@ -44,6 +45,7 @@ export const ssrTranslations = async (
 
 // warm-up the translations cache
 ;(async () => {
+  // eslint-disable-next-line no-console
   console.log('Warming up SSR translation cache')
 
   // TODO fix eslint
@@ -52,12 +54,15 @@ export const ssrTranslations = async (
     // eslint-disable-next-line no-await-in-loop
     await Promise.all(
       preCachedNamespaces.map((arr) => {
+        // eslint-disable-next-line no-console
         console.log('Caching translations:', arr)
         return ssrTranslations({ locale }, arr)
       })
     )
   }
 })().catch((error) => {
+  // eslint-disable-next-line no-console
   console.log('Error caching translations - will fall back')
+  // eslint-disable-next-line no-console
   console.log(error)
 })
