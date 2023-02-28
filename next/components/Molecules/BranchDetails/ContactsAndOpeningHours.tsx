@@ -12,7 +12,7 @@ type ContactsAndOpeningHoursProps = {
 const ContactsAndOpeningHours = ({ branch, branches }: ContactsAndOpeningHoursProps) => {
   const { t } = useTranslation('common')
 
-  if ((!branches || branches.length === 0) && !branches) {
+  if (!branches?.length && !branch) {
     return null
   }
 
@@ -21,9 +21,8 @@ const ContactsAndOpeningHours = ({ branch, branches }: ContactsAndOpeningHoursPr
       <div className="text-[24px]">{t('sections')}</div>
       <div className="pt-5">
         <BranchContactUsOpeningHoursInfo branch={branch} />
-        {branches.map((subBranch) => (
-          <BranchContactUsOpeningHoursInfo branch={subBranch} />
-        ))}
+        {branches &&
+          branches.map((subBranch) => <BranchContactUsOpeningHoursInfo branch={subBranch} />)}
       </div>
     </div>
   )
