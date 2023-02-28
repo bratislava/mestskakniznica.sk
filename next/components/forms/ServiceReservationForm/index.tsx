@@ -1,57 +1,86 @@
-import { Input, TextArea, Upload } from '@bratislava/ui-city-library'
+import { Input, TextArea, Upload, UploadProps } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { convertDataToBody } from '@utils/form-constants'
+import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { Controller, FormProvider, useController, useForm, useFormState } from 'react-hook-form'
+import { Controller, FormProvider, useController, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 
-const FileInput = ({ control, name }: any) => {
-  const { errors } = useFormState()
+type FileInputProps = {
+  id: string
+  name: string
+  labelContent?: string
+  hasError?: boolean
+  errorMessage?: string
+} & UploadProps
+
+const FileInput = ({
+  id,
+  name,
+  labelContent,
+  hasError,
+  errorMessage,
+  required,
+}: FileInputProps) => {
   const { t } = useTranslation('forms')
 
-  const { field } = useController({ control, name })
+  const { field } = useController({ name })
   const [files, setFiles] = React.useState<Array<File | null>>([])
   return (
-    <Upload
-      labelContent={t('attachments')}
-      hasError={!!errors.attachment}
-      required
-      onChange={(e) => {
-        if (e.target.files) {
-          const newArray = []
-          for (let i = 0; i < e.target.files.length; i += 1) {
-            if (e.target.files.item(i) !== null) {
-              newArray.push(e.target.files.item(i))
+    <>
+      <Upload
+        id={id}
+        labelContent={labelContent}
+        hasError={hasError}
+        errorMessage={errorMessage}
+        required={required}
+        onChange={(e) => {
+          if (e.target.files) {
+            const newArray = []
+            for (let i = 0; i < e.target.files.length; i += 1) {
+              if (e.target.files.item(i) !== null) {
+                newArray.push(e.target.files.item(i))
+              }
             }
+            setFiles(newArray)
+            field.onChange(e.target.files)
           }
-          setFiles(newArray)
-          field.onChange(e.target.files)
-        }
-      }}
-      accept=".pdf, .jpg, .jpeg, .png"
-      multiple
-    >
-      {files.length > 0 ? (
-        <>
-          <p>
-            {`${files.length} ${files.length > 1 ? t('upload_files') : t('upload_file')}`}{' '}
-            {t('upload_success')}:
-          </p>
-          <p>{`[${files.map((file) => file?.name).join(', ')}]`}</p>
-        </>
-      ) : (
-        <>
-          <p className="mb-3">{t('upload_file_text')}</p>
-          <p>{t('upload_file_info')}</p>
-        </>
+        }}
+        accept=".pdf, .jpg, .jpeg, .png"
+        multiple
+      >
+        {files.length > 0 ? (
+          <>
+            <p>
+              {`${files.length} ${files.length > 1 ? t('upload_files') : t('upload_file')}`}{' '}
+              {t('upload_success')}:
+            </p>
+            <p>{`[${files.map((file) => file?.name).join(', ')}]`}</p>
+          </>
+        ) : (
+          <>
+            <p className="mb-3">{t('upload_file_text')}</p>
+            <p>{t('upload_file_info')}</p>
+          </>
+        )}
+      </Upload>
+      {/* Error Message */}
+      {errorMessage && (
+        <p
+          id={`${id ?? ''}_err`}
+          className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
+          aria-labelledby={id}
+        >
+          {labelContent} {errorMessage}
+        </p>
       )}
-    </Upload>
+    </>
   )
 }
 
@@ -235,7 +264,20 @@ const ServiceReservationForm = () => {
               />
             )}
           />
-          <FileInput name="attachment" control={methods.control} />
+          <Controller
+            control={methods.control}
+            name="attachment"
+            render={({ field: { ref, ...field } }) => (
+              <FileInput
+                id="attachment_input"
+                labelContent={t('attachments')}
+                hasError={!!errors.attachment}
+                errorMessage={errors.attachment?.message}
+                required
+                {...field}
+              />
+            )}
+          />
           {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
           <FormFooter buttonContent={t('send')} />
         </div>

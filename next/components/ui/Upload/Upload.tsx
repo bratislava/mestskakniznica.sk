@@ -6,13 +6,16 @@ export interface UploadProps
   extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   labelContent: string
   hasError?: boolean
+  errorMessage?: string
 }
 
 export const Upload = ({
+  id,
   className,
   children,
   labelContent,
   hasError,
+  errorMessage,
   required,
   ...props
 }: UploadProps) => {
@@ -23,7 +26,7 @@ export const Upload = ({
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('mb-0.5 text-sm text-foreground-heading opacity-80')}>
+        <label htmlFor={id} className={cx('mb-0.5 text-sm text-foreground-heading opacity-80')}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -42,11 +45,13 @@ export const Upload = ({
         onDragLeave={() => setIsInArea(false)}
       >
         <input
-          id="file_input"
+          id={id}
           ref={fileInputRef}
           type="file"
           className="absolute h-full w-full cursor-pointer opacity-0"
+          aria-invalid={hasError}
           aria-required={required}
+          aria-errormessage={errorMessage ? `${id ?? ''}_err` : ''}
           {...props}
         />
         <UploadIcon className="group-hover:rounded-full group-hover:bg-error group-hover:bg-dark group-hover:text-white" />
