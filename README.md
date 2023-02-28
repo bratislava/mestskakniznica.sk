@@ -1,6 +1,25 @@
 # mestskakniznica.sk
 
-What's here
+This project is led by
+the [Department of Innovation and Technology of the City of Bratislava](https://inovacie.bratislava.sk). We’re making it
+entirely open-source as we believe this
+promotes [savings, collaboration, auditability and innovation](https://publiccode.eu) in the public sector.
+
+Our goal is to be transparent about services we’re developing and providing, as well as to invite other cities and
+municipalities to build on top of the same or similar open-source technologies we’ve already tested and used - to foster
+an ecosystem of collaboration between teams facing similar challenges. We’ll be happy
+to [get in touch.](mailto:innovationteam@bratislava.sk)
+
+We intend to make many more of our projects open-source by the end of 2022 - stay tuned!
+
+> If you are an individual or a company who’d like to take part in these efforts, collaborate closely on development or
+> report an issue, we’d love to hear from you! 🙌 Contact us using this repository or
+> at [innovationteam@bratislava.sk](mailto:innovationteam@bratislava.sk)
+
+## What's here
+
+Each sub-folder contains README which should get you up and running. More documentation can be
+found [here](https://bratislava.github.io/).
 
 🏡 `/next` city-library Nextjs web app
 
@@ -8,35 +27,13 @@ What's here
 
 ---
 
-🐳 `docker-compose.yml` - if you need to quickly setup postgres instance, run `docker compose up` in this directory (you need
-docker installed) - will be relevant once strapi is available
-
-You need the following installed locally:
-
-- [docker](https://www.docker.com/)
-- [node v16](https://nodejs.org/en/)
-
-Afterward, install `node_modules` with
-
-```bash
-yarn install
-```
-
-## Local installation
-
-You need `node` and `yarn` installed locally.
-
-If you want to start a postgres database and meilisearch instance with correct credentials, simply run:
-
-```bash
-docker-compose up -d
-```
-
-You need `docker` installed locally.
+🐳 `docker-compose.yml` - if you need to quickly setup postgres or meilisearch instance, run `docker compose up` in this
+directory.
 
 ### Meilisearch
 
-After initial `docker-compose up` you have to set keys for meilisearch for both the strapi and nextjs. To get them run the command bellow.
+After initial `docker-compose up` you have to set keys for meilisearch for both the strapi and nextjs. To get them run
+the command bellow.
 
 ```
 curl --request GET \
@@ -45,75 +42,8 @@ curl --request GET \
   --header 'Content-Type: application/json' | json_pp
 ```
 
-Then use "Default Admin API Key" for strapi in `strapi/.env.local` as `MEILISEARCH_ADMIN_API_KEY` and "Default Search API Key" in `next/.env.local` file as `NEXT_PUBLIC_MEILISEARCH_SEARCH_API_KEY`.
-
-## Editor setup
-
-We recommend using [VS Code](https://code.visualstudio.com/) with the following extensions installed and formatting your code on save enabled (or, at minimum, formatting before commit):
-
-- [Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-To setup vscode, open settings.json and insert following lines.
-
-The `organizeImports` will remove all unused imports, `formatDocument` will run prettier an `fixAll.eslint` will run eslint fix. The order of these commands is important.
-
-The `files.insertFinalNewline` setting will add a new line at the end of the document.
-
-```json
-"editor.codeActionsOnSave": {
-  "source.organizeImports": true,
-  "source.formatDocument": true,
-  "source.fixAll.eslint": true
-},
-"files.insertFinalNewline": true,
-
-// this is optional but recommended
-"typescript.preferences.importModuleSpecifier": "project-relative",
-"files.autoSave": "onFocusChange",
-
-```
-
-If you prefer a different editor, it's completely fine. Still, you should find the counterparts of the extensions and setup mentioned above that help you with formatting and a suitable typescript integration (which is a part of default VS Code installation).
-
-### Optional extensions
-
-These are not needed but either nice to have or project-specific. Again listing VS Code extensions, users of different editors need to find their counterparts:
-
-- [Tailwind CSS Intellisense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) - for frontend devs
-- [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
-- [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid) - for easier reading of .md files
-- [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv) - for .env files syntax highlighting
-- [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag) - for easier React and html tags renaming
-- [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag) - for automatically inserting closing tag
-- [Prisma](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma) - for backend devs using Prisma
-
-## Git workflow (committing, submitting & reviewing pull requests)
-
-### Commit message, branch and PR name formats
-
-Preffered way of branch naming is `{issue-id}/{2-3 word summary}`, for example `MKB-460/form-captcha`.
-
-Titles of pull requests should begin with issue id and one sentence description, for example "MKB-460: Add Google Recapcha to page forms".
-
-For commit messages and pull request description please follow the conventions the way they are written here https://namingconvention.org/git/. If multiple options are provided (i.e. for commit message formatting), then all of them are ok.
-
-### Labels & Assignees
-
-We are using labels and assignees to navigate easily through the open pull requests. Labels should be self explanatory. **Assignee should always be the person whose action is required to move the PR forward.** That is, if the PR is waiting for review by someone, the reviewer should be an assignee. If a code change is expected by a person, or a question needs to be answered, assign the PR to the person making the change or capable of answering. This way you can easily see which PRs are waiting for your actions, request assistance, or know who should you bother if your PR is stuck 🙂.
-
-The usual PR workflow involves assigning the PR between a selected reviewer and the author, while also swapping the `needs work` and `needs review` labels depending on the current state. Once the reviewer is satisfied, they'll assign a `fix & ship` label, leaving it up to the author to merge at his or hers convenience, optionally fixing some minor issues before doing so (without the need for a further review).
-
-### Resolving conversations
-
-It is helpful to resolve (github) conversations you have started if you feel the topic has been answered. This goes particularly for reviewers doing multiple passes on a single PR - try to resolve what you can before adding more comments on a subsequent pass.
-
-### Merging & Rebasing
-
-Before commiting and particularly before merging to master, you have to run `yarn build` locally to check if the app is buildable. We do not have pipelines for that yet, therefore is up to the pull request author.
-
-Squash & merge into master. Liberal use of `rebase` for cleaning up your own feature branches (mainly if you tend to create and push work-in-progress commits) is encouraged. If your local commits are _way_ out of control, you might be required to do so before your PR is accepted (but this happens rarely).
-
-_Still, be carefull_ if someone else branches off one of your feature branches - to make his life easier, you should avoid rebasing, if possible, past the point they've branched at - at least until your work is ready to become a part of master.
+Then use "Default Admin API Key" for strapi in `strapi/.env.local` as `MEILISEARCH_ADMIN_API_KEY` and "Default Search
+API Key" in `next/.env.local` file as `NEXT_PUBLIC_MEILISEARCH_SEARCH_API_KEY`.
 
 ---
+> Note: The project is being revisited. See notes about folder structure and the state of the project in /next/README.md
