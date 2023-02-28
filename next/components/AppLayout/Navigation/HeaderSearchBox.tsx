@@ -83,6 +83,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
         selectClassName="rounded-l-full border-dark w-[140px] border-r-0"
       />
       <SearchBar
+        id="header-search-bar"
         iconLeft={<SearchIcon onClick={handleSearch} className="cursor-pointer" />}
         iconRight={
           input.length > 0 && (

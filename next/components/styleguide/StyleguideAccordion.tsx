@@ -40,7 +40,7 @@ const StyleguideAccordion = () => {
         </Accordion>
       </Stack>
       <Stack>
-        <Accordion type="sublocation" title="Sublocation, icon" iconLeft={<CalendarSvg />}>
+        <Accordion type="subbranch" title="Subbranch, icon" iconLeft={<CalendarSvg />}>
           Content
         </Accordion>
       </Stack>

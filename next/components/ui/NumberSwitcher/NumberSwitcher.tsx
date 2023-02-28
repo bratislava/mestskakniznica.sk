@@ -64,7 +64,7 @@ export const NumberSwitcher = ({
             value={value}
             aria-invalid={hasError}
             aria-required={required}
-            aria-errormessage={errorMessage ? `${id}_err` : ''}
+            aria-errormessage={errorMessage ? `${id}_err` : undefined}
             {...props}
           />
         </div>

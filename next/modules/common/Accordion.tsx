@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { ReactNode } from 'react'
 
 export type AccordionProps = {
-  type: 'boxed' | 'divider-small' | 'divider-big' | 'sublocation' | 'breadcrumbs'
+  type: 'boxed' | 'divider-small' | 'divider-big' | 'subbranch' | 'breadcrumbs'
   title: string | ReactNode | null | undefined
   additionalInfo?: ReactNode
   children?: ReactNode
@@ -22,14 +22,14 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
     'border-border border': type === 'boxed',
     'border-border border-b':
       // eslint-disable-next-line sonarjs/no-duplicate-string
-      type === 'divider-small' || type === 'divider-big' || type === 'sublocation',
+      type === 'divider-small' || type === 'divider-big' || type === 'subbranch',
   })
 
   // min-w-0 used because of breadcrumbs:
   // https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child
   const headingStyles = cx('min-w-0 grow', {
     'text-h6': type === 'divider-small',
-    'text-h5': type === 'boxed' || type === 'divider-big' || type === 'sublocation',
+    'text-h5': type === 'boxed' || type === 'divider-big' || type === 'subbranch',
     'text-sm': type === 'breadcrumbs',
   })
 
@@ -37,13 +37,13 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
     'py-[18.5px] px-4 md:px-6 md:py-5': type === 'boxed',
     'py-[18.5px] md:py-6': type === 'divider-big',
     'py-[14.5px] md:py-[18.5px]': type === 'divider-small',
-    'py-4': type === 'sublocation',
+    'py-4': type === 'subbranch',
     'p-4 -mx-4': type === 'breadcrumbs',
   })
 
   const leftIconStyles = cx('mr-0 shrink-0 md:mr-2', {
     'bg-yellow grid h-10 w-10 place-content-center bg-promo-yellow md:h-14 md:w-14':
-      type === 'sublocation',
+      type === 'subbranch',
   })
 
   // const iconWrapperStyles = cx('flex h-8 w-8 shrink-0 items-center justify-center')
@@ -52,7 +52,7 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
     'px-6 py-5': type === 'boxed',
     'py-[18.5px] md:py-6': type === 'divider-big',
     'py-[14.5px] md:py-[18.5px]': type === 'divider-small',
-    'py-4': type === 'sublocation',
+    'py-4': type === 'subbranch',
   })
 
   return (
@@ -60,22 +60,28 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
       {({ open }) => {
         return (
           <div className={borderStyles}>
-            <Disclosure.Button
-              className={buttonStyles}
-              aria-label={type === 'breadcrumbs' ? 'Breadcrumbs' : undefined}
-            >
-              {iconLeft && <div className={leftIconStyles}>{iconLeft}</div>}
-              <h3 className={headingStyles}>{title}</h3>
-              {additionalInfo && <div className="pr-6">{additionalInfo}</div>}
-              <div className="shrink-0">
-                <ChevronLeftIcon
-                  className={cx('mr-1 transform transition-transform', {
-                    'rotate-90': open,
-                    '-rotate-90': !open,
-                  })}
-                />
-              </div>
-            </Disclosure.Button>
+            <h3 className="flex flex-col">
+              <Disclosure.Button
+                className={buttonStyles}
+                aria-label={type === 'breadcrumbs' ? 'Breadcrumbs' : undefined}
+              >
+                {iconLeft && (
+                  <span className={leftIconStyles} aria-hidden>
+                    {iconLeft}
+                  </span>
+                )}
+                <span className={headingStyles}>{title}</span>
+                {additionalInfo && <span className="pr-6">{additionalInfo}</span>}
+                <span className="shrink-0" aria-hidden>
+                  <ChevronLeftIcon
+                    className={cx('mr-1 transform transition-transform', {
+                      'rotate-90': open,
+                      '-rotate-90': !open,
+                    })}
+                  />
+                </span>
+              </Disclosure.Button>
+            </h3>
             <AnimateHeight isVisible={open}>
               <Disclosure.Panel static className={contentStyles}>
                 {children}

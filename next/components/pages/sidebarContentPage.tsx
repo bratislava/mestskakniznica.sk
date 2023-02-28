@@ -42,6 +42,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
                   alt=""
                   fill
                   className="object-cover"
+                  unoptimized
                 />
               </div>
             )}
