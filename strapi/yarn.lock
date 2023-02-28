@@ -4306,12 +4306,7 @@ commander@^2.20.0, commander@^2.20.3:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
-commander@^9.1.0:
-  version "9.4.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-9.4.1.tgz#d1dd8f2ce6faf93147295c0df13c7c21141cfbdd"
-  integrity sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==
-
-commander@^9.4.1:
+commander@^9.1.0, commander@^9.4.1:
   version "9.5.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-9.5.0.tgz#bc08d1eb5cedf7ccb797a96199d41c7bc3e60d30"
   integrity sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==
@@ -9829,10 +9824,10 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.3.1.tgz#93a81835815e618c8aa75e7c8a4dc04f7c314e29"
   integrity sha512-3H20QlwQsSm2OvAxWIYhs+j01MzzqwMwGiiO1NQaJYZgJZFPuAbf95/DiKRBSTYIJ2FeGUc+B/6mPGcWP9dO3Q==
 
-strapi-plugin-config-sync@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-config-sync/-/strapi-plugin-config-sync-1.1.0.tgz#a3b5a794360e283eb4698838e49e7456efefd6c4"
-  integrity sha512-oYl96k4tu4DQ3w7e46160zICTBtNziOqjjIbeDtfQ59wzDcennv21NMVNWpyvT4rXm+ZGO3RyyKzvhE7sMbkzQ==
+strapi-plugin-config-sync@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-config-sync/-/strapi-plugin-config-sync-1.1.1.tgz#bdb0ab469c28f3fb1f37e924320fb59b086bd331"
+  integrity sha512-BA09Q+4T3aew9pS1AgmZvb8fiQJSTnRHzjk2Kzj0Cvu+MugnDCR2klYlIOUxEuShYnhzFxH+RNTflarTlnxPcg==
   dependencies:
     chalk "^4.1.2"
     cli-table "^0.3.6"
