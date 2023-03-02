@@ -1,6 +1,5 @@
+import { Input, InputProps } from '@bratislava/ui-city-library/Input/Input'
 import cx from 'classnames'
-
-import { Input, InputProps } from '../Input/Input'
 
 export interface SearchBarProps
   extends InputProps,
@@ -29,7 +28,7 @@ export const SearchBar = ({
           !!iconRight && (
             <span
               className={cx('cursor-pointer text-foreground-heading transition-all duration-100', {
-                '-ml-32': isOpen,
+                '-ml-20 md:-ml-32': isOpen,
                 '-ml-9': !isOpen,
               })}
             >

@@ -1,12 +1,13 @@
 import { CloseCircleIcon, SearchIcon } from '@assets/icons'
-import { SearchBar, Select } from '@bratislava/ui-city-library'
+import { Select } from '@bratislava/ui-city-library'
+import SearchBar from '@components/AppLayout/Navigation/SearchBar'
 import Button from '@modules/common/Button'
 import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { KeyboardEventHandler, useState } from 'react'
+import { KeyboardEventHandler, useId, useState } from 'react'
 import { useFocusWithin } from 'react-aria'
 
 const opacBaseUrl = 'https://opac.mestskakniznica.sk/opac'
@@ -19,6 +20,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const router = useRouter()
   const { t } = useTranslation('common')
   const { getPathForEntity } = useNavikronos()
+  const searchFieldId = useId()
 
   const SEARCH_OPTIONS: { key: 'on_page' | 'in_catalogue'; title: string }[] = [
     { key: 'on_page', title: t('searchOnPage') },
@@ -80,11 +82,11 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
         options={SEARCH_OPTIONS}
         value={searchOptions}
         onChange={(s) => setSearchOptions(s.key)}
-        selectClassName="rounded-l-full border-dark w-[140px] border-r-0"
+        selectClassName="rounded-l-full border-dark w-[134px] border-r-0"
       />
       <SearchBar
-        id="header-search-bar"
-        iconLeft={<SearchIcon onClick={handleSearch} className="cursor-pointer" />}
+        id={searchFieldId}
+        iconLeft={<SearchIcon className="-ml-2 hidden md:block" />}
         iconRight={
           input.length > 0 && (
             <Button
@@ -104,7 +106,9 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
         value={input}
         onFocus={() => setOpen(true)}
         className={cx('w-full')}
-        inputClassName={cx('grow-1 w-full rounded-r-full border-border-dark', { 'pr-36': isOpen })}
+        inputClassName={cx('grow-1 w-full rounded-r-full border-border-dark pl-4 md:pl-10', {
+          'pr-24 md:pr-36': isOpen,
+        })}
         placeholder={
           searchOptions === 'in_catalogue'
             ? t('searchBookPlaceholder')
@@ -124,7 +128,10 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
               }
               className={cx('absolute right-0 h-[42px] rounded-full px-4')}
             >
-              {t('search')}
+              <span className="hidden md:inline">{t('search')}</span>
+              <span className="md:hidden">
+                <SearchIcon />
+              </span>
             </Button>
           </motion.div>
         )}
