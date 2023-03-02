@@ -51,7 +51,7 @@ export const Upload = ({
           className="absolute h-full w-full cursor-pointer opacity-0"
           aria-invalid={hasError}
           aria-required={required}
-          aria-errormessage={errorMessage ? `${id ?? ''}_err` : ''}
+          aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}
           {...props}
         />
         <UploadIcon className="group-hover:rounded-full group-hover:bg-error group-hover:bg-dark group-hover:text-white" />
