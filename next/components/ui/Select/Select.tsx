@@ -1,6 +1,7 @@
 import ChevronDown from '@assets/images/chevron-down.svg'
 import cx from 'classnames'
 import * as React from 'react'
+import { twMerge } from 'tailwind-merge'
 
 export interface ISelectOption {
   key: string
@@ -49,7 +50,7 @@ export const Select = <T extends ISelectOption>({
   const value = typeof iValue === 'string' ? iValue : iValue?.key
 
   return (
-    <div className={cx('relative flex flex-col', className)}>
+    <div className={twMerge('relative flex flex-col', className)}>
       {/* Label */}
       {labelContent && (
         <label className="mb-0.5 text-sm text-foreground-heading opacity-80" htmlFor={id}>
@@ -57,12 +58,15 @@ export const Select = <T extends ISelectOption>({
           {required && <span className="pl-1 text-error">*</span>}
         </label>
       )}
-      <div className={cx('relative flex items-center')}>
+      <div className="relative flex items-center">
         <select
           id={id}
-          className={cx('base-input w-full cursor-pointer pr-9', selectClassName, {
-            'base-input--with-error': hasError,
-          })}
+          className={twMerge(
+            cx('base-input w-full cursor-pointer pr-9', {
+              'base-input--with-error': hasError,
+            }),
+            selectClassName
+          )}
           onChange={handleChange}
           value={value}
           placeholder={placeholder ?? placeholder}
