@@ -4,6 +4,7 @@ import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
 import { TextButton, Typography } from "@strapi/design-system";
 import { Plus } from "@strapi/icons";
 import { useEditAdd } from "../utils/EditAddModalProvider";
+import NavigationTreeValidation from "./NavigationTreeValidation";
 
 const NavigationTree = () => {
   const { navigationData } = useNavigationDataDefined();
@@ -12,6 +13,7 @@ const NavigationTree = () => {
 
   return (
     <div>
+      <NavigationTreeValidation />
       {hasChildren && (
         <>
           {navigationData?.map((child, index) => (
