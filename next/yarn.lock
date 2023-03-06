@@ -1621,10 +1621,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mailchimp/mailchimp_marketing@^3.0.75":
-  version "3.0.75"
-  resolved "https://registry.yarnpkg.com/@mailchimp/mailchimp_marketing/-/mailchimp_marketing-3.0.75.tgz#8b0d79d9da4fa3b8c8d43d87494c7a75e081f1d2"
-  integrity sha512-UWg3zHd1XMIbXEWlhZpuJiUi1jQ5z3MumJwa5RKjf9/iKboz39X8v4Goq4isi2/mFf07dgftkt/zOSChY32eqg==
+"@mailchimp/mailchimp_marketing@^3.0.80":
+  version "3.0.80"
+  resolved "https://registry.yarnpkg.com/@mailchimp/mailchimp_marketing/-/mailchimp_marketing-3.0.80.tgz#120a4aeb9751ac80ff4c86fabb43af7a6add4e49"
+  integrity sha512-Cgz0xPb+1DUjmrl5whAsmqfAChBko+Wf4/PLQE4RvwfPlcq2agfHr1QFiXEhZ8e+GQwQ3hZQn9iLGXwIXwxUCg==
   dependencies:
     dotenv "^8.2.0"
     superagent "3.8.1"
@@ -3760,10 +3760,10 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.182.tgz#05301a4d5e62963227eaafe0ce04dd77c54ea5c2"
   integrity sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==
 
-"@types/mailchimp__mailchimp_marketing@^3.0.6":
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/@types/mailchimp__mailchimp_marketing/-/mailchimp__mailchimp_marketing-3.0.6.tgz#c4b65b828bdde3fea399e8f5420816ccf6056b5c"
-  integrity sha512-lChJw7eI17Tq/pQ67759hjjduptXzfY+Y6KaHR09FXKZE4KBsA0cxpiwUekjovPau0w3Ulhfke1feCq8qr4fLw==
+"@types/mailchimp__mailchimp_marketing@^3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@types/mailchimp__mailchimp_marketing/-/mailchimp__mailchimp_marketing-3.0.7.tgz#fa65594c3776139e2804412be858468c8aff722c"
+  integrity sha512-Yn+gLWT9ZxdtLxJpdMOWP8Wz69aRho4esBFZB4WzaWNp+gPDmmfWrARn0cIiiaubyseCn/ZfTc7o298LwprwfA==
 
 "@types/mailgun-js@^0.22.12":
   version "0.22.12"
