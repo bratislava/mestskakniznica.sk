@@ -1,6 +1,7 @@
 import { NavikronosConfig } from '../types'
 
 type AliasContentTypeMap<Config> = Config extends NavikronosConfig<
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   infer StaticRoutesIds,
   infer EntryRoutesAliases,
   infer ContentTypeRoutesAliases
@@ -11,6 +12,10 @@ type AliasContentTypeMap<Config> = Config extends NavikronosConfig<
     }
   : never
 
+/**
+ * Returns a map
+ * @param config
+ */
 export const getAliasContentTypeMap = <Config extends NavikronosConfig>(config: Config) => {
   const entryRoutes = new Map(
     Object.entries(config.entryRoutes).map(([uid, { alias }]) => [alias, uid] as const)

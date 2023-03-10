@@ -1,10 +1,16 @@
 import { isDefined } from '@utils/isDefined'
+import { navikronosConfig } from '@utils/navikronos'
 
-import { getAliasContentTypeMap } from './navikronosObject/getAliasContentTypeMap'
-import { NavikronosTree, NavikronosTreeNode, traverseTree } from './navikronosObject/traverseTree'
+import { getAliasContentTypeMap } from './navikronosParsedTreeUtils/getAliasContentTypeMap'
+import {
+  NavikronosParsedTree,
+  NavikronosParsedTreeNode,
+  traverseNavigation,
+} from './navikronosParsedTreeUtils/traverseNavigation'
 import {
   ContentRouteEntity,
   EntryRouteEntity,
+  ExtremTyp,
   NavikronosBreadcrumb,
   NavikronosBreadcrumbs,
   NavikronosChild,
@@ -30,19 +36,19 @@ const replaceLastPartWithSlug = (path: string) => {
 
 type GetTreeNodeByEntity<Config> = (
   entity: RouteEntityWithLocale<Config, true>
-) => NavikronosTreeNode | null
+) => NavikronosParsedTreeNode | null
 
 export type NavikronosTreeObject<Config extends NavikronosConfig> = {
-  tree: NavikronosTree
+  tree: NavikronosParsedTree
   getNodeByEntity: GetTreeNodeByEntity<Config>
-  getNodeByPath: (path: string, locale: string) => NavikronosTreeNode | null
+  getNodeByPath: (path: string, locale: string) => NavikronosParsedTreeNode | null
 }
 
 export const getNavikronosTreeObject = <Config extends NavikronosConfig>(
   config: Config,
   navigation: NavikronosClientLocaleNavigations
 ): NavikronosTreeObject<Config> => {
-  const tree = traverseTree(config, navigation)
+  const tree = traverseNavigation(config, navigation)
 
   const aliases = getAliasContentTypeMap(config)
 
@@ -67,8 +73,8 @@ export const getNavikronosTreeObject = <Config extends NavikronosConfig>(
       if (typeof id !== 'string') {
         return null
       }
-      const numberId = parseInt(id)
-      if (isNaN(numberId)) {
+      const numberId = parseInt(id, 10)
+      if (Number.isNaN(numberId)) {
         return null
       }
 
@@ -115,6 +121,12 @@ type GetPathForEntity<Config> = (
 
 type CurrentRouteLocalization = { locale: string; path: string }
 
+export const abc = <S extends string>(x: ExtremTyp<typeof navikronosConfig, S>) => {
+  return x
+}
+
+type G<Config> = <S extends string>(a: ExtremTyp<Config, S> | undefined | null) => void
+
 export type NavikronosObject<Config> = {
   getPathForEntity: GetPathForEntity<Config>
   currentPath: string | null
@@ -124,6 +136,7 @@ export type NavikronosObject<Config> = {
   children: NavikronosChildren
   siblings: NavikronosChildren
   parent: NavikronosChild | null
+  test: G<Config>
 }
 
 export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>(
@@ -183,7 +196,7 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     }
 
     const breadcrumbs: NavikronosBreadcrumbs = []
-    let current: NavikronosTreeNode | undefined = currentEntityNode
+    let current: NavikronosParsedTreeNode | undefined = currentEntityNode
     while (current) {
       if (current.original.type === 'contentType') {
         breadcrumbs.push({ path: current.fullPath(title), title })
@@ -197,7 +210,7 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
   }
 
   const getSiteMap = () => {
-    const mapFn = (route: NavikronosTreeNode): NavikronosSitemapEntry | null => {
+    const mapFn = (route: NavikronosParsedTreeNode): NavikronosSitemapEntry | null => {
       if (route.original.type === 'contentType') {
         return null
       }
@@ -230,7 +243,7 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     return currentEntityNode?.fullPath() ?? null
   })()
 
-  const nodeToChild = (child: NavikronosTreeNode): NavikronosChild | null => {
+  const nodeToChild = (child: NavikronosParsedTreeNode): NavikronosChild | null => {
     if (child.original.type === 'contentType') {
       return null
     }
@@ -255,6 +268,8 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
 
   const sitemap = getSiteMap()
 
+  const test: G<Config> = (a) => {}
+
   return {
     getPathForEntity,
     getBreadcrumbs,
@@ -264,5 +279,6 @@ export const getNavikronosCurrentRouteObject = <Config extends NavikronosConfig>
     children,
     siblings,
     parent,
+    test,
   }
 }

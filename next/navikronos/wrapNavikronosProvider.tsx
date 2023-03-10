@@ -1,16 +1,18 @@
-import { NavikronosProvider } from './NavikronosProvider'
 import { ComponentType } from 'react'
+
+import { NavikronosProvider } from './NavikronosProvider'
 import { NavikronosConfig, NavikronosStaticProps } from './types'
 
 export const wrapNavikronosProvider = <
   Config extends NavikronosConfig,
-  K extends { navikronosStaticProps: NavikronosStaticProps<Config> },
-  P extends ComponentType<K>
+  Props extends { navikronosStaticProps: NavikronosStaticProps<Config> }
 >(
-  Wrapped: ComponentType<K>
+  Wrapped: ComponentType<Props>
 ) => {
-  return (props: K) => {
+  // eslint-disable-next-line react/function-component-definition
+  return (props: Props) => {
     return (
+      // eslint-disable-next-line react/destructuring-assignment
       <NavikronosProvider staticProps={props.navikronosStaticProps}>
         <Wrapped {...props} />
       </NavikronosProvider>

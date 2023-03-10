@@ -1,5 +1,5 @@
-import { NavikronosClientLocaleNavigations, NavikronosConfig } from './types'
 import { getNavikronosTreeObject, NavikronosTreeObject } from './navikronosTreeObject'
+import { NavikronosClientLocaleNavigations, NavikronosConfig } from './types'
 
 let cache: {
   timestamp: number

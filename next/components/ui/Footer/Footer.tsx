@@ -29,20 +29,22 @@ const FooterLinks = ({ footerLink }: { footerLink: ComponentFooterFooterColumn['
 
   return (
     <>
-      {footerLink?.filter(isDefined).map((link) => (
-        <MLink
-          key={link.id}
-          href={
-            link.otherSite ||
-            getPathForEntity({ type: 'page', id: link.redirectTo?.data?.id }) ||
-            ''
-          }
-          variant="basic"
-          className="text-base text-foreground-body"
-        >
-          {link.title}
-        </MLink>
-      ))}
+      {footerLink?.filter(isDefined).map((link) => {
+        return (
+          <MLink
+            key={link.id}
+            href={
+              link.otherSite ||
+              getPathForEntity({ type: 'page', id: link.redirectTo?.data?.id }) ||
+              ''
+            }
+            variant="basic"
+            className="text-base text-foreground-body"
+          >
+            {link.title}
+          </MLink>
+        )
+      })}
     </>
   )
 }

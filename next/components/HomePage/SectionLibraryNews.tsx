@@ -2,7 +2,7 @@ import { SectionContainer } from '@components/ui'
 import NoticeCard from '@modules/cards-and-rows/NoticeCard'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { ComponentHomepageNewsSection, NoticeListingEntityFragment } from '@services/graphql'
-import { useNavikronos } from '@utils/navikronos'
+import { abc, useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -15,7 +15,7 @@ interface LibraryNewsProps {
 
 const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
   const { t } = useTranslation('homepage')
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity, test } = useNavikronos()
   const showMoreId = newsSection?.redirectTo?.data?.id
 
   return (

@@ -1,18 +1,55 @@
 export type NavikronosConfig<
   StaticRoutesIds extends string = string,
   EntryRoutesAliases extends string = string,
-  ContentTypeRoutesAliases extends string = string
+  ContentTypeRoutesAliases extends string = string,
+  ContentTypeRouteInner extends { strapiTypename: string; pathAttribute: string } = {
+    strapiTypename: string
+    pathAttribute: string
+  }
 > = {
   strapiUrl: string
   cacheTtl: number
   rewritePrefix: string
   staticRoutes: Record<StaticRoutesIds, { rewrite: string }>
-  entryRoutes: Record<string, { alias: EntryRoutesAliases; rewrite: (id: number) => string }>
+  entryRoutes: Record<
+    string,
+    {
+      alias: EntryRoutesAliases
+      strapiTypename: string
+      rewrite: (id: number) => string
+    }
+  >
   contentTypeRoutes: Record<
     string,
-    { alias: ContentTypeRoutesAliases; rewrite: (slug: string) => string }
+    {
+      alias: ContentTypeRoutesAliases
+      rewrite: (slug: string) => string
+    } & ContentTypeRouteInner
   >
 }
+
+export type ExtremTyp<Config, S extends string = string> = Config extends NavikronosConfig<
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  infer StaticRoutesIds,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  infer EntryRoutesAliases,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  infer ContentTypeRoutesAliases,
+  infer ContentTypeRouteInner
+>
+  ? NonNullable<S> extends ContentTypeRouteInner['strapiTypename']
+    ? {
+        __typename?: S
+        attributes?:
+          | {
+              [A in Extract<ContentTypeRouteInner, { strapiTypename: S }>['pathAttribute']]?:
+                | string
+                | null
+            }
+          | null
+      }
+    : never
+  : never
 
 export type NavikronosClientRoute =
   | NavikronosClientContentTypeRoute
@@ -69,7 +106,9 @@ export type NavikronosClientLocaleNavigations = Record<
 
 export type StaticRouteEntity<Config> = Config extends NavikronosConfig<
   infer StaticRoutesIds,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   infer EntryRoutesAliases,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   infer ContentTypeRoutesAliases
 >
   ? {
@@ -79,7 +118,9 @@ export type StaticRouteEntity<Config> = Config extends NavikronosConfig<
   : never
 
 export type ContentRouteEntity<Config, NullUndefinedSlug = false> = Config extends NavikronosConfig<
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   infer StaticRoutesIds,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   infer EntryRoutesAliases,
   infer ContentTypeRoutesAliases
 >
@@ -90,8 +131,10 @@ export type ContentRouteEntity<Config, NullUndefinedSlug = false> = Config exten
   : never
 
 export type EntryRouteEntity<Config, NullUndefinedId = false> = Config extends NavikronosConfig<
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   infer StaticRoutesIds,
   infer EntryRoutesAliases,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   infer ContentTypeRoutesAliases
 >
   ? {

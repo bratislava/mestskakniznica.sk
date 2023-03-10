@@ -27,22 +27,22 @@ export const getMiddleware = (config: NavikronosConfig) => {
 
     const { navikronosObject } = await fetchNavigation(config)
     const { locale, pathname } = request.nextUrl
-    const route = navikronosObject.getNodeByPath(pathname, locale)
+    const node = navikronosObject.getNodeByPath(pathname, locale)
 
-    if (!route) {
+    if (!node) {
       return
     }
 
-    if (route.original.type === 'contentType') {
+    if (node.original.type === 'contentType') {
       const slug = last(pathname.split('/'))
 
       if (!slug) {
         return
       }
 
-      return NextResponse.rewrite(new URL(`/${locale}${route.nextRewrite(slug)}`, request.url))
+      return NextResponse.rewrite(new URL(`/${locale}${node.nextRewrite(slug)}`, request.url))
     }
 
-    return NextResponse.rewrite(new URL(`/${locale}${route.nextRewrite()}`, request.url))
+    return NextResponse.rewrite(new URL(`/${locale}${node.nextRewrite()}`, request.url))
   }
 }

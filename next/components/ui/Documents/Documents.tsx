@@ -1,7 +1,7 @@
 import DocumentRow from '@modules/cards-and-rows/DocumentRow'
 import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
 import { hasAttributes, isDefined } from '@utils/isDefined'
-import { useNavikronos } from '@utils/navikronos'
+import { abc, useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 
 export interface DocumentsProps {
@@ -11,7 +11,7 @@ export interface DocumentsProps {
 }
 
 export const Documents = ({ className, title, documents }: DocumentsProps) => {
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity, test } = useNavikronos()
 
   const parsedDocuments = documents
     .filter(hasAttributes)
@@ -20,6 +20,8 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
 
       if (document.__typename === 'DisclosureEntity') {
         const { type, contractor } = document.attributes
+        const x = abc(document)
+        const xa = test(document)
 
         return {
           id: document.id,
