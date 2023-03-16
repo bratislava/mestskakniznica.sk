@@ -25,7 +25,7 @@ export interface FooterProps {
 }
 
 const FooterLinks = ({ footerLink }: { footerLink: ComponentFooterFooterColumn['footerLink'] }) => {
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavikronos()
 
   return (
     <>
@@ -33,11 +33,7 @@ const FooterLinks = ({ footerLink }: { footerLink: ComponentFooterFooterColumn['
         return (
           <MLink
             key={link.id}
-            href={
-              link.otherSite ||
-              getPathForEntity({ type: 'page', id: link.redirectTo?.data?.id }) ||
-              ''
-            }
+            href={link.otherSite || getPathForStrapiEntity(link?.redirectTo?.data) || ''}
             variant="basic"
             className="text-base text-foreground-body"
           >

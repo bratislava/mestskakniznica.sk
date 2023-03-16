@@ -1,7 +1,8 @@
 import DesktopBreadcrumbs from '@modules/breadcrumbs/DesktopBreadcrumbs'
 import MobileBreadcrumbs from '@modules/breadcrumbs/MobileBreadcrumbs'
 import { AriaBreadcrumbsProps } from 'react-aria'
-import { NavikronosBreadcrumbs } from '../../navikronos/types'
+
+import { NavikronosBreadcrumbs } from '../../navikronos/internal/internalTypes'
 
 export type BreadcrumbListItem = { title: string; url?: string }
 

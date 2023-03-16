@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useId } from 'react'
 
-import { NavikronosChildren } from '../../../navikronos/types'
+import { NavikronosChildren } from '../../../navikronos/internal/internalTypes'
 
 export interface ListingProps {
   className?: string

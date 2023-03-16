@@ -1,7 +1,8 @@
 import { ComponentType } from 'react'
 
+import { NavikronosStaticProps } from './internal/internalTypes'
 import { NavikronosProvider } from './NavikronosProvider'
-import { NavikronosConfig, NavikronosStaticProps } from './types'
+import { NavikronosConfig } from './types'
 
 export const wrapNavikronosProvider = <
   Config extends NavikronosConfig,

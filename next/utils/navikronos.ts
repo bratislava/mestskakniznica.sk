@@ -1,7 +1,6 @@
-import { Document, Maybe, Scalars } from '@services/graphql'
-
+import { NavikronosStaticProps } from '../navikronos/internal/internalTypes'
 import { createUseNavikronosHook } from '../navikronos/NavikronosProvider'
-import { ExtremTyp, NavikronosConfig, NavikronosStaticProps } from '../navikronos/types'
+import { NavikronosConfig } from '../navikronos/types'
 
 export const navikronosConfig = {
   strapiUrl: process.env.STRAPI_URL as string,
@@ -15,7 +14,7 @@ export const navikronosConfig = {
       alias: 'page' as const,
       strapiTypename: 'PageEntity' as const,
       rewrite: (id) => `/page/${id}`,
-    },
+    } as const,
   },
   contentTypeRoutes: {
     'api::notice.notice': {
@@ -62,19 +61,5 @@ export type CLNavikronosConfig = typeof navikronosConfig
 export type CLNavikronosPageProps = {
   navikronosStaticProps: NavikronosStaticProps<CLNavikronosConfig>
 }
-
-export const abc = <S extends string>(x: ExtremTyp<typeof navikronosConfig, S>) => {
-  return x
-}
-
-export type DocumentEntity = {
-  __typename?: 'DocumentEntity'
-  attributes?: Maybe<Document>
-  id: Maybe<Scalars['ID']>
-}
-
-const x = {} as unknown as DocumentEntity
-
-const g = abc(x)
 
 export const useNavikronos = createUseNavikronosHook(navikronosConfig)

@@ -1,9 +1,11 @@
 import { Context, createContext, PropsWithChildren, useContext, useMemo } from 'react'
 
+import { NavikronosStaticProps } from './internal/internalTypes'
+import { getNavikronosCurrentRouteObject, NavikronosObject } from './internal/treeObject'
 import { useNavikronosConfig } from './NavikronosConfigProvider'
-import { getNavikronosCurrentRouteObject, NavikronosObject } from './navikronosTreeObject'
-import { NavikronosConfig, NavikronosStaticProps } from './types'
+import { NavikronosConfig } from './types'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const NavikronosContext = createContext<NavikronosObject<any> | null>(null)
 
 export const NavikronosProvider = <Config extends NavikronosConfig>({
@@ -32,6 +34,7 @@ const useNavikronos = <Config extends NavikronosConfig>() => {
   return navikronos
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const createUseNavikronosHook = <Config extends NavikronosConfig>(config: Config) => {
   return useNavikronos<Config>
 }

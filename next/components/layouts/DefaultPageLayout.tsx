@@ -22,7 +22,7 @@ interface IProps {
 
 const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IProps) => {
   const { footer, general } = useGeneralContext()
-  const { getPathForEntity, currentRouteLocalizations } = useNavikronos()
+  const { getPathForStrapiEntity, currentRouteLocalizations } = useNavikronos()
 
   const { t } = useTranslation('common')
   const { menuValue } = useNavMenuContext()
@@ -75,10 +75,9 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
               gdpr={{
                 title: t('privacy'),
                 href:
-                  getPathForEntity({
-                    type: 'page',
-                    id: general?.data?.attributes?.privacyTermsAndConditionsPage?.data?.id,
-                  }) ?? '',
+                  getPathForStrapiEntity(
+                    general?.data?.attributes?.privacyTermsAndConditionsPage?.data
+                  ) ?? '#',
               }}
               VOP={{
                 title: t('VOP'),

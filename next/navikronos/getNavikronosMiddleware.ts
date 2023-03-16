@@ -1,13 +1,13 @@
 import last from 'lodash/last'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { fetchNavigation } from './fetchNavigation'
+import { fetchNavikronos } from './internal/fetch'
 import { NavikronosConfig } from './types'
 
 // From https://nextjs.org/docs/advanced-features/i18n-routing#prefixing-the-default-locale
 const PUBLIC_FILE = /\.(.*)$/
 
-export const getMiddleware = (config: NavikronosConfig) => {
+export const getNavikronosMiddleware = (config: NavikronosConfig) => {
   return async (request: NextRequest) => {
     // From https://nextjs.org/docs/advanced-features/i18n-routing#prefixing-the-default-locale
     if (
@@ -25,7 +25,7 @@ export const getMiddleware = (config: NavikronosConfig) => {
       return NextResponse.rewrite(url)
     }
 
-    const { navikronosObject } = await fetchNavigation(config)
+    const { navikronosObject } = await fetchNavikronos(config)
     const { locale, pathname } = request.nextUrl
     const node = navikronosObject.getNodeByPath(pathname, locale)
 

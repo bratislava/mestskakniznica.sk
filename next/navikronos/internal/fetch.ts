@@ -1,11 +1,13 @@
-import { getNavikronosTreeObject, NavikronosTreeObject } from './navikronosTreeObject'
-import { NavikronosClientLocaleNavigations, NavikronosConfig } from './types'
+import { NavikronosConfig } from '../types'
+import { getParsedTreeObject, ParsedTreeObject } from './routeObject'
+import { NavikronosClientLocaleNavigations } from './sharedTypes'
 
 let cache: {
   timestamp: number
   value: {
     navigation: NavikronosClientLocaleNavigations
-    navikronosObject: NavikronosTreeObject<any>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    navikronosObject: ParsedTreeObject<any>
   }
 } | null = null
 
@@ -19,13 +21,13 @@ const fetchNonCached = async (config: NavikronosConfig) => {
   return json as NavikronosClientLocaleNavigations
 }
 
-export const fetchNavigation = async <Config extends NavikronosConfig>(config: Config) => {
+export const fetchNavikronos = async <Config extends NavikronosConfig>(config: Config) => {
   if (cache?.timestamp && cache.timestamp + config.cacheTtl > Date.now()) {
     return cache.value
   }
 
   const navigation = await fetchNonCached(config)
-  const navikronosObject = getNavikronosTreeObject<Config>(config, navigation)
+  const navikronosObject = getParsedTreeObject<Config>(config, navigation)
 
   const value = { navigation, navikronosObject }
   cache = { timestamp: Date.now(), value }

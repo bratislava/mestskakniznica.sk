@@ -1,12 +1,8 @@
 import { GetStaticPropsContext } from 'next/types'
 
-import { fetchNavigation } from './fetchNavigation'
-import {
-  NavikronosConfig,
-  NavikronosStaticProps,
-  RouteEntity,
-  RouteEntityWithLocale,
-} from './types'
+import { fetchNavikronos } from './internal/fetch'
+import { NavikronosStaticProps, RouteEntity, RouteEntityWithLocale } from './internal/internalTypes'
+import { NavikronosConfig } from './types'
 
 export const navikronosGetStaticProps = async <Config extends NavikronosConfig>(
   navikronosConfig: Config,
@@ -14,7 +10,7 @@ export const navikronosGetStaticProps = async <Config extends NavikronosConfig>(
   currentEntity?: RouteEntity<Config>,
   currentEntityLocalizations?: RouteEntityWithLocale<Config>[]
 ) => {
-  const { navigation } = await fetchNavigation(navikronosConfig)
+  const { navigation } = await fetchNavikronos(navikronosConfig)
 
   return {
     navigation,

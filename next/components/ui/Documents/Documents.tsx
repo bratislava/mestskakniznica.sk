@@ -11,21 +11,19 @@ export interface DocumentsProps {
 }
 
 export const Documents = ({ className, title, documents }: DocumentsProps) => {
-  const { getPathForEntity, test } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavikronos()
 
   const parsedDocuments = documents
     .filter(hasAttributes)
     .map((document) => {
-      const { title: docTitle, slug, file } = document.attributes
+      const { title: docTitle, file } = document.attributes
 
       if (document.__typename === 'DisclosureEntity') {
         const { type, contractor } = document.attributes
-        const x = abc(document)
-        const xa = test(document)
 
         return {
           id: document.id,
-          linkHref: getPathForEntity({ type: 'disclosure', slug }) ?? '',
+          linkHref: getPathForStrapiEntity(document),
           content: {
             category: type,
             title: docTitle,
@@ -41,7 +39,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
 
         return {
           id: document.id,
-          linkHref: getPathForEntity({ type: 'document', slug }) ?? '',
+          linkHref: getPathForStrapiEntity(document),
           content: {
             category: documentCategory?.data?.attributes?.label,
             title: docTitle,

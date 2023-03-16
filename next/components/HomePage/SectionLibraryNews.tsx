@@ -15,7 +15,7 @@ interface LibraryNewsProps {
 
 const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
   const { t } = useTranslation('homepage')
-  const { getPathForEntity, test } = useNavikronos()
+  const { getPathForEntity, getEntityForStrapiEntity } = useNavikronos()
   const showMoreId = newsSection?.redirectTo?.data?.id
 
   return (

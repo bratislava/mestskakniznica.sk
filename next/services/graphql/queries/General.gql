@@ -87,26 +87,31 @@ fragment GeneralEntity on GeneralEntity {
   attributes {
     eventsPage {
       data {
+        __typename
         id
       }
     }
     newBooksPage {
       data {
+        __typename
         id
       }
     }
     privacyTermsAndConditionsPage {
       data {
+        __typename
         id
       }
     }
     openingHoursPage {
       data {
+        __typename
         id
       }
     }
     noticesPage {
       data {
+        __typename
         id
       }
     }

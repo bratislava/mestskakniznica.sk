@@ -7,18 +7,13 @@ import { useTranslation } from 'next-i18next'
 const HeaderNavigation = () => {
   const { t } = useTranslation('common')
   const { general } = useGeneralContext()
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavikronos()
   const otherLocale = useGetOtherLocale()
 
   return (
     <div className="flex flex-wrap text-sm">
       <MLink
-        href={
-          getPathForEntity({
-            type: 'page',
-            id: general?.data?.attributes?.openingHoursPage?.data?.id,
-          }) ?? ''
-        }
+        href={getPathForStrapiEntity(general?.data?.attributes?.openingHoursPage?.data) ?? ''}
         variant="basic"
         className="relative grid place-content-center border-l border-border-dark px-3"
       >

@@ -16,10 +16,10 @@ const EventPage = ({ event }: PageProps) => {
   const { t } = useTranslation(['common', 'homepage'])
 
   const { upcomingEvents } = useGeneralContext()
-  const { getBreadcrumbs } = useNavikronos()
+  const { getBreadcrumbs, getPathForEntity, getEntityForStrapiEntity } = useNavikronos()
   const breadcrumbs = getBreadcrumbs(event.attributes?.title)
   const { general } = useGeneralContext()
-  const { getPathForEntity } = useNavikronos()
+  console.log(test(general?.data?.attributes?.eventsPage?.data))
 
   return (
     <>

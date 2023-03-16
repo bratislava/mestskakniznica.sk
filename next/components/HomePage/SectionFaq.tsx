@@ -14,7 +14,7 @@ interface SectionFaqProps {
 
 const SectionFaq = ({ faqSection }: SectionFaqProps) => {
   const { t } = useTranslation(['homepage', 'common'])
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity, getPathForStrapiEntity } = useNavikronos()
   const showMoreId = faqSection?.redirectTo?.data?.id
 
   return (
@@ -23,6 +23,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
         <div className="w-full space-y-4 md:w-96">
           {faqSection?.ctas?.map((cta) => {
             const ctaId = cta?.ctaRedirectTo?.data?.id
+            getPathForStrapiEntity(cta?.ctaRedirectTo?.data)
             return ctaId ? (
               <div key={cta?.title}>
                 <PageCard

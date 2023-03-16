@@ -11,7 +11,7 @@ type SectionHomepageNewBooksProps = { books: Book[] }
 const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
   const { t } = useTranslation('homepage')
   const { general } = useGeneralContext()
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavikronos()
 
   return (
     <SectionContainer hasBorder>
@@ -28,12 +28,7 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
         </div>
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
           <ShowMoreLink
-            href={
-              getPathForEntity({
-                type: 'page',
-                id: general?.data?.attributes?.newBooksPage?.data?.id,
-              }) ?? ''
-            }
+            href={getPathForStrapiEntity(general?.data?.attributes?.newBooksPage?.data) ?? '#'}
           >
             {t('newBooksAll')}
           </ShowMoreLink>
