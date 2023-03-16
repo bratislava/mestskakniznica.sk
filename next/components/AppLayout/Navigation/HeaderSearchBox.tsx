@@ -44,6 +44,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
         // eslint-disable-next-line security/detect-non-literal-fs-filename
         window.open(`${opacBaseUrl}?fn=searchform&extSrchTitle=${input}`, '_blank')
       }
+      setOpen(false)
     }
     if (searchOptions === 'on_page') {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
