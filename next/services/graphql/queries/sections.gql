@@ -144,6 +144,7 @@ fragment FaqSection on ComponentSectionsFaq {
   }
   ctaButton
   redirectTo {
+    __typename
     data {
       ...PageWithBaseFieldsEntity
     }

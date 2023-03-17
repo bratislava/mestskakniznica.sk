@@ -11,7 +11,7 @@ type BranchDetailsServicesProps = {
 
 const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
   const { t } = useTranslation('common')
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity, getPathForStrapiEntity } = useNavikronos()
 
   if (!branch.attributes?.servicePages?.data.length) {
     return null
@@ -30,7 +30,7 @@ const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
             <PageCard
               key={service.id}
               title={service.attributes.title}
-              href={getPathForEntity({ type: 'page', id: service.id }) ?? ''}
+              href={getPathForStrapiEntity(service) ?? ''}
               showMoreText={t('more')}
               className="h-[134px] pr-[24px]"
             />

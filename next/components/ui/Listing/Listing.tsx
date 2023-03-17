@@ -6,14 +6,13 @@ import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useId } from 'react'
 
-import { RouteEntity } from '../../../navikronos/internal/internalTypes'
-import { RouteEntityAndTitleWithChildren } from '../../../navikronos/internal/navikronosObject'
+import { NavikronosRouteChildren } from '../../../navikronos/types'
 
 export interface ListingProps {
   className?: string
   title?: string
   url?: string
-  listingChildren: RouteEntityAndTitleWithChildren<CLNavikronosConfig>[]
+  listingChildren: NavikronosRouteChildren<CLNavikronosConfig>
   hasDivider?: boolean
 }
 

@@ -38,6 +38,7 @@ fragment BlogPostSections on BlogPostSectionsDynamicZone {
 
 
 fragment BlogPostEntity on BlogPostEntity {
+  __typename
   id
   attributes {
     slug

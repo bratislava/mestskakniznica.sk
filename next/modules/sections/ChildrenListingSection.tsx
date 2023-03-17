@@ -33,6 +33,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
     () =>
       upcomingEvents?.data?.map((event) => ({
         title: event.attributes?.title ?? '',
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain,@typescript-eslint/no-non-null-assertion
         entity: { type: 'event' as const, slug: event.attributes?.slug! },
         children: [],
       })) ?? [],
@@ -43,6 +44,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
     () =>
       latestNewsData?.latestNotices?.data.map((notice) => ({
         title: notice.attributes?.title ?? '',
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain,@typescript-eslint/no-non-null-assertion
         entity: { type: 'notice' as const, slug: notice.attributes?.slug! },
         children: [],
       })) ?? [],

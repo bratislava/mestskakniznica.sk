@@ -34,6 +34,7 @@ fragment BranchCardEntity on BranchEntity {
 }
 
 fragment BranchEntity on BranchEntity {
+  __typename
   ...BranchCardEntity
   attributes {
     medias {
@@ -55,10 +56,10 @@ fragment BranchEntity on BranchEntity {
     }
     servicePages {
       data {
+        __typename
         id
         attributes {
           title
-          slug
         }
       }
     }

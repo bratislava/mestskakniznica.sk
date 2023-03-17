@@ -20,13 +20,13 @@ export const navikronosConfig = {
     'api::notice.notice': {
       alias: 'notice' as const,
       strapiTypename: 'NoticeEntity' as const,
-      pathAttribute: 'noticeSlug' as const,
+      pathAttribute: 'slug' as const,
       rewrite: (slug) => `/notice/${slug}`,
     } as const,
     'api::branch.branch': {
       alias: 'branch' as const,
       strapiTypename: 'BranchEntity' as const,
-      pathAttribute: 'branchSlug' as const,
+      pathAttribute: 'slug' as const,
       rewrite: (slug) => `/branch/${slug}`,
     } as const,
     'api::document.document': {

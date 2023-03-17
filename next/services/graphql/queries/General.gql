@@ -62,6 +62,7 @@ fragment FooterEntity on FooterEntity {
       footerLink {
         id
         redirectTo {
+          __typename
           data {
             ...PageWithBaseFieldsEntity
           }

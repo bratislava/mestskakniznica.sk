@@ -13,10 +13,10 @@ type BlogPostProps = {
 
 const BlogPostCard = ({ blogPost }: BlogPostProps) => {
   const { t } = useTranslation('common')
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavikronos()
 
   const { coverMedia, publishedAt, title } = blogPost.attributes ?? {}
-  const link = getPathForEntity({ type: 'blog-post', slug: blogPost.attributes?.slug })
+  const link = getPathForStrapiEntity(blogPost)
 
   return (
     <div className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between">
