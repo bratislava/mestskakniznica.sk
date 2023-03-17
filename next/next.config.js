@@ -5,7 +5,6 @@ const { i18n, reloadOnPrerender } = require('./next-i18next.config')
  */
 const nextConfig = {
   i18n,
-  reloadOnPrerender,
   reactStrictMode: true,
   images: {
     domains: ['localhost', 'cdn-api.bratislava.sk', 'api.mapbox.com', 'coverlinker.biblib.net'],
@@ -6517,11 +6516,6 @@ const nextConfig = {
     MAILCHIMP_AUDIENCE_ID: process.env.MAILCHIMP_AUDIENCE_ID,
     ORIGIN_ROOT_URL: process.env.ORIGIN_ROOT_URL,
   },
-}
-
-module.exports = (phase, { defaultConfig }) => ({
-  ...defaultConfig,
-  ...nextConfig,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -6543,4 +6537,6 @@ module.exports = (phase, { defaultConfig }) => ({
 
     return config
   },
-})
+}
+
+module.exports = nextConfig
