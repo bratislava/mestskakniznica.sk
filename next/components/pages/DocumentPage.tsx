@@ -20,11 +20,9 @@ interface IProps {
 
 const DocumentPage = ({ entity }: IProps) => {
   const { t, i18n } = useTranslation('common')
-  const { getBreadcrumbs } = useNavikronos()
+  const { breadcrumbs } = useNavikronos()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
   const { getDisclosureMetadata } = useDisclosureMetadata()
-
-  const breadcrumbs = getBreadcrumbs(entity.attributes?.title)
 
   if (!entity.attributes) {
     return null

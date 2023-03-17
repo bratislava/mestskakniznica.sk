@@ -17,8 +17,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
 
   const mediaType = blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
 
-  const { getBreadcrumbs } = useNavikronos()
-  const breadcrumbs = getBreadcrumbs(blogPost.attributes?.title)
+  const { breadcrumbs } = useNavikronos()
 
   return (
     <>

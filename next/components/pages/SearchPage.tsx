@@ -77,8 +77,7 @@ const SearchPage = () => {
     keepPreviousData: true,
   })
 
-  const { getBreadcrumbs } = useNavikronos()
-  const breadcrumbs = getBreadcrumbs()
+  const { breadcrumbs } = useNavikronos()
 
   return (
     <>

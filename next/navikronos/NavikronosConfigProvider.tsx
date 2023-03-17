@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
 
-import { NavikronosConfig } from './types'
+import { NavikronosConfig } from './config-type'
 
 const NavikronosConfigContext = createContext<NavikronosConfig | null>(null)
 

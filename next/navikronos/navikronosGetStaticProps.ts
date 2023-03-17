@@ -1,21 +1,31 @@
 import { GetStaticPropsContext } from 'next/types'
 
+import { NavikronosConfig } from './config-type'
 import { fetchNavikronos } from './internal/fetch'
-import { NavikronosStaticProps, RouteEntity, RouteEntityWithLocale } from './internal/internalTypes'
-import { NavikronosConfig } from './types'
+import { NavikronosStaticProps } from './internal/internalTypes'
 
-export const navikronosGetStaticProps = async <Config extends NavikronosConfig>(
-  navikronosConfig: Config,
-  { locale }: Pick<GetStaticPropsContext, 'locale'>,
-  currentEntity?: RouteEntity<Config>,
-  currentEntityLocalizations?: RouteEntityWithLocale<Config>[]
-) => {
+export const navikronosGetStaticProps = async <Config extends NavikronosConfig>({
+  navikronosConfig,
+  ctx,
+  ...rest
+}: {
+  navikronosConfig: Config
+  ctx: Pick<GetStaticPropsContext, 'locale'>
+} & Partial<
+  Pick<
+    NavikronosStaticProps<Config>,
+    'currentEntity' | 'currentEntityLocalizations' | 'breadcrumbsTitle'
+  >
+>) => {
   const { navigation } = await fetchNavikronos(navikronosConfig)
+
+  if (!ctx.locale) {
+    throw new Error(`"ctx" provided to "navikronosGetStaticProps" doesn't contain locale!`)
+  }
 
   return {
     navigation,
-    currentEntity: currentEntity ?? null,
-    currentEntityLocalizations: currentEntityLocalizations ?? [],
-    locale,
-  } as NavikronosStaticProps<Config>
+    locale: ctx.locale,
+    ...rest,
+  } satisfies NavikronosStaticProps<Config>
 }

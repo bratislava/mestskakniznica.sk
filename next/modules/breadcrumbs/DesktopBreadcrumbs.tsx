@@ -1,12 +1,14 @@
 import { HomeIcon } from '@assets/icons'
 import BreadcrumbItem from '@modules/breadcrumbs/BreadcrumbItem'
 import { BreadcrumbsProps } from '@modules/breadcrumbs/Breadcrumbs'
+import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import { useBreadcrumbs } from 'react-aria'
 
 const DesktopBreadcrumbs = ({ crumbs, ...rest }: BreadcrumbsProps) => {
   const { t } = useTranslation('common')
   const { navProps } = useBreadcrumbs(rest)
+  const { getPathForEntity } = useNavikronos()
 
   return (
     <nav {...navProps} className="flex min-w-0 text-sm">
@@ -21,7 +23,7 @@ const DesktopBreadcrumbs = ({ crumbs, ...rest }: BreadcrumbsProps) => {
 
           return (
             // eslint-disable-next-line react/no-array-index-key
-            <BreadcrumbItem key={index} url={crumb.path} isCurrent={isLast}>
+            <BreadcrumbItem key={index} url={getPathForEntity(crumb.entity)} isCurrent={isLast}>
               {crumb.title}
             </BreadcrumbItem>
           )

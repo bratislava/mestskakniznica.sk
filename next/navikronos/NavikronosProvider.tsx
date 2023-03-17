@@ -1,9 +1,9 @@
 import { Context, createContext, PropsWithChildren, useContext, useMemo } from 'react'
 
+import { NavikronosConfig } from './config-type'
 import { NavikronosStaticProps } from './internal/internalTypes'
-import { getNavikronosCurrentRouteObject, NavikronosObject } from './internal/treeObject'
+import { getNavikronosObject, NavikronosObject } from './internal/navikronosObject'
 import { useNavikronosConfig } from './NavikronosConfigProvider'
-import { NavikronosConfig } from './types'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const NavikronosContext = createContext<NavikronosObject<any> | null>(null)
@@ -14,10 +14,7 @@ export const NavikronosProvider = <Config extends NavikronosConfig>({
 }: PropsWithChildren<{ staticProps: NavikronosStaticProps<Config> }>) => {
   const config = useNavikronosConfig()
 
-  const navikronos = useMemo(
-    () => getNavikronosCurrentRouteObject(config, staticProps),
-    [config, staticProps]
-  )
+  const navikronos = useMemo(() => getNavikronosObject(config, staticProps), [config, staticProps])
 
   return <NavikronosContext.Provider value={navikronos}>{children}</NavikronosContext.Provider>
 }

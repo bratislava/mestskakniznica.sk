@@ -1,22 +1,25 @@
 import PageCard from '@modules/cards-and-rows/PageCard'
 import PageRow from '@modules/cards-and-rows/PageRow'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
+import { CLNavikronosConfig, useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useId } from 'react'
 
-import { NavikronosChildren } from '../../../navikronos/internal/internalTypes'
+import { RouteEntity } from '../../../navikronos/internal/internalTypes'
+import { RouteEntityAndTitleWithChildren } from '../../../navikronos/internal/navikronosObject'
 
 export interface ListingProps {
   className?: string
   title?: string
   url?: string
-  listingChildren: NavikronosChildren
+  listingChildren: RouteEntityAndTitleWithChildren<CLNavikronosConfig>[]
   hasDivider?: boolean
 }
 
 export const Listing = ({ className, title, url, listingChildren, hasDivider }: ListingProps) => {
   const { t } = useTranslation()
+  const { getPathForEntity } = useNavikronos()
   const id = useId()
 
   return (
@@ -43,12 +46,16 @@ export const Listing = ({ className, title, url, listingChildren, hasDivider }: 
                 className="h-[180px]"
                 key={page.title}
                 title={page.title}
-                href={page.path}
+                href={getPathForEntity(page.entity) ?? '#'}
                 showMoreText={t('more')}
               />
             </div>
 
-            <PageRow className="md:hidden" title={page.title} href={page.path} />
+            <PageRow
+              className="md:hidden"
+              title={page.title}
+              href={getPathForEntity(page.entity) ?? '#'}
+            />
           </div>
         ))}
       </div>

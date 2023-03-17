@@ -1,4 +1,4 @@
-import { NavikronosConfig } from '../types'
+import { NavikronosConfig } from '../config-type'
 import { NavikronosClientLocaleNavigations } from './sharedTypes'
 
 export type StrapiEntity<
@@ -95,26 +95,7 @@ export type RouteEntityWithLocaleOptional<Config, NullUndefinedIdSlug = false> =
 export type NavikronosStaticProps<Config extends NavikronosConfig> = {
   navigation: NavikronosClientLocaleNavigations
   locale: string
-  currentEntity: RouteEntity<Config> | null
-  currentEntityLocalizations: RouteEntityWithLocale<Config>[]
+  currentEntity?: RouteEntity<Config> | null
+  currentEntityLocalizations?: RouteEntityWithLocale<Config>[]
+  breadcrumbsTitle?: string
 }
-export type NavikronosBreadcrumb = {
-  title: string
-  path: string
-}
-
-export type NavikronosBreadcrumbs = NavikronosBreadcrumb[]
-
-export type NavikronosChild = NavikronosBreadcrumb & {
-  children?: NavikronosChildren
-}
-
-export type NavikronosChildren = NavikronosChild[]
-
-export type NavikronosSitemapEntry = {
-  title: string
-  path: string
-  children?: NavikronosSitemapEntry[]
-}
-
-export type NavikronosSitemap = NavikronosSitemapEntry[]

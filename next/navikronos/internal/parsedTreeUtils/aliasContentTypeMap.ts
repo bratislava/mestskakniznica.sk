@@ -1,4 +1,4 @@
-import { NavikronosConfig } from '../../types'
+import { NavikronosConfig } from '../../config-type'
 
 type AliasContentTypeMap<Config> = Config extends NavikronosConfig<
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

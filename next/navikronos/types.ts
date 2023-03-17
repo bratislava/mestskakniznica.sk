@@ -1,30 +1,9 @@
-export type NavikronosConfig<
-  StaticRoutesIds extends string = string,
-  EntryRoutesAliases extends string = string,
-  ContentTypeRoutesAliases extends string = string,
-  EntryRoutesStrapiTypenames extends string = string,
-  ContentTypeRouteInner extends { strapiTypename: string; pathAttribute: string } = {
-    strapiTypename: string
-    pathAttribute: string
-  }
-> = {
-  strapiUrl: string
-  cacheTtl: number
-  rewritePrefix: string
-  staticRoutes: Record<StaticRoutesIds, { rewrite: string }>
-  entryRoutes: Record<
-    string,
-    {
-      alias: EntryRoutesAliases
-      strapiTypename: EntryRoutesStrapiTypenames
-      rewrite: (id: number) => string
-    }
-  >
-  contentTypeRoutes: Record<
-    string,
-    {
-      alias: ContentTypeRoutesAliases
-      rewrite: (slug: string) => string
-    } & ContentTypeRouteInner
-  >
-}
+import { NavikronosObject } from './internal/navikronosObject'
+
+export type NavikronosRouteLocalizations<Config> = NavikronosObject<Config>['localizations']
+export type NavikronosRouteSitemap<Config> = NavikronosObject<Config>['sitemap']
+export type NavikronosRouteChildren<Config> = NavikronosObject<Config>['children']
+export type NavikronosRouteSiblings<Config> = NavikronosObject<Config>['siblings']
+export type NavikronosRouteParents<Config> = NavikronosObject<Config>['parents']
+export type NavikronosRouteParent<Config> = NavikronosObject<Config>['parent']
+export type NavikronosRouteBreadcrumbs<Config> = NavikronosObject<Config>['breadcrumbs']

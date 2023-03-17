@@ -1,5 +1,5 @@
-import { NavikronosConfig } from '../types'
-import { getParsedTreeObject, ParsedTreeObject } from './routeObject'
+import { NavikronosConfig } from '../config-type'
+import { getParsedTreeWithUtilities, ParsedTreeObject } from './parsedTreeWithUtilities'
 import { NavikronosClientLocaleNavigations } from './sharedTypes'
 
 let cache: {
@@ -27,7 +27,7 @@ export const fetchNavikronos = async <Config extends NavikronosConfig>(config: C
   }
 
   const navigation = await fetchNonCached(config)
-  const navikronosObject = getParsedTreeObject<Config>(config, navigation)
+  const navikronosObject = getParsedTreeWithUtilities<Config>(config, navigation)
 
   const value = { navigation, navikronosObject }
   cache = { timestamp: Date.now(), value }

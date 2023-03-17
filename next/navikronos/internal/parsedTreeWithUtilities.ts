@@ -1,4 +1,4 @@
-import { NavikronosConfig } from '../types'
+import { NavikronosConfig } from '../config-type'
 import { EntryRouteEntity, RouteEntityWithLocale, StaticRouteEntity } from './internalTypes'
 import { getAliasContentTypeMap } from './parsedTreeUtils/aliasContentTypeMap'
 import { LocaleParsedTreeMap, ParsedTreeNode, parseTree } from './parsedTreeUtils/parseTree'
@@ -12,6 +12,7 @@ const replaceLastPartWithSlug = (path: string) => {
   parts[parts.length - 1] = ':slug'
   return parts.join('/')
 }
+
 type GetTreeNodeByEntity<Config> = (
   entity: RouteEntityWithLocale<Config, true>
 ) => ParsedTreeNode | null
@@ -21,7 +22,8 @@ export type ParsedTreeObject<Config extends NavikronosConfig> = {
   getNodeByEntity: GetTreeNodeByEntity<Config>
   getNodeByPath: (path: string, locale: string) => ParsedTreeNode | null
 }
-export const getParsedTreeObject = <Config extends NavikronosConfig>(
+
+export const getParsedTreeWithUtilities = <Config extends NavikronosConfig>(
   config: Config,
   navigation: NavikronosClientLocaleNavigations
 ): ParsedTreeObject<Config> => {

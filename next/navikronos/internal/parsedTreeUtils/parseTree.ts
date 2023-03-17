@@ -1,6 +1,6 @@
 import ManyKeysMap from 'many-keys-map'
 
-import { NavikronosConfig } from '../../types'
+import { NavikronosConfig } from '../../config-type'
 import {
   NavikronosClientLocaleNavigations,
   NavikronosClientNavigation,
@@ -70,9 +70,6 @@ const getNextRewrite = (config: NavikronosConfig, route: NavikronosClientRoute):
       }
       return () => `/${config.rewritePrefix}${routeConfig.rewrite}`
     }
-
-    case 'listing':
-      return nullFn
 
     default:
       return nullFn

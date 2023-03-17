@@ -2,6 +2,7 @@ import { ChevronRightIcon, HomeIcon } from '@assets/icons'
 import BreadcrumbItem from '@modules/breadcrumbs/BreadcrumbItem'
 import { BreadcrumbsProps } from '@modules/breadcrumbs/Breadcrumbs'
 import Accordion from '@modules/common/Accordion'
+import { useNavikronos } from '@utils/navikronos'
 import dropRight from 'lodash/dropRight'
 import last from 'lodash/last'
 import { useTranslation } from 'next-i18next'
@@ -41,9 +42,10 @@ const MobileBreadcrumbsAccordionButton = ({
 
 const MobileBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
   const { t } = useTranslation('common')
+  const { getPathForEntity } = useNavikronos()
 
   // Add homepage and safely remove current last item
-  const mobileCrumbs = [{ title: t('homepage'), path: '/' }, ...dropRight(crumbs)]
+  const mobileCrumbs = dropRight(crumbs)
 
   return (
     <nav className="text-sm">
@@ -57,10 +59,13 @@ const MobileBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
         }
       >
         <ol className="flex flex-col">
+          <BreadcrumbItem url="/" isMobile>
+            {t('homepage')}
+          </BreadcrumbItem>
           {mobileCrumbs?.map((crumb, index) => {
             return (
               // eslint-disable-next-line react/no-array-index-key
-              <BreadcrumbItem key={index} url={crumb.path} isMobile>
+              <BreadcrumbItem key={index} url={getPathForEntity(crumb.entity)} isMobile>
                 {crumb.title}
               </BreadcrumbItem>
             )

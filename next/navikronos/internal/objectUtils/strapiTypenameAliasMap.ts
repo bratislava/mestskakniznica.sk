@@ -1,9 +1,4 @@
-import { NavikronosConfig } from '../../types'
-
-type StrapiTypenameAliasMap = {
-  entryRoutes: Map<string, { alias: string }>
-  contentTypeRoutes: Map<string, { alias: string; pathAttribute: string }>
-}
+import { NavikronosConfig } from '../../config-type'
 
 /**
  * Returns a map
@@ -22,13 +17,16 @@ export const getStrapiTypenameAliasMap = <Config extends NavikronosConfig>(confi
     )
   )
 
-  return { entryRoutes, contentTypeRoutes } as StrapiTypenameAliasMap
+  return { entryRoutes, contentTypeRoutes }
 }
 
-export const getContentTypeAliasEntryRouteMap = <Config extends NavikronosConfig>(
-  config: Config
-) => {
-  return new Map(
+export const getContentTypeAliasMap = <Config extends NavikronosConfig>(config: Config) => {
+  const entryRoutes = new Map(
     Object.entries(config.entryRoutes).map(([uid, { alias }]) => [uid, alias] as const)
   )
+  const contentTypeRoutes = new Map(
+    Object.entries(config.contentTypeRoutes).map(([uid, { alias }]) => [uid, alias] as const)
+  )
+
+  return { entryRoutes, contentTypeRoutes }
 }

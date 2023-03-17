@@ -1,8 +1,8 @@
 import last from 'lodash/last'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { NavikronosConfig } from './config-type'
 import { fetchNavikronos } from './internal/fetch'
-import { NavikronosConfig } from './types'
 
 // From https://nextjs.org/docs/advanced-features/i18n-routing#prefixing-the-default-locale
 const PUBLIC_FILE = /\.(.*)$/
@@ -21,7 +21,9 @@ export const getNavikronosMiddleware = (config: NavikronosConfig) => {
     if (request.nextUrl.pathname.startsWith(`/${config.rewritePrefix}`)) {
       const url = request.nextUrl.clone()
 
+      // eslint-disable-next-line scanjs-rules/assign_to_pathname
       url.pathname = `/404`
+      // eslint-disable-next-line consistent-return
       return NextResponse.rewrite(url)
     }
 
@@ -40,9 +42,11 @@ export const getNavikronosMiddleware = (config: NavikronosConfig) => {
         return
       }
 
+      // eslint-disable-next-line consistent-return
       return NextResponse.rewrite(new URL(`/${locale}${node.nextRewrite(slug)}`, request.url))
     }
 
+    // eslint-disable-next-line consistent-return
     return NextResponse.rewrite(new URL(`/${locale}${node.nextRewrite()}`, request.url))
   }
 }
