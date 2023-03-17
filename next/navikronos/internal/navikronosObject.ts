@@ -133,7 +133,7 @@ NavikronosObject<Config> => {
       return {
         type: route.alias,
         id: (strapiEntity as { id: string }).id,
-      } as EntryRouteEntity<Config, false>
+      } as EntryRouteEntity<Config>
     }
 
     if (_strapiTypenameAliasMap.contentTypeRoutes.has(strapiEntity.__typename)) {
@@ -141,9 +141,8 @@ NavikronosObject<Config> => {
       const route = _strapiTypenameAliasMap.contentTypeRoutes.get(strapiEntity.__typename)!
       return {
         type: route.alias,
-        // TODO: type
-        slug: (strapiEntity as any)?.attributes?.[route.pathAttribute],
-      } as ContentTypeRouteEntity<Config, false>
+        slug: (strapiEntity as StrapiEntity<Config>)?.attributes?.[route.pathAttribute],
+      } as ContentTypeRouteEntity<Config>
     }
 
     return null
