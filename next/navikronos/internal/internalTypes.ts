@@ -95,6 +95,7 @@ export type RouteEntityWithLocaleOptional<Config, NullUndefinedIdSlug = false> =
 export type NavikronosStaticProps<Config extends NavikronosConfig> = {
   navigation: NavikronosClientLocaleNavigations
   locale: string
+  locales: string[]
   currentEntity?: RouteEntity<Config> | null
   currentEntityLocalizations?: RouteEntityWithLocale<Config>[]
   breadcrumbsTitle?: string

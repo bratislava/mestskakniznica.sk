@@ -70,6 +70,7 @@ export const getNavikronosObject = <Config extends NavikronosConfig>(
   {
     navigation: _navigation,
     locale: _globalLocale,
+    locales: _locales,
     currentEntity: _currentEntity,
     currentEntityLocalizations: _currentEntityLocalizations,
     breadcrumbsTitle: _breadcrumbsTitle,
@@ -159,6 +160,26 @@ NavikronosObject<Config> => {
 
     return getPathForEntity(entity)
   }
+
+  const localizations = (() => {
+    if (_currentEntityLocalizations) {
+      return _currentEntityLocalizations
+    }
+
+    if (_currentEntityNode?.original.type === 'static') {
+      return _locales
+        .filter((locale) => locale !== _globalLocale)
+        .map(
+          (locale) =>
+            ({
+              ..._currentEntity,
+              locale,
+            } as RouteEntityWithLocale<Config>)
+        )
+    }
+
+    return []
+  })()
 
   const currentPath = (() => {
     if (!_currentEntityNode) {
@@ -271,7 +292,7 @@ NavikronosObject<Config> => {
     getPathForEntity,
     getEntityForStrapiEntity,
     getPathForStrapiEntity,
-    localizations: _currentEntityLocalizations ?? [],
+    localizations,
     sitemap,
     children,
     siblings,

@@ -10,7 +10,7 @@ export const navikronosGetStaticProps = async <Config extends NavikronosConfig>(
   ...rest
 }: {
   navikronosConfig: Config
-  ctx: Pick<GetStaticPropsContext, 'locale'>
+  ctx: Pick<GetStaticPropsContext, 'locale' | 'locales'>
 } & Partial<
   Pick<
     NavikronosStaticProps<Config>,
@@ -19,13 +19,16 @@ export const navikronosGetStaticProps = async <Config extends NavikronosConfig>(
 >) => {
   const { navigation } = await fetchNavikronos(navikronosConfig)
 
-  if (!ctx.locale) {
-    throw new Error(`"ctx" provided to "navikronosGetStaticProps" doesn't contain locale!`)
+  if (!ctx.locale || !ctx.locales) {
+    throw new Error(
+      `"ctx" provided to "navikronosGetStaticProps" doesn't contain "locale" or "locales"!`
+    )
   }
 
   return {
     navigation,
     locale: ctx.locale,
+    locales: ctx.locales,
     ...rest,
   } satisfies NavikronosStaticProps<Config>
 }
