@@ -189,7 +189,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/zazite/podujatia/The-Hope-Gospel-Singers',
+        source: '/zazite/podujatia/([T])he-Hope-Gospel-Singers',
         destination: '/zazite/podujatia/the-hope-gospel-singers',
         permanent: true,
       },

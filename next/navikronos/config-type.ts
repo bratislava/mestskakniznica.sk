@@ -1,30 +1,23 @@
-export type NavikronosConfig<
-  StaticRoutesIds extends string = string,
-  EntryRoutesAliases extends string = string,
-  ContentTypeRoutesAliases extends string = string,
-  EntryRoutesStrapiTypenames extends string = string,
-  ContentTypeRouteInner extends { strapiTypename: string; pathAttribute: string } = {
-    strapiTypename: string
-    pathAttribute: string
-  }
-> = {
+export type NavikronosConfig = {
   strapiUrl: string
   cacheTtl: number
   rewritePrefix: string
-  staticRoutes: Record<StaticRoutesIds, { rewrite: string }>
+  staticRoutes: Record<string, { rewrite: string }>
   entryRoutes: Record<
     string,
     {
-      alias: EntryRoutesAliases
-      strapiTypename: EntryRoutesStrapiTypenames
+      alias: string
+      strapiTypename: string
       rewrite: (id: number) => string
     }
   >
   contentTypeRoutes: Record<
     string,
     {
-      alias: ContentTypeRoutesAliases
+      alias: string
       rewrite: (slug: string) => string
-    } & ContentTypeRouteInner
+      strapiTypename: string
+      pathAttribute: string
+    }
   >
 }
