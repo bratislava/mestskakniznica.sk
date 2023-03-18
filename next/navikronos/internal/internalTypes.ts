@@ -20,27 +20,21 @@ type StaticRoutesConfigValues<Config extends NavikronosConfig> =
   StaticRoutesConfig<Config>[StaticRoutesConfigKeys<Config>]
 
 export type StrapiEntryRouteEntity<Config extends NavikronosConfig> =
-  EntryRoutesConfigValues<Config> extends infer U
-    ? U extends { strapiTypename: infer T }
-      ? { __typename: T; id: string }
-      : never
+  EntryRoutesConfigValues<Config> extends { strapiTypename: infer T extends string }
+    ? { __typename: T; id: string }
     : never
 
 export type StrapiContentTypeRouteEntity<Config extends NavikronosConfig> =
-  ContentTypeRoutesConfigValues<Config> extends infer U
-    ? U extends { strapiTypename: infer T; pathAttribute: infer K extends string }
-      ? { __typename: T; attributes: Record<K, string> }
-      : never
+  ContentTypeRoutesConfigValues<Config> extends {
+    strapiTypename: infer T extends string
+    pathAttribute: infer K extends string
+  }
+    ? { __typename: T; attributes: Record<K, string> }
     : never
 
 export type StrapiEntity<Config extends NavikronosConfig> =
   | StrapiEntryRouteEntity<Config>
   | StrapiContentTypeRouteEntity<Config>
-
-const x = <Config extends NavikronosConfig>(e: Omit<StrapiEntity<Config>, never>) => {
-  if (e.__typename) {
-  }
-}
 
 export type StaticRouteEntity<Config extends NavikronosConfig> = {
   type: 'static'
@@ -50,27 +44,9 @@ export type StaticRouteEntity<Config extends NavikronosConfig> = {
 export type ContentTypeRouteEntity<
   Config extends NavikronosConfig,
   NullUndefinedSlug = false
-> = ContentTypeRoutesConfigValues<Config> extends infer U
-  ? U extends { alias: infer T }
-    ? { type: T; slug: NullUndefinedSlug extends true ? string | null | undefined : string }
-    : never
+> = ContentTypeRoutesConfigValues<Config> extends { alias: infer T }
+  ? { type: T; slug: NullUndefinedSlug extends true ? string | null | undefined : string }
   : never
-
-// export type ContentTypeRouteEntity<
-//   Config,
-//   NullUndefinedSlug = false
-// > = Config extends NavikronosConfig<
-//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//   infer StaticRoutesIds,
-//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//   infer EntryRoutesAliases,
-//   infer ContentTypeRoutesAliases
-// >
-//   ? {
-//       type: ContentTypeRoutesAliases
-//       slug: NullUndefinedSlug extends true ? string | null | undefined : string
-//     }
-//   : never
 
 export type EntryRouteEntity<
   Config extends NavikronosConfig,
@@ -85,7 +61,10 @@ export type EntryRouteEntity<
          */
         id: NullUndefinedId extends true ? string | null | undefined : string
       }
-    : never
+    : {
+        type: string
+        id: NullUndefinedId extends true ? string | null | undefined : string
+      }
   : never
 
 // export type EntryRouteEntity<Config, NullUndefinedId = false> = Config extends NavikronosConfig<
@@ -124,7 +103,7 @@ export type NavikronosStaticProps<Config extends NavikronosConfig> = {
   navigation: NavikronosClientLocaleNavigations
   locale: string
   locales: string[]
-  currentEntity?: Omit<RouteEntity<Config>, never> | null
+  currentEntity?: RouteEntity<Config> | null
   currentEntityLocalizations?: RouteEntityWithLocale<Config>[]
   breadcrumbsTitle?: string
 }

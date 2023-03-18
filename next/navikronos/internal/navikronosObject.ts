@@ -24,22 +24,22 @@ import { getParsedTreeWithUtilities } from './parsedTreeWithUtilities'
 type CurrentPath = string | null
 
 type GetPathForEntity<Config extends NavikronosConfig> = (
-  routeEntity: Omit<RouteEntityWithLocaleOptional<Config, true>, never> | null
+  routeEntity: RouteEntityWithLocaleOptional<Config, true> | null
 ) => string | null
 
 type Localizations<Config extends NavikronosConfig> = RouteEntityWithLocale<Config>[] | null
 
 type GetEntityForStrapiEntity<Config extends NavikronosConfig> = (
-  strapiEntity: Omit<StrapiEntity<Config>, never> | undefined | null
+  strapiEntity: StrapiEntity<Config> | undefined | null
 ) => RouteEntity<Config> | null
 
 type GetPathForStrapiEntity<Config extends NavikronosConfig> = (
-  strapiEntity: Omit<StrapiEntity<Config>, never> | undefined | null
+  strapiEntity: StrapiEntity<Config> | undefined | null
 ) => string | null
 
 export type RouteEntityAndTitle<Config extends NavikronosConfig> = {
   title: string
-  entity: Omit<RouteEntity<Config>, never> | null
+  entity: RouteEntity<Config> | null
 }
 
 export type RouteEntityAndTitleWithChildren<Config extends NavikronosConfig> =
@@ -113,7 +113,7 @@ NavikronosObject<Config> => {
     }
 
     if (node.original.type === 'contentType') {
-      const { slug } = entity as Omit<ContentTypeRouteEntity<Config, true>, never>
+      const { slug } = entity as ContentTypeRouteEntity<Config, true>
       if (!slug) {
         return null
       }
@@ -136,7 +136,7 @@ NavikronosObject<Config> => {
       const route = _strapiTypenameAliasMap.entryRoutes.get(strapiEntity.__typename)!
       return {
         type: route.alias,
-        id: (strapiEntity as Omit<StrapiEntryRouteEntity<Config>, never>).id,
+        id: (strapiEntity as StrapiEntryRouteEntity<Config>).id,
       } as EntryRouteEntity<Config>
     }
 
@@ -145,7 +145,7 @@ NavikronosObject<Config> => {
       const route = _strapiTypenameAliasMap.contentTypeRoutes.get(strapiEntity.__typename)!
       return {
         type: route.alias,
-        slug: (strapiEntity as Omit<StrapiContentTypeRouteEntity<Config>, never>)?.attributes?.[
+        slug: (strapiEntity as StrapiContentTypeRouteEntity<Config>)?.attributes?.[
           route.pathAttribute
         ],
       } as ContentTypeRouteEntity<Config>
@@ -283,7 +283,7 @@ NavikronosObject<Config> => {
               type: _contentTypeAliasMap.contentTypeRoutes.get(
                 _currentEntityNode.original.contentTypeUid
               ) as string,
-              slug: (_currentEntity as Omit<ContentTypeRouteEntity<Config>, never>).slug,
+              slug: (_currentEntity as ContentTypeRouteEntity<Config>).slug,
             } as ContentTypeRouteEntity<Config>,
           } as RouteEntityAndTitle<Config>)
         : _nodeToEntityAndTitle(_currentEntityNode)
