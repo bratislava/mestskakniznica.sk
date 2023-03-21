@@ -1,148 +1,17 @@
-export type NavikronosConfig<
-  StaticRoutesIds extends string = string,
-  EntryRoutesAliases extends string = string,
-  ContentTypeRoutesAliases extends string = string
-> = {
-  strapiUrl: string
-  cacheTtl: number
-  rewritePrefix: string
-  staticRoutes: Record<StaticRoutesIds, { rewrite: string }>
-  entryRoutes: Record<string, { alias: EntryRoutesAliases; rewrite: (id: number) => string }>
-  contentTypeRoutes: Record<
-    string,
-    { alias: ContentTypeRoutesAliases; rewrite: (slug: string) => string }
-  >
-}
+import { NavikronosConfig } from './config-type'
+import { NavikronosObject } from './internal/navikronosObject'
 
-export type NavikronosClientRoute =
-  | NavikronosClientContentTypeRoute
-  | NavikronosClientEmptyRoute
-  | NavikronosClientEntryRoute
-  | NavikronosClientStaticRoute
-  | NavikronosClientListingRoute
-
-export type NavikronosClientRoutes = NavikronosClientRoute[]
-
-export type NavikronosClientRouteWithTitlePath = {
-  title: string
-  path: string
-}
-export type NavikronosClientRouteWithChildren = {
-  children?: NavikronosClientRoute[]
-}
-
-export type NavikronosClientContentTypeRoute = {
-  type: 'contentType'
-  contentTypeUid: string
-}
-
-export type NavikronosClientEmptyRoute = {
-  type: 'empty'
-} & NavikronosClientRouteWithTitlePath &
-  NavikronosClientRouteWithChildren
-
-export type NavikronosClientEntryRoute = {
-  type: 'entry'
-  contentTypeUid: string
-  entryId: number
-} & NavikronosClientRouteWithTitlePath &
-  NavikronosClientRouteWithChildren
-
-export type NavikronosClientStaticRoute = {
-  type: 'static'
-  id: string
-} & NavikronosClientRouteWithTitlePath &
-  NavikronosClientRouteWithChildren
-
-export type NavikronosClientListingRoute = {
-  type: 'listing'
-  id: string
-} & NavikronosClientRouteWithTitlePath &
-  NavikronosClientRouteWithChildren
-
-export type NavikronosClientNavigation = NavikronosClientRoutes
-
-export type NavikronosClientLocaleNavigations = Record<
-  string,
-  NavikronosClientNavigation | undefined
->
-
-export type StaticRouteEntity<Config> = Config extends NavikronosConfig<
-  infer StaticRoutesIds,
-  infer EntryRoutesAliases,
-  infer ContentTypeRoutesAliases
->
-  ? {
-      type: 'static'
-      id: StaticRoutesIds
-    }
-  : never
-
-export type ContentRouteEntity<Config, NullUndefinedSlug = false> = Config extends NavikronosConfig<
-  infer StaticRoutesIds,
-  infer EntryRoutesAliases,
-  infer ContentTypeRoutesAliases
->
-  ? {
-      type: ContentTypeRoutesAliases
-      slug: NullUndefinedSlug extends true ? string | null | undefined : string
-    }
-  : never
-
-export type EntryRouteEntity<Config, NullUndefinedId = false> = Config extends NavikronosConfig<
-  infer StaticRoutesIds,
-  infer EntryRoutesAliases,
-  infer ContentTypeRoutesAliases
->
-  ? {
-      type: EntryRoutesAliases
-      /**
-       * Strapi works with `number` id, but GraphQL returns `string` ids, for easier usage Navikronos accepts the `string`
-       * variation.
-       */
-      id: NullUndefinedId extends true ? string | null | undefined : string
-    }
-  : never
-
-export type RouteEntity<Config, NullUndefinedIdSlug = false> =
-  | StaticRouteEntity<Config>
-  | ContentRouteEntity<Config, NullUndefinedIdSlug>
-  | EntryRouteEntity<Config, NullUndefinedIdSlug>
-
-export type RouteEntityWithLocale<Config, NullUndefinedIdSlug = false> = RouteEntity<
-  Config,
-  NullUndefinedIdSlug
-> & { locale: string }
-
-export type RouteEntityWithLocaleOptional<Config, NullUndefinedIdSlug = false> = RouteEntity<
-  Config,
-  NullUndefinedIdSlug
-> & { locale?: string }
-
-export type NavikronosStaticProps<Config extends NavikronosConfig> = {
-  navigation: NavikronosClientLocaleNavigations
-  locale: string
-  currentEntity: RouteEntity<Config> | null
-  currentEntityLocalizations: RouteEntityWithLocale<Config>[]
-}
-
-export type NavikronosBreadcrumb = {
-  title: string
-  path: string
-}
-
-export type NavikronosBreadcrumbs = NavikronosBreadcrumb[]
-
-export type NavikronosChild = NavikronosBreadcrumb & {
-  children?: NavikronosChildren
-}
-
-export type NavikronosChildren = NavikronosChild[]
-
-export type NavikronosSitemapEntry = {
-  title: string
-  path: string
-  children?: NavikronosSitemapEntry[]
-}
-
-export type NavikronosSitemap = NavikronosSitemapEntry[]
+export type NavikronosRouteLocalizations<Config extends NavikronosConfig> =
+  NavikronosObject<Config>['localizations']
+export type NavikronosRouteSitemap<Config extends NavikronosConfig> =
+  NavikronosObject<Config>['sitemap']
+export type NavikronosRouteChildren<Config extends NavikronosConfig> =
+  NavikronosObject<Config>['children']
+export type NavikronosRouteSiblings<Config extends NavikronosConfig> =
+  NavikronosObject<Config>['siblings']
+export type NavikronosRouteParents<Config extends NavikronosConfig> =
+  NavikronosObject<Config>['parents']
+export type NavikronosRouteParent<Config extends NavikronosConfig> =
+  NavikronosObject<Config>['parent']
+export type NavikronosRouteBreadcrumbs<Config extends NavikronosConfig> =
+  NavikronosObject<Config>['breadcrumbs']

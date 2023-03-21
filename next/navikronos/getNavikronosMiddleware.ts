@@ -1,13 +1,13 @@
 import last from 'lodash/last'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { fetchNavigation } from './fetchNavigation'
-import { NavikronosConfig } from './types'
+import { NavikronosConfig } from './config-type'
+import { fetchNavikronos } from './internal/fetch'
 
 // From https://nextjs.org/docs/advanced-features/i18n-routing#prefixing-the-default-locale
 const PUBLIC_FILE = /\.(.*)$/
 
-export const getMiddleware = (config: NavikronosConfig) => {
+export const getNavikronosMiddleware = (config: NavikronosConfig) => {
   return async (request: NextRequest) => {
     // From https://nextjs.org/docs/advanced-features/i18n-routing#prefixing-the-default-locale
     if (
@@ -21,28 +21,32 @@ export const getMiddleware = (config: NavikronosConfig) => {
     if (request.nextUrl.pathname.startsWith(`/${config.rewritePrefix}`)) {
       const url = request.nextUrl.clone()
 
+      // eslint-disable-next-line scanjs-rules/assign_to_pathname
       url.pathname = `/404`
+      // eslint-disable-next-line consistent-return
       return NextResponse.rewrite(url)
     }
 
-    const { navikronosObject } = await fetchNavigation(config)
+    const { navikronosObject } = await fetchNavikronos(config)
     const { locale, pathname } = request.nextUrl
-    const route = navikronosObject.getNodeByPath(pathname, locale)
+    const node = navikronosObject.getNodeByPath(pathname, locale)
 
-    if (!route) {
+    if (!node) {
       return
     }
 
-    if (route.original.type === 'contentType') {
+    if (node.original.type === 'contentType') {
       const slug = last(pathname.split('/'))
 
       if (!slug) {
         return
       }
 
-      return NextResponse.rewrite(new URL(`/${locale}${route.nextRewrite(slug)}`, request.url))
+      // eslint-disable-next-line consistent-return
+      return NextResponse.rewrite(new URL(`/${locale}${node.nextRewrite(slug)}`, request.url))
     }
 
-    return NextResponse.rewrite(new URL(`/${locale}${route.nextRewrite()}`, request.url))
+    // eslint-disable-next-line consistent-return
+    return NextResponse.rewrite(new URL(`/${locale}${node.nextRewrite()}`, request.url))
   }
 }

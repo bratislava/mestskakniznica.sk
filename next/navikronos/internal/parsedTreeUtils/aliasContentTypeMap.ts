@@ -1,15 +1,5 @@
-import { NavikronosConfig } from '../types'
-
-type AliasContentTypeMap<Config> = Config extends NavikronosConfig<
-  infer StaticRoutesIds,
-  infer EntryRoutesAliases,
-  infer ContentTypeRoutesAliases
->
-  ? {
-      entryRoutes: Map<EntryRoutesAliases, string>
-      contentTypeRoutes: Map<ContentTypeRoutesAliases, string>
-    }
-  : never
+import { NavikronosConfig } from '../../config-type'
+import { AliasContentTypeMap } from '../internalTypes'
 
 export const getAliasContentTypeMap = <Config extends NavikronosConfig>(config: Config) => {
   const entryRoutes = new Map(
