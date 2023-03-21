@@ -32,7 +32,7 @@ const EventRow = ({ event }: EventRowProps) => {
       <div className="flex flex-col justify-center gap-y-[5px]">
         <MLink
           className="text-h6 line-clamp-1"
-          href={getPathForEntity({ type: 'event', slug }) ?? ''}
+          href={getPathForEntity({ type: 'event', slug }) ?? '#'}
           variant="basic"
           stretched
         >

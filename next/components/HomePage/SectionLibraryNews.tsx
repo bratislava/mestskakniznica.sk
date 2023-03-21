@@ -37,7 +37,7 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
         </div>
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
           {showMoreId && (
-            <ShowMoreLink href={getPathForEntity({ type: 'page', id: showMoreId }) ?? ''}>
+            <ShowMoreLink href={getPathForEntity({ type: 'page', id: showMoreId }) ?? '#'}>
               {t('libraryNewsAll')}
             </ShowMoreLink>
           )}

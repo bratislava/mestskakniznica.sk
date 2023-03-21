@@ -58,7 +58,7 @@ const EventCard = ({
       </div>
 
       <h3 className="pt-2 text-h5 line-clamp-3">
-        <MLink variant="basic" stretched href={getPathForEntity({ type: 'event', slug }) ?? ''}>
+        <MLink variant="basic" stretched href={getPathForEntity({ type: 'event', slug }) ?? '#'}>
           {title}
         </MLink>
       </h3>

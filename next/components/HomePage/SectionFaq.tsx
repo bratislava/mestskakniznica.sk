@@ -49,7 +49,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
           ))}
           <div className="pt-6 text-sm">
             {showMoreId && (
-              <ShowMoreLink href={getPathForEntity({ type: 'page', id: showMoreId }) ?? ''}>
+              <ShowMoreLink href={getPathForEntity({ type: 'page', id: showMoreId }) ?? '#'}>
                 {t('showMore', { ns: 'common' })}
               </ShowMoreLink>
             )}

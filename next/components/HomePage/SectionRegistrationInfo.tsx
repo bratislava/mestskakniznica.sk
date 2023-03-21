@@ -39,7 +39,7 @@ const SectionRegistrationInfo = ({ registrationInfoSection }: RegistrationInfoPr
 
             <div className="pt-8">
               {registerToLibraryId && (
-                <Button href={getPathForEntity({ type: 'page', id: registerToLibraryId }) ?? ''}>
+                <Button href={getPathForEntity({ type: 'page', id: registerToLibraryId }) ?? '#'}>
                   {t('registerToLibraryButton')}
                 </Button>
               )}

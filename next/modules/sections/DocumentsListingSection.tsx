@@ -99,7 +99,7 @@ const DocumentsListingSection = () => {
             <DocumentRow
               key={id}
               title={title}
-              linkHref={getPathForEntity({ type, slug }) ?? ''}
+              linkHref={getPathForEntity({ type, slug }) ?? '#'}
               fileExt={file?.ext?.toUpperCase().replace('.', '') ?? ''}
               category={category}
               // eslint-disable-next-line unicorn/consistent-destructuring
