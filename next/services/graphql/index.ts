@@ -5128,7 +5128,7 @@ type BlogPostSections_ComponentSectionsFaq_Fragment = {
     content?: string | null
   } | null> | null
   redirectTo?: {
-    __typename: 'PageEntityResponse'
+    __typename?: 'PageEntityResponse'
     data?: {
       __typename: 'PageEntity'
       id?: string | null
@@ -5230,7 +5230,7 @@ export type BlogPostEntityFragment = {
   __typename: 'BlogPostEntity'
   id?: string | null
   attributes?: {
-    __typename?: 'BlogPost'
+    __typename: 'BlogPost'
     slug: string
     title: string
     publishedAt?: any | null
@@ -5371,7 +5371,7 @@ export type BlogPostEntityFragment = {
             content?: string | null
           } | null> | null
           redirectTo?: {
-            __typename: 'PageEntityResponse'
+            __typename?: 'PageEntityResponse'
             data?: {
               __typename: 'PageEntity'
               id?: string | null
@@ -5492,7 +5492,7 @@ export type BlogPostBySlugQuery = {
       __typename: 'BlogPostEntity'
       id?: string | null
       attributes?: {
-        __typename?: 'BlogPost'
+        __typename: 'BlogPost'
         slug: string
         title: string
         publishedAt?: any | null
@@ -5633,7 +5633,7 @@ export type BlogPostBySlugQuery = {
                 content?: string | null
               } | null> | null
               redirectTo?: {
-                __typename: 'PageEntityResponse'
+                __typename?: 'PageEntityResponse'
                 data?: {
                   __typename: 'PageEntity'
                   id?: string | null
@@ -5742,7 +5742,7 @@ export type BlogPostsQuery = {
       __typename: 'BlogPostEntity'
       id?: string | null
       attributes?: {
-        __typename?: 'BlogPost'
+        __typename: 'BlogPost'
         slug: string
         title: string
         publishedAt?: any | null
@@ -5883,7 +5883,7 @@ export type BlogPostsQuery = {
                 content?: string | null
               } | null> | null
               redirectTo?: {
-                __typename: 'PageEntityResponse'
+                __typename?: 'PageEntityResponse'
                 data?: {
                   __typename: 'PageEntity'
                   id?: string | null
@@ -7230,7 +7230,7 @@ export type FooterEntityFragment = {
         title?: string | null
         otherSite?: string | null
         redirectTo?: {
-          __typename: 'PageEntityResponse'
+          __typename?: 'PageEntityResponse'
           data?: {
             __typename: 'PageEntity'
             id?: string | null
@@ -7478,7 +7478,7 @@ export type GeneralQuery = {
             title?: string | null
             otherSite?: string | null
             redirectTo?: {
-              __typename: 'PageEntityResponse'
+              __typename?: 'PageEntityResponse'
               data?: {
                 __typename: 'PageEntity'
                 id?: string | null
@@ -7575,7 +7575,7 @@ export type HomePageQuery = {
           id: string
           title?: string | null
           redirectTo?: {
-            __typename: 'PageEntityResponse'
+            __typename?: 'PageEntityResponse'
             data?: {
               __typename: 'PageEntity'
               id?: string | null
@@ -7600,7 +7600,7 @@ export type HomePageQuery = {
             id: string
             title?: string | null
             ctaRedirectTo?: {
-              __typename: 'PageEntityResponse'
+              __typename?: 'PageEntityResponse'
               data?: {
                 __typename: 'PageEntity'
                 id?: string | null
@@ -7622,7 +7622,7 @@ export type HomePageQuery = {
           title?: string | null
           description?: string | null
           redirectTo?: {
-            __typename: 'PageEntityResponse'
+            __typename?: 'PageEntityResponse'
             data?: {
               __typename: 'PageEntity'
               id?: string | null
@@ -7647,7 +7647,7 @@ export type HomePageQuery = {
           id: string
           title?: string | null
           redirectTo?: {
-            __typename: 'PageEntityResponse'
+            __typename?: 'PageEntityResponse'
             data?: {
               __typename: 'PageEntity'
               id?: string | null
@@ -8486,7 +8486,7 @@ type PageSections_ComponentSectionsFaq_Fragment = {
     content?: string | null
   } | null> | null
   redirectTo?: {
-    __typename: 'PageEntityResponse'
+    __typename?: 'PageEntityResponse'
     data?: {
       __typename: 'PageEntity'
       id?: string | null
@@ -8989,7 +8989,7 @@ export type PageEntityFragment = {
             content?: string | null
           } | null> | null
           redirectTo?: {
-            __typename: 'PageEntityResponse'
+            __typename?: 'PageEntityResponse'
             data?: {
               __typename: 'PageEntity'
               id?: string | null
@@ -9506,7 +9506,7 @@ export type PageByIdQuery = {
                 content?: string | null
               } | null> | null
               redirectTo?: {
-                __typename: 'PageEntityResponse'
+                __typename?: 'PageEntityResponse'
                 data?: {
                   __typename: 'PageEntity'
                   id?: string | null
@@ -10374,7 +10374,7 @@ export type FaqSectionFragment = {
     content?: string | null
   } | null> | null
   redirectTo?: {
-    __typename: 'PageEntityResponse'
+    __typename?: 'PageEntityResponse'
     data?: {
       __typename: 'PageEntity'
       id?: string | null
@@ -10604,7 +10604,6 @@ export const FaqSectionFragmentDoc = gql`
     }
     ctaButton
     redirectTo {
-      __typename
       data {
         ...PageWithBaseFieldsEntity
       }
@@ -10861,6 +10860,7 @@ export const BlogPostEntityFragmentDoc = gql`
     __typename
     id
     attributes {
+      __typename
       slug
       title
       publishedAt
@@ -11190,7 +11190,6 @@ export const FooterEntityFragmentDoc = gql`
         footerLink {
           id
           redirectTo {
-            __typename
             data {
               ...PageWithBaseFieldsEntity
             }
@@ -11809,7 +11808,6 @@ export const HomePageDocument = gql`
             id
             title
             redirectTo {
-              __typename
               data {
                 ...PageWithBaseFieldsEntity
               }
@@ -11823,7 +11821,6 @@ export const HomePageDocument = gql`
               id
               title
               ctaRedirectTo {
-                __typename
                 data {
                   ...PageWithBaseFieldsEntity
                 }
@@ -11835,7 +11832,6 @@ export const HomePageDocument = gql`
             title
             description
             redirectTo {
-              __typename
               data {
                 ...PageWithBaseFieldsEntity
               }
@@ -11849,7 +11845,6 @@ export const HomePageDocument = gql`
             id
             title
             redirectTo {
-              __typename
               data {
                 ...PageWithBaseFieldsEntity
               }

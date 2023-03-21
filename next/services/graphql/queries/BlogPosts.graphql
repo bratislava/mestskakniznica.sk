@@ -41,6 +41,7 @@ fragment BlogPostEntity on BlogPostEntity {
   __typename
   id
   attributes {
+    __typename
     slug
     title
     publishedAt
