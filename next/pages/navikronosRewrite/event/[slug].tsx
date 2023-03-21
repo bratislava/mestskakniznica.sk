@@ -89,15 +89,16 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
-    navikronosGetStaticProps(
+    navikronosGetStaticProps({
       navikronosConfig,
       ctx,
-      {
+      currentEntity: {
         type: 'event',
         slug,
       },
-      localizations
-    ),
+      currentEntityLocalizations: localizations,
+      breadcrumbsTitle: event.attributes?.title,
+    }),
   ])
 
   return {

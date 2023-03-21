@@ -122,7 +122,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     newBooksHomePageServerSideFetcher(),
     client.HomePage({ locale }),
     generalFetcher(locale),
-    navikronosGetStaticProps(navikronosConfig, ctx),
+    navikronosGetStaticProps({ navikronosConfig, ctx }),
   ])
 
   if (!homePage) {

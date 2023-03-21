@@ -91,15 +91,16 @@ export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = asy
   const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
-    await navikronosGetStaticProps(
+    navikronosGetStaticProps({
       navikronosConfig,
       ctx,
-      {
+      currentEntity: {
         type: 'notice',
         slug,
       },
-      localizations
-    ),
+      currentEntityLocalizations: localizations,
+      breadcrumbsTitle: notice.attributes?.title,
+    }),
   ])
 
   return {

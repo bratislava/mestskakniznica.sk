@@ -40,9 +40,10 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
   const locale = ctx?.locale!
   const translations = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
 
-  const navikronosStaticProps = await navikronosGetStaticProps(navikronosConfig, ctx, {
-    type: 'static',
-    id: 'search',
+  const navikronosStaticProps = await navikronosGetStaticProps({
+    navikronosConfig,
+    ctx,
+    currentEntity: { type: 'static', id: 'search' },
   })
 
   try {

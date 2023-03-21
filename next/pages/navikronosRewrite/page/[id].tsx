@@ -108,15 +108,15 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'forms', 'newsletter', 'homepage']),
-    navikronosGetStaticProps(
+    navikronosGetStaticProps({
       navikronosConfig,
       ctx,
-      {
+      currentEntity: {
         type: 'page',
         id,
       },
-      localizations
-    ),
+      currentEntityLocalizations: localizations,
+    }),
   ])
 
   const dehydratedState = await prefetchPageSections(page, locale)
