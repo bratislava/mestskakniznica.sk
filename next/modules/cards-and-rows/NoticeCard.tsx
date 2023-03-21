@@ -13,12 +13,12 @@ type NoticeCardProps = {
 
 const NoticeCard = ({ notice }: NoticeCardProps) => {
   const { t } = useTranslation('common')
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavikronos()
 
   const { image, link, date } = useMemo(() => {
     return {
       image: notice.attributes?.listingImage?.data,
-      link: getPathForEntity({ type: 'notice', slug: notice.attributes?.slug }),
+      link: getPathForStrapiEntity(notice),
       date: notice.attributes?.publishedAt,
     }
   }, [notice, t])

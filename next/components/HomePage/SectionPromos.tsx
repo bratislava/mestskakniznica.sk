@@ -28,12 +28,7 @@ const SectionPromos = ({ promos }: SectionPromosProps) => {
 
             case 'NoticeEntity':
               return {
-                element: (
-                  <PromoNewsCard
-                    title={promo?.attributes?.title ?? ''}
-                    slug={promo?.attributes?.slug ?? ''}
-                  />
-                ),
+                element: <PromoNewsCard notice={promo} />,
                 key: promo?.attributes?.slug,
               }
 

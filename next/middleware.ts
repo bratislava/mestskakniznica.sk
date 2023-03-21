@@ -1,4 +1,5 @@
-import { getMiddleware } from './navikronos/getMiddleware'
 import { navikronosConfig } from '@utils/navikronos'
 
-export const middleware = getMiddleware(navikronosConfig)
+import { getNavikronosMiddleware } from './navikronos/getNavikronosMiddleware'
+
+export const middleware = getNavikronosMiddleware(navikronosConfig)

@@ -6009,7 +6009,7 @@ export type BranchPlaceEntityFragment = {
 }
 
 export type BranchCardEntityFragment = {
-  __typename?: 'BranchEntity'
+  __typename: 'BranchEntity'
   id?: string | null
   attributes?: {
     __typename?: 'Branch'
@@ -7671,7 +7671,7 @@ export type HomePageQuery = {
             branch?: {
               __typename?: 'BranchEntityResponse'
               data?: {
-                __typename?: 'BranchEntity'
+                __typename: 'BranchEntity'
                 id?: string | null
                 attributes?: {
                   __typename?: 'Branch'
@@ -8550,7 +8550,7 @@ type PageSections_ComponentSectionsMap_Fragment = {
     branch?: {
       __typename?: 'BranchEntityResponse'
       data?: {
-        __typename?: 'BranchEntity'
+        __typename: 'BranchEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Branch'
@@ -8650,7 +8650,7 @@ type PageSections_ComponentSectionsRental_Fragment = {
     branch?: {
       __typename?: 'BranchEntityResponse'
       data?: {
-        __typename?: 'BranchEntity'
+        __typename: 'BranchEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Branch'
@@ -9045,7 +9045,7 @@ export type PageEntityFragment = {
             branch?: {
               __typename?: 'BranchEntityResponse'
               data?: {
-                __typename?: 'BranchEntity'
+                __typename: 'BranchEntity'
                 id?: string | null
                 attributes?: {
                   __typename?: 'Branch'
@@ -9136,7 +9136,7 @@ export type PageEntityFragment = {
             branch?: {
               __typename?: 'BranchEntityResponse'
               data?: {
-                __typename?: 'BranchEntity'
+                __typename: 'BranchEntity'
                 id?: string | null
                 attributes?: {
                   __typename?: 'Branch'
@@ -9562,7 +9562,7 @@ export type PageByIdQuery = {
                 branch?: {
                   __typename?: 'BranchEntityResponse'
                   data?: {
-                    __typename?: 'BranchEntity'
+                    __typename: 'BranchEntity'
                     id?: string | null
                     attributes?: {
                       __typename?: 'Branch'
@@ -9653,7 +9653,7 @@ export type PageByIdQuery = {
                 branch?: {
                   __typename?: 'BranchEntityResponse'
                   data?: {
-                    __typename?: 'BranchEntity'
+                    __typename: 'BranchEntity'
                     id?: string | null
                     attributes?: {
                       __typename?: 'Branch'
@@ -10129,7 +10129,7 @@ export type RentalSectionFragment = {
     branch?: {
       __typename?: 'BranchEntityResponse'
       data?: {
-        __typename?: 'BranchEntity'
+        __typename: 'BranchEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Branch'
@@ -10201,7 +10201,7 @@ export type MapSectionFragment = {
     branch?: {
       __typename?: 'BranchEntityResponse'
       data?: {
-        __typename?: 'BranchEntity'
+        __typename: 'BranchEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Branch'
@@ -10918,6 +10918,7 @@ export const BranchPlaceEntityFragmentDoc = gql`
 `
 export const BranchCardEntityFragmentDoc = gql`
   fragment BranchCardEntity on BranchEntity {
+    __typename
     id
     attributes {
       title

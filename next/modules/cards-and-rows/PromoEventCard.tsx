@@ -12,23 +12,14 @@ type PromoEventCardProps = {
 }
 
 const PromoEventCard = ({ event }: PromoEventCardProps) => {
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavikronos()
 
   if (!event) {
     return null
   }
 
-  const {
-    title,
-    slug,
-    eventTags,
-    eventCategory,
-    dateFrom,
-    dateTo,
-    branch,
-    listingImage,
-    coverImage,
-  } = event.attributes
+  const { title, eventTags, eventCategory, dateFrom, dateTo, branch, listingImage, coverImage } =
+    event.attributes
 
   const eventBranch = branch?.data?.attributes
 
@@ -45,7 +36,7 @@ const PromoEventCard = ({ event }: PromoEventCardProps) => {
 
         <h3 className="text-h2 line-clamp-3">
           <MLink
-            href={getPathForEntity({ type: 'event', slug }) ?? ''}
+            href={getPathForStrapiEntity(event) ?? '#'}
             variant="basic"
             stretched
             className="after:z-[1]"

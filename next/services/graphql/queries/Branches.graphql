@@ -13,6 +13,7 @@ fragment BranchPlaceEntity on BranchEntity {
 }
 
 fragment BranchCardEntity on BranchEntity {
+  __typename
   id
   attributes {
     title

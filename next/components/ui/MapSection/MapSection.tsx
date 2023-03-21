@@ -33,7 +33,7 @@ const getBoundsForLocalities = (branches: BranchCardEntityFragment[]) => {
 
 const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: MapSectionProps) => {
   const { t } = useTranslation()
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavikronos()
 
   const isClient = useIsClient()
 
@@ -136,8 +136,8 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
           })}
         >
           {branches.map((branch, index) => {
-            const { slug, title, subBranches } = branch.attributes ?? {}
-            const linkHref = getPathForEntity({ type: 'branch', slug }) ?? ''
+            const { title, subBranches } = branch.attributes ?? {}
+            const linkHref = getPathForStrapiEntity(branch) ?? '#'
 
             return (
               <div
