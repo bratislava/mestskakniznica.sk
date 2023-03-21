@@ -11814,12 +11814,12 @@ export const HomePageDocument = gql`
                 ...PageWithBaseFieldsEntity
               }
             }
-            faqs(pagination: { limit: 100 }) {
+            faqs(pagination: { limit: -1 }) {
               id
               question
               answer
             }
-            ctas(pagination: { limit: 100 }) {
+            ctas(pagination: { limit: -1 }) {
               id
               title
               ctaRedirectTo {
@@ -11898,7 +11898,7 @@ export const HomePageDocument = gql`
       }
     }
     ...LatestNoticesQuery
-    bookTags(pagination: { limit: 100 }) {
+    bookTags(pagination: { limit: -1 }) {
       data {
         ...BookTagEntity
       }
@@ -11986,7 +11986,7 @@ export const SortedPartnersDocument = gql`
   query SortedPartners($locale: I18NLocaleCode!) {
     featuredPartners: partners(
       locale: $locale
-      pagination: { limit: 100 }
+      pagination: { limit: -1 }
       filters: { featured: { eq: true } }
       sort: "priority:asc"
     ) {
@@ -11996,7 +11996,7 @@ export const SortedPartnersDocument = gql`
     }
     notFeaturedPartners: partners(
       locale: $locale
-      pagination: { limit: 100 }
+      pagination: { limit: -1 }
       filters: { featured: { eq: false } }
       sort: "priority:asc"
     ) {
