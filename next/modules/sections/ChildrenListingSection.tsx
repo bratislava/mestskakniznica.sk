@@ -19,8 +19,8 @@ type ChildrenListingSectionProps = {
 }
 
 const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
-  const { t, i18n } = useTranslation()
-  const { children, getPathForEntity } = useNavikronos()
+  const { i18n } = useTranslation()
+  const { children, getPathForStrapiEntity } = useNavikronos()
   const { general, upcomingEvents } = useGeneralContext()
 
   const { data: latestNewsData } = useQuery({
@@ -33,43 +33,37 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
     () =>
       upcomingEvents?.data?.map((event) => ({
         title: event.attributes?.title ?? '',
-        path: getPathForEntity({ type: 'event', slug: event.attributes?.slug }) ?? '#',
+        path: getPathForStrapiEntity(event),
       })) ?? [],
-    [upcomingEvents]
+    [getPathForStrapiEntity, upcomingEvents]
   )
 
   const mappedLatestNews = useMemo(
     () =>
       latestNewsData?.latestNotices?.data.map((notice) => ({
         title: notice.attributes?.title ?? '',
-        path: getPathForEntity({ type: 'notice', slug: notice.attributes?.slug }) ?? '#',
+        path: getPathForStrapiEntity(notice),
       })) ?? [],
-    [latestNewsData]
+    [getPathForStrapiEntity, latestNewsData]
   )
 
   if (section.depth === Enum_Componentsectionschildrenlisting_Depth.Depth_1) {
-    return <Listing className="mt-8 md:mt-16" listingChildren={children} />
+    return <Listing className="mt-8 md:mt-16" listingChildren={children?.filter(isDefined) ?? []} />
   }
 
   if (section.depth === Enum_Componentsectionschildrenlisting_Depth.Depth_2) {
     return (
       <>
-        {children.map((child, index) => {
+        {children?.map((child, index) => {
           const isEventsPage =
-            isDefined(child.path) &&
-            child.path ===
-              getPathForEntity({
-                type: 'page',
-                id: general?.data?.attributes?.eventsPage?.data?.id,
-              })
+            child.entity &&
+            child.entity.type === 'page' &&
+            child.entity.id === general?.data?.attributes?.eventsPage?.data?.id
 
           const isNoticesPage =
-            isDefined(child.path) &&
-            child.path ===
-              getPathForEntity({
-                type: 'page',
-                id: general?.data?.attributes?.noticesPage?.data?.id,
-              })
+            child.entity &&
+            child.entity.type === 'page' &&
+            child.entity.id === general?.data?.attributes?.noticesPage?.data?.id
 
           const listingChildren = (() => {
             if (isEventsPage) {
@@ -90,7 +84,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
               title={child.title}
               url={child.path ?? '#'}
               listingChildren={listingChildren}
-              hasDivider={children.length > 1 && index != children.length - 1}
+              hasDivider={children.length > 1 && index !== children.length - 1}
             />
           )
         })}

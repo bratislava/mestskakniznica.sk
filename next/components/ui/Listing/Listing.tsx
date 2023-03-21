@@ -5,13 +5,17 @@ import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useId } from 'react'
 
-import { NavikronosChildren } from '../../../navikronos/types'
+type ListingChild = {
+  title: string
+  path: string | null
+  children?: ListingChild[]
+}
 
 export interface ListingProps {
   className?: string
   title?: string
   url?: string
-  listingChildren: NavikronosChildren
+  listingChildren: ListingChild[]
   hasDivider?: boolean
 }
 
@@ -43,12 +47,12 @@ export const Listing = ({ className, title, url, listingChildren, hasDivider }: 
                 className="h-[180px]"
                 key={page.title}
                 title={page.title}
-                href={page.path}
+                href={page.path ?? '#'}
                 showMoreText={t('more')}
               />
             </div>
 
-            <PageRow className="md:hidden" title={page.title} href={page.path} />
+            <PageRow className="md:hidden" title={page.title} href={page.path ?? '#'} />
           </div>
         ))}
       </div>

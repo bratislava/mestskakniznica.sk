@@ -2,8 +2,7 @@ import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import { useNavikronos } from '@utils/navikronos'
 
 const PageBreadcrumbs = () => {
-  const { getBreadcrumbs } = useNavikronos()
-  const breadcrumbs = getBreadcrumbs()
+  const { breadcrumbs } = useNavikronos()
 
   return <Breadcrumbs crumbs={breadcrumbs} />
 }

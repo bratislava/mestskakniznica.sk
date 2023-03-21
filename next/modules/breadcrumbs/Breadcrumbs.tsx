@@ -1,12 +1,11 @@
 import DesktopBreadcrumbs from '@modules/breadcrumbs/DesktopBreadcrumbs'
 import MobileBreadcrumbs from '@modules/breadcrumbs/MobileBreadcrumbs'
 import { AriaBreadcrumbsProps } from 'react-aria'
-import { NavikronosBreadcrumbs } from '../../navikronos/types'
 
-export type BreadcrumbListItem = { title: string; url?: string }
+export type BreadcrumbListItem = { title: string; url?: string | null }
 
 export type BreadcrumbsProps = AriaBreadcrumbsProps & {
-  crumbs: NavikronosBreadcrumbs | null
+  crumbs: { title: string; path: string | null }[] | null
 }
 
 const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {

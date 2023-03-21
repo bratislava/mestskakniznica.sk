@@ -17,22 +17,22 @@ export const Sidebar = ({ className }: SidebarProps) => {
       {/* TODO create component for this button or update Button variants */}
       {parent && (
         <Button
-          href={parent.path}
+          href={parent.path ?? '#'}
           variant="unstyled"
           startIcon={<ArrowLeftIcon />}
           className="inline-flex items-center gap-x-4 text-base uppercase"
         >
-          {parent?.title}
+          {parent.title}
         </Button>
       )}
       <div className={cx('flex flex-col')}>
-        {siblings.map((child, index) => {
+        {siblings?.map((child, index) => {
           const isActive = child.path === currentPath
           return (
             <MLink
               // eslint-disable-next-line react/no-array-index-key
               key={index}
-              href={child.path}
+              href={child.path ?? '#'}
               variant="basic"
               className={cx('transform border-b py-3 transition-all duration-200 ease-linear', {
                 'border-border-light text-foreground-body': !isActive,
