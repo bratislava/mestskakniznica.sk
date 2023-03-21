@@ -10,12 +10,12 @@ query HomePage($locale: I18NLocaleCode!) {
               ...PageWithBaseFieldsEntity
             }
           }
-          faqs(pagination: { limit: 100 }) {
+          faqs(pagination: { limit: -1 }) {
             id
             question
             answer
           }
-          ctas(pagination: { limit: 100 }) {
+          ctas(pagination: { limit: -1 }) {
             id
             title
             ctaRedirectTo {
@@ -91,7 +91,7 @@ query HomePage($locale: I18NLocaleCode!) {
     }
   }
   ...LatestNoticesQuery
-  bookTags(pagination: { limit: 100 }) {
+  bookTags(pagination: { limit: -1 }) {
     data {
       ...BookTagEntity
     }
