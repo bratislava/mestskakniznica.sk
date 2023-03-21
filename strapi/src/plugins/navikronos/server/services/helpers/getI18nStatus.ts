@@ -26,7 +26,6 @@ export type I18nLocale = {
 export const getI18nStatus = async ({
   strapi,
 }: GetI18nStatusInput): Promise<I18NStatus> => {
-  debugger;
   const i18nPlugin: null | any = strapi.plugin("i18n");
   const hasI18NPlugin = !!i18nPlugin;
 

@@ -46,22 +46,23 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
   const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale, ['common', 'newsletter']),
-    navikronosGetStaticProps(
+    navikronosGetStaticProps({
       navikronosConfig,
       ctx,
-      {
+      currentEntity: {
         type: 'document',
         slug,
       },
       // TODO: Improve for unlocalized entities.
-      locales
+      currentEntityLocalizations: locales
         ?.filter((innerLocale) => innerLocale !== locale)
         .map((innerLocale) => ({
           type: 'document',
           slug,
           locale: innerLocale,
-        }))
-    ),
+        })),
+      breadcrumbsTitle: document.attributes?.title,
+    }),
   ])
 
   return {

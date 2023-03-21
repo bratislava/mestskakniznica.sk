@@ -33,7 +33,7 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
   const { errors } = useFormState()
   const { t } = useTranslation('forms')
   const { general } = useGeneralContext()
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavikronos()
 
   return (
     <div className={cx('w-full space-y-6', className)}>
@@ -55,10 +55,9 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
                 {t('form_footer_agree')}{' '}
                 <Link
                   href={
-                    getPathForEntity({
-                      type: 'page',
-                      id: general?.data?.attributes?.privacyTermsAndConditionsPage?.data?.id,
-                    }) ?? ''
+                    getPathForStrapiEntity(
+                      general?.data?.attributes?.privacyTermsAndConditionsPage?.data
+                    ) ?? ''
                   }
                   variant="plain"
                   uppercase={false}

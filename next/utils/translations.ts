@@ -1,6 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import cfg from '../next.config'
+import cfg from '../next-i18next.config'
 
 interface IcachedSsrTranslations {
   [key: string]: any
@@ -31,12 +31,9 @@ export const ssrTranslations = async (
     console.log(`Loading translations under cache key: ${namespaceString}`)
     return cachedValue
   }
-  const { i18n, localePath, reloadOnPrerender } = cfg(null, {
-    defaultConfig: {},
-  })
+  const { i18n, reloadOnPrerender } = cfg
   const result = await serverSideTranslations(locale, namespaces, {
     i18n,
-    localePath,
     reloadOnPrerender,
   })
   cachedSsrTranslations[locale][namespaceString] = result

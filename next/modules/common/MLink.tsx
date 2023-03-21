@@ -48,7 +48,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
     )
     return (
       <NextLink
-        href={href ?? ''}
+        href={href ?? '#'}
         prefetch={prefetch}
         replace={replace}
         scroll={scroll}

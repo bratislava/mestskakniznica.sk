@@ -15,12 +15,12 @@ type BranchCardProps = {
 const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
   const { t } = useTranslation('common')
   const { getPathForEntity } = useNavikronos()
-  const href = (pageId ? getPathForEntity({ type: 'page', id: pageId }) : null) ?? ''
+  const href = (pageId ? getPathForEntity({ type: 'page', id: pageId }) : null) ?? '#'
 
   return (
     <div className="group/showMore relative flex w-full flex-col">
       <img
-        src={image?.attributes?.url ?? ''}
+        src={image?.attributes?.url ?? '#'}
         alt={image?.attributes?.alternativeText ?? ''}
         className="h-48 w-full object-cover"
       />

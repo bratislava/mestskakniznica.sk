@@ -10,8 +10,7 @@ export interface NoticePageProps {
 }
 
 const NoticePage = ({ notice }: NoticePageProps) => {
-  const { getBreadcrumbs } = useNavikronos()
-  const breadcrumbs = getBreadcrumbs(notice.attributes?.title)
+  const { breadcrumbs } = useNavikronos()
 
   return (
     <>

@@ -9,8 +9,7 @@ export interface PageProps {
 }
 
 const BranchPage = ({ branch }: PageProps) => {
-  const { getBreadcrumbs } = useNavikronos()
-  const breadcrumbs = getBreadcrumbs(branch.attributes?.title)
+  const { breadcrumbs } = useNavikronos()
 
   return (
     <>

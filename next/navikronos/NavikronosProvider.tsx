@@ -1,21 +1,20 @@
 import { Context, createContext, PropsWithChildren, useContext, useMemo } from 'react'
 
+import { NavikronosConfig } from './config-type'
+import { NavikronosStaticProps } from './internal/internalTypes'
+import { getNavikronosObject, NavikronosObject } from './internal/navikronosObject'
 import { useNavikronosConfig } from './NavikronosConfigProvider'
-import { getNavikronosCurrentRouteObject, NavikronosObject } from './navikronosTreeObject'
-import { NavikronosConfig, NavikronosStaticProps } from './types'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const NavikronosContext = createContext<NavikronosObject<any> | null>(null)
 
 export const NavikronosProvider = <Config extends NavikronosConfig>({
   staticProps,
   children,
 }: PropsWithChildren<{ staticProps: NavikronosStaticProps<Config> }>) => {
-  const config = useNavikronosConfig()
+  const config = useNavikronosConfig() as Config
 
-  const navikronos = useMemo(
-    () => getNavikronosCurrentRouteObject(config, staticProps),
-    [config, staticProps]
-  )
+  const navikronos = useMemo(() => getNavikronosObject(config, staticProps), [config, staticProps])
 
   return <NavikronosContext.Provider value={navikronos}>{children}</NavikronosContext.Provider>
 }
@@ -32,6 +31,7 @@ const useNavikronos = <Config extends NavikronosConfig>() => {
   return navikronos
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const createUseNavikronosHook = <Config extends NavikronosConfig>(config: Config) => {
   return useNavikronos<Config>
 }

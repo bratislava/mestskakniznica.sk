@@ -60,8 +60,6 @@ const checkCoverImages = async () => {
         // eslint-disable-next-line no-continue
         continue
       }
-      // `url-file-size` gets only filesize information from the server, there's no need to download
-      // the whole image.
       // eslint-disable-next-line no-await-in-loop
       const coverRequest = await fetch(book.coverUrl)
       const coverRequestContentLength = coverRequest.headers.get('content-length')

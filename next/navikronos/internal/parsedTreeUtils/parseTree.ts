@@ -1,44 +1,44 @@
 import ManyKeysMap from 'many-keys-map'
 
+import { NavikronosConfig } from '../../config-type'
 import {
   NavikronosClientLocaleNavigations,
   NavikronosClientNavigation,
   NavikronosClientRoute,
-  NavikronosConfig,
-} from '../types'
+} from '../sharedTypes'
 
 type NextRewrite = ((slug: string) => string | null) & (() => string | null)
 
 type GetPathFn = ((slug?: string) => string) | (() => string)
 
-export type NavikronosTreeNode = {
+export type ParsedTreeNode = {
   original: NavikronosClientRoute
-  children?: NavikronosTreeNode[]
-  parent?: NavikronosTreeNode
+  children?: ParsedTreeNode[]
+  parent?: ParsedTreeNode
   path: string | null
   fullPath: GetPathFn
   nextRewrite: NextRewrite
 }
 
-export type NavikronosLocaleTreeMaps = {
-  staticRoutesPathMap: Map<string, NavikronosTreeNode>
-  staticRoutesIdMap: Map<string, NavikronosTreeNode>
-  entryRoutesPathMap: Map<string, NavikronosTreeNode>
-  entryRoutesAliasIdMap: ManyKeysMap<[string, number], NavikronosTreeNode>
-  contentTypeRoutesPathMap: Map<string, NavikronosTreeNode>
-  contentTypeRoutesAliasMap: Map<string, NavikronosTreeNode>
+export type ParsedTreeMaps = {
+  staticRoutesPathMap: Map<string, ParsedTreeNode>
+  staticRoutesIdMap: Map<string, ParsedTreeNode>
+  entryRoutesPathMap: Map<string, ParsedTreeNode>
+  entryRoutesAliasIdMap: ManyKeysMap<[string, number], ParsedTreeNode>
+  contentTypeRoutesPathMap: Map<string, ParsedTreeNode>
+  contentTypeRoutesAliasMap: Map<string, ParsedTreeNode>
 }
 
-export type NavikronosLocaleTree = {
-  maps: NavikronosLocaleTreeMaps
-  navigation: NavikronosTreeNode[]
+export type ParsedTreeAndMaps = {
+  maps: ParsedTreeMaps
+  navigation: ParsedTreeNode[]
 } | null
 
-export type NavikronosTree = Record<string, NavikronosLocaleTree>
+export type LocaleParsedTreeMap = Record<string, ParsedTreeAndMaps>
+
+const nullFn = () => null
 
 const getNextRewrite = (config: NavikronosConfig, route: NavikronosClientRoute): NextRewrite => {
-  const nullFn = () => null
-
   switch (route.type) {
     // eslint-disable-next-line switch-case/no-case-curly
     case 'contentType': {
@@ -71,9 +71,6 @@ const getNextRewrite = (config: NavikronosConfig, route: NavikronosClientRoute):
       return () => `/${config.rewritePrefix}${routeConfig.rewrite}`
     }
 
-    case 'listing':
-      return nullFn
-
     default:
       return nullFn
   }
@@ -82,11 +79,11 @@ const getNextRewrite = (config: NavikronosConfig, route: NavikronosClientRoute):
 const traverseRoute = (
   config: NavikronosConfig,
   route: NavikronosClientRoute,
-  maps: NavikronosLocaleTreeMaps,
-  parent?: NavikronosTreeNode
+  maps: ParsedTreeMaps,
+  parent?: ParsedTreeNode
 ) => {
   // create object beforehand to it can be assigned
-  const node: Partial<NavikronosTreeNode> = {}
+  const node: Partial<ParsedTreeNode> = {}
   node.original = route
   node.parent = parent
   // TODO slug
@@ -105,40 +102,37 @@ const traverseRoute = (
   node.nextRewrite = getNextRewrite(config, route)
 
   if (route.type === 'static') {
-    maps.staticRoutesPathMap.set(node.fullPath(), node as NavikronosTreeNode)
-    maps.staticRoutesIdMap.set(route.id, node as NavikronosTreeNode)
+    maps.staticRoutesPathMap.set(node.fullPath(), node as ParsedTreeNode)
+    maps.staticRoutesIdMap.set(route.id, node as ParsedTreeNode)
   }
 
   if (route.type === 'entry') {
-    maps.entryRoutesPathMap.set(node.fullPath(), node as NavikronosTreeNode)
-    maps.entryRoutesAliasIdMap.set(
-      [route.contentTypeUid, route.entryId],
-      node as NavikronosTreeNode
-    )
+    maps.entryRoutesPathMap.set(node.fullPath(), node as ParsedTreeNode)
+    maps.entryRoutesAliasIdMap.set([route.contentTypeUid, route.entryId], node as ParsedTreeNode)
   }
 
   if (route.type === 'contentType') {
-    maps.contentTypeRoutesPathMap.set(node.fullPath(), node as NavikronosTreeNode)
-    maps.contentTypeRoutesAliasMap.set(route.contentTypeUid, node as NavikronosTreeNode)
+    maps.contentTypeRoutesPathMap.set(node.fullPath(), node as ParsedTreeNode)
+    maps.contentTypeRoutesAliasMap.set(route.contentTypeUid, node as ParsedTreeNode)
   }
 
   if (route.type !== 'contentType' && route.children) {
     node.children = route.children.map((child) =>
-      traverseRoute(config, child, maps, node as NavikronosTreeNode)
+      traverseRoute(config, child, maps, node as ParsedTreeNode)
     )
   }
 
-  return node as NavikronosTreeNode
+  return node as ParsedTreeNode
 }
 
 const traverseLocale = (
   config: NavikronosConfig,
   navigation?: NavikronosClientNavigation
-): NavikronosLocaleTree => {
+): ParsedTreeAndMaps => {
   if (!navigation) {
     return null
   }
-  const maps: NavikronosLocaleTreeMaps = {
+  const maps: ParsedTreeMaps = {
     staticRoutesPathMap: new Map(),
     staticRoutesIdMap: new Map(),
     entryRoutesPathMap: new Map(),
@@ -153,10 +147,10 @@ const traverseLocale = (
   }
 }
 
-export const traverseTree = (
+export const parseTree = (
   config: NavikronosConfig,
   navigation: NavikronosClientLocaleNavigations
-): NavikronosTree => {
+): LocaleParsedTreeMap => {
   const entriesMapped = Object.entries(navigation).map(
     ([locale, localeNavigation]) => [locale, traverseLocale(config, localeNavigation)] as const
   )

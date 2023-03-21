@@ -13,12 +13,12 @@ type NoticeCardProps = {
 
 const NoticeCard = ({ notice }: NoticeCardProps) => {
   const { t } = useTranslation('common')
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavikronos()
 
   const { image, link, date } = useMemo(() => {
     return {
       image: notice.attributes?.listingImage?.data,
-      link: getPathForEntity({ type: 'notice', slug: notice.attributes?.slug }),
+      link: getPathForStrapiEntity(notice),
       date: notice.attributes?.publishedAt,
     }
   }, [notice, t])
@@ -37,12 +37,12 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
           <FormatDate value={date} valueType="ISO" />
         </div>
         <h3 className="mb-6 text-h5 line-clamp-3">
-          <MLink href={link ?? ''} variant="basic" stretched>
+          <MLink href={link ?? '#'} variant="basic" stretched>
             {notice.attributes?.title}
           </MLink>
         </h3>
       </div>
-      <ShowMoreLink href={link ?? ''} tabIndex={-1} parentGroup>
+      <ShowMoreLink href={link ?? '#'} tabIndex={-1} parentGroup>
         {t('showMore')}
       </ShowMoreLink>
     </div>

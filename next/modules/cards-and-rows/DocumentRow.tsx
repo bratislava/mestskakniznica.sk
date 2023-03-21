@@ -8,7 +8,7 @@ import { ReactNode } from 'react'
 type DocumentRowProps = {
   title: string
   fileExt: string
-  linkHref: string
+  linkHref: string | null
   category?: string
   metadata?: ReactNode
   addedAt?: string
@@ -32,7 +32,7 @@ const DocumentRow = ({
       <div className="flex grow flex-col gap-y-2">
         {category && <div className="text-sm">{category}</div>}
         <h3 className="text-h5 group-hover/showMore:underline">
-          <MLink href={linkHref} stretched>
+          <MLink href={linkHref ?? '#'} stretched>
             {title}
           </MLink>
         </h3>

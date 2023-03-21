@@ -1,7 +1,7 @@
 import { SectionContainer } from '@components/ui'
 import NoticeCard from '@modules/cards-and-rows/NoticeCard'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
-import { ComponentHomepageNewsSection, NoticeListingEntityFragment } from '@services/graphql'
+import { HomepageNewsSectionFragment, NoticeListingEntityFragment } from '@services/graphql'
 import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -10,13 +10,12 @@ import Carousel from '../../modules/common/Carousel/Carousel'
 
 interface LibraryNewsProps {
   notices: NoticeListingEntityFragment[]
-  newsSection: ComponentHomepageNewsSection
+  newsSection: HomepageNewsSectionFragment
 }
 
 const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
   const { t } = useTranslation('homepage')
-  const { getPathForEntity } = useNavikronos()
-  const showMoreId = newsSection?.redirectTo?.data?.id
+  const { getPathForStrapiEntity } = useNavikronos()
 
   return (
     <SectionContainer hasBorder>
@@ -36,8 +35,8 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
           />
         </div>
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
-          {showMoreId && (
-            <ShowMoreLink href={getPathForEntity({ type: 'page', id: showMoreId }) ?? ''}>
+          {newsSection?.redirectTo && (
+            <ShowMoreLink href={getPathForStrapiEntity(newsSection?.redirectTo?.data) ?? '#'}>
               {t('libraryNewsAll')}
             </ShowMoreLink>
           )}

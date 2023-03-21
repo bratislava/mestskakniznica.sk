@@ -64,6 +64,7 @@ fragment PageSections on PageSectionsDynamicZone {
 }
 
 fragment PageEntity on PageEntity {
+  __typename
   id
   attributes {
     slug
@@ -107,6 +108,7 @@ fragment PageEntity on PageEntity {
 }
 
 fragment PageWithBaseFieldsEntity on PageEntity {
+  __typename
   id
   attributes {
     title
@@ -118,6 +120,7 @@ fragment PageWithBaseFieldsEntity on PageEntity {
 }
 
 fragment PageLocalizationEntity on PageEntity {
+  __typename
   id
   attributes {
     slug

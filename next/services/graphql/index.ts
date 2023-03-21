@@ -5130,7 +5130,7 @@ type BlogPostSections_ComponentSectionsFaq_Fragment = {
   redirectTo?: {
     __typename?: 'PageEntityResponse'
     data?: {
-      __typename?: 'PageEntity'
+      __typename: 'PageEntity'
       id?: string | null
       attributes?: {
         __typename?: 'Page'
@@ -5227,10 +5227,10 @@ export type BlogPostSectionsFragment =
   | BlogPostSections_Error_Fragment
 
 export type BlogPostEntityFragment = {
-  __typename?: 'BlogPostEntity'
+  __typename: 'BlogPostEntity'
   id?: string | null
   attributes?: {
-    __typename?: 'BlogPost'
+    __typename: 'BlogPost'
     slug: string
     title: string
     publishedAt?: any | null
@@ -5373,7 +5373,7 @@ export type BlogPostEntityFragment = {
           redirectTo?: {
             __typename?: 'PageEntityResponse'
             data?: {
-              __typename?: 'PageEntity'
+              __typename: 'PageEntity'
               id?: string | null
               attributes?: {
                 __typename?: 'Page'
@@ -5489,10 +5489,10 @@ export type BlogPostBySlugQuery = {
   blogPosts?: {
     __typename?: 'BlogPostEntityResponseCollection'
     data: Array<{
-      __typename?: 'BlogPostEntity'
+      __typename: 'BlogPostEntity'
       id?: string | null
       attributes?: {
-        __typename?: 'BlogPost'
+        __typename: 'BlogPost'
         slug: string
         title: string
         publishedAt?: any | null
@@ -5635,7 +5635,7 @@ export type BlogPostBySlugQuery = {
               redirectTo?: {
                 __typename?: 'PageEntityResponse'
                 data?: {
-                  __typename?: 'PageEntity'
+                  __typename: 'PageEntity'
                   id?: string | null
                   attributes?: {
                     __typename?: 'Page'
@@ -5739,10 +5739,10 @@ export type BlogPostsQuery = {
   blogPosts?: {
     __typename?: 'BlogPostEntityResponseCollection'
     data: Array<{
-      __typename?: 'BlogPostEntity'
+      __typename: 'BlogPostEntity'
       id?: string | null
       attributes?: {
-        __typename?: 'BlogPost'
+        __typename: 'BlogPost'
         slug: string
         title: string
         publishedAt?: any | null
@@ -5885,7 +5885,7 @@ export type BlogPostsQuery = {
               redirectTo?: {
                 __typename?: 'PageEntityResponse'
                 data?: {
-                  __typename?: 'PageEntity'
+                  __typename: 'PageEntity'
                   id?: string | null
                   attributes?: {
                     __typename?: 'Page'
@@ -6009,7 +6009,7 @@ export type BranchPlaceEntityFragment = {
 }
 
 export type BranchCardEntityFragment = {
-  __typename?: 'BranchEntity'
+  __typename: 'BranchEntity'
   id?: string | null
   attributes?: {
     __typename?: 'Branch'
@@ -6062,7 +6062,7 @@ export type BranchCardEntityFragment = {
 }
 
 export type BranchEntityFragment = {
-  __typename?: 'BranchEntity'
+  __typename: 'BranchEntity'
   id?: string | null
   attributes?: {
     __typename?: 'Branch'
@@ -6106,9 +6106,9 @@ export type BranchEntityFragment = {
     servicePages?: {
       __typename?: 'PageRelationResponseCollection'
       data: Array<{
-        __typename?: 'PageEntity'
+        __typename: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+        attributes?: { __typename?: 'Page'; title: string } | null
       }>
     } | null
     localizations?: {
@@ -6198,7 +6198,7 @@ export type BranchBySlugQuery = {
   branches?: {
     __typename?: 'BranchEntityResponseCollection'
     data: Array<{
-      __typename?: 'BranchEntity'
+      __typename: 'BranchEntity'
       id?: string | null
       attributes?: {
         __typename?: 'Branch'
@@ -6242,9 +6242,9 @@ export type BranchBySlugQuery = {
         servicePages?: {
           __typename?: 'PageRelationResponseCollection'
           data: Array<{
-            __typename?: 'PageEntity'
+            __typename: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+            attributes?: { __typename?: 'Page'; title: string } | null
           }>
         } | null
         localizations?: {
@@ -7124,7 +7124,7 @@ export type MenuSectionFragment = {
   sectionPage?: {
     __typename?: 'PageEntityResponse'
     data?: {
-      __typename?: 'PageEntity'
+      __typename: 'PageEntity'
       id?: string | null
       attributes?: {
         __typename?: 'Page'
@@ -7178,7 +7178,7 @@ export type MenuEntityFragment = {
       sectionPage?: {
         __typename?: 'PageEntityResponse'
         data?: {
-          __typename?: 'PageEntity'
+          __typename: 'PageEntity'
           id?: string | null
           attributes?: {
             __typename?: 'Page'
@@ -7215,6 +7215,33 @@ export type MenuEntityFragment = {
   } | null
 }
 
+export type ComponentFooterFooterColumnFragment = {
+  __typename?: 'ComponentFooterFooterColumn'
+  id: string
+  title?: string | null
+  footerLink?: Array<{
+    __typename?: 'ComponentFooterFooterLink'
+    id: string
+    title?: string | null
+    otherSite?: string | null
+    redirectTo?: {
+      __typename?: 'PageEntityResponse'
+      data?: {
+        __typename: 'PageEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Page'
+          title: string
+          slug: string
+          newSlug: string
+          createdAt?: any | null
+          updatedAt?: any | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
 export type FooterEntityFragment = {
   __typename?: 'FooterEntity'
   id?: string | null
@@ -7232,7 +7259,7 @@ export type FooterEntityFragment = {
         redirectTo?: {
           __typename?: 'PageEntityResponse'
           data?: {
-            __typename?: 'PageEntity'
+            __typename: 'PageEntity'
             id?: string | null
             attributes?: {
               __typename?: 'Page'
@@ -7249,7 +7276,7 @@ export type FooterEntityFragment = {
     siteMapLink?: {
       __typename?: 'PageEntityResponse'
       data?: {
-        __typename?: 'PageEntity'
+        __typename: 'PageEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Page'
@@ -7264,7 +7291,7 @@ export type FooterEntityFragment = {
     privacyLink?: {
       __typename?: 'PageEntityResponse'
       data?: {
-        __typename?: 'PageEntity'
+        __typename: 'PageEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Page'
@@ -7285,23 +7312,23 @@ export type GeneralEntityFragment = {
     __typename?: 'General'
     eventsPage?: {
       __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+      data?: { __typename: 'PageEntity'; id?: string | null } | null
     } | null
     newBooksPage?: {
       __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+      data?: { __typename: 'PageEntity'; id?: string | null } | null
     } | null
     privacyTermsAndConditionsPage?: {
       __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+      data?: { __typename: 'PageEntity'; id?: string | null } | null
     } | null
     openingHoursPage?: {
       __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+      data?: { __typename: 'PageEntity'; id?: string | null } | null
     } | null
     noticesPage?: {
       __typename?: 'PageEntityResponse'
-      data?: { __typename?: 'PageEntity'; id?: string | null } | null
+      data?: { __typename: 'PageEntity'; id?: string | null } | null
     } | null
   } | null
 }
@@ -7334,7 +7361,7 @@ export type GeneralQuery = {
           sectionPage?: {
             __typename?: 'PageEntityResponse'
             data?: {
-              __typename?: 'PageEntity'
+              __typename: 'PageEntity'
               id?: string | null
               attributes?: {
                 __typename?: 'Page'
@@ -7480,7 +7507,7 @@ export type GeneralQuery = {
             redirectTo?: {
               __typename?: 'PageEntityResponse'
               data?: {
-                __typename?: 'PageEntity'
+                __typename: 'PageEntity'
                 id?: string | null
                 attributes?: {
                   __typename?: 'Page'
@@ -7497,7 +7524,7 @@ export type GeneralQuery = {
         siteMapLink?: {
           __typename?: 'PageEntityResponse'
           data?: {
-            __typename?: 'PageEntity'
+            __typename: 'PageEntity'
             id?: string | null
             attributes?: {
               __typename?: 'Page'
@@ -7512,7 +7539,7 @@ export type GeneralQuery = {
         privacyLink?: {
           __typename?: 'PageEntityResponse'
           data?: {
-            __typename?: 'PageEntity'
+            __typename: 'PageEntity'
             id?: string | null
             attributes?: {
               __typename?: 'Page'
@@ -7535,24 +7562,183 @@ export type GeneralQuery = {
         __typename?: 'General'
         eventsPage?: {
           __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+          data?: { __typename: 'PageEntity'; id?: string | null } | null
         } | null
         newBooksPage?: {
           __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+          data?: { __typename: 'PageEntity'; id?: string | null } | null
         } | null
         privacyTermsAndConditionsPage?: {
           __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+          data?: { __typename: 'PageEntity'; id?: string | null } | null
         } | null
         openingHoursPage?: {
           __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+          data?: { __typename: 'PageEntity'; id?: string | null } | null
         } | null
         noticesPage?: {
           __typename?: 'PageEntityResponse'
-          data?: { __typename?: 'PageEntity'; id?: string | null } | null
+          data?: { __typename: 'PageEntity'; id?: string | null } | null
         } | null
+      } | null
+    } | null
+  } | null
+}
+
+export type HomepageFaqSectionFragment = {
+  __typename?: 'ComponentHomepageFaqSection'
+  id: string
+  title?: string | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
+  faqs?: Array<{
+    __typename?: 'ComponentHomepageFaqs'
+    id: string
+    question?: string | null
+    answer?: string | null
+  } | null> | null
+  ctas?: Array<{
+    __typename?: 'ComponentHomepageCta'
+    id: string
+    title?: string | null
+    ctaRedirectTo?: {
+      __typename?: 'PageEntityResponse'
+      data?: {
+        __typename: 'PageEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Page'
+          title: string
+          slug: string
+          newSlug: string
+          createdAt?: any | null
+          updatedAt?: any | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
+export type HomepageMapSectionFragment = {
+  __typename?: 'ComponentSectionsMap'
+  id: string
+  title?: string | null
+  branches?: Array<{
+    __typename?: 'ComponentBlocksBranchItem'
+    branch?: {
+      __typename?: 'BranchEntityResponse'
+      data?: {
+        __typename: 'BranchEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Branch'
+          title: string
+          address?: string | null
+          slug: string
+          latitude?: number | null
+          longitude?: number | null
+          listingImage?: {
+            __typename?: 'UploadFileEntityResponse'
+            data?: {
+              __typename?: 'UploadFileEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'UploadFile'
+                url: string
+                name: string
+                alternativeText?: string | null
+                caption?: string | null
+                size: number
+                width?: number | null
+                height?: number | null
+              } | null
+            } | null
+          } | null
+          subBranches?: {
+            __typename?: 'BranchRelationResponseCollection'
+            data: Array<{
+              __typename?: 'BranchEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Branch'
+                body?: string | null
+                title: string
+                address?: string | null
+                phone?: string | null
+                email?: string | null
+                openingHours?: {
+                  __typename?: 'ComponentBlocksOpeningHours'
+                  days: Array<{
+                    __typename?: 'ComponentBlocksOpeningHoursItem'
+                    label?: string | null
+                    time: string
+                  } | null>
+                } | null
+              } | null
+            }>
+          } | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
+export type HomepageRegistrationInfoFragment = {
+  __typename?: 'ComponentHomepageRegistrationInfo'
+  id: string
+  title?: string | null
+  description?: string | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
+  registrationBenefits?: Array<{
+    __typename?: 'ComponentHomepageBenefits'
+    id: string
+    benefit?: string | null
+  } | null> | null
+}
+
+export type HomepageNewsSectionFragment = {
+  __typename?: 'ComponentHomepageNewsSection'
+  id: string
+  title?: string | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
       } | null
     } | null
   } | null
@@ -7577,7 +7763,7 @@ export type HomePageQuery = {
           redirectTo?: {
             __typename?: 'PageEntityResponse'
             data?: {
-              __typename?: 'PageEntity'
+              __typename: 'PageEntity'
               id?: string | null
               attributes?: {
                 __typename?: 'Page'
@@ -7602,7 +7788,7 @@ export type HomePageQuery = {
             ctaRedirectTo?: {
               __typename?: 'PageEntityResponse'
               data?: {
-                __typename?: 'PageEntity'
+                __typename: 'PageEntity'
                 id?: string | null
                 attributes?: {
                   __typename?: 'Page'
@@ -7624,7 +7810,7 @@ export type HomePageQuery = {
           redirectTo?: {
             __typename?: 'PageEntityResponse'
             data?: {
-              __typename?: 'PageEntity'
+              __typename: 'PageEntity'
               id?: string | null
               attributes?: {
                 __typename?: 'Page'
@@ -7649,7 +7835,7 @@ export type HomePageQuery = {
           redirectTo?: {
             __typename?: 'PageEntityResponse'
             data?: {
-              __typename?: 'PageEntity'
+              __typename: 'PageEntity'
               id?: string | null
               attributes?: {
                 __typename?: 'Page'
@@ -7671,7 +7857,7 @@ export type HomePageQuery = {
             branch?: {
               __typename?: 'BranchEntityResponse'
               data?: {
-                __typename?: 'BranchEntity'
+                __typename: 'BranchEntity'
                 id?: string | null
                 attributes?: {
                   __typename?: 'Branch'
@@ -8356,7 +8542,7 @@ type PageSections_ComponentSectionsCherrypickSection_Fragment = {
   pages?: {
     __typename?: 'PageRelationResponseCollection'
     data: Array<{
-      __typename?: 'PageEntity'
+      __typename: 'PageEntity'
       id?: string | null
       attributes?: {
         __typename?: 'Page'
@@ -8488,7 +8674,7 @@ type PageSections_ComponentSectionsFaq_Fragment = {
   redirectTo?: {
     __typename?: 'PageEntityResponse'
     data?: {
-      __typename?: 'PageEntity'
+      __typename: 'PageEntity'
       id?: string | null
       attributes?: {
         __typename?: 'Page'
@@ -8550,7 +8736,7 @@ type PageSections_ComponentSectionsMap_Fragment = {
     branch?: {
       __typename?: 'BranchEntityResponse'
       data?: {
-        __typename?: 'BranchEntity'
+        __typename: 'BranchEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Branch'
@@ -8650,7 +8836,7 @@ type PageSections_ComponentSectionsRental_Fragment = {
     branch?: {
       __typename?: 'BranchEntityResponse'
       data?: {
-        __typename?: 'BranchEntity'
+        __typename: 'BranchEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Branch'
@@ -8733,7 +8919,7 @@ type PageSections_ComponentSectionsSubpages_Fragment = {
     page?: {
       __typename?: 'PageEntityResponse'
       data?: {
-        __typename?: 'PageEntity'
+        __typename: 'PageEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Page'
@@ -8804,7 +8990,7 @@ export type PageSectionsFragment =
   | PageSections_Error_Fragment
 
 export type PageEntityFragment = {
-  __typename?: 'PageEntity'
+  __typename: 'PageEntity'
   id?: string | null
   attributes?: {
     __typename?: 'Page'
@@ -8869,7 +9055,7 @@ export type PageEntityFragment = {
           pages?: {
             __typename?: 'PageRelationResponseCollection'
             data: Array<{
-              __typename?: 'PageEntity'
+              __typename: 'PageEntity'
               id?: string | null
               attributes?: {
                 __typename?: 'Page'
@@ -8991,7 +9177,7 @@ export type PageEntityFragment = {
           redirectTo?: {
             __typename?: 'PageEntityResponse'
             data?: {
-              __typename?: 'PageEntity'
+              __typename: 'PageEntity'
               id?: string | null
               attributes?: {
                 __typename?: 'Page'
@@ -9045,7 +9231,7 @@ export type PageEntityFragment = {
             branch?: {
               __typename?: 'BranchEntityResponse'
               data?: {
-                __typename?: 'BranchEntity'
+                __typename: 'BranchEntity'
                 id?: string | null
                 attributes?: {
                   __typename?: 'Branch'
@@ -9136,7 +9322,7 @@ export type PageEntityFragment = {
             branch?: {
               __typename?: 'BranchEntityResponse'
               data?: {
-                __typename?: 'BranchEntity'
+                __typename: 'BranchEntity'
                 id?: string | null
                 attributes?: {
                   __typename?: 'Branch'
@@ -9217,7 +9403,7 @@ export type PageEntityFragment = {
             page?: {
               __typename?: 'PageEntityResponse'
               data?: {
-                __typename?: 'PageEntity'
+                __typename: 'PageEntity'
                 id?: string | null
                 attributes?: {
                   __typename?: 'Page'
@@ -9262,7 +9448,7 @@ export type PageEntityFragment = {
     localizations?: {
       __typename?: 'PageRelationResponseCollection'
       data: Array<{
-        __typename?: 'PageEntity'
+        __typename: 'PageEntity'
         id?: string | null
         attributes?: { __typename?: 'Page'; slug: string; locale?: string | null } | null
       }>
@@ -9277,7 +9463,7 @@ export type PageEntityFragment = {
 }
 
 export type PageWithBaseFieldsEntityFragment = {
-  __typename?: 'PageEntity'
+  __typename: 'PageEntity'
   id?: string | null
   attributes?: {
     __typename?: 'Page'
@@ -9290,7 +9476,7 @@ export type PageWithBaseFieldsEntityFragment = {
 }
 
 export type PageLocalizationEntityFragment = {
-  __typename?: 'PageEntity'
+  __typename: 'PageEntity'
   id?: string | null
   attributes?: { __typename?: 'Page'; slug: string; locale?: string | null } | null
 }
@@ -9321,7 +9507,7 @@ export type PageByIdQuery = {
   pages?: {
     __typename?: 'PageEntityResponseCollection'
     data: Array<{
-      __typename?: 'PageEntity'
+      __typename: 'PageEntity'
       id?: string | null
       attributes?: {
         __typename?: 'Page'
@@ -9386,7 +9572,7 @@ export type PageByIdQuery = {
               pages?: {
                 __typename?: 'PageRelationResponseCollection'
                 data: Array<{
-                  __typename?: 'PageEntity'
+                  __typename: 'PageEntity'
                   id?: string | null
                   attributes?: {
                     __typename?: 'Page'
@@ -9508,7 +9694,7 @@ export type PageByIdQuery = {
               redirectTo?: {
                 __typename?: 'PageEntityResponse'
                 data?: {
-                  __typename?: 'PageEntity'
+                  __typename: 'PageEntity'
                   id?: string | null
                   attributes?: {
                     __typename?: 'Page'
@@ -9562,7 +9748,7 @@ export type PageByIdQuery = {
                 branch?: {
                   __typename?: 'BranchEntityResponse'
                   data?: {
-                    __typename?: 'BranchEntity'
+                    __typename: 'BranchEntity'
                     id?: string | null
                     attributes?: {
                       __typename?: 'Branch'
@@ -9653,7 +9839,7 @@ export type PageByIdQuery = {
                 branch?: {
                   __typename?: 'BranchEntityResponse'
                   data?: {
-                    __typename?: 'BranchEntity'
+                    __typename: 'BranchEntity'
                     id?: string | null
                     attributes?: {
                       __typename?: 'Branch'
@@ -9734,7 +9920,7 @@ export type PageByIdQuery = {
                 page?: {
                   __typename?: 'PageEntityResponse'
                   data?: {
-                    __typename?: 'PageEntity'
+                    __typename: 'PageEntity'
                     id?: string | null
                     attributes?: {
                       __typename?: 'Page'
@@ -9779,7 +9965,7 @@ export type PageByIdQuery = {
         localizations?: {
           __typename?: 'PageRelationResponseCollection'
           data: Array<{
-            __typename?: 'PageEntity'
+            __typename: 'PageEntity'
             id?: string | null
             attributes?: { __typename?: 'Page'; slug: string; locale?: string | null } | null
           }>
@@ -10129,7 +10315,7 @@ export type RentalSectionFragment = {
     branch?: {
       __typename?: 'BranchEntityResponse'
       data?: {
-        __typename?: 'BranchEntity'
+        __typename: 'BranchEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Branch'
@@ -10201,7 +10387,7 @@ export type MapSectionFragment = {
     branch?: {
       __typename?: 'BranchEntityResponse'
       data?: {
-        __typename?: 'BranchEntity'
+        __typename: 'BranchEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Branch'
@@ -10328,7 +10514,7 @@ export type SubpagesSectionFragment = {
     page?: {
       __typename?: 'PageEntityResponse'
       data?: {
-        __typename?: 'PageEntity'
+        __typename: 'PageEntity'
         id?: string | null
         attributes?: {
           __typename?: 'Page'
@@ -10376,7 +10562,7 @@ export type FaqSectionFragment = {
   redirectTo?: {
     __typename?: 'PageEntityResponse'
     data?: {
-      __typename?: 'PageEntity'
+      __typename: 'PageEntity'
       id?: string | null
       attributes?: {
         __typename?: 'Page'
@@ -10428,7 +10614,7 @@ export type CherrypickSectionFragment = {
   pages?: {
     __typename?: 'PageRelationResponseCollection'
     data: Array<{
-      __typename?: 'PageEntity'
+      __typename: 'PageEntity'
       id?: string | null
       attributes?: {
         __typename?: 'Page'
@@ -10584,6 +10770,7 @@ export const AccordionItemFragmentDoc = gql`
 `
 export const PageWithBaseFieldsEntityFragmentDoc = gql`
   fragment PageWithBaseFieldsEntity on PageEntity {
+    __typename
     id
     attributes {
       title
@@ -10856,8 +11043,10 @@ export const SeoFragmentDoc = gql`
 `
 export const BlogPostEntityFragmentDoc = gql`
   fragment BlogPostEntity on BlogPostEntity {
+    __typename
     id
     attributes {
+      __typename
       slug
       title
       publishedAt
@@ -10915,6 +11104,7 @@ export const BranchPlaceEntityFragmentDoc = gql`
 `
 export const BranchCardEntityFragmentDoc = gql`
   fragment BranchCardEntity on BranchEntity {
+    __typename
     id
     attributes {
       title
@@ -10939,6 +11129,7 @@ export const BranchCardEntityFragmentDoc = gql`
 `
 export const BranchEntityFragmentDoc = gql`
   fragment BranchEntity on BranchEntity {
+    __typename
     ...BranchCardEntity
     attributes {
       medias {
@@ -10960,10 +11151,10 @@ export const BranchEntityFragmentDoc = gql`
       }
       servicePages {
         data {
+          __typename
           id
           attributes {
             title
-            slug
           }
         }
       }
@@ -11176,23 +11367,29 @@ export const MenuEntityFragmentDoc = gql`
   }
   ${MenuSectionFragmentDoc}
 `
+export const ComponentFooterFooterColumnFragmentDoc = gql`
+  fragment ComponentFooterFooterColumn on ComponentFooterFooterColumn {
+    id
+    title
+    footerLink {
+      id
+      redirectTo {
+        data {
+          ...PageWithBaseFieldsEntity
+        }
+      }
+      title
+      otherSite
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
 export const FooterEntityFragmentDoc = gql`
   fragment FooterEntity on FooterEntity {
     id
     attributes {
       footerColumns {
-        id
-        title
-        footerLink {
-          id
-          redirectTo {
-            data {
-              ...PageWithBaseFieldsEntity
-            }
-          }
-          title
-          otherSite
-        }
+        ...ComponentFooterFooterColumn
       }
       siteMapLink {
         data {
@@ -11206,6 +11403,7 @@ export const FooterEntityFragmentDoc = gql`
       }
     }
   }
+  ${ComponentFooterFooterColumnFragmentDoc}
   ${PageWithBaseFieldsEntityFragmentDoc}
 `
 export const GeneralEntityFragmentDoc = gql`
@@ -11213,31 +11411,105 @@ export const GeneralEntityFragmentDoc = gql`
     attributes {
       eventsPage {
         data {
+          __typename
           id
         }
       }
       newBooksPage {
         data {
+          __typename
           id
         }
       }
       privacyTermsAndConditionsPage {
         data {
+          __typename
           id
         }
       }
       openingHoursPage {
         data {
+          __typename
           id
         }
       }
       noticesPage {
         data {
+          __typename
           id
         }
       }
     }
   }
+`
+export const HomepageFaqSectionFragmentDoc = gql`
+  fragment HomepageFaqSection on ComponentHomepageFaqSection {
+    id
+    title
+    redirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+    faqs(pagination: { limit: -1 }) {
+      id
+      question
+      answer
+    }
+    ctas(pagination: { limit: -1 }) {
+      id
+      title
+      ctaRedirectTo {
+        data {
+          ...PageWithBaseFieldsEntity
+        }
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
+export const HomepageMapSectionFragmentDoc = gql`
+  fragment HomepageMapSection on ComponentSectionsMap {
+    id
+    title
+    branches {
+      branch {
+        data {
+          ...BranchCardEntity
+        }
+      }
+    }
+  }
+  ${BranchCardEntityFragmentDoc}
+`
+export const HomepageRegistrationInfoFragmentDoc = gql`
+  fragment HomepageRegistrationInfo on ComponentHomepageRegistrationInfo {
+    id
+    title
+    description
+    redirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+    registrationBenefits {
+      id
+      benefit
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
+export const HomepageNewsSectionFragmentDoc = gql`
+  fragment HomepageNewsSection on ComponentHomepageNewsSection {
+    id
+    title
+    redirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
 `
 export const NoticeEntityFragmentDoc = gql`
   fragment NoticeEntity on NoticeEntity {
@@ -11486,6 +11758,7 @@ export const PageSectionsFragmentDoc = gql`
 `
 export const PageLocalizationEntityFragmentDoc = gql`
   fragment PageLocalizationEntity on PageEntity {
+    __typename
     id
     attributes {
       slug
@@ -11495,6 +11768,7 @@ export const PageLocalizationEntityFragmentDoc = gql`
 `
 export const PageEntityFragmentDoc = gql`
   fragment PageEntity on PageEntity {
+    __typename
     id
     attributes {
       slug
@@ -11794,61 +12068,16 @@ export const HomePageDocument = gql`
       data {
         attributes {
           faqSection {
-            id
-            title
-            redirectTo {
-              data {
-                ...PageWithBaseFieldsEntity
-              }
-            }
-            faqs(pagination: { limit: 100 }) {
-              id
-              question
-              answer
-            }
-            ctas(pagination: { limit: 100 }) {
-              id
-              title
-              ctaRedirectTo {
-                data {
-                  ...PageWithBaseFieldsEntity
-                }
-              }
-            }
+            ...HomepageFaqSection
           }
           registrationInfoSection {
-            id
-            title
-            description
-            redirectTo {
-              data {
-                ...PageWithBaseFieldsEntity
-              }
-            }
-            registrationBenefits {
-              id
-              benefit
-            }
+            ...HomepageRegistrationInfo
           }
           newsSection {
-            id
-            title
-            redirectTo {
-              data {
-                ...PageWithBaseFieldsEntity
-              }
-            }
+            ...HomepageNewsSection
           }
           mapSection {
-            id
-            title
-            branches {
-              branch {
-                data {
-                  ...BranchCardEntity
-                }
-              }
-            }
+            ...HomepageMapSection
           }
           localizations {
             data {
@@ -11882,14 +12111,16 @@ export const HomePageDocument = gql`
       }
     }
     ...LatestNoticesQuery
-    bookTags(pagination: { limit: 100 }) {
+    bookTags(pagination: { limit: -1 }) {
       data {
         ...BookTagEntity
       }
     }
   }
-  ${PageWithBaseFieldsEntityFragmentDoc}
-  ${BranchCardEntityFragmentDoc}
+  ${HomepageFaqSectionFragmentDoc}
+  ${HomepageRegistrationInfoFragmentDoc}
+  ${HomepageNewsSectionFragmentDoc}
+  ${HomepageMapSectionFragmentDoc}
   ${SeoFragmentDoc}
   ${NoticeListingEntityFragmentDoc}
   ${EventCardEntityFragmentDoc}
@@ -11970,7 +12201,7 @@ export const SortedPartnersDocument = gql`
   query SortedPartners($locale: I18NLocaleCode!) {
     featuredPartners: partners(
       locale: $locale
-      pagination: { limit: 100 }
+      pagination: { limit: -1 }
       filters: { featured: { eq: true } }
       sort: "priority:asc"
     ) {
@@ -11980,7 +12211,7 @@ export const SortedPartnersDocument = gql`
     }
     notFeaturedPartners: partners(
       locale: $locale
-      pagination: { limit: 100 }
+      pagination: { limit: -1 }
       filters: { featured: { eq: false } }
       sort: "priority:asc"
     ) {

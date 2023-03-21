@@ -53,22 +53,26 @@ fragment MenuEntity on MenuEntity {
   }
 }
 
+fragment ComponentFooterFooterColumn on ComponentFooterFooterColumn {
+  id
+  title
+  footerLink {
+    id
+    redirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+    title
+    otherSite
+  }
+}
+
 fragment FooterEntity on FooterEntity {
   id
   attributes {
     footerColumns {
-      id
-      title
-      footerLink {
-        id
-        redirectTo {
-          data {
-            ...PageWithBaseFieldsEntity
-          }
-        }
-        title
-        otherSite
-      }
+      ...ComponentFooterFooterColumn
     }
     siteMapLink {
       data {
@@ -87,26 +91,31 @@ fragment GeneralEntity on GeneralEntity {
   attributes {
     eventsPage {
       data {
+        __typename
         id
       }
     }
     newBooksPage {
       data {
+        __typename
         id
       }
     }
     privacyTermsAndConditionsPage {
       data {
+        __typename
         id
       }
     }
     openingHoursPage {
       data {
+        __typename
         id
       }
     }
     noticesPage {
       data {
+        __typename
         id
       }
     }

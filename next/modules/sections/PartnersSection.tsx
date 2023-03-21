@@ -25,7 +25,7 @@ const PartnersSection = () => {
               id={`featured-partner-${index}`}
               title={partner?.attributes?.title ?? ''}
               logo={partner?.attributes?.logo?.data?.attributes?.url ?? ''}
-              linkHref={partner?.attributes?.url ?? ''}
+              linkHref={partner?.attributes?.url ?? '#'}
               featured
             />
           ))}
