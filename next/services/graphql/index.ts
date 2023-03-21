@@ -7215,6 +7215,33 @@ export type MenuEntityFragment = {
   } | null
 }
 
+export type ComponentFooterFooterColumnFragment = {
+  __typename?: 'ComponentFooterFooterColumn'
+  id: string
+  title?: string | null
+  footerLink?: Array<{
+    __typename?: 'ComponentFooterFooterLink'
+    id: string
+    title?: string | null
+    otherSite?: string | null
+    redirectTo?: {
+      __typename?: 'PageEntityResponse'
+      data?: {
+        __typename: 'PageEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Page'
+          title: string
+          slug: string
+          newSlug: string
+          createdAt?: any | null
+          updatedAt?: any | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
 export type FooterEntityFragment = {
   __typename?: 'FooterEntity'
   id?: string | null
@@ -7553,6 +7580,165 @@ export type GeneralQuery = {
           __typename?: 'PageEntityResponse'
           data?: { __typename: 'PageEntity'; id?: string | null } | null
         } | null
+      } | null
+    } | null
+  } | null
+}
+
+export type HomepageFaqSectionFragment = {
+  __typename?: 'ComponentHomepageFaqSection'
+  id: string
+  title?: string | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
+  faqs?: Array<{
+    __typename?: 'ComponentHomepageFaqs'
+    id: string
+    question?: string | null
+    answer?: string | null
+  } | null> | null
+  ctas?: Array<{
+    __typename?: 'ComponentHomepageCta'
+    id: string
+    title?: string | null
+    ctaRedirectTo?: {
+      __typename?: 'PageEntityResponse'
+      data?: {
+        __typename: 'PageEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Page'
+          title: string
+          slug: string
+          newSlug: string
+          createdAt?: any | null
+          updatedAt?: any | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
+export type HomepageMapSectionFragment = {
+  __typename?: 'ComponentSectionsMap'
+  id: string
+  title?: string | null
+  branches?: Array<{
+    __typename?: 'ComponentBlocksBranchItem'
+    branch?: {
+      __typename?: 'BranchEntityResponse'
+      data?: {
+        __typename: 'BranchEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'Branch'
+          title: string
+          address?: string | null
+          slug: string
+          latitude?: number | null
+          longitude?: number | null
+          listingImage?: {
+            __typename?: 'UploadFileEntityResponse'
+            data?: {
+              __typename?: 'UploadFileEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'UploadFile'
+                url: string
+                name: string
+                alternativeText?: string | null
+                caption?: string | null
+                size: number
+                width?: number | null
+                height?: number | null
+              } | null
+            } | null
+          } | null
+          subBranches?: {
+            __typename?: 'BranchRelationResponseCollection'
+            data: Array<{
+              __typename?: 'BranchEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Branch'
+                body?: string | null
+                title: string
+                address?: string | null
+                phone?: string | null
+                email?: string | null
+                openingHours?: {
+                  __typename?: 'ComponentBlocksOpeningHours'
+                  days: Array<{
+                    __typename?: 'ComponentBlocksOpeningHoursItem'
+                    label?: string | null
+                    time: string
+                  } | null>
+                } | null
+              } | null
+            }>
+          } | null
+        } | null
+      } | null
+    } | null
+  } | null> | null
+}
+
+export type HomepageRegistrationInfoFragment = {
+  __typename?: 'ComponentHomepageRegistrationInfo'
+  id: string
+  title?: string | null
+  description?: string | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
+      } | null
+    } | null
+  } | null
+  registrationBenefits?: Array<{
+    __typename?: 'ComponentHomepageBenefits'
+    id: string
+    benefit?: string | null
+  } | null> | null
+}
+
+export type HomepageNewsSectionFragment = {
+  __typename?: 'ComponentHomepageNewsSection'
+  id: string
+  title?: string | null
+  redirectTo?: {
+    __typename?: 'PageEntityResponse'
+    data?: {
+      __typename: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        newSlug: string
+        createdAt?: any | null
+        updatedAt?: any | null
       } | null
     } | null
   } | null
@@ -11181,23 +11367,29 @@ export const MenuEntityFragmentDoc = gql`
   }
   ${MenuSectionFragmentDoc}
 `
+export const ComponentFooterFooterColumnFragmentDoc = gql`
+  fragment ComponentFooterFooterColumn on ComponentFooterFooterColumn {
+    id
+    title
+    footerLink {
+      id
+      redirectTo {
+        data {
+          ...PageWithBaseFieldsEntity
+        }
+      }
+      title
+      otherSite
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
 export const FooterEntityFragmentDoc = gql`
   fragment FooterEntity on FooterEntity {
     id
     attributes {
       footerColumns {
-        id
-        title
-        footerLink {
-          id
-          redirectTo {
-            data {
-              ...PageWithBaseFieldsEntity
-            }
-          }
-          title
-          otherSite
-        }
+        ...ComponentFooterFooterColumn
       }
       siteMapLink {
         data {
@@ -11211,6 +11403,7 @@ export const FooterEntityFragmentDoc = gql`
       }
     }
   }
+  ${ComponentFooterFooterColumnFragmentDoc}
   ${PageWithBaseFieldsEntityFragmentDoc}
 `
 export const GeneralEntityFragmentDoc = gql`
@@ -11248,6 +11441,75 @@ export const GeneralEntityFragmentDoc = gql`
       }
     }
   }
+`
+export const HomepageFaqSectionFragmentDoc = gql`
+  fragment HomepageFaqSection on ComponentHomepageFaqSection {
+    id
+    title
+    redirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+    faqs(pagination: { limit: -1 }) {
+      id
+      question
+      answer
+    }
+    ctas(pagination: { limit: -1 }) {
+      id
+      title
+      ctaRedirectTo {
+        data {
+          ...PageWithBaseFieldsEntity
+        }
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
+export const HomepageMapSectionFragmentDoc = gql`
+  fragment HomepageMapSection on ComponentSectionsMap {
+    id
+    title
+    branches {
+      branch {
+        data {
+          ...BranchCardEntity
+        }
+      }
+    }
+  }
+  ${BranchCardEntityFragmentDoc}
+`
+export const HomepageRegistrationInfoFragmentDoc = gql`
+  fragment HomepageRegistrationInfo on ComponentHomepageRegistrationInfo {
+    id
+    title
+    description
+    redirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+    registrationBenefits {
+      id
+      benefit
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
+`
+export const HomepageNewsSectionFragmentDoc = gql`
+  fragment HomepageNewsSection on ComponentHomepageNewsSection {
+    id
+    title
+    redirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+  }
+  ${PageWithBaseFieldsEntityFragmentDoc}
 `
 export const NoticeEntityFragmentDoc = gql`
   fragment NoticeEntity on NoticeEntity {
@@ -11806,61 +12068,16 @@ export const HomePageDocument = gql`
       data {
         attributes {
           faqSection {
-            id
-            title
-            redirectTo {
-              data {
-                ...PageWithBaseFieldsEntity
-              }
-            }
-            faqs(pagination: { limit: -1 }) {
-              id
-              question
-              answer
-            }
-            ctas(pagination: { limit: -1 }) {
-              id
-              title
-              ctaRedirectTo {
-                data {
-                  ...PageWithBaseFieldsEntity
-                }
-              }
-            }
+            ...HomepageFaqSection
           }
           registrationInfoSection {
-            id
-            title
-            description
-            redirectTo {
-              data {
-                ...PageWithBaseFieldsEntity
-              }
-            }
-            registrationBenefits {
-              id
-              benefit
-            }
+            ...HomepageRegistrationInfo
           }
           newsSection {
-            id
-            title
-            redirectTo {
-              data {
-                ...PageWithBaseFieldsEntity
-              }
-            }
+            ...HomepageNewsSection
           }
           mapSection {
-            id
-            title
-            branches {
-              branch {
-                data {
-                  ...BranchCardEntity
-                }
-              }
-            }
+            ...HomepageMapSection
           }
           localizations {
             data {
@@ -11900,8 +12117,10 @@ export const HomePageDocument = gql`
       }
     }
   }
-  ${PageWithBaseFieldsEntityFragmentDoc}
-  ${BranchCardEntityFragmentDoc}
+  ${HomepageFaqSectionFragmentDoc}
+  ${HomepageRegistrationInfoFragmentDoc}
+  ${HomepageNewsSectionFragmentDoc}
+  ${HomepageMapSectionFragmentDoc}
   ${SeoFragmentDoc}
   ${NoticeListingEntityFragmentDoc}
   ${EventCardEntityFragmentDoc}

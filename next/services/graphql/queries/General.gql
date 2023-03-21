@@ -53,22 +53,26 @@ fragment MenuEntity on MenuEntity {
   }
 }
 
+fragment ComponentFooterFooterColumn on ComponentFooterFooterColumn {
+  id
+  title
+  footerLink {
+    id
+    redirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+    title
+    otherSite
+  }
+}
+
 fragment FooterEntity on FooterEntity {
   id
   attributes {
     footerColumns {
-      id
-      title
-      footerLink {
-        id
-        redirectTo {
-          data {
-            ...PageWithBaseFieldsEntity
-          }
-        }
-        title
-        otherSite
-      }
+      ...ComponentFooterFooterColumn
     }
     siteMapLink {
       data {

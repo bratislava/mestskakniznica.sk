@@ -1,63 +1,79 @@
+fragment HomepageFaqSection on ComponentHomepageFaqSection {
+  id
+  title
+  redirectTo {
+    data {
+      ...PageWithBaseFieldsEntity
+    }
+  }
+  faqs(pagination: { limit: -1 }) {
+    id
+    question
+    answer
+  }
+  ctas(pagination: { limit: -1 }) {
+    id
+    title
+    ctaRedirectTo {
+      data {
+        ...PageWithBaseFieldsEntity
+      }
+    }
+  }
+}
+
+fragment HomepageMapSection on ComponentSectionsMap {
+  id
+  title
+  branches {
+    branch {
+      data {
+        ...BranchCardEntity
+      }
+    }
+  }
+}
+
+fragment HomepageRegistrationInfo on ComponentHomepageRegistrationInfo {
+  id
+  title
+  description
+  redirectTo {
+    data {
+      ...PageWithBaseFieldsEntity
+    }
+  }
+  registrationBenefits {
+    id
+    benefit
+  }
+}
+
+fragment HomepageNewsSection on ComponentHomepageNewsSection {
+  id
+  title
+  redirectTo {
+    data {
+      ...PageWithBaseFieldsEntity
+    }
+  }
+}
+
 query HomePage($locale: I18NLocaleCode!) {
   homePage(locale: $locale) {
     data {
       attributes {
         faqSection {
-          id
-          title
-          redirectTo {
-            data {
-              ...PageWithBaseFieldsEntity
-            }
-          }
-          faqs(pagination: { limit: -1 }) {
-            id
-            question
-            answer
-          }
-          ctas(pagination: { limit: -1 }) {
-            id
-            title
-            ctaRedirectTo {
-              data {
-                ...PageWithBaseFieldsEntity
-              }
-            }
-          }
+          ...HomepageFaqSection
         }
         registrationInfoSection {
-          id
-          title
-          description
-          redirectTo {
-            data {
-              ...PageWithBaseFieldsEntity
-            }
-          }
-          registrationBenefits {
-            id
-            benefit
-          }
+          ...HomepageRegistrationInfo
         }
         newsSection {
-          id
-          title
-          redirectTo {
-            data {
-              ...PageWithBaseFieldsEntity
-            }
-          }
+          ...HomepageNewsSection
         }
         mapSection {
-          id
-          title
-          branches {
-            branch {
-              data {
-                ...BranchCardEntity
-              }
-            }
-          }
+          ...HomepageMapSection
         }
         localizations {
           data {

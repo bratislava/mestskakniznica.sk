@@ -3,7 +3,7 @@ import IgLogo from '@assets/images/ig-logo.svg'
 import YtLogo from '@assets/images/yt-logo.svg'
 import Accordion from '@modules/common/Accordion'
 import MLink from '@modules/common/MLink'
-import { ComponentFooterFooterColumn, Maybe } from '@services/graphql'
+import { ComponentFooterFooterColumnFragment, Maybe } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
@@ -18,25 +18,25 @@ export interface FooterProps {
   instagramUrl: string
   youtubeUrl: string
   siteMap?: { title: string; href: string }
-  footerColumns: Maybe<ComponentFooterFooterColumn>[]
+  footerColumns: Maybe<ComponentFooterFooterColumnFragment>[]
   gdpr: { title: string; href: string }
   VOP: { title: string; href: string }
   copyrightText?: string
 }
 
-const FooterLinks = ({ footerLink }: { footerLink: ComponentFooterFooterColumn['footerLink'] }) => {
-  const { getPathForEntity } = useNavikronos()
+const FooterLinks = ({
+  footerLink,
+}: {
+  footerLink: ComponentFooterFooterColumnFragment['footerLink']
+}) => {
+  const { getPathForStrapiEntity } = useNavikronos()
 
   return (
     <>
       {footerLink?.filter(isDefined).map((link) => (
         <MLink
           key={link.id}
-          href={
-            link.otherSite ||
-            getPathForEntity({ type: 'page', id: link.redirectTo?.data?.id }) ||
-            ''
-          }
+          href={link.otherSite || getPathForStrapiEntity(link.redirectTo?.data) || '#'}
           variant="basic"
           className="text-base text-foreground-body"
         >
@@ -47,7 +47,7 @@ const FooterLinks = ({ footerLink }: { footerLink: ComponentFooterFooterColumn['
   )
 }
 
-const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumn; i: number }) => {
+const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumnFragment; i: number }) => {
   return (
     <div
       key={col?.title}

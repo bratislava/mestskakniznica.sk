@@ -5,12 +5,12 @@ import type { Book } from '@modules/cards-and-rows/BookCard'
 import {
   BookTagEntityFragment,
   ComponentCommonSeo,
-  ComponentHomepageFaqSection,
-  ComponentHomepageNewsSection,
-  ComponentHomepageRegistrationInfo,
-  ComponentSectionsMap,
   EventCardEntityFragment,
   GeneralQuery,
+  HomepageFaqSectionFragment,
+  HomepageMapSectionFragment,
+  HomepageNewsSectionFragment,
+  HomepageRegistrationInfoFragment,
   NoticeListingEntityFragment,
   PageLocalizationEntityFragment,
 } from '@services/graphql'
@@ -38,11 +38,11 @@ type HomeProps = {
   promos: (EventCardEntityFragment | NoticeListingEntityFragment)[]
   latestNotices: NoticeListingEntityFragment[]
   newBooks: Book[] | null
-  faqSection: ComponentHomepageFaqSection | null
-  newsSection: ComponentHomepageNewsSection | null
-  registrationInfoSection: ComponentHomepageRegistrationInfo
+  faqSection: HomepageFaqSectionFragment | null
+  newsSection: HomepageNewsSectionFragment | null
+  registrationInfoSection: HomepageRegistrationInfoFragment
   bookTags: BookTagEntityFragment[]
-  mapSection: ComponentSectionsMap | null
+  mapSection: HomepageMapSectionFragment | null
   seo?: ComponentCommonSeo
   general: GeneralQuery
 } & SSRConfig &
