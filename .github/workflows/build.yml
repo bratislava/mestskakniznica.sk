@@ -28,6 +28,5 @@ jobs:
     with:
       directory: next/
       debug: --debug
-    secrets:
     permissions: write-all
 
