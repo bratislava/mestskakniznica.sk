@@ -129,7 +129,8 @@
     "document": "Dokument",
     "disclosure": "Zverejňovanie",
     "event": "Podujatie",
-    "notice": "Aktualita"
+    "notice": "Aktualita",
+    "branch": "Miesto"
   },
   "searchOnPage": "Na stránke",
   "searchInCatalogue": "V katalógu",
