@@ -15,7 +15,7 @@
     "@culturehq/add-to-calendar": "^1.1.2",
     "@headlessui/react": "^1.7.7",
     "@hookform/resolvers": "^2.8.5",
-    "@internationalized/date": "^3.0.2",
+    "@internationalized/date": "^3.2.0",
     "@mailchimp/mailchimp_marketing": "^3.0.75",
     "@next/font": "^13.1.1",
     "@radix-ui/react-checkbox": "^0.1.5",
