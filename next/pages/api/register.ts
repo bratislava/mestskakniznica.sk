@@ -37,15 +37,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(500).json({})
     }
 
-    // datum narodenia vo formate dd.mm.yyyy
-    const birthday = new Date(body.birthDate)
-      .toLocaleDateString('sk', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      })
-      .replaceAll(' ', '')
-
     const reqid = Date.now()
     const remark = ''
     const {
@@ -63,6 +54,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       IDNumber,
       IDType,
       acceptNewsletter,
+      birthDate,
     } = body
 
     const dawinchiBody = {
@@ -78,7 +70,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         addressstreet2: tempAddress,
         addresstown2: tempCity,
         addresspsc2: tempPostalCode,
-        borndate: birthday,
+        borndate: birthDate,
         location: '',
         remark,
         phone,

@@ -113,11 +113,21 @@ const CityLibraryRegistrationForm = () => {
   const { errors } = methods.formState
 
   const handleSubmit = methods.handleSubmit(async (data) => {
+    const newData = data
+
+    newData.birthDate = new Date(data.birthDate)
+      .toLocaleDateString('sk', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      })
+      .replaceAll(' ', '')
+
     // send email
     const res = await fetch(`/api/register`, {
       method: 'POST',
       // @ts-ignore
-      body: JSON.stringify(data),
+      body: JSON.stringify(newData),
     })
 
     // catch error
