@@ -49,6 +49,10 @@ const searchIndexSettings = {
     "notice.title",
     "notice.seo.keywords",
     "notice.body",
+    // Branch
+    "branch.title",
+    "branch.seo.keywords",
+    "branch.body",
   ],
   filterableAttributes: [
     // All
@@ -203,6 +207,15 @@ module.exports = ({ env }) => ({
         },
         settings: searchIndexSettings,
         transformEntry: ({ entry }) => wrapSearchIndexEntry("notice", entry),
+      },
+
+      branch: {
+        indexName: "search_index",
+        entriesQuery: {
+          locale: "all",
+        },
+        settings: searchIndexSettings,
+        transformEntry: ({ entry }) => wrapSearchIndexEntry("branch", entry),
       },
     },
   },

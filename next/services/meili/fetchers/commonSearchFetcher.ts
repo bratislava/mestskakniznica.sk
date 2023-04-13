@@ -12,6 +12,7 @@ export const allSearchTypes = [
   'disclosure' as const,
   'event' as const,
   'notice' as const,
+  'branch' as const,
 ]
 
 type CommonSearchResults =
@@ -21,6 +22,7 @@ type CommonSearchResults =
   | SearchIndexWrapped<'disclosure', DisclosureMeili>
   | SearchIndexWrapped<'event', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'notice', { slug: string }> // TODO: Specify type if needed.
+  | SearchIndexWrapped<'branch', { slug: string }> // TODO: Specify type if needed.
 
 // https://stackoverflow.com/a/52331580
 export type Unpacked<T> = T extends (infer U)[] ? U : T

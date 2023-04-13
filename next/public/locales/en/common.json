@@ -129,7 +129,8 @@
     "document": "Document",
     "disclosure": "Disclosure",
     "event": "Event",
-    "notice": "News"
+    "notice": "News",
+    "branch": "Location"
   },
   "searchOnPage": "On page",
   "searchInCatalogue": "In catalog",
