@@ -87,7 +87,7 @@ const DocumentPage = ({ entity }: IProps) => {
                 >
                   {/* Change to 'Open' when download button is added */}
                   {/* {t('open')} */}
-                  {t('download')}
+                  {t('open')}
                 </Button>
                 {/* TODO add direct download */}
                 {/* <Button */}
