@@ -13,8 +13,10 @@ import cx from 'classnames'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+import { usePlausible } from 'next-plausible'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
+import { useDebounce } from 'usehooks-ts'
 
 import { useSearch } from '../../hooks/useSearch'
 import { AnimateHeight } from '../Atoms/AnimateHeight'
@@ -24,6 +26,7 @@ import TagToggle from '../Atoms/TagToggle'
 const SearchPage = () => {
   const { t, i18n } = useTranslation('common')
   const { getPathForEntity } = useNavikronos()
+  const plausible = usePlausible()
 
   const resultsRef = useRef<HTMLDivElement>(null)
 
@@ -76,6 +79,21 @@ const SearchPage = () => {
     queryFn: commonSearchFetcher(filters, i18n.language),
     keepPreviousData: true,
   })
+
+  const debouncedInputForPlausible = useDebounce<string>(filters.searchValue, 2000)
+  const [lastInputForPlausible, setLastInputForPlausible] = useState<string>('')
+  useEffect(() => {
+    const sanitizedInput = debouncedInputForPlausible.toLowerCase().trim().replace(/\s\s+/g, ' ')
+    if (sanitizedInput.length > 2 && sanitizedInput !== lastInputForPlausible) {
+      plausible('Vyhladavanie', {
+        props: {
+          Query: sanitizedInput,
+          Language: i18n.language,
+        },
+      })
+      setLastInputForPlausible(sanitizedInput)
+    }
+  }, [debouncedInputForPlausible])
 
   const { breadcrumbs } = useNavikronos()
 

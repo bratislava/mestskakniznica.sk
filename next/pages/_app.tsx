@@ -9,6 +9,7 @@ import { isProductionDeployment } from '@utils/utils'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next'
+import PlausibleProvider from 'next-plausible'
 import { NextAdapter } from 'next-query-params'
 import { OverlayProvider, SSRProvider } from 'react-aria'
 import { QueryParamProvider } from 'use-query-params'
@@ -29,13 +30,11 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
   return (
     <div className={`${beausiteFont.variable} font-beausite`}>
       <Script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.sk" />
-      {isProductionDeployment() ? (
-        <Script
-          strategy="afterInteractive"
-          data-domain="mestskakniznica.sk"
-          src="https://plausible.io/js/plausible.js"
-        />
-      ) : null}
+      <PlausibleProvider
+        domain="mestskakniznica.sk"
+        taggedEvents
+        enabled={isProductionDeployment()}
+      />
       <SSRProvider>
         <NavikronosConfigProvider config={navikronosConfig}>
           <MQueryClientProvider>
