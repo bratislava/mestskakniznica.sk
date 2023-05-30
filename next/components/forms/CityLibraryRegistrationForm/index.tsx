@@ -12,7 +12,7 @@ import * as yup from 'yup'
 
 import FormContainer, {
   IDCardRegex,
-  phoneRegex,
+  phoneRegexOrEmpty,
   postalCodeRegex,
   SubmitStatus,
 } from '../FormContainer'
@@ -54,7 +54,7 @@ const CityLibraryRegistrationForm = () => {
         .string()
         .oneOf([yup.ref('password'), null], t('validation_error_password_mismatch'))
         .required(),
-      phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
+      phone: yup.string().matches(phoneRegexOrEmpty, t('validation_error_phone')),
       address: yup.string().required(),
       city: yup.string().required(),
       postalCode: yup.string().matches(postalCodeRegex, t('validation_error_zipcode')).required(),
@@ -299,7 +299,6 @@ const CityLibraryRegistrationForm = () => {
                   inputClassName="px-3 w-full"
                   hasError={!!errors.phone}
                   errorMessage={errors.phone?.message}
-                  required
                   {...field}
                 />
               )}

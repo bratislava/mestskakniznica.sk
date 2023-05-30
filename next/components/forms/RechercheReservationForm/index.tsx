@@ -10,7 +10,7 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
+import FormContainer, { phoneRegexOrEmpty, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'
 import StepNumberTitle from '../StepNumberTitle'
 
@@ -41,9 +41,9 @@ const RechercheReservationForm = () => {
     .object({
       fName: yup.string().required(),
       lName: yup.string().required(),
-      readerCardNumber: yup.string().required(),
+      readerCardNumber: yup.string(),
       email: yup.string().email().required(),
-      phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
+      phone: yup.string().matches(phoneRegexOrEmpty, t('validation_error_phone')),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
       rechercheTopic: yup.string(),
@@ -196,7 +196,6 @@ const RechercheReservationForm = () => {
                     inputClassName="px-3 w-full"
                     hasError={!!errors.readerCardNumber}
                     errorMessage={errors.readerCardNumber?.message}
-                    required
                     {...field}
                   />
                 )}
@@ -231,7 +230,6 @@ const RechercheReservationForm = () => {
                     inputClassName="px-3 w-full"
                     hasError={!!errors.phone}
                     errorMessage={errors.phone?.message}
-                    required
                     {...field}
                   />
                 )}

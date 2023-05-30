@@ -106,7 +106,7 @@
   "library_registration_success_message": "Na uvedenej emailovej schránke nájdete podrobnosti o svojej novej registrácii.",
   "library_registration_error_message": "Prihlášku nie je možné odoslať. Skontrolujte si vyplnené údaje.",
   "cycle_delivery_success_title": "Ďakujeme za objednávku",
-  "cycle_delivery_success_message": "Zásielka je na ceste k Vám.",
+  "cycle_delivery_success_message": "Čoskoro Vás budeme kontaktovať ohľadom jej potvrdenia.",
   "order_error_message": "Objednávku nie je možné odoslať. Skontrolujte si vyplnené údaje.",
   "gift_card_success_title": "Objednali ste skvelý darček!",
   "gift_card_success_message": "Čoskoro Vám zašleme inštrukcie k platbe.",
@@ -149,5 +149,6 @@
   "validation_error_captcha": "overenie je potrebné.",
   "captcha": "Captcha",
   "iframe_title_music": "Hudobné štúdio",
-  "iframe_title_creative": "Kreatívna miestnosť"
+  "iframe_title_creative": "Kreatívna miestnosť",
+  "optional_mail_note": "Ak si želáte byť kontaktovaný, zadajte email."
 }

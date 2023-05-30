@@ -149,5 +149,6 @@
   "validation_error_captcha": "validation is required.",
   "captcha": "Captcha",
   "iframe_title_music": "Music Studio",
-  "iframe_title_creative": "Creative room"
+  "iframe_title_creative": "Creative room",
+  "optional_mail_note": "If you wish to be contacted, please enter your email."
 }
