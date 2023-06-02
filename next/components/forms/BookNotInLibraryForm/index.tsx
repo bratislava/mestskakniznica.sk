@@ -1,4 +1,5 @@
 import { Input, TextArea } from '@bratislava/ui-city-library'
+import BookListNotInLibrary from '@components/forms/BookList/BookListNotInLibrary'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { convertDataToBody } from '@utils/form-constants'
 import isEmpty from 'lodash/isEmpty'
@@ -35,8 +36,19 @@ const BookNotInLibraryForm = () => {
 
   const schema = yup
     .object({
-      email: yup.string().email().required(),
-      message: yup.string().required(),
+      email: yup.string().email(),
+      message: yup.string(),
+      books: yup
+        .array()
+        .of(
+          yup.object().shape({
+            author: yup.string().required(),
+            title: yup.string().required(),
+            issuer: yup.string().optional(),
+            issueDate: yup.string().optional(),
+          })
+        )
+        .required(),
       acceptFormTerms: yup.boolean().isTrue(),
       cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
@@ -47,6 +59,14 @@ const BookNotInLibraryForm = () => {
     defaultValues: {
       email: '',
       message: '',
+      books: [
+        {
+          author: '',
+          title: '',
+          issuer: '',
+          issueDate: '',
+        },
+      ],
       cfTurnstile: '',
     },
   })
@@ -111,11 +131,11 @@ const BookNotInLibraryForm = () => {
                 inputClassName="px-3 w-full"
                 hasError={!!errors.email}
                 errorMessage={errors.email?.message}
-                required
                 {...field}
               />
             )}
           />
+          <span className="-mt-4 text-sm text-foreground-body">{t('optional_mail_note')}</span>
 
           <Controller
             control={methods.control}
@@ -127,11 +147,13 @@ const BookNotInLibraryForm = () => {
                 textAreaClassname="w-full h-[122px]"
                 hasError={!!errors.message}
                 errorMessage={errors.message?.message}
-                required
                 {...field}
               />
             )}
           />
+
+          <BookListNotInLibrary />
+
           {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
           <FormFooter buttonContent={t('send')} />
         </div>
