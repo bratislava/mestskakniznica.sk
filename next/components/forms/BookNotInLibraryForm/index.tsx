@@ -135,7 +135,6 @@ const BookNotInLibraryForm = () => {
               />
             )}
           />
-          <span className="-mt-4 text-sm text-foreground-body">{t('optional_mail_note')}</span>
 
           <Controller
             control={methods.control}

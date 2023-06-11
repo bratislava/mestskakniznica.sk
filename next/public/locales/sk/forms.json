@@ -32,7 +32,7 @@
   "place_of_issue": "Miesto vydania",
   "issuer": "Vydavateľstvo",
   "package_number": "Číslo zväzku",
-  "issue_date": "Dátum vydania",
+  "issue_date": "Rok vydania",
   "ISBN": "ISBN / ISSN",
   "recherche_topic": "Téma rešerše",
   "recherche_keywords": "Kľúčové slová",
@@ -149,6 +149,5 @@
   "validation_error_captcha": "overenie je potrebné.",
   "captcha": "Captcha",
   "iframe_title_music": "Hudobné štúdio",
-  "iframe_title_creative": "Kreatívna miestnosť",
-  "optional_mail_note": "Ak si želáte byť kontaktovaný, zadajte email."
+  "iframe_title_creative": "Kreatívna miestnosť"
 }

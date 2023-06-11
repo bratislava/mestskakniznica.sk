@@ -112,7 +112,7 @@ const ServiceReservationForm = () => {
       lName: yup.string().required(),
       email: yup.string().email().required(),
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
-      message: yup.string().required(),
+      message: yup.string(),
       attachment: yup.mixed().required(),
       acceptFormTerms: yup.boolean().isTrue(),
       cfTurnstile: yup.string().required(t('validation_error_captcha')),
@@ -259,7 +259,6 @@ const ServiceReservationForm = () => {
                 textAreaClassname="w-full h-[122px]"
                 hasError={!!errors.message}
                 errorMessage={errors.message?.message}
-                required
                 {...field}
               />
             )}
