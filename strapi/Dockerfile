@@ -1,5 +1,5 @@
 # development
-FROM node:18 AS dev
+FROM node:18.17 AS dev
 
 RUN apt-get update && apt-get install -y git \
     vim \
@@ -14,10 +14,6 @@ COPY yarn.lock ./
 COPY src/plugins/navikronos/package.json ./src/plugins/navikronos/package.json
 COPY src/plugins/navikronos/yarn.lock ./src/plugins/navikronos/yarn.lock
 
-# https://forum.strapi.io/t/docker-strapi-node-18-16-alpine-sharp-node-gyp-problem-solved/32245
-# https://stackoverflow.com/questions/71966803/error-sh-node-gyp-build-command-not-found
-RUN yarn global add node-gyp
-
 RUN yarn install
 COPY . ./
 
@@ -27,7 +23,7 @@ EXPOSE 1338
 CMD ["yarn", "develop"]
 
 # production
-FROM node:18 AS prod
+FROM node:18.17 AS prod
 
 RUN apt-get update && apt-get install -y git \
     libvips-dev
