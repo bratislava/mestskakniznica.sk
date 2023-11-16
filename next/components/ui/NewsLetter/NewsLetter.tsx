@@ -57,7 +57,7 @@ export const NewsLetter = ({
             {buttonContent}
           </Button>
         </div>
-        <div className="pl-0.5 pt-4.5 pb-8">
+        <div className="pt-4.5 pl-0.5 pb-8">
           <Controller
             control={methods.control}
             name="acceptTerms"
@@ -76,7 +76,7 @@ export const NewsLetter = ({
                   <p className="mt-2 text-base text-error">{errorMessage}</p>
                 )}
                 {/* TODO add success color */}
-                <p className={`mt-2 text-base ${resStatus ? 'text-green-600' : 'text-error'}`}>
+                <p className={`mt-2 text-base ${resStatus ? 'text-success' : 'text-error'}`}>
                   {respondMessage}
                 </p>
               </>
