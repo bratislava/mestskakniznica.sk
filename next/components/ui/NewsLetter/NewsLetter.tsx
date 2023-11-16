@@ -53,7 +53,9 @@ export const NewsLetter = ({
             )}
           />
 
-          <Button mobileFullWidth>{buttonContent}</Button>
+          <Button type="submit" mobileFullWidth>
+            {buttonContent}
+          </Button>
         </div>
         <div className="pl-0.5 pt-4.5 pb-8">
           <Controller
