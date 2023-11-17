@@ -75,7 +75,6 @@ export const NewsLetter = ({
                 {!!errors.acceptTerms && (
                   <p className="mt-2 text-base text-error">{errorMessage}</p>
                 )}
-                {/* TODO add success color */}
                 <p className={`mt-2 text-base ${resStatus ? 'text-success' : 'text-error'}`}>
                   {respondMessage}
                 </p>
