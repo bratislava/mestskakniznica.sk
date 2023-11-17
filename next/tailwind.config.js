@@ -105,6 +105,7 @@ module.exports = {
         peach: '#fdd1a8',
       },
       error: '#ad1e13',
+      success: '#16A34AFF', // text-green-600
     },
     fontFamily: {
       beausite: 'var(--font-beausite)',
