@@ -33,7 +33,7 @@
     "yarn": "1.22"
   },
   "volta": {
-    "node": "18.17.1",
+    "node": ">=18.x.x",
     "yarn": "1.22.18"
   },
   "license": "MIT"
