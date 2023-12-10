@@ -30,16 +30,16 @@ const DocumentPage = ({ entity }: IProps) => {
 
   const { title, file, description } = entity.attributes
 
-  if (!file.data?.attributes) {
+  const firstItem = file?.data[0]
+
+  if (!firstItem?.attributes) {
     return null
   }
 
-  const { size, ext, url } = file.data.attributes
+  const fileExt = firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''
 
   const isDisclosure = entity.__typename === 'DisclosureEntity'
 
-  const fileSize = getFileSize(size, i18n.language)
-  const fileExt = ext?.toUpperCase().replace('.', '') ?? ''
   const dlData = isDisclosure
     ? getDisclosureMetadata(entity)
     : [
@@ -68,40 +68,46 @@ const DocumentPage = ({ entity }: IProps) => {
               {/* Header */}
               <h1 className="text-h1 lg:mt-0">{title}</h1>
 
-              <div className="mt-2 flex items-center gap-x-3">
-                <span>{fileSize}</span>
-                <span>&bull;</span>
-                <span>{fileExt}</span>
-              </div>
+              {entity.attributes?.file?.data.map((item) => (
+                <div key={item?.id}>
+                  <div className="mt-2 flex items-center gap-x-3">
+                    <span>{getFileSize(item?.attributes?.size, i18n.language)}</span>
+                    <span>&bull;</span>
+                    <span>{item?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}</span>
+                    <span>&bull;</span>
+                    <span>{item?.attributes?.name}</span>
+                  </div>
 
-              <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
-                <Button
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  mobileFullWidth
-                  aria-label={`${t('open')} ${title}`}
-                  // Change to 'ExternalLinkIcon' when download button is added
-                  // startIcon={<ExternalLinkIcon />}
-                  startIcon={<DownloadIcon />}
-                >
-                  {/* Change to 'Open' when download button is added */}
-                  {/* {t('open')} */}
-                  {t('open')}
-                </Button>
-                {/* TODO add direct download */}
-                {/* <Button */}
-                {/*  variant="secondary" */}
-                {/*  mobileFullWidth */}
-                {/*  href={url} */}
-                {/*  // TODO add download title */}
-                {/*  // download={file?.attributes?.attachment?.data?.attributes?.name} */}
-                {/*  aria-label={getDownloadAriaLabel(file.data, title)} */}
-                {/*  startIcon={<DownloadIcon />} */}
-                {/* > */}
-                {/*  {t('download')} */}
-                {/* </Button> */}
-              </div>
+                  <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
+                    <Button
+                      href={item?.attributes?.url || ''}
+                      target="_blank"
+                      rel="noreferrer"
+                      mobileFullWidth
+                      aria-label={`${t('open')} ${item?.attributes?.name}`}
+                      // Change to 'ExternalLinkIcon' when download button is added
+                      // startIcon={<ExternalLinkIcon />}
+                      startIcon={<DownloadIcon />}
+                    >
+                      {/* Change to 'Open' when download button is added */}
+                      {/* {t('open')} */}
+                      {t('open')}
+                    </Button>
+                    {/* TODO add direct download */}
+                    {/* <Button */}
+                    {/*  variant="secondary" */}
+                    {/*  mobileFullWidth */}
+                    {/*  href={url} */}
+                    {/*  // TODO add download title */}
+                    {/*  // download={file?.attributes?.attachment?.data?.attributes?.name} */}
+                    {/*  aria-label={getDownloadAriaLabel(file.data, title)} */}
+                    {/*  startIcon={<DownloadIcon />} */}
+                    {/* > */}
+                    {/*  {t('download')} */}
+                    {/* </Button> */}
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Description */}

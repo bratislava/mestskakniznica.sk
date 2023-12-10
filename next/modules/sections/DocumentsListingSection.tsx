@@ -100,7 +100,7 @@ const DocumentsListingSection = () => {
               key={id}
               title={title}
               linkHref={getPathForEntity({ type, slug }) ?? '#'}
-              fileExt={file?.ext?.toUpperCase().replace('.', '') ?? ''}
+              fileExt={file[0]?.ext?.toUpperCase().replace('.', '') ?? ''}
               category={category}
               // eslint-disable-next-line unicorn/consistent-destructuring
               addedAt={type === 'disclosure' ? document.addedAt : document.publishedAt}

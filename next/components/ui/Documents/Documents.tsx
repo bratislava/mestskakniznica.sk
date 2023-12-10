@@ -29,7 +29,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
             title: docTitle,
             metadata: contractor ? `${contractor}` : undefined,
             // eslint-disable-next-line unicorn/consistent-destructuring
-            fileExt: file?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
+            fileExt: file?.data[0]?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
           },
         }
       }
@@ -44,7 +44,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
             category: documentCategory?.data?.attributes?.label,
             title: docTitle,
             // eslint-disable-next-line unicorn/consistent-destructuring
-            fileExt: file.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
+            fileExt: file?.data[0]?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
           },
         }
       }
