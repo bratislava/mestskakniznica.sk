@@ -140,11 +140,16 @@ const SearchPage = () => {
         <div className="mt-12 flex flex-col gap-6">
           <AnimateHeight isVisible>
             {isLoading ? (
-              <div className="flex select-none flex-col gap-3">
-                {Array.from({ length: filters.pageSize }, (_item, index) => (
-                  <div key={index}>row</div>
+              <>
+                {Array.from({ length: filters.pageSize }, (_, index) => (
+                  <div key={index} role="status" className="w-full animate-pulse select-none gap-3">
+                    <div className="group flex w-full flex-col justify-between border-b border-border-dark bg-white py-4 pr-2">
+                      <div className="mb-4 h-2.5 w-48 rounded-full bg-foreground-placeholder" />
+                      <div className="mb-2.5 h-2 max-w-[360px] rounded-full bg-foreground-placeholder" />
+                    </div>
+                  </div>
                 ))}
-              </div>
+              </>
             ) : data?.estimatedTotalHits === 0 ? (
               <motion.div
                 initial={{ y: 48 }}
