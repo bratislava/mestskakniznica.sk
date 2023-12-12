@@ -67,7 +67,7 @@ const SearchField = ({
       rightSlot={
         input.length > 0 ? (
           <Button variant="unstyled" onPress={handleClear} className="p-2">
-            {isLarge ? <CloseIcon /> : <CloseCircleIcon />}
+            {isLarge ? <CloseIcon /> : <CloseCircleIcon className='base-icon-size' />}
           </Button>
         ) : null
       }
