@@ -59,10 +59,6 @@ body {
     @apply flex h-5 w-5 items-center rounded-full border-2 border-border-dark;
     @apply box-border justify-center overflow-hidden;
   }
-
-  .base-icon-size {
-    @apply w-6 h-6;
-  }
 }
 
 .chq-atc--button > svg {

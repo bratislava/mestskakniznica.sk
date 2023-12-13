@@ -49,7 +49,7 @@ const BookList = ({ className }: Props) => {
                 aria-label={t('remove_book')}
                 onPress={() => handleRemoveBook(index)}
               >
-                <CloseCircleIcon className='base-icon-size' />
+                <CloseCircleIcon />
               </Button>
             )}
             <div className="flex w-full flex-col gap-y-6">

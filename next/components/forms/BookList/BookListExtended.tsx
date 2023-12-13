@@ -58,7 +58,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
               onPress={() => handleRemoveBook(index)}
               aria-label={t('remove_book')}
             >
-              <CloseCircleIcon className='base-icon-size'  />
+              <CloseCircleIcon />
             </Button>
           )}
           {showLinkInput && (

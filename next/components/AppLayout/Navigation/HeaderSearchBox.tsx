@@ -96,7 +96,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
               variant="unstyled"
               className="flex items-center"
             >
-              <CloseCircleIcon className='base-icon-size' />
+              <CloseCircleIcon />
             </Button>
           )
         }
@@ -131,7 +131,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
             >
               <span className="hidden md:inline">{t('search')}</span>
               <span className="md:hidden">
-                <SearchIcon className='base-icon-size' />
+                <SearchIcon />
               </span>
             </Button>
           </motion.div>
