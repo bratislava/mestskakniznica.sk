@@ -9,7 +9,6 @@ import {
   getCommonSearchQueryKey,
 } from '@services/meili/fetchers/commonSearchFetcher'
 import { useNavikronos } from '@utils/navikronos'
-import cx from 'classnames'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
@@ -140,11 +139,16 @@ const SearchPage = () => {
         <div className="mt-12 flex flex-col gap-6">
           <AnimateHeight isVisible>
             {isLoading ? (
-              <div className="flex select-none flex-col gap-3">
-                {Array.from({ length: filters.pageSize }, (_item, index) => (
-                  <div key={index}>row</div>
+              <>
+                {Array.from({ length: filters.pageSize }, (_, index) => (
+                  <div key={index} role="status" className="w-full animate-pulse select-none gap-3">
+                    <div className="flex w-full flex-col justify-between border-b border-border-dark bg-white py-4">
+                      <div className="mb-4 h-2.5 w-48 rounded-full bg-border-light" />
+                      <div className="mb-2.5 h-2 max-w-[360px] rounded-full bg-border-light" />
+                    </div>
+                  </div>
                 ))}
-              </div>
+              </>
             ) : data?.estimatedTotalHits === 0 ? (
               <motion.div
                 initial={{ y: 48 }}
@@ -163,26 +167,22 @@ const SearchPage = () => {
                   return (
                     // eslint-disable-next-line react/no-array-index-key
                     <Link key={index} href={link ?? '#'}>
-                      <div
-                        className={cx(
-                          'group flex items-center justify-between border-b border-border-dark bg-white py-4 pr-2'
-                        )}
-                      >
-                        <div className="flex items-center gap-x-6">
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-x-4">
-                              <h2>{title}</h2>
-                              <span className="rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[12px]">
-                                {/* TODO proper translation keys */}
-                                {t(`searchTags.${type}`)}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-x-3 text-xs text-foreground-body">
-                              <span>{link}</span>
-                            </div>
+                      <div className="group flex items-center justify-between gap-x-6 border-b border-border-dark bg-white py-4">
+                        <div className="flex grow flex-col gap-y-2">
+                          <div className="flex items-start gap-x-4 max-md:justify-between">
+                            <h2>{title}</h2>
+                            {/* py set to 2px to coun also with the border */}
+                            <span className="flex h-6 shrink-0 items-center rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[18px]">
+                              {/* TODO proper translation keys */}
+                              {t(`searchTags.${type}`)}
+                            </span>
+                          </div>
+                          <div className="flex items-center text-xs text-foreground-body">
+                            <span>{link}</span>
                           </div>
                         </div>
-                        <ChevronRightIcon className="ml-4 shrink-0" />
+
+                        <ChevronRightIcon className="shrink-0 max-md:hidden" />
                       </div>
                     </Link>
                   )
