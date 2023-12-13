@@ -27,13 +27,13 @@ const MobileBreadcrumbsAccordionButton = ({
       {accBtnFakeCrumbs.map((crumb, index) => (
         // Works only if Accordion button has min-w-0
         // https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child
-        <span
+        <div
           // eslint-disable-next-line react/no-array-index-key
           key={index}
           className={`${index === accBtnFakeCrumbs.length - 1 ? 'truncate' : 'shrink-0'}`}
         >
           {crumb}
-        </span>
+        </div>
       ))}
     </div>
   )
