@@ -10,8 +10,6 @@ import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { Link } from '../Link/Link'
-
 export interface FooterProps {
   className?: string
   facebookUrl: string
@@ -134,18 +132,15 @@ export const Footer = ({
         <div className="flex flex-col gap-x-8 lg:flex-row lg:items-center">
           {siteMap && (
             <>
-              <Link variant="plain" uppercase={false} href={siteMap.href}>
-                {siteMap.title}
-              </Link>{' '}
-              v4.0.1
+              <MLink href={siteMap.href}>{siteMap.title}</MLink> v4.0.1
             </>
           )}
-          <Link variant="plain" uppercase={false} href={VOP.href}>
+          <MLink variant="basic" href={VOP.href}>
             {VOP.title}
-          </Link>
-          <Link variant="plain" uppercase={false} href={gdpr.href}>
+          </MLink>
+          <MLink variant="basic" href={gdpr.href}>
             {gdpr.title}
-          </Link>
+          </MLink>
         </div>
       </div>
     </div>
