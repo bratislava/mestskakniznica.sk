@@ -10,6 +10,7 @@ import {
 } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
+import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
 type EventCardProps = {
@@ -40,12 +41,13 @@ const EventCard = ({
 
   return (
     <div className="relative">
-      <img
-        className="h-[200px] w-full flex-1 object-cover"
-        alt={t('eventDetailImagePlaceholder')}
-        src={listingImage?.url || coverImage?.url || Placeholder.src}
-        height="200px"
-      />
+      <div className="relative h-[163px] w-[271px] object-cover">
+        <Image
+          fill
+          alt={t('eventDetailImagePlaceholder')}
+          src={listingImage?.url || coverImage?.url || Placeholder.src}
+        />
+      </div>
 
       <div className="flex pt-4 text-sm">
         {eventTags && (

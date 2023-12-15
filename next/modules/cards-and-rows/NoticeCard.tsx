@@ -1,4 +1,5 @@
-import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
+// import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
+import MImage from '@modules/common/MImage'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import FormatDate from '@modules/formatting/FormatDate'
@@ -26,12 +27,11 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
   return (
     <div className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between">
       <div className="flex h-full flex-col">
-        {/* TODO: Replace with MImage */}
-        <img
-          className="mb-4 h-48 w-full object-cover"
-          alt=""
-          src={image?.attributes?.url || Placeholder.src}
-        />
+        {image?.attributes && (
+          <div className="relative h-[163px] w-[271px] object-cover">
+            <MImage image={image?.attributes} fill />
+          </div>
+        )}
 
         <div className="mb-2 text-sm text-foreground-body">
           <FormatDate value={date} valueType="ISO" />
