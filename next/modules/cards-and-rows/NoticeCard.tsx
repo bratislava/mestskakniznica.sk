@@ -1,4 +1,3 @@
-// import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
 import MImage from '@modules/common/MImage'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
