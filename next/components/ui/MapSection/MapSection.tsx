@@ -131,7 +131,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
         </div>
         <div
           className={cx({
-            '-mx-4 flex gap-4 px-4 pt-px lg:gap-0': !altDesign,
+            '-mx-4 flex gap-4 overflow-x-auto px-4 pt-px lg:gap-0': !altDesign,
             'grid gap-4 md:grid-cols-2': altDesign,
           })}
         >

@@ -37,7 +37,7 @@ export const AnimateHeight = ({
 
   return (
     <motion.div
-      className={className}
+      className={cx('overflow-hidden', className)}
       aria-hidden={!isVisible}
       initial={initialVisible ? 'opened' : 'closed'}
       animate={isVisible ? 'opened' : 'closed'}

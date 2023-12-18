@@ -10,7 +10,7 @@ const DesktopBreadcrumbs = ({ crumbs, ...rest }: BreadcrumbsProps) => {
 
   return (
     <nav {...navProps} className="flex min-w-0 text-sm">
-      <ol className="flex w-fit items-center py-4">
+      <ol className="flex w-fit items-center overflow-hidden py-4">
         <BreadcrumbItem url="/">
           <HomeIcon />
           <span className="sr-only">{t('homepage')}</span>

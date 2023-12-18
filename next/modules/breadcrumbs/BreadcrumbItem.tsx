@@ -14,7 +14,7 @@ const BreadcrumbItem = ({ url, isMobile = false, ...rest }: BreadcrumbItemProps)
   return (
     // min-w-0 https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child
     <li
-      className={`focus: flex min-w-0 list-none items-center focus:ring-2 focus:ring-outline ${
+      className={`flex min-w-0 list-none items-center focus:ring-2 focus:ring-outline ${
         !rest.isCurrent ? 'shrink-0' : ''
       }`}
     >
