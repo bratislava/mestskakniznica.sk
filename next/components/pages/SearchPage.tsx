@@ -1,6 +1,7 @@
 import { ChevronRightIcon } from '@assets/icons'
 import { PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
+import MLink from '@modules/common/MLink'
 import {
   allSearchTypes,
   commonSearchFetcher,
@@ -10,7 +11,6 @@ import {
 } from '@services/meili/fetchers/commonSearchFetcher'
 import { useNavikronos } from '@utils/navikronos'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { usePlausible } from 'next-plausible'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -92,6 +92,7 @@ const SearchPage = () => {
       })
       setLastInputForPlausible(sanitizedInput)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedInputForPlausible])
 
   const { breadcrumbs } = useNavikronos()
@@ -165,26 +166,34 @@ const SearchPage = () => {
                   )
 
                   return (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <Link key={index} href={link ?? '#'}>
-                      <div className="group flex items-center justify-between gap-x-6 border-b border-border-dark bg-white py-4">
-                        <div className="flex grow flex-col gap-y-2">
-                          <div className="flex items-start gap-x-4 max-md:justify-between">
+                    <div
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
+                      className="group relative flex items-center justify-between gap-x-6 border-b border-border-dark py-4 focus-within:border-transparent focus-within:ring-2 focus-within:ring-outline"
+                    >
+                      <div className="flex grow flex-col gap-y-2">
+                        <div className="flex items-start gap-x-4 max-md:justify-between">
+                          <MLink
+                            href={link ?? '#'}
+                            variant="basic"
+                            stretched
+                            className="outline-none"
+                          >
                             <h2>{title}</h2>
-                            {/* py set to 2px to coun also with the border */}
-                            <span className="flex h-6 shrink-0 items-center rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[18px]">
-                              {/* TODO proper translation keys */}
-                              {t(`searchTags.${type}`)}
-                            </span>
-                          </div>
-                          <div className="flex items-center text-xs text-foreground-body">
-                            <span>{link}</span>
-                          </div>
+                          </MLink>
+                          {/* py set to 2px to coun also with the border */}
+                          <span className="flex h-6 shrink-0 items-center rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[18px]">
+                            {/* TODO proper translation keys */}
+                            {t(`searchTags.${type}`)}
+                          </span>
                         </div>
-
-                        <ChevronRightIcon className="shrink-0 max-md:hidden" />
+                        <div className="flex items-center text-xs text-foreground-body">
+                          <span>{link}</span>
+                        </div>
                       </div>
-                    </Link>
+
+                      <ChevronRightIcon className="shrink-0 max-md:hidden" />
+                    </div>
                   )
                 })}
               </div>

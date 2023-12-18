@@ -106,6 +106,7 @@ module.exports = {
       },
       error: '#ad1e13',
       success: '#16A34AFF', // text-green-600
+      outline: '#005FCC',
     },
     fontFamily: {
       beausite: 'var(--font-beausite)',

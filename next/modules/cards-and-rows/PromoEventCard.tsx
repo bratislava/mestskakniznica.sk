@@ -34,12 +34,12 @@ const PromoEventCard = ({ event }: PromoEventCardProps) => {
           tagsCount={3}
         />
 
-        <h3 className="text-h2 line-clamp-3">
+        <h3 className="text-h2">
           <MLink
             href={getPathForStrapiEntity(event) ?? '#'}
             variant="basic"
             stretched
-            className="after:z-[1]"
+            className="outline-none line-clamp-3 after:z-[1]"
           >
             {title}
           </MLink>

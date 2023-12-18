@@ -131,7 +131,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
         </div>
         <div
           className={cx({
-            '-mx-4 flex gap-4 overflow-x-auto px-4 pt-px lg:gap-0': !altDesign,
+            '-mx-4 flex gap-4 px-4 pt-px lg:gap-0': !altDesign,
             'grid gap-4 md:grid-cols-2': altDesign,
           })}
         >
@@ -141,9 +141,9 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
 
             return (
               <div
-                className={cx('relative', {
+                className={cx('relative focus-within:ring-2 focus-within:ring-outline', {
                   'lg:border-l-0': index === 0 && !altDesign,
-                  'w-70 flex-shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0':
+                  'w-70 flex-shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0 lg:focus-within:border-transparent':
                     !altDesign,
                   'w-full border border-border-dark py-4': altDesign,
                 })}
@@ -154,7 +154,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                 <div className="group/showMore flex h-full w-full flex-col justify-between gap-8 p-6 lg:py-0">
                   <div>
                     <div className="text-h3">
-                      <MLink href={linkHref} variant="basic" stretched>
+                      <MLink href={linkHref} variant="basic" stretched className="outline-none">
                         {title}
                       </MLink>
                     </div>

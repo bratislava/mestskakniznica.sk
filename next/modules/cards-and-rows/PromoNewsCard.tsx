@@ -17,8 +17,8 @@ const PromoNewsCard = ({ notice }: PromoNewsCardProps) => {
 
   return (
     <div className="group/showMore relative flex h-full w-full flex-col justify-between bg-promo-peach py-3 pl-4 pr-5 lg:pr-[25px] lg:pl-5 lg:pb-[15px] lg:pt-[18px]">
-      <h3 className="text-h2 line-clamp-5">
-        <MLink href={link} variant="basic" stretched>
+      <h3 className="text-h2">
+        <MLink href={link} variant="basic" stretched className="outline-none line-clamp-3">
           {notice.attributes?.title}
         </MLink>
       </h3>

@@ -76,7 +76,7 @@ const Carousel = ({
       </div>
       <ul
         className={twMerge(
-          cx('-mx-4 flex snap-x snap-mandatory overflow-x-auto overflow-y-clip lg:mx-0 ', {
+          cx('-mx-4 flex snap-x snap-mandatory lg:mx-0 ', {
             'scrollbar-hide': hideScrollbar,
           }),
           listClassName
@@ -88,7 +88,7 @@ const Carousel = ({
             <li
               key={item.key}
               className={twMerge(
-                'flex-shrink-0 shrink-0 transform snap-center transition-all duration-200',
+                'shrink-0 transform snap-center transition-all duration-200',
                 itemClassName
               )}
             >
