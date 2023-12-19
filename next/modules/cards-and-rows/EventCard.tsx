@@ -1,5 +1,6 @@
 import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
 import TagsDisplay from '@components/Atoms/TagsDisplay'
+import MImage from '@modules/common/MImage'
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import {
@@ -10,7 +11,6 @@ import {
 } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
-import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
 type EventCardProps = {
@@ -41,11 +41,21 @@ const EventCard = ({
 
   return (
     <div className="relative">
-      <div className="relative h-[163px] w-[271px] object-cover">
-        <Image
+      <div className="relative h-[200px]">
+        <MImage
+          className="object-cover"
+          image={
+            listingImage?.url
+              ? listingImage
+              : coverImage?.url
+              ? coverImage
+              : { url: Placeholder.src }
+          }
+          fallbackAlt={t('eventDetailImagePlaceholder')}
+          fallbackImage={Placeholder.src}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           fill
-          alt={t('eventDetailImagePlaceholder')}
-          src={listingImage?.url || coverImage?.url || Placeholder.src}
+          priority
         />
       </div>
 

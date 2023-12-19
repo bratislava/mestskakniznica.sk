@@ -1,3 +1,4 @@
+import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
 import MImage from '@modules/common/MImage'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
@@ -21,16 +22,22 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
       link: getPathForStrapiEntity(notice),
       date: notice.attributes?.publishedAt,
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notice, t])
 
   return (
     <div className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between">
       <div className="flex h-full flex-col">
-        {image?.attributes && (
-          <div className="relative h-[163px] w-[271px] object-cover">
-            <MImage image={image?.attributes} fill />
-          </div>
-        )}
+        <div className="relative h-[200px]">
+          <MImage
+            className="object-cover"
+            image={image?.attributes || { url: Placeholder.src }}
+            fallbackImage={Placeholder.src}
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            fill
+            priority
+          />
+        </div>
 
         <div className="mb-2 text-sm text-foreground-body">
           <FormatDate value={date} valueType="ISO" />

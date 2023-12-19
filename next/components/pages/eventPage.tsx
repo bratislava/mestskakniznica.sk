@@ -58,6 +58,7 @@ const EventPage = ({ event }: PageProps) => {
               } = upcomingEvent.attributes ?? {}
               return upcomingEvent.attributes ? (
                 <EventCard
+                  key={slug}
                   title={title}
                   dateFrom={dateFrom}
                   dateTo={dateTo}
