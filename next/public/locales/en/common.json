@@ -167,5 +167,7 @@
     "contractor": "Supplier/Contractor",
     "grantSupplier": "Provider",
     "grantYear": "Year"
-  }
+  },
+  "files": "Files",
+  "numOfFiles": "{{num}} files"
 }

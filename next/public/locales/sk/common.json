@@ -170,5 +170,7 @@
     "contractor": "Dodávateľ/odberateľ",
     "grantSupplier": "Pokytovateľ",
     "grantYear": "Rok"
-  }
+  },
+  "files": "Súbory",
+  "numOfFiles": "{{num}} súborov"
 }
