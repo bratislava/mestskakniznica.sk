@@ -8,6 +8,7 @@ import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/grap
 import { useNavikronos } from '@utils/navikronos'
 import { useDisclosureMetadata } from '@utils/useDisclosureMetadata'
 import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
+import { useInflectFileNumber } from '@utils/useInflectFileNumber'
 import { getFileSize } from '@utils/utils'
 import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
@@ -22,6 +23,7 @@ const DocumentPage = ({ entity }: IProps) => {
   const { t, i18n } = useTranslation('common')
   const { breadcrumbs } = useNavikronos()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
+  const { getInflectFileNumberTranslation } = useInflectFileNumber()
   const { getDisclosureMetadata } = useDisclosureMetadata()
 
   if (!entity.attributes) {
@@ -76,7 +78,7 @@ const DocumentPage = ({ entity }: IProps) => {
 
               {isMultipleFiles && (
                 <div className="mt-2 flex items-center gap-x-3 pb-6 lg:pb-10">
-                  <span>{t('numOfFiles', { num: numOfFiles })}</span>
+                  <span>{getInflectFileNumberTranslation(numOfFiles)}</span>
                 </div>
               )}
               {!isMultipleFiles && firstItem && (
@@ -93,7 +95,7 @@ const DocumentPage = ({ entity }: IProps) => {
                       target="_blank"
                       rel="noreferrer"
                       mobileFullWidth
-                      aria-label={`${t('open')} ${firstItem?.attributes?.name}`}
+                      aria-label={getDownloadAriaLabel(firstItem)}
                       // Change to 'ExternalLinkIcon' when download button is added
                       // startIcon={<ExternalLinkIcon />}
                       startIcon={<DownloadIcon />}
@@ -166,7 +168,7 @@ const DocumentPage = ({ entity }: IProps) => {
                           target="_blank"
                           rel="noreferrer"
                           mobileFullWidth
-                          aria-label={`${t('open')} ${file?.attributes?.name}`}
+                          aria-label={getDownloadAriaLabel(file)}
                           // Change to 'ExternalLinkIcon' when download button is added
                           // startIcon={<ExternalLinkIcon />}
                           startIcon={<DownloadIcon />}

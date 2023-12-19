@@ -9,16 +9,16 @@ export const useDownloadAriaLabel = () => {
 
   // borrowed from project https://github.com/bratislava/marianum
   const getDownloadAriaLabel = useCallback(
-    (file: UploadFileEntityFragment, title: string): string => {
+    (file: UploadFileEntityFragment): string => {
       if (!file.attributes) {
-        return t('downloadFile')
+        return t('openFile')
       }
-      const { size, ext } = file.attributes
+      const { size, ext, name } = file.attributes
       const formattedSize = getFileSize(size, i18n.language)
-      const extFormatted = ext ?? t('unknownFormat')
+      const extFormatted = ext?.replace('.', '') ?? t('unknownFormat')
 
-      return t('downloadFileAriaLabel', {
-        title,
+      return t('openFileAriaLabel', {
+        title: name,
         ext: extFormatted,
         size: formattedSize,
       })

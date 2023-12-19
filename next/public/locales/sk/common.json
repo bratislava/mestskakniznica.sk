@@ -156,8 +156,8 @@
   "previousImage": "Predošlý obrázok",
   "nextImage": "Nasledujúci obrázok",
   "closeModal": "Zavrieť modálne okno",
-  "downloadFile": "Stiahnuť súbor",
-  "downloadFileAriaLabel": "Stiahnuť súbor {{title}}, formát {{ext}}, {{size}}",
+  "openFile": "Ovoriť súbor",
+  "openFileAriaLabel": "Ovoriť súbor {{title}}, formát {{ext}}, {{size}}",
   "unknownFormat": "neznámy",
   "size": "Veľkosť",
   "DocumentMetadata": {
@@ -172,5 +172,7 @@
     "grantYear": "Rok"
   },
   "files": "Súbory",
-  "numOfFiles": "{{num}} súborov"
+  "singularKeyFiles": "{{number}} súbor",
+  "dualKeyFiles": "{{number}} súbory",
+  "pluralKeyFiles": "{{number}} súborov"
 }

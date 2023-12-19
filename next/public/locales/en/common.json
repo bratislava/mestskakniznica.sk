@@ -153,8 +153,8 @@
   "previousImage": "Previous image",
   "nextImage": "Next image",
   "closeModal": "Close modal",
-  "downloadFile": "Download file",
-  "downloadFileAriaLabel": "Download file {{title}}, format {{ext}}, {{size}}",
+  "openFile": "Open file",
+  "openFileAriaLabel": "Open file {{title}}, format {{ext}}, {{size}}",
   "unknownFormat": "unknown",
   "size": "Size",
   "DocumentMetadata": {
@@ -169,5 +169,7 @@
     "grantYear": "Year"
   },
   "files": "Files",
-  "numOfFiles": "{{num}} files"
+  "singularKeyFiles": "{{number}} file",
+  "dualKeyFiles": "{{number}} files",
+  "pluralKeyFiles": "{{number}} files"
 }
