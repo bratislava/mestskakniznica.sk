@@ -1,5 +1,6 @@
-import { CheckBox, Input, Link } from '@bratislava/ui-city-library'
+import { CheckBox, Input } from '@bratislava/ui-city-library'
 import Button from '@modules/common/Button'
+import MLink from '@modules/common/MLink'
 import { useGeneralContext } from '@utils/generalContext'
 import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
@@ -53,19 +54,17 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
             >
               <div className="text-sm">
                 {t('form_footer_agree')}{' '}
-                <Link
+                <MLink
                   href={
                     getPathForStrapiEntity(
                       general?.data?.attributes?.privacyTermsAndConditionsPage?.data
                     ) ?? ''
                   }
-                  variant="plain"
-                  uppercase={false}
-                  className="underline"
+                  variant="basic"
                   target="_blank"
                 >
                   {t('form_footer_personal_details')}
-                </Link>
+                </MLink>
                 . <span className="pl-1 text-error">*</span>
               </div>
             </CheckBox>

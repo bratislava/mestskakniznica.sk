@@ -1,5 +1,5 @@
-import MailSvg from '@assets/images/mail.svg'
-import PhoneSvg from '@assets/images/phone.svg'
+import { MailIcon, PhoneIcon } from '@assets/icons'
+import Button from '@modules/common/Button'
 import { BranchPlaceEntityFragment } from '@services/graphql'
 import React from 'react'
 
@@ -11,32 +11,29 @@ const BranchContactUsInfo = ({ branch }: BranchContactUsInfoProps) => {
   return branch.attributes?.email || branch.attributes?.phone ? (
     <div className="flex flex-col border-t border-border-light py-6 last:pb-0" key={branch.id}>
       <div className="pb-4">{branch.attributes?.title}</div>
-      {/* TODO replace by PhoneButton */}
       <div className="flex flex-col gap-3">
         {branch.attributes?.phone && (
-          <a
-            href={`tel:${branch.attributes?.phone}`}
-            className="flex items-center space-x-4 hover:underline"
+          <Button
+            variant="unstyled"
+            className="mb-2 flex gap-3 hover:underline"
+            // remove all whitespaces from phone number
+
+            href={`tel:${branch.attributes?.phone.replace(/\s/g, '')}`}
+            startIcon={<PhoneIcon className="shrink-0" />}
           >
-            {/* TODO: Resize icon and text to sm. */}
-            <span>
-              <PhoneSvg />
-            </span>
-            <span>{branch.attributes?.phone}</span>
-          </a>
+            {branch.attributes?.phone}
+          </Button>
         )}
-        {/* TODO replace by MailButton */}
+
         {branch.attributes?.email && (
-          <a
+          <Button
+            variant="unstyled"
+            className="mb-2 flex gap-3 hover:underline"
             href={`mailto:${branch.attributes?.email}`}
-            className="flex items-center space-x-4 hover:underline"
+            startIcon={<MailIcon className="shrink-0" />}
           >
-            {/* TODO: Resize icon and text to sm. */}
-            <span>
-              <MailSvg />
-            </span>
-            <span className="truncate">{branch.attributes?.email}</span>
-          </a>
+            {branch.attributes?.email}
+          </Button>
         )}
       </div>
     </div>

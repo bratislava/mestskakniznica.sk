@@ -1,4 +1,5 @@
 /* Inspired by https://github.com/bratislava/marianum/blob/master/next/components/atoms/MLink.tsx */
+import ChevronRight from '@assets/images/chevron-right.svg'
 import cx from 'classnames'
 import NextLink from 'next/link'
 import { ComponentProps, forwardRef, ReactNode } from 'react'
@@ -9,6 +10,7 @@ export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'>
   // TODO add more variants
   variant?: 'unstyled' | 'basic' | 'breadcrumb' | 'richtext' | 'navmenu'
   className?: string
+  hasIcon?: boolean
   /**
    * Similar to this:
    * https://getbootstrap.com/docs/4.3/utilities/stretched-link/
@@ -26,6 +28,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
       shallow,
       locale,
       children,
+      hasIcon,
       variant = 'unstyled',
       className,
       stretched = false,
@@ -43,6 +46,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
 
         // https://github.com/tailwindlabs/tailwindcss/issues/1041#issuecomment-957425345
         'after:absolute after:inset-0': stretched,
+        'flex items-center gap-x-2.5': hasIcon,
       }),
       className
     )
@@ -59,7 +63,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
         ref={ref}
         {...rest}
       >
-        {children}
+        {children} {hasIcon && <ChevronRight />}
       </NextLink>
     )
   }

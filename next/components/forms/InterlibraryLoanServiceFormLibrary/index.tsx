@@ -1,6 +1,7 @@
-import { CheckBox, Input, Link, TextArea } from '@bratislava/ui-city-library'
+import { CheckBox, Input, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Button from '@modules/common/Button'
+import MLink from '@modules/common/MLink'
 import { convertDataToBody } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
@@ -324,18 +325,16 @@ const InterlibraryLoanServiceFormLibrary = () => {
                   >
                     <div className="text-sm">
                       {t('interlibrary_accept_fees')}{' '}
-                      <Link
+                      <MLink
                         href={
-                          i18n.language == 'sk'
+                          i18n.language === 'sk'
                             ? '/file/cennik-poplatkov-a-sluzieb'
                             : '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
                         }
-                        variant="plain"
-                        uppercase={false}
-                        className="underline"
+                        variant="basic"
                       >
                         {t('interlibrary_price_list')}
-                      </Link>
+                      </MLink>
                       .
                     </div>
                   </CheckBox>

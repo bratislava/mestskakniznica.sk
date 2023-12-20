@@ -1,6 +1,7 @@
-import { Link, SectionContainer } from '@bratislava/ui-city-library'
+import { SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
 import EventCard from '@modules/cards-and-rows/EventCard'
+import MLink from '@modules/common/MLink'
 import { EventEntityFragment } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
@@ -32,15 +33,14 @@ const EventPage = ({ event }: PageProps) => {
       <SectionContainer hasBorder>
         <div className="inline-flex w-full pt-10">
           <h2 className="text-h3">{t('otherEvents')}</h2>
-          <Link
+          <MLink
             href={getPathForStrapiEntity(general?.data?.attributes?.eventsPage?.data) ?? '#'}
-            hasIcon
             title={t('eventsAll')}
-            size="large"
             className="ml-auto"
+            hasIcon
           >
-            {t('eventsAll')}
-          </Link>
+            {t('eventsAll').toUpperCase()}
+          </MLink>
         </div>
         <div>
           <div className="grid grid-cols-1 items-stretch gap-1 py-10 pt-12 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-10">
