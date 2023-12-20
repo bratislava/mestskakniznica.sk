@@ -1,10 +1,9 @@
+import { MailIcon, PhoneIcon } from '@assets/icons'
 import BusinessSvg from '@assets/images/business.svg'
-import MailSvg from '@assets/images/mail.svg'
-import PhoneSvg from '@assets/images/phone.svg'
 import Accordion from '@modules/common/Accordion'
+import Button from '@modules/common/Button'
 import { BranchPlaceEntityFragment } from '@services/graphql'
 import React from 'react'
-import Button from '@modules/common/Button'
 
 import BranchOpeningHours from './BranchOpeningHours'
 
@@ -21,9 +20,9 @@ const BranchContactUsOpeningHoursInfo = ({ branch }: BranchContactUsOpeningHours
         {phone && (
           <Button
             variant="unstyled"
-            className="mb-2 flex gap-4 hover:underline"
-            href={`tel:${phone}`}
-            startIcon={<PhoneSvg />}
+            className="mb-2 flex gap-3 hover:underline"
+            href={`tel:${phone.replace(/\s/g, '')}`}
+            startIcon={<PhoneIcon className="shrink-0" />}
           >
             {phone}
           </Button>
@@ -31,9 +30,9 @@ const BranchContactUsOpeningHoursInfo = ({ branch }: BranchContactUsOpeningHours
         {email && (
           <Button
             variant="unstyled"
-            className="mb-2 flex gap-4 hover:underline"
+            className="mb-2 flex gap-3 hover:underline"
             href={`mailto:${email}`}
-            startIcon={<MailSvg className="min-h-[1.3em] min-w-[1.3em]" />}
+            startIcon={<MailIcon className="shrink-0" />}
           >
             {email}
           </Button>

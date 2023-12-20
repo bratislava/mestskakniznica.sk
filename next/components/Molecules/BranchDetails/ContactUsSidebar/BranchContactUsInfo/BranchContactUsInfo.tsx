@@ -1,8 +1,8 @@
-import MailSvg from '@assets/images/mail.svg'
-import PhoneSvg from '@assets/images/phone.svg'
+import { MailIcon, PhoneIcon } from '@assets/icons'
+import Button from '@modules/common/Button'
 import { BranchPlaceEntityFragment } from '@services/graphql'
 import React from 'react'
-import Button from '@modules/common/Button'
+
 type BranchContactUsInfoProps = {
   branch: BranchPlaceEntityFragment
 }
@@ -15,9 +15,11 @@ const BranchContactUsInfo = ({ branch }: BranchContactUsInfoProps) => {
         {branch.attributes?.phone && (
           <Button
             variant="unstyled"
-            className="mb-2 flex gap-4 hover:underline"
-            href={`tel:${branch.attributes?.phone}`}
-            startIcon={<PhoneSvg />}
+            className="mb-2 flex gap-3 hover:underline"
+            // remove all whitespaces from phone number
+
+            href={`tel:${branch.attributes?.phone.replace(/\s/g, '')}`}
+            startIcon={<PhoneIcon className="shrink-0" />}
           >
             {branch.attributes?.phone}
           </Button>
@@ -26,9 +28,9 @@ const BranchContactUsInfo = ({ branch }: BranchContactUsInfoProps) => {
         {branch.attributes?.email && (
           <Button
             variant="unstyled"
-            className="mb-2 flex gap-4 hover:underline"
+            className="mb-2 flex gap-3 hover:underline"
             href={`mailto:${branch.attributes?.email}`}
-            startIcon={<MailSvg className="min-h-[1.2em] min-w-[1.2em]" />}
+            startIcon={<MailIcon className="shrink-0" />}
           >
             {branch.attributes?.email}
           </Button>

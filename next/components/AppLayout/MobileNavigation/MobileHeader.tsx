@@ -42,36 +42,16 @@ const MobileHeader = ({ menus }: MobileHeaderProps) => {
         <div className="flex justify-between border-b border-border-dark">
           <MLink
             href="/"
-            className="relative hidden w-full grid-cols-10 items-center pr-8 uppercase lg:grid"
-          >
-            {t('pageTitle')
-              .split(' ')
-              .map((word, index) => (
-                <span
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={index}
-                  className={cx(TITLE_CLASSES, {
-                    'col-span-1': word.length <= 4,
-                    'col-span-5': word.length > 4,
-                  })}
-                >
-                  {word}
-                </span>
-              ))}
-            <div className="absolute top-1/2 -z-10 w-full border-b border-border-dark" />
-          </MLink>
-          <MLink
-            href="/"
             className="flex w-full flex-col justify-center text-[22px] leading-[26px]"
           >
-            <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
+            <div className="relative flex w-full flex-wrap items-center pr-8 uppercase">
               {t('pageTitle')
                 .split(' ')
                 .slice(0, 2)
                 .map((word, index) => pageTitle(word, index))}
               <div className="absolute bottom-0 -z-10 w-full border-b border-border-dark" />
             </div>
-            <div className="relative flex w-full flex-wrap items-center pr-8 uppercase lg:hidden">
+            <div className="relative flex w-full flex-wrap items-center pr-8 uppercase">
               {t('pageTitle')
                 .split(' ')
                 .slice(2)
