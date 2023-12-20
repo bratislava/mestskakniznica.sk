@@ -8,7 +8,6 @@ import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/grap
 import { useNavikronos } from '@utils/navikronos'
 import { useDisclosureMetadata } from '@utils/useDisclosureMetadata'
 import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
-import { useInflectFileNumber } from '@utils/useInflectFileNumber'
 import { getFileSize } from '@utils/utils'
 import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
@@ -23,7 +22,6 @@ const DocumentPage = ({ entity }: IProps) => {
   const { t, i18n } = useTranslation('common')
   const { breadcrumbs } = useNavikronos()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
-  const { getInflectFileNumberTranslation } = useInflectFileNumber()
   const { getDisclosureMetadata } = useDisclosureMetadata()
 
   if (!entity.attributes) {
@@ -78,7 +76,7 @@ const DocumentPage = ({ entity }: IProps) => {
 
               {isMultipleFiles && (
                 <div className="mt-2 flex items-center gap-x-3 pb-6 lg:pb-10">
-                  <span>{getInflectFileNumberTranslation(numOfFiles)}</span>
+                  <span>{t('inflectFiles', { count: numOfFiles })}</span>
                 </div>
               )}
               {!isMultipleFiles && firstItem && (
@@ -95,7 +93,7 @@ const DocumentPage = ({ entity }: IProps) => {
                       target="_blank"
                       rel="noreferrer"
                       mobileFullWidth
-                      aria-label={getDownloadAriaLabel(firstItem)}
+                      aria-label={getDownloadAriaLabel(firstItem, title)}
                       // Change to 'ExternalLinkIcon' when download button is added
                       // startIcon={<ExternalLinkIcon />}
                       startIcon={<DownloadIcon />}
@@ -141,17 +139,17 @@ const DocumentPage = ({ entity }: IProps) => {
                       key={file.id}
                       className="flex flex-col items-center gap-x-6 border-b border-border-dark pt-6 text-center lg:flex-row lg:pt-0 lg:text-left"
                     >
-                      {/* ext badge */}
+                      {/* File extension badge */}
                       <FileExtBadge
                         className="my-4 hidden h-14 w-14 self-center lg:flex lg:self-auto"
                         fileExt={file?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}
                       />
 
                       <div className="w-full gap-y-2">
-                        {/* vrchny row */}
+                        {/* File name */}
                         <div>{file?.attributes?.name}</div>
 
-                        {/* spodny row */}
+                        {/* File properties */}
                         <div className="mt-2 flex items-center justify-center gap-x-3 lg:justify-start">
                           <span>{getFileSize(file?.attributes?.size, i18n.language)}</span>
                           <span className="lg:hidden">&bull;</span>
@@ -161,7 +159,7 @@ const DocumentPage = ({ entity }: IProps) => {
                         </div>
                       </div>
 
-                      {/* dl button */}
+                      {/* Download button */}
                       <div className="my-6 flex w-full flex-col items-center lg:w-auto">
                         <Button
                           href={file?.attributes?.url || ''}

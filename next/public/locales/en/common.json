@@ -169,7 +169,7 @@
     "grantYear": "Year"
   },
   "files": "Files",
-  "singularKeyFiles": "{{number}} file",
-  "dualKeyFiles": "{{number}} files",
-  "pluralKeyFiles": "{{number}} files"
+  "inflectFiles_one": "{{count}} file",
+  "inflectFiles_few": "{{count}} files",
+  "inflectFiles_other": "{{count}} files"
 }

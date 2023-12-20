@@ -9,7 +9,7 @@ export const useDownloadAriaLabel = () => {
 
   // borrowed from project https://github.com/bratislava/marianum
   const getDownloadAriaLabel = useCallback(
-    (file: UploadFileEntityFragment): string => {
+    (file: UploadFileEntityFragment, title?: string): string => {
       if (!file.attributes) {
         return t('openFile')
       }
@@ -18,7 +18,7 @@ export const useDownloadAriaLabel = () => {
       const extFormatted = ext?.replace('.', '') ?? t('unknownFormat')
 
       return t('openFileAriaLabel', {
-        title: name,
+        title: title || name,
         ext: extFormatted,
         size: formattedSize,
       })

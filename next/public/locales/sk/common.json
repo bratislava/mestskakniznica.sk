@@ -172,7 +172,7 @@
     "grantYear": "Rok"
   },
   "files": "Súbory",
-  "singularKeyFiles": "{{number}} súbor",
-  "dualKeyFiles": "{{number}} súbory",
-  "pluralKeyFiles": "{{number}} súborov"
+  "inflectFiles_one": "{{count}} súbor",
+  "inflectFiles_few": "{{count}} súbory",
+  "inflectFiles_other": "{{count}} súborov"
 }
