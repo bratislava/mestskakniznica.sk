@@ -20,7 +20,7 @@ const BookCard = ({ book }: BookProps) => {
   const hasCover = Boolean(book.coverUrl)
 
   return (
-    <div className="relative flex w-[126px] flex-col gap-2 md:w-[180px] md:gap-4">
+    <div className="relative flex w-[126px] flex-col gap-2 focus-within:ring-2 focus-within:ring-outline md:w-[180px] md:gap-4">
       <div
         className={cx('relative h-[162px] w-full overflow-hidden md:h-[232px]', {
           'select-none border border-border-dark pt-3 pl-4 text-[32px] uppercase': !hasCover,
@@ -46,7 +46,7 @@ const BookCard = ({ book }: BookProps) => {
           // Most of the books titles are two lines long, so we fix the height constant to avoid layout shifts when there
           // happens to be row with only single column book titles.
           // The default line height is leading-6, but if that changes this will break, so it's set to be sure.
-          className="line-clamp-2 md:h-[48px] md:leading-6"
+          className="outline-none line-clamp-2 md:h-[48px] md:leading-6"
           target="_blank"
         >
           {book.title}

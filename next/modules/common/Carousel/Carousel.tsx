@@ -88,7 +88,7 @@ const Carousel = ({
             <li
               key={item.key}
               className={twMerge(
-                'flex-shrink-0 shrink-0 transform snap-center transition-all duration-200',
+                'shrink-0 transform snap-center transition-all duration-200',
                 itemClassName
               )}
             >

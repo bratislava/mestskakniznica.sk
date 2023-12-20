@@ -45,7 +45,7 @@
     "qrcode.react": "^3.0.2",
     "react": "^18.2.0",
     "react-aria": "^3.23.0",
-    "react-datepicker": "^4.8.0",
+    "react-datepicker": "^4.24.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",
     "react-map-gl": "^7.0.15",

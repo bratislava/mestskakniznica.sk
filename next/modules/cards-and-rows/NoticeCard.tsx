@@ -21,10 +21,11 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
       link: getPathForStrapiEntity(notice),
       date: notice.attributes?.publishedAt,
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notice, t])
 
   return (
-    <div className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between">
+    <div className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between focus-within:ring-2 focus-within:ring-outline">
       <div className="flex h-full flex-col">
         {/* TODO: Replace with MImage */}
         <img
@@ -36,8 +37,8 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
         <div className="mb-2 text-sm text-foreground-body">
           <FormatDate value={date} valueType="ISO" />
         </div>
-        <h3 className="mb-6 text-h5 line-clamp-3">
-          <MLink href={link ?? '#'} variant="basic" stretched>
+        <h3 className="mb-6 text-h5">
+          <MLink href={link ?? '#'} variant="basic" stretched className="outline-none line-clamp-3">
             {notice.attributes?.title}
           </MLink>
         </h3>

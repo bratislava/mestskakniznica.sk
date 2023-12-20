@@ -41,7 +41,7 @@ const BranchDetails = ({ branch }: PageProps) => {
                 <h1 className="text-h1">{title}</h1>
 
                 <div className="-mx-4 overflow-x-auto">
-                  <div className="flex gap-x-6 px-4 pt-9 text-sm uppercase">
+                  <div className="flex gap-x-6 px-4 pt-9 text-sm uppercase focus:ring-2 focus:ring-outline">
                     {AnchorLink('#description', t('description'))}
                     {servicePages?.data.length ? AnchorLink('#services', t('services')) : null}
                     {subBranches?.data.length ? AnchorLink('#sections', t('sections')) : null}

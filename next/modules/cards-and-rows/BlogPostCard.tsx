@@ -31,8 +31,8 @@ const BlogPostCard = ({ blogPost }: BlogPostProps) => {
         <div className="mb-2 text-sm text-foreground-body">
           <FormatDate value={publishedAt} valueType="ISO" />
         </div>
-        <h3 className="mb-6 text-h5 line-clamp-2">
-          <MLink href={link ?? ''} variant="basic" stretched>
+        <h3 className="mb-6 text-h5">
+          <MLink href={link ?? ''} variant="basic" stretched className="line-clamp-2">
             {title}
           </MLink>
         </h3>

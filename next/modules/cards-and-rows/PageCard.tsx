@@ -13,10 +13,10 @@ type PageCardProps = {
 
 const PageCard = ({ className, title, href, showMoreText }: PageCardProps) => {
   return (
-    <div className="group/showMore relative border border-border-dark">
+    <div className="group/showMore relative border border-border-dark focus-within:border-solid focus-within:ring-2 focus-within:ring-outline">
       <div className={cx('relative flex flex-col space-y-4 p-4', className)}>
         <div className="h-full overflow-hidden text-[20px]">
-          <MLink href={href} variant="basic" stretched>
+          <MLink href={href} variant="basic" stretched className="outline-none">
             {title}
           </MLink>
         </div>

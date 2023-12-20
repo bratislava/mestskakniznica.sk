@@ -17,6 +17,7 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
     <SectionContainer hasBorder>
       <section className="relative flex w-full flex-col py-10">
         <h2 className="text-center text-h3 md:text-left">{t('newBooksTitle')}</h2>
+
         <div className="overflow-x-auto">
           <div className="flex gap-x-4 py-6 xl:grid xl:grid-cols-6">
             {books.map((book) => (
