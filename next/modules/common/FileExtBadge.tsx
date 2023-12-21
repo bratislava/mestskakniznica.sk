@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge'
 
 type FileExtBadgeProps = {
-  fileExt: string
+  fileExt: string | JSX.Element
   className?: string
 }
 

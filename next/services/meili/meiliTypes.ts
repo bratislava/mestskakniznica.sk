@@ -1,10 +1,10 @@
 import {
   BasicDocument,
   Branch,
+  BranchPlaceEntityFragment,
   Disclosure,
   Document,
   DocumentCategory,
-  BranchPlaceEntityFragment,
   Event,
   EventCategory,
   EventTag,
@@ -25,12 +25,12 @@ export type BasicDocumentMeili = Omit<
 export type DocumentMeili = Omit<Document, '__typename' | 'documentCategory' | 'file'> & {
   id: string
   documentCategory: Omit<DocumentCategory, '__typename' | 'documents'>
-  file: Omit<UploadFile, '__typename'>
+  file: Omit<UploadFile, '__typename'> | Omit<UploadFile, '__typename'>[]
 }
 
 export type DisclosureMeili = Omit<Disclosure, '__typename' | 'file'> & {
   id: string
-  file: Omit<UploadFile, '__typename'>
+  file: Omit<UploadFile, '__typename'> | Omit<UploadFile, '__typename'>[]
 }
 
 /**

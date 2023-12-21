@@ -153,8 +153,8 @@
   "previousImage": "Previous image",
   "nextImage": "Next image",
   "closeModal": "Close modal",
-  "downloadFile": "Download file",
-  "downloadFileAriaLabel": "Download file {{title}}, format {{ext}}, {{size}}",
+  "openFile": "Open file",
+  "openFileAriaLabel": "Open file {{title}}, format {{ext}}, {{size}}",
   "unknownFormat": "unknown",
   "size": "Size",
   "DocumentMetadata": {
@@ -167,5 +167,9 @@
     "contractor": "Supplier/Contractor",
     "grantSupplier": "Provider",
     "grantYear": "Year"
-  }
+  },
+  "files": "Files",
+  "inflectFiles_one": "{{count}} file",
+  "inflectFiles_few": "{{count}} files",
+  "inflectFiles_other": "{{count}} files"
 }

@@ -1,3 +1,4 @@
+import { FolderIcon } from '@assets/icons'
 import DocumentRow from '@modules/cards-and-rows/DocumentRow'
 import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
 import { hasAttributes, isDefined } from '@utils/isDefined'
@@ -18,6 +19,13 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
     .map((document) => {
       const { title: docTitle, file } = document.attributes
 
+      const badgeExt =
+        file?.data.length > 1 ? (
+          <FolderIcon />
+        ) : (
+          file?.data[0]?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''
+        )
+
       if (document.__typename === 'DisclosureEntity') {
         const { type, contractor } = document.attributes
 
@@ -29,7 +37,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
             title: docTitle,
             metadata: contractor ? `${contractor}` : undefined,
             // eslint-disable-next-line unicorn/consistent-destructuring
-            fileExt: file?.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
+            fileExt: badgeExt,
           },
         }
       }
@@ -44,7 +52,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
             category: documentCategory?.data?.attributes?.label,
             title: docTitle,
             // eslint-disable-next-line unicorn/consistent-destructuring
-            fileExt: file.data?.attributes?.ext?.toUpperCase().replace('.', '') ?? '',
+            fileExt: badgeExt,
           },
         }
       }

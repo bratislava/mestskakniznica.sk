@@ -7,7 +7,7 @@ import { ReactNode } from 'react'
 
 type DocumentRowProps = {
   title: string
-  fileExt: string
+  fileExt: string | JSX.Element
   linkHref: string | null
   category?: string
   metadata?: ReactNode

@@ -1864,7 +1864,7 @@ export type Disclosure = {
   dateFrom?: Maybe<Scalars['Date']>
   dateTo?: Maybe<Scalars['Date']>
   description?: Maybe<Scalars['String']>
-  file: UploadFileEntityResponse
+  file: UploadFileRelationResponseCollection
   grantProvider?: Maybe<Scalars['String']>
   grantYear?: Maybe<Scalars['String']>
   idNumber?: Maybe<Scalars['String']>
@@ -1874,6 +1874,12 @@ export type Disclosure = {
   title: Scalars['String']
   type: Enum_Disclosure_Type
   updatedAt?: Maybe<Scalars['DateTime']>
+}
+
+export type DisclosureFileArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
 export type DisclosureEntity = {
@@ -1923,7 +1929,7 @@ export type DisclosureInput = {
   dateFrom?: InputMaybe<Scalars['Date']>
   dateTo?: InputMaybe<Scalars['Date']>
   description?: InputMaybe<Scalars['String']>
-  file?: InputMaybe<Scalars['ID']>
+  file?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   grantProvider?: InputMaybe<Scalars['String']>
   grantYear?: InputMaybe<Scalars['String']>
   idNumber?: InputMaybe<Scalars['String']>
@@ -1944,13 +1950,19 @@ export type Document = {
   createdAt?: Maybe<Scalars['DateTime']>
   description?: Maybe<Scalars['String']>
   documentCategory?: Maybe<DocumentCategoryEntityResponse>
-  file: UploadFileEntityResponse
+  file: UploadFileRelationResponseCollection
   originalSlug?: Maybe<Scalars['String']>
   originalTitle?: Maybe<Scalars['String']>
   publishedAt?: Maybe<Scalars['DateTime']>
   slug: Scalars['String']
   title: Scalars['String']
   updatedAt?: Maybe<Scalars['DateTime']>
+}
+
+export type DocumentFileArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
 export type DocumentCategory = {
@@ -2045,7 +2057,7 @@ export type DocumentFiltersInput = {
 export type DocumentInput = {
   description?: InputMaybe<Scalars['String']>
   documentCategory?: InputMaybe<Scalars['ID']>
-  file?: InputMaybe<Scalars['ID']>
+  file?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   originalSlug?: InputMaybe<Scalars['String']>
   originalTitle?: InputMaybe<Scalars['String']>
   publishedAt?: InputMaybe<Scalars['DateTime']>
@@ -5062,8 +5074,8 @@ type BlogPostSections_ComponentSectionsDocuments_Fragment = {
           } | null
         } | null
         file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
             __typename?: 'UploadFileEntity'
             id?: string | null
             attributes?: {
@@ -5073,7 +5085,7 @@ type BlogPostSections_ComponentSectionsDocuments_Fragment = {
               size: number
               ext?: string | null
             } | null
-          } | null
+          }>
         }
       } | null
     }>
@@ -5098,8 +5110,8 @@ type BlogPostSections_ComponentSectionsDocuments_Fragment = {
         grantProvider?: string | null
         grantYear?: string | null
         file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
             __typename?: 'UploadFileEntity'
             id?: string | null
             attributes?: {
@@ -5109,7 +5121,7 @@ type BlogPostSections_ComponentSectionsDocuments_Fragment = {
               size: number
               ext?: string | null
             } | null
-          } | null
+          }>
         }
       } | null
     }>
@@ -5306,8 +5318,8 @@ export type BlogPostEntityFragment = {
                   } | null
                 } | null
                 file: {
-                  __typename?: 'UploadFileEntityResponse'
-                  data?: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
                     __typename?: 'UploadFileEntity'
                     id?: string | null
                     attributes?: {
@@ -5317,7 +5329,7 @@ export type BlogPostEntityFragment = {
                       size: number
                       ext?: string | null
                     } | null
-                  } | null
+                  }>
                 }
               } | null
             }>
@@ -5342,8 +5354,8 @@ export type BlogPostEntityFragment = {
                 grantProvider?: string | null
                 grantYear?: string | null
                 file: {
-                  __typename?: 'UploadFileEntityResponse'
-                  data?: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
                     __typename?: 'UploadFileEntity'
                     id?: string | null
                     attributes?: {
@@ -5353,7 +5365,7 @@ export type BlogPostEntityFragment = {
                       size: number
                       ext?: string | null
                     } | null
-                  } | null
+                  }>
                 }
               } | null
             }>
@@ -5568,8 +5580,8 @@ export type BlogPostBySlugQuery = {
                       } | null
                     } | null
                     file: {
-                      __typename?: 'UploadFileEntityResponse'
-                      data?: {
+                      __typename?: 'UploadFileRelationResponseCollection'
+                      data: Array<{
                         __typename?: 'UploadFileEntity'
                         id?: string | null
                         attributes?: {
@@ -5579,7 +5591,7 @@ export type BlogPostBySlugQuery = {
                           size: number
                           ext?: string | null
                         } | null
-                      } | null
+                      }>
                     }
                   } | null
                 }>
@@ -5604,8 +5616,8 @@ export type BlogPostBySlugQuery = {
                     grantProvider?: string | null
                     grantYear?: string | null
                     file: {
-                      __typename?: 'UploadFileEntityResponse'
-                      data?: {
+                      __typename?: 'UploadFileRelationResponseCollection'
+                      data: Array<{
                         __typename?: 'UploadFileEntity'
                         id?: string | null
                         attributes?: {
@@ -5615,7 +5627,7 @@ export type BlogPostBySlugQuery = {
                           size: number
                           ext?: string | null
                         } | null
-                      } | null
+                      }>
                     }
                   } | null
                 }>
@@ -5818,8 +5830,8 @@ export type BlogPostsQuery = {
                       } | null
                     } | null
                     file: {
-                      __typename?: 'UploadFileEntityResponse'
-                      data?: {
+                      __typename?: 'UploadFileRelationResponseCollection'
+                      data: Array<{
                         __typename?: 'UploadFileEntity'
                         id?: string | null
                         attributes?: {
@@ -5829,7 +5841,7 @@ export type BlogPostsQuery = {
                           size: number
                           ext?: string | null
                         } | null
-                      } | null
+                      }>
                     }
                   } | null
                 }>
@@ -5854,8 +5866,8 @@ export type BlogPostsQuery = {
                     grantProvider?: string | null
                     grantYear?: string | null
                     file: {
-                      __typename?: 'UploadFileEntityResponse'
-                      data?: {
+                      __typename?: 'UploadFileRelationResponseCollection'
+                      data: Array<{
                         __typename?: 'UploadFileEntity'
                         id?: string | null
                         attributes?: {
@@ -5865,7 +5877,7 @@ export type BlogPostsQuery = {
                           size: number
                           ext?: string | null
                         } | null
-                      } | null
+                      }>
                     }
                   } | null
                 }>
@@ -6329,8 +6341,8 @@ export type DisclosureEntityFragment = {
     grantProvider?: string | null
     grantYear?: string | null
     file: {
-      __typename?: 'UploadFileEntityResponse'
-      data?: {
+      __typename?: 'UploadFileRelationResponseCollection'
+      data: Array<{
         __typename?: 'UploadFileEntity'
         id?: string | null
         attributes?: {
@@ -6340,7 +6352,7 @@ export type DisclosureEntityFragment = {
           size: number
           ext?: string | null
         } | null
-      } | null
+      }>
     }
   } | null
 }
@@ -6371,8 +6383,8 @@ export type DisclosureBySlugQuery = {
         grantProvider?: string | null
         grantYear?: string | null
         file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
             __typename?: 'UploadFileEntity'
             id?: string | null
             attributes?: {
@@ -6382,7 +6394,7 @@ export type DisclosureBySlugQuery = {
               size: number
               ext?: string | null
             } | null
-          } | null
+          }>
         }
       } | null
     }>
@@ -6413,8 +6425,8 @@ export type DocumentEntityFragment = {
       } | null
     } | null
     file: {
-      __typename?: 'UploadFileEntityResponse'
-      data?: {
+      __typename?: 'UploadFileRelationResponseCollection'
+      data: Array<{
         __typename?: 'UploadFileEntity'
         id?: string | null
         attributes?: {
@@ -6424,7 +6436,7 @@ export type DocumentEntityFragment = {
           size: number
           ext?: string | null
         } | null
-      } | null
+      }>
     }
   } | null
 }
@@ -6469,8 +6481,8 @@ export type DocumentBySlugQuery = {
           } | null
         } | null
         file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
             __typename?: 'UploadFileEntity'
             id?: string | null
             attributes?: {
@@ -6480,7 +6492,7 @@ export type DocumentBySlugQuery = {
               size: number
               ext?: string | null
             } | null
-          } | null
+          }>
         }
       } | null
     }>
@@ -6639,8 +6651,8 @@ export type EventEntityFragment = {
               } | null
             } | null
             file: {
-              __typename?: 'UploadFileEntityResponse'
-              data?: {
+              __typename?: 'UploadFileRelationResponseCollection'
+              data: Array<{
                 __typename?: 'UploadFileEntity'
                 id?: string | null
                 attributes?: {
@@ -6650,7 +6662,7 @@ export type EventEntityFragment = {
                   size: number
                   ext?: string | null
                 } | null
-              } | null
+              }>
             }
           } | null
         }>
@@ -6675,8 +6687,8 @@ export type EventEntityFragment = {
             grantProvider?: string | null
             grantYear?: string | null
             file: {
-              __typename?: 'UploadFileEntityResponse'
-              data?: {
+              __typename?: 'UploadFileRelationResponseCollection'
+              data: Array<{
                 __typename?: 'UploadFileEntity'
                 id?: string | null
                 attributes?: {
@@ -6686,7 +6698,7 @@ export type EventEntityFragment = {
                   size: number
                   ext?: string | null
                 } | null
-              } | null
+              }>
             }
           } | null
         }>
@@ -6931,8 +6943,8 @@ export type EventBySlugQuery = {
                   } | null
                 } | null
                 file: {
-                  __typename?: 'UploadFileEntityResponse'
-                  data?: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
                     __typename?: 'UploadFileEntity'
                     id?: string | null
                     attributes?: {
@@ -6942,7 +6954,7 @@ export type EventBySlugQuery = {
                       size: number
                       ext?: string | null
                     } | null
-                  } | null
+                  }>
                 }
               } | null
             }>
@@ -6967,8 +6979,8 @@ export type EventBySlugQuery = {
                 grantProvider?: string | null
                 grantYear?: string | null
                 file: {
-                  __typename?: 'UploadFileEntityResponse'
-                  data?: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
                     __typename?: 'UploadFileEntity'
                     id?: string | null
                     attributes?: {
@@ -6978,7 +6990,7 @@ export type EventBySlugQuery = {
                       size: number
                       ext?: string | null
                     } | null
-                  } | null
+                  }>
                 }
               } | null
             }>
@@ -8142,8 +8154,8 @@ export type NoticeEntityFragment = {
               } | null
             } | null
             file: {
-              __typename?: 'UploadFileEntityResponse'
-              data?: {
+              __typename?: 'UploadFileRelationResponseCollection'
+              data: Array<{
                 __typename?: 'UploadFileEntity'
                 id?: string | null
                 attributes?: {
@@ -8153,7 +8165,7 @@ export type NoticeEntityFragment = {
                   size: number
                   ext?: string | null
                 } | null
-              } | null
+              }>
             }
           } | null
         }>
@@ -8178,8 +8190,8 @@ export type NoticeEntityFragment = {
             grantProvider?: string | null
             grantYear?: string | null
             file: {
-              __typename?: 'UploadFileEntityResponse'
-              data?: {
+              __typename?: 'UploadFileRelationResponseCollection'
+              data: Array<{
                 __typename?: 'UploadFileEntity'
                 id?: string | null
                 attributes?: {
@@ -8189,7 +8201,7 @@ export type NoticeEntityFragment = {
                   size: number
                   ext?: string | null
                 } | null
-              } | null
+              }>
             }
           } | null
         }>
@@ -8435,8 +8447,8 @@ export type NoticeBySlugQuery = {
                   } | null
                 } | null
                 file: {
-                  __typename?: 'UploadFileEntityResponse'
-                  data?: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
                     __typename?: 'UploadFileEntity'
                     id?: string | null
                     attributes?: {
@@ -8446,7 +8458,7 @@ export type NoticeBySlugQuery = {
                       size: number
                       ext?: string | null
                     } | null
-                  } | null
+                  }>
                 }
               } | null
             }>
@@ -8471,8 +8483,8 @@ export type NoticeBySlugQuery = {
                 grantProvider?: string | null
                 grantYear?: string | null
                 file: {
-                  __typename?: 'UploadFileEntityResponse'
-                  data?: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
                     __typename?: 'UploadFileEntity'
                     id?: string | null
                     attributes?: {
@@ -8482,7 +8494,7 @@ export type NoticeBySlugQuery = {
                       size: number
                       ext?: string | null
                     } | null
-                  } | null
+                  }>
                 }
               } | null
             }>
@@ -8598,8 +8610,8 @@ type PageSections_ComponentSectionsDocuments_Fragment = {
           } | null
         } | null
         file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
             __typename?: 'UploadFileEntity'
             id?: string | null
             attributes?: {
@@ -8609,7 +8621,7 @@ type PageSections_ComponentSectionsDocuments_Fragment = {
               size: number
               ext?: string | null
             } | null
-          } | null
+          }>
         }
       } | null
     }>
@@ -8634,8 +8646,8 @@ type PageSections_ComponentSectionsDocuments_Fragment = {
         grantProvider?: string | null
         grantYear?: string | null
         file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
             __typename?: 'UploadFileEntity'
             id?: string | null
             attributes?: {
@@ -8645,7 +8657,7 @@ type PageSections_ComponentSectionsDocuments_Fragment = {
               size: number
               ext?: string | null
             } | null
-          } | null
+          }>
         }
       } | null
     }>
@@ -9108,8 +9120,8 @@ export type PageEntityFragment = {
                   } | null
                 } | null
                 file: {
-                  __typename?: 'UploadFileEntityResponse'
-                  data?: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
                     __typename?: 'UploadFileEntity'
                     id?: string | null
                     attributes?: {
@@ -9119,7 +9131,7 @@ export type PageEntityFragment = {
                       size: number
                       ext?: string | null
                     } | null
-                  } | null
+                  }>
                 }
               } | null
             }>
@@ -9144,8 +9156,8 @@ export type PageEntityFragment = {
                 grantProvider?: string | null
                 grantYear?: string | null
                 file: {
-                  __typename?: 'UploadFileEntityResponse'
-                  data?: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
                     __typename?: 'UploadFileEntity'
                     id?: string | null
                     attributes?: {
@@ -9155,7 +9167,7 @@ export type PageEntityFragment = {
                       size: number
                       ext?: string | null
                     } | null
-                  } | null
+                  }>
                 }
               } | null
             }>
@@ -9625,8 +9637,8 @@ export type PageByIdQuery = {
                       } | null
                     } | null
                     file: {
-                      __typename?: 'UploadFileEntityResponse'
-                      data?: {
+                      __typename?: 'UploadFileRelationResponseCollection'
+                      data: Array<{
                         __typename?: 'UploadFileEntity'
                         id?: string | null
                         attributes?: {
@@ -9636,7 +9648,7 @@ export type PageByIdQuery = {
                           size: number
                           ext?: string | null
                         } | null
-                      } | null
+                      }>
                     }
                   } | null
                 }>
@@ -9661,8 +9673,8 @@ export type PageByIdQuery = {
                     grantProvider?: string | null
                     grantYear?: string | null
                     file: {
-                      __typename?: 'UploadFileEntityResponse'
-                      data?: {
+                      __typename?: 'UploadFileRelationResponseCollection'
+                      data: Array<{
                         __typename?: 'UploadFileEntity'
                         id?: string | null
                         attributes?: {
@@ -9672,7 +9684,7 @@ export type PageByIdQuery = {
                           size: number
                           ext?: string | null
                         } | null
-                      } | null
+                      }>
                     }
                   } | null
                 }>
@@ -10224,8 +10236,8 @@ export type DocumentsSectionFragment = {
           } | null
         } | null
         file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
             __typename?: 'UploadFileEntity'
             id?: string | null
             attributes?: {
@@ -10235,7 +10247,7 @@ export type DocumentsSectionFragment = {
               size: number
               ext?: string | null
             } | null
-          } | null
+          }>
         }
       } | null
     }>
@@ -10260,8 +10272,8 @@ export type DocumentsSectionFragment = {
         grantProvider?: string | null
         grantYear?: string | null
         file: {
-          __typename?: 'UploadFileEntityResponse'
-          data?: {
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
             __typename?: 'UploadFileEntity'
             id?: string | null
             attributes?: {
@@ -10271,7 +10283,7 @@ export type DocumentsSectionFragment = {
               size: number
               ext?: string | null
             } | null
-          } | null
+          }>
         }
       } | null
     }>

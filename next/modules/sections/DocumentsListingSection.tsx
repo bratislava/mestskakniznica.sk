@@ -1,3 +1,4 @@
+import { FolderIcon } from '@assets/icons'
 import DocumentsCategorySelect from '@components/Atoms/Documents/DocumentsCategorySelect'
 import SearchField from '@components/Atoms/SearchField'
 import SortSelect, { Sort } from '@components/Atoms/SortSelect'
@@ -95,12 +96,20 @@ const DocumentsListingSection = () => {
             // eslint-disable-next-line unicorn/consistent-destructuring
             type === 'disclosure' && document.contractor ? `${document.contractor}` : undefined
 
+          let badgeExt: string | JSX.Element = ''
+          if (Array.isArray(file)) {
+            badgeExt =
+              file.length > 1 ? <FolderIcon /> : file[0]?.ext?.toUpperCase().replace('.', '') ?? ''
+          } else {
+            badgeExt = file?.ext?.toUpperCase().replace('.', '') ?? ''
+          }
+
           return (
             <DocumentRow
               key={id}
               title={title}
               linkHref={getPathForEntity({ type, slug }) ?? '#'}
-              fileExt={file?.ext?.toUpperCase().replace('.', '') ?? ''}
+              fileExt={badgeExt}
               category={category}
               // eslint-disable-next-line unicorn/consistent-destructuring
               addedAt={type === 'disclosure' ? document.addedAt : document.publishedAt}
