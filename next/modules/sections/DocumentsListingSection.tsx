@@ -96,11 +96,13 @@ const DocumentsListingSection = () => {
             // eslint-disable-next-line unicorn/consistent-destructuring
             type === 'disclosure' && document.contractor ? `${document.contractor}` : undefined
 
-          const badgeExt = Array.isArray(file) ? (
-            <FolderIcon />
-          ) : (
-            file?.ext?.toUpperCase().replace('.', '') ?? ''
-          )
+          let badgeExt: string | JSX.Element = ''
+          if (Array.isArray(file)) {
+            badgeExt =
+              file.length > 1 ? <FolderIcon /> : file[0]?.ext?.toUpperCase().replace('.', '') ?? ''
+          } else {
+            badgeExt = file?.ext?.toUpperCase().replace('.', '') ?? ''
+          }
 
           return (
             <DocumentRow
