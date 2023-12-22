@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_homepage_promoted_content_sections",
+  "info": {
+    "displayName": "promotedContent",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event"
+    },
+    "notices": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notice.notice"
+    }
+  }
+}
