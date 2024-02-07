@@ -10,6 +10,7 @@ import {
   HomepageFaqSectionFragment,
   HomepageMapSectionFragment,
   HomepageNewsSectionFragment,
+  HomepagePromotedContentSectionFragment,
   HomepageRegistrationInfoFragment,
   NoticeListingEntityFragment,
   PageLocalizationEntityFragment,
@@ -45,6 +46,7 @@ type HomeProps = {
   mapSection: HomepageMapSectionFragment | null
   seo?: ComponentCommonSeo
   general: GeneralQuery
+  promotedContent: HomepagePromotedContentSectionFragment | null
 } & SSRConfig &
   CLNavikronosPageProps
 
@@ -61,16 +63,23 @@ export const Index = ({
   mapSection,
   seo,
   general,
+  promotedContent,
 }: HomeProps) => {
   const { t } = useTranslation('common')
+
+  const mergedPromotedContent = [
+    ...(promotedContent?.notices?.data ?? []),
+    ...(promotedContent?.events?.data ?? []),
+    ...promos,
+  ]
 
   return (
     <GeneralContextProvider general={general}>
       <DefaultPageLayout seo={seo}>
         <h1 className="sr-only">{t('pageTitle')}</h1>
-        {promos.length > 0 && (
+        {mergedPromotedContent.length > 0 && (
           <SectionContainer hasBorder>
-            <SectionPromos promos={promos} />
+            <SectionPromos promos={mergedPromotedContent} />
           </SectionContainer>
         )}
 
@@ -141,6 +150,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       bookTags: bookTags?.data?.filter(hasAttributes) ?? [],
       mapSection: homePage?.data?.attributes?.mapSection ?? null,
       seo: homePage?.data?.attributes?.seo ?? null,
+      promotedContent: homePage?.data?.attributes?.promotedContent ?? null,
       general,
       navikronosStaticProps,
       ...translations,

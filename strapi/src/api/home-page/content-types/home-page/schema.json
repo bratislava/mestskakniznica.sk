@@ -66,6 +66,16 @@
         }
       },
       "component": "common.seo"
+    },
+    "promotedContent": {
+      "type": "component",
+      "repeatable": false,
+      "component": "homepage.promoted-content",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

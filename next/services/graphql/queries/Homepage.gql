@@ -59,6 +59,20 @@ fragment HomepageNewsSection on ComponentHomepageNewsSection {
   }
 }
 
+fragment HomepagePromotedContentSection on ComponentHomepagePromotedContent {
+  id
+  events {
+    data {
+      ...EventCardEntity
+    }
+  }
+  notices {
+    data {
+      ...NoticeListingEntity
+    }
+  }
+}
+
 query HomePage($locale: I18NLocaleCode!) {
   homePage(locale: $locale) {
     data {
@@ -74,6 +88,9 @@ query HomePage($locale: I18NLocaleCode!) {
         }
         mapSection {
           ...HomepageMapSection
+        }
+        promotedContent {
+          ...HomepagePromotedContentSection
         }
         localizations {
           data {

@@ -928,6 +928,41 @@ export type ComponentHomepageNewsSectionInput = {
   title?: InputMaybe<Scalars['String']>
 }
 
+export type ComponentHomepagePromotedContent = {
+  __typename?: 'ComponentHomepagePromotedContent'
+  events?: Maybe<EventRelationResponseCollection>
+  id: Scalars['ID']
+  notices?: Maybe<NoticeRelationResponseCollection>
+}
+
+export type ComponentHomepagePromotedContentEventsArgs = {
+  filters?: InputMaybe<EventFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type ComponentHomepagePromotedContentNoticesArgs = {
+  filters?: InputMaybe<NoticeFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type ComponentHomepagePromotedContentFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentHomepagePromotedContentFiltersInput>>>
+  events?: InputMaybe<EventFiltersInput>
+  not?: InputMaybe<ComponentHomepagePromotedContentFiltersInput>
+  notices?: InputMaybe<NoticeFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<ComponentHomepagePromotedContentFiltersInput>>>
+}
+
+export type ComponentHomepagePromotedContentInput = {
+  events?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id?: InputMaybe<Scalars['ID']>
+  notices?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+}
+
 export type ComponentHomepageRegistrationInfo = {
   __typename?: 'ComponentHomepageRegistrationInfo'
   description?: Maybe<Scalars['String']>
@@ -2628,6 +2663,7 @@ export type GenericMorph =
   | ComponentHomepageFaqSection
   | ComponentHomepageFaqs
   | ComponentHomepageNewsSection
+  | ComponentHomepagePromotedContent
   | ComponentHomepageRegistrationInfo
   | ComponentLocalityPartsGalleryParts
   | ComponentMenuSectionLinks
@@ -2693,6 +2729,7 @@ export type HomePage = {
   localizations?: Maybe<HomePageRelationResponseCollection>
   mapSection?: Maybe<ComponentSectionsMap>
   newsSection?: Maybe<ComponentHomepageNewsSection>
+  promotedContent?: Maybe<ComponentHomepagePromotedContent>
   registrationInfoSection?: Maybe<ComponentHomepageRegistrationInfo>
   seo?: Maybe<ComponentCommonSeo>
   updatedAt?: Maybe<Scalars['DateTime']>
@@ -2725,6 +2762,7 @@ export type HomePageFiltersInput = {
   newsSection?: InputMaybe<ComponentHomepageNewsSectionFiltersInput>
   not?: InputMaybe<HomePageFiltersInput>
   or?: InputMaybe<Array<InputMaybe<HomePageFiltersInput>>>
+  promotedContent?: InputMaybe<ComponentHomepagePromotedContentFiltersInput>
   registrationInfoSection?: InputMaybe<ComponentHomepageRegistrationInfoFiltersInput>
   seo?: InputMaybe<ComponentCommonSeoFiltersInput>
   updatedAt?: InputMaybe<DateTimeFilterInput>
@@ -2734,6 +2772,7 @@ export type HomePageInput = {
   faqSection?: InputMaybe<ComponentHomepageFaqSectionInput>
   mapSection?: InputMaybe<ComponentSectionsMapInput>
   newsSection?: InputMaybe<ComponentHomepageNewsSectionInput>
+  promotedContent?: InputMaybe<ComponentHomepagePromotedContentInput>
   registrationInfoSection?: InputMaybe<ComponentHomepageRegistrationInfoInput>
   seo?: InputMaybe<ComponentCommonSeoInput>
 }
@@ -7756,6 +7795,131 @@ export type HomepageNewsSectionFragment = {
   } | null
 }
 
+export type HomepagePromotedContentSectionFragment = {
+  __typename?: 'ComponentHomepagePromotedContent'
+  id: string
+  events?: {
+    __typename?: 'EventRelationResponseCollection'
+    data: Array<{
+      __typename: 'EventEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Event'
+        slug: string
+        title: string
+        description?: string | null
+        createdAt?: any | null
+        updatedAt?: any | null
+        publishedAt?: any | null
+        locale?: string | null
+        dateFrom?: any | null
+        dateTo?: any | null
+        price?: number | null
+        eventCategory?: {
+          __typename?: 'EventCategoryEntityResponse'
+          data?: {
+            __typename?: 'EventCategoryEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'EventCategory'
+              title?: string | null
+              createdAt?: any | null
+              updatedAt?: any | null
+            } | null
+          } | null
+        } | null
+        branch?: {
+          __typename?: 'BranchEntityResponse'
+          data?: {
+            __typename?: 'BranchEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Branch'; title: string; address?: string | null } | null
+          } | null
+        } | null
+        eventTags?: {
+          __typename?: 'EventTagRelationResponseCollection'
+          data: Array<{
+            __typename?: 'EventTagEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'EventTag'
+              title?: string | null
+              slug?: string | null
+              createdAt?: any | null
+              publishedAt?: any | null
+              updatedAt?: any | null
+            } | null
+          }>
+        } | null
+        listingImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+        coverImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+      } | null
+    }>
+  } | null
+  notices?: {
+    __typename?: 'NoticeRelationResponseCollection'
+    data: Array<{
+      __typename: 'NoticeEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Notice'
+        slug: string
+        title: string
+        publishedAt?: any | null
+        listingImage?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              alternativeText?: string | null
+              caption?: string | null
+              size: number
+              width?: number | null
+              height?: number | null
+            } | null
+          } | null
+        } | null
+      } | null
+    }>
+  } | null
+}
+
 export type HomePageQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']
 }>
@@ -7922,6 +8086,134 @@ export type HomePageQuery = {
               } | null
             } | null
           } | null> | null
+        } | null
+        promotedContent?: {
+          __typename?: 'ComponentHomepagePromotedContent'
+          id: string
+          events?: {
+            __typename?: 'EventRelationResponseCollection'
+            data: Array<{
+              __typename: 'EventEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Event'
+                slug: string
+                title: string
+                description?: string | null
+                createdAt?: any | null
+                updatedAt?: any | null
+                publishedAt?: any | null
+                locale?: string | null
+                dateFrom?: any | null
+                dateTo?: any | null
+                price?: number | null
+                eventCategory?: {
+                  __typename?: 'EventCategoryEntityResponse'
+                  data?: {
+                    __typename?: 'EventCategoryEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'EventCategory'
+                      title?: string | null
+                      createdAt?: any | null
+                      updatedAt?: any | null
+                    } | null
+                  } | null
+                } | null
+                branch?: {
+                  __typename?: 'BranchEntityResponse'
+                  data?: {
+                    __typename?: 'BranchEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'Branch'
+                      title: string
+                      address?: string | null
+                    } | null
+                  } | null
+                } | null
+                eventTags?: {
+                  __typename?: 'EventTagRelationResponseCollection'
+                  data: Array<{
+                    __typename?: 'EventTagEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'EventTag'
+                      title?: string | null
+                      slug?: string | null
+                      createdAt?: any | null
+                      publishedAt?: any | null
+                      updatedAt?: any | null
+                    } | null
+                  }>
+                } | null
+                listingImage?: {
+                  __typename?: 'UploadFileEntityResponse'
+                  data?: {
+                    __typename?: 'UploadFileEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'UploadFile'
+                      url: string
+                      name: string
+                      alternativeText?: string | null
+                      caption?: string | null
+                      size: number
+                      width?: number | null
+                      height?: number | null
+                    } | null
+                  } | null
+                } | null
+                coverImage?: {
+                  __typename?: 'UploadFileEntityResponse'
+                  data?: {
+                    __typename?: 'UploadFileEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'UploadFile'
+                      url: string
+                      name: string
+                      alternativeText?: string | null
+                      caption?: string | null
+                      size: number
+                      width?: number | null
+                      height?: number | null
+                    } | null
+                  } | null
+                } | null
+              } | null
+            }>
+          } | null
+          notices?: {
+            __typename?: 'NoticeRelationResponseCollection'
+            data: Array<{
+              __typename: 'NoticeEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Notice'
+                slug: string
+                title: string
+                publishedAt?: any | null
+                listingImage?: {
+                  __typename?: 'UploadFileEntityResponse'
+                  data?: {
+                    __typename?: 'UploadFileEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'UploadFile'
+                      url: string
+                      name: string
+                      alternativeText?: string | null
+                      caption?: string | null
+                      size: number
+                      width?: number | null
+                      height?: number | null
+                    } | null
+                  } | null
+                } | null
+              } | null
+            }>
+          } | null
         } | null
         localizations?: {
           __typename?: 'HomePageRelationResponseCollection'
@@ -11523,6 +11815,40 @@ export const HomepageNewsSectionFragmentDoc = gql`
   }
   ${PageWithBaseFieldsEntityFragmentDoc}
 `
+export const NoticeListingEntityFragmentDoc = gql`
+  fragment NoticeListingEntity on NoticeEntity {
+    __typename
+    id
+    attributes {
+      slug
+      title
+      publishedAt
+      listingImage {
+        data {
+          ...UploadImageEntity
+        }
+      }
+    }
+  }
+  ${UploadImageEntityFragmentDoc}
+`
+export const HomepagePromotedContentSectionFragmentDoc = gql`
+  fragment HomepagePromotedContentSection on ComponentHomepagePromotedContent {
+    id
+    events {
+      data {
+        ...EventCardEntity
+      }
+    }
+    notices {
+      data {
+        ...NoticeListingEntity
+      }
+    }
+  }
+  ${EventCardEntityFragmentDoc}
+  ${NoticeListingEntityFragmentDoc}
+`
 export const NoticeEntityFragmentDoc = gql`
   fragment NoticeEntity on NoticeEntity {
     __typename
@@ -11557,23 +11883,6 @@ export const NoticeEntityFragmentDoc = gql`
   ${UploadImageEntityFragmentDoc}
   ${DocumentsSectionFragmentDoc}
   ${SeoFragmentDoc}
-`
-export const NoticeListingEntityFragmentDoc = gql`
-  fragment NoticeListingEntity on NoticeEntity {
-    __typename
-    id
-    attributes {
-      slug
-      title
-      publishedAt
-      listingImage {
-        data {
-          ...UploadImageEntity
-        }
-      }
-    }
-  }
-  ${UploadImageEntityFragmentDoc}
 `
 export const LatestNoticesQueryFragmentDoc = gql`
   fragment LatestNoticesQuery on Query {
@@ -12091,6 +12400,9 @@ export const HomePageDocument = gql`
           mapSection {
             ...HomepageMapSection
           }
+          promotedContent {
+            ...HomepagePromotedContentSection
+          }
           localizations {
             data {
               attributes {
@@ -12133,6 +12445,7 @@ export const HomePageDocument = gql`
   ${HomepageRegistrationInfoFragmentDoc}
   ${HomepageNewsSectionFragmentDoc}
   ${HomepageMapSectionFragmentDoc}
+  ${HomepagePromotedContentSectionFragmentDoc}
   ${SeoFragmentDoc}
   ${NoticeListingEntityFragmentDoc}
   ${EventCardEntityFragmentDoc}
