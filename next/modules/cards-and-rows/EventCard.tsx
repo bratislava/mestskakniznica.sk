@@ -1,5 +1,6 @@
 import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
 import TagsDisplay from '@components/Atoms/TagsDisplay'
+import MImage from '@modules/common/MImage'
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import {
@@ -40,12 +41,23 @@ const EventCard = ({
 
   return (
     <div className="relative">
-      <img
-        className="h-[200px] w-full flex-1 object-cover"
-        alt={t('eventDetailImagePlaceholder')}
-        src={listingImage?.url || coverImage?.url || Placeholder.src}
-        height="200px"
-      />
+      <div className="relative h-[200px]">
+        <MImage
+          className="object-cover"
+          image={
+            listingImage?.url
+              ? listingImage
+              : coverImage?.url
+              ? coverImage
+              : { url: Placeholder.src }
+          }
+          fallbackAlt={t('eventDetailImagePlaceholder')}
+          fallbackImage={Placeholder.src}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          fill
+          priority
+        />
+      </div>
 
       <div className="flex pt-4 text-sm">
         {eventTags && (
