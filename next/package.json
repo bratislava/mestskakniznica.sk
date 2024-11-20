@@ -37,16 +37,16 @@
     "many-keys-map": "^2.0.1",
     "mapbox-gl": "^2.12.0",
     "meilisearch": "^0.30.0",
-    "next": "13.0.6",
+    "next": "13.5.7",
     "next-i18next": "^12.1.0",
     "next-plausible": "^3.7.2",
     "next-query-params": "^4.1.0",
     "pretty-bytes": "^6.1.0",
     "qrcode.react": "^3.0.2",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-aria": "^3.23.0",
     "react-datepicker": "^4.24.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.42.1",
     "react-map-gl": "^7.0.15",
     "react-markdown": "^8.0.3",
@@ -128,7 +128,7 @@
     "yarn": "1.22"
   },
   "volta": {
-    "node": "18.17.1",
-    "yarn": "1.22.18"
+    "node": "18.20.5",
+    "yarn": "1.22.22"
   }
 }
