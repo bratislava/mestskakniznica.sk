@@ -17,8 +17,8 @@
     "@strapi/plugin-i18n": "4.10.8",
     "@strapi/plugin-users-permissions": "4.10.8",
     "@strapi/strapi": "4.10.8",
-    "pg": "^8.9.0",
-    "strapi-plugin-meilisearch": "^0.9.1",
+    "pg": "^8.13.1",
+    "strapi-plugin-meilisearch": "^0.9.2",
     "strapi-provider-upload-ts-minio": "^3.1.0"
   },
   "author": {
@@ -28,13 +28,12 @@
     "uuid": "0edac017-73ff-4836-bdbc-243328bdd8c0"
   },
   "engines": {
-    "node": ">=18.x.x",
-    "npm": ">=9.8.1",
-    "yarn": "1.22"
+    "node": "18.x.x",
+    "npm": ">=9.8.1"
   },
+  "license": "MIT",
   "volta": {
-    "node": "18.17.1",
-    "yarn": "1.22.18"
-  },
-  "license": "MIT"
+    "node": "18.20.5",
+    "yarn": "1.22.22"
+  }
 }

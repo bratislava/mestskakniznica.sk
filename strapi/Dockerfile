@@ -1,5 +1,5 @@
 # development
-FROM node:18.17 AS dev
+FROM node:18.20.5 AS dev
 
 RUN apt-get update && apt-get install -y git \
     vim \
@@ -23,7 +23,7 @@ EXPOSE 1338
 CMD ["yarn", "develop"]
 
 # production
-FROM node:18.17 AS prod
+FROM node:18.20.5 AS prod
 
 RUN apt-get update && apt-get install -y git \
     libvips-dev
