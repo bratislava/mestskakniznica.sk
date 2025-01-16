@@ -68,7 +68,7 @@ export const options: IFormOption[] = [
         label: 'High school or university student (until age 26)',
       },
     ],
-    price: '2,80 €',
+    price: '3,00 €',
   },
   {
     key: '2',
@@ -84,6 +84,14 @@ export const options: IFormOption[] = [
       { locale: 'sk', label: 'Právnická osoba' },
       { locale: 'en', label: 'Corporation' },
     ],
-    price: '8,00 €',
+    price: '13,00 €',
+  },
+  {
+    key: '15',
+    label: [
+      { locale: 'sk', label: 'Moja knižnica' },
+      { locale: 'en', label: 'My Library Club' },
+    ],
+    price: '15,00 €',
   },
 ]
