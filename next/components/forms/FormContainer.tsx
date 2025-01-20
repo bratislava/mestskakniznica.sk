@@ -11,7 +11,7 @@ export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
 export const phoneRegexOrEmpty = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)|^$/
 export const postalCodeRegex = /^\d{5}(?:-\d{4})?$/
 export const IBANRegex = /^[A-Z]{2}(?: ?\d){13,30}$/
-export const IDCardRegex = /^(([A-Za-z]{2})(\d{6}))$/
+export const IDCardRegex = /^[\dA-Za-z]{1,15}$/
 
 export enum SubmitStatus {
   NONE,
