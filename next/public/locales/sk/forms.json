@@ -143,7 +143,7 @@
   "password_again": "Heslo opakovane",
   "validation_error_password_gt_7": "musí mať aspoň 7 znakov",
   "validation_error_password_mismatch": "sa musí zhodovať s heslom",
-  "validation_error_idcard": "musí mať tvar AA000000",
+  "validation_error_idcard": "musí obsahovať iba písmená alebo čísla a môže mať maximálne 15 znakov",
   "generic_error_title": "Chyba",
   "form_city_accept_newsletter": "Súhlasím s odoberaním noviniek z online katalógu.",
   "validation_error_captcha": "overenie je potrebné.",
