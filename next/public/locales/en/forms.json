@@ -143,7 +143,7 @@
   "password_again": "Password again",
   "validation_error_password_gt_7": "must have at least 7 characters",
   "validation_error_password_mismatch": "must match with Password",
-  "validation_error_idcard": "must be 15 characters or fewer and alphanumeric",
+  "validation_error_idcard": "must contain only letters or numbers and have maximum of 15 characters",
   "generic_error_title": "Error",
   "form_city_accept_newsletter": "I agree to receive news from the online catalogue.",
   "validation_error_captcha": "validation is required.",
