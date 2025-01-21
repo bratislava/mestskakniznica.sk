@@ -1,4 +1,5 @@
 import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
+import CardWrapper from '@modules/cards-and-rows/CardWrapper'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import FormatDate from '@modules/formatting/FormatDate'
@@ -25,7 +26,7 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
   }, [notice, t])
 
   return (
-    <div className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between focus-within:ring-2 focus-within:ring-outline">
+    <CardWrapper className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between">
       <div className="flex h-full flex-col">
         {/* TODO: Replace with MImage */}
         <img
@@ -38,7 +39,7 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
           <FormatDate value={date} valueType="ISO" />
         </div>
         <h3 className="mb-6 text-h5">
-          <MLink href={link ?? '#'} variant="basic" stretched className="outline-none line-clamp-3">
+          <MLink href={link ?? '#'} variant="basic" stretched className="line-clamp-3">
             {notice.attributes?.title}
           </MLink>
         </h3>
@@ -46,7 +47,7 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
       <ShowMoreLink href={link ?? '#'} tabIndex={-1} parentGroup>
         {t('showMore')}
       </ShowMoreLink>
-    </div>
+    </CardWrapper>
   )
 }
 

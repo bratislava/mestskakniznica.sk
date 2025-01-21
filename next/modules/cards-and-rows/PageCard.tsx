@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from '@assets/icons'
+import CardWrapper from '@modules/cards-and-rows/CardWrapper'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import cx from 'classnames'
@@ -13,10 +14,10 @@ type PageCardProps = {
 
 const PageCard = ({ className, title, href, showMoreText }: PageCardProps) => {
   return (
-    <div className="group/showMore relative border border-border-dark focus-within:border-solid focus-within:ring-2 focus-within:ring-outline">
+    <CardWrapper className="group/showMore relative border border-border-dark">
       <div className={cx('relative flex flex-col space-y-4 p-4', className)}>
         <div className="h-full overflow-hidden text-[20px]">
-          <MLink href={href} variant="basic" stretched className="outline-none">
+          <MLink href={href} variant="basic" stretched>
             {title}
           </MLink>
         </div>
@@ -32,7 +33,7 @@ const PageCard = ({ className, title, href, showMoreText }: PageCardProps) => {
           </div>
         )}
       </div>
-    </div>
+    </CardWrapper>
   )
 }
 

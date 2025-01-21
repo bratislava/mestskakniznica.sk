@@ -1,6 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import MarkerIcon from '@assets/images/marker.svg'
+import CardWrapper from '@modules/cards-and-rows/CardWrapper'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { BranchCardEntityFragment } from '@services/graphql'
@@ -140,21 +141,22 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
             const linkHref = getPathForStrapiEntity(branch) ?? '#'
 
             return (
-              <div
-                className={cx('relative focus-within:ring-2 focus-within:ring-outline', {
+              <CardWrapper
+                key={branch.id}
+                // `ring-inset` was used instead of the default `ring-offset-2` for visual reasons
+                className={cx('relative ring-inset', {
                   'lg:border-l-0': index === 0 && !altDesign,
                   'w-70 flex-shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0 lg:focus-within:border-transparent':
                     !altDesign,
                   'w-full border border-border-dark py-4': altDesign,
                 })}
-                key={branch.id}
               >
                 {/* TODO move link to title */}
 
                 <div className="group/showMore flex h-full w-full flex-col justify-between gap-8 p-6 lg:py-0">
                   <div>
                     <div className="text-h3">
-                      <MLink href={linkHref} variant="basic" stretched className="outline-none">
+                      <MLink href={linkHref} variant="basic" stretched>
                         {title}
                       </MLink>
                     </div>
@@ -178,7 +180,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                     {t('homepage:localityDetailText')}
                   </ShowMoreLink>
                 </div>
-              </div>
+              </CardWrapper>
             )
           })}
         </div>

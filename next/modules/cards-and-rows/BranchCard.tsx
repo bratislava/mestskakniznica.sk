@@ -1,3 +1,4 @@
+import CardWrapper from '@modules/cards-and-rows/CardWrapper'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { UploadImageEntityFragment } from '@services/graphql'
@@ -18,7 +19,7 @@ const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
   const href = (pageId ? getPathForEntity({ type: 'page', id: pageId }) : null) ?? '#'
 
   return (
-    <div className="group/showMore relative flex w-full flex-col">
+    <CardWrapper className="group/showMore relative flex w-full flex-col">
       <img
         src={image?.attributes?.url ?? '#'}
         alt={image?.attributes?.alternativeText ?? ''}
@@ -37,7 +38,7 @@ const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
           {t('showMore')}
         </ShowMoreLink>
       </div>
-    </div>
+    </CardWrapper>
   )
 }
 

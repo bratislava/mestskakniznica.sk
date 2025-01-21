@@ -1,4 +1,5 @@
 import ChevronRight from '@assets/images/chevron-right.svg'
+import CardWrapper from '@modules/cards-and-rows/CardWrapper'
 import FileExtBadge from '@modules/common/FileExtBadge'
 import MLink from '@modules/common/MLink'
 import FormatDate from '@modules/formatting/FormatDate'
@@ -25,7 +26,7 @@ const DocumentRow = ({
   const { t } = useTranslation('common')
 
   return (
-    <div className="group/showMore relative flex gap-5 border-b border-border-dark py-4 pr-2 text-foreground-body lg:gap-8">
+    <CardWrapper className="group/showMore relative flex gap-5 border-b border-border-dark py-4 pr-2 text-foreground-body lg:gap-8">
       <FileExtBadge className="hidden lg:flex" fileExt={fileExt} />
       <div className="flex w-8 shrink-0 self-center text-xs lg:hidden">{fileExt}</div>
 
@@ -47,7 +48,7 @@ const DocumentRow = ({
         </div>
       </div>
       <ChevronRight className="mt-1.5 hidden shrink-0 lg:block" />
-    </div>
+    </CardWrapper>
   )
 }
 

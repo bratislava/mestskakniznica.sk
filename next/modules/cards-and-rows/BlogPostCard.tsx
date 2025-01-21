@@ -1,4 +1,5 @@
 import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
+import CardWrapper from '@modules/cards-and-rows/CardWrapper'
 import MLink from '@modules/common/MLink'
 import ShowMoreLink from '@modules/common/ShowMoreLink'
 import FormatDate from '@modules/formatting/FormatDate'
@@ -19,7 +20,7 @@ const BlogPostCard = ({ blogPost }: BlogPostProps) => {
   const link = getPathForStrapiEntity(blogPost)
 
   return (
-    <div className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between">
+    <CardWrapper className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between">
       <div className="flex h-full flex-col">
         {/* TODO: Replace with MImage */}
         <img
@@ -40,7 +41,7 @@ const BlogPostCard = ({ blogPost }: BlogPostProps) => {
       <ShowMoreLink href={link ?? ''} tabIndex={-1} parentGroup>
         {t('showMore')}
       </ShowMoreLink>
-    </div>
+    </CardWrapper>
   )
 }
 
