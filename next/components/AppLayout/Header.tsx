@@ -23,7 +23,7 @@ const Header = ({ menus }: HeaderProps) => {
           <div>
             <MLink
               href="/"
-              className="flex h-full text-[27px] uppercase leading-[26px] tracking-[0.6px]"
+              className="flex h-full text-[27px] uppercase leading-[26px] tracking-[0.6px] ring-inset ring-offset-0"
             >
               {t('pageTitle')
                 .split(' ')

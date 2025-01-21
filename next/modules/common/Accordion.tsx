@@ -33,13 +33,16 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
     'text-sm': type === 'breadcrumbs',
   })
 
-  const buttonStyles = cx('hover:text-underline flex items-center gap-4 text-left text-h5', {
-    'py-[18.5px] px-4 md:px-6 md:py-5': type === 'boxed',
-    'py-[18.5px] md:py-6': type === 'divider-big',
-    'py-[14.5px] md:py-[18.5px]': type === 'divider-small',
-    'py-4': type === 'subbranch',
-    'p-4 -mx-4': type === 'breadcrumbs',
-  })
+  const buttonStyles = cx(
+    'hover:text-underline flex items-center gap-4 text-left text-h5 outline-none ring-offset-2 transition focus-visible:ring',
+    {
+      'py-[18.5px] px-4 md:px-6 md:py-5': type === 'boxed',
+      'py-[18.5px] md:py-6': type === 'divider-big',
+      'py-[14.5px] md:py-[18.5px]': type === 'divider-small',
+      'py-4': type === 'subbranch',
+      'p-4 -mx-4': type === 'breadcrumbs',
+    }
+  )
 
   const leftIconStyles = cx('mr-0 shrink-0 md:mr-2', {
     'bg-yellow grid h-10 w-10 place-content-center bg-promo-yellow md:h-14 md:w-14':

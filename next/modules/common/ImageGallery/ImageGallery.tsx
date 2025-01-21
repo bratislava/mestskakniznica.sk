@@ -77,10 +77,13 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           tabIndex={0}
           aria-label={t('openImageGallery')}
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
-          className={cx('outline-primary cursor-default outline-offset-2 focus:outline-4', {
-            'flex flex-col ': variant === 'below',
-            'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
-          })}
+          className={cx(
+            'outline-primary cursor-default outline-none ring-offset-2 transition focus-visible:ring',
+            {
+              'flex flex-col ': variant === 'below',
+              'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
+            }
+          )}
         >
           {/* first image */}
           {firstImage && (
