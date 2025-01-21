@@ -23,13 +23,17 @@ export const Link = ({
   return (
     <NextLink
       href={href}
-      className={cx('hover:underline', className, {
-        'flex items-center gap-x-2.5 text-foreground-heading': variant === 'default',
-        'text-[16px]': size === 'large',
-        'text-[14px]': size === 'default',
-        'text-[12px]': size === 'small',
-        uppercase,
-      })}
+      className={cx(
+        'outline-none ring-offset-2 transition hover:underline focus-visible:ring',
+        className,
+        {
+          'flex items-center gap-x-2.5 text-foreground-heading': variant === 'default',
+          'text-[16px]': size === 'large',
+          'text-[14px]': size === 'default',
+          'text-[12px]': size === 'small',
+          uppercase,
+        }
+      )}
       {...props}
     >
       {children}
