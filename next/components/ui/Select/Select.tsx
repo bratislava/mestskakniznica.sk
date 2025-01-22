@@ -62,9 +62,12 @@ export const Select = <T extends ISelectOption>({
         <select
           id={id}
           className={twMerge(
-            cx('base-input w-full cursor-pointer pr-9', {
-              'base-input--with-error': hasError,
-            }),
+            cx(
+              'base-input w-full cursor-pointer pr-9 outline-none ring-inset transition focus-visible:ring',
+              {
+                'base-input--with-error': hasError,
+              }
+            ),
             selectClassName
           )}
           onChange={handleChange}

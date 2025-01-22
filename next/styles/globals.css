@@ -48,7 +48,7 @@ body {
 @layer components {
   .base-input {
     @apply box-border inline-block appearance-none border bg-white px-3 py-2 text-base text-foreground-heading;
-    @apply border-border-light placeholder:text-foreground-body hover:border-border-dark focus:border-border-dark focus:outline-none;
+    @apply border-border-light placeholder:text-foreground-body hover:border-border-dark focus:border-border-dark;
   }
 
   .base-input--with-error {

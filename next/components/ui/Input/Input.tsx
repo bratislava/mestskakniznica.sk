@@ -54,10 +54,14 @@ export const Input = ({
         {/* BaseInput */}
         <input
           id={id}
-          className={cx('base-input', inputClassName, {
-            'base-input--disabled cursor-not-allowed text-foreground-disabled': props.disabled,
-            'base-input--with-error': hasError,
-          })}
+          className={cx(
+            'base-input outline-none ring-inset transition focus-visible:ring',
+            inputClassName,
+            {
+              'base-input--disabled cursor-not-allowed text-foreground-disabled': props.disabled,
+              'base-input--with-error': hasError,
+            }
+          )}
           aria-invalid={hasError}
           aria-required={required}
           aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}

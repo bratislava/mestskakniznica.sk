@@ -82,7 +82,7 @@ export const RadioGroup = <T extends IRadioOption>({
                   <RadioGroupPrimitive.Item
                     value={opt.key}
                     id={opt.key}
-                    className="box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark "
+                    className="box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark outline-none ring-offset-2 transition focus-visible:ring"
                   >
                     <RadioGroupPrimitive.Indicator className="h-3 w-3 rounded-full bg-dark" />
                   </RadioGroupPrimitive.Item>

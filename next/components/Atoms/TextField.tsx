@@ -1,5 +1,6 @@
 import cx from 'classnames'
 import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 import FieldWrapper from '../Molecules/FieldWrapper'
 
@@ -90,12 +91,12 @@ const TextField = (props: TextFieldProps) => {
     <FieldWrapper
       id={id}
       label={label}
-      className={className}
       hasLeftSlot={!!leftSlot}
       hasRightSlot={!!rightSlot}
       disabled={disabled}
       error={error}
       required={required}
+      className={twMerge(cx('ring-inset transition focus-within:ring', className))}
     >
       {leftSlot && (
         <div className={cx('shrink-0 grow-0', { 'p-3': isLarge, 'p-2': !isLarge })}>{leftSlot}</div>

@@ -34,9 +34,13 @@ export const TextArea = ({
       <div>
         <textarea
           id={id}
-          className={cx('base-input resize-none', textAreaClassname, {
-            'base-input--with-error': hasError,
-          })}
+          className={cx(
+            'base-input resize-none outline-none ring-inset transition focus-visible:ring',
+            textAreaClassname,
+            {
+              'base-input--with-error': hasError,
+            }
+          )}
           aria-invalid={hasError}
           aria-required={required}
           aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}

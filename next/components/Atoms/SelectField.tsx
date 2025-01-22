@@ -9,6 +9,7 @@ import { usePopper } from 'react-popper'
 export interface Option {
   key: string
   label: ReactNode | string
+
   [key: string]: unknown
 }
 
@@ -101,7 +102,7 @@ const SelectField = ({
       <Listbox.Button
         ref={setReferenceElement}
         as="button"
-        className="group flex w-full outline-none"
+        className="group flex w-full outline-none ring-offset-2 transition focus-visible:ring"
       >
         {({ open }) => (
           <FieldWrapper
