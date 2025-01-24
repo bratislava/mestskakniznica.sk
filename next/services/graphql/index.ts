@@ -113,6 +113,7 @@ export type BlogPost = {
   __typename?: 'BlogPost'
   coverMedia?: Maybe<UploadFileEntityResponse>
   createdAt?: Maybe<Scalars['DateTime']>
+  isCurrentChangeInOpeningHours?: Maybe<Scalars['Boolean']>
   locale?: Maybe<Scalars['String']>
   localizations?: Maybe<BlogPostRelationResponseCollection>
   publishedAt?: Maybe<Scalars['DateTime']>
@@ -151,6 +152,7 @@ export type BlogPostFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<BlogPostFiltersInput>>>
   createdAt?: InputMaybe<DateTimeFilterInput>
   id?: InputMaybe<IdFilterInput>
+  isCurrentChangeInOpeningHours?: InputMaybe<BooleanFilterInput>
   locale?: InputMaybe<StringFilterInput>
   localizations?: InputMaybe<BlogPostFiltersInput>
   not?: InputMaybe<BlogPostFiltersInput>
@@ -164,6 +166,7 @@ export type BlogPostFiltersInput = {
 
 export type BlogPostInput = {
   coverMedia?: InputMaybe<Scalars['ID']>
+  isCurrentChangeInOpeningHours?: InputMaybe<Scalars['Boolean']>
   publishedAt?: InputMaybe<Scalars['DateTime']>
   sections?: InputMaybe<Array<Scalars['BlogPostSectionsDynamicZoneInput']>>
   seo?: InputMaybe<ComponentCommonSeoInput>

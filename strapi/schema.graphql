@@ -72,6 +72,7 @@ type BasicDocumentRelationResponseCollection {
 type BlogPost {
   coverMedia: UploadFileEntityResponse
   createdAt: DateTime
+  isCurrentChangeInOpeningHours: Boolean
   locale: String
   localizations(filters: BlogPostFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BlogPostRelationResponseCollection
   publishedAt: DateTime
@@ -100,6 +101,7 @@ input BlogPostFiltersInput {
   and: [BlogPostFiltersInput]
   createdAt: DateTimeFilterInput
   id: IDFilterInput
+  isCurrentChangeInOpeningHours: BooleanFilterInput
   locale: StringFilterInput
   localizations: BlogPostFiltersInput
   not: BlogPostFiltersInput
@@ -113,6 +115,7 @@ input BlogPostFiltersInput {
 
 input BlogPostInput {
   coverMedia: ID
+  isCurrentChangeInOpeningHours: Boolean
   publishedAt: DateTime
   sections: [BlogPostSectionsDynamicZoneInput!]
   seo: ComponentCommonSeoInput
