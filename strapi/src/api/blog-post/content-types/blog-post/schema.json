@@ -8,8 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true,
-    "timestamps": true
+    "draftAndPublish": true
   },
   "pluginOptions": {
     "i18n": {
@@ -81,6 +80,15 @@
         }
       },
       "component": "common.seo"
+    },
+    "isCurrentChangeInOpeningHours": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false
     }
   }
 }
