@@ -36,8 +36,7 @@ const FooterLinks = ({
           key={link.id}
           href={link.otherSite || getPathForStrapiEntity(link.redirectTo?.data) || '#'}
           variant="basic"
-          // `ring-inset` and `ring-offset-0` were used for visual reasons
-          className="text-base text-foreground-body ring-inset ring-offset-0"
+          className="text-base text-foreground-body"
         >
           {link.title}
         </MLink>
@@ -85,6 +84,7 @@ export const Footer = ({
             href={facebookUrl}
             target="_blank"
             rel="noreferrer"
+            // `ring-inset` and `ring-offset-0` were used for visual reasons
             className="flex h-full items-center justify-center ring-inset ring-offset-0"
           >
             <FbLogo className="cursor-pointer lg:p-0" />
