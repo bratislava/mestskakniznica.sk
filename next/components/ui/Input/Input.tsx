@@ -55,7 +55,7 @@ export const Input = ({
         <input
           id={id}
           className={cx(
-            'base-input outline-none ring-inset transition focus-visible:ring',
+            'base-input outline-none ring-offset-2 transition focus-visible:ring',
             inputClassName,
             {
               'base-input--disabled cursor-not-allowed text-foreground-disabled': props.disabled,

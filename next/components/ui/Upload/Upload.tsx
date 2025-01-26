@@ -33,7 +33,7 @@ export const Upload = ({
       )}
       <div
         className={cx(
-          'group relative flex flex-col items-center justify-center gap-y-6 border border-dashed p-6 ring-inset transition focus-within:ring',
+          'group relative flex flex-col items-center justify-center gap-y-6 border border-dashed p-6 ring-offset-2 transition focus-within:ring',
           {
             'bg-emerald-200 transform transition-all duration-200':
               isInArea || fileInputRef.current?.files?.length,

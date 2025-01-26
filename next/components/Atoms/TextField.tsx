@@ -96,7 +96,7 @@ const TextField = (props: TextFieldProps) => {
       disabled={disabled}
       error={error}
       required={required}
-      className={twMerge(cx('ring-inset transition focus-within:ring', className))}
+      className={twMerge(cx('ring-offset-2 transition focus-within:ring', className))}
     >
       {leftSlot && (
         <div className={cx('shrink-0 grow-0', { 'p-3': isLarge, 'p-2': !isLarge })}>{leftSlot}</div>
