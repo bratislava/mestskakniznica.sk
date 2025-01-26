@@ -19,7 +19,8 @@ const PartnersSection = () => {
       {data?.featuredPartners && data.featuredPartners.data.length > 0 && (
         <ul className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
           {data.featuredPartners.data.map((partner, index) => (
-            <li key={partner?.id ?? index}>
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>
               <PartnerCardRow
                 id={`featured-partner-${index}`}
                 title={partner?.attributes?.title ?? ''}
@@ -35,7 +36,8 @@ const PartnersSection = () => {
       {data?.notFeaturedPartners && data.notFeaturedPartners.data.length > 0 && (
         <ul className="mt-12 flex flex-col lg:space-y-3">
           {data.notFeaturedPartners.data.map((partner, index) => (
-            <li key={partner?.id ?? index}>
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>
               <PartnerCardRow
                 id={`non-featured-partner-${index}`}
                 title={partner?.attributes?.title || ''}

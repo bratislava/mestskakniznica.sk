@@ -15,7 +15,8 @@ const MobileLatestEvents = () => {
     <ul className="mt-2 flex flex-col gap-y-3">
       {upcomingEvents.data.filter(isDefined).map((event, index) => {
         return (
-          <li key={event?.id ?? index}>
+          // eslint-disable-next-line react/no-array-index-key
+          <li key={index}>
             <EventRow event={event} />
           </li>
         )
