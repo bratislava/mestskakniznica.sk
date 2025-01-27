@@ -1,4 +1,4 @@
-import MLink from '@modules/common/MLink'
+import ShowMoreLink from '@modules/common/ShowMoreLink'
 import { client } from '@services/graphql/gql'
 import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
@@ -39,9 +39,7 @@ const OpeningHoursChangeAlert = () => {
                 {index > 0 && <hr />}
                 <div className="flex flex-col gap-3">
                   <p className="text-foreground-body">{title}</p>
-                  <MLink href={link ?? ''} variant="basic" hasIcon>
-                    {t('showMore')}
-                  </MLink>
+                  <ShowMoreLink href={link ?? '#'}>{t('showMore')}</ShowMoreLink>
                 </div>
               </Fragment>
             )
