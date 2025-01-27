@@ -3,12 +3,13 @@ import { client } from '@services/graphql/gql'
 import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
-import React, { Fragment } from 'react'
+import React, { Fragment, useId } from 'react'
 import { useQuery } from 'react-query'
 
 const OpeningHoursChangeAlert = () => {
   const { t, i18n } = useTranslation()
   const locale = i18n.language
+  const alertBannerId = useId()
 
   const { getPathForStrapiEntity } = useNavikronos()
 
@@ -32,14 +33,19 @@ const OpeningHoursChangeAlert = () => {
 
             const { title } = notice.attributes
             const link = getPathForStrapiEntity(notice)
+            const id = `${alertBannerId}-${index}`
 
             return (
               // eslint-disable-next-line react/no-array-index-key
               <Fragment key={index}>
                 {index > 0 && <hr />}
                 <div className="flex flex-col gap-3">
-                  <p className="text-foreground-body">{title}</p>
-                  <ShowMoreLink href={link ?? '#'}>{t('showMore')}</ShowMoreLink>
+                  <p className="text-foreground-body" id={id}>
+                    {title}
+                  </p>
+                  <ShowMoreLink href={link ?? '#'} aria-labelledby={id}>
+                    {t('showMore')}
+                  </ShowMoreLink>
                 </div>
               </Fragment>
             )
