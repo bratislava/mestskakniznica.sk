@@ -113,7 +113,6 @@ export type BlogPost = {
   __typename?: 'BlogPost'
   coverMedia?: Maybe<UploadFileEntityResponse>
   createdAt?: Maybe<Scalars['DateTime']>
-  isCurrentChangeInOpeningHours?: Maybe<Scalars['Boolean']>
   locale?: Maybe<Scalars['String']>
   localizations?: Maybe<BlogPostRelationResponseCollection>
   publishedAt?: Maybe<Scalars['DateTime']>
@@ -152,7 +151,6 @@ export type BlogPostFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<BlogPostFiltersInput>>>
   createdAt?: InputMaybe<DateTimeFilterInput>
   id?: InputMaybe<IdFilterInput>
-  isCurrentChangeInOpeningHours?: InputMaybe<BooleanFilterInput>
   locale?: InputMaybe<StringFilterInput>
   localizations?: InputMaybe<BlogPostFiltersInput>
   not?: InputMaybe<BlogPostFiltersInput>
@@ -166,7 +164,6 @@ export type BlogPostFiltersInput = {
 
 export type BlogPostInput = {
   coverMedia?: InputMaybe<Scalars['ID']>
-  isCurrentChangeInOpeningHours?: InputMaybe<Scalars['Boolean']>
   publishedAt?: InputMaybe<Scalars['DateTime']>
   sections?: InputMaybe<Array<Scalars['BlogPostSectionsDynamicZoneInput']>>
   seo?: InputMaybe<ComponentCommonSeoInput>
@@ -3581,6 +3578,7 @@ export type Notice = {
   createdAt?: Maybe<Scalars['DateTime']>
   dateAdded?: Maybe<Scalars['Date']>
   documents?: Maybe<ComponentSectionsDocuments>
+  isCurrentChangeInOpeningHours?: Maybe<Scalars['Boolean']>
   listingImage?: Maybe<UploadFileEntityResponse>
   locale?: Maybe<Scalars['String']>
   localizations?: Maybe<NoticeRelationResponseCollection>
@@ -3623,6 +3621,7 @@ export type NoticeFiltersInput = {
   dateAdded?: InputMaybe<DateFilterInput>
   documents?: InputMaybe<ComponentSectionsDocumentsFiltersInput>
   id?: InputMaybe<IdFilterInput>
+  isCurrentChangeInOpeningHours?: InputMaybe<BooleanFilterInput>
   locale?: InputMaybe<StringFilterInput>
   localizations?: InputMaybe<NoticeFiltersInput>
   not?: InputMaybe<NoticeFiltersInput>
@@ -3639,6 +3638,7 @@ export type NoticeInput = {
   body?: InputMaybe<Scalars['String']>
   dateAdded?: InputMaybe<Scalars['Date']>
   documents?: InputMaybe<ComponentSectionsDocumentsInput>
+  isCurrentChangeInOpeningHours?: InputMaybe<Scalars['Boolean']>
   listingImage?: InputMaybe<Scalars['ID']>
   promoted?: InputMaybe<Scalars['Boolean']>
   publishedAt?: InputMaybe<Scalars['DateTime']>
