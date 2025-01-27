@@ -76,6 +76,8 @@ const EventDetails = ({ event }: PageProps) => {
     ...event?.attributes?.coverImage?.data?.attributes,
   }
 
+  const filteredImages = event?.attributes?.gallery?.data?.filter(isDefined) ?? []
+
   return (
     <>
       <img
@@ -133,12 +135,11 @@ const EventDetails = ({ event }: PageProps) => {
             <div className="pt-5">
               <RichText content={event?.attributes?.description ?? ''} />
             </div>
-            <div className="pt-5">
-              <ImageGallery
-                images={event?.attributes?.gallery?.data.filter(isDefined) ?? []}
-                variant="below"
-              />
-            </div>
+            {filteredImages?.length > 0 ? (
+              <div className="pt-5">
+                <ImageGallery images={filteredImages} variant="below" />
+              </div>
+            ) : null}
           </div>
           {event?.attributes?.documents && (
             <Documents
