@@ -84,7 +84,7 @@ export const Footer = ({
             href={facebookUrl}
             target="_blank"
             rel="noreferrer"
-            // `ring-inset` and `ring-offset-0` were used for visual reasons
+            // Using `ring-inset` because offset doesn't look appealing in this context
             className="flex h-full items-center justify-center ring-inset ring-offset-0"
           >
             <FbLogo className="cursor-pointer lg:p-0" />

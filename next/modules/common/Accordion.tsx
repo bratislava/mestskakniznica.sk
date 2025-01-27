@@ -34,7 +34,7 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
   })
 
   const buttonStyles = cx(
-    'hover:text-underline flex items-center gap-4 text-left text-h5 outline-none ring-offset-2 transition focus-visible:ring',
+    'hover:text-underline base-focus-ring flex items-center gap-4 text-left text-h5',
     {
       'py-[18.5px] px-4 md:px-6 md:py-5': type === 'boxed',
       'py-[18.5px] md:py-6': type === 'divider-big',

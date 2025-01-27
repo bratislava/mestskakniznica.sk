@@ -59,6 +59,10 @@ body {
     @apply flex h-5 w-5 items-center rounded-full border-2 border-border-dark;
     @apply box-border justify-center overflow-hidden;
   }
+
+  .base-focus-ring {
+    @apply outline-none ring-offset-2 transition focus-visible:ring;
+  }
 }
 
 .chq-atc--button > svg {

@@ -37,7 +37,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
     ref
   ) => {
     const styles = twMerge(
-      cx('outline-none ring-offset-2 transition focus-visible:ring', {
+      cx('base-focus-ring', {
         'hover:underline': variant === 'basic',
         'underline underline-offset-1 hover:text-foreground-body': variant === 'breadcrumb',
         'underline underline-offset-1 hover:text-foreground-dark': variant === 'richtext',

@@ -17,6 +17,7 @@ const NavMenuTrigger = forwardRef<HTMLButtonElement, NavMenuTriggerProps>(
         onPointerMove={(event) => event.preventDefault()}
         onPointerLeave={(event) => event.preventDefault()}
         className={cx(
+          // Using `ring-inset` because offset doesn't look appealing in this context
           'flex h-full w-full items-end pb-1 text-h5 outline-none ring-inset transition hover:underline focus-visible:ring data-[state=open]:underline',
           {
             'pl-3': !isFirst,

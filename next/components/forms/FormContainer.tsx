@@ -90,7 +90,7 @@ const FormContainer = ({
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               onSubmit={onSubmit}
               onKeyDown={() => listener}
-              className="fixed inset-0 z-40 flex flex-col bg-white outline-none ring-offset-2 transition focus-visible:ring md:relative md:z-0"
+              className="base-focus-ring fixed inset-0 z-40 flex flex-col bg-white md:relative md:z-0"
             >
               {/* HEADER */}
               <div className="flex items-center justify-between border-b border-border-dark md:hidden">

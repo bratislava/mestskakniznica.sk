@@ -143,8 +143,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
             return (
               <CardWrapper
                 key={branch.id}
-                // `ring-inset` was used instead of the default `ring-offset-2` for visual reasons
-                className={cx('relative ring-inset', {
+                className={cx('relative', {
                   'lg:border-l-0': index === 0 && !altDesign,
                   'w-70 flex-shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0 lg:focus-within:border-transparent':
                     !altDesign,

@@ -14,13 +14,7 @@ registerLocale('sk', sk)
 const MDatePicker = (props: ComponentProps<typeof ReactDatePicker>) => {
   const { i18n } = useTranslation()
 
-  return (
-    <ReactDatePicker
-      locale={i18n.language}
-      {...props}
-      className="outline-none ring-offset-2 transition focus-visible:ring"
-    />
-  )
+  return <ReactDatePicker locale={i18n.language} {...props} className="base-focus-ring" />
 }
 
 export default MDatePicker
