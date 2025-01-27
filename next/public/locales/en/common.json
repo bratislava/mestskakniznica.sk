@@ -12,6 +12,7 @@
   "openingHours": "Opening hours",
   "openingHoursOpenUntil": "Open until",
   "openingHoursClosed": "Currently closed",
+  "openingHoursChangeAlertTitle": "Notice, change of opening hours!",
   "copyright": "Bratislava City Library",
   "category": "Category",
   "coverImageFor": "Cover image for {{title}}",

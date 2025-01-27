@@ -8813,6 +8813,27 @@ export type NoticeBySlugQuery = {
   } | null
 }
 
+export type OpeningHoursChangeNoticesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']
+}>
+
+export type OpeningHoursChangeNoticesQuery = {
+  __typename?: 'Query'
+  notices?: {
+    __typename?: 'NoticeEntityResponseCollection'
+    data: Array<{
+      __typename: 'NoticeEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Notice'
+        slug: string
+        locale?: string | null
+        title: string
+      } | null
+    }>
+  } | null
+}
+
 type PageSections_ComponentSectionsAccordion_Fragment = {
   __typename: 'ComponentSectionsAccordion'
   id: string
@@ -12503,6 +12524,26 @@ export const NoticeBySlugDocument = gql`
   }
   ${NoticeEntityFragmentDoc}
 `
+export const OpeningHoursChangeNoticesDocument = gql`
+  query OpeningHoursChangeNotices($locale: I18NLocaleCode!) {
+    notices(
+      filters: { isCurrentChangeInOpeningHours: { eq: true } }
+      sort: "addedAt:desc"
+      pagination: { limit: -1 }
+      locale: $locale
+    ) {
+      data {
+        __typename
+        id
+        attributes {
+          slug
+          locale
+          title
+        }
+      }
+    }
+  }
+`
 export const PagesStaticPathsDocument = gql`
   query PagesStaticPaths($locale: I18NLocaleCode) {
     pages(locale: $locale) {
@@ -12824,6 +12865,21 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'NoticeBySlug',
+        'query'
+      )
+    },
+    OpeningHoursChangeNotices(
+      variables: OpeningHoursChangeNoticesQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<OpeningHoursChangeNoticesQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<OpeningHoursChangeNoticesQuery>(
+            OpeningHoursChangeNoticesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'OpeningHoursChangeNotices',
         'query'
       )
     },

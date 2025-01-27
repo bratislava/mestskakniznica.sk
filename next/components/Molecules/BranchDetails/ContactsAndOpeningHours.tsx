@@ -1,3 +1,4 @@
+import OpeningHoursChangeAlert from '@components/Molecules/OpeningHoursChangeAlert'
 import { BranchPlaceEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -17,9 +18,10 @@ const ContactsAndOpeningHours = ({ branch, branches }: ContactsAndOpeningHoursPr
   }
 
   return (
-    <div className="pt-10" id="sections">
+    <div className="flex flex-col gap-5 pt-10" id="sections">
       <div className="text-[24px]">{t('sections')}</div>
-      <div className="pt-5">
+      <OpeningHoursChangeAlert />
+      <div>
         <BranchContactUsOpeningHoursInfo branch={branch} />
         {branches &&
           branches.map((subBranch) => <BranchContactUsOpeningHoursInfo branch={subBranch} />)}
