@@ -135,7 +135,7 @@ const EventDetails = ({ event }: PageProps) => {
             <div className="pt-5">
               <RichText content={event?.attributes?.description ?? ''} />
             </div>
-            {filteredImages?.length > 0 ? (
+            {filteredImages.length > 0 ? (
               <div className="pt-5">
                 <ImageGallery images={filteredImages} variant="below" />
               </div>
