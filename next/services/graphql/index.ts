@@ -12528,7 +12528,7 @@ export const OpeningHoursChangeNoticesDocument = gql`
   query OpeningHoursChangeNotices($locale: I18NLocaleCode!) {
     notices(
       filters: { isCurrentChangeInOpeningHours: { eq: true } }
-      sort: "addedAt:desc"
+      sort: "publishedAt:desc"
       pagination: { limit: -1 }
       locale: $locale
     ) {
