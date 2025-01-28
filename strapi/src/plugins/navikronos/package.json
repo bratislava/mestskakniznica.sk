@@ -7,10 +7,11 @@
     "kind": "plugin"
   },
   "dependencies": {
+    "@strapi/helper-plugin": "4.11.4",
     "immer": "^9.0.18",
     "lodash": "^4.17.21",
     "react-query": "^3.39.2",
-    "strapi-typed": "^1.0.15",
+    "strapi-typed": "^1.0.20",
     "styled-components": "^5.3.6",
     "zod": "^3.20.2"
   },
