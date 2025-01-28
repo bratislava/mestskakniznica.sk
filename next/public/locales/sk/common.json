@@ -12,6 +12,7 @@
   "openingHours": "Otváracie hodiny",
   "openingHoursOpenUntil": "Dnes je otvorené do",
   "openingHoursClosed": "Teraz je zatvorené",
+  "openingHoursChangeAlertTitle": "Pozor, zmena otváracích hodín!",
   "copyright": "Mestská knižnica v Bratislave",
   "category": "Kategórie",
   "coverImageFor": "Ilustračný obrázok pre {{title}}",

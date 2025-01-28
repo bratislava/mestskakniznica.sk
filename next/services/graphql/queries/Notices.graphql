@@ -74,11 +74,7 @@ query NoticesStaticPaths($locale: I18NLocaleCode!) {
   }
 }
 
-query Notices(
-  $locale: I18NLocaleCode!
-  $limit: Int
-  $start: Int
-) {
+query Notices($locale: I18NLocaleCode!, $limit: Int, $start: Int) {
   notices(locale: $locale, pagination: { limit: $limit, start: $start }, sort: "publishedAt:desc") {
     data {
       ...NoticeListingEntity
@@ -95,6 +91,25 @@ query NoticeBySlug($slug: String!, $locale: I18NLocaleCode!) {
   notices(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
       ...NoticeEntity
+    }
+  }
+}
+
+query OpeningHoursChangeNotices($locale: I18NLocaleCode!) {
+  notices(
+    filters: { isCurrentChangeInOpeningHours: { eq: true } }
+    sort: "publishedAt:desc"
+    pagination: { limit: -1 }
+    locale: $locale
+  ) {
+    data {
+      __typename
+      id
+      attributes {
+        slug
+        locale
+        title
+      }
     }
   }
 }
