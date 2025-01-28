@@ -32,7 +32,7 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
       <button
         type="button"
         onClick={onClick}
-        className={cx('flex cursor-pointer items-center gap-x-6 ', {
+        className={cx('base-focus-ring flex cursor-pointer items-center gap-x-6', {
           'mb-6': active || finished,
         })}
         aria-label={`${active ? t('openAccordian') : t('closeAccordian')} ${title}`}

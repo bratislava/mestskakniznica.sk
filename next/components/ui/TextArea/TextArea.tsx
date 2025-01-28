@@ -34,7 +34,7 @@ export const TextArea = ({
       <div>
         <textarea
           id={id}
-          className={cx('base-input resize-none', textAreaClassname, {
+          className={cx('base-input base-focus-ring resize-none', textAreaClassname, {
             'base-input--with-error': hasError,
           })}
           aria-invalid={hasError}

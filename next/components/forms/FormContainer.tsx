@@ -83,11 +83,14 @@ const FormContainer = ({
             {buttonText}
           </Button>
           {isFormOpen && (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
             <form
-              onSubmit={onSubmit}
-              className="fixed inset-0 z-40 flex flex-col bg-white md:relative md:z-0"
-              onKeyDown={() => listener}
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
               tabIndex={0}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              onSubmit={onSubmit}
+              onKeyDown={() => listener}
+              className="base-focus-ring fixed inset-0 z-40 flex flex-col bg-white md:relative md:z-0"
             >
               {/* HEADER */}
               <div className="flex items-center justify-between border-b border-border-dark md:hidden">

@@ -48,7 +48,7 @@ body {
 @layer components {
   .base-input {
     @apply box-border inline-block appearance-none border bg-white px-3 py-2 text-base text-foreground-heading;
-    @apply border-border-light placeholder:text-foreground-body hover:border-border-dark focus:border-border-dark focus:outline-none;
+    @apply border-border-light placeholder:text-foreground-body hover:border-border-dark focus:border-border-dark;
   }
 
   .base-input--with-error {
@@ -58,6 +58,10 @@ body {
   .base-radio {
     @apply flex h-5 w-5 items-center rounded-full border-2 border-border-dark;
     @apply box-border justify-center overflow-hidden;
+  }
+
+  .base-focus-ring {
+    @apply outline-none ring-offset-2 transition focus-visible:ring;
   }
 }
 

@@ -77,7 +77,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           tabIndex={0}
           aria-label={t('openImageGallery')}
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
-          className={cx('outline-primary cursor-default outline-offset-2 focus:outline-4', {
+          className={cx('outline-primary base-focus-ring cursor-default', {
             'flex flex-col ': variant === 'below',
             'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
           })}

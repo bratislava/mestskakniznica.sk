@@ -33,7 +33,7 @@ export const Upload = ({
       )}
       <div
         className={cx(
-          'group relative flex flex-col items-center justify-center gap-y-6 border border-dashed p-6',
+          'group relative flex flex-col items-center justify-center gap-y-6 border border-dashed p-6 ring-offset-2 transition focus-within:ring',
           {
             'bg-emerald-200 transform transition-all duration-200':
               isInArea || fileInputRef.current?.files?.length,
@@ -48,7 +48,7 @@ export const Upload = ({
           id={id}
           ref={fileInputRef}
           type="file"
-          className="absolute h-full w-full cursor-pointer opacity-0"
+          className="absolute h-full w-full cursor-pointer opacity-0 outline-none"
           aria-invalid={hasError}
           aria-required={required}
           aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}

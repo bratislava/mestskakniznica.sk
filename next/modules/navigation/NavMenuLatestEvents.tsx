@@ -13,11 +13,14 @@ const NavMenuLatestEvents = () => {
 
   return (
     <ul className="mt-2 grid grid-flow-col grid-rows-2 gap-x-5 gap-y-3">
-      {upcomingEvents.data.filter(isDefined).map((event) => {
+      {upcomingEvents.data.filter(isDefined).map((event, index) => {
         return (
-          <NavigationMenu.Link asChild key={event.id}>
-            <EventRow event={event} />
-          </NavigationMenu.Link>
+          // eslint-disable-next-line react/no-array-index-key
+          <li key={index}>
+            <NavigationMenu.Link asChild>
+              <EventRow event={event} />
+            </NavigationMenu.Link>
+          </li>
         )
       })}
     </ul>

@@ -84,7 +84,8 @@ export const Footer = ({
             href={facebookUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex h-full items-center justify-center"
+            // Using `ring-inset` because offset doesn't look appealing in this context
+            className="flex h-full items-center justify-center ring-inset ring-offset-0"
           >
             <FbLogo className="cursor-pointer lg:p-0" />
             <span className="sr-only">Facebook</span>
@@ -93,7 +94,7 @@ export const Footer = ({
             href={instagramUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex h-full items-center justify-center border-x border-border-dark"
+            className="flex h-full items-center justify-center border-x border-border-dark ring-inset ring-offset-0"
           >
             <IgLogo className="cursor-pointer lg:p-0" />
             <span className="sr-only">Instagram</span>
@@ -102,7 +103,7 @@ export const Footer = ({
             href={youtubeUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex h-full items-center justify-center"
+            className="flex h-full items-center justify-center ring-inset ring-offset-0"
           >
             <YtLogo className="cursor-pointer lg:p-0" />
             <span className="sr-only">Youtube</span>

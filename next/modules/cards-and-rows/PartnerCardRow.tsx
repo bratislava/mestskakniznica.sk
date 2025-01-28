@@ -1,4 +1,5 @@
 import { GlobeIcon } from '@assets/icons'
+import CardWrapper from '@modules/cards-and-rows/CardWrapper'
 import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
@@ -14,7 +15,7 @@ type PartnerCardRowProps = {
 const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: PartnerCardRowProps) => {
   const { t } = useTranslation('common')
   return (
-    <li
+    <CardWrapper
       className={cx('relative flex w-full border-border-dark py-4 lg:p-5', {
         'min-h-[199px] flex-col items-center justify-end border': featured,
         'flex-row justify-between border-b last:border-0 lg:border lg:last:border': !featured,
@@ -62,7 +63,7 @@ const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: Partner
           </span>
         </MLink>
       </div>
-    </li>
+    </CardWrapper>
   )
 }
 

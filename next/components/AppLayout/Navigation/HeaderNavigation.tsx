@@ -15,7 +15,8 @@ const HeaderNavigation = () => {
       <MLink
         href={getPathForStrapiEntity(general?.data?.attributes?.openingHoursPage?.data) ?? '#'}
         variant="basic"
-        className="relative grid place-content-center border-l border-border-dark px-3"
+        // Using `ring-inset` because offset doesn't look appealing in this context
+        className="relative grid place-content-center border-l border-border-dark px-3 ring-inset ring-offset-0"
       >
         {t('openingHours')}
       </MLink>
@@ -23,7 +24,7 @@ const HeaderNavigation = () => {
         href="https://opac.mestskakniznica.sk/opac"
         variant="basic"
         target="_blank"
-        className="grid place-content-center border-l border-border-dark px-3"
+        className="grid place-content-center border-l border-border-dark px-3 ring-inset ring-offset-0"
       >
         {t('onlineCatalog')}
       </MLink>
@@ -32,7 +33,7 @@ const HeaderNavigation = () => {
         locale={otherLocale.locale}
         aria-label={t('otherLocaleAriaLabel')}
         variant="basic"
-        className="grid place-content-center border-l border-border-dark pl-3"
+        className="grid place-content-center border-l border-border-dark pl-3 ring-inset ring-offset-0"
       >
         {otherLocale.locale.toUpperCase()}
       </MLink>

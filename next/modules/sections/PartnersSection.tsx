@@ -19,15 +19,16 @@ const PartnersSection = () => {
       {data?.featuredPartners && data.featuredPartners.data.length > 0 && (
         <ul className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
           {data.featuredPartners.data.map((partner, index) => (
-            <PartnerCardRow
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              id={`featured-partner-${index}`}
-              title={partner?.attributes?.title ?? ''}
-              logo={partner?.attributes?.logo?.data?.attributes?.url ?? ''}
-              linkHref={partner?.attributes?.url ?? '#'}
-              featured
-            />
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>
+              <PartnerCardRow
+                id={`featured-partner-${index}`}
+                title={partner?.attributes?.title ?? ''}
+                logo={partner?.attributes?.logo?.data?.attributes?.url ?? ''}
+                linkHref={partner?.attributes?.url ?? '#'}
+                featured
+              />
+            </li>
           ))}
         </ul>
       )}
@@ -35,13 +36,14 @@ const PartnersSection = () => {
       {data?.notFeaturedPartners && data.notFeaturedPartners.data.length > 0 && (
         <ul className="mt-12 flex flex-col lg:space-y-3">
           {data.notFeaturedPartners.data.map((partner, index) => (
-            <PartnerCardRow
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              id={`non-featured-partner-${index}`}
-              title={partner?.attributes?.title || ''}
-              linkHref={partner?.attributes?.url || ''}
-            />
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>
+              <PartnerCardRow
+                id={`non-featured-partner-${index}`}
+                title={partner?.attributes?.title || ''}
+                linkHref={partner?.attributes?.url || ''}
+              />
+            </li>
           ))}
         </ul>
       )}

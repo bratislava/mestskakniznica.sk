@@ -1,5 +1,6 @@
 import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
 import TagsDisplay from '@components/Atoms/TagsDisplay'
+import CardWrapper from '@modules/cards-and-rows/CardWrapper'
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import {
@@ -37,9 +38,9 @@ const EventCard = ({
 }: EventCardProps) => {
   const { t } = useTranslation('common')
   const { getPathForEntity } = useNavikronos()
-
+  
   return (
-    <div className="relative">
+    <CardWrapper className="relative">
       <img
         className="h-[200px] w-full flex-1 object-cover"
         alt={t('eventDetailImagePlaceholder')}
@@ -75,7 +76,7 @@ const EventCard = ({
       {branch?.title && (
         <div className="pt-2 text-sm text-foreground-body">&#9679; {branch.title}</div>
       )}
-    </div>
+    </CardWrapper>
   )
 }
 

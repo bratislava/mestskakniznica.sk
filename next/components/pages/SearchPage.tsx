@@ -1,6 +1,7 @@
 import { ChevronRightIcon } from '@assets/icons'
 import { PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
+import CardWrapper from '@modules/cards-and-rows/CardWrapper'
 import MLink from '@modules/common/MLink'
 import {
   allSearchTypes,
@@ -27,7 +28,7 @@ const SearchPage = () => {
   const { getPathForEntity } = useNavikronos()
   const plausible = usePlausible()
 
-  const resultsRef = useRef<HTMLDivElement>(null)
+  const resultsRef = useRef<HTMLUListElement>(null)
 
   const [filters, setFilters] = useState<CommonSearchFilters>({
     searchValue: '',
@@ -113,22 +114,22 @@ const SearchPage = () => {
           />
         </div>
         <div className="mt-5 flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
-          <div className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
-            <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
-              {t('allResults')}
-            </TagToggle>
+          <ul className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
+            <li>
+              <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
+                {t('allResults')}
+              </TagToggle>
+            </li>
             {allSearchTypes.map((type) => {
               return (
-                <TagToggle
-                  isSelected={isTypeSelected(type)}
-                  onChange={changeTypeSelected(type)}
-                  key={type}
-                >
-                  {t(`searchTags.${type}`)}
-                </TagToggle>
+                <li key={type}>
+                  <TagToggle isSelected={isTypeSelected(type)} onChange={changeTypeSelected(type)}>
+                    {t(`searchTags.${type}`)}
+                  </TagToggle>
+                </li>
               )
             })}
-          </div>
+          </ul>
         </div>
 
         <h2 className="sr-only">{t('searchResults')}</h2>
@@ -159,44 +160,39 @@ const SearchPage = () => {
                 {t('resultsFound', { count: 0 })}
               </motion.div>
             ) : (
-              <div ref={resultsRef} className="flex flex-col">
+              <ul ref={resultsRef} className="flex flex-col">
                 {data?.hits.map(({ title, type, id, slug }, index) => {
                   const link = getPathForEntity(
                     type === 'page' ? { type, id: String(id) } : { type, slug }
                   )
 
                   return (
-                    <div
-                      // eslint-disable-next-line react/no-array-index-key
+                    <li // eslint-disable-next-line react/no-array-index-key
                       key={index}
-                      className="group relative flex items-center justify-between gap-x-6 border-b border-border-dark py-4 focus-within:border-transparent focus-within:ring-2 focus-within:ring-outline"
                     >
-                      <div className="flex grow flex-col gap-y-2">
-                        <div className="flex items-start gap-x-4 max-md:justify-between">
-                          <MLink
-                            href={link ?? '#'}
-                            variant="basic"
-                            stretched
-                            className="outline-none"
-                          >
-                            <h2>{title}</h2>
-                          </MLink>
-                          {/* py set to 2px to coun also with the border */}
-                          <span className="flex h-6 shrink-0 items-center rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[18px]">
-                            {/* TODO proper translation keys */}
-                            {t(`searchTags.${type}`)}
-                          </span>
+                      <CardWrapper className="group relative flex items-center justify-between gap-x-6 border-b border-border-dark py-4">
+                        <div className="flex grow flex-col gap-y-2">
+                          <div className="flex items-start gap-x-4 max-md:justify-between">
+                            <MLink href={link ?? '#'} variant="basic" stretched>
+                              <h2>{title}</h2>
+                            </MLink>
+                            {/* py set to 2px to coun also with the border */}
+                            <span className="flex h-6 shrink-0 items-center rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[18px]">
+                              {/* TODO proper translation keys */}
+                              {t(`searchTags.${type}`)}
+                            </span>
+                          </div>
+                          <div className="flex items-center text-xs text-foreground-body">
+                            <span>{link}</span>
+                          </div>
                         </div>
-                        <div className="flex items-center text-xs text-foreground-body">
-                          <span>{link}</span>
-                        </div>
-                      </div>
 
-                      <ChevronRightIcon className="shrink-0 max-md:hidden" />
-                    </div>
+                        <ChevronRightIcon className="shrink-0 max-md:hidden" />
+                      </CardWrapper>
+                    </li>
                   )
                 })}
-              </div>
+              </ul>
             )}
           </AnimateHeight>
           {data?.estimatedTotalHits ? (

@@ -1,4 +1,5 @@
 import EventDetailsDateBox from '@components/Atoms/EventDetailsDateBox'
+import CardWrapper from '@modules/cards-and-rows/CardWrapper'
 import MLink from '@modules/common/MLink'
 import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@services/graphql'
@@ -25,7 +26,7 @@ const EventRow = ({ event }: EventRowProps) => {
   const eventBranchTitle = branch?.data?.attributes?.title
 
   return (
-    <li className="relative flex items-center gap-x-5 py-[14px]">
+    <CardWrapper className="relative flex items-center gap-x-5 py-[14px]">
       <div className="flex h-16 w-16 shrink-0 bg-promo-yellow text-center">
         <EventDetailsDateBox dateFrom={dateFrom} dateTo={dateTo} textClassname="text-[18px]" />
       </div>
@@ -48,7 +49,7 @@ const EventRow = ({ event }: EventRowProps) => {
           )}
         </div>
       </div>
-    </li>
+    </CardWrapper>
   )
 }
 

@@ -10,11 +10,16 @@ const MobileLatestEvents = () => {
   if (!upcomingEvents?.data.length) {
     return null
   }
-
+  
   return (
     <ul className="mt-2 flex flex-col gap-y-3">
-      {upcomingEvents.data.filter(isDefined).map((event) => {
-        return <EventRow event={event} />
+      {upcomingEvents.data.filter(isDefined).map((event, index) => {
+        return (
+          // eslint-disable-next-line react/no-array-index-key
+          <li key={index}>
+            <EventRow event={event} />
+          </li>
+        )
       })}
     </ul>
   )

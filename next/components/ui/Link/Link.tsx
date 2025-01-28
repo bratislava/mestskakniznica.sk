@@ -23,7 +23,7 @@ export const Link = ({
   return (
     <NextLink
       href={href}
-      className={cx('hover:underline', className, {
+      className={cx('base-focus-ring hover:underline', className, {
         'flex items-center gap-x-2.5 text-foreground-heading': variant === 'default',
         'text-[16px]': size === 'large',
         'text-[14px]': size === 'default',

@@ -22,7 +22,7 @@ export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
         id={props.id}
         required={props.required}
         className={cx(
-          'flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-border-dark text-white outline-1 outline-offset-2 focus:outline',
+          'base-focus-ring flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-border-dark text-white',
           {
             'bg-dark': props.checked,
             'base-input--disabled': props.disabled,

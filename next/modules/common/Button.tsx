@@ -72,7 +72,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       ref as RefObject<HTMLAnchorElement | HTMLButtonElement>
     )
 
-    const baseStyle = 'appearance-none outline-1 outline-offset-2 focus:outline'
+    const baseStyle = 'appearance-none base-focus-ring'
 
     const style =
       variant === 'unstyled'
