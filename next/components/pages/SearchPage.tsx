@@ -160,7 +160,7 @@ const SearchPage = () => {
                 {t('resultsFound', { count: 0 })}
               </motion.div>
             ) : (
-              <ul ref={resultsRef} className="flex flex-col">
+              <ul ref={resultsRef} className="-mb-3 flex flex-col pb-3">
                 {data?.hits.map(({ title, type, id, slug }, index) => {
                   const link = getPathForEntity(
                     type === 'page' ? { type, id: String(id) } : { type, slug }

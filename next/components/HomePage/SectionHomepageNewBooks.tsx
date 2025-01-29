@@ -18,7 +18,7 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
       <section className="relative flex w-full flex-col py-10">
         <h2 className="text-center text-h3 md:text-left">{t('newBooksTitle')}</h2>
 
-        <div className="overflow-x-auto">
+        <div className="-mx-2 overflow-x-auto px-2">
           <div className="flex gap-x-4 py-6 xl:grid xl:grid-cols-6">
             {books.map((book) => (
               <div key={book.url} className="shrink-0">

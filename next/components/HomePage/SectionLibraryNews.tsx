@@ -23,7 +23,7 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
         <h2 className="text-center text-h3 md:text-left">{newsSection.title}</h2>
         <div className="w-full px-4 lg:px-0">
           <Carousel
-            listClassName="py-10 gap-4 lg:gap-8"
+            listClassName="py-10 gap-4 lg:gap-6 px-2 -mx-2 lg:pr-2"
             itemClassName="w-10/12 max-w-[268px] md:max-w-[271px]"
             items={notices.map((notice) => ({
               element: <NoticeCard notice={notice} />,
