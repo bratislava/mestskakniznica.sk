@@ -13,31 +13,33 @@ interface SectionPromosProps {
 
 const SectionPromos = ({ promos }: SectionPromosProps) => {
   return (
-    <Carousel
-      listClassName="my-10 gap-4 px-4 lg:gap-5 h-full"
-      itemClassName="w-10/12 max-w-[268px] md:max-w-[379px]"
-      shiftIndex={3}
-      items={promos
-        ?.map((promo) => {
-          switch (promo.__typename) {
-            case 'EventEntity':
-              return {
-                element: <PromoEventCard event={withAttributes(promo)} />,
-                key: promo?.attributes?.slug,
-              }
+    <div className="-my-2 lg:-mx-2">
+      <Carousel
+        listClassName="my-10 gap-4 px-4 lg:px-2 lg:gap-5 h-full py-2"
+        itemClassName="w-10/12 max-w-[268px] md:max-w-[379px]"
+        shiftIndex={3}
+        items={promos
+          ?.map((promo) => {
+            switch (promo.__typename) {
+              case 'EventEntity':
+                return {
+                  element: <PromoEventCard event={withAttributes(promo)} />,
+                  key: promo?.attributes?.slug,
+                }
 
-            case 'NoticeEntity':
-              return {
-                element: <PromoNewsCard notice={promo} />,
-                key: promo?.attributes?.slug,
-              }
+              case 'NoticeEntity':
+                return {
+                  element: <PromoNewsCard notice={promo} />,
+                  key: promo?.attributes?.slug,
+                }
 
-            default:
-              return { element: null, key: undefined }
-          }
-        })
-        .filter(isDefined)}
-    />
+              default:
+                return { element: null, key: undefined }
+            }
+          })
+          .filter(isDefined)}
+      />
+    </div>
   )
 }
 
