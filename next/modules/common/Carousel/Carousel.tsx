@@ -7,6 +7,7 @@ import CarouselControl, { CarouselControlDirection } from './CarouselControl'
 interface SectionPromosProps {
   listClassName?: string
   itemClassName?: string
+  className?: string
   items: { element: ReactNode; key: string | undefined }[]
   shiftIndex?: number
   visibleItemsCount?: number
@@ -16,6 +17,7 @@ interface SectionPromosProps {
 const Carousel = ({
   listClassName,
   itemClassName,
+  className,
   items,
   shiftIndex = 1,
   visibleItemsCount = 3,
@@ -64,7 +66,7 @@ const Carousel = ({
   }
 
   return (
-    <div className="relative">
+    <div className={twMerge(cx('relative'), className)}>
       <div className="hidden lg:block">
         {items.length >= visibleItemsCount && (
           <CarouselControl
@@ -76,7 +78,7 @@ const Carousel = ({
       </div>
       <ul
         className={twMerge(
-          cx('-mx-4 flex snap-x snap-mandatory overflow-x-auto overflow-y-clip lg:mx-0 ', {
+          cx('-mx-4 flex snap-x snap-mandatory overflow-x-auto overflow-y-clip lg:mx-0', {
             'scrollbar-hide': hideScrollbar,
           }),
           listClassName
