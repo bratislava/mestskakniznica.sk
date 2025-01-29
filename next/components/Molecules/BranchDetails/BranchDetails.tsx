@@ -37,11 +37,11 @@ const BranchDetails = ({ branch }: PageProps) => {
         <div>
           <div className="border-b border-border-dark pb-10">
             <div className="py-[12px] text-[32px]">
-              <div className="pb-8">
+              <div className="pb-6">
                 <h1 className="text-h1">{title}</h1>
 
-                <div className="-mx-4 -mb-2 overflow-x-auto">
-                  <div className="flex gap-x-6 px-4 pb-2 pt-9 text-sm uppercase">
+                <div className="-mx-4 -mb-2 overflow-x-auto pb-2">
+                  <div className="flex gap-x-6 px-4 pt-9 text-sm uppercase">
                     {AnchorLink('#description', t('description'))}
                     {servicePages?.data.length ? AnchorLink('#services', t('services')) : null}
                     {subBranches?.data.length ? AnchorLink('#sections', t('sections')) : null}
