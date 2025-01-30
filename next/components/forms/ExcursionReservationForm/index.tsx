@@ -14,8 +14,6 @@ import { options } from './options'
 
 const ExcursionReservationForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
-  const [isAccessibleForBlind, setIsAccessibleForBlind] = React.useState(false)
-
   const { t } = useTranslation(['forms', 'common'])
   const router = useRouter()
 
@@ -79,9 +77,7 @@ const ExcursionReservationForm = () => {
       ...temp,
 
       mg_subject: null,
-      mg_email_to: isAccessibleForBlind
-        ? 'nevidiaci@mestskakniznica.sk'
-        : 'miroslava.jorikova@mestskakniznica.sk',
+      mg_email_to: 'podujatia@mestskakniznica.sk',
       mg_reply_to: data.email,
       meta_sent_from: router.asPath,
       meta_locale: router.locale,
@@ -198,9 +194,6 @@ const ExcursionReservationForm = () => {
                 options={selectOptions}
                 onChange={(opt) => {
                   onChange(opt.key)
-                  setIsAccessibleForBlind(
-                    opt.key === 'svet_pana_brailla' || opt.key === 'citanie_so_psikmi'
-                  )
                 }}
                 hasError={!!errors.excursionType}
                 errorMessage={t('validation_error_radiogroup')}

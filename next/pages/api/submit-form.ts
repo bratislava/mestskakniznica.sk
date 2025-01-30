@@ -31,8 +31,7 @@ const available_emails = new Set([
   'miroslava.porubska@mestskakniznica.sk',
   'diplomovky@mestskakniznica.sk',
   'vypozicky.hudobna@mestskakniznica.sk',
-  'nevidiaci@mestskakniznica.sk',
-  'miroslava.jorikova@mestskakniznica.sk',
+  'podujatia@mestskakniznica.sk',
 ])
 
 // To send results of any form on the page to the email of city library,
