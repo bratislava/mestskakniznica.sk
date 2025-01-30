@@ -61,14 +61,14 @@ export const options: IFormOption[] = [
     label: [
       {
         locale: 'sk',
-        label: 'študent/ka strednej alebo vysokej školy denného štúdia do 26 rokov',
+        label: 'Študent/ka strednej alebo vysokej školy denného štúdia do 26 rokov',
       },
       {
         locale: 'en',
         label: 'Full-time high school or university student under 26',
       },
     ],
-    price: '2,80 €',
+    price: '3,00 €',
   },
   {
     key: 'Dospelá osoba',
@@ -84,6 +84,14 @@ export const options: IFormOption[] = [
       { locale: 'sk', label: 'Právnická osoba' },
       { locale: 'en', label: 'Legal entity' },
     ],
-    price: '8,00 €',
+    price: '13,00 €',
+  },
+  {
+    key: 'Program Moja knižnica',
+    label: [
+      { locale: 'sk', label: 'Program Moja knižnica' },
+      { locale: 'en', label: 'My library programme' },
+    ],
+    price: '15,00 €',
   },
 ]
