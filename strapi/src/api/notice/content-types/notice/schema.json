@@ -91,6 +91,15 @@
         }
       },
       "component": "common.seo"
+    },
+    "isCurrentChangeInOpeningHours": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false
     }
   }
 }

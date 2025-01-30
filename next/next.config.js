@@ -28,6 +28,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/robots.txt',
+        destination: '/api/robots',
+        permanent: true,
+      },
+      {
         source: '/sk/o-nas/dokumenty-a-zverejnovanie-informacii/dokumenty',
         destination: '/o-nas/dokumenty-a-zverejnovanie-informacii/',
         permanent: true,

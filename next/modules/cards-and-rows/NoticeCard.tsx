@@ -30,7 +30,7 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
       <div className="flex h-full flex-col">
         {/* TODO: Replace with MImage */}
         <img
-          className="mb-4 h-48 w-full object-cover"
+          className="mb-4 h-40.5 w-full object-cover"
           alt=""
           src={image?.attributes?.url || Placeholder.src}
         />

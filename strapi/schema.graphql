@@ -72,7 +72,6 @@ type BasicDocumentRelationResponseCollection {
 type BlogPost {
   coverMedia: UploadFileEntityResponse
   createdAt: DateTime
-  isCurrentChangeInOpeningHours: Boolean
   locale: String
   localizations(filters: BlogPostFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BlogPostRelationResponseCollection
   publishedAt: DateTime
@@ -101,7 +100,6 @@ input BlogPostFiltersInput {
   and: [BlogPostFiltersInput]
   createdAt: DateTimeFilterInput
   id: IDFilterInput
-  isCurrentChangeInOpeningHours: BooleanFilterInput
   locale: StringFilterInput
   localizations: BlogPostFiltersInput
   not: BlogPostFiltersInput
@@ -115,7 +113,6 @@ input BlogPostFiltersInput {
 
 input BlogPostInput {
   coverMedia: ID
-  isCurrentChangeInOpeningHours: Boolean
   publishedAt: DateTime
   sections: [BlogPostSectionsDynamicZoneInput!]
   seo: ComponentCommonSeoInput
@@ -2642,6 +2639,7 @@ type Notice {
   createdAt: DateTime
   dateAdded: Date
   documents: ComponentSectionsDocuments
+  isCurrentChangeInOpeningHours: Boolean
   listingImage: UploadFileEntityResponse
   locale: String
   localizations(filters: NoticeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeRelationResponseCollection
@@ -2674,6 +2672,7 @@ input NoticeFiltersInput {
   dateAdded: DateFilterInput
   documents: ComponentSectionsDocumentsFiltersInput
   id: IDFilterInput
+  isCurrentChangeInOpeningHours: BooleanFilterInput
   locale: StringFilterInput
   localizations: NoticeFiltersInput
   not: NoticeFiltersInput
@@ -2690,6 +2689,7 @@ input NoticeInput {
   body: String
   dateAdded: Date
   documents: ComponentSectionsDocumentsInput
+  isCurrentChangeInOpeningHours: Boolean
   listingImage: ID
   promoted: Boolean
   publishedAt: DateTime

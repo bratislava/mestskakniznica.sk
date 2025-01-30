@@ -71,7 +71,7 @@ export const isEventPast = (dateTo: Date | string | null): boolean => {
 
 export const isServer = () => typeof window === 'undefined'
 
-export const isProductionDeployment = () => process.env.NEXT_PUBLIC_IS_STAGING !== 'true'
+export const isProductionDeployment = () => process.env.NEXT_PUBLIC_DEPLOYMENT === 'prod'
 
 export const getFileSize = (size: number | undefined, language: string) => {
   if (isDefined(size)) {

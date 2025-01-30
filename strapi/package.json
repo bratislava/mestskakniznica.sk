@@ -13,10 +13,10 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@strapi/plugin-graphql": "4.10.8",
-    "@strapi/plugin-i18n": "4.10.8",
-    "@strapi/plugin-users-permissions": "4.10.8",
-    "@strapi/strapi": "4.10.8",
+    "@strapi/plugin-graphql": "4.11.4",
+    "@strapi/plugin-i18n": "4.11.4",
+    "@strapi/plugin-users-permissions": "4.11.4",
+    "@strapi/strapi": "4.11.4",
     "pg": "^8.13.1",
     "strapi-plugin-meilisearch": "^0.9.2",
     "strapi-provider-upload-ts-minio": "^3.1.0"
