@@ -21,19 +21,17 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
     <SectionContainer hasBorder>
       <div className="relative flex w-full flex-col py-10">
         <h2 className="text-center text-h3 md:text-left">{newsSection.title}</h2>
-        <div className="w-full px-4 lg:px-0">
-          <Carousel
-            listClassName="py-10 gap-4 lg:gap-8"
-            itemClassName="w-10/12 max-w-[268px] md:max-w-[271px]"
-            items={notices.map((notice) => ({
-              element: <NoticeCard notice={notice} />,
-              key: notice.id ?? undefined,
-            }))}
-            visibleItemsCount={4}
-            shiftIndex={4}
-            hideScrollbar={false}
-          />
-        </div>
+        <Carousel
+          listClassName="py-10 gap-4 lg:gap-8"
+          itemClassName="w-10/12 max-w-[268px] md:max-w-[271px]"
+          items={notices.map((notice) => ({
+            element: <NoticeCard notice={notice} />,
+            key: notice.id ?? undefined,
+          }))}
+          visibleItemsCount={4}
+          shiftIndex={4}
+          hideScrollbar={false}
+        />
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
           {newsSection?.redirectTo && (
             <ShowMoreLink href={getPathForStrapiEntity(newsSection?.redirectTo?.data) ?? '#'}>
