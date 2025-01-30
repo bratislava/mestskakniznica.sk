@@ -23,7 +23,7 @@ const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
       <img
         src={image?.attributes?.url ?? '#'}
         alt={image?.attributes?.alternativeText ?? ''}
-        className="h-48 w-full object-cover"
+        className="h-40.5 w-full object-cover"
       />
       <div className="pt-4">
         <h3>
