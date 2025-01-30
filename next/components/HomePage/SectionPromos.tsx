@@ -15,7 +15,7 @@ const SectionPromos = ({ promos }: SectionPromosProps) => {
   return (
     <Carousel
       // heights include padding that is used together with negative margin to make the whole focus rings visible
-      listClassName="my-10 h-[366px] gap-4 md:h-[506px] py-2 -my-2 lg:gap-5 px-4 lg:px-0 lg:mx-0"
+      listClassName="my-10 h-[366px] gap-4 md:h-[506px] py-2 -my-2 lg:gap-5 px-4 lg:px-2 lg:-mx-2"
       itemClassName="w-10/12 max-w-[268px] md:max-w-[379px]"
       className="my-10"
       shiftIndex={3}
