@@ -78,9 +78,12 @@ const Carousel = ({
       </div>
       <ul
         className={twMerge(
-          cx('-mx-4 flex snap-x snap-mandatory overflow-x-auto overflow-y-clip lg:mx-0', {
-            'scrollbar-hide': hideScrollbar,
-          }),
+          cx(
+            '-mx-4 flex snap-x snap-mandatory overflow-x-auto overflow-y-clip px-4 lg:-mx-8 lg:px-8',
+            {
+              'scrollbar-hide': hideScrollbar,
+            }
+          ),
           listClassName
         )}
         ref={scrollerRef}
