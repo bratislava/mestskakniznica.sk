@@ -114,7 +114,7 @@ const SearchPage = () => {
           />
         </div>
         <div className="mt-5 flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
-          <ul className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
+          <ul className="-m-2 flex w-full items-center gap-3 overflow-auto p-2">
             <li>
               <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
                 {t('allResults')}
@@ -139,7 +139,7 @@ const SearchPage = () => {
 
         {/* eslint-disable-next-line sonarjs/no-redundant-boolean */}
         <div className="mt-12 flex flex-col gap-6">
-          <AnimateHeight isVisible>
+          <AnimateHeight isVisible className="-m-2 p-2">
             {isLoading ? (
               <>
                 {Array.from({ length: filters.pageSize }, (_, index) => (
@@ -160,7 +160,7 @@ const SearchPage = () => {
                 {t('resultsFound', { count: 0 })}
               </motion.div>
             ) : (
-              <ul ref={resultsRef} className="flex flex-col">
+              <ul ref={resultsRef} className="-mb-3 flex flex-col pb-3">
                 {data?.hits.map(({ title, type, id, slug }, index) => {
                   const link = getPathForEntity(
                     type === 'page' ? { type, id: String(id) } : { type, slug }
