@@ -6,12 +6,12 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
+import FormFooter from '@/components/forms/FormFooter'
 import { DateTimeSelect, Input, Select, TextArea } from '@/components/ui'
 import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
 import { convertDataToBody, getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
-import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
-import FormFooter from '../FormFooter'
 import { options, types } from './options'
 
 export interface VenueRentalFormProps {

@@ -1,12 +1,11 @@
 import { now, parseAbsolute } from '@internationalized/date'
 
+import { getMeilisearchPageOptions } from '@/services/meili/getMeilisearchPageOptions'
+import { meiliClient } from '@/services/meili/meilisearch'
+import { EventInListingMeili } from '@/services/meili/meiliTypes'
+import { SearchIndexWrapped, unwrapFromSearchIndex } from '@/services/meili/searchIndexWrapped'
 import { bratislavaTimezone } from '@/utils/consts'
 import { isDefined } from '@/utils/isDefined'
-
-import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
-import { meiliClient } from '../meilisearch'
-import { EventInListingMeili } from '../meiliTypes'
-import { SearchIndexWrapped, unwrapFromSearchIndex } from '../searchIndexWrapped'
 
 export enum EventListingType {
   Upcoming,

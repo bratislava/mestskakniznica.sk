@@ -1,9 +1,8 @@
 import React from 'react'
 
+import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
 import { GallerySectionFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
-
-import ImageGallery from '../common/ImageGallery/ImageGallery'
 
 type GalleryBannerSectionProps = {
   section: GallerySectionFragment

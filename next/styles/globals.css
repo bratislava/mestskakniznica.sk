@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '../modules/common/MDatePicker/MDatePicker.css';
+@import '@/modules/common/MDatePicker/MDatePicker.css';
 
 /* Mobile screen font sizes */
 :root {

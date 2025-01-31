@@ -1,8 +1,7 @@
 import cx from 'classnames'
 
 import { CalendarIcon, ClockIcon } from '@/assets/icons'
-
-import { Input, InputProps } from '../Input/Input'
+import { Input, InputProps } from '@/components/ui/Input/Input'
 
 export interface DateTimeSelectProps extends InputProps {
   type: 'date' | 'time'

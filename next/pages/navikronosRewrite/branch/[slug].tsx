@@ -5,6 +5,8 @@ import { ParsedUrlQuery } from 'node:querystring'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import BranchPage from '@/components/pages/BranchPage'
+import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
+import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { BranchEntityFragment, GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
@@ -12,9 +14,6 @@ import { extractLocalizationsWithSlug } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
-
-import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 
 type PageProps = {
   branch: BranchEntityFragment

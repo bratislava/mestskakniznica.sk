@@ -6,11 +6,11 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
+import FormFooter from '@/components/forms/FormFooter'
 import { Input, Select } from '@/components/ui'
 import { convertDataToBody, useGetFormOptions } from '@/utils/form-constants'
 
-import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
-import FormFooter from '../FormFooter'
 import { options } from './options'
 
 const GiftCardReservationForm = () => {

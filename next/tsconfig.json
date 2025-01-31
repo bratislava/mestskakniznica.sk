@@ -17,8 +17,7 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"],
-      "@/customTypes/@culturehq/add-to-calendar": ["./customTypes/@culturehq/add-to-calendar"]
+      "@/*": ["./*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],

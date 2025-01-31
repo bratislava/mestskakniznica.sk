@@ -7,6 +7,7 @@ import DocumentsCategorySelect from '@/components/Atoms/Documents/DocumentsCateg
 import SearchField from '@/components/Atoms/SearchField'
 import SortSelect, { Sort } from '@/components/Atoms/SortSelect'
 import { Pagination } from '@/components/ui'
+import { useSearch } from '@/hooks/useSearch'
 import DocumentRow from '@/modules/cards-and-rows/DocumentRow'
 import {
   documentsDefaultFilters,
@@ -17,8 +18,6 @@ import {
 import { useNavikronos } from '@/utils/navikronos'
 import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
-
-import { useSearch } from '../../hooks/useSearch'
 
 const DocumentsListingSection = () => {
   const { t } = useTranslation('common')

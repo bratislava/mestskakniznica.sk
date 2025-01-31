@@ -6,19 +6,19 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { CheckBox, DateTimeSelect, Input } from '@/components/ui'
-import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
-import Button from '@/modules/common/Button'
-import { getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
-
 import FormContainer, {
   IDCardRegex,
   phoneRegexOrEmpty,
   postalCodeRegex,
   SubmitStatus,
-} from '../FormContainer'
-import FormFooter from '../FormFooter'
-import StepNumberTitle from '../StepNumberTitle'
+} from '@/components/forms/FormContainer'
+import FormFooter from '@/components/forms/FormFooter'
+import StepNumberTitle from '@/components/forms/StepNumberTitle'
+import { CheckBox, DateTimeSelect, Input } from '@/components/ui'
+import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
+import Button from '@/modules/common/Button'
+import { getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
+
 import { options } from './options'
 
 const CityLibraryRegistrationForm = () => {

@@ -3,11 +3,10 @@ import React from 'react'
 
 import { SectionContainer } from '@/components/ui'
 import NoticeCard from '@/modules/cards-and-rows/NoticeCard'
+import Carousel from '@/modules/common/Carousel/Carousel'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { HomepageNewsSectionFragment, NoticeListingEntityFragment } from '@/services/graphql'
 import { useNavikronos } from '@/utils/navikronos'
-
-import Carousel from '../../modules/common/Carousel/Carousel'
 
 interface LibraryNewsProps {
   notices: NoticeListingEntityFragment[]

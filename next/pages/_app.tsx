@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '@/styles/globals.css'
 
 import { AppProps } from 'next/app'
 import Script from 'next/script'
@@ -8,16 +8,15 @@ import { NextAdapter } from 'next-query-params'
 import { OverlayProvider, SSRProvider } from 'react-aria'
 import { QueryParamProvider } from 'use-query-params'
 
+import ErrorDisplay from '@/components/Molecules/ErrorDisplay'
+import ErrorPage from '@/components/pages/ErrorPage'
 import { NavMenuContextProvider } from '@/modules/navigation/navMenuContext'
 import MI18nProvider from '@/modules/providers/MI18nProvider'
 import MQueryClientProvider from '@/modules/providers/MQueryClientProvider'
+import { NavikronosConfigProvider } from '@/navikronos/NavikronosConfigProvider'
 import { beausiteFont } from '@/utils/beausiteFont'
 import { navikronosConfig } from '@/utils/navikronos'
 import { isProductionDeployment } from '@/utils/utils'
-
-import ErrorDisplay from '../components/Molecules/ErrorDisplay'
-import ErrorPage from '../components/pages/ErrorPage'
-import { NavikronosConfigProvider } from '../navikronos/NavikronosConfigProvider'
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
   if (pageProps.error) {

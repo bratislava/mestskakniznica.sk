@@ -1,10 +1,9 @@
 import { SearchResponse } from 'meilisearch'
 
+import { getMeilisearchPageOptions } from '@/services/meili/getMeilisearchPageOptions'
+import { meiliClient } from '@/services/meili/meilisearch'
 import { DisclosureMeili, DocumentMeili } from '@/services/meili/meiliTypes'
-
-import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
-import { meiliClient } from '../meilisearch'
-import { SearchIndexWrapped } from '../searchIndexWrapped'
+import { SearchIndexWrapped } from '@/services/meili/searchIndexWrapped'
 
 export const allSearchTypes = [
   'page' as const,
