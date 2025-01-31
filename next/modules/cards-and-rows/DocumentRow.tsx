@@ -43,7 +43,7 @@ const DocumentRow = ({
           {metadata && addedAt ? <span className="hidden lg:block">&bull;</span> : null}
           {addedAt && (
             <div>
-              {t('added')} <FormatDate value={addedAt} valueType="ISO" />
+              {t('common.added')} <FormatDate value={addedAt} valueType="ISO" />
             </div>
           )}
         </div>

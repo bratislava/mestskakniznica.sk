@@ -32,7 +32,7 @@ const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
               key={service.id}
               title={service.attributes.title}
               href={getPathForStrapiEntity(service) ?? '#'}
-              showMoreText={t('more')}
+              showMoreText={t('common.more')}
               className="h-[134px] pr-[24px]"
             />
           )

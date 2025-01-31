@@ -54,7 +54,7 @@ const EventDetails = ({ event }: PageProps) => {
       ),
       position: 'center',
       width: 350,
-      confirmButtonText: t('close'),
+      confirmButtonText: t('common.close'),
       confirmButtonColor: '#2f2f2f',
       customClass: {
         popup: 'rounded-none',

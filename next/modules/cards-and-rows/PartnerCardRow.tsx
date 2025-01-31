@@ -60,7 +60,7 @@ const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: Partner
               'hidden lg:inline-flex': !featured,
             })}
           >
-            {t('showWeb')}
+            {t('partnerCardRow.showWeb')}
           </span>
         </MLink>
       </div>

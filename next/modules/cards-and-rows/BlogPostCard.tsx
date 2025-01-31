@@ -40,7 +40,7 @@ const BlogPostCard = ({ blogPost }: BlogPostProps) => {
         </h3>
       </div>
       <ShowMoreLink href={link ?? ''} tabIndex={-1} parentGroup>
-        {t('showMore')}
+        {t('common.showMore')}
       </ShowMoreLink>
     </CardWrapper>
   )

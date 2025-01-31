@@ -26,7 +26,7 @@ const PromoNewsCard = ({ notice }: PromoNewsCardProps) => {
       </h3>
 
       <ShowMoreLink href={link} tabIndex={-1} parentGroup>
-        {t('showMore')}
+        {t('common.showMore')}
       </ShowMoreLink>
     </CardWrapper>
   )

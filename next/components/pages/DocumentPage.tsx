@@ -76,7 +76,7 @@ const DocumentPage = ({ entity }: IProps) => {
 
               {isMultipleFiles && (
                 <div className="mt-2 flex items-center gap-x-3 pb-6 lg:pb-10">
-                  <span>{t('inflectFiles', { count: numOfFiles })}</span>
+                  <span>{t('documentPage.inflectFiles', { count: numOfFiles })}</span>
                 </div>
               )}
               {!isMultipleFiles && firstItem && (
@@ -99,8 +99,7 @@ const DocumentPage = ({ entity }: IProps) => {
                       startIcon={<DownloadIcon />}
                     >
                       {/* Change to 'Open' when download button is added */}
-                      {/* {t('open')} */}
-                      {t('open')}
+                      {t('documentPage.open')}
                     </Button>
                     {/* TODO add direct download */}
                     {/* <Button */}
@@ -112,7 +111,7 @@ const DocumentPage = ({ entity }: IProps) => {
                     {/*  aria-label={getDownloadAriaLabel(file.data, title)} */}
                     {/*  startIcon={<DownloadIcon />} */}
                     {/* > */}
-                    {/*  {t('download')} */}
+                    {/*  {t('documentPage.download')} */}
                     {/* </Button> */}
                   </div>
                 </div>
@@ -122,7 +121,7 @@ const DocumentPage = ({ entity }: IProps) => {
             {/* Description */}
             {!isDisclosure && description ? (
               <div className="border-b border-border-dark py-6 lg:py-10">
-                <h2 className="text-h3">{t('description')}</h2>
+                <h2 className="text-h3">{t('documentPage.description')}</h2>
                 <div className="mt-4 text-sm text-foreground-body lg:mt-6 lg:text-base">
                   {description}
                 </div>
@@ -132,7 +131,7 @@ const DocumentPage = ({ entity }: IProps) => {
             {/* Show File list if multiple files present */}
             {isMultipleFiles && (
               <div className="pt-6 lg:pt-10">
-                <h2 className="text-h3">{t('files')}</h2>
+                <h2 className="text-h3">{t('documentPage.files')}</h2>
                 <div className="text-sm text-foreground-body lg:mt-6 lg:text-base">
                   {entity.attributes?.file?.data.map((file) => (
                     <div
@@ -172,8 +171,8 @@ const DocumentPage = ({ entity }: IProps) => {
                           startIcon={<DownloadIcon />}
                         >
                           {/* Change to 'Open' when download button is added */}
-                          {/* {t('open')} */}
-                          {t('open')}
+                          {/* {t('documentPage.open')} */}
+                          {t('documentPage.open')}
                         </Button>
                       </div>
                     </div>

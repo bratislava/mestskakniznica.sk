@@ -42,7 +42,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
           <div className="pt-6 text-sm">
             {faqSection?.redirectTo && (
               <ShowMoreLink href={getPathForStrapiEntity(faqSection?.redirectTo.data) ?? '#'}>
-                {t('showMore')}
+                {t('common.showMore')}
               </ShowMoreLink>
             )}
           </div>

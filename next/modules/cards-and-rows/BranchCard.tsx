@@ -36,7 +36,7 @@ const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
         <div className="pt-3 text-base text-foreground-body">{address}</div>
 
         <ShowMoreLink href={href} tabIndex={-1} className="mt-6" parentGroup>
-          {t('showMore')}
+          {t('common.showMore')}
         </ShowMoreLink>
       </div>
     </CardWrapper>

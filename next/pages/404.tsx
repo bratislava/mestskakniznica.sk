@@ -36,7 +36,7 @@ const Custom404 = ({ general }: Error404PageProps) => {
             }${asPath}`}
           </p>
           <Button variant="primary" href="/" className="mt-8">
-            {t('homepage')}
+            {t('common.homepage')}
           </Button>
         </ErrorPage>
       </DefaultPageLayout>
