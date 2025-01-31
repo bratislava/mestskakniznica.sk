@@ -90,7 +90,7 @@ export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = asy
 
   const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
-    serverSideTranslations(locale, ['common', 'forms']),
+    serverSideTranslations(locale),
     navikronosGetStaticProps({
       navikronosConfig,
       ctx,
