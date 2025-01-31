@@ -1,19 +1,13 @@
 {
   "closeAccordian": "Close",
-  "faqAskLibrary": "Ask library",
-  "faqMissingBook": "What book is missing?",
   "faqTitle": "Frequently asked questions",
   "libraryNewsAll": "All news",
-  "localitiesMap": "Mapa lokalit",
   "localitiesTitle": "Our locations",
-  "localitiesTitleSecondary": "Our locations",
   "localityDetailText": "Locality details",
-  "localityOpeningText": "Opening hours",
   "lookingForBook": "What book are you looking for?",
   "lookingForBookSearch": "Search in catalogue",
   "newBooksAll": "All new additions",
   "newBooksTitle": "New additions",
-  "noImage": "No Image",
   "openAccordian": "Open",
   "registerToLibraryButton": "REGISTER"
 }

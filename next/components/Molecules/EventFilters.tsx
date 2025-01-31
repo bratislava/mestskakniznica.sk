@@ -44,7 +44,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
-    return [{ key: '', title: t('eventType') }, ...parsedTypes]
+    return [{ key: '', title: t('eventFilters.eventType') }, ...parsedTypes]
   }, [eventPropertiesData?.eventTags?.data, t])
 
   const categories = useMemo(() => {
@@ -53,7 +53,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
-    return [{ key: '', title: t('eventCategory') }, ...parsedCategories]
+    return [{ key: '', title: t('eventFilters.eventCategory') }, ...parsedCategories]
   }, [eventPropertiesData?.eventCategories?.data, t])
 
   const localities = useMemo(() => {
@@ -62,7 +62,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
-    return [{ key: '', title: t('eventLocality') }, ...parsedLocalities]
+    return [{ key: '', title: t('eventFilters.eventLocality') }, ...parsedLocalities]
   }, [eventPropertiesData?.branches?.data, t])
 
   const handleDateFromChange = (dateFrom: Date) => {
@@ -96,9 +96,9 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
           <MDatePicker
             selected={filters.dateFrom}
             onChange={handleDateFromChange}
-            chooseDayAriaLabelPrefix={t('dateAriaLabel')}
+            chooseDayAriaLabelPrefix={t('eventFilters.dateAriaLabel')}
             className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
-            placeholderText={t('eventsDateFrom')}
+            placeholderText={t('eventFilters.eventsDateFrom')}
             dateFormat="dd. MM. yyyy"
             calendarClassName="w-screen lg:w-auto"
             shouldCloseOnSelect={false}
@@ -108,9 +108,9 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
           <MDatePicker
             selected={filters.dateTo}
             onChange={handleDateToChange}
-            chooseDayAriaLabelPrefix={t('dateAriaLabel')}
+            chooseDayAriaLabelPrefix={t('eventFilters.dateAriaLabel')}
             className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
-            placeholderText={t('eventsDateTo')}
+            placeholderText={t('eventFilters.eventsDateTo')}
             dateFormat="dd. MM. yyyy"
             calendarClassName="w-screen lg:w-auto"
             shouldCloseOnSelect={false}

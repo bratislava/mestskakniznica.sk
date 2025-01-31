@@ -28,6 +28,16 @@ const SearchPage = () => {
   const { getPathForEntity } = useNavikronos()
   const plausible = usePlausible()
 
+  const translationsMap = {
+    page: t('search.searchTags.page'),
+    'blog-post': t('search.searchTags.blog-post'),
+    document: t('search.searchTags.document'),
+    disclosure: t('search.searchTags.disclosure'),
+    event: t('search.searchTags.event'),
+    notice: t('search.searchTags.notice'),
+    branch: t('search.searchTags.branch'),
+  }
+
   const resultsRef = useRef<HTMLUListElement>(null)
 
   const [filters, setFilters] = useState<CommonSearchFilters>({
@@ -124,7 +134,7 @@ const SearchPage = () => {
               return (
                 <li key={type}>
                   <TagToggle isSelected={isTypeSelected(type)} onChange={changeTypeSelected(type)}>
-                    {t(`search.searchTags.${type}`)}
+                    {translationsMap[type]}
                   </TagToggle>
                 </li>
               )

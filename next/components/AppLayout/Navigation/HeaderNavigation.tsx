@@ -19,7 +19,7 @@ const HeaderNavigation = () => {
         // Using `ring-inset` because offset doesn't look appealing in this context
         className="relative grid place-content-center border-l border-border-dark px-3 ring-inset ring-offset-0"
       >
-        {t('openingHours.openingHours')}
+        {t('navigation.openingHours')}
       </MLink>
       <MLink
         href="https://opac.mestskakniznica.sk/opac"

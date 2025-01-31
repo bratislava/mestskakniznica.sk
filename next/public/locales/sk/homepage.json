@@ -1,19 +1,13 @@
 {
   "closeAccordian": "Zatvoriť",
-  "faqAskLibrary": "Spýtajte sa knižnice",
-  "faqMissingBook": "Aká kniha vam u nás chýba?",
   "faqTitle": "Najčastejšie kladené otázky",
   "libraryNewsAll": "Všetky aktuality",
-  "localitiesMap": "Mapa lokalit",
   "localitiesTitle": "Naše prevádzky",
-  "localitiesTitleSecondary": "Naše pobočky",
   "localityDetailText": "Detail pobočky",
-  "localityOpeningText": "Otváracie hodiny",
   "lookingForBook": "Akú knihu hľadáte?",
   "lookingForBookSearch": "Vyhľadať v katalógu kníh",
   "newBooksAll": "Všetky knižné novinky",
   "newBooksTitle": "Knižné novinky",
-  "noImage": "Žiadny obrázok",
   "openAccordian": "Otvorený",
   "registerToLibraryButton": "Chcem sa prihlásiť"
 }
