@@ -50,12 +50,12 @@ const DocumentPage = ({ entity }: IProps) => {
     ? getDisclosureMetadata(entity)
     : [
         {
-          label: t('DocumentMetadata.category'),
+          label: t('documentMetadata.category'),
           // eslint-disable-next-line unicorn/consistent-destructuring
           value: entity.attributes.documentCategory?.data?.attributes?.label,
         },
         {
-          label: t('DocumentMetadata.addedAt'),
+          label: t('documentMetadata.addedAt'),
           // eslint-disable-next-line unicorn/consistent-destructuring
           value: <FormatDate value={entity.attributes.publishedAt} valueType="ISO" />,
         },

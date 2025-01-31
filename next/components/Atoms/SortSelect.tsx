@@ -15,8 +15,8 @@ const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) =
 
   const options = useMemo(
     () => [
-      { key: 'newest', label: t('SortSelect.byNewest') },
-      { key: 'oldest', label: t('SortSelect.byOldest') },
+      { key: 'newest', label: t('sortSelect.byNewest') },
+      { key: 'oldest', label: t('sortSelect.byOldest') },
     ],
     [t]
   )

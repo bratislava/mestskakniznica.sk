@@ -123,17 +123,17 @@ const EventsListingSection = () => {
       <EventFilters filters={filters.shared} onFiltersChange={handleSharedFiltersChange} />
       {queryResultUpcoming.data?.hits.length === 0 &&
       queryResultArchived.data?.hits.length === 0 ? (
-        <div className="text-center text-h3">{t('EventsListingSection.eventsEmpty')}</div>
+        <div className="text-center text-h3">{t('eventsListingSection.eventsEmpty')}</div>
       ) : null}
       <div className="flex flex-col gap-4 lg:gap-10">
         <InnerSection
-          title={t('EventsListingSection.eventsUpcoming')}
+          title={t('eventsListingSection.eventsUpcoming')}
           queryResult={queryResultUpcoming}
           filters={filters.upcoming}
           onPageChange={handleUpcomingPageChange}
         />
         <InnerSection
-          title={t('EventsListingSection.eventsArchived')}
+          title={t('eventsListingSection.eventsArchived')}
           queryResult={queryResultArchived}
           filters={filters.archived}
           onPageChange={handleArchivedPageChange}

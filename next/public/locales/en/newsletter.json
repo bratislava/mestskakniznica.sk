@@ -1,12 +1,12 @@
 {
-  "newsletter_title": "Subscribe to our Newsletter",
-  "newsletter_placeholder": "Your e-mail",
   "newsletter_button": "Subscribe",
   "newsletter_checkbox": "I consent to the processing of my personal and contact data and I have read <a href='/en/about-us/privacy-terms-and-conditions' class=;underline'>the privacy policy.</a>",
   "newsletter_error": "Please provide consent with terms of use. ",
-  "newsletter_sent_title": "TODO: EN text",
+  "newsletter_placeholder": "Your e-mail",
   "newsletter_sent_text": "TODO: EN text",
-  "subscribe_success_message": "Thank you. You are subscribed to our newsletter.",
+  "newsletter_sent_title": "TODO: EN text",
+  "newsletter_title": "Subscribe to our Newsletter",
+  "subscribe_bad_request_message": "This email address has already been registered. Please enter a new one.",
   "subscribe_error_message": "Newsletter subscription failed. Please check that you have entered the correct email.",
-  "subscribe_bad_request_message": "This email address has already been registered. Please enter a new one."
+  "subscribe_success_message": "Thank you. You are subscribed to our newsletter."
 }

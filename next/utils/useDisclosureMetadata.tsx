@@ -31,21 +31,21 @@ export const useDisclosureMetadata = () => {
       dateFrom && dateTo ? <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} /> : null
 
     const dataToTake = [
-      { label: t('DocumentMetadata.category'), value: getDisclosureTypeFixed(type) },
+      { label: t('documentMetadata.category'), value: getDisclosureTypeFixed(type) },
       {
-        label: t('DocumentMetadata.addedAt'),
+        label: t('documentMetadata.addedAt'),
         value: <FormatDate value={addedAt} valueType="ISO" />,
       },
-      { label: t('DocumentMetadata.period'), value: period },
-      { label: t('DocumentMetadata.idNumber'), value: idNumber },
+      { label: t('documentMetadata.period'), value: period },
+      { label: t('documentMetadata.idNumber'), value: idNumber },
       {
-        label: t('DocumentMetadata.amount'),
+        label: t('documentMetadata.amount'),
         value: amount ? <FormatCurrency value={amount} /> : null,
       },
-      { label: t('DocumentMetadata.description'), value: description },
-      { label: t('DocumentMetadata.contractor'), value: contractor },
-      { label: t('DocumentMetadata.grantProvider'), value: grantProvider },
-      { label: t('DocumentMetadata.grantYear'), value: grantYear },
+      { label: t('documentMetadata.description'), value: description },
+      { label: t('documentMetadata.contractor'), value: contractor },
+      { label: t('documentMetadata.grantProvider'), value: grantProvider },
+      { label: t('documentMetadata.grantYear'), value: grantYear },
     ]
 
     return dataToTake.filter((m) => m.value)
