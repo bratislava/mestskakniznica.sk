@@ -77,7 +77,7 @@ const ExcursionReservationForm = () => {
       ...temp,
 
       mg_subject: null,
-      mg_email_to: 'vypozicky.detska@mestskakniznica.sk',
+      mg_email_to: 'podujatia@mestskakniznica.sk',
       mg_reply_to: data.email,
       meta_sent_from: router.asPath,
       meta_locale: router.locale,
