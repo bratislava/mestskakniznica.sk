@@ -9,5 +9,4 @@ module.exports = {
   sort: true,
   // makes the translation json file flat
   keySeparator: false,
-  defaultNamespace: 'common',
 }
