@@ -6,5 +6,6 @@ module.exports = {
     locales: ['sk', 'en'],
     localeDetection: false,
   },
+  defaultNS: ['common'],
   reloadOnPrerender: process.env.NODE_ENV === 'development',
 }
