@@ -99,7 +99,6 @@ const TheaterTechReservationForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('theater_tech_reservation_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}

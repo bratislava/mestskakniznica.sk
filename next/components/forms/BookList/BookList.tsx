@@ -70,7 +70,7 @@ const BookList = ({ className }: Props) => {
                   />
                 )}
               />
-              <div className="text-sm text-foreground-body">{t('common:or')}</div>
+              <div className="text-sm text-foreground-body">{t('or')}</div>
               <Controller
                 control={methods.control}
                 name={`books[${index}].author` as const}

@@ -107,7 +107,6 @@ const ExcursionReservationForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('excursion_reservation_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}
@@ -212,7 +211,7 @@ const ExcursionReservationForm = () => {
                 <DateTimeSelect
                   id="date_input"
                   type="date"
-                  labelContent={t('common:date')}
+                  labelContent={t('date')}
                   className="w-full"
                   inputClassName="w-full"
                   hasError={!!errors.excursionDate}

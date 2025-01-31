@@ -173,7 +173,6 @@ const ServiceReservationForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('service_reservation_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}

@@ -132,7 +132,6 @@ const RechercheReservationForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('recherche_reservation_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}
@@ -239,7 +238,7 @@ const RechercheReservationForm = () => {
             {stepOneErrors && (
               <p className="text-base text-error">{t('please_fill_required_fields')}</p>
             )}
-            <Button onPress={() => triggerFirstStep()}>{t('common:continue')}</Button>
+            <Button onPress={() => triggerFirstStep()}>{t('continue')}</Button>
           </div>
         </StepNumberTitle>
 

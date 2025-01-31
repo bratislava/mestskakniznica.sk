@@ -23,7 +23,7 @@ export enum SubmitStatus {
 
 interface FormContainerProps {
   children: ReactNode
-  buttonText: string
+  buttonText?: string
   title: string
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
   isSubmitted: SubmitStatus
@@ -100,7 +100,7 @@ const FormContainer = ({
             className={cx({ hidden: isFormOpen })}
             aria-labelledby="form-title"
           >
-            {buttonText}
+            {buttonText || t('continue')}
           </Button>
           {isFormOpen && (
             // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions

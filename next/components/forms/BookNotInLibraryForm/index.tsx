@@ -111,7 +111,6 @@ const BookNotInLibraryForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('book_not_in_library_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}

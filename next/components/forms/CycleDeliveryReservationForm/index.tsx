@@ -159,7 +159,6 @@ const CycleDeliveryReservationForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('cycle_delivery_reservation_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}
@@ -315,7 +314,7 @@ const CycleDeliveryReservationForm = () => {
               />
             </div>
 
-            <Button onPress={() => triggerFirstStep()}>{t('common:continue')}</Button>
+            <Button onPress={() => triggerFirstStep()}>{t('continue')}</Button>
           </div>
         </StepNumberTitle>
 

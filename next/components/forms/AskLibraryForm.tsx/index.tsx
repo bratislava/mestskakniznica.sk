@@ -97,7 +97,6 @@ const AskLibraryForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('ask_library_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}
