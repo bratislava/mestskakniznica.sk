@@ -1,7 +1,8 @@
-import ChevronDown from '@assets/images/chevron-down.svg'
 import cx from 'classnames'
 import * as React from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import ChevronDown from '@/assets/images/chevron-down.svg'
 
 export interface ISelectOption {
   key: string

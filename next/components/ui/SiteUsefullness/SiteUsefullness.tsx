@@ -1,9 +1,9 @@
-import ThumbDown from '@assets/images/thumb-down.svg'
-import ThumbUp from '@assets/images/thumb-up.svg'
 import { PressEvent } from '@react-types/shared'
 import cx from 'classnames'
 import { useState } from 'react'
 
+import ThumbDown from '@/assets/images/thumb-down.svg'
+import ThumbUp from '@/assets/images/thumb-up.svg'
 import Button from '@/modules/common/Button'
 
 export interface SiteUsefullnessProps {

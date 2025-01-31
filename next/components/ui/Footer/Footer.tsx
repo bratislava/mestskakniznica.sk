@@ -1,10 +1,10 @@
-import FbLogo from '@assets/images/fb-logo.svg'
-import IgLogo from '@assets/images/ig-logo.svg'
-import YtLogo from '@assets/images/yt-logo.svg'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+import FbLogo from '@/assets/images/fb-logo.svg'
+import IgLogo from '@/assets/images/ig-logo.svg'
+import YtLogo from '@/assets/images/yt-logo.svg'
 import Accordion from '@/modules/common/Accordion'
 import MLink from '@/modules/common/MLink'
 import { ComponentFooterFooterColumnFragment, Maybe } from '@/services/graphql'

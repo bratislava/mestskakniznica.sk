@@ -1,6 +1,6 @@
-import ArrowRight from '@assets/images/arrow-right-strong.svg'
 import cx from 'classnames'
 
+import ArrowRight from '@/assets/images/arrow-right-strong.svg'
 import MLink from '@/modules/common/MLink'
 import RichText from '@/modules/formatting/RichText'
 import { useNavikronos } from '@/utils/navikronos'

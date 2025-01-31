@@ -1,7 +1,8 @@
-import CheckMark from '@assets/images/check-mark.svg'
 import { Checkbox, CheckboxIndicator } from '@radix-ui/react-checkbox'
 import cx from 'classnames'
 import React from 'react'
+
+import CheckMark from '@/assets/images/check-mark.svg'
 
 export type CheckBoxProps = Omit<
   React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,

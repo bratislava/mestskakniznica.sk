@@ -1,9 +1,10 @@
 /* Inspired by https://github.com/bratislava/marianum/blob/master/next/components/atoms/MLink.tsx */
-import ChevronRight from '@assets/images/chevron-right.svg'
 import cx from 'classnames'
 import NextLink from 'next/link'
 import { ComponentProps, forwardRef, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import ChevronRight from '@/assets/images/chevron-right.svg'
 
 export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'> & {
   children: ReactNode

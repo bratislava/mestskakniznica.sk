@@ -1,5 +1,6 @@
-import ErrorOutline from '@assets/images/error-outline.svg'
 import cx from 'classnames'
+
+import ErrorOutline from '@/assets/images/error-outline.svg'
 
 export interface InputProps
   extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {

@@ -1,8 +1,9 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import MarkerIcon from '@assets/images/marker.svg'
 import { useEffect, useRef, useState } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
+
+import MarkerIcon from '@/assets/images/marker.svg'
 
 export interface BranchMapProps {
   branchName?: string | null

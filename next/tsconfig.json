@@ -24,24 +24,6 @@
       "@/*": [
         "./*"
       ]
-      /*
-
-            "@/assets/icons": ["./assets/icons/index.ts"],
-
-            "@services*/
-      /*": ["./services*/
-      /*"],
-
-
-      /*"],
-            "@components*/
-      /*": ["./components*/
-      /*"],
-            "@assets/images": ["./assets/images/index.ts"],
-            "@assets/images*/
-      /*": ["./assets/images*/
-      /*"],
-            "@culturehq/add-to-calendar": ["./customTypes/@culturehq/add-to-calendar"]*/
     }
   },
   "include": [

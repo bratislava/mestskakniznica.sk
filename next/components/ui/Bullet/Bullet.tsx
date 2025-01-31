@@ -1,5 +1,6 @@
-import DotIcon from '@assets/images/dot.svg'
 import cx from 'classnames'
+
+import DotIcon from '@/assets/images/dot.svg'
 
 export interface BulletProps {
   icon?: React.ReactNode

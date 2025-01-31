@@ -1,6 +1,6 @@
-import book_reader from '@assets/images/book-reader.png'
 import { ReactNode } from 'react'
 
+import book_reader from '@/assets/images/book-reader.png'
 import { SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 

@@ -1,8 +1,8 @@
-import ChevronLeft from '@assets/images/chevron-left.svg'
-import ChevronRight from '@assets/images/chevron-right.svg'
 import cx from 'classnames'
 import React, { useCallback, useEffect, useState } from 'react'
 
+import ChevronLeft from '@/assets/images/chevron-left.svg'
+import ChevronRight from '@/assets/images/chevron-right.svg'
 import { Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
 

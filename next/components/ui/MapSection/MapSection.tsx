@@ -1,12 +1,12 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import MarkerIcon from '@assets/images/marker.svg'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useRef } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 import { useIsClient } from 'usehooks-ts'
 
+import MarkerIcon from '@/assets/images/marker.svg'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'

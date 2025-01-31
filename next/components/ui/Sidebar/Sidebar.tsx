@@ -1,7 +1,7 @@
-import ChevronRight from '@assets/images/chevron-right.svg'
 import cx from 'classnames'
 
 import { ArrowLeftIcon } from '@/assets/icons'
+import ChevronRight from '@/assets/images/chevron-right.svg'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import { useNavikronos } from '@/utils/navikronos'

@@ -1,7 +1,7 @@
-import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+import Placeholder from '@/assets/images/list-item-thumbnail.jpeg'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
