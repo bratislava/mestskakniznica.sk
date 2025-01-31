@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint components pages utils hooks",
     "lint:fix": "yarn lint --fix",
-    "gen": "graphql-codegen && prettier services/graphql/index.ts --write"
+    "gen": "graphql-codegen && prettier services/graphql/index.ts --write",
+    "parse-translations": "i18next"
   },
   "dependencies": {
     "@culturehq/add-to-calendar": "^1.1.2",
@@ -32,6 +33,7 @@
     "graphql": "^16.5.0",
     "graphql-request": "^4.3.0",
     "graphql-tag": "^2.12.6",
+    "i18next-parser": "^9.1.0",
     "lodash": "^4.17.21",
     "mailgun-js": "^0.22.0",
     "many-keys-map": "^2.0.1",
