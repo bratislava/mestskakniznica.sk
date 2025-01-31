@@ -8,7 +8,7 @@ import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 
 const OpeningHoursChangeAlert = () => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation('common')
   const locale = i18n.language
   const alertBannerId = useId()
 
