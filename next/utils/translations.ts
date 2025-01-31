@@ -12,10 +12,7 @@ const cachedSsrTranslations: IcachedSsrTranslations = {
 }
 
 // cache more subsets using this if needed
-const preCachedNamespaces = [
-  ['common', 'forms', 'newsletter'],
-  ['common', 'newsletter'],
-]
+const preCachedNamespaces = [['common', 'forms'], ['common']]
 
 export const ssrTranslations = async (
   ctx: { locale?: string } | undefined,

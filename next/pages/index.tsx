@@ -118,7 +118,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     return { notFound: true }
   }
 
-  const translations = await serverSideTranslations(locale, ['common', 'newsletter'])
+  const translations = await serverSideTranslations(locale, ['common'])
 
   // running all requests parallel
   // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used

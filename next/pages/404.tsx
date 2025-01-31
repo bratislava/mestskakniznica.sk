@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
-    serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
+    serverSideTranslations(locale, ['common', 'forms']),
     navikronosGetStaticProps({
       navikronosConfig,
       ctx,

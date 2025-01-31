@@ -24,7 +24,7 @@ const NewsletterSection = () => {
   const [subscribed, setSubscribed] = useState(false)
   const [resStatus, setResStatus] = useState(false)
   const [respondMessage, setRespondMessage] = useState('')
-  const { t } = useTranslation('newsletter')
+  const { t } = useTranslation('common')
 
   const handleSubmit = methods.handleSubmit(async (data) => {
     const res = await fetch('/api/subscribe', {
@@ -41,9 +41,9 @@ const NewsletterSection = () => {
     if (error) {
       console.error(error)
       if (error.trim() == 'Bad Request') {
-        setRespondMessage(t('subscribe_bad_request_message'))
+        setRespondMessage(t('newsletterSection.subscribe.badRequestMessage'))
       } else {
-        setRespondMessage(t('subscribe_error_message'))
+        setRespondMessage(t('newsletterSection.subscribe.errorMessage'))
       }
       // TODO: duplicate email gives error 500
       return
@@ -51,7 +51,7 @@ const NewsletterSection = () => {
 
     setResStatus(true)
     methods.setValue('email', '')
-    setRespondMessage(t('subscribe_success_message'))
+    setRespondMessage(t('newsletterSection.subscribe.successMessage'))
     // setSubscribed(true);
     // TODO: after success remove email from input
     // TODO: this would be better as hook or in component
@@ -62,16 +62,16 @@ const NewsletterSection = () => {
       {!subscribed ? (
         <FormProvider {...methods}>
           <NewsLetter
-            title={t('newsletter_title')}
-            inputPlaceholder={t('newsletter_placeholder')}
-            buttonContent={t('newsletter_button')}
+            title={t('newsletterSection.newsletter.title')}
+            inputPlaceholder={t('newsletterSection.newsletter.placeholder')}
+            buttonContent={t('newsletterSection.newsletter.button')}
             checkboxContent={
               <div
                 className="text-base md:w-[580px]"
-                dangerouslySetInnerHTML={{ __html: t('newsletter_checkbox') }}
+                dangerouslySetInnerHTML={{ __html: t('newsletterSection.newsletter.checkbox') }}
               />
             }
-            errorMessage={t('newsletter_error')}
+            errorMessage={t('newsletterSection.newsletter.error')}
             onSubmit={handleSubmit}
             respondMessage={respondMessage}
             resStatus={resStatus}
@@ -79,9 +79,9 @@ const NewsletterSection = () => {
         </FormProvider>
       ) : (
         <div className="container flex flex-col items-center justify-center">
-          <h2 className="pt-30 pb-6 text-h3">{t('newsletter_sent_title')}</h2>
+          <h2 className="pt-30 pb-6 text-h3">{t('newsletterSection.newsletter.sentTitle')}</h2>
           <div className="m-auto w-[780px] pb-30 text-center text-base text-foreground-body">
-            {t('newsletter_sent_text')}
+            {t('newsletterSection.newsletter.sentText')}
           </div>
         </div>
       )}

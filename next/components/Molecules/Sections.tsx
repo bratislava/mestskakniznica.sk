@@ -111,8 +111,8 @@ const Sections = ({
               <SiteUsefullness
                 thankYouMessage={section.thankYouMessage || ''}
                 title={section.title || ''}
-                firstOption={t('answer_yes')}
-                secondOption={t('answer_no')}
+                firstOption={t('answer.yes')}
+                secondOption={t('answer.no')}
                 onButtonClick={() => {
                   console.log('// TODO')
                 }}
