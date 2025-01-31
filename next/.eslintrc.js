@@ -48,6 +48,8 @@ module.exports = {
     '@next/next/no-img-element': 'off',
     // https://github.com/jsx-eslint/eslint-plugin-react/issues/2584#issuecomment-1191175244
     'react/jsx-no-useless-fragment': [2, { allowExpressions: true }],
+    /** After using the default @/* alias, we wanted to remove the “missing file extension” error message */
+    'import/extensions': 'off',
   },
   ignorePatterns: ['*.config.*', 'graphql', '.eslintrc.js'],
 }
