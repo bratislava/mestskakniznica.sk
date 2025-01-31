@@ -7,7 +7,7 @@ import { DisclosureEntityFragment } from '@/services/graphql'
 import { getDisclosureTypeFixed } from '@/utils/getDisclosureTypeFixed'
 
 export const useDisclosureMetadata = () => {
-  const { t } = useTranslation('common', { keyPrefix: 'DocumentMetadata' })
+  const { t } = useTranslation('common')
 
   const getDisclosureMetadata = (disclosure: DisclosureEntityFragment) => {
     if (!disclosure.attributes) {
@@ -31,15 +31,21 @@ export const useDisclosureMetadata = () => {
       dateFrom && dateTo ? <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} /> : null
 
     const dataToTake = [
-      { label: t('category'), value: getDisclosureTypeFixed(type) },
-      { label: t('addedAt'), value: <FormatDate value={addedAt} valueType="ISO" /> },
-      { label: t('period'), value: period },
-      { label: t('idNumber'), value: idNumber },
-      { label: t('amount'), value: amount ? <FormatCurrency value={amount} /> : null },
-      { label: t('description'), value: description },
-      { label: t('contractor'), value: contractor },
-      { label: t('grantProvider'), value: grantProvider },
-      { label: t('grantYear'), value: grantYear },
+      { label: t('DocumentMetadata.category'), value: getDisclosureTypeFixed(type) },
+      {
+        label: t('DocumentMetadata.addedAt'),
+        value: <FormatDate value={addedAt} valueType="ISO" />,
+      },
+      { label: t('DocumentMetadata.period'), value: period },
+      { label: t('DocumentMetadata.idNumber'), value: idNumber },
+      {
+        label: t('DocumentMetadata.amount'),
+        value: amount ? <FormatCurrency value={amount} /> : null,
+      },
+      { label: t('DocumentMetadata.description'), value: description },
+      { label: t('DocumentMetadata.contractor'), value: contractor },
+      { label: t('DocumentMetadata.grantProvider'), value: grantProvider },
+      { label: t('DocumentMetadata.grantYear'), value: grantYear },
     ]
 
     return dataToTake.filter((m) => m.value)
