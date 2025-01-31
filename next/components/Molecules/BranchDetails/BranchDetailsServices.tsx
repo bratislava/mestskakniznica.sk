@@ -1,10 +1,10 @@
 import { BranchEntityFragment } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
-import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import PageCard from '@/modules/cards-and-rows/PageCard'
+import { isDefined } from '@/utils/isDefined'
+import { useNavikronos } from '@/utils/navikronos'
 
 type BranchDetailsServicesProps = {
   branch: BranchEntityFragment

@@ -1,8 +1,5 @@
 import '../styles/globals.css'
 
-import { beausiteFont } from '@utils/beausiteFont'
-import { navikronosConfig } from '@utils/navikronos'
-import { isProductionDeployment } from '@utils/utils'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next'
@@ -14,6 +11,9 @@ import { QueryParamProvider } from 'use-query-params'
 import { NavMenuContextProvider } from '@/modules/navigation/navMenuContext'
 import MI18nProvider from '@/modules/providers/MI18nProvider'
 import MQueryClientProvider from '@/modules/providers/MQueryClientProvider'
+import { beausiteFont } from '@/utils/beausiteFont'
+import { navikronosConfig } from '@/utils/navikronos'
+import { isProductionDeployment } from '@/utils/utils'
 
 import ErrorDisplay from '../components/Molecules/ErrorDisplay'
 import ErrorPage from '../components/pages/ErrorPage'

@@ -2,8 +2,6 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import MarkerIcon from '@assets/images/marker.svg'
 import { BranchCardEntityFragment } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
-import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useRef } from 'react'
@@ -13,6 +11,8 @@ import { useIsClient } from 'usehooks-ts'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
+import { isDefined } from '@/utils/isDefined'
+import { useNavikronos } from '@/utils/navikronos'
 
 type MapSectionProps = {
   branches: BranchCardEntityFragment[]

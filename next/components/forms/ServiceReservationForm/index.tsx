@@ -1,6 +1,5 @@
 import { Input, TextArea, Upload, UploadProps } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { convertDataToBody } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
@@ -8,6 +7,8 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, FormProvider, useController, useForm } from 'react-hook-form'
 import * as yup from 'yup'
+
+import { convertDataToBody } from '@/utils/form-constants'
 
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'

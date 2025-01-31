@@ -1,9 +1,9 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { useGeneralContext } from '@utils/generalContext'
-import { isDefined } from '@utils/isDefined'
 import React from 'react'
 
 import EventRow from '@/modules/cards-and-rows/EventRow'
+import { useGeneralContext } from '@/utils/generalContext'
+import { isDefined } from '@/utils/isDefined'
 
 const NavMenuLatestEvents = () => {
   const { upcomingEvents } = useGeneralContext()

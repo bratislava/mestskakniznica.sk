@@ -1,6 +1,5 @@
 import { CheckBox, Input, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { convertDataToBody } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
@@ -11,6 +10,7 @@ import * as yup from 'yup'
 
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
+import { convertDataToBody } from '@/utils/form-constants'
 
 import BookListExtended from '../BookList/BookListExtended'
 import FormContainer, { IBANRegex, phoneRegexOrEmpty, SubmitStatus } from '../FormContainer'

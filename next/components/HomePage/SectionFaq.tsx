@@ -1,6 +1,5 @@
 import { SectionContainer } from '@bratislava/ui-city-library'
 import { HomepageFaqSectionFragment } from '@services/graphql'
-import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -8,6 +7,7 @@ import PageCard from '@/modules/cards-and-rows/PageCard'
 import Accordion from '@/modules/common/Accordion'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import RichText from '@/modules/formatting/RichText'
+import { useNavikronos } from '@/utils/navikronos'
 
 interface SectionFaqProps {
   faqSection: HomepageFaqSectionFragment

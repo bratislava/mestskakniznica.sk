@@ -7,12 +7,13 @@ import {
   getLatestNewsQueryKey,
   latestNewsFetcher,
 } from '@services/graphql/fetchers/latestNews.fetcher'
-import { useGeneralContext } from '@utils/generalContext'
-import { isDefined } from '@utils/isDefined'
-import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 import { useQuery } from 'react-query'
+
+import { useGeneralContext } from '@/utils/generalContext'
+import { isDefined } from '@/utils/isDefined'
+import { useNavikronos } from '@/utils/navikronos'
 
 type ChildrenListingSectionProps = {
   section: ComponentSectionsChildrenListing

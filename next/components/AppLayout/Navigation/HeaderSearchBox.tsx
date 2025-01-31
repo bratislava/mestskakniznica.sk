@@ -1,6 +1,5 @@
 import { Select } from '@bratislava/ui-city-library'
 import SearchBar from '@components/AppLayout/Navigation/SearchBar'
-import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
@@ -10,6 +9,7 @@ import { useFocusWithin } from 'react-aria'
 
 import { CloseCircleIcon, SearchIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
+import { useNavikronos } from '@/utils/navikronos'
 
 const opacBaseUrl = 'https://opac.mestskakniznica.sk/opac'
 

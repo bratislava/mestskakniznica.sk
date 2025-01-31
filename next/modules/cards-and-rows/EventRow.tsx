@@ -1,11 +1,11 @@
 import EventDetailsDateBox from '@components/Atoms/EventDetailsDateBox'
 import { EventCardEntityFragment } from '@services/graphql'
-import { useNavikronos } from '@utils/navikronos'
 import React from 'react'
 
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
+import { useNavikronos } from '@/utils/navikronos'
 
 type EventRowProps = { event: EventCardEntityFragment }
 

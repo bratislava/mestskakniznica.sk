@@ -6,7 +6,6 @@ import {
   CommonSearchType,
   getCommonSearchQueryKey,
 } from '@services/meili/fetchers/commonSearchFetcher'
-import { useNavikronos } from '@utils/navikronos'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { usePlausible } from 'next-plausible'
@@ -18,6 +17,7 @@ import { ChevronRightIcon } from '@/assets/icons'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
+import { useNavikronos } from '@/utils/navikronos'
 
 import { useSearch } from '../../hooks/useSearch'
 import { AnimateHeight } from '../Atoms/AnimateHeight'

@@ -1,6 +1,7 @@
 import { GallerySectionFragment } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
 import React from 'react'
+
+import { isDefined } from '@/utils/isDefined'
 
 import ImageGallery from '../common/ImageGallery/ImageGallery'
 

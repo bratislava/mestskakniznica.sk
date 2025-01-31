@@ -1,9 +1,9 @@
-import { useGeneralContext } from '@utils/generalContext'
-import { useNavikronos } from '@utils/navikronos'
-import { useGetOtherLocale } from '@utils/useGetOtherLocale'
 import { useTranslation } from 'next-i18next'
 
 import MLink from '@/modules/common/MLink'
+import { useGeneralContext } from '@/utils/generalContext'
+import { useNavikronos } from '@/utils/navikronos'
+import { useGetOtherLocale } from '@/utils/useGetOtherLocale'
 
 const HeaderNavigation = () => {
   const { t } = useTranslation('common')

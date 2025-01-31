@@ -1,9 +1,5 @@
 import { SectionContainer } from '@bratislava/ui-city-library'
 import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
-import { useNavikronos } from '@utils/navikronos'
-import { useDisclosureMetadata } from '@utils/useDisclosureMetadata'
-import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
-import { getFileSize } from '@utils/utils'
 import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
 
@@ -12,6 +8,10 @@ import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import Button from '@/modules/common/Button'
 import FileExtBadge from '@/modules/common/FileExtBadge'
 import FormatDate from '@/modules/formatting/FormatDate'
+import { useNavikronos } from '@/utils/navikronos'
+import { useDisclosureMetadata } from '@/utils/useDisclosureMetadata'
+import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
+import { getFileSize } from '@/utils/utils'
 
 import DefaultPageLayout from '../layouts/DefaultPageLayout'
 

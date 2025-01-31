@@ -1,11 +1,11 @@
 import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
 import { BlogPostEntityFragment } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
-import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import FormatDate from '@/modules/formatting/FormatDate'
+import { isDefined } from '@/utils/isDefined'
+import { useNavikronos } from '@/utils/navikronos'
 
 import Sections from '../Molecules/Sections'
 

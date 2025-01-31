@@ -1,5 +1,6 @@
 import { Enum_Disclosure_Type } from '@services/graphql'
-import { Enum_Disclosure_Type_Fixed } from '@utils/types'
+
+import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
 
 export const getDisclosureTypeFixed = (type: Enum_Disclosure_Type) => {
   switch (type) {

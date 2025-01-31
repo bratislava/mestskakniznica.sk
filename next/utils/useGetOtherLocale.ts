@@ -1,5 +1,6 @@
-import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
+
+import { useNavikronos } from '@/utils/navikronos'
 
 export const useGetOtherLocale = () => {
   const { i18n } = useTranslation('common')

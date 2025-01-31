@@ -1,6 +1,6 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable no-underscore-dangle */
-import { isDefined } from '@utils/isDefined'
+import { isDefined } from '@/utils/isDefined'
 
 import { NavikronosConfig } from '../config-type'
 import {

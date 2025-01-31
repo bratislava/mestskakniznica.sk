@@ -1,6 +1,4 @@
 import { CheckBox, Input } from '@bratislava/ui-city-library'
-import { useGeneralContext } from '@utils/generalContext'
-import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -9,6 +7,8 @@ import Turnstile from 'react-turnstile'
 
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
+import { useGeneralContext } from '@/utils/generalContext'
+import { useNavikronos } from '@/utils/navikronos'
 
 interface IProps {
   className?: string

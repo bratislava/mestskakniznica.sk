@@ -1,13 +1,13 @@
 import EventDetailsDateBox from '@components/Atoms/EventDetailsDateBox'
 import TagsDisplay from '@components/Atoms/TagsDisplay'
 import { EventCardEntityFragment } from '@services/graphql'
-import { isDefined, WithAttributes } from '@utils/isDefined'
-import { useNavikronos } from '@utils/navikronos'
 import Image from 'next/image'
 
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
+import { isDefined, WithAttributes } from '@/utils/isDefined'
+import { useNavikronos } from '@/utils/navikronos'
 
 type PromoEventCardProps = {
   event: WithAttributes<EventCardEntityFragment> | null | undefined

@@ -1,6 +1,4 @@
 import { ComponentSectionsFaq } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
-import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -8,6 +6,8 @@ import React from 'react'
 import Accordion from '@/modules/common/Accordion'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import RichText from '@/modules/formatting/RichText'
+import { isDefined } from '@/utils/isDefined'
+import { useNavikronos } from '@/utils/navikronos'
 
 export interface FaqProps {
   className?: string

@@ -1,11 +1,11 @@
 import { getForm } from '@components/Molecules/Sections'
 import { FlatText, Table } from '@components/ui'
 import { AccordionSectionFragment } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
-import { groupByAccordionCategory, groupByCategory } from '@utils/page'
 import React from 'react'
 
 import Accordion from '@/modules/common/Accordion'
+import { isDefined } from '@/utils/isDefined'
+import { groupByAccordionCategory, groupByCategory } from '@/utils/page'
 
 type AccordionSectionPops = {
   section: AccordionSectionFragment

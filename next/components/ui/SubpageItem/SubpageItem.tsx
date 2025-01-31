@@ -1,9 +1,9 @@
 import ArrowRight from '@assets/images/arrow-right-strong.svg'
-import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 
 import MLink from '@/modules/common/MLink'
 import RichText from '@/modules/formatting/RichText'
+import { useNavikronos } from '@/utils/navikronos'
 
 export interface SubpageItemProps {
   className?: string

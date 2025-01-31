@@ -16,8 +16,6 @@ import {
   DocumentEntityFragment,
   PageSectionsFragment,
 } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
-import { parseSubpages } from '@utils/page'
 import { useTranslation } from 'next-i18next'
 
 import Button from '@/modules/common/Button'
@@ -31,6 +29,8 @@ import NewBooksSection from '@/modules/sections/NewBooksSection'
 import NoticesListingSection from '@/modules/sections/NoticesListingSection'
 import OpeningHoursSection from '@/modules/sections/OpeningHoursSection'
 import PartnersSection from '@/modules/sections/PartnersSection'
+import { isDefined } from '@/utils/isDefined'
+import { parseSubpages } from '@/utils/page'
 
 import AskLibraryForm from '../forms/AskLibraryForm.tsx'
 import BookNotInLibraryForm from '../forms/BookNotInLibraryForm'

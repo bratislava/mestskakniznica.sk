@@ -1,8 +1,8 @@
 import { mockNewBooks } from '@services/opac/mockNewBooks'
-import { isDefined } from '@utils/isDefined'
 import XMLConvertor from 'xml-js'
 
 import type { Book } from '@/modules/cards-and-rows/BookCard'
+import { isDefined } from '@/utils/isDefined'
 
 /*
  * This is a service that acts as a proxy and fetches new books from OPAC.

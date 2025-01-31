@@ -1,7 +1,8 @@
 import Listing from '@components/ui/Listing/Listing'
 import { CherrypickSectionFragment } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
-import { useNavikronos } from '@utils/navikronos'
+
+import { isDefined } from '@/utils/isDefined'
+import { useNavikronos } from '@/utils/navikronos'
 
 type CherrypickSectionProps = {
   section: CherrypickSectionFragment

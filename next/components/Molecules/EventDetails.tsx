@@ -1,7 +1,5 @@
 import { Documents } from '@components/ui'
 import { EventEntityFragment } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
-import { isEventPast } from '@utils/utils'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
@@ -20,6 +18,8 @@ import {
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import RichText from '@/modules/formatting/RichText'
+import { isDefined } from '@/utils/isDefined'
+import { isEventPast } from '@/utils/utils'
 
 import Placeholder from '../../assets/images/event-detail-placeholder.jpg'
 import Clickable from '../Atoms/EventClickable'

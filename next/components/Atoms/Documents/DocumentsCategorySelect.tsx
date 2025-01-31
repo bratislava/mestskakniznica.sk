@@ -3,10 +3,11 @@ import {
   documentCategoriesFetcher,
   documentCategoriesQueryKey,
 } from '@services/graphql/fetchers/document-categories.fetcher'
-import { Enum_Disclosure_Type_Fixed } from '@utils/types'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
+
+import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
 
 type DocumentsCategorySelectProps = {
   onCategoryChange: (id: string | null) => void

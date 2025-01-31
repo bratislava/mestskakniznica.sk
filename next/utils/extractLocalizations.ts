@@ -1,5 +1,6 @@
 import { Maybe } from '@services/graphql'
-import { hasAttributes } from '@utils/isDefined'
+
+import { hasAttributes } from '@/utils/isDefined'
 
 type DeepMaybePartial<T> = Partial<{ [K in keyof T]: DeepMaybePartial<Maybe<T[K]>> }>
 

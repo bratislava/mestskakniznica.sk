@@ -1,6 +1,5 @@
-import { useNavikronos } from '@utils/navikronos'
-
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
+import { useNavikronos } from '@/utils/navikronos'
 
 const PageBreadcrumbs = () => {
   const { breadcrumbs } = useNavikronos()

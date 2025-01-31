@@ -4,12 +4,12 @@ import {
   noticesDefaultFilters,
   noticesFetcher,
 } from '@services/graphql/fetchers/notices.fetcher'
-import { useRoutePreservedState } from '@utils/useRoutePreservedState'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useQuery } from 'react-query'
 
 import NoticeCard from '@/modules/cards-and-rows/NoticeCard'
+import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 const NoticesListingSection = () => {
   const { t, i18n } = useTranslation('common')

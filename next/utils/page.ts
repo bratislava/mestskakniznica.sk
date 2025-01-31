@@ -4,8 +4,9 @@ import {
   SubpagesSectionFragment,
   TableRowWithIdFragment,
 } from '@services/graphql'
-import { isPresent } from '@utils/utils'
 import groupBy from 'lodash/groupBy'
+
+import { isPresent } from '@/utils/utils'
 
 export const groupByTableCategory = (
   tableRows: (TableRowWithIdFragment | undefined | null)[]

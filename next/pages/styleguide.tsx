@@ -3,11 +3,12 @@ import StyleguideBreadcrumbs from '@components/styleguide/StyleguideBreadcrumbs'
 import StyleguideCards from '@components/styleguide/StyleguideCards'
 import StyleguideShowMoreLink from '@components/styleguide/StyleguideShowMoreLink'
 import StyleguideTypography from '@components/styleguide/StyleguideTypography'
-import { isProductionDeployment } from '@utils/utils'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
+
+import { isProductionDeployment } from '@/utils/utils'
 
 const Styleguide = () => {
   /**

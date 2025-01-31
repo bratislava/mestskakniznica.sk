@@ -1,9 +1,9 @@
 import { SectionContainer } from '@bratislava/ui-city-library'
 import BranchDetails from '@components/Molecules/BranchDetails/BranchDetails'
 import { BranchEntityFragment } from '@services/graphql'
-import { useNavikronos } from '@utils/navikronos'
 
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
+import { useNavikronos } from '@/utils/navikronos'
 
 export interface PageProps {
   branch: BranchEntityFragment
