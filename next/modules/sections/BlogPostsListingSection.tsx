@@ -1,14 +1,14 @@
-import {
-  blogPostsDefaultFilters,
-  blogPostsFetcher,
-  getBlogPostsQueryKey,
-} from '@services/graphql/fetchers/blog-posts.fetcher'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useQuery } from 'react-query'
 
 import { Pagination } from '@/components/ui'
 import BlogPostCard from '@/modules/cards-and-rows/BlogPostCard'
+import {
+  blogPostsDefaultFilters,
+  blogPostsFetcher,
+  getBlogPostsQueryKey,
+} from '@/services/graphql/fetchers/blog-posts.fetcher'
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 const BlogPostsListingSection = () => {

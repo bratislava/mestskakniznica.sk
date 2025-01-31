@@ -1,10 +1,5 @@
 import DropdownIcon from '@assets/images/dropdown.svg'
 import { useControlledState } from '@react-stately/utils'
-import {
-  eventPropertiesFetcher,
-  getEventPropertiesQueryKey,
-} from '@services/graphql/fetchers/event-properties.fetcher'
-import { EventsFiltersShared } from '@services/meili/fetchers/eventsFetcher'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 import { useQuery } from 'react-query'
@@ -14,6 +9,11 @@ import { FilterModal } from '@/components/Molecules/FilterModal'
 import { Select } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import MDatePicker from '@/modules/common/MDatePicker/MDatePicker'
+import {
+  eventPropertiesFetcher,
+  getEventPropertiesQueryKey,
+} from '@/services/graphql/fetchers/event-properties.fetcher'
+import { EventsFiltersShared } from '@/services/meili/fetchers/eventsFetcher'
 
 type EventFiltersProps = {
   filters: EventsFiltersShared

@@ -1,4 +1,3 @@
-import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import { Fragment } from 'react'
 
@@ -9,6 +8,7 @@ import ContactUsSidebar from '@/components/Molecules/BranchDetails/ContactUsSide
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
 import MLink from '@/modules/common/MLink'
 import RichText from '@/modules/formatting/RichText'
+import { BranchEntityFragment } from '@/services/graphql'
 
 export interface PageProps {
   branch: BranchEntityFragment

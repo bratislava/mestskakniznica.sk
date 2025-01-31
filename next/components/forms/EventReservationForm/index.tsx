@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { EventCardEntityFragment } from '@services/graphql'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -10,6 +9,7 @@ import * as yup from 'yup'
 import { DateTimeSelect, Input, TextArea } from '@/components/ui'
 import NumberSwitcher from '@/components/ui/NumberSwitcher/NumberSwitcher'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
+import { EventCardEntityFragment } from '@/services/graphql'
 import { convertDataToBody, getLocalDateForYup } from '@/utils/form-constants'
 import { dayForDifferentDateTo, isEventPast } from '@/utils/utils'
 

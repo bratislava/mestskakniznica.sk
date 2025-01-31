@@ -1,3 +1,11 @@
+import { GetStaticProps } from 'next'
+import { SSRConfig, useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import SectionHomepageNewBooks from '@/components/HomePage/SectionHomepageNewBooks'
+import { SectionContainer } from '@/components/ui'
+import MapSection from '@/components/ui/MapSection/MapSection'
+import type { Book } from '@/modules/cards-and-rows/BookCard'
 import {
   BookTagEntityFragment,
   ComponentCommonSeo,
@@ -10,18 +18,10 @@ import {
   HomepageRegistrationInfoFragment,
   NoticeListingEntityFragment,
   PageLocalizationEntityFragment,
-} from '@services/graphql'
-import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
-import { client } from '@services/graphql/gql'
-import { newBooksHomePageServerSideFetcher } from '@services/opac/fetchers/new-books-server-side.fetcher'
-import { GetStaticProps } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
-import SectionHomepageNewBooks from '@/components/HomePage/SectionHomepageNewBooks'
-import { SectionContainer } from '@/components/ui'
-import MapSection from '@/components/ui/MapSection/MapSection'
-import type { Book } from '@/modules/cards-and-rows/BookCard'
+} from '@/services/graphql'
+import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
+import { client } from '@/services/graphql/gql'
+import { newBooksHomePageServerSideFetcher } from '@/services/opac/fetchers/new-books-server-side.fetcher'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { hasAttributes, isDefined } from '@/utils/isDefined'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'

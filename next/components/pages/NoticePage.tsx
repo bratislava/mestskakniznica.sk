@@ -1,9 +1,9 @@
-import { NoticeEntityFragment } from '@services/graphql'
 import * as React from 'react'
 
 import { Documents, PageTitle, SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import RichText from '@/modules/formatting/RichText'
+import { NoticeEntityFragment } from '@/services/graphql'
 import { useNavikronos } from '@/utils/navikronos'
 
 export interface NoticePageProps {

@@ -1,4 +1,3 @@
-import { EventCardEntityFragment } from '@services/graphql'
 import Image from 'next/image'
 
 import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
@@ -6,6 +5,7 @@ import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
+import { EventCardEntityFragment } from '@/services/graphql'
 import { isDefined, WithAttributes } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 

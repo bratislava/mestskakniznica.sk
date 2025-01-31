@@ -1,8 +1,8 @@
-import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
 import cx from 'classnames'
 
 import { FolderIcon } from '@/assets/icons'
 import DocumentRow from '@/modules/cards-and-rows/DocumentRow'
+import { DisclosureEntityFragment, DocumentEntityFragment } from '@/services/graphql'
 import { hasAttributes, isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 

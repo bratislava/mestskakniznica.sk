@@ -1,16 +1,16 @@
 import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
-import {
-  EventBranchFragment,
-  EventCategoryFragment,
-  EventTagsFragment,
-  UploadImageFragment,
-} from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
 import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
+import {
+  EventBranchFragment,
+  EventCategoryFragment,
+  EventTagsFragment,
+  UploadImageFragment,
+} from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 

@@ -1,11 +1,11 @@
+import groupBy from 'lodash/groupBy'
+
+import { SubpageItemProps, TableRowWithIdProp } from '@/components/ui'
 import {
   Enum_Componentaccordionitemstablerow_Valuealign,
   SubpagesSectionFragment,
   TableRowWithIdFragment,
-} from '@services/graphql'
-import groupBy from 'lodash/groupBy'
-
-import { SubpageItemProps, TableRowWithIdProp } from '@/components/ui'
+} from '@/services/graphql'
 import { isPresent } from '@/utils/utils'
 
 export const groupByTableCategory = (

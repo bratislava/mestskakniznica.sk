@@ -1,7 +1,7 @@
-import { mockNewBooks } from '@services/opac/mockNewBooks'
 import XMLConvertor from 'xml-js'
 
 import type { Book } from '@/modules/cards-and-rows/BookCard'
+import { mockNewBooks } from '@/services/opac/mockNewBooks'
 import { isDefined } from '@/utils/isDefined'
 
 /*

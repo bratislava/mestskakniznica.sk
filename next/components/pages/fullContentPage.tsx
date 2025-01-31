@@ -1,7 +1,7 @@
-import { PageEntityFragment } from '@services/graphql'
 import * as React from 'react'
 
 import { PageTitle, SectionContainer } from '@/components/ui'
+import { PageEntityFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'

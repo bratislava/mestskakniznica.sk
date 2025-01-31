@@ -1,5 +1,5 @@
 import { now } from '@internationalized/date'
-import { client } from '@services/graphql/gql'
+import { client } from '@/services/graphql/gql'
 import { bratislavaTimezone } from '@/utils/consts'
 
 export const generalFetcher = (locale: string) => {

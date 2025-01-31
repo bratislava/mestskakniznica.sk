@@ -1,8 +1,7 @@
-import { BranchEntityFragment } from '@services/graphql'
-
 import BranchDetails from '@/components/Molecules/BranchDetails/BranchDetails'
 import { SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
+import { BranchEntityFragment } from '@/services/graphql'
 import { useNavikronos } from '@/utils/navikronos'
 
 export interface PageProps {

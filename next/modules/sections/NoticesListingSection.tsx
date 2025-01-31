@@ -1,14 +1,14 @@
-import {
-  getNoticesQueryKey,
-  noticesDefaultFilters,
-  noticesFetcher,
-} from '@services/graphql/fetchers/notices.fetcher'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useQuery } from 'react-query'
 
 import { Pagination } from '@/components/ui'
 import NoticeCard from '@/modules/cards-and-rows/NoticeCard'
+import {
+  getNoticesQueryKey,
+  noticesDefaultFilters,
+  noticesFetcher,
+} from '@/services/graphql/fetchers/notices.fetcher'
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 const NoticesListingSection = () => {

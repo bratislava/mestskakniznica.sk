@@ -1,11 +1,11 @@
 import RegisterToLibrary from '@assets/images/register-to-library.svg'
-import { HomepageRegistrationInfoFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { CheckNoPaddingIcon } from '@/assets/icons'
 import { SectionContainer } from '@/components/ui'
 import Button from '@/modules/common/Button'
+import { HomepageRegistrationInfoFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 

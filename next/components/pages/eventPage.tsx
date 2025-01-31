@@ -1,4 +1,3 @@
-import { EventEntityFragment } from '@services/graphql'
 import EventDetails from 'components/Molecules/EventDetails'
 import { useTranslation } from 'next-i18next'
 
@@ -6,6 +5,7 @@ import { SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import EventCard from '@/modules/cards-and-rows/EventCard'
 import MLink from '@/modules/common/MLink'
+import { EventEntityFragment } from '@/services/graphql'
 import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'

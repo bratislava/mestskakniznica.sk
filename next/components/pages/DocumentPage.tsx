@@ -1,4 +1,3 @@
-import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
 
@@ -8,6 +7,7 @@ import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import Button from '@/modules/common/Button'
 import FileExtBadge from '@/modules/common/FileExtBadge'
 import FormatDate from '@/modules/formatting/FormatDate'
+import { DisclosureEntityFragment, DocumentEntityFragment } from '@/services/graphql'
 import { useNavikronos } from '@/utils/navikronos'
 import { useDisclosureMetadata } from '@/utils/useDisclosureMetadata'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'

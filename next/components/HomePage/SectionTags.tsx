@@ -1,10 +1,10 @@
-import { BookTagEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { SectionContainer } from '@/components/ui'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
+import { BookTagEntityFragment } from '@/services/graphql'
 
 interface BookTagsProps {
   bookTags: BookTagEntityFragment[]

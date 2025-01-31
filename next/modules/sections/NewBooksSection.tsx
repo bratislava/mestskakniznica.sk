@@ -1,13 +1,13 @@
-import {
-  getNewBooksQueryKey,
-  newBooksDefaultFilters,
-  newBooksFetcher,
-} from '@services/opac/fetchers/new-books.fetcher'
 import React from 'react'
 import { useQuery } from 'react-query'
 
 import { Pagination } from '@/components/ui'
 import BookCard from '@/modules/cards-and-rows/BookCard'
+import {
+  getNewBooksQueryKey,
+  newBooksDefaultFilters,
+  newBooksFetcher,
+} from '@/services/opac/fetchers/new-books.fetcher'
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 /**

@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request'
 import getConfig from 'next/config'
-import { getSdk } from '@services/graphql/index'
+import { getSdk } from '@/services/graphql/index'
 
 const { serverRuntimeConfig } = getConfig()
 

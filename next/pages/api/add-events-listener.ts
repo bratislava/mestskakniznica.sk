@@ -1,6 +1,7 @@
-import { client } from '@services/graphql/gql'
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
+
+import { client } from '@/services/graphql/gql'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { model, entry } = req.body

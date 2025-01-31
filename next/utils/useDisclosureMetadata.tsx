@@ -1,9 +1,9 @@
-import { DisclosureEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
 import FormatCurrency from '@/modules/formatting/FormatCurrency'
 import FormatDate from '@/modules/formatting/FormatDate'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
+import { DisclosureEntityFragment } from '@/services/graphql'
 import { getDisclosureTypeFixed } from '@/utils/getDisclosureTypeFixed'
 
 export const useDisclosureMetadata = () => {

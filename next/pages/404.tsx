@@ -1,5 +1,3 @@
-import { GeneralQuery } from '@services/graphql'
-import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -7,6 +5,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import Button from '@/modules/common/Button'
+import { GeneralQuery } from '@/services/graphql'
+import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 

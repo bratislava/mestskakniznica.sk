@@ -1,4 +1,3 @@
-import { EventEntityFragment } from '@services/graphql'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
@@ -18,6 +17,7 @@ import { Documents } from '@/components/ui'
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import RichText from '@/modules/formatting/RichText'
+import { EventEntityFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
 import { isEventPast } from '@/utils/utils'
 
