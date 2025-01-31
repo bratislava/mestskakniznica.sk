@@ -1,7 +1,7 @@
-import { PageTitle, SectionContainer, Video } from '@bratislava/ui-city-library'
 import { BlogPostEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
+import { PageTitle, SectionContainer, Video } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import FormatDate from '@/modules/formatting/FormatDate'
 import { isDefined } from '@/utils/isDefined'

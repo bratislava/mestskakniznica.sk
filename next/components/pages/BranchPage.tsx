@@ -1,7 +1,7 @@
-import { SectionContainer } from '@bratislava/ui-city-library'
 import BranchDetails from '@components/Molecules/BranchDetails/BranchDetails'
 import { BranchEntityFragment } from '@services/graphql'
 
+import { SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import { useNavikronos } from '@/utils/navikronos'
 

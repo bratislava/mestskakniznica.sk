@@ -1,9 +1,9 @@
 import ChevronLeft from '@assets/images/chevron-left.svg'
 import ChevronRight from '@assets/images/chevron-right.svg'
-import { Input } from '@bratislava/ui-city-library'
 import cx from 'classnames'
 import React, { useCallback, useEffect, useState } from 'react'
 
+import { Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
 
 export interface PaginationProps {

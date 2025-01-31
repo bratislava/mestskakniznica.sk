@@ -1,10 +1,10 @@
-import { CheckBox, Input } from '@bratislava/ui-city-library'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 import Turnstile from 'react-turnstile'
 
+import { CheckBox, Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import { useGeneralContext } from '@/utils/generalContext'

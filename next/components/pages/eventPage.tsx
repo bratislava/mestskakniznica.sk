@@ -1,8 +1,8 @@
-import { SectionContainer } from '@bratislava/ui-city-library'
 import { EventEntityFragment } from '@services/graphql'
 import EventDetails from 'components/Molecules/EventDetails'
 import { useTranslation } from 'next-i18next'
 
+import { SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import EventCard from '@/modules/cards-and-rows/EventCard'
 import MLink from '@/modules/common/MLink'

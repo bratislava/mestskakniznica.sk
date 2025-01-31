@@ -31,8 +31,8 @@
             "@services*/
       /*": ["./services*/
       /*"],
-            "@bratislava/ui-city-library": ["./components/ui/"],
-            "@bratislava/ui-city-library*/
+            "@/components/ui": ["./components/ui/"],
+            "@/components/ui*/
       /*": ["./components/ui*/
       /*"],
             "@utils*/

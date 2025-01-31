@@ -1,9 +1,10 @@
-import { NewsLetter } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
+
+import { NewsLetter } from '@/components/ui'
 
 const schema = yup
   .object({

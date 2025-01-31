@@ -1,4 +1,3 @@
-import { SectionContainer } from '@bratislava/ui-city-library'
 import SectionHomepageNewBooks from '@components/HomePage/SectionHomepageNewBooks'
 import MapSection from '@components/ui/MapSection/MapSection'
 import {
@@ -21,6 +20,7 @@ import { GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { SectionContainer } from '@/components/ui'
 import type { Book } from '@/modules/cards-and-rows/BookCard'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { hasAttributes, isDefined } from '@/utils/isDefined'

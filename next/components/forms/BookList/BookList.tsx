@@ -1,10 +1,10 @@
-import { Input } from '@bratislava/ui-city-library'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, useFieldArray, useFormContext, useFormState } from 'react-hook-form'
 
 import { CloseCircleIcon, PlusIcon } from '@/assets/icons'
+import { Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
 
 interface Props {

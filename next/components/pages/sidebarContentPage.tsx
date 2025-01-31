@@ -1,7 +1,7 @@
-import { SectionContainer, Sidebar } from '@bratislava/ui-city-library'
 import { PageEntityFragment } from '@services/graphql'
 import Image from 'next/image'
 
+import { SectionContainer, Sidebar } from '@/components/ui'
 import { isDefined } from '@/utils/isDefined'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'

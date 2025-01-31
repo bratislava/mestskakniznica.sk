@@ -1,12 +1,3 @@
-import {
-  Documents,
-  Faq,
-  FlatText,
-  SiteUsefullness,
-  Subpages,
-  Table,
-  Video,
-} from '@bratislava/ui-city-library'
 import AccordionSection from '@components/Molecules/AccordionSection'
 import RentalSection from '@components/Molecules/RentalSection'
 import MapSection from '@components/ui/MapSection/MapSection'
@@ -18,6 +9,7 @@ import {
 } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
+import { Documents, Faq, FlatText, SiteUsefullness, Subpages, Table, Video } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import BlogPostsListingSection from '@/modules/sections/BlogPostsListingSection'
 import CherrypickSection from '@/modules/sections/CherrypickSection'

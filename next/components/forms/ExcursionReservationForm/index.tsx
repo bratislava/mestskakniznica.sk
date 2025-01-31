@@ -1,4 +1,3 @@
-import { DateTimeSelect, Input, Select, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
@@ -7,6 +6,7 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import { DateTimeSelect, Input, Select, TextArea } from '@/components/ui'
 import { convertDataToBody, getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'

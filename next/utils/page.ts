@@ -1,4 +1,3 @@
-import { SubpageItemProps, TableRowWithIdProp } from '@bratislava/ui-city-library'
 import {
   Enum_Componentaccordionitemstablerow_Valuealign,
   SubpagesSectionFragment,
@@ -6,6 +5,7 @@ import {
 } from '@services/graphql'
 import groupBy from 'lodash/groupBy'
 
+import { SubpageItemProps, TableRowWithIdProp } from '@/components/ui'
 import { isPresent } from '@/utils/utils'
 
 export const groupByTableCategory = (

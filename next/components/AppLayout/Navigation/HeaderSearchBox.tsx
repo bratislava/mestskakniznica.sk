@@ -1,4 +1,3 @@
-import { Select } from '@bratislava/ui-city-library'
 import SearchBar from '@components/AppLayout/Navigation/SearchBar'
 import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -8,6 +7,7 @@ import { KeyboardEventHandler, useId, useState } from 'react'
 import { useFocusWithin } from 'react-aria'
 
 import { CloseCircleIcon, SearchIcon } from '@/assets/icons'
+import { Select } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import { useNavikronos } from '@/utils/navikronos'
 

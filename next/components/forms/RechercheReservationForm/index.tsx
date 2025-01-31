@@ -1,4 +1,3 @@
-import { Input, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
@@ -8,6 +7,7 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import { Input, TextArea } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import { convertDataToBody } from '@/utils/form-constants'
 

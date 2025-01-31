@@ -1,4 +1,3 @@
-import { IRadioOption } from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
 import { now } from '@internationalized/date'
 import isArray from 'lodash/isArray'
 import isBoolean from 'lodash/isBoolean'
@@ -10,6 +9,7 @@ import isPlainObject from 'lodash/isPlainObject'
 import isString from 'lodash/isString'
 import { useTranslation } from 'next-i18next'
 
+import { IRadioOption } from '@/components/ui/RadioGroup/RadioGroup'
 import { bratislavaTimezone } from '@/utils/consts'
 
 export interface IFormOption {

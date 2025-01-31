@@ -1,10 +1,10 @@
-import { Footer, SectionContainer } from '@bratislava/ui-city-library'
 import { SeoFragment } from '@services/graphql'
 import cx from 'classnames'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
+import { Footer, SectionContainer } from '@/components/ui'
 import ScrollToTopButton from '@/modules/common/ScrollToTopButton'
 import HeaderWrapper from '@/modules/navigation/HeaderWrapper'
 import { useNavMenuContext } from '@/modules/navigation/navMenuContext'
