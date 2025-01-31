@@ -17,14 +17,14 @@ import {
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 type EventsListingSectionXProps = {
-  titleTranslationKey: string
+  title: string
   queryResult: UseQueryResult<Awaited<ReturnType<typeof eventsFetcher>>>
   filters: EventsFilters
   onPageChange: (page: number) => void
 }
 
 const InnerSection = ({
-  titleTranslationKey,
+  title,
   queryResult,
   filters,
   onPageChange,
@@ -39,7 +39,7 @@ const InnerSection = ({
 
   return (
     <div>
-      <div className="text-h3">{t(titleTranslationKey)}</div>
+      <div className="text-h3">{title}</div>
       <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
         {data?.hits.map((event) => {
           const {
@@ -74,9 +74,6 @@ const InnerSection = ({
           value={filters.page}
           onChangeNumber={onPageChange}
           max={Math.ceil((data?.estimatedTotalHits ?? 0) / filters.pageSize)}
-          previousButtonAriaLabel={t('previousPage')}
-          nextButtonAriaLabel={t('nextPage')}
-          currentInputAriaLabel={t('currentPage')}
         />
       </div>
     </div>
@@ -126,17 +123,17 @@ const EventsListingSection = () => {
       <EventFilters filters={filters.shared} onFiltersChange={handleSharedFiltersChange} />
       {queryResultUpcoming.data?.hits.length === 0 &&
       queryResultArchived.data?.hits.length === 0 ? (
-        <div className="text-center text-h3">{t('eventsEmpty')}</div>
+        <div className="text-center text-h3">{t('EventsListingSection.eventsEmpty')}</div>
       ) : null}
       <div className="flex flex-col gap-4 lg:gap-10">
         <InnerSection
-          titleTranslationKey="eventsUpcoming"
+          title={t('EventsListingSection.eventsUpcoming')}
           queryResult={queryResultUpcoming}
           filters={filters.upcoming}
           onPageChange={handleUpcomingPageChange}
         />
         <InnerSection
-          titleTranslationKey="eventsArchived"
+          title={t('EventsListingSection.eventsArchived')}
           queryResult={queryResultArchived}
           filters={filters.archived}
           onPageChange={handleArchivedPageChange}

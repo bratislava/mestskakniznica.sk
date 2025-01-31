@@ -12,13 +12,13 @@ export const useDownloadAriaLabel = () => {
   const getDownloadAriaLabel = useCallback(
     (file: UploadFileEntityFragment, title?: string): string => {
       if (!file.attributes) {
-        return t('openFile')
+        return t('useDownloadAriaLabel.openFile')
       }
       const { size, ext, name } = file.attributes
       const formattedSize = getFileSize(size, i18n.language)
-      const extFormatted = ext?.replace('.', '') ?? t('unknownFormat')
+      const extFormatted = ext?.replace('.', '') ?? t('useDownloadAriaLabel.unknownFormat')
 
-      return t('openFileAriaLabel', {
+      return t('useDownloadAriaLabel.openFileAriaLabel', {
         title: title || name,
         ext: extFormatted,
         size: formattedSize,

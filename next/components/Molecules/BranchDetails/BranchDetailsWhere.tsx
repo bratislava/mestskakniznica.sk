@@ -19,7 +19,7 @@ const BranchDetailsWhere = ({ branch }: BranchDetailsWhereProps) => {
 
   return (
     <div id="where" className="py-10">
-      <div className="pb-6 text-h3">{t('localityWhereToFind')}</div>
+      <div className="pb-6 text-h3">{t('branchDetails.localityWhereToFind')}</div>
       <div className="flex grid-cols-2 flex-col gap-x-5 space-y-4 md:grid">
         <div className="h-64 w-full md:h-[415px]">
           <BranchMap
@@ -32,19 +32,19 @@ const BranchDetailsWhere = ({ branch }: BranchDetailsWhereProps) => {
         <div className="flex flex-col gap-4 whitespace-pre-wrap text-base text-foreground-body">
           {address && (
             <>
-              <h3 className="text-h5">{t('address')}</h3>
+              <h3 className="text-h5">{t('branchDetails.box.address')}</h3>
               <div>{address}</div>
             </>
           )}
           {publicTransportInfo && (
             <>
-              <h3 className="text-h5">{t('publicTransport')}</h3>
+              <h3 className="text-h5">{t('branchDetails.box.publicTransport')}</h3>
               <div>{publicTransportInfo}</div>
             </>
           )}
           {barrierFreeInfo && (
             <>
-              <h3 className="text-h5">{t('barrierFreeTitle')}</h3>
+              <h3 className="text-h5">{t('branchDetails.box.barrierFreeTitle')}</h3>
               <div>{barrierFreeInfo}</div>
             </>
           )}

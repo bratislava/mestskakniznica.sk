@@ -143,7 +143,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         ref={forwardedRef}
         onKeyUp={keyUpHandler}
         role="application"
-        aria-label={description ?? t('descriptionSlider')}
+        aria-label={description ?? t('sliderDescription')}
         className="relative z-0 flex h-full w-full items-center justify-center overflow-hidden"
       >
         <AnimatePresence initial={false} custom={direction}>

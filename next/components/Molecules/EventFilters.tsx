@@ -140,8 +140,8 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       </div>
 
       <div className="shrink-0 p-3 text-center lg:mt-3 lg:p-0 lg:text-right">
-        <Button variant="secondary" className="w-1/2 lg:w-max" onPress={resetFilters}>
-          {t('reset_button')}
+        <Button variant="secondary" className="w-1/2 uppercase lg:w-max" onPress={resetFilters}>
+          {t('eventFilters.resetFilters')}
         </Button>
       </div>
     </div>

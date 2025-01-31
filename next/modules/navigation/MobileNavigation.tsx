@@ -24,14 +24,18 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
 
   const moreLinks = [
     {
-      label: t('openingHours'),
+      label: t('navigation.openingHours'),
       url:
         getPathForEntity({
           type: 'page',
           id: general?.data?.attributes?.openingHoursPage?.data?.id,
         }) ?? '',
     },
-    { label: t('onlineCatalog'), url: 'https://opac.mestskakniznica.sk/opac', target: '_blank' },
+    {
+      label: t('navigation.onlineCatalog'),
+      url: 'https://opac.mestskakniznica.sk/opac',
+      target: '_blank',
+    },
   ]
 
   return (
@@ -52,7 +56,7 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
             <Button
               variant="unstyled"
               className="p-4"
-              aria-label={t('closeMobileNavMenu')}
+              aria-label={t('navigation.aria.closeMobileNavMenu')}
               onPress={onClose}
             >
               <CloseIcon />

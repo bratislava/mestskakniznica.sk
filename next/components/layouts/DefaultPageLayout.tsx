@@ -64,21 +64,21 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
             <Footer
               footerColumns={footer?.data?.attributes?.footerColumns || []}
               // siteMap={{
-              //   title: t('siteMap'),
+              //   title: t('footer.siteMap'),
               //   href: footer?.siteMapLink?.slug ?? '#',
               // }}
               gdpr={{
-                title: t('privacy'),
+                title: t('footer.privacy'),
                 href:
                   getPathForStrapiEntity(
                     general?.data?.attributes?.privacyTermsAndConditionsPage?.data
                   ) ?? '#',
               }}
               VOP={{
-                title: t('VOP'),
+                title: t('footer.VOP'),
                 href: 'https://cdn-api.bratislava.sk/strapi-city-library/upload/vyhlasenie_o_pristupnosti_mkb_a75189f26f.pdf',
               }}
-              copyrightText={`${new Date().getFullYear()} ${t('copyright')}`}
+              copyrightText={`${new Date().getFullYear()} ${t('footer.copyright')}`}
               facebookUrl="https://sk-sk.facebook.com/mestskakniznica/"
               instagramUrl="https://www.instagram.com/mestska_kniznica_bratislava/?hl=sk"
               youtubeUrl="https://www.youtube.com/channel/UCX4B3tYI32-YcdsaD-Yt8Dw"

@@ -78,7 +78,7 @@ const Modal = (props: ModalProps) => {
                       <Button
                         variant="primary"
                         className="pointer-events-auto fixed top-6 right-6 z-30"
-                        aria-label={t('closeModal')}
+                        aria-label={t('modal.closeModal')}
                         onPress={onClose}
                       >
                         <CloseIcon />

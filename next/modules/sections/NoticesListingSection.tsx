@@ -45,9 +45,6 @@ const NoticesListingSection = () => {
             max={Math.ceil(data.notices?.meta.pagination.total / filters.pageSize)}
             value={filters.page}
             onChangeNumber={handlePageChange}
-            previousButtonAriaLabel={t('previousPage')}
-            nextButtonAriaLabel={t('nextPage')}
-            currentInputAriaLabel={t('currentPage')}
           />
         </div>
       )}

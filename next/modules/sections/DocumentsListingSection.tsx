@@ -123,9 +123,6 @@ const DocumentsListingSection = () => {
               max={Math.ceil(data.estimatedTotalHits / filters.pageSize)}
               onChangeNumber={handlePageChange}
               value={filters.page}
-              previousButtonAriaLabel={t('previousPage')}
-              nextButtonAriaLabel={t('nextPage')}
-              currentInputAriaLabel={t('currentPage')}
             />
           </div>
         ) : null}

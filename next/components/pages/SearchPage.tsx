@@ -104,7 +104,7 @@ const SearchPage = () => {
         <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={t('searchTitle')} hasDivider={false} />
+        <PageTitle title={t('search.searchTitle')} hasDivider={false} />
         <div className="mt-6 flex flex-col gap-y-4 lg:flex-row lg:gap-y-0">
           <SearchField
             className="h-16"
@@ -117,14 +117,14 @@ const SearchPage = () => {
           <ul className="-m-2 flex w-full items-center gap-3 overflow-auto p-2">
             <li>
               <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
-                {t('allResults')}
+                {t('search.allResults')}
               </TagToggle>
             </li>
             {allSearchTypes.map((type) => {
               return (
                 <li key={type}>
                   <TagToggle isSelected={isTypeSelected(type)} onChange={changeTypeSelected(type)}>
-                    {t(`searchTags.${type}`)}
+                    {t(`search.searchTags.${type}`)}
                   </TagToggle>
                 </li>
               )
@@ -132,9 +132,9 @@ const SearchPage = () => {
           </ul>
         </div>
 
-        <h2 className="sr-only">{t('searchResults')}</h2>
+        <h2 className="sr-only">{t('search.searchResults')}</h2>
         <div className="mt-5 text-[16px] text-foreground-placeholder">
-          {t('resultsFound', { count: data?.estimatedTotalHits ?? 0 })}
+          {t('search.resultsFound', { count: data?.estimatedTotalHits ?? 0 })}
         </div>
 
         {/* eslint-disable-next-line sonarjs/no-redundant-boolean */}
@@ -157,7 +157,7 @@ const SearchPage = () => {
                 animate={{ y: 0 }}
                 className="flex justify-center py-8 text-lg"
               >
-                {t('resultsFound', { count: 0 })}
+                {t('search.resultsFound', { count: 0 })}
               </motion.div>
             ) : (
               <ul ref={resultsRef} className="-mb-3 flex flex-col pb-3">
@@ -179,7 +179,7 @@ const SearchPage = () => {
                             {/* py set to 2px to coun also with the border */}
                             <span className="flex h-6 shrink-0 items-center rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[18px]">
                               {/* TODO proper translation keys */}
-                              {t(`searchTags.${type}`)}
+                              {t(`search.searchTags.${type}`)}
                             </span>
                           </div>
                           <div className="flex items-center text-xs text-foreground-body">
@@ -201,9 +201,6 @@ const SearchPage = () => {
                 max={Math.ceil(data.estimatedTotalHits / filters.pageSize)}
                 onChangeNumber={handlePageChange}
                 value={filters.page}
-                previousButtonAriaLabel={t('previousPage')}
-                nextButtonAriaLabel={t('nextPage')}
-                currentInputAriaLabel={t('currentPage')}
               />
             </div>
           ) : null}

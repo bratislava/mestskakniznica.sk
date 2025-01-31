@@ -58,8 +58,8 @@ const SearchField = ({
       id="search"
       value={input}
       onChange={(e) => setInput(e.target.value)}
-      placeholder={placeholder ?? t('searchPlaceholder')}
-      aria-label={t('aria.searchField')}
+      placeholder={placeholder ?? t('searchField.searchPlaceholder')}
+      aria-label={t('searchField.aria.searchField')}
       onKeyUp={onKeyUpHandler}
       className={className}
       inputClassName={inputClassName}

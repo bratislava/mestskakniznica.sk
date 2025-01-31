@@ -24,8 +24,8 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const searchFieldId = useId()
 
   const SEARCH_OPTIONS: { key: 'on_page' | 'in_catalogue'; title: string }[] = [
-    { key: 'on_page', title: t('searchOnPage') },
-    { key: 'in_catalogue', title: t('searchInCatalogue') },
+    { key: 'on_page', title: t('searchBox.options.searchOnPage') },
+    { key: 'in_catalogue', title: t('searchBox.options.searchInCatalogue') },
   ]
 
   const { focusWithinProps } = useFocusWithin({
@@ -93,7 +93,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
           input.length > 0 && (
             <Button
               onPress={handleClear}
-              aria-label={t('aria.clearSearch')}
+              aria-label={t('searchBox.aria.clearSearch')}
               variant="unstyled"
               className="flex items-center"
             >
@@ -113,11 +113,13 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
         })}
         placeholder={
           searchOptions === 'in_catalogue'
-            ? t('searchBookPlaceholder')
-            : t('searchOnPagePlaceholder')
+            ? t('searchBox.searchBookPlaceholder')
+            : t('searchBox.searchOnPagePlaceholder')
         }
         aria-label={
-          searchOptions === 'in_catalogue' ? t('aria.searchBook') : t('aria.searchOnPage')
+          searchOptions === 'in_catalogue'
+            ? t('searchBox.aria.searchBook')
+            : t('searchBox.aria.searchOnPage')
         }
       />
       <AnimatePresence>
@@ -126,11 +128,13 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
             <Button
               onPress={handleSearch}
               aria-label={
-                searchOptions === 'in_catalogue' ? t('aria.searchBook') : t('aria.searchOnPage')
+                searchOptions === 'in_catalogue'
+                  ? t('searchBox.aria.searchBook')
+                  : t('searchBox.aria.searchOnPage')
               }
               className={cx('absolute right-0 h-[42px] rounded-full px-4')}
             >
-              <span className="hidden md:inline">{t('search')}</span>
+              <span className="hidden md:inline">{t('searchBox.search')}</span>
               <span className="md:hidden">
                 <SearchIcon />
               </span>
