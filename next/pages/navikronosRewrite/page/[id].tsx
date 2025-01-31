@@ -8,6 +8,8 @@ import { DehydratedState, Hydrate } from 'react-query'
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import FullContentPage from '@/components/pages/fullContentPage'
 import SidebarContentPage from '@/components/pages/sidebarContentPage'
+import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
+import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { Enum_Page_Layout, GeneralQuery, PageEntityFragment } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
@@ -16,9 +18,6 @@ import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 import { prefetchPageSections } from '@/utils/prefetchPageSections'
-
-import { navikronosGetStaticProps } from '../../../navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '../../../navikronos/wrapNavikronosProvider'
 
 type PageProps = {
   page: PageEntityFragment

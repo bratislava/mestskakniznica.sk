@@ -7,11 +7,10 @@ import React from 'react'
 import { Controller, FormProvider, useController, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
+import FormFooter from '@/components/forms/FormFooter'
 import { Input, TextArea, Upload, UploadProps } from '@/components/ui'
 import { convertDataToBody } from '@/utils/form-constants'
-
-import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
-import FormFooter from '../FormFooter'
 
 type FileInputProps = {
   id: string

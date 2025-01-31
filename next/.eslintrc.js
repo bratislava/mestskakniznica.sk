@@ -48,6 +48,7 @@ module.exports = {
     '@next/next/no-img-element': 'off',
     // https://github.com/jsx-eslint/eslint-plugin-react/issues/2584#issuecomment-1191175244
     'react/jsx-no-useless-fragment': [2, { allowExpressions: true }],
+    'import/extensions': 'off',
   },
   ignorePatterns: ['*.config.*', 'graphql', '.eslintrc.js'],
 }

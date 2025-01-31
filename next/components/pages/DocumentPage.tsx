@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
 
 import { DownloadIcon, FolderIcon } from '@/assets/icons'
+import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import { SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import Button from '@/modules/common/Button'
@@ -12,8 +13,6 @@ import { useNavikronos } from '@/utils/navikronos'
 import { useDisclosureMetadata } from '@/utils/useDisclosureMetadata'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 import { getFileSize } from '@/utils/utils'
-
-import DefaultPageLayout from '../layouts/DefaultPageLayout'
 
 interface IProps {
   entity: DocumentEntityFragment | DisclosureEntityFragment

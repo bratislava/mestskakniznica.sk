@@ -6,16 +6,15 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
+import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
+import FormFooter from '@/components/forms/FormFooter'
 import { DateTimeSelect, Input, TextArea } from '@/components/ui'
 import NumberSwitcher from '@/components/ui/NumberSwitcher/NumberSwitcher'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@/services/graphql'
 import { convertDataToBody, getLocalDateForYup } from '@/utils/form-constants'
 import { dayForDifferentDateTo, isEventPast } from '@/utils/utils'
-
-import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
-import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
-import FormFooter from '../FormFooter'
 
 export interface EventReservationFormProps {
   eventDetail?: EventCardEntityFragment

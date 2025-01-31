@@ -1,6 +1,6 @@
-import { NavikronosConfig } from '../navikronos/config-type'
-import { NavikronosStaticProps } from '../navikronos/internal/internalTypes'
-import { createUseNavikronosHook } from '../navikronos/NavikronosProvider'
+import { NavikronosConfig } from '@/navikronos/config-type'
+import { NavikronosStaticProps } from '@/navikronos/internal/internalTypes'
+import { createUseNavikronosHook } from '@/navikronos/NavikronosProvider'
 
 export const navikronosConfig = {
   strapiUrl: process.env.STRAPI_URL as string,

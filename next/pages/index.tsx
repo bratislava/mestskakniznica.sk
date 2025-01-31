@@ -2,10 +2,18 @@ import { GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import SectionFaq from '@/components/HomePage/SectionFaq'
 import SectionHomepageNewBooks from '@/components/HomePage/SectionHomepageNewBooks'
+import SectionLibraryNews from '@/components/HomePage/SectionLibraryNews'
+import SectionPromos from '@/components/HomePage/SectionPromos'
+import SectionRegistrationInfo from '@/components/HomePage/SectionRegistrationInfo'
+import SectionTags from '@/components/HomePage/SectionTags'
+import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import { SectionContainer } from '@/components/ui'
 import MapSection from '@/components/ui/MapSection/MapSection'
 import type { Book } from '@/modules/cards-and-rows/BookCard'
+import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
+import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import {
   BookTagEntityFragment,
   ComponentCommonSeo,
@@ -25,15 +33,6 @@ import { newBooksHomePageServerSideFetcher } from '@/services/opac/fetchers/new-
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { hasAttributes, isDefined } from '@/utils/isDefined'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
-
-import SectionFaq from '../components/HomePage/SectionFaq'
-import SectionLibraryNews from '../components/HomePage/SectionLibraryNews'
-import SectionPromos from '../components/HomePage/SectionPromos'
-import SectionRegistrationInfo from '../components/HomePage/SectionRegistrationInfo'
-import SectionTags from '../components/HomePage/SectionTags'
-import DefaultPageLayout from '../components/layouts/DefaultPageLayout'
-import { navikronosGetStaticProps } from '../navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '../navikronos/wrapNavikronosProvider'
 
 type HomeProps = {
   localizations?: PageLocalizationEntityFragment[]

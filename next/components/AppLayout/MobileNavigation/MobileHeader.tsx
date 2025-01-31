@@ -4,13 +4,12 @@ import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 
 import { BurgerIcon } from '@/assets/icons'
+import HeaderSearchBox from '@/components/AppLayout/Navigation/HeaderSearchBox'
+import SkipToContentButton from '@/components/AppLayout/SkipToContentButton'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import { MobileNavigation } from '@/modules/navigation/MobileNavigation'
 import { MenuItem } from '@/modules/navigation/NavMenu'
-
-import HeaderSearchBox from '../Navigation/HeaderSearchBox'
-import SkipToContentButton from '../SkipToContentButton'
 
 const TITLE_CLASSES =
   'flex h-[30px] min-w-fit items-center border-r border-border-dark px-[7px] py-[2px]'

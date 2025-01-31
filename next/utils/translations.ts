@@ -1,6 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import cfg from '../next-i18next.config'
+import cfg from '@/next-i18next.config'
 
 interface IcachedSsrTranslations {
   [key: string]: any

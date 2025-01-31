@@ -1,8 +1,7 @@
 import cx from 'classnames'
 
+import { TableRow } from '@/components/ui'
 import { TableRowWithIdFragment } from '@/services/graphql'
-
-import { TableRow } from '../TableRow/TableRow'
 
 export type TableRowWithIdProp = Pick<
   TableRowWithIdFragment,

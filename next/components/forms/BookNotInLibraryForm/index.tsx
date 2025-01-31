@@ -7,11 +7,10 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import BookListNotInLibrary from '@/components/forms/BookList/BookListNotInLibrary'
+import FormContainer, { SubmitStatus } from '@/components/forms/FormContainer'
+import FormFooter from '@/components/forms/FormFooter'
 import { Input, TextArea } from '@/components/ui'
 import { convertDataToBody } from '@/utils/form-constants'
-
-import FormContainer, { SubmitStatus } from '../FormContainer'
-import FormFooter from '../FormFooter'
 
 const BookNotInLibraryForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
