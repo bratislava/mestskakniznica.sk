@@ -82,7 +82,7 @@ const Sections = ({
 }: {
   sections: PageSectionsFragment[] | BlogPostSectionsFragment[]
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <div className="flex flex-col space-y-8">

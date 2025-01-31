@@ -59,7 +59,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     forwardedRef
     // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
-    const { t } = useTranslation('common')
+    const { t } = useTranslation()
     const [isFocused, setFocused] = useState(false)
 
     const [[page, direction], setPage] = useState([initialPage ?? 0, 0])

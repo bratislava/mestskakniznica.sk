@@ -12,7 +12,7 @@ import {
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 const NoticesListingSection = () => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
   const [filters, setFilters] = useRoutePreservedState(noticesDefaultFilters)
 
   const { data } = useQuery({

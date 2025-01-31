@@ -21,7 +21,7 @@ type MobileHeaderProps = {
 const MobileHeader = ({ menus }: MobileHeaderProps) => {
   const [isMenuOpen, setMenuOpen] = useState(false)
   const router = useRouter()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const [isSearchOpen, setSearchOpen] = useState(false)
 
   // close mobile header on route change

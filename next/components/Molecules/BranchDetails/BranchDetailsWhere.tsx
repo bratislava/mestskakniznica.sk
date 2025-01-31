@@ -8,7 +8,7 @@ type BranchDetailsWhereProps = {
 }
 
 const BranchDetailsWhere = ({ branch }: BranchDetailsWhereProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   if (!branch?.attributes) {
     return null

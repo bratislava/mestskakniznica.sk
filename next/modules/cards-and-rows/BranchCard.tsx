@@ -15,7 +15,7 @@ type BranchCardProps = {
 }
 
 const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForEntity } = useNavikronos()
   const href = (pageId ? getPathForEntity({ type: 'page', id: pageId }) : null) ?? '#'
 

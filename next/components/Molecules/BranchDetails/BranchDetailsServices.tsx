@@ -11,7 +11,7 @@ type BranchDetailsServicesProps = {
 }
 
 const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
   if (!branch.attributes?.servicePages?.data.length) {

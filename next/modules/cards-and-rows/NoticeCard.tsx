@@ -14,7 +14,7 @@ type NoticeCardProps = {
 }
 
 const NoticeCard = ({ notice }: NoticeCardProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
   const { image, link, date } = useMemo(() => {

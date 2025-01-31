@@ -6,7 +6,7 @@ import BreadcrumbItem from '@/modules/breadcrumbs/BreadcrumbItem'
 import { BreadcrumbsProps } from '@/modules/breadcrumbs/Breadcrumbs'
 
 const DesktopBreadcrumbs = ({ crumbs, ...rest }: BreadcrumbsProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { navProps } = useBreadcrumbs(rest)
 
   return (

@@ -22,7 +22,7 @@ export type ImageGalleryProps = {
 }
 
 const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const firstImage = useMemo(() => {
     return images[0] ?? undefined

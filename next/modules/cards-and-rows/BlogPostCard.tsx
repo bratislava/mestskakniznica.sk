@@ -14,7 +14,7 @@ type BlogPostProps = {
 }
 
 const BlogPostCard = ({ blogPost }: BlogPostProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
   const { coverMedia, publishedAt, title } = blogPost.attributes ?? {}

@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const DocumentPage = ({ entity }: IProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
   const { breadcrumbs } = useNavikronos()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
   const { getDisclosureMetadata } = useDisclosureMetadata()

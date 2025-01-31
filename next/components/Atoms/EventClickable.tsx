@@ -15,7 +15,7 @@ interface ClickableProps {
 
 const Clickable = ({ text, svgIcon, actionLink, classDiv, copyText }: ClickableProps) => {
   const [copied, setCopied] = useState(false)
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (copied) {

@@ -13,7 +13,7 @@ export interface BlogPostPageProps {
 }
 
 const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const mediaType = blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
 

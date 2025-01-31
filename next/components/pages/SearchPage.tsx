@@ -24,7 +24,7 @@ import {
 import { useNavikronos } from '@/utils/navikronos'
 
 const SearchPage = () => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
   const { getPathForEntity } = useNavikronos()
   const plausible = usePlausible()
 

@@ -20,7 +20,7 @@ import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 const DocumentsListingSection = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForEntity } = useNavikronos()
 
   // TODO add scroll to results

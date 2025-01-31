@@ -15,7 +15,7 @@ export interface PageProps {
 }
 
 const EventPage = ({ event }: PageProps) => {
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
 
   const { upcomingEvents } = useGeneralContext()
   const { breadcrumbs, getPathForStrapiEntity } = useNavikronos()

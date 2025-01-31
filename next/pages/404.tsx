@@ -18,7 +18,7 @@ type Error404PageProps = {
 } & CLNavikronosPageProps
 
 const Custom404 = ({ general }: Error404PageProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   const { asPath } = useRouter()
 

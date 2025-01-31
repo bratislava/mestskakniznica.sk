@@ -35,7 +35,7 @@ const SearchField = ({
   isLarge = false,
   ...rest
 }: SearchProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const handleClear = () => {
     setInput('')

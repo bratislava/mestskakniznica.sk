@@ -12,7 +12,7 @@ type PromoNewsCardProps = {
 }
 
 const PromoNewsCard = ({ notice }: PromoNewsCardProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
   const link = getPathForStrapiEntity(notice) ?? '#'

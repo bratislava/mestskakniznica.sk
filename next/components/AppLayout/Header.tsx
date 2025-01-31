@@ -13,7 +13,7 @@ type HeaderProps = {
 }
 
 const Header = ({ menus }: HeaderProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const [isSearchOpen, setSearchOpen] = useState(false)
 

@@ -15,7 +15,7 @@ export interface PageProps {
 }
 
 const BranchDetails = ({ branch }: PageProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const AnchorLink = (anchor: string, text: string) => (
     <MLink href={anchor} className="cursor-pointer whitespace-nowrap uppercase hover:underline">

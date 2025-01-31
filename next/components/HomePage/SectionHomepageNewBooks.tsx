@@ -10,7 +10,7 @@ import { useNavikronos } from '@/utils/navikronos'
 type SectionHomepageNewBooksProps = { books: Book[] }
 
 const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { general } = useGeneralContext()
   const { getPathForStrapiEntity } = useNavikronos()
 

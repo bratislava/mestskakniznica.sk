@@ -19,7 +19,7 @@ type HeaderSearchBoxProps = {
 }
 const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const router = useRouter()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForEntity } = useNavikronos()
   const searchFieldId = useId()
 

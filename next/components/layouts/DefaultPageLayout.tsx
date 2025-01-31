@@ -24,7 +24,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
   const { footer, general } = useGeneralContext()
   const { getPathForStrapiEntity, localizations, getPathForEntity } = useNavikronos()
 
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { menuValue } = useNavMenuContext()
 
   return (

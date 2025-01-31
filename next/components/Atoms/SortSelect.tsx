@@ -11,7 +11,7 @@ type SortSelectProps = {
 }
 
 const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const options = useMemo(
     () => [

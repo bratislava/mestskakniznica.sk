@@ -31,7 +31,7 @@ type NavigationMenuProps = {
 }
 
 const NavMenu = ({ menus, isSearchOpen }: NavigationMenuProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const router = useRouter()
 
   const { menuValue, setMenuValue } = useNavMenuContext()

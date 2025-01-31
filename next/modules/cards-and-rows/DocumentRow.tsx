@@ -24,7 +24,7 @@ const DocumentRow = ({
   addedAt,
   metadata,
 }: DocumentRowProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <CardWrapper className="group/showMore relative flex gap-5 border-b border-border-dark py-4 pr-2 text-foreground-body lg:gap-8">

@@ -21,7 +21,7 @@ export interface ListingProps {
 }
 
 export const Listing = ({ className, title, url, listingChildren, hasDivider }: ListingProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const id = useId()
 
   return (

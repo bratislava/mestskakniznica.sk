@@ -14,7 +14,7 @@ export interface PaginationProps {
 }
 
 export const Pagination = ({ max, value, onChangeNumber }: PaginationProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const [displayValue, setDisplayValue] = useState(value.toString())
 

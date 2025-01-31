@@ -29,7 +29,7 @@ const InnerSection = ({
   filters,
   onPageChange,
 }: EventsListingSectionXProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { data } = queryResult
 
@@ -81,7 +81,7 @@ const InnerSection = ({
 }
 
 const EventsListingSection = () => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   const [filters, setFilters] = useRoutePreservedState({
     upcoming: eventsUpcomingDefaultFilters,

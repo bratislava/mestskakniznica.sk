@@ -6,7 +6,7 @@ import { UploadFileEntityFragment } from '@/services/graphql'
 import { getFileSize } from './utils'
 
 export const useDownloadAriaLabel = () => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   // borrowed from project https://github.com/bratislava/marianum
   const getDownloadAriaLabel = useCallback(

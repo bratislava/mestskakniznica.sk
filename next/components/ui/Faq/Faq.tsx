@@ -19,7 +19,7 @@ export interface FaqProps {
 
 export const Faq = ({ className, title, questions, ctaButton, redirectTo }: FaqProps) => {
   const { getPathForEntity } = useNavikronos()
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
 
   return (
     <div className={cx(className)}>

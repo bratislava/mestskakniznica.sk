@@ -14,7 +14,7 @@ interface RegistrationInfoProps {
 }
 
 const SectionRegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
   return (

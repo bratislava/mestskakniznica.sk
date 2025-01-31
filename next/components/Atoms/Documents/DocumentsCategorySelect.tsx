@@ -14,7 +14,7 @@ type DocumentsCategorySelectProps = {
 }
 
 const DocumentsCategorySelect = ({ onCategoryChange = () => {} }: DocumentsCategorySelectProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   // TODO when translating documents, replace labels byt translated values
   const disclosureTypes = useMemo(() => {

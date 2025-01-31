@@ -12,7 +12,7 @@ type ContactsAndOpeningHoursProps = {
 }
 
 const ContactsAndOpeningHours = ({ branch, branches }: ContactsAndOpeningHoursProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   if (!branches?.length && !branch) {
     return null

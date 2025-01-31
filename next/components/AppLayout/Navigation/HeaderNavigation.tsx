@@ -6,7 +6,7 @@ import { useNavikronos } from '@/utils/navikronos'
 import { useGetOtherLocale } from '@/utils/useGetOtherLocale'
 
 const HeaderNavigation = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { general } = useGeneralContext()
   const { getPathForStrapiEntity } = useNavikronos()
   const otherLocale = useGetOtherLocale()

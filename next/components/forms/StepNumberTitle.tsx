@@ -16,7 +16,7 @@ interface IProps {
 const StepNumberTitle = ({ num, title, activeStep, onClick, className, children }: IProps) => {
   const active = activeStep === num
   const finished = activeStep > num
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
 
   return (
     <div

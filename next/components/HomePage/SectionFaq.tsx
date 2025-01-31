@@ -14,7 +14,7 @@ interface SectionFaqProps {
 }
 
 const SectionFaq = ({ faqSection }: SectionFaqProps) => {
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
   return (

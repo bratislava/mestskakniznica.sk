@@ -24,7 +24,7 @@ const NewsletterSection = () => {
   const [subscribed, setSubscribed] = useState(false)
   const [resStatus, setResStatus] = useState(false)
   const [respondMessage, setRespondMessage] = useState('')
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const handleSubmit = methods.handleSubmit(async (data) => {
     const res = await fetch('/api/subscribe', {

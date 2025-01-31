@@ -33,7 +33,7 @@ const Modal = (props: ModalProps) => {
     centerVertically = true,
     noAnimation = false,
   } = props
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement | null>(null)
   const { overlayProps, underlayProps } = useOverlay(
     { ...props, isDismissable: isDismissable === undefined ? true : isDismissable },

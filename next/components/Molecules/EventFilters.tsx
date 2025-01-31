@@ -21,7 +21,7 @@ type EventFiltersProps = {
 }
 
 const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
 
@@ -149,7 +149,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
 }
 
 const EventFilters = ({ filters, onFiltersChange }: EventFiltersProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { isSelected, toggle } = useToggleState({ defaultSelected: false })

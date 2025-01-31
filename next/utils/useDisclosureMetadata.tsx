@@ -7,7 +7,7 @@ import { DisclosureEntityFragment } from '@/services/graphql'
 import { getDisclosureTypeFixed } from '@/utils/getDisclosureTypeFixed'
 
 export const useDisclosureMetadata = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const getDisclosureMetadata = (disclosure: DisclosureEntityFragment) => {
     if (!disclosure.attributes) {
