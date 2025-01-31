@@ -1,9 +1,10 @@
 resources:
   - ../../base
+  - scaler.yml
 
 configMapGenerator:
-- name: ${BUILD_REPOSITORY_NAME}-env
-  namespace: ${NAMESPACE}
-  behavior: merge
-  envs:
-  - .env
+  - name: ${BUILD_REPOSITORY_NAME}-env
+    namespace: ${NAMESPACE}
+    behavior: merge
+    envs:
+      - .env
