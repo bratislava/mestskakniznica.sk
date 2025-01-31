@@ -1,8 +1,8 @@
-import { ChevronLeftIcon } from '@assets/icons'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 import { useEventListener } from 'usehooks-ts'
 
+import { ChevronLeftIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 
 const handleScrollToTop = () => {

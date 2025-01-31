@@ -1,6 +1,6 @@
-import { ChevronRightIcon } from '@assets/icons'
 import cx from 'classnames'
 
+import { ChevronRightIcon } from '@/assets/icons'
 import MLink from '@/modules/common/MLink'
 
 type PageRowProps = {

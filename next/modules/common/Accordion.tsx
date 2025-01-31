@@ -1,8 +1,9 @@
-import { ChevronLeftIcon } from '@assets/icons'
 import { AnimateHeight } from '@components/Atoms/AnimateHeight'
 import { Disclosure } from '@headlessui/react'
 import cx from 'classnames'
 import { ReactNode } from 'react'
+
+import { ChevronLeftIcon } from '@/assets/icons'
 
 export type AccordionProps = {
   type: 'boxed' | 'divider-small' | 'divider-big' | 'subbranch' | 'breadcrumbs'

@@ -1,9 +1,9 @@
-import { CloseIcon } from '@assets/icons'
 import { useGeneralContext } from '@utils/generalContext'
 import { useNavikronos } from '@utils/navikronos'
 import { useGetOtherLocale } from '@utils/useGetOtherLocale'
 import { useTranslation } from 'next-i18next'
 
+import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import Modal from '@/modules/common/Modal'

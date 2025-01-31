@@ -1,8 +1,8 @@
-import { MailIcon, PhoneIcon } from '@assets/icons'
 import BusinessSvg from '@assets/images/business.svg'
 import { BranchPlaceEntityFragment } from '@services/graphql'
 import React from 'react'
 
+import { MailIcon, PhoneIcon } from '@/assets/icons'
 import Accordion from '@/modules/common/Accordion'
 import Button from '@/modules/common/Button'
 

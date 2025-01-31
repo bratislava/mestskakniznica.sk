@@ -1,7 +1,7 @@
-import { CloseIcon } from '@assets/icons'
 import cx from 'classnames'
 import React from 'react'
 
+import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 
 import { SubmitStatus } from './FormContainer'

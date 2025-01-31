@@ -1,6 +1,6 @@
-import { CloseIcon } from '@assets/icons'
 import { ReactNode } from 'react'
 
+import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 
 interface FilterModalProps {

@@ -1,7 +1,7 @@
-import { GlobeIcon } from '@assets/icons'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 
+import { GlobeIcon } from '@/assets/icons'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 

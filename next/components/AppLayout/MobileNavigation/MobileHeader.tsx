@@ -1,9 +1,9 @@
-import { BurgerIcon } from '@assets/icons'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 
+import { BurgerIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import { MobileNavigation } from '@/modules/navigation/MobileNavigation'

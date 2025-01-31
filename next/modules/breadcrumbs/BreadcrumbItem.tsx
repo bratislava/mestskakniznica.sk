@@ -1,7 +1,7 @@
-import { ChevronLeftIcon, ChevronRightIcon } from '@assets/icons'
 import React, { useRef } from 'react'
 import { AriaBreadcrumbItemProps, useBreadcrumbItem } from 'react-aria'
 
+import { ChevronLeftIcon, ChevronRightIcon } from '@/assets/icons'
 import { BreadcrumbListItem } from '@/modules/breadcrumbs/Breadcrumbs'
 import MLink from '@/modules/common/MLink'
 

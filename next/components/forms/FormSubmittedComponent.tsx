@@ -1,8 +1,8 @@
-import { CheckNoPaddingIcon, CloseIcon } from '@assets/icons'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+import { CheckNoPaddingIcon, CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 
 import { SubmitStatus } from './FormContainer'

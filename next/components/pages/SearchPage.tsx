@@ -1,4 +1,3 @@
-import { ChevronRightIcon } from '@assets/icons'
 import { PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
 import {
   allSearchTypes,
@@ -15,6 +14,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDebounce } from 'usehooks-ts'
 
+import { ChevronRightIcon } from '@/assets/icons'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'

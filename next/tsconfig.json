@@ -24,10 +24,10 @@
       "@/*": [
         "./*"
       ]
-      /*      "@modules*/
-      /*": ["./modules*/
-      /*"],
-            "@assets/icons": ["./assets/icons/index.ts"],
+      /*
+
+            "@/assets/icons": ["./assets/icons/index.ts"],
+
             "@services*/
       /*": ["./services*/
       /*"],

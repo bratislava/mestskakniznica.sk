@@ -1,6 +1,6 @@
-import { ChevronRightIcon } from '@assets/icons'
 import { useState } from 'react'
 
+import { ChevronRightIcon } from '@/assets/icons'
 import MobileSubnavigation from '@/modules/navigation/MobileSubnavigation'
 import { MenuItem } from '@/modules/navigation/NavMenu'
 

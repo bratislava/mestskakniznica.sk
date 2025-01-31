@@ -1,9 +1,9 @@
-import { FolderIcon } from '@assets/icons'
 import { DisclosureEntityFragment, DocumentEntityFragment } from '@services/graphql'
 import { hasAttributes, isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import cx from 'classnames'
 
+import { FolderIcon } from '@/assets/icons'
 import DocumentRow from '@/modules/cards-and-rows/DocumentRow'
 
 export interface DocumentsProps {

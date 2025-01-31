@@ -1,7 +1,7 @@
-import { ChevronLeftIcon } from '@assets/icons'
 import React from 'react'
 import { useWindowSize } from 'usehooks-ts'
 
+import { ChevronLeftIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import Modal from '@/modules/common/Modal'

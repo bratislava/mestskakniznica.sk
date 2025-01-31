@@ -1,7 +1,7 @@
-import { ArrowRightIcon } from '@assets/icons'
 import cx from 'classnames'
 import React from 'react'
 
+import { ArrowRightIcon } from '@/assets/icons'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'

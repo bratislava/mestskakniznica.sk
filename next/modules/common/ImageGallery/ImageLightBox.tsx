@@ -1,8 +1,8 @@
-import { ArrowLeftIcon, ArrowRightIcon } from '@assets/icons'
 import { UploadImageEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef } from 'react'
 
+import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import Slider from '@/modules/common/ImageGallery/Slider'
 import MImage from '@/modules/common/MImage'

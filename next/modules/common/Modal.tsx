@@ -1,4 +1,3 @@
-import { CloseIcon } from '@assets/icons'
 import cx from 'classnames'
 import FocusTrap from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -8,6 +7,7 @@ import { AriaOverlayProps, OverlayContainer, useModal, useOverlay } from 'react-
 import { twMerge } from 'tailwind-merge'
 import { useIsClient, useLockedBody } from 'usehooks-ts'
 
+import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 
 export type ModalProps = {
