@@ -26,7 +26,7 @@ const CityLibraryRegistrationForm = () => {
   const [errMessage, setErrMessage] = React.useState('')
   const [step, setStep] = React.useState(1)
   const [showTempAddress, setShowTempAddress] = React.useState(false)
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
 
   yup.setLocale({
     mixed: {

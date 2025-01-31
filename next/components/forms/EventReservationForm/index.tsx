@@ -29,7 +29,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
   const [isDateEditDisabled, setIsDateEditDisabled] = React.useState(false)
   const [isTimeEditDisabled, setIsTimeEditDisabled] = React.useState(false)
 
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
   const router = useRouter()
 
   yup.setLocale({

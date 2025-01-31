@@ -15,7 +15,7 @@ interface Props {
 const BookList = ({ className }: Props) => {
   const methods = useFormContext()
   const { errors } = useFormState()
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
 
   const { fields, append, remove } = useFieldArray({
     control: methods.control,
