@@ -1,8 +1,9 @@
-import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useEffect, useState } from 'react'
 import ReactTooltip from 'react-tooltip'
+
+import Button from '@/modules/common/Button'
 
 interface ClickableProps {
   text: string

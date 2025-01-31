@@ -1,8 +1,9 @@
 import { Stack } from '@components/styleguide/Stack'
 import { Wrapper } from '@components/styleguide/Wrapper'
-import DesktopBreadcrumbs from '@modules/breadcrumbs/DesktopBreadcrumbs'
-import MobileBreadcrumbs from '@modules/breadcrumbs/MobileBreadcrumbs'
 import React from 'react'
+
+import DesktopBreadcrumbs from '@/modules/breadcrumbs/DesktopBreadcrumbs'
+import MobileBreadcrumbs from '@/modules/breadcrumbs/MobileBreadcrumbs'
 
 const StyleguideBreadcrumbs = () => {
   const crumbs = [

@@ -1,8 +1,5 @@
 import { ChevronRightIcon } from '@assets/icons'
 import { PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
-import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
-import CardWrapper from '@modules/cards-and-rows/CardWrapper'
-import MLink from '@modules/common/MLink'
 import {
   allSearchTypes,
   commonSearchFetcher,
@@ -17,6 +14,10 @@ import { usePlausible } from 'next-plausible'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDebounce } from 'usehooks-ts'
+
+import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
+import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
+import MLink from '@/modules/common/MLink'
 
 import { useSearch } from '../../hooks/useSearch'
 import { AnimateHeight } from '../Atoms/AnimateHeight'

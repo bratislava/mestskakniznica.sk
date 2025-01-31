@@ -1,7 +1,8 @@
 import { Wrapper } from '@components/styleguide/Wrapper'
-import MLink from '@modules/common/MLink'
-import ShowMoreLink from '@modules/common/ShowMoreLink'
 import React from 'react'
+
+import MLink from '@/modules/common/MLink'
+import ShowMoreLink from '@/modules/common/ShowMoreLink'
 
 const StyleguideShowMoreLink = () => {
   return (

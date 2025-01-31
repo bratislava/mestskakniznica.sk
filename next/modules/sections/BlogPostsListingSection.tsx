@@ -1,5 +1,4 @@
 import { Pagination } from '@components/ui'
-import BlogPostCard from '@modules/cards-and-rows/BlogPostCard'
 import {
   blogPostsDefaultFilters,
   blogPostsFetcher,
@@ -9,6 +8,8 @@ import { useRoutePreservedState } from '@utils/useRoutePreservedState'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useQuery } from 'react-query'
+
+import BlogPostCard from '@/modules/cards-and-rows/BlogPostCard'
 
 const BlogPostsListingSection = () => {
   const { i18n } = useTranslation('common')

@@ -1,5 +1,4 @@
 import { CloseCircleIcon, CloseIcon, SearchIcon } from '@assets/icons'
-import Button from '@modules/common/Button'
 import { useTranslation } from 'next-i18next'
 import {
   DetailedHTMLProps,
@@ -8,6 +7,8 @@ import {
   KeyboardEventHandler,
   SetStateAction,
 } from 'react'
+
+import Button from '@/modules/common/Button'
 
 import TextField from './TextField'
 

@@ -1,6 +1,7 @@
-import DesktopBreadcrumbs from '@modules/breadcrumbs/DesktopBreadcrumbs'
-import MobileBreadcrumbs from '@modules/breadcrumbs/MobileBreadcrumbs'
 import { AriaBreadcrumbsProps } from 'react-aria'
+
+import DesktopBreadcrumbs from '@/modules/breadcrumbs/DesktopBreadcrumbs'
+import MobileBreadcrumbs from '@/modules/breadcrumbs/MobileBreadcrumbs'
 
 export type BreadcrumbListItem = { title: string; url?: string | null }
 

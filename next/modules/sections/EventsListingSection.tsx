@@ -1,6 +1,5 @@
 import EventFilters from '@components/Molecules/EventFilters'
 import { Pagination } from '@components/ui'
-import EventCard from '@modules/cards-and-rows/EventCard'
 import {
   eventsArchivedDefaultFilters,
   eventsFetcher,
@@ -14,6 +13,8 @@ import { useRoutePreservedState } from '@utils/useRoutePreservedState'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useQuery, UseQueryResult } from 'react-query'
+
+import EventCard from '@/modules/cards-and-rows/EventCard'
 
 type EventsListingSectionXProps = {
   titleTranslationKey: string

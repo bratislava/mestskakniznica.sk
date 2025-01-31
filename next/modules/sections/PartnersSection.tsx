@@ -1,8 +1,9 @@
-import PartnerCardRow from '@modules/cards-and-rows/PartnerCardRow'
 import { getPartnersQueryKey, partnersFetcher } from '@services/graphql/fetchers/partners.fetcher'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useQuery } from 'react-query'
+
+import PartnerCardRow from '@/modules/cards-and-rows/PartnerCardRow'
 
 const PartnersSection = () => {
   const { i18n } = useTranslation('common')

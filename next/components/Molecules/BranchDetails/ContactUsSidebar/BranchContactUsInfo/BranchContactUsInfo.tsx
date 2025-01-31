@@ -1,7 +1,8 @@
 import { MailIcon, PhoneIcon } from '@assets/icons'
-import Button from '@modules/common/Button'
 import { BranchPlaceEntityFragment } from '@services/graphql'
 import React from 'react'
+
+import Button from '@/modules/common/Button'
 
 type BranchContactUsInfoProps = {
   branch: BranchPlaceEntityFragment

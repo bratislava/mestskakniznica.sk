@@ -1,8 +1,9 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@assets/icons'
-import { BreadcrumbListItem } from '@modules/breadcrumbs/Breadcrumbs'
-import MLink from '@modules/common/MLink'
 import React, { useRef } from 'react'
 import { AriaBreadcrumbItemProps, useBreadcrumbItem } from 'react-aria'
+
+import { BreadcrumbListItem } from '@/modules/breadcrumbs/Breadcrumbs'
+import MLink from '@/modules/common/MLink'
 
 type BreadcrumbItemProps = AriaBreadcrumbItemProps &
   Pick<BreadcrumbListItem, 'url'> & { isMobile?: boolean }

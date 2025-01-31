@@ -1,9 +1,10 @@
-import PageCard from '@modules/cards-and-rows/PageCard'
-import PageRow from '@modules/cards-and-rows/PageRow'
-import ShowMoreLink from '@modules/common/ShowMoreLink'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useId } from 'react'
+
+import PageCard from '@/modules/cards-and-rows/PageCard'
+import PageRow from '@/modules/cards-and-rows/PageRow'
+import ShowMoreLink from '@/modules/common/ShowMoreLink'
 
 type ListingChild = {
   title: string

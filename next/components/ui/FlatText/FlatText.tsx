@@ -1,5 +1,6 @@
-import RichText from '@modules/formatting/RichText'
 import cx from 'classnames'
+
+import RichText from '@/modules/formatting/RichText'
 
 export interface FlatTextProps {
   className?: string

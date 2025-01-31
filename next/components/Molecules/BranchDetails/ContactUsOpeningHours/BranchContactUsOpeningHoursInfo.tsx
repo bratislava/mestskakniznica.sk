@@ -1,9 +1,10 @@
 import { MailIcon, PhoneIcon } from '@assets/icons'
 import BusinessSvg from '@assets/images/business.svg'
-import Accordion from '@modules/common/Accordion'
-import Button from '@modules/common/Button'
 import { BranchPlaceEntityFragment } from '@services/graphql'
 import React from 'react'
+
+import Accordion from '@/modules/common/Accordion'
+import Button from '@/modules/common/Button'
 
 import BranchOpeningHours from './BranchOpeningHours'
 

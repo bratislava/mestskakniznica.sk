@@ -1,10 +1,11 @@
 import Header from '@components/AppLayout/Header'
 import MobileHeader from '@components/AppLayout/MobileNavigation/MobileHeader'
-import { MenuItem } from '@modules/navigation/NavMenu'
 import { useGeneralContext } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import React, { useMemo } from 'react'
+
+import { MenuItem } from '@/modules/navigation/NavMenu'
 
 const HeaderWrapper = () => {
   const { menus } = useGeneralContext()

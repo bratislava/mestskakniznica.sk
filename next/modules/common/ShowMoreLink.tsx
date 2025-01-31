@@ -1,8 +1,9 @@
 import { ChevronRightIcon } from '@assets/icons'
-import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 import React, { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import MLink from '@/modules/common/MLink'
 
 type ShowMoreLinkProps = Omit<ComponentProps<typeof MLink>, 'variant'> & {
   /**

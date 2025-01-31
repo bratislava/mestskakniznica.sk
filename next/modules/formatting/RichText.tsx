@@ -1,7 +1,8 @@
-import MLink from '@modules/common/MLink'
-import NormalizeText from '@modules/formatting/NormalizeText/NormalizeText'
 import ReactMarkdown from 'react-markdown'
 import { twMerge } from 'tailwind-merge'
+
+import MLink from '@/modules/common/MLink'
+import NormalizeText from '@/modules/formatting/NormalizeText/NormalizeText'
 
 export interface HomepageMarkdownProps {
   className?: string

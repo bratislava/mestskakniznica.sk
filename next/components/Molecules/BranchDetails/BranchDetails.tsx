@@ -2,12 +2,13 @@ import BranchDetailsServices from '@components/Molecules/BranchDetails/BranchDet
 import BranchDetailsWhere from '@components/Molecules/BranchDetails/BranchDetailsWhere'
 import ContactsAndOpeningHours from '@components/Molecules/BranchDetails/ContactsAndOpeningHours'
 import ContactUsSidebar from '@components/Molecules/BranchDetails/ContactUsSidebar/ContactUsSidebar'
-import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
-import MLink from '@modules/common/MLink'
-import RichText from '@modules/formatting/RichText'
 import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import { Fragment } from 'react'
+
+import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
+import MLink from '@/modules/common/MLink'
+import RichText from '@/modules/formatting/RichText'
 
 export interface PageProps {
   branch: BranchEntityFragment

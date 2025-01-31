@@ -7,9 +7,6 @@ import {
   ShareIcon,
 } from '@assets/icons'
 import { Documents } from '@components/ui'
-import ImageGallery from '@modules/common/ImageGallery/ImageGallery'
-import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
-import RichText from '@modules/formatting/RichText'
 import { EventEntityFragment } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import { isEventPast } from '@utils/utils'
@@ -19,6 +16,10 @@ import QRCode from 'qrcode.react'
 import React from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+
+import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
+import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
+import RichText from '@/modules/formatting/RichText'
 
 import Placeholder from '../../assets/images/event-detail-placeholder.jpg'
 import Clickable from '../Atoms/EventClickable'

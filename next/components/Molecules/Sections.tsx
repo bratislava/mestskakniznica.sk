@@ -10,17 +10,6 @@ import {
 import AccordionSection from '@components/Molecules/AccordionSection'
 import RentalSection from '@components/Molecules/RentalSection'
 import MapSection from '@components/ui/MapSection/MapSection'
-import Button from '@modules/common/Button'
-import BlogPostsListingSection from '@modules/sections/BlogPostsListingSection'
-import CherrypickSection from '@modules/sections/CherrypickSection'
-import ChildrenListingSection from '@modules/sections/ChildrenListingSection'
-import DocumentsListingSection from '@modules/sections/DocumentsListingSection'
-import EventsListingSection from '@modules/sections/EventsListingSection'
-import GalleryBannerSection from '@modules/sections/GalleryBannerSection'
-import NewBooksSection from '@modules/sections/NewBooksSection'
-import NoticesListingSection from '@modules/sections/NoticesListingSection'
-import OpeningHoursSection from '@modules/sections/OpeningHoursSection'
-import PartnersSection from '@modules/sections/PartnersSection'
 import {
   BlogPostSectionsFragment,
   DisclosureEntityFragment,
@@ -30,6 +19,18 @@ import {
 import { isDefined } from '@utils/isDefined'
 import { parseSubpages } from '@utils/page'
 import { useTranslation } from 'next-i18next'
+
+import Button from '@/modules/common/Button'
+import BlogPostsListingSection from '@/modules/sections/BlogPostsListingSection'
+import CherrypickSection from '@/modules/sections/CherrypickSection'
+import ChildrenListingSection from '@/modules/sections/ChildrenListingSection'
+import DocumentsListingSection from '@/modules/sections/DocumentsListingSection'
+import EventsListingSection from '@/modules/sections/EventsListingSection'
+import GalleryBannerSection from '@/modules/sections/GalleryBannerSection'
+import NewBooksSection from '@/modules/sections/NewBooksSection'
+import NoticesListingSection from '@/modules/sections/NoticesListingSection'
+import OpeningHoursSection from '@/modules/sections/OpeningHoursSection'
+import PartnersSection from '@/modules/sections/PartnersSection'
 
 import AskLibraryForm from '../forms/AskLibraryForm.tsx'
 import BookNotInLibraryForm from '../forms/BookNotInLibraryForm'

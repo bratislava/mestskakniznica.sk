@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 
-import MImage from '@modules/common/MImage'
 import { UploadImageEntityFragment } from '@services/graphql'
 import { onEnterOrSpaceKeyDown } from '@utils/onEnterOrSpaceKeyDown'
 import cx from 'classnames'
@@ -10,6 +9,8 @@ import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import { useOverlayTriggerState } from 'react-stately'
+
+import MImage from '@/modules/common/MImage'
 
 import ImageLightBox from './ImageLightBox'
 

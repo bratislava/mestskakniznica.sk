@@ -1,12 +1,13 @@
 import { CheckNoPaddingIcon } from '@assets/icons'
 import RegisterToLibrary from '@assets/images/register-to-library.svg'
 import { SectionContainer } from '@components/ui'
-import Button from '@modules/common/Button'
 import { HomepageRegistrationInfoFragment } from '@services/graphql'
 import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+
+import Button from '@/modules/common/Button'
 
 interface RegistrationInfoProps {
   registrationInfoSection: HomepageRegistrationInfoFragment

@@ -1,13 +1,14 @@
 import { SectionContainer } from '@bratislava/ui-city-library'
-import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
-import EventCard from '@modules/cards-and-rows/EventCard'
-import MLink from '@modules/common/MLink'
 import { EventEntityFragment } from '@services/graphql'
 import { useGeneralContext } from '@utils/generalContext'
 import { isDefined } from '@utils/isDefined'
 import { useNavikronos } from '@utils/navikronos'
 import EventDetails from 'components/Molecules/EventDetails'
 import { useTranslation } from 'next-i18next'
+
+import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
+import EventCard from '@/modules/cards-and-rows/EventCard'
+import MLink from '@/modules/common/MLink'
 
 export interface PageProps {
   event: EventEntityFragment

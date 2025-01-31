@@ -1,6 +1,5 @@
 import { Input, TextArea } from '@bratislava/ui-city-library'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Button from '@modules/common/Button'
 import { convertDataToBody } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
@@ -9,6 +8,8 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
+
+import Button from '@/modules/common/Button'
 
 import BookList from '../BookList/BookList'
 import FormContainer, { phoneRegex, postalCodeRegex, SubmitStatus } from '../FormContainer'

@@ -1,7 +1,6 @@
 import { DateTimeSelect, Input, TextArea } from '@bratislava/ui-city-library'
 import NumberSwitcher from '@bratislava/ui-city-library/NumberSwitcher/NumberSwitcher'
 import { yupResolver } from '@hookform/resolvers/yup'
-import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@services/graphql'
 import { convertDataToBody, getLocalDateForYup } from '@utils/form-constants'
 import { dayForDifferentDateTo, isEventPast } from '@utils/utils'
@@ -11,6 +10,8 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
+
+import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 
 import EventDetailsDateBox from '../../Atoms/EventDetailsDateBox'
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'

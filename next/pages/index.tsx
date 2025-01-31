@@ -1,7 +1,6 @@
 import { SectionContainer } from '@bratislava/ui-city-library'
 import SectionHomepageNewBooks from '@components/HomePage/SectionHomepageNewBooks'
 import MapSection from '@components/ui/MapSection/MapSection'
-import type { Book } from '@modules/cards-and-rows/BookCard'
 import {
   BookTagEntityFragment,
   ComponentCommonSeo,
@@ -24,6 +23,8 @@ import { CLNavikronosPageProps, navikronosConfig } from '@utils/navikronos'
 import { GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import type { Book } from '@/modules/cards-and-rows/BookCard'
 
 import SectionFaq from '../components/HomePage/SectionFaq'
 import SectionLibraryNews from '../components/HomePage/SectionLibraryNews'

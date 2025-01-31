@@ -1,5 +1,4 @@
 import { Pagination } from '@components/ui'
-import NoticeCard from '@modules/cards-and-rows/NoticeCard'
 import {
   getNoticesQueryKey,
   noticesDefaultFilters,
@@ -9,6 +8,8 @@ import { useRoutePreservedState } from '@utils/useRoutePreservedState'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useQuery } from 'react-query'
+
+import NoticeCard from '@/modules/cards-and-rows/NoticeCard'
 
 const NoticesListingSection = () => {
   const { t, i18n } = useTranslation('common')

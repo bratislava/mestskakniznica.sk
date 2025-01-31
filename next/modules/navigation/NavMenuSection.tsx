@@ -1,8 +1,9 @@
-import { MenuSection } from '@modules/navigation/NavMenu'
-import NavMenuLatestEvents from '@modules/navigation/NavMenuLatestEvents'
-import NavMenuLink from '@modules/navigation/NavMenuLink'
 import cx from 'classnames'
 import React from 'react'
+
+import { MenuSection } from '@/modules/navigation/NavMenu'
+import NavMenuLatestEvents from '@/modules/navigation/NavMenuLatestEvents'
+import NavMenuLink from '@/modules/navigation/NavMenuLink'
 
 interface NavigationSectionProps {
   section: MenuSection

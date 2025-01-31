@@ -3,7 +3,6 @@ import DocumentsCategorySelect from '@components/Atoms/Documents/DocumentsCatego
 import SearchField from '@components/Atoms/SearchField'
 import SortSelect, { Sort } from '@components/Atoms/SortSelect'
 import { Pagination } from '@components/ui'
-import DocumentRow from '@modules/cards-and-rows/DocumentRow'
 import {
   documentsDefaultFilters,
   documentsFetcher,
@@ -16,6 +15,8 @@ import { useRoutePreservedState } from '@utils/useRoutePreservedState'
 import { useTranslation } from 'next-i18next'
 import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
+
+import DocumentRow from '@/modules/cards-and-rows/DocumentRow'
 
 import { useSearch } from '../../hooks/useSearch'
 

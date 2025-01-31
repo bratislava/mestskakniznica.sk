@@ -1,9 +1,10 @@
-import FormatCurrency from '@modules/formatting/FormatCurrency'
-import FormatDate from '@modules/formatting/FormatDate'
-import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
 import { DisclosureEntityFragment } from '@services/graphql'
 import { getDisclosureTypeFixed } from '@utils/getDisclosureTypeFixed'
 import { useTranslation } from 'next-i18next'
+
+import FormatCurrency from '@/modules/formatting/FormatCurrency'
+import FormatDate from '@/modules/formatting/FormatDate'
+import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 
 export const useDisclosureMetadata = () => {
   const { t } = useTranslation('common', { keyPrefix: 'DocumentMetadata' })

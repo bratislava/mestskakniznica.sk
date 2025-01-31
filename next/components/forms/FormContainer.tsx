@@ -1,9 +1,10 @@
 import { CloseIcon } from '@assets/icons'
-import Button from '@modules/common/Button'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode, useEffect, useState } from 'react'
 import { useLockedBody, useWindowSize } from 'usehooks-ts'
+
+import Button from '@/modules/common/Button'
 
 import FormSubmittedComponent from './FormSubmittedComponent'
 
