@@ -1,8 +1,9 @@
-import CardWrapper from '@modules/cards-and-rows/CardWrapper'
-import MLink from '@modules/common/MLink'
 import cx from 'classnames'
 import Image from 'next/image'
 import React from 'react'
+
+import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
+import MLink from '@/modules/common/MLink'
 
 export interface Book {
   title?: string

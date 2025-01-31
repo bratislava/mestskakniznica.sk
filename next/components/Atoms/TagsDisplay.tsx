@@ -1,5 +1,6 @@
-import { EventTag } from '@services/graphql'
 import { Fragment } from 'react'
+
+import { EventTag } from '@/services/graphql'
 
 interface TagsDisplayProps {
   tags?: EventTag[]

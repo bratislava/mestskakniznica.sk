@@ -1,11 +1,12 @@
-import { ChevronLeftIcon } from '@assets/icons'
-import Button from '@modules/common/Button'
-import MLink from '@modules/common/MLink'
-import Modal from '@modules/common/Modal'
-import MobileLatestEvents from '@modules/navigation/MobileLatestEvents'
-import { MenuSection } from '@modules/navigation/NavMenu'
 import React from 'react'
 import { useWindowSize } from 'usehooks-ts'
+
+import { ChevronLeftIcon } from '@/assets/icons'
+import Button from '@/modules/common/Button'
+import MLink from '@/modules/common/MLink'
+import Modal from '@/modules/common/Modal'
+import MobileLatestEvents from '@/modules/navigation/MobileLatestEvents'
+import { MenuSection } from '@/modules/navigation/NavMenu'
 
 interface SubnavigationProps {
   isOpen: boolean

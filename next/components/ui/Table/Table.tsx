@@ -1,5 +1,6 @@
-import { TableRowWithIdFragment } from '@services/graphql'
 import cx from 'classnames'
+
+import { TableRowWithIdFragment } from '@/services/graphql'
 
 import { TableRow } from '../TableRow/TableRow'
 

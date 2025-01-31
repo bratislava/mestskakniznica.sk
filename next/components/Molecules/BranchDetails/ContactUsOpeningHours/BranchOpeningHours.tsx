@@ -1,5 +1,6 @@
-import { OpeningHoursDaysFragment } from '@services/graphql'
 import React from 'react'
+
+import { OpeningHoursDaysFragment } from '@/services/graphql'
 
 const BranchOpeningHours = ({ days }: OpeningHoursDaysFragment) => {
   return (

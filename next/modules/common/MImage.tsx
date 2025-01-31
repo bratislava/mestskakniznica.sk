@@ -1,6 +1,7 @@
-import { UploadFile } from '@services/graphql'
 import Image from 'next/image'
 import { ComponentProps } from 'react'
+
+import { UploadFile } from '@/services/graphql'
 
 export type MImageImage = Pick<UploadFile, 'url' | 'alternativeText' | 'width' | 'height'>
 

@@ -1,8 +1,9 @@
-import { MenuItem } from '@modules/navigation/NavMenu'
-import NavMenuContent from '@modules/navigation/NavMenuContent'
-import NavMenuTrigger from '@modules/navigation/NavMenuTrigger'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import React from 'react'
+
+import { MenuItem } from '@/modules/navigation/NavMenu'
+import NavMenuContent from '@/modules/navigation/NavMenuContent'
+import NavMenuTrigger from '@/modules/navigation/NavMenuTrigger'
 
 type NavItemProps = {
   menu: MenuItem

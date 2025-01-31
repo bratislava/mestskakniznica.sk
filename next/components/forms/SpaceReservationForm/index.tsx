@@ -1,13 +1,14 @@
-import { DateTimeSelect, Input, TextArea } from '@bratislava/ui-city-library'
-import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { convertDataToBody, getLocalDateForYup, useGetFormOptions } from '@utils/form-constants'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
+
+import { DateTimeSelect, Input, TextArea } from '@/components/ui'
+import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
+import { convertDataToBody, getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
 import FormContainer, { phoneRegex, SubmitStatus } from '../FormContainer'
 import FormFooter from '../FormFooter'

@@ -1,5 +1,6 @@
-import { Input, InputProps } from '@bratislava/ui-city-library/Input/Input'
 import cx from 'classnames'
+
+import { Input, InputProps } from '@/components/ui/Input/Input'
 
 export interface SearchBarProps
   extends InputProps,

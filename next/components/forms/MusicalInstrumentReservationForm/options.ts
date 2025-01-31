@@ -1,4 +1,4 @@
-import { IFormOption } from '@utils/form-constants'
+import { IFormOption } from '@/utils/form-constants'
 
 export const options: IFormOption[] = [
   {

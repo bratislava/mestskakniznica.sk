@@ -1,8 +1,9 @@
 import { now, parseAbsolute } from '@internationalized/date'
-import { bratislavaTimezone } from '@utils/consts'
 import { useMemo } from 'react'
 import { useDateFormatter } from 'react-aria'
 import { twMerge } from 'tailwind-merge'
+
+import { bratislavaTimezone } from '@/utils/consts'
 
 interface DateCardProps {
   dateFrom: string

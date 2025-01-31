@@ -1,10 +1,11 @@
-import { useNavMenuContext } from '@modules/navigation/navMenuContext'
-import NavMenuItem from '@modules/navigation/NavMenuItem'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React, { useEffect } from 'react'
+
+import { useNavMenuContext } from '@/modules/navigation/navMenuContext'
+import NavMenuItem from '@/modules/navigation/NavMenuItem'
 
 export type MenuLink = {
   label: string

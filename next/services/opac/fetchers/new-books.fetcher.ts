@@ -1,4 +1,4 @@
-import type { NewBooksResponse } from '@services/opac/newBooksService'
+import type { NewBooksResponse } from '@/services/opac/newBooksService'
 
 export type NewBooksFilters = {
   pageSize: number

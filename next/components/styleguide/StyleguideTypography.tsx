@@ -1,5 +1,6 @@
-import { Wrapper } from '@components/styleguide/Wrapper'
 import React from 'react'
+
+import { Wrapper } from '@/components/styleguide/Wrapper'
 
 const StyleguideTypography = () => {
   return (

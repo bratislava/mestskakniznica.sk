@@ -1,8 +1,9 @@
-import { FlatText } from '@components/ui'
-import BranchCard from '@modules/cards-and-rows/BranchCard'
-import { RentalSectionFragment } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
 import React from 'react'
+
+import { FlatText } from '@/components/ui'
+import BranchCard from '@/modules/cards-and-rows/BranchCard'
+import { RentalSectionFragment } from '@/services/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 type RentalSectionProps = {
   section: RentalSectionFragment

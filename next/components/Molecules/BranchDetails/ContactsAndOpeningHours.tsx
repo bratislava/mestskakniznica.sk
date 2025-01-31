@@ -1,7 +1,8 @@
-import OpeningHoursChangeAlert from '@components/Molecules/OpeningHoursChangeAlert'
-import { BranchPlaceEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+
+import OpeningHoursChangeAlert from '@/components/Molecules/OpeningHoursChangeAlert'
+import { BranchPlaceEntityFragment } from '@/services/graphql'
 
 import BranchContactUsOpeningHoursInfo from './ContactUsOpeningHours/BranchContactUsOpeningHoursInfo'
 

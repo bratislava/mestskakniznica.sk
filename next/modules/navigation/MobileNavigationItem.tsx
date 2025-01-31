@@ -1,7 +1,8 @@
-import { ChevronRightIcon } from '@assets/icons'
-import MobileSubnavigation from '@modules/navigation/MobileSubnavigation'
-import { MenuItem } from '@modules/navigation/NavMenu'
 import { useState } from 'react'
+
+import { ChevronRightIcon } from '@/assets/icons'
+import MobileSubnavigation from '@/modules/navigation/MobileSubnavigation'
+import { MenuItem } from '@/modules/navigation/NavMenu'
 
 interface navItemProps {
   menu: MenuItem

@@ -11,7 +11,7 @@ import {
   FileCategory,
   UploadFile,
   UploadImageEntityFragment,
-} from '@services/graphql'
+} from '@/services/graphql'
 
 export type BasicDocumentMeili = Omit<
   BasicDocument,

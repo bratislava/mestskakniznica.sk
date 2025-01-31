@@ -1,8 +1,9 @@
-import ChevronLeft from '@assets/images/chevron-left.svg'
-import ChevronRight from '@assets/images/chevron-right.svg'
-import CarouselControlButton from '@modules/common/Carousel/CarouselControlButton'
 import cx from 'classnames'
 import React from 'react'
+
+import ChevronLeft from '@/assets/images/chevron-left.svg'
+import ChevronRight from '@/assets/images/chevron-right.svg'
+import CarouselControlButton from '@/modules/common/Carousel/CarouselControlButton'
 
 export type CarouselControlDirection = 'left' | 'right'
 

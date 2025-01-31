@@ -1,13 +1,14 @@
-import { CloseIcon } from '@assets/icons'
-import Button from '@modules/common/Button'
-import MLink from '@modules/common/MLink'
-import Modal from '@modules/common/Modal'
-import MobileNavigationItem from '@modules/navigation/MobileNavigationItem'
-import { MenuItem } from '@modules/navigation/NavMenu'
 import { useTranslation } from 'next-i18next'
-import { useNavikronos } from '@utils/navikronos'
-import { useGeneralContext } from '@utils/generalContext'
-import { useGetOtherLocale } from '@utils/useGetOtherLocale'
+
+import { CloseIcon } from '@/assets/icons'
+import Button from '@/modules/common/Button'
+import MLink from '@/modules/common/MLink'
+import Modal from '@/modules/common/Modal'
+import MobileNavigationItem from '@/modules/navigation/MobileNavigationItem'
+import { MenuItem } from '@/modules/navigation/NavMenu'
+import { useGeneralContext } from '@/utils/generalContext'
+import { useNavikronos } from '@/utils/navikronos'
+import { useGetOtherLocale } from '@/utils/useGetOtherLocale'
 
 interface MobileNavigationProps {
   isOpen: boolean

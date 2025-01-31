@@ -1,22 +1,23 @@
-import { ChevronRightIcon } from '@assets/icons'
-import { PageTitle, Pagination, SectionContainer } from '@bratislava/ui-city-library'
-import Breadcrumbs from '@modules/breadcrumbs/Breadcrumbs'
-import CardWrapper from '@modules/cards-and-rows/CardWrapper'
-import MLink from '@modules/common/MLink'
-import {
-  allSearchTypes,
-  commonSearchFetcher,
-  CommonSearchFilters,
-  CommonSearchType,
-  getCommonSearchQueryKey,
-} from '@services/meili/fetchers/commonSearchFetcher'
-import { useNavikronos } from '@utils/navikronos'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { usePlausible } from 'next-plausible'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDebounce } from 'usehooks-ts'
+
+import { ChevronRightIcon } from '@/assets/icons'
+import { PageTitle, Pagination, SectionContainer } from '@/components/ui'
+import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
+import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
+import MLink from '@/modules/common/MLink'
+import {
+  allSearchTypes,
+  commonSearchFetcher,
+  CommonSearchFilters,
+  CommonSearchType,
+  getCommonSearchQueryKey,
+} from '@/services/meili/fetchers/commonSearchFetcher'
+import { useNavikronos } from '@/utils/navikronos'
 
 import { useSearch } from '../../hooks/useSearch'
 import { AnimateHeight } from '../Atoms/AnimateHeight'

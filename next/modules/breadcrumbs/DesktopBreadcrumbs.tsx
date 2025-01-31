@@ -1,8 +1,9 @@
-import { HomeIcon } from '@assets/icons'
-import BreadcrumbItem from '@modules/breadcrumbs/BreadcrumbItem'
-import { BreadcrumbsProps } from '@modules/breadcrumbs/Breadcrumbs'
 import { useTranslation } from 'next-i18next'
 import { useBreadcrumbs } from 'react-aria'
+
+import { HomeIcon } from '@/assets/icons'
+import BreadcrumbItem from '@/modules/breadcrumbs/BreadcrumbItem'
+import { BreadcrumbsProps } from '@/modules/breadcrumbs/Breadcrumbs'
 
 const DesktopBreadcrumbs = ({ crumbs, ...rest }: BreadcrumbsProps) => {
   const { t } = useTranslation('common')

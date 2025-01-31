@@ -1,4 +1,4 @@
-import { IFormOption } from '@utils/form-constants'
+import { IFormOption } from '@/utils/form-constants'
 
 // Keys based on SVOP categories available in jira/MKB-538
 export const options: IFormOption[] = [

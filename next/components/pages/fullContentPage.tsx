@@ -1,7 +1,8 @@
-import { PageTitle, SectionContainer } from '@bratislava/ui-city-library'
-import { PageEntityFragment } from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
 import * as React from 'react'
+
+import { PageTitle, SectionContainer } from '@/components/ui'
+import { PageEntityFragment } from '@/services/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
 import Sections from '../Molecules/Sections'

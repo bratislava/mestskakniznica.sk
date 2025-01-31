@@ -1,7 +1,8 @@
-import { CheckNoPaddingIcon } from '@assets/icons'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode } from 'react'
+
+import { CheckNoPaddingIcon } from '@/assets/icons'
 
 interface IProps {
   num: number

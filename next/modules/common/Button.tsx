@@ -1,10 +1,11 @@
 /* Inspired by https://github.com/bratislava/marianum/blob/master/next/components/atoms/Button.tsx */
-import MLink from '@modules/common/MLink'
 import { LinkButtonProps } from '@react-types/button'
 import cx from 'classnames'
 import { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
 import { twMerge } from 'tailwind-merge'
+
+import MLink from '@/modules/common/MLink'
 
 type ButtonBase = {
   startIcon?: ReactNode

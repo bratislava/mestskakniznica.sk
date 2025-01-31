@@ -17,16 +17,8 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "@modules/*": ["./modules/*"],
-      "@assets/icons": ["./assets/icons/index.ts"],
-      "@services/*": ["./services/*"],
-      "@bratislava/ui-city-library": ["./components/ui/"],
-      "@bratislava/ui-city-library/*": ["./components/ui/*"],
-      "@utils/*": ["./utils/*"],
-      "@components/*": ["./components/*"],
-      "@assets/images": ["./assets/images/index.ts"],
-      "@assets/images/*": ["./assets/images/*"],
-      "@culturehq/add-to-calendar": ["./customTypes/@culturehq/add-to-calendar"]
+      "@/*": ["./*"],
+      "@/customTypes/@culturehq/add-to-calendar": ["./customTypes/@culturehq/add-to-calendar"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],

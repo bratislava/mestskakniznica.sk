@@ -1,11 +1,12 @@
-import { ChevronRightIcon, HomeIcon } from '@assets/icons'
-import BreadcrumbItem from '@modules/breadcrumbs/BreadcrumbItem'
-import { BreadcrumbsProps } from '@modules/breadcrumbs/Breadcrumbs'
-import Accordion from '@modules/common/Accordion'
 import dropRight from 'lodash/dropRight'
 import last from 'lodash/last'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
+
+import { ChevronRightIcon, HomeIcon } from '@/assets/icons'
+import BreadcrumbItem from '@/modules/breadcrumbs/BreadcrumbItem'
+import { BreadcrumbsProps } from '@/modules/breadcrumbs/Breadcrumbs'
+import Accordion from '@/modules/common/Accordion'
 
 export const Ellipsis = () => <>…</>
 

@@ -1,14 +1,15 @@
-import { Pagination } from '@components/ui'
-import NoticeCard from '@modules/cards-and-rows/NoticeCard'
+import { useTranslation } from 'next-i18next'
+import React from 'react'
+import { useQuery } from 'react-query'
+
+import { Pagination } from '@/components/ui'
+import NoticeCard from '@/modules/cards-and-rows/NoticeCard'
 import {
   getNoticesQueryKey,
   noticesDefaultFilters,
   noticesFetcher,
-} from '@services/graphql/fetchers/notices.fetcher'
-import { useRoutePreservedState } from '@utils/useRoutePreservedState'
-import { useTranslation } from 'next-i18next'
-import React from 'react'
-import { useQuery } from 'react-query'
+} from '@/services/graphql/fetchers/notices.fetcher'
+import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 const NoticesListingSection = () => {
   const { t, i18n } = useTranslation('common')

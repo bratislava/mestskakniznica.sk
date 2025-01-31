@@ -1,35 +1,28 @@
-import {
-  Documents,
-  Faq,
-  FlatText,
-  SiteUsefullness,
-  Subpages,
-  Table,
-  Video,
-} from '@bratislava/ui-city-library'
-import AccordionSection from '@components/Molecules/AccordionSection'
-import RentalSection from '@components/Molecules/RentalSection'
-import MapSection from '@components/ui/MapSection/MapSection'
-import Button from '@modules/common/Button'
-import BlogPostsListingSection from '@modules/sections/BlogPostsListingSection'
-import CherrypickSection from '@modules/sections/CherrypickSection'
-import ChildrenListingSection from '@modules/sections/ChildrenListingSection'
-import DocumentsListingSection from '@modules/sections/DocumentsListingSection'
-import EventsListingSection from '@modules/sections/EventsListingSection'
-import GalleryBannerSection from '@modules/sections/GalleryBannerSection'
-import NewBooksSection from '@modules/sections/NewBooksSection'
-import NoticesListingSection from '@modules/sections/NoticesListingSection'
-import OpeningHoursSection from '@modules/sections/OpeningHoursSection'
-import PartnersSection from '@modules/sections/PartnersSection'
+import { useTranslation } from 'next-i18next'
+
+import AccordionSection from '@/components/Molecules/AccordionSection'
+import RentalSection from '@/components/Molecules/RentalSection'
+import { Documents, Faq, FlatText, SiteUsefullness, Subpages, Table, Video } from '@/components/ui'
+import MapSection from '@/components/ui/MapSection/MapSection'
+import Button from '@/modules/common/Button'
+import BlogPostsListingSection from '@/modules/sections/BlogPostsListingSection'
+import CherrypickSection from '@/modules/sections/CherrypickSection'
+import ChildrenListingSection from '@/modules/sections/ChildrenListingSection'
+import DocumentsListingSection from '@/modules/sections/DocumentsListingSection'
+import EventsListingSection from '@/modules/sections/EventsListingSection'
+import GalleryBannerSection from '@/modules/sections/GalleryBannerSection'
+import NewBooksSection from '@/modules/sections/NewBooksSection'
+import NoticesListingSection from '@/modules/sections/NoticesListingSection'
+import OpeningHoursSection from '@/modules/sections/OpeningHoursSection'
+import PartnersSection from '@/modules/sections/PartnersSection'
 import {
   BlogPostSectionsFragment,
   DisclosureEntityFragment,
   DocumentEntityFragment,
   PageSectionsFragment,
-} from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
-import { parseSubpages } from '@utils/page'
-import { useTranslation } from 'next-i18next'
+} from '@/services/graphql'
+import { isDefined } from '@/utils/isDefined'
+import { parseSubpages } from '@/utils/page'
 
 import AskLibraryForm from '../forms/AskLibraryForm.tsx'
 import BookNotInLibraryForm from '../forms/BookNotInLibraryForm'

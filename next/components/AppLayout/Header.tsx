@@ -1,7 +1,8 @@
-import MLink from '@modules/common/MLink'
-import NavMenu, { MenuItem } from '@modules/navigation/NavMenu'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
+
+import MLink from '@/modules/common/MLink'
+import NavMenu, { MenuItem } from '@/modules/navigation/NavMenu'
 
 import HeaderNavigation from './Navigation/HeaderNavigation'
 import HeaderSearchBox from './Navigation/HeaderSearchBox'

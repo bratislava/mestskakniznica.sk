@@ -1,10 +1,11 @@
-import ChevronRight from '@assets/images/chevron-right.svg'
-import CardWrapper from '@modules/cards-and-rows/CardWrapper'
-import FileExtBadge from '@modules/common/FileExtBadge'
-import MLink from '@modules/common/MLink'
-import FormatDate from '@modules/formatting/FormatDate'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
+
+import ChevronRight from '@/assets/images/chevron-right.svg'
+import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
+import FileExtBadge from '@/modules/common/FileExtBadge'
+import MLink from '@/modules/common/MLink'
+import FormatDate from '@/modules/formatting/FormatDate'
 
 type DocumentRowProps = {
   title: string

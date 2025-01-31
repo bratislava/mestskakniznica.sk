@@ -1,4 +1,4 @@
-import { client } from '@services/graphql/gql'
+import { client } from '@/services/graphql/gql'
 
 export const getEventPropertiesQueryKey = (locale: string) => ['eventProperties', locale]
 

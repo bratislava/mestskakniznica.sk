@@ -1,6 +1,7 @@
-import SelectField from '@components/Atoms/SelectField'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
+
+import SelectField from '@/components/Atoms/SelectField'
 
 export type Sort = 'newest' | 'oldest'
 

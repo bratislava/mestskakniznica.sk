@@ -1,6 +1,7 @@
 import { now, parseAbsolute } from '@internationalized/date'
-import { bratislavaTimezone } from '@utils/consts'
-import { isDefined } from '@utils/isDefined'
+
+import { bratislavaTimezone } from '@/utils/consts'
+import { isDefined } from '@/utils/isDefined'
 
 import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
 import { meiliClient } from '../meilisearch'

@@ -1,6 +1,7 @@
-import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+
+import { BranchEntityFragment } from '@/services/graphql'
 
 import BranchContactUsInfo from './BranchContactUsInfo/BranchContactUsInfo'
 

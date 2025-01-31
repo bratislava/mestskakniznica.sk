@@ -1,5 +1,6 @@
-import ClearCircle from '@assets/images/clear-circle.svg'
 import cx from 'classnames'
+
+import ClearCircle from '@/assets/images/clear-circle.svg'
 
 export interface ChipProps {
   className?: string

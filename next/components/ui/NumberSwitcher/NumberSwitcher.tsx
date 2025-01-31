@@ -1,8 +1,9 @@
-import MinusIcon from '@assets/images/minus.svg'
-import PlusIcon from '@assets/images/plus.svg'
-import { InputProps } from '@bratislava/ui-city-library'
 import cx from 'classnames'
 import * as React from 'react'
+
+import MinusIcon from '@/assets/images/minus.svg'
+import PlusIcon from '@/assets/images/plus.svg'
+import { InputProps } from '@/components/ui'
 
 interface NumberSwitcherProps extends InputProps {
   id?: string

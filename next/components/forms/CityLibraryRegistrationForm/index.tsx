@@ -1,14 +1,15 @@
-import { CheckBox, DateTimeSelect, Input } from '@bratislava/ui-city-library'
-import RadioGroup from '@bratislava/ui-city-library/RadioGroup/RadioGroup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Button from '@modules/common/Button'
-import { getLocalDateForYup, useGetFormOptions } from '@utils/form-constants'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
+
+import { CheckBox, DateTimeSelect, Input } from '@/components/ui'
+import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
+import Button from '@/modules/common/Button'
+import { getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
 import FormContainer, {
   IDCardRegex,

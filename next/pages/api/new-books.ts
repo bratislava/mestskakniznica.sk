@@ -1,5 +1,6 @@
-import { getNewBooks, NewBooksResponse } from '@services/opac/newBooksService'
 import { NextApiRequest, NextApiResponse } from 'next'
+
+import { getNewBooks, NewBooksResponse } from '@/services/opac/newBooksService'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<NewBooksResponse>) => {
   const { page, pageSize } = req.query

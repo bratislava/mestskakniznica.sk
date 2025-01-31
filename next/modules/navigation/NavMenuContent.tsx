@@ -1,9 +1,10 @@
-import { MenuSection } from '@modules/navigation/NavMenu'
-import NavMenuContentCell from '@modules/navigation/NavMenuContentCell'
-import NavMenuSection from '@modules/navigation/NavMenuSection'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import cx from 'classnames'
 import { useMemo } from 'react'
+
+import { MenuSection } from '@/modules/navigation/NavMenu'
+import NavMenuContentCell from '@/modules/navigation/NavMenuContentCell'
+import NavMenuSection from '@/modules/navigation/NavMenuSection'
 
 type NavigationSectionProps = {
   colCount: number

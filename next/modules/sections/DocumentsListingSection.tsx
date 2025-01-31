@@ -1,21 +1,22 @@
-import { FolderIcon } from '@assets/icons'
-import DocumentsCategorySelect from '@components/Atoms/Documents/DocumentsCategorySelect'
-import SearchField from '@components/Atoms/SearchField'
-import SortSelect, { Sort } from '@components/Atoms/SortSelect'
-import { Pagination } from '@components/ui'
-import DocumentRow from '@modules/cards-and-rows/DocumentRow'
+import { useTranslation } from 'next-i18next'
+import React, { useEffect } from 'react'
+import { useQuery } from 'react-query'
+
+import { FolderIcon } from '@/assets/icons'
+import DocumentsCategorySelect from '@/components/Atoms/Documents/DocumentsCategorySelect'
+import SearchField from '@/components/Atoms/SearchField'
+import SortSelect, { Sort } from '@/components/Atoms/SortSelect'
+import { Pagination } from '@/components/ui'
+import DocumentRow from '@/modules/cards-and-rows/DocumentRow'
 import {
   documentsDefaultFilters,
   documentsFetcher,
   DocumentsFilters,
   getDocumentsQueryKey,
-} from '@services/meili/fetchers/documentsFetcher'
-import { useNavikronos } from '@utils/navikronos'
-import { Enum_Disclosure_Type_Fixed } from '@utils/types'
-import { useRoutePreservedState } from '@utils/useRoutePreservedState'
-import { useTranslation } from 'next-i18next'
-import React, { useEffect } from 'react'
-import { useQuery } from 'react-query'
+} from '@/services/meili/fetchers/documentsFetcher'
+import { useNavikronos } from '@/utils/navikronos'
+import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
+import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 import { useSearch } from '../../hooks/useSearch'
 

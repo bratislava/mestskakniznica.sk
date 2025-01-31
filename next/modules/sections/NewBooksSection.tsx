@@ -1,13 +1,14 @@
-import { Pagination } from '@components/ui'
-import BookCard from '@modules/cards-and-rows/BookCard'
+import React from 'react'
+import { useQuery } from 'react-query'
+
+import { Pagination } from '@/components/ui'
+import BookCard from '@/modules/cards-and-rows/BookCard'
 import {
   getNewBooksQueryKey,
   newBooksDefaultFilters,
   newBooksFetcher,
-} from '@services/opac/fetchers/new-books.fetcher'
-import { useRoutePreservedState } from '@utils/useRoutePreservedState'
-import React from 'react'
-import { useQuery } from 'react-query'
+} from '@/services/opac/fetchers/new-books.fetcher'
+import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 /**
  * Figma: https://www.figma.com/file/CY6Mh2f0SXJhBMY74HdS03/MKB?node-id=4803%3A27424&t=VZjq8OU1CZYXVuDm-0

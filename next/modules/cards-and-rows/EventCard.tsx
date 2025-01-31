@@ -1,17 +1,18 @@
-import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
-import TagsDisplay from '@components/Atoms/TagsDisplay'
-import CardWrapper from '@modules/cards-and-rows/CardWrapper'
-import MLink from '@modules/common/MLink'
-import FormatEventDateRange from '@modules/formatting/FormatEventDateRange'
+import { useTranslation } from 'next-i18next'
+
+import Placeholder from '@/assets/images/list-item-thumbnail.jpeg'
+import TagsDisplay from '@/components/Atoms/TagsDisplay'
+import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
+import MLink from '@/modules/common/MLink'
+import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import {
   EventBranchFragment,
   EventCategoryFragment,
   EventTagsFragment,
   UploadImageFragment,
-} from '@services/graphql'
-import { isDefined } from '@utils/isDefined'
-import { useNavikronos } from '@utils/navikronos'
-import { useTranslation } from 'next-i18next'
+} from '@/services/graphql'
+import { isDefined } from '@/utils/isDefined'
+import { useNavikronos } from '@/utils/navikronos'
 
 type EventCardProps = {
   title?: string

@@ -1,5 +1,6 @@
-import { MetadataFragment } from '@services/graphql'
 import React from 'react'
+
+import { MetadataFragment } from '@/services/graphql'
 
 const Metadata = ({ metadata }: { metadata: MetadataFragment[] | null | undefined }) => {
   return (

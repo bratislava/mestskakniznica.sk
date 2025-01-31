@@ -1,6 +1,7 @@
-import { bratislavaTimezone } from '@utils/consts'
 import { useMemo } from 'react'
 import { DateFormatterOptions, useDateFormatter } from 'react-aria'
+
+import { bratislavaTimezone } from '@/utils/consts'
 
 /**
  * It's hard to make up a name, name the format by the first usage. Then at the end we can change the naming.

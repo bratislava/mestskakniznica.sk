@@ -1,6 +1,7 @@
-import { UploadIcon } from '@assets/icons'
 import cx from 'classnames'
 import React from 'react'
+
+import { UploadIcon } from '@/assets/icons'
 
 export interface UploadProps
   extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {

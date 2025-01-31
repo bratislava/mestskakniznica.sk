@@ -1,10 +1,11 @@
-import { SectionContainer } from '@components/ui'
-import BookCard, { Book } from '@modules/cards-and-rows/BookCard'
-import ShowMoreLink from '@modules/common/ShowMoreLink'
-import { useGeneralContext } from '@utils/generalContext'
-import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+
+import { SectionContainer } from '@/components/ui'
+import BookCard, { Book } from '@/modules/cards-and-rows/BookCard'
+import ShowMoreLink from '@/modules/common/ShowMoreLink'
+import { useGeneralContext } from '@/utils/generalContext'
+import { useNavikronos } from '@/utils/navikronos'
 
 type SectionHomepageNewBooksProps = { books: Book[] }
 

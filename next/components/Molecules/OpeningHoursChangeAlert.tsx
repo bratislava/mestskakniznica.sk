@@ -1,10 +1,11 @@
-import ShowMoreLink from '@modules/common/ShowMoreLink'
-import { client } from '@services/graphql/gql'
-import { isDefined } from '@utils/isDefined'
-import { useNavikronos } from '@utils/navikronos'
 import { useTranslation } from 'next-i18next'
 import React, { Fragment, useId } from 'react'
 import { useQuery } from 'react-query'
+
+import ShowMoreLink from '@/modules/common/ShowMoreLink'
+import { client } from '@/services/graphql/gql'
+import { isDefined } from '@/utils/isDefined'
+import { useNavikronos } from '@/utils/navikronos'
 
 const OpeningHoursChangeAlert = () => {
   const { t, i18n } = useTranslation()

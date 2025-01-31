@@ -1,7 +1,8 @@
-import ChevronRight from '@assets/images/chevron-right.svg'
 import cx from 'classnames'
 import NextLink from 'next/link'
 import { ComponentProps } from 'react'
+
+import ChevronRight from '@/assets/images/chevron-right.svg'
 
 export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'> & {
   size?: 'default' | 'small' | 'large'

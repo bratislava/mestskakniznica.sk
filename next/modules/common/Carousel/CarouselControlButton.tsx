@@ -1,5 +1,6 @@
-import Button, { ButtonProps } from '@modules/common/Button'
 import { twMerge } from 'tailwind-merge'
+
+import Button, { ButtonProps } from '@/modules/common/Button'
 
 const CarouselControlButton = ({ className, children, ...rest }: ButtonProps) => (
   <Button

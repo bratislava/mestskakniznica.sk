@@ -1,5 +1,6 @@
-import Calendar from '@assets/images/calendar.svg'
 import cx from 'classnames'
+
+import Calendar from '@/assets/images/calendar.svg'
 
 export interface BannerProps {
   className?: string

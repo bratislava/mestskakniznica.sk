@@ -1,7 +1,7 @@
-import PromoEventCard from '@modules/cards-and-rows/PromoEventCard'
-import PromoNewsCard from '@modules/cards-and-rows/PromoNewsCard'
-import { EventCardEntityFragment, NoticeListingEntityFragment } from '@services/graphql'
-import { isDefined, withAttributes } from '@utils/isDefined'
+import PromoEventCard from '@/modules/cards-and-rows/PromoEventCard'
+import PromoNewsCard from '@/modules/cards-and-rows/PromoNewsCard'
+import { EventCardEntityFragment, NoticeListingEntityFragment } from '@/services/graphql'
+import { isDefined, withAttributes } from '@/utils/isDefined'
 
 import Carousel from '../../modules/common/Carousel/Carousel'
 

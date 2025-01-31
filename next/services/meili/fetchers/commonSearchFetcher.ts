@@ -1,5 +1,6 @@
-import { DisclosureMeili, DocumentMeili } from '@services/meili/meiliTypes'
 import { SearchResponse } from 'meilisearch'
+
+import { DisclosureMeili, DocumentMeili } from '@/services/meili/meiliTypes'
 
 import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
 import { meiliClient } from '../meilisearch'
