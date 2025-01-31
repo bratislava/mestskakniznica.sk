@@ -13,7 +13,6 @@ const cachedSsrTranslations: IcachedSsrTranslations = {
 
 // cache more subsets using this if needed
 const preCachedNamespaces = [
-  ['common', 'forms', 'newsletter', 'homepage'],
   ['common', 'forms', 'newsletter'],
   ['common', 'newsletter'],
 ]

@@ -34,7 +34,7 @@ const getBoundsForLocalities = (branches: BranchCardEntityFragment[]) => {
 }
 
 const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: MapSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common')
   const { getPathForStrapiEntity } = useNavikronos()
 
   const isClient = useIsClient()
@@ -70,7 +70,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
           'py-6': altDesign,
         })}
       >
-        {title || t('homepage:localitiesTitle')}
+        {title || t('mapSection.localitiesTitle')}
       </h2>
 
       <div className={cx({ 'border-border-dark lg:border': !altDesign })}>
@@ -169,7 +169,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                     </div>
                     {/* {!hideOpeningHours && ( */}
                     {/*  <> */}
-                    {/*    <p className="pt-8 text-base">{t('localityOpeningText')}</p> */}
+                    {/*    <p className="pt-8 text-base">{t('mapSection.localityOpeningText')}</p> */}
                     {/*    <p className="text-base"> */}
                     {/*      {localityOpenFrom} - {localityOpenTo} */}
                     {/*    </p> */}
@@ -177,7 +177,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                     {/* )} */}
                   </div>
                   <ShowMoreLink href={linkHref} tabIndex={-1} parentGroup>
-                    {t('homepage:localityDetailText')}
+                    {t('mapSection.localityDetailText')}
                   </ShowMoreLink>
                 </div>
               </CardWrapper>

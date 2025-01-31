@@ -17,7 +17,7 @@ interface MobileNavigationProps {
 }
 
 export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationProps) => {
-  const { t } = useTranslation(['common', 'homepage'])
+  const { t } = useTranslation(['common'])
   const { getPathForEntity } = useNavikronos()
   const { general } = useGeneralContext()
   const otherLocale = useGetOtherLocale()

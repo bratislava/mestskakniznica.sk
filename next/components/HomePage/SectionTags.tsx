@@ -11,10 +11,10 @@ interface BookTagsProps {
 }
 
 const BooksTags = ({ bookTags }: BookTagsProps) => {
-  const { t } = useTranslation('homepage')
+  const { t } = useTranslation('common')
   return (
     <SectionContainer hasBorder>
-      <h2 className="object-none pt-10 text-center text-h3">{t('lookingForBook')}</h2>
+      <h2 className="object-none pt-10 text-center text-h3">{t('booksTags.lookingForBook')}</h2>
       <div className="object-center">
         <div className="flex grow-0 flex-col items-center py-8 text-center">
           <div className="my-2 mx-0 flex grow-0 flex-row flex-wrap justify-center gap-4">
@@ -39,7 +39,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
             href="https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchTitle"
             rel="noreferrer"
           >
-            {t('lookingForBookSearch')}
+            {t('booksTags.lookingForBookSearch')}
           </ShowMoreLink>
         </div>
       </div>
