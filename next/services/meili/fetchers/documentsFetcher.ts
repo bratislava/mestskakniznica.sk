@@ -1,5 +1,4 @@
-import { Sort } from '@components/Atoms/SortSelect'
-
+import { Sort } from '@/components/Atoms/SortSelect'
 import { isDefined } from '@/utils/isDefined'
 import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
 

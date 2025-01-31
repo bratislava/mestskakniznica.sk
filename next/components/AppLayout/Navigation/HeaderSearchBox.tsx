@@ -1,4 +1,3 @@
-import SearchBar from '@components/AppLayout/Navigation/SearchBar'
 import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
@@ -7,6 +6,7 @@ import { KeyboardEventHandler, useId, useState } from 'react'
 import { useFocusWithin } from 'react-aria'
 
 import { CloseCircleIcon, SearchIcon } from '@/assets/icons'
+import SearchBar from '@/components/AppLayout/Navigation/SearchBar'
 import { Select } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import { useNavikronos } from '@/utils/navikronos'

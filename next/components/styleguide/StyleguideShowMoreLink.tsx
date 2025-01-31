@@ -1,6 +1,6 @@
-import { Wrapper } from '@components/styleguide/Wrapper'
 import React from 'react'
 
+import { Wrapper } from '@/components/styleguide/Wrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 

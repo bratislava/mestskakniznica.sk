@@ -1,12 +1,12 @@
-import DefaultPageLayout from '@components/layouts/DefaultPageLayout'
-import ErrorDisplay, { getError, IDisplayError } from '@components/Molecules/ErrorDisplay'
-import ErrorPage from '@components/pages/ErrorPage'
-import SearchPage from '@components/pages/SearchPage'
 import { GeneralQuery } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
+import ErrorDisplay, { getError, IDisplayError } from '@/components/Molecules/ErrorDisplay'
+import ErrorPage from '@/components/pages/ErrorPage'
+import SearchPage from '@/components/pages/SearchPage'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 

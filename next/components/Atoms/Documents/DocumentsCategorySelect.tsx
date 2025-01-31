@@ -1,4 +1,3 @@
-import SelectField from '@components/Atoms/SelectField'
 import {
   documentCategoriesFetcher,
   documentCategoriesQueryKey,
@@ -7,6 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
 
+import SelectField from '@/components/Atoms/SelectField'
 import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
 
 type DocumentsCategorySelectProps = {

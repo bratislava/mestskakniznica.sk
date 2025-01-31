@@ -31,12 +31,8 @@
             "@services*/
       /*": ["./services*/
       /*"],
-            "@/components/ui": ["./components/ui/"],
-            "@/components/ui*/
-      /*": ["./components/ui*/
-      /*"],
-            "@utils*/
-      /*": ["./utils*/
+
+
       /*"],
             "@components*/
       /*": ["./components*/

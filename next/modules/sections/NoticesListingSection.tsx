@@ -1,4 +1,3 @@
-import { Pagination } from '@components/ui'
 import {
   getNoticesQueryKey,
   noticesDefaultFilters,
@@ -8,6 +7,7 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useQuery } from 'react-query'
 
+import { Pagination } from '@/components/ui'
 import NoticeCard from '@/modules/cards-and-rows/NoticeCard'
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 

@@ -1,7 +1,3 @@
-import DocumentsCategorySelect from '@components/Atoms/Documents/DocumentsCategorySelect'
-import SearchField from '@components/Atoms/SearchField'
-import SortSelect, { Sort } from '@components/Atoms/SortSelect'
-import { Pagination } from '@components/ui'
 import {
   documentsDefaultFilters,
   documentsFetcher,
@@ -13,6 +9,10 @@ import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
 
 import { FolderIcon } from '@/assets/icons'
+import DocumentsCategorySelect from '@/components/Atoms/Documents/DocumentsCategorySelect'
+import SearchField from '@/components/Atoms/SearchField'
+import SortSelect, { Sort } from '@/components/Atoms/SortSelect'
+import { Pagination } from '@/components/ui'
 import DocumentRow from '@/modules/cards-and-rows/DocumentRow'
 import { useNavikronos } from '@/utils/navikronos'
 import { Enum_Disclosure_Type_Fixed } from '@/utils/types'

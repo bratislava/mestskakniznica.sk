@@ -1,7 +1,7 @@
-import EventDetailsDateBox from '@components/Atoms/EventDetailsDateBox'
 import { EventCardEntityFragment } from '@services/graphql'
 import React from 'react'
 
+import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'

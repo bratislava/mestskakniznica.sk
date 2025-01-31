@@ -1,8 +1,8 @@
-import { getForm } from '@components/Molecules/Sections'
-import { FlatText, Table } from '@components/ui'
 import { AccordionSectionFragment } from '@services/graphql'
 import React from 'react'
 
+import { getForm } from '@/components/Molecules/Sections'
+import { FlatText, Table } from '@/components/ui'
 import Accordion from '@/modules/common/Accordion'
 import { isDefined } from '@/utils/isDefined'
 import { groupByAccordionCategory, groupByCategory } from '@/utils/page'

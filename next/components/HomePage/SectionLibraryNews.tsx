@@ -1,8 +1,8 @@
-import { SectionContainer } from '@components/ui'
 import { HomepageNewsSectionFragment, NoticeListingEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+import { SectionContainer } from '@/components/ui'
 import NoticeCard from '@/modules/cards-and-rows/NoticeCard'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { useNavikronos } from '@/utils/navikronos'

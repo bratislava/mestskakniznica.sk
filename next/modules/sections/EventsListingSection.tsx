@@ -1,5 +1,3 @@
-import EventFilters from '@components/Molecules/EventFilters'
-import { Pagination } from '@components/ui'
 import {
   eventsArchivedDefaultFilters,
   eventsFetcher,
@@ -13,6 +11,8 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useQuery, UseQueryResult } from 'react-query'
 
+import EventFilters from '@/components/Molecules/EventFilters'
+import { Pagination } from '@/components/ui'
 import EventCard from '@/modules/cards-and-rows/EventCard'
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 

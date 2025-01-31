@@ -1,5 +1,4 @@
 import Placeholder from '@assets/images/list-item-thumbnail.jpeg'
-import TagsDisplay from '@components/Atoms/TagsDisplay'
 import {
   EventBranchFragment,
   EventCategoryFragment,
@@ -8,6 +7,7 @@ import {
 } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
 
+import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'

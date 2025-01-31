@@ -1,8 +1,8 @@
-import BranchOpeningHours from '@components/Molecules/BranchDetails/ContactUsOpeningHours/BranchOpeningHours'
-import OpeningHoursChangeAlert from '@components/Molecules/OpeningHoursChangeAlert'
 import { OpeningHoursSectionFragment } from '@services/graphql'
 import React from 'react'
 
+import BranchOpeningHours from '@/components/Molecules/BranchDetails/ContactUsOpeningHours/BranchOpeningHours'
+import OpeningHoursChangeAlert from '@/components/Molecules/OpeningHoursChangeAlert'
 import { isDefined } from '@/utils/isDefined'
 
 const OpeningHoursSection = ({ title, branchList }: Omit<OpeningHoursSectionFragment, 'id'>) => {

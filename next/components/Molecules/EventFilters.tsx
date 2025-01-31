@@ -1,6 +1,4 @@
 import DropdownIcon from '@assets/images/dropdown.svg'
-import { FilterModal } from '@components/Molecules/FilterModal'
-import { Select } from '@components/ui'
 import { useControlledState } from '@react-stately/utils'
 import {
   eventPropertiesFetcher,
@@ -12,6 +10,8 @@ import React, { useMemo } from 'react'
 import { useQuery } from 'react-query'
 import { useToggleState } from 'react-stately'
 
+import { FilterModal } from '@/components/Molecules/FilterModal'
+import { Select } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import MDatePicker from '@/modules/common/MDatePicker/MDatePicker'
 

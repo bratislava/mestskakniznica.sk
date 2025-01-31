@@ -1,6 +1,6 @@
-import Listing from '@components/ui/Listing/Listing'
 import { CherrypickSectionFragment } from '@services/graphql'
 
+import Listing from '@/components/ui/Listing/Listing'
 import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 

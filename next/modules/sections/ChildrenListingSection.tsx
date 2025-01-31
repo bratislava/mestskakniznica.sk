@@ -1,4 +1,3 @@
-import { Listing } from '@components/ui'
 import {
   ComponentSectionsChildrenListing,
   Enum_Componentsectionschildrenlisting_Depth,
@@ -11,6 +10,7 @@ import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 import { useQuery } from 'react-query'
 
+import { Listing } from '@/components/ui'
 import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'

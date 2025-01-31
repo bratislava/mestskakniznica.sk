@@ -1,4 +1,3 @@
-import { Pagination } from '@components/ui'
 import {
   getNewBooksQueryKey,
   newBooksDefaultFilters,
@@ -7,6 +6,7 @@ import {
 import React from 'react'
 import { useQuery } from 'react-query'
 
+import { Pagination } from '@/components/ui'
 import BookCard from '@/modules/cards-and-rows/BookCard'
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 

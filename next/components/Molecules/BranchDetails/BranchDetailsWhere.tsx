@@ -1,6 +1,7 @@
-import { BranchMap } from '@components/ui'
 import { BranchEntityFragment } from '@services/graphql'
 import { useTranslation } from 'next-i18next'
+
+import { BranchMap } from '@/components/ui'
 
 type BranchDetailsWhereProps = {
   branch: BranchEntityFragment

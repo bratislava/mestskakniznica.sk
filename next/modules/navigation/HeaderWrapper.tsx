@@ -1,7 +1,7 @@
-import Header from '@components/AppLayout/Header'
-import MobileHeader from '@components/AppLayout/MobileNavigation/MobileHeader'
 import React, { useMemo } from 'react'
 
+import Header from '@/components/AppLayout/Header'
+import MobileHeader from '@/components/AppLayout/MobileNavigation/MobileHeader'
 import { MenuItem } from '@/modules/navigation/NavMenu'
 import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'

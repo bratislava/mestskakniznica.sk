@@ -1,7 +1,7 @@
-import { FlatText } from '@components/ui'
 import { RentalSectionFragment } from '@services/graphql'
 import React from 'react'
 
+import { FlatText } from '@/components/ui'
 import BranchCard from '@/modules/cards-and-rows/BranchCard'
 import { isDefined } from '@/utils/isDefined'
 

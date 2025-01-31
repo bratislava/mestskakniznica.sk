@@ -1,4 +1,3 @@
-import DocumentPage from '@components/pages/DocumentPage'
 import { DisclosureEntityFragment, GeneralQuery } from '@services/graphql'
 import { generalFetcher } from '@services/graphql/fetchers/general.fetcher'
 import { client } from '@services/graphql/gql'
@@ -7,6 +6,7 @@ import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
+import DocumentPage from '@/components/pages/DocumentPage'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 

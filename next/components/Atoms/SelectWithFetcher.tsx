@@ -1,8 +1,9 @@
 // TODO this component was copied from Marianum project
-import SelectField, { Option, SelectProps, SingleSelect } from '@components/Atoms/SelectField'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
 import { QueryKey } from 'react-query/types/core/types'
+
+import SelectField, { Option, SelectProps, SingleSelect } from '@/components/Atoms/SelectField'
 
 type SelectWithFetcherProps = {
   queryKey: QueryKey

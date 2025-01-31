@@ -1,7 +1,7 @@
-import { Stack } from '@components/styleguide/Stack'
-import { Wrapper } from '@components/styleguide/Wrapper'
 import React from 'react'
 
+import { Stack } from '@/components/styleguide/Stack'
+import { Wrapper } from '@/components/styleguide/Wrapper'
 import DesktopBreadcrumbs from '@/modules/breadcrumbs/DesktopBreadcrumbs'
 import MobileBreadcrumbs from '@/modules/breadcrumbs/MobileBreadcrumbs'
 
