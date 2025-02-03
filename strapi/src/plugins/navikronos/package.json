@@ -7,7 +7,7 @@
     "kind": "plugin"
   },
   "dependencies": {
-    "@strapi/helper-plugin": "4.14.0",
+    "@strapi/helper-plugin": "4.15.5",
     "immer": "^9.0.18",
     "lodash": "^4.17.21",
     "react-query": "^3.39.2",
