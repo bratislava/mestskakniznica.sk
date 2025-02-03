@@ -1,9 +1,9 @@
 import { useTranslation } from 'next-i18next'
 
-import Placeholder from '@/assets/images/list-item-thumbnail.jpeg'
 import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
+import StrapiImage, { createImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import {
   EventBranchFragment,
@@ -37,15 +37,19 @@ const EventCard = ({
   eventCategory,
   branch,
 }: EventCardProps) => {
+  const { t } = useTranslation('common')
   const { getPathForEntity } = useNavikronos()
 
   return (
     <CardWrapper className="relative">
-      <img
+      <StrapiImage
+        image={listingImage || coverImage || createImagePlaceholder()}
+        alt={
+          listingImage?.alternativeText ||
+          coverImage?.alternativeText ||
+          t('eventDetailImagePlaceholder')
+        }
         className="h-40.5 w-full flex-1 object-cover"
-        alt=""
-        src={listingImage?.url || coverImage?.url || Placeholder.src}
-        height="200px"
       />
 
       <div className="flex pt-4 text-sm">

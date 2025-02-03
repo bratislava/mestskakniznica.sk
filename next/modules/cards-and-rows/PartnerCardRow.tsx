@@ -1,4 +1,5 @@
 import cx from 'classnames'
+import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
 import { GlobeIcon } from '@/assets/icons'
@@ -22,16 +23,19 @@ const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: Partner
         'flex-row justify-between border-b last:border-0 lg:border lg:last:border': !featured,
       })}
     >
-      {featured && (
+      {featured ? (
         <div className="h-24">
-          <img
-            className="h-full w-full max-w-[250px] object-contain"
+          <Image
             src={logo ?? ''}
-            // empty alt on purpose
-            alt=""
+            alt="" // Empty alt on purpose
+            // Inspired by: https://github.com/bratislava/olo.sk/blob/master/next/src/components/formatting/Markdown.tsx
+            height={0}
+            width={0}
+            sizes="100vw"
+            className="h-full w-full max-w-[250px] object-contain"
           />
         </div>
-      )}
+      ) : null}
       <h3
         className={cx('text-h5', {
           'mt-4 text-center lg:mt-5': featured,

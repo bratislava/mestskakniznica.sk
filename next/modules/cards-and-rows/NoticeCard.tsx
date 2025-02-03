@@ -1,10 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 
-import Placeholder from '@/assets/images/list-item-thumbnail.jpeg'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
+import StrapiImage, { createImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatDate from '@/modules/formatting/FormatDate'
 import { NoticeListingEntityFragment } from '@/services/graphql'
 import { useNavikronos } from '@/utils/navikronos'
@@ -29,11 +29,9 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
   return (
     <CardWrapper className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between">
       <div className="flex h-full flex-col">
-        {/* TODO: Replace with MImage */}
-        <img
+        <StrapiImage
+          image={image?.attributes ?? createImagePlaceholder()}
           className="mb-4 h-40.5 w-full object-cover"
-          alt=""
-          src={image?.attributes?.url || Placeholder.src}
         />
 
         <div className="mb-2 text-sm text-foreground-body">

@@ -1,6 +1,7 @@
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { ComponentProps } from 'react'
 
+import DefaultPlaceholder from '@/assets/images/list-item-thumbnail.jpeg'
 import { UploadFile } from '@/services/graphql'
 
 export type StrapiUploadImage = Pick<UploadFile, 'url' | 'alternativeText' | 'width' | 'height'>
@@ -12,6 +13,14 @@ type StrapiImageProps = Omit<
   image: StrapiUploadImage
   alt?: string
   disableBlurPlaceholder?: boolean
+}
+
+export const createImagePlaceholder = (placeholder?: StaticImageData | undefined) => {
+  return {
+    url: placeholder ? placeholder.src : DefaultPlaceholder.src,
+    width: placeholder ? placeholder.width : DefaultPlaceholder.width,
+    height: placeholder ? placeholder.height : DefaultPlaceholder.height,
+  }
 }
 
 // TODO Placeholder doesn't respect objectFit when used with layout="fill"

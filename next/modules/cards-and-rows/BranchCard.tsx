@@ -4,6 +4,7 @@ import React from 'react'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
+import StrapiImage from '@/modules/common/StrapiImage'
 import { UploadImageEntityFragment } from '@/services/graphql'
 import { useNavikronos } from '@/utils/navikronos'
 
@@ -21,11 +22,10 @@ const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
 
   return (
     <CardWrapper className="group/showMore relative flex w-full flex-col">
-      <img
-        src={image?.attributes?.url ?? '#'}
-        alt={image?.attributes?.alternativeText ?? ''}
-        className="h-40.5 w-full object-cover"
-      />
+      {image?.attributes ? (
+        <StrapiImage image={image.attributes} className="h-40.5 w-full object-cover" />
+      ) : null}
+
       <div className="pt-4">
         <h3>
           <MLink href={href} stretched variant="basic">
