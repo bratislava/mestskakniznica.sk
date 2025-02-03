@@ -1,11 +1,10 @@
 import Image from 'next/image'
 
+import PageBreadcrumbs from '@/components/Molecules/PageBreadcrumbs'
+import Sections from '@/components/Molecules/Sections'
 import { SectionContainer, Sidebar } from '@/components/ui'
 import { PageEntityFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
-
-import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-import Sections from '../Molecules/Sections'
 
 export interface SidebarContentProps {
   page: PageEntityFragment

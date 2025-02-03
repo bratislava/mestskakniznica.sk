@@ -6,7 +6,11 @@ import { useQuery } from 'react-query'
 import { useDebounce } from 'usehooks-ts'
 
 import { ChevronRightIcon } from '@/assets/icons'
+import { AnimateHeight } from '@/components/Atoms/AnimateHeight'
+import SearchField from '@/components/Atoms/SearchField'
+import TagToggle from '@/components/Atoms/TagToggle'
 import { PageTitle, Pagination, SectionContainer } from '@/components/ui'
+import { useSearch } from '@/hooks/useSearch'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
@@ -18,11 +22,6 @@ import {
   getCommonSearchQueryKey,
 } from '@/services/meili/fetchers/commonSearchFetcher'
 import { useNavikronos } from '@/utils/navikronos'
-
-import { useSearch } from '../../hooks/useSearch'
-import { AnimateHeight } from '../Atoms/AnimateHeight'
-import SearchField from '../Atoms/SearchField'
-import TagToggle from '../Atoms/TagToggle'
 
 const SearchPage = () => {
   const { t, i18n } = useTranslation('common')

@@ -1,11 +1,10 @@
 import { Sort } from '@/components/Atoms/SortSelect'
+import { getMeilisearchPageOptions } from '@/services/meili/getMeilisearchPageOptions'
+import { meiliClient } from '@/services/meili/meilisearch'
+import { DisclosureMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { SearchIndexWrapped } from '@/services/meili/searchIndexWrapped'
 import { isDefined } from '@/utils/isDefined'
 import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
-
-import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
-import { meiliClient } from '../meilisearch'
-import { DisclosureMeili, DocumentMeili } from '../meiliTypes'
-import { SearchIndexWrapped } from '../searchIndexWrapped'
 
 export type DocumentsFilters = {
   pageSize: number

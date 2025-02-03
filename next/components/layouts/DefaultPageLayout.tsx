@@ -3,6 +3,8 @@ import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
+import favicon from '@/assets/images/mkb_favicon.png'
+import NewsletterSection from '@/components/HomePage/NewsletterSection'
 import { Footer, SectionContainer } from '@/components/ui'
 import ScrollToTopButton from '@/modules/common/ScrollToTopButton'
 import HeaderWrapper from '@/modules/navigation/HeaderWrapper'
@@ -10,9 +12,6 @@ import { useNavMenuContext } from '@/modules/navigation/navMenuContext'
 import { SeoFragment } from '@/services/graphql'
 import { useGeneralContext } from '@/utils/generalContext'
 import { useNavikronos } from '@/utils/navikronos'
-
-import favicon from '../../assets/images/mkb_favicon.png'
-import NewsletterSection from '../HomePage/NewsletterSection'
 
 interface IProps {
   children?: ReactNode

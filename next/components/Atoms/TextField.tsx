@@ -2,7 +2,7 @@ import cx from 'classnames'
 import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-import FieldWrapper from '../Molecules/FieldWrapper'
+import FieldWrapper from '@/components/Molecules/FieldWrapper'
 
 type AreaOrInputConditionalProps =
   // textarea props

@@ -5,13 +5,12 @@ import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import ErrorDisplay, { getError, IDisplayError } from '@/components/Molecules/ErrorDisplay'
 import ErrorPage from '@/components/pages/ErrorPage'
 import SearchPage from '@/components/pages/SearchPage'
+import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
+import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
-
-import { navikronosGetStaticProps } from '../../navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '../../navikronos/wrapNavikronosProvider'
 
 export const Search = ({ error, general }: PageProps) => {
   if (error) {

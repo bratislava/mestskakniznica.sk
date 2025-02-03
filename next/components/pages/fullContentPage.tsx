@@ -1,11 +1,10 @@
 import * as React from 'react'
 
+import PageBreadcrumbs from '@/components/Molecules/PageBreadcrumbs'
+import Sections from '@/components/Molecules/Sections'
 import { PageTitle, SectionContainer } from '@/components/ui'
 import { PageEntityFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
-
-import PageBreadcrumbs from '../Molecules/PageBreadcrumbs'
-import Sections from '../Molecules/Sections'
 
 export interface FullContentPageProps {
   page: PageEntityFragment

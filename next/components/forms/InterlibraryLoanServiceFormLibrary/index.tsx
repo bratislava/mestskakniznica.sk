@@ -7,15 +7,18 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import BookListExtended from '@/components/forms/BookList/BookListExtended'
+import FormContainer, {
+  IBANRegex,
+  phoneRegexOrEmpty,
+  SubmitStatus,
+} from '@/components/forms/FormContainer'
+import FormFooter from '@/components/forms/FormFooter'
+import StepNumberTitle from '@/components/forms/StepNumberTitle'
 import { CheckBox, Input, TextArea } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import { convertDataToBody } from '@/utils/form-constants'
-
-import BookListExtended from '../BookList/BookListExtended'
-import FormContainer, { IBANRegex, phoneRegexOrEmpty, SubmitStatus } from '../FormContainer'
-import FormFooter from '../FormFooter'
-import StepNumberTitle from '../StepNumberTitle'
 
 const InterlibraryLoanServiceFormLibrary = () => {
   const [step, setStep] = React.useState(1)

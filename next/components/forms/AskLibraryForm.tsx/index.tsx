@@ -6,11 +6,10 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import FormContainer, { phoneRegexOrEmpty, SubmitStatus } from '@/components/forms/FormContainer'
+import FormFooter from '@/components/forms/FormFooter'
 import { Input, TextArea } from '@/components/ui'
 import { convertDataToBody } from '@/utils/form-constants'
-
-import FormContainer, { phoneRegexOrEmpty, SubmitStatus } from '../FormContainer'
-import FormFooter from '../FormFooter'
 
 const AskLibraryForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)

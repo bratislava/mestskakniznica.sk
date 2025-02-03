@@ -13,6 +13,11 @@ import {
   PlaceIcon,
   ShareIcon,
 } from '@/assets/icons'
+import Placeholder from '@/assets/images/event-detail-placeholder.jpg'
+import Clickable from '@/components/Atoms/EventClickable'
+import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
+import DetailsRow from '@/components/Atoms/EventDetailsRow'
+import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import { Documents } from '@/components/ui'
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
@@ -20,12 +25,6 @@ import RichText from '@/modules/formatting/RichText'
 import { EventEntityFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
 import { isEventPast } from '@/utils/utils'
-
-import Placeholder from '../../assets/images/event-detail-placeholder.jpg'
-import Clickable from '../Atoms/EventClickable'
-import EventDetailsDateBox from '../Atoms/EventDetailsDateBox'
-import DetailsRow from '../Atoms/EventDetailsRow'
-import TagsDisplay from '../Atoms/TagsDisplay'
 
 export interface PageProps {
   event?: EventEntityFragment
