@@ -1,4 +1,4 @@
-import type { Schema, Attribute } from '@strapi/strapi';
+import type { Attribute, Schema } from '@strapi/strapi';
 
 export interface AccordionItemsFlatText extends Schema.Component {
   collectionName: 'components_accordion_items_flat_texts';
@@ -17,6 +17,7 @@ export interface AccordionItemsForm extends Schema.Component {
     displayName: 'form';
   };
   attributes: {
+    category: Attribute.String;
     type: Attribute.Enumeration<
       [
         'napiste_nam',
@@ -38,7 +39,6 @@ export interface AccordionItemsForm extends Schema.Component {
         'aka_kniha_vam_v_kniznici_chyba'
       ]
     >;
-    category: Attribute.String;
   };
 }
 
@@ -48,10 +48,10 @@ export interface AccordionItemsTableRow extends Schema.Component {
     displayName: 'tableRow';
   };
   attributes: {
-    tableCategory: Attribute.String;
-    label: Attribute.String;
-    value: Attribute.String;
     accordionCategory: Attribute.String;
+    label: Attribute.String;
+    tableCategory: Attribute.String;
+    value: Attribute.String;
     valueAlign: Attribute.Enumeration<['start', 'center']>;
   };
 }
@@ -62,8 +62,8 @@ export interface AddressAddress extends Schema.Component {
     displayName: 'address';
   };
   attributes: {
-    title: Attribute.String;
     navigateTo: Attribute.String;
+    title: Attribute.String;
   };
 }
 
@@ -75,6 +75,21 @@ export interface BlocksAccordionItem extends Schema.Component {
   attributes: {
     content: Attribute.RichText;
     label: Attribute.String;
+  };
+}
+
+export interface BlocksBranchItem extends Schema.Component {
+  collectionName: 'components_blocks_branch_items';
+  info: {
+    displayName: 'branch item';
+    icon: 'map-marker';
+  };
+  attributes: {
+    branch: Attribute.Relation<
+      'blocks.branch-item',
+      'oneToOne',
+      'api::branch.branch'
+    >;
   };
 }
 
@@ -97,50 +112,54 @@ export interface BlocksBranchItemWithPage extends Schema.Component {
   };
 }
 
-export interface BlocksBranchItem extends Schema.Component {
-  collectionName: 'components_blocks_branch_items';
-  info: {
-    displayName: 'branch item';
-    icon: 'map-marker';
-  };
-  attributes: {
-    branch: Attribute.Relation<
-      'blocks.branch-item',
-      'oneToOne',
-      'api::branch.branch'
-    >;
-  };
-}
-
 export interface BlocksFileItem extends Schema.Component {
   collectionName: 'components_blocks_file_items';
   info: {
     displayName: 'file item';
   };
   attributes: {
+    attachment: Attribute.Media<'images' | 'files'> & Attribute.Required;
     name: Attribute.String;
-    attachment: Attribute.Media & Attribute.Required;
   };
 }
 
 export interface BlocksNoticeFiles extends Schema.Component {
   collectionName: 'components_blocks_notice_files';
   info: {
-    displayName: 'notice files';
     description: '';
+    displayName: 'notice files';
   };
   attributes: {
-    title: Attribute.String;
     files: Attribute.Component<'blocks.file-item', true>;
+    title: Attribute.String;
+  };
+}
+
+export interface BlocksOpeningHours extends Schema.Component {
+  collectionName: 'components_blocks_opening_hours';
+  info: {
+    description: '';
+    displayName: 'opening hours';
+    icon: 'clock';
+  };
+  attributes: {
+    days: Attribute.Component<'blocks.opening-hours-item', true> &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
   };
 }
 
 export interface BlocksOpeningHoursItem extends Schema.Component {
   collectionName: 'components_blocks_opening_hours_items';
   info: {
+    description: '';
     displayName: 'opening hours item';
     icon: 'clock';
-    description: '';
   };
   attributes: {
     label: Attribute.String & Attribute.DefaultTo<'Pondelok a\u017E piatok'>;
@@ -150,46 +169,30 @@ export interface BlocksOpeningHoursItem extends Schema.Component {
   };
 }
 
-export interface BlocksOpeningHours extends Schema.Component {
-  collectionName: 'components_blocks_opening_hours';
-  info: {
-    displayName: 'opening hours';
-    icon: 'clock';
-    description: '';
-  };
-  attributes: {
-    days: Attribute.Component<'blocks.opening-hours-item', true> &
-      Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1;
-      }>;
-  };
-}
-
 export interface BlocksPageLink extends Schema.Component {
   collectionName: 'components_blocks_page_links';
   info: {
-    displayName: 'pageLink';
     description: '';
+    displayName: 'pageLink';
   };
   attributes: {
+    page: Attribute.Relation<'blocks.page-link', 'oneToOne', 'api::page.page'>;
     title: Attribute.String;
     url: Attribute.Text;
-    page: Attribute.Relation<'blocks.page-link', 'oneToOne', 'api::page.page'>;
   };
 }
 
 export interface BlocksSubpage extends Schema.Component {
   collectionName: 'components_blocks_subpages';
   info: {
-    displayName: 'subpage';
     description: '';
+    displayName: 'subpage';
   };
   attributes: {
-    title: Attribute.String;
     description: Attribute.RichText;
-    url: Attribute.String;
     page: Attribute.Relation<'blocks.subpage', 'oneToOne', 'api::page.page'>;
+    title: Attribute.String;
+    url: Attribute.String;
   };
 }
 
@@ -211,9 +214,9 @@ export interface CommonSeo extends Schema.Component {
     displayName: 'seo';
   };
   attributes: {
-    metaTitle: Attribute.String;
-    metaDescription: Attribute.Text;
     keywords: Attribute.String;
+    metaDescription: Attribute.Text;
+    metaTitle: Attribute.String;
   };
 }
 
@@ -223,25 +226,25 @@ export interface FooterFooterColumn extends Schema.Component {
     displayName: 'footerColumn';
   };
   attributes: {
-    title: Attribute.String;
     footerLink: Attribute.Component<'footer.footer-link', true>;
+    title: Attribute.String;
   };
 }
 
 export interface FooterFooterLink extends Schema.Component {
   collectionName: 'components_footer_footer_links';
   info: {
-    displayName: 'footerLink';
     description: '';
+    displayName: 'footerLink';
   };
   attributes: {
-    title: Attribute.String;
     otherSite: Attribute.String;
     redirectTo: Attribute.Relation<
       'footer.footer-link',
       'oneToOne',
       'api::page.page'
     >;
+    title: Attribute.String;
   };
 }
 
@@ -251,9 +254,9 @@ export interface GuestsGuest extends Schema.Component {
     displayName: 'guest';
   };
   attributes: {
+    avatar: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     name: Attribute.String;
     surname: Attribute.String;
-    avatar: Attribute.Media;
   };
 }
 
@@ -270,34 +273,34 @@ export interface HomepageBenefits extends Schema.Component {
 export interface HomepageCta extends Schema.Component {
   collectionName: 'components_homepage_ctas';
   info: {
-    displayName: 'cta';
     description: '';
+    displayName: 'cta';
   };
   attributes: {
-    title: Attribute.String;
     ctaRedirectTo: Attribute.Relation<
       'homepage.cta',
       'oneToOne',
       'api::page.page'
     >;
+    title: Attribute.String;
   };
 }
 
 export interface HomepageFaqSection extends Schema.Component {
   collectionName: 'components_homepage_faq_sections';
   info: {
-    displayName: 'faqSection';
     description: '';
+    displayName: 'faqSection';
   };
   attributes: {
     ctas: Attribute.Component<'homepage.cta', true>;
     faqs: Attribute.Component<'homepage.faqs', true>;
-    title: Attribute.String;
     redirectTo: Attribute.Relation<
       'homepage.faq-section',
       'oneToOne',
       'api::page.page'
     >;
+    title: Attribute.String;
   };
 }
 
@@ -307,32 +310,32 @@ export interface HomepageFaqs extends Schema.Component {
     displayName: 'faqs';
   };
   attributes: {
-    question: Attribute.String;
     answer: Attribute.RichText;
+    question: Attribute.String;
   };
 }
 
 export interface HomepageNewsSection extends Schema.Component {
   collectionName: 'components_homepage_news_sections';
   info: {
-    displayName: 'newsSection';
     description: '';
+    displayName: 'newsSection';
   };
   attributes: {
-    title: Attribute.String;
     redirectTo: Attribute.Relation<
       'homepage.news-section',
       'oneToOne',
       'api::page.page'
     >;
+    title: Attribute.String;
   };
 }
 
 export interface HomepagePromotedContent extends Schema.Component {
   collectionName: 'components_homepage_promoted_content_sections';
   info: {
-    displayName: 'promotedContent';
     description: '';
+    displayName: 'promotedContent';
   };
   attributes: {
     events: Attribute.Relation<
@@ -351,18 +354,18 @@ export interface HomepagePromotedContent extends Schema.Component {
 export interface HomepageRegistrationInfo extends Schema.Component {
   collectionName: 'components_homepage_registration_infos';
   info: {
-    displayName: 'registrationInfo';
     description: '';
+    displayName: 'registrationInfo';
   };
   attributes: {
-    title: Attribute.String;
     description: Attribute.String;
-    registrationBenefits: Attribute.Component<'homepage.benefits', true>;
     redirectTo: Attribute.Relation<
       'homepage.registration-info',
       'oneToOne',
       'api::page.page'
     >;
+    registrationBenefits: Attribute.Component<'homepage.benefits', true>;
+    title: Attribute.String;
   };
 }
 
@@ -372,40 +375,39 @@ export interface LocalityPartsGalleryParts extends Schema.Component {
     displayName: 'gallery-parts';
   };
   attributes: {
-    Photo: Attribute.Media;
     Description: Attribute.Text;
+    Photo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 
 export interface MenuSectionLinks extends Schema.Component {
   collectionName: 'components_menu_items_section_links';
   info: {
-    displayName: 'sectionLinks';
     description: '';
+    displayName: 'sectionLinks';
   };
   attributes: {
-    sectionLinkTitle: Attribute.String;
-    sectionLinkPage: Attribute.Relation<
-      'menu.section-links',
-      'oneToOne',
-      'api::page.page'
-    >;
     sectionLinkBranch: Attribute.Relation<
       'menu.section-links',
       'oneToOne',
       'api::branch.branch'
     >;
+    sectionLinkPage: Attribute.Relation<
+      'menu.section-links',
+      'oneToOne',
+      'api::page.page'
+    >;
+    sectionLinkTitle: Attribute.String;
   };
 }
 
 export interface MenuSections extends Schema.Component {
   collectionName: 'components_menu_items_sections';
   info: {
-    displayName: 'sections';
     description: '';
+    displayName: 'sections';
   };
   attributes: {
-    sectionTitle: Attribute.String;
     sectionColumnSpan: Attribute.Integer;
     sectionLinks: Attribute.Component<'menu.section-links', true>;
     sectionPage: Attribute.Relation<
@@ -413,35 +415,36 @@ export interface MenuSections extends Schema.Component {
       'oneToOne',
       'api::page.page'
     >;
-  };
-}
-
-export interface MenuSubsectionLinks extends Schema.Component {
-  collectionName: 'components_menu_items_subsection_links';
-  info: {
-    displayName: 'subsectionLinks';
-    description: '';
-  };
-  attributes: {
-    subsectionLinkTitle: Attribute.String;
-    page: Attribute.Relation<
-      'menu.subsection-links',
-      'oneToOne',
-      'api::page.page'
-    >;
+    sectionTitle: Attribute.String;
   };
 }
 
 export interface MenuSubsection extends Schema.Component {
   collectionName: 'components_menu_items_subsections';
   info: {
-    displayName: 'subsection';
     description: '';
+    displayName: 'subsection';
   };
   attributes: {
-    subsectionTitle: Attribute.String;
     columnSpan: Attribute.Integer;
     subsectionLinks: Attribute.Component<'menu.subsection-links', true>;
+    subsectionTitle: Attribute.String;
+  };
+}
+
+export interface MenuSubsectionLinks extends Schema.Component {
+  collectionName: 'components_menu_items_subsection_links';
+  info: {
+    description: '';
+    displayName: 'subsectionLinks';
+  };
+  attributes: {
+    page: Attribute.Relation<
+      'menu.subsection-links',
+      'oneToOne',
+      'api::page.page'
+    >;
+    subsectionLinkTitle: Attribute.String;
   };
 }
 
@@ -451,27 +454,27 @@ export interface MetadataFaktury extends Schema.Component {
     displayName: 'Fakt\u00FAry';
   };
   attributes: {
-    name: Attribute.String;
+    attachment: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     date: Attribute.Date;
-    attachment: Attribute.Media;
+    name: Attribute.String;
   };
 }
 
 export interface MetadataMetadata extends Schema.Component {
   collectionName: 'components_metadata_granty';
   info: {
-    name: 'Granty';
-    icon: 'folder';
     description: '';
     displayName: 'Metadata';
+    icon: 'folder';
+    name: 'Granty';
   };
   attributes: {
-    provider: Attribute.String;
-    year: Attribute.Integer;
+    amount: Attribute.String;
+    description: Attribute.Text;
     grant_name: Attribute.String;
     grant_number: Attribute.String;
-    description: Attribute.Text;
-    amount: Attribute.String;
+    provider: Attribute.String;
+    year: Attribute.Integer;
   };
 }
 
@@ -481,12 +484,12 @@ export interface MetadataObchodnaVerejnaSutaz extends Schema.Component {
     displayName: 'Obchodn\u00E1 Verejn\u00E1 S\u00FA\u0165a\u017E';
   };
   attributes: {
-    subject: Attribute.String;
+    amount: Attribute.String;
+    attachment: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    date_added: Attribute.Date;
     description: Attribute.Text;
     number: Attribute.String;
-    date_added: Attribute.Date;
-    attachment: Attribute.Media;
-    amount: Attribute.String;
+    subject: Attribute.String;
   };
 }
 
@@ -496,10 +499,10 @@ export interface MetadataObjednavky extends Schema.Component {
     displayName: 'Objedn\u00E1vky';
   };
   attributes: {
-    title: Attribute.String;
-    date_period: Attribute.Date;
+    attachment: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     date_added: Attribute.Date;
-    attachment: Attribute.Media;
+    date_period: Attribute.Date;
+    title: Attribute.String;
   };
 }
 
@@ -509,12 +512,12 @@ export interface MetadataVerejneObstaravanie extends Schema.Component {
     displayName: 'Verejn\u00E9 Obstar\u00E1vanie';
   };
   attributes: {
-    subject: Attribute.String;
-    date_added: Attribute.Date;
-    number: Attribute.String;
-    description: Attribute.Text;
-    attachment: Attribute.Media;
     amount: Attribute.String;
+    attachment: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    date_added: Attribute.Date;
+    description: Attribute.Text;
+    number: Attribute.String;
+    subject: Attribute.String;
   };
 }
 
@@ -524,12 +527,12 @@ export interface MetadataZmluvy extends Schema.Component {
     displayName: 'Zmluvy';
   };
   attributes: {
-    date: Attribute.Date;
-    type: Attribute.String;
-    number: Attribute.String;
-    supplier: Attribute.String;
-    subject: Attribute.String;
     amount: Attribute.String;
+    date: Attribute.Date;
+    number: Attribute.String;
+    subject: Attribute.String;
+    supplier: Attribute.String;
+    type: Attribute.String;
   };
 }
 
@@ -539,10 +542,10 @@ export interface SectionsAccordion extends Schema.Component {
     displayName: 'Akorde\u00F3n';
   };
   attributes: {
-    title: Attribute.String;
     flatText: Attribute.Component<'accordion-items.flat-text', true>;
-    tableRows: Attribute.Component<'accordion-items.table-row', true>;
     forms: Attribute.Component<'accordion-items.form', true>;
+    tableRows: Attribute.Component<'accordion-items.table-row', true>;
+    title: Attribute.String;
   };
 }
 
@@ -557,16 +560,16 @@ export interface SectionsBlogPostsListing extends Schema.Component {
 export interface SectionsCherrypickSection extends Schema.Component {
   collectionName: 'components_sections_cherrypick_sections';
   info: {
-    displayName: 'V\u00FDber podstr\u00E1nok';
     description: '';
+    displayName: 'V\u00FDber podstr\u00E1nok';
   };
   attributes: {
-    title: Attribute.String;
     pages: Attribute.Relation<
       'sections.cherrypick-section',
       'oneToMany',
       'api::page.page'
     >;
+    title: Attribute.String;
   };
 }
 
@@ -596,10 +599,36 @@ export interface SectionsCta extends Schema.Component {
 export interface SectionsDivider extends Schema.Component {
   collectionName: 'components_blocks_dividers';
   info: {
-    displayName: 'Odde\u013Eova\u010D';
     description: '';
+    displayName: 'Odde\u013Eova\u010D';
   };
   attributes: {};
+}
+
+export interface SectionsDocuments extends Schema.Component {
+  collectionName: 'components_sections_documents';
+  info: {
+    description: '';
+    displayName: 'Dokumenty';
+  };
+  attributes: {
+    basicDocuments: Attribute.Relation<
+      'sections.documents',
+      'oneToMany',
+      'api::basic-document.basic-document'
+    >;
+    disclosures: Attribute.Relation<
+      'sections.documents',
+      'oneToMany',
+      'api::disclosure.disclosure'
+    >;
+    documents: Attribute.Relation<
+      'sections.documents',
+      'oneToMany',
+      'api::document.document'
+    >;
+    title: Attribute.String;
+  };
 }
 
 export interface SectionsDocumentsListing extends Schema.Component {
@@ -608,32 +637,6 @@ export interface SectionsDocumentsListing extends Schema.Component {
     displayName: 'Listing: Dokumenty a Zverej\u0148ovanie';
   };
   attributes: {};
-}
-
-export interface SectionsDocuments extends Schema.Component {
-  collectionName: 'components_sections_documents';
-  info: {
-    displayName: 'Dokumenty';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    basicDocuments: Attribute.Relation<
-      'sections.documents',
-      'oneToMany',
-      'api::basic-document.basic-document'
-    >;
-    documents: Attribute.Relation<
-      'sections.documents',
-      'oneToMany',
-      'api::document.document'
-    >;
-    disclosures: Attribute.Relation<
-      'sections.documents',
-      'oneToMany',
-      'api::disclosure.disclosure'
-    >;
-  };
 }
 
 export interface SectionsEventsListing extends Schema.Component {
@@ -650,22 +653,22 @@ export interface SectionsFaq extends Schema.Component {
     displayName: 'FAQ';
   };
   attributes: {
-    title: Attribute.String;
-    questions: Attribute.Component<'blocks.accordion-item', true>;
     ctaButton: Attribute.String;
+    questions: Attribute.Component<'blocks.accordion-item', true>;
     redirectTo: Attribute.Relation<
       'sections.faq',
       'oneToOne',
       'api::page.page'
     >;
+    title: Attribute.String;
   };
 }
 
 export interface SectionsFlatText extends Schema.Component {
   collectionName: 'components_sections_flat_texts';
   info: {
-    displayName: 'Richtext';
     description: '';
+    displayName: 'Richtext';
   };
   attributes: {
     content: Attribute.RichText;
@@ -718,8 +721,8 @@ export interface SectionsMap extends Schema.Component {
     displayName: 'Mapa pobo\u010Diek';
   };
   attributes: {
-    title: Attribute.String;
     branches: Attribute.Component<'blocks.branch-item', true>;
+    title: Attribute.String;
   };
 }
 
@@ -745,12 +748,12 @@ export interface SectionsOpeningHoursSection extends Schema.Component {
     displayName: 'Otv\u00E1racie hodiny';
   };
   attributes: {
-    title: Attribute.String;
     branchList: Attribute.Relation<
       'sections.opening-hours-section',
       'oneToMany',
       'api::branch.branch'
     >;
+    title: Attribute.String;
   };
 }
 
@@ -765,13 +768,13 @@ export interface SectionsPartners extends Schema.Component {
 export interface SectionsRental extends Schema.Component {
   collectionName: 'components_sections_rentals';
   info: {
-    displayName: 'Pren\u00E1jom priestorov';
     description: '';
+    displayName: 'Pren\u00E1jom priestorov';
   };
   attributes: {
-    title: Attribute.String;
-    text: Attribute.RichText;
     branches: Attribute.Component<'blocks.branch-item-with-page', true>;
+    text: Attribute.RichText;
+    title: Attribute.String;
   };
 }
 
@@ -781,8 +784,8 @@ export interface SectionsSiteUsefullness extends Schema.Component {
     displayName: 'U\u017Eito\u010Dnos\u0165 str\u00E1nky';
   };
   attributes: {
-    title: Attribute.String;
     thankYouMessage: Attribute.String;
+    title: Attribute.String;
   };
 }
 
@@ -792,8 +795,8 @@ export interface SectionsSubpages extends Schema.Component {
     displayName: 'Extern\u00E9 str\u00E1nky';
   };
   attributes: {
-    title: Attribute.String;
     subpages: Attribute.Component<'blocks.subpage', true>;
+    title: Attribute.String;
   };
 }
 
@@ -815,8 +818,8 @@ export interface SectionsVideo extends Schema.Component {
     displayName: 'Video';
   };
   attributes: {
+    media: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     youtube_url: Attribute.String;
-    media: Attribute.Media;
   };
 }
 
@@ -828,12 +831,12 @@ declare module '@strapi/types' {
       'accordion-items.table-row': AccordionItemsTableRow;
       'address.address': AddressAddress;
       'blocks.accordion-item': BlocksAccordionItem;
-      'blocks.branch-item-with-page': BlocksBranchItemWithPage;
       'blocks.branch-item': BlocksBranchItem;
+      'blocks.branch-item-with-page': BlocksBranchItemWithPage;
       'blocks.file-item': BlocksFileItem;
       'blocks.notice-files': BlocksNoticeFiles;
-      'blocks.opening-hours-item': BlocksOpeningHoursItem;
       'blocks.opening-hours': BlocksOpeningHours;
+      'blocks.opening-hours-item': BlocksOpeningHoursItem;
       'blocks.page-link': BlocksPageLink;
       'blocks.subpage': BlocksSubpage;
       'blocks.table-row': BlocksTableRow;
@@ -851,8 +854,8 @@ declare module '@strapi/types' {
       'locality-parts.gallery-parts': LocalityPartsGalleryParts;
       'menu.section-links': MenuSectionLinks;
       'menu.sections': MenuSections;
-      'menu.subsection-links': MenuSubsectionLinks;
       'menu.subsection': MenuSubsection;
+      'menu.subsection-links': MenuSubsectionLinks;
       'metadata.faktury': MetadataFaktury;
       'metadata.metadata': MetadataMetadata;
       'metadata.obchodna-verejna-sutaz': MetadataObchodnaVerejnaSutaz;
@@ -865,8 +868,8 @@ declare module '@strapi/types' {
       'sections.children-listing': SectionsChildrenListing;
       'sections.cta': SectionsCta;
       'sections.divider': SectionsDivider;
-      'sections.documents-listing': SectionsDocumentsListing;
       'sections.documents': SectionsDocuments;
+      'sections.documents-listing': SectionsDocumentsListing;
       'sections.events-listing': SectionsEventsListing;
       'sections.faq': SectionsFaq;
       'sections.flat-text': SectionsFlatText;
