@@ -8,18 +8,20 @@ import { useCallback, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import { useOverlayTriggerState } from 'react-stately'
 
-import MImage from '@/modules/common/MImage'
+import StrapiImage from '@/modules/common/StrapiImage'
 import { UploadImageEntityFragment } from '@/services/graphql'
 import { onEnterOrSpaceKeyDown } from '@/utils/onEnterOrSpaceKeyDown'
 
 import ImageLightBox from './ImageLightBox'
 
-// copied from marianum https://github.com/bratislava/marianum.sk/blob/master/next/components/molecules/ImageGallery.tsx
-
 export type ImageGalleryProps = {
   images: UploadImageEntityFragment[]
   variant?: 'below' | 'aside'
 }
+
+/**
+ * Based on Marianum: https://github.com/bratislava/marianum.sk/blob/master/next/components/molecules/ImageGallery.tsx
+ */
 
 const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => {
   const { t } = useTranslation()
@@ -98,9 +100,9 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                 'pt-[54%]': thumbnailCount === 0 && variant === 'aside',
               })}
             >
-              {firstImage.attributes && (
+              {firstImage.attributes ? (
                 <div>
-                  <MImage
+                  <StrapiImage
                     image={firstImage.attributes}
                     fill
                     className="absolute top-0 object-cover"
@@ -109,7 +111,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                     {`1/${images.length}`}
                   </div>
                 </div>
-              )}
+              ) : null}
             </div>
           )}
 
@@ -121,20 +123,21 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
             >
               {smallImages
                 .filter((image) => image.attributes)
-                .map((image, index) => (
-                  <div
-                    onClick={() => openAtImageIndex(index + 1)}
-                    key={image.id}
-                    className="relative h-[100%] w-full cursor-pointer pt-[100%]"
-                  >
-                    <MImage
-                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                      image={image.attributes!}
-                      fill
-                      className="absolute top-0 object-cover"
-                    />
-                  </div>
-                ))}
+                .map((image, index) =>
+                  image?.attributes ? (
+                    <div
+                      key={image.id}
+                      onClick={() => openAtImageIndex(index + 1)}
+                      className="relative h-[100%] w-full cursor-pointer pt-[100%]"
+                    >
+                      <StrapiImage
+                        image={image.attributes}
+                        fill
+                        className="absolute top-0 object-cover"
+                      />
+                    </div>
+                  ) : null
+                )}
 
               {/* more images button */}
               {moreImagesCount > 0 && (
@@ -161,20 +164,21 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
             >
               {smallImages
                 .filter((image) => image.attributes)
-                .map((image, index) => (
-                  <div
-                    onClick={() => openAtImageIndex(index + 1)}
-                    key={image.id}
-                    className="relative w-[168px] cursor-pointer pt-[168px]"
-                  >
-                    <MImage
-                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                      image={image.attributes!}
-                      fill
-                      className="absolute top-0 object-cover"
-                    />
-                  </div>
-                ))}
+                .map((image, index) =>
+                  image?.attributes ? (
+                    <div
+                      key={image.id}
+                      onClick={() => openAtImageIndex(index + 1)}
+                      className="relative w-[168px] cursor-pointer pt-[168px]"
+                    >
+                      <StrapiImage
+                        image={image.attributes}
+                        fill
+                        className="absolute top-0 object-cover"
+                      />
+                    </div>
+                  ) : null
+                )}
 
               {/* more images button */}
               {moreImagesCount > 0 && (

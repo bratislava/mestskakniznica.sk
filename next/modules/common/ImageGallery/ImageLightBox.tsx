@@ -4,8 +4,8 @@ import { useEffect, useRef } from 'react'
 import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import Slider from '@/modules/common/ImageGallery/Slider'
-import MImage from '@/modules/common/MImage'
 import Modal, { ModalProps } from '@/modules/common/Modal'
+import StrapiImage from '@/modules/common/StrapiImage'
 import { UploadImageEntityFragment } from '@/services/graphql'
 
 export type ImageLightBoxProps = {
@@ -13,7 +13,9 @@ export type ImageLightBoxProps = {
   initialImageIndex: number
 } & Omit<ModalProps, 'children'>
 
-// copied from https://github.com/bratislava/marianum.sk/blob/master/next/components/molecules/ImageLightBox.tsx
+/**
+ * Based on: https://github.com/bratislava/marianum.sk/blob/master/next/components/molecules/ImageLightBox.tsx
+ */
 
 const ImageLightBox = (props: ImageLightBoxProps) => {
   const { images, initialImageIndex, ...rest } = props
@@ -40,23 +42,24 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
         initialPage={initialImageIndex}
         pages={images
           .filter((image) => image.attributes)
-          .map(({ id, attributes }) => (
-            <div
-              key={id}
-              className="container pointer-events-none m-auto flex h-full w-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
-            >
-              <MImage
-                draggable="false"
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,@typescript-eslint/no-unnecessary-type-assertion
-                image={attributes!}
-                className="pointer-events-auto h-auto max-h-[86vh] w-full select-none object-contain"
-                sizes="100vw"
-              />
-              {attributes?.caption !== attributes?.name && attributes?.caption && (
-                <div className="mt-4 bg-white px-2.5 py-0.5">{attributes?.caption}</div>
-              )}
-            </div>
-          ))}
+          .map(({ id, attributes }) =>
+            attributes ? (
+              <div
+                key={id}
+                className="container pointer-events-none m-auto flex h-full w-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
+              >
+                <StrapiImage
+                  image={attributes}
+                  sizes="100vw"
+                  draggable="false"
+                  className="pointer-events-auto h-auto max-h-[86vh] w-full select-none object-contain"
+                />
+                {attributes.caption !== attributes.name && attributes.caption && (
+                  <div className="mt-4 bg-white px-2.5 py-0.5">{attributes.caption}</div>
+                )}
+              </div>
+            ) : null
+          )}
         pagination={({ goToPrevious, goToNext }) => (
           <div className="container pointer-events-none absolute bottom-0 z-20 flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
             {images.length > 1 && (
