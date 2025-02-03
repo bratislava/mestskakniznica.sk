@@ -17,6 +17,7 @@
     "@strapi/plugin-i18n": "4.14.0",
     "@strapi/plugin-users-permissions": "4.14.0",
     "@strapi/strapi": "4.14.0",
+    "@strapi/provider-email-mailgun": "^5.6.0",
     "pg": "^8.13.1",
     "strapi-plugin-meilisearch": "^0.9.2",
     "strapi-provider-upload-ts-minio": "^3.1.0"
