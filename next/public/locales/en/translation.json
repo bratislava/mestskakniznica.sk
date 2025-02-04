@@ -1,7 +1,6 @@
 {
   "404.pageNotFound": "Page not found...",
   "404.pageNotFoundSorry": "Sorry, but there is an error on this page. Please try again later.",
-  "common.added": "Added",
   "allCategories": "All categories",
   "answer.no": "No",
   "answer.yes": "Yes",
@@ -15,6 +14,7 @@
   "branchDetails.localityWhereToFind": "Where to find us",
   "branchDetails.sections": "Contacts and opening hours",
   "branchDetails.services": "Services",
+  "common.added": "Added",
   "common.close": "Close",
   "common.homepage": "Home",
   "common.more": "More",

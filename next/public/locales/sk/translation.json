@@ -1,7 +1,6 @@
 {
   "404.pageNotFound": "Stránka sa nenašla...",
   "404.pageNotFoundSorry": "Ľutujeme, ale na tejto stránke sa vyskytla chyba. Skúste to, prosím, opäť neskôr.",
-  "common.added": "Pridané",
   "allCategories": "Všetky kategórie",
   "answer.no": "Nie",
   "answer.yes": "Áno",
@@ -15,6 +14,7 @@
   "branchDetails.localityWhereToFind": "Kde nás nájdete",
   "branchDetails.sections": "Kontakty a otváracie hodiny",
   "branchDetails.services": "Služby",
+  "common.added": "Pridané",
   "common.close": "Zatvoriť",
   "common.homepage": "Domov",
   "common.more": "Viac",
