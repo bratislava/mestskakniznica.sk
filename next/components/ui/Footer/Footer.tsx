@@ -50,7 +50,7 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumnFragment; i
   return (
     <div
       key={col?.title}
-      className={cx('pt-6 pb-12', {
+      className={cx('pb-12 pt-6', {
         'border-l border-border-dark pl-8': i !== 0,
       })}
     >

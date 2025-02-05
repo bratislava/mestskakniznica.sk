@@ -27,7 +27,7 @@ export const BranchMap = ({
   }, [])
 
   return branchLongitude && branchLatitude ? (
-    <div className="mb-4 h-full w-full text-black lg:mb-8">
+    <div className="mb-4 size-full text-black lg:mb-8">
       {isBrowser && (
         <Mapbox
           ref={mapRef}

@@ -92,7 +92,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
   return (
     <div className="flex grow flex-col">
       <div className="flex grow flex-col items-center gap-x-5 lg:mt-3 lg:flex-row">
-        <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
+        <div className="h-auto w-full border-b border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
           <MDatePicker
             selected={filters.dateFrom}
             onChange={handleDateFromChange}
@@ -104,7 +104,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
             shouldCloseOnSelect={false}
           />
         </div>
-        <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
+        <div className="h-auto w-full border-b border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
           <MDatePicker
             selected={filters.dateTo}
             onChange={handleDateToChange}
@@ -117,21 +117,21 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
           />
         </div>
         <Select
-          className="w-full border-b-[1px] border-b-[#000] py-3 lg:border-0 lg:border-border-light"
+          className="w-full border-b border-b-[#000] py-3 lg:border-0 lg:border-border-light"
           selectClassName="border-0 lg:border"
           options={tags}
           value={filters.eventTypeId ?? ''}
           onChange={(ev) => handleEventTypeIdChange(ev.key)}
         />
         <Select
-          className="w-full border-b-[1px] border-b-[#000] py-3 lg:border-0 lg:border-border-light"
+          className="w-full border-b border-b-[#000] py-3 lg:border-0 lg:border-border-light"
           selectClassName="border-0 lg:border"
           options={categories}
           value={filters.eventCategoryId ?? ''}
           onChange={(ev) => handleEventCategoryIdChange(ev.key)}
         />
         <Select
-          className="w-full border-b-[1px] border-b-[#000] py-3 lg:border-0 lg:border-border-light"
+          className="w-full border-b border-b-[#000] py-3 lg:border-0 lg:border-border-light"
           selectClassName="border-0 lg:border"
           options={localities}
           value={filters.eventBranchId ?? ''}
@@ -155,7 +155,7 @@ const EventFilters = ({ filters, onFiltersChange }: EventFiltersProps) => {
   const { isSelected, toggle } = useToggleState({ defaultSelected: false })
 
   return (
-    <div className="mt-4 mb-6 lg:mb-8 lg:mt-6 lg:block lg:border lg:border-border-dark lg:p-6">
+    <div className="mb-6 mt-4 lg:mb-8 lg:mt-6 lg:block lg:border lg:border-border-dark lg:p-6">
       {/* Mobile */}
       <div className="flex w-full items-center justify-between border border-border-dark p-4 lg:hidden">
         {/* TODO accessibility 'more content' */}

@@ -28,8 +28,8 @@ const FormSubmittedComponent = ({
 
   return (
     <div className={cx('py-4', className)}>
-      <div className="flex h-full w-full flex-col items-center justify-center gap-y-8 text-center">
-        <span className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border-dark bg-button-dark text-base text-white">
+      <div className="flex size-full flex-col items-center justify-center gap-y-8 text-center">
+        <span className="inline-flex size-14 items-center justify-center rounded-full border border-border-dark bg-button-dark text-base text-white">
           {submitStatus == SubmitStatus.SUCCESS && <CheckNoPaddingIcon />}
           {submitStatus == SubmitStatus.FAILURE && <CloseIcon />}
         </span>

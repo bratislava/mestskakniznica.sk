@@ -121,7 +121,7 @@ const BookList = ({ className }: Props) => {
         <Button
           startIcon={<PlusIcon />}
           variant="plain-primary"
-          className="mt-[33px] mb-[9px]"
+          className="mb-[9px] mt-[33px]"
           onPress={handleAddBook}
         >
           {t('add_book')}

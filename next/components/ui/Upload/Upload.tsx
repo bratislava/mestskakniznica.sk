@@ -49,13 +49,13 @@ export const Upload = ({
           id={id}
           ref={fileInputRef}
           type="file"
-          className="absolute h-full w-full cursor-pointer opacity-0 outline-none"
+          className="absolute size-full cursor-pointer opacity-0 outline-none"
           aria-invalid={hasError}
           aria-required={required}
           aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}
           {...props}
         />
-        <UploadIcon className="group-hover:rounded-full group-hover:bg-error group-hover:bg-dark group-hover:text-white" />
+        <UploadIcon className="group-hover:rounded-full group-hover:bg-dark group-hover:bg-error group-hover:text-white" />
         <div className="text-center text-[12px] text-foreground-body lg:text-[14px]">
           {children}
         </div>

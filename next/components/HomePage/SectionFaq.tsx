@@ -19,7 +19,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
 
   return (
     <SectionContainer hasBorder>
-      <div className="flex flex-col space-y-8 py-12 md:flex-row md:space-y-0 md:space-x-8">
+      <div className="flex flex-col space-y-8 py-12 md:flex-row md:space-x-8 md:space-y-0">
         <div className="w-full space-y-4 md:w-96">
           {faqSection?.ctas?.map((cta) => (
             <div key={cta?.title}>

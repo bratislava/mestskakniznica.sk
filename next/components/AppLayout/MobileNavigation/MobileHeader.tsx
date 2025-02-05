@@ -75,7 +75,7 @@ const MobileHeader = ({ menus }: MobileHeaderProps) => {
         </div>
       </div>
 
-      <div className="m-auto border-b border-border-dark py-2 px-[5px]">
+      <div className="m-auto border-b border-border-dark px-[5px] py-2">
         <HeaderSearchBox isOpen={isSearchOpen} setOpen={setSearchOpen} />
       </div>
     </>

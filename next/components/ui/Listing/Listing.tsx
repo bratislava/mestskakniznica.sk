@@ -58,7 +58,7 @@ export const Listing = ({ className, title, url, listingChildren, hasDivider }: 
         ))}
       </div>
       {hasDivider && (
-        <div className="mt-16 hidden w-full border-b-[1px] border-border-dark md:flex" />
+        <div className="mt-16 hidden w-full border-b border-border-dark md:flex" />
       )}
     </div>
   )

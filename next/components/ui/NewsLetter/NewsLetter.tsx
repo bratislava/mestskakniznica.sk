@@ -34,7 +34,7 @@ export const NewsLetter = ({
   return (
     <div className={cx('flex flex-col items-center justify-center', className)}>
       <h2 className="pt-10 text-center text-h3 lg:pt-24">{title}</h2>
-      <form className="pt-4 pb-10 lg:pt-6 lg:pb-24" onSubmit={onSubmit}>
+      <form className="pb-10 pt-4 lg:pb-24 lg:pt-6" onSubmit={onSubmit}>
         <div className="flex flex-col gap-y-4 lg:flex-row lg:gap-x-4 lg:gap-y-0">
           <Controller
             control={methods.control}
@@ -56,7 +56,7 @@ export const NewsLetter = ({
             {buttonContent}
           </Button>
         </div>
-        <div className="pt-4.5 pl-0.5 pb-8">
+        <div className="pb-8 pl-0.5 pt-4.5">
           <Controller
             control={methods.control}
             name="acceptTerms"

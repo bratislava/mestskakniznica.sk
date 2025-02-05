@@ -153,7 +153,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
               >
                 {/* TODO move link to title */}
 
-                <div className="group/showMore flex h-full w-full flex-col justify-between gap-8 p-6 lg:py-0">
+                <div className="group/showMore flex size-full flex-col justify-between gap-8 p-6 lg:py-0">
                   <div>
                     <div className="text-h3">
                       <MLink href={linkHref} variant="basic" stretched>

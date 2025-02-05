@@ -57,7 +57,7 @@ export const NumberSwitcher = ({
           <MinusIcon />
         </button>
 
-        <div className="mx-3 h-full w-full border-x border-border-light py-2 px-6 text-center">
+        <div className="mx-3 size-full border-x border-border-light px-6 py-2 text-center">
           <input
             id={id}
             type="number"

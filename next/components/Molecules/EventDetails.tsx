@@ -84,10 +84,10 @@ const EventDetails = ({ event }: PageProps) => {
         width={bannerProps.width || 0}
         height={bannerProps.height || 0}
         alt={bannerProps.alternativeText || ''}
-        className="w-full object-cover object-center md:h-[300px] lg:h-[400px]"
+        className="w-full object-cover object-center md:h-74 lg:h-[400px]"
       />
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
-        <div className="col-span-1 hidden h-[108px] w-[108px] bg-promo-yellow text-center lg:flex">
+        <div className="col-span-1 hidden size-[108px] bg-promo-yellow text-center lg:flex">
           <EventDetailsDateBox
             dateFrom={event?.attributes?.dateFrom}
             dateTo={event?.attributes?.dateTo}
@@ -161,7 +161,7 @@ const EventDetails = ({ event }: PageProps) => {
                       width={guest?.avatar?.data?.attributes?.width || 0}
                       height={guest?.avatar?.data?.attributes?.height || 0}
                       alt={guest?.name || 'Guest name.'}
-                      className="flex h-12 w-12 items-center justify-center rounded-full object-cover"
+                      className="flex size-12 items-center justify-center rounded-full object-cover"
                     />
                     <span className="m-auto text-[16px]">
                       {guest?.name} {guest?.surname}
@@ -191,7 +191,7 @@ const EventDetails = ({ event }: PageProps) => {
             </div>
           )} */}
           <div className="pt-10">
-            <div className="block h-auto border-y border-border-dark py-3 lg:flex lg:h-[70px] lg:border lg:p-0">
+            <div className="block h-auto border-y border-border-dark py-3 lg:flex lg:h-17.5 lg:border lg:p-0">
               {/* <div className="hidden lg:block pl-6 w-[169px] text-base m-auto"> */}
               {/*  {t('eventDetails.eventShareAndSave')} */}
               {/* </div> */}
