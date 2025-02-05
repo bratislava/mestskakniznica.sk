@@ -1,5 +1,6 @@
-import cx from 'classnames'
 import { ReactNode } from 'react'
+
+import cn from '@/utils/cn'
 
 type FieldWrapperProps = {
   className?: string
@@ -37,7 +38,7 @@ const FieldWrapper = ({
       </div>
 
       <div
-        className={cx('flex w-full items-center border bg-white', className, {
+        className={cn('flex w-full items-center border bg-white', className, {
           'pointer-events-none cursor-not-allowed select-none': disabled,
           'border-border bg-border bg-opacity-25 text-foreground-disabled focus-within:border-border-dark hover:border-border-dark group-focus:border-border-dark':
             disabled,

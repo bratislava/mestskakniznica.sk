@@ -1,8 +1,7 @@
-import cx from 'classnames'
-
 import { FolderIcon } from '@/assets/icons'
 import DocumentRow from '@/modules/cards-and-rows/DocumentRow'
 import { DisclosureEntityFragment, DocumentEntityFragment } from '@/services/graphql'
+import cn from '@/utils/cn'
 import { hasAttributes, isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 
@@ -63,10 +62,10 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
     .filter(isDefined)
 
   return (
-    <div className={cx(className, 'flex flex-col')}>
+    <div className={cn(className, 'flex flex-col')}>
       {title && <h3 className="text-h3">{title}</h3>}
 
-      <div className={cx('flex flex-col', { 'mt-6': !!title })}>
+      <div className={cn('flex flex-col', { 'mt-6': !!title })}>
         {parsedDocuments?.map((doc, index) => (
           <DocumentRow
             // eslint-disable-next-line react/no-array-index-key

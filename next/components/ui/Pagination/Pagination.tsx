@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useState } from 'react'
 
@@ -6,6 +5,7 @@ import ChevronLeft from '@/assets/images/chevron-left.svg'
 import ChevronRight from '@/assets/images/chevron-right.svg'
 import { Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 export interface PaginationProps {
   max: number
@@ -57,7 +57,7 @@ export const Pagination = ({ max, value, onChangeNumber }: PaginationProps) => {
         <Input
           labelClassName="sr-only"
           labelContent={t('pagination.currentPage')}
-          inputClassName={cx('text-center text-base', {
+          inputClassName={cn('text-center text-base', {
             'w-10': value < 10,
             'w-auto': value >= 10,
           })}

@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
@@ -10,8 +9,9 @@ import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import { MobileNavigation } from '@/modules/navigation/MobileNavigation'
 import { MenuItem } from '@/modules/navigation/NavMenu'
+import cn from '@/utils/cn'
 
-const TITLE_CLASSES =
+const titleClasses =
   'flex h-[30px] min-w-fit items-center border-r border-border-dark px-[7px] py-[2px]'
 
 type MobileHeaderProps = {
@@ -31,7 +31,7 @@ const MobileHeader = ({ menus }: MobileHeaderProps) => {
   }, [router])
 
   const pageTitle = (word: string, index: number) => (
-    <span key={index} className={cx(TITLE_CLASSES)}>
+    <span key={index} className={cn(titleClasses)}>
       {word}
     </span>
   )

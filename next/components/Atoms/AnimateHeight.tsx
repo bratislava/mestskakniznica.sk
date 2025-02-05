@@ -1,9 +1,8 @@
-import cx from 'classnames'
 import { motion, useReducedMotion, Variant } from 'framer-motion'
 import { ReactNode, useMemo } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
-// Copied from https://github.com/bratislava/marianum/blob/762d10222bd33352b77a44d902620181b07107c1/next/components/atoms/AnimateHeight.tsx
+import cn from '@/utils/cn'
 
 type AnimateHeightProps = {
   isVisible: boolean
@@ -15,6 +14,10 @@ type AnimateHeightProps = {
   initialVisible?: boolean
   className?: string
 }
+
+/**
+ * Based on Marianum: https://github.com/bratislava/marianum/blob/762d10222bd33352b77a44d902620181b07107c1/next/components/atoms/AnimateHeight.tsx
+ */
 
 export const AnimateHeight = ({
   duration,
@@ -37,7 +40,7 @@ export const AnimateHeight = ({
 
   return (
     <motion.div
-      className={cx('overflow-hidden', className)}
+      className={cn('overflow-hidden', className)}
       aria-hidden={!isVisible}
       initial={initialVisible ? 'opened' : 'closed'}
       animate={isVisible ? 'opened' : 'closed'}

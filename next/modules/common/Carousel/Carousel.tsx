@@ -1,6 +1,6 @@
-import cx from 'classnames'
 import React, { ReactNode, useRef, useState } from 'react'
-import { twMerge } from 'tailwind-merge'
+
+import cn from '@/utils/cn'
 
 import CarouselControl, { CarouselControlDirection } from './CarouselControl'
 
@@ -66,7 +66,7 @@ const Carousel = ({
   }
 
   return (
-    <div className={twMerge(cx('relative'), className)}>
+    <div className={cn('relative', className)}>
       <div className="hidden lg:block">
         {items.length >= visibleItemsCount && (
           <CarouselControl
@@ -77,13 +77,9 @@ const Carousel = ({
         )}
       </div>
       <ul
-        className={twMerge(
-          cx(
-            '-mx-4 flex snap-x snap-mandatory overflow-x-auto overflow-y-clip px-4 lg:-mx-8 lg:px-8',
-            {
-              'scrollbar-hide': hideScrollbar,
-            }
-          ),
+        className={cn(
+          '-mx-4 flex snap-x snap-mandatory overflow-x-auto overflow-y-clip px-4 lg:-mx-8 lg:px-8',
+          { 'scrollbar-hide': hideScrollbar },
           listClassName
         )}
         ref={scrollerRef}
@@ -92,7 +88,7 @@ const Carousel = ({
           return (
             <li
               key={item.key}
-              className={twMerge(
+              className={cn(
                 'shrink-0 transform snap-center transition-all duration-200',
                 itemClassName
               )}

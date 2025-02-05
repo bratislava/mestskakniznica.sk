@@ -1,4 +1,4 @@
-import cx from 'classnames'
+import cn from '@/utils/cn'
 
 export interface PageTitleProps {
   className?: string
@@ -9,7 +9,7 @@ export interface PageTitleProps {
 
 export const PageTitle = ({ className, title, perex, hasDivider = true }: PageTitleProps) => {
   return (
-    <div className={cx(className)}>
+    <div className={cn(className)}>
       <h1 className="mt-6 text-h1 lg:mt-16">{title}</h1>
       {/* Divider */}
       {hasDivider && <div className="mt-4 border-b border-border-dark lg:mt-6" />}

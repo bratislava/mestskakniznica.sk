@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -14,6 +13,7 @@ import StepNumberTitle from '@/components/forms/StepNumberTitle'
 import { CheckBox, Input, TextArea } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
+import cn from '@/utils/cn'
 import { convertDataToBody } from '@/utils/form-constants'
 
 const InterlibraryLoanServiceFormReader = () => {
@@ -166,9 +166,7 @@ const InterlibraryLoanServiceFormReader = () => {
           num={1}
           title={t('personal_details')}
           activeStep={step}
-          className={cx('', {
-            '-mx-8 border border-error px-8': stepOneErrors && step !== 1,
-          })}
+          className={cn({ '-mx-8 border border-error px-8': stepOneErrors && step !== 1 })}
           onClick={() => setStep(1)}
         >
           <div className="flex w-full flex-col gap-y-6">

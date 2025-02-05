@@ -1,9 +1,9 @@
-import cx from 'classnames'
 import React from 'react'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 import { CheckBox, Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 interface IProps {
   className?: string
@@ -32,7 +32,7 @@ export const NewsLetter = ({
   const { errors } = useFormState()
 
   return (
-    <div className={cx('flex flex-col items-center justify-center', className)}>
+    <div className={cn('flex flex-col items-center justify-center', className)}>
       <h2 className="pt-10 text-center text-h3 lg:pt-24">{title}</h2>
       <form className="pb-10 pt-4 lg:pb-24 lg:pt-6" onSubmit={onSubmit}>
         <div className="flex flex-col gap-y-4 lg:flex-row lg:gap-x-4 lg:gap-y-0">

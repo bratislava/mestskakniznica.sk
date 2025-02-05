@@ -1,9 +1,9 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { CheckNoPaddingIcon, CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 import { SubmitStatus } from './FormContainer'
 
@@ -27,7 +27,7 @@ const FormSubmittedComponent = ({
   const { t } = useTranslation('forms')
 
   return (
-    <div className={cx('py-4', className)}>
+    <div className={cn('py-4', className)}>
       <div className="flex size-full flex-col items-center justify-center gap-y-8 text-center">
         <span className="inline-flex size-14 items-center justify-center rounded-full border border-border-dark bg-button-dark text-base text-white">
           {submitStatus == SubmitStatus.SUCCESS && <CheckNoPaddingIcon />}

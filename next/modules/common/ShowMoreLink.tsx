@@ -1,9 +1,8 @@
-import cx from 'classnames'
 import React, { ComponentProps } from 'react'
-import { twMerge } from 'tailwind-merge'
 
 import { ChevronRightIcon } from '@/assets/icons'
 import MLink from '@/modules/common/MLink'
+import cn from '@/utils/cn'
 
 type ShowMoreLinkProps = Omit<ComponentProps<typeof MLink>, 'variant'> & {
   /**
@@ -18,11 +17,9 @@ type ShowMoreLinkProps = Omit<ComponentProps<typeof MLink>, 'variant'> & {
 const ShowMoreLink = ({ children, className, parentGroup = false, ...rest }: ShowMoreLinkProps) => {
   return (
     <MLink
-      className={twMerge(
-        cx(
-          'inline-flex items-center text-xs font-medium uppercase tracking-[0.08em] hover:underline md:text-sm',
-          { 'group/showMore': !parentGroup }
-        ),
+      className={cn(
+        'inline-flex items-center text-xs font-medium uppercase tracking-[0.08em] hover:underline md:text-sm',
+        { 'group/showMore': !parentGroup },
         className
       )}
       {...rest}

@@ -1,5 +1,6 @@
-import cx from 'classnames'
 import React, { useEffect } from 'react'
+
+import cn from '@/utils/cn'
 
 interface IVideo {
   id?: string
@@ -32,12 +33,12 @@ export const Video = ({ id, className, youTubeUrl, mediaUrl, size = 'default' }:
 
   return (
     <div
-      className={cx(className, {
+      className={cn(className, {
         'h-[162px] w-72 lg:h-[439px] lg:w-[780px]': size === 'default',
       })}
     >
       <iframe
-        className={cx('h-full w-full')}
+        className="size-full"
         title={id}
         src={youTubeUrl ? embedUrl : mediaUrl}
         allowFullScreen

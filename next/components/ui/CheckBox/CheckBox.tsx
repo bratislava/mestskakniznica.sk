@@ -1,8 +1,8 @@
 import { Checkbox, CheckboxIndicator } from '@radix-ui/react-checkbox'
-import cx from 'classnames'
 import React from 'react'
 
 import CheckMark from '@/assets/images/check-mark.svg'
+import cn from '@/utils/cn'
 
 export type CheckBoxProps = Omit<
   React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
@@ -16,13 +16,13 @@ export type CheckBoxProps = Omit<
 
 export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
   return (
-    <div className={cx('flex items-center gap-3.5', className)}>
+    <div className={cn('flex items-center gap-3.5', className)}>
       <Checkbox
         checked={props.checked}
         onCheckedChange={props.onChange}
         id={props.id}
         required={props.required}
-        className={cx(
+        className={cn(
           'base-focus-ring flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-border-dark text-white',
           {
             'bg-dark': props.checked,
@@ -36,7 +36,7 @@ export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
       </Checkbox>
 
       <label
-        className={cx('flex-1 cursor-pointer text-foreground-body', {
+        className={cn('flex-1 cursor-pointer text-foreground-body', {
           'base-input--disabled': props.disabled,
         })}
         htmlFor={props.id}
