@@ -1,4 +1,5 @@
 import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useState } from 'react'
 
 import ChevronLeft from '@/assets/images/chevron-left.svg'
@@ -10,19 +11,11 @@ export interface PaginationProps {
   max: number
   value: number
   onChangeNumber: (num: number) => void
-  previousButtonAriaLabel?: string
-  nextButtonAriaLabel?: string
-  currentInputAriaLabel?: string
 }
 
-export const Pagination = ({
-  max,
-  value,
-  onChangeNumber,
-  previousButtonAriaLabel,
-  nextButtonAriaLabel,
-  currentInputAriaLabel,
-}: PaginationProps) => {
+export const Pagination = ({ max, value, onChangeNumber }: PaginationProps) => {
+  const { t } = useTranslation()
+
   const [displayValue, setDisplayValue] = useState(value.toString())
 
   useEffect(() => {
@@ -56,14 +49,14 @@ export const Pagination = ({
         onPress={() => {
           if (value - 1 > 0) onChangeNumber(value - 1)
         }}
-        aria-label={previousButtonAriaLabel}
+        aria-label={t('pagination.previousPage')}
       >
         <ChevronLeft className="w-2" />
       </Button>
       <div className="flex items-center gap-x-4 text-base">
         <Input
           labelClassName="sr-only"
-          labelContent={currentInputAriaLabel}
+          labelContent={t('pagination.currentPage')}
           inputClassName={cx('text-center text-base', {
             'w-10': value < 10,
             'w-auto': value >= 10,
@@ -84,7 +77,7 @@ export const Pagination = ({
         onPress={() => {
           if (value + 1 <= max) onChangeNumber(value + 1)
         }}
-        aria-label={nextButtonAriaLabel}
+        aria-label={t('pagination.nextPage')}
       >
         <ChevronRight className="w-2" />
       </Button>

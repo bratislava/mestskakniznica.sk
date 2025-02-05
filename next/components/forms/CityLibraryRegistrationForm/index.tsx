@@ -26,7 +26,7 @@ const CityLibraryRegistrationForm = () => {
   const [errMessage, setErrMessage] = React.useState('')
   const [step, setStep] = React.useState(1)
   const [showTempAddress, setShowTempAddress] = React.useState(false)
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
 
   yup.setLocale({
     mixed: {
@@ -182,7 +182,6 @@ const CityLibraryRegistrationForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('library_registration_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}
@@ -475,7 +474,7 @@ const CityLibraryRegistrationForm = () => {
           {stepOneErrors && (
             <p className="pb-4 text-base text-error">{t('please_fill_required_fields')}</p>
           )}
-          <Button onPress={() => triggerFirstStep()}>{t('common:continue')}</Button>
+          <Button onPress={() => triggerFirstStep()}>{t('continue')}</Button>
         </StepNumberTitle>
 
         {/* Step 2 */}

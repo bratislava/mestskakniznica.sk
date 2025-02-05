@@ -19,7 +19,7 @@ import { convertDataToBody } from '@/utils/form-constants'
 const InterlibraryLoanServiceFormReader = () => {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
-  const { t, i18n } = useTranslation(['forms', 'common'])
+  const { t, i18n } = useTranslation('forms')
   const router = useRouter()
 
   yup.setLocale({
@@ -154,7 +154,6 @@ const InterlibraryLoanServiceFormReader = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('interlibrary_loan_reader_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}
@@ -262,7 +261,7 @@ const InterlibraryLoanServiceFormReader = () => {
               <p className="text-base text-error">{t('please_fill_required_fields')}</p>
             )}
 
-            <Button onPress={() => triggerFirstStep()}>{t('common:continue')}</Button>
+            <Button onPress={() => triggerFirstStep()}>{t('continue')}</Button>
           </div>
         </StepNumberTitle>
 

@@ -23,7 +23,7 @@ export enum SubmitStatus {
 
 interface FormContainerProps {
   children: ReactNode
-  buttonText: string
+  buttonText?: string
   title: string
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
   isSubmitted: SubmitStatus
@@ -48,6 +48,25 @@ const FormContainer = ({
 }: FormContainerProps) => {
   const [isFormOpen, setFormOpen] = useState(false)
   const { t } = useTranslation('forms')
+
+  // TODO revisit translations
+  //  keeping them here to not be deleted by i18next-parser
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const unidentifiedTranslations = [
+    t('instrument_type'), // also musical_instrument_type exists
+
+    // these are used in getMailTranslationKey
+    t('mail_accept_fees'),
+    t('mail_accept_terms'),
+    t('mail_blind_dep'),
+    t('mail_date_from'),
+    t('mail_date_to'),
+    t('mail_temp_address'),
+    t('mail_temp_city'),
+    t('mail_temp_postal_code'),
+    t('mail_time_from'),
+    t('mail_time_to'),
+  ]
 
   const { width } = useWindowSize()
 
@@ -81,7 +100,7 @@ const FormContainer = ({
             className={cx({ hidden: isFormOpen })}
             aria-labelledby="form-title"
           >
-            {buttonText}
+            {buttonText || t('continue')}
           </Button>
           {isFormOpen && (
             // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions

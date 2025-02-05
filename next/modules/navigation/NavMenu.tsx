@@ -31,7 +31,7 @@ type NavigationMenuProps = {
 }
 
 const NavMenu = ({ menus, isSearchOpen }: NavigationMenuProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const router = useRouter()
 
   const { menuValue, setMenuValue } = useNavMenuContext()
@@ -47,7 +47,7 @@ const NavMenu = ({ menus, isSearchOpen }: NavigationMenuProps) => {
           <NavigationMenu.Root
             value={menuValue}
             onValueChange={setMenuValue}
-            aria-label={t('navAriaLabel')}
+            aria-label={t('navigation.aria.navAriaLabel')}
             // to re-enable pointer events when menu is open and whole page has pointer events disabled
             className="pointer-events-auto"
           >

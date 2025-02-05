@@ -12,7 +12,7 @@ import {
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 const NoticesListingSection = () => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
   const [filters, setFilters] = useRoutePreservedState(noticesDefaultFilters)
 
   const { data } = useQuery({
@@ -45,9 +45,6 @@ const NoticesListingSection = () => {
             max={Math.ceil(data.notices?.meta.pagination.total / filters.pageSize)}
             value={filters.page}
             onChangeNumber={handlePageChange}
-            previousButtonAriaLabel={t('previousPage')}
-            nextButtonAriaLabel={t('nextPage')}
-            currentInputAriaLabel={t('currentPage')}
           />
         </div>
       )}

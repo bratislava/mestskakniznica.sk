@@ -75,7 +75,7 @@ export const Footer = ({
   footerColumns,
   copyrightText,
 }: FooterProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <div className={className}>

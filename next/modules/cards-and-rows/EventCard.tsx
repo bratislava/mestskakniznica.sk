@@ -37,14 +37,13 @@ const EventCard = ({
   eventCategory,
   branch,
 }: EventCardProps) => {
-  const { t } = useTranslation('common')
   const { getPathForEntity } = useNavikronos()
 
   return (
     <CardWrapper className="relative">
       <img
         className="h-40.5 w-full flex-1 object-cover"
-        alt={t('eventDetailImagePlaceholder')}
+        alt=""
         src={listingImage?.url || coverImage?.url || Placeholder.src}
         height="200px"
       />

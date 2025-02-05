@@ -41,10 +41,10 @@ const MobileBreadcrumbsAccordionButton = ({
 }
 
 const MobileBreadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   // Add homepage and safely remove current last item
-  const mobileCrumbs = [{ title: t('homepage'), path: '/' }, ...dropRight(crumbs)]
+  const mobileCrumbs = [{ title: t('common.homepage'), path: '/' }, ...dropRight(crumbs)]
 
   return (
     <nav className="text-sm">

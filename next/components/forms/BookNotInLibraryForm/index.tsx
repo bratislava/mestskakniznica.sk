@@ -14,7 +14,7 @@ import { convertDataToBody } from '@/utils/form-constants'
 
 const BookNotInLibraryForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
   const router = useRouter()
 
   yup.setLocale({
@@ -111,7 +111,6 @@ const BookNotInLibraryForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('book_not_in_library_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}

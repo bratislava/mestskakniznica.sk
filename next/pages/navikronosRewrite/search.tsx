@@ -38,7 +38,7 @@ type PageProps = {
 export async function getServerSideProps(ctx: GetStaticPropsContext) {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,@typescript-eslint/no-non-null-asserted-optional-chain
   const locale = ctx?.locale!
-  const translations = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
+  const translations = await serverSideTranslations(locale)
 
   const navikronosStaticProps = await navikronosGetStaticProps({
     navikronosConfig,

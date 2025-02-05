@@ -15,7 +15,7 @@ import { options } from './options'
 
 const GiftCardReservationForm = () => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
   const router = useRouter()
 
   yup.setLocale({
@@ -103,7 +103,6 @@ const GiftCardReservationForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('gift_card_reservation_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}

@@ -82,7 +82,7 @@ const Sections = ({
 }: {
   sections: PageSectionsFragment[] | BlogPostSectionsFragment[]
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <div className="flex flex-col space-y-8">
@@ -111,8 +111,8 @@ const Sections = ({
               <SiteUsefullness
                 thankYouMessage={section.thankYouMessage || ''}
                 title={section.title || ''}
-                firstOption={t('answer_yes')}
-                secondOption={t('answer_no')}
+                firstOption={t('answer.yes')}
+                secondOption={t('answer.no')}
                 onButtonClick={() => {
                   console.log('// TODO')
                 }}

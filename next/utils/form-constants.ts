@@ -62,7 +62,7 @@ const getMailTranslationKey = (key: string): string => {
     { key: 'eventDate', value: 'event_date' },
     { key: 'eventTime', value: 'event_time' },
     { key: 'excursionType', value: 'excursion_type' },
-    { key: 'excursionDate', value: 'common:date' },
+    { key: 'excursionDate', value: 'date' },
     { key: 'excursionTime', value: 'excursion_from_time' },
     { key: 'cardType', value: 'ID_type' },
     { key: 'libraryName', value: 'library_name' },

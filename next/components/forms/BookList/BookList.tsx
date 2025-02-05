@@ -15,7 +15,7 @@ interface Props {
 const BookList = ({ className }: Props) => {
   const methods = useFormContext()
   const { errors } = useFormState()
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
 
   const { fields, append, remove } = useFieldArray({
     control: methods.control,
@@ -70,7 +70,7 @@ const BookList = ({ className }: Props) => {
                   />
                 )}
               />
-              <div className="text-sm text-foreground-body">{t('common:or')}</div>
+              <div className="text-sm text-foreground-body">{t('or')}</div>
               <Controller
                 control={methods.control}
                 name={`books[${index}].author` as const}

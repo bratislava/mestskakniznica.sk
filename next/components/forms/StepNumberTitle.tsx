@@ -16,7 +16,7 @@ interface IProps {
 const StepNumberTitle = ({ num, title, activeStep, onClick, className, children }: IProps) => {
   const active = activeStep === num
   const finished = activeStep > num
-  const { t } = useTranslation(['homepage'])
+  const { t } = useTranslation()
 
   return (
     <div
@@ -36,7 +36,9 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
         className={cx('base-focus-ring flex cursor-pointer items-center gap-x-6', {
           'mb-6': active || finished,
         })}
-        aria-label={`${active ? t('openAccordian') : t('closeAccordian')} ${title}`}
+        aria-label={`${
+          active ? t('stepNumberTitle.openAccordion') : t('stepNumberTitle.closeAccordion')
+        } ${title}`}
       >
         <span
           className={cx(

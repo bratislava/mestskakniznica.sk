@@ -14,7 +14,7 @@ type NoticeCardProps = {
 }
 
 const NoticeCard = ({ notice }: NoticeCardProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
   const { image, link, date } = useMemo(() => {
@@ -46,7 +46,7 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
         </h3>
       </div>
       <ShowMoreLink href={link ?? '#'} tabIndex={-1} parentGroup>
-        {t('showMore')}
+        {t('common.showMore')}
       </ShowMoreLink>
     </CardWrapper>
   )

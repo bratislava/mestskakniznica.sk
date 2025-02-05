@@ -45,7 +45,7 @@ const OpeningHoursChangeAlert = () => {
                     {title}
                   </p>
                   <ShowMoreLink href={link ?? '#'} aria-labelledby={id}>
-                    {t('showMore')}
+                    {t('common.showMore')}
                   </ShowMoreLink>
                 </div>
               </Fragment>

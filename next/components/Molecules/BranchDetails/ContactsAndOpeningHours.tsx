@@ -12,7 +12,7 @@ type ContactsAndOpeningHoursProps = {
 }
 
 const ContactsAndOpeningHours = ({ branch, branches }: ContactsAndOpeningHoursProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   if (!branches?.length && !branch) {
     return null
@@ -20,7 +20,7 @@ const ContactsAndOpeningHours = ({ branch, branches }: ContactsAndOpeningHoursPr
 
   return (
     <div className="flex flex-col gap-5 pt-10" id="sections">
-      <div className="text-[24px]">{t('sections')}</div>
+      <div className="text-[24px]">{t('branchDetails.sections')}</div>
       <OpeningHoursChangeAlert />
       <div>
         <BranchContactUsOpeningHoursInfo branch={branch} />

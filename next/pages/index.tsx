@@ -65,7 +65,7 @@ export const Index = ({
   general,
   promotedContent,
 }: HomeProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const mergedPromotedContent = [
     ...(promotedContent?.notices?.data ?? []),
@@ -118,7 +118,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     return { notFound: true }
   }
 
-  const translations = await serverSideTranslations(locale, ['common', 'newsletter', 'homepage'])
+  const translations = await serverSideTranslations(locale)
 
   // running all requests parallel
   // TODO rewrite this into a single gql query for homepage - beforehand filter needless data that isn't used

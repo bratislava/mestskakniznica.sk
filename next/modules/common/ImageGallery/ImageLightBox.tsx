@@ -20,7 +20,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
 
   const { isOpen } = rest
 
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const sliderRef = useRef<HTMLDivElement | null>(null)
 
@@ -35,7 +35,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
     <Modal overlayClassName="w-full h-screen pointer-events-none" showCloseButton {...rest}>
       <Slider
         ref={sliderRef}
-        description={t('imageLightBoxDescription')}
+        description={t('imageGallery.imageLightBoxDescription')}
         allowKeyboardNavigation={images.length > 1}
         initialPage={initialImageIndex}
         pages={images
@@ -64,7 +64,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                 <Button
                   variant="primary"
                   className="pointer-events-auto text-white"
-                  aria-label={t('previousImage')}
+                  aria-label={t('imageGallery.previousImage')}
                   onPress={goToPrevious}
                 >
                   <ArrowLeftIcon />
@@ -72,7 +72,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                 <Button
                   variant="primary"
                   className="pointer-events-auto"
-                  aria-label={t('nextImage')}
+                  aria-label={t('imageGallery.nextImage')}
                   onPress={goToNext}
                 >
                   <ArrowRightIcon />

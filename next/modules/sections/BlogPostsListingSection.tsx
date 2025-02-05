@@ -12,7 +12,7 @@ import {
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 const BlogPostsListingSection = () => {
-  const { i18n } = useTranslation('common')
+  const { i18n } = useTranslation()
   const [filters, setFilters] = useRoutePreservedState(blogPostsDefaultFilters)
 
   const { data } = useQuery({

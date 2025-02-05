@@ -14,7 +14,7 @@ type PartnerCardRowProps = {
 }
 
 const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: PartnerCardRowProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   return (
     <CardWrapper
       className={cx('relative flex w-full border-border-dark py-4 lg:p-5', {
@@ -60,7 +60,7 @@ const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: Partner
               'hidden lg:inline-flex': !featured,
             })}
           >
-            {t('showWeb')}
+            {t('partnerCardRow.showWeb')}
           </span>
         </MLink>
       </div>

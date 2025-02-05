@@ -11,12 +11,12 @@ type SortSelectProps = {
 }
 
 const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'SortSelect' })
+  const { t } = useTranslation()
 
   const options = useMemo(
     () => [
-      { key: 'newest', label: t('byNewest') },
-      { key: 'oldest', label: t('byOldest') },
+      { key: 'newest', label: t('sortSelect.byNewest') },
+      { key: 'oldest', label: t('sortSelect.byOldest') },
     ],
     [t]
   )

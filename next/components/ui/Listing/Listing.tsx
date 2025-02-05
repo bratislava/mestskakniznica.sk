@@ -34,7 +34,7 @@ export const Listing = ({ className, title, url, listingChildren, hasDivider }: 
         )}
         {url && (
           <ShowMoreLink href={url} parentGroup aria-labelledby={id}>
-            {t('more')}
+            {t('common.more')}
           </ShowMoreLink>
         )}
       </div>
@@ -49,7 +49,7 @@ export const Listing = ({ className, title, url, listingChildren, hasDivider }: 
                 key={page.title}
                 title={page.title}
                 href={page.path ?? '#'}
-                showMoreText={t('more')}
+                showMoreText={t('common.more')}
               />
             </div>
 

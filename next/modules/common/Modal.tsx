@@ -33,7 +33,7 @@ const Modal = (props: ModalProps) => {
     centerVertically = true,
     noAnimation = false,
   } = props
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement | null>(null)
   const { overlayProps, underlayProps } = useOverlay(
     { ...props, isDismissable: isDismissable === undefined ? true : isDismissable },
@@ -78,7 +78,7 @@ const Modal = (props: ModalProps) => {
                       <Button
                         variant="primary"
                         className="pointer-events-auto fixed top-6 right-6 z-30"
-                        aria-label={t('closeModal')}
+                        aria-label={t('modal.closeModal')}
                         onPress={onClose}
                       >
                         <CloseIcon />

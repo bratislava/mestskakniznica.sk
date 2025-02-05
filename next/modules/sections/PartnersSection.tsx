@@ -6,7 +6,7 @@ import PartnerCardRow from '@/modules/cards-and-rows/PartnerCardRow'
 import { getPartnersQueryKey, partnersFetcher } from '@/services/graphql/fetchers/partners.fetcher'
 
 const PartnersSection = () => {
-  const { i18n } = useTranslation('common')
+  const { i18n } = useTranslation()
 
   // There's no need to handle loading, as the data are prefetched and never change.
   const { data } = useQuery({

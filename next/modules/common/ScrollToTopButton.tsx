@@ -10,7 +10,7 @@ const handleScrollToTop = () => {
 }
 
 const ScrollToTopButton = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const [visible, setVisible] = useState(false)
 

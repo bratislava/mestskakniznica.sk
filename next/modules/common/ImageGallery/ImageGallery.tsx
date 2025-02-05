@@ -22,7 +22,7 @@ export type ImageGalleryProps = {
 }
 
 const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const firstImage = useMemo(() => {
     return images[0] ?? undefined
@@ -76,7 +76,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           ref={containerRef}
           role="button"
           tabIndex={0}
-          aria-label={t('openImageGallery')}
+          aria-label={t('imageGallery.openImageGallery')}
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
           className={cx('outline-primary base-focus-ring cursor-default', {
             'flex flex-col ': variant === 'below',
@@ -143,7 +143,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   className="relative w-full cursor-pointer border-2 pt-[100%]"
                 >
                   <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-2 text-center">
-                    {t('morePhotos', { count: moreImagesCount })}
+                    {t('imageGallery.morePhotos', { count: moreImagesCount })}
                   </div>
                 </div>
               )}
@@ -183,7 +183,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   className="relative w-[168px] cursor-pointer border-2 pt-[166px]"
                 >
                   <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-8 text-center">
-                    {t('morePhotos', { count: moreImagesCount })}
+                    {t('imageGallery.morePhotos', { count: moreImagesCount })}
                   </div>
                 </div>
               )}
