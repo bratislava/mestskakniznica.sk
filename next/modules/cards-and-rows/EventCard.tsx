@@ -42,15 +42,18 @@ const EventCard = ({
 
   return (
     <CardWrapper className="relative">
-      <StrapiImage
-        image={listingImage || coverImage || createImagePlaceholder()}
-        alt={
-          listingImage?.alternativeText ||
-          coverImage?.alternativeText ||
-          t('eventDetailImagePlaceholder')
-        }
-        className="h-40.5 w-full flex-1 object-cover"
-      />
+      <div className="relative h-40.5 w-full shrink-0">
+        <StrapiImage
+          image={listingImage || coverImage || createImagePlaceholder()}
+          alt={
+            listingImage?.alternativeText ||
+            coverImage?.alternativeText ||
+            t('eventDetailImagePlaceholder')
+          }
+          fill
+          className="object-cover"
+        />
+      </div>
 
       <div className="flex pt-4 text-sm">
         {eventTags && (

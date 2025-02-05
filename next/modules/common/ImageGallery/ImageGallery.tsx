@@ -102,11 +102,9 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
             >
               {firstImage.attributes ? (
                 <div>
-                  <StrapiImage
-                    image={firstImage.attributes}
-                    fill
-                    className="absolute top-0 object-cover"
-                  />
+                  <div className="absolute top-0 h-full w-full shrink-0">
+                    <StrapiImage image={firstImage.attributes} fill className="object-cover" />
+                  </div>
                   <div className="absolute bottom-2 right-2 rounded bg-button-dark py-1 px-2 text-white md:hidden">
                     {`1/${images.length}`}
                   </div>
@@ -130,11 +128,9 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                       onClick={() => openAtImageIndex(index + 1)}
                       className="relative h-[100%] w-full cursor-pointer pt-[100%]"
                     >
-                      <StrapiImage
-                        image={image.attributes}
-                        fill
-                        className="absolute top-0 object-cover"
-                      />
+                      <div className="absolute top-0 h-full w-full shrink-0">
+                        <StrapiImage image={image.attributes} fill className="object-cover" />
+                      </div>
                     </div>
                   ) : null
                 )}
@@ -171,11 +167,9 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                       onClick={() => openAtImageIndex(index + 1)}
                       className="relative w-[168px] cursor-pointer pt-[168px]"
                     >
-                      <StrapiImage
-                        image={image.attributes}
-                        fill
-                        className="absolute top-0 object-cover"
-                      />
+                      <div className="absolute top-0 h-full w-full shrink-0">
+                        <StrapiImage image={image.attributes} fill className="object-cover" />
+                      </div>
                     </div>
                   ) : null
                 )}

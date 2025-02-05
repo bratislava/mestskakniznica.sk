@@ -74,11 +74,13 @@ const EventDetails = ({ event }: PageProps) => {
 
   return (
     <>
-      <StrapiImage
-        image={bannerImage || createImagePlaceholder(EventDetailPlaceholder)}
-        alt={bannerImage?.alternativeText || t('eventDetailImagePlaceholder')}
-        className="w-full object-cover object-center md:h-[300px] lg:h-[400px]"
-      />
+      <div className="relative w-full shrink-0 md:h-[300px] lg:h-[400px]">
+        <StrapiImage
+          image={bannerImage || createImagePlaceholder(EventDetailPlaceholder)}
+          alt={bannerImage?.alternativeText || t('eventDetailImagePlaceholder')}
+          className="object-cover object-center"
+        />
+      </div>
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
         <div className="col-span-1 hidden h-[108px] w-[108px] bg-promo-yellow text-center lg:flex">
           <EventDetailsDateBox

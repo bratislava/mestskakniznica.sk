@@ -29,10 +29,13 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
   return (
     <CardWrapper className="group/showMore relative flex h-full w-full shrink-0 flex-col justify-between">
       <div className="flex h-full flex-col">
-        <StrapiImage
-          image={image?.attributes ?? createImagePlaceholder()}
-          className="mb-4 h-40.5 w-full object-cover"
-        />
+        <div className="relative mb-4 h-40.5 w-full shrink-0">
+          <StrapiImage
+            image={image?.attributes ?? createImagePlaceholder()}
+            fill
+            className="object-cover"
+          />
+        </div>
 
         <div className="mb-2 text-sm text-foreground-body">
           <FormatDate value={date} valueType="ISO" />

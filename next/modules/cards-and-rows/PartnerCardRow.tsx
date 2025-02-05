@@ -24,15 +24,12 @@ const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: Partner
       })}
     >
       {featured ? (
-        <div className="h-24">
+        <div className="relative h-24 w-[250px] max-w-[250px] shrink-0">
           <Image
             src={logo ?? ''}
             alt="" // Empty alt on purpose
-            // Inspired by: https://github.com/bratislava/olo.sk/blob/master/next/src/components/formatting/Markdown.tsx
-            height={0}
-            width={0}
-            sizes="100vw"
-            className="h-full w-full max-w-[250px] object-contain"
+            fill
+            className="object-contain"
           />
         </div>
       ) : null}

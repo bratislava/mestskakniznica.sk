@@ -23,8 +23,6 @@ export const createImagePlaceholder = (placeholder?: StaticImageData | undefined
   }
 }
 
-// TODO Placeholder doesn't respect objectFit when used with layout="fill"
-
 /**
  * Based on OLO: https://github.com/bratislava/olo.sk/blob/master/next/src/components/lib/Image/StrapiImage.tsx
  */
@@ -36,6 +34,7 @@ const StrapiImage = ({ image, alt, ...rest }: StrapiImageProps) => (
     // Next shows Image with src "..." and "layout='fill'" has unused properties assigned. Please remove "width" and "height".
     width={rest.fill ? undefined : image.width ?? undefined}
     height={rest.fill ? undefined : image.height ?? undefined}
+    // Images don’t respect objectFit when used with `layout=fill`. To handle this, we wrap StrapiImage in a div with defined sizes.
     {...rest}
   />
 )
