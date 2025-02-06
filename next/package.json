@@ -12,7 +12,12 @@
     "lint:quiet": "yarn lint --quiet",
     "gen": "graphql-codegen && prettier services/graphql/index.ts --write",
     "parse-translations": "i18next",
-    "update-i18next": "yarn add next-i18next@latest react-i18next@latest i18next@latest -E && yarn add eslint-plugin-i18next@latest -D -E"
+    "update-react-aria": "yarn add @internationalized/date@latest @react-stately/utils@latest react-aria@latest react-aria-components@latest react-stately@latest @react-aria/utils@latest --exact --dev",
+    "update-next": "yarn add next@latest react@latest react-dom@latest sharp@latest --exact && yarn add @types/react@latest @types/react-dom@latest eslint-config-next@latest typescript@latest @next/bundle-analyzer --dev --exact",
+    "update-tailwind": "yarn add tailwind-merge@latest clsx@latest --exact && yarn add tailwindcss@latest autoprefixer@latest postcss@latest prettier-plugin-tailwindcss@latest eslint-plugin-tailwindcss@latest --dev --exact",
+    "update-i18next": "yarn add next-i18next@latest react-i18next@latest i18next@latest i18next-parser@latest -E && yarn add eslint-plugin-i18next@latest --dev --exact",
+    "update-prettier": "yarn add prettier@latest eslint-config-prettier@latest --dev --exact",
+    "update-graphql": "yarn add @graphql-codegen/cli@latest @graphql-codegen/typescript-graphql-request@latest --dev --exact && yarn add graphql@latest graphql-request@latest graphql-tag@latest --exact"
   },
   "dependencies": {
     "@culturehq/add-to-calendar": "^1.1.2",
