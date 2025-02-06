@@ -15,7 +15,7 @@ type StrapiImageProps = Omit<
   disableBlurPlaceholder?: boolean
 }
 
-export const createImagePlaceholder = (placeholder?: StaticImageData | undefined) => {
+export const getImagePlaceholder = (placeholder?: StaticImageData | undefined) => {
   return {
     url: placeholder ? placeholder.src : DefaultPlaceholder.src,
     width: placeholder ? placeholder.width : DefaultPlaceholder.width,
@@ -32,8 +32,8 @@ const StrapiImage = ({ image, alt, ...rest }: StrapiImageProps) => (
     src={image.url}
     alt={alt ?? image.alternativeText ?? ''}
     // Next shows Image with src "..." and "layout='fill'" has unused properties assigned. Please remove "width" and "height".
-    width={rest.fill ? undefined : image.width ?? undefined}
-    height={rest.fill ? undefined : image.height ?? undefined}
+    width={rest.fill ? undefined : (image.width ?? undefined)}
+    height={rest.fill ? undefined : (image.height ?? undefined)}
     // Images don’t respect objectFit when used with `layout=fill`. To handle this, we wrap StrapiImage in a div with defined sizes.
     {...rest}
   />

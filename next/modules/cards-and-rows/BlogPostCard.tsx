@@ -4,7 +4,7 @@ import React from 'react'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
-import StrapiImage, { createImagePlaceholder } from '@/modules/common/StrapiImage'
+import StrapiImage, { getImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatDate from '@/modules/formatting/FormatDate'
 import { BlogPostEntityFragment } from '@/services/graphql'
 import { useNavikronos } from '@/utils/navikronos'
@@ -25,7 +25,7 @@ const BlogPostCard = ({ blogPost }: BlogPostProps) => {
       <div className="flex h-full flex-col">
         <div className="relative mb-4 h-40.5 w-full shrink-0">
           <StrapiImage
-            image={coverMedia?.data?.attributes ?? createImagePlaceholder()}
+            image={coverMedia?.data?.attributes ?? getImagePlaceholder()}
             fill
             className="object-cover"
           />

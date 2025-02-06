@@ -4,7 +4,7 @@ import React, { useMemo } from 'react'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
-import StrapiImage, { createImagePlaceholder } from '@/modules/common/StrapiImage'
+import StrapiImage, { getImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatDate from '@/modules/formatting/FormatDate'
 import { NoticeListingEntityFragment } from '@/services/graphql'
 import { useNavikronos } from '@/utils/navikronos'
@@ -31,7 +31,7 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
       <div className="flex h-full flex-col">
         <div className="relative mb-4 h-40.5 w-full shrink-0">
           <StrapiImage
-            image={image?.attributes ?? createImagePlaceholder()}
+            image={image?.attributes ?? getImagePlaceholder()}
             fill
             className="object-cover"
           />

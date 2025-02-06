@@ -20,7 +20,7 @@ import DetailsRow from '@/components/Atoms/EventDetailsRow'
 import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import { Documents } from '@/components/ui'
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
-import StrapiImage, { createImagePlaceholder } from '@/modules/common/StrapiImage'
+import StrapiImage, { getImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import RichText from '@/modules/formatting/RichText'
 import { EventEntityFragment } from '@/services/graphql'
@@ -32,7 +32,7 @@ export interface PageProps {
 }
 
 const EventDetails = ({ event }: PageProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { asPath } = useRouter()
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)
 
@@ -76,7 +76,7 @@ const EventDetails = ({ event }: PageProps) => {
     <>
       <div className="relative w-full shrink-0 md:h-74 lg:h-[400px]">
         <StrapiImage
-          image={bannerImage || createImagePlaceholder(EventDetailPlaceholder)}
+          image={bannerImage || getImagePlaceholder(EventDetailPlaceholder)}
           alt={bannerImage?.alternativeText ?? ''}
           className="object-cover"
         />
