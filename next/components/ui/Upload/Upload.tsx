@@ -1,7 +1,7 @@
-import cx from 'classnames'
 import React from 'react'
 
 import { UploadIcon } from '@/assets/icons'
+import cn from '@/utils/cn'
 
 export interface UploadProps
   extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
@@ -27,20 +27,20 @@ export const Upload = ({
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label htmlFor={id} className={cx('mb-0.5 text-sm text-foreground-heading opacity-80')}>
+        <label htmlFor={id} className="mb-0.5 text-sm text-foreground-heading opacity-80">
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
       )}
       <div
-        className={cx(
+        className={cn(
           'group relative flex flex-col items-center justify-center gap-y-6 border border-dashed p-6 ring-offset-2 transition focus-within:ring',
           {
             'bg-emerald-200 transform transition-all duration-200':
               isInArea || fileInputRef.current?.files?.length,
             'border-border-dark': !hasError,
             'border-error': hasError,
-          }
+          },
         )}
         onDragEnter={() => setIsInArea(true)}
         onDragLeave={() => setIsInArea(false)}
@@ -49,13 +49,13 @@ export const Upload = ({
           id={id}
           ref={fileInputRef}
           type="file"
-          className="absolute h-full w-full cursor-pointer opacity-0 outline-none"
+          className="absolute size-full cursor-pointer opacity-0 outline-none"
           aria-invalid={hasError}
           aria-required={required}
           aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}
           {...props}
         />
-        <UploadIcon className="group-hover:rounded-full group-hover:bg-error group-hover:bg-dark group-hover:text-white" />
+        <UploadIcon className="group-hover:rounded-full group-hover:bg-dark group-hover:bg-error group-hover:text-white" />
         <div className="text-center text-[12px] text-foreground-body lg:text-[14px]">
           {children}
         </div>

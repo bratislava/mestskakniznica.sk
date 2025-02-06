@@ -156,7 +156,7 @@ const SearchPage = () => {
                   <div key={index} role="status" className="w-full animate-pulse select-none gap-3">
                     <div className="flex w-full flex-col justify-between border-b border-border-dark bg-white py-4">
                       <div className="mb-4 h-2.5 w-48 rounded-full bg-border-light" />
-                      <div className="mb-2.5 h-2 max-w-[360px] rounded-full bg-border-light" />
+                      <div className="mb-2.5 h-2 max-w-screen-xs rounded-full bg-border-light" />
                     </div>
                   </div>
                 ))}

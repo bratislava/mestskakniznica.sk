@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
-import { twMerge } from 'tailwind-merge'
 
 import MLink from '@/modules/common/MLink'
 import NormalizeText from '@/modules/formatting/NormalizeText/NormalizeText'
+import cn from '@/utils/cn'
 
 export interface HomepageMarkdownProps {
   className?: string
@@ -16,7 +16,7 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
 
   return (
     <ReactMarkdown
-      className={twMerge('flex flex-col gap-4 text-foreground-body', className)}
+      className={cn('flex flex-col gap-4 text-foreground-body', className)}
       // remarkPlugins={[remarkGfm]}
       // rehypePlugins={[rehypeRaw]}
       components={{
@@ -27,7 +27,7 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
         h5: ({ children }) => <h5 className={`text-h5 ${topMargin}`}>{children}</h5>,
         h6: ({ children }) => <h6 className={`text-h6 ${topMargin}`}>{children}</h6>,
         p: ({ children, ...props }) => (
-          <p className={twMerge('whitespace-pre-wrap', paragraphClassName)} {...props}>
+          <p className={cn('whitespace-pre-wrap', paragraphClassName)} {...props}>
             {children.map((child, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <NormalizeText key={index}>{child}</NormalizeText>

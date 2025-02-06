@@ -1,8 +1,8 @@
 import { now, parseAbsolute } from '@internationalized/date'
 import { useMemo } from 'react'
 import { useDateFormatter } from 'react-aria'
-import { twMerge } from 'tailwind-merge'
 
+import cn from '@/utils/cn'
 import { bratislavaTimezone } from '@/utils/consts'
 
 interface DateCardProps {
@@ -59,7 +59,7 @@ const EventDetailsDateBox = ({
   }, [formatter, dateFrom, dateTo])
 
   return (
-    <div className={twMerge('m-auto text-center text-foreground-dark', wrapperClassname)}>
+    <div className={cn('m-auto text-center text-foreground-dark', wrapperClassname)}>
       <div className={textClassname}>{dateToDisplay}</div>
     </div>
   )

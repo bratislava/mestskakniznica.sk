@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -10,6 +9,7 @@ import * as yup from 'yup'
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
 import FormFooter from '@/components/forms/FormFooter'
 import { Input, TextArea, Upload, UploadProps } from '@/components/ui'
+import cn from '@/utils/cn'
 import { convertDataToBody } from '@/utils/form-constants'
 
 type FileInputProps = {
@@ -74,7 +74,7 @@ const FileInput = ({
       {errorMessage && (
         <p
           id={`${id ?? ''}_err`}
-          className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
+          className={cn('mt-2 text-sm text-error', { hidden: !hasError })}
           aria-labelledby={id}
         >
           {labelContent} {errorMessage}

@@ -1,6 +1,5 @@
-import cx from 'classnames'
-
 import Calendar from '@/assets/images/calendar.svg'
+import cn from '@/utils/cn'
 
 export interface BannerProps {
   className?: string
@@ -19,7 +18,7 @@ export const Banner = ({
 }: BannerProps) => {
   return (
     <div
-      className={cx(
+      className={cn(
         'flex flex-col items-center justify-between gap-y-6 bg-dark p-4 text-center lg:flex-row lg:gap-y-0 lg:p-10 lg:text-left',
         className
       )}
@@ -30,8 +29,9 @@ export const Banner = ({
       </div>
       {/* TODO replace by Button */}
       <button
+        type="button"
         onClick={onBannerClick}
-        className="hover:bg-gray-100 flex items-center gap-x-[11px] bg-white py-[9px] px-5 text-sm"
+        className="hover:bg-gray-100 flex items-center gap-x-[11px] bg-white px-5 py-[9px] text-sm"
       >
         <Calendar />
         <p>{buttonContent}</p>

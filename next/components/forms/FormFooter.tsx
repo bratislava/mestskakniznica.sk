@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
@@ -7,6 +6,7 @@ import Turnstile from 'react-turnstile'
 import { CheckBox, Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
+import cn from '@/utils/cn'
 import { useGeneralContext } from '@/utils/generalContext'
 import { useNavikronos } from '@/utils/navikronos'
 
@@ -38,7 +38,7 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
   const { getPathForStrapiEntity } = useNavikronos()
 
   return (
-    <div className={cx('w-full space-y-6', className)}>
+    <div className={cn('w-full space-y-6', className)}>
       {hasDivider && <div className="border-t border-border-light" />}
       <Controller
         control={methods.control}

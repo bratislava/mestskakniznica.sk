@@ -1,10 +1,10 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode, useEffect, useState } from 'react'
 import { useLockedBody, useWindowSize } from 'usehooks-ts'
 
 import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 import FormSubmittedComponent from './FormSubmittedComponent'
 
@@ -88,7 +88,7 @@ const FormContainer = ({
   }
 
   return (
-    <div className={cx('flex flex-col border border-border-dark p-4', wrapperClass)}>
+    <div className={cn('flex flex-col border border-border-dark p-4', wrapperClass)}>
       {isSubmitted === SubmitStatus.NONE ? (
         <>
           <div className="mb-4 text-h3 md:px-4 md:pt-4" id="form-title">
@@ -97,8 +97,8 @@ const FormContainer = ({
           <Button
             onPress={() => setFormOpen(true)}
             variant="primary"
-            className={cx({ hidden: isFormOpen })}
             aria-labelledby="form-title"
+            className={cn({ hidden: isFormOpen })}
           >
             {buttonText || t('continue')}
           </Button>

@@ -1,8 +1,8 @@
-import cx from 'classnames'
 import React from 'react'
 
 import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 import { SubmitStatus } from './FormContainer'
 import FormSubmittedComponent from './FormSubmittedComponent'
@@ -22,7 +22,7 @@ interface IProps {
 const FormWrapper = ({ className, children, title, onSubmit, isSubmitted }: IProps) => {
   return (
     <div
-      className={cx(
+      className={cn(
         className,
         'w-72 max-w-[680px] lg:w-full lg:border lg:border-border-dark lg:px-8 lg:pt-8'
       )}
@@ -37,18 +37,10 @@ const FormWrapper = ({ className, children, title, onSubmit, isSubmitted }: IPro
       <form className="mt-6 flex flex-col gap-y-8" onSubmit={onSubmit}>
         {/* Here are the children of each form if unsubmitted, otherwise default SubmittedFormComponent */}
         <FormSubmittedComponent
-          className={cx({
-            hidden: isSubmitted == SubmitStatus.NONE,
-          })}
+          className={cn({ hidden: isSubmitted == SubmitStatus.NONE })}
           submitStatus={isSubmitted}
         />
-        <div
-          className={cx({
-            hidden: isSubmitted != SubmitStatus.NONE,
-          })}
-        >
-          {children}
-        </div>
+        <div className={cn({ hidden: isSubmitted != SubmitStatus.NONE })}>{children}</div>
       </form>
     </div>
   )

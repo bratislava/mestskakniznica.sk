@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
@@ -10,6 +9,7 @@ import ScrollToTopButton from '@/modules/common/ScrollToTopButton'
 import HeaderWrapper from '@/modules/navigation/HeaderWrapper'
 import { useNavMenuContext } from '@/modules/navigation/navMenuContext'
 import { SeoFragment } from '@/services/graphql'
+import cn from '@/utils/cn'
 import { useGeneralContext } from '@/utils/generalContext'
 import { useNavikronos } from '@/utils/navikronos'
 
@@ -44,7 +44,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
         ))}
       </Head>
       <div
-        className={cx('flex min-h-screen flex-1 flex-col justify-self-stretch', {
+        className={cn('flex min-h-screen flex-1 flex-col justify-self-stretch', {
           // If menu is open, disable pointer events on the whole page (pointer events on menu must be re-enabled)
           'pointer-events-none': menuValue !== '',
         })}

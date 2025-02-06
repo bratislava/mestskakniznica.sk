@@ -82,7 +82,7 @@ const EventDetails = ({ event }: PageProps) => {
         />
       </div>
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
-        <div className="size-[108px] col-span-1 hidden bg-promo-yellow text-center lg:flex">
+        <div className="col-span-1 hidden size-[108px] bg-promo-yellow text-center lg:flex">
           <EventDetailsDateBox
             dateFrom={event?.attributes?.dateFrom}
             dateTo={event?.attributes?.dateTo}
@@ -155,7 +155,7 @@ const EventDetails = ({ event }: PageProps) => {
                       <StrapiImage
                         image={guest.avatar.data.attributes}
                         alt={guest.name ?? 'Guest name.'}
-                        className="size-12 flex items-center justify-center rounded-full object-cover"
+                        className="flex size-12 items-center justify-center rounded-full object-cover"
                       />
                     ) : null}
                     <span className="m-auto text-[16px]">

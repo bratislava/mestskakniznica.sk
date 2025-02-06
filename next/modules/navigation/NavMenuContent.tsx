@@ -1,10 +1,10 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import cx from 'classnames'
 import { useMemo } from 'react'
 
 import { MenuSection } from '@/modules/navigation/NavMenu'
 import NavMenuContentCell from '@/modules/navigation/NavMenuContentCell'
 import NavMenuSection from '@/modules/navigation/NavMenuSection'
+import cn from '@/utils/cn'
 
 type NavigationSectionProps = {
   colCount: number
@@ -44,7 +44,7 @@ const NavMenuContent = ({ colCount, sections }: NavigationSectionProps) => {
       // https://github.com/radix-ui/primitives/issues/1630#issuecomment-1237106380
       onPointerMove={(event) => event.preventDefault()}
       onPointerLeave={(event) => event.preventDefault()}
-      className={cx('grid w-full gap-x-10 border border-border-light bg-white px-4 py-8', {
+      className={cn('grid w-full gap-x-10 border border-border-light bg-white px-4 py-8', {
         'grid-cols-3': colCount === 3,
         'grid-cols-4': colCount === 4,
       })}
