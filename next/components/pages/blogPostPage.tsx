@@ -35,7 +35,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
             <img
               src={blogPost?.attributes?.coverMedia?.data?.attributes?.url ?? ''}
               alt={blogPost?.attributes?.title || ''}
-              className="w-full object-cover object-center md:h-74 lg:h-[400px]"
+              className="w-full object-cover object-center md:h-[300px] lg:h-[400px]"
             />
           )}
           {blogPost?.attributes?.coverMedia && mediaType === 'video' && (
