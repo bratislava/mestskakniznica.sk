@@ -1,9 +1,9 @@
-import cx from 'classnames'
 import * as React from 'react'
 
 import MinusIcon from '@/assets/images/minus.svg'
 import PlusIcon from '@/assets/images/plus.svg'
 import { InputProps } from '@/components/ui'
+import cn from '@/utils/cn'
 
 interface NumberSwitcherProps extends InputProps {
   id?: string
@@ -36,18 +36,19 @@ export const NumberSwitcher = ({
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('mb-0.5 text-sm text-foreground-heading opacity-80')} htmlFor={id}>
+        <label className="mb-0.5 text-sm text-foreground-heading opacity-80" htmlFor={id}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
       )}
       <div
-        className={cx(className, 'base-input flex h-11 items-center justify-between py-0', {
+        className={cn(className, 'base-input flex h-11 items-center justify-between py-0', {
           'base-input--with-error': hasError,
           'base-input--disabled cursor-not-allowed': props.disabled,
         })}
       >
         <button
+          type="button"
           onClick={(e) => {
             e.preventDefault()
             onClickChange && onClickChange(clampValue(Number(value) - 1))
@@ -57,11 +58,11 @@ export const NumberSwitcher = ({
           <MinusIcon />
         </button>
 
-        <div className="mx-3 h-full w-full border-x border-border-light py-2 px-6 text-center">
+        <div className="mx-3 size-full border-x border-border-light px-6 py-2 text-center">
           <input
             id={id}
             type="number"
-            className="w-full text-center "
+            className="w-full text-center"
             value={value}
             aria-invalid={hasError}
             aria-required={required}
@@ -72,6 +73,7 @@ export const NumberSwitcher = ({
 
         {/* TODO replace by Button */}
         <button
+          type="button"
           onClick={(e) => {
             e.preventDefault()
             onClickChange && onClickChange(clampValue(Number(value) + 1))
@@ -86,7 +88,7 @@ export const NumberSwitcher = ({
       {hasError && errorMessage && (
         <p
           id={`${id}_err`}
-          className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
+          className={cn('mt-2 text-sm text-error', { hidden: !hasError })}
           aria-labelledby={id}
         >
           {labelContent} {errorMessage}

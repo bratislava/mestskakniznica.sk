@@ -1,8 +1,7 @@
-import cx from 'classnames'
 import * as React from 'react'
-import { twMerge } from 'tailwind-merge'
 
 import ChevronDown from '@/assets/images/chevron-down.svg'
+import cn from '@/utils/cn'
 
 export interface ISelectOption {
   key: string
@@ -51,7 +50,7 @@ export const Select = <T extends ISelectOption>({
   const value = typeof iValue === 'string' ? iValue : iValue?.key
 
   return (
-    <div className={twMerge('relative flex flex-col', className)}>
+    <div className={cn('relative flex flex-col', className)}>
       {/* Label */}
       {labelContent && (
         <label className="mb-0.5 text-sm text-foreground-heading opacity-80" htmlFor={id}>
@@ -62,10 +61,9 @@ export const Select = <T extends ISelectOption>({
       <div className="relative flex items-center">
         <select
           id={id}
-          className={twMerge(
-            cx('base-input base-focus-ring w-full cursor-pointer pr-9', {
-              'base-input--with-error': hasError,
-            }),
+          className={cn(
+            'base-input base-focus-ring w-full cursor-pointer pr-9',
+            { 'base-input--with-error': hasError },
             selectClassName
           )}
           onChange={handleChange}
@@ -88,7 +86,7 @@ export const Select = <T extends ISelectOption>({
       {hasError && errorMessage && (
         <p
           id={`${id ?? ''}_err`}
-          className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
+          className={cn('mt-2 text-sm text-error', { hidden: !hasError })}
           aria-labelledby={id}
         >
           {errorMessage}
@@ -98,7 +96,7 @@ export const Select = <T extends ISelectOption>({
       {/* Help Text */}
       {helpText && (
         <p
-          className={cx('mt-0.5 text-sm opacity-80', {
+          className={cn('mt-0.5 text-sm opacity-80', {
             'text-foreground-body': !hasError,
             'text-error': hasError,
           })}

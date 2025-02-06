@@ -1,10 +1,10 @@
 import { PressEvent } from '@react-types/shared'
-import cx from 'classnames'
 import { useState } from 'react'
 
 import ThumbDown from '@/assets/images/thumb-down.svg'
 import ThumbUp from '@/assets/images/thumb-up.svg'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 export interface SiteUsefullnessProps {
   className?: string
@@ -32,7 +32,7 @@ export const SiteUsefullness = ({
 
   return (
     <div
-      className={cx(
+      className={cn(
         'flex flex-col items-center gap-y-4 border border-border-dark p-6 lg:flex-row lg:gap-y-0',
         className,
         {

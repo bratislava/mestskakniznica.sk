@@ -1,4 +1,4 @@
-import cx from 'classnames'
+import cn from '@/utils/cn'
 
 export interface TableRowProps {
   className?: string
@@ -10,7 +10,7 @@ export interface TableRowProps {
 export const TableRow = ({ className, label, value, valueAlign = 'start' }: TableRowProps) => {
   return (
     <tr
-      className={cx(
+      className={cn(
         className,
         'flex w-full items-center space-x-6 border border-b-0 border-border-dark last:border-b',
         'px-3 py-[10px] lg:p-4',

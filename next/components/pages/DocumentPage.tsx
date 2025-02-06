@@ -67,7 +67,7 @@ const DocumentPage = ({ entity }: IProps) => {
         <Breadcrumbs crumbs={breadcrumbs} />
 
         <div className="mt-6 flex flex-col gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:flex-row lg:pb-32">
-          <FileExtBadge className="mb-8 h-16 w-16 self-center lg:self-auto" fileExt={badgeExt} />
+          <FileExtBadge className="mb-8 size-16 self-center lg:self-auto" fileExt={badgeExt} />
 
           <div className="w-full text-foreground-body">
             <div className="flex flex-col items-center border-b border-border-dark text-center lg:items-start lg:text-left">
@@ -87,7 +87,7 @@ const DocumentPage = ({ entity }: IProps) => {
                     <span>{firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}</span>
                   </div>
 
-                  <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
+                  <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-x-4 lg:gap-y-0">
                     <Button
                       href={firstItem?.attributes?.url || ''}
                       target="_blank"
@@ -140,7 +140,7 @@ const DocumentPage = ({ entity }: IProps) => {
                     >
                       {/* File extension badge */}
                       <FileExtBadge
-                        className="my-4 hidden h-14 w-14 self-center lg:flex lg:self-auto"
+                        className="my-4 hidden size-14 self-center lg:flex lg:self-auto"
                         fileExt={file?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}
                       />
 

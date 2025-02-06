@@ -1,9 +1,8 @@
-import cx from 'classnames'
-
 import { ArrowLeftIcon } from '@/assets/icons'
 import ChevronRight from '@/assets/images/chevron-right.svg'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
+import cn from '@/utils/cn'
 import { useNavikronos } from '@/utils/navikronos'
 
 export interface SidebarProps {
@@ -26,7 +25,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
           {parent.title}
         </Button>
       )}
-      <div className={cx('flex flex-col')}>
+      <div className="flex flex-col">
         {siblings?.map((child, index) => {
           const isActive = child.path === currentPath
           return (
@@ -35,10 +34,10 @@ export const Sidebar = ({ className }: SidebarProps) => {
               key={index}
               href={child.path ?? '#'}
               variant="basic"
-              className={cx('transform border-b py-3 transition-all duration-200 ease-linear', {
+              className={cn('transform border-b py-3 transition-all duration-200 ease-linear', {
                 'border-border-light text-foreground-body': !isActive,
                 'flex items-center gap-x-5.5 border-border-dark pl-1.5 text-foreground-dark':
-                  isActive,
+                isActive,
               })}
             >
               {isActive && <ChevronRight />}

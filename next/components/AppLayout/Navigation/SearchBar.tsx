@@ -1,6 +1,7 @@
-import cx from 'classnames'
+import React from 'react'
 
 import { Input, InputProps } from '@/components/ui/Input/Input'
+import cn from '@/utils/cn'
 
 export interface SearchBarProps
   extends InputProps,
@@ -18,17 +19,17 @@ export const SearchBar = ({
   ...props
 }: SearchBarProps) => {
   return (
-    <div className={className}>
+    <div className={cn(className)}>
       <Input
         placeholder={placeholder}
         labelContent={placeholder}
         labelClassName="sr-only"
-        inputClassName={cx('px-12', inputClassName)}
+        inputClassName={cn('px-12', inputClassName)}
         value={value}
         iconRight={
           !!iconRight && (
             <span
-              className={cx('cursor-pointer text-foreground-heading transition-all duration-100', {
+              className={cn('cursor-pointer text-foreground-heading transition-all duration-100', {
                 '-ml-20 md:-ml-32': isOpen,
                 '-ml-9': !isOpen,
               })}

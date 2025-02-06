@@ -1,6 +1,5 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useRef } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
@@ -11,6 +10,7 @@ import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { BranchCardEntityFragment } from '@/services/graphql'
+import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 
@@ -65,7 +65,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
   return (
     <div>
       <h2
-        className={cx('text-center text-h3 md:text-left', {
+        className={cn('text-center text-h3 md:text-left', {
           'py-12': !altDesign,
           'py-6': altDesign,
         })}
@@ -73,7 +73,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
         {title || t('mapSection.localitiesTitle')}
       </h2>
 
-      <div className={cx({ 'border-border-dark lg:border': !altDesign })}>
+      <div className={cn({ 'border-border-dark lg:border': !altDesign })}>
         <div className="mb-4 h-60 w-full text-black lg:mb-8">
           {isClient && (
             <Mapbox
@@ -132,7 +132,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
           )}
         </div>
         <div
-          className={cx({
+          className={cn({
             '-mx-4 flex gap-4 overflow-x-auto px-4 pt-px lg:gap-0': !altDesign,
             'grid gap-4 md:grid-cols-2': altDesign,
           })}
@@ -144,7 +144,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
             return (
               <CardWrapper
                 key={branch.id}
-                className={cx('relative ring-inset', {
+                className={cn('relative ring-inset', {
                   'lg:border-l-0': index === 0 && !altDesign,
                   'w-70 flex-shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0 lg:focus-within:border-transparent':
                     !altDesign,
@@ -153,7 +153,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
               >
                 {/* TODO move link to title */}
 
-                <div className="group/showMore flex h-full w-full flex-col justify-between gap-8 p-6 lg:py-0">
+                <div className="group/showMore flex size-full flex-col justify-between gap-8 p-6 lg:py-0">
                   <div>
                     <div className="text-h3">
                       <MLink href={linkHref} variant="basic" stretched>

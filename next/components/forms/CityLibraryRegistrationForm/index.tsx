@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -17,6 +16,7 @@ import StepNumberTitle from '@/components/forms/StepNumberTitle'
 import { CheckBox, DateTimeSelect, Input } from '@/components/ui'
 import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 import { getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
 import { options } from './options'
@@ -194,9 +194,7 @@ const CityLibraryRegistrationForm = () => {
           num={1}
           title={t('personal_details')}
           activeStep={step}
-          className={cx('', {
-            '-mx-8 border border-error px-8': stepOneErrors && step !== 1,
-          })}
+          className={cn({ '-mx-8 border border-error px-8': stepOneErrors && step !== 1 })}
           onClick={() => setStep(1)}
         >
           <div className="flex w-full flex-col gap-y-6">

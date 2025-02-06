@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, useFieldArray, useFormContext, useFormState } from 'react-hook-form'
@@ -6,6 +5,7 @@ import { Controller, useFieldArray, useFormContext, useFormState } from 'react-h
 import { CloseCircleIcon, PlusIcon } from '@/assets/icons'
 import { Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 interface Props {
   className?: string
@@ -40,7 +40,7 @@ const BookListNotInLibrary = ({ className }: Props) => {
       {fields.map((field, index) => (
         <div
           key={field.id}
-          className={cx('relative mb-6 flex w-full flex-col gap-y-6 border p-6', {
+          className={cn('relative mb-6 flex w-full flex-col gap-y-6 border p-6', {
             // @ts-ignore
             'border-border-light': !errors?.books?.[index],
             // @ts-ignore

@@ -1,5 +1,6 @@
-import cx from 'classnames'
 import { DetailedHTMLProps, TextareaHTMLAttributes } from 'react'
+
+import cn from '@/utils/cn'
 
 export interface TextAreaProps
   extends DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> {
@@ -26,7 +27,7 @@ export const TextArea = ({
     <div className={className}>
       {/* Label */}
       {labelContent && (
-        <label className={cx('mb-0.5 text-sm text-foreground-heading opacity-80')} htmlFor={id}>
+        <label className="mb-0.5 text-sm text-foreground-heading opacity-80" htmlFor={id}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -34,7 +35,7 @@ export const TextArea = ({
       <div>
         <textarea
           id={id}
-          className={cx('base-input base-focus-ring resize-none', textAreaClassname, {
+          className={cn('base-input base-focus-ring resize-none', textAreaClassname, {
             'base-input--with-error': hasError,
           })}
           aria-invalid={hasError}
@@ -50,8 +51,8 @@ export const TextArea = ({
       {errorMessage && (
         <p
           id={`${id ?? ''}_err`}
-          className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
           aria-labelledby={id}
+          className={cn('mt-2 text-sm text-error', { hidden: !hasError })}
         >
           {labelContent} {errorMessage}
         </p>
@@ -60,7 +61,7 @@ export const TextArea = ({
       {/* Help Text */}
       {helpText && (
         <p
-          className={cx('mt-0.5 text-sm opacity-80', {
+          className={cn('mt-0.5 text-sm opacity-80', {
             'text-foreground-body': !hasError,
             'text-error': hasError,
           })}

@@ -1,9 +1,9 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useEffect, useState } from 'react'
 import ReactTooltip from 'react-tooltip'
 
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 interface ClickableProps {
   text: string
@@ -26,7 +26,7 @@ const Clickable = ({ text, svgIcon, actionLink, classDiv, copyText }: ClickableP
   }, [copied])
   if (typeof actionLink === 'string')
     return (
-      <div className={cx(classDiv)}>
+      <div className={cn(classDiv)}>
         <Button
           variant="plain-primary"
           startIcon={svgIcon}
@@ -40,7 +40,7 @@ const Clickable = ({ text, svgIcon, actionLink, classDiv, copyText }: ClickableP
       </div>
     )
   return (
-    <div className={cx(classDiv)}>
+    <div className={cn(classDiv)}>
       {copyText && copied ? (
         <a data-for="main" data-delay-hide="3000" data-tip={t('linkCopied')} data-iscapture="true">
           <Button variant="plain-primary" startIcon={svgIcon} onPress={() => actionLink()}>

@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -8,6 +7,7 @@ import YtLogo from '@/assets/images/yt-logo.svg'
 import Accordion from '@/modules/common/Accordion'
 import MLink from '@/modules/common/MLink'
 import { ComponentFooterFooterColumnFragment, Maybe } from '@/services/graphql'
+import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 
@@ -50,7 +50,7 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumnFragment; i
   return (
     <div
       key={col?.title}
-      className={cx('pt-6 pb-12', {
+      className={cn('pb-12 pt-6', {
         'border-l border-border-dark pl-8': i !== 0,
       })}
     >

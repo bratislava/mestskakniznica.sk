@@ -1,11 +1,9 @@
-/* Inspired by https://github.com/bratislava/marianum/blob/master/next/components/atoms/Button.tsx */
 import { LinkButtonProps } from '@react-types/button'
-import cx from 'classnames'
 import { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
-import { twMerge } from 'tailwind-merge'
 
 import MLink from '@/modules/common/MLink'
+import cn from '@/utils/cn'
 
 type ButtonBase = {
   startIcon?: ReactNode
@@ -48,6 +46,10 @@ type PolymorphicButton = {
   (props: ButtonProps): JSX.Element
 }
 
+/**
+ * Inspired by Marianum: https://github.com/bratislava/marianum/blob/master/next/components/atoms/Button.tsx
+ */
+
 const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProps>(
   (
     {
@@ -77,46 +79,44 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
 
     const style =
       variant === 'unstyled'
-        ? twMerge(baseStyle, className)
-        : twMerge(
-            cx(
-              baseStyle,
-              'inline-flex items-center justify-center gap-x-3 text-center text-sm uppercase tracking-wider',
-              {
-                'w-full lg:w-auto': mobileFullWidth,
-                'px-5 py-[9px]': !noPadding,
+        ? cn(baseStyle, className)
+        : cn(
+            baseStyle,
+            'inline-flex items-center justify-center gap-x-3 text-center text-sm uppercase tracking-wider',
+            {
+              'w-full lg:w-auto': mobileFullWidth,
+              'px-5 py-[9px]': !noPadding,
 
-                // text colors
-                'text-white': variant === 'primary' || variant === 'plain-white',
-                'text-foreground-dark':
-                  variant === 'secondary' || variant === 'plain-primary' || variant === 'tertiary',
-                'text-button-gray': variant === 'plain-secondary',
+              // text colors
+              'text-white': variant === 'primary' || variant === 'plain-white',
+              'text-foreground-dark':
+                variant === 'secondary' || variant === 'plain-primary' || variant === 'tertiary',
+              'text-button-gray': variant === 'plain-secondary',
 
-                // bg and border
-                'border border-border-dark bg-button-dark hover:bg-button-hover':
-                  variant === 'primary',
-                'border border-border-dark hover:border-button-hover hover:text-button-hover':
-                  variant === 'secondary',
-                'border border-border-light hover:text-button-hover': variant === 'tertiary',
-                'border border-border-dark bg-button-white': variant === 'carousel',
+              // bg and border
+              'border border-border-dark bg-button-dark hover:bg-button-hover':
+                variant === 'primary',
+              'border border-border-dark hover:border-button-hover hover:text-button-hover':
+                variant === 'secondary',
+              'border border-border-light hover:text-button-hover': variant === 'tertiary',
+              'border border-border-dark bg-button-white': variant === 'carousel',
 
-                // hover bg and border
-                'hover:bg-button-hover': variant === 'primary',
-                'hover:border-button-hover': variant === 'secondary',
+              // hover bg and border
+              'hover:bg-button-hover': variant === 'primary',
+              'hover:border-button-hover': variant === 'secondary',
 
-                // hover-text
-                'hover:text-button-hover':
-                  variant === 'tertiary' ||
-                  variant === 'plain-secondary' ||
-                  variant === 'plain-primary' ||
-                  variant === 'secondary',
-                'hover:text-white hover:text-opacity-80': variant === 'plain-white',
-                'hover:text-opacity-80': variant === 'carousel',
+              // hover-text
+              'hover:text-button-hover':
+                variant === 'tertiary' ||
+                variant === 'plain-secondary' ||
+                variant === 'plain-primary' ||
+                variant === 'secondary',
+              'hover:text-white hover:text-opacity-80': variant === 'plain-white',
+              'hover:text-opacity-80': variant === 'carousel',
 
-                // shape
-                'rounded-full': shape === 'circle',
-              }
-            ),
+              // shape
+              'rounded-full': shape === 'circle',
+            },
             className
           )
 

@@ -1,5 +1,6 @@
-import cx from 'classnames'
 import { ReactNode } from 'react'
+
+import cn from '@/utils/cn'
 
 interface DetailsRowProps {
   classWrapper: string
@@ -9,7 +10,7 @@ interface DetailsRowProps {
 
 const DetailsRow = ({ classWrapper, text, svgIcon }: DetailsRowProps) => {
   return (
-    <div className={cx(classWrapper)}>
+    <div className={cn(classWrapper)}>
       <div className="align-top">{svgIcon}</div>
       <div className="pl-[15px]">{text}</div>
     </div>

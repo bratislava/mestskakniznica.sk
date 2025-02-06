@@ -1,9 +1,9 @@
 import { Disclosure } from '@headlessui/react'
-import cx from 'classnames'
 import { ReactNode } from 'react'
 
 import { ChevronLeftIcon } from '@/assets/icons'
 import { AnimateHeight } from '@/components/Atoms/AnimateHeight'
+import cn from '@/utils/cn'
 
 export type AccordionProps = {
   type: 'boxed' | 'divider-small' | 'divider-big' | 'subbranch' | 'breadcrumbs'
@@ -19,7 +19,7 @@ export type AccordionProps = {
  * Figma: https://www.figma.com/file/CY6Mh2f0SXJhBMY74HdS03/MKB?node-id=1491%3A17724&t=I75qJANEgoYCKFED-0
  */
 const Accordion = ({ type, title, additionalInfo, children, iconLeft }: AccordionProps) => {
-  const borderStyles = cx('flex w-full flex-col bg-white', {
+  const borderStyles = cn('flex w-full flex-col bg-white', {
     'border-border border': type === 'boxed',
     'border-border border-b':
       // eslint-disable-next-line sonarjs/no-duplicate-string
@@ -28,13 +28,13 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
 
   // min-w-0 used because of breadcrumbs:
   // https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child
-  const headingStyles = cx('min-w-0 grow', {
+  const headingStyles = cn('min-w-0 grow', {
     'text-h6': type === 'divider-small',
     'text-h5': type === 'boxed' || type === 'divider-big' || type === 'subbranch',
     'text-sm': type === 'breadcrumbs',
   })
 
-  const buttonStyles = cx(
+  const buttonStyles = cn(
     'hover:text-underline base-focus-ring flex items-center gap-4 text-left text-h5',
     {
       'py-[18.5px] px-4 md:px-6 md:py-5': type === 'boxed',
@@ -45,14 +45,14 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
     }
   )
 
-  const leftIconStyles = cx('mr-0 shrink-0 md:mr-2', {
+  const leftIconStyles = cn('mr-0 shrink-0 md:mr-2', {
     'bg-yellow grid h-10 w-10 place-content-center bg-promo-yellow md:h-14 md:w-14':
       type === 'subbranch',
   })
 
-  // const iconWrapperStyles = cx('flex h-8 w-8 shrink-0 items-center justify-center')
+  // const iconWrapperStyles = cn('flex h-8 w-8 shrink-0 items-center justify-center')
 
-  const contentStyles = cx('w-full ', {
+  const contentStyles = cn('w-full ', {
     'px-6 py-5': type === 'boxed',
     'py-[18.5px] md:py-6': type === 'divider-big',
     'py-[14.5px] md:py-[18.5px]': type === 'divider-small',
@@ -78,7 +78,7 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
                 {additionalInfo && <span className="pr-6">{additionalInfo}</span>}
                 <span className="shrink-0" aria-hidden>
                   <ChevronLeftIcon
-                    className={cx('mr-1 transform transition-transform', {
+                    className={cn('mr-1 transform transition-transform', {
                       'rotate-90': open,
                       '-rotate-90': !open,
                     })}

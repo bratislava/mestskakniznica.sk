@@ -79,7 +79,7 @@ const NewsletterSection = () => {
         </FormProvider>
       ) : (
         <div className="container flex flex-col items-center justify-center">
-          <h2 className="pt-30 pb-6 text-h3">{t('newsletterSection.newsletter.sentTitle')}</h2>
+          <h2 className="pb-6 pt-30 text-h3">{t('newsletterSection.newsletter.sentTitle')}</h2>
           <div className="m-auto w-[780px] pb-30 text-center text-base text-foreground-body">
             {t('newsletterSection.newsletter.sentText')}
           </div>

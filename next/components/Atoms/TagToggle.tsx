@@ -1,7 +1,8 @@
-import cx from 'classnames'
 import { useRef } from 'react'
 import { useToggleButton } from 'react-aria'
 import { ToggleProps, useToggleState } from 'react-stately'
+
+import cn from '@/utils/cn'
 
 type TagButtonProps = { className?: string } & ToggleProps
 
@@ -15,7 +16,7 @@ const TagButton = (props: TagButtonProps) => {
     <button
       ref={ref}
       type="button"
-      className={cx(
+      className={cn(
         'base-focus-ring flex h-8 w-fit cursor-pointer select-none items-center whitespace-nowrap rounded-full border px-3 text-sm font-semibold',
         {
           'border-dark bg-dark text-white': isSelected,

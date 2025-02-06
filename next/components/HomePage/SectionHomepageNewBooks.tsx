@@ -30,7 +30,7 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
             ))}
           </div>
         </div>
-        <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
+        <div className="right-0 top-12 flex justify-center pt-1 md:absolute md:w-fit">
           <ShowMoreLink
             href={getPathForStrapiEntity(general?.data?.attributes?.newBooksPage?.data) ?? '#'}
           >

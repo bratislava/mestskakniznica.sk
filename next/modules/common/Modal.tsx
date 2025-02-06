@@ -1,14 +1,13 @@
-import cx from 'classnames'
 import FocusTrap from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useEffect, useRef } from 'react'
 import { AriaOverlayProps, OverlayContainer, useModal, useOverlay } from 'react-aria'
-import { twMerge } from 'tailwind-merge'
 import { useIsClient, useLockedBody } from 'usehooks-ts'
 
 import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 export type ModalProps = {
   children: ReactNode
@@ -19,7 +18,9 @@ export type ModalProps = {
   noAnimation?: boolean
 } & AriaOverlayProps
 
-// https://github.com/bratislava/marianum.sk/blob/master/next/components/atoms/Modal.tsx
+/**
+ * Based on Marianum: https://github.com/bratislava/marianum.sk/blob/master/next/components/atoms/Modal.tsx
+ */
 
 const Modal = (props: ModalProps) => {
   const {
@@ -37,7 +38,7 @@ const Modal = (props: ModalProps) => {
   const ref = useRef<HTMLDivElement | null>(null)
   const { overlayProps, underlayProps } = useOverlay(
     { ...props, isDismissable: isDismissable === undefined ? true : isDismissable },
-    ref
+    ref,
   )
   const [, setLockedBody] = useLockedBody(isOpen)
 
@@ -61,15 +62,15 @@ const Modal = (props: ModalProps) => {
           >
             <div
               {...underlayProps}
-              className={twMerge(
+              className={cn(
                 'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-dark/40',
-                underlayClassName
+                underlayClassName,
               )}
             >
-              <div className={cx({ 'flex min-h-full items-center': centerVertically })}>
+              <div className={cn({ 'flex min-h-full items-center': centerVertically })}>
                 <FocusTrap>
                   <div
-                    className={twMerge('mx-auto flex w-fit items-center', overlayClassName)}
+                    className={cn('mx-auto flex w-fit items-center', overlayClassName)}
                     {...overlayProps}
                     {...modalProps}
                     ref={ref}
@@ -77,7 +78,7 @@ const Modal = (props: ModalProps) => {
                     {showCloseButton && (
                       <Button
                         variant="primary"
-                        className="pointer-events-auto fixed top-6 right-6 z-30"
+                        className="pointer-events-auto fixed right-6 top-6 z-30"
                         aria-label={t('modal.closeModal')}
                         onPress={onClose}
                       >

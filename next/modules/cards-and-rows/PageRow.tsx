@@ -1,7 +1,6 @@
-import cx from 'classnames'
-
 import { ChevronRightIcon } from '@/assets/icons'
 import MLink from '@/modules/common/MLink'
+import cn from '@/utils/cn'
 
 type PageRowProps = {
   className?: string
@@ -12,7 +11,7 @@ type PageRowProps = {
 const PageRow = ({ className, title, href }: PageRowProps) => {
   return (
     <div
-      className={cx(
+      className={cn(
         'relative flex cursor-pointer items-center justify-between border border-border-dark p-3 lg:p-4',
         className
       )}
