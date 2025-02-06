@@ -84,7 +84,7 @@ const EventDetails = ({ event }: PageProps) => {
         width={bannerProps.width || 0}
         height={bannerProps.height || 0}
         alt={bannerProps.alternativeText || ''}
-        className="w-full object-cover object-center md:h-75 lg:h-[400px]"
+        className="w-full object-cover md:h-75 lg:h-[400px]"
       />
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
         <div className="col-span-1 hidden size-27 bg-promo-yellow text-center lg:flex">
@@ -160,7 +160,7 @@ const EventDetails = ({ event }: PageProps) => {
                       src={guest?.avatar?.data?.attributes?.url}
                       width={guest?.avatar?.data?.attributes?.width || 0}
                       height={guest?.avatar?.data?.attributes?.height || 0}
-                      alt={guest?.name || 'Guest name.'}
+                      alt={guest?.name || t('blogPostPage.guestName')}
                       className="flex size-12 items-center justify-center rounded-full object-cover"
                     />
                     <span className="m-auto text-[16px]">
