@@ -36,7 +36,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
             )}
             {/* Cover image, empty alt on purpose */}
             {page?.attributes?.listingImage?.data?.attributes?.url && (
-              <div className="mb-8 aspect-video">
+              <div className="relative mb-8 aspect-video">
                 <Image
                   src={page.attributes.listingImage.data.attributes.url}
                   alt=""
