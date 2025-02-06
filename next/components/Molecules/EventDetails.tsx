@@ -74,15 +74,15 @@ const EventDetails = ({ event }: PageProps) => {
 
   return (
     <>
-      <div className="relative w-full shrink-0 md:h-[300px] lg:h-[400px]">
+      <div className="relative w-full shrink-0 md:h-74 lg:h-[400px]">
         <StrapiImage
           image={bannerImage || createImagePlaceholder(EventDetailPlaceholder)}
-          alt={bannerImage?.alternativeText || t('eventDetailImagePlaceholder')}
+          alt={bannerImage?.alternativeText ?? ''}
           className="object-cover object-center"
         />
       </div>
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
-        <div className="col-span-1 hidden h-[108px] w-[108px] bg-promo-yellow text-center lg:flex">
+        <div className="col-span-1 hidden size-[108px] bg-promo-yellow text-center lg:flex">
           <EventDetailsDateBox
             dateFrom={event?.attributes?.dateFrom}
             dateTo={event?.attributes?.dateTo}
@@ -155,7 +155,7 @@ const EventDetails = ({ event }: PageProps) => {
                       <StrapiImage
                         image={guest.avatar.data.attributes}
                         alt={guest.name ?? 'Guest name.'}
-                        className="flex h-12 w-12 items-center justify-center rounded-full object-cover"
+                        className="flex size-12 items-center justify-center rounded-full object-cover"
                       />
                     ) : null}
                     <span className="m-auto text-[16px]">
@@ -186,7 +186,7 @@ const EventDetails = ({ event }: PageProps) => {
             </div>
           )} */}
           <div className="pt-10">
-            <div className="block h-auto border-y border-border-dark py-3 lg:flex lg:h-[70px] lg:border lg:p-0">
+            <div className="block h-auto border-y border-border-dark py-3 lg:flex lg:h-17.5 lg:border lg:p-0">
               {/* <div className="hidden lg:block pl-6 w-[169px] text-base m-auto"> */}
               {/*  {t('eventShareAndSave')} */}
               {/* </div> */}
@@ -289,7 +289,7 @@ const EventDetails = ({ event }: PageProps) => {
                   svgIcon={<EuroIcon />}
                   text={
                     !event?.attributes?.price || event?.attributes?.price == 0
-                      ? t('noCharge').toString()
+                      ? t('eventDetails.noCharge').toString()
                       : event?.attributes?.price?.toString() || ''
                   }
                 />
