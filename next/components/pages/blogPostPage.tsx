@@ -38,7 +38,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
           {coverMedia && mediaType === 'image' ? (
             <StrapiImage
               image={coverMedia}
-              className="w-full object-cover object-center md:h-[300px] lg:h-[400px]"
+              className="w-full object-cover md:h-[300px] lg:h-[400px]"
             />
           ) : null}
 
