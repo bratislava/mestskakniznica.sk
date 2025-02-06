@@ -17,20 +17,20 @@ export interface InputProps
 }
 
 export const Input = ({
-                        className,
-                        id,
-                        required,
-                        labelContent,
-                        helpText,
-                        hasError,
-                        errorMessage,
-                        iconLeft,
-                        iconRight,
-                        iconClassName,
-                        inputClassName,
-                        labelClassName,
-                        ...props
-                      }: InputProps) => {
+  className,
+  id,
+  required,
+  labelContent,
+  helpText,
+  hasError,
+  errorMessage,
+  iconLeft,
+  iconRight,
+  iconClassName,
+  inputClassName,
+  labelClassName,
+  ...props
+}: InputProps) => {
   return (
     <div className={className}>
       {/* Label */}

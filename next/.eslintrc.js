@@ -28,11 +28,6 @@ module.exports = {
         ],
       },
     ],
-    /** Use official sorting */
-    'tailwindcss/classnames-order': [
-      'warn',
-      { callees: ['classnames', 'cx'], officialSorting: true },
-    ],
     /** We specify default props in props decomposition */
     'react/require-default-props': 'off',
     /** Next Link does not need href in <a> tag */
@@ -49,6 +44,9 @@ module.exports = {
     // https://github.com/jsx-eslint/eslint-plugin-react/issues/2584#issuecomment-1191175244
     'react/jsx-no-useless-fragment': [2, { allowExpressions: true }],
     'import/extensions': 'off',
+
+    /* Formatting rules - based on OLO */
+    'prettier/prettier': ['error', { endOfLine: 'auto' }], // TODO revisit, prettier should not be run by eslint
   },
   ignorePatterns: ['*.config.*', 'graphql', '.eslintrc.js'],
 }

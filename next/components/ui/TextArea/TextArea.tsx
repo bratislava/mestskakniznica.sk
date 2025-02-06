@@ -12,17 +12,17 @@ export interface TextAreaProps
 }
 
 export const TextArea = ({
-                           className,
-                           children,
-                           labelContent,
-                           helpText,
-                           id,
-                           hasError = false,
-                           errorMessage,
-                           textAreaClassname,
-                           required,
-                           ...props
-                         }: TextAreaProps) => {
+  className,
+  children,
+  labelContent,
+  helpText,
+  id,
+  hasError = false,
+  errorMessage,
+  textAreaClassname,
+  required,
+  ...props
+}: TextAreaProps) => {
   return (
     <div className={className}>
       {/* Label */}

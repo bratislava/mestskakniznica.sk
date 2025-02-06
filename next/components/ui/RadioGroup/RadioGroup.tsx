@@ -25,18 +25,18 @@ interface RadioGroupProps<T extends IRadioOption> {
 }
 
 export const RadioGroup = <T extends IRadioOption>({
-                                                     id,
-                                                     wrapperClassName,
-                                                     className,
-                                                     radioClassName,
-                                                     labelContent,
-                                                     hasError,
-                                                     errorMessage,
-                                                     options,
-                                                     onChange,
-                                                     value,
-                                                     required,
-                                                   }: RadioGroupProps<T>) => {
+  id,
+  wrapperClassName,
+  className,
+  radioClassName,
+  labelContent,
+  hasError,
+  errorMessage,
+  options,
+  onChange,
+  value,
+  required,
+}: RadioGroupProps<T>) => {
   return (
     <div className={wrapperClassName}>
       {/* Label */}

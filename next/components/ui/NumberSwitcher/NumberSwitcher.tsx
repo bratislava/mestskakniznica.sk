@@ -21,17 +21,17 @@ interface NumberSwitcherProps extends InputProps {
 const clampValue = (n: number) => Math.max(1, n)
 
 export const NumberSwitcher = ({
-                                 className,
-                                 value,
-                                 hasError,
-                                 errorMessage,
-                                 id,
-                                 onClickChange,
-                                 labelContent,
-                                 required,
-                                 inputClassName,
-                                 ...props
-                               }: NumberSwitcherProps) => {
+  className,
+  value,
+  hasError,
+  errorMessage,
+  id,
+  onClickChange,
+  labelContent,
+  required,
+  inputClassName,
+  ...props
+}: NumberSwitcherProps) => {
   return (
     <div className={className}>
       {/* Label */}
