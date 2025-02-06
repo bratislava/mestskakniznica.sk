@@ -84,10 +84,10 @@ const EventDetails = ({ event }: PageProps) => {
         width={bannerProps.width || 0}
         height={bannerProps.height || 0}
         alt={bannerProps.alternativeText || ''}
-        className="w-full object-cover object-center md:h-[300px] lg:h-[400px]"
+        className="w-full object-cover object-center md:h-75 lg:h-[400px]"
       />
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
-        <div className="size-[108px] col-span-1 hidden bg-promo-yellow text-center lg:flex">
+        <div className="col-span-1 hidden size-27 bg-promo-yellow text-center lg:flex">
           <EventDetailsDateBox
             dateFrom={event?.attributes?.dateFrom}
             dateTo={event?.attributes?.dateTo}
@@ -161,7 +161,7 @@ const EventDetails = ({ event }: PageProps) => {
                       width={guest?.avatar?.data?.attributes?.width || 0}
                       height={guest?.avatar?.data?.attributes?.height || 0}
                       alt={guest?.name || 'Guest name.'}
-                      className="size-12 flex items-center justify-center rounded-full object-cover"
+                      className="flex size-12 items-center justify-center rounded-full object-cover"
                     />
                     <span className="m-auto text-[16px]">
                       {guest?.name} {guest?.surname}
