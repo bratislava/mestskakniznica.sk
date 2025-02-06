@@ -178,7 +178,7 @@ const TheaterTechReservationForm = () => {
               render={({ field: { ref, onChange, ...field } }) => (
                 <Select
                   labelContent={t('tech_type')}
-                  className="w-72 lg:w-[296px]"
+                  className="w-72 lg:w-74"
                   options={[
                     { key: 'key1', title: 'Title1' },
                     { key: 'key2', title: 'Title2' },
