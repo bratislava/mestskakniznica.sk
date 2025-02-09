@@ -1,8 +1,8 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { usePlausible } from 'next-plausible'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useQuery } from 'react-query'
 import { useDebounce } from 'usehooks-ts'
 
 import { ChevronRightIcon } from '@/assets/icons'
@@ -57,7 +57,7 @@ const SearchPage = () => {
     (type: CommonSearchType) => {
       return filters.selectedTypes.includes(type)
     },
-    [filters]
+    [filters],
   )
 
   const changeTypeSelected = useCallback(
@@ -70,7 +70,7 @@ const SearchPage = () => {
         setFilters({ ...filters, selectedTypes: newSelectedTypes })
       }
     },
-    [filters]
+    [filters],
   )
 
   const { input, setInput, searchValue, setSearchValue } = useSearch({ syncWithUrlQuery: true })
@@ -87,7 +87,7 @@ const SearchPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: getCommonSearchQueryKey(filters, i18n.language),
     queryFn: commonSearchFetcher(filters, i18n.language),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   })
 
   const debouncedInputForPlausible = useDebounce<string>(filters.searchValue, 2000)
@@ -173,7 +173,7 @@ const SearchPage = () => {
               <ul ref={resultsRef} className="-mb-3 flex flex-col pb-3">
                 {data?.hits.map(({ title, type, id, slug }, index) => {
                   const link = getPathForEntity(
-                    type === 'page' ? { type, id: String(id) } : { type, slug }
+                    type === 'page' ? { type, id: String(id) } : { type, slug },
                   )
 
                   return (

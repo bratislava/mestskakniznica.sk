@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
-import { useQuery } from 'react-query'
 
 import { Listing } from '@/components/ui'
 import {
@@ -36,7 +36,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
         title: event.attributes?.title ?? '',
         path: getPathForStrapiEntity(event),
       })) ?? [],
-    [getPathForStrapiEntity, upcomingEvents]
+    [getPathForStrapiEntity, upcomingEvents],
   )
 
   const mappedLatestNews = useMemo(
@@ -45,7 +45,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
         title: notice.attributes?.title ?? '',
         path: getPathForStrapiEntity(notice),
       })) ?? [],
-    [getPathForStrapiEntity, latestNewsData]
+    [getPathForStrapiEntity, latestNewsData],
   )
 
   if (section.depth === Enum_Componentsectionschildrenlisting_Depth.Depth_1) {

@@ -1,7 +1,7 @@
 import { useControlledState } from '@react-stately/utils'
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
-import { useQuery } from 'react-query'
 import { useToggleState } from 'react-stately'
 
 import DropdownIcon from '@/assets/images/dropdown.svg'
