@@ -1,9 +1,9 @@
 import { FocusTrap } from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-import { ReactNode, useEffect, useRef } from 'react'
+import { ReactNode, useRef } from 'react'
 import { AriaOverlayProps, OverlayContainer, useModal, useOverlay } from 'react-aria'
-import { useIsClient, useLockedBody } from 'usehooks-ts'
+import { useIsClient, useScrollLock } from 'usehooks-ts'
 
 import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
@@ -40,11 +40,11 @@ const Modal_deprecated = (props: ModalProps) => {
     { ...props, isDismissable: isDismissable === undefined ? true : isDismissable },
     ref,
   )
-  const [, setLockedBody] = useLockedBody(isOpen)
 
-  useEffect(() => {
-    setLockedBody(isOpen ?? false)
-  }, [isOpen, setLockedBody])
+  useScrollLock({
+    autoLock: isOpen,
+    lockTarget: 'root',
+  })
 
   const { modalProps } = useModal()
 

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { usePlausible } from 'next-plausible'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
 
 import { ChevronRightIcon } from '@/assets/icons'
 import { AnimateHeight } from '@/components/Atoms/AnimateHeight'
@@ -90,7 +90,7 @@ const SearchPage = () => {
     placeholderData: keepPreviousData,
   })
 
-  const debouncedInputForPlausible = useDebounce<string>(filters.searchValue, 2000)
+  const [debouncedInputForPlausible] = useDebounceValue<string>(filters.searchValue, 2000)
   const [lastInputForPlausible, setLastInputForPlausible] = useState<string>('')
   useEffect(() => {
     const sanitizedInput = debouncedInputForPlausible.toLowerCase().trim().replace(/\s\s+/g, ' ')
