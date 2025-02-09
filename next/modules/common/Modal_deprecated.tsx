@@ -1,4 +1,4 @@
-import FocusTrap from 'focus-trap-react'
+import { FocusTrap } from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useEffect, useRef } from 'react'

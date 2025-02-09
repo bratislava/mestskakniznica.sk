@@ -7049,20 +7049,20 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.5.tgz#76c8584f4fc843db64702a6bd04ab7a8bd666da3"
   integrity sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==
 
-focus-trap-react@^10.0.2:
-  version "10.0.2"
-  resolved "https://registry.yarnpkg.com/focus-trap-react/-/focus-trap-react-10.0.2.tgz#eed4ce5b508bf3a0ce2ce63151c5c0f34a8f8529"
-  integrity sha512-MnN2cmdgpY7NY74ePOio4kbO5A3ILhrg1g5OGbgIQjcWEv1hhcbh6e98K0a+df88hNbE+4i9r8ji9aQnHou6GA==
+focus-trap-react@^11.0.3:
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/focus-trap-react/-/focus-trap-react-11.0.3.tgz#fe46bbe2a024379b3783cad73187197bafbadb88"
+  integrity sha512-tS1+enWS/gwCHk2WIF3KpM2oz7Y3HsnRImzHZNRgCBLWXzNG4XQVlJgbqdLr4lBKRXGdDBjQYitSh1bf2xe4Ag==
   dependencies:
-    focus-trap "^7.2.0"
-    tabbable "^6.0.1"
+    focus-trap "^7.6.4"
+    tabbable "^6.2.0"
 
-focus-trap@^7.2.0:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-7.2.0.tgz#25af61b5635d3c18cd2fd176087db7b60be72c6b"
-  integrity sha512-v4wY6HDDYvzkBy4735kW5BUEuw6Yz9ABqMYLuTNbzAFPcBOGiGHwwcNVMvUz4G0kgSYh13wa/7TG3XwTeT4O/A==
+focus-trap@^7.6.4:
+  version "7.6.4"
+  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-7.6.4.tgz#455ec5c51fee5ae99604ca15142409ffbbf84db9"
+  integrity sha512-xx560wGBk7seZ6y933idtjJQc1l+ck+pI3sKvhKozdBV1dRZoKhkW5xoCaFv9tQiX5RH1xfSxjuNu6g+lmN/gw==
   dependencies:
-    tabbable "^6.0.1"
+    tabbable "^6.2.0"
 
 for-each@^0.3.3:
   version "0.3.4"
@@ -9517,10 +9517,10 @@ next-i18next@15.4.2:
     hoist-non-react-statics "^3.3.2"
     i18next-fs-backend "^2.6.0"
 
-next-plausible@^3.7.2:
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/next-plausible/-/next-plausible-3.7.2.tgz#33eae204a00ad01b7851b319e115eab8e0815fa6"
-  integrity sha512-9PqFiVtD1kZO5gHFYTcgilHhg2WhMzD6I4NK/RUh9DGavD1N11IhNAvyGLFmvB3f4FtHC9IoAsauYDtQBt+riA==
+next-plausible@^3.12.4:
+  version "3.12.4"
+  resolved "https://registry.yarnpkg.com/next-plausible/-/next-plausible-3.12.4.tgz#d0ac1d7dcbe9836b6c93e37d42b80e3661fdaa34"
+  integrity sha512-cD3+ixJxf8yBYvsideTxqli3fvrB7R4BXcvsNJz8Sm2X1QN039WfiXjCyNWkub4h5++rRs6fHhchUMnOuJokcg==
 
 next-query-params@^5.1.0:
   version "5.1.0"
@@ -10253,10 +10253,10 @@ prettier@3.4.2:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.4.2.tgz#a5ce1fb522a588bf2b78ca44c6e6fe5aa5a2b13f"
   integrity sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==
 
-pretty-bytes@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-6.1.0.tgz#1d1cc9aae1939012c74180b679da6684616bf804"
-  integrity sha512-Rk753HI8f4uivXi4ZCIYdhmG1V+WKzvRMg/X+M42a6t7D07RcmopXJMDNk6N++7Bl75URRGsb40ruvg7Hcp2wQ==
+pretty-bytes@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-6.1.1.tgz#38cd6bb46f47afbf667c202cfc754bffd2016a3b"
+  integrity sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -11762,15 +11762,10 @@ synckit@^0.8.6:
     "@pkgr/core" "^0.1.0"
     tslib "^2.6.2"
 
-tabbable@^6.0.0:
+tabbable@^6.0.0, tabbable@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-6.2.0.tgz#732fb62bc0175cfcec257330be187dcfba1f3b97"
   integrity sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==
-
-tabbable@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-6.0.1.tgz#427a09b13c83ae41eed3e88abb76a4af28bde1a6"
-  integrity sha512-SYJSIgeyXW7EuX1ytdneO5e8jip42oHWg9xl/o3oTYhmXusZVgiA+VlPvjIN+kHii9v90AmzTZEBcsEvuAY+TA==
 
 tailwind-merge@2.5.2:
   version "2.5.2"
