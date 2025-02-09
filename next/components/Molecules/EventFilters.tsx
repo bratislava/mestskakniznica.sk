@@ -25,7 +25,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
 
   const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
 
-  const [filters, setFilters] = useControlledState(
+  const [filters, setFilters] = useControlledState<EventsFiltersShared>(
     filtersInput,
     defaultFiltersValue,
     onFiltersChange,
