@@ -2,8 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import QRCode from 'qrcode.react'
 import React from 'react'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import { DialogTrigger } from 'react-aria-components'
 
 import {
   CalendarIcon,
@@ -19,12 +18,14 @@ import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
 import DetailsRow from '@/components/Atoms/EventDetailsRow'
 import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import { Documents } from '@/components/ui'
+import Button from '@/modules/common/Button'
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
+import Dialog from '@/modules/common/ModalDialog/Dialog'
+import Modal from '@/modules/common/ModalDialog/Modal'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import RichText from '@/modules/formatting/RichText'
 import { EventEntityFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
-import { isEventPast } from '@/utils/utils'
 
 export interface PageProps {
   event?: EventEntityFragment
@@ -33,39 +34,12 @@ export interface PageProps {
 const EventDetails = ({ event }: PageProps) => {
   const { t } = useTranslation()
   const { asPath } = useRouter()
-  const [isEventInThePast, setIsEventInThePast] = React.useState(false)
 
   const eventBranch = event?.attributes?.branch?.data?.attributes
 
   const copyToClipBoard = () => {
     navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
   }
-
-  const fireSwal = () => {
-    const withContent = withReactContent(Swal)
-    withContent.fire({
-      html: (
-        <QRCode
-          value={event?.attributes?.title || ''}
-          className="m-auto"
-          renderAs="svg"
-          size={240}
-        />
-      ),
-      position: 'center',
-      width: 350,
-      confirmButtonText: t('common.close'),
-      confirmButtonColor: '#2f2f2f',
-      customClass: {
-        popup: 'rounded-none',
-        confirmButton: 'rounded-none',
-      },
-    })
-  }
-
-  React.useMemo(() => {
-    setIsEventInThePast(isEventPast(event?.attributes?.dateTo))
-  }, [event])
 
   // fallback to placeholder
   const bannerProps = {
@@ -199,12 +173,29 @@ const EventDetails = ({ event }: PageProps) => {
                 text={t('eventDetails.eventShare')}
                 copyText
               />
-              <Clickable
-                actionLink={fireSwal}
-                classDiv="my-3 lg:m-auto"
-                svgIcon={<CameraIcon />}
-                text={t('eventDetails.eventQr')}
-              />
+              <DialogTrigger>
+                <Button
+                  variant="plain-primary"
+                  className="my-3 lg:m-auto"
+                  startIcon={<CameraIcon />}
+                >
+                  {t('eventDetails.eventQr')}
+                </Button>
+                <Modal>
+                  <Dialog aria-label={t('eventDetails.eventQr')}>
+                    <QRCode
+                      value={event?.attributes?.title || ''}
+                      className="m-auto"
+                      renderAs="svg"
+                      size={240}
+                      bgColor="white"
+                      fgColor="black"
+                      includeMargin
+                      level="L"
+                    />
+                  </Dialog>
+                </Modal>
+              </DialogTrigger>
             </div>
           </div>
         </div>

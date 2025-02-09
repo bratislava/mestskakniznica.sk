@@ -5,7 +5,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import Slider from '@/modules/common/ImageGallery/Slider'
 import MImage from '@/modules/common/MImage'
-import Modal, { ModalProps } from '@/modules/common/Modal'
+import Modal_deprecated, { ModalProps } from '@/modules/common/Modal_deprecated'
 import { UploadImageEntityFragment } from '@/services/graphql'
 
 export type ImageLightBoxProps = {
@@ -32,7 +32,11 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
 
   return (
     // TODO is this pointer-events-none/auto necessary
-    <Modal overlayClassName="w-full h-screen pointer-events-none" showCloseButton {...rest}>
+    <Modal_deprecated
+      overlayClassName="w-full h-screen pointer-events-none"
+      showCloseButton
+      {...rest}
+    >
       <Slider
         ref={sliderRef}
         description={t('imageGallery.imageLightBoxDescription')}
@@ -43,7 +47,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
           .map(({ id, attributes }) => (
             <div
               key={id}
-              className="container pointer-events-none m-auto flex h-full w-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
+              className="container pointer-events-none m-auto flex size-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
             >
               <MImage
                 draggable="false"
@@ -82,7 +86,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
           </div>
         )}
       />
-    </Modal>
+    </Modal_deprecated>
   )
 }
 

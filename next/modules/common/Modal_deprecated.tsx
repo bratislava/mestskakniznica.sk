@@ -22,7 +22,7 @@ export type ModalProps = {
  * Based on Marianum: https://github.com/bratislava/marianum.sk/blob/master/next/components/atoms/Modal.tsx
  */
 
-const Modal = (props: ModalProps) => {
+const Modal_deprecated = (props: ModalProps) => {
   const {
     isOpen,
     onClose,
@@ -97,4 +97,4 @@ const Modal = (props: ModalProps) => {
   ) : null
 }
 
-export default Modal
+export default Modal_deprecated

@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
-import Modal from '@/modules/common/Modal'
+import Modal_deprecated from '@/modules/common/Modal_deprecated'
 import MobileNavigationItem from '@/modules/navigation/MobileNavigationItem'
 import { MenuItem } from '@/modules/navigation/NavMenu'
 import { useGeneralContext } from '@/utils/generalContext'
@@ -39,7 +39,7 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
   ]
 
   return (
-    <Modal
+    <Modal_deprecated
       isOpen={isOpen}
       onClose={onClose}
       noAnimation
@@ -85,6 +85,6 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
           </div>
         ) : null}
       </div>
-    </Modal>
+    </Modal_deprecated>
   )
 }
