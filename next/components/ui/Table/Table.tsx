@@ -1,7 +1,6 @@
-import cx from 'classnames'
-
 import { TableRow } from '@/components/ui'
 import { TableRowWithIdFragment } from '@/services/graphql'
+import cn from '@/utils/cn'
 
 export type TableRowWithIdProp = Pick<
   TableRowWithIdFragment,
@@ -17,11 +16,11 @@ export interface TableProps {
 
 export const Table = ({ className, primaryTitle, secondaryTitle, rows }: TableProps) => {
   return (
-    <div className={cx(className)}>
+    <div className={cn(className)}>
       {primaryTitle && <h3 className="mb-4 text-h5 lg:mb-6">{primaryTitle}</h3>}
       {secondaryTitle && <h6 className="mb-4 text-base">{secondaryTitle}</h6>}
 
-      <table className={cx(className, 'w-full table-fixed border-collapse')}>
+      <table className={cn(className, 'w-full table-fixed border-collapse')}>
         <tbody>
           {rows?.map((row) => (
             <TableRow

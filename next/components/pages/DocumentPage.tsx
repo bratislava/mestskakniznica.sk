@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const DocumentPage = ({ entity }: IProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
   const { breadcrumbs } = useNavikronos()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
   const { getDisclosureMetadata } = useDisclosureMetadata()
@@ -50,12 +50,12 @@ const DocumentPage = ({ entity }: IProps) => {
     ? getDisclosureMetadata(entity)
     : [
         {
-          label: t('DocumentMetadata.category'),
+          label: t('documentMetadata.category'),
           // eslint-disable-next-line unicorn/consistent-destructuring
           value: entity.attributes.documentCategory?.data?.attributes?.label,
         },
         {
-          label: t('DocumentMetadata.addedAt'),
+          label: t('documentMetadata.addedAt'),
           // eslint-disable-next-line unicorn/consistent-destructuring
           value: <FormatDate value={entity.attributes.publishedAt} valueType="ISO" />,
         },
@@ -67,7 +67,7 @@ const DocumentPage = ({ entity }: IProps) => {
         <Breadcrumbs crumbs={breadcrumbs} />
 
         <div className="mt-6 flex flex-col gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:flex-row lg:pb-32">
-          <FileExtBadge className="mb-8 h-16 w-16 self-center lg:self-auto" fileExt={badgeExt} />
+          <FileExtBadge className="mb-8 size-16 self-center lg:self-auto" fileExt={badgeExt} />
 
           <div className="w-full text-foreground-body">
             <div className="flex flex-col items-center border-b border-border-dark text-center lg:items-start lg:text-left">
@@ -76,7 +76,7 @@ const DocumentPage = ({ entity }: IProps) => {
 
               {isMultipleFiles && (
                 <div className="mt-2 flex items-center gap-x-3 pb-6 lg:pb-10">
-                  <span>{t('inflectFiles', { count: numOfFiles })}</span>
+                  <span>{t('documentPage.inflectFiles', { count: numOfFiles })}</span>
                 </div>
               )}
               {!isMultipleFiles && firstItem && (
@@ -87,7 +87,7 @@ const DocumentPage = ({ entity }: IProps) => {
                     <span>{firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}</span>
                   </div>
 
-                  <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-y-0 lg:gap-x-4">
+                  <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-x-4 lg:gap-y-0">
                     <Button
                       href={firstItem?.attributes?.url || ''}
                       target="_blank"
@@ -99,8 +99,7 @@ const DocumentPage = ({ entity }: IProps) => {
                       startIcon={<DownloadIcon />}
                     >
                       {/* Change to 'Open' when download button is added */}
-                      {/* {t('open')} */}
-                      {t('open')}
+                      {t('documentPage.open')}
                     </Button>
                     {/* TODO add direct download */}
                     {/* <Button */}
@@ -112,7 +111,7 @@ const DocumentPage = ({ entity }: IProps) => {
                     {/*  aria-label={getDownloadAriaLabel(file.data, title)} */}
                     {/*  startIcon={<DownloadIcon />} */}
                     {/* > */}
-                    {/*  {t('download')} */}
+                    {/*  {t('documentPage.download')} */}
                     {/* </Button> */}
                   </div>
                 </div>
@@ -122,7 +121,7 @@ const DocumentPage = ({ entity }: IProps) => {
             {/* Description */}
             {!isDisclosure && description ? (
               <div className="border-b border-border-dark py-6 lg:py-10">
-                <h2 className="text-h3">{t('description')}</h2>
+                <h2 className="text-h3">{t('documentPage.description')}</h2>
                 <div className="mt-4 text-sm text-foreground-body lg:mt-6 lg:text-base">
                   {description}
                 </div>
@@ -132,7 +131,7 @@ const DocumentPage = ({ entity }: IProps) => {
             {/* Show File list if multiple files present */}
             {isMultipleFiles && (
               <div className="pt-6 lg:pt-10">
-                <h2 className="text-h3">{t('files')}</h2>
+                <h2 className="text-h3">{t('documentPage.files')}</h2>
                 <div className="text-sm text-foreground-body lg:mt-6 lg:text-base">
                   {entity.attributes?.file?.data.map((file) => (
                     <div
@@ -141,7 +140,7 @@ const DocumentPage = ({ entity }: IProps) => {
                     >
                       {/* File extension badge */}
                       <FileExtBadge
-                        className="my-4 hidden h-14 w-14 self-center lg:flex lg:self-auto"
+                        className="my-4 hidden size-14 self-center lg:flex lg:self-auto"
                         fileExt={file?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}
                       />
 
@@ -172,8 +171,8 @@ const DocumentPage = ({ entity }: IProps) => {
                           startIcon={<DownloadIcon />}
                         >
                           {/* Change to 'Open' when download button is added */}
-                          {/* {t('open')} */}
-                          {t('open')}
+                          {/* {t('documentPage.open')} */}
+                          {t('documentPage.open')}
                         </Button>
                       </div>
                     </div>

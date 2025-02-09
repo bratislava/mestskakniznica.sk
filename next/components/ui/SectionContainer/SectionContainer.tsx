@@ -1,5 +1,6 @@
-import cx from 'classnames'
 import { ReactNode } from 'react'
+
+import cn from '@/utils/cn'
 
 type SectionContainerProps = {
   children: ReactNode
@@ -10,7 +11,7 @@ export const SectionContainer = ({ children, hasBorder = false }: SectionContain
   return (
     <div className="mx-auto w-full px-4 lg:max-w-[1244px] lg:px-8">
       <div
-        className={cx({
+        className={cn({
           'border-b border-border-dark': hasBorder,
         })}
       >

@@ -1,6 +1,5 @@
-import cx from 'classnames'
-
 import ClearCircle from '@/assets/images/clear-circle.svg'
+import cn from '@/utils/cn'
 
 export interface ChipProps {
   className?: string
@@ -12,7 +11,7 @@ export interface ChipProps {
 export const Chip = ({ size, children, className, onDelete }: ChipProps) => {
   return (
     <div
-      className={cx(
+      className={cn(
         'flex items-center justify-center gap-x-1.5 rounded-full border border-border-light',
         className,
         {
@@ -23,7 +22,7 @@ export const Chip = ({ size, children, className, onDelete }: ChipProps) => {
       )}
     >
       <div
-        className={cx({
+        className={cn({
           'text-[14px]': size === 'big',
           'text-[12px]': size !== 'big',
         })}

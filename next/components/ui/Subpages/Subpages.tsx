@@ -1,5 +1,3 @@
-import cx from 'classnames'
-
 import SubpageItem, { SubpageItemProps } from '@/components/ui/SubpageItem/SubpageItem'
 
 export interface SubpagesProps {
@@ -9,7 +7,7 @@ export interface SubpagesProps {
 
 export const Subpages = ({ title, subpages }: SubpagesProps) => {
   return (
-    <div className={cx('space-y-6')}>
+    <div className="space-y-6">
       <h3 className="text-h3"> {title}</h3>
       <div className="mt-6 grid grid-cols-1 gap-8">
         {subpages?.map((subpage) => (

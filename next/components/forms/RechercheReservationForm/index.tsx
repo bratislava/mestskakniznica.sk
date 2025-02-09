@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -12,12 +11,13 @@ import FormFooter from '@/components/forms/FormFooter'
 import StepNumberTitle from '@/components/forms/StepNumberTitle'
 import { Input, TextArea } from '@/components/ui'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 import { convertDataToBody } from '@/utils/form-constants'
 
 const RechercheReservationForm = () => {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
   const router = useRouter()
 
   yup.setLocale({
@@ -132,7 +132,6 @@ const RechercheReservationForm = () => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('recherche_reservation_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}
@@ -145,9 +144,7 @@ const RechercheReservationForm = () => {
           num={1}
           title={t('personal_details')}
           activeStep={step}
-          className={cx('', {
-            '-mx-8 border border-error px-8': stepOneErrors && step !== 1,
-          })}
+          className={cn({ '-mx-8 border border-error px-8': stepOneErrors && step !== 1 })}
           onClick={() => setStep(1)}
         >
           <div className="flex w-full flex-col gap-y-6">
@@ -239,7 +236,7 @@ const RechercheReservationForm = () => {
             {stepOneErrors && (
               <p className="text-base text-error">{t('please_fill_required_fields')}</p>
             )}
-            <Button onPress={() => triggerFirstStep()}>{t('common:continue')}</Button>
+            <Button onPress={() => triggerFirstStep()}>{t('continue')}</Button>
           </div>
         </StepNumberTitle>
 

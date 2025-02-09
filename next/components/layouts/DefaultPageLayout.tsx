@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
@@ -10,6 +9,7 @@ import ScrollToTopButton from '@/modules/common/ScrollToTopButton'
 import HeaderWrapper from '@/modules/navigation/HeaderWrapper'
 import { useNavMenuContext } from '@/modules/navigation/navMenuContext'
 import { SeoFragment } from '@/services/graphql'
+import cn from '@/utils/cn'
 import { useGeneralContext } from '@/utils/generalContext'
 import { useNavikronos } from '@/utils/navikronos'
 
@@ -24,7 +24,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
   const { footer, general } = useGeneralContext()
   const { getPathForStrapiEntity, localizations, getPathForEntity } = useNavikronos()
 
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { menuValue } = useNavMenuContext()
 
   return (
@@ -44,7 +44,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
         ))}
       </Head>
       <div
-        className={cx('flex min-h-screen flex-1 flex-col justify-self-stretch', {
+        className={cn('flex min-h-screen flex-1 flex-col justify-self-stretch', {
           // If menu is open, disable pointer events on the whole page (pointer events on menu must be re-enabled)
           'pointer-events-none': menuValue !== '',
         })}
@@ -64,21 +64,21 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
             <Footer
               footerColumns={footer?.data?.attributes?.footerColumns || []}
               // siteMap={{
-              //   title: t('siteMap'),
+              //   title: t('footer.siteMap'),
               //   href: footer?.siteMapLink?.slug ?? '#',
               // }}
               gdpr={{
-                title: t('privacy'),
+                title: t('footer.privacy'),
                 href:
                   getPathForStrapiEntity(
                     general?.data?.attributes?.privacyTermsAndConditionsPage?.data
                   ) ?? '#',
               }}
               VOP={{
-                title: t('VOP'),
+                title: t('footer.VOP'),
                 href: 'https://cdn-api.bratislava.sk/strapi-city-library/upload/vyhlasenie_o_pristupnosti_mkb_a75189f26f.pdf',
               }}
-              copyrightText={`${new Date().getFullYear()} ${t('copyright')}`}
+              copyrightText={`${new Date().getFullYear()} ${t('footer.copyright')}`}
               facebookUrl="https://sk-sk.facebook.com/mestskakniznica/"
               instagramUrl="https://www.instagram.com/mestska_kniznica_bratislava/?hl=sk"
               youtubeUrl="https://www.youtube.com/channel/UCX4B3tYI32-YcdsaD-Yt8Dw"

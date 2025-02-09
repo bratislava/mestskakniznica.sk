@@ -21,7 +21,7 @@ export interface VenueRentalFormProps {
 const VenueRentalForm = (props: VenueRentalFormProps) => {
   const pageTitle = props?.slug.trim()
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
   const router = useRouter()
 
   yup.setLocale({
@@ -124,7 +124,6 @@ const VenueRentalForm = (props: VenueRentalFormProps) => {
     <FormProvider {...methods}>
       <FormContainer
         title={t('venue_rental_title')}
-        buttonText={t('common:continue')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
         onReset={() => setIsSubmitted(SubmitStatus.NONE)}

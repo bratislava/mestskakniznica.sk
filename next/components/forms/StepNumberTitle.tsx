@@ -1,8 +1,8 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode } from 'react'
 
 import { CheckNoPaddingIcon } from '@/assets/icons'
+import cn from '@/utils/cn'
 
 interface IProps {
   num: number
@@ -16,11 +16,11 @@ interface IProps {
 const StepNumberTitle = ({ num, title, activeStep, onClick, className, children }: IProps) => {
   const active = activeStep === num
   const finished = activeStep > num
-  const { t } = useTranslation(['homepage'])
+  const { t } = useTranslation()
 
   return (
     <div
-      className={cx(
+      className={cn(
         'pt-6',
         {
           'pb-6': !finished && active,
@@ -33,13 +33,15 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
       <button
         type="button"
         onClick={onClick}
-        className={cx('base-focus-ring flex cursor-pointer items-center gap-x-6', {
+        aria-label={`${
+          active ? t('stepNumberTitle.openAccordion') : t('stepNumberTitle.closeAccordion')
+        } ${title}`}
+        className={cn('base-focus-ring flex cursor-pointer items-center gap-x-6', {
           'mb-6': active || finished,
         })}
-        aria-label={`${active ? t('openAccordian') : t('closeAccordian')} ${title}`}
       >
         <span
-          className={cx(
+          className={cn(
             'inline-flex h-14 w-14 items-center justify-center rounded-full border border-border-dark p-6 text-base',
             {
               'bg-button-dark text-white': active || finished,

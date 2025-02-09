@@ -29,7 +29,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
   const [isDateEditDisabled, setIsDateEditDisabled] = React.useState(false)
   const [isTimeEditDisabled, setIsTimeEditDisabled] = React.useState(false)
 
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
   const router = useRouter()
 
   yup.setLocale({
@@ -172,7 +172,6 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
         <FormProvider {...methods}>
           <FormContainer
             title={t('event_reservation_title')}
-            buttonText={t('common:continue')}
             onSubmit={handleSubmit}
             isSubmitted={isSubmitted}
             onReset={() => setIsSubmitted(SubmitStatus.NONE)}
@@ -260,7 +259,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
 
                   <div className="border border-border-light p-4 text-foreground-body">
                     <div className="flex">
-                      <div className="flex h-16 w-16 bg-promo-yellow text-center">
+                      <div className="flex size-16 bg-promo-yellow text-center">
                         <EventDetailsDateBox
                           dateFrom={dateFrom ?? '1-1-1970'}
                           dateTo={dateTo ?? '1-1-1970'}

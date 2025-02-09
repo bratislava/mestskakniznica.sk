@@ -14,12 +14,12 @@ interface SectionFaqProps {
 }
 
 const SectionFaq = ({ faqSection }: SectionFaqProps) => {
-  const { t } = useTranslation(['homepage', 'common'])
+  const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
   return (
     <SectionContainer hasBorder>
-      <div className="flex flex-col space-y-8 py-12 md:flex-row md:space-y-0 md:space-x-8">
+      <div className="flex flex-col space-y-8 py-12 md:flex-row md:space-x-8 md:space-y-0">
         <div className="w-full space-y-4 md:w-96">
           {faqSection?.ctas?.map((cta) => (
             <div key={cta?.title}>
@@ -33,7 +33,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
         </div>
         <div className="border-l border-border-dark" />
         <div className="w-full">
-          <h2 className="mb-8 text-h3">{faqSection?.title ?? t('faqTitle')}</h2>
+          <h2 className="mb-8 text-h3">{faqSection?.title ?? t('sectionFaq.faqTitle')}</h2>
           {faqSection?.faqs?.map((faq) => (
             <Accordion key={faq?.id} title={faq?.question} type="divider-big">
               <RichText content={faq?.answer || ''} />
@@ -42,7 +42,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
           <div className="pt-6 text-sm">
             {faqSection?.redirectTo && (
               <ShowMoreLink href={getPathForStrapiEntity(faqSection?.redirectTo.data) ?? '#'}>
-                {t('showMore', { ns: 'common' })}
+                {t('common.showMore')}
               </ShowMoreLink>
             )}
           </div>

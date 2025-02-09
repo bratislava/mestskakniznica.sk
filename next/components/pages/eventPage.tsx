@@ -15,7 +15,7 @@ export interface PageProps {
 }
 
 const EventPage = ({ event }: PageProps) => {
-  const { t } = useTranslation(['common', 'homepage'])
+  const { t } = useTranslation()
 
   const { upcomingEvents } = useGeneralContext()
   const { breadcrumbs, getPathForStrapiEntity } = useNavikronos()
@@ -33,14 +33,14 @@ const EventPage = ({ event }: PageProps) => {
       </SectionContainer>
       <SectionContainer hasBorder>
         <div className="inline-flex w-full pt-10">
-          <h2 className="text-h3">{t('otherEvents')}</h2>
+          <h2 className="text-h3">{t('eventPage.otherEvents')}</h2>
           <MLink
             href={getPathForStrapiEntity(general?.data?.attributes?.eventsPage?.data) ?? '#'}
-            title={t('eventsAll')}
+            title={t('eventPage.eventsAll')}
             className="ml-auto"
             hasIcon
           >
-            {t('eventsAll').toUpperCase()}
+            {t('eventPage.eventsAll').toUpperCase()}
           </MLink>
         </div>
         <div>

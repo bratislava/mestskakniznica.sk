@@ -14,7 +14,7 @@ type BlogPostProps = {
 }
 
 const BlogPostCard = ({ blogPost }: BlogPostProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
   const { coverMedia, publishedAt, title } = blogPost.attributes ?? {}
@@ -40,7 +40,7 @@ const BlogPostCard = ({ blogPost }: BlogPostProps) => {
         </h3>
       </div>
       <ShowMoreLink href={link ?? ''} tabIndex={-1} parentGroup>
-        {t('showMore')}
+        {t('common.showMore')}
       </ShowMoreLink>
     </CardWrapper>
   )

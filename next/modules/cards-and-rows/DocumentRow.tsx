@@ -24,7 +24,7 @@ const DocumentRow = ({
   addedAt,
   metadata,
 }: DocumentRowProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <CardWrapper className="group/showMore relative flex gap-5 border-b border-border-dark py-4 pr-2 text-foreground-body lg:gap-8">
@@ -43,7 +43,7 @@ const DocumentRow = ({
           {metadata && addedAt ? <span className="hidden lg:block">&bull;</span> : null}
           {addedAt && (
             <div>
-              {t('added')} <FormatDate value={addedAt} valueType="ISO" />
+              {t('common.added')} <FormatDate value={addedAt} valueType="ISO" />
             </div>
           )}
         </div>

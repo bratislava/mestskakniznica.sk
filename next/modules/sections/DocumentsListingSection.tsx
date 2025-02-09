@@ -20,7 +20,7 @@ import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 const DocumentsListingSection = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForEntity } = useNavikronos()
 
   // TODO add scroll to results
@@ -123,9 +123,6 @@ const DocumentsListingSection = () => {
               max={Math.ceil(data.estimatedTotalHits / filters.pageSize)}
               onChangeNumber={handlePageChange}
               value={filters.page}
-              previousButtonAriaLabel={t('previousPage')}
-              nextButtonAriaLabel={t('nextPage')}
-              currentInputAriaLabel={t('currentPage')}
             />
           </div>
         ) : null}

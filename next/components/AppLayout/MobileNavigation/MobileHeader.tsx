@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
@@ -10,8 +9,9 @@ import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import { MobileNavigation } from '@/modules/navigation/MobileNavigation'
 import { MenuItem } from '@/modules/navigation/NavMenu'
+import cn from '@/utils/cn'
 
-const TITLE_CLASSES =
+const titleClasses =
   'flex h-[30px] min-w-fit items-center border-r border-border-dark px-[7px] py-[2px]'
 
 type MobileHeaderProps = {
@@ -21,7 +21,7 @@ type MobileHeaderProps = {
 const MobileHeader = ({ menus }: MobileHeaderProps) => {
   const [isMenuOpen, setMenuOpen] = useState(false)
   const router = useRouter()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const [isSearchOpen, setSearchOpen] = useState(false)
 
   // close mobile header on route change
@@ -31,7 +31,7 @@ const MobileHeader = ({ menus }: MobileHeaderProps) => {
   }, [router])
 
   const pageTitle = (word: string, index: number) => (
-    <span key={index} className={cx(TITLE_CLASSES)}>
+    <span key={index} className={cn(titleClasses)}>
       {word}
     </span>
   )
@@ -75,7 +75,7 @@ const MobileHeader = ({ menus }: MobileHeaderProps) => {
         </div>
       </div>
 
-      <div className="m-auto border-b border-border-dark py-2 px-[5px]">
+      <div className="m-auto border-b border-border-dark px-[5px] py-2">
         <HeaderSearchBox isOpen={isSearchOpen} setOpen={setSearchOpen} />
       </div>
     </>

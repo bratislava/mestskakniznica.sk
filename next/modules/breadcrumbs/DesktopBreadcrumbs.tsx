@@ -6,7 +6,7 @@ import BreadcrumbItem from '@/modules/breadcrumbs/BreadcrumbItem'
 import { BreadcrumbsProps } from '@/modules/breadcrumbs/Breadcrumbs'
 
 const DesktopBreadcrumbs = ({ crumbs, ...rest }: BreadcrumbsProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { navProps } = useBreadcrumbs(rest)
 
   return (
@@ -14,7 +14,7 @@ const DesktopBreadcrumbs = ({ crumbs, ...rest }: BreadcrumbsProps) => {
       <ol className="-mx-2 flex w-fit items-center overflow-hidden py-4 px-2">
         <BreadcrumbItem url="/">
           <HomeIcon />
-          <span className="sr-only">{t('homepage')}</span>
+          <span className="sr-only">{t('common.homepage')}</span>
         </BreadcrumbItem>
 
         {crumbs?.map((crumb, index) => {

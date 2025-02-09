@@ -11,19 +11,19 @@ interface BookTagsProps {
 }
 
 const BooksTags = ({ bookTags }: BookTagsProps) => {
-  const { t } = useTranslation('homepage')
+  const { t } = useTranslation()
   return (
     <SectionContainer hasBorder>
-      <h2 className="object-none pt-10 text-center text-h3">{t('lookingForBook')}</h2>
+      <h2 className="object-none pt-10 text-center text-h3">{t('booksTags.lookingForBook')}</h2>
       <div className="object-center">
         <div className="flex grow-0 flex-col items-center py-8 text-center">
-          <div className="my-2 mx-0 flex grow-0 flex-row flex-wrap justify-center gap-4">
+          <div className="mx-0 my-2 flex grow-0 flex-row flex-wrap justify-center gap-4">
             {bookTags?.map((tag) =>
               tag.attributes?.slug ? (
                 <MLink
                   href={`https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchTitle=${tag.attributes.slug}`}
                   target="_blank"
-                  className="h-9 whitespace-nowrap rounded-full border border-border-light py-2 px-4 text-sm leading-tag hover:border-border-dark"
+                  className="h-9 whitespace-nowrap rounded-full border border-border-light px-4 py-2 text-sm leading-tag hover:border-border-dark"
                   rel="noreferrer"
                   key={tag.attributes.slug}
                 >
@@ -39,7 +39,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
             href="https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchTitle"
             rel="noreferrer"
           >
-            {t('lookingForBookSearch')}
+            {t('booksTags.lookingForBookSearch')}
           </ShowMoreLink>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { Controller, useFieldArray, useFormContext, useFormState } from 'react-hook-form'
@@ -6,6 +5,7 @@ import { Controller, useFieldArray, useFormContext, useFormState } from 'react-h
 import { CloseCircleIcon, PlusIcon } from '@/assets/icons'
 import { Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 interface Props {
   className?: string
@@ -15,7 +15,7 @@ interface Props {
 const BookList = ({ className }: Props) => {
   const methods = useFormContext()
   const { errors } = useFormState()
-  const { t } = useTranslation(['forms', 'common'])
+  const { t } = useTranslation('forms')
 
   const { fields, append, remove } = useFieldArray({
     control: methods.control,
@@ -36,7 +36,7 @@ const BookList = ({ className }: Props) => {
         {fields.map((field, index) => (
           <div
             key={field.id}
-            className={cx('relative w-full border p-6', {
+            className={cn('relative w-full border p-6', {
               // @ts-ignore
               'border-border-light': !errors?.books?.[index],
               // @ts-ignore
@@ -70,7 +70,7 @@ const BookList = ({ className }: Props) => {
                   />
                 )}
               />
-              <div className="text-sm text-foreground-body">{t('common:or')}</div>
+              <div className="text-sm text-foreground-body">{t('or')}</div>
               <Controller
                 control={methods.control}
                 name={`books[${index}].author` as const}
@@ -107,7 +107,7 @@ const BookList = ({ className }: Props) => {
 
             {/* Error Message */}
             <p
-              className={cx('mt-2 text-sm text-error', {
+              className={cn('mt-2 text-sm text-error', {
                 // @ts-ignore
                 hidden: !(errors.books && errors.books[index]) ?? false,
               })}
@@ -121,7 +121,7 @@ const BookList = ({ className }: Props) => {
         <Button
           startIcon={<PlusIcon />}
           variant="plain-primary"
-          className="mt-[33px] mb-[9px]"
+          className="mb-[9px] mt-[33px]"
           onPress={handleAddBook}
         >
           {t('add_book')}

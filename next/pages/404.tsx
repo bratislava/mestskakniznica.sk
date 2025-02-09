@@ -27,16 +27,16 @@ const Custom404 = ({ general }: Error404PageProps) => {
       <DefaultPageLayout>
         <ErrorPage code={404}>
           <header className="mb-6 text-h1">
-            <h1>{t('pageNotFound')}</h1>
+            <h1>{t('404.pageNotFound')}</h1>
           </header>
-          <p className="text-base">{t('pageNotFoundSorry')}</p>
+          <p className="text-base">{t('404.pageNotFoundSorry')}</p>
           <p className="pt-10 text-base underline">
             {`https://www.mestskakniznica.sk${
               i18n.language === 'sk' ? '' : `/${i18n.language}`
             }${asPath}`}
           </p>
           <Button variant="primary" href="/" className="mt-8">
-            {t('homepage')}
+            {t('common.homepage')}
           </Button>
         </ErrorPage>
       </DefaultPageLayout>
@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
-    serverSideTranslations(locale, ['common', 'forms', 'newsletter']),
+    serverSideTranslations(locale),
     navikronosGetStaticProps({
       navikronosConfig,
       ctx,

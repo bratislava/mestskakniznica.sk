@@ -14,7 +14,7 @@ interface LibraryNewsProps {
 }
 
 const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
-  const { t } = useTranslation('homepage')
+  const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
   return (
@@ -32,10 +32,10 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
           shiftIndex={4}
           hideScrollbar={false}
         />
-        <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
+        <div className="right-0 top-12 flex justify-center pt-1 md:absolute md:w-fit">
           {newsSection?.redirectTo && (
             <ShowMoreLink href={getPathForStrapiEntity(newsSection?.redirectTo?.data) ?? '#'}>
-              {t('libraryNewsAll')}
+              {t('sectionLibraryNews.libraryNewsAll')}
             </ShowMoreLink>
           )}
         </div>

@@ -1,10 +1,10 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { useId } from 'react'
 
 import PageCard from '@/modules/cards-and-rows/PageCard'
 import PageRow from '@/modules/cards-and-rows/PageRow'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
+import cn from '@/utils/cn'
 
 type ListingChild = {
   title: string
@@ -25,7 +25,7 @@ export const Listing = ({ className, title, url, listingChildren, hasDivider }: 
   const id = useId()
 
   return (
-    <div className={cx(className)}>
+    <div className={cn(className)}>
       <div className="group/showMore relative flex w-full items-center justify-between">
         {title && (
           <h2 id={id} className="text-h3 normal-case">
@@ -34,7 +34,7 @@ export const Listing = ({ className, title, url, listingChildren, hasDivider }: 
         )}
         {url && (
           <ShowMoreLink href={url} parentGroup aria-labelledby={id}>
-            {t('more')}
+            {t('common.more')}
           </ShowMoreLink>
         )}
       </div>
@@ -49,7 +49,7 @@ export const Listing = ({ className, title, url, listingChildren, hasDivider }: 
                 key={page.title}
                 title={page.title}
                 href={page.path ?? '#'}
-                showMoreText={t('more')}
+                showMoreText={t('common.more')}
               />
             </div>
 
@@ -57,9 +57,7 @@ export const Listing = ({ className, title, url, listingChildren, hasDivider }: 
           </div>
         ))}
       </div>
-      {hasDivider && (
-        <div className="mt-16 hidden w-full border-b-[1px] border-border-dark md:flex" />
-      )}
+      {hasDivider && <div className="mt-16 hidden w-full border-b border-border-dark md:flex" />}
     </div>
   )
 }

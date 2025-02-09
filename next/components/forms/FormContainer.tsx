@@ -1,10 +1,10 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode, useEffect, useState } from 'react'
 import { useLockedBody, useWindowSize } from 'usehooks-ts'
 
 import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
+import cn from '@/utils/cn'
 
 import FormSubmittedComponent from './FormSubmittedComponent'
 
@@ -23,7 +23,7 @@ export enum SubmitStatus {
 
 interface FormContainerProps {
   children: ReactNode
-  buttonText: string
+  buttonText?: string
   title: string
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
   isSubmitted: SubmitStatus
@@ -49,6 +49,25 @@ const FormContainer = ({
   const [isFormOpen, setFormOpen] = useState(false)
   const { t } = useTranslation('forms')
 
+  // TODO revisit translations
+  //  keeping them here to not be deleted by i18next-parser
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const unidentifiedTranslations = [
+    t('instrument_type'), // also musical_instrument_type exists
+
+    // these are used in getMailTranslationKey
+    t('mail_accept_fees'),
+    t('mail_accept_terms'),
+    t('mail_blind_dep'),
+    t('mail_date_from'),
+    t('mail_date_to'),
+    t('mail_temp_address'),
+    t('mail_temp_city'),
+    t('mail_temp_postal_code'),
+    t('mail_time_from'),
+    t('mail_time_to'),
+  ]
+
   const { width } = useWindowSize()
 
   const [, setLockedBodyScroll] = useLockedBody(false)
@@ -69,7 +88,7 @@ const FormContainer = ({
   }
 
   return (
-    <div className={cx('flex flex-col border border-border-dark p-4', wrapperClass)}>
+    <div className={cn('flex flex-col border border-border-dark p-4', wrapperClass)}>
       {isSubmitted === SubmitStatus.NONE ? (
         <>
           <div className="mb-4 text-h3 md:px-4 md:pt-4" id="form-title">
@@ -78,10 +97,10 @@ const FormContainer = ({
           <Button
             onPress={() => setFormOpen(true)}
             variant="primary"
-            className={cx({ hidden: isFormOpen })}
             aria-labelledby="form-title"
+            className={cn({ hidden: isFormOpen })}
           >
-            {buttonText}
+            {buttonText || t('continue')}
           </Button>
           {isFormOpen && (
             // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions

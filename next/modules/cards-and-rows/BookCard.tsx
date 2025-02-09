@@ -1,9 +1,9 @@
-import cx from 'classnames'
 import Image from 'next/image'
 import React from 'react'
 
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
+import cn from '@/utils/cn'
 
 export interface Book {
   title?: string
@@ -24,7 +24,7 @@ const BookCard = ({ book }: BookProps) => {
   return (
     <CardWrapper className="relative flex w-[126px] flex-col gap-2 md:w-[180px] md:gap-4">
       <div
-        className={cx('relative h-[162px] w-full overflow-hidden md:h-[232px]', {
+        className={cn('relative h-[162px] w-full overflow-hidden md:h-[232px]', {
           'select-none border border-border-dark pt-3 pl-4 text-[32px] uppercase': !hasCover,
         })}
       >

@@ -15,7 +15,7 @@ export interface PageProps {
 }
 
 const BranchDetails = ({ branch }: PageProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const AnchorLink = (anchor: string, text: string) => (
     <MLink href={anchor} className="cursor-pointer whitespace-nowrap uppercase hover:underline">
@@ -43,10 +43,14 @@ const BranchDetails = ({ branch }: PageProps) => {
 
                 <div className="-mx-4 -mb-2 overflow-x-auto pb-2">
                   <div className="flex gap-x-6 px-4 pt-9 text-sm uppercase">
-                    {AnchorLink('#description', t('description'))}
-                    {servicePages?.data.length ? AnchorLink('#services', t('services')) : null}
-                    {subBranches?.data.length ? AnchorLink('#sections', t('sections')) : null}
-                    {AnchorLink('#where', t('localityWhereToFind'))}
+                    {AnchorLink('#description', t('branchDetails.description'))}
+                    {servicePages?.data.length
+                      ? AnchorLink('#services', t('branchDetails.services'))
+                      : null}
+                    {subBranches?.data.length
+                      ? AnchorLink('#sections', t('branchDetails.sections'))
+                      : null}
+                    {AnchorLink('#where', t('branchDetails.localityWhereToFind'))}
                   </div>
                 </div>
               </div>
@@ -54,7 +58,7 @@ const BranchDetails = ({ branch }: PageProps) => {
 
             {body?.trim() ? (
               <div id="description">
-                <h2 className="text-h3">{t('description')}</h2>
+                <h2 className="text-h3">{t('branchDetails.description')}</h2>
                 <div className="flex flex-col gap-4 pt-5 text-[16px] text-foreground-body">
                   <RichText content={body} />
                   {subBranches?.data.map((subBranch) => {
@@ -77,7 +81,7 @@ const BranchDetails = ({ branch }: PageProps) => {
           {/* TODO: Extract events */}
           {/* {(events?.length || 0) > 0 && ( */}
           {/*  <div className="hidden border-b border-border-dark py-12" id="events"> */}
-          {/*    <div className="text-h3">{t('events')}</div> */}
+          {/*    <div className="text-h3">{t('branchDetails.events')}</div> */}
           {/*    <div className="grid grid-cols-1 md:grid-cols-2"> */}
           {/*      {events?.map((event) => { */}
           {/*        const eventBranch = getBranchInfo(event.attributes?.branch?.data) */}
@@ -122,7 +126,7 @@ const BranchDetails = ({ branch }: PageProps) => {
           {/*    <div className="pt-6"> */}
           {/*      <Link href={eventsListingUrl || ''} passHref> */}
           {/*        <a href={eventsListingUrl} className="cursor-pointer text-base uppercase"> */}
-          {/*          {t('moreEvents')} {'>'} */}
+          {/*          {t('branchDetails.moreEvents')} {'>'} */}
           {/*        </a> */}
           {/*      </Link> */}
           {/*    </div> */}

@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge'
+import cn from '@/utils/cn'
 
 type FileExtBadgeProps = {
   fileExt: string | JSX.Element
@@ -9,7 +9,7 @@ const FileExtBadge = ({ fileExt, className }: FileExtBadgeProps) => {
   return (
     <div
       aria-hidden
-      className={twMerge(
+      className={cn(
         'flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-dark text-center text-xs leading-[1.2] text-foreground-heading',
         className
       )}

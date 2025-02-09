@@ -1,6 +1,7 @@
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
-import cx from 'classnames'
 import React from 'react'
+
+import cn from '@/utils/cn'
 
 export interface IRadioOption {
   key: string
@@ -40,10 +41,7 @@ export const RadioGroup = <T extends IRadioOption>({
     <div className={wrapperClassName}>
       {/* Label */}
       {labelContent && (
-        <label
-          className={cx('mb-1 block text-sm text-foreground-heading opacity-80 ')}
-          htmlFor={id}
-        >
+        <label className="mb-1 block text-sm text-foreground-heading opacity-80" htmlFor={id}>
           {labelContent}
           {required && <span className="pl-1 text-error">*</span>}
         </label>
@@ -61,30 +59,26 @@ export const RadioGroup = <T extends IRadioOption>({
           {options.map((opt) => (
             <div
               key={opt.key}
-              className={cx(
+              className={cn(
                 'base-input m-0 flex w-full cursor-pointer items-center gap-3.5 p-0',
                 radioClassName,
-                {
-                  'base-input--with-error': hasError,
-                }
+                { 'base-input--with-error': hasError },
               )}
             >
               <label
                 htmlFor={opt.key}
-                className={cx(
+                className={cn(
                   'flex flex-1 cursor-pointer items-center justify-between gap-3.5 p-3 text-foreground-body',
-                  {
-                    'base-input--disabled': opt.disabled,
-                  }
+                  { 'base-input--disabled': opt.disabled },
                 )}
               >
                 <div>
                   <RadioGroupPrimitive.Item
                     value={opt.key}
                     id={opt.key}
-                    className="base-focus-ring box-border flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark"
+                    className="base-focus-ring box-border flex size-5 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark"
                   >
-                    <RadioGroupPrimitive.Indicator className="h-3 w-3 rounded-full bg-dark" />
+                    <RadioGroupPrimitive.Indicator className="size-3 rounded-full bg-dark" />
                   </RadioGroupPrimitive.Item>
                 </div>
 
@@ -100,7 +94,7 @@ export const RadioGroup = <T extends IRadioOption>({
         {hasError && errorMessage && (
           <p
             id={`${id ?? ''}_err`}
-            className={cx('mt-2 text-sm text-error', { hidden: !hasError })}
+            className={cn('mt-2 text-sm text-error', { hidden: !hasError })}
             aria-labelledby={id}
           >
             {errorMessage}

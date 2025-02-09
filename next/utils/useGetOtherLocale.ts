@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useNavikronos } from '@/utils/navikronos'
 
 export const useGetOtherLocale = () => {
-  const { i18n } = useTranslation('common')
+  const { i18n } = useTranslation()
   const { localizations, getPathForEntity } = useNavikronos()
 
   if (localizations?.[0]) {

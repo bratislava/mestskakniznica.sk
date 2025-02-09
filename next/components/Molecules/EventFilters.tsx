@@ -21,7 +21,7 @@ type EventFiltersProps = {
 }
 
 const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
 
@@ -44,7 +44,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
-    return [{ key: '', title: t('eventType') }, ...parsedTypes]
+    return [{ key: '', title: t('eventFilters.eventType') }, ...parsedTypes]
   }, [eventPropertiesData?.eventTags?.data, t])
 
   const categories = useMemo(() => {
@@ -53,7 +53,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
-    return [{ key: '', title: t('eventCategory') }, ...parsedCategories]
+    return [{ key: '', title: t('eventFilters.eventCategory') }, ...parsedCategories]
   }, [eventPropertiesData?.eventCategories?.data, t])
 
   const localities = useMemo(() => {
@@ -62,7 +62,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
-    return [{ key: '', title: t('eventLocality') }, ...parsedLocalities]
+    return [{ key: '', title: t('eventFilters.eventLocality') }, ...parsedLocalities]
   }, [eventPropertiesData?.branches?.data, t])
 
   const handleDateFromChange = (dateFrom: Date) => {
@@ -92,46 +92,46 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
   return (
     <div className="flex grow flex-col">
       <div className="flex grow flex-col items-center gap-x-5 lg:mt-3 lg:flex-row">
-        <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
+        <div className="h-auto w-full border-b border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
           <MDatePicker
             selected={filters.dateFrom}
             onChange={handleDateFromChange}
-            chooseDayAriaLabelPrefix={t('dateAriaLabel')}
+            chooseDayAriaLabelPrefix={t('eventFilters.dateAriaLabel')}
             className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
-            placeholderText={t('eventsDateFrom')}
+            placeholderText={t('eventFilters.eventsDateFrom')}
             dateFormat="dd. MM. yyyy"
             calendarClassName="w-screen lg:w-auto"
             shouldCloseOnSelect={false}
           />
         </div>
-        <div className="h-auto w-full border-b-[1px] border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
+        <div className="h-auto w-full border-b border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
           <MDatePicker
             selected={filters.dateTo}
             onChange={handleDateToChange}
-            chooseDayAriaLabelPrefix={t('dateAriaLabel')}
+            chooseDayAriaLabelPrefix={t('eventFilters.dateAriaLabel')}
             className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
-            placeholderText={t('eventsDateTo')}
+            placeholderText={t('eventFilters.eventsDateTo')}
             dateFormat="dd. MM. yyyy"
             calendarClassName="w-screen lg:w-auto"
             shouldCloseOnSelect={false}
           />
         </div>
         <Select
-          className="w-full border-b-[1px] border-b-[#000] py-3 lg:border-0 lg:border-border-light"
+          className="w-full border-b border-b-[#000] py-3 lg:border-0 lg:border-border-light"
           selectClassName="border-0 lg:border"
           options={tags}
           value={filters.eventTypeId ?? ''}
           onChange={(ev) => handleEventTypeIdChange(ev.key)}
         />
         <Select
-          className="w-full border-b-[1px] border-b-[#000] py-3 lg:border-0 lg:border-border-light"
+          className="w-full border-b border-b-[#000] py-3 lg:border-0 lg:border-border-light"
           selectClassName="border-0 lg:border"
           options={categories}
           value={filters.eventCategoryId ?? ''}
           onChange={(ev) => handleEventCategoryIdChange(ev.key)}
         />
         <Select
-          className="w-full border-b-[1px] border-b-[#000] py-3 lg:border-0 lg:border-border-light"
+          className="w-full border-b border-b-[#000] py-3 lg:border-0 lg:border-border-light"
           selectClassName="border-0 lg:border"
           options={localities}
           value={filters.eventBranchId ?? ''}
@@ -140,8 +140,8 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       </div>
 
       <div className="shrink-0 p-3 text-center lg:mt-3 lg:p-0 lg:text-right">
-        <Button variant="secondary" className="w-1/2 lg:w-max" onPress={resetFilters}>
-          {t('reset_button')}
+        <Button variant="secondary" className="w-1/2 uppercase lg:w-max" onPress={resetFilters}>
+          {t('eventFilters.resetFilters')}
         </Button>
       </div>
     </div>
@@ -149,13 +149,13 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
 }
 
 const EventFilters = ({ filters, onFiltersChange }: EventFiltersProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { isSelected, toggle } = useToggleState({ defaultSelected: false })
 
   return (
-    <div className="mt-4 mb-6 lg:mb-8 lg:mt-6 lg:block lg:border lg:border-border-dark lg:p-6">
+    <div className="mb-6 mt-4 lg:mb-8 lg:mt-6 lg:block lg:border lg:border-border-dark lg:p-6">
       {/* Mobile */}
       <div className="flex w-full items-center justify-between border border-border-dark p-4 lg:hidden">
         {/* TODO accessibility 'more content' */}

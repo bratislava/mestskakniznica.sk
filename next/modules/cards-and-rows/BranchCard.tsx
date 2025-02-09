@@ -15,7 +15,7 @@ type BranchCardProps = {
 }
 
 const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getPathForEntity } = useNavikronos()
   const href = (pageId ? getPathForEntity({ type: 'page', id: pageId }) : null) ?? '#'
 
@@ -36,7 +36,7 @@ const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
         <div className="pt-3 text-base text-foreground-body">{address}</div>
 
         <ShowMoreLink href={href} tabIndex={-1} className="mt-6" parentGroup>
-          {t('showMore')}
+          {t('common.showMore')}
         </ShowMoreLink>
       </div>
     </CardWrapper>

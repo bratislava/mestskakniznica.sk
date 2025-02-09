@@ -1,10 +1,10 @@
-import cx from 'classnames'
 import React from 'react'
 
 import { ArrowRightIcon } from '@/assets/icons'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
+import cn from '@/utils/cn'
 
 type PageCardProps = {
   className?: string
@@ -16,7 +16,7 @@ type PageCardProps = {
 const PageCard = ({ className, title, href, showMoreText }: PageCardProps) => {
   return (
     <CardWrapper className="group/showMore relative border border-border-dark">
-      <div className={cx('relative flex flex-col space-y-4 p-4', className)}>
+      <div className={cn('relative flex flex-col space-y-4 p-4', className)}>
         <div className="h-full overflow-hidden text-[20px]">
           <MLink href={href} variant="basic" stretched>
             {title}
