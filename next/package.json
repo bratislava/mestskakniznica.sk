@@ -18,7 +18,8 @@
     "update-tailwind": "yarn add tailwind-merge@latest clsx@latest --exact && yarn add tailwindcss@latest autoprefixer@latest postcss@latest prettier-plugin-tailwindcss@latest eslint-plugin-tailwindcss@latest --dev --exact",
     "update-i18next": "yarn add next-i18next@latest react-i18next@latest i18next@latest i18next-parser@latest -E && yarn add eslint-plugin-i18next@latest --dev --exact",
     "update-prettier": "yarn add prettier@latest eslint-config-prettier@latest --dev --exact",
-    "update-graphql": "yarn add @graphql-codegen/cli@latest @graphql-codegen/typescript@latest @graphql-codegen/typescript-graphql-request@latest @graphql-codegen/typescript-operations@latest --dev --exact && yarn add graphql@latest graphql-request@latest graphql-tag@latest --exact"
+    "update-graphql": "yarn add @graphql-codegen/cli@latest @graphql-codegen/typescript@latest @graphql-codegen/typescript-graphql-request@latest @graphql-codegen/typescript-operations@latest --dev --exact && yarn add graphql@latest graphql-request@latest graphql-tag@latest --exact",
+    "update-mapbox": "yarn add react-map-gl@latest mapbox-gl@latest --exact"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.7",
@@ -45,7 +46,7 @@
     "lodash": "^4.17.21",
     "mailgun-js": "^0.22.0",
     "many-keys-map": "^2.0.1",
-    "mapbox-gl": "^3.6.0",
+    "mapbox-gl": "3.9.4",
     "meilisearch": "^0.30.0",
     "next": "14.2.23",
     "next-i18next": "15.4.2",
@@ -60,7 +61,7 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.42.1",
     "react-i18next": "15.4.0",
-    "react-map-gl": "^7.0.15",
+    "react-map-gl": "7.1.9",
     "react-markdown": "9.0.3",
     "react-popper": "^2.3.0",
     "react-resize-detector": "^8.0.4",
@@ -88,6 +89,7 @@
     "@types/react": "^18.3.18",
     "@types/react-datepicker": "^4.8.0",
     "@types/react-dom": "^18.3.5",
+    "@types/react-map-gl": "6.1.7",
     "@types/react-modal": "^3.13.1",
     "@types/url-file-size": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
