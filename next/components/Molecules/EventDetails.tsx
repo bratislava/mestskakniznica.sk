@@ -192,30 +192,6 @@ const EventDetails = ({ event }: PageProps) => {
           )} */}
           <div className="pt-10">
             <div className="block h-auto border-y border-border-dark py-3 lg:flex lg:h-17.5 lg:border lg:p-0">
-              {/* <div className="hidden lg:block pl-6 w-[169px] text-base m-auto"> */}
-              {/*  {t('eventDetails.eventShareAndSave')} */}
-              {/* </div> */}
-              {/* TODO add AddToCalendar functionality */}
-              {/* {!isEventInThePast && ( */}
-              {/*  <div className="my-3 lg:m-auto"> */}
-              {/*    <AddToCalendar */}
-              {/*      event={{ */}
-              {/*        name: event?.attributes?.title || '', */}
-              {/*        details: event?.attributes?.description?.replace(/\n/g, ' ') || null, */}
-              {/*        location: eventBranch?.title || null, */}
-              {/*        startsAt: new Date(event?.attributes?.dateFrom).toISOString(), */}
-              {/*        endsAt: new Date(event?.attributes?.dateTo).toISOString(), */}
-              {/*      }} */}
-              {/*      filename="library-event" */}
-              {/*    > */}
-              {/*      <div className="flex text-sm uppercase"> */}
-              {/*        <CalendarIcon className="h-5 w-5" /> */}
-              {/*        &nbsp; {t('eventDetails.eventAddToCalendar')} */}
-              {/*      </div> */}
-              {/*    </AddToCalendar> */}
-              {/*  </div> */}
-              {/* )} */}
-
               <Clickable
                 actionLink={copyToClipBoard}
                 classDiv="my-3 lg:m-auto"
@@ -248,26 +224,6 @@ const EventDetails = ({ event }: PageProps) => {
                       />
                     }
                   />
-                  {/* TODO AddToCalndar functionality back */}
-                  {/* {!isEventInThePast && ( */}
-                  {/*  <div className="pl-9 pt-3"> */}
-                  {/*    <AddToCalendar */}
-                  {/*      event={{ */}
-                  {/*        name: event?.attributes?.title || '', */}
-                  {/*        details: event?.attributes?.description?.replace(/\n/g, ' ') || null, */}
-                  {/*        location: eventBranch?.title || null, */}
-                  {/*        startsAt: new Date(event?.attributes?.dateFrom).toISOString(), */}
-                  {/*        endsAt: new Date(event?.attributes?.dateTo).toISOString(), */}
-                  {/*      }} */}
-                  {/*      filename="library-event" */}
-                  {/*    > */}
-                  {/*      <div className="flex text-sm uppercase"> */}
-                  {/*        <CalendarIcon className="h5 w-5" /> */}
-                  {/*        &nbsp; {t('eventDetails.eventAddToCalendar')} */}
-                  {/*      </div> */}
-                  {/*    </AddToCalendar> */}
-                  {/*  </div> */}
-                  {/* )} */}
                 </div>
                 <div className="border-b border-border-light py-5">
                   <DetailsRow
