@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import QRCode from 'qrcode.react'
+import { QRCodeSVG } from 'qrcode.react'
 import React from 'react'
 import { DialogTrigger } from 'react-aria-components'
 
@@ -183,15 +183,11 @@ const EventDetails = ({ event }: PageProps) => {
                 </Button>
                 <Modal>
                   <Dialog aria-label={t('eventDetails.eventQr')}>
-                    <QRCode
+                    <QRCodeSVG
                       value={event?.attributes?.title || ''}
                       className="m-auto"
-                      renderAs="svg"
                       size={240}
-                      bgColor="white"
-                      fgColor="black"
                       includeMargin
-                      level="L"
                     />
                   </Dialog>
                 </Modal>
