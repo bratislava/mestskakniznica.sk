@@ -5297,6 +5297,8 @@ export type BlogPostEntityFragment = {
           url: string
           mime: string
           alternativeText?: string | null
+          width?: number | null
+          height?: number | null
         } | null
       } | null
     } | null
@@ -5559,6 +5561,8 @@ export type BlogPostBySlugQuery = {
               url: string
               mime: string
               alternativeText?: string | null
+              width?: number | null
+              height?: number | null
             } | null
           } | null
         } | null
@@ -5809,6 +5813,8 @@ export type BlogPostsQuery = {
               url: string
               mime: string
               alternativeText?: string | null
+              width?: number | null
+              height?: number | null
             } | null
           } | null
         } | null
@@ -11384,6 +11390,8 @@ export const BlogPostEntityFragmentDoc = gql`
             url
             mime
             alternativeText
+            width
+            height
           }
         }
       }
@@ -12595,7 +12603,7 @@ export const SortedPartnersDocument = gql`
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
-  operationType?: string
+  operationType?: string,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) => action()
@@ -12604,7 +12612,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     BasicDocumentBySlug(
       variables: BasicDocumentBySlugQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<BasicDocumentBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12613,12 +12621,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'BasicDocumentBySlug',
-        'query'
+        'query',
       )
     },
     FileCategories(
       variables?: FileCategoriesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<FileCategoriesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12627,12 +12635,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'FileCategories',
-        'query'
+        'query',
       )
     },
     BlogPostStaticPaths(
       variables: BlogPostStaticPathsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<BlogPostStaticPathsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12641,12 +12649,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'BlogPostStaticPaths',
-        'query'
+        'query',
       )
     },
     BlogPostBySlug(
       variables: BlogPostBySlugQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<BlogPostBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12655,12 +12663,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'BlogPostBySlug',
-        'query'
+        'query',
       )
     },
     BlogPosts(
       variables: BlogPostsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<BlogPostsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12669,12 +12677,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'BlogPosts',
-        'query'
+        'query',
       )
     },
     BranchStaticPaths(
       variables: BranchStaticPathsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<BranchStaticPathsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12683,12 +12691,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'BranchStaticPaths',
-        'query'
+        'query',
       )
     },
     BranchBySlug(
       variables: BranchBySlugQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<BranchBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12697,12 +12705,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'BranchBySlug',
-        'query'
+        'query',
       )
     },
     DisclosureBySlug(
       variables: DisclosureBySlugQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<DisclosureBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12711,12 +12719,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'DisclosureBySlug',
-        'query'
+        'query',
       )
     },
     DocumentCategories(
       variables?: DocumentCategoriesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<DocumentCategoriesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12725,12 +12733,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'DocumentCategories',
-        'query'
+        'query',
       )
     },
     DocumentBySlug(
       variables: DocumentBySlugQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<DocumentBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12739,12 +12747,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'DocumentBySlug',
-        'query'
+        'query',
       )
     },
     EventProperties(
       variables: EventPropertiesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<EventPropertiesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12753,12 +12761,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'EventProperties',
-        'query'
+        'query',
       )
     },
     EventBySlug(
       variables: EventBySlugQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<EventBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12767,12 +12775,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'EventBySlug',
-        'query'
+        'query',
       )
     },
     EventStaticPaths(
       variables: EventStaticPathsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<EventStaticPathsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12781,12 +12789,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'EventStaticPaths',
-        'query'
+        'query',
       )
     },
     General(
       variables: GeneralQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<GeneralQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12795,12 +12803,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'General',
-        'query'
+        'query',
       )
     },
     HomePage(
       variables: HomePageQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<HomePageQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12809,12 +12817,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'HomePage',
-        'query'
+        'query',
       )
     },
     LatestNotices(
       variables: LatestNoticesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<LatestNoticesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12823,12 +12831,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'LatestNotices',
-        'query'
+        'query',
       )
     },
     NoticesStaticPaths(
       variables: NoticesStaticPathsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<NoticesStaticPathsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12837,12 +12845,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'NoticesStaticPaths',
-        'query'
+        'query',
       )
     },
     Notices(
       variables: NoticesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<NoticesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12851,12 +12859,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'Notices',
-        'query'
+        'query',
       )
     },
     NoticeBySlug(
       variables: NoticeBySlugQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<NoticeBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12865,27 +12873,27 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'NoticeBySlug',
-        'query'
+        'query',
       )
     },
     OpeningHoursChangeNotices(
       variables: OpeningHoursChangeNoticesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<OpeningHoursChangeNoticesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<OpeningHoursChangeNoticesQuery>(
             OpeningHoursChangeNoticesDocument,
             variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
+            { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'OpeningHoursChangeNotices',
-        'query'
+        'query',
       )
     },
     PagesStaticPaths(
       variables?: PagesStaticPathsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<PagesStaticPathsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12894,12 +12902,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'PagesStaticPaths',
-        'query'
+        'query',
       )
     },
     PageById(
       variables: PageByIdQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<PageByIdQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12908,12 +12916,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'PageById',
-        'query'
+        'query',
       )
     },
     SortedPartners(
       variables: SortedPartnersQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<SortedPartnersQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -12922,7 +12930,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'SortedPartners',
-        'query'
+        'query',
       )
     },
   }

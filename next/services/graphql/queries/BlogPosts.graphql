@@ -35,8 +35,6 @@ fragment BlogPostSections on BlogPostSectionsDynamicZone {
   }
 }
 
-
-
 fragment BlogPostEntity on BlogPostEntity {
   __typename
   id
@@ -51,6 +49,8 @@ fragment BlogPostEntity on BlogPostEntity {
           url
           mime
           alternativeText
+          width
+          height
         }
       }
     }
@@ -90,7 +90,6 @@ query BlogPostBySlug($slug: String!, $locale: I18NLocaleCode!) {
     }
   }
 }
-
 
 query BlogPosts(
   $locale: I18NLocaleCode!
