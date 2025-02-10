@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   Dispatch,
   PropsWithChildren,
@@ -8,7 +8,7 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { fetchNavigation, putNavigation } from "./api";
 import {
   NavikronosEmptyRoute,
@@ -34,7 +34,8 @@ const NavigationDataDispatchContext =
 export const NavigationDataProvider = ({ children }: PropsWithChildren) => {
   const [navigationData, dispatch] = useReducer(navigationDataReducer, null);
 
-  const { data, isLoading, isError } = useQuery("navigation", {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["navigation"],
     queryFn: fetchNavigation,
     staleTime: Infinity,
   });
@@ -113,7 +114,7 @@ type NavigationDataAction =
 
 function navigationDataReducer(
   navigationData: NavikronosLocaleNavigations | null,
-  action: NavigationDataAction
+  action: NavigationDataAction,
 ) {
   if (action.type === "loaded") {
     return action.data;
@@ -223,7 +224,7 @@ function navigationDataReducer(
           throw Error("Unknown action: " + (action as { type: string }).type);
         }
       }
-    }
+    },
   ).children;
 
   return { ...navigationData, [action.locale]: editedLocale };
@@ -231,7 +232,7 @@ function navigationDataReducer(
 
 export const useHasNavigationData = () => {
   const { isError, isLoading, navigationData } = useContext(
-    NavigationDataContext
+    NavigationDataContext,
   )!;
   const dispatch = useContext(NavigationDataDispatchContext);
 
@@ -243,32 +244,31 @@ export const useHasNavigationData = () => {
  */
 export const useNavigationDataDefined = () => {
   const { navigationData, locale, setLocale } = useContext(
-    NavigationDataContext
+    NavigationDataContext,
   )!;
   const toggleNotification = useNotification();
   const dispatch = useContext(NavigationDataDispatchContext);
-  const { mutate, isLoading: isSaving } = useMutation(
-    (newNavigationData: NavikronosLocaleNavigations) =>
+  const { mutate, isPending: isSaving } = useMutation({
+    mutationFn: (newNavigationData: NavikronosLocaleNavigations) =>
       putNavigation({ navigation: newNavigationData }),
-    {
-      onSuccess: () => {
-        toggleNotification({
-          type: "success",
-          message: "Navigation saved successfully.",
-        });
-      },
-      onError: () => {
-        toggleNotification({
-          type: "warning",
-          message: "Navigation failed to save.",
-        });
-      },
-    }
-  );
+
+    onSuccess: () => {
+      toggleNotification({
+        type: "success",
+        message: "Navigation saved successfully.",
+      });
+    },
+    onError: () => {
+      toggleNotification({
+        type: "warning",
+        message: "Navigation failed to save.",
+      });
+    },
+  });
 
   if (!navigationData || !dispatch) {
     throw new Error(
-      "useNavigationDataDefined has been used on a place not protected by useHasNavigationData"
+      "useNavigationDataDefined has been used on a place not protected by useHasNavigationData",
     );
   }
 
@@ -278,7 +278,7 @@ export const useNavigationDataDefined = () => {
 
   const editRoute = (
     locationIndexes: number[],
-    editedRoute: NavikronosRoute
+    editedRoute: NavikronosRoute,
   ) => {
     dispatch({
       type: "editRoute",
