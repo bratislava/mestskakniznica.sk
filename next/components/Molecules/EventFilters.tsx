@@ -28,7 +28,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
   const [filters, setFilters] = useControlledState(
     filtersInput,
     defaultFiltersValue,
-    onFiltersChange
+    onFiltersChange,
   )
 
   // There's no need to handle loading, as the data are prefetched and never change.
@@ -65,11 +65,11 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
     return [{ key: '', title: t('eventFilters.eventLocality') }, ...parsedLocalities]
   }, [eventPropertiesData?.branches?.data, t])
 
-  const handleDateFromChange = (dateFrom: Date) => {
+  const handleDateFromChange = (dateFrom: Date | null) => {
     setFilters({ ...filters, dateFrom })
   }
 
-  const handleDateToChange = (dateTo: Date) => {
+  const handleDateToChange = (dateTo: Date | null) => {
     setFilters({ ...filters, dateTo })
   }
 
