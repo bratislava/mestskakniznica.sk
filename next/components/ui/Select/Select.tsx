@@ -64,11 +64,10 @@ export const Select = <T extends ISelectOption>({
           className={cn(
             'base-input base-focus-ring w-full cursor-pointer pr-9',
             { 'base-input--with-error': hasError },
-            selectClassName
+            selectClassName,
           )}
           onChange={handleChange}
           value={value}
-          placeholder={placeholder ?? placeholder}
           aria-invalid={hasError}
           aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}
           {...rest}
