@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode, useEffect, useState } from 'react'
-import { useLockedBody, useWindowSize } from 'usehooks-ts'
+import { useScrollLock, useWindowSize } from 'usehooks-ts'
 
 import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
@@ -70,15 +70,22 @@ const FormContainer = ({
 
   const { width } = useWindowSize()
 
-  const [, setLockedBodyScroll] = useLockedBody(false)
+  const { lock, unlock } = useScrollLock({
+    autoLock: false,
+    lockTarget: 'root',
+  })
 
   useEffect(() => {
     setFormOpen(isFormOpen && width !== undefined && width > 767)
   }, [width])
 
   useEffect(() => {
-    setLockedBodyScroll(!isSubmitted && isFormOpen && width !== undefined && width <= 768)
-  }, [isFormOpen, setLockedBodyScroll, width, isSubmitted])
+    if (!isSubmitted && isFormOpen && width !== undefined && width <= 768) {
+      lock()
+    } else {
+      unlock()
+    }
+  }, [isFormOpen, width, isSubmitted, lock, unlock])
 
   const listener = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === 'Enter' || event.code === 'NumpadEnter') {

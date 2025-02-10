@@ -1,6 +1,6 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useEffect } from 'react'
-import { useQuery } from 'react-query'
 
 import { FolderIcon } from '@/assets/icons'
 import DocumentsCategorySelect from '@/components/Atoms/Documents/DocumentsCategorySelect'
@@ -32,7 +32,7 @@ const DocumentsListingSection = () => {
   const { data } = useQuery({
     queryKey: getDocumentsQueryKey(filters),
     queryFn: () => documentsFetcher(filters),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   })
 
   const handlePageChange = (newPage: number) => {
@@ -99,7 +99,11 @@ const DocumentsListingSection = () => {
           let badgeExt: string | JSX.Element = ''
           if (Array.isArray(file)) {
             badgeExt =
-              file.length > 1 ? <FolderIcon /> : file[0]?.ext?.toUpperCase().replace('.', '') ?? ''
+              file.length > 1 ? (
+                <FolderIcon />
+              ) : (
+                (file[0]?.ext?.toUpperCase().replace('.', '') ?? '')
+              )
           } else {
             badgeExt = file?.ext?.toUpperCase().replace('.', '') ?? ''
           }

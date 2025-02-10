@@ -38,10 +38,10 @@ export const BranchMap = ({
             height: '100%',
             width: '100%',
           }}
-          onLoad={() => {
-            mapRef.current?.getMap().jumpTo({
-              center: [branchLongitude, branchLatitude],
-            })
+          initialViewState={{
+            latitude: branchLatitude,
+            longitude: branchLongitude,
+            zoom: 14,
           }}
           cooperativeGestures
         >

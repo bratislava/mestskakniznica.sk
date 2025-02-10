@@ -1,7 +1,7 @@
 import { useControlledState } from '@react-stately/utils'
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
-import { useQuery } from 'react-query'
 import { useToggleState } from 'react-stately'
 
 import DropdownIcon from '@/assets/images/dropdown.svg'
@@ -25,7 +25,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
 
   const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
 
-  const [filters, setFilters] = useControlledState(
+  const [filters, setFilters] = useControlledState<EventsFiltersShared>(
     filtersInput,
     defaultFiltersValue,
     onFiltersChange,

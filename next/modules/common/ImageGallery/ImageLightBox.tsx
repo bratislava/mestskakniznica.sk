@@ -4,8 +4,8 @@ import { useEffect, useRef } from 'react'
 import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import Slider from '@/modules/common/ImageGallery/Slider'
-import Modal, { ModalProps } from '@/modules/common/Modal'
 import StrapiImage from '@/modules/common/StrapiImage'
+import Modal_deprecated, { ModalProps } from '@/modules/common/Modal_deprecated'
 import { UploadImageEntityFragment } from '@/services/graphql'
 
 export type ImageLightBoxProps = {
@@ -34,7 +34,11 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
 
   return (
     // TODO is this pointer-events-none/auto necessary
-    <Modal overlayClassName="w-full h-screen pointer-events-none" showCloseButton {...rest}>
+    <Modal_deprecated
+      overlayClassName="w-full h-screen pointer-events-none"
+      showCloseButton
+      {...rest}
+    >
       <Slider
         ref={sliderRef}
         // eslint-disable-next-line no-secrets/no-secrets
@@ -86,7 +90,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
           </div>
         )}
       />
-    </Modal>
+    </Modal_deprecated>
   )
 }
 

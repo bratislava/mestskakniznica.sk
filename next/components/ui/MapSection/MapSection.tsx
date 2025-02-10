@@ -55,7 +55,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
         // When it fails, no one cares because there is no branch :)
       }
     },
-    [branches]
+    [branches],
   )
 
   useEffect(() => {
@@ -89,7 +89,6 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                 bounds: initialBounds.current,
                 fitBoundsOptions: {
                   padding: 48,
-                  duration: 0,
                   offset: [0, 10],
                 },
               }}
@@ -146,7 +145,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                 key={branch.id}
                 className={cn('relative ring-inset', {
                   'lg:border-l-0': index === 0 && !altDesign,
-                  'w-70 flex-shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-r-0 lg:border-t-0 lg:border-b-0 lg:focus-within:border-transparent':
+                  'w-70 flex-shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-b-0 lg:border-r-0 lg:border-t-0 lg:focus-within:border-transparent':
                     !altDesign,
                   'w-full border border-border-dark py-4': altDesign,
                 })}

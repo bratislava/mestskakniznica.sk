@@ -1,8 +1,9 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchConfig } from "./api";
 
 export const useConfig = () => {
-  const { data, isLoading, isError } = useQuery("config", {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["config"],
     queryFn: fetchConfig,
     staleTime: Infinity,
   });
@@ -28,7 +29,7 @@ export const useConfigDefined = () => {
 
   if (!config) {
     throw new Error(
-      "useConfigDefined has been used on a place not protected by useConfigDefined"
+      "useConfigDefined has been used on a place not protected by useConfigDefined",
     );
   }
 
