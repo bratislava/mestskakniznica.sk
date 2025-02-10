@@ -25,6 +25,7 @@
     "@hookform/resolvers": "^2.8.5",
     "@internationalized/date": "^3.0.2",
     "@mailchimp/mailchimp_marketing": "^3.0.75",
+    "@popperjs/core": "^2.11.8",
     "@radix-ui/react-checkbox": "^0.1.5",
     "@radix-ui/react-navigation-menu": "^1.1.1",
     "@radix-ui/react-radio-group": "^0.1.5",
