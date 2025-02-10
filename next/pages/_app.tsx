@@ -42,7 +42,7 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
               <OverlayProvider>
                 <QueryParamProvider adapter={NextAdapter}>
                   <NavMenuContextProvider>
-                    <Component {...pageProps} />
+                    <Component id="root" {...pageProps} />
                   </NavMenuContextProvider>
                 </QueryParamProvider>
               </OverlayProvider>

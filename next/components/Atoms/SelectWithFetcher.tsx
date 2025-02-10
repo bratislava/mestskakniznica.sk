@@ -1,7 +1,6 @@
 // TODO this component was copied from Marianum project
+import { QueryKey, useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { useQuery } from 'react-query'
-import { QueryKey } from 'react-query/types/core/types'
 
 import SelectField, { Option, SelectProps, SingleSelect } from '@/components/Atoms/SelectField'
 

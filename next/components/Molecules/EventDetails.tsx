@@ -1,9 +1,8 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import QRCode from 'qrcode.react'
+import { QRCodeSVG } from 'qrcode.react'
 import React from 'react'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import { DialogTrigger } from 'react-aria-components'
 
 import {
   CalendarIcon,
@@ -19,12 +18,14 @@ import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
 import DetailsRow from '@/components/Atoms/EventDetailsRow'
 import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import { Documents } from '@/components/ui'
+import Button from '@/modules/common/Button'
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
+import Dialog from '@/modules/common/ModalDialog/Dialog'
+import Modal from '@/modules/common/ModalDialog/Modal'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import RichText from '@/modules/formatting/RichText'
 import { EventEntityFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
-import { isEventPast } from '@/utils/utils'
 
 export interface PageProps {
   event?: EventEntityFragment
@@ -33,39 +34,12 @@ export interface PageProps {
 const EventDetails = ({ event }: PageProps) => {
   const { t } = useTranslation()
   const { asPath } = useRouter()
-  const [isEventInThePast, setIsEventInThePast] = React.useState(false)
 
   const eventBranch = event?.attributes?.branch?.data?.attributes
 
   const copyToClipBoard = () => {
     navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
   }
-
-  const fireSwal = () => {
-    const withContent = withReactContent(Swal)
-    withContent.fire({
-      html: (
-        <QRCode
-          value={event?.attributes?.title || ''}
-          className="m-auto"
-          renderAs="svg"
-          size={240}
-        />
-      ),
-      position: 'center',
-      width: 350,
-      confirmButtonText: t('common.close'),
-      confirmButtonColor: '#2f2f2f',
-      customClass: {
-        popup: 'rounded-none',
-        confirmButton: 'rounded-none',
-      },
-    })
-  }
-
-  React.useMemo(() => {
-    setIsEventInThePast(isEventPast(event?.attributes?.dateTo))
-  }, [event])
 
   // fallback to placeholder
   const bannerProps = {
@@ -192,30 +166,6 @@ const EventDetails = ({ event }: PageProps) => {
           )} */}
           <div className="pt-10">
             <div className="block h-auto border-y border-border-dark py-3 lg:flex lg:h-17.5 lg:border lg:p-0">
-              {/* <div className="hidden lg:block pl-6 w-[169px] text-base m-auto"> */}
-              {/*  {t('eventDetails.eventShareAndSave')} */}
-              {/* </div> */}
-              {/* TODO add AddToCalendar functionality */}
-              {/* {!isEventInThePast && ( */}
-              {/*  <div className="my-3 lg:m-auto"> */}
-              {/*    <AddToCalendar */}
-              {/*      event={{ */}
-              {/*        name: event?.attributes?.title || '', */}
-              {/*        details: event?.attributes?.description?.replace(/\n/g, ' ') || null, */}
-              {/*        location: eventBranch?.title || null, */}
-              {/*        startsAt: new Date(event?.attributes?.dateFrom).toISOString(), */}
-              {/*        endsAt: new Date(event?.attributes?.dateTo).toISOString(), */}
-              {/*      }} */}
-              {/*      filename="library-event" */}
-              {/*    > */}
-              {/*      <div className="flex text-sm uppercase"> */}
-              {/*        <CalendarIcon className="h-5 w-5" /> */}
-              {/*        &nbsp; {t('eventDetails.eventAddToCalendar')} */}
-              {/*      </div> */}
-              {/*    </AddToCalendar> */}
-              {/*  </div> */}
-              {/* )} */}
-
               <Clickable
                 actionLink={copyToClipBoard}
                 classDiv="my-3 lg:m-auto"
@@ -223,12 +173,25 @@ const EventDetails = ({ event }: PageProps) => {
                 text={t('eventDetails.eventShare')}
                 copyText
               />
-              <Clickable
-                actionLink={fireSwal}
-                classDiv="my-3 lg:m-auto"
-                svgIcon={<CameraIcon />}
-                text={t('eventDetails.eventQr')}
-              />
+              <DialogTrigger>
+                <Button
+                  variant="plain-primary"
+                  className="my-3 lg:m-auto"
+                  startIcon={<CameraIcon />}
+                >
+                  {t('eventDetails.eventQr')}
+                </Button>
+                <Modal>
+                  <Dialog aria-label={t('eventDetails.eventQr')}>
+                    <QRCodeSVG
+                      value={event?.attributes?.title || ''}
+                      className="m-auto"
+                      size={240}
+                      includeMargin
+                    />
+                  </Dialog>
+                </Modal>
+              </DialogTrigger>
             </div>
           </div>
         </div>
@@ -248,26 +211,6 @@ const EventDetails = ({ event }: PageProps) => {
                       />
                     }
                   />
-                  {/* TODO AddToCalndar functionality back */}
-                  {/* {!isEventInThePast && ( */}
-                  {/*  <div className="pl-9 pt-3"> */}
-                  {/*    <AddToCalendar */}
-                  {/*      event={{ */}
-                  {/*        name: event?.attributes?.title || '', */}
-                  {/*        details: event?.attributes?.description?.replace(/\n/g, ' ') || null, */}
-                  {/*        location: eventBranch?.title || null, */}
-                  {/*        startsAt: new Date(event?.attributes?.dateFrom).toISOString(), */}
-                  {/*        endsAt: new Date(event?.attributes?.dateTo).toISOString(), */}
-                  {/*      }} */}
-                  {/*      filename="library-event" */}
-                  {/*    > */}
-                  {/*      <div className="flex text-sm uppercase"> */}
-                  {/*        <CalendarIcon className="h5 w-5" /> */}
-                  {/*        &nbsp; {t('eventDetails.eventAddToCalendar')} */}
-                  {/*      </div> */}
-                  {/*    </AddToCalendar> */}
-                  {/*  </div> */}
-                  {/* )} */}
                 </div>
                 <div className="border-b border-border-light py-5">
                   <DetailsRow

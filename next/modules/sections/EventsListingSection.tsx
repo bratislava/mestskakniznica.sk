@@ -1,6 +1,6 @@
+import { keepPreviousData, useQuery, UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { useQuery, UseQueryResult } from 'react-query'
 
 import EventFilters from '@/components/Molecules/EventFilters'
 import { Pagination } from '@/components/ui'
@@ -101,13 +101,13 @@ const EventsListingSection = () => {
   const queryResultUpcoming = useQuery({
     queryKey: getEventsQueryKey(filters.upcoming, filters.shared),
     queryFn: () => eventsFetcher(filters.upcoming, filters.shared),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   })
 
   const queryResultArchived = useQuery({
     queryKey: getEventsQueryKey(filters.archived, filters.shared),
     queryFn: () => eventsFetcher(filters.archived, filters.shared),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   })
 
   const handleUpcomingPageChange = (page: number) => {

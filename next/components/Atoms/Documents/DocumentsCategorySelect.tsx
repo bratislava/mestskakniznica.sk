@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-import { useQuery } from 'react-query'
 
 import SelectField from '@/components/Atoms/SelectField'
 import {

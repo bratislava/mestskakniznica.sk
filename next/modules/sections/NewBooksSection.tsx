@@ -1,5 +1,5 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import React from 'react'
-import { useQuery } from 'react-query'
 
 import { Pagination } from '@/components/ui'
 import BookCard from '@/modules/cards-and-rows/BookCard'
@@ -19,7 +19,7 @@ const NewBooksSection = () => {
   const { data } = useQuery({
     queryKey: getNewBooksQueryKey(filters),
     queryFn: () => newBooksFetcher(filters),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   })
 
   const handlePageChange = (page: number) => {

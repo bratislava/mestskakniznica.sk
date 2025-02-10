@@ -1,8 +1,0 @@
-schema: '../strapi/schema.graphql'
-documents: './services/graphql/queries/**/*.{gql,graphql}'
-generates:
-  services/graphql/index.ts:
-    plugins:
-      - typescript
-      - typescript-operations
-      - typescript-graphql-request

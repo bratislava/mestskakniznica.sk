@@ -1,6 +1,6 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { useQuery } from 'react-query'
 
 import { Pagination } from '@/components/ui'
 import BlogPostCard from '@/modules/cards-and-rows/BlogPostCard'
@@ -18,7 +18,7 @@ const BlogPostsListingSection = () => {
   const { data } = useQuery({
     queryKey: getBlogPostsQueryKey(i18n.language, filters),
     queryFn: () => blogPostsFetcher(i18n.language, filters),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   })
 
   const handlePageChange = (page: number) => {

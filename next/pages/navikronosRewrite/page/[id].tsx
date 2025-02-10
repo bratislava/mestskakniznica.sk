@@ -1,9 +1,9 @@
+import { DehydratedState, HydrationBoundary } from '@tanstack/react-query'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 import { ReactNode } from 'react'
-import { DehydratedState, Hydrate } from 'react-query'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import FullContentPage from '@/components/pages/fullContentPage'
@@ -42,7 +42,7 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
   }
 
   return (
-    <Hydrate state={dehydratedState}>
+    <HydrationBoundary state={dehydratedState}>
       <GeneralContextProvider general={general}>
         <DefaultPageLayout
           title={page.attributes?.title}
@@ -52,7 +52,7 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
           {pageComponentByLayout}
         </DefaultPageLayout>
       </GeneralContextProvider>
-    </Hydrate>
+    </HydrationBoundary>
   )
 }
 
@@ -64,7 +64,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
   let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
-    (locales ?? []).map((locale) => client.PagesStaticPaths({ locale }))
+    (locales ?? []).map((locale) => client.PagesStaticPaths({ locale })),
   )
 
   const entities = pathArraysForLocales.flatMap(({ pages }) => pages?.data || []).filter(isDefined)
