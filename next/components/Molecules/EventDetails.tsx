@@ -154,7 +154,7 @@ const EventDetails = ({ event }: PageProps) => {
                     {guest?.avatar?.data?.attributes ? (
                       <StrapiImage
                         image={guest.avatar.data.attributes}
-                        alt={guest?.name || t('blogPostPage.guestName')}
+                        alt={guest?.name || t('eventDetails.eventGuests')}
                         className="flex size-12 items-center justify-center rounded-full object-cover"
                       />
                     ) : null}
