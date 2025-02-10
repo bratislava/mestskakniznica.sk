@@ -1,4 +1,6 @@
-import plugin from 'tailwindcss/plugin'
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { join } = require('path')
+const plugin = require('tailwindcss/plugin')
 
 const scrollBarHide = plugin(function ({ addUtilities }) {
   addUtilities({
@@ -31,13 +33,22 @@ const customVariants = plugin(function ({ addVariant }) {
   addVariant('not-first', '&:not(:first-child)')
 })
 
-const config = {
+module.exports = {
   content: [
-    'pages/**/*.{js,ts,jsx,tsx}',
-    'components/**/*.{js,ts,jsx,tsx}',
-    'modules/**/*.{js,ts,jsx,tsx}',
+    join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, 'components/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, 'modules/**/*.{js,ts,jsx,tsx}'),
   ],
-  plugins: [scrollBarHide, inputNumberArrowsHide, customVariants],
+  corePlugins: {
+    aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
+  },
+  plugins: [
+    scrollBarHide,
+    inputNumberArrowsHide,
+    customVariants,
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
+  ],
   theme: {
     screens: {
       xs: '360px',
@@ -184,7 +195,6 @@ const config = {
         18: '72px',
         23: '92px',
         25: '100px',
-        27: '108px',
         30: '120px',
         33: '132px',
         39: '156px',
@@ -199,8 +209,7 @@ const config = {
         66: '264px',
         70: '280px',
         73: '294px',
-        74: '296px',
-        75: '300px',
+        74: '300px',
         76: '293px',
         82: '330px',
         87: '350px',
@@ -219,5 +228,3 @@ const config = {
     },
   },
 }
-
-export default config

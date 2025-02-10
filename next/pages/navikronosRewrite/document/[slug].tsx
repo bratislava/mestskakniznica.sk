@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
       currentEntityLocalizations: locales
         ?.filter((innerLocale) => innerLocale !== locale)
         .map((innerLocale) => ({
-          type: 'document' as const,
+          type: 'document',
           slug,
           locale: innerLocale,
         })),
