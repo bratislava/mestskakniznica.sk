@@ -75,7 +75,7 @@ const EventDetails = ({ event }: PageProps) => {
               tagsCount={5}
             />
           </div>
-          <h1 className="py-3 text-h3">{event?.attributes?.title}</h1>
+          <h1 className="py-3 text-h1 lg:text-h2">{event?.attributes?.title}</h1>
           <div className="text-sm text-foreground-body">
             <FormatEventDateRange
               dateFrom={event?.attributes?.dateFrom}
@@ -198,7 +198,7 @@ const EventDetails = ({ event }: PageProps) => {
           {t('eventDetails.details')}
           <div className="pt-5">
             <div className="border-y border-border-dark text-base lg:border">
-              <div className="m-5">
+              <div className="py-5 lg:p-5">
                 <div className="border-b border-border-light pb-5">
                   <DetailsRow
                     classWrapper="flex"
@@ -211,25 +211,22 @@ const EventDetails = ({ event }: PageProps) => {
                     }
                   />
                 </div>
-                <div className="border-b border-border-light py-5">
-                  <DetailsRow
-                    classWrapper="flex"
-                    svgIcon={<PlaceIcon />}
-                    text={`${
-                      eventBranch?.title && eventBranch?.address
-                        ? `${eventBranch?.title}, ${eventBranch.address}`
-                        : ``
-                    }`}
-                  />
-                  {eventBranch?.address && (
+                {eventBranch?.title && eventBranch?.address ? (
+                  <div className="border-b border-border-light py-5">
+                    <DetailsRow
+                      classWrapper="flex"
+                      svgIcon={<PlaceIcon />}
+                      text={`${eventBranch.title}, ${eventBranch.address}`}
+                    />
+
                     <Clickable
                       actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${eventBranch.address}`}
                       classDiv="pl-9 pt-3"
                       svgIcon={<NavigateIcon />}
                       text={t('eventDetails.navigate')}
                     />
-                  )}
-                </div>
+                  </div>
+                ) : null}
 
                 <DetailsRow
                   classWrapper="flex pt-5"
