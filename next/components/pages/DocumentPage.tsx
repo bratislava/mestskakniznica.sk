@@ -38,10 +38,10 @@ const DocumentPage = ({ entity }: IProps) => {
 
   const numOfFiles = file?.data.length ?? 0
   const isMultipleFiles = numOfFiles > 1
-  const badgeExt = !isMultipleFiles ? (
-    (firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? '')
-  ) : (
+  const badgeExt = isMultipleFiles ? (
     <FolderIcon />
+  ) : (
+    (firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? '')
   )
 
   const isDisclosure = entity.__typename === 'DisclosureEntity'

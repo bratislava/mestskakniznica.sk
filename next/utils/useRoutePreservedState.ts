@@ -13,7 +13,7 @@ const historyStateKeyStateMap = new Map<string, any>()
  */
 export const useRoutePreservedState = <T>(defaultValue: T) => {
   const historyStateKey =
-    typeof history !== 'undefined' ? (history.state as { key: string }).key : null
+    typeof history === 'undefined' ? null : (history.state as { key: string }).key
 
   const getDefaultState = () => {
     if (!historyStateKey) {

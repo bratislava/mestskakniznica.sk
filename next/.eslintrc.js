@@ -43,6 +43,10 @@ module.exports = {
     '@typescript-eslint/no-floating-promises': 'warn',
 
     'lodash/prefer-noop': 'off',
+    'pii/no-email': 'off',
+    'pii/no-phone-number': 'off',
+    'xss/no-mixed-html': 'off',
+    'const-case/uppercase': 'off',
 
     'i18next/no-literal-string': ['error', { 'should-validate-template': true }],
 

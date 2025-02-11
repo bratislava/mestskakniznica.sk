@@ -1,7 +1,8 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ParsedUrlQuery } from 'node:querystring'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import BranchPage from '@/components/pages/BranchPage'

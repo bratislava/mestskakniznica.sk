@@ -22,7 +22,7 @@ const BranchContactUsOpeningHoursInfo = ({ branch }: BranchContactUsOpeningHours
           <Button
             variant="unstyled"
             className="mb-2 flex gap-3 hover:underline"
-            href={`tel:${phone.replace(/\s/g, '')}`}
+            href={`tel:${phone.replaceAll(/\s/g, '')}`}
             startIcon={<PhoneIcon className="shrink-0" />}
           >
             {phone}

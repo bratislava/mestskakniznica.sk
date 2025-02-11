@@ -24,18 +24,18 @@ export const Pagination = ({ max, value, onChangeNumber }: PaginationProps) => {
 
   const handleChange = useCallback(
     (ev: React.BaseSyntheticEvent) => {
-      if (parseInt(ev.target.value) <= 0) {
+      if (parseInt(ev.target.value, 10) <= 0) {
         onChangeNumber(1)
         return
       }
 
-      if (parseInt(ev.target.value) > max) {
+      if (parseInt(ev.target.value, 10) > max) {
         onChangeNumber(max)
         return
       }
 
-      if (parseInt(ev.target.value)) {
-        onChangeNumber(parseInt(ev.target.value))
+      if (parseInt(ev.target.value, 10)) {
+        onChangeNumber(parseInt(ev.target.value, 10))
       }
     },
     [max, onChangeNumber],
