@@ -123,20 +123,24 @@ const EventDetails = ({ event }: PageProps) => {
             <div className="border-b border-border-dark py-10">
               <div className="text-[24px]">{t('eventDetails.eventGuests')}</div>
               <div className="grid grid-cols-3 pt-5">
-                {event?.attributes?.guests?.map((guest) => (
-                  <div key={guest?.id} className="flex pr-[24px]">
-                    {guest?.avatar?.data?.attributes ? (
-                      <StrapiImage
-                        image={guest.avatar.data.attributes}
-                        alt={guest?.name || t('eventDetails.eventGuests')}
-                        className="flex size-12 items-center justify-center rounded-full object-cover"
-                      />
-                    ) : null}
-                    <span className="m-auto text-[16px]">
-                      {guest?.name} {guest?.surname}
-                    </span>
-                  </div>
-                ))}
+                {event?.attributes?.guests?.map((guest) => {
+                  const avatar = guest?.avatar?.data?.attributes
+
+                  return (
+                    <div key={guest?.id} className="flex pr-[24px]">
+                      {avatar ? (
+                        <StrapiImage
+                          image={avatar}
+                          alt={guest?.name || avatar?.alternativeText}
+                          className="flex size-12 items-center justify-center rounded-full object-cover"
+                        />
+                      ) : null}
+                      <span className="m-auto text-[16px]">
+                        {guest?.name} {guest?.surname}
+                      </span>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           )}
