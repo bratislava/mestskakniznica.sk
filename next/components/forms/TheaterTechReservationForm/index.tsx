@@ -88,6 +88,7 @@ const TheaterTechReservationForm = () => {
     if (error) {
       console.log('error sending form', error)
       setIsSubmitted(SubmitStatus.FAILURE)
+
       return
     }
 

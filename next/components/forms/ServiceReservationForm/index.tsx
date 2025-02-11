@@ -32,6 +32,7 @@ const FileInput = ({
 
   const { field } = useController({ name })
   const [files, setFiles] = React.useState<Array<File | null>>([])
+
   return (
     <>
       <Upload
@@ -162,6 +163,7 @@ const ServiceReservationForm = () => {
     if (error) {
       console.log('error sending form', error)
       setIsSubmitted(SubmitStatus.FAILURE)
+
       return
     }
 

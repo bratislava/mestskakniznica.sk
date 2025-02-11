@@ -57,6 +57,7 @@ const EventPage = ({ event }: PageProps) => {
                 eventCategory,
                 branch,
               } = upcomingEvent.attributes ?? {}
+
               return upcomingEvent.attributes ? (
                 <EventCard
                   title={title}

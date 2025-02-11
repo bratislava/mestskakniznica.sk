@@ -32,7 +32,7 @@ export const BranchMap = ({
         <Mapbox
           ref={mapRef}
           mapboxAccessToken={mapboxAccessToken}
-          // eslint-disable-next-line react/style-prop-object
+          // eslint-disable-next-line react/style-prop-object,no-secrets/no-secrets
           mapStyle="mapbox://styles/bratislava01/ckzrbqd6300ps14p8gpyoq3wr"
           style={{
             height: '100%',

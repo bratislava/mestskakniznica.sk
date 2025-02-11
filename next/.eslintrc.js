@@ -60,7 +60,7 @@ module.exports = {
 
     /* Formatting rules */
     'prettier/prettier': ['error', { endOfLine: 'auto' }], // TODO revisit, prettier should not be run by eslint
-    // 'padding-line-between-statements': ['warn', { blankLine: 'always', prev: '*', next: 'return' }],
+    'padding-line-between-statements': ['warn', { blankLine: 'always', prev: '*', next: 'return' }],
   },
   ignorePatterns: ['*.config.*', '.eslintrc.js', 'services/graphql/index.ts'],
 }

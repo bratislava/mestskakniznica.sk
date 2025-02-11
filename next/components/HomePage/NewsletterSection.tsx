@@ -45,6 +45,7 @@ const NewsletterSection = () => {
       } else {
         setRespondMessage(t('newsletterSection.subscribe.errorMessage'))
       }
+
       // TODO: duplicate email gives error 500
       return
     }

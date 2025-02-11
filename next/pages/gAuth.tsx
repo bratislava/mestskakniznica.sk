@@ -13,6 +13,7 @@ const LoadingPage = () => {
         body: JSON.stringify({ code }),
         method: 'POST',
       })
+
       return response.json()
     }
     try {
@@ -34,6 +35,7 @@ const LoadingPage = () => {
       setMessage('Some error occured, please try again later.')
     }
   }, [code])
+
   return <div>{message || 'Registering you to events'}</div>
 }
 

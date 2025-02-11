@@ -62,6 +62,7 @@ const DocumentsCategorySelect = ({ onCategoryChange = () => {} }: DocumentsCateg
     if (data) {
       return [defaultOption, ...data, ...disclosureTypes]
     }
+
     return [defaultOption, ...disclosureTypes]
   }, [data, defaultOption, disclosureTypes])
 

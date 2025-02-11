@@ -42,6 +42,7 @@ export const groupByAccordionCategory = (
   tableRows: (TableRowWithIdFragment | undefined | null)[],
 ): { title: string; tables: { title: string; rows: TableRowWithIdProp[] }[] }[] => {
   const groupedItems = groupBy(tableRows, 'accordionCategory')
+
   return Object.keys(groupedItems).map((key) => ({
     title: key,
     tables: groupByTableCategory(groupedItems[key]),
@@ -51,6 +52,7 @@ export const groupByAccordionCategory = (
 // Page Accordion Items
 export const groupByCategory = <T>(items: T[]) => {
   const grouped = groupBy(items, 'category')
+
   return Object.keys(grouped).map((key) => ({
     category: key,
     items: grouped[key],

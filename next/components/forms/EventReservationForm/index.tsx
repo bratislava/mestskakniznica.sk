@@ -61,6 +61,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
         const dateToTmp = new Date(dateTo)
 
         const { date } = dayForDifferentDateTo(dateFromTmp, dateToTmp, true)
+
         return yup
           .date()
           .min(date, t('validation_error_min_event_date'))
@@ -159,6 +160,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
     if (error) {
       console.log('error sending form', error)
       setIsSubmitted(SubmitStatus.FAILURE)
+
       return
     }
 

@@ -12,6 +12,7 @@ const TagButton = (props: TagButtonProps) => {
   const { buttonProps } = useToggleButton(props, state, ref)
   const { children, className } = props
   const { isSelected } = state
+
   return (
     <button
       ref={ref}

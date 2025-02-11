@@ -11,6 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       !process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITEVERIFY_API
     ) {
       console.log('Captcha variables not defined')
+
       return res.status(500).json({})
     }
 
@@ -19,6 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const cfTurnstile = body.cfTurnstile ?? false
     if (!cfTurnstile) {
       console.log('Captcha token not provided')
+
       return res.status(500).json({})
     }
 
@@ -34,6 +36,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (cfResponse.success !== true) {
       console.log('Captcha validation failed')
+
       return res.status(500).json({})
     }
 
@@ -99,6 +102,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (error) {
     console.log('OPAC error', error)
     console.error(error)
+
     return res.status(500).json({
       reqid: '',
       status: '500',

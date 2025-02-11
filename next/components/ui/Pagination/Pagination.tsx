@@ -26,11 +26,13 @@ export const Pagination = ({ max, value, onChangeNumber }: PaginationProps) => {
     (ev: React.BaseSyntheticEvent) => {
       if (parseInt(ev.target.value, 10) <= 0) {
         onChangeNumber(1)
+
         return
       }
 
       if (parseInt(ev.target.value, 10) > max) {
         onChangeNumber(max)
+
         return
       }
 

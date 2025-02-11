@@ -21,6 +21,7 @@ export const useRoutePreservedState = <T>(defaultValue: T) => {
     }
 
     const historyData = historyStateKeyStateMap.get(historyStateKey) as T
+
     return historyData ?? defaultValue
   }
   const useStateReturnValue = useState<T>(getDefaultState())

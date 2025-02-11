@@ -62,16 +62,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       !process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITEVERIFY_API
     ) {
       console.log('Captcha variables not defined')
+
       return res.status(500).json({ error: 'Captcha variables not defined' })
     }
 
     if (!cfTurnstile) {
       console.log('Captcha token not provided')
+
       return res.status(500).json({ error: 'Captcha token not provided' })
     }
 
     if (!available_emails.has(mg_email_to)) {
       console.log('email is not in whitelist')
+
       return res.status(500).json({ error: 'generic error' })
     }
 
@@ -103,6 +106,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (cfResponse.success !== true) {
       console.log('Captcha validation failed')
+
       return res.status(500).json({ error: 'Captcha validation failed' })
     }
 
@@ -111,6 +115,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).json({})
   } catch (error) {
     console.error(error)
+
     return res.status(500).json({ error: 'generic error' })
   }
 }

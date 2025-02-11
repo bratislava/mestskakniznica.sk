@@ -43,6 +43,7 @@ const TextField = (props: TextFieldProps) => {
       isLarge = false,
       ...rest
     } = props
+
     return (
       <FieldWrapper
         id={id}

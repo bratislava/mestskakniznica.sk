@@ -31,7 +31,7 @@ export const Banner = ({
       <button
         type="button"
         onClick={onBannerClick}
-        className="hover:bg-gray-100 flex items-center gap-x-[11px] bg-white px-5 py-[9px] text-sm"
+        className="flex items-center gap-x-[11px] bg-white px-5 py-[9px] text-sm hover:bg-dark"
       >
         <Calendar />
         <p>{buttonContent}</p>

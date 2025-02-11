@@ -28,6 +28,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
       <div className="flex flex-col">
         {siblings?.map((child, index) => {
           const isActive = child.path === currentPath
+
           return (
             <MLink
               // eslint-disable-next-line react/no-array-index-key

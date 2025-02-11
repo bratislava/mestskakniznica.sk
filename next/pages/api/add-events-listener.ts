@@ -12,6 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     )
     if (!eventSection.eventTitle || !eventSection.dateFrom || !eventSection.dateTo) {
       res.send({ message: 'Not a valid event to add.' })
+
       return
     }
 
@@ -23,6 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         process.env.GOOGLE_CLIENT_SECRET,
       )
       gAuthClient.setCredentials({ refresh_token: user.refreshToken })
+
       return google
         .calendar('v3')
         .events.insert({
