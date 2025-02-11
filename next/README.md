@@ -15,7 +15,7 @@ yarn
 ## Run project locally
 
 You need a CMS instance to run the web app against. For CMS setup see `strapi` directory.
-By default, Strapi suns on `STRAPI_URL=http://localhost:1338`. Change `STRAPI_URL` if needed and run:
+By default, Strapi suns on `STRAPI_URL=http://localhost:1337`. Change `STRAPI_URL` if needed and run:
 
 ```
 yarn dev
@@ -28,7 +28,7 @@ The Schema is exported but the codegen is set up to run against running Strapi i
 graphql endpoint, simply run:
 
 ```bash
-# expects strapi running locally on port 1338
+# expects strapi running locally on port 1337
 yarn gen
 ```
 

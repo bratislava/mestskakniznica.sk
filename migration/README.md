@@ -34,4 +34,4 @@ yarn
 
 1. Open customMigrations.js
 2. Create your migrations as you want you have to return function migrateTables and array processedTables with processed tables
-3. Databases are imported from config/database.js and using knex -->
+3. Databases are imported from config/database.ts and using knex -->
