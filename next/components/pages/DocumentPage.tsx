@@ -38,10 +38,10 @@ const DocumentPage = ({ entity }: IProps) => {
 
   const numOfFiles = file?.data.length ?? 0
   const isMultipleFiles = numOfFiles > 1
-  const badgeExt = !isMultipleFiles ? (
-    firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''
-  ) : (
+  const badgeExt = isMultipleFiles ? (
     <FolderIcon />
+  ) : (
+    (firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? '')
   )
 
   const isDisclosure = entity.__typename === 'DisclosureEntity'
@@ -133,24 +133,24 @@ const DocumentPage = ({ entity }: IProps) => {
               <div className="pt-6 lg:pt-10">
                 <h2 className="text-h3">{t('documentPage.files')}</h2>
                 <div className="text-sm text-foreground-body lg:mt-6 lg:text-base">
-                  {entity.attributes?.file?.data.map((file) => (
+                  {file?.data.map((fileInner) => (
                     <div
-                      key={file.id}
+                      key={fileInner.id}
                       className="flex flex-col items-center gap-x-6 border-b border-border-dark pt-6 text-center lg:flex-row lg:pt-0 lg:text-left"
                     >
                       {/* File extension badge */}
                       <FileExtBadge
                         className="my-4 hidden size-14 self-center lg:flex lg:self-auto"
-                        fileExt={file?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}
+                        fileExt={fileInner?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}
                       />
 
                       <div className="w-full gap-y-2">
                         {/* File name */}
-                        <div>{file?.attributes?.name}</div>
+                        <div>{fileInner?.attributes?.name}</div>
 
                         {/* File properties */}
                         <div className="mt-2 flex items-center justify-center gap-x-3 lg:justify-start">
-                          <span>{getFileSize(file?.attributes?.size, i18n.language)}</span>
+                          <span>{getFileSize(fileInner?.attributes?.size, i18n.language)}</span>
                           <span className="lg:hidden">&bull;</span>
                           <span className="lg:hidden">
                             {firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}
@@ -161,11 +161,11 @@ const DocumentPage = ({ entity }: IProps) => {
                       {/* Download button */}
                       <div className="my-6 flex w-full flex-col items-center lg:w-auto">
                         <Button
-                          href={file?.attributes?.url || ''}
+                          href={fileInner?.attributes?.url || ''}
                           target="_blank"
                           rel="noreferrer"
                           mobileFullWidth
-                          aria-label={getDownloadAriaLabel(file)}
+                          aria-label={getDownloadAriaLabel(fileInner)}
                           // Change to 'ExternalLinkIcon' when download button is added
                           // startIcon={<ExternalLinkIcon />}
                           startIcon={<DownloadIcon />}

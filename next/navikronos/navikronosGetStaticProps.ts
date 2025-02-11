@@ -21,7 +21,7 @@ export const navikronosGetStaticProps = async <Config extends NavikronosConfig>(
 
   if (!ctx.locale || !ctx.locales) {
     throw new Error(
-      `"ctx" provided to "navikronosGetStaticProps" doesn't contain "locale" or "locales"!`
+      `"ctx" provided to "navikronosGetStaticProps" doesn't contain "locale" or "locales"!`,
     )
   }
 

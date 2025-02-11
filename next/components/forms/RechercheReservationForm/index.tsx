@@ -102,6 +102,7 @@ const RechercheReservationForm = () => {
     if (error) {
       console.log('error sending form', error)
       setIsSubmitted(SubmitStatus.FAILURE)
+
       return
     }
 
@@ -110,9 +111,11 @@ const RechercheReservationForm = () => {
   })
 
   const triggerFirstStep = () => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises,promise/catch-or-return
     methods
       .trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone'])
       .then((fulfillment) => {
+        // eslint-disable-next-line promise/always-return
         if (fulfillment) {
           methods.clearErrors()
           setStep(2)
@@ -122,8 +125,8 @@ const RechercheReservationForm = () => {
 
   const stepOneErrors = !isEmpty(
     Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && !k.startsWith('recherche') && k !== 'cfTurnstile'
-    )
+      (k) => k !== 'acceptFormTerms' && !k.startsWith('recherche') && k !== 'cfTurnstile',
+    ),
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
@@ -215,7 +218,7 @@ const RechercheReservationForm = () => {
                 />
               )}
             />
-            <div className="lg:pg-3 w-full lg:w-6/12">
+            <div className="w-full lg:w-6/12 lg:pb-3">
               <Controller
                 control={methods.control}
                 name="phone"

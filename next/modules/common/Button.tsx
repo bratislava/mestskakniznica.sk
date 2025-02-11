@@ -64,7 +64,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       disabled,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const { buttonProps } = useButton(
       {
@@ -72,7 +72,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         elementType: rest.href ? 'a' : 'button',
         isDisabled: disabled,
       },
-      ref as RefObject<HTMLAnchorElement | HTMLButtonElement>
+      ref as RefObject<HTMLAnchorElement | HTMLButtonElement>,
     )
 
     const baseStyle = 'appearance-none base-focus-ring'
@@ -117,7 +117,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
               // shape
               'rounded-full': shape === 'circle',
             },
-            className
+            className,
           )
 
     if (rest.href) {
@@ -150,7 +150,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         {endIcon}
       </button>
     )
-  }
+  },
 ) as PolymorphicButton
 
 export default Button

@@ -5,9 +5,9 @@ import { NavikronosProvider } from './NavikronosProvider'
 
 export const wrapNavikronosProvider = <
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Props extends { navikronosStaticProps: NavikronosStaticProps<any> }
+  Props extends { navikronosStaticProps: NavikronosStaticProps<any> },
 >(
-  Wrapped: ComponentType<Props>
+  Wrapped: ComponentType<Props>,
 ) => {
   // eslint-disable-next-line react/function-component-definition
   return (props: Props) => {

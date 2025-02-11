@@ -58,7 +58,7 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
                 <MLink
                   href={
                     getPathForStrapiEntity(
-                      general?.data?.attributes?.privacyTermsAndConditionsPage?.data
+                      general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
                     ) ?? ''
                   }
                   variant="basic"

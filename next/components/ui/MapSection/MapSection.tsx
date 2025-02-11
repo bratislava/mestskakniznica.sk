@@ -79,7 +79,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
             <Mapbox
               ref={mapRef}
               mapboxAccessToken={mapboxAccessToken}
-              // eslint-disable-next-line react/style-prop-object
+              // eslint-disable-next-line react/style-prop-object,no-secrets/no-secrets
               mapStyle="mapbox://styles/bratislava01/ckzrbqd6300ps14p8gpyoq3wr"
               style={{
                 height: '100%',
@@ -96,7 +96,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
             >
               {branches
                 .map((branch) => {
-                  const { longitude, latitude, title } = branch.attributes ?? {}
+                  const { longitude, latitude, title: branchTitle } = branch.attributes ?? {}
 
                   if (!longitude || !latitude) {
                     return null
@@ -110,18 +110,12 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                       latitude={latitude}
                     >
                       <div className="group flex flex-col items-center">
-                        <MarkerIcon
-                          onClick={() => {
-                            window.location.href = `https://www.google.com/maps/@${latitude},${longitude},16z`
-                          }}
-                          width={48}
-                          height={48}
-                        />
-                        {title && (
+                        <MarkerIcon width={48} height={48} />
+                        {branchTitle ? (
                           <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-promo-peach px-2 group-hover:visible">
-                            {title}
+                            {branchTitle}
                           </div>
-                        )}
+                        ) : null}
                       </div>
                     </Marker>
                   )
@@ -137,7 +131,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
           })}
         >
           {branches.map((branch, index) => {
-            const { title, subBranches } = branch.attributes ?? {}
+            const { title: branchTitle, subBranches } = branch.attributes ?? {}
             const linkHref = getPathForStrapiEntity(branch) ?? '#'
 
             return (
@@ -150,13 +144,11 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                   'w-full border border-border-dark py-4': altDesign,
                 })}
               >
-                {/* TODO move link to title */}
-
                 <div className="group/showMore flex size-full flex-col justify-between gap-8 p-6 lg:py-0">
                   <div>
                     <div className="text-h3">
                       <MLink href={linkHref} variant="basic" stretched>
-                        {title}
+                        {branchTitle}
                       </MLink>
                     </div>
                     <div className="mt-6 text-base">

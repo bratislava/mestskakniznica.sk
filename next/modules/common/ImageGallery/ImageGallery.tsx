@@ -45,10 +45,10 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
     return (containerWidth ?? 0) > 1000
       ? 7
       : // variant 'below' middle
-      (containerWidth ?? 0) > 800
-      ? 5
-      : // variant 'below' small
-        3
+        (containerWidth ?? 0) > 800
+        ? 5
+        : // variant 'below' small
+          3
   }, [containerWidth, variant])
 
   // number of not displayed images
@@ -68,7 +68,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
       setInitialImageIndex(index)
       overlayState.open()
     },
-    [overlayState]
+    [overlayState],
   )
 
   return (
@@ -81,7 +81,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           aria-label={t('imageGallery.openImageGallery')}
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
           className={cn('outline-primary base-focus-ring cursor-default', {
-            'flex flex-col ': variant === 'below',
+            'flex flex-col': variant === 'below',
             'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
           })}
         >

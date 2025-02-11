@@ -236,7 +236,7 @@ const EventDetails = ({ event }: PageProps) => {
                   classWrapper="flex pt-5"
                   svgIcon={<EuroIcon />}
                   text={
-                    !event?.attributes?.price || event?.attributes?.price == 0
+                    !event?.attributes?.price || event?.attributes?.price === 0
                       ? t('eventDetails.noCharge').toString()
                       : event?.attributes?.price?.toString() || ''
                   }

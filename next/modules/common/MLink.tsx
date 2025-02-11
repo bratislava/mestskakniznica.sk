@@ -34,7 +34,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
       stretched = false,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const styles = cn(
       'base-focus-ring',
@@ -42,14 +42,14 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
         'hover:underline': variant === 'basic',
         'underline underline-offset-1 hover:text-foreground-body': variant === 'breadcrumb',
         'underline underline-offset-1 hover:text-foreground-dark': variant === 'richtext',
-        'text-foreground-body hover:underline hover:underline-offset-1 hover:text-foreground-dark':
+        'text-foreground-body hover:text-foreground-dark hover:underline hover:underline-offset-1':
           variant === 'navmenu',
 
         // https://github.com/tailwindlabs/tailwindcss/issues/1041#issuecomment-957425345
         'after:absolute after:inset-0': stretched,
         'flex items-center gap-x-2.5': hasIcon,
       },
-      className
+      className,
     )
     return (
       <NextLink
@@ -67,7 +67,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
         {children} {hasIcon && <ChevronRight />}
       </NextLink>
     )
-  }
+  },
 )
 
 export default MLink

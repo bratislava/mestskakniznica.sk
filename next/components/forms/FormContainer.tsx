@@ -6,6 +6,7 @@ import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import cn from '@/utils/cn'
 
+// eslint-disable-next-line import/no-cycle
 import FormSubmittedComponent from './FormSubmittedComponent'
 
 export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
@@ -77,6 +78,7 @@ const FormContainer = ({
 
   useEffect(() => {
     setFormOpen(isFormOpen && width !== undefined && width > 767)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width])
 
   useEffect(() => {
@@ -87,6 +89,7 @@ const FormContainer = ({
     }
   }, [isFormOpen, width, isSubmitted, lock, unlock])
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   const listener = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === 'Enter' || event.code === 'NumpadEnter') {
       event.preventDefault()

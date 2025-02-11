@@ -64,6 +64,7 @@ const BranchDetails = ({ branch }: PageProps) => {
                   {subBranches?.data.map((subBranch) => {
                     const { body: subBranchBody, title: subBranchTitle } =
                       subBranch.attributes ?? {}
+
                     return subBranchBody?.trim() ? (
                       <Fragment key={subBranch.id}>
                         <h3 className="text-h3 [&:not(:first-child)]:mt-6">{subBranchTitle}</h3>

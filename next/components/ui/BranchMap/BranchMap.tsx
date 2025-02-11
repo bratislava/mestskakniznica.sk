@@ -32,7 +32,7 @@ export const BranchMap = ({
         <Mapbox
           ref={mapRef}
           mapboxAccessToken={mapboxAccessToken}
-          // eslint-disable-next-line react/style-prop-object
+          // eslint-disable-next-line react/style-prop-object,no-secrets/no-secrets
           mapStyle="mapbox://styles/bratislava01/ckzrbqd6300ps14p8gpyoq3wr"
           style={{
             height: '100%',
@@ -47,14 +47,7 @@ export const BranchMap = ({
         >
           <Marker anchor="bottom" longitude={branchLongitude} latitude={branchLatitude}>
             <div className="group flex flex-col items-center">
-              <MarkerIcon
-                onClick={() => {
-                  window.location.href = `https://www.google.com/maps/search/?api=1&query=${branchLatitude},${branchLongitude}`
-                  // https: window.location.href = `https://www.google.com/maps/@${branchLatitude},${branchLongitude},16z`;
-                }}
-                width={48}
-                height={48}
-              />
+              <MarkerIcon width={48} height={48} />
               {branchName && (
                 <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-promo-yellow px-2 group-hover:visible">
                   {branchName}

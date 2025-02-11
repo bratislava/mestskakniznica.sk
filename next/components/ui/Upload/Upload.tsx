@@ -55,7 +55,7 @@ export const Upload = ({
           aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}
           {...props}
         />
-        <UploadIcon className="group-hover:rounded-full group-hover:bg-dark group-hover:bg-error group-hover:text-white" />
+        <UploadIcon className="group-hover:rounded-full group-hover:bg-dark group-hover:text-white" />
         <div className="text-center text-[12px] text-foreground-body lg:text-[14px]">
           {children}
         </div>

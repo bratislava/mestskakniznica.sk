@@ -1,7 +1,8 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ParsedUrlQuery } from 'node:querystring'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import BlogPostPage from '@/components/pages/blogPostPage'
@@ -43,7 +44,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.BlogPostStaticPaths({ locale }))
+    locales.map((locale) => client.BlogPostStaticPaths({ locale })),
   )
 
   const entities = pathArraysForLocales

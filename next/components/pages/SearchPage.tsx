@@ -93,7 +93,7 @@ const SearchPage = () => {
   const [debouncedInputForPlausible] = useDebounceValue<string>(filters.searchValue, 2000)
   const [lastInputForPlausible, setLastInputForPlausible] = useState<string>('')
   useEffect(() => {
-    const sanitizedInput = debouncedInputForPlausible.toLowerCase().trim().replace(/\s\s+/g, ' ')
+    const sanitizedInput = debouncedInputForPlausible.toLowerCase().trim().replaceAll(/\s\s+/g, ' ')
     if (sanitizedInput.length > 2 && sanitizedInput !== lastInputForPlausible) {
       plausible('Vyhladavanie', {
         props: {

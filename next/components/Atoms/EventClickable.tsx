@@ -39,6 +39,7 @@ const Clickable = ({ text, svgIcon, actionLink, classDiv, copyText }: ClickableP
         </Button>
       </div>
     )
+
   return (
     <div className={cn(classDiv)}>
       {copyText && copied ? (

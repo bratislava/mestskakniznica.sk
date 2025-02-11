@@ -27,7 +27,7 @@ export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
           {
             'bg-dark': props.checked,
             'base-input--disabled': props.disabled,
-          }
+          },
         )}
       >
         <CheckboxIndicator>

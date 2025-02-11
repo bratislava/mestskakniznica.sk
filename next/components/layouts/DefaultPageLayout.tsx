@@ -71,7 +71,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
                 title: t('footer.privacy'),
                 href:
                   getPathForStrapiEntity(
-                    general?.data?.attributes?.privacyTermsAndConditionsPage?.data
+                    general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
                   ) ?? '#',
               }}
               VOP={{

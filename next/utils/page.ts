@@ -9,7 +9,7 @@ import {
 import { isPresent } from '@/utils/utils'
 
 export const groupByTableCategory = (
-  tableRows: (TableRowWithIdFragment | undefined | null)[]
+  tableRows: (TableRowWithIdFragment | undefined | null)[],
 ): { title: string; rows: TableRowWithIdProp[] }[] => {
   const grouped = groupBy(tableRows, 'tableCategory')
   const groupedRows = Object.keys(grouped).map((key) => ({
@@ -39,9 +39,10 @@ export const parseSubpages = (subpages: SubpagesSectionFragment): SubpageItemPro
 
 // Group by for accordion
 export const groupByAccordionCategory = (
-  tableRows: (TableRowWithIdFragment | undefined | null)[]
+  tableRows: (TableRowWithIdFragment | undefined | null)[],
 ): { title: string; tables: { title: string; rows: TableRowWithIdProp[] }[] }[] => {
   const groupedItems = groupBy(tableRows, 'accordionCategory')
+
   return Object.keys(groupedItems).map((key) => ({
     title: key,
     tables: groupByTableCategory(groupedItems[key]),
@@ -51,6 +52,7 @@ export const groupByAccordionCategory = (
 // Page Accordion Items
 export const groupByCategory = <T>(items: T[]) => {
   const grouped = groupBy(items, 'category')
+
   return Object.keys(grouped).map((key) => ({
     category: key,
     items: grouped[key],

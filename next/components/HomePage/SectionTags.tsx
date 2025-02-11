@@ -12,6 +12,7 @@ interface BookTagsProps {
 
 const BooksTags = ({ bookTags }: BookTagsProps) => {
   const { t } = useTranslation()
+
   return (
     <SectionContainer hasBorder>
       <h2 className="object-none pt-10 text-center text-h3">{t('booksTags.lookingForBook')}</h2>
@@ -29,7 +30,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
                 >
                   {tag.attributes.displayName}
                 </MLink>
-              ) : null
+              ) : null,
             )}
           </div>
         </div>

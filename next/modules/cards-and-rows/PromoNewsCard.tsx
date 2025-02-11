@@ -18,9 +18,9 @@ const PromoNewsCard = ({ notice }: PromoNewsCardProps) => {
   const link = getPathForStrapiEntity(notice) ?? '#'
 
   return (
-    <CardWrapper className="group/showMore relative flex h-full w-full flex-col justify-between bg-promo-peach py-3 pl-4 pr-5 lg:pr-[25px] lg:pl-5 lg:pb-[15px] lg:pt-[18px]">
+    <CardWrapper className="group/showMore relative flex h-full w-full flex-col justify-between bg-promo-peach py-3 pl-4 pr-5 lg:pb-[15px] lg:pl-5 lg:pr-[25px] lg:pt-[18px]">
       <h3 className="text-h2">
-        <MLink href={link} variant="basic" stretched className="outline-none line-clamp-3">
+        <MLink href={link} variant="basic" stretched className="line-clamp-3 outline-none">
           {notice.attributes?.title}
         </MLink>
       </h3>

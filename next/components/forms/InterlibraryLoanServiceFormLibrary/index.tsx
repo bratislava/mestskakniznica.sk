@@ -23,7 +23,7 @@ import { convertDataToBody } from '@/utils/form-constants'
 const InterlibraryLoanServiceFormLibrary = () => {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
-  const { t, i18n } = useTranslation('forms')
+  const { t } = useTranslation('forms')
   const router = useRouter()
 
   yup.setLocale({
@@ -65,7 +65,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
             packageNumber: yup.string().optional(),
             issueDate: yup.string().optional(),
             ISBN: yup.string().optional(),
-          })
+          }),
         )
         .required(),
       cfTurnstile: yup.string().required(t('validation_error_captcha')),
@@ -127,6 +127,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
     if (error) {
       console.log('error sending form', error)
       setIsSubmitted(SubmitStatus.FAILURE)
+
       return
     }
 
@@ -135,7 +136,9 @@ const InterlibraryLoanServiceFormLibrary = () => {
   })
 
   const triggerFirstStep = () => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises,promise/catch-or-return
     methods.trigger(['email', 'phone', 'libraryName', 'ICO', 'DIC', 'IBAN']).then((fulfillment) => {
+      // eslint-disable-next-line promise/always-return
       if (fulfillment) {
         methods.clearErrors()
         setStep(2)
@@ -146,12 +149,12 @@ const InterlibraryLoanServiceFormLibrary = () => {
   const stepOneErrors = !isEmpty(
     Object.keys(errors).filter(
       (k) =>
-        k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms' && k !== 'cfTurnstile'
-    )
+        k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms' && k !== 'cfTurnstile',
+    ),
   )
 
   const stepTwoErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'acceptFeesTerms')
+    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'acceptFeesTerms'),
   )
 
   return (
@@ -328,9 +331,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
                       {t('interlibrary_accept_fees')}{' '}
                       <MLink
                         href={
-                          i18n.language === 'sk'
-                            ? '/file/cennik-poplatkov-a-sluzieb'
-                            : '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
+                          '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
                         }
                         variant="basic"
                       >

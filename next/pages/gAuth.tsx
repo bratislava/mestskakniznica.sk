@@ -13,6 +13,7 @@ const LoadingPage = () => {
         body: JSON.stringify({ code }),
         method: 'POST',
       })
+
       return response.json()
     }
     try {
@@ -24,7 +25,7 @@ const LoadingPage = () => {
             res.success
               ? 'Subscribed to events successfully.'
               : // eslint-disable-next-line sonarjs/no-duplicate-string
-                'Some error occured, please try again later.'
+                'Some error occured, please try again later.',
           )
         })
       } else {
@@ -34,6 +35,7 @@ const LoadingPage = () => {
       setMessage('Some error occured, please try again later.')
     }
   }, [code])
+
   return <div>{message || 'Registering you to events'}</div>
 }
 
