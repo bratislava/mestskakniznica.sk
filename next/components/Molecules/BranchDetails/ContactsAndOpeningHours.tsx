@@ -25,7 +25,9 @@ const ContactsAndOpeningHours = ({ branch, branches }: ContactsAndOpeningHoursPr
       <div>
         <BranchContactUsOpeningHoursInfo branch={branch} />
         {branches &&
-          branches.map((subBranch) => <BranchContactUsOpeningHoursInfo branch={subBranch} />)}
+          branches.map((subBranch) => (
+            <BranchContactUsOpeningHoursInfo branch={subBranch} key={branch.id} />
+          ))}
       </div>
     </div>
   )

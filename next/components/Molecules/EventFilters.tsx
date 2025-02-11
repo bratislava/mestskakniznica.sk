@@ -44,6 +44,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
+
     return [{ key: '', title: t('eventFilters.eventType') }, ...parsedTypes]
   }, [eventPropertiesData?.eventTags?.data, t])
 
@@ -53,6 +54,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
+
     return [{ key: '', title: t('eventFilters.eventCategory') }, ...parsedCategories]
   }, [eventPropertiesData?.eventCategories?.data, t])
 
@@ -62,6 +64,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
+
     return [{ key: '', title: t('eventFilters.eventLocality') }, ...parsedLocalities]
   }, [eventPropertiesData?.branches?.data, t])
 

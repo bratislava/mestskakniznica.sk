@@ -25,7 +25,7 @@ const BookCard = ({ book }: BookProps) => {
     <CardWrapper className="relative flex w-[126px] flex-col gap-2 md:w-[180px] md:gap-4">
       <div
         className={cn('relative h-[162px] w-full overflow-hidden md:h-[232px]', {
-          'select-none border border-border-dark pt-3 pl-4 text-[32px] uppercase': !hasCover,
+          'select-none border border-border-dark pl-4 pt-3 text-[32px] uppercase': !hasCover,
         })}
       >
         {!hasCover && <span>{book.title && book.title[0]}</span>}

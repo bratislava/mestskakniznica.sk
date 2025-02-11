@@ -1,8 +1,9 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import { DehydratedState, HydrationBoundary } from '@tanstack/react-query'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ParsedUrlQuery } from 'node:querystring'
 import { ReactNode } from 'react'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'

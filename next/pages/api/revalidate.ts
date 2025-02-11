@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       if (isEn) {
         console.log(
-          `Revalidating /en/services/education/articles due to change in ${urlToRevalidate}`
+          `Revalidating /en/services/education/articles due to change in ${urlToRevalidate}`,
         )
         await res.revalidate('/en/services/education/articles')
       } else {
@@ -71,7 +71,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       if (isEn) {
         console.log(
-          `Revalidating /en/experience/events, /en/experience due to change in ${urlToRevalidate}`
+          `Revalidating /en/experience/events, /en/experience due to change in ${urlToRevalidate}`,
         )
         await res.revalidate('/en/experience/events')
         await res.revalidate('/en/experience')
@@ -95,7 +95,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (layout === 'news') {
         if (isEn) {
           console.log(
-            `Revalidating /en/experience/news, /en/experience due to change in ${urlToRevalidate}`
+            `Revalidating /en/experience/news, /en/experience due to change in ${urlToRevalidate}`,
           )
           await res.revalidate('/en/experience/news')
           await res.revalidate('/en/experience')
@@ -109,13 +109,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (layout === 'locality') {
         if (isEn) {
           console.log(
-            `Revalidating /en/visit/our-locations, /en/visit due to change in ${urlToRevalidate}`
+            `Revalidating /en/visit/our-locations, /en/visit due to change in ${urlToRevalidate}`,
           )
           await res.revalidate('/en/visit/our-locations')
           await res.revalidate('/en/visit')
         } else {
           console.log(
-            `Revalidating /navstivte/nase-lokality, /navstivte due to change in ${urlToRevalidate}`
+            `Revalidating /navstivte/nase-lokality, /navstivte due to change in ${urlToRevalidate}`,
           )
           await res.revalidate('/navstivte/nase-lokality')
           await res.revalidate('/navstivte')
@@ -126,6 +126,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.json({ revalidated: true })
   } catch (error) {
     console.log('Error while revalidating ==>', error)
+
     return res.status(500).send('Error revalidating')
   }
 }

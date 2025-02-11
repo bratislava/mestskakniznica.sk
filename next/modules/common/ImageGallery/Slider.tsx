@@ -56,7 +56,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       allowKeyboardNavigation = false,
       description,
     },
-    forwardedRef
+    forwardedRef,
     // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
     const { t } = useTranslation()
@@ -89,7 +89,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         }
         setDragging(false)
       },
-      [goToNext, goToPrevious]
+      [goToNext, goToPrevious],
     )
 
     const dragStartHandler = useCallback(() => {
@@ -111,7 +111,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         const newDirection = index < goToIndex ? 1 : -1
         setPage([goToIndex, newDirection])
       },
-      [index]
+      [index],
     )
 
     const keyUpHandler = useCallback(
@@ -130,7 +130,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           goToNext()
         }
       },
-      [goToNext, goToPrevious, allowKeyboardNavigation]
+      [goToNext, goToPrevious, allowKeyboardNavigation],
     )
 
     return (
@@ -179,7 +179,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         )}
       </div>
     )
-  }
+  },
 )
 
 export default Slider

@@ -16,7 +16,7 @@ export type NextRedirectServerSideProps =
 // use as follows: AsyncServerProps<typeof getServerSideProps>
 // getServerSideProps needs to be declared as async - which it tends to be, add a sync version if you need it
 export type AsyncServerProps<
-  T extends (...args: any) => Promise<NextRedirectServerSideProps | { props: any }>
+  T extends (...args: any) => Promise<NextRedirectServerSideProps | { props: any }>,
 > = Exclude<Awaited<ReturnType<T>>, NextRedirectServerSideProps>['props']
 
 /**

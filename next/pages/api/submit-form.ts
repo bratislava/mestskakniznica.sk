@@ -62,24 +62,28 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       !process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITEVERIFY_API
     ) {
       console.log('Captcha variables not defined')
+
       return res.status(500).json({ error: 'Captcha variables not defined' })
     }
 
     if (!cfTurnstile) {
       console.log('Captcha token not provided')
+
       return res.status(500).json({ error: 'Captcha token not provided' })
     }
 
     if (!available_emails.has(mg_email_to)) {
       console.log('email is not in whitelist')
+
       return res.status(500).json({ error: 'generic error' })
     }
 
     const text = reduce(
       rest,
+      // eslint-disable-next-line unicorn/prefer-spread
       (result, value, key) => result.concat(`${key}: ${value}\n`),
       'Formulár bol vyplnený s nasledovnými hodnotami:\n' +
-        `Odoslané z adresy: https://mestskakniznica.sk${meta_sent_from} (jazyk: ${meta_locale})\n\n`
+        `Odoslané z adresy: https://mestskakniznica.sk${meta_sent_from} (jazyk: ${meta_locale})\n\n`,
     )
 
     const dataToSend = {
@@ -100,8 +104,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     })
     const cfResponse = await result.json()
 
-    if (cfResponse.success != true) {
+    if (cfResponse.success !== true) {
       console.log('Captcha validation failed')
+
       return res.status(500).json({ error: 'Captcha validation failed' })
     }
 
@@ -110,6 +115,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).json({})
   } catch (error) {
     console.error(error)
+
     return res.status(500).json({ error: 'generic error' })
   }
 }

@@ -61,6 +61,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
         const dateToTmp = new Date(dateTo)
 
         const { date } = dayForDifferentDateTo(dateFromTmp, dateToTmp, true)
+
         return yup
           .date()
           .min(date, t('validation_error_min_event_date'))
@@ -159,6 +160,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
     if (error) {
       console.log('error sending form', error)
       setIsSubmitted(SubmitStatus.FAILURE)
+
       return
     }
 
@@ -282,6 +284,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                           />
                         </div>
                         {eventBranch?.title && (
+                          // eslint-disable-next-line i18next/no-literal-string
                           <div className="text-sm text-foreground-body">
                             &#9679; {eventBranch.title}
                           </div>
@@ -364,7 +367,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                 )}
               />
               {hasErrors && (
-                <p className="text-base text-error ">{t('please_fill_required_fields')}</p>
+                <p className="text-base text-error">{t('please_fill_required_fields')}</p>
               )}
               <FormFooter buttonContent={t('send')} />
             </div>

@@ -38,7 +38,7 @@ export const SiteUsefullness = ({
         {
           'justify-between': !isSubmitted,
           'justify-center py-[33px]': isSubmitted,
-        }
+        },
       )}
     >
       {isSubmitted ? (

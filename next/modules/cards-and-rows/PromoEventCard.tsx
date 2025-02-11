@@ -27,7 +27,7 @@ const PromoEventCard = ({ event }: PromoEventCardProps) => {
 
   return (
     <CardWrapper className="relative m-auto flex h-full w-full flex-col justify-between bg-promo-yellow">
-      <div className="flex flex-col gap-y-3 py-3 px-4 md:gap-y-4 md:py-4 md:px-5">
+      <div className="flex flex-col gap-y-3 px-4 py-3 md:gap-y-4 md:px-5 md:py-4">
         <TagsDisplay
           tags={eventTags?.data
             .map((eventTagEntity) => eventTagEntity.attributes)

@@ -35,6 +35,7 @@ const convertValue = (value: any) => {
       year: 'numeric',
     })
   }
+
   return String(value)
 }
 
@@ -120,6 +121,7 @@ function flattenObject(
   if (isString(o) || isNumber(o) || isBoolean(o) || isDate(o) || (keepNull && isNull(o))) {
     // eslint-disable-next-line no-param-reassign
     result[key(prefix, t)] = convertValue(o)
+
     return result
   }
 
@@ -136,8 +138,10 @@ function flattenObject(
       }
       flattenObject(o[i], t, pref, result, keepNull)
     }
+
     return result
   }
+
   return result
 }
 
@@ -157,6 +161,7 @@ export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRa
       price: item.price ?? null,
     } as IRadioOption),
   )
+
   return temp
 }
 

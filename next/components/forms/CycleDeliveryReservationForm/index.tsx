@@ -61,15 +61,17 @@ const CycleDeliveryReservationForm = () => {
             id: yup.string(),
             author: yup.string().when(['id'], {
               is: (id: string) => id?.length,
+              // eslint-disable-next-line unicorn/no-thenable
               then: yup.string(),
               otherwise: yup.string().required(),
             }),
             title: yup.string().when(['id'], {
               is: (id: string) => id?.length,
+              // eslint-disable-next-line unicorn/no-thenable
               then: yup.string(),
               otherwise: yup.string().required(),
             }),
-          })
+          }),
         )
         .required(),
       cfTurnstile: yup.string().required(t('validation_error_captcha')),
@@ -120,6 +122,7 @@ const CycleDeliveryReservationForm = () => {
     if (error) {
       console.log('error sending form', error)
       setIsSubmitted(SubmitStatus.FAILURE)
+
       return
     }
 
@@ -128,6 +131,7 @@ const CycleDeliveryReservationForm = () => {
   })
 
   const triggerFirstStep = () => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises,promise/catch-or-return
     methods
       .trigger([
         'fName',
@@ -140,6 +144,7 @@ const CycleDeliveryReservationForm = () => {
         'phone',
       ])
       .then((fulfillment) => {
+        // eslint-disable-next-line promise/always-return
         if (fulfillment) {
           methods.clearErrors()
           setStep(2)
@@ -149,8 +154,8 @@ const CycleDeliveryReservationForm = () => {
 
   const stepOneErrors = !isEmpty(
     Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'cfTurnstile'
-    )
+      (k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'cfTurnstile',
+    ),
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))

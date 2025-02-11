@@ -9,5 +9,5 @@ export const documentCategoriesFetcher = () =>
         label: category.attributes?.label,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         key: category.id!,
-      })) ?? []
+      })) ?? [],
   )

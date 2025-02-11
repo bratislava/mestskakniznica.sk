@@ -27,6 +27,7 @@ const MobileHeader = ({ menus }: MobileHeaderProps) => {
   // close mobile header on route change
   useEffect(() => {
     router.events.on('routeChangeStart', () => setMenuOpen(false))
+
     return () => router.events.off('routeChangeStart', () => setMenuOpen(false))
   }, [router])
 

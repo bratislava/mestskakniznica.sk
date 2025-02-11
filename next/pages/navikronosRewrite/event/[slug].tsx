@@ -1,7 +1,8 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ParsedUrlQuery } from 'node:querystring'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import EventPage from '@/components/pages/eventPage'
@@ -44,7 +45,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
 
   const pathArraysForLocales = await Promise.all(
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    locales!.map((locale) => client.EventStaticPaths({ locale }))
+    locales!.map((locale) => client.EventStaticPaths({ locale })),
   )
   const entities = pathArraysForLocales
     .flatMap(({ events }) => events?.data || [])

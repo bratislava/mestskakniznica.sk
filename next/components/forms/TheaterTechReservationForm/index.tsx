@@ -88,6 +88,7 @@ const TheaterTechReservationForm = () => {
     if (error) {
       console.log('error sending form', error)
       setIsSubmitted(SubmitStatus.FAILURE)
+
       return
     }
 
@@ -209,7 +210,7 @@ const TheaterTechReservationForm = () => {
               )}
             />
           </div>
-          {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
+          {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
           <FormFooter buttonContent={t('send')} />
         </div>
       </FormContainer>
