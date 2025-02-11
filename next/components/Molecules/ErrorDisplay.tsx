@@ -36,16 +36,11 @@ const ErrorDisplay = ({ error }: IProps) => {
   return (
     <>
       <header className="h-[73px] text-[40px] leading-[48px]">
-        <h1>Na stránke sa vyskytla chyba...</h1>
+        <h1>{t('errorDisplay.title')}</h1>
       </header>
-      <p className="text-base">
-        {t(
-          'errorDisplay.weAreSorry',
-          'Ľutujeme, ale na tejto stránke sa vyskytla chyba. Skúste opäť neskôr alebo použite vyhľadávanie.',
-        )}
-      </p>
+      <p className="text-base">{t('errorDisplay.weAreSorry')}</p>
       <Button className="mt-4" onPress={() => setOpen((o) => !o)}>
-        {open ? t('common.showLess', 'Zobraziť menej') : t('common.showMore', 'Zobraziť viac')}
+        {open ? t('common.showLess') : t('common.showMore')}
       </Button>
       {open && (
         <pre className="mt-4 whitespace-pre-wrap text-sm">
