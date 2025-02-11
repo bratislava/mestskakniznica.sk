@@ -51,7 +51,7 @@ export const NumberSwitcher = ({
           type="button"
           onClick={(e) => {
             e.preventDefault()
-            onClickChange && onClickChange(clampValue(Number(value) - 1))
+            onClickChange?.(clampValue(Number(value) - 1))
           }}
           className="h-full cursor-pointer py-2 text-foreground-heading"
         >
@@ -76,7 +76,7 @@ export const NumberSwitcher = ({
           type="button"
           onClick={(e) => {
             e.preventDefault()
-            onClickChange && onClickChange(clampValue(Number(value) + 1))
+            onClickChange?.(clampValue(Number(value) + 1))
           }}
           className="h-full cursor-pointer py-2 text-foreground-heading"
         >

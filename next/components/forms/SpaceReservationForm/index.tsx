@@ -75,9 +75,11 @@ const SpaceReservationForm = () => {
 
   const hasErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   const onSpaceUpdate = (item: string, callback: Function) => {
     if (document !== undefined) {
       ;[...document.querySelectorAll('iframe')].forEach((iframe) => {
+        // eslint-disable-next-line no-param-reassign
         iframe.className = 'hidden'
       })
       const selectedIframe = document.querySelector(`#${item}_cal`)

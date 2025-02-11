@@ -37,10 +37,10 @@ const FormWrapper = ({ className, children, title, onSubmit, isSubmitted }: IPro
       <form className="mt-6 flex flex-col gap-y-8" onSubmit={onSubmit}>
         {/* Here are the children of each form if unsubmitted, otherwise default SubmittedFormComponent */}
         <FormSubmittedComponent
-          className={cn({ hidden: isSubmitted == SubmitStatus.NONE })}
+          className={cn({ hidden: isSubmitted === SubmitStatus.NONE })}
           submitStatus={isSubmitted}
         />
-        <div className={cn({ hidden: isSubmitted != SubmitStatus.NONE })}>{children}</div>
+        <div className={cn({ hidden: isSubmitted !== SubmitStatus.NONE })}>{children}</div>
       </form>
     </div>
   )

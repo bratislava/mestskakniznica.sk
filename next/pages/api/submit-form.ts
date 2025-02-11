@@ -77,6 +77,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const text = reduce(
       rest,
+      // eslint-disable-next-line unicorn/prefer-spread
       (result, value, key) => result.concat(`${key}: ${value}\n`),
       'Formulár bol vyplnený s nasledovnými hodnotami:\n' +
         `Odoslané z adresy: https://mestskakniznica.sk${meta_sent_from} (jazyk: ${meta_locale})\n\n`,
@@ -100,7 +101,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     })
     const cfResponse = await result.json()
 
-    if (cfResponse.success != true) {
+    if (cfResponse.success !== true) {
       console.log('Captcha validation failed')
       return res.status(500).json({ error: 'Captcha validation failed' })
     }

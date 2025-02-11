@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import { client } from '@/services/graphql/gql'
 
+// eslint-disable-next-line consistent-return
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,

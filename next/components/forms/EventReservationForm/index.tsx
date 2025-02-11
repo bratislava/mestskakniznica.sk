@@ -282,6 +282,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                           />
                         </div>
                         {eventBranch?.title && (
+                          // eslint-disable-next-line i18next/no-literal-string
                           <div className="text-sm text-foreground-body">
                             &#9679; {eventBranch.title}
                           </div>

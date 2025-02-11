@@ -62,16 +62,19 @@ const CityLibraryRegistrationForm = () => {
       useTempAddress: yup.boolean(),
       tempAddress: yup.string().when('useTempAddress', {
         is: true,
+        // eslint-disable-next-line unicorn/no-thenable
         then: yup.string().required(),
         otherwise: yup.string(),
       }),
       tempCity: yup.string().when('useTempAddress', {
         is: true,
+        // eslint-disable-next-line unicorn/no-thenable
         then: yup.string().required(),
         otherwise: yup.string(),
       }),
       tempPostalCode: yup.string().when('useTempAddress', {
         is: true,
+        // eslint-disable-next-line unicorn/no-thenable
         then: yup.string().matches(postalCodeRegex, t('validation_error_zipcode')).required(),
         otherwise: yup.string(),
       }),
@@ -133,9 +136,9 @@ const CityLibraryRegistrationForm = () => {
 
     // catch error
     const { status, message } = await res.json()
-    if (!status || status != 200) {
-      const errMessage = message || t('library_registration_error_message')
-      setErrMessage(errMessage)
+    if (!status || status !== 200) {
+      const errMessageInner = message || t('library_registration_error_message')
+      setErrMessage(errMessageInner)
       setIsSubmitted(SubmitStatus.FAILURE)
       return
     }
@@ -144,6 +147,7 @@ const CityLibraryRegistrationForm = () => {
   })
 
   const triggerFirstStep = () => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises,promise/catch-or-return
     methods
       .trigger([
         'fName',
@@ -163,6 +167,7 @@ const CityLibraryRegistrationForm = () => {
         'IDNumber',
       ])
       .then((fulfillment) => {
+        // eslint-disable-next-line promise/always-return
         if (fulfillment) {
           methods.clearErrors()
           setStep(2)
@@ -359,7 +364,7 @@ const CityLibraryRegistrationForm = () => {
             <Controller
               control={methods.control}
               name="useTempAddress"
-              render={({ field: { onChange, value, ref, ...field } }) => (
+              render={({ field: { onChange, value } }) => (
                 <CheckBox
                   id="addTempAddress_input"
                   onChange={(e) => {

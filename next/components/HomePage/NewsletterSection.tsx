@@ -21,7 +21,7 @@ const NewsletterSection = () => {
     },
   })
 
-  const [subscribed, setSubscribed] = useState(false)
+  const [subscribed] = useState(false)
   const [resStatus, setResStatus] = useState(false)
   const [respondMessage, setRespondMessage] = useState('')
   const { t } = useTranslation()
@@ -40,7 +40,7 @@ const NewsletterSection = () => {
     const { error } = await res.json()
     if (error) {
       console.error(error)
-      if (error.trim() == 'Bad Request') {
+      if (error.trim() === 'Bad Request') {
         setRespondMessage(t('newsletterSection.subscribe.badRequestMessage'))
       } else {
         setRespondMessage(t('newsletterSection.subscribe.errorMessage'))

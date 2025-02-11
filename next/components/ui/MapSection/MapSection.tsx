@@ -110,13 +110,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                       latitude={latitude}
                     >
                       <div className="group flex flex-col items-center">
-                        <MarkerIcon
-                          onClick={() => {
-                            window.location.href = `https://www.google.com/maps/@${latitude},${longitude},16z`
-                          }}
-                          width={48}
-                          height={48}
-                        />
+                        <MarkerIcon width={48} height={48} />
                         {branchTitle ? (
                           <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-promo-peach px-2 group-hover:visible">
                             {branchTitle}

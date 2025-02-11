@@ -19,7 +19,7 @@ import { convertDataToBody } from '@/utils/form-constants'
 const InterlibraryLoanServiceFormReader = () => {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
-  const { t, i18n } = useTranslation('forms')
+  const { t } = useTranslation('forms')
   const router = useRouter()
 
   yup.setLocale({
@@ -129,9 +129,11 @@ const InterlibraryLoanServiceFormReader = () => {
   })
 
   const triggerFirstStep = () => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises,promise/catch-or-return
     methods
       .trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone'])
       .then((fulfillment) => {
+        // eslint-disable-next-line promise/always-return
         if (fulfillment) {
           methods.clearErrors()
           setStep(2)
@@ -308,9 +310,7 @@ const InterlibraryLoanServiceFormReader = () => {
                       {t('interlibrary_accept_fees')}{' '}
                       <MLink
                         href={
-                          i18n.language == 'sk'
-                            ? '/file/cennik-poplatkov-a-sluzieb'
-                            : '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
+                          '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
                         }
                         variant="basic"
                       >
