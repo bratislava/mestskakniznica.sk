@@ -63,7 +63,7 @@ const VenueRentalForm = (props: VenueRentalFormProps) => {
   const typeOptions = useGetFormOptions(types)
 
   const optionsKey = selectOptions.find(
-    (options) => options.title.split(',')[0].trim() == pageTitle
+    (options) => options.title.split(',')[0].trim() == pageTitle,
   )
 
   const methods = useForm({
@@ -330,7 +330,7 @@ const VenueRentalForm = (props: VenueRentalFormProps) => {
               />
             )}
           />
-          {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
+          {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
           <FormFooter buttonContent={t('send')} />
         </div>
       </FormContainer>

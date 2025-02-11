@@ -14,7 +14,7 @@ const replaceLastPartWithSlug = (path: string) => {
 }
 
 type GetTreeNodeByEntity<Config extends NavikronosConfig> = (
-  entity: RouteEntityWithLocale<Config, true>
+  entity: RouteEntityWithLocale<Config, true>,
 ) => ParsedTreeNode | null
 
 export type ParsedTreeObject<Config extends NavikronosConfig> = {
@@ -25,7 +25,7 @@ export type ParsedTreeObject<Config extends NavikronosConfig> = {
 
 export const getParsedTreeWithUtilities = <Config extends NavikronosConfig>(
   config: Config,
-  navigation: NavikronosClientLocaleNavigations
+  navigation: NavikronosClientLocaleNavigations,
 ): ParsedTreeObject<Config> => {
   const tree = parseTree(config, navigation)
   const aliases = getAliasContentTypeMap(config)

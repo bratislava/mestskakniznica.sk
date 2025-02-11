@@ -22,7 +22,7 @@ const TagButton = (props: TagButtonProps) => {
           'border-dark bg-dark text-white': isSelected,
           'border-border hover:text-primary bg-white': !isSelected,
         },
-        className
+        className,
       )}
       {...buttonProps}
     >

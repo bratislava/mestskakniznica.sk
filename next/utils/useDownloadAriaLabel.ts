@@ -24,7 +24,7 @@ export const useDownloadAriaLabel = () => {
         size: formattedSize,
       })
     },
-    [i18n.language, t]
+    [i18n.language, t],
   )
   return { getDownloadAriaLabel }
 }

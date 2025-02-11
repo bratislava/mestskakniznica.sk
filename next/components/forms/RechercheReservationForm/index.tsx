@@ -122,8 +122,8 @@ const RechercheReservationForm = () => {
 
   const stepOneErrors = !isEmpty(
     Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && !k.startsWith('recherche') && k !== 'cfTurnstile'
-    )
+      (k) => k !== 'acceptFormTerms' && !k.startsWith('recherche') && k !== 'cfTurnstile',
+    ),
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))

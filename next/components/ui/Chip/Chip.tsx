@@ -18,7 +18,7 @@ export const Chip = ({ size, children, className, onDelete }: ChipProps) => {
           'px-4 py-2': size === 'big',
           'px-3 py-1.5': size === 'medium',
           'px-2 py-1': size === 'small',
-        }
+        },
       )}
     >
       <div

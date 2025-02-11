@@ -46,7 +46,7 @@ const BookNotInLibraryForm = () => {
             title: yup.string().required(),
             issuer: yup.string().optional(),
             issueDate: yup.string().optional(),
-          })
+          }),
         )
         .required(),
       acceptFormTerms: yup.boolean().isTrue(),
@@ -152,7 +152,7 @@ const BookNotInLibraryForm = () => {
 
           <BookListNotInLibrary />
 
-          {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
+          {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
           <FormFooter buttonContent={t('send')} />
         </div>
       </FormContainer>

@@ -17,7 +17,7 @@ const CarouselControl = ({ direction, onPress, hidden }: CarouselControlProps) =
   return (
     <CarouselControlButton
       onPress={onPress}
-      className={cn('absolute top-0 bottom-0 z-10 my-auto', {
+      className={cn('absolute bottom-0 top-0 z-10 my-auto', {
         'left-0 -translate-x-1/2 transform': direction === 'left',
         'right-0 translate-x-1/2 transform': direction === 'right',
         hidden,

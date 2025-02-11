@@ -39,7 +39,7 @@ const DocumentPage = ({ entity }: IProps) => {
   const numOfFiles = file?.data.length ?? 0
   const isMultipleFiles = numOfFiles > 1
   const badgeExt = !isMultipleFiles ? (
-    firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''
+    (firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? '')
   ) : (
     <FolderIcon />
   )

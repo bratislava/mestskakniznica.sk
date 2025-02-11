@@ -21,7 +21,7 @@ const BreadcrumbItem = ({ url, isMobile = false, ...rest }: BreadcrumbItemProps)
           ref={ref}
           {...itemProps}
           variant="breadcrumb"
-          className={isMobile ? '-mx-4 flex shrink-0 items-center gap-x-1.5 py-1 px-4' : ''}
+          className={isMobile ? '-mx-4 flex shrink-0 items-center gap-x-1.5 px-4 py-1' : ''}
         >
           {isMobile && <ChevronLeftIcon />}
           {rest.children}

@@ -80,7 +80,7 @@ const traverseRoute = (
   config: NavikronosConfig,
   route: NavikronosClientRoute,
   maps: ParsedTreeMaps,
-  parent?: ParsedTreeNode
+  parent?: ParsedTreeNode,
 ) => {
   // create object beforehand to it can be assigned
   const node: Partial<ParsedTreeNode> = {}
@@ -118,7 +118,7 @@ const traverseRoute = (
 
   if (route.type !== 'contentType' && route.children) {
     node.children = route.children.map((child) =>
-      traverseRoute(config, child, maps, node as ParsedTreeNode)
+      traverseRoute(config, child, maps, node as ParsedTreeNode),
     )
   }
 
@@ -127,7 +127,7 @@ const traverseRoute = (
 
 const traverseLocale = (
   config: NavikronosConfig,
-  navigation?: NavikronosClientNavigation
+  navigation?: NavikronosClientNavigation,
 ): ParsedTreeAndMaps => {
   if (!navigation) {
     return null
@@ -149,10 +149,10 @@ const traverseLocale = (
 
 export const parseTree = (
   config: NavikronosConfig,
-  navigation: NavikronosClientLocaleNavigations
+  navigation: NavikronosClientLocaleNavigations,
 ): LocaleParsedTreeMap => {
   const entriesMapped = Object.entries(navigation).map(
-    ([locale, localeNavigation]) => [locale, traverseLocale(config, localeNavigation)] as const
+    ([locale, localeNavigation]) => [locale, traverseLocale(config, localeNavigation)] as const,
   )
 
   return Object.fromEntries(entriesMapped)

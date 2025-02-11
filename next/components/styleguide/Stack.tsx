@@ -17,7 +17,7 @@ export const Stack = ({ direction = 'row', children }: StackProps) => {
     {
       'flex-col items-center gap-y-2': direction === 'column',
       'items-end gap-x-2': direction === 'row',
-    }
+    },
   )
 
   return <div className={classNameStyles}>{children}</div>

@@ -8,7 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (model === 'page' && entry.layout === 'event') {
     const eventSection = entry.sections.find(
       // eslint-disable-next-line no-underscore-dangle
-      (ele: any) => ele.__component === 'sections.event-details'
+      (ele: any) => ele.__component === 'sections.event-details',
     )
     if (!eventSection.eventTitle || !eventSection.dateFrom || !eventSection.dateTo) {
       res.send({ message: 'Not a valid event to add.' })
@@ -20,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     subscriberList.eventSubscriptions?.map((user: any) => {
       const gAuthClient = new google.auth.OAuth2(
         process.env.GOOGLE_CLIENT_ID,
-        process.env.GOOGLE_CLIENT_SECRET
+        process.env.GOOGLE_CLIENT_SECRET,
       )
       gAuthClient.setCredentials({ refresh_token: user.refreshToken })
       return google

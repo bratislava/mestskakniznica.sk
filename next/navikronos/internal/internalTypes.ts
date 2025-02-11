@@ -37,26 +37,22 @@ export type StaticRouteEntity<Config extends NavikronosConfig> = {
   id: StaticRoutesConfigKeys<Config>
 }
 
-export type ContentTypeRouteEntity<
-  Config extends NavikronosConfig,
-  NullUndefinedSlug = false
-> = ContentTypeRoutesConfigValues<Config> extends { alias: infer T }
-  ? { type: T; slug: NullUndefinedSlug extends true ? string | null | undefined : string }
-  : never
+export type ContentTypeRouteEntity<Config extends NavikronosConfig, NullUndefinedSlug = false> =
+  ContentTypeRoutesConfigValues<Config> extends { alias: infer T }
+    ? { type: T; slug: NullUndefinedSlug extends true ? string | null | undefined : string }
+    : never
 
-export type EntryRouteEntity<
-  Config extends NavikronosConfig,
-  NullUndefinedId = false
-> = EntryRoutesConfigValues<Config> extends { alias: infer T }
-  ? {
-      type: T
-      /**
-       * Strapi works with `number` id, but GraphQL returns `string` ids, for easier usage Navikronos accepts the `string`
-       * variation.
-       */
-      id: NullUndefinedId extends true ? string | null | undefined : string
-    }
-  : never
+export type EntryRouteEntity<Config extends NavikronosConfig, NullUndefinedId = false> =
+  EntryRoutesConfigValues<Config> extends { alias: infer T }
+    ? {
+        type: T
+        /**
+         * Strapi works with `number` id, but GraphQL returns `string` ids, for easier usage Navikronos accepts the `string`
+         * variation.
+         */
+        id: NullUndefinedId extends true ? string | null | undefined : string
+      }
+    : never
 
 export type RouteEntity<Config extends NavikronosConfig, NullUndefinedIdSlug = false> =
   | StaticRouteEntity<Config>
@@ -65,12 +61,12 @@ export type RouteEntity<Config extends NavikronosConfig, NullUndefinedIdSlug = f
 
 export type RouteEntityWithLocale<
   Config extends NavikronosConfig,
-  NullUndefinedIdSlug = false
+  NullUndefinedIdSlug = false,
 > = RouteEntity<Config, NullUndefinedIdSlug> & { locale: string }
 
 export type RouteEntityWithLocaleOptional<
   Config extends NavikronosConfig,
-  NullUndefinedIdSlug = false
+  NullUndefinedIdSlug = false,
 > = RouteEntity<Config, NullUndefinedIdSlug> & { locale?: string }
 
 export type AliasContentTypeMap<Config extends NavikronosConfig> = {

@@ -48,7 +48,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.NoticesStaticPaths({ locale }))
+    locales.map((locale) => client.NoticesStaticPaths({ locale })),
   )
 
   const entities = pathArraysForLocales

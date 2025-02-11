@@ -69,7 +69,7 @@ const CycleDeliveryReservationForm = () => {
               then: yup.string(),
               otherwise: yup.string().required(),
             }),
-          })
+          }),
         )
         .required(),
       cfTurnstile: yup.string().required(t('validation_error_captcha')),
@@ -149,8 +149,8 @@ const CycleDeliveryReservationForm = () => {
 
   const stepOneErrors = !isEmpty(
     Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'cfTurnstile'
-    )
+      (k) => k !== 'acceptFormTerms' && k !== 'books' && k !== 'cfTurnstile',
+    ),
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))

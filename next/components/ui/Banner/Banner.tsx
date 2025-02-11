@@ -20,7 +20,7 @@ export const Banner = ({
     <div
       className={cn(
         'flex flex-col items-center justify-between gap-y-6 bg-dark p-4 text-center lg:flex-row lg:gap-y-0 lg:p-10 lg:text-left',
-        className
+        className,
       )}
     >
       <div className="max-w-[288px] lg:max-w-[754px]">

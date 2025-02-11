@@ -8,7 +8,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       `
         User-agent: *
         Disallow: /api/
-      `
+      `,
     )
   }
 
@@ -17,7 +17,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     `
       User-Agent: *
       Disallow: /
-    `
+    `,
   )
 }
 

@@ -26,7 +26,7 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
           'pb-6': !finished && active,
           'border-b border-border-light': active || finished,
         },
-        className
+        className,
       )}
     >
       {/* TODO replace by Button */}
@@ -46,7 +46,7 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
             {
               'bg-button-dark text-white': active || finished,
               'text-foreground-heading': !active && !finished,
-            }
+            },
           )}
         >
           {finished ? <CheckNoPaddingIcon className="-m-6" /> : num}

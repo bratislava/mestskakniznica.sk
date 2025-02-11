@@ -364,7 +364,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
                 )}
               />
               {hasErrors && (
-                <p className="text-base text-error ">{t('please_fill_required_fields')}</p>
+                <p className="text-base text-error">{t('please_fill_required_fields')}</p>
               )}
               <FormFooter buttonContent={t('send')} />
             </div>

@@ -56,7 +56,7 @@ const SelectField = ({
   const defaultSelectedOptions = isDefined(defaultSelected)
     ? multiple
       ? (defaultSelected.map((selected) =>
-          options.find((option) => option.key === selected)
+          options.find((option) => option.key === selected),
         ) as Option[])
       : [options.find((option) => option.key === defaultSelected) as Option]
     : []
@@ -84,7 +84,7 @@ const SelectField = ({
         ;(onSelectionChange as (selection: string) => void)(optionOrOptions.key)
       }
     },
-    [onSelectionChange]
+    [onSelectionChange],
   )
 
   const selectedOption = useMemo(() => {

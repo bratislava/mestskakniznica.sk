@@ -37,12 +37,12 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
   const buttonStyles = cn(
     'hover:text-underline base-focus-ring flex items-center gap-4 text-left text-h5',
     {
-      'py-[18.5px] px-4 md:px-6 md:py-5': type === 'boxed',
+      'px-4 py-[18.5px] md:px-6 md:py-5': type === 'boxed',
       'py-[18.5px] md:py-6': type === 'divider-big',
       'py-[14.5px] md:py-[18.5px]': type === 'divider-small',
       'py-4': type === 'subbranch',
-      'p-4 -mx-4': type === 'breadcrumbs',
-    }
+      '-mx-4 p-4': type === 'breadcrumbs',
+    },
   )
 
   const leftIconStyles = cn('mr-0 shrink-0 md:mr-2', {
@@ -52,7 +52,7 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
 
   // const iconWrapperStyles = cn('flex h-8 w-8 shrink-0 items-center justify-center')
 
-  const contentStyles = cn('w-full ', {
+  const contentStyles = cn('w-full', {
     'px-6 py-5': type === 'boxed',
     'py-[18.5px] md:py-6': type === 'divider-big',
     'py-[14.5px] md:py-[18.5px]': type === 'divider-small',

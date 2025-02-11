@@ -24,7 +24,7 @@ const FormWrapper = ({ className, children, title, onSubmit, isSubmitted }: IPro
     <div
       className={cn(
         className,
-        'w-72 max-w-[680px] lg:w-full lg:border lg:border-border-dark lg:px-8 lg:pt-8'
+        'w-72 max-w-[680px] lg:w-full lg:border lg:border-border-dark lg:px-8 lg:pt-8',
       )}
     >
       <div className="-mx-4 flex justify-between border-b border-border-dark px-4 py-4.5 lg:border-none lg:py-0">

@@ -29,7 +29,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
                 >
                   {tag.attributes.displayName}
                 </MLink>
-              ) : null
+              ) : null,
             )}
           </div>
         </div>

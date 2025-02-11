@@ -38,7 +38,7 @@ export const Pagination = ({ max, value, onChangeNumber }: PaginationProps) => {
         onChangeNumber(parseInt(ev.target.value))
       }
     },
-    [max, onChangeNumber]
+    [max, onChangeNumber],
   )
 
   return (

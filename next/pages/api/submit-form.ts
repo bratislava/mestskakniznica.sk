@@ -79,7 +79,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       rest,
       (result, value, key) => result.concat(`${key}: ${value}\n`),
       'Formulár bol vyplnený s nasledovnými hodnotami:\n' +
-        `Odoslané z adresy: https://mestskakniznica.sk${meta_sent_from} (jazyk: ${meta_locale})\n\n`
+        `Odoslané z adresy: https://mestskakniznica.sk${meta_sent_from} (jazyk: ${meta_locale})\n\n`,
     )
 
     const dataToSend = {

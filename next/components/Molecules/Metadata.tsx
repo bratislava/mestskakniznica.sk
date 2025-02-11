@@ -6,7 +6,7 @@ const Metadata = ({ metadata }: { metadata: MetadataFragment[] | null | undefine
   return (
     <>
       {metadata?.map(
-        (meta) => meta && <MetadataComponent key={meta?.__typename} metadata={meta} />
+        (meta) => meta && <MetadataComponent key={meta?.__typename} metadata={meta} />,
       )}
     </>
   )

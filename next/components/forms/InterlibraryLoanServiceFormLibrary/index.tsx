@@ -65,7 +65,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
             packageNumber: yup.string().optional(),
             issueDate: yup.string().optional(),
             ISBN: yup.string().optional(),
-          })
+          }),
         )
         .required(),
       cfTurnstile: yup.string().required(t('validation_error_captcha')),
@@ -146,12 +146,12 @@ const InterlibraryLoanServiceFormLibrary = () => {
   const stepOneErrors = !isEmpty(
     Object.keys(errors).filter(
       (k) =>
-        k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms' && k !== 'cfTurnstile'
-    )
+        k !== 'acceptFormTerms' && k !== 'books' && k !== 'acceptFeesTerms' && k !== 'cfTurnstile',
+    ),
   )
 
   const stepTwoErrors = !isEmpty(
-    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'acceptFeesTerms')
+    Object.keys(errors).filter((k) => k !== 'acceptFormTerms' && k !== 'acceptFeesTerms'),
   )
 
   return (

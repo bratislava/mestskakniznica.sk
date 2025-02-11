@@ -172,8 +172,8 @@ const CityLibraryRegistrationForm = () => {
 
   const stepOneErrors = !isEmpty(
     Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && k !== 'IDType' && k !== 'cfTurnstile'
-    )
+      (k) => k !== 'acceptFormTerms' && k !== 'IDType' && k !== 'cfTurnstile',
+    ),
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
@@ -302,8 +302,8 @@ const CityLibraryRegistrationForm = () => {
               )}
             />
           </div>
-          <div className="my-6 flex flex-col gap-y-6 border p-6 ">
-            <p className="text-left text-lg text-foreground-heading ">
+          <div className="my-6 flex flex-col gap-y-6 border p-6">
+            <p className="text-left text-lg text-foreground-heading">
               {t('permanent_address')} <span className="text-error">*</span>
             </p>
             <Controller
@@ -376,8 +376,8 @@ const CityLibraryRegistrationForm = () => {
           </div>
 
           {showTempAddress && (
-            <div className="my-6 flex flex-col gap-y-6 border p-6 ">
-              <p className="text-left text-lg text-foreground-heading ">
+            <div className="my-6 flex flex-col gap-y-6 border p-6">
+              <p className="text-left text-lg text-foreground-heading">
                 {t('temporary_address')} <span className="text-error">*</span>
               </p>
               <Controller
@@ -433,7 +433,7 @@ const CityLibraryRegistrationForm = () => {
             </div>
           )}
 
-          <div className="mb-6 flex flex-col justify-between gap-6  lg:flex-row">
+          <div className="mb-6 flex flex-col justify-between gap-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="birthDate"

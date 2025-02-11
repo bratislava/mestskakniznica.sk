@@ -24,17 +24,17 @@ import { getParsedTreeWithUtilities } from './parsedTreeWithUtilities'
 type CurrentPath = string | null
 
 type GetPathForEntity<Config extends NavikronosConfig> = (
-  routeEntity: RouteEntityWithLocaleOptional<Config, true> | null
+  routeEntity: RouteEntityWithLocaleOptional<Config, true> | null,
 ) => string | null
 
 type Localizations<Config extends NavikronosConfig> = RouteEntityWithLocale<Config>[] | null
 
 type GetEntityForStrapiEntity<Config extends NavikronosConfig> = (
-  strapiEntity: StrapiEntity<Config> | undefined | null
+  strapiEntity: StrapiEntity<Config> | undefined | null,
 ) => RouteEntity<Config> | null
 
 type GetPathForStrapiEntity<Config extends NavikronosConfig> = (
-  strapiEntity: StrapiEntity<Config> | undefined | null
+  strapiEntity: StrapiEntity<Config> | undefined | null,
 ) => string | null
 
 export type RouteEntityAndTitle<Config extends NavikronosConfig> = {
@@ -78,7 +78,7 @@ export const getNavikronosObject = <Config extends NavikronosConfig>(
     currentEntity: _currentEntity,
     currentEntityLocalizations: _currentEntityLocalizations,
     breadcrumbsTitle: _breadcrumbsTitle,
-  }: NavikronosStaticProps<Config>
+  }: NavikronosStaticProps<Config>,
 ): // eslint-disable-next-line sonarjs/cognitive-complexity
 NavikronosObject<Config> => {
   const _treeObject = getParsedTreeWithUtilities(config, _navigation)
@@ -108,7 +108,7 @@ NavikronosObject<Config> => {
 
   const _getPathForNode = (
     node: ParsedTreeNode | null,
-    entity?: RouteEntityWithLocaleOptional<Config, true> | null
+    entity?: RouteEntityWithLocaleOptional<Config, true> | null,
   ) => {
     if (!node) {
       return null
@@ -187,7 +187,7 @@ NavikronosObject<Config> => {
             ({
               ..._currentEntity,
               locale,
-            } as RouteEntityWithLocale<Config>)
+            }) as RouteEntityWithLocale<Config>,
         )
     }
 
@@ -244,7 +244,7 @@ NavikronosObject<Config> => {
   }
 
   const _nodeToEntityAndTitleWithChildren = (
-    node: ParsedTreeNode
+    node: ParsedTreeNode,
   ): RouteEntityAndTitleWithChildren<Config> | null => {
     if (node.original.type === 'contentType') {
       return null
@@ -292,7 +292,7 @@ NavikronosObject<Config> => {
             title: _breadcrumbsTitle,
             entity: {
               type: _contentTypeAliasMap.contentTypeRoutes.get(
-                _currentEntityNode.original.contentTypeUid
+                _currentEntityNode.original.contentTypeUid,
               ) as string,
               slug: (_currentEntity as ContentTypeRouteEntity<Config>).slug,
             } as ContentTypeRouteEntity<Config>,

@@ -37,7 +37,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
               className={cn('transform border-b py-3 transition-all duration-200 ease-linear', {
                 'border-border-light text-foreground-body': !isActive,
                 'flex items-center gap-x-5.5 border-border-dark pl-1.5 text-foreground-dark':
-                isActive,
+                  isActive,
               })}
             >
               {isActive && <ChevronRight />}

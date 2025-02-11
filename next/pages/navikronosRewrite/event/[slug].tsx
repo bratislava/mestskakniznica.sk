@@ -44,7 +44,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
 
   const pathArraysForLocales = await Promise.all(
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    locales!.map((locale) => client.EventStaticPaths({ locale }))
+    locales!.map((locale) => client.EventStaticPaths({ locale })),
   )
   const entities = pathArraysForLocales
     .flatMap(({ events }) => events?.data || [])

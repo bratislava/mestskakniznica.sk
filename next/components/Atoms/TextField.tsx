@@ -64,7 +64,7 @@ const TextField = (props: TextFieldProps) => {
               'text-foreground-disabled': disabled,
               'placeholder:text-foreground-placeholder': !inputClassName?.includes('placeholder:'),
               'h-16': isLarge,
-            }
+            },
           )}
         />
       </FieldWrapper>
