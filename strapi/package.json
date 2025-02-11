@@ -33,12 +33,12 @@
     "uuid": "0edac017-73ff-4836-bdbc-243328bdd8c0"
   },
   "engines": {
-    "node": "18.x.x",
+    "node": "20.x.x",
     "npm": ">=9.8.1"
   },
   "license": "MIT",
   "volta": {
-    "node": "18.20.5",
+    "node": "20.9.0",
     "yarn": "1.22.22"
   }
 }
