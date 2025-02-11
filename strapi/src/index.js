@@ -1,13 +1,12 @@
-import { Strapi } from '@strapi/strapi'
+"use strict";
 
-export default {
+module.exports = {
   /**
    * An asynchronous register function that runs before
    * your application is initialized.
    *
    * This gives you an opportunity to extend code.
    */
-  // register({ strapi }: { strapi: any }) { },
   register(/*{ strapi }*/) {},
 
   /**
@@ -17,27 +16,29 @@ export default {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  async bootstrap({ strapi }: { strapi: Strapi }) {
+  async bootstrap({ strapi }) {
     //------------------------------------
     // ADDING ENGLISH LOCALE
     //------------------------------------
     const existingEnglish = await strapi.db
-      .query('plugin::i18n.locale')
-      .findOne({ where: { code: 'en' } })
+      .query("plugin::i18n.locale")
+      .findOne({ where: { code: "en" } });
     if (!existingEnglish) {
-      const english = { name: 'English (en)', code: 'en' }
+      const english = { name: "English (en)", code: "en" };
       try {
-        await strapi.db.query('plugin::i18n.locale').create({ data: english })
+        await strapi.db.query("plugin::i18n.locale").create({ data: english });
       } catch (error) {
-        console.log('Caught error while creating locale, checking if locale created successfully.')
+        console.log(
+          "Caught error while creating locale, checking if locale created successfully."
+        );
         const createdEnglish = await strapi.db
-          .query('plugin::i18n.locale')
-          .findOne({ where: english })
-        if (createdEnglish) console.log('Created English locale.')
+          .query("plugin::i18n.locale")
+          .findOne({ where: english });
+        if (createdEnglish) console.log("Created English locale.");
       }
     }
     console.log({
-      locales: await strapi.db.query('plugin::i18n.locale').findMany(),
-    })
+      locales: await strapi.db.query("plugin::i18n.locale").findMany(),
+    });
   },
-}
+};
