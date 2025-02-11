@@ -1,4 +1,4 @@
-module.exports = ({ env }) => ({
+export default ({ env }) => ({
   upload: {
     config: {
       provider: 'strapi-provider-upload-ts-minio',
