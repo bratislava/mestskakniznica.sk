@@ -7,7 +7,6 @@ module.exports = {
     'plugin:tailwindcss/recommended',
     'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
-  // plugins: ['only-warn'],
   rules: {
     /** We use this a lot with isDefined and hasAttributes */
     'unicorn/no-array-callback-reference': 'off',
