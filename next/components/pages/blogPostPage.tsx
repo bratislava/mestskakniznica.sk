@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import Sections from '@/components//Molecules/Sections'
 import { PageTitle, SectionContainer, Video } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
+import StrapiImage from '@/modules/common/StrapiImage'
 import FormatDate from '@/modules/formatting/FormatDate'
 import { BlogPostEntityFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
@@ -15,7 +16,8 @@ export interface BlogPostPageProps {
 const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
   const { t } = useTranslation()
 
-  const mediaType = blogPost?.attributes?.coverMedia?.data?.attributes?.mime?.split('/')[0] ?? ''
+  const coverMedia = blogPost?.attributes?.coverMedia?.data?.attributes
+  const mediaType = coverMedia?.mime?.split('/')[0] ?? ''
 
   const { breadcrumbs } = useNavikronos()
 
@@ -30,19 +32,18 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
           {t('common.added')}{' '}
           <FormatDate valueType="ISO" value={blogPost?.attributes?.publishedAt} />
         </div>
+
+        {/* Cover Media */}
         <div className="-mx-7.5 mt-6 flex md:mx-0 lg:mt-10">
-          {blogPost?.attributes?.coverMedia && mediaType === 'image' && (
-            <img
-              src={blogPost?.attributes?.coverMedia?.data?.attributes?.url ?? ''}
-              alt={blogPost?.attributes?.title || ''}
-              className="w-full object-cover object-center md:h-75 lg:h-[400px]"
-            />
-          )}
-          {blogPost?.attributes?.coverMedia && mediaType === 'video' && (
+          {coverMedia && mediaType === 'image' ? (
+            <StrapiImage image={coverMedia} className="w-full object-cover md:h-75 lg:h-[400px]" />
+          ) : null}
+
+          {coverMedia && mediaType === 'video' ? (
             <div className="flex w-full justify-center">
-              <Video mediaUrl={blogPost?.attributes?.coverMedia?.data?.attributes?.url} />
+              <Video mediaUrl={coverMedia.url} />
             </div>
-          )}
+          ) : null}
         </div>
 
         {/* Sections */}

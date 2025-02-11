@@ -12,7 +12,7 @@ import {
   PlaceIcon,
   ShareIcon,
 } from '@/assets/icons'
-import Placeholder from '@/assets/images/event-detail-placeholder.jpg'
+import EventDetailPlaceholder from '@/assets/images/event-detail-placeholder.jpg'
 import Clickable from '@/components/Atoms/EventClickable'
 import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
 import DetailsRow from '@/components/Atoms/EventDetailsRow'
@@ -22,6 +22,7 @@ import Button from '@/modules/common/Button'
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
 import Dialog from '@/modules/common/ModalDialog/Dialog'
 import Modal from '@/modules/common/ModalDialog/Modal'
+import StrapiImage, { getImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import RichText from '@/modules/formatting/RichText'
 import { EventEntityFragment } from '@/services/graphql'
@@ -41,25 +42,20 @@ const EventDetails = ({ event }: PageProps) => {
     navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
   }
 
-  // fallback to placeholder
-  const bannerProps = {
-    url: Placeholder.src,
-    width: Placeholder.width,
-    height: Placeholder.height,
-    ...event?.attributes?.coverImage?.data?.attributes,
-  }
-
   const filteredImages = event?.attributes?.gallery?.data?.filter(isDefined) ?? []
 
   return (
     <>
-      <img
-        src={bannerProps.url}
-        width={bannerProps.width || 0}
-        height={bannerProps.height || 0}
-        alt={bannerProps.alternativeText || ''}
-        className="w-full object-cover object-center md:h-75 lg:h-[400px]"
-      />
+      <div className="relative w-full shrink-0 md:h-75 lg:h-[400px]">
+        <StrapiImage
+          image={
+            event?.attributes?.coverImage?.data?.attributes ||
+            getImagePlaceholder(EventDetailPlaceholder)
+          }
+          alt="" // Empty alt on purpose
+          className="object-cover"
+        />
+      </div>
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
         <div className="col-span-1 hidden size-27 bg-promo-yellow text-center lg:flex">
           <EventDetailsDateBox
@@ -128,20 +124,24 @@ const EventDetails = ({ event }: PageProps) => {
             <div className="border-b border-border-dark py-10">
               <div className="text-[24px]">{t('eventDetails.eventGuests')}</div>
               <div className="grid grid-cols-3 pt-5">
-                {event?.attributes?.guests?.map((guest) => (
-                  <div key={guest?.id} className="flex pr-[24px]">
-                    <img
-                      src={guest?.avatar?.data?.attributes?.url}
-                      width={guest?.avatar?.data?.attributes?.width || 0}
-                      height={guest?.avatar?.data?.attributes?.height || 0}
-                      alt={guest?.name || 'Guest name.'}
-                      className="flex size-12 items-center justify-center rounded-full object-cover"
-                    />
-                    <span className="m-auto text-[16px]">
-                      {guest?.name} {guest?.surname}
-                    </span>
-                  </div>
-                ))}
+                {event?.attributes?.guests?.map((guest) => {
+                  const avatar = guest?.avatar?.data?.attributes
+
+                  return (
+                    <div key={guest?.id} className="flex pr-[24px]">
+                      {avatar ? (
+                        <StrapiImage
+                          image={avatar}
+                          alt={guest?.name || avatar?.alternativeText}
+                          className="flex size-12 items-center justify-center rounded-full object-cover"
+                        />
+                      ) : null}
+                      <span className="m-auto text-[16px]">
+                        {guest?.name} {guest?.surname}
+                      </span>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           )}

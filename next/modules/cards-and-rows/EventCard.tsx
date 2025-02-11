@@ -1,9 +1,7 @@
-import { useTranslation } from 'next-i18next'
-
-import Placeholder from '@/assets/images/list-item-thumbnail.jpeg'
 import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
+import StrapiImage, { getImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import {
   EventBranchFragment,
@@ -41,12 +39,14 @@ const EventCard = ({
 
   return (
     <CardWrapper className="relative">
-      <img
-        className="h-40.5 w-full flex-1 object-cover"
-        alt=""
-        src={listingImage?.url || coverImage?.url || Placeholder.src}
-        height="200px"
-      />
+      <div className="relative h-40.5 w-full shrink-0">
+        <StrapiImage
+          image={listingImage || coverImage || getImagePlaceholder()}
+          alt="" // Empty alt on purpose
+          fill
+          className="object-cover"
+        />
+      </div>
 
       <div className="flex pt-4 text-sm">
         {eventTags && (

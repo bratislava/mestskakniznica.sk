@@ -49,6 +49,8 @@ fragment BlogPostEntity on BlogPostEntity {
           url
           mime
           alternativeText
+          width
+          height
         }
       }
     }

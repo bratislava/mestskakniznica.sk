@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 
 import MLink from '@/modules/common/MLink'
@@ -74,9 +75,20 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
           </ol>
         ),
         li: ({ node, children, ...props }) => <li {...props}>{children}</li>,
+        // TODO this still produces a hydration error, because the remark-unwrap-images only works when image is the only child of the paragraph
         img: ({ src, alt }) => (
           <div className={`-mx-7.5 flex justify-center md:mx-0 ${topMargin}`}>
-            {src && <img src={src} alt={alt} />}
+            {src ? (
+              <Image
+                src={src}
+                alt={alt ?? ''}
+                // Inspired by: https://github.com/bratislava/olo.sk/blob/master/next/src/components/formatting/Markdown.tsx
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="h-auto w-full overflow-hidden"
+              />
+            ) : null}
           </div>
         ),
         strong: ({ node, children, ...props }) => <strong {...props}>{children}</strong>,
