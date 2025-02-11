@@ -42,7 +42,7 @@ const EventCard = ({
       <div className="relative h-40.5 w-full shrink-0">
         <StrapiImage
           image={listingImage || coverImage || getImagePlaceholder()}
-          alt={listingImage?.alternativeText || coverImage?.alternativeText}
+          alt="" // Empty alt on purpose
           fill
           className="object-cover"
         />

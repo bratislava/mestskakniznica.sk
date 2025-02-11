@@ -42,16 +42,17 @@ const EventDetails = ({ event }: PageProps) => {
     navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
   }
 
-  const bannerImage = event?.attributes?.coverImage?.data?.attributes
-
   const filteredImages = event?.attributes?.gallery?.data?.filter(isDefined) ?? []
 
   return (
     <>
       <div className="relative w-full shrink-0 md:h-75 lg:h-[400px]">
         <StrapiImage
-          image={bannerImage || getImagePlaceholder(EventDetailPlaceholder)}
-          alt={bannerImage?.alternativeText}
+          image={
+            event?.attributes?.coverImage?.data?.attributes ||
+            getImagePlaceholder(EventDetailPlaceholder)
+          }
+          alt="" // Empty alt on purpose
           className="object-cover"
         />
       </div>

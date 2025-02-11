@@ -32,6 +32,7 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
         <div className="relative mb-4 h-40.5 w-full shrink-0">
           <StrapiImage
             image={image?.attributes ?? getImagePlaceholder()}
+            alt="" // Empty alt on purpose
             fill
             className="object-cover"
           />
