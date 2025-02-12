@@ -1,7 +1,8 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import { GetServerSideProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ParsedUrlQuery } from 'node:querystring'
 
 import DocumentPage from '@/components/pages/DocumentPage'
 import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
@@ -57,7 +58,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
       currentEntityLocalizations: locales
         ?.filter((innerLocale) => innerLocale !== locale)
         .map((innerLocale) => ({
-          type: 'disclosure',
+          type: 'disclosure' as const,
           slug,
           locale: innerLocale,
         })),

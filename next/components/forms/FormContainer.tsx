@@ -1,11 +1,12 @@
 import { useTranslation } from 'next-i18next'
 import React, { ReactNode, useEffect, useState } from 'react'
-import { useLockedBody, useWindowSize } from 'usehooks-ts'
+import { useScrollLock, useWindowSize } from 'usehooks-ts'
 
 import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import cn from '@/utils/cn'
 
+// eslint-disable-next-line import/no-cycle
 import FormSubmittedComponent from './FormSubmittedComponent'
 
 export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
@@ -70,16 +71,25 @@ const FormContainer = ({
 
   const { width } = useWindowSize()
 
-  const [, setLockedBodyScroll] = useLockedBody(false)
+  const { lock, unlock } = useScrollLock({
+    autoLock: false,
+    lockTarget: 'root',
+  })
 
   useEffect(() => {
     setFormOpen(isFormOpen && width !== undefined && width > 767)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width])
 
   useEffect(() => {
-    setLockedBodyScroll(!isSubmitted && isFormOpen && width !== undefined && width <= 768)
-  }, [isFormOpen, setLockedBodyScroll, width, isSubmitted])
+    if (!isSubmitted && isFormOpen && width !== undefined && width <= 768) {
+      lock()
+    } else {
+      unlock()
+    }
+  }, [isFormOpen, width, isSubmitted, lock, unlock])
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   const listener = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === 'Enter' || event.code === 'NumpadEnter') {
       event.preventDefault()

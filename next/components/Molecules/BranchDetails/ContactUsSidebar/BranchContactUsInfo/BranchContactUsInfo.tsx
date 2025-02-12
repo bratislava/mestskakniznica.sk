@@ -19,7 +19,7 @@ const BranchContactUsInfo = ({ branch }: BranchContactUsInfoProps) => {
             className="mb-2 flex gap-3 hover:underline"
             // remove all whitespaces from phone number
 
-            href={`tel:${branch.attributes?.phone.replace(/\s/g, '')}`}
+            href={`tel:${branch.attributes?.phone.replaceAll(/\s/g, '')}`}
             startIcon={<PhoneIcon className="shrink-0" />}
           >
             {branch.attributes?.phone}

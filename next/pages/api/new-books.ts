@@ -7,6 +7,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<NewBooksRespons
 
   if (Number.isFinite(Number(page)) && Number.isFinite(Number(pageSize))) {
     res.send(await getNewBooks({ page: Number(page), pageSize: Number(pageSize) }))
+
     return
   }
 

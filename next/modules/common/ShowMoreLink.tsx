@@ -20,7 +20,7 @@ const ShowMoreLink = ({ children, className, parentGroup = false, ...rest }: Sho
       className={cn(
         'inline-flex items-center text-xs font-medium uppercase tracking-[0.08em] hover:underline md:text-sm',
         { 'group/showMore': !parentGroup },
-        className
+        className,
       )}
       {...rest}
     >

@@ -88,6 +88,7 @@ const TheaterTechReservationForm = () => {
     if (error) {
       console.log('error sending form', error)
       setIsSubmitted(SubmitStatus.FAILURE)
+
       return
     }
 
@@ -178,7 +179,7 @@ const TheaterTechReservationForm = () => {
               render={({ field: { ref, onChange, ...field } }) => (
                 <Select
                   labelContent={t('tech_type')}
-                  className="w-72 lg:w-[296px]"
+                  className="w-72 lg:w-74"
                   options={[
                     { key: 'key1', title: 'Title1' },
                     { key: 'key2', title: 'Title2' },
@@ -209,7 +210,7 @@ const TheaterTechReservationForm = () => {
               )}
             />
           </div>
-          {hasErrors && <p className="text-base text-error ">{t('please_fill_required_fields')}</p>}
+          {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
           <FormFooter buttonContent={t('send')} />
         </div>
       </FormContainer>

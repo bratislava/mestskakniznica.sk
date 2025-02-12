@@ -33,9 +33,9 @@ const AccordionSection = ({ section }: AccordionSectionPops) => {
           // eslint-disable-next-line react/no-array-index-key
           <Accordion key={index} title={flatText.category} type="divider-big">
             <div className="text-base">
-              {flatText.items.filter(isDefined).map((item, index) => (
+              {flatText.items.filter(isDefined).map((item, indexInner) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <FlatText key={index} content={item?.content ?? ''} />
+                <FlatText key={indexInner} content={item?.content ?? ''} />
               ))}
             </div>
           </Accordion>

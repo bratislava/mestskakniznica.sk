@@ -4,7 +4,7 @@ import { useWindowSize } from 'usehooks-ts'
 import { ChevronLeftIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
-import Modal from '@/modules/common/Modal'
+import Modal_deprecated from '@/modules/common/Modal_deprecated'
 import MobileLatestEvents from '@/modules/navigation/MobileLatestEvents'
 import { MenuSection } from '@/modules/navigation/NavMenu'
 
@@ -21,7 +21,7 @@ const MobileSubnavigation = ({ isOpen, menuSections, onClose }: SubnavigationPro
     // h-screen is not used because of problem on mobile screens
     // https://chanind.github.io/javascript/2019/09/28/avoid-100vh-on-mobile-web.html
     // TODO replace by Modal component
-    <Modal isOpen={isOpen} onClose={onClose} noAnimation overlayClassName="!w-full">
+    <Modal_deprecated isOpen={isOpen} onClose={onClose} noAnimation overlayClassName="!w-full">
       <div className="!w-full overflow-y-scroll bg-white" style={{ height }}>
         <div className="pb-12">
           <div className="flex h-[61px] items-center justify-between border-b border-border-dark">
@@ -60,7 +60,7 @@ const MobileSubnavigation = ({ isOpen, menuSections, onClose }: SubnavigationPro
           ))}
         </div>
       </div>
-    </Modal>
+    </Modal_deprecated>
   )
 }
 

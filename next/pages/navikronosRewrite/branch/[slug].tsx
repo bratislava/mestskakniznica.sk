@@ -1,7 +1,8 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ParsedUrlQuery } from 'node:querystring'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import BranchPage from '@/components/pages/BranchPage'
@@ -44,7 +45,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.BranchStaticPaths({ locale }))
+    locales.map((locale) => client.BranchStaticPaths({ locale })),
   )
   const entities = pathArraysForLocales
     .flatMap(({ branches }) => branches?.data || [])

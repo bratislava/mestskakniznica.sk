@@ -8,15 +8,15 @@
   },
   "dependencies": {
     "@strapi/helper-plugin": "4.25.20",
+    "@tanstack/react-query": "5.66.0",
     "immer": "^9.0.18",
     "lodash": "^4.17.21",
-    "react-query": "^3.39.2",
     "strapi-typed": "^1.0.20",
     "styled-components": "^5.3.6",
-    "zod": "^3.20.2"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.4"
   },
   "author": {
     "name": "A Strapi developer"
@@ -27,7 +27,7 @@
     }
   ],
   "engines": {
-    "node": ">=18.x.x",
+    "node": ">=20.x.x",
     "npm": ">=9.8.1"
   },
   "scripts": {

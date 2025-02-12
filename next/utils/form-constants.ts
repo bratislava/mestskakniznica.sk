@@ -1,4 +1,5 @@
 import { now } from '@internationalized/date'
+import { TFunction } from 'i18next'
 import isArray from 'lodash/isArray'
 import isBoolean from 'lodash/isBoolean'
 import isDate from 'lodash/isDate'
@@ -34,6 +35,7 @@ const convertValue = (value: any) => {
       year: 'numeric',
     })
   }
+
   return String(value)
 }
 
@@ -105,20 +107,21 @@ const getMailTranslationKey = (key: string): string => {
 }
 /* eslint-enable no-secrets/no-secrets */
 
-const key = (k: string, t: (arg0: string, args1: any) => string): string =>
+const key = (k: string, t: TFunction<string, undefined>): string =>
   t(getMailTranslationKey(k), { lng: 'sk' })
 
 // TODO fix eslint
 function flattenObject(
   o: any,
-  t: (arg0: string, args1: any) => string,
+  t: TFunction<string, undefined>,
   prefix = '',
   result: { [key: string]: any } = {},
-  keepNull = true
+  keepNull = true,
 ) {
   if (isString(o) || isNumber(o) || isBoolean(o) || isDate(o) || (keepNull && isNull(o))) {
     // eslint-disable-next-line no-param-reassign
     result[key(prefix, t)] = convertValue(o)
+
     return result
   }
 
@@ -135,12 +138,14 @@ function flattenObject(
       }
       flattenObject(o[i], t, pref, result, keepNull)
     }
+
     return result
   }
+
   return result
 }
 
-export const convertDataToBody = (data: object, t: (arg0: string, args1: any) => string) =>
+export const convertDataToBody = (data: object, t: TFunction<string, undefined>) =>
   flattenObject(data, t)
 
 export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRadioOption[] => {
@@ -151,11 +156,12 @@ export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRa
     temp.push({
       key: item.key,
       title: `${item.label.find((l) => l.locale === (i18n.language ?? 'sk'))?.label ?? '-'} ${
-        showPrice ? item.price ?? '' : ''
+        showPrice ? (item.price ?? '') : ''
       }`,
       price: item.price ?? null,
-    } as IRadioOption)
+    } as IRadioOption),
   )
+
   return temp
 }
 

@@ -23,7 +23,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
         file?.data.length > 1 ? (
           <FolderIcon />
         ) : (
-          file?.data[0]?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''
+          (file?.data[0]?.attributes?.ext?.toUpperCase().replace('.', '') ?? '')
         )
 
       if (document.__typename === 'DisclosureEntity') {

@@ -62,16 +62,19 @@ const CityLibraryRegistrationForm = () => {
       useTempAddress: yup.boolean(),
       tempAddress: yup.string().when('useTempAddress', {
         is: true,
+        // eslint-disable-next-line unicorn/no-thenable
         then: yup.string().required(),
         otherwise: yup.string(),
       }),
       tempCity: yup.string().when('useTempAddress', {
         is: true,
+        // eslint-disable-next-line unicorn/no-thenable
         then: yup.string().required(),
         otherwise: yup.string(),
       }),
       tempPostalCode: yup.string().when('useTempAddress', {
         is: true,
+        // eslint-disable-next-line unicorn/no-thenable
         then: yup.string().matches(postalCodeRegex, t('validation_error_zipcode')).required(),
         otherwise: yup.string(),
       }),
@@ -133,10 +136,11 @@ const CityLibraryRegistrationForm = () => {
 
     // catch error
     const { status, message } = await res.json()
-    if (!status || status != 200) {
-      const errMessage = message || t('library_registration_error_message')
-      setErrMessage(errMessage)
+    if (!status || status !== 200) {
+      const errMessageInner = message || t('library_registration_error_message')
+      setErrMessage(errMessageInner)
       setIsSubmitted(SubmitStatus.FAILURE)
+
       return
     }
 
@@ -144,6 +148,7 @@ const CityLibraryRegistrationForm = () => {
   })
 
   const triggerFirstStep = () => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises,promise/catch-or-return
     methods
       .trigger([
         'fName',
@@ -163,6 +168,7 @@ const CityLibraryRegistrationForm = () => {
         'IDNumber',
       ])
       .then((fulfillment) => {
+        // eslint-disable-next-line promise/always-return
         if (fulfillment) {
           methods.clearErrors()
           setStep(2)
@@ -172,8 +178,8 @@ const CityLibraryRegistrationForm = () => {
 
   const stepOneErrors = !isEmpty(
     Object.keys(errors).filter(
-      (k) => k !== 'acceptFormTerms' && k !== 'IDType' && k !== 'cfTurnstile'
-    )
+      (k) => k !== 'acceptFormTerms' && k !== 'IDType' && k !== 'cfTurnstile',
+    ),
   )
 
   const stepTwoErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
@@ -302,8 +308,8 @@ const CityLibraryRegistrationForm = () => {
               )}
             />
           </div>
-          <div className="my-6 flex flex-col gap-y-6 border p-6 ">
-            <p className="text-left text-lg text-foreground-heading ">
+          <div className="my-6 flex flex-col gap-y-6 border p-6">
+            <p className="text-left text-lg text-foreground-heading">
               {t('permanent_address')} <span className="text-error">*</span>
             </p>
             <Controller
@@ -359,7 +365,7 @@ const CityLibraryRegistrationForm = () => {
             <Controller
               control={methods.control}
               name="useTempAddress"
-              render={({ field: { onChange, value, ref, ...field } }) => (
+              render={({ field: { onChange, value } }) => (
                 <CheckBox
                   id="addTempAddress_input"
                   onChange={(e) => {
@@ -376,8 +382,8 @@ const CityLibraryRegistrationForm = () => {
           </div>
 
           {showTempAddress && (
-            <div className="my-6 flex flex-col gap-y-6 border p-6 ">
-              <p className="text-left text-lg text-foreground-heading ">
+            <div className="my-6 flex flex-col gap-y-6 border p-6">
+              <p className="text-left text-lg text-foreground-heading">
                 {t('temporary_address')} <span className="text-error">*</span>
               </p>
               <Controller
@@ -433,7 +439,7 @@ const CityLibraryRegistrationForm = () => {
             </div>
           )}
 
-          <div className="mb-6 flex flex-col justify-between gap-6  lg:flex-row">
+          <div className="mb-6 flex flex-col justify-between gap-6 lg:flex-row">
             <Controller
               control={methods.control}
               name="birthDate"
@@ -523,10 +529,12 @@ const CityLibraryRegistrationForm = () => {
           />
           <Controller
             control={methods.control}
+            // eslint-disable-next-line no-secrets/no-secrets
             name="authorizedToUseBlindDepartment"
             defaultValue={false}
             render={({ field: { onChange, value, name } }) => (
               <CheckBox
+                // eslint-disable-next-line no-secrets/no-secrets
                 id="authorizedToUseBlindDepartment"
                 name={name}
                 onChange={onChange} // send value to hook form
@@ -534,6 +542,7 @@ const CityLibraryRegistrationForm = () => {
                 aria-invalid={errors.authorizedToUseBlindDepartment ? 'true' : 'false'}
                 className="pt-4"
               >
+                {/* eslint-disable-next-line no-secrets/no-secrets */}
                 <div className="text-sm">{t('form_city_auth_blind_dep')}</div>
               </CheckBox>
             )}

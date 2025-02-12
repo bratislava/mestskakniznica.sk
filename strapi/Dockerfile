@@ -1,5 +1,5 @@
 # development
-FROM node:18.20.5 AS dev
+FROM node:20.9.0 AS dev
 
 RUN apt-get update && apt-get install -y git \
     vim \
@@ -19,11 +19,11 @@ COPY . ./
 
 RUN yarn build
 
-EXPOSE 1338
+EXPOSE 1337
 CMD ["yarn", "develop"]
 
 # production
-FROM node:18.20.5 AS prod
+FROM node:20.9.0 AS prod
 
 RUN apt-get update && apt-get install -y git \
     libvips-dev
@@ -49,5 +49,5 @@ COPY --chown=node:node . ./
 
 RUN yarn build
 
-EXPOSE 1338
+EXPOSE 1337
 CMD ["yarn", "start"]

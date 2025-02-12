@@ -28,7 +28,7 @@ export type EventsFiltersShared = {
 }
 
 export const getEventsDefaultSharedFilters: (locale: string) => EventsFiltersShared = (
-  locale: string
+  locale: string,
 ) => ({
   dateFrom: null,
   dateTo: null,

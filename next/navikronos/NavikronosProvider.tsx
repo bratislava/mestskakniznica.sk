@@ -24,7 +24,7 @@ const useNavikronos = <Config extends NavikronosConfig>() => {
 
   if (!navikronos) {
     throw new Error(
-      'You must retrieve static props using `navikronosGetStaticProps` and wrap page using `wrapNavikronosProvider` in order to use `useNavikronos` hook.'
+      'You must retrieve static props using `navikronosGetStaticProps` and wrap page using `wrapNavikronosProvider` in order to use `useNavikronos` hook.',
     )
   }
 

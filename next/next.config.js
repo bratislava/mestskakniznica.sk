@@ -1,13 +1,36 @@
-const { i18n, reloadOnPrerender } = require('./next-i18next.config')
+const i18nextConfig = require('./next-i18next.config')
+const { svgoConfig } = require('./svgo.config')
 
 /**
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  i18n,
+  i18n: i18nextConfig.i18n,
   reactStrictMode: true,
+  output: 'standalone',
   images: {
-    domains: ['localhost', 'cdn-api.bratislava.sk', 'api.mapbox.com', 'coverlinker.biblib.net'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn-api.bratislava.sk',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.s3.bratislava.sk',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.mapbox.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'coverlinker.biblib.net',
+      },
+    ],
   },
   async rewrites() {
     return {
@@ -6514,31 +6537,32 @@ const nextConfig = {
   serverRuntimeConfig: {
     strapiUrl: process.env.STRAPI_URL,
   },
-  env: {
-    reactStrictMode: true,
-    MAILCHIMP_API_KEY: process.env.MAILCHIMP_API_KEY,
-    MAILCHIMP_API_SERVER: process.env.MAILCHIMP_API_SERVER,
-    MAILCHIMP_AUDIENCE_ID: process.env.MAILCHIMP_AUDIENCE_ID,
-    ORIGIN_ROOT_URL: process.env.ORIGIN_ROOT_URL,
-  },
+  // Docs: https://react-svgr.com/docs/next/
   webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      issuer: /\.[jt]sx?$/,
-      use: {
-        loader: '@svgr/webpack',
-        options: {
-          svgoConfig: {
-            plugins: [
-              {
-                name: 'removeViewBox',
-                active: false,
-              },
-            ],
-          },
+    // Grab the existing rule that handles SVG imports
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'))
+
+    config.module.rules.push(
+      // Reapply the existing rule, but only for svg imports ending in ?url
+      {
+        ...fileLoaderRule,
+        test: /\.svg$/i,
+        resourceQuery: /url/, // *.svg?url
+      },
+      // Convert all other *.svg imports to React components
+      {
+        test: /\.svg$/i,
+        issuer: fileLoaderRule.issuer,
+        resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
+        use: {
+          loader: '@svgr/webpack',
+          options: { svgoConfig },
         },
       },
-    })
+    )
+
+    // Modify the file loader rule to ignore *.svg, since we have it handled now.
+    fileLoaderRule.exclude = /\.svg$/i
 
     return config
   },

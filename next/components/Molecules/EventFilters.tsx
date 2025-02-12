@@ -1,7 +1,7 @@
 import { useControlledState } from '@react-stately/utils'
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
-import { useQuery } from 'react-query'
 import { useToggleState } from 'react-stately'
 
 import DropdownIcon from '@/assets/images/dropdown.svg'
@@ -25,10 +25,10 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
 
   const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
 
-  const [filters, setFilters] = useControlledState(
+  const [filters, setFilters] = useControlledState<EventsFiltersShared>(
     filtersInput,
     defaultFiltersValue,
-    onFiltersChange
+    onFiltersChange,
   )
 
   // There's no need to handle loading, as the data are prefetched and never change.
@@ -44,6 +44,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
+
     return [{ key: '', title: t('eventFilters.eventType') }, ...parsedTypes]
   }, [eventPropertiesData?.eventTags?.data, t])
 
@@ -53,6 +54,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
+
     return [{ key: '', title: t('eventFilters.eventCategory') }, ...parsedCategories]
   }, [eventPropertiesData?.eventCategories?.data, t])
 
@@ -62,14 +64,15 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
       key: id ?? '',
       title: attributes?.title ?? '',
     }))
+
     return [{ key: '', title: t('eventFilters.eventLocality') }, ...parsedLocalities]
   }, [eventPropertiesData?.branches?.data, t])
 
-  const handleDateFromChange = (dateFrom: Date) => {
+  const handleDateFromChange = (dateFrom: Date | null) => {
     setFilters({ ...filters, dateFrom })
   }
 
-  const handleDateToChange = (dateTo: Date) => {
+  const handleDateToChange = (dateTo: Date | null) => {
     setFilters({ ...filters, dateTo })
   }
 

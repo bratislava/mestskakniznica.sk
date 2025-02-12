@@ -21,7 +21,7 @@ const ContactUsSidebar = ({ branch }: ContactUsSidebarProps) => {
       <h5 className="pb-6 text-h5">{t('branchDetails.contactUs')}</h5>
       <BranchContactUsInfo branch={branch} />
       {branch?.attributes?.subBranches?.data.map((subBranch) => (
-        <BranchContactUsInfo branch={subBranch} />
+        <BranchContactUsInfo branch={subBranch} key={subBranch.id} />
       ))}
     </div>
   )

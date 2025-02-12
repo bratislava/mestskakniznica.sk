@@ -24,7 +24,7 @@ const FormWrapper = ({ className, children, title, onSubmit, isSubmitted }: IPro
     <div
       className={cn(
         className,
-        'w-72 max-w-[680px] lg:w-full lg:border lg:border-border-dark lg:px-8 lg:pt-8'
+        'w-72 max-w-[680px] lg:w-full lg:border lg:border-border-dark lg:px-8 lg:pt-8',
       )}
     >
       <div className="-mx-4 flex justify-between border-b border-border-dark px-4 py-4.5 lg:border-none lg:py-0">
@@ -37,10 +37,10 @@ const FormWrapper = ({ className, children, title, onSubmit, isSubmitted }: IPro
       <form className="mt-6 flex flex-col gap-y-8" onSubmit={onSubmit}>
         {/* Here are the children of each form if unsubmitted, otherwise default SubmittedFormComponent */}
         <FormSubmittedComponent
-          className={cn({ hidden: isSubmitted == SubmitStatus.NONE })}
+          className={cn({ hidden: isSubmitted === SubmitStatus.NONE })}
           submitStatus={isSubmitted}
         />
-        <div className={cn({ hidden: isSubmitted != SubmitStatus.NONE })}>{children}</div>
+        <div className={cn({ hidden: isSubmitted !== SubmitStatus.NONE })}>{children}</div>
       </form>
     </div>
   )

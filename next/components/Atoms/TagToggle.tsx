@@ -12,6 +12,7 @@ const TagButton = (props: TagButtonProps) => {
   const { buttonProps } = useToggleButton(props, state, ref)
   const { children, className } = props
   const { isSelected } = state
+
   return (
     <button
       ref={ref}
@@ -22,7 +23,7 @@ const TagButton = (props: TagButtonProps) => {
           'border-dark bg-dark text-white': isSelected,
           'border-border hover:text-primary bg-white': !isSelected,
         },
-        className
+        className,
       )}
       {...buttonProps}
     >

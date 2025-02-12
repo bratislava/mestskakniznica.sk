@@ -2,24 +2,8 @@ import React from 'react'
 
 import { MetadataFragment } from '@/services/graphql'
 
-const Metadata = ({ metadata }: { metadata: MetadataFragment[] | null | undefined }) => {
-  return (
-    <>
-      {metadata?.map(
-        (meta) => meta && <MetadataComponent key={meta?.__typename} metadata={meta} />
-      )}
-    </>
-  )
-}
-
 const buildMetadata = (data: (string | number | undefined | null)[]) =>
   data.filter((d) => !!d).join(', ')
-
-const MetadataComponent = ({ metadata }: { metadata: MetadataFragment | null }) => {
-  if (!metadata) return null
-
-  return <div>{metadataContent(metadata)}</div>
-}
 
 const metadataContent = (meta: MetadataFragment) => {
   switch (meta.__typename) {
@@ -42,17 +26,6 @@ const metadataContent = (meta: MetadataFragment) => {
       )
 
     case 'ComponentMetadataObchodnaVerejnaSutaz':
-      return (
-        <div>
-          {buildMetadata([
-            meta.subject,
-            meta.number,
-            meta.amount,
-            meta?.attachment?.data?.attributes?.name,
-          ])}
-        </div>
-      )
-
     case 'ComponentMetadataVerejneObstaravanie':
       return (
         <div>
@@ -68,6 +41,22 @@ const metadataContent = (meta: MetadataFragment) => {
     default:
       return null
   }
+}
+
+const MetadataComponent = ({ metadata }: { metadata: MetadataFragment | null }) => {
+  if (!metadata) return null
+
+  return <div>{metadataContent(metadata)}</div>
+}
+
+const Metadata = ({ metadata }: { metadata: MetadataFragment[] | null | undefined }) => {
+  return (
+    <>
+      {metadata?.map(
+        (meta) => meta && <MetadataComponent key={meta?.__typename} metadata={meta} />,
+      )}
+    </>
+  )
 }
 
 export default Metadata

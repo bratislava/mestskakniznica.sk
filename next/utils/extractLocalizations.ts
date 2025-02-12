@@ -16,7 +16,7 @@ export const extractLocalizationsWithSlug = <T extends string>(
         }[]
       }
     }
-  }>
+  }>,
 ) => {
   return (
     entity?.attributes?.localizations?.data
@@ -43,7 +43,7 @@ export const extractLocalizationsWithId = <T extends string>(
         }[]
       }
     }
-  }>
+  }>,
 ) => {
   return (
     entity?.attributes?.localizations?.data

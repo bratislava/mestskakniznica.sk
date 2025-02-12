@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import * as React from 'react'
 
 import Button from '@/modules/common/Button'
@@ -28,20 +29,18 @@ interface IProps {
 }
 
 const ErrorDisplay = ({ error }: IProps) => {
+  const { t } = useTranslation()
+
   const [open, setOpen] = React.useState(false)
 
   return (
     <>
       <header className="h-[73px] text-[40px] leading-[48px]">
-        <h1>Na stránke sa vyskytla chyba...</h1>
+        <h1>{t('errorDisplay.title')}</h1>
       </header>
-      <p className="text-base">
-        Ľutujeme, ale na tejto stránke sa vyskytla chyba. Skúste opäť neskôr alebo použite
-        vyhľadávanie.
-      </p>
+      <p className="text-base">{t('errorDisplay.weAreSorry')}</p>
       <Button className="mt-4" onPress={() => setOpen((o) => !o)}>
-        {/* TODO add translation */}
-        Zobraziť {open ? 'menej' : 'viac'}
+        {open ? t('common.showLess') : t('common.showMore')}
       </Button>
       {open && (
         <pre className="mt-4 whitespace-pre-wrap text-sm">

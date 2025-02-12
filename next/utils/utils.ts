@@ -27,6 +27,7 @@ export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = f
     const todayYear = today.toLocaleString('en-US', {
       year: 'numeric',
     })
+
     return { day: todayDay, month: todayMonth, year: todayYear, date: today }
 
     // display last event day if its in the past
@@ -41,6 +42,7 @@ export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = f
     const toYear = dTo.toLocaleString('en-US', {
       year: 'numeric',
     })
+
     return { day: toDay, month: toMonth, year: toYear, date: dTo }
   }
 
@@ -66,6 +68,7 @@ export const isEventPast = (dateTo: Date | string | null): boolean => {
   const endDate = new Date(dateTo)
   today.setHours(0, 0, 0, 0)
   endDate.setHours(0, 0, 0, 0)
+
   return today > endDate
 }
 
@@ -79,5 +82,6 @@ export const getFileSize = (size: number | undefined, language: string) => {
       locale: language,
     })
   }
+
   return size
 }

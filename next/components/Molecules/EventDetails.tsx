@@ -1,9 +1,8 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import QRCode from 'qrcode.react'
+import { QRCodeSVG } from 'qrcode.react'
 import React from 'react'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import { DialogTrigger } from 'react-aria-components'
 
 import {
   CalendarIcon,
@@ -13,18 +12,21 @@ import {
   PlaceIcon,
   ShareIcon,
 } from '@/assets/icons'
-import Placeholder from '@/assets/images/event-detail-placeholder.jpg'
+import EventDetailPlaceholder from '@/assets/images/event-detail-placeholder.jpg'
 import Clickable from '@/components/Atoms/EventClickable'
 import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
 import DetailsRow from '@/components/Atoms/EventDetailsRow'
 import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import { Documents } from '@/components/ui'
+import Button from '@/modules/common/Button'
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
+import Dialog from '@/modules/common/ModalDialog/Dialog'
+import Modal from '@/modules/common/ModalDialog/Modal'
+import StrapiImage, { getImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import RichText from '@/modules/formatting/RichText'
 import { EventEntityFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
-import { isEventPast } from '@/utils/utils'
 
 export interface PageProps {
   event?: EventEntityFragment
@@ -33,7 +35,6 @@ export interface PageProps {
 const EventDetails = ({ event }: PageProps) => {
   const { t } = useTranslation()
   const { asPath } = useRouter()
-  const [isEventInThePast, setIsEventInThePast] = React.useState(false)
 
   const eventBranch = event?.attributes?.branch?.data?.attributes
 
@@ -41,53 +42,22 @@ const EventDetails = ({ event }: PageProps) => {
     navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
   }
 
-  const fireSwal = () => {
-    const withContent = withReactContent(Swal)
-    withContent.fire({
-      html: (
-        <QRCode
-          value={event?.attributes?.title || ''}
-          className="m-auto"
-          renderAs="svg"
-          size={240}
-        />
-      ),
-      position: 'center',
-      width: 350,
-      confirmButtonText: t('common.close'),
-      confirmButtonColor: '#2f2f2f',
-      customClass: {
-        popup: 'rounded-none',
-        confirmButton: 'rounded-none',
-      },
-    })
-  }
-
-  React.useMemo(() => {
-    setIsEventInThePast(isEventPast(event?.attributes?.dateTo))
-  }, [event])
-
-  // fallback to placeholder
-  const bannerProps = {
-    url: Placeholder.src,
-    width: Placeholder.width,
-    height: Placeholder.height,
-    ...event?.attributes?.coverImage?.data?.attributes,
-  }
-
   const filteredImages = event?.attributes?.gallery?.data?.filter(isDefined) ?? []
 
   return (
     <>
-      <img
-        src={bannerProps.url}
-        width={bannerProps.width || 0}
-        height={bannerProps.height || 0}
-        alt={bannerProps.alternativeText || ''}
-        className="w-full object-cover object-center md:h-[300px] lg:h-[400px]"
-      />
+      <div className="relative w-full shrink-0 md:h-75 lg:h-[400px]">
+        <StrapiImage
+          image={
+            event?.attributes?.coverImage?.data?.attributes ||
+            getImagePlaceholder(EventDetailPlaceholder)
+          }
+          alt="" // Empty alt on purpose
+          className="object-cover"
+        />
+      </div>
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
-        <div className="size-[108px] col-span-1 hidden bg-promo-yellow text-center lg:flex">
+        <div className="col-span-1 hidden size-27 bg-promo-yellow text-center lg:flex">
           <EventDetailsDateBox
             dateFrom={event?.attributes?.dateFrom}
             dateTo={event?.attributes?.dateTo}
@@ -154,20 +124,24 @@ const EventDetails = ({ event }: PageProps) => {
             <div className="border-b border-border-dark py-10">
               <div className="text-[24px]">{t('eventDetails.eventGuests')}</div>
               <div className="grid grid-cols-3 pt-5">
-                {event?.attributes?.guests?.map((guest) => (
-                  <div key={guest?.id} className="flex pr-[24px]">
-                    <img
-                      src={guest?.avatar?.data?.attributes?.url}
-                      width={guest?.avatar?.data?.attributes?.width || 0}
-                      height={guest?.avatar?.data?.attributes?.height || 0}
-                      alt={guest?.name || 'Guest name.'}
-                      className="size-12 flex items-center justify-center rounded-full object-cover"
-                    />
-                    <span className="m-auto text-[16px]">
-                      {guest?.name} {guest?.surname}
-                    </span>
-                  </div>
-                ))}
+                {event?.attributes?.guests?.map((guest) => {
+                  const avatar = guest?.avatar?.data?.attributes
+
+                  return (
+                    <div key={guest?.id} className="flex pr-[24px]">
+                      {avatar ? (
+                        <StrapiImage
+                          image={avatar}
+                          alt={guest?.name || avatar?.alternativeText}
+                          className="flex size-12 items-center justify-center rounded-full object-cover"
+                        />
+                      ) : null}
+                      <span className="m-auto text-[16px]">
+                        {guest?.name} {guest?.surname}
+                      </span>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           )}
@@ -192,30 +166,6 @@ const EventDetails = ({ event }: PageProps) => {
           )} */}
           <div className="pt-10">
             <div className="block h-auto border-y border-border-dark py-3 lg:flex lg:h-17.5 lg:border lg:p-0">
-              {/* <div className="hidden lg:block pl-6 w-[169px] text-base m-auto"> */}
-              {/*  {t('eventDetails.eventShareAndSave')} */}
-              {/* </div> */}
-              {/* TODO add AddToCalendar functionality */}
-              {/* {!isEventInThePast && ( */}
-              {/*  <div className="my-3 lg:m-auto"> */}
-              {/*    <AddToCalendar */}
-              {/*      event={{ */}
-              {/*        name: event?.attributes?.title || '', */}
-              {/*        details: event?.attributes?.description?.replace(/\n/g, ' ') || null, */}
-              {/*        location: eventBranch?.title || null, */}
-              {/*        startsAt: new Date(event?.attributes?.dateFrom).toISOString(), */}
-              {/*        endsAt: new Date(event?.attributes?.dateTo).toISOString(), */}
-              {/*      }} */}
-              {/*      filename="library-event" */}
-              {/*    > */}
-              {/*      <div className="flex text-sm uppercase"> */}
-              {/*        <CalendarIcon className="h-5 w-5" /> */}
-              {/*        &nbsp; {t('eventDetails.eventAddToCalendar')} */}
-              {/*      </div> */}
-              {/*    </AddToCalendar> */}
-              {/*  </div> */}
-              {/* )} */}
-
               <Clickable
                 actionLink={copyToClipBoard}
                 classDiv="my-3 lg:m-auto"
@@ -223,12 +173,25 @@ const EventDetails = ({ event }: PageProps) => {
                 text={t('eventDetails.eventShare')}
                 copyText
               />
-              <Clickable
-                actionLink={fireSwal}
-                classDiv="my-3 lg:m-auto"
-                svgIcon={<CameraIcon />}
-                text={t('eventDetails.eventQr')}
-              />
+              <DialogTrigger>
+                <Button
+                  variant="plain-primary"
+                  className="my-3 lg:m-auto"
+                  startIcon={<CameraIcon />}
+                >
+                  {t('eventDetails.eventQr')}
+                </Button>
+                <Modal>
+                  <Dialog aria-label={t('eventDetails.eventQr')}>
+                    <QRCodeSVG
+                      value={event?.attributes?.title || ''}
+                      className="m-auto"
+                      size={240}
+                      includeMargin
+                    />
+                  </Dialog>
+                </Modal>
+              </DialogTrigger>
             </div>
           </div>
         </div>
@@ -248,26 +211,6 @@ const EventDetails = ({ event }: PageProps) => {
                       />
                     }
                   />
-                  {/* TODO AddToCalndar functionality back */}
-                  {/* {!isEventInThePast && ( */}
-                  {/*  <div className="pl-9 pt-3"> */}
-                  {/*    <AddToCalendar */}
-                  {/*      event={{ */}
-                  {/*        name: event?.attributes?.title || '', */}
-                  {/*        details: event?.attributes?.description?.replace(/\n/g, ' ') || null, */}
-                  {/*        location: eventBranch?.title || null, */}
-                  {/*        startsAt: new Date(event?.attributes?.dateFrom).toISOString(), */}
-                  {/*        endsAt: new Date(event?.attributes?.dateTo).toISOString(), */}
-                  {/*      }} */}
-                  {/*      filename="library-event" */}
-                  {/*    > */}
-                  {/*      <div className="flex text-sm uppercase"> */}
-                  {/*        <CalendarIcon className="h5 w-5" /> */}
-                  {/*        &nbsp; {t('eventDetails.eventAddToCalendar')} */}
-                  {/*      </div> */}
-                  {/*    </AddToCalendar> */}
-                  {/*  </div> */}
-                  {/* )} */}
                 </div>
                 <div className="border-b border-border-light py-5">
                   <DetailsRow
@@ -293,7 +236,7 @@ const EventDetails = ({ event }: PageProps) => {
                   classWrapper="flex pt-5"
                   svgIcon={<EuroIcon />}
                   text={
-                    !event?.attributes?.price || event?.attributes?.price == 0
+                    !event?.attributes?.price || event?.attributes?.price === 0
                       ? t('eventDetails.noCharge').toString()
                       : event?.attributes?.price?.toString() || ''
                   }

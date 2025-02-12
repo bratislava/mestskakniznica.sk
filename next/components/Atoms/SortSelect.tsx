@@ -18,7 +18,7 @@ const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) =
       { key: 'newest', label: t('sortSelect.byNewest') },
       { key: 'oldest', label: t('sortSelect.byOldest') },
     ],
-    [t]
+    [t],
   )
 
   return (

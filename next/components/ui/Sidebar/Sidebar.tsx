@@ -28,6 +28,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
       <div className="flex flex-col">
         {siblings?.map((child, index) => {
           const isActive = child.path === currentPath
+
           return (
             <MLink
               // eslint-disable-next-line react/no-array-index-key
@@ -37,7 +38,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
               className={cn('transform border-b py-3 transition-all duration-200 ease-linear', {
                 'border-border-light text-foreground-body': !isActive,
                 'flex items-center gap-x-5.5 border-border-dark pl-1.5 text-foreground-dark':
-                isActive,
+                  isActive,
               })}
             >
               {isActive && <ChevronRight />}

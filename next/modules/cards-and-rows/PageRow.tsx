@@ -13,7 +13,7 @@ const PageRow = ({ className, title, href }: PageRowProps) => {
     <div
       className={cn(
         'relative flex cursor-pointer items-center justify-between border border-border-dark p-3 lg:p-4',
-        className
+        className,
       )}
     >
       <MLink href={href} stretched className="text-foreground-heading" variant="basic">

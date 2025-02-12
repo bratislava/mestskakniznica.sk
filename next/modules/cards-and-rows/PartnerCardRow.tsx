@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
 import { GlobeIcon } from '@/assets/icons'
@@ -22,16 +23,16 @@ const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: Partner
         'flex-row justify-between border-b last:border-0 lg:border lg:last:border': !featured,
       })}
     >
-      {featured && (
-        <div className="h-24">
-          <img
-            className="size-full max-w-[250px] object-contain"
+      {featured ? (
+        <div className="relative h-24 w-[250px] max-w-[250px] shrink-0">
+          <Image
             src={logo ?? ''}
-            // empty alt on purpose
-            alt=""
+            alt="" // Empty alt on purpose
+            fill
+            className="object-contain"
           />
         </div>
-      )}
+      ) : null}
       <h3
         className={cn('text-h5', {
           'mt-4 text-center lg:mt-5': featured,
