@@ -53,6 +53,8 @@ const EventDetails = ({ event }: PageProps) => {
         }
         alt="" // Empty alt on purpose
         className="w-full object-cover md:h-75 lg:h-[400px]"
+        // By providing unique key to cover image, we prevent displaying other event's image while loading the currently displayed event's image
+        key={event?.attributes?.slug}
       />
 
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
