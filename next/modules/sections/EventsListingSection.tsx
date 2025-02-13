@@ -24,13 +24,11 @@ type EventsListingSectionXProps = {
 }
 
 const InnerSection = ({
-  title,
+  title: sectionTitle,
   queryResult,
   filters,
   onPageChange,
 }: EventsListingSectionXProps) => {
-  const { t } = useTranslation()
-
   const { data } = queryResult
 
   if (!data?.hits || data.hits.length === 0) {
@@ -39,7 +37,7 @@ const InnerSection = ({
 
   return (
     <div>
-      <div className="text-h3">{title}</div>
+      <div className="text-h3">{sectionTitle}</div>
       <div className="grid grid-cols-1 gap-y-4 pt-6 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-10">
         {data?.hits.map((event) => {
           const {
@@ -53,6 +51,7 @@ const InnerSection = ({
             eventCategory,
             branch,
           } = event
+
           return (
             <EventCard
               key={slug}
