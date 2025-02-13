@@ -1,5 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 declare module '*.svg' {
-  export const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>
-  export default ReactComponent
+  import { FC, SVGProps } from 'react'
+
+  const content: FC<SVGProps<SVGElement>>
+  export default content
+}
+
+declare module '*.svg?url' {
+  const content: any
+  export default content
 }
