@@ -46,16 +46,15 @@ const EventDetails = ({ event }: PageProps) => {
 
   return (
     <>
-      <div className="relative w-full shrink-0 md:h-75 lg:h-[400px]">
-        <StrapiImage
-          image={
-            event?.attributes?.coverImage?.data?.attributes ||
-            getImagePlaceholder(EventDetailPlaceholder)
-          }
-          alt="" // Empty alt on purpose
-          className="object-cover"
-        />
-      </div>
+      <StrapiImage
+        image={
+          event?.attributes?.coverImage?.data?.attributes ||
+          getImagePlaceholder(EventDetailPlaceholder)
+        }
+        alt="" // Empty alt on purpose
+        className="w-full object-cover md:h-75 lg:h-[400px]"
+      />
+
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
         <div className="col-span-1 hidden size-27 bg-promo-yellow text-center lg:flex">
           <EventDetailsDateBox
