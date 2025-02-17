@@ -75,7 +75,7 @@
     "use-query-params": "^2.2.1",
     "usehooks-ts": "3.1.1",
     "xml-js": "^1.6.11",
-    "yup": "^0.32.11"
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.4",
