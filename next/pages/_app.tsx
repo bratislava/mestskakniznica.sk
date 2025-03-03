@@ -5,7 +5,7 @@ import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next'
 import PlausibleProvider from 'next-plausible'
 import { NextAdapter } from 'next-query-params'
-import { OverlayProvider, SSRProvider } from 'react-aria'
+import { OverlayProvider } from 'react-aria'
 import { QueryParamProvider } from 'use-query-params'
 
 import ErrorDisplay from '@/components/Molecules/ErrorDisplay'
@@ -35,21 +35,19 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
         taggedEvents
         enabled={isProductionDeployment()}
       />
-      <SSRProvider>
-        <NavikronosConfigProvider config={navikronosConfig}>
-          <MQueryClientProvider>
-            <MI18nProvider>
-              <OverlayProvider>
-                <QueryParamProvider adapter={NextAdapter}>
-                  <NavMenuContextProvider>
-                    <Component id="root" {...pageProps} />
-                  </NavMenuContextProvider>
-                </QueryParamProvider>
-              </OverlayProvider>
-            </MI18nProvider>
-          </MQueryClientProvider>
-        </NavikronosConfigProvider>
-      </SSRProvider>
+      <NavikronosConfigProvider config={navikronosConfig}>
+        <MQueryClientProvider>
+          <MI18nProvider>
+            <OverlayProvider>
+              <QueryParamProvider adapter={NextAdapter}>
+                <NavMenuContextProvider>
+                  <Component id="root" {...pageProps} />
+                </NavMenuContextProvider>
+              </QueryParamProvider>
+            </OverlayProvider>
+          </MI18nProvider>
+        </MQueryClientProvider>
+      </NavikronosConfigProvider>
     </div>
   )
 }
