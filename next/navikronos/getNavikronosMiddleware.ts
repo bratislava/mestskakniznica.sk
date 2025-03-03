@@ -21,8 +21,8 @@ export const getNavikronosMiddleware = (config: NavikronosConfig) => {
     if (request.nextUrl.pathname.startsWith(`/${config.rewritePrefix}`)) {
       const url = request.nextUrl.clone()
 
-      // eslint-disable-next-line scanjs-rules/assign_to_pathname
       url.pathname = `/404`
+
       // eslint-disable-next-line consistent-return
       return NextResponse.rewrite(url)
     }
