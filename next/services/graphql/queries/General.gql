@@ -42,7 +42,6 @@ fragment MenuEntity on MenuEntity {
   id
   attributes {
     menuTitle
-    menuSlug
     menuTotalColumns
     order
     menuSections {

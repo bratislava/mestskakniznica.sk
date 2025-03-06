@@ -1312,12 +1312,6 @@ export interface ApiMenuMenu extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    menuSlug: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     menuTitle: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
