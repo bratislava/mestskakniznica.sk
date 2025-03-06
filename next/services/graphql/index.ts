@@ -2944,7 +2944,6 @@ export type Menu = {
   locale?: Maybe<Scalars['String']['output']>
   localizations?: Maybe<MenuRelationResponseCollection>
   menuSections?: Maybe<Array<Maybe<ComponentMenuSections>>>
-  menuSlug?: Maybe<Scalars['String']['output']>
   menuTitle?: Maybe<Scalars['String']['output']>
   menuTotalColumns?: Maybe<Scalars['Int']['output']>
   order?: Maybe<Scalars['Int']['output']>
@@ -2989,7 +2988,6 @@ export type MenuFiltersInput = {
   locale?: InputMaybe<StringFilterInput>
   localizations?: InputMaybe<MenuFiltersInput>
   menuSections?: InputMaybe<ComponentMenuSectionsFiltersInput>
-  menuSlug?: InputMaybe<StringFilterInput>
   menuTitle?: InputMaybe<StringFilterInput>
   menuTotalColumns?: InputMaybe<IntFilterInput>
   not?: InputMaybe<MenuFiltersInput>
@@ -3001,7 +2999,6 @@ export type MenuFiltersInput = {
 
 export type MenuInput = {
   menuSections?: InputMaybe<Array<InputMaybe<ComponentMenuSectionsInput>>>
-  menuSlug?: InputMaybe<Scalars['String']['input']>
   menuTitle?: InputMaybe<Scalars['String']['input']>
   menuTotalColumns?: InputMaybe<Scalars['Int']['input']>
   order?: InputMaybe<Scalars['Int']['input']>
@@ -5313,6 +5310,8 @@ export type BlogPostEntityFragment = {
           url: string
           mime: string
           alternativeText?: string | null
+          width?: number | null
+          height?: number | null
         } | null
       } | null
     } | null
@@ -5575,6 +5574,8 @@ export type BlogPostBySlugQuery = {
               url: string
               mime: string
               alternativeText?: string | null
+              width?: number | null
+              height?: number | null
             } | null
           } | null
         } | null
@@ -5825,6 +5826,8 @@ export type BlogPostsQuery = {
               url: string
               mime: string
               alternativeText?: string | null
+              width?: number | null
+              height?: number | null
             } | null
           } | null
         } | null
@@ -7235,7 +7238,6 @@ export type MenuEntityFragment = {
   attributes?: {
     __typename?: 'Menu'
     menuTitle?: string | null
-    menuSlug?: string | null
     menuTotalColumns?: number | null
     order?: number | null
     createdAt?: any | null
@@ -7418,7 +7420,6 @@ export type GeneralQuery = {
       attributes?: {
         __typename?: 'Menu'
         menuTitle?: string | null
-        menuSlug?: string | null
         menuTotalColumns?: number | null
         order?: number | null
         createdAt?: any | null
@@ -11400,6 +11401,8 @@ export const BlogPostEntityFragmentDoc = gql`
             url
             mime
             alternativeText
+            width
+            height
           }
         }
       }
@@ -11699,7 +11702,6 @@ export const MenuEntityFragmentDoc = gql`
     id
     attributes {
       menuTitle
-      menuSlug
       menuTotalColumns
       order
       menuSections {

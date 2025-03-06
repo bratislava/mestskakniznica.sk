@@ -2440,7 +2440,6 @@ type Menu {
   locale: String
   localizations(filters: MenuFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): MenuRelationResponseCollection
   menuSections(filters: ComponentMenuSectionsFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentMenuSections]
-  menuSlug: String
   menuTitle: String
   menuTotalColumns: Int
   order: Int
@@ -2469,7 +2468,6 @@ input MenuFiltersInput {
   locale: StringFilterInput
   localizations: MenuFiltersInput
   menuSections: ComponentMenuSectionsFiltersInput
-  menuSlug: StringFilterInput
   menuTitle: StringFilterInput
   menuTotalColumns: IntFilterInput
   not: MenuFiltersInput
@@ -2481,7 +2479,6 @@ input MenuFiltersInput {
 
 input MenuInput {
   menuSections: [ComponentMenuSectionsInput]
-  menuSlug: String
   menuTitle: String
   menuTotalColumns: Int
   order: Int

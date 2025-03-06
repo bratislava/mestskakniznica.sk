@@ -24,14 +24,6 @@
       },
       "type": "string"
     },
-    "menuSlug": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string"
-    },
     "menuTotalColumns": {
       "pluginOptions": {
         "i18n": {
