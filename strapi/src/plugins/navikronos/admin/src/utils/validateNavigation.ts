@@ -51,7 +51,7 @@ export type NavigationTreeError =
 export const validateNavigation = (
   navigation: NavikronosNavigation | undefined,
   locale: string,
-  config: AdminConfig
+  config: AdminConfig,
 ) => {
   const errors = checkForErrorsInner(navigation, locale, config);
   const duplicates = checkForDuplicatesInner(navigation, locale);
@@ -63,7 +63,7 @@ export const validateNavigation = (
         ({
           type: "duplicateStaticRoute",
           id,
-        } as NavigationTreeError)
+        }) as NavigationTreeError,
     ),
     ...duplicates.entry.map(
       ([uid, id]) =>
@@ -71,14 +71,14 @@ export const validateNavigation = (
           type: "duplicateEntryRoute",
           uid,
           id,
-        } as NavigationTreeError)
+        }) as NavigationTreeError,
     ),
     ...duplicates.contentType.map(
       (uid) =>
         ({
           type: "duplicateContentTypeRoute",
           uid,
-        } as NavigationTreeError)
+        }) as NavigationTreeError,
     ),
   ];
 };
@@ -87,7 +87,7 @@ const checkForErrorsInner = (
   navigation: NavikronosNavigation | undefined,
   locale: string,
   config: AdminConfig,
-  errors: NavigationTreeError[] = []
+  errors: NavigationTreeError[] = [],
 ) => {
   if (!navigation) {
     return errors;
@@ -106,7 +106,7 @@ const checkForErrorsInner = (
     if (route.type === "contentType") {
       if (
         !config.contentTypeRoutes.find(
-          (routeConfig) => routeConfig.contentTypeUid === route.contentTypeUid
+          (routeConfig) => routeConfig.contentTypeUid === route.contentTypeUid,
         )
       ) {
         errors.push({
@@ -143,7 +143,7 @@ const checkForErrorsInner = (
   });
 
   const contentTypeRoute = navigation.find(
-    (route) => route.type === "contentType"
+    (route) => route.type === "contentType",
   ) as NavikronosContentTypeRoute;
   if (contentTypeRoute && navigation.length > 1) {
     errors.push({
@@ -169,7 +169,7 @@ const checkForDuplicatesInner = (
     entry: [],
     contentType: [],
     static: [],
-  }
+  },
 ) => {
   if (!navigation) {
     return duplicates;
@@ -179,7 +179,7 @@ const checkForDuplicatesInner = (
     if (route.type === "entry") {
       const setValue = [route.contentTypeUid, route.entryId] as [
         string,
-        number
+        number,
       ];
       if (entrySet.find((entry) => isEqual(setValue, entry))) {
         duplicates.entry.push(setValue);
@@ -211,7 +211,7 @@ const checkForDuplicatesInner = (
         entrySet,
         staticSet,
         contentTypeSet,
-        duplicates
+        duplicates,
       );
     }
   });

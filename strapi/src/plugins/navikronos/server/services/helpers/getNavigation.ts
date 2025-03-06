@@ -7,7 +7,7 @@ import {
 export const getNavigation = async (strapi: IStrapi) => {
   const navigation = await strapi
     .query<NavikronosStorageContentType>(
-      "plugin::navikronos.navikronos-storage"
+      "plugin::navikronos.navikronos-storage",
     )
     .findOne({});
 

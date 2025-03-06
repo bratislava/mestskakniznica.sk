@@ -25,46 +25,46 @@ const Error = ({ error }: { error: NavigationTreeError }) => {
     case "nonexistentContentTypeRoute":
       return (
         <>{`Content type route's type "${getContentTypeDisplayName(
-          error.uid
+          error.uid,
         )}" is not in allowed list of content types for content type routes. (contact developer)`}</>
       );
     case "nonexistentEntryRouteContentType":
       return (
         <>{`Entry route's type "${getContentTypeDisplayName(
-          error.uid
+          error.uid,
         )}" is not in allowed list of content types for entry routes. (contact developer)`}</>
       );
     case "nonexistentEntryRouteEntry":
       return (
         <>{`Entry route's of content type "${getContentTypeDisplayName(
-          error.uid
+          error.uid,
         )}" with id "${error.id}" doesn't exist or is not published.`}</>
       );
     case "nonSingularContentTypeRoute":
       return (
         <>{`Content type route's type "${getContentTypeDisplayName(
-          error.uid
+          error.uid,
         )}" route must be the only child of its parent route. Remove other routes on the same level.`}</>
       );
     case "duplicateContentTypeRoute":
       return (
         <>{`Multiple occurrences of the content type route with type "${getContentTypeDisplayName(
-          error.uid
+          error.uid,
         )}" have been detected in the navigation. Remove the duplicates.`}</>
       );
     case "duplicateStaticRoute":
       return (
         <>{`Multiple occurrences of the static type route with id "${getContentTypeDisplayName(
-          error.id
+          error.id,
         )}" have been detected in the navigation. Remove the duplicates.`}</>
       );
     case "duplicateEntryRoute":
       return (
         <>{`Multiple occurrences of the entry type route of type "${getContentTypeDisplayName(
-          error.uid
+          error.uid,
         )}" named "${getEntryDisplayName(
           error.uid,
-          error.id
+          error.id,
         )}" have been detected in the navigation. Remove the duplicates.`}</>
       );
   }
@@ -76,7 +76,7 @@ const NavigationTreeValidation = () => {
 
   const errors = useMemo(
     () => validateNavigation(navigationData, locale, config),
-    [navigationData, config, locale]
+    [navigationData, config, locale],
   );
 
   if (errors.length < 1) {

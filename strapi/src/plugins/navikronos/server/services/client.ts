@@ -20,7 +20,7 @@ type FetchedEntriesMap = Record<string, Record<string, FetchedEntry>>;
  * Traverses the navigation and returns a list of entries to fetch.
  */
 const traverseGetEntriesToFetch = (
-  navigation: NavikronosNavigation
+  navigation: NavikronosNavigation,
 ): EntriesToFetchMap => {
   const entriesToFetch: EntriesToFetchMap = {};
 
@@ -51,22 +51,22 @@ const fetchSelectedEntries = async (
   strapi: IStrapi,
   navigation: NavikronosNavigation,
   entriesToFetch: EntriesToFetchMap,
-  locale: string
+  locale: string,
 ): Promise<FetchedEntriesMap> => {
   const promises = Object.entries(entriesToFetch).map(
     ([contentTypeUid, ids]) => {
       return async () => {
         const fetched = await getEntries(strapi, contentTypeUid, locale, ids);
         const mapped = Object.fromEntries(
-          fetched.map((entry) => [entry.id, entry])
+          fetched.map((entry) => [entry.id, entry]),
         );
         return [contentTypeUid, mapped] as const;
       };
-    }
+    },
   );
 
   return Object.fromEntries(
-    await Promise.all(promises.map((promise) => promise()))
+    await Promise.all(promises.map((promise) => promise())),
   );
 };
 
@@ -75,7 +75,7 @@ const fetchSelectedEntries = async (
  */
 const traverseReplaceEntries = (
   navigation: NavikronosNavigation,
-  fetchedEntries: FetchedEntriesMap
+  fetchedEntries: FetchedEntriesMap,
 ): NavikronosClientNavigation => {
   const innerTraverse = (routes: NavikronosRoutes) => {
     return routes
@@ -144,13 +144,13 @@ export default ({ strapi }: { strapi: IStrapi }): ClientService => ({
           strapi,
           localeNavigation,
           entriesToFetch,
-          code
+          code,
         );
         return [
           code,
           traverseReplaceEntries(localeNavigation, fetchedEntries),
         ] as const;
-      })
+      }),
     );
 
     return Object.fromEntries<NavikronosClientNavigation>(allLocales);

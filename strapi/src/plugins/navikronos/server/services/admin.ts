@@ -30,20 +30,20 @@ export default ({ strapi }: { strapi: IStrapi }): AdminService => {
       const entryRouteEntries = await getEntryRouteEntries(
         strapi,
         entryRoutes,
-        i18n
+        i18n,
       );
 
       const allContentTypesUids = [
         ...(entryRoutes ?? []).map(({ contentTypeUid }) => contentTypeUid),
         ...(contentTypeRoutes ?? []).map(
-          ({ contentTypeUid }) => contentTypeUid
+          ({ contentTypeUid }) => contentTypeUid,
         ),
       ];
       const contentTypeInfos = Object.fromEntries<StrapiContentTypeInfo>(
         allContentTypesUids.map(
           (contentTypeUid) =>
-            [contentTypeUid, strapi.contentTypes[contentTypeUid].info] as const
-        )
+            [contentTypeUid, strapi.contentTypes[contentTypeUid].info] as const,
+        ),
       );
 
       return {
@@ -81,9 +81,10 @@ export default ({ strapi }: { strapi: IStrapi }): AdminService => {
 
       if (id) {
         await strapi
-          .query<{ id: string; data: NavikronosLocaleNavigations }>(
-            "plugin::navikronos.navikronos-storage"
-          )
+          .query<{
+            id: string;
+            data: NavikronosLocaleNavigations;
+          }>("plugin::navikronos.navikronos-storage")
           .update({ where: { id }, data: { data: navigation } });
       } else {
         await strapi

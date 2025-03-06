@@ -73,7 +73,7 @@ const NavigationTreeChild = ({
           return null;
         }
         const pathInner = entries.find(
-          (entry) => entry.id === child.entryId
+          (entry) => entry.id === child.entryId,
         )?.path;
         return child.overridePath ?? pathInner;
     }
@@ -102,7 +102,7 @@ const NavigationTreeChild = ({
           return null;
         }
         const titleInner = entries.find(
-          (entry) => entry.id === child.entryId
+          (entry) => entry.id === child.entryId,
         )?.title;
         return child.overrideTitle ?? titleInner;
     }

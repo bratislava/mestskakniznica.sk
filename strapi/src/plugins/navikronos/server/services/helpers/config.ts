@@ -9,7 +9,7 @@ const smallLettersDashRegexp = /^[a-z-]+$/;
 
 export const validateConfig = (
   strapi: IStrapi,
-  config: NavikronosPluginConfig
+  config: NavikronosPluginConfig,
 ) => {
   // Basic shape validation
   try {
@@ -21,7 +21,7 @@ export const validateConfig = (
   config.staticRouteIds?.forEach((id) => {
     if (!smallLettersDashRegexp.test(id)) {
       throw new Error(
-        `Navikronos plugin config error: "staticRouteIds" should contain only small letters and dashes.`
+        `Navikronos plugin config error: "staticRouteIds" should contain only small letters and dashes.`,
       );
     }
   });
@@ -31,7 +31,7 @@ export const validateConfig = (
       const contentType = strapi.contentTypes[contentTypeUid];
       if (!contentType) {
         throw new Error(
-          `Navikronos plugin config error: "${contentTypeUid}" content type doesn't exist.`
+          `Navikronos plugin config error: "${contentTypeUid}" content type doesn't exist.`,
         );
       }
 
@@ -39,16 +39,16 @@ export const validateConfig = (
         const attributeObject = contentType.attributes[attribute];
         if (!attributeObject) {
           throw new Error(
-            `Navikronos plugin config error: "${contentTypeUid}" content type doesn't have "${attribute}" attribute.`
+            `Navikronos plugin config error: "${contentTypeUid}" content type doesn't have "${attribute}" attribute.`,
           );
         }
 
         if (attributeObject.type !== "string") {
           throw new Error(
-            `Navikronos plugin config error: "${contentTypeUid}" content type's "${attribute}" attribute must be of type "string".`
+            `Navikronos plugin config error: "${contentTypeUid}" content type's "${attribute}" attribute must be of type "string".`,
           );
         }
       });
-    }
+    },
   );
 };

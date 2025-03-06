@@ -28,12 +28,12 @@ export const prepareContentTypesOptions = (config: AdminGetConfigResponse) => {
       metadatas: getMetadatas(displayName),
       value: uid,
       label: displayName,
-    })
+    }),
   );
 };
 
 export const prepareStaticRouteIdsOptions = (
-  config: AdminGetConfigResponse
+  config: AdminGetConfigResponse,
 ) => {
   return config.staticRouteIds.map((id) => ({
     key: id,
@@ -45,7 +45,7 @@ export const prepareStaticRouteIdsOptions = (
 
 export const prepareEntryRouteContentTypesOptions = (
   config: AdminGetConfigResponse,
-  locale: string
+  locale: string,
 ) => {
   return Object.entries(config.entryRouteEntries[locale]).map(([uid]) => {
     const { displayName } = config.contentTypeInfos[uid];
@@ -61,7 +61,7 @@ export const prepareEntryRouteContentTypesOptions = (
 export const prepareEntryRouteEntriesOptions = (
   config: AdminGetConfigResponse,
   values: NavikronosRoute,
-  locale: string
+  locale: string,
 ) => {
   if (values.type !== "entry" || !values.contentTypeUid) {
     return undefined;

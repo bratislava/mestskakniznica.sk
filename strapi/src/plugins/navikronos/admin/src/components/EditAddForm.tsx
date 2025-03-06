@@ -57,17 +57,17 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
 
   const contentTypeOptions = useMemo(
     () => prepareContentTypesOptions(config),
-    [config]
+    [config],
   );
 
   const staticRouteIdsOptions = useMemo(
     () => prepareStaticRouteIdsOptions(config),
-    [config]
+    [config],
   );
 
   const entryContentTypesOptions = useMemo(
     () => prepareEntryRouteContentTypesOptions(config, locale),
-    [config, locale]
+    [config, locale],
   );
 
   const entryRouteEntriesOptions = useMemo(
@@ -75,9 +75,9 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
       prepareEntryRouteEntriesOptions(
         config,
         values as NavikronosRoute,
-        locale
+        locale,
       ),
-    [config, values]
+    [config, values],
   );
 
   const defaultProps = useCallback(
@@ -87,7 +87,7 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
         | keyof NavikronosEmptyRoute
         | keyof NavikronosEntryRoute
         | keyof NavikronosStaticRoute
-        | keyof NavikronosListingRoute
+        | keyof NavikronosListingRoute,
     ) => ({
       intlLabel: getMetadatas(fieldName),
       onChange: handleChange,
@@ -95,7 +95,7 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
       value: values[fieldName],
       error: errors[fieldName],
     }),
-    [values, errors, handleChange]
+    [values, errors, handleChange],
   );
 
   return (
@@ -149,7 +149,7 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
                   onChange={(e) => {
                     setFieldValue(
                       "overrideTitle",
-                      e.target.value ? "" : undefined
+                      e.target.value ? "" : undefined,
                     );
                   }}
                 />
@@ -167,7 +167,7 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
                   onChange={(e) => {
                     setFieldValue(
                       "overridePath",
-                      e.target.value ? "" : undefined
+                      e.target.value ? "" : undefined,
                     );
                   }}
                 />
