@@ -51,6 +51,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
       },
       className,
     )
+
     return (
       <NextLink
         href={href ?? '#'}

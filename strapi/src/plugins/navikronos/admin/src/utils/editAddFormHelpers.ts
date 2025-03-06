@@ -28,12 +28,12 @@ export const prepareContentTypesOptions = (config: AdminGetConfigResponse) => {
       metadatas: getMetadatas(displayName),
       value: uid,
       label: displayName,
-    })
+    }),
   );
 };
 
 export const prepareStaticRouteIdsOptions = (
-  config: AdminGetConfigResponse
+  config: AdminGetConfigResponse,
 ) => {
   return config.staticRouteIds.map((id) => ({
     key: id,
@@ -45,7 +45,7 @@ export const prepareStaticRouteIdsOptions = (
 
 export const prepareEntryRouteContentTypesOptions = (
   config: AdminGetConfigResponse,
-  locale: string
+  locale: string,
 ) => {
   return Object.entries(config.entryRouteEntries[locale]).map(([uid]) => {
     const { displayName } = config.contentTypeInfos[uid];
@@ -61,7 +61,7 @@ export const prepareEntryRouteContentTypesOptions = (
 export const prepareEntryRouteEntriesOptions = (
   config: AdminGetConfigResponse,
   values: NavikronosRoute,
-  locale: string
+  locale: string,
 ) => {
   if (values.type !== "entry" || !values.contentTypeUid) {
     return undefined;
@@ -111,5 +111,13 @@ const pickTypeMap: {
  * @param values
  */
 export const fixBeforeSubmit = (values: NavikronosRoute) => {
-  return pick(values, pickTypeMap[values.type]) as NavikronosRoute;
+  let picked = pick(values, pickTypeMap[values.type]);
+  if ("entryId" in picked && typeof picked.entryId === "string") {
+    picked = {
+      ...picked,
+      entryId: Number(picked.entryId),
+    };
+  }
+
+  return picked as NavikronosRoute;
 };

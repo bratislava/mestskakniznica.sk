@@ -15,12 +15,12 @@ export const getEntries = async (
   strapi: IStrapi,
   contentTypeUid: string,
   locale?: string,
-  ids?: number[]
+  ids?: number[],
 ) => {
   const { entryRoutes } = getConfig(strapi);
 
   const entryRouteConfig = (entryRoutes ?? []).find(
-    (route) => route.contentTypeUid === contentTypeUid
+    (route) => route.contentTypeUid === contentTypeUid,
   );
   if (!entryRouteConfig) {
     return [] as FetchedEntry[];
@@ -57,6 +57,6 @@ export const getEntries = async (
         id: entry.id,
         title: entry[entryRouteConfig.titleAttribute],
         path: entry[entryRouteConfig.pathAttribute],
-      } as FetchedEntry)
+      }) as FetchedEntry,
   );
 };
