@@ -111,5 +111,13 @@ const pickTypeMap: {
  * @param values
  */
 export const fixBeforeSubmit = (values: NavikronosRoute) => {
-  return pick(values, pickTypeMap[values.type]) as NavikronosRoute;
+  let picked = pick(values, pickTypeMap[values.type]);
+  if ("entryId" in picked && typeof picked.entryId === "string") {
+    picked = {
+      ...picked,
+      entryId: Number(picked.entryId),
+    };
+  }
+
+  return picked as NavikronosRoute;
 };
