@@ -18,9 +18,10 @@ const BreadcrumbItem = ({ url, isMobile = false, ...rest }: BreadcrumbItemProps)
     <li className={cn('flex min-w-0 list-none items-center', { 'shrink-0': !rest.isCurrent })}>
       {url && !rest.isCurrent ? (
         <MLink
+          // href={url} must go after spreading itemProps because itemProps can contain href=undefined from useBreadcrumbItem
+          {...itemProps}
           href={url}
           ref={ref}
-          {...itemProps}
           variant="breadcrumb"
           className={isMobile ? '-mx-4 flex shrink-0 items-center gap-x-1.5 px-4 py-1' : ''}
         >
