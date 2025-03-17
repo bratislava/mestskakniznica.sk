@@ -2457,12 +2457,12 @@
   resolved "https://registry.yarnpkg.com/@strapi/provider-audit-logs-local/-/provider-audit-logs-local-4.25.20.tgz#afd1be3fd443b6b8f49d5f5a78bf3f3c6f1c0424"
   integrity sha512-qJrZD+91Ks5+riEImGnEK7h51oWyYJM/KF/Ar9lUD4Y1pB3eZ5Z7HL0MIhK7c0uKtHQoy7UmCFFxL2M4AMnVMQ==
 
-"@strapi/provider-email-mailgun@^5.6.0":
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/@strapi/provider-email-mailgun/-/provider-email-mailgun-5.9.0.tgz#0637452bd2c8756714ccd9c67f08273f933c8a00"
-  integrity sha512-ig3++DPI64u2o58z70dER2+PGxLL1p/0+L2BieVuCv2lUqfdjuP64EYzlMav1kmGgNvQCFyFzDxAwizZUqlC2w==
+"@strapi/provider-email-mailgun@^5.11.2":
+  version "5.11.2"
+  resolved "https://registry.yarnpkg.com/@strapi/provider-email-mailgun/-/provider-email-mailgun-5.11.2.tgz#47c529b2b79a83a0e2906629f12db1cec2756c25"
+  integrity sha512-r9SPTtc7tCAILnG/FW3+cn8PfW8/7cPBLPF4HeuSsLSvd7o4wI+CXAAaXDKF24mkaNYBsDPaHsae07TM0fC4PQ==
   dependencies:
-    "@strapi/utils" "5.9.0"
+    "@strapi/utils" "5.11.2"
     form-data "^4.0.0"
     mailgun.js "10.2.1"
 
@@ -2612,7 +2612,7 @@
     aria-hidden "^1.2.4"
     react-remove-scroll "^2.5.9"
 
-"@strapi/utils@4.25.20":
+"@strapi/utils@4.25.20", "@strapi/utils@^4.5.4":
   version "4.25.20"
   resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.25.20.tgz#3c31fd3abfea79f4328e2872312da8d5fd3e3c06"
   integrity sha512-GyZ1LXx0Wt4psJwGMd52DF2fKsarh+N8UEChGOsYuLEvo0pPjxN1RkUKArlzyLgh5u0fk08/uPbwdjLWQ3QgYg==
@@ -2624,10 +2624,10 @@
     p-map "4.0.0"
     yup "0.32.9"
 
-"@strapi/utils@5.9.0":
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-5.9.0.tgz#0f88e812aea6ab0455aed28f4ce7cce0fad1b042"
-  integrity sha512-asQs32gg3EfnA+cEMd4hQ4jhMPalxRnqEWNeYKaDaoreAHMKyzkCqy0CdlgP3ewDOrWaFPSvUaWhE3EaSdD7ag==
+"@strapi/utils@5.11.2":
+  version "5.11.2"
+  resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-5.11.2.tgz#3fa1c80bb9eaf0dc55856fd758cce904f54712d5"
+  integrity sha512-uCY7WOslTg4oiUa1rt/CzNFGyEbjy8GV/b/Lmunvm0ufaM/TvXWDudEvCsZk1Wx2N4kF/nyQZfrNfEEll43Csw==
   dependencies:
     "@sindresorhus/slugify" "1.1.0"
     date-fns "2.30.0"
@@ -2639,18 +2639,6 @@
     preferred-pm "3.1.2"
     yup "0.32.9"
     zod "^3.22.4"
-
-"@strapi/utils@^4.5.4":
-  version "4.14.5"
-  resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.14.5.tgz#6fce660d6b31a6ad3644ec126b880033f02658c4"
-  integrity sha512-0/lC5C2FyaCO+TDBb/jk3CQxtmEbxBZzt0NSb0M6tgAYB6o9eiC2IHZT11Ni98p+GgBlT3AhGQJ5idUa/j/hWA==
-  dependencies:
-    "@sindresorhus/slugify" "1.1.0"
-    date-fns "2.30.0"
-    http-errors "1.8.1"
-    lodash "4.17.21"
-    p-map "4.0.0"
-    yup "0.32.9"
 
 "@swc/core-darwin-arm64@1.10.12":
   version "1.10.12"
@@ -10315,7 +10303,16 @@ string-argv@~0.3.1:
   resolved "https://registry.yarnpkg.com/string-argv/-/string-argv-0.3.2.tgz#2b6d0ef24b656274d957d54e0a4bbf6153dc02b6"
   integrity sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.2, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.2, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -10352,7 +10349,7 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -10372,6 +10369,13 @@ strip-ansi@^5.2.0:
   integrity sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==
   dependencies:
     ansi-regex "^4.1.0"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
 
 strip-ansi@^7.0.1:
   version "7.1.0"
@@ -11268,7 +11272,16 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
