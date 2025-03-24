@@ -14,7 +14,7 @@
   "devDependencies": {},
   "dependencies": {
     "@strapi/plugin-graphql": "4.25.20",
-    "@strapi/plugin-i18n": "4.25.20",
+    "@strapi/plugin-i18n": "4.25.22",
     "@strapi/plugin-users-permissions": "4.25.20",
     "@strapi/strapi": "4.25.20",
     "@strapi/provider-email-mailgun": "^5.6.0",
