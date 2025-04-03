@@ -1,4 +1,5 @@
 import React from 'react'
+import { useFocusRing } from 'react-aria'
 
 import ErrorOutline from '@/assets/images/error-outline.svg'
 import cn from '@/utils/cn'
@@ -31,6 +32,8 @@ export const Input = ({
   labelClassName,
   ...props
 }: InputProps) => {
+  const { isFocusVisible, focusProps } = useFocusRing()
+
   return (
     <div className={className}>
       {/* Label */}
@@ -56,14 +59,16 @@ export const Input = ({
         {/* BaseInput */}
         <input
           id={id}
-          className={cn('base-input base-focus-ring', inputClassName, {
+          className={cn('base-input', inputClassName, {
             'base-input--disabled cursor-not-allowed text-foreground-disabled': props.disabled,
             'base-input--with-error': hasError,
+            'base-focus-ring': isFocusVisible,
           })}
           aria-invalid={hasError}
           aria-required={required}
           aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}
           {...props}
+          {...focusProps}
         />
 
         {/* RightIcon Accessory */}
