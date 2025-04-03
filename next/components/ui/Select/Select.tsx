@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useFocusRing } from 'react-aria'
 
 import ChevronDown from '@/assets/images/chevron-down.svg'
 import cn from '@/utils/cn'
@@ -47,6 +48,8 @@ export const Select = <T extends ISelectOption>({
     if (selectedOption) onChange(selectedOption)
   }
 
+  const { isFocusVisible, focusProps } = useFocusRing()
+
   const value = typeof iValue === 'string' ? iValue : iValue?.key
 
   return (
@@ -62,8 +65,8 @@ export const Select = <T extends ISelectOption>({
         <select
           id={id}
           className={cn(
-            'base-input base-focus-ring w-full cursor-pointer pr-9',
-            { 'base-input--with-error': hasError },
+            'base-input w-full cursor-pointer pr-9',
+            { 'base-input--with-error': hasError, 'base-focus-ring': isFocusVisible },
             selectClassName,
           )}
           onChange={handleChange}
@@ -71,6 +74,7 @@ export const Select = <T extends ISelectOption>({
           aria-invalid={hasError}
           aria-errormessage={errorMessage ? `${id ?? ''}_err` : undefined}
           {...rest}
+          {...focusProps}
         >
           {options.map((option) => (
             <option key={option.key} value={option.key} disabled={option.disabled}>
