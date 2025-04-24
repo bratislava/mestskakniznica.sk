@@ -5,11 +5,11 @@
   "description": "A Strapi application",
   "scripts": {
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
-    "dev": "npm run develop",
+    "dev": "yarn develop",
     "start": "strapi start",
-    "build": "npm run --prefix ./src/plugins/navikronos/ build && strapi build",
+    "build": "yarn --cwd ./src/plugins/navikronos/ build && strapi build",
     "strapi": "strapi",
-    "postinstall": "npm install --prefix ./src/plugins/navikronos/"
+    "postinstall": "yarn --cwd ./src/plugins/navikronos/ install"
   },
   "devDependencies": {},
   "dependencies": {
