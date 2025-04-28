@@ -12,11 +12,26 @@
     "immer": "^9.0.18",
     "lodash": "^4.17.21",
     "strapi-typed": "^1.0.20",
-    "styled-components": "^5.3.6",
+    "styled-components": "^5.2.1",
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@strapi/typescript-utils": "^5.12.6",
+    "@types/react": "^18.0.53",
+    "@types/react-dom": "^18.0.28",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.32",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.6",
     "typescript": "^5.0.4"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.2.1"
   },
   "author": {
     "name": "A Strapi developer"
@@ -31,8 +46,8 @@
     "npm": ">=10.8.x"
   },
   "scripts": {
-    "develop": "tsc -w",
-    "build": "tsc"
+    "develop": "tsc -p tsconfig.server.json -w",
+    "build": "tsc -p tsconfig.server.json"
   },
   "license": "MIT"
 }
