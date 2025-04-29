@@ -121,15 +121,15 @@ module.exports = ({ env }) => ({
   email: {
     config: {
       //  mailgun email provider https://www.npmjs.com/package/@strapi/provider-email-mailgun
-      provider: 'mailgun',
+      provider: "mailgun",
       providerOptions: {
-        key: env('MAILGUN_API_KEY'), // Required
-        domain: env('MAILGUN_DOMAIN'), // Required
-        url: 'https://api.eu.mailgun.net', //Optional. If domain region is Europe use 'https://api.eu.mailgun.net'
+        key: env("MAILGUN_API_KEY"), // Required
+        domain: env("MAILGUN_DOMAIN"), // Required
+        url: "https://api.eu.mailgun.net", //Optional. If domain region is Europe use 'https://api.eu.mailgun.net'
       },
       settings: {
-        defaultFrom: env('MAILGUN_EMAIL'),
-        defaultReplyTo: env('MAILGUN_EMAIL')
+        defaultFrom: env("MAILGUN_EMAIL"),
+        defaultReplyTo: env("MAILGUN_EMAIL"),
       },
     },
   },
@@ -169,7 +169,7 @@ module.exports = ({ env }) => ({
               addedAtTimestamp: entry.publishedAt
                 ? new Date(entry.publishedAt).getTime()
                 : undefined,
-            }
+            },
           ),
       },
 
@@ -188,7 +188,7 @@ module.exports = ({ env }) => ({
               addedAtTimestamp: entry.addedAt
                 ? new Date(entry.addedAt).getTime()
                 : undefined,
-            }
+            },
           ),
       },
 
