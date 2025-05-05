@@ -17,7 +17,7 @@
     "@strapi/plugin-i18n": "4.25.22",
     "@strapi/plugin-users-permissions": "4.25.22",
     "@strapi/strapi": "4.25.22",
-    "@strapi/provider-email-mailgun": "4.25.22",
+    "@strapi/provider-email-mailgun": "5.12.7",
     "pg": "^8.13.1",
     "postinstall-postinstall": "^2.1.0",
     "react": "^18.2.0",
