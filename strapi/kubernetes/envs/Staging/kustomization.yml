@@ -6,6 +6,7 @@ resources:
   - ./secrets/database.secret.yml
   - ./secrets/meilisearch.secret.yml
   - ./secrets/mailgun.secret.yml
+  - secrets/revalidate.secret.yml
 
 generatorOptions:
   disableNameSuffixHash: true
