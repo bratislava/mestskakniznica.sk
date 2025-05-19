@@ -11,6 +11,7 @@ import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { BranchEntityFragment, GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { NOT_FOUND } from '@/utils/consts'
 import { extractLocalizationsWithSlug } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
@@ -73,7 +74,9 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   const { locale, params } = ctx
   const slug = params?.slug
 
-  if (!slug || !locale) return { notFound: true } as const
+  if (!slug || !locale) {
+    return NOT_FOUND
+  }
 
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} branch ${slug}`)
@@ -83,7 +86,9 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
     locale,
   })
   const branch = branches?.data[0] ?? null
-  if (!branch) return { notFound: true } as const
+  if (!branch) {
+    return NOT_FOUND
+  }
 
   const localizations = extractLocalizationsWithSlug('branch', branch)
 
