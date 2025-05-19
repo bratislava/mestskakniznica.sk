@@ -9,6 +9,7 @@ import StyleguideBreadcrumbs from '@/components/styleguide/StyleguideBreadcrumbs
 import StyleguideCards from '@/components/styleguide/StyleguideCards'
 import StyleguideShowMoreLink from '@/components/styleguide/StyleguideShowMoreLink'
 import StyleguideTypography from '@/components/styleguide/StyleguideTypography'
+import { NOT_FOUND } from '@/utils/consts'
 import { isProductionDeployment } from '@/utils/utils'
 
 const Styleguide = () => {
@@ -35,7 +36,9 @@ const Styleguide = () => {
 }
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  if (isProductionDeployment()) return { notFound: true }
+  if (isProductionDeployment()) {
+    return NOT_FOUND
+  }
 
   const locale = ctx.locale ?? 'sk'
 

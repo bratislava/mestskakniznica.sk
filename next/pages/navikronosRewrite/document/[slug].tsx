@@ -10,6 +10,7 @@ import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { DocumentEntityFragment, GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { NOT_FOUND } from '@/utils/consts'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 
@@ -35,14 +36,18 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
   const { locale, params, locales } = ctx
   const slug = params?.slug
 
-  if (!slug || !locale) return { notFound: true } as const
+  if (!slug || !locale) {
+    return NOT_FOUND
+  }
 
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} document ${slug}`)
 
   const { documents } = await client.DocumentBySlug({ slug })
   const document = documents?.data[0] ?? null
-  if (!document) return { notFound: true } as const
+  if (!document) {
+    return NOT_FOUND
+  }
 
   const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),

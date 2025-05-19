@@ -30,6 +30,7 @@ import {
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
 import { newBooksHomePageServerSideFetcher } from '@/services/opac/fetchers/new-books-server-side.fetcher'
+import { NOT_FOUND } from '@/utils/consts'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { hasAttributes, isDefined } from '@/utils/isDefined'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
@@ -115,7 +116,7 @@ export const Index = ({
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { locale } = ctx
   if (!locale) {
-    return { notFound: true }
+    return NOT_FOUND
   }
 
   const translations = await serverSideTranslations(locale)
@@ -135,7 +136,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   ])
 
   if (!homePage) {
-    return { notFound: true }
+    return NOT_FOUND
   }
 
   return {
