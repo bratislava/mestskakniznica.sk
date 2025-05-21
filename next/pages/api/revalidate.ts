@@ -4,7 +4,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 // TODO cleanup
 // eslint-disable-next-line sonarjs/cognitive-complexity
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log('api/revalidate: Started')
   if (req.query.secret !== process.env.REVALIDATE_SECRET_TOKEN) {
+    console.log('api/revalidate: Invalid token')
+
     return res.status(401).json({ message: 'Invalid token' })
   }
 
