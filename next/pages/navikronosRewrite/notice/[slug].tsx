@@ -11,6 +11,7 @@ import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { GeneralQuery, NoticeEntityFragment } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { NOT_FOUND } from '@/utils/consts'
 import { extractLocalizationsWithSlug } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
@@ -78,14 +79,18 @@ export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = asy
   const { locale, params } = ctx
   const slug = params?.slug
 
-  if (!slug || !locale) return { notFound: true } as const
+  if (!slug || !locale) {
+    return NOT_FOUND
+  }
 
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} notice ${slug}`)
 
   const { notices } = await client.NoticeBySlug({ slug, locale })
   const notice = notices?.data[0] ?? null
-  if (!notice) return { notFound: true }
+  if (!notice) {
+    return NOT_FOUND
+  }
 
   const localizations = extractLocalizationsWithSlug('notice', notice)
 

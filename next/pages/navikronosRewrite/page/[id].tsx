@@ -14,6 +14,7 @@ import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { Enum_Page_Layout, GeneralQuery, PageEntityFragment } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { NOT_FOUND } from '@/utils/consts'
 import { extractLocalizationsWithId } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
@@ -90,7 +91,9 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   const { params, locale } = ctx
   const id = params?.id
 
-  if (!id || !locale) return { notFound: true } as const
+  if (!id || !locale) {
+    return NOT_FOUND
+  }
 
   // eslint-disable-next-line no-console
   console.log(`Revalidating ${locale} page ${id}`)
@@ -101,8 +104,9 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   })
 
   const page = pages?.data[0] ?? null
-
-  if (!page) return { notFound: true } as const
+  if (!page) {
+    return NOT_FOUND
+  }
 
   const localizations = extractLocalizationsWithId('page', page)
 

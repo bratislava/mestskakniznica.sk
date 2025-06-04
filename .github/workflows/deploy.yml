@@ -27,6 +27,7 @@ jobs:
       directory: next/
       cluster: tkg-innov-dev
       url: https://tkg.dev.bratislava.sk
+      skip_deployment_check: '--no_image_repo_check'
       debug: --debug
       version: beta
     secrets:
@@ -42,6 +43,7 @@ jobs:
       directory: strapi/
       cluster: tkg-innov-dev
       url: https://tkg.dev.bratislava.sk
+      skip_deployment_check: '--no_image_repo_check'
       debug: --debug
       version: beta
     secrets:
@@ -57,6 +59,7 @@ jobs:
       directory: next/
       cluster: tkg-innov-dev
       url: https://tkg.dev.bratislava.sk
+      skip_deployment_check: '--no_image_repo_check'
       debug: --debug
       version: beta
     secrets:
@@ -72,6 +75,7 @@ jobs:
       directory: next/
       cluster: tkg-innov-staging
       url: https://tkg.staging.bratislava.sk
+      skip_deployment_check: '--no_image_repo_check'
       flag: --staging
       debug: --debug
     secrets:
@@ -87,6 +91,7 @@ jobs:
       directory: strapi/
       cluster: tkg-innov-staging
       url: https://tkg.staging.bratislava.sk
+      skip_deployment_check: '--no_image_repo_check'
       flag: --staging
       debug: --debug
     secrets:
@@ -102,6 +107,7 @@ jobs:
       directory: next/
       cluster: tkg-innov-staging
       url: https://tkg.staging.bratislava.sk
+      skip_deployment_check: '--no_image_repo_check'
       flag: --staging
       debug: --debug
     secrets:
@@ -117,6 +123,7 @@ jobs:
       directory: next/
       cluster: tkg-innov-prod
       url: https://tkg.bratislava.sk
+      skip_deployment_check: '--no_image_repo_check'
       flag: --production
     secrets:
       service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
@@ -131,6 +138,7 @@ jobs:
       directory: strapi/
       cluster: tkg-innov-prod
       url: https://tkg.bratislava.sk
+      skip_deployment_check: '--no_image_repo_check'
       flag: --production
       debug: --debug
     secrets:
@@ -146,6 +154,7 @@ jobs:
       directory: next/
       cluster: tkg-innov-prod
       url: https://tkg.bratislava.sk
+      skip_deployment_check: '--no_image_repo_check'
       flag: --production
     secrets:
       service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
