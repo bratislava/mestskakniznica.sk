@@ -26,6 +26,7 @@ const Custom404 = ({ general }: Error404PageProps) => {
 
   const plausible = usePlausible()
 
+  // Inspired by https://github.com/4lejandrito/next-plausible/issues/24
   useEffect(() => {
     plausible('404', { props: { path: document.location.pathname } })
   }, [plausible])
