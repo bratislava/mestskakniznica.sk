@@ -33,6 +33,7 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
       <PlausibleProvider
         domain="mestskakniznica.sk"
         taggedEvents
+        trackFileDownloads
         enabled={isProductionDeployment()}
       />
       <NavikronosConfigProvider config={navikronosConfig}>
