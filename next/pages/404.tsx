@@ -2,6 +2,8 @@ import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { usePlausible } from 'next-plausible'
+import { useEffect } from 'react'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import ErrorPage from '@/components/pages/ErrorPage'
@@ -21,6 +23,13 @@ const Custom404 = ({ general }: Error404PageProps) => {
   const { t, i18n } = useTranslation()
 
   const { asPath } = useRouter()
+
+  const plausible = usePlausible()
+
+  // Inspired by https://github.com/4lejandrito/next-plausible/issues/24
+  useEffect(() => {
+    plausible('404', { props: { path: document.location.pathname } })
+  }, [plausible])
 
   return (
     <GeneralContextProvider general={general}>
