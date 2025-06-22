@@ -10984,10 +10984,10 @@ react-tooltip@^4.2.21:
     prop-types "^15.7.2"
     uuid "^7.0.3"
 
-react-turnstile@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/react-turnstile/-/react-turnstile-1.0.6.tgz#c1106d084d005972cfd1aed27ef2d299889e2846"
-  integrity sha512-4HD11+b5eVswNvDPbTSBSFsCD/fTYiWaKui737Ze+8DSciZbqvXzk6ffmjJKXlVuOELqvzLw91BhUQLkS59vRw==
+react-turnstile@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-turnstile/-/react-turnstile-1.1.4.tgz#0c23b2f4b55f83b929407ae9bfbd211fbe5df362"
+  integrity sha512-oluyRWADdsufCt5eMqacW4gfw8/csr6Tk+fmuaMx0PWMKP1SX1iCviLvD2D5w92eAzIYDHi/krUWGHhlfzxTpQ==
 
 react@^18.3.1:
   version "18.3.1"
