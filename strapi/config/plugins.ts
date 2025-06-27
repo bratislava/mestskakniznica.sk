@@ -2,7 +2,7 @@
  * The indexes that are used in search are stored in one shared index. This wraps them to have a unified way for search
  * and easily unwrappable structure to be used separately.
  */
-const wrapSearchIndexEntry = (type, data, commonAttributes) => {
+const wrapSearchIndexEntry = (type, data, commonAttributes?) => {
   // Remove when https://github.com/meilisearch/strapi-plugin-meilisearch/pull/554 merged
   const newData = { ...data };
   delete newData.createdBy;
@@ -87,7 +87,7 @@ const searchIndexSettings = {
   },
 };
 
-module.exports = ({ env }) => ({
+export default ({ env }) => ({
   graphql: {
     config: {
       defaultLimit: 100,
