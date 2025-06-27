@@ -42,8 +42,12 @@
     }
   ],
   "engines": {
-    "node": ">=20.x.x",
+    "node": ">=20.19.x",
     "npm": ">=10.8.x"
+  },
+  "volta": {
+    "node": "20.19.0",
+    "npm": "10.8.2"
   },
   "scripts": {
     "develop": "tsc -p tsconfig.server.json -w",
