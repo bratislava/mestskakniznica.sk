@@ -4,21 +4,21 @@ This readme should get you up & running.
 
 ## First-time setup
 
-You need `node` and `yarn` installed locally.
+You need `node` and `npm` installed locally.
 
 To install dependencies run:
 
 ```
-yarn
+npm install
 ```
 
 ## Run project locally
 
 You need a CMS instance to run the web app against. For CMS setup see `strapi` directory.
-By default, Strapi suns on `STRAPI_URL=http://localhost:1337`. Change `STRAPI_URL` if needed and run:
+By default, Strapi runs on `STRAPI_URL=http://localhost:1337`. Change `STRAPI_URL` if needed and run:
 
 ```
-yarn dev
+npm run dev
 ```
 
 ## Generate GraphQL
@@ -29,7 +29,7 @@ graphql endpoint, simply run:
 
 ```bash
 # expects strapi running locally on port 1337
-yarn gen
+npm run gen
 ```
 
 ## Project structure and conventions
