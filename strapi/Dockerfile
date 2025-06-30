@@ -15,6 +15,7 @@ COPY ./package.json ./package-lock.json ./
 # COPY patches ./patches
 # copy any installation files for Strapi plugins you want to build. For example:
 # COPY src/plugins/<package-name>/package.json src/plugins/<package-name>/package-lock.json ./src/plugins/<package-name>/
+# Or leave empty (do not add anything) if you don't have any custom plugins (most likely ./plugins directory)
 COPY src/plugins/navikronos/package.json src/plugins/navikronos/package-lock.json ./src/plugins/navikronos/
 
 ENV NPM_CONFIG_CACHE=/build/.cache/npm
@@ -22,16 +23,16 @@ RUN --mount=type=cache,target=/build/.cache/npm \
     npm clean-install --include=dev
 
 FROM install AS build
-COPY ./ .
+COPY --chown=node:node ./ .
 RUN --mount=type=cache,target=/build/.cache/npm \
     npm run build \
  && npm prune --production
 
 FROM base AS app-base
-RUN apk add --update --no-cache vips-dev \
-                                tini
+RUN apk add --no-cache vips-dev \
+    tini
 RUN mkdir -p /home/node/app \
- && chown node:node /home/node/app
+    && chown node:node /home/node/app
 USER node
 WORKDIR /home/node/app
 # Adds Strapi cli to the PATH
@@ -62,6 +63,7 @@ COPY --chown=node:node --from=build /build/dist ./dist
 # - plugins/<name>/dist/
 # - plugins/<name>/*.js
 # Or leave empty (do not add anything) if you don't have any custom plugins (most likely ./plugins directory)
+# Plugin navikronos
 COPY --chown=node:node --from=install /build/src/plugins/navikronos/package.json /build/src/plugins/navikronos/package-lock.json ./src/plugins/navikronos/
 COPY --chown=node:node --from=build /build/src/plugins/navikronos/dist ./src/plugins/navikronos/dist
 COPY --chown=node:node --from=build /build/src/plugins/navikronos/*.js ./src/plugins/navikronos/
