@@ -10,11 +10,11 @@ RUN apk update \
                        libpng-dev \
                        vips-dev
 WORKDIR /build
-COPY ./package.json package-lock.json ./
+COPY ./package.json ./package-lock.json ./
 # Uncomment if you need any to apply any patches
 # COPY patches ./patches
 # copy any installation files for Strapi plugins you want to build. For example:
-# COPY src/plugins/<package-name>/package.json ./src/plugins/<package-name>/
+# COPY src/plugins/<package-name>/package.json src/plugins/<package-name>/package-lock.json ./src/plugins/<package-name>/
 COPY src/plugins/navikronos/package.json src/plugins/navikronos/package-lock.json ./src/plugins/navikronos/
 
 ENV NPM_CONFIG_CACHE=/build/.cache/npm
@@ -57,7 +57,12 @@ COPY --chown=node:node --from=build /build/config ./config
 COPY --chown=node:node --from=build /build/public ./public
 COPY --chown=node:node --from=build /build/dist ./dist
 # COPY to final image any built Strapi plugins. In this stage you will *ONLY* need
-COPY --chown=node:node --from=install /build/src/plugins/navikronos/package.json ./src/plugins/navikronos/package.json
+# - plugins/<name>/package-lock.json
+# - plugins/<name>/package.json
+# - plugins/<name>/dist/
+# - plugins/<name>/*.js
+# Or leave empty (do not add anything) if you don't have any custom plugins (most likely ./plugins directory)
+COPY --chown=node:node --from=install /build/src/plugins/navikronos/package.json /build/src/plugins/navikronos/package-lock.json ./src/plugins/navikronos/
 COPY --chown=node:node --from=build /build/src/plugins/navikronos/dist ./src/plugins/navikronos/dist
 COPY --chown=node:node --from=build /build/src/plugins/navikronos/*.js ./src/plugins/navikronos/
 CMD [ "strapi", "start" ]
