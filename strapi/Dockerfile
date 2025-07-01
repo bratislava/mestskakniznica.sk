@@ -65,6 +65,8 @@ COPY --chown=node:node --from=build /build/dist ./dist
 # Or leave empty (do not add anything) if you don't have any custom plugins (most likely ./plugins directory)
 # Plugin navikronos
 COPY --chown=node:node --from=install /build/src/plugins/navikronos/package.json /build/src/plugins/navikronos/package-lock.json ./src/plugins/navikronos/
+# COPY dynamically link dependency for navikronos plugin
+COPY --chown=node:node --from=build /build/src/plugins/navikronos/node_modules/zod /build/src/plugins/navikronos/package-lock.json ./src/plugins/navikronos/node_modules/zod/
 COPY --chown=node:node --from=build /build/src/plugins/navikronos/dist ./src/plugins/navikronos/dist
 COPY --chown=node:node --from=build /build/src/plugins/navikronos/*.js ./src/plugins/navikronos/
 CMD [ "strapi", "start" ]
