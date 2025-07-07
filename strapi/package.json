@@ -5,11 +5,11 @@
   "description": "A Strapi application",
   "scripts": {
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
-    "dev": "yarn develop",
+    "dev": "npm run develop",
     "start": "strapi start",
-    "build": "yarn --cwd ./src/plugins/navikronos/ build && strapi build",
+    "build": "npm run --prefix ./src/plugins/navikronos/ build && strapi build",
     "strapi": "strapi",
-    "postinstall": "yarn --cwd ./src/plugins/navikronos/ install"
+    "postinstall": "npm install --prefix ./src/plugins/navikronos/"
   },
   "devDependencies": {},
   "dependencies": {
@@ -35,12 +35,11 @@
     "uuid": "0edac017-73ff-4836-bdbc-243328bdd8c0"
   },
   "engines": {
-    "node": ">=20.9.x",
-    "npm": ">=10.8.x",
-    "yarn": "1.22"
+    "node": ">=20.19.x",
+    "npm": ">=10.8.x"
   },
   "volta": {
-    "node": "20.9.0",
-    "yarn": "1.22.22"
+    "node": "20.19.0",
+    "npm": "10.8.2"
   }
 }

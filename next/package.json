@@ -5,23 +5,23 @@
   "license": "EUPL-1.2",
   "scripts": {
     "dev": "next dev",
-    "develop": "next dev",
+    "develop": "npm run dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint components pages utils hooks",
-    "lint:fix": "yarn lint --fix",
-    "lint:quiet": "yarn lint --quiet",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:quiet": "npm run lint -- --quiet",
     "prettier": "prettier --write .",
-    "gen": "graphql-codegen && prettier services/graphql/index.ts --write",
+    "gen": "graphql-codegen && prettier --write services/graphql/index.ts",
     "parse-translations": "i18next",
-    "update-react-aria": "yarn add @internationalized/date@latest @react-stately/utils@latest react-aria@latest react-aria-components@latest react-stately@latest @react-aria/utils@latest --exact",
-    "update-markdown": "yarn add react-markdown@latest --exact",
-    "update-next": "yarn add next@latest react@latest react-dom@latest sharp@latest --exact && yarn add @types/react@latest @types/react-dom@latest eslint-config-next@latest typescript@latest @next/bundle-analyzer --dev --exact",
-    "update-tailwind": "yarn add tailwind-merge@latest clsx@latest --exact && yarn add tailwindcss@latest autoprefixer@latest postcss@latest prettier-plugin-tailwindcss@latest eslint-plugin-tailwindcss@latest --dev --exact",
-    "update-i18next": "yarn add next-i18next@latest react-i18next@latest i18next@latest i18next-parser@latest -E && yarn add eslint-plugin-i18next@latest --dev --exact",
-    "update-prettier": "yarn add prettier@latest eslint-config-prettier@latest --dev --exact",
-    "update-graphql": "yarn add @graphql-codegen/cli@latest @graphql-codegen/typescript@latest @graphql-codegen/typescript-graphql-request@latest @graphql-codegen/typescript-operations@latest --dev --exact && yarn add graphql@latest graphql-request@latest graphql-tag@latest --exact",
-    "update-mapbox": "yarn add react-map-gl@latest mapbox-gl@latest --exact"
+    "update-react-aria": "npm install @internationalized/date@latest @react-stately/utils@latest react-aria@latest react-aria-components@latest react-stately@latest @react-aria/utils@latest --save-exact",
+    "update-markdown": "npm install react-markdown@latest --save-exact",
+    "update-next": "npm install next@latest react@latest react-dom@latest sharp@latest --save-exact && npm install @types/react@latest @types/react-dom@latest eslint-config-next@latest typescript@latest @next/bundle-analyzer --save-dev --save-exact",
+    "update-tailwind": "npm install tailwind-merge@latest clsx@latest --save-exact && npm install tailwindcss@latest autoprefixer@latest postcss@latest prettier-plugin-tailwindcss@latest eslint-plugin-tailwindcss@latest --save-dev --save-exact",
+    "update-i18next": "npm install next-i18next@latest react-i18next@latest i18next@latest i18next-parser@latest -E && npm install eslint-plugin-i18next@latest --save-dev --save-exact",
+    "update-prettier": "npm install prettier@latest eslint-config-prettier@latest --save-dev --save-exact",
+    "update-graphql": "npm install @graphql-codegen/cli@latest @graphql-codegen/typescript@latest @graphql-codegen/typescript-graphql-request@latest @graphql-codegen/typescript-operations@latest --save-dev --save-exact && npm install graphql@latest graphql-request@latest graphql-tag@latest --save-exact",
+    "update-mapbox": "npm install react-map-gl@latest mapbox-gl@latest --save-exact"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.7",
@@ -29,9 +29,9 @@
     "@internationalized/date": "3.7.0",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@popperjs/core": "^2.11.8",
-    "@radix-ui/react-checkbox": "^0.1.5",
+    "@radix-ui/react-checkbox": "^1.3.2",
     "@radix-ui/react-navigation-menu": "^1.1.1",
-    "@radix-ui/react-radio-group": "^0.1.5",
+    "@radix-ui/react-radio-group": "^1.3.7",
     "@react-aria/utils": "3.27.0",
     "@react-stately/utils": "3.10.5",
     "@tanstack/react-query": "^5.66.0",
@@ -70,6 +70,7 @@
     "react-stately": "3.35.0",
     "react-tooltip": "^4.2.21",
     "react-turnstile": "^1.0.6",
+    "sharp": "0.32.6",
     "tailwind-merge": "2.5.2",
     "tailwindcss": "3.4.10",
     "use-query-params": "^2.2.1",
@@ -130,15 +131,14 @@
     "postcss": "8.4.41",
     "prettier": "3.4.2",
     "prettier-plugin-tailwindcss": "0.6.6",
-    "sharp": "0.32.6",
     "typescript": "5.7.3"
   },
   "engines": {
-    "node": ">=20.x.x",
-    "yarn": "1.22"
+    "node": ">=20.19.x",
+    "npm": ">=10.8.x"
   },
   "volta": {
     "node": "20.19.0",
-    "yarn": "1.22.22"
+    "npm": "10.8.2"
   }
 }
