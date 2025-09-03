@@ -7,10 +7,9 @@ resources:
   - ./secrets/meilisearch.secret.yml
   - ./secrets/mailgun.secret.yml
   - secrets/revalidate.secret.yml
-
+  - secrets/minio.secret.yml
 generatorOptions:
   disableNameSuffixHash: true
-
 configMapGenerator:
   - name: ${BUILD_REPOSITORY_NAME}-env
     namespace: ${NAMESPACE}
