@@ -1,6 +1,5 @@
 resources:
   - ../../base
-  - scaler.yml
   - secrets/cloudflare-turnstile.secret.yml
   - secrets/general.mono.secret.yml
 

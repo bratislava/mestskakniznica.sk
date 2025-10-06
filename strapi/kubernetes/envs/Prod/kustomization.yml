@@ -1,6 +1,5 @@
 resources:
   - ../../base
-  - scaler.yml
   - ./secrets/app-keys.secret.yml
   - ./secrets/config-strapi.secret.yml
   - ./secrets/database.secret.yml
