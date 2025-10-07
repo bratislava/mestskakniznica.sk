@@ -1,8 +1,9 @@
 import { useControlledState } from '@react-stately/utils'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useToggleState } from 'react-stately'
+import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 
 import DropdownIcon from '@/assets/images/dropdown.svg'
 import { FilterModal } from '@/components/Molecules/FilterModal'
@@ -25,6 +26,8 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
 
   const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
 
+  const [tagFromQueryParam] = useQueryParam('tag', withDefault(StringParam, ''))
+
   const [filters, setFilters] = useControlledState<EventsFiltersShared>(
     filtersInput,
     defaultFiltersValue,
@@ -43,9 +46,10 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
     const parsedTypes = eventTags.map(({ attributes, id }) => ({
       key: id ?? '',
       title: attributes?.title ?? '',
+      slug: attributes?.slug ?? '',
     }))
 
-    return [{ key: '', title: t('eventFilters.eventType') }, ...parsedTypes]
+    return [{ key: '', title: t('eventFilters.eventType'), slug: '' }, ...parsedTypes]
   }, [eventPropertiesData?.eventTags?.data, t])
 
   const categories = useMemo(() => {
@@ -67,6 +71,17 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
 
     return [{ key: '', title: t('eventFilters.eventLocality') }, ...parsedLocalities]
   }, [eventPropertiesData?.branches?.data, t])
+
+  // TODO rewrite so we can enable exhaustive-deps rule
+  useEffect(() => {
+    if (tagFromQueryParam) {
+      const found = tags.find((tag) => tag.slug === tagFromQueryParam)
+      if (found) {
+        onFiltersChange({ ...filtersInput, eventTypeId: found.key })
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tagFromQueryParam])
 
   const handleDateFromChange = (dateFrom: Date | null) => {
     setFilters({ ...filters, dateFrom })
