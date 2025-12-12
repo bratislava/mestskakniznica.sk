@@ -21,7 +21,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
           {bookTags?.map((tag) =>
             tag.attributes?.slug ? (
               <MLink
-                href={`https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchTitle=${tag.attributes.slug}`}
+                href={`opac.mestskakniznica.sk/?fn=searchform&extSrchTitle=${tag.attributes.slug}`}
                 target="_blank"
                 className="h-9 whitespace-nowrap rounded-full border border-border-light px-4 py-2 text-sm leading-tag hover:border-border-dark"
                 rel="noreferrer"
@@ -36,7 +36,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
       <div className="pb-8 text-center">
         <ShowMoreLink
           target="_blank"
-          href="https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchTitle"
+          href="opac.mestskakniznica.sk/?fn=searchform&extSrchTitle"
           rel="noreferrer"
         >
           {t('booksTags.lookingForBookSearch')}

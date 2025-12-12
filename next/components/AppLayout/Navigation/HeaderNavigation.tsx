@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 
 import MLink from '@/modules/common/MLink'
+import { opacBaseUrl } from '@/utils/consts'
 import { useGeneralContext } from '@/utils/generalContext'
 import { useNavikronos } from '@/utils/navikronos'
 import { useGetOtherLocale } from '@/utils/useGetOtherLocale'
@@ -22,7 +23,7 @@ const HeaderNavigation = () => {
         {t('navigation.openingHours')}
       </MLink>
       <MLink
-        href="https://opac.mestskakniznica.sk/opac"
+        href={opacBaseUrl}
         variant="basic"
         target="_blank"
         className="grid place-content-center border-l border-border-dark px-3 ring-inset ring-offset-0"

@@ -9,9 +9,8 @@ import SearchBar from '@/components/AppLayout/Navigation/SearchBar'
 import { Select } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import cn from '@/utils/cn'
+import { opacBaseUrl } from '@/utils/consts'
 import { useNavikronos } from '@/utils/navikronos'
-
-const opacBaseUrl = 'https://opac.mestskakniznica.sk/opac'
 
 type HeaderSearchBoxProps = {
   isOpen: boolean

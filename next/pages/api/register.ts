@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+import { opacBaseUrl } from '@/utils/consts'
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== 'POST' /* || typeof req.body !== 'object' */) {
@@ -86,7 +88,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.log('OPAC request:', dawinchiBody)
 
-    const result = await fetch('https://opac.mestskakniznica.sk/api?fn=*registerNewUser', {
+    const result = await fetch(`${opacBaseUrl}api?fn=*registerNewUser`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
