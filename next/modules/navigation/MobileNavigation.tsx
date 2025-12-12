@@ -6,6 +6,7 @@ import MLink from '@/modules/common/MLink'
 import Modal_deprecated from '@/modules/common/Modal_deprecated'
 import MobileNavigationItem from '@/modules/navigation/MobileNavigationItem'
 import { MenuItem } from '@/modules/navigation/NavMenu'
+import { opacBaseUrl } from '@/utils/consts'
 import { useGeneralContext } from '@/utils/generalContext'
 import { useNavikronos } from '@/utils/navikronos'
 import { useGetOtherLocale } from '@/utils/useGetOtherLocale'
@@ -33,7 +34,7 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
     },
     {
       label: t('navigation.onlineCatalog'),
-      url: 'https://opac.mestskakniznica.sk/',
+      url: opacBaseUrl,
       target: '_blank',
     },
   ]
