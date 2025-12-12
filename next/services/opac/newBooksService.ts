@@ -20,7 +20,7 @@ import { isDefined } from '@/utils/isDefined'
  * The data are not persisted and are wiped when Next service shuts down (which is OK).
  */
 
-const bookNewsUrl = 'https://opac.mestskakniznica.sk/opac?fn=searchform&extSrchNews=60&rtrnxml=true'
+const bookNewsUrl = 'opac.mestskakniznica.sk/?fn=searchform&extSrchNews=60&rtrnxml=true'
 
 interface OpacBook {
   title: { _text: string }
@@ -88,6 +88,7 @@ const fetchBooks = async () => {
   // is restarted with each compilation.
   if (process.env.NEXT_PUBLIC_IS_LOCALHOST === 'true') {
     fetchedBooks = mockNewBooks
+
     return
   }
 
@@ -99,6 +100,7 @@ const fetchBooks = async () => {
     fetchedBooks = opac.xml.book.map((book) => {
       /* eslint-disable no-underscore-dangle */
       const coverUrl = book?.coverURL?._text
+
       return {
         title: book?.title?._text,
         url: book?.recURL?._text,
@@ -163,6 +165,7 @@ export const getNewBooks = async ({
         // `undefined` is not serializable by Next getStaticProps
         delete result.coverUrl
       }
+
       return result
     }) ?? []
 

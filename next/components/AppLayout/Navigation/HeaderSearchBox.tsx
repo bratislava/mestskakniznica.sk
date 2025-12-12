@@ -11,7 +11,7 @@ import Button from '@/modules/common/Button'
 import cn from '@/utils/cn'
 import { useNavikronos } from '@/utils/navikronos'
 
-const opacBaseUrl = 'https://opac.mestskakniznica.sk/opac'
+const opacBaseUrl = 'https://opac.mestskakniznica.sk/'
 
 type HeaderSearchBoxProps = {
   isOpen: boolean

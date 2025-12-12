@@ -33,7 +33,7 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
     },
     {
       label: t('navigation.onlineCatalog'),
-      url: 'https://opac.mestskakniznica.sk/opac',
+      url: 'https://opac.mestskakniznica.sk/',
       target: '_blank',
     },
   ]

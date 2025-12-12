@@ -22,7 +22,7 @@ const HeaderNavigation = () => {
         {t('navigation.openingHours')}
       </MLink>
       <MLink
-        href="https://opac.mestskakniznica.sk/opac"
+        href="https://opac.mestskakniznica.sk/"
         variant="basic"
         target="_blank"
         className="grid place-content-center border-l border-border-dark px-3 ring-inset ring-offset-0"
