@@ -2,6 +2,7 @@ import XMLConvertor from 'xml-js'
 
 import type { Book } from '@/modules/cards-and-rows/BookCard'
 import { mockNewBooks } from '@/services/opac/mockNewBooks'
+import { opacBaseUrl } from '@/utils/consts'
 import { isDefined } from '@/utils/isDefined'
 
 /*
@@ -20,7 +21,7 @@ import { isDefined } from '@/utils/isDefined'
  * The data are not persisted and are wiped when Next service shuts down (which is OK).
  */
 
-const bookNewsUrl = 'opac.mestskakniznica.sk/?fn=searchform&extSrchNews=60&rtrnxml=true'
+const bookNewsUrl = `${opacBaseUrl}?fn=searchform&extSrchNews=60&rtrnxml=true`
 
 interface OpacBook {
   title: { _text: string }

@@ -5,6 +5,7 @@ import { SectionContainer } from '@/components/ui'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { BookTagEntityFragment } from '@/services/graphql'
+import { opacBaseUrl } from '@/utils/consts'
 
 interface BookTagsProps {
   bookTags: BookTagEntityFragment[]
@@ -21,7 +22,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
           {bookTags?.map((tag) =>
             tag.attributes?.slug ? (
               <MLink
-                href={`opac.mestskakniznica.sk/?fn=searchform&extSrchTitle=${tag.attributes.slug}`}
+                href={`${opacBaseUrl}?fn=searchform&extSrchTitle=${tag.attributes.slug}`}
                 target="_blank"
                 className="h-9 whitespace-nowrap rounded-full border border-border-light px-4 py-2 text-sm leading-tag hover:border-border-dark"
                 rel="noreferrer"
@@ -36,7 +37,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
       <div className="pb-8 text-center">
         <ShowMoreLink
           target="_blank"
-          href="opac.mestskakniznica.sk/?fn=searchform&extSrchTitle"
+          href={`${opacBaseUrl}?fn=searchform&extSrchTitle`}
           rel="noreferrer"
         >
           {t('booksTags.lookingForBookSearch')}
