@@ -1,4 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable no-restricted-globals */
 import { useEffect, useState } from 'react'
 

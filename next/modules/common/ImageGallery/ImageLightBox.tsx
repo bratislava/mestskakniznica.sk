@@ -4,8 +4,8 @@ import { useEffect, useRef } from 'react'
 import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import Slider from '@/modules/common/ImageGallery/Slider'
-import StrapiImage from '@/modules/common/StrapiImage'
 import Modal_deprecated, { ModalProps } from '@/modules/common/Modal_deprecated'
+import StrapiImage from '@/modules/common/StrapiImage'
 import { UploadImageEntityFragment } from '@/services/graphql'
 
 export type ImageLightBoxProps = {
@@ -34,6 +34,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
 
   return (
     // TODO is this pointer-events-none/auto necessary
+    // eslint-disable-next-line react/jsx-pascal-case
     <Modal_deprecated
       overlayClassName="w-full h-screen pointer-events-none"
       showCloseButton
@@ -41,7 +42,6 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
     >
       <Slider
         ref={sliderRef}
-        // eslint-disable-next-line no-secrets/no-secrets
         description={t('imageGallery.imageLightBoxDescription')}
         allowKeyboardNavigation={images.length > 1}
         initialPage={initialImageIndex}

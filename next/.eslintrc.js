@@ -23,10 +23,10 @@ module.exports = {
       'error',
       { allow: ['__NEXT_DATA__', '__NEXT_LOADED_PAGES__', '__typename'] },
     ],
-    /** Links get confused for secrets */
-    'no-secrets/no-secrets': ['warn', { ignoreContent: 'http' }],
-    /** Too tedious */
-    'eslint-comments/disable-enable-pair': 'off',
+    /** Too many false positives, especially with i18n keys */
+    'no-secrets/no-secrets': 'off',
+    /** Allowing whole files works the best */
+    'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
     /** We specify default props in props decomposition */
     'react/require-default-props': 'off',
     /** This is no longer needed since React 17 */

@@ -1,4 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable no-underscore-dangle */
 import { isDefined } from '@/utils/isDefined'
 
@@ -142,6 +141,7 @@ NavikronosObject<Config> => {
     if (_strapiTypenameAliasMap.entryRoutes.has(strapiEntity.__typename)) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const route = _strapiTypenameAliasMap.entryRoutes.get(strapiEntity.__typename)!
+
       return {
         type: route.alias,
         id: (strapiEntity as StrapiEntryRouteEntity<Config>).id,
@@ -151,6 +151,7 @@ NavikronosObject<Config> => {
     if (_strapiTypenameAliasMap.contentTypeRoutes.has(strapiEntity.__typename)) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const route = _strapiTypenameAliasMap.contentTypeRoutes.get(strapiEntity.__typename)!
+
       return {
         type: route.alias,
         slug: (strapiEntity as StrapiContentTypeRouteEntity<Config>)?.attributes?.[
@@ -240,6 +241,7 @@ NavikronosObject<Config> => {
         path: null,
       } as RouteEntityAndTitle<Config>
     }
+
     return null
   }
 
@@ -300,6 +302,7 @@ NavikronosObject<Config> => {
         : _nodeToEntityAndTitle(_currentEntityNode)
 
     const reversedParents = [...parents].reverse()
+
     return [...reversedParents, current].filter(isDefined)
   })()
 
