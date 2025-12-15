@@ -79,7 +79,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
             <Mapbox
               ref={mapRef}
               mapboxAccessToken={mapboxAccessToken}
-              // eslint-disable-next-line react/style-prop-object,no-secrets/no-secrets
+              // eslint-disable-next-line react/style-prop-object
               mapStyle="mapbox://styles/bratislava01/ckzrbqd6300ps14p8gpyoq3wr"
               style={{
                 height: '100%',

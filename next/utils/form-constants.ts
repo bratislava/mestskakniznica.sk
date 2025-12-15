@@ -39,7 +39,6 @@ const convertValue = (value: any) => {
   return String(value)
 }
 
-/* eslint-disable no-secrets/no-secrets */
 const getMailTranslationKey = (key: string): string => {
   const translationMap: { key: string; value: string }[] = [
     { key: 'fName', value: 'first_name' },
@@ -105,7 +104,6 @@ const getMailTranslationKey = (key: string): string => {
 
   return translationMap.find((item) => item.key === key)?.value ?? key
 }
-/* eslint-enable no-secrets/no-secrets */
 
 const key = (k: string, t: TFunction<string, undefined>): string =>
   t(getMailTranslationKey(k), { lng: 'sk' })

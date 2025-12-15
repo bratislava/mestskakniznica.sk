@@ -529,12 +529,10 @@ const CityLibraryRegistrationForm = () => {
           />
           <Controller
             control={methods.control}
-            // eslint-disable-next-line no-secrets/no-secrets
             name="authorizedToUseBlindDepartment"
             defaultValue={false}
             render={({ field: { onChange, value, name } }) => (
               <CheckBox
-                // eslint-disable-next-line no-secrets/no-secrets
                 id="authorizedToUseBlindDepartment"
                 name={name}
                 onChange={onChange} // send value to hook form
@@ -542,7 +540,6 @@ const CityLibraryRegistrationForm = () => {
                 aria-invalid={errors.authorizedToUseBlindDepartment ? 'true' : 'false'}
                 className="pt-4"
               >
-                {/* eslint-disable-next-line no-secrets/no-secrets */}
                 <div className="text-sm">{t('form_city_auth_blind_dep')}</div>
               </CheckBox>
             )}

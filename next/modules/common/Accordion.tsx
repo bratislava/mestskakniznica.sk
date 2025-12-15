@@ -13,7 +13,6 @@ export type AccordionProps = {
   iconLeft?: ReactNode
 }
 
-// eslint-disable-next-line no-secrets/no-secrets
 /**
  * Inspired by: https://github.com/bratislava/marianum/blob/762d10222bd33352b77a44d902620181b07107c1/next/components/molecules/Accordion/AccordionItem.tsx
  * Figma: https://www.figma.com/file/CY6Mh2f0SXJhBMY74HdS03/MKB?node-id=1491%3A17724&t=I75qJANEgoYCKFED-0
