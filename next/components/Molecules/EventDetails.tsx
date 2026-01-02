@@ -4,11 +4,11 @@ import React from 'react'
 
 import { CalendarIcon, EuroIcon, NavigateIcon, PlaceIcon } from '@/assets/icons'
 import EventDetailPlaceholder from '@/assets/images/event-detail-placeholder.jpg'
-import Clickable from '@/components/Atoms/EventClickable'
 import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
 import DetailsRow from '@/components/Atoms/EventDetailsRow'
 import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import { Documents } from '@/components/ui'
+import Button from '@/modules/common/Button'
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
 import ShareBlock from '@/modules/common/ShareBlock/ShareBlock'
 import StrapiImage, { getImagePlaceholder } from '@/modules/common/StrapiImage'
@@ -186,12 +186,16 @@ const EventDetails = ({ event }: PageProps) => {
                       text={`${eventBranch.title}, ${eventBranch.address}`}
                     />
 
-                    <Clickable
-                      actionLink={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${eventBranch.address}`}
-                      classDiv="pl-9 pt-3"
-                      svgIcon={<NavigateIcon />}
-                      text={t('eventDetails.navigate')}
-                    />
+                    <Button
+                      variant="plain-primary"
+                      href={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${eventBranch.address}`}
+                      className="-mb-3 py-3 pl-9 pr-3"
+                      noPadding
+                      startIcon={<NavigateIcon />}
+                      target="_blank"
+                    >
+                      {t('eventDetails.navigate')}
+                    </Button>
                   </div>
                 ) : null}
 
