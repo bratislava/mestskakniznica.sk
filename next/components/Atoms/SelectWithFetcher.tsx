@@ -1,27 +1,25 @@
-// TODO this component was copied from Marianum project
 import { QueryKey, useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 
-import SelectField, { Option, SelectProps, SingleSelect } from '@/components/Atoms/SelectField'
+import SelectField, { SelectFieldProps } from '@/components/Atoms/SelectField'
 
-type SelectWithFetcherProps = {
+type SelectWithFetcherProps<T extends object> = {
   queryKey: QueryKey
-  queryFn: () => Promise<Option[]>
-  defaultOption: Option
-} & Pick<SelectProps, 'id' | 'placeholder' | 'label' | 'disabled'> &
-  Pick<SingleSelect, 'onSelectionChange'>
+  queryFn: () => Promise<T[]>
+  defaultOption: T
+} & SelectFieldProps<T>
 
-const SelectWithFetcher = ({
+const SelectWithFetcher = <T extends object>({
   queryKey,
   defaultOption,
   queryFn,
-  disabled: originalDisabled,
-  onSelectionChange,
+  children,
+  isDisabled,
   ...rest
-}: SelectWithFetcherProps) => {
+}: SelectWithFetcherProps<T>) => {
   const { data, isError, isLoading } = useQuery({ queryKey, queryFn, staleTime: Infinity })
 
-  const options = useMemo(() => {
+  const items = useMemo(() => {
     if (data) {
       return [defaultOption, ...data]
     }
@@ -30,14 +28,9 @@ const SelectWithFetcher = ({
   }, [data, defaultOption])
 
   return (
-    <SelectField
-      options={options}
-      defaultSelected={defaultOption.key}
-      multiple={false}
-      disabled={isLoading || isError || originalDisabled}
-      onSelectionChange={onSelectionChange}
-      {...rest}
-    />
+    <SelectField items={items} isDisabled={isLoading || isError || isDisabled} {...rest}>
+      {children}
+    </SelectField>
   )
 }
 
