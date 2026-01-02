@@ -7,6 +7,7 @@ import React from 'react'
 import StyleguideAccordion from '@/components/styleguide/StyleguideAccordion'
 import StyleguideBreadcrumbs from '@/components/styleguide/StyleguideBreadcrumbs'
 import StyleguideCards from '@/components/styleguide/StyleguideCards'
+import StyleguideCheckbox from '@/components/styleguide/StyleguideCheckbox'
 import StyleguideShowMoreLink from '@/components/styleguide/StyleguideShowMoreLink'
 import StyleguideTypography from '@/components/styleguide/StyleguideTypography'
 import { NOT_FOUND } from '@/utils/consts'
@@ -26,6 +27,7 @@ const Styleguide = () => {
 
       <div className="container mx-auto">
         <StyleguideTypography />
+        <StyleguideCheckbox />
         <StyleguideAccordion />
         <StyleguideCards />
         <StyleguideShowMoreLink />
