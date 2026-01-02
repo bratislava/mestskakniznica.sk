@@ -1,27 +1,16 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { QRCodeSVG } from 'qrcode.react'
 import React from 'react'
-import { DialogTrigger } from 'react-aria-components'
 
-import {
-  CalendarIcon,
-  CameraIcon,
-  EuroIcon,
-  NavigateIcon,
-  PlaceIcon,
-  ShareIcon,
-} from '@/assets/icons'
+import { CalendarIcon, EuroIcon, NavigateIcon, PlaceIcon } from '@/assets/icons'
 import EventDetailPlaceholder from '@/assets/images/event-detail-placeholder.jpg'
 import Clickable from '@/components/Atoms/EventClickable'
 import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
 import DetailsRow from '@/components/Atoms/EventDetailsRow'
 import TagsDisplay from '@/components/Atoms/TagsDisplay'
 import { Documents } from '@/components/ui'
-import Button from '@/modules/common/Button'
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
-import Dialog from '@/modules/common/ModalDialog/Dialog'
-import Modal from '@/modules/common/ModalDialog/Modal'
+import ShareBlock from '@/modules/common/ShareBlock/ShareBlock'
 import StrapiImage, { getImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import RichText from '@/modules/formatting/RichText'
@@ -166,34 +155,10 @@ const EventDetails = ({ event }: PageProps) => {
             </div>
           )} */}
           <div className="pt-10">
-            <div className="block h-auto border-y border-border-dark py-3 lg:flex lg:h-17.5 lg:border lg:p-0">
-              <Clickable
-                actionLink={copyToClipBoard}
-                classDiv="my-3 lg:m-auto"
-                svgIcon={<ShareIcon />}
-                text={t('eventDetails.eventShare')}
-                copyText
-              />
-              <DialogTrigger>
-                <Button
-                  variant="plain-primary"
-                  className="my-3 lg:m-auto"
-                  startIcon={<CameraIcon />}
-                >
-                  {t('eventDetails.eventQr')}
-                </Button>
-                <Modal>
-                  <Dialog aria-label={t('eventDetails.eventQr')}>
-                    <QRCodeSVG
-                      value={event?.attributes?.title || ''}
-                      className="m-auto"
-                      size={240}
-                      includeMargin
-                    />
-                  </Dialog>
-                </Modal>
-              </DialogTrigger>
-            </div>
+            <ShareBlock
+              text={t('EventDetail.shareBlock.text')}
+              buttonText={t('EventDetail.shareBlock.buttonText')}
+            />
           </div>
         </div>
         <div className="col-span-3 text-[24px]">
