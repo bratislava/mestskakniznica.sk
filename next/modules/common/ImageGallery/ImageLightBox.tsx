@@ -3,8 +3,9 @@ import { useEffect, useRef } from 'react'
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
+import GalleryModal from '@/modules/common/ImageGallery/GalleryModal'
 import Slider from '@/modules/common/ImageGallery/Slider'
-import Modal_deprecated, { ModalProps } from '@/modules/common/Modal_deprecated'
+import { ModalProps } from '@/modules/common/Modal_deprecated'
 import StrapiImage from '@/modules/common/StrapiImage'
 import { UploadImageEntityFragment } from '@/services/graphql'
 
@@ -35,11 +36,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
   return (
     // TODO is this pointer-events-none/auto necessary
     // eslint-disable-next-line react/jsx-pascal-case
-    <Modal_deprecated
-      overlayClassName="w-full h-screen pointer-events-none"
-      showCloseButton
-      {...rest}
-    >
+    <GalleryModal overlayClassName="w-full h-screen pointer-events-none" showCloseButton {...rest}>
       <Slider
         ref={sliderRef}
         description={t('imageGallery.imageLightBoxDescription')}
@@ -90,7 +87,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
           </div>
         )}
       />
-    </Modal_deprecated>
+    </GalleryModal>
   )
 }
 
