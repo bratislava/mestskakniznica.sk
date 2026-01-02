@@ -12,7 +12,7 @@ import FormContainer, {
   phoneRegexOrEmpty,
   SubmitStatus,
 } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import StepNumberTitle from '@/components/forms/StepNumberTitle'
 import { CheckBox, Input, TextArea } from '@/components/ui'
 import Button from '@/modules/common/Button'
@@ -20,7 +20,7 @@ import MLink from '@/modules/common/MLink'
 import cn from '@/utils/cn'
 import { convertDataToBody } from '@/utils/form-constants'
 
-const InterlibraryLoanServiceFormLibrary = () => {
+const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormProps) => {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
@@ -324,7 +324,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
                     id="acceptFeesTerms"
                     name={name}
                     onChange={onChange}
-                    checked={value}
+                    isSelected={value}
                     aria-invalid={errors.acceptFeesTerms ? 'true' : 'false'}
                   >
                     <div className="text-sm">
@@ -346,7 +346,7 @@ const InterlibraryLoanServiceFormLibrary = () => {
                 </>
               )}
             />
-            <FormFooter buttonContent={t('send')} />
+            <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
           </div>
         </StepNumberTitle>
       </FormContainer>

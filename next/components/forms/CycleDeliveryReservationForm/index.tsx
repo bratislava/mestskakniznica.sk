@@ -12,14 +12,14 @@ import FormContainer, {
   postalCodeRegex,
   SubmitStatus,
 } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import StepNumberTitle from '@/components/forms/StepNumberTitle'
 import { Input, TextArea } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import cn from '@/utils/cn'
 import { convertDataToBody } from '@/utils/form-constants'
 
-const CycleDeliveryReservationForm = () => {
+const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
@@ -348,7 +348,7 @@ const CycleDeliveryReservationForm = () => {
           {stepTwoErrors && (
             <p className="pb-4 text-base text-error">{t('please_fill_required_fields')}</p>
           )}
-          <FormFooter hasDivider buttonContent={t('send')} />
+          <FormFooter hasDivider buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

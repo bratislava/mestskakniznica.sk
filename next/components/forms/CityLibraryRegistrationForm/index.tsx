@@ -11,7 +11,7 @@ import FormContainer, {
   postalCodeRegex,
   SubmitStatus,
 } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import StepNumberTitle from '@/components/forms/StepNumberTitle'
 import { CheckBox, DateTimeSelect, Input } from '@/components/ui'
 import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
@@ -21,7 +21,7 @@ import { getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
 import { options } from './options'
 
-const CityLibraryRegistrationForm = () => {
+const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [errMessage, setErrMessage] = React.useState('')
   const [step, setStep] = React.useState(1)
@@ -373,7 +373,7 @@ const CityLibraryRegistrationForm = () => {
                     setShowTempAddress(e)
                   }}
                   name="useTempAddress"
-                  checked={value}
+                  isSelected={value}
                 >
                   <div className="text-sm">{t('add_temporary_address')}</div>
                 </CheckBox>
@@ -520,7 +520,7 @@ const CityLibraryRegistrationForm = () => {
                 id="acceptNewsletter"
                 name={name}
                 onChange={onChange} // send value to hook form
-                checked={value}
+                isSelected={value}
                 aria-invalid={errors.acceptNewsletter ? 'true' : 'false'}
               >
                 <div className="text-sm">{t('form_city_accept_newsletter')}</div>
@@ -536,7 +536,7 @@ const CityLibraryRegistrationForm = () => {
                 id="authorizedToUseBlindDepartment"
                 name={name}
                 onChange={onChange} // send value to hook form
-                checked={value}
+                isSelected={value}
                 aria-invalid={errors.authorizedToUseBlindDepartment ? 'true' : 'false'}
                 className="pt-4"
               >
@@ -545,7 +545,11 @@ const CityLibraryRegistrationForm = () => {
             )}
           />
 
-          <FormFooter buttonContent={t('send')} className="pt-4" />
+          <FormFooter
+            buttonContent={t('send')}
+            privacyPolicyHref={privacyPolicyHref}
+            className="pt-4"
+          />
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

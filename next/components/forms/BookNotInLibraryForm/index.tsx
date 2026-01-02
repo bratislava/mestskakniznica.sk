@@ -8,11 +8,11 @@ import * as yup from 'yup'
 
 import BookListNotInLibrary from '@/components/forms/BookList/BookListNotInLibrary'
 import FormContainer, { SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import { Input, TextArea } from '@/components/ui'
 import { convertDataToBody } from '@/utils/form-constants'
 
-const BookNotInLibraryForm = () => {
+const BookNotInLibraryForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
   const router = useRouter()
@@ -154,7 +154,7 @@ const BookNotInLibraryForm = () => {
           <BookListNotInLibrary />
 
           {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </div>
       </FormContainer>
     </FormProvider>

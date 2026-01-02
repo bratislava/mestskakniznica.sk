@@ -7,13 +7,16 @@ import { CheckBox, Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import cn from '@/utils/cn'
-import { useGeneralContext } from '@/utils/generalContext'
-import { useNavikronos } from '@/utils/navikronos'
+
+export type CommonFormProps = {
+  privacyPolicyHref?: string
+}
 
 interface IProps {
   className?: string
   buttonContent: string
   hasDivider?: boolean
+  privacyPolicyHref?: CommonFormProps['privacyPolicyHref']
 }
 
 type RenderParameters = {
@@ -30,12 +33,15 @@ declare global {
   }
 }
 
-const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) => {
+const FormFooter = ({
+  className,
+  buttonContent,
+  privacyPolicyHref = '#',
+  hasDivider = false,
+}: IProps) => {
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation('forms')
-  const { general } = useGeneralContext()
-  const { getPathForStrapiEntity } = useNavikronos()
 
   return (
     <div className={cn('w-full space-y-6', className)}>
@@ -50,20 +56,12 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
               id="acceptFormTerms"
               name={name}
               onChange={onChange} // send value to hook form
-              checked={value}
+              isSelected={value}
               aria-invalid={errors.acceptFormTerms ? 'true' : 'false'}
             >
               <div className="text-sm">
                 {t('form_footer_agree')}{' '}
-                <MLink
-                  href={
-                    getPathForStrapiEntity(
-                      general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
-                    ) ?? ''
-                  }
-                  variant="basic"
-                  target="_blank"
-                >
+                <MLink href={privacyPolicyHref} variant="basic" target="_blank">
                   {t('form_footer_personal_details')}
                 </MLink>
                 . <span className="pl-1 text-error">*</span>

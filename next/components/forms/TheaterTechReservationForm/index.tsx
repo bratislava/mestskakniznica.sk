@@ -7,11 +7,11 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import { DateTimeSelect, Input, Select } from '@/components/ui'
 import { convertDataToBody, getLocalDateForYup } from '@/utils/form-constants'
 
-const TheaterTechReservationForm = () => {
+const TheaterTechReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
   const router = useRouter()
@@ -211,7 +211,7 @@ const TheaterTechReservationForm = () => {
             />
           </div>
           {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </div>
       </FormContainer>
     </FormProvider>

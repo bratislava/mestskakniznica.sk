@@ -7,11 +7,11 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import FormContainer, { phoneRegexOrEmpty, SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import { Input, TextArea } from '@/components/ui'
 import { convertDataToBody } from '@/utils/form-constants'
 
-const AskLibraryForm = () => {
+const AskLibraryForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
   const router = useRouter()
@@ -185,7 +185,7 @@ const AskLibraryForm = () => {
             )}
           />
           {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </div>
       </FormContainer>
     </FormProvider>

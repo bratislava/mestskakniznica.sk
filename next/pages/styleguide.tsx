@@ -8,6 +8,7 @@ import StyleguideAccordion from '@/components/styleguide/StyleguideAccordion'
 import StyleguideBreadcrumbs from '@/components/styleguide/StyleguideBreadcrumbs'
 import StyleguideCards from '@/components/styleguide/StyleguideCards'
 import StyleguideCheckbox from '@/components/styleguide/StyleguideCheckbox'
+import StyleguideForms from '@/components/styleguide/StyleguideForms'
 import StyleguideShowMoreLink from '@/components/styleguide/StyleguideShowMoreLink'
 import StyleguideTypography from '@/components/styleguide/StyleguideTypography'
 import { NOT_FOUND } from '@/utils/consts'
@@ -32,6 +33,7 @@ const Styleguide = () => {
         <StyleguideCards />
         <StyleguideShowMoreLink />
         <StyleguideBreadcrumbs />
+        <StyleguideForms />
       </div>
     </>
   )

@@ -7,7 +7,7 @@ import { Controller, FormProvider, useController, useForm } from 'react-hook-for
 import * as yup from 'yup'
 
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import { Input, TextArea, Upload, UploadProps } from '@/components/ui'
 import cn from '@/utils/cn'
 import { convertDataToBody } from '@/utils/form-constants'
@@ -85,7 +85,7 @@ const FileInput = ({
   )
 }
 
-const ServiceReservationForm = () => {
+const ServiceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
   const router = useRouter()
@@ -279,7 +279,7 @@ const ServiceReservationForm = () => {
             )}
           />
           {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </div>
       </FormContainer>
     </FormProvider>

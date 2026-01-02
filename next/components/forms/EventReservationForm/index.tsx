@@ -8,7 +8,7 @@ import * as yup from 'yup'
 
 import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import { DateTimeSelect, Input, TextArea } from '@/components/ui'
 import NumberSwitcher from '@/components/ui/NumberSwitcher/NumberSwitcher'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
@@ -16,11 +16,11 @@ import { EventCardEntityFragment } from '@/services/graphql'
 import { convertDataToBody, getLocalDateForYup } from '@/utils/form-constants'
 import { dayForDifferentDateTo, isEventPast } from '@/utils/utils'
 
-export interface EventReservationFormProps {
+export type EventReservationFormProps = CommonFormProps & {
   eventDetail?: EventCardEntityFragment
 }
 
-const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
+const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservationFormProps) => {
   const { dateFrom, dateTo, title, branch } = eventDetail?.attributes ?? {}
   const eventBranch = branch?.data?.attributes
 
@@ -369,7 +369,7 @@ const EventReservationForm = ({ eventDetail }: EventReservationFormProps) => {
               {hasErrors && (
                 <p className="text-base text-error">{t('please_fill_required_fields')}</p>
               )}
-              <FormFooter buttonContent={t('send')} />
+              <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
             </div>
           </FormContainer>
         </FormProvider>

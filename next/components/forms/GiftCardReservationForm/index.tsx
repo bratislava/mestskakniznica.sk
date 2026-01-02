@@ -7,13 +7,13 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import { Input, Select } from '@/components/ui'
 import { convertDataToBody, useGetFormOptions } from '@/utils/form-constants'
 
 import { options } from './options'
 
-const GiftCardReservationForm = () => {
+const GiftCardReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
   const router = useRouter()
@@ -201,7 +201,7 @@ const GiftCardReservationForm = () => {
             )}
           />
           {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </div>
       </FormContainer>
     </FormProvider>

@@ -7,19 +7,19 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import { DateTimeSelect, Input, Select, TextArea } from '@/components/ui'
 import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
 import { convertDataToBody, getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
 import { options, types } from './options'
 
-export interface VenueRentalFormProps {
+export type VenueRentalFormProps = CommonFormProps & {
   slug: string
 }
 
-const VenueRentalForm = (props: VenueRentalFormProps) => {
-  const pageTitle = props?.slug.trim()
+const VenueRentalForm = ({ slug, privacyPolicyHref }: VenueRentalFormProps) => {
+  const pageTitle = slug.trim()
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
   const router = useRouter()
@@ -332,7 +332,7 @@ const VenueRentalForm = (props: VenueRentalFormProps) => {
             )}
           />
           {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </div>
       </FormContainer>
     </FormProvider>
