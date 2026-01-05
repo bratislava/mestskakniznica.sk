@@ -116,6 +116,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
           chooseDayAriaLabelPrefix={t('eventFilters.dateAriaLabel')}
           placeholderText={t('eventFilters.eventsDateFrom')}
           shouldCloseOnSelect={false}
+          size="small"
         />
         <MDatePicker
           selected={filters.dateTo}
@@ -123,12 +124,14 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
           chooseDayAriaLabelPrefix={t('eventFilters.dateAriaLabel')}
           placeholderText={t('eventFilters.eventsDateTo')}
           shouldCloseOnSelect={false}
+          size="small"
         />
         <SelectField
           aria-label={t('eventFilters.eventType')}
           items={tags}
           selectedKey={filters.eventTypeId ?? ''}
           onSelectionChange={(selectedKey) => handleEventTypeIdChange(selectedKey as string)}
+          size="small"
         >
           {(item) => <SelectItem label={item.title} id={item.key} />}
         </SelectField>
@@ -137,6 +140,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
           items={categories}
           selectedKey={filters.eventCategoryId ?? ''}
           onSelectionChange={(selectedKey) => handleEventCategoryIdChange(selectedKey as string)}
+          size="small"
         >
           {(item) => <SelectItem label={item.title} id={item.key} />}
         </SelectField>
@@ -145,6 +149,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
           items={localities}
           selectedKey={filters.eventBranchId ?? ''}
           onSelectionChange={(selectedKey) => handleEventBranchIdChange(selectedKey as string)}
+          size="small"
         >
           {(item) => <SelectItem label={item.title} id={item.key} />}
         </SelectField>

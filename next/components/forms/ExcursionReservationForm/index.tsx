@@ -60,7 +60,7 @@ const ExcursionReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
       lName: '',
       email: '',
       phone: '',
-      excursionType: null, // selectOptions[0].key,
+      excursionType: selectOptions[0].key,
       excursionDate: '',
       excursionTime: '',
       message: '',
