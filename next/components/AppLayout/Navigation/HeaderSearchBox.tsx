@@ -6,7 +6,7 @@ import { useFocusWithin } from 'react-aria'
 
 import { CloseCircleIcon, SearchIcon } from '@/assets/icons'
 import SearchBar from '@/components/AppLayout/Navigation/SearchBar'
-import { Select } from '@/components/ui'
+import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
 import Button from '@/modules/common/Button'
 import cn from '@/utils/cn'
 import { opacBaseUrl } from '@/utils/consts'
@@ -22,7 +22,9 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const { getPathForEntity } = useNavikronos()
   const searchFieldId = useId()
 
-  const SEARCH_OPTIONS: { key: 'on_page' | 'in_catalogue'; title: string }[] = [
+  type SearchOption = 'on_page' | 'in_catalogue'
+
+  const SEARCH_OPTIONS: { key: SearchOption; title: string }[] = [
     { key: 'on_page', title: t('searchBox.options.searchOnPage') },
     { key: 'in_catalogue', title: t('searchBox.options.searchInCatalogue') },
   ]
@@ -79,12 +81,15 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
         'lg:w-[440px]': !isOpen,
       })}
     >
-      <Select
-        options={SEARCH_OPTIONS}
-        value={searchOptions}
-        onChange={(s) => setSearchOptions(s.key)}
-        selectClassName="rounded-l-full border-dark w-[134px] border-r-0"
-      />
+      <SelectField
+        items={SEARCH_OPTIONS}
+        selectedKey={searchOptions}
+        onSelectionChange={(selection) => setSearchOptions(selection as SearchOption)}
+        innerClassName="w-[134px] whitespace-nowrap rounded-l-full border-r-0 border-dark lg:py-2"
+        popperClassName="w-[154px]"
+      >
+        {(item) => <SelectItem label={item.title} id={item.key} className="text-sm" />}
+      </SelectField>
       <SearchBar
         id={searchFieldId}
         iconLeft={<SearchIcon className="-ml-2 hidden md:block" />}

@@ -28,6 +28,8 @@ export interface SelectFieldProps<T extends object> extends Omit<SelectProps<T>,
   errorMessage?: string | ((validation: ValidationResult) => string)
   items?: Iterable<T>
   children: React.ReactNode | ((item: T) => React.ReactNode)
+  innerClassName?: string
+  popperClassName?: string
 }
 
 type SelectItemProps = Omit<ListBoxItemProps, 'children'> & {
@@ -41,9 +43,9 @@ export const SelectItem = ({ label, description, isDivider = false, ...rest }: S
     <ListBoxItem
       {...rest}
       className={({ isHovered, isFocusVisible }) =>
-        cn('base-focus-ring flex cursor-pointer justify-between px-5 py-3 ring-inset', {
+        cn('flex cursor-pointer justify-between px-5 py-3 outline-none', {
           'bg-promo-yellow': isHovered,
-          'ring-3 ring-offset-2': isFocusVisible,
+          'base-focus-ring ring-inset': isFocusVisible,
           'after:not-last:block after:h-0.5': isDivider,
         })
       }
@@ -72,13 +74,15 @@ const SelectField = <T extends object>({
   errorMessage,
   children,
   className,
+  innerClassName,
+  popperClassName,
   items,
   ...props
 }: SelectFieldProps<T>) => {
   const disabled = props.isDisabled
 
   const style = cn(
-    'outline-hidden base-focus-ring flex w-full items-center justify-between gap-3 border bg-white px-3 py-2 lg:px-4 lg:py-3',
+    'flex w-full items-center justify-between gap-3 border bg-white px-3 py-2 outline-none lg:px-4 lg:py-3',
     {
       'border-grey-200 hover:border-grey-400': !disabled,
       'border-negative-700 hover:border-negative-700': errorMessage && !disabled,
@@ -87,17 +91,18 @@ const SelectField = <T extends object>({
   )
 
   return (
-    <Select
-      {...props}
-      className={cn('flex flex-col gap-1', { className: typeof className === 'string' })}
-    >
+    <Select {...props} className={cn('flex flex-col gap-1', className)}>
       {label ? (
         <Label className="font-semibold">
           {label}
           {props.isRequired ? <span className="text-error"> *</span> : undefined}
         </Label>
       ) : null}
-      <Button className={style}>
+      <Button
+        className={({ isFocusVisible }) =>
+          cn(style, { 'base-focus-ring': isFocusVisible }, innerClassName)
+        }
+      >
         <SelectValue />
         <span aria-hidden>
           <ChevronDownIcon />
@@ -108,7 +113,7 @@ const SelectField = <T extends object>({
       <FieldError>{errorMessage}</FieldError>
 
       <Popover
-        className="w-[--trigger-width] overflow-y-auto border bg-white py-2"
+        className={cn('w-[--trigger-width] overflow-y-auto border bg-white py-2', popperClassName)}
         shouldFlip={false}
       >
         <ListBox items={items} className="max-h-100">
