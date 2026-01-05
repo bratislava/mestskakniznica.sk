@@ -213,16 +213,13 @@ const SpaceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
             render={({ field: { onChange, value } }) => (
               <RadioGroup
                 id="venue_type_input"
-                labelContent={t('space')}
-                className="flex flex-col gap-4"
-                wrapperClassName="w-full"
-                radioClassName="w-full"
+                label={t('space')}
                 options={selectOptions}
                 hasError={!!errors.space}
                 errorMessage={t('validation_error_radiogroup')}
                 value={value}
                 onChange={(opt) => onSpaceUpdate(opt, onChange)}
-                required
+                isRequired
               />
             )}
           />

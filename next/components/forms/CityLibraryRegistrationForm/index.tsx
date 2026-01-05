@@ -495,16 +495,14 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
             render={({ field: { onChange, value } }) => (
               <RadioGroup
                 id="IDType_input"
-                labelContent={t('ID_type')}
-                className="flex flex-col gap-4"
-                wrapperClassName="w-full mb-6"
-                radioClassName="w-full"
+                label={t('ID_type')}
+                className="mb-6"
                 options={selectOptions}
                 hasError={!!errors.IDType}
                 errorMessage={t('validation_error_radiogroup')}
                 value={value}
                 onChange={(opt) => onChange(opt)}
-                required
+                isRequired
               />
             )}
           />

@@ -231,16 +231,14 @@ const VenueRentalForm = ({ slug, privacyPolicyHref }: VenueRentalFormProps) => {
             render={({ field: { onChange, value } }) => (
               <RadioGroup
                 id="venue_type_input"
-                labelContent={t('venue_type')}
-                className="flex flex-row gap-6"
-                wrapperClassName="w-full"
-                radioClassName="w-full"
+                label={t('venue_type')}
+                orientation="horizontal"
                 options={typeOptions}
                 hasError={!!errors.eventType}
                 errorMessage={t('validation_error_radiogroup')}
                 value={value}
                 onChange={(opt) => onChange(opt)}
-                required
+                isRequired
               />
             )}
           />

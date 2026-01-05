@@ -287,16 +287,13 @@ const TabletReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
             render={({ field: { onChange, value } }) => (
               <RadioGroup
                 id="reader_form_where"
-                labelContent={t('tablet_form_where')}
-                className="flex flex-col gap-4"
-                wrapperClassName="w-full"
-                radioClassName="w-full"
+                label={t('tablet_form_where')}
                 options={selectOptions}
                 hasError={!!errors.where}
                 errorMessage={t('validation_error_radiogroup')}
                 value={value}
                 onChange={(opt) => onChange(opt)}
-                required
+                isRequired
               />
             )}
           />

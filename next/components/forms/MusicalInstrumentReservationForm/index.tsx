@@ -195,16 +195,14 @@ const MusicalInstrumentReservationForm = ({ privacyPolicyHref }: CommonFormProps
             render={({ field: { onChange, value } }) => (
               <RadioGroup
                 id="venue_type_input"
-                labelContent={t('musical_instrument_type')}
-                className="flex flex-row gap-4"
-                wrapperClassName="w-full"
-                radioClassName="w-full"
+                label={t('musical_instrument_type')}
+                orientation="horizontal"
                 options={selectOptions}
                 hasError={!!errors.instrumentType}
                 errorMessage={t('validation_error_radiogroup')}
                 value={value}
                 onChange={(opt) => onChange(opt)}
-                required
+                isRequired
               />
             )}
           />

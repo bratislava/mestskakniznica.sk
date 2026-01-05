@@ -9,6 +9,7 @@ import StyleguideBreadcrumbs from '@/components/styleguide/StyleguideBreadcrumbs
 import StyleguideCards from '@/components/styleguide/StyleguideCards'
 import StyleguideCheckbox from '@/components/styleguide/StyleguideCheckbox'
 import StyleguideForms from '@/components/styleguide/StyleguideForms'
+import StyleguideRadioGroup from '@/components/styleguide/StyleguideRadioGroup'
 import StyleguideShowMoreLink from '@/components/styleguide/StyleguideShowMoreLink'
 import StyleguideTypography from '@/components/styleguide/StyleguideTypography'
 import { NOT_FOUND } from '@/utils/consts'
@@ -29,11 +30,12 @@ const Styleguide = () => {
       <div className="container mx-auto">
         <StyleguideTypography />
         <StyleguideCheckbox />
+        <StyleguideRadioGroup />
+        <StyleguideForms />
         <StyleguideAccordion />
         <StyleguideCards />
         <StyleguideShowMoreLink />
         <StyleguideBreadcrumbs />
-        <StyleguideForms />
       </div>
     </>
   )
