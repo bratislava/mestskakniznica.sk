@@ -16,7 +16,7 @@ const StyleguideForms = () => {
 
   return (
     <Wrapper title="Forms" direction="column">
-      <SelectField items={selectItems} onSelectionChange={setForm}>
+      <SelectField items={selectItems} onSelectionChange={setForm} selectedKey={form}>
         {(item) => <SelectItem label={item.label} id={item.id} />}
       </SelectField>
 

@@ -237,7 +237,7 @@ const VenueRentalForm = ({ slug, privacyPolicyHref }: VenueRentalFormProps) => {
                 label={t('venue_type')}
                 orientation="horizontal"
                 options={typeOptions}
-                hasError={!!errors.eventType}
+                isInvalid={!!errors.eventType}
                 errorMessage={t('validation_error_radiogroup')}
                 value={value}
                 onChange={(opt) => onChange(opt)}

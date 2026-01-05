@@ -22,7 +22,6 @@ export interface RadioGroupProps extends Omit<RACRadioGroupProps, 'children'> {
   label?: string
   children?: ReactNode
   description?: string
-  hasError?: boolean // Keeping hasError prop for legacy implementation, otherwise we should follow RAC docs
   errorMessage?: string | ((validation: ValidationResult) => string)
   options?: IRadioOption[]
 }
@@ -114,7 +113,7 @@ export const RadioGroup = ({
             ))}
           </div>
           {/* {props.description && <Description>{props.description}</Description>} */}
-          <FieldError>{props.errorMessage}</FieldError>
+          <FieldError className="mt-2 text-sm text-error">{props.errorMessage}</FieldError>
         </>
       )}
     </RACRadioGroup>

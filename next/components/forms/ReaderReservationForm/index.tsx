@@ -289,7 +289,7 @@ const ReaderReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
                 id="reader_form_where"
                 label={t('reader_form_where')}
                 options={selectOptions}
-                hasError={!!errors.where}
+                isInvalid={!!errors.where}
                 errorMessage={t('validation_error_radiogroup')}
                 value={value}
                 onChange={(opt) => onChange(opt)}

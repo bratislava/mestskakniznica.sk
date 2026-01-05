@@ -498,7 +498,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
                 label={t('ID_type')}
                 className="mb-6"
                 options={selectOptions}
-                hasError={!!errors.IDType}
+                isInvalid={!!errors.IDType}
                 errorMessage={t('validation_error_radiogroup')}
                 value={value}
                 onChange={(opt) => onChange(opt)}

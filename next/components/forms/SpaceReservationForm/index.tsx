@@ -215,7 +215,7 @@ const SpaceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
                 id="venue_type_input"
                 label={t('space')}
                 options={selectOptions}
-                hasError={!!errors.space}
+                isInvalid={!!errors.space}
                 errorMessage={t('validation_error_radiogroup')}
                 value={value}
                 onChange={(opt) => onSpaceUpdate(opt, onChange)}

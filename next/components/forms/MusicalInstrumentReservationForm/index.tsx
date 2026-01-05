@@ -198,7 +198,7 @@ const MusicalInstrumentReservationForm = ({ privacyPolicyHref }: CommonFormProps
                 label={t('musical_instrument_type')}
                 orientation="horizontal"
                 options={selectOptions}
-                hasError={!!errors.instrumentType}
+                isInvalid={!!errors.instrumentType}
                 errorMessage={t('validation_error_radiogroup')}
                 value={value}
                 onChange={(opt) => onChange(opt)}
