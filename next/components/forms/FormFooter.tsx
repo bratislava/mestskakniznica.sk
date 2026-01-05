@@ -51,7 +51,7 @@ const FormFooter = ({
         name="acceptFormTerms"
         defaultValue={false}
         render={({ field: { onChange, value, name } }) => (
-          <>
+          <div className="flex flex-col">
             <CheckBox
               id="acceptFormTerms"
               name={name}
@@ -61,16 +61,16 @@ const FormFooter = ({
             >
               <div className="text-sm">
                 {t('form_footer_agree')}{' '}
-                <MLink href={privacyPolicyHref} variant="basic" target="_blank">
+                <MLink href={privacyPolicyHref} variant="richtext" target="_blank">
                   {t('form_footer_personal_details')}
                 </MLink>
                 . <span className="pl-1 text-error">*</span>
               </div>
             </CheckBox>
             {!!errors.acceptFormTerms && (
-              <p className="-mt-6 text-base text-error">{t('terms_error')}</p>
+              <p className="mt-2 text-sm text-error">{t('terms_error')}</p>
             )}
-          </>
+          </div>
         )}
         rules={{ required: true }}
       />

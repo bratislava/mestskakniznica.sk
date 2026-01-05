@@ -313,15 +313,15 @@ const InterlibraryLoanServiceFormReader = ({ privacyPolicyHref }: CommonFormProp
                         href={
                           '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
                         }
-                        variant="basic"
+                        variant="richtext"
                       >
                         {t('interlibrary_price_list')}
                       </MLink>
-                      .
+                      . <span className="pl-1 text-error">*</span>
                     </div>
                   </CheckBox>
                   {!!errors.acceptFeesTerms && (
-                    <p className="my-6 text-base text-error">{t('terms_error')}</p>
+                    <p className="mt-2 text-sm text-error">{t('terms_error')}</p>
                   )}
                 </>
               )}

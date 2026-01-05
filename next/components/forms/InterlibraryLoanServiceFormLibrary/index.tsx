@@ -314,7 +314,7 @@ const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormPro
             <p className="pt-4 text-base text-error">{t('please_fill_required_fields')}</p>
           )}
 
-          <div className="mt-2 space-y-4 border-t border-border-light pt-6">
+          <div className="mt-6 border-t border-border-light pb-3 pt-6">
             <Controller
               control={methods.control}
               name="acceptFeesTerms"
@@ -333,21 +333,21 @@ const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormPro
                         href={
                           '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
                         }
-                        variant="basic"
+                        variant="richtext"
                       >
                         {t('interlibrary_price_list')}
                       </MLink>
-                      .
+                      . <span className="pl-1 text-error">*</span>
                     </div>
                   </CheckBox>
                   {!!errors.acceptFeesTerms && (
-                    <p className="mt-6 text-base text-error">{t('terms_error')}</p>
+                    <p className="mt-2 text-sm text-error">{t('terms_error')}</p>
                   )}
                 </>
               )}
             />
-            <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
           </div>
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>
