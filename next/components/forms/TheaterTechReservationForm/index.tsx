@@ -192,6 +192,7 @@ const TheaterTechReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
                   }}
                   isInvalid={!!errors.techType}
                   errorMessage={t('validation_error_radiogroup')}
+                  validationBehavior="aria"
                   {...field}
                 >
                   {(item) => <SelectItem id={item.key} label={item.title} />}

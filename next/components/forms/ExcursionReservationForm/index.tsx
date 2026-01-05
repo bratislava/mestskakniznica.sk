@@ -200,8 +200,8 @@ const ExcursionReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
                 }}
                 isInvalid={!!errors.excursionType}
                 errorMessage={errors.excursionType ? t('validation_error_radiogroup') : undefined}
-                isRequired
                 validationBehavior="aria"
+                isRequired
                 {...field}
               >
                 {(item) => <SelectItem id={item.key} label={item.title} />}

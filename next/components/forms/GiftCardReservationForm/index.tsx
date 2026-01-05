@@ -195,6 +195,7 @@ const GiftCardReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
                 }}
                 isInvalid={!!errors.cardType}
                 errorMessage={t('validation_error_radiogroup')}
+                validationBehavior="aria"
                 isRequired
                 {...field}
               >

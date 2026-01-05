@@ -217,6 +217,7 @@ const SpaceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
                 options={selectOptions}
                 isInvalid={!!errors.space}
                 errorMessage={t('validation_error_radiogroup')}
+                validationBehavior="aria"
                 value={value}
                 onChange={(opt) => onSpaceUpdate(opt, onChange)}
                 isRequired

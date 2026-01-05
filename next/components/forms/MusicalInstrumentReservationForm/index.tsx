@@ -200,6 +200,7 @@ const MusicalInstrumentReservationForm = ({ privacyPolicyHref }: CommonFormProps
                 options={selectOptions}
                 isInvalid={!!errors.instrumentType}
                 errorMessage={t('validation_error_radiogroup')}
+                validationBehavior="aria"
                 value={value}
                 onChange={(opt) => onChange(opt)}
                 isRequired

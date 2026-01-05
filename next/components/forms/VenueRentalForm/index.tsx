@@ -218,6 +218,7 @@ const VenueRentalForm = ({ slug, privacyPolicyHref }: VenueRentalFormProps) => {
                 }}
                 isInvalid={!!errors.venue}
                 errorMessage={t('validation_error_radiogroup')}
+                validationBehavior="aria"
                 isRequired
                 {...field}
               >
@@ -239,6 +240,7 @@ const VenueRentalForm = ({ slug, privacyPolicyHref }: VenueRentalFormProps) => {
                 options={typeOptions}
                 isInvalid={!!errors.eventType}
                 errorMessage={t('validation_error_radiogroup')}
+                validationBehavior="aria"
                 value={value}
                 onChange={(opt) => onChange(opt)}
                 isRequired

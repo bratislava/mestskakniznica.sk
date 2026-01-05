@@ -500,6 +500,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
                 options={selectOptions}
                 isInvalid={!!errors.IDType}
                 errorMessage={t('validation_error_radiogroup')}
+                validationBehavior="aria"
                 value={value}
                 onChange={(opt) => onChange(opt)}
                 isRequired
