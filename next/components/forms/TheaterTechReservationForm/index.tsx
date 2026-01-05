@@ -6,9 +6,10 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
 import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
-import { DateTimeSelect, Input, Select } from '@/components/ui'
+import { DateTimeSelect, Input } from '@/components/ui'
 import { convertDataToBody, getLocalDateForYup } from '@/utils/form-constants'
 
 const TheaterTechReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
@@ -176,22 +177,25 @@ const TheaterTechReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
             <Controller
               control={methods.control}
               name="techType"
-              render={({ field: { ref, onChange, ...field } }) => (
-                <Select
-                  labelContent={t('tech_type')}
+              render={({ field: { ref, onChange, value, ...field } }) => (
+                <SelectField
+                  label={t('tech_type')}
                   className="w-72 lg:w-74"
-                  options={[
+                  size="small"
+                  items={[
                     { key: 'key1', title: 'Title1' },
                     { key: 'key2', title: 'Title2' },
                   ]}
-                  onChange={(opt) => {
-                    onChange(opt.key)
+                  selectedKey={value}
+                  onSelectionChange={(opt) => {
+                    onChange(opt as string)
                   }}
-                  hasError={!!errors.techType}
+                  isInvalid={!!errors.techType}
                   errorMessage={t('validation_error_radiogroup')}
-                  aria-required={errors.techType?.type === 'required'}
                   {...field}
-                />
+                >
+                  {(item) => <SelectItem id={item.key} label={item.title} />}
+                </SelectField>
               )}
             />
             <Controller

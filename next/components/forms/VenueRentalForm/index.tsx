@@ -6,9 +6,10 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
 import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
-import { DateTimeSelect, Input, Select, TextArea } from '@/components/ui'
+import { DateTimeSelect, Input, TextArea } from '@/components/ui'
 import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
 import { convertDataToBody, getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
@@ -205,21 +206,23 @@ const VenueRentalForm = ({ slug, privacyPolicyHref }: VenueRentalFormProps) => {
           <Controller
             control={methods.control}
             name="venue"
-            render={({ field: { ref, onChange, ...field } }) => (
-              <Select
+            render={({ field: { ref, onChange, value, ...field } }) => (
+              <SelectField
                 id="space_input"
-                labelContent={t('space')}
-                className="w-full"
-                options={selectOptions}
-                onChange={(opt) => {
-                  onChange(opt.key)
+                label={t('space')}
+                size="small"
+                items={selectOptions}
+                selectedKey={value}
+                onSelectionChange={(opt) => {
+                  onChange(opt as string)
                 }}
-                hasError={!!errors.venue}
+                isInvalid={!!errors.venue}
                 errorMessage={t('validation_error_radiogroup')}
-                aria-required={errors.venue?.type === 'required'}
-                required
+                isRequired
                 {...field}
-              />
+              >
+                {(item) => <SelectItem id={item.key} label={item.title} />}
+              </SelectField>
             )}
           />
 
