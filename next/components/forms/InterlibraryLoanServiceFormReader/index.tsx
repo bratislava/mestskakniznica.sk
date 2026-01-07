@@ -305,7 +305,8 @@ const InterlibraryLoanServiceFormReader = ({ privacyPolicyHref }: CommonFormProp
                     name={name}
                     onChange={onChange} // send value to hook form
                     isSelected={value}
-                    aria-invalid={errors.acceptFeesTerms ? 'true' : 'false'}
+                    isInvalid={!!errors.acceptFeesTerms}
+                    isRequired
                   >
                     <div className="text-sm">
                       {t('interlibrary_accept_fees')}{' '}

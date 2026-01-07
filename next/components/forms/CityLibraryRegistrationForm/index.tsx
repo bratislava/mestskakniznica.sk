@@ -520,7 +520,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
                 name={name}
                 onChange={onChange} // send value to hook form
                 isSelected={value}
-                aria-invalid={errors.acceptNewsletter ? 'true' : 'false'}
+                isInvalid={!!errors.acceptNewsletter}
               >
                 <div className="text-sm">{t('form_city_accept_newsletter')}</div>
               </CheckBox>
@@ -536,7 +536,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
                 name={name}
                 onChange={onChange} // send value to hook form
                 isSelected={value}
-                aria-invalid={errors.authorizedToUseBlindDepartment ? 'true' : 'false'}
+                isInvalid={!!errors.authorizedToUseBlindDepartment}
                 className="pt-4"
               >
                 <div className="text-sm">{t('form_city_auth_blind_dep')}</div>

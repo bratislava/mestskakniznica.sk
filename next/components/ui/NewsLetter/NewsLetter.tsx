@@ -68,6 +68,7 @@ export const NewsLetter = ({
                   name={name}
                   onChange={onChange} // send value to hook form
                   isSelected={value}
+                  isInvalid={!!errors.acceptTerms}
                 >
                   {checkboxContent}
                 </CheckBox>

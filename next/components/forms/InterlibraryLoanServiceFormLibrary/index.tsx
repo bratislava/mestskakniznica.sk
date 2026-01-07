@@ -325,7 +325,7 @@ const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormPro
                     name={name}
                     onChange={onChange}
                     isSelected={value}
-                    aria-invalid={errors.acceptFeesTerms ? 'true' : 'false'}
+                    isInvalid={!!errors.acceptFeesTerms}
                   >
                     <div className="text-sm">
                       {t('interlibrary_accept_fees')}{' '}
