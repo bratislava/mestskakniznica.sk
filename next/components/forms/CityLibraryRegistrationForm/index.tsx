@@ -374,6 +374,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
                   }}
                   name="useTempAddress"
                   isSelected={value}
+                  validationBehavior="aria"
                 >
                   <div className="text-sm">{t('add_temporary_address')}</div>
                 </CheckBox>
@@ -521,6 +522,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
                 onChange={onChange} // send value to hook form
                 isSelected={value}
                 isInvalid={!!errors.acceptNewsletter}
+                validationBehavior="aria"
               >
                 <div className="text-sm">{t('form_city_accept_newsletter')}</div>
               </CheckBox>
@@ -537,6 +539,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
                 onChange={onChange} // send value to hook form
                 isSelected={value}
                 isInvalid={!!errors.authorizedToUseBlindDepartment}
+                validationBehavior="aria"
                 className="pt-4"
               >
                 <div className="text-sm">{t('form_city_auth_blind_dep')}</div>

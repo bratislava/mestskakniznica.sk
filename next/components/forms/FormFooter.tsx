@@ -57,7 +57,8 @@ const FormFooter = ({
               name={name}
               onChange={onChange} // send value to hook form
               isSelected={value}
-              aria-invalid={errors.acceptFormTerms ? 'true' : 'false'}
+              isInvalid={!!errors.acceptFormTerms}
+              validationBehavior="aria"
             >
               <div className="text-sm">
                 {t('form_footer_agree')}{' '}
