@@ -114,7 +114,7 @@ const SelectField = <T extends object>({
               )
             }
           >
-            <SelectValue />
+            <SelectValue className="truncate" />
             <span aria-hidden>
               <ChevronDownIcon />
             </span>

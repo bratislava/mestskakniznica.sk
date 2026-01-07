@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -23,14 +22,8 @@ export interface PageProps {
 
 const EventDetails = ({ event }: PageProps) => {
   const { t } = useTranslation()
-  const { asPath } = useRouter()
 
   const eventBranch = event?.attributes?.branch?.data?.attributes
-
-  const copyToClipBoard = () => {
-    navigator.clipboard.writeText(`https://www.mestskakniznica.sk${asPath}`)
-  }
-
   const filteredImages = event?.attributes?.gallery?.data?.filter(isDefined) ?? []
 
   return (

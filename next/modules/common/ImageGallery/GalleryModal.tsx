@@ -18,8 +18,6 @@ export type ModalProps = {
   noAnimation?: boolean
 } & AriaOverlayProps
 
-// copied from https://github.com/bratislava/mestskakniznica.sk/blob/master/next/modules/common/Modal.tsx
-
 const GalleryModal = (props: ModalProps) => {
   const {
     isOpen,

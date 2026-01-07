@@ -43,7 +43,7 @@ const ShareModal = ({ triggerButton }: ShareModalProps) => {
                 </SocialMediaButton>
                 <SocialMediaButton
                   startIcon={<InstagramIcon />}
-                  getSocialLink={() => 'https://www.instagram.com/bratislava.sk/'}
+                  getSocialLink={() => 'https://www.instagram.com/mestska_kniznica_bratislava/'}
                 >
                   {t('ShareModal.instagram')}
                 </SocialMediaButton>

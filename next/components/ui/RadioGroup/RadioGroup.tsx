@@ -55,7 +55,7 @@ export const Radio = ({ children, className, ...props }: RadioProps) => {
               },
             )}
           >
-            {isSelected ? <div className="size-3 rounded-full bg-dark" /> : null}
+            {isSelected ? <div className="size-3 rounded-full bg-dark" aria-hidden /> : null}
           </div>
           {/* Option label */}
           {children}
@@ -68,7 +68,6 @@ export const Radio = ({ children, className, ...props }: RadioProps) => {
 export const RadioGroup = ({
   label,
   description,
-  id,
   options,
   className,
   ...props

@@ -19,9 +19,11 @@ import { EventsFiltersShared } from '@/services/meili/fetchers/eventsFetcher'
 type EventFiltersProps = {
   filters: EventsFiltersShared
   onFiltersChange: (filters: EventsFiltersShared) => void
+  // eslint-disable-next-line react/no-unused-prop-types
+  onModalClose?: () => void
 }
 
-const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) => {
+const Inner = ({ filters: filtersInput, onFiltersChange, onModalClose }: EventFiltersProps) => {
   const { t, i18n } = useTranslation()
 
   const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
@@ -108,8 +110,8 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
   }
 
   return (
-    <div className="flex grow flex-col lg:mt-3">
-      <div className="grid grow items-center gap-x-5 py-2 lg:grid-cols-5">
+    <div className="flex flex-col max-lg:h-full max-lg:justify-between lg:mt-3">
+      <div className="grid items-center gap-x-5 gap-y-4 py-2 max-lg:p-4 lg:grid-cols-5">
         <MDatePicker
           selected={filters.dateFrom}
           onChange={handleDateFromChange}
@@ -155,10 +157,16 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
         </SelectField>
       </div>
 
-      <div className="shrink-0 p-3 text-center lg:mt-3 lg:p-0 lg:text-right">
-        <Button variant="secondary" className="w-1/2 uppercase lg:w-max" onPress={resetFilters}>
+      <div className="flex shrink-0 flex-col gap-2 max-lg:p-4 lg:mt-3 lg:items-end lg:p-0">
+        <Button variant="secondary" className="" onPress={resetFilters}>
           {t('eventFilters.resetFilters')}
         </Button>
+
+        {onModalClose ? (
+          <Button variant="primary" className="lg:hidden" onPress={() => onModalClose?.()}>
+            {t('eventFilters.useFilters')}
+          </Button>
+        ) : null}
       </div>
     </div>
   )
@@ -185,7 +193,7 @@ const EventFilters = ({ filters, onFiltersChange }: EventFiltersProps) => {
         </Button>
         {isSelected && (
           <FilterModal onClose={toggle} title={t('eventsFilter')}>
-            <Inner filters={filters} onFiltersChange={onFiltersChange} />
+            <Inner filters={filters} onFiltersChange={onFiltersChange} onModalClose={toggle} />
           </FilterModal>
         )}
       </div>
