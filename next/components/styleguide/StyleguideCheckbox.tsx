@@ -1,3 +1,4 @@
+/* eslint-disable i18next/no-literal-string */
 import React from 'react'
 
 import { Stack } from '@/components/styleguide/Stack'
@@ -8,8 +9,11 @@ const StyleguideCheckbox = () => {
   return (
     <Wrapper title="Checkbox" direction="column">
       <Stack>
-        {/* eslint-disable-next-line i18next/no-literal-string */}
         <CheckBox>Label</CheckBox>
+        <CheckBox isSelected>isSelected</CheckBox>
+        <CheckBox isDisabled>isDisabled</CheckBox>
+        <CheckBox isIndeterminate>isIndeterminate</CheckBox>
+        <CheckBox isInvalid>isInvalid</CheckBox>
       </Stack>
     </Wrapper>
   )

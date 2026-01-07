@@ -15,20 +15,22 @@ export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
         cn(
           'flex flex-1 cursor-pointer items-center gap-3.5 text-foreground-body',
           {
-            'base-input--disabled': isDisabled,
+            'cursor-not-allowed': isDisabled,
           },
           className,
         )
       }
     >
-      {({ isSelected, isDisabled, isIndeterminate }) => (
+      {({ isSelected, isDisabled, isIndeterminate, isInvalid, isFocusVisible }) => (
         <>
           <div
             className={cn(
-              'base-focus-ring flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-border-dark text-white',
+              'flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-border-dark text-white',
               {
                 'bg-dark': isSelected,
-                'base-input--disabled': isDisabled,
+                'base-focus-ring ring': isFocusVisible,
+                'border-border-disabled': isDisabled,
+                'border-error': isInvalid && !isSelected,
               },
             )}
           >

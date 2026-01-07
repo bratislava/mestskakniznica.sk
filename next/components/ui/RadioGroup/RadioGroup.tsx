@@ -32,12 +32,13 @@ export const Radio = ({ children, className, ...props }: RadioProps) => {
   return (
     <RACRadio
       {...props}
-      className={({ isDisabled, isInvalid }) =>
+      className={({ isDisabled, isInvalid, isFocusVisible }) =>
         cn(
           'base-input flex w-full cursor-pointer items-center gap-3.5 text-foreground-body',
           {
             'base-input--disabled cursor-not-allowed': isDisabled,
             'base-input--with-error': isInvalid,
+            'base-focus-ring ring': isFocusVisible,
           },
           className,
         )
@@ -48,7 +49,7 @@ export const Radio = ({ children, className, ...props }: RadioProps) => {
           {/* Indicator */}
           <div
             className={cn(
-              'base-focus-ring box-border flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark',
+              'box-border flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark',
               {
                 'border-border-disabled': isDisabled,
               },
