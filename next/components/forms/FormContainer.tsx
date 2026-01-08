@@ -89,7 +89,6 @@ const FormContainer = ({
     }
   }, [isFormOpen, width, isSubmitted, lock, unlock])
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   const listener = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === 'Enter' || event.code === 'NumpadEnter') {
       event.preventDefault()

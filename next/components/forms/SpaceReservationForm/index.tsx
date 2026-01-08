@@ -75,7 +75,6 @@ const SpaceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
 
   const hasErrors = !isEmpty(Object.keys(errors).filter((k) => k !== 'acceptFormTerms'))
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   const onSpaceUpdate = (item: string, callback: Function) => {
     if (document !== undefined) {
       ;[...document.querySelectorAll('iframe')].forEach((iframe) => {

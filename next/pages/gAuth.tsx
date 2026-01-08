@@ -18,10 +18,9 @@ const LoadingPage = () => {
     }
     try {
       if (code) {
-        // eslint-disable-next-line promise/catch-or-return, @typescript-eslint/no-floating-promises
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         subscribe().then((res) => {
           setMessage(
-            // eslint-disable-next-line promise/always-return
             res.success
               ? 'Subscribed to events successfully.'
               : // eslint-disable-next-line sonarjs/no-duplicate-string

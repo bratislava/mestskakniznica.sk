@@ -111,11 +111,10 @@ const RechercheReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   })
 
   const triggerFirstStep = () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises,promise/catch-or-return
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     methods
       .trigger(['fName', 'lName', 'readerCardNumber', 'email', 'phone'])
       .then((fulfillment) => {
-        // eslint-disable-next-line promise/always-return
         if (fulfillment) {
           methods.clearErrors()
           setStep(2)

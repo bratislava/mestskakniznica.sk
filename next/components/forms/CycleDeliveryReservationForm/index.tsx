@@ -61,13 +61,11 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
             id: yup.string(),
             author: yup.string().when(['id'], {
               is: (id: string) => id?.length,
-              // eslint-disable-next-line unicorn/no-thenable
               then: yup.string(),
               otherwise: yup.string().required(),
             }),
             title: yup.string().when(['id'], {
               is: (id: string) => id?.length,
-              // eslint-disable-next-line unicorn/no-thenable
               then: yup.string(),
               otherwise: yup.string().required(),
             }),
@@ -131,7 +129,7 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
   })
 
   const triggerFirstStep = () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises,promise/catch-or-return
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     methods
       .trigger([
         'fName',
@@ -144,7 +142,6 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
         'phone',
       ])
       .then((fulfillment) => {
-        // eslint-disable-next-line promise/always-return
         if (fulfillment) {
           methods.clearErrors()
           setStep(2)
