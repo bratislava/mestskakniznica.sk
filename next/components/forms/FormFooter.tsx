@@ -7,13 +7,16 @@ import { CheckBox, Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
 import cn from '@/utils/cn'
-import { useGeneralContext } from '@/utils/generalContext'
-import { useNavikronos } from '@/utils/navikronos'
+
+export type CommonFormProps = {
+  privacyPolicyHref?: string
+}
 
 interface IProps {
   className?: string
   buttonContent: string
   hasDivider?: boolean
+  privacyPolicyHref?: CommonFormProps['privacyPolicyHref']
 }
 
 type RenderParameters = {
@@ -30,12 +33,15 @@ declare global {
   }
 }
 
-const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) => {
+const FormFooter = ({
+  className,
+  buttonContent,
+  privacyPolicyHref = '#',
+  hasDivider = false,
+}: IProps) => {
   const methods = useFormContext()
   const { errors } = useFormState()
   const { t } = useTranslation('forms')
-  const { general } = useGeneralContext()
-  const { getPathForStrapiEntity } = useNavikronos()
 
   return (
     <div className={cn('w-full space-y-6', className)}>
@@ -45,34 +51,27 @@ const FormFooter = ({ className, buttonContent, hasDivider = false }: IProps) =>
         name="acceptFormTerms"
         defaultValue={false}
         render={({ field: { onChange, value, name } }) => (
-          <>
+          <div className="flex flex-col">
             <CheckBox
               id="acceptFormTerms"
               name={name}
               onChange={onChange} // send value to hook form
-              checked={value}
-              aria-invalid={errors.acceptFormTerms ? 'true' : 'false'}
+              isSelected={value}
+              isInvalid={!!errors.acceptFormTerms}
+              validationBehavior="aria"
             >
               <div className="text-sm">
                 {t('form_footer_agree')}{' '}
-                <MLink
-                  href={
-                    getPathForStrapiEntity(
-                      general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
-                    ) ?? ''
-                  }
-                  variant="basic"
-                  target="_blank"
-                >
+                <MLink href={privacyPolicyHref} variant="richtext" target="_blank">
                   {t('form_footer_personal_details')}
                 </MLink>
                 . <span className="pl-1 text-error">*</span>
               </div>
             </CheckBox>
             {!!errors.acceptFormTerms && (
-              <p className="-mt-6 text-base text-error">{t('terms_error')}</p>
+              <p className="mt-2 text-sm text-error">{t('terms_error')}</p>
             )}
-          </>
+          </div>
         )}
         rules={{ required: true }}
       />

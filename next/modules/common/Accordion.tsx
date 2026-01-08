@@ -1,5 +1,5 @@
-import { Disclosure } from '@headlessui/react'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
+import { Button, Disclosure, DisclosurePanel, Heading } from 'react-aria-components'
 
 import { ChevronLeftIcon } from '@/assets/icons'
 import { AnimateHeight } from '@/components/Atoms/AnimateHeight'
@@ -18,6 +18,8 @@ export type AccordionProps = {
  * Figma: https://www.figma.com/file/CY6Mh2f0SXJhBMY74HdS03/MKB?node-id=1491%3A17724&t=I75qJANEgoYCKFED-0
  */
 const Accordion = ({ type, title, additionalInfo, children, iconLeft }: AccordionProps) => {
+  const [isExpanded, setIsExpanded] = useState(false)
+
   const borderStyles = cn('flex w-full flex-col bg-white', {
     'border-border border': type === 'boxed',
     'border-border border-b':
@@ -34,7 +36,7 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
   })
 
   const buttonStyles = cn(
-    'hover:text-underline base-focus-ring flex items-center gap-4 text-left text-h5',
+    'hover:text-underline flex items-center gap-4 text-left text-h5 outline-none',
     {
       'px-4 py-[18.5px] md:px-6 md:py-5': type === 'boxed',
       'py-[18.5px] md:py-6': type === 'divider-big',
@@ -58,42 +60,45 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
     'py-4': type === 'subbranch',
   })
 
+  const WrapperComponent = type === 'breadcrumbs' ? 'nav' : 'div'
+
   return (
-    <Disclosure as={type === 'breadcrumbs' ? 'nav' : undefined}>
-      {({ open }) => {
-        return (
-          <div className={borderStyles}>
-            <h3 className="flex flex-col">
-              <Disclosure.Button
-                className={buttonStyles}
-                aria-label={type === 'breadcrumbs' ? 'Breadcrumbs' : undefined}
-              >
-                {iconLeft && (
-                  <span className={leftIconStyles} aria-hidden>
-                    {iconLeft}
-                  </span>
-                )}
-                <span className={headingStyles}>{title}</span>
-                {additionalInfo && <span className="pr-6">{additionalInfo}</span>}
-                <span className="shrink-0" aria-hidden>
-                  <ChevronLeftIcon
-                    className={cn('mr-1 transform transition-transform', {
-                      'rotate-90': open,
-                      '-rotate-90': !open,
-                    })}
-                  />
-                </span>
-              </Disclosure.Button>
-            </h3>
-            <AnimateHeight isVisible={open}>
-              <Disclosure.Panel static className={contentStyles}>
-                {children}
-              </Disclosure.Panel>
-            </AnimateHeight>
-          </div>
-        )
-      }}
-    </Disclosure>
+    <WrapperComponent className={borderStyles}>
+      <Disclosure
+        isExpanded={isExpanded}
+        onExpandedChange={setIsExpanded}
+        className="flex w-full flex-col"
+      >
+        <Heading className="m-0 flex flex-col">
+          <Button
+            slot="trigger"
+            className={({ isFocusVisible }) =>
+              cn(buttonStyles, { 'base-focus-ring': isFocusVisible })
+            }
+            aria-label={type === 'breadcrumbs' ? 'Breadcrumbs' : undefined}
+          >
+            {iconLeft && (
+              <span className={leftIconStyles} aria-hidden>
+                {iconLeft}
+              </span>
+            )}
+            <span className={headingStyles}>{title}</span>
+            {additionalInfo && <span className="pr-6">{additionalInfo}</span>}
+            <span className="shrink-0" aria-hidden>
+              <ChevronLeftIcon
+                className={cn('mr-1 transform transition-transform', {
+                  'rotate-90': isExpanded,
+                  '-rotate-90': !isExpanded,
+                })}
+              />
+            </span>
+          </Button>
+        </Heading>
+        <AnimateHeight isVisible={isExpanded}>
+          <DisclosurePanel className={contentStyles}>{children}</DisclosurePanel>
+        </AnimateHeight>
+      </Disclosure>
+    </WrapperComponent>
   )
 }
 

@@ -7,14 +7,14 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import { DateTimeSelect, Input, TextArea } from '@/components/ui'
 import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
 import { convertDataToBody, getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
 import { options } from './options'
 
-const SpaceReservationForm = () => {
+const SpaceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t, i18n } = useTranslation('forms')
   const router = useRouter()
@@ -213,16 +213,14 @@ const SpaceReservationForm = () => {
             render={({ field: { onChange, value } }) => (
               <RadioGroup
                 id="venue_type_input"
-                labelContent={t('space')}
-                className="flex flex-col gap-4"
-                wrapperClassName="w-full"
-                radioClassName="w-full"
+                label={t('space')}
                 options={selectOptions}
-                hasError={!!errors.space}
+                isInvalid={!!errors.space}
                 errorMessage={t('validation_error_radiogroup')}
+                validationBehavior="aria"
                 value={value}
                 onChange={(opt) => onSpaceUpdate(opt, onChange)}
-                required
+                isRequired
               />
             )}
           />
@@ -340,7 +338,7 @@ const SpaceReservationForm = () => {
             )}
           />
           {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </div>
       </FormContainer>
     </FormProvider>

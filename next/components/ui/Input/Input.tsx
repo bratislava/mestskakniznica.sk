@@ -59,7 +59,7 @@ export const Input = ({
         {/* BaseInput */}
         <input
           id={id}
-          className={cn('base-input', inputClassName, {
+          className={cn('base-input outline-none', inputClassName, {
             'base-input--disabled cursor-not-allowed text-foreground-disabled': props.disabled,
             'base-input--with-error': hasError,
             'base-focus-ring': isFocusVisible,

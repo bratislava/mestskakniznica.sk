@@ -5,6 +5,7 @@ import BookNotInLibraryForm from '@/components/forms/BookNotInLibraryForm'
 import CityLibraryRegistrationForm from '@/components/forms/CityLibraryRegistrationForm'
 import CycleDeliveryReservationForm from '@/components/forms/CycleDeliveryReservationForm'
 import ExcursionReservationForm from '@/components/forms/ExcursionReservationForm'
+import { CommonFormProps } from '@/components/forms/FormFooter'
 import GiftCardReservationForm from '@/components/forms/GiftCardReservationForm'
 import InterlibraryLoanServiceFormLibrary from '@/components/forms/InterlibraryLoanServiceFormLibrary'
 import InterlibraryLoanServiceFormReader from '@/components/forms/InterlibraryLoanServiceFormReader'
@@ -37,10 +38,15 @@ import {
   DocumentEntityFragment,
   PageSectionsFragment,
 } from '@/services/graphql'
+import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
+import { useNavikronos } from '@/utils/navikronos'
 import { parseSubpages } from '@/utils/page'
 
-type FormsProps = (() => JSX.Element) | ((props: VenueRentalFormProps) => JSX.Element)
+type FormsProps =
+  | (() => JSX.Element)
+  | ((props: VenueRentalFormProps) => JSX.Element)
+  | ((props: CommonFormProps) => JSX.Element)
 
 interface dynamicObject {
   [key: string]: FormsProps
@@ -65,14 +71,14 @@ const FORM: dynamicObject = {
   aka_kniha_vam_v_kniznici_chyba: BookNotInLibraryForm,
 }
 
-export const getForm = (formType: string, key: string) => {
+export const getForm = (formType: string, key: string, privacyPolicyHref?: string) => {
   if (!formType) return null
 
   const Comp = FORM[formType]
 
   return (
     <div key={key} id={formType}>
-      {Comp && <Comp slug={key} />}
+      {Comp && <Comp slug={key} privacyPolicyHref={privacyPolicyHref} />}
     </div>
   )
 }
@@ -83,6 +89,9 @@ const Sections = ({
   sections: PageSectionsFragment[] | BlogPostSectionsFragment[]
 }) => {
   const { t } = useTranslation()
+
+  const { general } = useGeneralContext()
+  const { getPathForStrapiEntity } = useNavikronos()
 
   return (
     <div className="flex flex-col space-y-8">
@@ -136,7 +145,15 @@ const Sections = ({
 
           case 'ComponentSectionsForm':
             // TODO add key
-            return getForm(section.type || '', '')
+            return section.type
+              ? getForm(
+                  section.type,
+                  section.type,
+                  getPathForStrapiEntity(
+                    general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
+                  ) ?? undefined,
+                )
+              : null
 
           case 'ComponentSectionsDivider':
             return <div className="border-b border-border-dark" />

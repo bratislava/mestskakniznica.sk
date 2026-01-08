@@ -8,7 +8,7 @@ import * as yup from 'yup'
 
 import BookListExtended from '@/components/forms/BookList/BookListExtended'
 import FormContainer, { phoneRegexOrEmpty, SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import StepNumberTitle from '@/components/forms/StepNumberTitle'
 import { CheckBox, Input, TextArea } from '@/components/ui'
 import Button from '@/modules/common/Button'
@@ -16,7 +16,7 @@ import MLink from '@/modules/common/MLink'
 import cn from '@/utils/cn'
 import { convertDataToBody } from '@/utils/form-constants'
 
-const InterlibraryLoanServiceFormReader = () => {
+const InterlibraryLoanServiceFormReader = ({ privacyPolicyHref }: CommonFormProps) => {
   const [step, setStep] = React.useState(1)
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
@@ -304,8 +304,10 @@ const InterlibraryLoanServiceFormReader = () => {
                     id="acceptFeesTerms"
                     name={name}
                     onChange={onChange} // send value to hook form
-                    checked={value}
-                    aria-invalid={errors.acceptFeesTerms ? 'true' : 'false'}
+                    isSelected={value}
+                    isInvalid={!!errors.acceptFeesTerms}
+                    isRequired
+                    validationBehavior="aria"
                   >
                     <div className="text-sm">
                       {t('interlibrary_accept_fees')}{' '}
@@ -313,22 +315,22 @@ const InterlibraryLoanServiceFormReader = () => {
                         href={
                           '/file/cennik-poplatkov-a-sluzieb' // TODO pricing link in EN
                         }
-                        variant="basic"
+                        variant="richtext"
                       >
                         {t('interlibrary_price_list')}
                       </MLink>
-                      .
+                      . <span className="pl-1 text-error">*</span>
                     </div>
                   </CheckBox>
                   {!!errors.acceptFeesTerms && (
-                    <p className="my-6 text-base text-error">{t('terms_error')}</p>
+                    <p className="mt-2 text-sm text-error">{t('terms_error')}</p>
                   )}
                 </>
               )}
               rules={{ required: true }}
             />
           </div>
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

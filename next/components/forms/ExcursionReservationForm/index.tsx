@@ -6,14 +6,15 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
-import { DateTimeSelect, Input, Select, TextArea } from '@/components/ui'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
+import { DateTimeSelect, Input, TextArea } from '@/components/ui'
 import { convertDataToBody, getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
 import { options } from './options'
 
-const ExcursionReservationForm = () => {
+const ExcursionReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
   const router = useRouter()
@@ -187,21 +188,24 @@ const ExcursionReservationForm = () => {
           <Controller
             control={methods.control}
             name="excursionType"
-            render={({ field: { ref, onChange, ...field } }) => (
-              <Select
+            render={({ field: { onChange, value, ...field } }) => (
+              <SelectField
                 id="excursion_type_input"
-                labelContent={t('excursion_type')}
-                className="w-full"
-                options={selectOptions}
-                onChange={(opt) => {
-                  onChange(opt.key)
+                label={t('excursion_type')}
+                size="small"
+                items={selectOptions}
+                selectedKey={value}
+                onSelectionChange={(opt) => {
+                  onChange(opt as string)
                 }}
-                hasError={!!errors.excursionType}
-                errorMessage={t('validation_error_radiogroup')}
-                aria-required={errors.excursionType?.type === 'required'}
-                required
+                isInvalid={!!errors.excursionType}
+                errorMessage={errors.excursionType ? t('validation_error_radiogroup') : undefined}
+                validationBehavior="aria"
+                isRequired
                 {...field}
-              />
+              >
+                {(item) => <SelectItem id={item.key} label={item.title} />}
+              </SelectField>
             )}
           />
           <div className="flex flex-col justify-between gap-6 lg:flex-row">
@@ -255,7 +259,7 @@ const ExcursionReservationForm = () => {
             )}
           />
           {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </div>
       </FormContainer>
     </FormProvider>

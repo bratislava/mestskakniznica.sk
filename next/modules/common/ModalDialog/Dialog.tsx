@@ -28,11 +28,11 @@ const Dialog = forwardRef<HTMLElement, Props>(({ children, title, ...props }, re
       {({ close }) => (
         <>
           {title ? (
-            <div className="flex shrink-0 items-center gap-6 border-b px-4 py-4.5 lg:px-6 lg:py-4">
+            <div className="flex shrink-0 items-center gap-6 border-b border-border-light px-4 py-4.5 lg:px-6 lg:py-4">
               <h2 className="grow text-h5">{title}</h2>
               <Button
                 aria-label={t('common.close')}
-                className="absolute right-6 top-6 -m-2"
+                className="absolute right-6 top-6 -m-4"
                 variant="plain-primary"
                 onPress={close}
               >

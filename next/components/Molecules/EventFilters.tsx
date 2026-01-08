@@ -6,8 +6,8 @@ import { useToggleState } from 'react-stately'
 import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 
 import DropdownIcon from '@/assets/images/dropdown.svg'
+import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
 import { FilterModal } from '@/components/Molecules/FilterModal'
-import { Select } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import MDatePicker from '@/modules/common/MDatePicker/MDatePicker'
 import {
@@ -19,9 +19,11 @@ import { EventsFiltersShared } from '@/services/meili/fetchers/eventsFetcher'
 type EventFiltersProps = {
   filters: EventsFiltersShared
   onFiltersChange: (filters: EventsFiltersShared) => void
+  // eslint-disable-next-line react/no-unused-prop-types
+  onModalClose?: () => void
 }
 
-const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) => {
+const Inner = ({ filters: filtersInput, onFiltersChange, onModalClose }: EventFiltersProps) => {
   const { t, i18n } = useTranslation()
 
   const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
@@ -108,59 +110,63 @@ const Inner = ({ filters: filtersInput, onFiltersChange }: EventFiltersProps) =>
   }
 
   return (
-    <div className="flex grow flex-col">
-      <div className="flex grow flex-col items-center gap-x-5 lg:mt-3 lg:flex-row">
-        <div className="h-auto w-full border-b border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
-          <MDatePicker
-            selected={filters.dateFrom}
-            onChange={handleDateFromChange}
-            chooseDayAriaLabelPrefix={t('eventFilters.dateAriaLabel')}
-            className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
-            placeholderText={t('eventFilters.eventsDateFrom')}
-            dateFormat="dd. MM. yyyy"
-            calendarClassName="w-screen lg:w-auto"
-            shouldCloseOnSelect={false}
-          />
-        </div>
-        <div className="h-auto w-full border-b border-b-[#000] px-3 text-base text-[#000] lg:border lg:border-border-light lg:py-2">
-          <MDatePicker
-            selected={filters.dateTo}
-            onChange={handleDateToChange}
-            chooseDayAriaLabelPrefix={t('eventFilters.dateAriaLabel')}
-            className="my-5 w-full placeholder:text-foreground-heading lg:my-0"
-            placeholderText={t('eventFilters.eventsDateTo')}
-            dateFormat="dd. MM. yyyy"
-            calendarClassName="w-screen lg:w-auto"
-            shouldCloseOnSelect={false}
-          />
-        </div>
-        <Select
-          className="w-full border-b border-b-[#000] py-3 lg:border-0 lg:border-border-light"
-          selectClassName="border-0 lg:border"
-          options={tags}
-          value={filters.eventTypeId ?? ''}
-          onChange={(ev) => handleEventTypeIdChange(ev.key)}
+    <div className="flex flex-col max-lg:h-full max-lg:justify-between lg:mt-3">
+      <div className="grid items-center gap-x-5 gap-y-4 py-2 max-lg:p-4 lg:grid-cols-5">
+        <MDatePicker
+          selected={filters.dateFrom}
+          onChange={handleDateFromChange}
+          chooseDayAriaLabelPrefix={t('eventFilters.dateAriaLabel')}
+          placeholderText={t('eventFilters.eventsDateFrom')}
+          shouldCloseOnSelect={false}
+          size="small"
         />
-        <Select
-          className="w-full border-b border-b-[#000] py-3 lg:border-0 lg:border-border-light"
-          selectClassName="border-0 lg:border"
-          options={categories}
-          value={filters.eventCategoryId ?? ''}
-          onChange={(ev) => handleEventCategoryIdChange(ev.key)}
+        <MDatePicker
+          selected={filters.dateTo}
+          onChange={handleDateToChange}
+          chooseDayAriaLabelPrefix={t('eventFilters.dateAriaLabel')}
+          placeholderText={t('eventFilters.eventsDateTo')}
+          shouldCloseOnSelect={false}
+          size="small"
         />
-        <Select
-          className="w-full border-b border-b-[#000] py-3 lg:border-0 lg:border-border-light"
-          selectClassName="border-0 lg:border"
-          options={localities}
-          value={filters.eventBranchId ?? ''}
-          onChange={(ev) => handleEventBranchIdChange(ev.key)}
-        />
+        <SelectField
+          aria-label={t('eventFilters.eventType')}
+          items={tags}
+          selectedKey={filters.eventTypeId ?? ''}
+          onSelectionChange={(selectedKey) => handleEventTypeIdChange(selectedKey as string)}
+          size="small"
+        >
+          {(item) => <SelectItem label={item.title} id={item.key} />}
+        </SelectField>
+        <SelectField
+          aria-label={t('eventFilters.eventCategory')}
+          items={categories}
+          selectedKey={filters.eventCategoryId ?? ''}
+          onSelectionChange={(selectedKey) => handleEventCategoryIdChange(selectedKey as string)}
+          size="small"
+        >
+          {(item) => <SelectItem label={item.title} id={item.key} />}
+        </SelectField>
+        <SelectField
+          aria-label={t('eventFilters.eventLocality')}
+          items={localities}
+          selectedKey={filters.eventBranchId ?? ''}
+          onSelectionChange={(selectedKey) => handleEventBranchIdChange(selectedKey as string)}
+          size="small"
+        >
+          {(item) => <SelectItem label={item.title} id={item.key} />}
+        </SelectField>
       </div>
 
-      <div className="shrink-0 p-3 text-center lg:mt-3 lg:p-0 lg:text-right">
-        <Button variant="secondary" className="w-1/2 uppercase lg:w-max" onPress={resetFilters}>
+      <div className="flex shrink-0 flex-col gap-2 max-lg:p-4 lg:mt-3 lg:items-end lg:p-0">
+        <Button variant="secondary" className="" onPress={resetFilters}>
           {t('eventFilters.resetFilters')}
         </Button>
+
+        {onModalClose ? (
+          <Button variant="primary" className="lg:hidden" onPress={() => onModalClose?.()}>
+            {t('eventFilters.useFilters')}
+          </Button>
+        ) : null}
       </div>
     </div>
   )
@@ -187,7 +193,7 @@ const EventFilters = ({ filters, onFiltersChange }: EventFiltersProps) => {
         </Button>
         {isSelected && (
           <FilterModal onClose={toggle} title={t('eventsFilter')}>
-            <Inner filters={filters} onFiltersChange={onFiltersChange} />
+            <Inner filters={filters} onFiltersChange={onFiltersChange} onModalClose={toggle} />
           </FilterModal>
         )}
       </div>

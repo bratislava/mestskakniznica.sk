@@ -11,7 +11,7 @@ import FormContainer, {
   postalCodeRegex,
   SubmitStatus,
 } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
 import StepNumberTitle from '@/components/forms/StepNumberTitle'
 import { CheckBox, DateTimeSelect, Input } from '@/components/ui'
 import RadioGroup from '@/components/ui/RadioGroup/RadioGroup'
@@ -21,7 +21,7 @@ import { getLocalDateForYup, useGetFormOptions } from '@/utils/form-constants'
 
 import { options } from './options'
 
-const CityLibraryRegistrationForm = () => {
+const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [errMessage, setErrMessage] = React.useState('')
   const [step, setStep] = React.useState(1)
@@ -373,7 +373,8 @@ const CityLibraryRegistrationForm = () => {
                     setShowTempAddress(e)
                   }}
                   name="useTempAddress"
-                  checked={value}
+                  isSelected={value}
+                  validationBehavior="aria"
                 >
                   <div className="text-sm">{t('add_temporary_address')}</div>
                 </CheckBox>
@@ -495,16 +496,15 @@ const CityLibraryRegistrationForm = () => {
             render={({ field: { onChange, value } }) => (
               <RadioGroup
                 id="IDType_input"
-                labelContent={t('ID_type')}
-                className="flex flex-col gap-4"
-                wrapperClassName="w-full mb-6"
-                radioClassName="w-full"
+                label={t('ID_type')}
+                className="mb-6"
                 options={selectOptions}
-                hasError={!!errors.IDType}
+                isInvalid={!!errors.IDType}
                 errorMessage={t('validation_error_radiogroup')}
+                validationBehavior="aria"
                 value={value}
                 onChange={(opt) => onChange(opt)}
-                required
+                isRequired
               />
             )}
           />
@@ -520,8 +520,9 @@ const CityLibraryRegistrationForm = () => {
                 id="acceptNewsletter"
                 name={name}
                 onChange={onChange} // send value to hook form
-                checked={value}
-                aria-invalid={errors.acceptNewsletter ? 'true' : 'false'}
+                isSelected={value}
+                isInvalid={!!errors.acceptNewsletter}
+                validationBehavior="aria"
               >
                 <div className="text-sm">{t('form_city_accept_newsletter')}</div>
               </CheckBox>
@@ -536,8 +537,9 @@ const CityLibraryRegistrationForm = () => {
                 id="authorizedToUseBlindDepartment"
                 name={name}
                 onChange={onChange} // send value to hook form
-                checked={value}
-                aria-invalid={errors.authorizedToUseBlindDepartment ? 'true' : 'false'}
+                isSelected={value}
+                isInvalid={!!errors.authorizedToUseBlindDepartment}
+                validationBehavior="aria"
                 className="pt-4"
               >
                 <div className="text-sm">{t('form_city_auth_blind_dep')}</div>
@@ -545,7 +547,11 @@ const CityLibraryRegistrationForm = () => {
             )}
           />
 
-          <FormFooter buttonContent={t('send')} className="pt-4" />
+          <FormFooter
+            buttonContent={t('send')}
+            privacyPolicyHref={privacyPolicyHref}
+            className="pt-4"
+          />
         </StepNumberTitle>
       </FormContainer>
     </FormProvider>

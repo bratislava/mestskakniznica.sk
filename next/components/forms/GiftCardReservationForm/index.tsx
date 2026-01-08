@@ -6,14 +6,15 @@ import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
 import FormContainer, { phoneRegex, SubmitStatus } from '@/components/forms/FormContainer'
-import FormFooter from '@/components/forms/FormFooter'
-import { Input, Select } from '@/components/ui'
+import FormFooter, { CommonFormProps } from '@/components/forms/FormFooter'
+import { Input } from '@/components/ui'
 import { convertDataToBody, useGetFormOptions } from '@/utils/form-constants'
 
 import { options } from './options'
 
-const GiftCardReservationForm = () => {
+const GiftCardReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const { t } = useTranslation('forms')
   const router = useRouter()
@@ -182,26 +183,28 @@ const GiftCardReservationForm = () => {
           <Controller
             control={methods.control}
             name="cardType"
-            render={({ field: { ref, onChange, ...field } }) => (
-              <Select
+            render={({ field: { ref, onChange, value, ...field } }) => (
+              <SelectField
                 id="card_type_input"
-                labelContent={t('ID_type')}
-                className="w-full lg:w-6/12 lg:pr-3"
-                selectClassName="w-full"
-                options={selectOptions}
-                onChange={(opt) => {
-                  onChange(opt.key)
+                label={t('ID_type')}
+                size="small"
+                items={selectOptions}
+                selectedKey={value}
+                onSelectionChange={(opt) => {
+                  onChange(opt as string)
                 }}
-                hasError={!!errors.cardType}
+                isInvalid={!!errors.cardType}
                 errorMessage={t('validation_error_radiogroup')}
-                aria-required={errors.cardType?.type === 'required'}
-                required
+                validationBehavior="aria"
+                isRequired
                 {...field}
-              />
+              >
+                {(item) => <SelectItem id={item.key} label={item.title} />}
+              </SelectField>
             )}
           />
           {hasErrors && <p className="text-base text-error">{t('please_fill_required_fields')}</p>}
-          <FormFooter buttonContent={t('send')} />
+          <FormFooter buttonContent={t('send')} privacyPolicyHref={privacyPolicyHref} />
         </div>
       </FormContainer>
     </FormProvider>

@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 
-import SelectField from '@/components/Atoms/SelectField'
+import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
 
 export type Sort = 'newest' | 'oldest'
 
@@ -10,7 +10,7 @@ type SortSelectProps = {
   onChange?: (sort: Sort) => void
 }
 
-const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) => {
+const SortSelect = ({ defaultSelected, onChange }: SortSelectProps) => {
   const { t } = useTranslation()
 
   const options = useMemo(
@@ -23,10 +23,12 @@ const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) =
 
   return (
     <SelectField
-      options={options}
-      onSelectionChange={onChange as (sort: string) => void}
-      defaultSelected={defaultSelected}
-    />
+      items={options}
+      onSelectionChange={(selectedKey) => onChange?.(selectedKey as Sort)}
+      selectedKey={defaultSelected}
+    >
+      {(item) => <SelectItem label={item.label} id={item.key} />}
+    </SelectField>
   )
 }
 

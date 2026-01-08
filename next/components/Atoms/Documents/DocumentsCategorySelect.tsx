@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import SelectField from '@/components/Atoms/SelectField'
+import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
 import {
   documentCategoriesFetcher,
   documentCategoriesQueryKey,
@@ -68,14 +68,14 @@ const DocumentsCategorySelect = ({ onCategoryChange = () => {} }: DocumentsCateg
 
   return (
     <SelectField
-      options={options}
-      defaultSelected={defaultOption.key}
-      multiple={false}
-      disabled={isLoading || isError}
-      onSelectionChange={(selection: string) => {
-        onCategoryChange(selection === '' ? null : selection)
+      items={options}
+      isDisabled={isLoading || isError}
+      onSelectionChange={(selection) => {
+        onCategoryChange(selection === '' ? null : (selection as string))
       }}
-    />
+    >
+      {(item) => <SelectItem label={item.label} id={item.key} />}
+    </SelectField>
   )
 }
 
