@@ -1,4 +1,4 @@
-import { createNextConfig } from '@bratislava/eslint-config/next'
+import { createNextConfig } from '@bratislava/eslint-config-next'
 
 export default [
   ...createNextConfig({
