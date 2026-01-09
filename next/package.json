@@ -34,7 +34,7 @@
     "clsx": "2.1.1",
     "date-fns": "^2.29.1",
     "focus-trap-react": "^11.0.3",
-    "framer-motion": "12.4.1",
+    "framer-motion": "12.25.0",
     "googleapis": "^102.0.0",
     "graphql": "16.10.0",
     "graphql-request": "6.1.0",
