@@ -35,7 +35,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Check model
     if (payload?.model === 'blog-post') {
-      // TODO fix eslint
       const urlToRevalidate = `/blog/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
 
@@ -56,14 +55,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (payload?.model === 'basic-document') {
-      // TODO fix eslint
       const urlToRevalidate = `/documents/${payload?.entry?.slug}`
       console.log(`api/revalidate: Revalidating ${urlToRevalidate}`)
       await res.revalidate(urlToRevalidate)
     }
 
     if (payload?.model === 'event') {
-      // TODO fix eslint
       const urlToRevalidate = `/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
 
@@ -86,7 +83,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (payload?.model === 'page') {
-      // TODO fix eslint
       const urlToRevalidate = `/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
       const layout = payload?.entry?.layout as string
