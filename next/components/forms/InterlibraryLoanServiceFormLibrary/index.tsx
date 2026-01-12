@@ -136,9 +136,8 @@ const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormPro
   })
 
   const triggerFirstStep = () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises,promise/catch-or-return
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     methods.trigger(['email', 'phone', 'libraryName', 'ICO', 'DIC', 'IBAN']).then((fulfillment) => {
-      // eslint-disable-next-line promise/always-return
       if (fulfillment) {
         methods.clearErrors()
         setStep(2)

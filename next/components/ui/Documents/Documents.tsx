@@ -36,7 +36,6 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
             category: type,
             title: docTitle,
             metadata: contractor ? `${contractor}` : undefined,
-            // eslint-disable-next-line unicorn/consistent-destructuring
             fileExt: badgeExt,
           },
         }
@@ -51,7 +50,6 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
           content: {
             category: documentCategory?.data?.attributes?.label,
             title: docTitle,
-            // eslint-disable-next-line unicorn/consistent-destructuring
             fileExt: badgeExt,
           },
         }

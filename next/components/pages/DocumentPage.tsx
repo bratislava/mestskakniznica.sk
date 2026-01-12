@@ -51,12 +51,10 @@ const DocumentPage = ({ entity }: IProps) => {
     : [
         {
           label: t('documentMetadata.category'),
-          // eslint-disable-next-line unicorn/consistent-destructuring
           value: entity.attributes.documentCategory?.data?.attributes?.label,
         },
         {
           label: t('documentMetadata.addedAt'),
-          // eslint-disable-next-line unicorn/consistent-destructuring
           value: <FormatDate value={entity.attributes.publishedAt} valueType="ISO" />,
         },
       ]

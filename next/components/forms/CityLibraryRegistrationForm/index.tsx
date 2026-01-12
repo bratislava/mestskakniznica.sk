@@ -62,19 +62,16 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
       useTempAddress: yup.boolean(),
       tempAddress: yup.string().when('useTempAddress', {
         is: true,
-        // eslint-disable-next-line unicorn/no-thenable
         then: yup.string().required(),
         otherwise: yup.string(),
       }),
       tempCity: yup.string().when('useTempAddress', {
         is: true,
-        // eslint-disable-next-line unicorn/no-thenable
         then: yup.string().required(),
         otherwise: yup.string(),
       }),
       tempPostalCode: yup.string().when('useTempAddress', {
         is: true,
-        // eslint-disable-next-line unicorn/no-thenable
         then: yup.string().matches(postalCodeRegex, t('validation_error_zipcode')).required(),
         otherwise: yup.string(),
       }),
@@ -148,7 +145,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
   })
 
   const triggerFirstStep = () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises,promise/catch-or-return
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     methods
       .trigger([
         'fName',
@@ -168,7 +165,6 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
         'IDNumber',
       ])
       .then((fulfillment) => {
-        // eslint-disable-next-line promise/always-return
         if (fulfillment) {
           methods.clearErrors()
           setStep(2)
@@ -190,7 +186,9 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
         title={t('library_registration_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
+        onReset={() => {
+          setIsSubmitted(SubmitStatus.NONE)
+        }}
         successTitle={t('library_registration_success_title')}
         successMessage={t('library_registration_success_message')}
         errorMessage={errMessage}
@@ -201,7 +199,9 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
           title={t('personal_details')}
           activeStep={step}
           className={cn({ '-mx-8 border border-error px-8': stepOneErrors && step !== 1 })}
-          onClick={() => setStep(1)}
+          onClick={() => {
+            setStep(1)
+          }}
         >
           <div className="flex w-full flex-col gap-y-6">
             <div className="flex flex-col justify-between gap-6 lg:flex-row">
@@ -479,7 +479,13 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
           {stepOneErrors && (
             <p className="pb-4 text-base text-error">{t('please_fill_required_fields')}</p>
           )}
-          <Button onPress={() => triggerFirstStep()}>{t('continue')}</Button>
+          <Button
+            onPress={() => {
+              triggerFirstStep()
+            }}
+          >
+            {t('continue')}
+          </Button>
         </StepNumberTitle>
 
         {/* Step 2 */}
@@ -488,7 +494,9 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
           title={t('select_ID_type')}
           activeStep={step}
           className="border-b-0 pb-0"
-          onClick={() => triggerFirstStep()}
+          onClick={() => {
+            triggerFirstStep()
+          }}
         >
           <Controller
             control={methods.control}
@@ -503,7 +511,9 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
                 errorMessage={t('validation_error_radiogroup')}
                 validationBehavior="aria"
                 value={value}
-                onChange={(opt) => onChange(opt)}
+                onChange={(opt) => {
+                  onChange(opt)
+                }}
                 isRequired
               />
             )}

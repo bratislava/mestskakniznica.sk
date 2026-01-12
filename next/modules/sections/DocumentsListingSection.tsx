@@ -93,7 +93,6 @@ const DocumentsListingSection = () => {
         {data?.hits.map((document) => {
           const { id, title, type, slug, file, category } = document
           const metadata =
-            // eslint-disable-next-line unicorn/consistent-destructuring
             type === 'disclosure' && document.contractor ? `${document.contractor}` : undefined
 
           let badgeExt: string | JSX.Element = ''
@@ -115,7 +114,6 @@ const DocumentsListingSection = () => {
               linkHref={getPathForEntity({ type, slug }) ?? '#'}
               fileExt={badgeExt}
               category={category}
-              // eslint-disable-next-line unicorn/consistent-destructuring
               addedAt={type === 'disclosure' ? document.addedAt : document.publishedAt}
               metadata={metadata}
             />

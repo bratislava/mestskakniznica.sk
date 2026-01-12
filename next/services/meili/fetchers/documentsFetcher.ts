@@ -55,7 +55,6 @@ export const documentsFetcher = (filters: DocumentsFilters) => {
           const isDocument = type === 'document'
           const isDisclosure = type === 'disclosure'
 
-          /* eslint-disable unicorn/consistent-destructuring */
           if (isDocument) {
             return {
               ...hit.document,
@@ -70,7 +69,6 @@ export const documentsFetcher = (filters: DocumentsFilters) => {
               type,
             }
           }
-          /* eslint-enable unicorn/consistent-destructuring */
 
           return null
         })

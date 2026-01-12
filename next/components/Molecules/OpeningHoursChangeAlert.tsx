@@ -19,7 +19,6 @@ const OpeningHoursChangeAlert = () => {
     queryKey: ['OpeningHoursChangeNotices', locale],
   })
 
-  // eslint-disable-next-line unicorn/no-array-callback-reference
   const filteredNotices = noticesData?.notices?.data.filter(isDefined) ?? []
 
   if (filteredNotices.length === 0) return null
@@ -51,7 +50,6 @@ const OpeningHoursChangeAlert = () => {
               </Fragment>
             )
           })
-          // eslint-disable-next-line unicorn/no-array-callback-reference
           .filter(isDefined)}
       </div>
     </div>
