@@ -40,10 +40,8 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const handleSearch = () => {
     if (searchOptions === 'in_catalogue') {
       if (input === '') {
-         
         window.open(opacBaseUrl, '_blank')
       } else {
-         
         window.open(`${opacBaseUrl}?fn=searchform&extSrchTitle=${input}`, '_blank')
       }
       setOpen(false)

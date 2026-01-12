@@ -273,8 +273,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
                       <div className="pl-5">
                         <div className="text-foreground-heading">
                           {(title?.length || 0) > 50
-                            ?  
-                              `${title?.slice(0, 50)}...`
+                            ? `${title?.slice(0, 50)}...`
                             : title}
                         </div>
                         <div className="pt-[5px] text-sm text-foreground-body">
@@ -284,7 +283,6 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
                           />
                         </div>
                         {eventBranch?.title && (
-                           
                           <div className="text-sm text-foreground-body">
                             &#9679; {eventBranch.title}
                           </div>

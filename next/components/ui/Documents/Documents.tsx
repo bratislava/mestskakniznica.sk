@@ -66,7 +66,6 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
       <div className={cn('flex flex-col', { 'mt-6': !!title })}>
         {parsedDocuments?.map((doc, index) => (
           <DocumentRow
-             
             key={index}
             title={doc.content.title}
             fileExt={doc.content.fileExt}

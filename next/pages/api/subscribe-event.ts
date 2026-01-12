@@ -3,7 +3,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import { client } from '@/services/graphql/gql'
 
- 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
@@ -13,8 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== 'POST') {
       res.status(400).json({});
-
- return;
+      return;
     }
     const { code } = JSON.parse(req.body)
     const { tokens } = await oauth2Client.getToken(code)

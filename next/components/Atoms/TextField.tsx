@@ -28,7 +28,6 @@ type CommonProps = {
 type TextFieldProps = CommonProps & AreaOrInputConditionalProps
 
 const TextField = (props: TextFieldProps) => {
-   
   if (props.area) {
     const {
       id,

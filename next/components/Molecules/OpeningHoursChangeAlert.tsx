@@ -36,7 +36,6 @@ const OpeningHoursChangeAlert = () => {
             const id = `${alertBannerId}-${index}`
 
             return (
-               
               <Fragment key={index}>
                 {index > 0 && <hr />}
                 <div className="flex flex-col gap-3">

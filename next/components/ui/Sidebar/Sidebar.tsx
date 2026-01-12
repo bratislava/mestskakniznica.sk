@@ -31,7 +31,6 @@ export const Sidebar = ({ className }: SidebarProps) => {
 
           return (
             <MLink
-               
               key={index}
               href={child.path ?? '#'}
               variant="basic"

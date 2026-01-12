@@ -89,7 +89,6 @@ export const Footer = ({
             className="flex h-full items-center justify-center ring-inset ring-offset-0"
           >
             <FbLogo className="cursor-pointer lg:p-0" />
-            { }
             <span className="sr-only">Facebook</span>
           </MLink>
           <MLink
@@ -99,7 +98,6 @@ export const Footer = ({
             className="flex h-full items-center justify-center border-x border-border-dark ring-inset ring-offset-0"
           >
             <IgLogo className="cursor-pointer lg:p-0" />
-            { }
             <span className="sr-only">Instagram</span>
           </MLink>
           <MLink
@@ -109,7 +107,6 @@ export const Footer = ({
             className="flex h-full items-center justify-center ring-inset ring-offset-0"
           >
             <YtLogo className="cursor-pointer lg:p-0" />
-            { }
             <span className="sr-only">Youtube</span>
           </MLink>
         </div>

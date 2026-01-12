@@ -77,7 +77,6 @@ const FormContainer = ({
 
   useEffect(() => {
     setFormOpen(isFormOpen && width !== undefined && width > 767)
-     
   }, [width])
 
   useEffect(() => {
@@ -111,11 +110,8 @@ const FormContainer = ({
             {buttonText || t('continue')}
           </Button>
           {isFormOpen && (
-             
             <form
-               
               tabIndex={0}
-               
               onSubmit={onSubmit}
               onKeyDown={() => listener}
               className="base-focus-ring fixed inset-0 z-40 flex flex-col bg-white md:relative md:z-0"

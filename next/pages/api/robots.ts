@@ -10,8 +10,7 @@ const handler = (_req: NextApiRequest, res: NextApiResponse) => {
         Disallow: /api/
       `,
     );
-
- return;
+    return;
   }
 
   /* If not in production, disallow to crawl the website completely */

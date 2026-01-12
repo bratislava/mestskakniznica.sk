@@ -79,7 +79,6 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
             <Mapbox
               ref={mapRef}
               mapboxAccessToken={mapboxAccessToken}
-               
               mapStyle="mapbox://styles/bratislava01/ckzrbqd6300ps14p8gpyoq3wr"
               style={{
                 height: '100%',

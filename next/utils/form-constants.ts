@@ -117,14 +117,12 @@ function flattenObject(
   keepNull = true,
 ) {
   if (isString(o) || isNumber(o) || isBoolean(o) || isDate(o) || (keepNull && isNull(o))) {
-     
     result[key(prefix, t)] = convertValue(o)
 
     return result
   }
 
   if (isArray(o) || isPlainObject(o)) {
-     
     for (const i in o) {
       let pref = key(prefix, t)
       if (isArray(o)) {

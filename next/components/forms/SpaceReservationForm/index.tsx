@@ -78,7 +78,6 @@ const SpaceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const onSpaceUpdate = (item: string, callback: Function) => {
     if (document !== undefined) {
       ;[...document.querySelectorAll('iframe')].forEach((iframe) => {
-         
         iframe.className = 'hidden'
       })
       const selectedIframe = document.querySelector(`#${item}_cal`)

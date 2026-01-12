@@ -103,7 +103,6 @@ const SearchPage = () => {
       })
       setLastInputForPlausible(sanitizedInput)
     }
-     
   }, [debouncedInputForPlausible])
 
   const { breadcrumbs } = useNavikronos()
@@ -147,7 +146,6 @@ const SearchPage = () => {
           {t('search.resultsFound', { count: data?.estimatedTotalHits ?? 0 })}
         </div>
 
-        { }
         <div className="mt-12 flex flex-col gap-6">
           <AnimateHeight isVisible className="-m-2 p-2">
             {isLoading ? (
@@ -177,9 +175,7 @@ const SearchPage = () => {
                   )
 
                   return (
-                    <li  
-                      key={index}
-                    >
+                    <li key={index}>
                       <CardWrapper className="group relative flex items-center justify-between gap-x-6 border-b border-border-dark py-4">
                         <div className="flex grow flex-col gap-y-2">
                           <div className="flex items-start gap-x-4 max-md:justify-between">

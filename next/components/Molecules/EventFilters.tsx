@@ -19,7 +19,6 @@ import { EventsFiltersShared } from '@/services/meili/fetchers/eventsFetcher'
 type EventFiltersProps = {
   filters: EventsFiltersShared
   onFiltersChange: (filters: EventsFiltersShared) => void
-   
   onModalClose?: () => void
 }
 
@@ -82,7 +81,6 @@ const Inner = ({ filters: filtersInput, onFiltersChange, onModalClose }: EventFi
         onFiltersChange({ ...filtersInput, eventTypeId: found.key })
       }
     }
-     
   }, [tagFromQueryParam])
 
   const handleDateFromChange = (dateFrom: Date | null) => {
