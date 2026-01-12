@@ -77,7 +77,7 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
     .required()
 
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
     defaultValues: {
       fName: '',
       lName: '',
@@ -163,7 +163,7 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
         title={t('cycle_delivery_reservation_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
+        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
         successTitle={t('cycle_delivery_success_title')}
         successMessage={t('cycle_delivery_success_message')}
         errorMessage={t('order_error_message')}
@@ -174,7 +174,7 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
           title={t('personal_details')}
           activeStep={step}
           className={cn({ '-mx-8 border border-error px-8': stepOneErrors && step !== 1 })}
-          onClick={() => setStep(1)}
+          onClick={() => { setStep(1); }}
         >
           <div className="flex w-full flex-col gap-y-6">
             <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
@@ -314,7 +314,7 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
               />
             </div>
 
-            <Button onPress={() => triggerFirstStep()}>{t('continue')}</Button>
+            <Button onPress={() => { triggerFirstStep(); }}>{t('continue')}</Button>
           </div>
         </StepNumberTitle>
 
@@ -324,7 +324,7 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
           title={t('book_list')}
           activeStep={step}
           className="border-b-0 pb-0"
-          onClick={() => triggerFirstStep()}
+          onClick={() => { triggerFirstStep(); }}
         >
           <BookList />
           <Controller

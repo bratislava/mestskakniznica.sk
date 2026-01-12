@@ -24,7 +24,7 @@ export const TableRow = ({ className, label, value, valueAlign = 'start' }: Tabl
 
       {valueAlign === 'center' && (
         <>
-          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+          { }
           <td className="w-1/6" />
           <td className="w-1/3">{value ?? ''}</td>
         </>

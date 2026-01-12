@@ -79,7 +79,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
   const schema = yup.object(schemaBase).required()
 
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
     defaultValues: {
       fName: '',
       lName: '',
@@ -176,7 +176,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
             title={t('event_reservation_title')}
             onSubmit={handleSubmit}
             isSubmitted={isSubmitted}
-            onReset={() => setIsSubmitted(SubmitStatus.NONE)}
+            onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
             successTitle={t('generic_success_title')}
             successMessage={t('generic_success_message')}
             errorMessage={t('generic_error_message')}
@@ -273,7 +273,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
                       <div className="pl-5">
                         <div className="text-foreground-heading">
                           {(title?.length || 0) > 50
-                            ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                            ?  
                               `${title?.slice(0, 50)}...`
                             : title}
                         </div>
@@ -284,7 +284,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
                           />
                         </div>
                         {eventBranch?.title && (
-                          // eslint-disable-next-line i18next/no-literal-string
+                           
                           <div className="text-sm text-foreground-body">
                             &#9679; {eventBranch.title}
                           </div>

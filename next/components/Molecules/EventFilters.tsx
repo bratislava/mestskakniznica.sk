@@ -19,7 +19,7 @@ import { EventsFiltersShared } from '@/services/meili/fetchers/eventsFetcher'
 type EventFiltersProps = {
   filters: EventsFiltersShared
   onFiltersChange: (filters: EventsFiltersShared) => void
-  // eslint-disable-next-line react/no-unused-prop-types
+   
   onModalClose?: () => void
 }
 
@@ -82,7 +82,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange, onModalClose }: EventFi
         onFiltersChange({ ...filtersInput, eventTypeId: found.key })
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [tagFromQueryParam])
 
   const handleDateFromChange = (dateFrom: Date | null) => {
@@ -132,7 +132,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange, onModalClose }: EventFi
           aria-label={t('eventFilters.eventType')}
           items={tags}
           selectedKey={filters.eventTypeId ?? ''}
-          onSelectionChange={(selectedKey) => handleEventTypeIdChange(selectedKey as string)}
+          onSelectionChange={(selectedKey) => { handleEventTypeIdChange(selectedKey as string); }}
           size="small"
         >
           {(item) => <SelectItem label={item.title} id={item.key} />}
@@ -141,7 +141,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange, onModalClose }: EventFi
           aria-label={t('eventFilters.eventCategory')}
           items={categories}
           selectedKey={filters.eventCategoryId ?? ''}
-          onSelectionChange={(selectedKey) => handleEventCategoryIdChange(selectedKey as string)}
+          onSelectionChange={(selectedKey) => { handleEventCategoryIdChange(selectedKey as string); }}
           size="small"
         >
           {(item) => <SelectItem label={item.title} id={item.key} />}
@@ -150,7 +150,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange, onModalClose }: EventFi
           aria-label={t('eventFilters.eventLocality')}
           items={localities}
           selectedKey={filters.eventBranchId ?? ''}
-          onSelectionChange={(selectedKey) => handleEventBranchIdChange(selectedKey as string)}
+          onSelectionChange={(selectedKey) => { handleEventBranchIdChange(selectedKey as string); }}
           size="small"
         >
           {(item) => <SelectItem label={item.title} id={item.key} />}
@@ -163,7 +163,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange, onModalClose }: EventFi
         </Button>
 
         {onModalClose ? (
-          <Button variant="primary" className="lg:hidden" onPress={() => onModalClose?.()}>
+          <Button variant="primary" className="lg:hidden" onPress={() => { onModalClose?.(); }}>
             {t('eventFilters.useFilters')}
           </Button>
         ) : null}

@@ -39,7 +39,7 @@ const ErrorDisplay = ({ error }: IProps) => {
         <h1>{t('errorDisplay.title')}</h1>
       </header>
       <p className="text-base">{t('errorDisplay.weAreSorry')}</p>
-      <Button className="mt-4" onPress={() => setOpen((o) => !o)}>
+      <Button className="mt-4" onPress={() => { setOpen((o) => !o); }}>
         {open ? t('common.showLess') : t('common.showMore')}
       </Button>
       {open && (

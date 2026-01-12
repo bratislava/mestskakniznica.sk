@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import { useEffect, useRef, useState } from 'react'
-import Mapbox, { MapRef, Marker } from 'react-map-gl'
+import Mapbox, { type MapRef, Marker } from 'react-map-gl/mapbox'
 
 import MarkerIcon from '@/assets/images/marker.svg'
 
@@ -32,7 +32,7 @@ export const BranchMap = ({
         <Mapbox
           ref={mapRef}
           mapboxAccessToken={mapboxAccessToken}
-          // eslint-disable-next-line react/style-prop-object
+           
           mapStyle="mapbox://styles/bratislava01/ckzrbqd6300ps14p8gpyoq3wr"
           style={{
             height: '100%',

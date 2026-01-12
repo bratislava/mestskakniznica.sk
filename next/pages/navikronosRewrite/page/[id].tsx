@@ -32,7 +32,7 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
   let pageComponentByLayout: ReactNode = null
 
   // TODO replace PageEntity by PageEntityFragment
-  // eslint-disable-next-line default-case
+   
   switch (page?.attributes?.layout) {
     case Enum_Page_Layout.FullContent:
       pageComponentByLayout = <FullContentPage page={page} />

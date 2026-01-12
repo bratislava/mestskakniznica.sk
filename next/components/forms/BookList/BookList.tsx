@@ -48,7 +48,7 @@ const BookList = ({ className }: Props) => {
                 variant="unstyled"
                 className="absolute right-3 top-3 cursor-pointer"
                 aria-label={t('remove_book')}
-                onPress={() => handleRemoveBook(index)}
+                onPress={() => { handleRemoveBook(index); }}
               >
                 <CloseCircleIcon />
               </Button>

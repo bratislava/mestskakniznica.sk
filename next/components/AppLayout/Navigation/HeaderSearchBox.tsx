@@ -30,7 +30,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   ]
 
   const { focusWithinProps } = useFocusWithin({
-    onBlurWithin: () => setOpen(false),
+    onBlurWithin: () => { setOpen(false); },
   })
 
   const [input, setInput] = useState('')
@@ -40,10 +40,10 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const handleSearch = () => {
     if (searchOptions === 'in_catalogue') {
       if (input === '') {
-        // eslint-disable-next-line security/detect-non-literal-fs-filename
+         
         window.open(opacBaseUrl, '_blank')
       } else {
-        // eslint-disable-next-line security/detect-non-literal-fs-filename
+         
         window.open(`${opacBaseUrl}?fn=searchform&extSrchTitle=${input}`, '_blank')
       }
       setOpen(false)
@@ -84,7 +84,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
       <SelectField
         items={SEARCH_OPTIONS}
         selectedKey={searchOptions}
-        onSelectionChange={(selection) => setSearchOptions(selection as SearchOption)}
+        onSelectionChange={(selection) => { setSearchOptions(selection as SearchOption); }}
         innerClassName="w-[134px] whitespace-nowrap rounded-l-full border-r-0 border-dark lg:py-2"
         popperClassName="w-[154px]"
       >
@@ -105,12 +105,12 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
             </Button>
           )
         }
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => { setInput(e.target.value); }}
         onSubmit={handleSearch}
         onKeyUp={handleKeyUp}
         isOpen={isOpen}
         value={input}
-        onFocus={() => setOpen(true)}
+        onFocus={() => { setOpen(true); }}
         className="w-full"
         inputClassName={cn('grow-1 w-full rounded-r-full border-border-dark pl-4 md:pl-10', {
           'pr-24 md:pr-36': isOpen,

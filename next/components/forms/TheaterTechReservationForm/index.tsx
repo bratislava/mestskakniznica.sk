@@ -48,7 +48,7 @@ const TheaterTechReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
     .required()
 
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
     defaultValues: {
       fName: '',
       lName: '',
@@ -103,7 +103,7 @@ const TheaterTechReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
         title={t('theater_tech_reservation_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
+        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
         successTitle={t('reservation_success_title')}
         successMessage={t('reservation_success_message')}
         errorMessage={t('generic_error_message')}

@@ -26,9 +26,9 @@ const MobileHeader = ({ menus }: MobileHeaderProps) => {
 
   // close mobile header on route change
   useEffect(() => {
-    router.events.on('routeChangeStart', () => setMenuOpen(false))
+    router.events.on('routeChangeStart', () => { setMenuOpen(false); })
 
-    return () => router.events.off('routeChangeStart', () => setMenuOpen(false))
+    return () => { router.events.off('routeChangeStart', () => { setMenuOpen(false); }); }
   }, [router])
 
   const pageTitle = (word: string, index: number) => (
@@ -64,12 +64,12 @@ const MobileHeader = ({ menus }: MobileHeaderProps) => {
 
           {/* This div should match in size with close menu button div */}
           <div className="flex w-[61px] shrink-0 items-center justify-center border-l border-border-dark">
-            <Button variant="unstyled" className="p-4" onPress={() => setMenuOpen(true)}>
+            <Button variant="unstyled" className="p-4" onPress={() => { setMenuOpen(true); }}>
               <BurgerIcon />
             </Button>
             <MobileNavigation
               isOpen={isMenuOpen}
-              onClose={() => setMenuOpen(false)}
+              onClose={() => { setMenuOpen(false); }}
               menus={menus}
             />
           </div>

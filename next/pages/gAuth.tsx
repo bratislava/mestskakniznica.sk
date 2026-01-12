@@ -23,7 +23,7 @@ const LoadingPage = () => {
           setMessage(
             res.success
               ? 'Subscribed to events successfully.'
-              : // eslint-disable-next-line sonarjs/no-duplicate-string
+              :  
                 'Some error occured, please try again later.',
           )
         })

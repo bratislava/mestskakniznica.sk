@@ -36,7 +36,7 @@ const OpeningHoursChangeAlert = () => {
             const id = `${alertBannerId}-${index}`
 
             return (
-              // eslint-disable-next-line react/no-array-index-key
+               
               <Fragment key={index}>
                 {index > 0 && <hr />}
                 <div className="flex flex-col gap-3">

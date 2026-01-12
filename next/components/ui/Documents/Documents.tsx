@@ -35,7 +35,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
           content: {
             category: type,
             title: docTitle,
-            metadata: contractor ? `${contractor}` : undefined,
+            metadata: contractor ? contractor : undefined,
             fileExt: badgeExt,
           },
         }
@@ -66,7 +66,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
       <div className={cn('flex flex-col', { 'mt-6': !!title })}>
         {parsedDocuments?.map((doc, index) => (
           <DocumentRow
-            // eslint-disable-next-line react/no-array-index-key
+             
             key={index}
             title={doc.content.title}
             fileExt={doc.content.fileExt}

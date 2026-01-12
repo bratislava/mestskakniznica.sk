@@ -1,7 +1,9 @@
+import React from 'react'
+
 import cn from '@/utils/cn'
 
 type FileExtBadgeProps = {
-  fileExt: string | JSX.Element
+  fileExt: string | React.JSX.Element
   className?: string
 }
 

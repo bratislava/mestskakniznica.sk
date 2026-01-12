@@ -28,7 +28,7 @@ type CommonProps = {
 type TextFieldProps = CommonProps & AreaOrInputConditionalProps
 
 const TextField = (props: TextFieldProps) => {
-  // eslint-disable-next-line react/destructuring-assignment
+   
   if (props.area) {
     const {
       id,

@@ -6,7 +6,6 @@ import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import cn from '@/utils/cn'
 
-// eslint-disable-next-line import/no-cycle
 import FormSubmittedComponent from './FormSubmittedComponent'
 
 export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
@@ -78,7 +77,7 @@ const FormContainer = ({
 
   useEffect(() => {
     setFormOpen(isFormOpen && width !== undefined && width > 767)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [width])
 
   useEffect(() => {
@@ -104,7 +103,7 @@ const FormContainer = ({
             {title}
           </div>
           <Button
-            onPress={() => setFormOpen(true)}
+            onPress={() => { setFormOpen(true); }}
             variant="primary"
             aria-labelledby="form-title"
             className={cn({ hidden: isFormOpen })}
@@ -112,11 +111,11 @@ const FormContainer = ({
             {buttonText || t('continue')}
           </Button>
           {isFormOpen && (
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+             
             <form
-              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+               
               tabIndex={0}
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+               
               onSubmit={onSubmit}
               onKeyDown={() => listener}
               className="base-focus-ring fixed inset-0 z-40 flex flex-col bg-white md:relative md:z-0"
@@ -125,7 +124,7 @@ const FormContainer = ({
               <div className="flex items-center justify-between border-b border-border-dark md:hidden">
                 <span className="pl-4">{title}</span>
                 {/* TODO ARIA: adda aria-label */}
-                <Button variant="unstyled" className="p-4" onPress={() => setFormOpen(false)}>
+                <Button variant="unstyled" className="p-4" onPress={() => { setFormOpen(false); }}>
                   <CloseIcon />
                 </Button>
               </div>

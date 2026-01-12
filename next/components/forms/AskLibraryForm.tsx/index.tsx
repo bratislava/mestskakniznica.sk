@@ -46,7 +46,7 @@ const AskLibraryForm = ({ privacyPolicyHref }: CommonFormProps) => {
     .required()
 
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
     defaultValues: {
       fName: '',
       lName: '',
@@ -100,7 +100,7 @@ const AskLibraryForm = ({ privacyPolicyHref }: CommonFormProps) => {
         title={t('ask_library_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
+        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
         successTitle={t('generic_success_title')}
         successMessage={t('generic_success_message')}
         errorMessage={t('generic_error_message')}

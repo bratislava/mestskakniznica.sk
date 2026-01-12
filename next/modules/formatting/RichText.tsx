@@ -15,8 +15,8 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
   const topMargin = '[&:not(:first-child)]:mt-6'
 
   return (
+    <div className={cn('flex flex-col gap-4 text-foreground-body', className)}>
     <ReactMarkdown
-      className={cn('flex flex-col gap-4 text-foreground-body', className)}
       // remarkPlugins={[remarkGfm]}
       // rehypePlugins={[rehypeRaw]}
       components={{
@@ -78,7 +78,7 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
         // TODO this still produces a hydration error, because the remark-unwrap-images only works when image is the only child of the paragraph
         img: ({ src, alt }) => (
           <div className={`-mx-7.5 flex justify-center md:mx-0 ${topMargin}`}>
-            {src ? (
+            {typeof src === 'string' && src ? (
               <Image
                 src={src}
                 alt={alt ?? ''}
@@ -115,6 +115,7 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
     >
       {content ?? ''}
     </ReactMarkdown>
+    </div>
   )
 }
 

@@ -121,7 +121,7 @@ const ServiceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
     .required()
 
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
     defaultValues: {
       fName: '',
       lName: '',
@@ -177,7 +177,7 @@ const ServiceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
         title={t('service_reservation_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
+        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
         successTitle={t('service_success_title')}
         successMessage={t('service_success_message')}
         errorMessage={t('generic_error_message')}

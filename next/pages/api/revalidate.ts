@@ -8,7 +8,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.query.secret !== process.env.REVALIDATE_SECRET_TOKEN) {
     console.log('api/revalidate: Invalid token')
 
-    return res.status(401).json({ message: 'Invalid token' })
+    res.status(401).json({ message: 'Invalid token' });
+
+ return;
   }
 
   try {
@@ -35,7 +37,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // Check model
     if (payload?.model === 'blog-post') {
       // TODO fix eslint
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+       
       const urlToRevalidate = `/blog/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
 
@@ -57,7 +59,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (payload?.model === 'basic-document') {
       // TODO fix eslint
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+       
       const urlToRevalidate = `/documents/${payload?.entry?.slug}`
       console.log(`api/revalidate: Revalidating ${urlToRevalidate}`)
       await res.revalidate(urlToRevalidate)
@@ -65,7 +67,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (payload?.model === 'event') {
       // TODO fix eslint
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+       
       const urlToRevalidate = `/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
 
@@ -89,7 +91,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (payload?.model === 'page') {
       // TODO fix eslint
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+       
       const urlToRevalidate = `/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
       const layout = payload?.entry?.layout as string
@@ -130,11 +132,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
-    return res.json({ revalidated: true })
+    res.json({ revalidated: true }); 
   } catch (error) {
     console.log('api/revalidate: Error while revalidating ==>', error)
 
-    return res.status(500).send('Error revalidating')
+    res.status(500).send('Error revalidating'); 
   }
 }
 /* eslint-enable no-console */

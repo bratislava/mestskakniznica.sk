@@ -42,8 +42,8 @@ export const Upload = ({
             'border-error': hasError,
           },
         )}
-        onDragEnter={() => setIsInArea(true)}
-        onDragLeave={() => setIsInArea(false)}
+        onDragEnter={() => { setIsInArea(true); }}
+        onDragLeave={() => { setIsInArea(false); }}
       >
         <input
           id={id}

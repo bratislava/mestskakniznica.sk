@@ -2,7 +2,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useRef } from 'react'
-import Mapbox, { MapRef, Marker } from 'react-map-gl'
+import Mapbox, { type MapRef, Marker } from 'react-map-gl/mapbox'
 import { useIsClient } from 'usehooks-ts'
 
 import MarkerIcon from '@/assets/images/marker.svg'
@@ -79,7 +79,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
             <Mapbox
               ref={mapRef}
               mapboxAccessToken={mapboxAccessToken}
-              // eslint-disable-next-line react/style-prop-object
+               
               mapStyle="mapbox://styles/bratislava01/ckzrbqd6300ps14p8gpyoq3wr"
               style={{
                 height: '100%',

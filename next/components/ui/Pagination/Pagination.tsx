@@ -67,7 +67,7 @@ export const Pagination = ({ max, value, onChangeNumber }: PaginationProps) => {
           min={1}
           max={max}
           value={displayValue}
-          onChange={(ev) => setDisplayValue(ev.target.value)}
+          onChange={(ev) => { setDisplayValue(ev.target.value); }}
           onKeyPress={(ev) => ev.key === 'Enter' && handleChange(ev)}
         />
         <span>/</span>

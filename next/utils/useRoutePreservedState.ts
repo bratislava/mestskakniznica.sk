@@ -1,7 +1,7 @@
-/* eslint-disable no-restricted-globals */
+ 
 import { useEffect, useState } from 'react'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 const historyStateKeyStateMap = new Map<string, any>()
 
 /**
