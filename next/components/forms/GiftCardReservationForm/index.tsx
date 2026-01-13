@@ -51,7 +51,7 @@ const GiftCardReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const selectOptions = useGetFormOptions(options)
 
   const methods = useForm({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
     defaultValues: {
       fName: '',
       lName: '',
@@ -107,7 +107,7 @@ const GiftCardReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
         title={t('gift_card_reservation_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('gift_card_success_title')}
         successMessage={t('gift_card_success_message')}
         errorMessage={t('order_error_message')}

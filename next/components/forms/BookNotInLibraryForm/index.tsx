@@ -55,7 +55,7 @@ const BookNotInLibraryForm = ({ privacyPolicyHref }: CommonFormProps) => {
     .required()
 
   const methods = useForm({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
     defaultValues: {
       email: '',
       message: '',
@@ -67,7 +67,6 @@ const BookNotInLibraryForm = ({ privacyPolicyHref }: CommonFormProps) => {
           issueDate: '',
         },
       ],
-      acceptFormTerms: false,
       cfTurnstile: '',
     },
   })
@@ -115,7 +114,7 @@ const BookNotInLibraryForm = ({ privacyPolicyHref }: CommonFormProps) => {
         title={t('book_not_in_library_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('book_not_in_library_success_title')}
         successMessage={t('book_not_in_library_success_message')}
         errorMessage={t('generic_error_message')}

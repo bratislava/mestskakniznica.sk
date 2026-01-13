@@ -56,7 +56,7 @@ const SpaceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const selectOptions = useGetFormOptions(options)
 
   const methods = useForm({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
     defaultValues: {
       fName: '',
       lName: '',
@@ -78,6 +78,7 @@ const SpaceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
   const onSpaceUpdate = (item: string, callback: Function) => {
     if (document !== undefined) {
       ;[...document.querySelectorAll('iframe')].forEach((iframe) => {
+        // eslint-disable-next-line no-param-reassign
         iframe.className = 'hidden'
       })
       const selectedIframe = document.querySelector(`#${item}_cal`)
@@ -130,7 +131,7 @@ const SpaceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
         title={t('space_reservation_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('reservation_success_title')}
         successMessage={t('reservation_success_message')}
         errorMessage={t('generic_error_message')}
@@ -217,7 +218,7 @@ const SpaceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
                 errorMessage={t('validation_error_radiogroup')}
                 validationBehavior="aria"
                 value={value}
-                onChange={(opt) => { onSpaceUpdate(opt, onChange); }}
+                onChange={(opt) => onSpaceUpdate(opt, onChange)}
                 isRequired
               />
             )}

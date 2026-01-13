@@ -32,6 +32,7 @@ export const Upload = ({
           {required && <span className="pl-1 text-error">*</span>}
         </label>
       )}
+      {/* eslint-disable react-hooks/refs */}
       <div
         className={cn(
           'group relative flex flex-col items-center justify-center gap-y-6 border border-dashed p-6 ring-offset-2 transition focus-within:ring',
@@ -42,9 +43,10 @@ export const Upload = ({
             'border-error': hasError,
           },
         )}
-        onDragEnter={() => { setIsInArea(true); }}
-        onDragLeave={() => { setIsInArea(false); }}
+        onDragEnter={() => setIsInArea(true)}
+        onDragLeave={() => setIsInArea(false)}
       >
+        {/* eslint-enable react-hooks/refs */}
         <input
           id={id}
           ref={fileInputRef}

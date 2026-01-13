@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import { useEffect, useRef, useState } from 'react'
-import Mapbox, { type MapRef, Marker } from 'react-map-gl/mapbox'
+import Mapbox, { MapRef, Marker } from 'react-map-gl'
 
 import MarkerIcon from '@/assets/images/marker.svg'
 
@@ -23,6 +23,7 @@ export const BranchMap = ({
   const mapRef = useRef<MapRef>(null)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setBrowser(!!typeof window)
   }, [])
 

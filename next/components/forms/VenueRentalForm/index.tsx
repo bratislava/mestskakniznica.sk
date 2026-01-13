@@ -68,7 +68,7 @@ const VenueRentalForm = ({ slug, privacyPolicyHref }: VenueRentalFormProps) => {
   )
 
   const methods = useForm({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
     defaultValues: {
       fName: '',
       lName: '',
@@ -128,7 +128,7 @@ const VenueRentalForm = ({ slug, privacyPolicyHref }: VenueRentalFormProps) => {
         title={t('venue_rental_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('generic_success_title')}
         successMessage={t('generic_success_message')}
         errorMessage={t('generic_error_message')}
@@ -242,7 +242,7 @@ const VenueRentalForm = ({ slug, privacyPolicyHref }: VenueRentalFormProps) => {
                 errorMessage={t('validation_error_radiogroup')}
                 validationBehavior="aria"
                 value={value}
-                onChange={(opt) => { onChange(opt); }}
+                onChange={(opt) => onChange(opt)}
                 isRequired
               />
             )}

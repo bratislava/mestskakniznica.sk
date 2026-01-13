@@ -68,7 +68,7 @@ const InterlibraryLoanServiceFormReader = ({ privacyPolicyHref }: CommonFormProp
     .required()
 
   const methods = useForm({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
     defaultValues: {
       fName: '',
       lName: '',
@@ -158,7 +158,7 @@ const InterlibraryLoanServiceFormReader = ({ privacyPolicyHref }: CommonFormProp
         title={t('interlibrary_loan_reader_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('interlibrary_research_success_title')}
         successMessage={t('interlibrary_research_success_message')}
         errorMessage={t('interlibrary_research_error_message')}
@@ -169,7 +169,7 @@ const InterlibraryLoanServiceFormReader = ({ privacyPolicyHref }: CommonFormProp
           title={t('personal_details')}
           activeStep={step}
           className={cn({ '-mx-8 border border-error px-8': stepOneErrors && step !== 1 })}
-          onClick={() => { setStep(1); }}
+          onClick={() => setStep(1)}
         >
           <div className="flex w-full flex-col gap-y-6">
             <div className="flex flex-col justify-between gap-6 lg:flex-row">
@@ -261,7 +261,7 @@ const InterlibraryLoanServiceFormReader = ({ privacyPolicyHref }: CommonFormProp
               <p className="text-base text-error">{t('please_fill_required_fields')}</p>
             )}
 
-            <Button onPress={() => { triggerFirstStep(); }}>{t('continue')}</Button>
+            <Button onPress={() => triggerFirstStep()}>{t('continue')}</Button>
           </div>
         </StepNumberTitle>
 
@@ -271,7 +271,7 @@ const InterlibraryLoanServiceFormReader = ({ privacyPolicyHref }: CommonFormProp
           title={t('book_list')}
           activeStep={step}
           className="border-b-0 pb-0"
-          onClick={() => { triggerFirstStep(); }}
+          onClick={() => triggerFirstStep()}
         >
           <BookListExtended showLinkInput />
           <Controller

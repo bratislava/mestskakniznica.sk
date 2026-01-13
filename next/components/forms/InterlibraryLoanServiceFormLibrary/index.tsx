@@ -73,7 +73,7 @@ const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormPro
     .required()
 
   const methods = useForm({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
     defaultValues: {
       email: '',
       phone: '',
@@ -162,7 +162,7 @@ const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormPro
         title={formTitle}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('interlibrary_research_success_title')}
         successMessage={t('interlibrary_research_success_message')}
         errorMessage={t('interlibrary_research_error_message')}
@@ -173,7 +173,7 @@ const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormPro
           title={t('personal_and_library_details')}
           activeStep={step}
           className={cn({ '-mx-8 border border-error px-8': stepOneErrors && step !== 1 })}
-          onClick={() => { setStep(1); }}
+          onClick={() => setStep(1)}
         >
           <div className="flex w-full flex-col gap-y-6">
             <Controller
@@ -295,7 +295,7 @@ const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormPro
               <p className="text-base text-error">{t('please_fill_required_fields')}</p>
             )}
 
-            <Button onPress={() => { triggerFirstStep(); }}>{t('continue')}</Button>
+            <Button onPress={() => triggerFirstStep()}>{t('continue')}</Button>
           </div>
         </StepNumberTitle>
 
@@ -305,7 +305,7 @@ const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormPro
           title={t('book_list')}
           activeStep={step}
           className="border-b-0 pb-0"
-          onClick={() => { triggerFirstStep(); }}
+          onClick={() => triggerFirstStep()}
         >
           <BookListExtended />
 

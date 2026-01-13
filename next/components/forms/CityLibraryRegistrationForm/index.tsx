@@ -88,7 +88,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
   const selectOptions = useGetFormOptions(options, false)
 
   const methods = useForm({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
     defaultValues: {
       fName: '',
       lName: '',

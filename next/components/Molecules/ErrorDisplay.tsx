@@ -3,6 +3,7 @@ import * as React from 'react'
 
 import Button from '@/modules/common/Button'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getError = (iError: any) => {
   let errorMessage = iError.response?.errors?.[0]?.message
   if (!errorMessage) errorMessage = iError.message
@@ -39,7 +40,7 @@ const ErrorDisplay = ({ error }: IProps) => {
         <h1>{t('errorDisplay.title')}</h1>
       </header>
       <p className="text-base">{t('errorDisplay.weAreSorry')}</p>
-      <Button className="mt-4" onPress={() => { setOpen((o) => !o); }}>
+      <Button className="mt-4" onPress={() => setOpen((o) => !o)}>
         {open ? t('common.showLess') : t('common.showMore')}
       </Button>
       {open && (

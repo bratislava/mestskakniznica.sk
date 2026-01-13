@@ -79,7 +79,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
   const schema = yup.object(schemaBase).required()
 
   const methods = useForm({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
     defaultValues: {
       fName: '',
       lName: '',
@@ -118,6 +118,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
           day: '2-digit',
         })
       ) {
+        // eslint-disable-next-line react-hooks/set-state-in-render
         setIsDateEditDisabled(true)
       }
 
@@ -128,10 +129,12 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
       })
       // HH:ii
       methods.setValue('eventTime', timeFrom)
+      // eslint-disable-next-line react-hooks/set-state-in-render
       setIsTimeEditDisabled(true)
     }
 
     // disable showing form if is in the past
+    // eslint-disable-next-line react-hooks/set-state-in-render
     setIsEventInThePast(isEventPast(dateTo))
   }, [dateFrom, dateTo, methods])
 
@@ -176,7 +179,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
             title={t('event_reservation_title')}
             onSubmit={handleSubmit}
             isSubmitted={isSubmitted}
-            onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
+            onReset={() => setIsSubmitted(SubmitStatus.NONE)}
             successTitle={t('generic_success_title')}
             successMessage={t('generic_success_message')}
             errorMessage={t('generic_error_message')}
@@ -273,7 +276,8 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
                       <div className="pl-5">
                         <div className="text-foreground-heading">
                           {(title?.length || 0) > 50
-                            ? `${title?.slice(0, 50)}...`
+                            ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                              `${title?.slice(0, 50)}...`
                             : title}
                         </div>
                         <div className="pt-[5px] text-sm text-foreground-body">
@@ -283,6 +287,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
                           />
                         </div>
                         {eventBranch?.title && (
+                          // eslint-disable-next-line i18next/no-literal-string
                           <div className="text-sm text-foreground-body">
                             &#9679; {eventBranch.title}
                           </div>

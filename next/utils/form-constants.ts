@@ -24,6 +24,7 @@ interface IFormLabelOption {
   label: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const convertValue = (value: any) => {
   if (isBoolean(value)) {
     return value ? 'Áno' : 'Nie'
@@ -109,6 +110,7 @@ const key = (k: string, t: TFunction<string>): string =>
   t(getMailTranslationKey(k), { lng: 'sk' })
 
 // TODO fix eslint
+/* eslint-disable @typescript-eslint/no-explicit-any */
 function flattenObject(
   o: any,
   t: TFunction<string>,
@@ -116,6 +118,7 @@ function flattenObject(
   result: { [key: string]: any } = {},
   keepNull = true,
 ) {
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   if (isString(o) || isNumber(o) || isBoolean(o) || isDate(o) || (keepNull && isNull(o))) {
     result[key(prefix, t)] = convertValue(o)
 
@@ -123,6 +126,7 @@ function flattenObject(
   }
 
   if (isArray(o) || isPlainObject(o)) {
+    // eslint-disable-next-line guard-for-in
     for (const i in o) {
       let pref = key(prefix, t)
       if (isArray(o)) {

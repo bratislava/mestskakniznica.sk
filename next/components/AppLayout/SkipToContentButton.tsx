@@ -8,7 +8,7 @@ const handleSkip = () => {
   if (contentElement) {
     contentElement.setAttribute('tabindex', '0')
     contentElement.focus()
-    setTimeout(() => { contentElement.removeAttribute('tabindex'); }, 1000)
+    setTimeout(() => contentElement.removeAttribute('tabindex'), 1000)
   }
 }
 

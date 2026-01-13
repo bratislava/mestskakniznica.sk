@@ -2,7 +2,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useRef } from 'react'
-import Mapbox, { type MapRef, Marker } from 'react-map-gl/mapbox'
+import Mapbox, { MapRef, Marker } from 'react-map-gl'
 import { useIsClient } from 'usehooks-ts'
 
 import MarkerIcon from '@/assets/images/marker.svg'
@@ -84,6 +84,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                 height: '100%',
                 width: '100%',
               }}
+              /* eslint-disable react-hooks/refs */
               initialViewState={{
                 bounds: initialBounds.current,
                 fitBoundsOptions: {
@@ -91,6 +92,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                   offset: [0, 10],
                 },
               }}
+              /* eslint-enable react-hooks/refs */
               cooperativeGestures
             >
               {branches

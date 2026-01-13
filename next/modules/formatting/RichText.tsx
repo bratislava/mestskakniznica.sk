@@ -15,8 +15,8 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
   const topMargin = '[&:not(:first-child)]:mt-6'
 
   return (
-    <div className={cn('flex flex-col gap-4 text-foreground-body', className)}>
     <ReactMarkdown
+      className={cn('flex flex-col gap-4 text-foreground-body', className)}
       // remarkPlugins={[remarkGfm]}
       // rehypePlugins={[rehypeRaw]}
       components={{
@@ -115,7 +115,6 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
     >
       {content ?? ''}
     </ReactMarkdown>
-    </div>
   )
 }
 

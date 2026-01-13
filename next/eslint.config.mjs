@@ -9,7 +9,6 @@ export default [
   // TODO: These rules require work to fix and were skipped over in eslint v9 upgrade
   {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unsafe-enum-comparison': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
@@ -17,7 +16,6 @@ export default [
       '@typescript-eslint/array-type': 'off',
       '@typescript-eslint/no-redundant-type-constituents': 'off',
       '@typescript-eslint/promise-function-async': 'off',
-      '@typescript-eslint/restrict-template-expressions': 'off',
       'sonarjs/slow-regex': 'off',
       'sonarjs/prefer-regexp-exec': 'off',
       'security/detect-unsafe-regex': 'off',
@@ -25,7 +23,6 @@ export default [
       'no-implicit-coercion': 'off',
       '@typescript-eslint/no-unnecessary-condition': 'warn', // 170 violations
       '@typescript-eslint/no-unused-vars': 'warn', // 155 violations
-      '@typescript-eslint/no-confusing-void-expression': 'warn', // 90 violations
       '@typescript-eslint/no-unsafe-member-access': 'warn', // 52 violations
       '@typescript-eslint/no-deprecated': 'warn', // 25 violations
       '@typescript-eslint/ban-ts-comment': 'warn', // 16 violations

@@ -56,7 +56,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
             <Button
               variant="unstyled"
               className="absolute right-3 top-3 cursor-pointer"
-              onPress={() => { handleRemoveBook(index); }}
+              onPress={() => handleRemoveBook(index)}
               aria-label={t('remove_book')}
             >
               <CloseCircleIcon />

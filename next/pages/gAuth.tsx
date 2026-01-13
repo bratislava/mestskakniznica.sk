@@ -23,11 +23,11 @@ const LoadingPage = () => {
           setMessage(
             res.success
               ? 'Subscribed to events successfully.'
-              :  
-                'Some error occured, please try again later.',
+              : 'Some error occured, please try again later.',
           )
         })
       } else {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setMessage('Some error occured, please try again later.')
       }
     } catch (error) {

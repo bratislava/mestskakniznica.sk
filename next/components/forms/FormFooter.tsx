@@ -97,10 +97,10 @@ const FormFooter = ({
       />
       <Turnstile
         sitekey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY as string}
-        onVerify={(token) => { methods.setValue('cfTurnstile', token); }}
-        onError={() => { methods.setValue('cfTurnstile', null); }}
-        onTimeout={() => { methods.setValue('cfTurnstile', null); }}
-        onExpire={() => { methods.setValue('cfTurnstile', null); }}
+        onVerify={(token) => methods.setValue('cfTurnstile', token)}
+        onError={() => methods.setValue('cfTurnstile', null)}
+        onTimeout={() => methods.setValue('cfTurnstile', null)}
+        onExpire={() => methods.setValue('cfTurnstile', null)}
         className="!mt-0"
         theme="light"
       />

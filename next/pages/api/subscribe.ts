@@ -25,6 +25,7 @@ const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
       return;
     }
     throw new Error('Invalid audience.')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).json({ error: error.message || error.toString() }); 
   }

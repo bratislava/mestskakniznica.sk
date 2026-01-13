@@ -41,6 +41,7 @@ export const Listing = ({ className, title, url, listingChildren, hasDivider }: 
 
       <div className="mt-4 grid grid-cols-1 gap-y-2 md:mt-6 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
         {listingChildren?.map((page, index) => (
+          // eslint-disable-next-line react/no-array-index-key
           <div key={index}>
             <div className="hidden md:block">
               <PageCard

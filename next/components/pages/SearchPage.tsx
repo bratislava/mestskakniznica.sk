@@ -103,6 +103,7 @@ const SearchPage = () => {
       })
       setLastInputForPlausible(sanitizedInput)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedInputForPlausible])
 
   const { breadcrumbs } = useNavikronos()
@@ -175,6 +176,7 @@ const SearchPage = () => {
                   )
 
                   return (
+                    // eslint-disable-next-line react/no-array-index-key
                     <li key={index}>
                       <CardWrapper className="group relative flex items-center justify-between gap-x-6 border-b border-border-dark py-4">
                         <div className="flex grow flex-col gap-y-2">

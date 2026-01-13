@@ -55,7 +55,7 @@ const ReaderReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
 
   const selectOptions = useGetFormOptions(options)
   const methods = useForm({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
     defaultValues: {
       fName: '',
       lName: '',
@@ -114,7 +114,7 @@ const ReaderReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
         title={t('reader_reservation_title')}
         onSubmit={handleSubmit}
         isSubmitted={isSubmitted}
-        onReset={() => { setIsSubmitted(SubmitStatus.NONE); }}
+        onReset={() => setIsSubmitted(SubmitStatus.NONE)}
         successTitle={t('reservation_success_title')}
         successMessage={t('reservation_success_message')}
         errorMessage={t('generic_error_message')}
@@ -293,7 +293,7 @@ const ReaderReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
                 errorMessage={t('validation_error_radiogroup')}
                 validationBehavior="aria"
                 value={value}
-                onChange={(opt) => { onChange(opt); }}
+                onChange={(opt) => onChange(opt)}
                 isRequired
               />
             )}
