@@ -1,4 +1,4 @@
-import { navikronosConfig } from '@/utils/navikronos'
+import { navikronosConfig } from '@/utils/navikronosConfig'
 
 import { getNavikronosMiddleware } from './navikronos/getNavikronosMiddleware'
 

@@ -5,7 +5,6 @@ import { CheckNoPaddingIcon, CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import cn from '@/utils/cn'
 
-// eslint-disable-next-line import/no-cycle
 import { SubmitStatus } from './FormContainer'
 
 type IProps = {

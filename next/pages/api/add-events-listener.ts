@@ -7,7 +7,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { model, entry } = req.body
   if (model === 'page' && entry.layout === 'event') {
     const eventSection = entry.sections.find(
-      // eslint-disable-next-line no-underscore-dangle
+      // eslint-disable-next-line no-underscore-dangle, @typescript-eslint/no-explicit-any
       (ele: any) => ele.__component === 'sections.event-details',
     )
     if (!eventSection.eventTitle || !eventSection.dateFrom || !eventSection.dateTo) {
@@ -18,6 +18,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // @ts-ignore
     const subscriberList = await client.EventSubscribers()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     subscriberList.eventSubscriptions?.map((user: any) => {
       const gAuthClient = new google.auth.OAuth2(
         process.env.GOOGLE_CLIENT_ID,

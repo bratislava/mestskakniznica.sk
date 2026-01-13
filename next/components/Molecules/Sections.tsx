@@ -1,4 +1,5 @@
 import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 import AskLibraryForm from '@/components/forms/AskLibraryForm.tsx'
 import BookNotInLibraryForm from '@/components/forms/BookNotInLibraryForm'
@@ -44,9 +45,9 @@ import { useNavikronos } from '@/utils/navikronos'
 import { parseSubpages } from '@/utils/page'
 
 type FormsProps =
-  | (() => JSX.Element)
-  | ((props: VenueRentalFormProps) => JSX.Element)
-  | ((props: CommonFormProps) => JSX.Element)
+  | (() => React.JSX.Element)
+  | ((props: VenueRentalFormProps) => React.JSX.Element)
+  | ((props: CommonFormProps) => React.JSX.Element)
 
 interface dynamicObject {
   [key: string]: FormsProps

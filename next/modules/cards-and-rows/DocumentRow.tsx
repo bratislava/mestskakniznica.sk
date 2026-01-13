@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
 import ChevronRight from '@/assets/images/chevron-right.svg'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
@@ -9,7 +9,7 @@ import FormatDate from '@/modules/formatting/FormatDate'
 
 type DocumentRowProps = {
   title: string
-  fileExt: string | JSX.Element
+  fileExt: string | React.JSX.Element
   linkHref: string | null
   category?: string
   metadata?: ReactNode

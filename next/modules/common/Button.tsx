@@ -1,5 +1,5 @@
 import { LinkButtonProps } from '@react-types/button'
-import { forwardRef, ReactNode, Ref, RefObject } from 'react'
+import React, { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
 
 import MLink from '@/modules/common/MLink'
@@ -42,8 +42,8 @@ export type AnchorProps = Omit<AriaButtonProps<'a'>, 'isDisabled'> &
 export type PolymorphicProps = ButtonProps | AnchorProps
 
 type PolymorphicButton = {
-  (props: AnchorProps): JSX.Element
-  (props: ButtonProps): JSX.Element
+  (props: AnchorProps): React.JSX.Element
+  (props: ButtonProps): React.JSX.Element
 }
 
 /**

@@ -6,7 +6,6 @@ import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
 import cn from '@/utils/cn'
 
-// eslint-disable-next-line import/no-cycle
 import FormSubmittedComponent from './FormSubmittedComponent'
 
 export const phoneRegex = /(^(\+\d{1,3}|0)(?: ?\d{3}){3}$)/
@@ -116,7 +115,6 @@ const FormContainer = ({
             <form
               // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
               tabIndex={0}
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
               onSubmit={onSubmit}
               onKeyDown={() => listener}
               className="base-focus-ring fixed inset-0 z-40 flex flex-col bg-white md:relative md:z-0"
