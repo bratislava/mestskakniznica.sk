@@ -30,7 +30,7 @@ const LoadingPage = () => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setMessage('Some error occured, please try again later.')
       }
-    } catch (error) {
+    } catch {
       setMessage('Some error occured, please try again later.')
     }
   }, [code])

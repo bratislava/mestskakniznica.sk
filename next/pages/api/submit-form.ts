@@ -43,7 +43,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== 'POST' /* || typeof req.body !== 'object' */) {
       res.status(400).json({});
-      return;
+      
+      return
     }
 
     const body = JSON.parse(req.body)
@@ -65,21 +66,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       console.log('Captcha variables not defined')
 
       res.status(500).json({ error: 'Captcha variables not defined' });
-      return;
+
+      return
     }
 
     if (!cfTurnstile) {
       console.log('Captcha token not provided')
 
       res.status(500).json({ error: 'Captcha token not provided' });
-      return;
+
+      return
     }
 
     if (!available_emails.has(mg_email_to)) {
       console.log('email is not in whitelist')
 
       res.status(500).json({ error: 'generic error' });
-      return;
+
+      return
     }
 
     const text = reduce(
@@ -111,7 +115,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       console.log('Captcha validation failed')
 
       res.status(500).json({ error: 'Captcha validation failed' });
-      return;
+
+      return
     }
 
     await messenger.messages().send(dataToSend)

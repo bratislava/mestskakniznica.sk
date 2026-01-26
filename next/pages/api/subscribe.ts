@@ -11,7 +11,8 @@ const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (!email) {
     res.status(400).json({ error: 'Email is required' });
-    return;
+
+    return
   }
 
   try {
@@ -22,7 +23,8 @@ const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
       })
 
       res.status(201).json({ error: '' });
-      return;
+
+      return
     }
     throw new Error('Invalid audience.')
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

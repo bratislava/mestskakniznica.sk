@@ -10,7 +10,6 @@ export type NextRedirectServerSideProps =
       }
     }
   | { notFound: boolean }
-  | void
 
 // tends to work better then GetServerSidePropsResult - gives you inferred props only for when the page component actually renders
 // use as follows: AsyncServerProps<typeof getServerSideProps>

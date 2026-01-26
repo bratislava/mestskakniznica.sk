@@ -9,8 +9,9 @@ const handler = (_req: NextApiRequest, res: NextApiResponse) => {
         User-agent: *
         Disallow: /api/
       `,
-    );
-    return;
+    )
+
+    return
   }
 
   /* If not in production, disallow to crawl the website completely */
@@ -19,7 +20,7 @@ const handler = (_req: NextApiRequest, res: NextApiResponse) => {
       User-Agent: *
       Disallow: /
     `,
-  );
+  )
 }
 
 export default handler

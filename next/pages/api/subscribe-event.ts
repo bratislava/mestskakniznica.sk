@@ -11,8 +11,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   )
   try {
     if (req.method !== 'POST') {
-      res.status(400).json({});
-      return;
+      res.status(400).json({})
+      
+      return
     }
     const { code } = JSON.parse(req.body)
     const { tokens } = await oauth2Client.getToken(code)

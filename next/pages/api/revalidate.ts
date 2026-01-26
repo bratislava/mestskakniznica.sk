@@ -8,8 +8,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.query.secret !== process.env.REVALIDATE_SECRET_TOKEN) {
     console.log('api/revalidate: Invalid token')
 
-    res.status(401).json({ message: 'Invalid token' });
-    return;
+    res.status(401).json({ message: 'Invalid token' })
+
+    return
   }
 
   try {
