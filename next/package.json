@@ -73,7 +73,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@bratislava/eslint-config-next": "0.6.0",
+    "@bratislava/eslint-config-next": "0.7.0",
     "@graphql-codegen/cli": "5.0.4",
     "@graphql-codegen/typescript": "4.1.3",
     "@graphql-codegen/typescript-graphql-request": "6.2.0",
