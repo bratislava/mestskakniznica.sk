@@ -78,7 +78,7 @@ export const RichText = ({ className, paragraphClassName, content }: HomepageMar
         // TODO this still produces a hydration error, because the remark-unwrap-images only works when image is the only child of the paragraph
         img: ({ src, alt }) => (
           <div className={`-mx-7.5 flex justify-center md:mx-0 ${topMargin}`}>
-            {src ? (
+            {typeof src === 'string' && src ? (
               <Image
                 src={src}
                 alt={alt ?? ''}

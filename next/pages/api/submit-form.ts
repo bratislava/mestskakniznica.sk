@@ -42,7 +42,9 @@ const available_emails = new Set([
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== 'POST' /* || typeof req.body !== 'object' */) {
-      return res.status(400).json({})
+      res.status(400).json({});
+      
+      return
     }
 
     const body = JSON.parse(req.body)
@@ -63,19 +65,25 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     ) {
       console.log('Captcha variables not defined')
 
-      return res.status(500).json({ error: 'Captcha variables not defined' })
+      res.status(500).json({ error: 'Captcha variables not defined' });
+
+      return
     }
 
     if (!cfTurnstile) {
       console.log('Captcha token not provided')
 
-      return res.status(500).json({ error: 'Captcha token not provided' })
+      res.status(500).json({ error: 'Captcha token not provided' });
+
+      return
     }
 
     if (!available_emails.has(mg_email_to)) {
       console.log('email is not in whitelist')
 
-      return res.status(500).json({ error: 'generic error' })
+      res.status(500).json({ error: 'generic error' });
+
+      return
     }
 
     const text = reduce(
@@ -106,16 +114,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (cfResponse.success !== true) {
       console.log('Captcha validation failed')
 
-      return res.status(500).json({ error: 'Captcha validation failed' })
+      res.status(500).json({ error: 'Captcha validation failed' });
+
+      return
     }
 
     await messenger.messages().send(dataToSend)
 
-    return res.status(200).json({})
+    res.status(200).json({}); 
   } catch (error) {
     console.error(error)
 
-    return res.status(500).json({ error: 'generic error' })
+    res.status(500).json({ error: 'generic error' }); 
   }
 }
 

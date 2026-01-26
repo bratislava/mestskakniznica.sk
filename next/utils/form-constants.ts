@@ -24,6 +24,7 @@ interface IFormLabelOption {
   label: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const convertValue = (value: any) => {
   if (isBoolean(value)) {
     return value ? 'Áno' : 'Nie'
@@ -105,26 +106,27 @@ const getMailTranslationKey = (key: string): string => {
   return translationMap.find((item) => item.key === key)?.value ?? key
 }
 
-const key = (k: string, t: TFunction<string, undefined>): string =>
+const key = (k: string, t: TFunction<string>): string =>
   t(getMailTranslationKey(k), { lng: 'sk' })
 
 // TODO fix eslint
+/* eslint-disable @typescript-eslint/no-explicit-any */
 function flattenObject(
   o: any,
-  t: TFunction<string, undefined>,
+  t: TFunction<string>,
   prefix = '',
   result: { [key: string]: any } = {},
   keepNull = true,
 ) {
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   if (isString(o) || isNumber(o) || isBoolean(o) || isDate(o) || (keepNull && isNull(o))) {
-    // eslint-disable-next-line no-param-reassign
     result[key(prefix, t)] = convertValue(o)
 
     return result
   }
 
   if (isArray(o) || isPlainObject(o)) {
-    // eslint-disable-next-line no-restricted-syntax, guard-for-in
+    // eslint-disable-next-line guard-for-in
     for (const i in o) {
       let pref = key(prefix, t)
       if (isArray(o)) {
@@ -143,7 +145,7 @@ function flattenObject(
   return result
 }
 
-export const convertDataToBody = (data: object, t: TFunction<string, undefined>) =>
+export const convertDataToBody = (data: object, t: TFunction<string>) =>
   flattenObject(data, t)
 
 export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRadioOption[] => {

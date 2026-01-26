@@ -23,14 +23,14 @@ const LoadingPage = () => {
           setMessage(
             res.success
               ? 'Subscribed to events successfully.'
-              : // eslint-disable-next-line sonarjs/no-duplicate-string
-                'Some error occured, please try again later.',
+              : 'Some error occured, please try again later.',
           )
         })
       } else {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setMessage('Some error occured, please try again later.')
       }
-    } catch (error) {
+    } catch {
       setMessage('Some error occured, please try again later.')
     }
   }, [code])

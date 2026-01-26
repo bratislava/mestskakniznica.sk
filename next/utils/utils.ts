@@ -2,7 +2,7 @@ import prettyBytes from 'pretty-bytes'
 
 import { isDefined } from './isDefined'
 
-export const isPresent = <U>(value: U | null | undefined | void): value is U => {
+export const isPresent = <U>(value: U | null | undefined): value is U => {
   return value !== null && value !== undefined
 }
 

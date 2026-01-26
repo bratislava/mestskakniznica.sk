@@ -95,7 +95,7 @@ const DocumentsListingSection = () => {
           const metadata =
             type === 'disclosure' && document.contractor ? `${document.contractor}` : undefined
 
-          let badgeExt: string | JSX.Element = ''
+          let badgeExt: string | React.JSX.Element = ''
           if (Array.isArray(file)) {
             badgeExt =
               file.length > 1 ? (

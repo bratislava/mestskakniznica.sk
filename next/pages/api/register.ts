@@ -5,7 +5,9 @@ import { opacBaseUrl } from '@/utils/consts'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== 'POST' /* || typeof req.body !== 'object' */) {
-      return res.status(400).json({})
+      res.status(400).json({})
+
+      return
     }
 
     if (
@@ -14,7 +16,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     ) {
       console.log('Captcha variables not defined')
 
-      return res.status(500).json({})
+      res.status(500).json({})
+
+      return
     }
 
     const body = JSON.parse(req.body)
@@ -23,7 +27,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!cfTurnstile) {
       console.log('Captcha token not provided')
 
-      return res.status(500).json({})
+      res.status(500).json({})
+      
+      return
     }
 
     const cfForm = new URLSearchParams()
@@ -39,7 +45,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (cfResponse.success !== true) {
       console.log('Captcha validation failed')
 
-      return res.status(500).json({})
+      res.status(500).json({})
+      
+      return
     }
 
     const reqid = Date.now()
@@ -100,12 +108,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const resultData = JSON.parse(resultDataText).trim() // trim needed because of BOM and parse fails
     console.log('OPAC response', resultData.response)
 
-    return res.status(200).json(resultData.response)
+    res.status(200).json(resultData.response)
   } catch (error) {
     console.log('OPAC error', error)
     console.error(error)
 
-    return res.status(500).json({
+    res.status(500).json({
       reqid: '',
       status: '500',
       message: null,

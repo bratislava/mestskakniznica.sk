@@ -118,6 +118,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
           day: '2-digit',
         })
       ) {
+        // eslint-disable-next-line react-hooks/set-state-in-render
         setIsDateEditDisabled(true)
       }
 
@@ -128,10 +129,12 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
       })
       // HH:ii
       methods.setValue('eventTime', timeFrom)
+      // eslint-disable-next-line react-hooks/set-state-in-render
       setIsTimeEditDisabled(true)
     }
 
     // disable showing form if is in the past
+    // eslint-disable-next-line react-hooks/set-state-in-render
     setIsEventInThePast(isEventPast(dateTo))
   }, [dateFrom, dateTo, methods])
 

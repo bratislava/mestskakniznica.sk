@@ -3,6 +3,7 @@ import * as React from 'react'
 
 import Button from '@/modules/common/Button'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getError = (iError: any) => {
   let errorMessage = iError.response?.errors?.[0]?.message
   if (!errorMessage) errorMessage = iError.message

@@ -10,7 +10,9 @@ const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
   const { email } = req.body
 
   if (!email) {
-    return res.status(400).json({ error: 'Email is required' })
+    res.status(400).json({ error: 'Email is required' });
+
+    return
   }
 
   try {
@@ -20,11 +22,14 @@ const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
         status: 'subscribed',
       })
 
-      return res.status(201).json({ error: '' })
+      res.status(201).json({ error: '' });
+
+      return
     }
     throw new Error('Invalid audience.')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    return res.status(500).json({ error: error.message || error.toString() })
+    res.status(500).json({ error: error.message || error.toString() }); 
   }
 }
 

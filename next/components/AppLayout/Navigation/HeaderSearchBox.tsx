@@ -40,10 +40,8 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const handleSearch = () => {
     if (searchOptions === 'in_catalogue') {
       if (input === '') {
-        // eslint-disable-next-line security/detect-non-literal-fs-filename
         window.open(opacBaseUrl, '_blank')
       } else {
-        // eslint-disable-next-line security/detect-non-literal-fs-filename
         window.open(`${opacBaseUrl}?fn=searchform&extSrchTitle=${input}`, '_blank')
       }
       setOpen(false)
