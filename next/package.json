@@ -30,6 +30,7 @@
     "@react-aria/utils": "3.27.0",
     "@react-stately/utils": "3.10.5",
     "@tanstack/react-query": "^5.66.0",
+    "axios": "^1.7.9",
     "clsx": "2.1.1",
     "date-fns": "^2.29.1",
     "focus-trap-react": "^11.0.3",
