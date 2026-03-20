@@ -26,7 +26,6 @@
   "dependencies": {
     "@hookform/resolvers": "^2.8.5",
     "@internationalized/date": "3.7.0",
-    "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@react-aria/utils": "3.27.0",
     "@react-stately/utils": "3.10.5",
@@ -79,7 +78,6 @@
     "@graphql-codegen/typescript-operations": "4.4.1",
     "@svgr/webpack": "8.1.0",
     "@types/lodash": "^4.17.15",
-    "@types/mailchimp__mailchimp_marketing": "^3.0.21",
     "@types/mailgun-js": "^0.22.18",
     "@types/node": "18.19.75",
     "@types/react": "19.2.8",
