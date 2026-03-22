@@ -12,7 +12,7 @@ export const VALID_NEWSLETTER_TAGS = [
   NEWSLETTER_TAG_CHILDREN,
 ] as const
 
-// Ecomail docs: https://ecomailczv2.docs.apiary.io/#reference/lists/list-subscribe/add-new-subscriber-to-list
+// Ecomail docs: https://docs.ecomail.cz/api-reference/lists/subscribe
 const ECOMAIL_LIST_ID = 1
 const ECOMAIL_ADD_SUBSCRIBER_URL = `https://api2.ecomailapp.cz/lists/${ECOMAIL_LIST_ID}/subscribe`
 
@@ -45,10 +45,11 @@ const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
       {
         subscriber_data: {
           email,
-          firstName,
-          lastName,
+          name: firstName,
+          surname: lastName,
           tags: validTags,
         },
+        update_existing: true,
       },
       {
         headers: {

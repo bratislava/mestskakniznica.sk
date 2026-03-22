@@ -40,7 +40,7 @@ export const useNewsletterSection = () => {
       newsletterBooks: yup.boolean(),
       newsletterChildren: yup.boolean(),
       acceptTerms: yup.boolean().isTrue(),
-      // newsletterSelection is used to show an error when no newsletter is selected
+      // show an error when no newsletter is selected
       newsletterSelection: yup.boolean(),
     })
     .test('atLeastOneNewsletter', '', (values, ctx) =>
@@ -66,7 +66,7 @@ export const useNewsletterSection = () => {
     },
   })
 
-  const [responseStatus, setResponseStatus] = useState(false)
+  const [isSubscribeSuccessful, setIsSubscribeSuccessfull] = useState(false)
   const [responseMessage, setResponseMessage] = useState('')
 
   const subscribeMutation = useMutation({
@@ -75,7 +75,7 @@ export const useNewsletterSection = () => {
         headers: { 'Content-Type': 'application/json' },
       }),
     onSuccess: () => {
-      setResponseStatus(true)
+      setIsSubscribeSuccessfull(true)
       methods.reset(undefined, { keepDefaultValues: true })
       setResponseMessage(t('newsletterSection.subscribe.successMessage'))
     },
@@ -98,5 +98,11 @@ export const useNewsletterSection = () => {
     })
   })
 
-  return { methods, handleSubmit, responseStatus, responseMessage }
+  return {
+    methods,
+    handleSubmit,
+    responseMessage,
+    isSubscribeSuccessful,
+    isSubscribePending: subscribeMutation.isPending,
+  }
 }

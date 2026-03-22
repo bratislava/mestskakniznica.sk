@@ -9,7 +9,8 @@ import { SectionContainer } from '@/components/ui/SectionContainer/SectionContai
  */
 
 const NewsletterSection = () => {
-  const { methods, handleSubmit, responseStatus, responseMessage } = useNewsletterSection()
+  const { methods, handleSubmit, isSubscribeSuccessful, responseMessage, isSubscribePending } =
+    useNewsletterSection()
 
   return (
     <FormProvider {...methods}>
@@ -20,7 +21,8 @@ const NewsletterSection = () => {
         <NewsLetter
           onSubmit={handleSubmit}
           responseMessage={responseMessage}
-          responseStatus={responseStatus}
+          isSubscribeSuccessful={isSubscribeSuccessful}
+          isSubscribePending={isSubscribePending}
         />
       </SectionContainer>
     </FormProvider>
