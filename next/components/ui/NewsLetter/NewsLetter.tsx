@@ -62,7 +62,7 @@ const NewsletterCheckBox = ({ name, label }: { name: string; label: string }) =>
       name={name}
       defaultValue={false}
       render={({ field: { onChange, value, name: fieldName } }) => (
-        <div className="border border-border-light px-3 py-2 lg:px-4 lg:py-2">
+        <div className="border border-border-light px-3 py-2 max-lg:w-full lg:px-4">
           <CheckBox
             id={`newsletter-${name}`}
             name={fieldName}
@@ -124,18 +124,18 @@ const NewsletterForm = ({
       <div className="flex flex-col gap-8">
         <NewsletterFormSection
           id="newsletter-your-data"
-          title={t('newsletterSection.yourData')}
-          description={t('newsletterSection.yourDataDescription')}
+          title={t('Newsletter.yourData')}
+          description={t('Newsletter.yourDataDescription')}
         >
           <div className="flex flex-col flex-wrap gap-x-4 gap-y-6 lg:flex-row">
             <NewsletterTextField
               name="firstName"
-              label={t('newsletterSection.firstName')}
+              label={t('Newsletter.firstName')}
               className="grow"
             />
             <NewsletterTextField
               name="lastName"
-              label={t('newsletterSection.lastName')}
+              label={t('Newsletter.lastName')}
               className="grow"
             />
 
@@ -143,7 +143,7 @@ const NewsletterForm = ({
               name="email"
               type="email"
               required
-              label={t('newsletterSection.emailLabel')}
+              label={t('Newsletter.email')}
               className="lg:basis-full"
             />
           </div>
@@ -151,30 +151,30 @@ const NewsletterForm = ({
 
         <NewsletterFormSection
           id="newsletter-choice"
-          title={t('newsletterSection.newsletterChoice')}
-          description={t('newsletterSection.newsletterChoiceDescription')}
+          title={t('Newsletter.newsletterPreference')}
+          description={t('Newsletter.newsletterPreferenceDescription')}
         >
           <div
             className="flex flex-wrap gap-2 lg:gap-4"
             role="group"
-            aria-label={t('newsletterSection.newsletterChoice')}
+            aria-label={t('Newsletter.newsletterPreference')}
           >
             <NewsletterCheckBox
               name="newsletterGeneral"
-              label={t('newsletterSection.newsletterGeneral')}
+              label={t('Newsletter.newsletterPreference.general')}
             />
             <NewsletterCheckBox
               name="newsletterBooks"
-              label={t('newsletterSection.newsletterBooks')}
+              label={t('Newsletter.newsletterPreference.books')}
             />
             <NewsletterCheckBox
               name="newsletterChildren"
-              label={t('newsletterSection.newsletterChildren')}
+              label={t('Newsletter.newsletterPreference.children')}
             />
           </div>
 
           {!!errors.newsletterSelection && (
-            <p className="text-base text-error">{t('newsletterSection.newsletterError')}</p>
+            <p className="text-base text-error">{t('Newsletter.newsletterPreference.error')}</p>
           )}
         </NewsletterFormSection>
       </div>
@@ -185,7 +185,7 @@ const NewsletterForm = ({
         defaultValue={false}
         render={({ field: { onChange, value, name } }) => (
           <>
-            <div className="flex items-start gap-3.5 text-foreground-body">
+            <div className="flex gap-3.5 text-foreground-body">
               <CheckBox
                 id="acceptTerms"
                 name={name}
@@ -194,21 +194,21 @@ const NewsletterForm = ({
                 isInvalid={!!errors.acceptTerms}
                 aria-labelledby={consentLabelId}
                 validationBehavior="aria"
-                className="-m-3 p-3"
+                className="-m-3 grow-0 p-3"
               />
               <span id={consentLabelId} className="text-base">
-                {t('newsletterSection.consent')}
+                {t('Newsletter.consent')}
                 <MLink
-                  href={t('newsletterSection.consentLinkHref')}
+                  href={t('Newsletter.consent.privacyPageLink.href')}
                   target="_blank"
                   variant="richtext"
                 >
-                  {t('newsletterSection.consentLinkLabel')}
+                  {t('Newsletter.consent.privacyPageLink.label')}
                 </MLink>
               </span>
             </div>
             {!!errors.acceptTerms && (
-              <p className="text-base text-error">{t('newsletterSection.consentError')}</p>
+              <p className="text-base text-error">{t('Newsletter.consent.error')}</p>
             )}
           </>
         )}
@@ -226,7 +226,7 @@ const NewsletterForm = ({
       )}
 
       <Button type="submit" className="w-full" disabled={isSubscribePending}>
-        {isSubscribePending ? t('newsletterSection.button.pending') : t('newsletterSection.button')}
+        {isSubscribePending ? t('Newsletter.submitButton.pending') : t('Newsletter.submitButton')}
       </Button>
     </form>
   )
@@ -246,7 +246,7 @@ const NewsLetter = ({
 
   return (
     <div className={cn('mx-auto flex max-w-[48.75rem] flex-col items-center justify-center gap-6')}>
-      <h2 className="text-center text-h2">{t('newsletterSection.title')}</h2>
+      <h2 className="text-center text-h2">{t('Newsletter.title')}</h2>
       <NewsletterForm
         onSubmit={onSubmit}
         responseMessage={responseMessage}

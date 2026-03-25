@@ -44,7 +44,7 @@ export const useNewsletterSection = () => {
         ? true
         : ctx.createError({
             path: 'newsletterSelection',
-            message: t('newsletterSection.newsletterError'),
+            message: t('Newsletter.newsletterPreference.error'),
           }),
     )
 
@@ -73,10 +73,10 @@ export const useNewsletterSection = () => {
     onSuccess: () => {
       setIsSubscribeSuccessfull(true)
       methods.reset(undefined, { keepDefaultValues: true })
-      setResponseMessage(t('newsletterSection.subscribe.successMessage'))
+      setResponseMessage(t('Newsletter.subscribe.successMessage'))
     },
     onError: () => {
-      setResponseMessage(t('newsletterSection.subscribe.errorMessage'))
+      setResponseMessage(t('Newsletter.subscribe.errorMessage'))
     },
   })
 
