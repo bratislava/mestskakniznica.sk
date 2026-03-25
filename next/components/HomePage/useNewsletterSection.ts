@@ -6,11 +6,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import {
-  NEWSLETTER_TAG_BOOKS,
-  NEWSLETTER_TAG_CHILDREN,
-  NEWSLETTER_TAG_GENERAL,
-} from '@/pages/api/subscribe'
+import { ECOMAIL_NEWSLETTER_CONFIG } from '@/pages/api/subscribe'
 
 type NewsletterFormValues = {
   firstName: string
@@ -24,7 +20,7 @@ type NewsletterFormValues = {
 }
 
 type SubscribePayload = Pick<NewsletterFormValues, 'email' | 'firstName' | 'lastName'> & {
-  newsletterTags: string[]
+  newsletterPreferences: string[]
 }
 
 export const useNewsletterSection = () => {
@@ -85,16 +81,19 @@ export const useNewsletterSection = () => {
   })
 
   const handleSubmit = methods.handleSubmit((data) => {
-    const newsletterTags: string[] = []
-    if (data.newsletterGeneral) newsletterTags.push(NEWSLETTER_TAG_GENERAL)
-    if (data.newsletterBooks) newsletterTags.push(NEWSLETTER_TAG_BOOKS)
-    if (data.newsletterChildren) newsletterTags.push(NEWSLETTER_TAG_CHILDREN)
+    const newsletterPreferences = []
+    if (data.newsletterGeneral)
+      newsletterPreferences.push(ECOMAIL_NEWSLETTER_CONFIG.preferenceOptions.general)
+    if (data.newsletterBooks)
+      newsletterPreferences.push(ECOMAIL_NEWSLETTER_CONFIG.preferenceOptions.books)
+    if (data.newsletterChildren)
+      newsletterPreferences.push(ECOMAIL_NEWSLETTER_CONFIG.preferenceOptions.children)
 
     subscribeMutation.mutate({
       email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
-      newsletterTags,
+      newsletterPreferences,
     })
   })
 

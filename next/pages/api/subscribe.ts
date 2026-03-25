@@ -2,22 +2,25 @@
 import axios from 'axios'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-export const NEWSLETTER_TAG_GENERAL = 'vseobecny'
-export const NEWSLETTER_TAG_BOOKS = 'knizne-novinky'
-export const NEWSLETTER_TAG_CHILDREN = 'detsky'
+/**
+ * Ecomail API: https://docs.ecomail.cz/api-reference/lists/subscribe
+ * More about preference groups: https://support.ecomail.cz/cs/articles/2413441-preference-a-preferencni-skupiny
+ */
 
-export const VALID_NEWSLETTER_TAGS = [
-  NEWSLETTER_TAG_GENERAL,
-  NEWSLETTER_TAG_BOOKS,
-  NEWSLETTER_TAG_CHILDREN,
-] as const
+export const ECOMAIL_NEWSLETTER_CONFIG = {
+  listId: 1,
+  preferenceGroupId: 'grp_69860b7517343',
+  preferenceOptions: {
+    general: 'Všeobecný newsletter',
+    books: 'Knižné novinky',
+    children: 'Detský newsletter',
+  },
+} as const
 
-// Ecomail docs: https://docs.ecomail.cz/api-reference/lists/subscribe
-const ECOMAIL_LIST_ID = 1
-const ECOMAIL_ADD_SUBSCRIBER_URL = `https://api2.ecomailapp.cz/lists/${ECOMAIL_LIST_ID}/subscribe`
+const ECOMAIL_ADD_SUBSCRIBER_URL = `https://api2.ecomailapp.cz/lists/${ECOMAIL_NEWSLETTER_CONFIG.listId}/subscribe`
 
 const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, firstName, lastName, newsletterTags } = req.body
+  const { email, firstName, lastName, newsletterPreferences } = req.body
 
   if (!email) {
     res.status(400).json({ error: 'Newsletter subscription failed: Email is required' })
@@ -25,15 +28,11 @@ const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  const validTags = Array.isArray(newsletterTags)
-    ? newsletterTags.filter((tag) => VALID_NEWSLETTER_TAGS.includes(tag))
+  const validNewsletterPreferences = Array.isArray(newsletterPreferences)
+    ? newsletterPreferences.filter((preference) =>
+        Object.values(ECOMAIL_NEWSLETTER_CONFIG.preferenceOptions).includes(preference),
+      )
     : []
-
-  if (!validTags.length) {
-    res.status(400).json({ error: 'At least one newsletter must be selected' })
-
-    return
-  }
 
   try {
     // TODO better error information, maybe assert all env vars globally
@@ -47,7 +46,9 @@ const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
           email,
           name: firstName,
           surname: lastName,
-          tags: validTags,
+          groups: {
+            [ECOMAIL_NEWSLETTER_CONFIG.preferenceGroupId]: validNewsletterPreferences,
+          },
         },
         update_existing: true,
       },
@@ -58,8 +59,6 @@ const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       },
     )
-
-    // If the email is already subscribed, ecomail sends a successful response, so we don't handle this case differently
 
     res.status(201).json({ error: '' })
   } catch (error) {
