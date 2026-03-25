@@ -55,6 +55,7 @@ const NewsletterTextField = ({
 const NewsletterCheckBox = ({ name, label }: { name: string; label: string }) => {
   const methods = useFormContext()
   const { errors } = useFormState()
+  const labelId = useId()
 
   return (
     <Controller
@@ -69,9 +70,12 @@ const NewsletterCheckBox = ({ name, label }: { name: string; label: string }) =>
             onChange={onChange}
             isSelected={value}
             isInvalid={!!errors[name]}
+            aria-labelledby={labelId}
             validationBehavior="aria"
           >
-            <span className="text-base text-foreground-body">{label}</span>
+            <span id={labelId} className="text-base text-foreground-body">
+              {label}
+            </span>
           </CheckBox>
         </div>
       )}
@@ -93,13 +97,13 @@ const NewsletterFormSection = ({
     className="flex flex-col gap-4"
     role="group"
     aria-labelledby={`${id}-title`}
-    aria-describedby={`${id}-desc`}
+    aria-describedby={`${id}-description`}
   >
     <div className="flex flex-col gap-2">
       <p id={`${id}-title`} className="text-h5">
         {title}
       </p>
-      <p id={`${id}-desc`} className="text-base">
+      <p id={`${id}-description`} className="text-base">
         {description}
       </p>
     </div>
