@@ -34,6 +34,8 @@ spec:
                 name: ${BUILD_REPOSITORY_NAME}-cloudflare-turnstile-secret
             - secretRef:
                 name: city-library-strapi-revalidate-secret
+            - secretRef:
+                name: ${BUILD_REPOSITORY_NAME}-econmail-secret
           readinessProbe:
             httpGet:
               path: /api/healthcheck
