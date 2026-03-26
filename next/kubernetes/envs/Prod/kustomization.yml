@@ -2,7 +2,7 @@ resources:
   - ../../base
   - secrets/cloudflare-turnstile.secret.yml
   - secrets/general.mono.secret.yml
-
+  - secrets/ecomail.secret.yml
 configMapGenerator:
   - name: ${BUILD_REPOSITORY_NAME}-env
     namespace: ${NAMESPACE}
