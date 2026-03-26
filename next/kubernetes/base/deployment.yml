@@ -35,7 +35,7 @@ spec:
             - secretRef:
                 name: city-library-strapi-revalidate-secret
             - secretRef:
-                name: ${BUILD_REPOSITORY_NAME}-econmail-secret
+                name: ${BUILD_REPOSITORY_NAME}-ecomail-secret
           readinessProbe:
             httpGet:
               path: /api/healthcheck
