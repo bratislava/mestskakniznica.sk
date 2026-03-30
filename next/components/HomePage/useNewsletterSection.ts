@@ -31,7 +31,11 @@ export const useNewsletterSection = () => {
     .object({
       firstName: yup.string(),
       lastName: yup.string(),
-      email: yup.string().email().required(),
+      email: yup
+        .string()
+        .trim()
+        .required(t('Newsletter.email.error.required'))
+        .email(t('Newsletter.email.error.invalidFormat')),
       newsletterGeneral: yup.boolean(),
       newsletterBooks: yup.boolean(),
       newsletterChildren: yup.boolean(),

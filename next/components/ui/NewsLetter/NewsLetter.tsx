@@ -35,19 +35,24 @@ const NewsletterTextField = ({
       control={methods.control}
       name={name}
       defaultValue=""
-      render={({ field: { ref, ...field } }) => (
-        <Input
-          id={`newsletter-${name}`}
-          type={type}
-          required={required}
-          labelContent={label}
-          aria-label={label}
-          inputClassName="w-full px-3 py-2"
-          className={className}
-          hasError={!!errors[name]}
-          {...field}
-        />
-      )}
+      render={({ field: { ref, ...field } }) => {
+        const message = errors[name]?.message
+
+        return (
+          <Input
+            id={`newsletter-${name}`}
+            type={type}
+            required={required}
+            labelContent={label}
+            aria-label={label}
+            inputClassName="w-full px-3 py-2"
+            className={className}
+            hasError={!!errors[name]}
+            errorMessage={typeof message === 'string' ? message : undefined}
+            {...field}
+          />
+        )
+      }}
     />
   )
 }
@@ -63,13 +68,17 @@ const NewsletterCheckBox = ({ name, label }: { name: string; label: string }) =>
       name={name}
       defaultValue={false}
       render={({ field: { onChange, value, name: fieldName } }) => (
-        <div className="border border-border-light px-3 py-2 max-lg:w-full lg:px-4">
+        <div
+          className={cn('border border-border-light px-3 py-2 max-lg:w-full lg:px-4', {
+            'border-error': !!errors.newsletterSelection,
+          })}
+        >
           <CheckBox
             id={`newsletter-${name}`}
             name={fieldName}
             onChange={onChange}
             isSelected={value}
-            isInvalid={!!errors[name]}
+            isInvalid={!!errors.newsletterSelection}
             aria-labelledby={labelId}
             validationBehavior="aria"
           >
@@ -87,11 +96,13 @@ const NewsletterFormSection = ({
   id,
   title,
   description,
+  showRequiredMark,
   children,
 }: React.PropsWithChildren<{
   id: string
   title: string
   description: string
+  showRequiredMark?: boolean
 }>) => (
   <div
     className="flex flex-col gap-4"
@@ -102,6 +113,7 @@ const NewsletterFormSection = ({
     <div className="flex flex-col gap-2">
       <p id={`${id}-title`} className="text-h5">
         {title}
+        {showRequiredMark ? <span className="pl-1 text-error">*</span> : null}
       </p>
       <p id={`${id}-description`} className="text-base">
         {description}
@@ -124,7 +136,10 @@ const NewsletterForm = ({
   const consentLabelId = useId()
 
   return (
-    <form className="flex flex-col gap-6 border-border-dark lg:border lg:p-8" onSubmit={onSubmit}>
+    <form
+      className="flex w-full max-w-[48.75rem] flex-col gap-6 border-border-dark lg:border lg:p-8"
+      onSubmit={onSubmit}
+    >
       <div className="flex flex-col gap-8">
         <NewsletterFormSection
           id="newsletter-your-data"
@@ -157,29 +172,32 @@ const NewsletterForm = ({
           id="newsletter-choice"
           title={t('Newsletter.newsletterPreference')}
           description={t('Newsletter.newsletterPreferenceDescription')}
+          showRequiredMark
         >
-          <div
-            className="flex flex-wrap gap-2 lg:gap-4"
-            role="group"
-            aria-label={t('Newsletter.newsletterPreference')}
-          >
-            <NewsletterCheckBox
-              name="newsletterGeneral"
-              label={t('Newsletter.newsletterPreference.general')}
-            />
-            <NewsletterCheckBox
-              name="newsletterBooks"
-              label={t('Newsletter.newsletterPreference.books')}
-            />
-            <NewsletterCheckBox
-              name="newsletterChildren"
-              label={t('Newsletter.newsletterPreference.children')}
-            />
-          </div>
+          <div className="flex flex-col gap-2">
+            <div
+              className="flex flex-wrap gap-2 lg:gap-4"
+              role="group"
+              aria-label={t('Newsletter.newsletterPreference')}
+            >
+              <NewsletterCheckBox
+                name="newsletterGeneral"
+                label={t('Newsletter.newsletterPreference.general')}
+              />
+              <NewsletterCheckBox
+                name="newsletterBooks"
+                label={t('Newsletter.newsletterPreference.books')}
+              />
+              <NewsletterCheckBox
+                name="newsletterChildren"
+                label={t('Newsletter.newsletterPreference.children')}
+              />
+            </div>
 
-          {!!errors.newsletterSelection && (
-            <p className="text-base text-error">{t('Newsletter.newsletterPreference.error')}</p>
-          )}
+            {!!errors.newsletterSelection && (
+              <p className="text-sm text-error">{t('Newsletter.newsletterPreference.error')}</p>
+            )}
+          </div>
         </NewsletterFormSection>
       </div>
 
@@ -188,7 +206,7 @@ const NewsletterForm = ({
         name="acceptTerms"
         defaultValue={false}
         render={({ field: { onChange, value, name } }) => (
-          <>
+          <div className="flex flex-col gap-2">
             <div className="flex gap-3.5 text-foreground-body">
               <CheckBox
                 id="acceptTerms"
@@ -209,12 +227,13 @@ const NewsletterForm = ({
                 >
                   {t('Newsletter.consent.privacyPageLink.label')}
                 </MLink>
+                <span className="pl-1 text-error">*</span>
               </span>
             </div>
             {!!errors.acceptTerms && (
-              <p className="text-base text-error">{t('Newsletter.consent.error')}</p>
+              <p className="text-sm text-error">{t('Newsletter.consent.error')}</p>
             )}
-          </>
+          </div>
         )}
       />
 
@@ -249,7 +268,7 @@ const NewsLetter = ({
   const { t } = useTranslation()
 
   return (
-    <div className={cn('mx-auto flex max-w-[48.75rem] flex-col items-center justify-center gap-6')}>
+    <div className={cn('mx-auto flex flex-col items-center justify-center gap-6')}>
       <h2 className="text-center text-h2">{t('Newsletter.title')}</h2>
       <NewsletterForm
         onSubmit={onSubmit}
