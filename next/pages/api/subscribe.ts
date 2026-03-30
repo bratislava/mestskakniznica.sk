@@ -1,35 +1,71 @@
-import mailchimp from '@mailchimp/mailchimp_marketing'
+/* eslint-disable no-console */
+import axios from 'axios'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-mailchimp.setConfig({
-  apiKey: process.env.MAILCHIMP_API_KEY,
-  server: process.env.MAILCHIMP_API_SERVER, // e.g. us1
-})
+/**
+ * Ecomail API: https://docs.ecomail.cz/api-reference/lists/subscribe
+ * More about preference groups: https://support.ecomail.cz/cs/articles/2413441-preference-a-preferencni-skupiny
+ */
+
+export const ECOMAIL_NEWSLETTER_CONFIG = {
+  listId: 1,
+  preferenceGroupId: 'grp_69860b7517343',
+  preferenceOptions: {
+    general: 'Všeobecný newsletter',
+    books: 'Knižné novinky',
+    children: 'Detský newsletter',
+  },
+} as const
+
+const ECOMAIL_ADD_SUBSCRIBER_URL = `https://api2.ecomailapp.cz/lists/${ECOMAIL_NEWSLETTER_CONFIG.listId}/subscribe`
 
 const Subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email } = req.body
+  const { email, firstName, lastName, newsletterPreferences } = req.body
 
   if (!email) {
-    res.status(400).json({ error: 'Email is required' });
+    res.status(400).json({ error: 'Newsletter subscription failed: Email is required' })
 
     return
   }
 
+  const validNewsletterPreferences = Array.isArray(newsletterPreferences)
+    ? newsletterPreferences.filter((preference) =>
+        Object.values(ECOMAIL_NEWSLETTER_CONFIG.preferenceOptions).includes(preference),
+      )
+    : []
+
   try {
-    if (process.env.MAILCHIMP_AUDIENCE_ID) {
-      await mailchimp.lists.addListMember(process.env.MAILCHIMP_AUDIENCE_ID, {
-        email_address: email,
-        status: 'subscribed',
-      })
+    // TODO better error information, maybe assert all env vars globally
+    if (!process.env.ECOMAIL_API_KEY)
+      throw new Error('Missing environment variable ECOMAIL_API_KEY')
 
-      res.status(201).json({ error: '' });
+    await axios.post(
+      ECOMAIL_ADD_SUBSCRIBER_URL,
+      {
+        subscriber_data: {
+          email,
+          name: firstName,
+          surname: lastName,
+          groups: {
+            [ECOMAIL_NEWSLETTER_CONFIG.preferenceGroupId]: validNewsletterPreferences,
+          },
+        },
+        update_existing: true,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          key: process.env.ECOMAIL_API_KEY,
+        },
+      },
+    )
 
-      return
-    }
-    throw new Error('Invalid audience.')
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    res.status(500).json({ error: error.message || error.toString() }); 
+    res.status(201).json({ error: '' })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : JSON.stringify(error)
+    console.log('Newsletter subscription error: ', message)
+
+    res.status(500).json({ error: message })
   }
 }
 

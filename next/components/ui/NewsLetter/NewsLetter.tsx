@@ -1,89 +1,283 @@
-import React from 'react'
+import { useTranslation } from 'next-i18next'
+import React, { useId } from 'react'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 import { CheckBox, Input } from '@/components/ui'
 import Button from '@/modules/common/Button'
+import MLink from '@/modules/common/MLink'
 import cn from '@/utils/cn'
 
-interface IProps {
-  className?: string
-  title: string
-  buttonContent: string
-  checkboxContent: React.ReactNode
-  errorMessage: React.ReactNode
-  inputPlaceholder: string
-  respondMessage: string
-  resStatus: boolean
+type Props = {
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
+  responseMessage: string
+  isSubscribeSuccessful: boolean
+  isSubscribePending: boolean
 }
 
-export const NewsLetter = ({
+const NewsletterTextField = ({
+  name,
+  label,
+  type = 'text',
+  required,
   className,
-  title,
-  buttonContent,
-  checkboxContent,
-  errorMessage,
-  inputPlaceholder,
-  respondMessage,
-  resStatus,
-  onSubmit,
-}: IProps) => {
+}: {
+  name: string
+  label: string
+  type?: string
+  required?: boolean
+  className?: string
+}) => {
   const methods = useFormContext()
   const { errors } = useFormState()
 
   return (
-    <div className={cn('flex flex-col items-center justify-center', className)}>
-      <h2 className="pt-10 text-center text-h3 lg:pt-24">{title}</h2>
-      <form className="pb-10 pt-4 lg:pb-24 lg:pt-6" onSubmit={onSubmit}>
-        <div className="flex flex-col gap-y-4 lg:flex-row lg:gap-x-4 lg:gap-y-0">
-          <Controller
-            control={methods.control}
-            name="email"
-            defaultValue=""
-            render={({ field: { ref, ...field } }) => (
-              <Input
-                type="email"
-                placeholder={inputPlaceholder}
-                aria-label={inputPlaceholder}
-                inputClassName="py-2 lg:py-4 px-5 w-full lg:w-[613px]"
-                hasError={!!errors.email}
-                {...field}
-              />
-            )}
-          />
+    <Controller
+      control={methods.control}
+      name={name}
+      defaultValue=""
+      render={({ field: { ref, ...field } }) => {
+        const message = errors[name]?.message
 
-          <Button type="submit" mobileFullWidth>
-            {buttonContent}
-          </Button>
-        </div>
-        <div className="pb-8 pl-0.5 pt-4.5">
-          <Controller
-            control={methods.control}
-            name="acceptTerms"
-            defaultValue={false}
-            render={({ field: { onChange, value, name } }) => (
-              <>
-                <CheckBox
-                  id="acceptTerms"
-                  name={name}
-                  onChange={onChange} // send value to hook form
-                  isSelected={value}
-                  isInvalid={!!errors.acceptTerms}
-                  validationBehavior="aria"
-                >
-                  {checkboxContent}
-                </CheckBox>
-                {!!errors.acceptTerms && (
-                  <p className="mt-2 text-base text-error">{errorMessage}</p>
-                )}
-                <p className={`mt-2 text-base ${resStatus ? 'text-success' : 'text-error'}`}>
-                  {respondMessage}
-                </p>
-              </>
-            )}
+        return (
+          <Input
+            id={`newsletter-${name}`}
+            type={type}
+            required={required}
+            labelContent={label}
+            aria-label={label}
+            inputClassName="w-full px-3 py-2"
+            className={className}
+            hasError={!!errors[name]}
+            errorMessage={typeof message === 'string' ? message : undefined}
+            {...field}
           />
+        )
+      }}
+    />
+  )
+}
+
+const NewsletterCheckBox = ({ name, label }: { name: string; label: string }) => {
+  const methods = useFormContext()
+  const { errors } = useFormState()
+  const labelId = useId()
+
+  return (
+    <Controller
+      control={methods.control}
+      name={name}
+      defaultValue={false}
+      render={({ field: { onChange, value, name: fieldName } }) => (
+        <div
+          className={cn('border border-border-light px-3 py-2 max-lg:w-full lg:px-4', {
+            'border-error': !!errors.newsletterSelection,
+          })}
+        >
+          <CheckBox
+            id={`newsletter-${name}`}
+            name={fieldName}
+            onChange={onChange}
+            isSelected={value}
+            isInvalid={!!errors.newsletterSelection}
+            aria-labelledby={labelId}
+            validationBehavior="aria"
+          >
+            <span id={labelId} className="text-base text-foreground-body">
+              {label}
+            </span>
+          </CheckBox>
         </div>
-      </form>
+      )}
+    />
+  )
+}
+
+const NewsletterFormSection = ({
+  id,
+  title,
+  description,
+  showRequiredMark,
+  children,
+}: React.PropsWithChildren<{
+  id: string
+  title: string
+  description: string
+  showRequiredMark?: boolean
+}>) => (
+  <div
+    className="flex flex-col gap-4"
+    role="group"
+    aria-labelledby={`${id}-title`}
+    aria-describedby={`${id}-description`}
+  >
+    <div className="flex flex-col gap-2">
+      <p id={`${id}-title`} className="text-h5">
+        {title}
+        {showRequiredMark ? <span className="pl-1 text-error">*</span> : null}
+      </p>
+      <p id={`${id}-description`} className="text-base">
+        {description}
+      </p>
+    </div>
+    {children}
+  </div>
+)
+
+const NewsletterForm = ({
+  onSubmit,
+  responseMessage,
+  isSubscribeSuccessful,
+  isSubscribePending,
+}: Props) => {
+  const { t } = useTranslation()
+  const methods = useFormContext()
+  const { errors } = useFormState()
+
+  const consentLabelId = useId()
+
+  return (
+    <form
+      className="flex w-full max-w-[48.75rem] flex-col gap-6 border-border-dark lg:border lg:p-8"
+      onSubmit={onSubmit}
+    >
+      <div className="flex flex-col gap-8">
+        <NewsletterFormSection
+          id="newsletter-your-data"
+          title={t('Newsletter.yourData')}
+          description={t('Newsletter.yourDataDescription')}
+        >
+          <div className="flex flex-col flex-wrap gap-x-4 gap-y-6 lg:flex-row">
+            <NewsletterTextField
+              name="firstName"
+              label={t('Newsletter.firstName')}
+              className="grow"
+            />
+            <NewsletterTextField
+              name="lastName"
+              label={t('Newsletter.lastName')}
+              className="grow"
+            />
+
+            <NewsletterTextField
+              name="email"
+              type="email"
+              required
+              label={t('Newsletter.email')}
+              className="lg:basis-full"
+            />
+          </div>
+        </NewsletterFormSection>
+
+        <NewsletterFormSection
+          id="newsletter-choice"
+          title={t('Newsletter.newsletterPreference')}
+          description={t('Newsletter.newsletterPreferenceDescription')}
+          showRequiredMark
+        >
+          <div className="flex flex-col gap-2">
+            <div
+              className="flex flex-wrap gap-2 lg:gap-4"
+              role="group"
+              aria-label={t('Newsletter.newsletterPreference')}
+            >
+              <NewsletterCheckBox
+                name="newsletterGeneral"
+                label={t('Newsletter.newsletterPreference.general')}
+              />
+              <NewsletterCheckBox
+                name="newsletterBooks"
+                label={t('Newsletter.newsletterPreference.books')}
+              />
+              <NewsletterCheckBox
+                name="newsletterChildren"
+                label={t('Newsletter.newsletterPreference.children')}
+              />
+            </div>
+
+            {!!errors.newsletterSelection && (
+              <p className="text-sm text-error">{t('Newsletter.newsletterPreference.error')}</p>
+            )}
+          </div>
+        </NewsletterFormSection>
+      </div>
+
+      <Controller
+        control={methods.control}
+        name="acceptTerms"
+        defaultValue={false}
+        render={({ field: { onChange, value, name } }) => (
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-3.5 text-foreground-body">
+              <CheckBox
+                id="acceptTerms"
+                name={name}
+                onChange={onChange}
+                isSelected={value}
+                isInvalid={!!errors.acceptTerms}
+                aria-labelledby={consentLabelId}
+                validationBehavior="aria"
+                className="-m-3 grow-0 p-3"
+              />
+              <span id={consentLabelId} className="text-base">
+                {t('Newsletter.consent')}
+                <MLink
+                  href={t('Newsletter.consent.privacyPageLink.href')}
+                  target="_blank"
+                  variant="richtext"
+                >
+                  {t('Newsletter.consent.privacyPageLink.label')}
+                </MLink>
+                <span className="pl-1 text-error">*</span>
+              </span>
+            </div>
+            {!!errors.acceptTerms && (
+              <p className="text-sm text-error">{t('Newsletter.consent.error')}</p>
+            )}
+          </div>
+        )}
+      />
+
+      {responseMessage && (
+        <p
+          className={cn('text-base', {
+            'text-success': isSubscribeSuccessful,
+            'text-error': !isSubscribeSuccessful,
+          })}
+        >
+          {responseMessage}
+        </p>
+      )}
+
+      <Button type="submit" className="w-full" disabled={isSubscribePending}>
+        {isSubscribePending ? t('Newsletter.submitButton.pending') : t('Newsletter.submitButton')}
+      </Button>
+    </form>
+  )
+}
+
+/**
+ * Figma: https://www.figma.com/design/CY6Mh2f0SXJhBMY74HdS03/Mestsk%C3%A1-kni%C5%BEnica--MKB-?node-id=10907-4250&t=KkuqLqbD8kvacbyQ-4
+ */
+
+const NewsLetter = ({
+  onSubmit,
+  responseMessage,
+  isSubscribeSuccessful,
+  isSubscribePending,
+}: Props) => {
+  const { t } = useTranslation()
+
+  return (
+    <div className={cn('mx-auto flex flex-col items-center justify-center gap-6')}>
+      <h2 className="text-center text-h2">{t('Newsletter.title')}</h2>
+      <NewsletterForm
+        onSubmit={onSubmit}
+        responseMessage={responseMessage}
+        isSubscribeSuccessful={isSubscribeSuccessful}
+        isSubscribePending={isSubscribePending}
+      />
     </div>
   )
 }
+
+export default NewsLetter

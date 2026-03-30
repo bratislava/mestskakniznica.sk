@@ -54,9 +54,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
         </header>
         <main id="content-anchor">
           {children}
-          <div className="px-4">
-            <NewsletterSection />
-          </div>
+          <NewsletterSection />
           <ScrollToTopButton />
         </main>
         <footer>

@@ -25,7 +25,7 @@ export const CheckBox = ({ className, children, ...props }: CheckBoxProps) => {
         <>
           <div
             className={cn(
-              'flex-0 box-border flex h-5 w-5 items-center justify-center overflow-hidden border-2 border-border-dark text-white',
+              'box-border flex h-5 w-5 shrink-0 items-center justify-center overflow-hidden border-2 border-border-dark text-white',
               {
                 'bg-dark': isSelected,
                 'base-focus-ring ring': isFocusVisible,
