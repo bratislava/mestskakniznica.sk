@@ -14,10 +14,7 @@ const NewsletterSection = () => {
 
   return (
     <FormProvider {...methods}>
-      <SectionContainer
-        //
-        className="py-12 lg:py-24"
-      >
+      <SectionContainer className="py-12 lg:py-24">
         <NewsLetter
           onSubmit={handleSubmit}
           responseMessage={responseMessage}

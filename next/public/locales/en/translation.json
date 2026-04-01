@@ -89,7 +89,7 @@
   "Newsletter.newsletterPreference.books": "Book news",
   "Newsletter.newsletterPreference.children": "News for children",
   "Newsletter.newsletterPreference.error": "Select at least one newsletter.",
-  "Newsletter.newsletterPreference.general": "Library news",
+  "Newsletter.newsletterPreference.general": "General newsletter",
   "Newsletter.newsletterPreferenceDescription": "Choose what news you want to receive. You can select more than one option.",
   "Newsletter.submitButton": "Subscribe",
   "Newsletter.submitButton.pending": "Loading...",
