@@ -8,13 +8,7 @@ promotes [savings, collaboration, auditability and innovation](https://publiccod
 Our goal is to be transparent about services we’re developing and providing, as well as to invite other cities and
 municipalities to build on top of the same or similar open-source technologies we’ve already tested and used - to foster
 an ecosystem of collaboration between teams facing similar challenges. We’ll be happy
-to [get in touch.](mailto:innovationteam@bratislava.sk)
-
-We intend to make many more of our projects open-source by the end of 2022 - stay tuned!
-
-> If you are an individual or a company who’d like to take part in these efforts, collaborate closely on development or
-> report an issue, we’d love to hear from you! 🙌 Contact us using this repository or
-> at [innovationteam@bratislava.sk](mailto:innovationteam@bratislava.sk)
+to get in touch.
 
 ## What's here
 
