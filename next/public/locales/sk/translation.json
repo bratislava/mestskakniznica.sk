@@ -91,7 +91,7 @@
   "Newsletter.lastName": "Priezvisko",
   "Newsletter.newsletterPreference": "Výber newslettera",
   "Newsletter.newsletterPreference.books": "Knižné novinky",
-  "Newsletter.newsletterPreference.children": "Novinky pre deti",
+  "Newsletter.newsletterPreference.children": "Detský newsletter",
   "Newsletter.newsletterPreference.error": "Vyberte aspoň jeden newsletter.",
   "Newsletter.newsletterPreference.general": "Všeobecný newsletter",
   "Newsletter.newsletterPreferenceDescription": "Vyberte si, aké novinky chcete dostávať. Môžete označiť aj viac možností.",

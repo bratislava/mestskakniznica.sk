@@ -141,11 +141,7 @@ const NewsletterForm = ({
       onSubmit={onSubmit}
     >
       <div className="flex flex-col gap-8">
-        <NewsletterFormSection
-          id="newsletter-your-data"
-          title={t('Newsletter.yourData')}
-          description={t('Newsletter.yourDataDescription')}
-        >
+        <div id="newsletter-your-data">
           <div className="flex flex-col flex-wrap gap-x-4 gap-y-6 lg:flex-row">
             <NewsletterTextField
               name="firstName"
@@ -166,7 +162,7 @@ const NewsletterForm = ({
               className="lg:basis-full"
             />
           </div>
-        </NewsletterFormSection>
+        </div>
 
         <NewsletterFormSection
           id="newsletter-choice"

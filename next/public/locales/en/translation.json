@@ -87,7 +87,7 @@
   "Newsletter.lastName": "Last name",
   "Newsletter.newsletterPreference": "Newsletter selection",
   "Newsletter.newsletterPreference.books": "Book news",
-  "Newsletter.newsletterPreference.children": "News for children",
+  "Newsletter.newsletterPreference.children": "Children newsletter",
   "Newsletter.newsletterPreference.error": "Select at least one newsletter.",
   "Newsletter.newsletterPreference.general": "General newsletter",
   "Newsletter.newsletterPreferenceDescription": "Choose what news you want to receive. You can select more than one option.",
