@@ -32,7 +32,7 @@ spec:
               memory: ${STRAPI_MEMORY_REQUESTS}
           envFrom:
             - secretRef:
-                name: ${BUILD_REPOSITORY_NAME}-database-secret
+                name: strapi-cnpg-city-library-credentials
             - secretRef:
                 name: ${BUILD_REPOSITORY_NAME}-config-strapi-secret
             - secretRef:
