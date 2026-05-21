@@ -4,11 +4,21 @@ export default [
   ...createNextConfig({
     ignores: ['services/graphql/**'],
   }),
-
+  // https://github.com/bratislava/eslint-config/blob/b17b3028c67e639cf5cef183817f9087d6281d7e/packages/next/README.md#tailwind-css
+  {
+    settings: {
+      'better-tailwindcss': {
+        entryPoint: './styles/globals.css',
+        callees: ['cx', 'classnames', 'clsx', 'cn', 'twMerge', 'tw'],
+      },
+    },
+  },
   // Project-specific rule overrides
-  // TODO: These rules require work to fix and were skipped over in eslint v9 upgrade
   {
     rules: {
+      'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
+
+      // TODO: These rules require work to fix and were skipped over in eslint v9 upgrade
       '@typescript-eslint/no-unsafe-enum-comparison': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
@@ -21,6 +31,8 @@ export default [
       'security/detect-unsafe-regex': 'off',
       'security/detect-object-injection': 'off',
       'no-implicit-coercion': 'off',
+
+      // TODO Fix and enable
       '@typescript-eslint/no-unnecessary-condition': 'warn', // 170 violations
       '@typescript-eslint/no-unused-vars': 'warn', // 155 violations
       '@typescript-eslint/no-unsafe-member-access': 'warn', // 52 violations
