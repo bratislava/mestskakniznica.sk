@@ -20,7 +20,7 @@
 }
 
 @theme {
-  /* BREAKPOINTS - Keep in sync with screens.ts */
+  /* BREAKPOINTS */
 
   --breakpoint-xs: initial;
   --breakpoint-sm: 40rem; /* 640px  - phone landscape */
@@ -212,9 +212,7 @@
   }
 }
 
-/* UTILITIES - TEXT */
-
-/* UTILITIES - OTHER */
+/* UTILITIES */
 
 @utility base-focus-ring {
   @apply ring-focus-ring ring-offset-2 transition outline-none focus-visible:ring-3;
