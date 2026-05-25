@@ -3,7 +3,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import enIE from 'date-fns/locale/en-IE'
 import sk from 'date-fns/locale/sk'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
 import ReactDatePicker, { DatePickerProps, registerLocale } from 'react-datepicker'
 
 import cn from '@/utils/cn'
@@ -25,7 +24,7 @@ const MDatePicker = ({ size = 'respo', ...props }: Props) => {
       <ReactDatePicker
         locale={i18n.language}
         {...props}
-        className={cn('base-focus-ring base-input w-full placeholder:text-foreground-heading', {
+        className={cn('base-input w-full base-focus-ring placeholder:text-foreground-heading', {
           'px-3 py-2 lg:px-4 lg:py-3': size === 'respo',
           'px-3 py-2': size === 'small',
           'px-4 py-3': size === 'default',

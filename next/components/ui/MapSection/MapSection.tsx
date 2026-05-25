@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import { useTranslation } from 'next-i18next'
-import React, { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 import { useIsClient } from 'usehooks-ts'
 
@@ -24,8 +24,8 @@ type MapSectionProps = {
 // Copied from https://github.com/bratislava/marianum/blob/master/next/components/sections/MapSection.tsx
 // calculate bounding box for localities
 const getBoundsForLocalities = (branches: BranchCardEntityFragment[]) => {
-  const longitudes = branches.map((branch) => branch.attributes?.longitude).filter(isDefined) ?? []
-  const latitudes = branches.map((branch) => branch.attributes?.latitude).filter(isDefined) ?? []
+  const longitudes = branches.map((branch) => branch.attributes?.longitude).filter(isDefined)
+  const latitudes = branches.map((branch) => branch.attributes?.latitude).filter(isDefined)
 
   return [
     [Math.min(...longitudes), Math.min(...latitudes)],
@@ -113,7 +113,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                       <div className="group flex flex-col items-center">
                         <MarkerIcon width={48} height={48} />
                         {branchTitle ? (
-                          <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-promo-peach px-2 group-hover:visible">
+                          <div className="invisible absolute top-1/3 z-30 rounded-sm bg-promo-peach px-2 whitespace-nowrap group-hover:visible">
                             {branchTitle}
                           </div>
                         ) : null}
@@ -140,7 +140,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                 key={branch.id}
                 className={cn('relative ring-inset', {
                   'lg:border-l-0': index === 0 && !altDesign,
-                  'w-70 flex-shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-b-0 lg:border-r-0 lg:border-t-0 lg:focus-within:border-transparent':
+                  'w-70 shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-t-0 lg:border-r-0 lg:border-b-0 lg:focus-within:border-transparent':
                     !altDesign,
                   'w-full border border-border-dark py-4': altDesign,
                 })}

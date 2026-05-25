@@ -24,7 +24,7 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
               <MLink
                 href={`${opacBaseUrl}?fn=searchform&extSrchTitle=${tag.attributes.slug}`}
                 target="_blank"
-                className="h-9 whitespace-nowrap rounded-full border border-border-light px-4 py-2 text-sm leading-tag hover:border-border-dark"
+                className="h-9 rounded-full border border-border-light px-4 py-2 text-btn/tag whitespace-nowrap hover:border-border-dark"
                 rel="noreferrer"
                 key={tag.attributes.slug}
               >

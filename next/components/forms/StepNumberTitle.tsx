@@ -36,13 +36,13 @@ const StepNumberTitle = ({ num, title, activeStep, onClick, className, children 
         aria-label={`${
           active ? t('stepNumberTitle.openAccordion') : t('stepNumberTitle.closeAccordion')
         } ${title}`}
-        className={cn('base-focus-ring flex cursor-pointer items-center gap-x-6', {
+        className={cn('flex cursor-pointer items-center gap-x-6 base-focus-ring', {
           'mb-6': active || finished,
         })}
       >
         <span
           className={cn(
-            'inline-flex h-14 w-14 items-center justify-center rounded-full border border-border-dark p-6 text-base',
+            'inline-flex size-14 items-center justify-center rounded-full border border-border-dark p-6 text-base',
             {
               'bg-button-dark text-white': active || finished,
               'text-foreground-heading': !active && !finished,

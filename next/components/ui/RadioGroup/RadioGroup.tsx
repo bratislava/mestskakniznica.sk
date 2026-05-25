@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import {
   FieldError,
   Label,
@@ -48,12 +48,9 @@ export const Radio = ({ children, className, ...props }: RadioProps) => {
         <>
           {/* Indicator */}
           <div
-            className={cn(
-              'box-border flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-border-dark',
-              {
-                'border-border-disabled': isDisabled,
-              },
-            )}
+            className={cn('base-radio shrink-0', {
+              'border-border-disabled': isDisabled,
+            })}
           >
             {isSelected ? <div className="size-3 rounded-full bg-dark" aria-hidden /> : null}
           </div>
@@ -80,7 +77,6 @@ export const RadioGroup = ({
     >
       {({ orientation }) => (
         <>
-          {/* Label */}
           {label ? (
             <Label className="mb-1 block text-sm text-foreground-heading opacity-80">
               {label}

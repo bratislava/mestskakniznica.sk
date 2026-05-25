@@ -25,14 +25,14 @@ const Header = ({ menus }: HeaderProps) => {
             <MLink
               href="/"
               // Using `ring-inset` because offset doesn't look appealing in this context
-              className="flex h-full text-[27px] uppercase leading-[26px] tracking-[0.6px] ring-inset ring-offset-0"
+              className="flex h-full text-[27px] leading-[26px] tracking-[0.6px] uppercase ring-offset-0 ring-inset"
             >
               {t('pageTitle')
                 .split(' ')
                 .map((word) => (
                   <span
                     key={word}
-                    className="border-r border-border-dark px-3 py-[7px] first:pl-0 first:pr-3"
+                    className="border-r border-border-dark px-3 py-1.75 first:pr-3 first:pl-0"
                   >
                     {word}
                   </span>

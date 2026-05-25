@@ -117,7 +117,7 @@ const FormContainer = ({
               tabIndex={0}
               onSubmit={onSubmit}
               onKeyDown={() => listener}
-              className="base-focus-ring fixed inset-0 z-40 flex flex-col bg-white md:relative md:z-0"
+              className="fixed inset-0 z-40 flex flex-col bg-white base-focus-ring md:relative md:z-0"
             >
               {/* HEADER */}
               <div className="flex items-center justify-between border-b border-border-dark md:hidden">
@@ -129,7 +129,7 @@ const FormContainer = ({
               </div>
               {/* BODY */}
 
-              <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 pt-0">
+              <div className="flex-1 overflow-x-hidden overflow-y-auto p-4 pt-0">
                 <div className="pt-4 text-sm text-foreground-body md:pt-0">
                   {t('required_fields')} (<span className="text-error">*</span>
                   ).

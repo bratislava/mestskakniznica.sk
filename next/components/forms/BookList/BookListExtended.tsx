@@ -55,7 +55,7 @@ const BookListExtended = ({ className, showLinkInput = false }: Props) => {
           {fields.length > 1 && (
             <Button
               variant="unstyled"
-              className="absolute right-3 top-3 cursor-pointer"
+              className="absolute top-3 right-3 cursor-pointer"
               onPress={() => handleRemoveBook(index)}
               aria-label={t('remove_book')}
             >

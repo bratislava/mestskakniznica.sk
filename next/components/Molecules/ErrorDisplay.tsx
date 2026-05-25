@@ -44,7 +44,7 @@ const ErrorDisplay = ({ error }: IProps) => {
         {open ? t('common.showLess') : t('common.showMore')}
       </Button>
       {open && (
-        <pre className="mt-4 whitespace-pre-wrap text-sm">
+        <pre className="mt-4 text-sm whitespace-pre-wrap">
           {error.message}
           {'\n\n'}
           {error.description}

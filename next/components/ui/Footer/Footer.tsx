@@ -50,7 +50,7 @@ const FooterSection = ({ col, i }: { col: ComponentFooterFooterColumnFragment; i
   return (
     <div
       key={col?.title}
-      className={cn('pb-12 pt-6', {
+      className={cn('pt-6 pb-12', {
         'border-l border-border-dark pl-8': i !== 0,
       })}
     >
@@ -86,7 +86,7 @@ export const Footer = ({
             target="_blank"
             rel="noreferrer"
             // Using `ring-inset` because offset doesn't look appealing in this context
-            className="flex h-full items-center justify-center ring-inset ring-offset-0"
+            className="flex h-full items-center justify-center ring-offset-0 ring-inset"
           >
             <FbLogo className="cursor-pointer lg:p-0" />
             {/* eslint-disable-next-line i18next/no-literal-string */}
@@ -96,7 +96,7 @@ export const Footer = ({
             href={instagramUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex h-full items-center justify-center border-x border-border-dark ring-inset ring-offset-0"
+            className="flex h-full items-center justify-center border-x border-border-dark ring-offset-0 ring-inset"
           >
             <IgLogo className="cursor-pointer lg:p-0" />
             {/* eslint-disable-next-line i18next/no-literal-string */}
@@ -106,7 +106,7 @@ export const Footer = ({
             href={youtubeUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex h-full items-center justify-center ring-inset ring-offset-0"
+            className="flex h-full items-center justify-center ring-offset-0 ring-inset"
           >
             <YtLogo className="cursor-pointer lg:p-0" />
             {/* eslint-disable-next-line i18next/no-literal-string */}

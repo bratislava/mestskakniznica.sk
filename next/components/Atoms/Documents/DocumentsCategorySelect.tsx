@@ -13,7 +13,7 @@ type DocumentsCategorySelectProps = {
   onCategoryChange: (id: string | null) => void
 }
 
-const DocumentsCategorySelect = ({ onCategoryChange = () => {} }: DocumentsCategorySelectProps) => {
+const DocumentsCategorySelect = ({ onCategoryChange }: DocumentsCategorySelectProps) => {
   const { t } = useTranslation()
 
   // TODO when translating documents, replace labels byt translated values

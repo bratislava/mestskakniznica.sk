@@ -46,7 +46,7 @@ const BookList = ({ className }: Props) => {
             {fields.length > 1 && (
               <Button
                 variant="unstyled"
-                className="absolute right-3 top-3 cursor-pointer"
+                className="absolute top-3 right-3 cursor-pointer"
                 aria-label={t('remove_book')}
                 onPress={() => handleRemoveBook(index)}
               >
@@ -121,7 +121,7 @@ const BookList = ({ className }: Props) => {
         <Button
           startIcon={<PlusIcon />}
           variant="plain-primary"
-          className="mb-[9px] mt-[33px]"
+          className="mt-8.25 mb-2.25"
           onPress={handleAddBook}
         >
           {t('add_book')}
