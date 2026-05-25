@@ -3,8 +3,10 @@ import React from 'react'
 import { UploadIcon } from '@/assets/icons'
 import cn from '@/utils/cn'
 
-export interface UploadProps
-  extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+export interface UploadProps extends React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> {
   labelContent: string
   hasError?: boolean
   errorMessage?: string
@@ -35,9 +37,9 @@ export const Upload = ({
       {/* eslint-disable react-hooks/refs */}
       <div
         className={cn(
-          'group relative flex flex-col items-center justify-center gap-y-6 border border-dashed p-6 ring-offset-2 transition focus-within:ring',
+          'group relative flex flex-col items-center justify-center gap-y-6 border border-dashed p-6 base-focus-ring',
           {
-            'bg-emerald-200 transform transition-all duration-200':
+            'transform bg-emerald-200 transition-all duration-200':
               isInArea || fileInputRef.current?.files?.length,
             'border-border-dark': !hasError,
             'border-error': hasError,

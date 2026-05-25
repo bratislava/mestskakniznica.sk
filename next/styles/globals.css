@@ -220,6 +220,12 @@
   @apply ring-focus-ring ring-offset-2 transition outline-none focus-visible:ring-3;
 }
 
+@utility wrapper-focus-ring {
+  @apply ring-focus-ring ring-offset-3 outline-none;
+  @apply focus-within:has-[:focus-visible]:ring-3 focus-within:has-[:focus-visible]:transition-shadow;
+  @apply **:focus-visible:ring-0! **:focus-visible:ring-offset-0 **:focus-visible:outline-none;
+}
+
 @utility base-input {
   @apply box-border inline-block appearance-none border bg-white px-3 py-2 text-base text-foreground-heading;
   @apply border-border-light placeholder:text-foreground-body hover:border-border-dark focus:border-border-dark;
