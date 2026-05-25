@@ -83,7 +83,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
         items={SEARCH_OPTIONS}
         selectedKey={searchOptions}
         onSelectionChange={(selection) => setSearchOptions(selection as SearchOption)}
-        innerClassName="w-[134px] whitespace-nowrap rounded-l-full border-r-0 border-dark lg:py-2"
+        innerClassName="w-[140px] whitespace-nowrap rounded-l-full border-r-0 border-dark lg:py-2"
         popperClassName="w-[154px]"
       >
         {(item) => <SelectItem label={item.title} id={item.key} className="text-sm" />}
