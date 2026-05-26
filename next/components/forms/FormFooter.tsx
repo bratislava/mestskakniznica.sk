@@ -101,7 +101,7 @@ const FormFooter = ({
         onError={() => methods.setValue('cfTurnstile', null)}
         onTimeout={() => methods.setValue('cfTurnstile', null)}
         onExpire={() => methods.setValue('cfTurnstile', null)}
-        className="!mt-0"
+        className="mt-0!"
         theme="light"
       />
 

@@ -179,7 +179,7 @@ const EventFilters = ({ filters, onFiltersChange }: EventFiltersProps) => {
   const { isSelected, toggle } = useToggleState({ defaultSelected: false })
 
   return (
-    <div className="mb-6 mt-4 lg:mb-8 lg:mt-6 lg:block lg:border lg:border-border-dark lg:p-6">
+    <div className="mt-4 mb-6 lg:mt-6 lg:mb-8 lg:block lg:border lg:border-border-dark lg:p-6">
       {/* Mobile */}
       <div className="flex w-full items-center justify-between border border-border-dark p-4 lg:hidden">
         {/* TODO accessibility 'more content' */}

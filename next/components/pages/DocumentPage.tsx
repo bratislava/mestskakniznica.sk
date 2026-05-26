@@ -183,7 +183,7 @@ const DocumentPage = ({ entity }: IProps) => {
             <dl className="mt-6 text-sm lg:mt-10 lg:text-base">
               {dlData.map((dItem) => (
                 <Fragment key={dItem.label}>
-                  <dt className="float-left clear-left w-40 after:content-[':'] not-first:mt-3 lg:w-48">
+                  <dt className="float-left clear-left w-40 not-first:mt-3 after:content-[':'] lg:w-48">
                     {dItem.label}
                   </dt>
                   <dd className="ml-40 not-first:mt-3 lg:ml-48">{dItem.value}</dd>

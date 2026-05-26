@@ -18,7 +18,7 @@ const HeaderNavigation = () => {
         href={getPathForStrapiEntity(general?.data?.attributes?.openingHoursPage?.data) ?? '#'}
         variant="basic"
         // Using `ring-inset` because offset doesn't look appealing in this context
-        className="relative grid place-content-center border-l border-border-dark px-3 ring-inset ring-offset-0"
+        className="relative grid place-content-center border-l border-border-dark px-3 ring-offset-0 ring-inset"
       >
         {t('navigation.openingHours')}
       </MLink>
@@ -26,7 +26,7 @@ const HeaderNavigation = () => {
         href={opacBaseUrl}
         variant="basic"
         target="_blank"
-        className="grid place-content-center border-l border-border-dark px-3 ring-inset ring-offset-0"
+        className="grid place-content-center border-l border-border-dark px-3 ring-offset-0 ring-inset"
       >
         {t('navigation.onlineCatalog')}
       </MLink>
@@ -35,7 +35,7 @@ const HeaderNavigation = () => {
         locale={otherLocale.locale}
         aria-label={t('navigation.aria.otherLocaleAriaLabel')}
         variant="basic"
-        className="grid place-content-center border-l border-border-dark pl-3 ring-inset ring-offset-0"
+        className="grid place-content-center border-l border-border-dark pl-3 ring-offset-0 ring-inset"
       >
         {otherLocale.locale.toUpperCase()}
       </MLink>

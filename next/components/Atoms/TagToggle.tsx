@@ -18,7 +18,7 @@ const TagButton = (props: TagButtonProps) => {
       ref={ref}
       type="button"
       className={cn(
-        'base-focus-ring flex h-8 w-fit cursor-pointer select-none items-center whitespace-nowrap rounded-full border px-3 text-sm font-semibold',
+        'flex h-8 w-fit cursor-pointer items-center rounded-full border px-3 text-sm font-semibold whitespace-nowrap base-focus-ring select-none',
         {
           'border-dark bg-dark text-white': isSelected,
           'border-border hover:text-primary bg-white': !isSelected,

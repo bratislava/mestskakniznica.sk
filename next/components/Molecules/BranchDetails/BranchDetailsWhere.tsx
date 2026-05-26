@@ -20,7 +20,7 @@ const BranchDetailsWhere = ({ branch }: BranchDetailsWhereProps) => {
   return (
     <div id="where" className="py-10">
       <div className="pb-6 text-h3">{t('branchDetails.localityWhereToFind')}</div>
-      <div className="flex grid-cols-2 flex-col gap-x-5 space-y-4 md:grid">
+      <div className="flex grid-cols-2 flex-col space-y-4 gap-x-5 md:grid">
         <div className="h-64 w-full md:h-[415px]">
           <BranchMap
             branchName={title}
@@ -29,7 +29,7 @@ const BranchDetailsWhere = ({ branch }: BranchDetailsWhereProps) => {
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
           />
         </div>
-        <div className="flex flex-col gap-4 whitespace-pre-wrap text-base text-foreground-body">
+        <div className="flex flex-col gap-4 text-base whitespace-pre-wrap text-foreground-body">
           {address && (
             <>
               <h3 className="text-h5">{t('branchDetails.box.address')}</h3>

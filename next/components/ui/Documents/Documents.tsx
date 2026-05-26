@@ -35,7 +35,7 @@ export const Documents = ({ className, title, documents }: DocumentsProps) => {
           content: {
             category: type,
             title: docTitle,
-            metadata: contractor ? `${contractor}` : undefined,
+            metadata: contractor ? contractor : undefined,
             fileExt: badgeExt,
           },
         }

@@ -31,7 +31,7 @@ const SectionRegistrationInfo = ({ registrationInfoSection }: RegistrationInfoPr
             <ul>
               {registrationInfoSection?.registrationBenefits?.filter(isDefined).map((benefit) => (
                 <li className="flex pt-3 text-base" key={benefit?.id}>
-                  <CheckNoPaddingIcon className="mr-4 mt-[6px] inline shrink-0" />{' '}
+                  <CheckNoPaddingIcon className="mt-1.5 mr-4 inline shrink-0" />{' '}
                   {/* <Check className="inline-flex scale-75 text-base md:scale-100" />{' '} */}
                   {benefit?.benefit}
                 </li>

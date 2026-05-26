@@ -35,7 +35,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
 
   return (
     // TODO is this pointer-events-none/auto necessary
-    // eslint-disable-next-line react/jsx-pascal-case
+
     <GalleryModal overlayClassName="w-full h-screen pointer-events-none" showCloseButton {...rest}>
       <Slider
         ref={sliderRef}
@@ -48,13 +48,13 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
             attributes ? (
               <div
                 key={id}
-                className="container pointer-events-none m-auto flex size-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
+                className="pointer-events-none container m-auto flex size-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
               >
                 <StrapiImage
                   image={attributes}
                   sizes="100vw"
                   draggable="false"
-                  className="pointer-events-auto h-auto max-h-[86vh] w-full select-none object-contain"
+                  className="pointer-events-auto h-auto max-h-[86vh] w-full object-contain select-none"
                 />
                 {attributes.caption !== attributes.name && attributes.caption && (
                   <div className="mt-4 bg-white px-2.5 py-0.5">{attributes.caption}</div>
@@ -63,7 +63,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
             ) : null,
           )}
         pagination={({ goToPrevious, goToNext }) => (
-          <div className="container pointer-events-none absolute bottom-0 z-20 flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
+          <div className="pointer-events-none absolute bottom-0 z-20 container flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
             {images.length > 1 && (
               <>
                 <Button

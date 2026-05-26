@@ -28,7 +28,7 @@ type ButtonBase = {
  *  This part makes the component return `HTMLAnchorElement` ref when `href` if provided and `HTMLButtonElement` when it's not.
  *  https://github.com/typescript-cheatsheets/react/issues/167#issuecomment-751347673
  */
-export type ButtonProps = Omit<AriaButtonProps<'button'>, keyof LinkButtonProps | 'isDisabled'> &
+export type ButtonProps = Omit<AriaButtonProps, keyof LinkButtonProps | 'isDisabled'> &
   ButtonBase & {
     ref?: Ref<HTMLButtonElement>
     href?: undefined
@@ -82,10 +82,10 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         ? cn(baseStyle, className)
         : cn(
             baseStyle,
-            'inline-flex items-center justify-center gap-x-3 text-center text-sm uppercase tracking-wider',
+            'inline-flex items-center justify-center gap-x-3 text-center text-sm tracking-[0.08em] uppercase',
             {
               'w-full lg:w-auto': mobileFullWidth,
-              'px-5 py-[9px]': !noPadding,
+              'px-5 py-2.25': !noPadding,
 
               // text colors
               'text-white': variant === 'primary' || variant === 'plain-white',
@@ -111,7 +111,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
                 variant === 'plain-secondary' ||
                 variant === 'plain-primary' ||
                 variant === 'secondary',
-              'hover:text-white hover:text-opacity-80': variant === 'plain-white',
+              'hover:text-opacity-80 hover:text-white': variant === 'plain-white',
               'hover:text-opacity-80': variant === 'carousel',
 
               // shape
@@ -123,6 +123,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
     if (rest.href) {
       /* react-aria adds role="button" which we don't want to use for <a>s */
       const buttonPropsFixed = { ...buttonProps, role: undefined }
+
       return (
         <MLink
           ref={ref as RefObject<HTMLAnchorElement>}

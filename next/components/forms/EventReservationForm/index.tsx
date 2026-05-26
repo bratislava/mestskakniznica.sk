@@ -258,7 +258,7 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
               </div>
               {eventDetail && (
                 <div>
-                  <div className="border-t pb-4 pt-6 text-h5 text-foreground-heading">
+                  <div className="border-t pt-6 pb-4 text-h5 text-foreground-heading">
                     {t('event')}
                   </div>
 
@@ -275,12 +275,9 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
                       {/* TODO fix eslint */}
                       <div className="pl-5">
                         <div className="text-foreground-heading">
-                          {(title?.length || 0) > 50
-                            ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                              `${title?.slice(0, 50)}...`
-                            : title}
+                          {(title?.length || 0) > 50 ? `${title?.slice(0, 50)}...` : title}
                         </div>
-                        <div className="pt-[5px] text-sm text-foreground-body">
+                        <div className="pt-1.25 text-sm text-foreground-body">
                           <FormatEventDateRange
                             dateFrom={dateFrom ?? new Date().toISOString()}
                             dateTo={dateTo ?? new Date().toISOString()}

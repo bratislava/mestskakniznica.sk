@@ -49,7 +49,7 @@ export const BranchMap = ({
             <div className="group flex flex-col items-center">
               <MarkerIcon width={48} height={48} />
               {branchName && (
-                <div className="invisible absolute top-1/3 z-30 whitespace-nowrap rounded bg-promo-yellow px-2 group-hover:visible">
+                <div className="invisible absolute top-1/3 z-30 rounded-sm bg-promo-yellow px-2 whitespace-nowrap group-hover:visible">
                   {branchName}
                 </div>
               )}

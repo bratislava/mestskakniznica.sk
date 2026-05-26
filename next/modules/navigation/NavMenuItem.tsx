@@ -1,5 +1,4 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import React from 'react'
 
 import { MenuItem } from '@/modules/navigation/NavMenu'
 import NavMenuContent from '@/modules/navigation/NavMenuContent'
@@ -12,7 +11,7 @@ type NavItemProps = {
 
 const NavMenuItem = ({ menu, isFirst = false }: NavItemProps) => {
   return (
-    <NavigationMenu.Item className="flex h-14 border-r border-border-dark last:border-r-0 lg:w-[134px] xl:w-[160px]">
+    <NavigationMenu.Item className="flex h-14 border-r border-border-dark last:border-r-0 lg:w-33.5 xl:w-40">
       <NavMenuTrigger label={menu.label} isFirst={isFirst} />
       <NavMenuContent sections={menu.items} colCount={menu.colCount} />
     </NavigationMenu.Item>

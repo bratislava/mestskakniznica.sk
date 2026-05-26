@@ -152,10 +152,10 @@ const SearchPage = () => {
             {isLoading ? (
               <>
                 {Array.from({ length: filters.pageSize }, (_, index) => (
-                  <div key={index} role="status" className="w-full animate-pulse select-none gap-3">
+                  <div key={index} role="status" className="w-full animate-pulse gap-3 select-none">
                     <div className="flex w-full flex-col justify-between border-b border-border-dark bg-white py-4">
                       <div className="mb-4 h-2.5 w-48 rounded-full bg-border-light" />
-                      <div className="mb-2.5 h-2 max-w-screen-xs rounded-full bg-border-light" />
+                      <div className="mb-2.5 h-2 max-w-[360px] rounded-full bg-border-light" />
                     </div>
                   </div>
                 ))}
@@ -185,7 +185,7 @@ const SearchPage = () => {
                               <h2>{title}</h2>
                             </MLink>
                             {/* py set to 2px to coun also with the border */}
-                            <span className="flex h-6 shrink-0 items-center rounded-[4px] border border-dark px-2 py-[3px] text-[12px] leading-[18px]">
+                            <span className="flex h-6 shrink-0 items-center rounded-sm border border-dark px-2 py-0.75 text-[12px]/4.5">
                               {/* TODO proper translation keys */}
                               {t(`search.searchTags.${type}`)}
                             </span>

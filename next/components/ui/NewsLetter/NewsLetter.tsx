@@ -137,7 +137,7 @@ const NewsletterForm = ({
 
   return (
     <form
-      className="flex w-full max-w-[48.75rem] flex-col gap-6 border-border-dark lg:border lg:p-8"
+      className="flex w-full max-w-195 flex-col gap-6 border-border-dark lg:border lg:p-8"
       onSubmit={onSubmit}
     >
       <div className="flex flex-col gap-8">

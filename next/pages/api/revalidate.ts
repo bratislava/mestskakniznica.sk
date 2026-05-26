@@ -36,7 +36,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Check model
     if (payload?.model === 'blog-post') {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const urlToRevalidate = `/blog/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
 
@@ -57,14 +56,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (payload?.model === 'basic-document') {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const urlToRevalidate = `/documents/${payload?.entry?.slug}`
       console.log(`api/revalidate: Revalidating ${urlToRevalidate}`)
       await res.revalidate(urlToRevalidate)
     }
 
     if (payload?.model === 'event') {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const urlToRevalidate = `/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
 
@@ -87,7 +84,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (payload?.model === 'page') {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const urlToRevalidate = `/${payload?.entry?.slug}`
       const isEn = payload?.entry?.locale === 'en'
       const layout = payload?.entry?.layout as string
@@ -128,11 +124,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
-    res.json({ revalidated: true }); 
+    res.json({ revalidated: true })
   } catch (error) {
     console.log('api/revalidate: Error while revalidating ==>', error)
 
-    res.status(500).send('Error revalidating'); 
+    res.status(500).send('Error revalidating')
   }
 }
 /* eslint-enable no-console */

@@ -34,10 +34,10 @@ const BranchDetails = ({ branch }: PageProps) => {
       <div className="py-8">
         {medias?.data && <ImageGallery images={medias.data} variant="aside" />}
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0px,_1fr)_380px] lg:gap-30">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0px,1fr)_380px] lg:gap-30">
         <div>
           <div className="border-b border-border-dark pb-10">
-            <div className="py-[12px] text-[32px]">
+            <div className="py-3 text-[32px]">
               <div className="pb-6">
                 <h1 className="text-h1">{title}</h1>
 
@@ -67,7 +67,7 @@ const BranchDetails = ({ branch }: PageProps) => {
 
                     return subBranchBody?.trim() ? (
                       <Fragment key={subBranch.id}>
-                        <h3 className="text-h3 [&:not(:first-child)]:mt-6">{subBranchTitle}</h3>
+                        <h3 className="text-h3 not-first:mt-6">{subBranchTitle}</h3>
                         <RichText content={subBranchBody} />
                       </Fragment>
                     ) : null

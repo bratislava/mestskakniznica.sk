@@ -182,7 +182,7 @@ const EventDetails = ({ event }: PageProps) => {
                     <Button
                       variant="plain-primary"
                       href={`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${eventBranch.address}`}
-                      className="-mb-3 py-3 pl-9 pr-3"
+                      className="-mb-3 py-3 pr-3 pl-9"
                       noPadding
                       startIcon={<NavigateIcon />}
                       target="_blank"

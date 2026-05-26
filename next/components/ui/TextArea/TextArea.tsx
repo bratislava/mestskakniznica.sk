@@ -2,8 +2,10 @@ import { DetailedHTMLProps, TextareaHTMLAttributes } from 'react'
 
 import cn from '@/utils/cn'
 
-export interface TextAreaProps
-  extends DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> {
+export interface TextAreaProps extends DetailedHTMLProps<
+  TextareaHTMLAttributes<HTMLTextAreaElement>,
+  HTMLTextAreaElement
+> {
   labelContent?: string
   helpText?: string
   hasError?: boolean
@@ -25,7 +27,6 @@ export const TextArea = ({
 }: TextAreaProps) => {
   return (
     <div className={className}>
-      {/* Label */}
       {labelContent && (
         <label className="mb-0.5 text-sm text-foreground-heading opacity-80" htmlFor={id}>
           {labelContent}
@@ -35,7 +36,7 @@ export const TextArea = ({
       <div>
         <textarea
           id={id}
-          className={cn('base-input base-focus-ring resize-none', textAreaClassname, {
+          className={cn('base-input resize-none base-focus-ring', textAreaClassname, {
             'base-input--with-error': hasError,
           })}
           aria-invalid={hasError}
@@ -47,7 +48,6 @@ export const TextArea = ({
         </textarea>
       </div>
 
-      {/* Error Message */}
       {errorMessage && (
         <p
           id={`${id ?? ''}_err`}
@@ -58,7 +58,6 @@ export const TextArea = ({
         </p>
       )}
 
-      {/* Help Text */}
       {helpText && (
         <p
           className={cn('mt-0.5 text-sm opacity-80', {
