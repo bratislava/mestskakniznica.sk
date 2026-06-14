@@ -1,6 +1,5 @@
-import { LinkButtonProps } from '@react-types/button'
 import React, { forwardRef, ReactNode, Ref, RefObject } from 'react'
-import { AriaButtonProps, useButton } from 'react-aria'
+import { AriaButtonProps, type LinkButtonProps, useButton } from 'react-aria'
 
 import MLink from '@/modules/common/MLink'
 import cn from '@/utils/cn'
