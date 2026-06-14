@@ -63,13 +63,28 @@ const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservati
         const { date } = dayForDifferentDateTo(dateFromTmp, dateToTmp, true)
 
         return yup
-          .date()
-          .min(date, t('validation_error_min_event_date'))
-          .max(dateToTmp, t('validation_error_max_event_date'))
+          .string()
+          .test(
+            'min-date',
+            t('validation_error_min_event_date'),
+            (eventDate) => !eventDate || new Date(eventDate) >= date,
+          )
+          .test(
+            'max-date',
+            t('validation_error_max_event_date'),
+            (eventDate) => !eventDate || new Date(eventDate) <= dateToTmp,
+          )
           .required()
       }
 
-      return yup.date().min(getLocalDateForYup()).required()
+      return yup
+        .string()
+        .test(
+          'min-date',
+          t('validation_error_date_gt_today'),
+          (eventDate) => !eventDate || eventDate >= getLocalDateForYup(),
+        )
+        .required()
     }),
     eventTime: yup.string().required(),
     message: yup.string(),

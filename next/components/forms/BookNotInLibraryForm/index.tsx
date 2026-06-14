@@ -41,11 +41,11 @@ const BookNotInLibraryForm = ({ privacyPolicyHref }: CommonFormProps) => {
       books: yup
         .array()
         .of(
-          yup.object().shape({
+          yup.object({
             author: yup.string().required(),
             title: yup.string().required(),
-            issuer: yup.string().optional(),
-            issueDate: yup.string().optional(),
+            issuer: yup.string(),
+            issueDate: yup.string(),
           }),
         )
         .required(),

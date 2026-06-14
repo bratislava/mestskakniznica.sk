@@ -76,7 +76,14 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
         otherwise: yup.string(),
       }),
       IDType: yup.string().required(),
-      birthDate: yup.date().max(getLocalDateForYup()).required(),
+      birthDate: yup
+        .string()
+        .test(
+          'max-date',
+          t('validation_error_date_lt_today'),
+          (birthDate) => !birthDate || birthDate <= getLocalDateForYup(),
+        )
+        .required(),
       IDNumber: yup.string().matches(IDCardRegex, t('validation_error_idcard')).required(),
       acceptFormTerms: yup.boolean().isTrue(),
       authorizedToUseBlindDepartment: yup.boolean(),

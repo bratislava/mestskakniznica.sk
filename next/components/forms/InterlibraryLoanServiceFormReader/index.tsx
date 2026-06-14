@@ -48,18 +48,18 @@ const InterlibraryLoanServiceFormReader = ({ privacyPolicyHref }: CommonFormProp
       phone: yup.string().matches(phoneRegexOrEmpty, t('validation_error_phone')),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
-      acceptFeesTerms: yup.boolean().isTrue(),
+      acceptFeesTerms: yup.boolean().oneOf([true]),
       books: yup
         .array()
         .of(
-          yup.object().shape({
+          yup.object({
             author: yup.string().required(),
             title: yup.string().required(),
-            placeOfIssue: yup.string().optional(),
-            issuer: yup.string().optional(),
-            packageNumber: yup.string().optional(),
-            issueDate: yup.string().optional(),
-            ISBN: yup.string().optional(),
+            placeOfIssue: yup.string(),
+            issuer: yup.string(),
+            packageNumber: yup.string(),
+            issueDate: yup.string(),
+            ISBN: yup.string(),
           }),
         )
         .required(),
@@ -78,7 +78,6 @@ const InterlibraryLoanServiceFormReader = ({ privacyPolicyHref }: CommonFormProp
       message: '',
       books: [
         {
-          link: '',
           author: '',
           title: '',
           placeOfIssue: '',

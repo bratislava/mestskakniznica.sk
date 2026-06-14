@@ -57,7 +57,7 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
       books: yup
         .array()
         .of(
-          yup.object().shape({
+          yup.object({
             id: yup.string(),
             author: yup.string().when(['id'], {
               is: (id: string) => id?.length,
@@ -88,7 +88,7 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
       email: '',
       phone: '',
       message: '',
-      books: [{ bookId: '', author: '', title: '' }],
+      books: [{ id: '', author: '', title: '' }],
       cfTurnstile: '',
     },
   })

@@ -25,7 +25,7 @@
     "update-mapbox": "npm install react-map-gl@latest mapbox-gl@latest --save-exact"
   },
   "dependencies": {
-    "@hookform/resolvers": "2.9.11",
+    "@hookform/resolvers": "3.10.0",
     "@internationalized/date": "3.7.0",
     "@radix-ui/react-navigation-menu": "1.2.14",
     "@react-aria/utils": "3.27.0",

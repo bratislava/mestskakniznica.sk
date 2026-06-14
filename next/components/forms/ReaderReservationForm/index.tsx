@@ -43,8 +43,22 @@ const ReaderReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
       readerCardNumber: yup.string().required(),
       email: yup.string().email().required(),
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
-      dateFrom: yup.date().min(getLocalDateForYup()).required(),
-      dateTo: yup.date().min(getLocalDateForYup()).required(),
+      dateFrom: yup
+        .string()
+        .test(
+          'min-date',
+          t('validation_error_date_gt_today'),
+          (dateFrom) => !dateFrom || dateFrom >= getLocalDateForYup(),
+        )
+        .required(),
+      dateTo: yup
+        .string()
+        .test(
+          'min-date',
+          t('validation_error_date_gt_today'),
+          (dateTo) => !dateTo || dateTo >= getLocalDateForYup(),
+        )
+        .required(),
       timeFrom: yup.string().required(),
       timeTo: yup.string().required(),
       where: yup.string().required(),

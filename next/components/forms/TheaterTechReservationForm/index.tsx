@@ -41,7 +41,14 @@ const TheaterTechReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
       email: yup.string().email().required(),
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       techType: yup.string().required(),
-      term: yup.date().min(getLocalDateForYup()).required(),
+      term: yup
+        .string()
+        .test(
+          'min-date',
+          t('validation_error_date_gt_today'),
+          (term) => !term || term >= getLocalDateForYup(),
+        )
+        .required(),
       acceptFormTerms: yup.boolean().isTrue(),
       cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })

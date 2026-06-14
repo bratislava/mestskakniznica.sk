@@ -43,7 +43,14 @@ const ExcursionReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
       email: yup.string().email().required(),
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       excursionType: yup.string().required(),
-      excursionDate: yup.date().min(getLocalDateForYup()).required(),
+      excursionDate: yup
+        .string()
+        .test(
+          'min-date',
+          t('validation_error_date_gt_today'),
+          (excursionDate) => !excursionDate || excursionDate >= getLocalDateForYup(),
+        )
+        .required(),
       excursionTime: yup.string().required(),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),

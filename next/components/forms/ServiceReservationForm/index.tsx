@@ -272,7 +272,7 @@ const ServiceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
                 id="attachment_input"
                 labelContent={t('attachments')}
                 hasError={!!errors.attachment}
-                errorMessage={errors.attachment?.message}
+                errorMessage={errors.attachment?.message as string | undefined}
                 required
                 {...field}
               />

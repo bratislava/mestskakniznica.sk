@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { type Resolver, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { ECOMAIL_NEWSLETTER_CONFIG } from '@/pages/api/subscribe'
@@ -15,7 +15,7 @@ type NewsletterFormValues = {
   newsletterGeneral: boolean
   newsletterBooks: boolean
   newsletterChildren: boolean
-  newsletterSelection?: boolean
+  newsletterSelection: boolean | undefined
   acceptTerms: boolean
 }
 
@@ -53,7 +53,7 @@ export const useNewsletterSection = () => {
     )
 
   const methods = useForm<NewsletterFormValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as Resolver<NewsletterFormValues>,
     defaultValues: {
       firstName: '',
       lastName: '',
