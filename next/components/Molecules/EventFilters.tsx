@@ -1,9 +1,9 @@
 import { useControlledState } from '@react-stately/utils'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import React, { useEffect, useMemo } from 'react'
+import { parseAsString, useQueryState } from 'nuqs'
+import { useEffect, useMemo } from 'react'
 import { useToggleState } from 'react-stately'
-import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 
 import DropdownIcon from '@/assets/images/dropdown.svg'
 import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
@@ -28,7 +28,7 @@ const Inner = ({ filters: filtersInput, onFiltersChange, onModalClose }: EventFi
 
   const defaultFiltersValue = useMemo(() => ({ locale: i18n.language }), [i18n.language])
 
-  const [tagFromQueryParam] = useQueryParam('tag', withDefault(StringParam, ''))
+  const [tagFromQueryParam] = useQueryState('tag', parseAsString.withDefault(''))
 
   const [filters, setFilters] = useControlledState<EventsFiltersShared>(
     filtersInput,

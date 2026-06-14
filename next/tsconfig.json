@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "downlevelIteration": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "esModuleInterop": true,
@@ -11,11 +10,10 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "baseUrl": "./",
     "paths": {
       "@/*": ["./*"]
     }

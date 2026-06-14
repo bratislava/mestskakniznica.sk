@@ -3,7 +3,7 @@ import { NavikronosStaticProps } from '@/navikronos/internal/internalTypes'
 
 // needs to be separate from FE React code, so that it can be imported into BE middleware
 export const navikronosConfig = {
-  strapiUrl: process.env.STRAPI_URL as string,
+  strapiUrl: process.env.NEXT_PUBLIC_STRAPI_URL as string,
   cacheTtl: 10_000,
   rewritePrefix: 'navikronosRewrite',
   staticRoutes: {

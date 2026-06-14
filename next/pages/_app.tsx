@@ -4,9 +4,8 @@ import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next'
 import PlausibleProvider from 'next-plausible'
-import { NextAdapter } from 'next-query-params'
+import { NuqsAdapter } from 'nuqs/adapters/next/pages'
 import { OverlayProvider } from 'react-aria'
-import { QueryParamProvider } from 'use-query-params'
 
 import ErrorDisplay from '@/components/Molecules/ErrorDisplay'
 import ErrorPage from '@/components/pages/ErrorPage'
@@ -40,11 +39,11 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
         <MQueryClientProvider>
           <MI18nProvider>
             <OverlayProvider>
-              <QueryParamProvider adapter={NextAdapter}>
+              <NuqsAdapter>
                 <NavMenuContextProvider>
                   <Component id="root" {...pageProps} />
                 </NavMenuContextProvider>
-              </QueryParamProvider>
+              </NuqsAdapter>
             </OverlayProvider>
           </MI18nProvider>
         </MQueryClientProvider>
