@@ -15,5 +15,6 @@
     },
     "peacock.color": "#ffe76e",
     "js/ts.tsdk.path": "./next/node_modules/typescript/lib",
+    "graphql-config.load.filepath": "./next/codegen.ts",
   },
 }
