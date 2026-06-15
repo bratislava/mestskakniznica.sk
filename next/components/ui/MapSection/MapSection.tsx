@@ -2,7 +2,7 @@
 
 import { useTranslation } from 'next-i18next/pages'
 import { useCallback, useEffect, useRef } from 'react'
-import Mapbox, { MapRef, Marker } from 'react-map-gl'
+import Mapbox, { MapRef, Marker } from 'react-map-gl/mapbox'
 import { useIsClient } from 'usehooks-ts'
 
 import MarkerIcon from '@/assets/images/marker.svg'

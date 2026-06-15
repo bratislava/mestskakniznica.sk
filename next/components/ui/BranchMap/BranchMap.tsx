@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import { useEffect, useRef, useState } from 'react'
-import Mapbox, { MapRef, Marker } from 'react-map-gl'
+import Mapbox, { MapRef, Marker } from 'react-map-gl/mapbox'
 
 import MarkerIcon from '@/assets/images/marker.svg'
 
