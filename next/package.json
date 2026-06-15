@@ -34,7 +34,7 @@
     "axios": "1.16.1",
     "clsx": "2.1.1",
     "date-fns": "2.30.0",
-    "focus-trap-react": "11.0.6",
+    "focus-trap-react": "12.0.2",
     "framer-motion": "12.25.0",
     "googleapis": "102.0.0",
     "graphql": "16.10.0",
