@@ -1,7 +1,7 @@
-import { yupResolver } from '@hookform/resolvers/yup'
+﻿import { yupResolver } from '@hookform/resolvers/yup'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
@@ -57,17 +57,17 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
       books: yup
         .array()
         .of(
-          yup.object().shape({
+          yup.object({
             id: yup.string(),
             author: yup.string().when(['id'], {
               is: (id: string) => id?.length,
-              then: yup.string(),
-              otherwise: yup.string().required(),
+              then: (id) => id,
+              otherwise: (id) => id.required(),
             }),
             title: yup.string().when(['id'], {
               is: (id: string) => id?.length,
-              then: yup.string(),
-              otherwise: yup.string().required(),
+              then: (id) => id,
+              otherwise: (id) => id.required(),
             }),
           }),
         )
@@ -88,7 +88,7 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
       email: '',
       phone: '',
       message: '',
-      books: [{ bookId: '', author: '', title: '' }],
+      books: [{ id: '', author: '', title: '' }],
       cfTurnstile: '',
     },
   })

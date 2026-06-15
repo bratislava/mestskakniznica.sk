@@ -1,6 +1,6 @@
-import { yupResolver } from '@hookform/resolvers/yup'
+﻿import { yupResolver } from '@hookform/resolvers/yup'
 import isEmpty from 'lodash/isEmpty'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
@@ -53,7 +53,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
       password: yup.string().required().min(7, t('validation_error_password_gt_7')),
       password2: yup
         .string()
-        .oneOf([yup.ref('password'), null], t('validation_error_password_mismatch'))
+        .oneOf([yup.ref('password')], t('validation_error_password_mismatch'))
         .required(),
       phone: yup.string().matches(phoneRegexOrEmpty, t('validation_error_phone')),
       address: yup.string().required(),
@@ -62,21 +62,28 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
       useTempAddress: yup.boolean(),
       tempAddress: yup.string().when('useTempAddress', {
         is: true,
-        then: yup.string().required(),
-        otherwise: yup.string(),
+        then: (id) => id.required(),
+        otherwise: (id) => id,
       }),
       tempCity: yup.string().when('useTempAddress', {
         is: true,
-        then: yup.string().required(),
-        otherwise: yup.string(),
+        then: (id) => id.required(),
+        otherwise: (id) => id,
       }),
       tempPostalCode: yup.string().when('useTempAddress', {
         is: true,
-        then: yup.string().matches(postalCodeRegex, t('validation_error_zipcode')).required(),
-        otherwise: yup.string(),
+        then: (id) => id.matches(postalCodeRegex, t('validation_error_zipcode')).required(),
+        otherwise: (id) => id,
       }),
       IDType: yup.string().required(),
-      birthDate: yup.date().max(getLocalDateForYup()).required(),
+      birthDate: yup
+        .string()
+        .test(
+          'max-date',
+          t('validation_error_date_lt_today'),
+          (birthDate) => !birthDate || birthDate <= getLocalDateForYup(),
+        )
+        .required(),
       IDNumber: yup.string().matches(IDCardRegex, t('validation_error_idcard')).required(),
       acceptFormTerms: yup.boolean().isTrue(),
       authorizedToUseBlindDepartment: yup.boolean(),

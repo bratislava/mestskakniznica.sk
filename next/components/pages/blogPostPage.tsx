@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 
 import Sections from '@/components//Molecules/Sections'
 import { PageTitle, SectionContainer, Video } from '@/components/ui'

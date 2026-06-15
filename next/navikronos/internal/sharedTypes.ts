@@ -49,6 +49,7 @@ export type NavikronosClientListingRoute = {
 } & NavikronosClientRouteWithTitlePath &
   NavikronosClientRouteWithChildren
 
+// eslint-disable-next-line sonarjs/redundant-type-aliases
 export type NavikronosClientNavigation = NavikronosClientRoutes
 
 export type NavikronosClientLocaleNavigations = Record<

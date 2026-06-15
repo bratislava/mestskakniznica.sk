@@ -1,4 +1,4 @@
-import { now } from '@internationalized/date'
+﻿import { now } from '@internationalized/date'
 import { TFunction } from 'i18next'
 import isArray from 'lodash/isArray'
 import isBoolean from 'lodash/isBoolean'
@@ -8,7 +8,7 @@ import isNull from 'lodash/isNull'
 import isNumber from 'lodash/isNumber'
 import isPlainObject from 'lodash/isPlainObject'
 import isString from 'lodash/isString'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import { IRadioOption } from '@/components/ui/RadioGroup/RadioGroup'
 import { bratislavaTimezone } from '@/utils/consts'
@@ -106,8 +106,7 @@ const getMailTranslationKey = (key: string): string => {
   return translationMap.find((item) => item.key === key)?.value ?? key
 }
 
-const key = (k: string, t: TFunction<string>): string =>
-  t(getMailTranslationKey(k), { lng: 'sk' })
+const key = (k: string, t: TFunction<string>): string => t(getMailTranslationKey(k), { lng: 'sk' })
 
 // TODO fix eslint
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -145,8 +144,7 @@ function flattenObject(
   return result
 }
 
-export const convertDataToBody = (data: object, t: TFunction<string>) =>
-  flattenObject(data, t)
+export const convertDataToBody = (data: object, t: TFunction<string>) => flattenObject(data, t)
 
 export const useGetFormOptions = (options: IFormOption[], showPrice = true): IRadioOption[] => {
   const temp: IRadioOption[] = []

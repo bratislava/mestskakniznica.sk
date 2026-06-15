@@ -23,7 +23,6 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
   const borderStyles = cn('flex w-full flex-col bg-white', {
     'border-border border': type === 'boxed',
     'border-border border-b':
-      // eslint-disable-next-line sonarjs/no-duplicate-string
       type === 'divider-small' || type === 'divider-big' || type === 'subbranch',
   })
 
@@ -36,7 +35,7 @@ const Accordion = ({ type, title, additionalInfo, children, iconLeft }: Accordio
   })
 
   const buttonStyles = cn(
-    'hover:text-underline flex items-center gap-4 text-left text-h5 outline-none',
+    'flex items-center gap-4 text-left text-h5 outline-none hover:underline',
     {
       'px-4 py-[18.5px] md:px-6 md:py-5': type === 'boxed',
       'py-[18.5px] md:py-6': type === 'divider-big',

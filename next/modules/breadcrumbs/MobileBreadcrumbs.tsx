@@ -1,6 +1,6 @@
-import dropRight from 'lodash/dropRight'
+﻿import dropRight from 'lodash/dropRight'
 import last from 'lodash/last'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { ReactNode } from 'react'
 
 import { ChevronRightIcon, HomeIcon } from '@/assets/icons'
@@ -18,11 +18,14 @@ const MobileBreadcrumbsAccordionButton = ({
   isNested: boolean
 }) => {
   const accBtnFakeCrumbs: ReactNode[] = [
-    <HomeIcon />,
-    <ChevronRightIcon />,
-    ...(isNested ? [<Ellipsis />, <ChevronRightIcon />] : []),
+    <HomeIcon key="home-icon" />,
+    <ChevronRightIcon key="chevron-right-icon" />,
+    ...(isNested
+      ? [<Ellipsis key="ellipsis" />, <ChevronRightIcon key="chevron-right-icon-2" />]
+      : []),
     currentLabel,
   ]
+
   return (
     <div className="flex w-full grow items-center gap-x-1.5 overflow-hidden">
       {accBtnFakeCrumbs.map((crumb, index) => (
@@ -31,7 +34,7 @@ const MobileBreadcrumbsAccordionButton = ({
         <div
           // eslint-disable-next-line react/no-array-index-key
           key={index}
-          className={`${index === accBtnFakeCrumbs.length - 1 ? 'truncate' : 'shrink-0'}`}
+          className={index === accBtnFakeCrumbs.length - 1 ? 'truncate' : 'shrink-0'}
         >
           {crumb}
         </div>

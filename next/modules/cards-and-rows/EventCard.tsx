@@ -74,6 +74,7 @@ const EventCard = ({
       </div>
 
       {branch?.title && (
+        // eslint-disable-next-line i18next/no-literal-string
         <div className="pt-2 text-sm text-foreground-body">&#9679; {branch.title}</div>
       )}
     </CardWrapper>

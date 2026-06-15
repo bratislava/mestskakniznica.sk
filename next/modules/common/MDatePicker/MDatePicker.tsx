@@ -1,8 +1,7 @@
-import 'react-datepicker/dist/react-datepicker.css'
+﻿import 'react-datepicker/dist/react-datepicker.css'
 
-import enIE from 'date-fns/locale/en-IE'
-import sk from 'date-fns/locale/sk'
-import { useTranslation } from 'next-i18next'
+import { enIE, sk } from 'date-fns/locale'
+import { useTranslation } from 'next-i18next/pages'
 import ReactDatePicker, { DatePickerProps, registerLocale } from 'react-datepicker'
 
 import cn from '@/utils/cn'

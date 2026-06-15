@@ -2,37 +2,7 @@
   "name": "navikronos",
   "version": "0.0.0",
   "description": "This is the description of the plugin.",
-  "strapi": {
-    "name": "Navikronos",
-    "kind": "plugin"
-  },
-  "dependencies": {
-    "@strapi/helper-plugin": "4.26.0",
-    "@tanstack/react-query": "5.66.0",
-    "immer": "^9.0.18",
-    "lodash": "^4.17.21",
-    "strapi-typed": "^1.0.20",
-    "styled-components": "^5.2.1",
-    "zod": "^3.24.1"
-  },
-  "devDependencies": {
-    "@strapi/typescript-utils": "4.26.0",
-    "@types/react": "^18.0.53",
-    "@types/react-dom": "^18.0.28",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.32",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.6",
-    "typescript": "^5.0.4"
-  },
-  "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "react-router-dom": "^5.2.0",
-    "styled-components": "^5.2.1"
-  },
+  "license": "MIT",
   "author": {
     "name": "A Strapi developer"
   },
@@ -41,6 +11,37 @@
       "name": "A Strapi developer"
     }
   ],
+  "scripts": {
+    "build": "tsc -p tsconfig.server.json",
+    "develop": "tsc -p tsconfig.server.json -w"
+  },
+  "dependencies": {
+    "@strapi/helper-plugin": "4.26.0",
+    "@tanstack/react-query": "5.66.0",
+    "immer": "9.0.18",
+    "lodash": "4.17.21",
+    "strapi-typed": "1.0.20",
+    "styled-components": "5.2.1",
+    "zod": "3.24.1"
+  },
+  "devDependencies": {
+    "@strapi/typescript-utils": "4.26.0",
+    "@types/react": "18.3.31",
+    "@types/react-dom": "18.3.7",
+    "@types/react-router-dom": "5.3.3",
+    "@types/styled-components": "5.1.32",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "5.3.4",
+    "styled-components": "5.3.6",
+    "typescript": "5.0.4"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.2.1"
+  },
   "engines": {
     "node": ">=20.19.x",
     "npm": ">=10.8.x"
@@ -49,9 +50,8 @@
     "node": "20.19.0",
     "npm": "10.8.2"
   },
-  "scripts": {
-    "develop": "tsc -p tsconfig.server.json -w",
-    "build": "tsc -p tsconfig.server.json"
-  },
-  "license": "MIT"
+  "strapi": {
+    "name": "Navikronos",
+    "kind": "plugin"
+  }
 }

@@ -40,12 +40,12 @@ const nullFn = () => null
 
 const getNextRewrite = (config: NavikronosConfig, route: NavikronosClientRoute): NextRewrite => {
   switch (route.type) {
-    // eslint-disable-next-line switch-case/no-case-curly
     case 'contentType': {
       const routeConfig = config.contentTypeRoutes[route.contentTypeUid]
       if (!routeConfig) {
         return nullFn
       }
+
       return ((slug: string) =>
         `/${config.rewritePrefix}${routeConfig.rewrite(slug)}`) as NextRewrite
     }
@@ -53,21 +53,21 @@ const getNextRewrite = (config: NavikronosConfig, route: NavikronosClientRoute):
     case 'empty':
       return nullFn
 
-    // eslint-disable-next-line switch-case/no-case-curly
     case 'entry': {
       const routeConfig = config.entryRoutes[route.contentTypeUid]
       if (!routeConfig) {
         return nullFn
       }
+
       return () => `/${config.rewritePrefix}${routeConfig.rewrite(route.entryId)}`
     }
 
-    // eslint-disable-next-line switch-case/no-case-curly
     case 'static': {
       const routeConfig = config.staticRoutes[route.id]
       if (!routeConfig) {
         return nullFn
       }
+
       return () => `/${config.rewritePrefix}${routeConfig.rewrite}`
     }
 
@@ -97,7 +97,8 @@ const traverseRoute = (
       fullPath.push(current.path as string)
       current = current.parent
     }
-    return `/${fullPath.reverse().join('/')}`
+
+    return `/${fullPath.toReversed().join('/')}`
   }
   node.nextRewrite = getNextRewrite(config, route)
 

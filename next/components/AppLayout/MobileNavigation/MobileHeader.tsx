@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+﻿import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next/pages'
 import { useEffect, useState } from 'react'
 
 import { BurgerIcon } from '@/assets/icons'

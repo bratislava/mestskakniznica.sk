@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 import { ReactNode, useState } from 'react'
 import { DialogTrigger } from 'react-aria-components'
 

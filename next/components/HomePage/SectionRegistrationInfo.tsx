@@ -1,5 +1,4 @@
-import { useTranslation } from 'next-i18next'
-import React from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
 
 import { CheckNoPaddingIcon } from '@/assets/icons'
 import RegisterToLibrary from '@/assets/images/register-to-library.svg'

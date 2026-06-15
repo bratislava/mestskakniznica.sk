@@ -14,7 +14,7 @@ const HeaderWrapper = () => {
   // TODO move parsing into context and return parsed menu from context
   // TODO simplify parsing
   // TODO move this component somewhere more appropriate or delete it
-  // eslint-disable-next-line sonarjs/cognitive-complexity
+
   const menusParsed: MenuItem[] = useMemo(() => {
     return (
       menus?.data
@@ -30,6 +30,7 @@ const HeaderWrapper = () => {
                 const sectionLabel = section.sectionTitle ?? undefined
                 const sectionItems =
                   section.sectionLinks
+                    // eslint-disable-next-line sonarjs/no-nested-functions
                     ?.map((link) => {
                       // If sectionLinkBranch is set, it takes precedence and sectionLinkPage is ignored.
                       if (link?.sectionLinkBranch?.data?.attributes?.slug) {
@@ -71,6 +72,7 @@ const HeaderWrapper = () => {
                 }
               })
               .filter(isDefined) ?? []
+
           return { label, items, colCount: menu.attributes.menuTotalColumns ?? 4 }
         })
         .filter(isDefined) ?? []

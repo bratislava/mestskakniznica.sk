@@ -1,5 +1,4 @@
-import { useTranslation } from 'next-i18next'
-import React from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
 
 import FbLogo from '@/assets/images/fb-logo.svg'
 import IgLogo from '@/assets/images/ig-logo.svg'

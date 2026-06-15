@@ -1,14 +1,17 @@
-const i18nextConfig = require('./next-i18next.config')
-const { svgoConfig } = require('./svgo.config')
+import i18nextConfig from './next-i18next.config'
+import type { NextConfig } from 'next'
 
-/**
- * @type {import('next').NextConfig}
- */
-const nextConfig = {
+const nextConfig: NextConfig = {
   i18n: i18nextConfig.i18n,
   reactStrictMode: true,
   output: 'standalone',
   images: {
+    // After upgrading to Next.js 16, image loading from local IP addresses is blocked.
+    // In our Kubernetes setup, S3 resolves to a local IP range (10.10.x.x),
+    // which causes images to fail loading.
+    // TODO Revisit this setting and implement a safer long-term solution.
+    // Docs: https://nextjs.org/docs/pages/api-reference/components/image#dangerouslyallowlocalip
+    dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
         protocol: 'http',
@@ -32,18 +35,54 @@ const nextConfig = {
       },
     ],
   },
+  // Workaround: Turbopack file tracer misses `module-sync` exports condition files (e.g. require.mjs)
+  // on Node.js >= 22.10. Will be fixed when Next.js bumps @vercel/nft to >= 0.30.0.
+  // https://github.com/vercel/next.js/issues/90567
+  outputFileTracingIncludes: {
+    '/**': ['./node_modules/**/require.mjs'],
+  },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'preset-default',
+                    params: {
+                      overrides: {
+                        removeViewBox: false,
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+        as: '*.js',
+      },
+    },
+  },
+  logging: {
+    // disable browser logs in terminals
+    browserToTerminal: false,
+  },
   async rewrites() {
     return {
       beforeFiles: [
         // Graphql Proxy
         {
           source: '/graphql',
-          destination: `${process.env.STRAPI_URL}/graphql`,
+          destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
         },
         // Media proxy for getting media from Strapi
         {
           source: '/uploads/:file',
-          destination: `${process.env.STRAPI_URL}/uploads/:file`,
+          destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/uploads/:file`,
         },
       ],
     }
@@ -6534,38 +6573,6 @@ const nextConfig = {
       },
     ]
   },
-  serverRuntimeConfig: {
-    strapiUrl: process.env.STRAPI_URL,
-  },
-  // Docs: https://react-svgr.com/docs/next/
-  webpack(config) {
-    // Grab the existing rule that handles SVG imports
-    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'))
-
-    config.module.rules.push(
-      // Reapply the existing rule, but only for svg imports ending in ?url
-      {
-        ...fileLoaderRule,
-        test: /\.svg$/i,
-        resourceQuery: /url/, // *.svg?url
-      },
-      // Convert all other *.svg imports to React components
-      {
-        test: /\.svg$/i,
-        issuer: fileLoaderRule.issuer,
-        resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
-        use: {
-          loader: '@svgr/webpack',
-          options: { svgoConfig },
-        },
-      },
-    )
-
-    // Modify the file loader rule to ignore *.svg, since we have it handled now.
-    fileLoaderRule.exclude = /\.svg$/i
-
-    return config
-  },
 }
 
-module.exports = nextConfig
+export default nextConfig

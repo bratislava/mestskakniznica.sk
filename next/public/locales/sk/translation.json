@@ -100,8 +100,6 @@
   "Newsletter.subscribe.errorMessage": "Prihlásenie na odber noviniek sa nepodarilo. Prosím, skontrolujte, či ste zadali správny e-mail.",
   "Newsletter.subscribe.successMessage": "Ďakujeme. Ste prihlásení na odber noviniek.",
   "Newsletter.title": "Odoberajte novinky z\u00a0knižnice",
-  "Newsletter.yourData": "Vaše údaje",
-  "Newsletter.yourDataDescription": "Vyplňte krátky formulár a budeme vám posielať novinky, ktoré vás zaujímajú.",
   "openingHoursChangeAlertTitle": "Pozor, zmena otváracích hodín!",
   "pageTitle": "Mestská Knižnica v Bratislave",
   "pagination.currentPage": "Zadajte číslo aktuálnej strany",

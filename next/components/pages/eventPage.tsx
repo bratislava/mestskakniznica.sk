@@ -1,6 +1,6 @@
-import EventDetails from 'components/Molecules/EventDetails'
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 
+import EventDetails from '@/components/Molecules/EventDetails'
 import { SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import EventCard from '@/modules/cards-and-rows/EventCard'

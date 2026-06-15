@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 import { Fragment } from 'react'
 
 import BranchDetailsServices from '@/components/Molecules/BranchDetails/BranchDetailsServices'

@@ -26,7 +26,7 @@ const PromoEventCard = ({ event }: PromoEventCardProps) => {
   const eventBranch = branch?.data?.attributes
 
   return (
-    <CardWrapper className="relative m-auto flex h-full w-full flex-col justify-between bg-promo-yellow">
+    <CardWrapper className="relative m-auto flex size-full flex-col justify-between bg-promo-yellow">
       <div className="flex flex-col gap-y-3 px-4 py-3 md:gap-y-4 md:px-5 md:py-4">
         <TagsDisplay
           tags={eventTags?.data
@@ -41,7 +41,7 @@ const PromoEventCard = ({ event }: PromoEventCardProps) => {
             href={getPathForStrapiEntity(event) ?? '#'}
             variant="basic"
             stretched
-            className="line-clamp-3 after:z-[1]"
+            className="line-clamp-3 after:z-1"
           >
             {title}
           </MLink>
@@ -60,6 +60,7 @@ const PromoEventCard = ({ event }: PromoEventCardProps) => {
             <div>
               <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} />
             </div>
+            {/* eslint-disable-next-line i18next/no-literal-string */}
             {eventBranch?.title && <div className="truncate">● {eventBranch.title}</div>}
           </div>
         </div>

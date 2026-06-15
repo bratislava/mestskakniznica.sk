@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 import { useBreadcrumbs } from 'react-aria'
 
 import { HomeIcon } from '@/assets/icons'

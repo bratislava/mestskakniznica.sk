@@ -1,16 +1,14 @@
-import React, { forwardRef, ReactNode } from 'react'
+import { forwardRef, ReactNode } from 'react'
 import { Modal as RACModal, ModalOverlay, ModalOverlayProps } from 'react-aria-components'
 
 import cn from '@/utils/cn'
 
-type PropsBase = {
+type Props = {
   width?: 'fixed' | 'auto'
   overlayClassname?: string
   modalClassname?: string
   children: ReactNode
 } & Omit<ModalOverlayProps, 'children' | 'className' | 'style'>
-
-type Props = PropsBase
 
 /**
  * Based on OLO: https://github.com/bratislava/olo.sk/blob/master/next/src/components/lib/ModalDialog/Modal.tsx
@@ -31,7 +29,7 @@ const Modal = forwardRef<HTMLDivElement, Props>(
       <ModalOverlay
         ref={ref}
         className={cn(
-          'fixed left-0 top-0 z-50 flex h-[--visual-viewport-height] w-screen items-center justify-center bg-dark/40',
+          'fixed top-0 left-0 z-50 flex h-[--visual-viewport-height] w-screen items-center justify-center bg-dark/40',
           overlayClassname,
         )}
         isDismissable={isDismissable}

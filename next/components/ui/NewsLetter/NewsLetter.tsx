@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 import React, { useId } from 'react'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 

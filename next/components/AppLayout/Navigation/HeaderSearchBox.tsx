@@ -1,6 +1,6 @@
-import { AnimatePresence, motion } from 'framer-motion'
+﻿import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { KeyboardEventHandler, useId, useState } from 'react'
 import { useFocusWithin } from 'react-aria'
 

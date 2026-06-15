@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
-import React, { Fragment, useId } from 'react'
+﻿import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next/pages'
+import { Fragment, useId } from 'react'
 
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { client } from '@/services/graphql/gql'

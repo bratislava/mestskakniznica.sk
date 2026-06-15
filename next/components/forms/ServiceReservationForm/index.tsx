@@ -1,7 +1,7 @@
-import { yupResolver } from '@hookform/resolvers/yup'
+﻿import { yupResolver } from '@hookform/resolvers/yup'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import React from 'react'
 import { Controller, FormProvider, useController, useForm } from 'react-hook-form'
 import * as yup from 'yup'
@@ -114,7 +114,7 @@ const ServiceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
       email: yup.string().email().required(),
       phone: yup.string().matches(phoneRegex, t('validation_error_phone')).required(),
       message: yup.string(),
-      attachment: yup.mixed().required(),
+      attachment: yup.mixed<File>().required(),
       acceptFormTerms: yup.boolean().isTrue(),
       cfTurnstile: yup.string().required(t('validation_error_captcha')),
     })
@@ -267,7 +267,14 @@ const ServiceReservationForm = ({ privacyPolicyHref }: CommonFormProps) => {
           <Controller
             control={methods.control}
             name="attachment"
-            render={({ field: { ref, ...field } }) => (
+            render={({
+              field: {
+                ref,
+                // FileInput manages its own value via useController internally
+                value,
+                ...field
+              },
+            }) => (
               <FileInput
                 id="attachment_input"
                 labelContent={t('attachments')}

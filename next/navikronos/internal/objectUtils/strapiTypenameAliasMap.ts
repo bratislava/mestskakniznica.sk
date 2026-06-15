@@ -1,5 +1,6 @@
 import { NavikronosConfig } from '../../config-type'
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 export const getStrapiTypenameAliasMap = <Config extends NavikronosConfig>(config: Config) => {
   const entryRoutes = new Map(
     Object.values(config.entryRoutes).map(
@@ -16,6 +17,7 @@ export const getStrapiTypenameAliasMap = <Config extends NavikronosConfig>(confi
   return { entryRoutes, contentTypeRoutes }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 export const getContentTypeAliasMap = <Config extends NavikronosConfig>(config: Config) => {
   const entryRoutes = new Map(
     Object.entries(config.entryRoutes).map(([uid, { alias }]) => [uid, alias] as const),

@@ -1,5 +1,4 @@
-import { useTranslation } from 'next-i18next'
-import React from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 import Turnstile from 'react-turnstile'
 

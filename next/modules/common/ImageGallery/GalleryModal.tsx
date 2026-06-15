@@ -1,6 +1,6 @@
-import FocusTrap from 'focus-trap-react'
+﻿import { FocusTrap } from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { ReactNode, useEffect, useRef } from 'react'
 import { AriaOverlayProps, OverlayContainer, useModal, useOverlay } from 'react-aria'
 import { useIsClient, useScrollLock } from 'usehooks-ts'
@@ -62,7 +62,7 @@ const GalleryModal = (props: ModalProps) => {
             <div
               {...underlayProps}
               className={cn(
-                'bg-grey-800/60 fixed inset-0 z-50 overflow-y-auto overflow-x-hidden',
+                'fixed inset-0 z-50 overflow-x-hidden overflow-y-auto bg-gray-800/60',
                 underlayClassName,
               )}
             >
@@ -77,7 +77,7 @@ const GalleryModal = (props: ModalProps) => {
                     {showCloseButton && (
                       <Button
                         variant="plain-white"
-                        className="pointer-events-auto fixed right-6 top-6 z-30 rounded-full"
+                        className="pointer-events-auto fixed top-6 right-6 z-30 rounded-full"
                         aria-label={t('common.close')}
                         onPress={onClose}
                       >

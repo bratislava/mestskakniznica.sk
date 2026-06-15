@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 import React, { ReactNode } from 'react'
 
 import ChevronRight from '@/assets/images/chevron-right.svg'

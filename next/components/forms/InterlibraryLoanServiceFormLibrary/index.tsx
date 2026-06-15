@@ -1,7 +1,7 @@
-import { yupResolver } from '@hookform/resolvers/yup'
+﻿import { yupResolver } from '@hookform/resolvers/yup'
 import isEmpty from 'lodash/isEmpty'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import React from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as yup from 'yup'
@@ -53,18 +53,18 @@ const InterlibraryLoanServiceFormLibrary = ({ privacyPolicyHref }: CommonFormPro
       IBAN: yup.string().matches(IBANRegex, t('validation_error_iban')).required(),
       message: yup.string(),
       acceptFormTerms: yup.boolean().isTrue(),
-      acceptFeesTerms: yup.boolean().isTrue(),
+      acceptFeesTerms: yup.boolean().oneOf([true]),
       books: yup
         .array()
         .of(
-          yup.object().shape({
+          yup.object({
             author: yup.string().required(),
             title: yup.string().required(),
-            placeOfIssue: yup.string().optional(),
-            issuer: yup.string().optional(),
-            packageNumber: yup.string().optional(),
-            issueDate: yup.string().optional(),
-            ISBN: yup.string().optional(),
+            placeOfIssue: yup.string(),
+            issuer: yup.string(),
+            packageNumber: yup.string(),
+            issueDate: yup.string(),
+            ISBN: yup.string(),
           }),
         )
         .required(),

@@ -1,5 +1,5 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
+﻿import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next/pages'
 import React, { useEffect } from 'react'
 
 import { FolderIcon } from '@/assets/icons'
@@ -71,7 +71,7 @@ const DocumentsListingSection = () => {
 
   return (
     <>
-      <div className="mb-4 mt-6 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
+      <div className="mt-6 mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div className="md:col-span-3">
           <SearchField
             placeholder={t('whatAreYouLookingFor')}
@@ -93,9 +93,9 @@ const DocumentsListingSection = () => {
         {data?.hits.map((document) => {
           const { id, title, type, slug, file, category } = document
           const metadata =
-            type === 'disclosure' && document.contractor ? `${document.contractor}` : undefined
+            type === 'disclosure' && document.contractor ? document.contractor : undefined
 
-          let badgeExt: string | React.JSX.Element = ''
+          let badgeExt: string | React.JSX.Element
           if (Array.isArray(file)) {
             badgeExt =
               file.length > 1 ? (
