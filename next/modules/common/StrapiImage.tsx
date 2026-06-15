@@ -15,7 +15,7 @@ type StrapiImageProps = Omit<
   disableBlurPlaceholder?: boolean
 }
 
-export const getImagePlaceholder = (placeholder?: StaticImageData | undefined) => {
+export const getImagePlaceholder = (placeholder?: StaticImageData) => {
   return {
     url: placeholder ? placeholder.src : DefaultPlaceholder.src,
     width: placeholder ? placeholder.width : DefaultPlaceholder.width,

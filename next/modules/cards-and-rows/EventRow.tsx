@@ -28,7 +28,7 @@ const EventRow = ({ event }: EventRowProps) => {
 
   return (
     <CardWrapper className="relative flex items-center gap-x-5 py-[14px]">
-      <div className="flex h-16 w-16 shrink-0 bg-promo-yellow text-center">
+      <div className="flex size-16 shrink-0 bg-promo-yellow text-center">
         <EventDetailsDateBox dateFrom={dateFrom} dateTo={dateTo} textClassname="text-[18px]" />
       </div>
       <div className="flex flex-col justify-center gap-y-[5px]">
@@ -44,6 +44,7 @@ const EventRow = ({ event }: EventRowProps) => {
           <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} />
           {eventBranchTitle && (
             <div className="flex gap-x-[10px]">
+              {/* eslint-disable-next-line i18next/no-literal-string */}
               <span className="text-dark">●</span>
               <span className="line-clamp-1">{eventBranchTitle}</span>
             </div>

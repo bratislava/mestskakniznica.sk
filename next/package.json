@@ -8,7 +8,7 @@
     "develop": "npm run dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint components pages utils hooks",
+    "lint": "eslint components hooks modules navikronos pages services utils",
     "lint:fix": "npm run lint -- --fix",
     "lint:quiet": "npm run lint -- --quiet",
     "prettier": "prettier --write .",

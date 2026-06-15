@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
+import { createContext, PropsWithChildren, useContext, useState } from 'react'
 
 type NavMenuContextType = {
   menuValue: string
@@ -10,7 +10,7 @@ const NavMenuContext = createContext<NavMenuContextType>({
   setMenuValue: () => {},
 })
 
-export const NavMenuContextProvider = ({ children }: PropsWithChildren<{}>) => {
+export const NavMenuContextProvider = ({ children }: PropsWithChildren<object>) => {
   const [menuValue, setMenuValue] = useState<string>('')
 
   return (
