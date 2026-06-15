@@ -53,7 +53,7 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
       password: yup.string().required().min(7, t('validation_error_password_gt_7')),
       password2: yup
         .string()
-        .oneOf([yup.ref('password'), null], t('validation_error_password_mismatch'))
+        .oneOf([yup.ref('password')], t('validation_error_password_mismatch'))
         .required(),
       phone: yup.string().matches(phoneRegexOrEmpty, t('validation_error_phone')),
       address: yup.string().required(),
@@ -62,18 +62,18 @@ const CityLibraryRegistrationForm = ({ privacyPolicyHref }: CommonFormProps) => 
       useTempAddress: yup.boolean(),
       tempAddress: yup.string().when('useTempAddress', {
         is: true,
-        then: yup.string().required(),
-        otherwise: yup.string(),
+        then: (id) => id.required(),
+        otherwise: (id) => id,
       }),
       tempCity: yup.string().when('useTempAddress', {
         is: true,
-        then: yup.string().required(),
-        otherwise: yup.string(),
+        then: (id) => id.required(),
+        otherwise: (id) => id,
       }),
       tempPostalCode: yup.string().when('useTempAddress', {
         is: true,
-        then: yup.string().matches(postalCodeRegex, t('validation_error_zipcode')).required(),
-        otherwise: yup.string(),
+        then: (id) => id.matches(postalCodeRegex, t('validation_error_zipcode')).required(),
+        otherwise: (id) => id,
       }),
       IDType: yup.string().required(),
       birthDate: yup

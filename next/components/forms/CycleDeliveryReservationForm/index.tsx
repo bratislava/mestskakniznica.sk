@@ -61,13 +61,13 @@ const CycleDeliveryReservationForm = ({ privacyPolicyHref }: CommonFormProps) =>
             id: yup.string(),
             author: yup.string().when(['id'], {
               is: (id: string) => id?.length,
-              then: yup.string(),
-              otherwise: yup.string().required(),
+              then: (id) => id,
+              otherwise: (id) => id.required(),
             }),
             title: yup.string().when(['id'], {
               is: (id: string) => id?.length,
-              then: yup.string(),
-              otherwise: yup.string().required(),
+              then: (id) => id,
+              otherwise: (id) => id.required(),
             }),
           }),
         )

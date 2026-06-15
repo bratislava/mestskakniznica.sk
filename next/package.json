@@ -70,7 +70,7 @@
     "tailwindcss-react-aria-components": "2.1.1",
     "usehooks-ts": "3.1.1",
     "xml-js": "1.6.11",
-    "yup": "0.32.11"
+    "yup": "1.7.1"
   },
   "devDependencies": {
     "@bratislava/eslint-config-next": "0.15.0",
