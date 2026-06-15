@@ -55,7 +55,7 @@
     "react": "19.2.3",
     "react-aria": "3.37.0",
     "react-aria-components": "1.6.0",
-    "react-datepicker": "7.6.0",
+    "react-datepicker": "9.1.0",
     "react-dom": "19.2.3",
     "react-hook-form": "7.71.0",
     "react-i18next": "15.4.0",
