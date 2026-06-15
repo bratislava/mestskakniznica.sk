@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
-import React, { useMemo } from 'react'
+﻿import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next/pages'
+import { useMemo } from 'react'
 
 import { Listing } from '@/components/ui'
 import {

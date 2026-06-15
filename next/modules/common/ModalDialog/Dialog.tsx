@@ -1,5 +1,5 @@
-import { useTranslation } from 'next-i18next'
-import React, { forwardRef, ReactNode } from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
+import { forwardRef, ReactNode } from 'react'
 import { Dialog as ReactAriaDialog, DialogProps } from 'react-aria-components'
 
 import { CloseIcon } from '@/assets/icons'
@@ -32,7 +32,7 @@ const Dialog = forwardRef<HTMLElement, Props>(({ children, title, ...props }, re
               <h2 className="grow text-h5">{title}</h2>
               <Button
                 aria-label={t('common.close')}
-                className="absolute right-6 top-6 -m-4"
+                className="absolute top-6 right-6 -m-4"
                 variant="plain-primary"
                 onPress={close}
               >
@@ -45,7 +45,7 @@ const Dialog = forwardRef<HTMLElement, Props>(({ children, title, ...props }, re
           {title ? null : (
             <Button
               aria-label={t('common.close')}
-              className="absolute right-6 top-6 -m-2"
+              className="absolute top-6 right-6 -m-2"
               variant="plain-primary"
               onPress={close}
             >

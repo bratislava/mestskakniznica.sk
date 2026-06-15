@@ -1,8 +1,7 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+﻿/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/interactive-supports-focus */
 
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useCallback, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import { useOverlayTriggerState } from 'react-stately'
@@ -23,7 +22,7 @@ export type ImageGalleryProps = {
  * Based on Marianum: https://github.com/bratislava/marianum.sk/blob/master/next/components/molecules/ImageGallery.tsx
  */
 
-const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => {
+const ImageGallery = ({ images, variant = 'below' }: ImageGalleryProps) => {
   const { t } = useTranslation()
 
   const firstImage = useMemo(() => {
@@ -41,6 +40,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
         : // variant 'aside'small
           0
     }
+
     // variant 'below' large
     return (containerWidth ?? 0) > 1000
       ? 7
@@ -80,7 +80,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           tabIndex={0}
           aria-label={t('imageGallery.openImageGallery')}
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
-          className={cn('outline-primary base-focus-ring cursor-default', {
+          className={cn('cursor-default base-focus-ring', {
             'flex flex-col': variant === 'below',
             'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
           })}
@@ -105,7 +105,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   <div className="absolute top-0 size-full shrink-0">
                     <StrapiImage image={firstImage.attributes} fill className="object-cover" />
                   </div>
-                  <div className="absolute bottom-2 right-2 rounded bg-button-dark px-2 py-1 text-white md:hidden">
+                  <div className="absolute right-2 bottom-2 rounded-sm bg-button-dark px-2 py-1 text-white md:hidden">
                     {`1/${images.length}`}
                   </div>
                 </div>

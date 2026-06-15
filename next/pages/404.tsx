@@ -1,7 +1,7 @@
-import { GetStaticProps } from 'next'
+﻿import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import { usePlausible } from 'next-plausible'
 import { useEffect } from 'react'
 

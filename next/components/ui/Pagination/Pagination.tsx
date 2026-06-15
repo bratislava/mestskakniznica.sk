@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 import React, { useCallback, useEffect, useState } from 'react'
 
 import ChevronLeft from '@/assets/images/chevron-left.svg'

@@ -1,5 +1,5 @@
 import { GetStaticPropsContext } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import ErrorDisplay, { getError, IDisplayError } from '@/components/Molecules/ErrorDisplay'

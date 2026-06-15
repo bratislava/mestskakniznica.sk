@@ -1,6 +1,5 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
-import React from 'react'
+﻿import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next/pages'
 
 import { Pagination } from '@/components/ui'
 import BlogPostCard from '@/modules/cards-and-rows/BlogPostCard'

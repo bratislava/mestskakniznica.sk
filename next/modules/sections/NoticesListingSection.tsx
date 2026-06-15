@@ -1,6 +1,5 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
-import React from 'react'
+﻿import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next/pages'
 
 import { Pagination } from '@/components/ui'
 import NoticeCard from '@/modules/cards-and-rows/NoticeCard'
@@ -33,8 +32,10 @@ const NoticesListingSection = () => {
   return (
     <>
       {data.notices?.data?.length ? (
-        <div className="m-auto grid items-stretch gap-4 gap-y-10 pb-16 pt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
-          {data.notices.data?.map((notice) => <NoticeCard notice={notice} key={notice?.id} />)}
+        <div className="m-auto grid items-stretch gap-4 gap-y-10 pt-6 pb-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
+          {data.notices.data?.map((notice) => (
+            <NoticeCard notice={notice} key={notice?.id} />
+          ))}
         </div>
       ) : null}
       {data.notices?.meta?.pagination?.total && (

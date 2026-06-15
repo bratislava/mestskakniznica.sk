@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 
 import FormatCurrency from '@/modules/formatting/FormatCurrency'
 import FormatDate from '@/modules/formatting/FormatDate'

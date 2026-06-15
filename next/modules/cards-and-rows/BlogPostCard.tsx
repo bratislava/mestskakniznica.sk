@@ -1,5 +1,4 @@
-import { useTranslation } from 'next-i18next'
-import React from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
 
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'

@@ -1,5 +1,5 @@
-import { useTranslation } from 'next-i18next'
-import React, { useId } from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
+import { useId } from 'react'
 
 import PageCard from '@/modules/cards-and-rows/PageCard'
 import PageRow from '@/modules/cards-and-rows/PageRow'

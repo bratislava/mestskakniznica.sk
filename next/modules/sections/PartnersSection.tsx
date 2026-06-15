@@ -1,6 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
-import React from 'react'
+﻿import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next/pages'
 
 import PartnerCardRow from '@/modules/cards-and-rows/PartnerCardRow'
 import { getPartnersQueryKey, partnersFetcher } from '@/services/graphql/fetchers/partners.fetcher'

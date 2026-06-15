@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import { useTranslation } from 'next-i18next'
+﻿import Image from 'next/image'
+import { useTranslation } from 'next-i18next/pages'
 
 import { GlobeIcon } from '@/assets/icons'
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
@@ -16,6 +16,7 @@ type PartnerCardRowProps = {
 
 const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: PartnerCardRowProps) => {
   const { t } = useTranslation()
+
   return (
     <CardWrapper
       className={cn('relative flex w-full border-border-dark py-4 lg:p-5', {
@@ -43,7 +44,7 @@ const PartnerCardRow = ({ title, id, linkHref, logo, featured = false }: Partner
       </h3>
 
       <div
-        className={cn('text-xs font-medium leading-[1.2] lg:text-sm', {
+        className={cn('text-xs leading-[1.2] font-medium lg:text-sm', {
           'mt-[6px] lg:mt-[13px]': featured,
         })}
       >

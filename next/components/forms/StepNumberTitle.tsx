@@ -1,5 +1,5 @@
-import { useTranslation } from 'next-i18next'
-import React, { ReactNode } from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
+import { ReactNode } from 'react'
 
 import { CheckNoPaddingIcon } from '@/assets/icons'
 import cn from '@/utils/cn'

@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 import React, { ReactNode, useEffect, useState } from 'react'
 import { useScrollLock, useWindowSize } from 'usehooks-ts'
 

@@ -1,5 +1,5 @@
-import { AnimatePresence, motion, PanInfo, Variant } from 'framer-motion'
-import { useTranslation } from 'next-i18next'
+﻿import { AnimatePresence, motion, PanInfo, Variant } from 'framer-motion'
+import { useTranslation } from 'next-i18next/pages'
 import { FC, forwardRef, KeyboardEvent, ReactNode, useCallback, useEffect, useState } from 'react'
 
 // copied from marianum https://github.com/bratislava/marianum.sk/blob/master/next/components/molecules/Slider.tsx
@@ -57,7 +57,6 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       description,
     },
     forwardedRef,
-    // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
     const { t } = useTranslation()
     const [isFocused, setFocused] = useState(false)
@@ -121,6 +120,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           e.preventDefault()
           e.stopPropagation()
           goToPrevious()
+
           return
         }
 
@@ -144,11 +144,11 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         onKeyUp={keyUpHandler}
         role="application"
         aria-label={description ?? t('sliderDescription')}
-        className="relative z-0 flex h-full w-full items-center justify-center overflow-hidden"
+        className="relative z-0 flex size-full items-center justify-center overflow-hidden"
       >
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
-            className="absolute h-full w-full outline-none"
+            className="absolute size-full outline-none"
             key={page}
             custom={direction}
             variants={variants}

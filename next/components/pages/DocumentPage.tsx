@@ -1,5 +1,5 @@
-import { useTranslation } from 'next-i18next'
-import React, { Fragment } from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
+import { Fragment } from 'react'
 
 import { DownloadIcon, FolderIcon } from '@/assets/icons'
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'

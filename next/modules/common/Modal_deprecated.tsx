@@ -1,6 +1,6 @@
-import { FocusTrap } from 'focus-trap-react'
+﻿import { FocusTrap } from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { ReactNode, useRef } from 'react'
 import { AriaOverlayProps, OverlayContainer, useModal, useOverlay } from 'react-aria'
 import { useIsClient, useScrollLock } from 'usehooks-ts'
@@ -63,7 +63,7 @@ const Modal_deprecated = (props: ModalProps) => {
             <div
               {...underlayProps}
               className={cn(
-                'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-dark/40',
+                'fixed inset-0 z-50 overflow-x-hidden overflow-y-auto bg-dark/40',
                 underlayClassName,
               )}
             >
@@ -78,7 +78,7 @@ const Modal_deprecated = (props: ModalProps) => {
                     {showCloseButton && (
                       <Button
                         variant="primary"
-                        className="pointer-events-auto fixed right-6 top-6 z-30"
+                        className="pointer-events-auto fixed top-6 right-6 z-30"
                         aria-label={t('modal.closeModal')}
                         onPress={onClose}
                       >

@@ -1,6 +1,6 @@
-import { useControlledState } from '@react-stately/utils'
+﻿import { useControlledState } from '@react-stately/utils'
 import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { parseAsString, useQueryState } from 'nuqs'
 import { useEffect, useMemo } from 'react'
 import { useToggleState } from 'react-stately'

@@ -1,5 +1,5 @@
-import { useTranslation } from 'next-i18next'
-import React, { useMemo } from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
+import { useMemo } from 'react'
 
 import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'

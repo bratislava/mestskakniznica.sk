@@ -1,6 +1,6 @@
-import 'mapbox-gl/dist/mapbox-gl.css'
+﻿import 'mapbox-gl/dist/mapbox-gl.css'
 
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useCallback, useEffect, useRef } from 'react'
 import Mapbox, { MapRef, Marker } from 'react-map-gl'
 import { useIsClient } from 'usehooks-ts'

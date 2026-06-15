@@ -1,8 +1,7 @@
 /* eslint-disable i18next/no-literal-string */
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React from 'react'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 import StyleguideAccordion from '@/components/styleguide/StyleguideAccordion'
 import StyleguideBreadcrumbs from '@/components/styleguide/StyleguideBreadcrumbs'

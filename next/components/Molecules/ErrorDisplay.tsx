@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 import * as React from 'react'
 
 import Button from '@/modules/common/Button'

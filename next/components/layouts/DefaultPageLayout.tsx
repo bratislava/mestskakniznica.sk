@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import { useTranslation } from 'next-i18next'
+﻿import Head from 'next/head'
+import { useTranslation } from 'next-i18next/pages'
 import { ReactNode } from 'react'
 
 import favicon from '@/assets/images/mkb_favicon.png'

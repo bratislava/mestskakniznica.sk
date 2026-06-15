@@ -1,6 +1,5 @@
-import { keepPreviousData, useQuery, UseQueryResult } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
-import React from 'react'
+﻿import { keepPreviousData, useQuery, UseQueryResult } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next/pages'
 
 import EventFilters from '@/components/Molecules/EventFilters'
 import { Pagination } from '@/components/ui'

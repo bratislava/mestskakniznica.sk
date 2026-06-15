@@ -1,5 +1,4 @@
-import { useTranslation } from 'next-i18next'
-import React from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
 
 import { CalendarIcon, EuroIcon, NavigateIcon, PlaceIcon } from '@/assets/icons'
 import EventDetailPlaceholder from '@/assets/images/event-detail-placeholder.jpg'

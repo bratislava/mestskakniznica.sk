@@ -1,5 +1,4 @@
-import { useTranslation } from 'next-i18next'
-import React from 'react'
+﻿import { useTranslation } from 'next-i18next/pages'
 
 import { SectionContainer } from '@/components/ui'
 import BookCard, { Book } from '@/modules/cards-and-rows/BookCard'

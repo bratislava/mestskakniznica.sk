@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+﻿import { useTranslation } from 'next-i18next/pages'
 
 import { CloseIcon } from '@/assets/icons'
 import Button from '@/modules/common/Button'
