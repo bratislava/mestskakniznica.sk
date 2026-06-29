@@ -35,11 +35,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Workaround: Turbopack file tracer misses `module-sync` exports condition files (e.g. require.mjs)
-  // on Node.js >= 22.10. Will be fixed when Next.js bumps @vercel/nft to >= 0.30.0.
-  // https://github.com/vercel/next.js/issues/90567
   outputFileTracingIncludes: {
-    '/**': ['./node_modules/**/require.mjs'],
+    '/**': [
+      // Workaround: Turbopack file tracer misses `module-sync` exports condition files (e.g. require.mjs)
+      // on Node.js >= 22.10. Will be fixed when Next.js bumps @vercel/nft to >= 0.30.0.
+      // https://github.com/vercel/next.js/issues/90567
+      './node_modules/**/require.mjs',
+      // tells Next to force-copy the config file into the standalone bundle for all routes, so the runtime require finds it at /home/node/app/next-i18next.config.js
+      './next-i18next.config.js',
+    ],
   },
   turbopack: {
     rules: {
