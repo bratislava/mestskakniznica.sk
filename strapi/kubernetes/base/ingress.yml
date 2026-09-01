@@ -9,8 +9,6 @@ metadata:
     nginx.org/client-max-body-size: '0'
     nginx.org/location-snippets: |
       proxy_request_buffering off;
-    nginx.org/proxy-buffer-size: 16k
-    nginx.org/proxy-buffers: 8 16k
     cert-manager.io/cluster-issuer: letsencrypt
     cert-manager.io/issue-temporary-certificate: 'true'
 spec:
