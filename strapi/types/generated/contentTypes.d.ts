@@ -362,10 +362,47 @@ export interface AdminUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAssetCategoryAssetCategory extends Schema.CollectionType {
+  collectionName: 'asset_categories';
+  info: {
+    description: '';
+    displayName: 'assetCategory';
+    pluralName: 'asset-categories';
+    singularName: 'asset-category';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    assets: Attribute.Relation<
+      'api::asset-category.asset-category',
+      'oneToMany',
+      'api::asset.asset'
+    >;
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::asset-category.asset-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    label: Attribute.String & Attribute.Required;
+    slug: Attribute.UID & Attribute.Required;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::asset-category.asset-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiAssetAsset extends Schema.CollectionType {
   collectionName: 'assets';
   info: {
-    displayName: 'Asset';
+    description: '';
+    displayName: 'Assety';
     pluralName: 'assets';
     singularName: 'asset';
   };
@@ -373,6 +410,11 @@ export interface ApiAssetAsset extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
+    assetCategory: Attribute.Relation<
+      'api::asset.asset',
+      'manyToOne',
+      'api::asset-category.asset-category'
+    >;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::asset.asset',
@@ -380,8 +422,13 @@ export interface ApiAssetAsset extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    description: Attribute.Text;
+    file: Attribute.Media<'images' | 'files', true> & Attribute.Required;
+    originalSlug: Attribute.String;
+    originalTitle: Attribute.String;
     publishedAt: Attribute.DateTime;
-    title: Attribute.String;
+    slug: Attribute.UID<'api::asset.asset', 'title'> & Attribute.Required;
+    title: Attribute.String & Attribute.Required;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::asset.asset',
@@ -2119,6 +2166,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::asset-category.asset-category': ApiAssetCategoryAssetCategory;
       'api::asset.asset': ApiAssetAsset;
       'api::basic-document.basic-document': ApiBasicDocumentBasicDocument;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
