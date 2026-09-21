@@ -362,6 +362,36 @@ export interface AdminUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAssetAsset extends Schema.CollectionType {
+  collectionName: 'assets';
+  info: {
+    displayName: 'Asset';
+    pluralName: 'assets';
+    singularName: 'asset';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::asset.asset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    publishedAt: Attribute.DateTime;
+    title: Attribute.String;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::asset.asset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiBasicDocumentBasicDocument extends Schema.CollectionType {
   collectionName: 'basic_documents';
   info: {
@@ -2089,6 +2119,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::asset.asset': ApiAssetAsset;
       'api::basic-document.basic-document': ApiBasicDocumentBasicDocument;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
       'api::book-tag.book-tag': ApiBookTagBookTag;

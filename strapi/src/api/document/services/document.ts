@@ -2,6 +2,6 @@
  * document service
  */
 
-import { factories } from '@strapi/strapi'
+import { factories } from "@strapi/strapi";
 
-export default factories.createCoreService('api::document.document');
+export default factories.createCoreService("api::document.document");

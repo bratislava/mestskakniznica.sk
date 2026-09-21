@@ -2,6 +2,47 @@
 ### Do not make changes to this file directly
 
 
+type Asset {
+  createdAt: DateTime
+  publishedAt: DateTime
+  title: String
+  updatedAt: DateTime
+}
+
+type AssetEntity {
+  attributes: Asset
+  id: ID
+}
+
+type AssetEntityResponse {
+  data: AssetEntity
+}
+
+type AssetEntityResponseCollection {
+  data: [AssetEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input AssetFiltersInput {
+  and: [AssetFiltersInput]
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  not: AssetFiltersInput
+  or: [AssetFiltersInput]
+  publishedAt: DateTimeFilterInput
+  title: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input AssetInput {
+  publishedAt: DateTime
+  title: String
+}
+
+type AssetRelationResponseCollection {
+  data: [AssetEntity!]!
+}
+
 type BasicDocument {
   attachment: UploadFileEntityResponse
   author: String
@@ -2223,7 +2264,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepagePromotedContent | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Asset | BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepagePromotedContent | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2492,6 +2533,7 @@ type MenuRelationResponseCollection {
 type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+  createAsset(data: AssetInput!): AssetEntityResponse
   createBasicDocument(data: BasicDocumentInput!): BasicDocumentEntityResponse
   createBlogPost(data: BlogPostInput!, locale: I18NLocaleCode): BlogPostEntityResponse
   createBlogPostLocalization(data: BlogPostInput, id: ID, locale: I18NLocaleCode): BlogPostEntityResponse
@@ -2527,6 +2569,7 @@ type Mutation {
 
   """Create a new user"""
   createUsersPermissionsUser(data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
+  deleteAsset(id: ID!): AssetEntityResponse
   deleteBasicDocument(id: ID!): BasicDocumentEntityResponse
   deleteBlogPost(id: ID!, locale: I18NLocaleCode): BlogPostEntityResponse
   deleteBookTag(id: ID!): BookTagEntityResponse
@@ -2571,6 +2614,7 @@ type Mutation {
   Reset user password. Confirm with a code (resetToken from forgotPassword)
   """
   resetPassword(code: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+  updateAsset(data: AssetInput!, id: ID!): AssetEntityResponse
   updateBasicDocument(data: BasicDocumentInput!, id: ID!): BasicDocumentEntityResponse
   updateBlogPost(data: BlogPostInput!, id: ID!, locale: I18NLocaleCode): BlogPostEntityResponse
   updateBookTag(data: BookTagInput!, id: ID!): BookTagEntityResponse
@@ -2854,6 +2898,8 @@ enum PublicationState {
 }
 
 type Query {
+  asset(id: ID): AssetEntityResponse
+  assets(filters: AssetFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): AssetEntityResponseCollection
   basicDocument(id: ID): BasicDocumentEntityResponse
   basicDocuments(filters: BasicDocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BasicDocumentEntityResponseCollection
   blogPost(id: ID, locale: I18NLocaleCode): BlogPostEntityResponse

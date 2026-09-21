@@ -7,6 +7,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: strapi
       PGPORT: 5432
+      PGDATA: var/lib/postgresql/data
     expose:
       - "5432"
     ports:
