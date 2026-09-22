@@ -1,4 +1,6 @@
 import {
+  Asset,
+  AssetCategory,
   BasicDocument,
   Branch,
   Disclosure,
@@ -23,6 +25,12 @@ export type BasicDocumentMeili = Omit<
 export type DocumentMeili = Omit<Document, '__typename' | 'documentCategory' | 'file'> & {
   id: string
   documentCategory: Omit<DocumentCategory, '__typename' | 'documents'>
+  file: Omit<UploadFile, '__typename'> | Omit<UploadFile, '__typename'>[]
+}
+
+export type AssetMeili = Omit<Asset, '__typename' | 'assetCategory' | 'file'> & {
+  id: string
+  assetCategory: Omit<AssetCategory, '__typename' | 'assets'>
   file: Omit<UploadFile, '__typename'> | Omit<UploadFile, '__typename'>[]
 }
 

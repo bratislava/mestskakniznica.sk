@@ -37,6 +37,9 @@ const searchIndexSettings = {
     // Documents
     "document.title",
     "document.description",
+    // Assets
+    "asset.title",
+    "asset.description",
     // Disclosures
     "disclosure.title",
     "disclosure.description",
@@ -63,6 +66,8 @@ const searchIndexSettings = {
     "basic-document.file_category.id",
     // Document
     "document.documentCategory.id",
+    // Asset
+    "asset.assetCategory.id",
     // Disclosure
     "disclosure.type",
     // Event
@@ -78,7 +83,7 @@ const searchIndexSettings = {
     "basic-document.date_added",
     // Event
     "event.dateFromTimestamp",
-    // Document, Disclosure
+    // Document, Disclosure, Asset
     "commonAttributes.addedAtTimestamp",
   ],
   pagination: {
@@ -122,7 +127,27 @@ const config = {
           addedAtTimestamp: entry.publishedAt
             ? new Date(entry.publishedAt).getTime()
             : undefined,
+        }
+      ),
+  },
+
+  asset: {
+    indexName: "search_index",
+    settings: searchIndexSettings,
+    transformEntry: ({ entry }) =>
+      wrapSearchIndexEntry(
+        "asset",
+        {
+          ...entry,
         },
+        {
+          // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+          // use (number) filters.
+          // Transforming publishedAt to addedAtTimestamp to be able to use the same sort as for Disclosures.
+          addedAtTimestamp: entry.publishedAt
+            ? new Date(entry.publishedAt).getTime()
+            : undefined,
+        }
       ),
   },
 
@@ -141,7 +166,7 @@ const config = {
           addedAtTimestamp: entry.addedAt
             ? new Date(entry.addedAt).getTime()
             : undefined,
-        },
+        }
       ),
   },
 

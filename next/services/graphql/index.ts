@@ -38,6 +38,131 @@ export type Scalars = {
   Upload: { input: any; output: any }
 }
 
+export type Asset = {
+  __typename?: 'Asset'
+  assetCategory?: Maybe<AssetCategoryEntityResponse>
+  createdAt?: Maybe<Scalars['DateTime']['output']>
+  description?: Maybe<Scalars['String']['output']>
+  file: UploadFileRelationResponseCollection
+  originalSlug?: Maybe<Scalars['String']['output']>
+  originalTitle?: Maybe<Scalars['String']['output']>
+  publishedAt?: Maybe<Scalars['DateTime']['output']>
+  slug: Scalars['String']['output']
+  title: Scalars['String']['output']
+  updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type AssetFileArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type AssetCategory = {
+  __typename?: 'AssetCategory'
+  assets?: Maybe<AssetRelationResponseCollection>
+  createdAt?: Maybe<Scalars['DateTime']['output']>
+  label: Scalars['String']['output']
+  slug: Scalars['String']['output']
+  updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type AssetCategoryAssetsArgs = {
+  filters?: InputMaybe<AssetFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type AssetCategoryEntity = {
+  __typename?: 'AssetCategoryEntity'
+  attributes?: Maybe<AssetCategory>
+  id?: Maybe<Scalars['ID']['output']>
+}
+
+export type AssetCategoryEntityResponse = {
+  __typename?: 'AssetCategoryEntityResponse'
+  data?: Maybe<AssetCategoryEntity>
+}
+
+export type AssetCategoryEntityResponseCollection = {
+  __typename?: 'AssetCategoryEntityResponseCollection'
+  data: Array<AssetCategoryEntity>
+  meta: ResponseCollectionMeta
+}
+
+export type AssetCategoryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<AssetCategoryFiltersInput>>>
+  assets?: InputMaybe<AssetFiltersInput>
+  createdAt?: InputMaybe<DateTimeFilterInput>
+  id?: InputMaybe<IdFilterInput>
+  label?: InputMaybe<StringFilterInput>
+  not?: InputMaybe<AssetCategoryFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<AssetCategoryFiltersInput>>>
+  slug?: InputMaybe<StringFilterInput>
+  updatedAt?: InputMaybe<DateTimeFilterInput>
+}
+
+export type AssetCategoryInput = {
+  assets?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  label?: InputMaybe<Scalars['String']['input']>
+  slug?: InputMaybe<Scalars['String']['input']>
+}
+
+export type AssetCategoryRelationResponseCollection = {
+  __typename?: 'AssetCategoryRelationResponseCollection'
+  data: Array<AssetCategoryEntity>
+}
+
+export type AssetEntity = {
+  __typename?: 'AssetEntity'
+  attributes?: Maybe<Asset>
+  id?: Maybe<Scalars['ID']['output']>
+}
+
+export type AssetEntityResponse = {
+  __typename?: 'AssetEntityResponse'
+  data?: Maybe<AssetEntity>
+}
+
+export type AssetEntityResponseCollection = {
+  __typename?: 'AssetEntityResponseCollection'
+  data: Array<AssetEntity>
+  meta: ResponseCollectionMeta
+}
+
+export type AssetFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<AssetFiltersInput>>>
+  assetCategory?: InputMaybe<AssetCategoryFiltersInput>
+  createdAt?: InputMaybe<DateTimeFilterInput>
+  description?: InputMaybe<StringFilterInput>
+  id?: InputMaybe<IdFilterInput>
+  not?: InputMaybe<AssetFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<AssetFiltersInput>>>
+  originalSlug?: InputMaybe<StringFilterInput>
+  originalTitle?: InputMaybe<StringFilterInput>
+  publishedAt?: InputMaybe<DateTimeFilterInput>
+  slug?: InputMaybe<StringFilterInput>
+  title?: InputMaybe<StringFilterInput>
+  updatedAt?: InputMaybe<DateTimeFilterInput>
+}
+
+export type AssetInput = {
+  assetCategory?: InputMaybe<Scalars['ID']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
+  file?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  originalSlug?: InputMaybe<Scalars['String']['input']>
+  originalTitle?: InputMaybe<Scalars['String']['input']>
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>
+  slug?: InputMaybe<Scalars['String']['input']>
+  title?: InputMaybe<Scalars['String']['input']>
+}
+
+export type AssetRelationResponseCollection = {
+  __typename?: 'AssetRelationResponseCollection'
+  data: Array<AssetEntity>
+}
+
 export type BasicDocument = {
   __typename?: 'BasicDocument'
   attachment?: Maybe<UploadFileEntityResponse>
@@ -2646,6 +2771,8 @@ export type GeneralRelationResponseCollection = {
 }
 
 export type GenericMorph =
+  | Asset
+  | AssetCategory
   | BasicDocument
   | BlogPost
   | BookTag
@@ -3014,6 +3141,8 @@ export type Mutation = {
   __typename?: 'Mutation'
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>
+  createAsset?: Maybe<AssetEntityResponse>
+  createAssetCategory?: Maybe<AssetCategoryEntityResponse>
   createBasicDocument?: Maybe<BasicDocumentEntityResponse>
   createBlogPost?: Maybe<BlogPostEntityResponse>
   createBlogPostLocalization?: Maybe<BlogPostEntityResponse>
@@ -3047,6 +3176,8 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse
+  deleteAsset?: Maybe<AssetEntityResponse>
+  deleteAssetCategory?: Maybe<AssetCategoryEntityResponse>
   deleteBasicDocument?: Maybe<BasicDocumentEntityResponse>
   deleteBlogPost?: Maybe<BlogPostEntityResponse>
   deleteBookTag?: Maybe<BookTagEntityResponse>
@@ -3083,6 +3214,8 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>
+  updateAsset?: Maybe<AssetEntityResponse>
+  updateAssetCategory?: Maybe<AssetCategoryEntityResponse>
   updateBasicDocument?: Maybe<BasicDocumentEntityResponse>
   updateBlogPost?: Maybe<BlogPostEntityResponse>
   updateBookTag?: Maybe<BookTagEntityResponse>
@@ -3116,6 +3249,14 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input']
   password: Scalars['String']['input']
   passwordConfirmation: Scalars['String']['input']
+}
+
+export type MutationCreateAssetArgs = {
+  data: AssetInput
+}
+
+export type MutationCreateAssetCategoryArgs = {
+  data: AssetCategoryInput
 }
 
 export type MutationCreateBasicDocumentArgs = {
@@ -3275,6 +3416,14 @@ export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput
 }
 
+export type MutationDeleteAssetArgs = {
+  id: Scalars['ID']['input']
+}
+
+export type MutationDeleteAssetCategoryArgs = {
+  id: Scalars['ID']['input']
+}
+
 export type MutationDeleteBasicDocumentArgs = {
   id: Scalars['ID']['input']
 }
@@ -3403,6 +3552,16 @@ export type MutationResetPasswordArgs = {
   code: Scalars['String']['input']
   password: Scalars['String']['input']
   passwordConfirmation: Scalars['String']['input']
+}
+
+export type MutationUpdateAssetArgs = {
+  data: AssetInput
+  id: Scalars['ID']['input']
+}
+
+export type MutationUpdateAssetCategoryArgs = {
+  data: AssetCategoryInput
+  id: Scalars['ID']['input']
 }
 
 export type MutationUpdateBasicDocumentArgs = {
@@ -3864,6 +4023,10 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query'
+  asset?: Maybe<AssetEntityResponse>
+  assetCategories?: Maybe<AssetCategoryEntityResponseCollection>
+  assetCategory?: Maybe<AssetCategoryEntityResponse>
+  assets?: Maybe<AssetEntityResponseCollection>
   basicDocument?: Maybe<BasicDocumentEntityResponse>
   basicDocuments?: Maybe<BasicDocumentEntityResponseCollection>
   blogPost?: Maybe<BlogPostEntityResponse>
@@ -3909,6 +4072,27 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>
+}
+
+export type QueryAssetArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>
+}
+
+export type QueryAssetCategoriesArgs = {
+  filters?: InputMaybe<AssetCategoryFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type QueryAssetCategoryArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>
+}
+
+export type QueryAssetsArgs = {
+  filters?: InputMaybe<AssetFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
 }
 
 export type QueryBasicDocumentArgs = {
