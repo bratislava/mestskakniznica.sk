@@ -50,12 +50,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "listing",
-        "sublisting",
-        "full_content",
-        "content_with_sidebar"
-      ]
+      "enum": ["listing", "sublisting", "full_content", "content_with_sidebar"]
     },
     "perex": {
       "pluginOptions": {
@@ -69,12 +64,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
+      "allowedTypes": ["images", "files", "videos", "audios"],
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -89,6 +79,7 @@
       },
       "type": "dynamiczone",
       "components": [
+        "sections.assets",
         "sections.faq",
         "sections.flat-text",
         "sections.site-usefullness",

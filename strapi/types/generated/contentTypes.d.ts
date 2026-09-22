@@ -1292,6 +1292,7 @@ export interface ApiPagePage extends Schema.CollectionType {
     publishedAt: Attribute.DateTime
     sections: Attribute.DynamicZone<
       [
+        'sections.assets',
         'sections.faq',
         'sections.flat-text',
         'sections.site-usefullness',
