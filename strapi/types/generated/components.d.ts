@@ -508,6 +508,14 @@ export interface SectionsAssets extends Schema.Component {
   }
 }
 
+export interface SectionsAssetsListing extends Schema.Component {
+  collectionName: 'components_sections_assets_listing'
+  info: {
+    displayName: 'Listing: Assety a Zverej\u0148ovanie'
+  }
+  attributes: {}
+}
+
 export interface SectionsBlogPostsListing extends Schema.Component {
   collectionName: 'components_sections_blog_posts_listing'
   info: {
@@ -807,6 +815,7 @@ declare module '@strapi/types' {
       'metadata.zmluvy': MetadataZmluvy
       'sections.accordion': SectionsAccordion
       'sections.assets': SectionsAssets
+      'sections.assets-listing': SectionsAssetsListing
       'sections.blog-posts-listing': SectionsBlogPostsListing
       'sections.cherrypick-section': SectionsCherrypickSection
       'sections.children-listing': SectionsChildrenListing

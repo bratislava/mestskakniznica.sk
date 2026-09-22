@@ -1527,6 +1527,21 @@ export type ComponentSectionsAssetsInput = {
   title?: InputMaybe<Scalars['String']['input']>
 }
 
+export type ComponentSectionsAssetsListing = {
+  __typename?: 'ComponentSectionsAssetsListing'
+  id: Scalars['ID']['output']
+}
+
+export type ComponentSectionsAssetsListingFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsAssetsListingFiltersInput>>>
+  not?: InputMaybe<ComponentSectionsAssetsListingFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsAssetsListingFiltersInput>>>
+}
+
+export type ComponentSectionsAssetsListingInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
+}
+
 export type ComponentSectionsBlogPostsListing = {
   __typename?: 'ComponentSectionsBlogPostsListing'
   id: Scalars['ID']['output']
@@ -2862,6 +2877,7 @@ export type GenericMorph =
   | ComponentMetadataZmluvy
   | ComponentSectionsAccordion
   | ComponentSectionsAssets
+  | ComponentSectionsAssetsListing
   | ComponentSectionsBlogPostsListing
   | ComponentSectionsCherrypickSection
   | ComponentSectionsChildrenListing
