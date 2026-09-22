@@ -491,6 +491,23 @@ export interface SectionsAccordion extends Schema.Component {
   }
 }
 
+export interface SectionsAssets extends Schema.Component {
+  collectionName: 'components_sections_assets'
+  info: {
+    displayName: 'Assety'
+  }
+  attributes: {
+    assets: Attribute.Relation<'sections.assets', 'oneToMany', 'api::asset.asset'>
+    basicDocuments: Attribute.Relation<
+      'sections.assets',
+      'oneToMany',
+      'api::basic-document.basic-document'
+    >
+    disclosures: Attribute.Relation<'sections.assets', 'oneToMany', 'api::disclosure.disclosure'>
+    title: Attribute.String
+  }
+}
+
 export interface SectionsBlogPostsListing extends Schema.Component {
   collectionName: 'components_sections_blog_posts_listing'
   info: {
@@ -789,6 +806,7 @@ declare module '@strapi/types' {
       'metadata.verejne-obstaravanie': MetadataVerejneObstaravanie
       'metadata.zmluvy': MetadataZmluvy
       'sections.accordion': SectionsAccordion
+      'sections.assets': SectionsAssets
       'sections.blog-posts-listing': SectionsBlogPostsListing
       'sections.cherrypick-section': SectionsCherrypickSection
       'sections.children-listing': SectionsChildrenListing

@@ -4783,6 +4783,104 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>
 }
 
+export type AssetCategoryEntityFragment = {
+  __typename?: 'AssetCategoryEntity'
+  id?: string | null
+  attributes?: { __typename?: 'AssetCategory'; label: string; slug: string } | null
+}
+
+export type AssetEntityFragment = {
+  __typename: 'AssetEntity'
+  id?: string | null
+  attributes?: {
+    __typename?: 'Asset'
+    title: string
+    slug: string
+    description?: string | null
+    publishedAt?: any | null
+    assetCategory?: {
+      __typename?: 'AssetCategoryEntityResponse'
+      data?: {
+        __typename?: 'AssetCategoryEntity'
+        id?: string | null
+        attributes?: { __typename?: 'AssetCategory'; label: string; slug: string } | null
+      } | null
+    } | null
+    file: {
+      __typename?: 'UploadFileRelationResponseCollection'
+      data: Array<{
+        __typename?: 'UploadFileEntity'
+        id?: string | null
+        attributes?: {
+          __typename?: 'UploadFile'
+          url: string
+          name: string
+          size: number
+          ext?: string | null
+        } | null
+      }>
+    }
+  } | null
+}
+
+export type AssetCategoriesQueryVariables = Exact<{ [key: string]: never }>
+
+export type AssetCategoriesQuery = {
+  __typename?: 'Query'
+  assetCategories?: {
+    __typename?: 'AssetCategoryEntityResponseCollection'
+    data: Array<{
+      __typename?: 'AssetCategoryEntity'
+      id?: string | null
+      attributes?: { __typename?: 'AssetCategory'; label: string; slug: string } | null
+    }>
+  } | null
+}
+
+export type AssetBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input']
+}>
+
+export type AssetBySlugQuery = {
+  __typename?: 'Query'
+  assets?: {
+    __typename?: 'AssetEntityResponseCollection'
+    data: Array<{
+      __typename: 'AssetEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Asset'
+        title: string
+        slug: string
+        description?: string | null
+        publishedAt?: any | null
+        assetCategory?: {
+          __typename?: 'AssetCategoryEntityResponse'
+          data?: {
+            __typename?: 'AssetCategoryEntity'
+            id?: string | null
+            attributes?: { __typename?: 'AssetCategory'; label: string; slug: string } | null
+          } | null
+        } | null
+        file: {
+          __typename?: 'UploadFileRelationResponseCollection'
+          data: Array<{
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              url: string
+              name: string
+              size: number
+              ext?: string | null
+            } | null
+          }>
+        }
+      } | null
+    }>
+  } | null
+}
+
 export type BasicDocumentBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input']
 }>
@@ -11157,6 +11255,50 @@ export type CherrypickSectionFragment = {
   } | null
 }
 
+export const AssetCategoryEntityFragmentDoc = gql`
+  fragment AssetCategoryEntity on AssetCategoryEntity {
+    id
+    attributes {
+      label
+      slug
+    }
+  }
+`
+export const UploadFileEntityFragmentDoc = gql`
+  fragment UploadFileEntity on UploadFileEntity {
+    id
+    attributes {
+      url
+      name
+      size
+      ext
+    }
+  }
+`
+export const AssetEntityFragmentDoc = gql`
+  fragment AssetEntity on AssetEntity {
+    id
+    __typename
+    attributes {
+      title
+      slug
+      description
+      publishedAt
+      assetCategory {
+        data {
+          ...AssetCategoryEntity
+        }
+      }
+      file {
+        data {
+          ...UploadFileEntity
+        }
+      }
+    }
+  }
+  ${AssetCategoryEntityFragmentDoc}
+  ${UploadFileEntityFragmentDoc}
+`
 export const FileCategoryEntityFragmentDoc = gql`
   fragment FileCategoryEntity on FileCategoryEntity {
     id
@@ -11174,17 +11316,6 @@ export const BasicDocumentFileFragmentDoc = gql`
       name
       ext
       size
-    }
-  }
-`
-export const UploadFileEntityFragmentDoc = gql`
-  fragment UploadFileEntity on UploadFileEntity {
-    id
-    attributes {
-      url
-      name
-      size
-      ext
     }
   }
 `
@@ -12406,6 +12537,26 @@ export const PaginationFragmentDoc = gql`
     pageCount
   }
 `
+export const AssetCategoriesDocument = gql`
+  query AssetCategories {
+    assetCategories {
+      data {
+        ...AssetCategoryEntity
+      }
+    }
+  }
+  ${AssetCategoryEntityFragmentDoc}
+`
+export const AssetBySlugDocument = gql`
+  query AssetBySlug($slug: String!) {
+    assets(filters: { slug: { eq: $slug } }) {
+      data {
+        ...AssetEntity
+      }
+    }
+  }
+  ${AssetEntityFragmentDoc}
+`
 export const BasicDocumentBySlugDocument = gql`
   query BasicDocumentBySlug($slug: String!) {
     basicDocuments(filters: { slug: { eq: $slug } }) {
@@ -12806,6 +12957,36 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    AssetCategories(
+      variables?: AssetCategoriesQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<AssetCategoriesQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<AssetCategoriesQuery>(AssetCategoriesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'AssetCategories',
+        'query',
+        variables,
+      )
+    },
+    AssetBySlug(
+      variables: AssetBySlugQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<AssetBySlugQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<AssetBySlugQuery>(AssetBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'AssetBySlug',
+        'query',
+        variables,
+      )
+    },
     BasicDocumentBySlug(
       variables: BasicDocumentBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
