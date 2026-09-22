@@ -1,0 +1,200 @@
+﻿import { useTranslation } from 'next-i18next/pages'
+import { Fragment } from 'react'
+
+import { DownloadIcon, FolderIcon } from '@/assets/icons'
+import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
+import { SectionContainer } from '@/components/ui'
+import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
+import Button from '@/modules/common/Button'
+import FileExtBadge from '@/modules/common/FileExtBadge'
+import FormatDate from '@/modules/formatting/FormatDate'
+import { AssetEntityFragment, DisclosureEntityFragment } from '@/services/graphql'
+import { useNavikronos } from '@/utils/navikronos'
+import { useDisclosureMetadata } from '@/utils/useDisclosureMetadata'
+import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
+import { getFileSize } from '@/utils/utils'
+
+interface IProps {
+  entity: AssetEntityFragment | DisclosureEntityFragment
+}
+
+const AssetPage = ({ entity }: IProps) => {
+  const { t, i18n } = useTranslation()
+  const { breadcrumbs } = useNavikronos()
+  const { getDownloadAriaLabel } = useDownloadAriaLabel()
+  const { getDisclosureMetadata } = useDisclosureMetadata()
+
+  if (!entity.attributes) {
+    return null
+  }
+
+  const { title, file, description } = entity.attributes
+
+  const firstItem = file?.data[0]
+
+  if (!firstItem?.attributes) {
+    return null
+  }
+
+  const numOfFiles = file?.data.length ?? 0
+  const isMultipleFiles = numOfFiles > 1
+  const badgeExt = isMultipleFiles ? (
+    <FolderIcon />
+  ) : (
+    (firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? '')
+  )
+
+  const isDisclosure = entity.__typename === 'DisclosureEntity'
+
+  const dlData = isDisclosure
+    ? getDisclosureMetadata(entity)
+    : [
+        {
+          label: t('assetMetadata.category'),
+          value: entity.attributes.assetCategory?.data?.attributes?.label,
+        },
+        {
+          label: t('assetMetadata.addedAt'),
+          value: <FormatDate value={entity.attributes.publishedAt} valueType="ISO" />,
+        },
+      ]
+
+  return (
+    <DefaultPageLayout title={title}>
+      <SectionContainer>
+        <Breadcrumbs crumbs={breadcrumbs} />
+
+        <div className="mt-6 flex flex-col gap-x-8 border-b border-border-dark pb-10 lg:mt-16 lg:flex-row lg:pb-32">
+          <FileExtBadge className="mb-8 size-16 self-center lg:self-auto" fileExt={badgeExt} />
+
+          <div className="w-full text-foreground-body">
+            <div className="flex flex-col items-center border-b border-border-dark text-center lg:items-start lg:text-left">
+              {/* Header */}
+              <h1 className="text-h1 lg:mt-0">{title}</h1>
+
+              {isMultipleFiles && (
+                <div className="mt-2 flex items-center gap-x-3 pb-6 lg:pb-10">
+                  <span>{t('assetPage.inflectFiles', { count: numOfFiles })}</span>
+                </div>
+              )}
+              {!isMultipleFiles && firstItem && (
+                <div className="flex w-full flex-col items-center text-center lg:items-start lg:text-left">
+                  <div className="mt-2 flex items-center gap-x-3">
+                    <span>{getFileSize(firstItem?.attributes?.size, i18n.language)}</span>
+                    <span>&bull;</span>
+                    <span>{firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}</span>
+                  </div>
+
+                  <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-x-4 lg:gap-y-0">
+                    <Button
+                      href={firstItem?.attributes?.url || ''}
+                      target="_blank"
+                      rel="noreferrer"
+                      mobileFullWidth
+                      aria-label={getDownloadAriaLabel(firstItem, title)}
+                      // Change to 'ExternalLinkIcon' when download button is added
+                      // startIcon={<ExternalLinkIcon />}
+                      startIcon={<DownloadIcon />}
+                    >
+                      {/* Change to 'Open' when download button is added */}
+                      {t('assetPage.open')}
+                    </Button>
+                    {/* TODO add direct download */}
+                    {/* <Button */}
+                    {/*  variant="secondary" */}
+                    {/*  mobileFullWidth */}
+                    {/*  href={url} */}
+                    {/*  // TODO add download title */}
+                    {/*  // download={file?.attributes?.attachment?.data?.attributes?.name} */}
+                    {/*  aria-label={getDownloadAriaLabel(file.data, title)} */}
+                    {/*  startIcon={<DownloadIcon />} */}
+                    {/* > */}
+                    {/*  {t('assetPage.download')} */}
+                    {/* </Button> */}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Description */}
+            {!isDisclosure && description ? (
+              <div className="border-b border-border-dark py-6 lg:py-10">
+                <h2 className="text-h3">{t('assetPage.description')}</h2>
+                <div className="mt-4 text-sm text-foreground-body lg:mt-6 lg:text-base">
+                  {description}
+                </div>
+              </div>
+            ) : null}
+
+            {/* Show File list if multiple files present */}
+            {isMultipleFiles && (
+              <div className="pt-6 lg:pt-10">
+                <h2 className="text-h3">{t('assetPage.files')}</h2>
+                <div className="text-sm text-foreground-body lg:mt-6 lg:text-base">
+                  {file?.data.map((fileInner) => (
+                    <div
+                      key={fileInner.id}
+                      className="flex flex-col items-center gap-x-6 border-b border-border-dark pt-6 text-center lg:flex-row lg:pt-0 lg:text-left"
+                    >
+                      {/* File extension badge */}
+                      <FileExtBadge
+                        className="my-4 hidden size-14 self-center lg:flex lg:self-auto"
+                        fileExt={fileInner?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}
+                      />
+
+                      <div className="w-full gap-y-2">
+                        {/* File name */}
+                        <div>{fileInner?.attributes?.name}</div>
+
+                        {/* File properties */}
+                        <div className="mt-2 flex items-center justify-center gap-x-3 lg:justify-start">
+                          <span>{getFileSize(fileInner?.attributes?.size, i18n.language)}</span>
+                          <span className="lg:hidden">&bull;</span>
+                          <span className="lg:hidden">
+                            {firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Download button */}
+                      <div className="my-6 flex w-full flex-col items-center lg:w-auto">
+                        <Button
+                          href={fileInner?.attributes?.url || ''}
+                          target="_blank"
+                          rel="noreferrer"
+                          mobileFullWidth
+                          aria-label={getDownloadAriaLabel(fileInner)}
+                          // Change to 'ExternalLinkIcon' when download button is added
+                          // startIcon={<ExternalLinkIcon />}
+                          startIcon={<DownloadIcon />}
+                        >
+                          {/* Change to 'Open' when download button is added */}
+                          {/* {t('assetPage.open')} */}
+                          {t('assetPage.open')}
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Metadata */}
+            <dl className="mt-6 text-sm lg:mt-10 lg:text-base">
+              {dlData.map((dItem) => (
+                <Fragment key={dItem.label}>
+                  <dt className="float-left clear-left w-40 not-first:mt-3 after:content-[':'] lg:w-48">
+                    {dItem.label}
+                  </dt>
+                  <dd className="ml-40 not-first:mt-3 lg:ml-48">{dItem.value}</dd>
+                </Fragment>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </SectionContainer>
+    </DefaultPageLayout>
+  )
+}
+
+export default AssetPage
