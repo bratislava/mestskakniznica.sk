@@ -197,7 +197,7 @@ const Sections = ({
           //     <Assets
           //       title={section.title}
           //       assets={[
-          //         ...((section.assets?.data as DocumentEntityFragment[]) ?? []),
+          //         ...((section.assets?.data as AssetEntityFragment[]) ?? []),
           //         ...((section.disclosures?.data as DisclosureEntityFragment[]) ?? []),
           //       ]}
           //     />
