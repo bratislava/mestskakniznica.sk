@@ -2,13 +2,14 @@ import { SearchResponse } from 'meilisearch'
 
 import { getMeilisearchPageOptions } from '@/services/meili/getMeilisearchPageOptions'
 import { meiliClient } from '@/services/meili/meilisearch'
-import { DisclosureMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { AssetMeili, DisclosureMeili, DocumentMeili } from '@/services/meili/meiliTypes'
 import { SearchIndexWrapped } from '@/services/meili/searchIndexWrapped'
 
 export const allSearchTypes = [
   'page' as const,
   'blog-post' as const,
   'document' as const,
+  'asset' as const,
   'disclosure' as const,
   'event' as const,
   'notice' as const,
@@ -19,6 +20,7 @@ type CommonSearchResults =
   | SearchIndexWrapped<'page', { slug: string; title: string | null | undefined }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'blog-post', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'document', DocumentMeili>
+  | SearchIndexWrapped<'asset', AssetMeili>
   | SearchIndexWrapped<'disclosure', DisclosureMeili>
   | SearchIndexWrapped<'event', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'notice', { slug: string }> // TODO: Specify type if needed.
@@ -52,35 +54,32 @@ export const getCommonSearchQueryKey = (filters: CommonSearchFilters, locale: st
   locale,
 ]
 
-export const commonSearchFetcher =
-  (filters: CommonSearchFilters, locale: string) =>
-  // eslint-disable-next-line sonarjs/cognitive-complexity
-  () => {
-    // If no type is selected, no filters are generated, so all of them are displayed.
-    const selectedTypesFilter = filters.selectedTypes.map((type) => `type = ${type}`).join(' OR ')
+export const commonSearchFetcher = (filters: CommonSearchFilters, locale: string) => () => {
+  // If no type is selected, no filters are generated, so all of them are displayed.
+  const selectedTypesFilter = filters.selectedTypes.map((type) => `type = ${type}`).join(' OR ')
 
-    return meiliClient
-      .index('search_index')
-      .search<CommonSearchResults>(filters.searchValue, {
-        ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
-        filter: [selectedTypesFilter, `locale = ${locale} OR locale NOT EXISTS`],
+  return meiliClient
+    .index('search_index')
+    .search<CommonSearchResults>(filters.searchValue, {
+      ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
+      filter: [selectedTypesFilter, `locale = ${locale} OR locale NOT EXISTS`],
+    })
+    .then((response) => {
+      const newHits = response.hits.map((hit) => {
+        const { type } = hit
+
+        // TODO: Fix types, but not worth it.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
+        const dataInner = (hit as any)[type]
+
+        return {
+          type,
+          title: dataInner.title,
+          id: dataInner.id,
+          slug: dataInner.slug,
+        } as CommonSearchResult
       })
-      .then((response) => {
-        const newHits = response.hits.map((hit) => {
-          const { type } = hit
 
-          // TODO: Fix types, but not worth it.
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
-          const dataInner = (hit as any)[type]
-
-          return {
-            type,
-            title: dataInner.title,
-            id: dataInner.id,
-            slug: dataInner.slug,
-          } as CommonSearchResult
-        })
-
-        return { ...response, hits: newHits }
-      })
-  }
+      return { ...response, hits: newHits }
+    })
+}

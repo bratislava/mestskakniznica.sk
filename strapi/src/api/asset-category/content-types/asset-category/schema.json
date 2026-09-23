@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "asset_categories",
+  "info": {
+    "singularName": "asset-category",
+    "pluralName": "asset-categories",
+    "displayName": "assetCategory",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "required": true
+    },
+    "assets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::asset.asset",
+      "mappedBy": "assetCategory"
+    }
+  }
+}

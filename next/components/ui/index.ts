@@ -1,3 +1,4 @@
+export * from './Assets/Assets'
 export * from './Banner/Banner'
 export * from './BranchMap/BranchMap'
 export * from './Bullet/Bullet'

@@ -1,0 +1,82 @@
+﻿import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next/pages'
+import { useMemo } from 'react'
+
+import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
+import {
+  assetCategoriesFetcher,
+  assetCategoriesQueryKey,
+} from '@/services/graphql/fetchers/asset-categories.fetcher'
+import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
+
+type AssetsCategorySelectProps = {
+  onCategoryChange: (id: string | null) => void
+}
+
+const AssetsCategorySelect = ({ onCategoryChange }: AssetsCategorySelectProps) => {
+  const { t } = useTranslation()
+
+  // TODO when translating assets, replace labels byt translated values
+  const disclosureTypes = useMemo(() => {
+    return [
+      {
+        key: Enum_Disclosure_Type_Fixed.Faktury,
+        label: Enum_Disclosure_Type_Fixed.Faktury,
+      },
+      {
+        key: Enum_Disclosure_Type_Fixed.Objednavky,
+        label: Enum_Disclosure_Type_Fixed.Objednavky,
+      },
+      {
+        key: Enum_Disclosure_Type_Fixed.Zmluvy,
+        label: Enum_Disclosure_Type_Fixed.Zmluvy,
+      },
+      {
+        key: Enum_Disclosure_Type_Fixed.VerejneObstaravanie,
+        label: Enum_Disclosure_Type_Fixed.VerejneObstaravanie,
+      },
+      {
+        key: Enum_Disclosure_Type_Fixed.ObchodnaVerejnaSutaz,
+        label: Enum_Disclosure_Type_Fixed.ObchodnaVerejnaSutaz,
+      },
+      {
+        key: Enum_Disclosure_Type_Fixed.Granty,
+        label: Enum_Disclosure_Type_Fixed.Granty,
+      },
+      {
+        key: Enum_Disclosure_Type_Fixed.Ostatne,
+        label: Enum_Disclosure_Type_Fixed.Ostatne,
+      },
+    ]
+  }, [])
+
+  const defaultOption = useMemo(() => ({ label: t('allCategories'), key: '' }), [t])
+
+  const { data, isError, isLoading } = useQuery({
+    queryKey: assetCategoriesQueryKey,
+    queryFn: assetCategoriesFetcher,
+    staleTime: Infinity,
+  })
+
+  const options = useMemo(() => {
+    if (data) {
+      return [defaultOption, ...data, ...disclosureTypes]
+    }
+
+    return [defaultOption, ...disclosureTypes]
+  }, [data, defaultOption, disclosureTypes])
+
+  return (
+    <SelectField
+      items={options}
+      isDisabled={isLoading || isError}
+      onSelectionChange={(selection) => {
+        onCategoryChange(selection === '' ? null : (selection as string))
+      }}
+    >
+      {(item) => <SelectItem label={item.label} id={item.key} />}
+    </SelectField>
+  )
+}
+
+export default AssetsCategorySelect

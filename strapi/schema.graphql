@@ -2,6 +2,108 @@
 ### Do not make changes to this file directly
 
 
+type Asset {
+  assetCategory: AssetCategoryEntityResponse
+  createdAt: DateTime
+  description: String
+  file(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection!
+  originalSlug: String
+  originalTitle: String
+  publishedAt: DateTime
+  slug: String!
+  title: String!
+  updatedAt: DateTime
+}
+
+type AssetCategory {
+  assets(filters: AssetFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): AssetRelationResponseCollection
+  createdAt: DateTime
+  label: String!
+  slug: String!
+  updatedAt: DateTime
+}
+
+type AssetCategoryEntity {
+  attributes: AssetCategory
+  id: ID
+}
+
+type AssetCategoryEntityResponse {
+  data: AssetCategoryEntity
+}
+
+type AssetCategoryEntityResponseCollection {
+  data: [AssetCategoryEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input AssetCategoryFiltersInput {
+  and: [AssetCategoryFiltersInput]
+  assets: AssetFiltersInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  label: StringFilterInput
+  not: AssetCategoryFiltersInput
+  or: [AssetCategoryFiltersInput]
+  slug: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input AssetCategoryInput {
+  assets: [ID]
+  label: String
+  slug: String
+}
+
+type AssetCategoryRelationResponseCollection {
+  data: [AssetCategoryEntity!]!
+}
+
+type AssetEntity {
+  attributes: Asset
+  id: ID
+}
+
+type AssetEntityResponse {
+  data: AssetEntity
+}
+
+type AssetEntityResponseCollection {
+  data: [AssetEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input AssetFiltersInput {
+  and: [AssetFiltersInput]
+  assetCategory: AssetCategoryFiltersInput
+  createdAt: DateTimeFilterInput
+  description: StringFilterInput
+  id: IDFilterInput
+  not: AssetFiltersInput
+  or: [AssetFiltersInput]
+  originalSlug: StringFilterInput
+  originalTitle: StringFilterInput
+  publishedAt: DateTimeFilterInput
+  slug: StringFilterInput
+  title: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input AssetInput {
+  assetCategory: ID
+  description: String
+  file: [ID]
+  originalSlug: String
+  originalTitle: String
+  publishedAt: DateTime
+  slug: String
+  title: String
+}
+
+type AssetRelationResponseCollection {
+  data: [AssetEntity!]!
+}
+
 type BasicDocument {
   attachment: UploadFileEntityResponse
   author: String
@@ -1129,6 +1231,46 @@ input ComponentSectionsAccordionInput {
   title: String
 }
 
+type ComponentSectionsAssets {
+  assets(filters: AssetFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): AssetRelationResponseCollection
+  basicDocuments(filters: BasicDocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BasicDocumentRelationResponseCollection
+  disclosures(filters: DisclosureFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): DisclosureRelationResponseCollection
+  id: ID!
+  title: String
+}
+
+input ComponentSectionsAssetsFiltersInput {
+  and: [ComponentSectionsAssetsFiltersInput]
+  assets: AssetFiltersInput
+  basicDocuments: BasicDocumentFiltersInput
+  disclosures: DisclosureFiltersInput
+  not: ComponentSectionsAssetsFiltersInput
+  or: [ComponentSectionsAssetsFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentSectionsAssetsInput {
+  assets: [ID]
+  basicDocuments: [ID]
+  disclosures: [ID]
+  id: ID
+  title: String
+}
+
+type ComponentSectionsAssetsListing {
+  id: ID!
+}
+
+input ComponentSectionsAssetsListingFiltersInput {
+  and: [ComponentSectionsAssetsListingFiltersInput]
+  not: ComponentSectionsAssetsListingFiltersInput
+  or: [ComponentSectionsAssetsListingFiltersInput]
+}
+
+input ComponentSectionsAssetsListingInput {
+  id: ID
+}
+
 type ComponentSectionsBlogPostsListing {
   id: ID!
 }
@@ -1857,6 +1999,7 @@ type Error {
 }
 
 type Event {
+  assets: ComponentSectionsAssets
   branch: BranchEntityResponse
   coverImage: UploadFileEntityResponse
   createdAt: DateTime
@@ -1942,6 +2085,7 @@ type EventEntityResponseCollection {
 
 input EventFiltersInput {
   and: [EventFiltersInput]
+  assets: ComponentSectionsAssetsFiltersInput
   branch: BranchFiltersInput
   createdAt: DateTimeFilterInput
   dateFrom: DateTimeFilterInput
@@ -1967,6 +2111,7 @@ input EventFiltersInput {
 }
 
 input EventInput {
+  assets: ComponentSectionsAssetsInput
   branch: ID
   coverImage: ID
   dateFrom: DateTime
@@ -2223,7 +2368,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepagePromotedContent | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Asset | AssetCategory | BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepagePromotedContent | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2492,6 +2637,8 @@ type MenuRelationResponseCollection {
 type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+  createAsset(data: AssetInput!): AssetEntityResponse
+  createAssetCategory(data: AssetCategoryInput!): AssetCategoryEntityResponse
   createBasicDocument(data: BasicDocumentInput!): BasicDocumentEntityResponse
   createBlogPost(data: BlogPostInput!, locale: I18NLocaleCode): BlogPostEntityResponse
   createBlogPostLocalization(data: BlogPostInput, id: ID, locale: I18NLocaleCode): BlogPostEntityResponse
@@ -2527,6 +2674,8 @@ type Mutation {
 
   """Create a new user"""
   createUsersPermissionsUser(data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
+  deleteAsset(id: ID!): AssetEntityResponse
+  deleteAssetCategory(id: ID!): AssetCategoryEntityResponse
   deleteBasicDocument(id: ID!): BasicDocumentEntityResponse
   deleteBlogPost(id: ID!, locale: I18NLocaleCode): BlogPostEntityResponse
   deleteBookTag(id: ID!): BookTagEntityResponse
@@ -2571,6 +2720,8 @@ type Mutation {
   Reset user password. Confirm with a code (resetToken from forgotPassword)
   """
   resetPassword(code: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+  updateAsset(data: AssetInput!, id: ID!): AssetEntityResponse
+  updateAssetCategory(data: AssetCategoryInput!, id: ID!): AssetCategoryEntityResponse
   updateBasicDocument(data: BasicDocumentInput!, id: ID!): BasicDocumentEntityResponse
   updateBlogPost(data: BlogPostInput!, id: ID!, locale: I18NLocaleCode): BlogPostEntityResponse
   updateBookTag(data: BookTagInput!, id: ID!): BookTagEntityResponse
@@ -2640,6 +2791,7 @@ type NavikronosNavikronosStorageRelationResponseCollection {
 }
 
 type Notice {
+  assets: ComponentSectionsAssets
   body: String
   createdAt: DateTime
   dateAdded: Date
@@ -2672,6 +2824,7 @@ type NoticeEntityResponseCollection {
 
 input NoticeFiltersInput {
   and: [NoticeFiltersInput]
+  assets: ComponentSectionsAssetsFiltersInput
   body: StringFilterInput
   createdAt: DateTimeFilterInput
   dateAdded: DateFilterInput
@@ -2691,6 +2844,7 @@ input NoticeFiltersInput {
 }
 
 input NoticeInput {
+  assets: ComponentSectionsAssetsInput
   body: String
   dateAdded: Date
   documents: ComponentSectionsDocumentsInput
@@ -2774,7 +2928,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
 
 scalar PageSectionsDynamicZoneInput
 
@@ -2854,6 +3008,10 @@ enum PublicationState {
 }
 
 type Query {
+  asset(id: ID): AssetEntityResponse
+  assetCategories(filters: AssetCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): AssetCategoryEntityResponseCollection
+  assetCategory(id: ID): AssetCategoryEntityResponse
+  assets(filters: AssetFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): AssetEntityResponseCollection
   basicDocument(id: ID): BasicDocumentEntityResponse
   basicDocuments(filters: BasicDocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BasicDocumentEntityResponseCollection
   blogPost(id: ID, locale: I18NLocaleCode): BlogPostEntityResponse

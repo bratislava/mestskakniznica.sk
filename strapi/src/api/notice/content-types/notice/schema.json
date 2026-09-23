@@ -100,6 +100,16 @@
       },
       "type": "boolean",
       "default": false
+    },
+    "assets": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.assets"
     }
   }
 }

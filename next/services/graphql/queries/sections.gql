@@ -1,3 +1,18 @@
+fragment AssetsSection on ComponentSectionsAssets {
+  id
+  title
+  assets {
+    data {
+      ...AssetEntity
+    }
+  }
+  disclosures {
+    data {
+      ...DisclosureEntity
+    }
+  }
+}
+
 fragment DocumentsSection on ComponentSectionsDocuments {
   id
   title

@@ -192,6 +192,17 @@ const Sections = ({
               />
             )
 
+          // case 'ComponentSectionsAssets':
+          //   return (
+          //     <Assets
+          //       title={section.title}
+          //       assets={[
+          //         ...((section.assets?.data as AssetEntityFragment[]) ?? []),
+          //         ...((section.disclosures?.data as DisclosureEntityFragment[]) ?? []),
+          //       ]}
+          //     />
+          //   )
+
           case 'ComponentSectionsOpeningHoursSection':
             return <OpeningHoursSection title={section.title} branchList={section.branchList} />
 

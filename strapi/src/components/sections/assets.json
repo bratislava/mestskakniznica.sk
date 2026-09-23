@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_sections_assets",
+  "info": {
+    "displayName": "Assety"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "basicDocuments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::basic-document.basic-document"
+    },
+    "assets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::asset.asset"
+    },
+    "disclosures": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::disclosure.disclosure"
+    }
+  }
+}
