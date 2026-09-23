@@ -1999,6 +1999,7 @@ type Error {
 }
 
 type Event {
+  assets: ComponentSectionsAssets
   branch: BranchEntityResponse
   coverImage: UploadFileEntityResponse
   createdAt: DateTime
@@ -2084,6 +2085,7 @@ type EventEntityResponseCollection {
 
 input EventFiltersInput {
   and: [EventFiltersInput]
+  assets: ComponentSectionsAssetsFiltersInput
   branch: BranchFiltersInput
   createdAt: DateTimeFilterInput
   dateFrom: DateTimeFilterInput
@@ -2109,6 +2111,7 @@ input EventFiltersInput {
 }
 
 input EventInput {
+  assets: ComponentSectionsAssetsInput
   branch: ID
   coverImage: ID
   dateFrom: DateTime
@@ -2788,6 +2791,7 @@ type NavikronosNavikronosStorageRelationResponseCollection {
 }
 
 type Notice {
+  assets: ComponentSectionsAssets
   body: String
   createdAt: DateTime
   dateAdded: Date
@@ -2820,6 +2824,7 @@ type NoticeEntityResponseCollection {
 
 input NoticeFiltersInput {
   and: [NoticeFiltersInput]
+  assets: ComponentSectionsAssetsFiltersInput
   body: StringFilterInput
   createdAt: DateTimeFilterInput
   dateAdded: DateFilterInput
@@ -2839,6 +2844,7 @@ input NoticeFiltersInput {
 }
 
 input NoticeInput {
+  assets: ComponentSectionsAssetsInput
   body: String
   dateAdded: Date
   documents: ComponentSectionsDocumentsInput
@@ -2922,7 +2928,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
 
 scalar PageSectionsDynamicZoneInput
 

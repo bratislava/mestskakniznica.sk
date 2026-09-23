@@ -851,6 +851,12 @@ export interface ApiEventEvent extends Schema.CollectionType {
     }
   }
   attributes: {
+    assets: Attribute.Component<'sections.assets'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     branch: Attribute.Relation<'api::event.event', 'manyToOne', 'api::branch.branch'>
     coverImage: Attribute.Media<'images'>
     createdAt: Attribute.DateTime
@@ -1171,6 +1177,12 @@ export interface ApiNoticeNotice extends Schema.CollectionType {
     }
   }
   attributes: {
+    assets: Attribute.Component<'sections.assets'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     body: Attribute.RichText &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1310,11 +1322,12 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.opening-hours-section',
         'sections.partners',
         'sections.children-listing',
+        'sections.news-listing',
+        'sections.assets-listing',
         'sections.blog-posts-listing',
         'sections.documents-listing',
         'sections.events-listing',
         'sections.new-books-listing',
-        'sections.news-listing',
         'sections.cherrypick-section'
       ]
     > &

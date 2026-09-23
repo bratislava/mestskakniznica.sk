@@ -97,11 +97,12 @@
         "sections.opening-hours-section",
         "sections.partners",
         "sections.children-listing",
+        "sections.news-listing",
+        "sections.assets-listing",
         "sections.blog-posts-listing",
         "sections.documents-listing",
         "sections.events-listing",
         "sections.new-books-listing",
-        "sections.news-listing",
         "sections.cherrypick-section"
       ]
     },

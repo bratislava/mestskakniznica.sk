@@ -2387,6 +2387,7 @@ export type Error = {
 
 export type Event = {
   __typename?: 'Event'
+  assets?: Maybe<ComponentSectionsAssets>
   branch?: Maybe<BranchEntityResponse>
   coverImage?: Maybe<UploadFileEntityResponse>
   createdAt?: Maybe<Scalars['DateTime']['output']>
@@ -2513,6 +2514,7 @@ export type EventEntityResponseCollection = {
 
 export type EventFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>
+  assets?: InputMaybe<ComponentSectionsAssetsFiltersInput>
   branch?: InputMaybe<BranchFiltersInput>
   createdAt?: InputMaybe<DateTimeFilterInput>
   dateFrom?: InputMaybe<DateTimeFilterInput>
@@ -2538,6 +2540,7 @@ export type EventFiltersInput = {
 }
 
 export type EventInput = {
+  assets?: InputMaybe<ComponentSectionsAssetsInput>
   branch?: InputMaybe<Scalars['ID']['input']>
   coverImage?: InputMaybe<Scalars['ID']['input']>
   dateFrom?: InputMaybe<Scalars['DateTime']['input']>
@@ -3808,6 +3811,7 @@ export type NavikronosNavikronosStorageRelationResponseCollection = {
 
 export type Notice = {
   __typename?: 'Notice'
+  assets?: Maybe<ComponentSectionsAssets>
   body?: Maybe<Scalars['String']['output']>
   createdAt?: Maybe<Scalars['DateTime']['output']>
   dateAdded?: Maybe<Scalars['Date']['output']>
@@ -3850,6 +3854,7 @@ export type NoticeEntityResponseCollection = {
 
 export type NoticeFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<NoticeFiltersInput>>>
+  assets?: InputMaybe<ComponentSectionsAssetsFiltersInput>
   body?: InputMaybe<StringFilterInput>
   createdAt?: InputMaybe<DateTimeFilterInput>
   dateAdded?: InputMaybe<DateFilterInput>
@@ -3869,6 +3874,7 @@ export type NoticeFiltersInput = {
 }
 
 export type NoticeInput = {
+  assets?: InputMaybe<ComponentSectionsAssetsInput>
   body?: InputMaybe<Scalars['String']['input']>
   dateAdded?: InputMaybe<Scalars['Date']['input']>
   documents?: InputMaybe<ComponentSectionsDocumentsInput>
@@ -3974,6 +3980,7 @@ export type PageRelationResponseCollection = {
 export type PageSectionsDynamicZone =
   | ComponentSectionsAccordion
   | ComponentSectionsAssets
+  | ComponentSectionsAssetsListing
   | ComponentSectionsBlogPostsListing
   | ComponentSectionsCherrypickSection
   | ComponentSectionsChildrenListing
@@ -7112,6 +7119,83 @@ export type EventEntityFragment = {
         }>
       } | null
     } | null
+    assets?: {
+      __typename?: 'ComponentSectionsAssets'
+      id: string
+      title?: string | null
+      assets?: {
+        __typename?: 'AssetRelationResponseCollection'
+        data: Array<{
+          __typename: 'AssetEntity'
+          id?: string | null
+          attributes?: {
+            __typename?: 'Asset'
+            title: string
+            slug: string
+            description?: string | null
+            publishedAt?: any | null
+            assetCategory?: {
+              __typename?: 'AssetCategoryEntityResponse'
+              data?: {
+                __typename?: 'AssetCategoryEntity'
+                id?: string | null
+                attributes?: { __typename?: 'AssetCategory'; label: string; slug: string } | null
+              } | null
+            } | null
+            file: {
+              __typename?: 'UploadFileRelationResponseCollection'
+              data: Array<{
+                __typename?: 'UploadFileEntity'
+                id?: string | null
+                attributes?: {
+                  __typename?: 'UploadFile'
+                  url: string
+                  name: string
+                  size: number
+                  ext?: string | null
+                } | null
+              }>
+            }
+          } | null
+        }>
+      } | null
+      disclosures?: {
+        __typename?: 'DisclosureRelationResponseCollection'
+        data: Array<{
+          __typename: 'DisclosureEntity'
+          id?: string | null
+          attributes?: {
+            __typename?: 'Disclosure'
+            slug: string
+            title: string
+            description?: string | null
+            addedAt: any
+            type: Enum_Disclosure_Type
+            dateFrom?: any | null
+            dateTo?: any | null
+            idNumber?: string | null
+            amount?: number | null
+            contractor?: string | null
+            grantProvider?: string | null
+            grantYear?: string | null
+            file: {
+              __typename?: 'UploadFileRelationResponseCollection'
+              data: Array<{
+                __typename?: 'UploadFileEntity'
+                id?: string | null
+                attributes?: {
+                  __typename?: 'UploadFile'
+                  url: string
+                  name: string
+                  size: number
+                  ext?: string | null
+                } | null
+              }>
+            }
+          } | null
+        }>
+      } | null
+    } | null
     gallery?: {
       __typename?: 'UploadFileRelationResponseCollection'
       data: Array<{
@@ -7345,6 +7429,87 @@ export type EventBySlugQuery = {
                     id?: string | null
                     attributes?: {
                       __typename?: 'DocumentCategory'
+                      label: string
+                      slug: string
+                    } | null
+                  } | null
+                } | null
+                file: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
+                    __typename?: 'UploadFileEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'UploadFile'
+                      url: string
+                      name: string
+                      size: number
+                      ext?: string | null
+                    } | null
+                  }>
+                }
+              } | null
+            }>
+          } | null
+          disclosures?: {
+            __typename?: 'DisclosureRelationResponseCollection'
+            data: Array<{
+              __typename: 'DisclosureEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Disclosure'
+                slug: string
+                title: string
+                description?: string | null
+                addedAt: any
+                type: Enum_Disclosure_Type
+                dateFrom?: any | null
+                dateTo?: any | null
+                idNumber?: string | null
+                amount?: number | null
+                contractor?: string | null
+                grantProvider?: string | null
+                grantYear?: string | null
+                file: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
+                    __typename?: 'UploadFileEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'UploadFile'
+                      url: string
+                      name: string
+                      size: number
+                      ext?: string | null
+                    } | null
+                  }>
+                }
+              } | null
+            }>
+          } | null
+        } | null
+        assets?: {
+          __typename?: 'ComponentSectionsAssets'
+          id: string
+          title?: string | null
+          assets?: {
+            __typename?: 'AssetRelationResponseCollection'
+            data: Array<{
+              __typename: 'AssetEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Asset'
+                title: string
+                slug: string
+                description?: string | null
+                publishedAt?: any | null
+                assetCategory?: {
+                  __typename?: 'AssetCategoryEntityResponse'
+                  data?: {
+                    __typename?: 'AssetCategoryEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'AssetCategory'
                       label: string
                       slug: string
                     } | null
@@ -8866,6 +9031,83 @@ export type NoticeEntityFragment = {
         }>
       } | null
     } | null
+    assets?: {
+      __typename?: 'ComponentSectionsAssets'
+      id: string
+      title?: string | null
+      assets?: {
+        __typename?: 'AssetRelationResponseCollection'
+        data: Array<{
+          __typename: 'AssetEntity'
+          id?: string | null
+          attributes?: {
+            __typename?: 'Asset'
+            title: string
+            slug: string
+            description?: string | null
+            publishedAt?: any | null
+            assetCategory?: {
+              __typename?: 'AssetCategoryEntityResponse'
+              data?: {
+                __typename?: 'AssetCategoryEntity'
+                id?: string | null
+                attributes?: { __typename?: 'AssetCategory'; label: string; slug: string } | null
+              } | null
+            } | null
+            file: {
+              __typename?: 'UploadFileRelationResponseCollection'
+              data: Array<{
+                __typename?: 'UploadFileEntity'
+                id?: string | null
+                attributes?: {
+                  __typename?: 'UploadFile'
+                  url: string
+                  name: string
+                  size: number
+                  ext?: string | null
+                } | null
+              }>
+            }
+          } | null
+        }>
+      } | null
+      disclosures?: {
+        __typename?: 'DisclosureRelationResponseCollection'
+        data: Array<{
+          __typename: 'DisclosureEntity'
+          id?: string | null
+          attributes?: {
+            __typename?: 'Disclosure'
+            slug: string
+            title: string
+            description?: string | null
+            addedAt: any
+            type: Enum_Disclosure_Type
+            dateFrom?: any | null
+            dateTo?: any | null
+            idNumber?: string | null
+            amount?: number | null
+            contractor?: string | null
+            grantProvider?: string | null
+            grantYear?: string | null
+            file: {
+              __typename?: 'UploadFileRelationResponseCollection'
+              data: Array<{
+                __typename?: 'UploadFileEntity'
+                id?: string | null
+                attributes?: {
+                  __typename?: 'UploadFile'
+                  url: string
+                  name: string
+                  size: number
+                  ext?: string | null
+                } | null
+              }>
+            }
+          } | null
+        }>
+      } | null
+    } | null
     seo?: {
       __typename?: 'ComponentCommonSeo'
       metaTitle?: string | null
@@ -9159,6 +9401,87 @@ export type NoticeBySlugQuery = {
             }>
           } | null
         } | null
+        assets?: {
+          __typename?: 'ComponentSectionsAssets'
+          id: string
+          title?: string | null
+          assets?: {
+            __typename?: 'AssetRelationResponseCollection'
+            data: Array<{
+              __typename: 'AssetEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Asset'
+                title: string
+                slug: string
+                description?: string | null
+                publishedAt?: any | null
+                assetCategory?: {
+                  __typename?: 'AssetCategoryEntityResponse'
+                  data?: {
+                    __typename?: 'AssetCategoryEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'AssetCategory'
+                      label: string
+                      slug: string
+                    } | null
+                  } | null
+                } | null
+                file: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
+                    __typename?: 'UploadFileEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'UploadFile'
+                      url: string
+                      name: string
+                      size: number
+                      ext?: string | null
+                    } | null
+                  }>
+                }
+              } | null
+            }>
+          } | null
+          disclosures?: {
+            __typename?: 'DisclosureRelationResponseCollection'
+            data: Array<{
+              __typename: 'DisclosureEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Disclosure'
+                slug: string
+                title: string
+                description?: string | null
+                addedAt: any
+                type: Enum_Disclosure_Type
+                dateFrom?: any | null
+                dateTo?: any | null
+                idNumber?: string | null
+                amount?: number | null
+                contractor?: string | null
+                grantProvider?: string | null
+                grantYear?: string | null
+                file: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
+                    __typename?: 'UploadFileEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'UploadFile'
+                      url: string
+                      name: string
+                      size: number
+                      ext?: string | null
+                    } | null
+                  }>
+                }
+              } | null
+            }>
+          } | null
+        } | null
         seo?: {
           __typename?: 'ComponentCommonSeo'
           metaTitle?: string | null
@@ -9299,6 +9622,10 @@ type PageSections_ComponentSectionsAssets_Fragment = {
       } | null
     }>
   } | null
+}
+
+type PageSections_ComponentSectionsAssetsListing_Fragment = {
+  __typename: 'ComponentSectionsAssetsListing'
 }
 
 type PageSections_ComponentSectionsBlogPostsListing_Fragment = {
@@ -9736,6 +10063,7 @@ type PageSections_Error_Fragment = { __typename: 'Error' }
 export type PageSectionsFragment =
   | PageSections_ComponentSectionsAccordion_Fragment
   | PageSections_ComponentSectionsAssets_Fragment
+  | PageSections_ComponentSectionsAssetsListing_Fragment
   | PageSections_ComponentSectionsBlogPostsListing_Fragment
   | PageSections_ComponentSectionsCherrypickSection_Fragment
   | PageSections_ComponentSectionsChildrenListing_Fragment
@@ -9899,6 +10227,7 @@ export type PageEntityFragment = {
             }>
           } | null
         }
+      | { __typename: 'ComponentSectionsAssetsListing' }
       | { __typename: 'ComponentSectionsBlogPostsListing' }
       | {
           __typename: 'ComponentSectionsCherrypickSection'
@@ -10497,6 +10826,7 @@ export type PageByIdQuery = {
                 }>
               } | null
             }
+          | { __typename: 'ComponentSectionsAssetsListing' }
           | { __typename: 'ComponentSectionsBlogPostsListing' }
           | {
               __typename: 'ComponentSectionsCherrypickSection'
@@ -12275,6 +12605,57 @@ export const EventCardEntityFragmentDoc = gql`
   ${EventTagsFragmentDoc}
   ${UploadImageEntityFragmentDoc}
 `
+export const AssetCategoryEntityFragmentDoc = gql`
+  fragment AssetCategoryEntity on AssetCategoryEntity {
+    id
+    attributes {
+      label
+      slug
+    }
+  }
+`
+export const AssetEntityFragmentDoc = gql`
+  fragment AssetEntity on AssetEntity {
+    id
+    __typename
+    attributes {
+      title
+      slug
+      description
+      publishedAt
+      assetCategory {
+        data {
+          ...AssetCategoryEntity
+        }
+      }
+      file {
+        data {
+          ...UploadFileEntity
+        }
+      }
+    }
+  }
+  ${AssetCategoryEntityFragmentDoc}
+  ${UploadFileEntityFragmentDoc}
+`
+export const AssetsSectionFragmentDoc = gql`
+  fragment AssetsSection on ComponentSectionsAssets {
+    id
+    title
+    assets {
+      data {
+        ...AssetEntity
+      }
+    }
+    disclosures {
+      data {
+        ...DisclosureEntity
+      }
+    }
+  }
+  ${AssetEntityFragmentDoc}
+  ${DisclosureEntityFragmentDoc}
+`
 export const EventEntityFragmentDoc = gql`
   fragment EventEntity on EventEntity {
     ...EventCardEntity
@@ -12293,6 +12674,9 @@ export const EventEntityFragmentDoc = gql`
       }
       documents {
         ...DocumentsSection
+      }
+      assets {
+        ...AssetsSection
       }
       gallery {
         data {
@@ -12315,6 +12699,7 @@ export const EventEntityFragmentDoc = gql`
   ${EventCardEntityFragmentDoc}
   ${UploadImageEntityFragmentDoc}
   ${DocumentsSectionFragmentDoc}
+  ${AssetsSectionFragmentDoc}
   ${SeoFragmentDoc}
 `
 export const SectionLinkPageEntityFragmentDoc = gql`
@@ -12575,6 +12960,9 @@ export const NoticeEntityFragmentDoc = gql`
       documents {
         ...DocumentsSection
       }
+      assets {
+        ...AssetsSection
+      }
       seo {
         ...Seo
       }
@@ -12590,6 +12978,7 @@ export const NoticeEntityFragmentDoc = gql`
   }
   ${UploadImageEntityFragmentDoc}
   ${DocumentsSectionFragmentDoc}
+  ${AssetsSectionFragmentDoc}
   ${SeoFragmentDoc}
 `
 export const LatestNoticesQueryFragmentDoc = gql`
@@ -12629,57 +13018,6 @@ export const SubpagesSectionFragmentDoc = gql`
     }
   }
   ${PageWithBaseFieldsEntityFragmentDoc}
-`
-export const AssetCategoryEntityFragmentDoc = gql`
-  fragment AssetCategoryEntity on AssetCategoryEntity {
-    id
-    attributes {
-      label
-      slug
-    }
-  }
-`
-export const AssetEntityFragmentDoc = gql`
-  fragment AssetEntity on AssetEntity {
-    id
-    __typename
-    attributes {
-      title
-      slug
-      description
-      publishedAt
-      assetCategory {
-        data {
-          ...AssetCategoryEntity
-        }
-      }
-      file {
-        data {
-          ...UploadFileEntity
-        }
-      }
-    }
-  }
-  ${AssetCategoryEntityFragmentDoc}
-  ${UploadFileEntityFragmentDoc}
-`
-export const AssetsSectionFragmentDoc = gql`
-  fragment AssetsSection on ComponentSectionsAssets {
-    id
-    title
-    assets {
-      data {
-        ...AssetEntity
-      }
-    }
-    disclosures {
-      data {
-        ...DisclosureEntity
-      }
-    }
-  }
-  ${AssetEntityFragmentDoc}
-  ${DisclosureEntityFragmentDoc}
 `
 export const MapSectionFragmentDoc = gql`
   fragment MapSection on ComponentSectionsMap {
