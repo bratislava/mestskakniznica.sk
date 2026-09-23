@@ -4,9 +4,9 @@
  */
 const wrapSearchIndexEntry = (type, data, commonAttributes?) => {
   // Remove when https://github.com/meilisearch/strapi-plugin-meilisearch/pull/554 merged
-  const newData = { ...data };
-  delete newData.createdBy;
-  delete newData.updatedBy;
+  const newData = { ...data }
+  delete newData.createdBy
+  delete newData.updatedBy
 
   return {
     type,
@@ -15,8 +15,8 @@ const wrapSearchIndexEntry = (type, data, commonAttributes?) => {
     // [type] is used instead of "data", to avoid  naming clashes of filterable / sortable / searchable attributes
     [type]: newData,
     commonAttributes,
-  };
-};
+  }
+}
 
 // Because a bug in Meilisearch shared index, only the last added entity's settings are used and the old ones are overwritten
 // instead of merging. Therefore, for all entities we must provide shared settings.
@@ -24,119 +24,99 @@ const wrapSearchIndexEntry = (type, data, commonAttributes?) => {
 const searchIndexSettings = {
   searchableAttributes: [
     // Page
-    "page.title",
-    "page.seo.keywords",
-    "page.perex",
+    'page.title',
+    'page.seo.keywords',
+    'page.perex',
     // Basic documents
-    "basic-document.title",
-    "basic-document.seo.keywords",
-    "basic-document.description",
+    'basic-document.title',
+    'basic-document.seo.keywords',
+    'basic-document.description',
     // Blog post
-    "blog-post.title",
-    "blog-post.seo.keywords",
+    'blog-post.title',
+    'blog-post.seo.keywords',
     // Documents
-    "document.title",
-    "document.description",
+    'document.title',
+    'document.description',
     // Assets
-    "asset.title",
-    "asset.description",
+    'asset.title',
+    'asset.description',
     // Disclosures
-    "disclosure.title",
-    "disclosure.description",
-    "disclosure.contractor",
+    'disclosure.title',
+    'disclosure.description',
+    'disclosure.contractor',
     // Event
-    "event.title",
-    "event.seo.keywords",
-    "event.description",
+    'event.title',
+    'event.seo.keywords',
+    'event.description',
     // Notice
-    "notice.title",
-    "notice.seo.keywords",
-    "notice.body",
+    'notice.title',
+    'notice.seo.keywords',
+    'notice.body',
     // Branch
-    "branch.title",
-    "branch.seo.keywords",
-    "branch.body",
+    'branch.title',
+    'branch.seo.keywords',
+    'branch.body',
   ],
   filterableAttributes: [
     // All
-    "type",
+    'type',
     // Page + Event`
-    "locale",
+    'locale',
     // Basic document
-    "basic-document.file_category.id",
+    'basic-document.file_category.id',
     // Document
-    "document.documentCategory.id",
+    'document.documentCategory.id',
     // Asset
-    "asset.assetCategory.id",
+    'asset.assetCategory.id',
     // Disclosure
-    "disclosure.type",
+    'disclosure.type',
     // Event
-    "event.dateFromTimestamp",
-    "event.dateToTimestamp",
-    "event.eventTagsIds",
-    "event.eventCategory.id",
-    "event.branch.id",
-    "event.locale",
+    'event.dateFromTimestamp',
+    'event.dateToTimestamp',
+    'event.eventTagsIds',
+    'event.eventCategory.id',
+    'event.branch.id',
+    'event.locale',
   ],
   sortableAttributes: [
     // Basic document
-    "basic-document.date_added",
+    'basic-document.date_added',
     // Event
-    "event.dateFromTimestamp",
+    'event.dateFromTimestamp',
     // Document, Disclosure, Asset
-    "commonAttributes.addedAtTimestamp",
+    'commonAttributes.addedAtTimestamp',
   ],
   pagination: {
     // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
     maxTotalHits: 100000,
   },
-};
+}
 
 const config = {
   host: process.env.MEILISEARCH_HOST,
   apiKey: process.env.MEILISEARCH_ADMIN_API_KEY,
 
   page: {
-    indexName: "search_index",
+    indexName: 'search_index',
     entriesQuery: {
-      locale: "all",
+      locale: 'all',
     },
     settings: searchIndexSettings,
-    transformEntry: ({ entry }) => wrapSearchIndexEntry("page", entry),
+    transformEntry: ({ entry }) => wrapSearchIndexEntry('page', entry),
   },
 
-  "blog-post": {
-    indexName: "search_index",
+  'blog-post': {
+    indexName: 'search_index',
     settings: searchIndexSettings,
-    transformEntry: ({ entry }) => wrapSearchIndexEntry("blog-post", entry),
-  },
-
-  document: {
-    indexName: "search_index",
-    settings: searchIndexSettings,
-    transformEntry: ({ entry }) =>
-      wrapSearchIndexEntry(
-        "document",
-        {
-          ...entry,
-        },
-        {
-          // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
-          // use (number) filters.
-          // Transforming publishedAt to addedAtTimestamp to be able to use the same sort as for Disclosures.
-          addedAtTimestamp: entry.publishedAt
-            ? new Date(entry.publishedAt).getTime()
-            : undefined,
-        }
-      ),
+    transformEntry: ({ entry }) => wrapSearchIndexEntry('blog-post', entry),
   },
 
   asset: {
-    indexName: "search_index",
+    indexName: 'search_index',
     settings: searchIndexSettings,
     transformEntry: ({ entry }) =>
       wrapSearchIndexEntry(
-        "asset",
+        'asset',
         {
           ...entry,
         },
@@ -144,49 +124,41 @@ const config = {
           // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
           // use (number) filters.
           // Transforming publishedAt to addedAtTimestamp to be able to use the same sort as for Disclosures.
-          addedAtTimestamp: entry.publishedAt
-            ? new Date(entry.publishedAt).getTime()
-            : undefined,
+          addedAtTimestamp: entry.publishedAt ? new Date(entry.publishedAt).getTime() : undefined,
         }
       ),
   },
 
   disclosure: {
-    indexName: "search_index",
+    indexName: 'search_index',
     settings: searchIndexSettings,
     transformEntry: ({ entry }) =>
       wrapSearchIndexEntry(
-        "disclosure",
+        'disclosure',
         {
           ...entry,
         },
         {
           // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
           // use (number) filters.
-          addedAtTimestamp: entry.addedAt
-            ? new Date(entry.addedAt).getTime()
-            : undefined,
+          addedAtTimestamp: entry.addedAt ? new Date(entry.addedAt).getTime() : undefined,
         }
       ),
   },
 
   event: {
-    indexName: "search_index",
+    indexName: 'search_index',
     entriesQuery: {
-      locale: "all",
+      locale: 'all',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) =>
-      wrapSearchIndexEntry("event", {
+      wrapSearchIndexEntry('event', {
         ...entry,
         // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
         // use (number) filters.
-        dateFromTimestamp: entry.dateFrom
-          ? new Date(entry.dateFrom).getTime()
-          : undefined,
-        dateToTimestamp: entry.dateTo
-          ? new Date(entry.dateTo).getTime()
-          : undefined,
+        dateFromTimestamp: entry.dateFrom ? new Date(entry.dateFrom).getTime() : undefined,
+        dateToTimestamp: entry.dateTo ? new Date(entry.dateTo).getTime() : undefined,
         // It is not possible to filter nested object in arrays in Meilisearch, so we map it to a basic array with
         // string values.
         eventTagsIds: (entry.eventTags ?? []).map(({ id }) => id),
@@ -194,22 +166,22 @@ const config = {
   },
 
   notice: {
-    indexName: "search_index",
+    indexName: 'search_index',
     entriesQuery: {
-      locale: "all",
+      locale: 'all',
     },
     settings: searchIndexSettings,
-    transformEntry: ({ entry }) => wrapSearchIndexEntry("notice", entry),
+    transformEntry: ({ entry }) => wrapSearchIndexEntry('notice', entry),
   },
 
   branch: {
-    indexName: "search_index",
+    indexName: 'search_index',
     entriesQuery: {
-      locale: "all",
+      locale: 'all',
     },
     settings: searchIndexSettings,
-    transformEntry: ({ entry }) => wrapSearchIndexEntry("branch", entry),
+    transformEntry: ({ entry }) => wrapSearchIndexEntry('branch', entry),
   },
-};
+}
 
-export default config;
+export default config
