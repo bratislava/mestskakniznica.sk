@@ -33,11 +33,6 @@ fragment PageSections on PageSectionsDynamicZone {
     ...VideoSection
   }
 
-  ... on ComponentSectionsDocuments {
-    id
-    ...DocumentsSection
-  }
-
   ... on ComponentSectionsAssets {
     id
     ...AssetsSection

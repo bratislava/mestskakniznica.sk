@@ -39,12 +39,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
+      "allowedTypes": ["images", "files", "videos", "audios"],
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -64,11 +59,11 @@
         "sections.accordion",
         "sections.divider",
         "sections.cta",
-        "sections.documents",
         "sections.video",
         "sections.flat-text",
         "sections.gallery",
-        "sections.site-usefullness"
+        "sections.site-usefullness",
+        "sections.assets"
       ]
     },
     "seo": {

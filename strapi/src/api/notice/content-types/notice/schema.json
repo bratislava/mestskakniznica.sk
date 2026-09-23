@@ -47,9 +47,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -71,16 +69,6 @@
         }
       },
       "type": "boolean"
-    },
-    "documents": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "sections.documents"
     },
     "seo": {
       "type": "component",

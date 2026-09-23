@@ -20,13 +20,13 @@ import TheaterTechReservationForm from '@/components/forms/TheaterTechReservatio
 import VenueRentalForm, { VenueRentalFormProps } from '@/components/forms/VenueRentalForm'
 import AccordionSection from '@/components/Molecules/AccordionSection'
 import RentalSection from '@/components/Molecules/RentalSection'
-import { Documents, Faq, FlatText, SiteUsefullness, Subpages, Table, Video } from '@/components/ui'
+import { Assets, Faq, FlatText, SiteUsefullness, Subpages, Table, Video } from '@/components/ui'
 import MapSection from '@/components/ui/MapSection/MapSection'
 import Button from '@/modules/common/Button'
+import AssetsListingSection from '@/modules/sections/AssetsListingSection'
 import BlogPostsListingSection from '@/modules/sections/BlogPostsListingSection'
 import CherrypickSection from '@/modules/sections/CherrypickSection'
 import ChildrenListingSection from '@/modules/sections/ChildrenListingSection'
-import DocumentsListingSection from '@/modules/sections/DocumentsListingSection'
 import EventsListingSection from '@/modules/sections/EventsListingSection'
 import GalleryBannerSection from '@/modules/sections/GalleryBannerSection'
 import NewBooksSection from '@/modules/sections/NewBooksSection'
@@ -34,9 +34,9 @@ import NoticesListingSection from '@/modules/sections/NoticesListingSection'
 import OpeningHoursSection from '@/modules/sections/OpeningHoursSection'
 import PartnersSection from '@/modules/sections/PartnersSection'
 import {
+  AssetEntityFragment,
   BlogPostSectionsFragment,
   DisclosureEntityFragment,
-  DocumentEntityFragment,
   PageSectionsFragment,
 } from '@/services/graphql'
 import { useGeneralContext } from '@/utils/generalContext'
@@ -181,27 +181,16 @@ const Sections = ({
               )
             )
 
-          case 'ComponentSectionsDocuments':
+          case 'ComponentSectionsAssets':
             return (
-              <Documents
+              <Assets
                 title={section.title}
-                documents={[
-                  ...((section.documents?.data as DocumentEntityFragment[]) ?? []),
+                assets={[
+                  ...((section.assets?.data as AssetEntityFragment[]) ?? []),
                   ...((section.disclosures?.data as DisclosureEntityFragment[]) ?? []),
                 ]}
               />
             )
-
-          // case 'ComponentSectionsAssets':
-          //   return (
-          //     <Assets
-          //       title={section.title}
-          //       assets={[
-          //         ...((section.assets?.data as AssetEntityFragment[]) ?? []),
-          //         ...((section.disclosures?.data as DisclosureEntityFragment[]) ?? []),
-          //       ]}
-          //     />
-          //   )
 
           case 'ComponentSectionsOpeningHoursSection':
             return <OpeningHoursSection title={section.title} branchList={section.branchList} />
@@ -230,8 +219,8 @@ const Sections = ({
           case 'ComponentSectionsBlogPostsListing':
             return <BlogPostsListingSection />
 
-          case 'ComponentSectionsDocumentsListing':
-            return <DocumentsListingSection />
+          case 'ComponentSectionsAssetsListing':
+            return <AssetsListingSection />
 
           case 'ComponentSectionsNewsListing':
             return <NoticesListingSection />

@@ -2,7 +2,7 @@ import { SearchResponse } from 'meilisearch'
 
 import { getMeilisearchPageOptions } from '@/services/meili/getMeilisearchPageOptions'
 import { meiliClient } from '@/services/meili/meilisearch'
-import { AssetMeili, DisclosureMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { AssetMeili, DisclosureMeili } from '@/services/meili/meiliTypes'
 import { SearchIndexWrapped } from '@/services/meili/searchIndexWrapped'
 
 export const allSearchTypes = [
@@ -19,7 +19,6 @@ export const allSearchTypes = [
 type CommonSearchResults =
   | SearchIndexWrapped<'page', { slug: string; title: string | null | undefined }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'blog-post', { slug: string }> // TODO: Specify type if needed.
-  | SearchIndexWrapped<'document', DocumentMeili>
   | SearchIndexWrapped<'asset', AssetMeili>
   | SearchIndexWrapped<'disclosure', DisclosureMeili>
   | SearchIndexWrapped<'event', { slug: string }> // TODO: Specify type if needed.

@@ -449,11 +449,11 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
         'sections.accordion',
         'sections.divider',
         'sections.cta',
-        'sections.documents',
         'sections.video',
         'sections.flat-text',
         'sections.gallery',
-        'sections.site-usefullness'
+        'sections.site-usefullness',
+        'sections.assets'
       ]
     > &
       Attribute.SetPluginOptions<{
@@ -681,75 +681,6 @@ export interface ApiDisclosureDisclosure extends Schema.CollectionType {
   }
 }
 
-export interface ApiDocumentCategoryDocumentCategory extends Schema.CollectionType {
-  collectionName: 'document_categories'
-  info: {
-    description: ''
-    displayName: 'Dokumenty: Kateg\u00F3rie'
-    pluralName: 'document-categories'
-    singularName: 'document-category'
-  }
-  options: {
-    draftAndPublish: false
-  }
-  attributes: {
-    createdAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'api::document-category.document-category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    documents: Attribute.Relation<
-      'api::document-category.document-category',
-      'oneToMany',
-      'api::document.document'
-    >
-    label: Attribute.String & Attribute.Required
-    slug: Attribute.UID & Attribute.Required
-    updatedAt: Attribute.DateTime
-    updatedBy: Attribute.Relation<
-      'api::document-category.document-category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-  }
-}
-
-export interface ApiDocumentDocument extends Schema.CollectionType {
-  collectionName: 'documents'
-  info: {
-    description: ''
-    displayName: 'Dokumenty'
-    pluralName: 'documents'
-    singularName: 'document'
-  }
-  options: {
-    draftAndPublish: true
-  }
-  attributes: {
-    createdAt: Attribute.DateTime
-    createdBy: Attribute.Relation<'api::document.document', 'oneToOne', 'admin::user'> &
-      Attribute.Private
-    description: Attribute.Text
-    documentCategory: Attribute.Relation<
-      'api::document.document',
-      'manyToOne',
-      'api::document-category.document-category'
-    >
-    file: Attribute.Media<'images' | 'files', true> & Attribute.Required
-    originalSlug: Attribute.String
-    originalTitle: Attribute.String
-    publishedAt: Attribute.DateTime
-    slug: Attribute.UID<'api::document.document', 'title'> & Attribute.Required
-    title: Attribute.String & Attribute.Required
-    updatedAt: Attribute.DateTime
-    updatedBy: Attribute.Relation<'api::document.document', 'oneToOne', 'admin::user'> &
-      Attribute.Private
-  }
-}
-
 export interface ApiEventCategoryEventCategory extends Schema.CollectionType {
   collectionName: 'event_categories'
   info: {
@@ -864,12 +795,6 @@ export interface ApiEventEvent extends Schema.CollectionType {
     dateFrom: Attribute.DateTime
     dateTo: Attribute.DateTime
     description: Attribute.RichText &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    documents: Attribute.Component<'sections.documents'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true
@@ -1198,12 +1123,6 @@ export interface ApiNoticeNotice extends Schema.CollectionType {
           localized: false
         }
       }>
-    documents: Attribute.Component<'sections.documents'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
     isCurrentChangeInOpeningHours: Attribute.Boolean &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1314,7 +1233,6 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.accordion',
         'sections.divider',
         'sections.cta',
-        'sections.documents',
         'sections.video',
         'sections.gallery',
         'sections.map',
@@ -1325,7 +1243,6 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.news-listing',
         'sections.assets-listing',
         'sections.blog-posts-listing',
-        'sections.documents-listing',
         'sections.events-listing',
         'sections.new-books-listing',
         'sections.cherrypick-section'
@@ -1822,8 +1739,6 @@ declare module '@strapi/types' {
       'api::book-tag.book-tag': ApiBookTagBookTag
       'api::branch.branch': ApiBranchBranch
       'api::disclosure.disclosure': ApiDisclosureDisclosure
-      'api::document-category.document-category': ApiDocumentCategoryDocumentCategory
-      'api::document.document': ApiDocumentDocument
       'api::event-category.event-category': ApiEventCategoryEventCategory
       'api::event-tag.event-tag': ApiEventTagEventTag
       'api::event.event': ApiEventEvent
