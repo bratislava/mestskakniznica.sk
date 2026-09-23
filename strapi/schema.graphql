@@ -226,7 +226,7 @@ type BlogPostRelationResponseCollection {
   data: [BlogPostEntity!]!
 }
 
-union BlogPostSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsGallery | ComponentSectionsSiteUsefullness | ComponentSectionsTable | ComponentSectionsVideo | Error
+union BlogPostSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsGallery | ComponentSectionsSiteUsefullness | ComponentSectionsTable | ComponentSectionsVideo | Error
 
 scalar BlogPostSectionsDynamicZoneInput
 
@@ -1356,46 +1356,6 @@ input ComponentSectionsDividerInput {
   id: ID
 }
 
-type ComponentSectionsDocuments {
-  basicDocuments(filters: BasicDocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BasicDocumentRelationResponseCollection
-  disclosures(filters: DisclosureFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): DisclosureRelationResponseCollection
-  documents(filters: DocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): DocumentRelationResponseCollection
-  id: ID!
-  title: String
-}
-
-input ComponentSectionsDocumentsFiltersInput {
-  and: [ComponentSectionsDocumentsFiltersInput]
-  basicDocuments: BasicDocumentFiltersInput
-  disclosures: DisclosureFiltersInput
-  documents: DocumentFiltersInput
-  not: ComponentSectionsDocumentsFiltersInput
-  or: [ComponentSectionsDocumentsFiltersInput]
-  title: StringFilterInput
-}
-
-input ComponentSectionsDocumentsInput {
-  basicDocuments: [ID]
-  disclosures: [ID]
-  documents: [ID]
-  id: ID
-  title: String
-}
-
-type ComponentSectionsDocumentsListing {
-  id: ID!
-}
-
-input ComponentSectionsDocumentsListingFiltersInput {
-  and: [ComponentSectionsDocumentsListingFiltersInput]
-  not: ComponentSectionsDocumentsListingFiltersInput
-  or: [ComponentSectionsDocumentsListingFiltersInput]
-}
-
-input ComponentSectionsDocumentsListingInput {
-  id: ID
-}
-
 type ComponentSectionsEventsListing {
   id: ID!
 }
@@ -1813,108 +1773,6 @@ type DisclosureRelationResponseCollection {
   data: [DisclosureEntity!]!
 }
 
-type Document {
-  createdAt: DateTime
-  description: String
-  documentCategory: DocumentCategoryEntityResponse
-  file(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection!
-  originalSlug: String
-  originalTitle: String
-  publishedAt: DateTime
-  slug: String!
-  title: String!
-  updatedAt: DateTime
-}
-
-type DocumentCategory {
-  createdAt: DateTime
-  documents(filters: DocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): DocumentRelationResponseCollection
-  label: String!
-  slug: String!
-  updatedAt: DateTime
-}
-
-type DocumentCategoryEntity {
-  attributes: DocumentCategory
-  id: ID
-}
-
-type DocumentCategoryEntityResponse {
-  data: DocumentCategoryEntity
-}
-
-type DocumentCategoryEntityResponseCollection {
-  data: [DocumentCategoryEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input DocumentCategoryFiltersInput {
-  and: [DocumentCategoryFiltersInput]
-  createdAt: DateTimeFilterInput
-  documents: DocumentFiltersInput
-  id: IDFilterInput
-  label: StringFilterInput
-  not: DocumentCategoryFiltersInput
-  or: [DocumentCategoryFiltersInput]
-  slug: StringFilterInput
-  updatedAt: DateTimeFilterInput
-}
-
-input DocumentCategoryInput {
-  documents: [ID]
-  label: String
-  slug: String
-}
-
-type DocumentCategoryRelationResponseCollection {
-  data: [DocumentCategoryEntity!]!
-}
-
-type DocumentEntity {
-  attributes: Document
-  id: ID
-}
-
-type DocumentEntityResponse {
-  data: DocumentEntity
-}
-
-type DocumentEntityResponseCollection {
-  data: [DocumentEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input DocumentFiltersInput {
-  and: [DocumentFiltersInput]
-  createdAt: DateTimeFilterInput
-  description: StringFilterInput
-  documentCategory: DocumentCategoryFiltersInput
-  id: IDFilterInput
-  not: DocumentFiltersInput
-  or: [DocumentFiltersInput]
-  originalSlug: StringFilterInput
-  originalTitle: StringFilterInput
-  publishedAt: DateTimeFilterInput
-  slug: StringFilterInput
-  title: StringFilterInput
-  updatedAt: DateTimeFilterInput
-}
-
-input DocumentInput {
-  description: String
-  documentCategory: ID
-  file: [ID]
-  originalSlug: String
-  originalTitle: String
-  publishedAt: DateTime
-  slug: String
-  title: String
-}
-
-type DocumentRelationResponseCollection {
-  data: [DocumentEntity!]!
-}
-
 enum ENUM_BRANCH_BARRIERFREESTATE {
   ciastocne_pristupny
   nepristupny
@@ -2006,7 +1864,6 @@ type Event {
   dateFrom: DateTime
   dateTo: DateTime
   description: String
-  documents: ComponentSectionsDocuments
   eventCategory: EventCategoryEntityResponse
   eventTags(filters: EventTagFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventTagRelationResponseCollection
   gallery(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
@@ -2091,7 +1948,6 @@ input EventFiltersInput {
   dateFrom: DateTimeFilterInput
   dateTo: DateTimeFilterInput
   description: StringFilterInput
-  documents: ComponentSectionsDocumentsFiltersInput
   eventCategory: EventCategoryFiltersInput
   eventTags: EventTagFiltersInput
   guests: ComponentGuestsGuestFiltersInput
@@ -2117,7 +1973,6 @@ input EventInput {
   dateFrom: DateTime
   dateTo: DateTime
   description: String
-  documents: ComponentSectionsDocumentsInput
   eventCategory: ID
   eventTags: [ID]
   gallery: [ID]
@@ -2368,7 +2223,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Asset | AssetCategory | BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepagePromotedContent | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Asset | AssetCategory | BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepagePromotedContent | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2646,8 +2501,6 @@ type Mutation {
   createBranch(data: BranchInput!, locale: I18NLocaleCode): BranchEntityResponse
   createBranchLocalization(data: BranchInput, id: ID, locale: I18NLocaleCode): BranchEntityResponse
   createDisclosure(data: DisclosureInput!): DisclosureEntityResponse
-  createDocument(data: DocumentInput!): DocumentEntityResponse
-  createDocumentCategory(data: DocumentCategoryInput!): DocumentCategoryEntityResponse
   createEvent(data: EventInput!, locale: I18NLocaleCode): EventEntityResponse
   createEventCategory(data: EventCategoryInput!, locale: I18NLocaleCode): EventCategoryEntityResponse
   createEventCategoryLocalization(data: EventCategoryInput, id: ID, locale: I18NLocaleCode): EventCategoryEntityResponse
@@ -2681,8 +2534,6 @@ type Mutation {
   deleteBookTag(id: ID!): BookTagEntityResponse
   deleteBranch(id: ID!, locale: I18NLocaleCode): BranchEntityResponse
   deleteDisclosure(id: ID!): DisclosureEntityResponse
-  deleteDocument(id: ID!): DocumentEntityResponse
-  deleteDocumentCategory(id: ID!): DocumentCategoryEntityResponse
   deleteEvent(id: ID!, locale: I18NLocaleCode): EventEntityResponse
   deleteEventCategory(id: ID!, locale: I18NLocaleCode): EventCategoryEntityResponse
   deleteEventTag(id: ID!, locale: I18NLocaleCode): EventTagEntityResponse
@@ -2727,8 +2578,6 @@ type Mutation {
   updateBookTag(data: BookTagInput!, id: ID!): BookTagEntityResponse
   updateBranch(data: BranchInput!, id: ID!, locale: I18NLocaleCode): BranchEntityResponse
   updateDisclosure(data: DisclosureInput!, id: ID!): DisclosureEntityResponse
-  updateDocument(data: DocumentInput!, id: ID!): DocumentEntityResponse
-  updateDocumentCategory(data: DocumentCategoryInput!, id: ID!): DocumentCategoryEntityResponse
   updateEvent(data: EventInput!, id: ID!, locale: I18NLocaleCode): EventEntityResponse
   updateEventCategory(data: EventCategoryInput!, id: ID!, locale: I18NLocaleCode): EventCategoryEntityResponse
   updateEventTag(data: EventTagInput!, id: ID!, locale: I18NLocaleCode): EventTagEntityResponse
@@ -2795,7 +2644,6 @@ type Notice {
   body: String
   createdAt: DateTime
   dateAdded: Date
-  documents: ComponentSectionsDocuments
   isCurrentChangeInOpeningHours: Boolean
   listingImage: UploadFileEntityResponse
   locale: String
@@ -2828,7 +2676,6 @@ input NoticeFiltersInput {
   body: StringFilterInput
   createdAt: DateTimeFilterInput
   dateAdded: DateFilterInput
-  documents: ComponentSectionsDocumentsFiltersInput
   id: IDFilterInput
   isCurrentChangeInOpeningHours: BooleanFilterInput
   locale: StringFilterInput
@@ -2847,7 +2694,6 @@ input NoticeInput {
   assets: ComponentSectionsAssetsInput
   body: String
   dateAdded: Date
-  documents: ComponentSectionsDocumentsInput
   isCurrentChangeInOpeningHours: Boolean
   listingImage: ID
   promoted: Boolean
@@ -2928,7 +2774,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
 
 scalar PageSectionsDynamicZoneInput
 
@@ -3022,10 +2868,6 @@ type Query {
   branches(filters: BranchFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): BranchEntityResponseCollection
   disclosure(id: ID): DisclosureEntityResponse
   disclosures(filters: DisclosureFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): DisclosureEntityResponseCollection
-  document(id: ID): DocumentEntityResponse
-  documentCategories(filters: DocumentCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): DocumentCategoryEntityResponseCollection
-  documentCategory(id: ID): DocumentCategoryEntityResponse
-  documents(filters: DocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): DocumentEntityResponseCollection
   event(id: ID, locale: I18NLocaleCode): EventEntityResponse
   eventCategories(filters: EventCategoryFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventCategoryEntityResponseCollection
   eventCategory(id: ID, locale: I18NLocaleCode): EventCategoryEntityResponse

@@ -89,7 +89,6 @@
         "sections.accordion",
         "sections.divider",
         "sections.cta",
-        "sections.documents",
         "sections.video",
         "sections.gallery",
         "sections.map",
@@ -100,7 +99,6 @@
         "sections.news-listing",
         "sections.assets-listing",
         "sections.blog-posts-listing",
-        "sections.documents-listing",
         "sections.events-listing",
         "sections.new-books-listing",
         "sections.cherrypick-section"
