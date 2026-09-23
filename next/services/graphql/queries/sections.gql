@@ -13,21 +13,6 @@ fragment AssetsSection on ComponentSectionsAssets {
   }
 }
 
-fragment DocumentsSection on ComponentSectionsDocuments {
-  id
-  title
-  documents {
-    data {
-      ...DocumentEntity
-    }
-  }
-  disclosures {
-    data {
-      ...DisclosureEntity
-    }
-  }
-}
-
 fragment GallerySection on ComponentSectionsGallery {
   id
   Gallery {

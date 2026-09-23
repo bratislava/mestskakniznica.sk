@@ -453,7 +453,8 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
         'sections.video',
         'sections.flat-text',
         'sections.gallery',
-        'sections.site-usefullness'
+        'sections.site-usefullness',
+        'sections.assets'
       ]
     > &
       Attribute.SetPluginOptions<{
