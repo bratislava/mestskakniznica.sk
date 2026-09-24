@@ -435,12 +435,6 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
     createdAt: Attribute.DateTime
     createdBy: Attribute.Relation<'api::blog-post.blog-post', 'oneToOne', 'admin::user'> &
       Attribute.Private
-    locale: Attribute.String
-    localizations: Attribute.Relation<
-      'api::blog-post.blog-post',
-      'oneToMany',
-      'api::blog-post.blog-post'
-    >
     publishedAt: Attribute.DateTime
     sections: Attribute.DynamicZone<
       [
@@ -574,8 +568,6 @@ export interface ApiBranchBranch extends Schema.CollectionType {
           localized: false
         }
       }>
-    locale: Attribute.String
-    localizations: Attribute.Relation<'api::branch.branch', 'oneToMany', 'api::branch.branch'>
     longitude: Attribute.Float &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -701,12 +693,6 @@ export interface ApiEventCategoryEventCategory extends Schema.CollectionType {
     createdAt: Attribute.DateTime
     createdBy: Attribute.Relation<'api::event-category.event-category', 'oneToOne', 'admin::user'> &
       Attribute.Private
-    locale: Attribute.String
-    localizations: Attribute.Relation<
-      'api::event-category.event-category',
-      'oneToMany',
-      'api::event-category.event-category'
-    >
     publishedAt: Attribute.DateTime
     title: Attribute.String &
       Attribute.SetPluginOptions<{
@@ -740,12 +726,6 @@ export interface ApiEventTagEventTag extends Schema.CollectionType {
     createdAt: Attribute.DateTime
     createdBy: Attribute.Relation<'api::event-tag.event-tag', 'oneToOne', 'admin::user'> &
       Attribute.Private
-    locale: Attribute.String
-    localizations: Attribute.Relation<
-      'api::event-tag.event-tag',
-      'oneToMany',
-      'api::event-tag.event-tag'
-    >
     publishedAt: Attribute.DateTime
     slug: Attribute.String &
       Attribute.SetPluginOptions<{
@@ -814,8 +794,6 @@ export interface ApiEventEvent extends Schema.CollectionType {
       }>
     guests: Attribute.Component<'guests.guest', true>
     listingImage: Attribute.Media<'images'>
-    locale: Attribute.String
-    localizations: Attribute.Relation<'api::event.event', 'oneToMany', 'api::event.event'>
     price: Attribute.Float
     promoted: Attribute.Boolean &
       Attribute.SetPluginOptions<{
@@ -918,8 +896,6 @@ export interface ApiFooterFooter extends Schema.SingleType {
           localized: true
         }
       }>
-    locale: Attribute.String
-    localizations: Attribute.Relation<'api::footer.footer', 'oneToMany', 'api::footer.footer'>
     privacyLink: Attribute.Relation<'api::footer.footer', 'oneToOne', 'api::page.page'>
     publishedAt: Attribute.DateTime
     siteMapLink: Attribute.Relation<'api::footer.footer', 'oneToOne', 'api::page.page'>
@@ -950,8 +926,6 @@ export interface ApiGeneralGeneral extends Schema.SingleType {
     createdBy: Attribute.Relation<'api::general.general', 'oneToOne', 'admin::user'> &
       Attribute.Private
     eventsPage: Attribute.Relation<'api::general.general', 'oneToOne', 'api::page.page'>
-    locale: Attribute.String
-    localizations: Attribute.Relation<'api::general.general', 'oneToMany', 'api::general.general'>
     newBooksPage: Attribute.Relation<'api::general.general', 'oneToOne', 'api::page.page'>
     noticesPage: Attribute.Relation<'api::general.general', 'oneToOne', 'api::page.page'>
     openingHoursPage: Attribute.Relation<'api::general.general', 'oneToOne', 'api::page.page'>
@@ -992,12 +966,6 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
           localized: true
         }
       }>
-    locale: Attribute.String
-    localizations: Attribute.Relation<
-      'api::home-page.home-page',
-      'oneToMany',
-      'api::home-page.home-page'
-    >
     mapSection: Attribute.Component<'sections.map'> &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1053,8 +1021,6 @@ export interface ApiMenuMenu extends Schema.CollectionType {
   attributes: {
     createdAt: Attribute.DateTime
     createdBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> & Attribute.Private
-    locale: Attribute.String
-    localizations: Attribute.Relation<'api::menu.menu', 'oneToMany', 'api::menu.menu'>
     menuSections: Attribute.Component<'menu.sections', true> &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1136,8 +1102,6 @@ export interface ApiNoticeNotice extends Schema.CollectionType {
           localized: false
         }
       }>
-    locale: Attribute.String
-    localizations: Attribute.Relation<'api::notice.notice', 'oneToMany', 'api::notice.notice'>
     promoted: Attribute.Boolean &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1205,8 +1169,6 @@ export interface ApiPagePage extends Schema.CollectionType {
           localized: true
         }
       }>
-    locale: Attribute.String
-    localizations: Attribute.Relation<'api::page.page', 'oneToMany', 'api::page.page'>
     newSlug: Attribute.String &
       Attribute.Required &
       Attribute.SetPluginOptions<{
@@ -1304,8 +1266,6 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
           localized: true
         }
       }>
-    locale: Attribute.String
-    localizations: Attribute.Relation<'api::partner.partner', 'oneToMany', 'api::partner.partner'>
     logo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1418,45 +1378,6 @@ export interface PluginContentReleasesReleaseAction extends Schema.CollectionTyp
       'oneToOne',
       'admin::user'
     > &
-      Attribute.Private
-  }
-}
-
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale'
-  info: {
-    collectionName: 'locales'
-    description: ''
-    displayName: 'Locale'
-    pluralName: 'locales'
-    singularName: 'locale'
-  }
-  options: {
-    draftAndPublish: false
-  }
-  pluginOptions: {
-    'content-manager': {
-      visible: false
-    }
-    'content-type-builder': {
-      visible: false
-    }
-  }
-  attributes: {
-    code: Attribute.String & Attribute.Unique
-    createdAt: Attribute.DateTime
-    createdBy: Attribute.Relation<'plugin::i18n.locale', 'oneToOne', 'admin::user'> &
-      Attribute.Private
-    name: Attribute.String &
-      Attribute.SetMinMax<
-        {
-          max: 50
-          min: 1
-        },
-        number
-      >
-    updatedAt: Attribute.DateTime
-    updatedBy: Attribute.Relation<'plugin::i18n.locale', 'oneToOne', 'admin::user'> &
       Attribute.Private
   }
 }
@@ -1752,7 +1673,6 @@ declare module '@strapi/types' {
       'api::partner.partner': ApiPartnerPartner
       'plugin::content-releases.release': PluginContentReleasesRelease
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction
-      'plugin::i18n.locale': PluginI18NLocale
       'plugin::navikronos.navikronos-storage': PluginNavikronosNavikronosStorage
       'plugin::upload.file': PluginUploadFile
       'plugin::upload.folder': PluginUploadFolder

@@ -1,54 +1,49 @@
-import { IStrapi } from "strapi-typed";
-import { NavikronosPluginConfig } from "../../../shared/types";
-import { navikronosConfigSchema } from "../../../shared/zod";
+import { Core } from '@strapi/strapi'
+import { NavikronosPluginConfig } from '../../../shared/types'
+import { navikronosConfigSchema } from '../../../shared/zod'
 
-export const getConfig = (strapi: IStrapi) =>
-  strapi.config.get("plugin.navikronos") as NavikronosPluginConfig;
+export const getConfig = (strapi: Core.Strapi) =>
+  strapi.config.get('plugin::navikronos') as NavikronosPluginConfig
 
-const smallLettersDashRegexp = /^[a-z-]+$/;
+const smallLettersDashRegexp = /^[a-z-]+$/
 
-export const validateConfig = (
-  strapi: IStrapi,
-  config: NavikronosPluginConfig,
-) => {
+export const validateConfig = (strapi: Core.Strapi, config: NavikronosPluginConfig) => {
   // Basic shape validation
   try {
-    navikronosConfigSchema.parse(config);
+    navikronosConfigSchema.parse(config)
   } catch (e) {
-    throw new Error(`Navikronos plugin config error: ${e}`);
+    throw new Error(`Navikronos plugin config error: ${e}`)
   }
 
   config.staticRouteIds?.forEach((id) => {
     if (!smallLettersDashRegexp.test(id)) {
       throw new Error(
-        `Navikronos plugin config error: "staticRouteIds" should contain only small letters and dashes.`,
-      );
+        `Navikronos plugin config error: "staticRouteIds" should contain only small letters and dashes.`
+      )
     }
-  });
+  })
 
-  config.entryRoutes?.forEach(
-    ({ contentTypeUid, titleAttribute, pathAttribute }) => {
-      const contentType = strapi.contentTypes[contentTypeUid];
-      if (!contentType) {
+  config.entryRoutes?.forEach(({ contentTypeUid, titleAttribute, pathAttribute }) => {
+    const contentType = strapi.contentTypes[contentTypeUid]
+    if (!contentType) {
+      throw new Error(
+        `Navikronos plugin config error: "${contentTypeUid}" content type doesn't exist.`
+      )
+    }
+
+    ;[titleAttribute, pathAttribute].forEach((attribute) => {
+      const attributeObject = contentType.attributes[attribute]
+      if (!attributeObject) {
         throw new Error(
-          `Navikronos plugin config error: "${contentTypeUid}" content type doesn't exist.`,
-        );
+          `Navikronos plugin config error: "${contentTypeUid}" content type doesn't have "${attribute}" attribute.`
+        )
       }
 
-      [titleAttribute, pathAttribute].forEach((attribute) => {
-        const attributeObject = contentType.attributes[attribute];
-        if (!attributeObject) {
-          throw new Error(
-            `Navikronos plugin config error: "${contentTypeUid}" content type doesn't have "${attribute}" attribute.`,
-          );
-        }
-
-        if (attributeObject.type !== "string") {
-          throw new Error(
-            `Navikronos plugin config error: "${contentTypeUid}" content type's "${attribute}" attribute must be of type "string".`,
-          );
-        }
-      });
-    },
-  );
-};
+      if (attributeObject.type !== 'string') {
+        throw new Error(
+          `Navikronos plugin config error: "${contentTypeUid}" content type's "${attribute}" attribute must be of type "string".`
+        )
+      }
+    })
+  })
+}

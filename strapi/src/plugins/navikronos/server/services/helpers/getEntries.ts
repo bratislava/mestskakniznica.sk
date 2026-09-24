@@ -1,55 +1,49 @@
-import { IStrapi, StrapiContentType } from "strapi-typed";
-import { getConfig } from "./config";
+import { getConfig } from './config'
+import { Core } from '@strapi/strapi'
 
 export type FetchedEntry = {
-  id: number;
-  title: string;
-  path: string;
-};
+  id: number
+  title: string
+  path: string
+}
 
 /**
  * Returns entries from entry type routes for UI (to choose from) and for client navigation API
  * (content types and ids of the entries are replaced with real ones with path and title).
  */
 export const getEntries = async (
-  strapi: IStrapi,
+  strapi: Core.Strapi,
   contentTypeUid: string,
   locale?: string,
-  ids?: number[],
+  ids?: number[]
 ) => {
-  const { entryRoutes } = getConfig(strapi);
+  const { entryRoutes } = getConfig(strapi)
 
   const entryRouteConfig = (entryRoutes ?? []).find(
-    (route) => route.contentTypeUid === contentTypeUid,
-  );
+    (route) => route.contentTypeUid === contentTypeUid
+  )
   if (!entryRouteConfig) {
-    return [] as FetchedEntry[];
+    return [] as FetchedEntry[]
   }
 
-  const items = await strapi
-    .query<StrapiContentType<any>>(contentTypeUid)
-    .findMany({
-      select: [
-        "id",
-        entryRouteConfig.titleAttribute,
-        entryRouteConfig.pathAttribute,
-      ],
-      where: {
-        ...(ids
-          ? {
-              id: {
-                $in: ids,
-              },
-            }
-          : {}),
-        ...(locale
-          ? {
-              locale: { $eq: locale },
-            }
-          : {}),
-        publishedAt: { $notNull: true },
-      },
-    });
+  const items = await strapi.query<StrapiContentType<any>>(contentTypeUid).findMany({
+    select: ['id', entryRouteConfig.titleAttribute, entryRouteConfig.pathAttribute],
+    where: {
+      ...(ids
+        ? {
+            id: {
+              $in: ids,
+            },
+          }
+        : {}),
+      ...(locale
+        ? {
+            locale: { $eq: locale },
+          }
+        : {}),
+      publishedAt: { $notNull: true },
+    },
+  })
 
   return items.map(
     (entry) =>
@@ -57,6 +51,6 @@ export const getEntries = async (
         id: entry.id,
         title: entry[entryRouteConfig.titleAttribute],
         path: entry[entryRouteConfig.pathAttribute],
-      }) as FetchedEntry,
-  );
-};
+      } as FetchedEntry)
+  )
+}

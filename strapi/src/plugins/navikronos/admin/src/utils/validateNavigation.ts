@@ -60,25 +60,25 @@ export const validateNavigation = (
     ...errors,
     ...duplicates.static.map(
       (id) =>
-        ({
+        (({
           type: "duplicateStaticRoute",
-          id,
-        }) as NavigationTreeError,
+          id
+        }) as NavigationTreeError),
     ),
     ...duplicates.entry.map(
       ([uid, id]) =>
-        ({
+        (({
           type: "duplicateEntryRoute",
           uid,
-          id,
-        }) as NavigationTreeError,
+          id
+        }) as NavigationTreeError),
     ),
     ...duplicates.contentType.map(
       (uid) =>
-        ({
+        (({
           type: "duplicateContentTypeRoute",
-          uid,
-        }) as NavigationTreeError,
+          uid
+        }) as NavigationTreeError),
     ),
   ];
 };

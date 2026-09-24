@@ -1,22 +1,22 @@
-import { Route, Switch } from "react-router-dom";
-import { AnErrorOccurred } from "@strapi/helper-plugin";
-import pluginId from "../pluginId";
-import HomePage from "./Homepage";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Route, Routes } from 'react-router-dom'
+import HomePage from './Homepage'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Page } from '@strapi/strapi/admin'
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <div>
-        <Switch>
-          <Route path={`/plugins/${pluginId}`} component={HomePage} exact />
-          <Route component={AnErrorOccurred} />
-        </Switch>
+        <Routes>
+          <Route element={<HomePage />} />
+
+          <Route path="*" element={<Page.Error />} />
+        </Routes>
       </div>
     </QueryClientProvider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

@@ -174,8 +174,6 @@ type BasicDocumentRelationResponseCollection {
 type BlogPost {
   coverMedia: UploadFileEntityResponse
   createdAt: DateTime
-  locale: String
-  localizations(filters: BlogPostFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BlogPostRelationResponseCollection
   publishedAt: DateTime
   sections: [BlogPostSectionsDynamicZone]
   seo: ComponentCommonSeo
@@ -202,8 +200,6 @@ input BlogPostFiltersInput {
   and: [BlogPostFiltersInput]
   createdAt: DateTimeFilterInput
   id: IDFilterInput
-  locale: StringFilterInput
-  localizations: BlogPostFiltersInput
   not: BlogPostFiltersInput
   or: [BlogPostFiltersInput]
   publishedAt: DateTimeFilterInput
@@ -309,8 +305,6 @@ type Branch {
   events(filters: EventFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventRelationResponseCollection
   latitude: Float
   listingImage: UploadFileEntityResponse
-  locale: String
-  localizations(filters: BranchFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): BranchRelationResponseCollection
   longitude: Float
   medias(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   openingHours: ComponentBlocksOpeningHours
@@ -349,8 +343,6 @@ input BranchFiltersInput {
   events: EventFiltersInput
   id: IDFilterInput
   latitude: FloatFilterInput
-  locale: StringFilterInput
-  localizations: BranchFiltersInput
   longitude: FloatFilterInput
   not: BranchFiltersInput
   openingHours: ComponentBlocksOpeningHoursFiltersInput
@@ -1869,8 +1861,6 @@ type Event {
   gallery(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   guests(filters: ComponentGuestsGuestFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentGuestsGuest]
   listingImage: UploadFileEntityResponse
-  locale: String
-  localizations(filters: EventFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventRelationResponseCollection
   price: Float
   promoted: Boolean
   publishedAt: DateTime
@@ -1883,8 +1873,6 @@ type Event {
 
 type EventCategory {
   createdAt: DateTime
-  locale: String
-  localizations(filters: EventCategoryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventCategoryRelationResponseCollection
   publishedAt: DateTime
   title: String
   updatedAt: DateTime
@@ -1908,8 +1896,6 @@ input EventCategoryFiltersInput {
   and: [EventCategoryFiltersInput]
   createdAt: DateTimeFilterInput
   id: IDFilterInput
-  locale: StringFilterInput
-  localizations: EventCategoryFiltersInput
   not: EventCategoryFiltersInput
   or: [EventCategoryFiltersInput]
   publishedAt: DateTimeFilterInput
@@ -1952,8 +1938,6 @@ input EventFiltersInput {
   eventTags: EventTagFiltersInput
   guests: ComponentGuestsGuestFiltersInput
   id: IDFilterInput
-  locale: StringFilterInput
-  localizations: EventFiltersInput
   not: EventFiltersInput
   or: [EventFiltersInput]
   price: FloatFilterInput
@@ -1993,8 +1977,6 @@ type EventRelationResponseCollection {
 
 type EventTag {
   createdAt: DateTime
-  locale: String
-  localizations(filters: EventTagFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventTagRelationResponseCollection
   publishedAt: DateTime
   slug: String
   title: String
@@ -2019,8 +2001,6 @@ input EventTagFiltersInput {
   and: [EventTagFiltersInput]
   createdAt: DateTimeFilterInput
   id: IDFilterInput
-  locale: StringFilterInput
-  localizations: EventTagFiltersInput
   not: EventTagFiltersInput
   or: [EventTagFiltersInput]
   publishedAt: DateTimeFilterInput
@@ -2121,8 +2101,6 @@ type Footer {
   copyrightText: String
   createdAt: DateTime
   footerColumns(filters: ComponentFooterFooterColumnFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentFooterFooterColumn]
-  locale: String
-  localizations(publicationState: PublicationState = LIVE): FooterRelationResponseCollection
   privacyLink: PageEntityResponse
   publishedAt: DateTime
   siteMapLink: PageEntityResponse
@@ -2148,8 +2126,6 @@ input FooterFiltersInput {
   copyrightText: StringFilterInput
   createdAt: DateTimeFilterInput
   footerColumns: ComponentFooterFooterColumnFiltersInput
-  locale: StringFilterInput
-  localizations: FooterFiltersInput
   not: FooterFiltersInput
   or: [FooterFiltersInput]
   privacyLink: PageFiltersInput
@@ -2173,8 +2149,6 @@ type FooterRelationResponseCollection {
 type General {
   createdAt: DateTime
   eventsPage: PageEntityResponse
-  locale: String
-  localizations: GeneralRelationResponseCollection
   newBooksPage: PageEntityResponse
   noticesPage: PageEntityResponse
   openingHoursPage: PageEntityResponse
@@ -2200,8 +2174,6 @@ input GeneralFiltersInput {
   and: [GeneralFiltersInput]
   createdAt: DateTimeFilterInput
   eventsPage: PageFiltersInput
-  locale: StringFilterInput
-  localizations: GeneralFiltersInput
   newBooksPage: PageFiltersInput
   not: GeneralFiltersInput
   noticesPage: PageFiltersInput
@@ -2223,13 +2195,11 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Asset | AssetCategory | BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepagePromotedContent | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Asset | AssetCategory | BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepagePromotedContent | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
   faqSection: ComponentHomepageFaqSection
-  locale: String
-  localizations: HomePageRelationResponseCollection
   mapSection: ComponentSectionsMap
   newsSection: ComponentHomepageNewsSection
   promotedContent: ComponentHomepagePromotedContent
@@ -2256,8 +2226,6 @@ input HomePageFiltersInput {
   and: [HomePageFiltersInput]
   createdAt: DateTimeFilterInput
   faqSection: ComponentHomepageFaqSectionFiltersInput
-  locale: StringFilterInput
-  localizations: HomePageFiltersInput
   mapSection: ComponentSectionsMapFiltersInput
   newsSection: ComponentHomepageNewsSectionFiltersInput
   not: HomePageFiltersInput
@@ -2279,50 +2247,6 @@ input HomePageInput {
 
 type HomePageRelationResponseCollection {
   data: [HomePageEntity!]!
-}
-
-type I18NLocale {
-  code: String
-  createdAt: DateTime
-  name: String
-  updatedAt: DateTime
-}
-
-"""A string used to identify an i18n locale"""
-scalar I18NLocaleCode
-
-type I18NLocaleEntity {
-  attributes: I18NLocale
-  id: ID
-}
-
-type I18NLocaleEntityResponse {
-  data: I18NLocaleEntity
-}
-
-type I18NLocaleEntityResponseCollection {
-  data: [I18NLocaleEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input I18NLocaleFiltersInput {
-  and: [I18NLocaleFiltersInput]
-  code: StringFilterInput
-  createdAt: DateTimeFilterInput
-  id: IDFilterInput
-  name: StringFilterInput
-  not: I18NLocaleFiltersInput
-  or: [I18NLocaleFiltersInput]
-  updatedAt: DateTimeFilterInput
-}
-
-input I18NLocaleInput {
-  code: String
-  name: String
-}
-
-type I18NLocaleRelationResponseCollection {
-  data: [I18NLocaleEntity!]!
 }
 
 input IDFilterInput {
@@ -2437,8 +2361,6 @@ input LongFilterInput {
 
 type Menu {
   createdAt: DateTime
-  locale: String
-  localizations(filters: MenuFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): MenuRelationResponseCollection
   menuSections(filters: ComponentMenuSectionsFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentMenuSections]
   menuTitle: String
   menuTotalColumns: Int
@@ -2465,8 +2387,6 @@ input MenuFiltersInput {
   and: [MenuFiltersInput]
   createdAt: DateTimeFilterInput
   id: IDFilterInput
-  locale: StringFilterInput
-  localizations: MenuFiltersInput
   menuSections: ComponentMenuSectionsFiltersInput
   menuTitle: StringFilterInput
   menuTotalColumns: IntFilterInput
@@ -2495,30 +2415,18 @@ type Mutation {
   createAsset(data: AssetInput!): AssetEntityResponse
   createAssetCategory(data: AssetCategoryInput!): AssetCategoryEntityResponse
   createBasicDocument(data: BasicDocumentInput!): BasicDocumentEntityResponse
-  createBlogPost(data: BlogPostInput!, locale: I18NLocaleCode): BlogPostEntityResponse
-  createBlogPostLocalization(data: BlogPostInput, id: ID, locale: I18NLocaleCode): BlogPostEntityResponse
+  createBlogPost(data: BlogPostInput!): BlogPostEntityResponse
   createBookTag(data: BookTagInput!): BookTagEntityResponse
-  createBranch(data: BranchInput!, locale: I18NLocaleCode): BranchEntityResponse
-  createBranchLocalization(data: BranchInput, id: ID, locale: I18NLocaleCode): BranchEntityResponse
+  createBranch(data: BranchInput!): BranchEntityResponse
   createDisclosure(data: DisclosureInput!): DisclosureEntityResponse
-  createEvent(data: EventInput!, locale: I18NLocaleCode): EventEntityResponse
-  createEventCategory(data: EventCategoryInput!, locale: I18NLocaleCode): EventCategoryEntityResponse
-  createEventCategoryLocalization(data: EventCategoryInput, id: ID, locale: I18NLocaleCode): EventCategoryEntityResponse
-  createEventLocalization(data: EventInput, id: ID, locale: I18NLocaleCode): EventEntityResponse
-  createEventTag(data: EventTagInput!, locale: I18NLocaleCode): EventTagEntityResponse
-  createEventTagLocalization(data: EventTagInput, id: ID, locale: I18NLocaleCode): EventTagEntityResponse
+  createEvent(data: EventInput!): EventEntityResponse
+  createEventCategory(data: EventCategoryInput!): EventCategoryEntityResponse
+  createEventTag(data: EventTagInput!): EventTagEntityResponse
   createFileCategory(data: FileCategoryInput!): FileCategoryEntityResponse
-  createFooterLocalization(data: FooterInput, id: ID, locale: I18NLocaleCode): FooterEntityResponse
-  createGeneralLocalization(data: GeneralInput, id: ID, locale: I18NLocaleCode): GeneralEntityResponse
-  createHomePageLocalization(data: HomePageInput, id: ID, locale: I18NLocaleCode): HomePageEntityResponse
-  createMenu(data: MenuInput!, locale: I18NLocaleCode): MenuEntityResponse
-  createMenuLocalization(data: MenuInput, id: ID, locale: I18NLocaleCode): MenuEntityResponse
-  createNotice(data: NoticeInput!, locale: I18NLocaleCode): NoticeEntityResponse
-  createNoticeLocalization(data: NoticeInput, id: ID, locale: I18NLocaleCode): NoticeEntityResponse
-  createPage(data: PageInput!, locale: I18NLocaleCode): PageEntityResponse
-  createPageLocalization(data: PageInput, id: ID, locale: I18NLocaleCode): PageEntityResponse
-  createPartner(data: PartnerInput!, locale: I18NLocaleCode): PartnerEntityResponse
-  createPartnerLocalization(data: PartnerInput, id: ID, locale: I18NLocaleCode): PartnerEntityResponse
+  createMenu(data: MenuInput!): MenuEntityResponse
+  createNotice(data: NoticeInput!): NoticeEntityResponse
+  createPage(data: PageInput!): PageEntityResponse
+  createPartner(data: PartnerInput!): PartnerEntityResponse
   createUploadFile(data: UploadFileInput!): UploadFileEntityResponse
   createUploadFolder(data: UploadFolderInput!): UploadFolderEntityResponse
 
@@ -2530,22 +2438,22 @@ type Mutation {
   deleteAsset(id: ID!): AssetEntityResponse
   deleteAssetCategory(id: ID!): AssetCategoryEntityResponse
   deleteBasicDocument(id: ID!): BasicDocumentEntityResponse
-  deleteBlogPost(id: ID!, locale: I18NLocaleCode): BlogPostEntityResponse
+  deleteBlogPost(id: ID!): BlogPostEntityResponse
   deleteBookTag(id: ID!): BookTagEntityResponse
-  deleteBranch(id: ID!, locale: I18NLocaleCode): BranchEntityResponse
+  deleteBranch(id: ID!): BranchEntityResponse
   deleteDisclosure(id: ID!): DisclosureEntityResponse
-  deleteEvent(id: ID!, locale: I18NLocaleCode): EventEntityResponse
-  deleteEventCategory(id: ID!, locale: I18NLocaleCode): EventCategoryEntityResponse
-  deleteEventTag(id: ID!, locale: I18NLocaleCode): EventTagEntityResponse
+  deleteEvent(id: ID!): EventEntityResponse
+  deleteEventCategory(id: ID!): EventCategoryEntityResponse
+  deleteEventTag(id: ID!): EventTagEntityResponse
   deleteFileCategory(id: ID!): FileCategoryEntityResponse
-  deleteFooter(locale: I18NLocaleCode): FooterEntityResponse
-  deleteGeneral(locale: I18NLocaleCode): GeneralEntityResponse
-  deleteHomePage(locale: I18NLocaleCode): HomePageEntityResponse
-  deleteMenu(id: ID!, locale: I18NLocaleCode): MenuEntityResponse
+  deleteFooter: FooterEntityResponse
+  deleteGeneral: GeneralEntityResponse
+  deleteHomePage: HomePageEntityResponse
+  deleteMenu(id: ID!): MenuEntityResponse
   deleteNavikronosNavikronosStorage: NavikronosNavikronosStorageEntityResponse
-  deleteNotice(id: ID!, locale: I18NLocaleCode): NoticeEntityResponse
-  deletePage(id: ID!, locale: I18NLocaleCode): PageEntityResponse
-  deletePartner(id: ID!, locale: I18NLocaleCode): PartnerEntityResponse
+  deleteNotice(id: ID!): NoticeEntityResponse
+  deletePage(id: ID!): PageEntityResponse
+  deletePartner(id: ID!): PartnerEntityResponse
   deleteUploadFile(id: ID!): UploadFileEntityResponse
   deleteUploadFolder(id: ID!): UploadFolderEntityResponse
 
@@ -2574,23 +2482,23 @@ type Mutation {
   updateAsset(data: AssetInput!, id: ID!): AssetEntityResponse
   updateAssetCategory(data: AssetCategoryInput!, id: ID!): AssetCategoryEntityResponse
   updateBasicDocument(data: BasicDocumentInput!, id: ID!): BasicDocumentEntityResponse
-  updateBlogPost(data: BlogPostInput!, id: ID!, locale: I18NLocaleCode): BlogPostEntityResponse
+  updateBlogPost(data: BlogPostInput!, id: ID!): BlogPostEntityResponse
   updateBookTag(data: BookTagInput!, id: ID!): BookTagEntityResponse
-  updateBranch(data: BranchInput!, id: ID!, locale: I18NLocaleCode): BranchEntityResponse
+  updateBranch(data: BranchInput!, id: ID!): BranchEntityResponse
   updateDisclosure(data: DisclosureInput!, id: ID!): DisclosureEntityResponse
-  updateEvent(data: EventInput!, id: ID!, locale: I18NLocaleCode): EventEntityResponse
-  updateEventCategory(data: EventCategoryInput!, id: ID!, locale: I18NLocaleCode): EventCategoryEntityResponse
-  updateEventTag(data: EventTagInput!, id: ID!, locale: I18NLocaleCode): EventTagEntityResponse
+  updateEvent(data: EventInput!, id: ID!): EventEntityResponse
+  updateEventCategory(data: EventCategoryInput!, id: ID!): EventCategoryEntityResponse
+  updateEventTag(data: EventTagInput!, id: ID!): EventTagEntityResponse
   updateFileCategory(data: FileCategoryInput!, id: ID!): FileCategoryEntityResponse
   updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
-  updateFooter(data: FooterInput!, locale: I18NLocaleCode): FooterEntityResponse
-  updateGeneral(data: GeneralInput!, locale: I18NLocaleCode): GeneralEntityResponse
-  updateHomePage(data: HomePageInput!, locale: I18NLocaleCode): HomePageEntityResponse
-  updateMenu(data: MenuInput!, id: ID!, locale: I18NLocaleCode): MenuEntityResponse
+  updateFooter(data: FooterInput!): FooterEntityResponse
+  updateGeneral(data: GeneralInput!): GeneralEntityResponse
+  updateHomePage(data: HomePageInput!): HomePageEntityResponse
+  updateMenu(data: MenuInput!, id: ID!): MenuEntityResponse
   updateNavikronosNavikronosStorage(data: NavikronosNavikronosStorageInput!): NavikronosNavikronosStorageEntityResponse
-  updateNotice(data: NoticeInput!, id: ID!, locale: I18NLocaleCode): NoticeEntityResponse
-  updatePage(data: PageInput!, id: ID!, locale: I18NLocaleCode): PageEntityResponse
-  updatePartner(data: PartnerInput!, id: ID!, locale: I18NLocaleCode): PartnerEntityResponse
+  updateNotice(data: NoticeInput!, id: ID!): NoticeEntityResponse
+  updatePage(data: PageInput!, id: ID!): PageEntityResponse
+  updatePartner(data: PartnerInput!, id: ID!): PartnerEntityResponse
   updateUploadFile(data: UploadFileInput!, id: ID!): UploadFileEntityResponse
   updateUploadFolder(data: UploadFolderInput!, id: ID!): UploadFolderEntityResponse
 
@@ -2646,8 +2554,6 @@ type Notice {
   dateAdded: Date
   isCurrentChangeInOpeningHours: Boolean
   listingImage: UploadFileEntityResponse
-  locale: String
-  localizations(filters: NoticeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeRelationResponseCollection
   promoted: Boolean
   publishedAt: DateTime
   seo: ComponentCommonSeo
@@ -2678,8 +2584,6 @@ input NoticeFiltersInput {
   dateAdded: DateFilterInput
   id: IDFilterInput
   isCurrentChangeInOpeningHours: BooleanFilterInput
-  locale: StringFilterInput
-  localizations: NoticeFiltersInput
   not: NoticeFiltersInput
   or: [NoticeFiltersInput]
   promoted: BooleanFilterInput
@@ -2712,8 +2616,6 @@ type Page {
   createdAt: DateTime
   layout: ENUM_PAGE_LAYOUT
   listingImage: UploadFileEntityResponse
-  locale: String
-  localizations(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
   newSlug: String!
   perex: String
   publishedAt: DateTime
@@ -2744,8 +2646,6 @@ input PageFiltersInput {
   createdAt: DateTimeFilterInput
   id: IDFilterInput
   layout: StringFilterInput
-  locale: StringFilterInput
-  localizations: PageFiltersInput
   newSlug: StringFilterInput
   not: PageFiltersInput
   or: [PageFiltersInput]
@@ -2795,8 +2695,6 @@ input PaginationArg {
 type Partner {
   createdAt: DateTime
   featured: Boolean
-  locale: String
-  localizations(filters: PartnerFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PartnerRelationResponseCollection
   logo: UploadFileEntityResponse
   priority: Float
   publishedAt: DateTime
@@ -2824,8 +2722,6 @@ input PartnerFiltersInput {
   createdAt: DateTimeFilterInput
   featured: BooleanFilterInput
   id: IDFilterInput
-  locale: StringFilterInput
-  localizations: PartnerFiltersInput
   not: PartnerFiltersInput
   or: [PartnerFiltersInput]
   priority: FloatFilterInput
@@ -2860,37 +2756,35 @@ type Query {
   assets(filters: AssetFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): AssetEntityResponseCollection
   basicDocument(id: ID): BasicDocumentEntityResponse
   basicDocuments(filters: BasicDocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BasicDocumentEntityResponseCollection
-  blogPost(id: ID, locale: I18NLocaleCode): BlogPostEntityResponse
-  blogPosts(filters: BlogPostFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BlogPostEntityResponseCollection
+  blogPost(id: ID): BlogPostEntityResponse
+  blogPosts(filters: BlogPostFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BlogPostEntityResponseCollection
   bookTag(id: ID): BookTagEntityResponse
   bookTags(filters: BookTagFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BookTagEntityResponseCollection
-  branch(id: ID, locale: I18NLocaleCode): BranchEntityResponse
-  branches(filters: BranchFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): BranchEntityResponseCollection
+  branch(id: ID): BranchEntityResponse
+  branches(filters: BranchFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): BranchEntityResponseCollection
   disclosure(id: ID): DisclosureEntityResponse
   disclosures(filters: DisclosureFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): DisclosureEntityResponseCollection
-  event(id: ID, locale: I18NLocaleCode): EventEntityResponse
-  eventCategories(filters: EventCategoryFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventCategoryEntityResponseCollection
-  eventCategory(id: ID, locale: I18NLocaleCode): EventCategoryEntityResponse
-  eventTag(id: ID, locale: I18NLocaleCode): EventTagEntityResponse
-  eventTags(filters: EventTagFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventTagEntityResponseCollection
-  events(filters: EventFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventEntityResponseCollection
+  event(id: ID): EventEntityResponse
+  eventCategories(filters: EventCategoryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventCategoryEntityResponseCollection
+  eventCategory(id: ID): EventCategoryEntityResponse
+  eventTag(id: ID): EventTagEntityResponse
+  eventTags(filters: EventTagFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventTagEntityResponseCollection
+  events(filters: EventFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): EventEntityResponseCollection
   fileCategories(filters: FileCategoryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): FileCategoryEntityResponseCollection
   fileCategory(id: ID): FileCategoryEntityResponse
-  footer(locale: I18NLocaleCode, publicationState: PublicationState = LIVE): FooterEntityResponse
-  general(locale: I18NLocaleCode): GeneralEntityResponse
-  homePage(locale: I18NLocaleCode): HomePageEntityResponse
-  i18NLocale(id: ID): I18NLocaleEntityResponse
-  i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): I18NLocaleEntityResponseCollection
+  footer(publicationState: PublicationState = LIVE): FooterEntityResponse
+  general: GeneralEntityResponse
+  homePage: HomePageEntityResponse
   me: UsersPermissionsMe
-  menu(id: ID, locale: I18NLocaleCode): MenuEntityResponse
-  menus(filters: MenuFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): MenuEntityResponseCollection
+  menu(id: ID): MenuEntityResponse
+  menus(filters: MenuFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): MenuEntityResponseCollection
   navikronosNavikronosStorage: NavikronosNavikronosStorageEntityResponse
-  notice(id: ID, locale: I18NLocaleCode): NoticeEntityResponse
-  notices(filters: NoticeFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeEntityResponseCollection
-  page(id: ID, locale: I18NLocaleCode): PageEntityResponse
-  pages(filters: PageFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageEntityResponseCollection
-  partner(id: ID, locale: I18NLocaleCode): PartnerEntityResponse
-  partners(filters: PartnerFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PartnerEntityResponseCollection
+  notice(id: ID): NoticeEntityResponse
+  notices(filters: NoticeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeEntityResponseCollection
+  page(id: ID): PageEntityResponse
+  pages(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageEntityResponseCollection
+  partner(id: ID): PartnerEntityResponse
+  partners(filters: PartnerFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PartnerEntityResponseCollection
   uploadFile(id: ID): UploadFileEntityResponse
   uploadFiles(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileEntityResponseCollection
   uploadFolder(id: ID): UploadFolderEntityResponse
