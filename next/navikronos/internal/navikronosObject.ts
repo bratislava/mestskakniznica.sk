@@ -144,7 +144,7 @@ NavikronosObject<Config> => {
 
       return {
         type: route.alias,
-        id: (strapiEntity as StrapiEntryRouteEntity<Config>).id,
+        id: (strapiEntity as StrapiEntryRouteEntity<Config>).documentId,
       } as EntryRouteEntity<Config>
     }
 
@@ -154,9 +154,7 @@ NavikronosObject<Config> => {
 
       return {
         type: route.alias,
-        slug: (strapiEntity as StrapiContentTypeRouteEntity<Config>)?.attributes?.[
-          route.pathAttribute
-        ],
+        slug: (strapiEntity as StrapiContentTypeRouteEntity<Config>)?.[route.pathAttribute],
       } as ContentTypeRouteEntity<Config>
     }
 
@@ -229,7 +227,7 @@ NavikronosObject<Config> => {
         title: node.original.title,
         entity: {
           type: _contentTypeAliasMap.entryRoutes.get(node.original.contentTypeUid),
-          id: String(node.original.entryId),
+          id: node.original.entryId,
         },
         path: _getPathForNode(node),
       } as RouteEntityAndTitle<Config>

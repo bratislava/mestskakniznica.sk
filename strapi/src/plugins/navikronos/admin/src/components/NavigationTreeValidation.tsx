@@ -12,7 +12,7 @@ const Error = ({ error }: { error: NavigationTreeError }) => {
   const getContentTypeDisplayName = (uid: string) =>
     config.contentTypeInfos[uid]?.displayName ?? uid;
   const { locale } = useNavigationDataDefined();
-  const getEntryDisplayName = (uid: string, id: number) =>
+  const getEntryDisplayName = (uid: string, id: string) =>
     config.entryRouteEntries[locale]?.[uid]?.find((route) => route.id === id)
       ?.title ?? id;
 

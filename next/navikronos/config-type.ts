@@ -8,7 +8,7 @@ export type NavikronosConfig = {
     {
       alias: string
       strapiTypename: string
-      rewrite: (id: number) => string
+      rewrite: (documentId: string) => string
     }
   >
   contentTypeRoutes: Record<

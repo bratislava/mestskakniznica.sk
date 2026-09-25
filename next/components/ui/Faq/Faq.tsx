@@ -3,7 +3,7 @@
 import Accordion from '@/modules/common/Accordion'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import RichText from '@/modules/formatting/RichText'
-import { ComponentSectionsFaq } from '@/services/graphql'
+import { ComponentSectionsFaq, Page } from '@/services/graphql'
 import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
@@ -13,7 +13,7 @@ export interface FaqProps {
   title?: string
   questions?: ComponentSectionsFaq['questions']
   ctaButton?: string
-  redirectTo?: ComponentSectionsFaq['redirectTo']
+  redirectTo?: Page | null
 }
 
 export const Faq = ({ className, title, questions, ctaButton, redirectTo }: FaqProps) => {
@@ -30,9 +30,9 @@ export const Faq = ({ className, title, questions, ctaButton, redirectTo }: FaqP
           </Accordion>
         ))}
       </div>
-      {redirectTo?.data && (
+      {redirectTo && (
         <div className="pt-6 text-sm">
-          <ShowMoreLink href={getPathForEntity({ type: 'page', id: redirectTo?.data?.id }) ?? '#'}>
+          <ShowMoreLink href={getPathForEntity({ type: 'page', id: redirectTo.documentId }) ?? '#'}>
             {ctaButton || t('common.showMore')}
           </ShowMoreLink>
         </div>

@@ -17,10 +17,10 @@ const FullContentPage = ({ page }: FullContentPageProps) => {
         <PageBreadcrumbs />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={page?.attributes?.title ?? ''} perex={page?.attributes?.perex ?? ''} />
+        <PageTitle title={page?.title ?? ''} perex={page?.perex ?? ''} />
 
         <div className="mt-8">
-          <Sections sections={page.attributes?.sections?.filter(isDefined) ?? []} />
+          <Sections sections={page?.sections?.filter(isDefined) ?? []} />
         </div>
       </SectionContainer>
     </>

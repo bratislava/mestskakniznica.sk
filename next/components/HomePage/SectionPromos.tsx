@@ -2,7 +2,7 @@ import PromoEventCard from '@/modules/cards-and-rows/PromoEventCard'
 import PromoNewsCard from '@/modules/cards-and-rows/PromoNewsCard'
 import Carousel from '@/modules/common/Carousel/Carousel'
 import { EventCardEntityFragment, NoticeListingEntityFragment } from '@/services/graphql'
-import { isDefined, withAttributes } from '@/utils/isDefined'
+import { isDefined } from '@/utils/isDefined'
 
 interface SectionPromosProps {
   promos: (EventCardEntityFragment | NoticeListingEntityFragment)[]
@@ -21,16 +21,16 @@ const SectionPromos = ({ promos }: SectionPromosProps) => {
       items={promos
         ?.map((promo) => {
           switch (promo.__typename) {
-            case 'EventEntity':
+            case 'Event':
               return {
-                element: <PromoEventCard event={withAttributes(promo)} />,
-                key: promo?.attributes?.slug,
+                element: <PromoEventCard event={promo} />,
+                key: promo?.slug,
               }
 
-            case 'NoticeEntity':
+            case 'Notice':
               return {
                 element: <PromoNewsCard notice={promo} />,
-                key: promo?.attributes?.slug,
+                key: promo?.slug,
               }
 
             default:

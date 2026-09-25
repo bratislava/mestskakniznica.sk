@@ -2,7 +2,8 @@ import { getConfig } from './config'
 import { Core, UID } from '@strapi/strapi'
 
 export type FetchedEntry = {
-  id: number
+  /** Strapi 5 `documentId` - the identifier navigation stores and the frontend links by. */
+  id: string
   title: string
   path: string
 }
@@ -15,7 +16,7 @@ export const getEntries = async (
   strapi: Core.Strapi,
   contentTypeUid: string,
   locale?: string,
-  ids?: number[]
+  documentIds?: string[]
 ) => {
   const { entryRoutes } = getConfig(strapi)
 
@@ -28,12 +29,12 @@ export const getEntries = async (
 
   // The uid comes from the plugin config at runtime, so it can't be narrowed to a known UID here.
   const items = await strapi.query(contentTypeUid as UID.ContentType).findMany({
-    select: ['id', entryRouteConfig.titleAttribute, entryRouteConfig.pathAttribute],
+    select: ['documentId', entryRouteConfig.titleAttribute, entryRouteConfig.pathAttribute],
     where: {
-      ...(ids
+      ...(documentIds
         ? {
-            id: {
-              $in: ids,
+            documentId: {
+              $in: documentIds,
             },
           }
         : {}),
@@ -49,7 +50,7 @@ export const getEntries = async (
   return items.map(
     (entry) =>
       ({
-        id: entry.id,
+        id: entry.documentId,
         title: entry[entryRouteConfig.titleAttribute],
         path: entry[entryRouteConfig.pathAttribute],
       } as FetchedEntry)

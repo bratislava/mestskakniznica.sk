@@ -16,7 +16,7 @@ const BlogPostCard = ({ blogPost }: BlogPostProps) => {
   const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
-  const { coverMedia, publishedAt, title } = blogPost.attributes ?? {}
+  const { coverMedia, publishedAt, title } = blogPost ?? {}
   const link = getPathForStrapiEntity(blogPost)
 
   return (
@@ -24,7 +24,7 @@ const BlogPostCard = ({ blogPost }: BlogPostProps) => {
       <div className="flex h-full flex-col">
         <div className="relative mb-4 h-40.5 w-full shrink-0">
           <StrapiImage
-            image={coverMedia?.data?.attributes ?? getImagePlaceholder()}
+            image={coverMedia ?? getImagePlaceholder()}
             alt="" // Empty alt on purpose
             fill
             className="object-cover"

@@ -52,12 +52,8 @@ export const getParsedTreeWithUtilities = <Config extends NavikronosConfig>(
       if (typeof id !== 'string') {
         return null
       }
-      const numberId = parseInt(id, 10)
-      if (Number.isNaN(numberId)) {
-        return null
-      }
 
-      return localeTree.maps.entryRoutesAliasIdMap.get([entryAlias, numberId]) ?? null
+      return localeTree.maps.entryRoutesAliasIdMap.get([entryAlias, id]) ?? null
     }
 
     const contentTypeAlias = aliases.contentTypeRoutes.get(type)

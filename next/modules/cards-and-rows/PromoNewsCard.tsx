@@ -20,7 +20,7 @@ const PromoNewsCard = ({ notice }: PromoNewsCardProps) => {
     <CardWrapper className="group/showMore relative flex size-full flex-col justify-between bg-promo-peach py-3 pr-5 pl-4 lg:pt-[18px] lg:pr-[25px] lg:pb-[15px] lg:pl-5">
       <h3 className="text-h2">
         <MLink href={link} variant="basic" stretched className="line-clamp-3 outline-none">
-          {notice.attributes?.title}
+          {notice?.title}
         </MLink>
       </h3>
 

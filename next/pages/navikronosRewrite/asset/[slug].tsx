@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
   console.log(`Revalidating ${locale} asset ${slug}`)
 
   const { assets } = await client.AssetBySlug({ slug })
-  const asset = assets?.data[0] ?? null
+  const asset = assets[0] ?? null
   if (!asset) {
     return NOT_FOUND
   }
@@ -67,7 +67,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
           slug,
           locale: innerLocale,
         })),
-      breadcrumbsTitle: asset.attributes?.title,
+      breadcrumbsTitle: asset?.title,
     }),
   ])
 

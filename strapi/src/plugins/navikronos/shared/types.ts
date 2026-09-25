@@ -28,7 +28,8 @@ export type NavikronosEmptyRoute = {
 export type NavikronosEntryRoute = {
   type: "entry";
   contentTypeUid: string;
-  entryId: number;
+  /** Strapi 5 `documentId` of the referenced entry. */
+  entryId: string;
   overrideTitle?: string;
   overridePath?: string;
 } & NavikronosRouteWithChildren;
@@ -87,7 +88,8 @@ export type NavikronosClientEmptyRoute = {
 export type NavikronosClientEntryRoute = {
   type: "entry";
   contentTypeUid: string;
-  entryId: number;
+  /** Strapi 5 `documentId` of the referenced entry. */
+  entryId: string;
 } & NavikronosClientRouteWithTitlePath &
   NavikronosClientRouteWithChildren;
 

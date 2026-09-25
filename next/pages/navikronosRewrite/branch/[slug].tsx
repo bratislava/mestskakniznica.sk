@@ -27,9 +27,9 @@ const Page = ({ branch, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
       <DefaultPageLayout
-        title={branch.attributes?.title}
-        seo={branch.attributes?.seo}
-        defaultMetaDescription={branch.attributes?.body}
+        title={branch?.title}
+        seo={branch?.seo}
+        defaultMetaDescription={branch?.body}
       >
         <BranchPage branch={branch} />
       </DefaultPageLayout>
@@ -49,17 +49,17 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
     locales.map((locale) => client.BranchStaticPaths({ locale })),
   )
   const entities = pathArraysForLocales
-    .flatMap(({ branches }) => branches?.data || [])
+    .flatMap(({ branches }) => branches || [])
     .filter(isDefined)
 
   if (entities.length > 0) {
     paths = entities
-      .filter((entity) => entity.attributes?.slug)
+      .filter((entity) => entity?.slug)
       .map((entity) => ({
         params: {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          slug: entity.attributes!.slug,
-          locale: entity.attributes?.locale || '',
+          slug: entity.slug,
+          locale: entity?.locale || '',
         },
       }))
   }
@@ -85,7 +85,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
     slug,
     locale,
   })
-  const branch = branches?.data[0] ?? null
+  const branch = branches[0] ?? null
   if (!branch) {
     return NOT_FOUND
   }
@@ -103,7 +103,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
         slug,
       },
       currentEntityLocalizations: localizations,
-      breadcrumbsTitle: branch.attributes?.title,
+      breadcrumbsTitle: branch?.title,
     }),
   ])
 

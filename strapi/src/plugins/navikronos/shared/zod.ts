@@ -33,7 +33,7 @@ export const navikronosEntryRouteSchema = z
   .object({
     type: z.literal("entry"),
     contentTypeUid: z.string(),
-    entryId: z.number(),
+    entryId: z.string(),
     overrideTitle: z.string().optional(),
     overridePath: z.string().optional(),
     children: z.array(z.lazy(() => navikronosRouteSchema)).optional(),
