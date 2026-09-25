@@ -10,7 +10,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <div>
         <Routes>
-          <Route element={<HomePage />} />
+          <Route index element={<HomePage />} />
 
           <Route path="*" element={<Page.Error />} />
         </Routes>

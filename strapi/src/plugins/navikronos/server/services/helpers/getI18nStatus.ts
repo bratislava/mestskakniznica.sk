@@ -1,4 +1,4 @@
-import { IStrapi } from "strapi-typed";
+import { Core } from '@strapi/strapi'
 
 // Copied from strapi-plugin-navigation/server/i18n/utils.ts
 
@@ -7,7 +7,7 @@ type NavigationPluginConfig = {
 };
 
 type GetI18nStatusInput = {
-  strapi: IStrapi;
+  strapi: Core.Strapi;
 };
 
 export type I18NStatus = {

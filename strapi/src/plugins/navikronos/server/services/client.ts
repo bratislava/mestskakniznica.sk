@@ -1,4 +1,4 @@
-import { IStrapi } from "strapi-typed";
+import { Core } from '@strapi/strapi'
 import {
   ClientGetNavigationResponse,
   ClientService,
@@ -48,7 +48,7 @@ const traverseGetEntriesToFetch = (
  * Fetches the entries.
  */
 const fetchSelectedEntries = async (
-  strapi: IStrapi,
+  strapi: Core.Strapi,
   navigation: NavikronosNavigation,
   entriesToFetch: EntriesToFetchMap,
   locale: string,
@@ -117,7 +117,7 @@ const traverseReplaceEntries = (
   return innerTraverse(navigation) as NavikronosClientNavigation;
 };
 
-export default ({ strapi }: { strapi: IStrapi }): ClientService => ({
+export default ({ strapi }: { strapi: Core.Strapi }): ClientService => ({
   /**
    * Returns a client navigation for Next.js library.
    *

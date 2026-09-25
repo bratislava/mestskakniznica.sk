@@ -5,8 +5,7 @@ import {
   validateNavigation,
   NavigationTreeError,
 } from "../utils/validateNavigation";
-import { Status } from "@strapi/design-system";
-import { Flex } from "@strapi/design-system";
+import { Flex, Status } from "@strapi/design-system";
 
 const Error = ({ error }: { error: NavigationTreeError }) => {
   const { config } = useConfigDefined();
@@ -86,24 +85,20 @@ const NavigationTreeValidation = () => {
   return (
     <Status
       variant="warning"
-      showBullet={false}
       style={{
         width: "1000px",
         marginBottom: "30px",
       }}
     >
       <Flex direction="column" alignItems="start" gap={5}>
-        {errors.map((error) => (
-          <span>
+        {errors.map((error, index) => (
+          <span key={index}>
             • <Error error={error} />
           </span>
         ))}
       </Flex>
     </Status>
   );
-  console.log(errors);
-
-  return <div></div>;
 };
 
 export default NavigationTreeValidation;

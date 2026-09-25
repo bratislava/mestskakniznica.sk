@@ -1,7 +1,7 @@
-import { IStrapi } from 'strapi-typed'
+import { Core } from '@strapi/strapi'
 import { getConfig, validateConfig } from './services/helpers/config'
 
-export default async ({ strapi }: { strapi: IStrapi }) => {
+export default async ({ strapi }: { strapi: Core.Strapi }) => {
   // bootstrap phase
 
   const config = getConfig(strapi);

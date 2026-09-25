@@ -11,7 +11,7 @@
     "build": "npm run --prefix ./src/plugins/navikronos/ build && strapi build",
     "dev": "npm run develop",
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
-    "postinstall": "cd ./src/plugins/navikronos/ && npm install && cd ../../..",
+    "postinstall": "cd ./src/plugins/navikronos/ && npm install --omit=peer && cd ../../..",
     "start": "strapi start",
     "strapi": "strapi"
   },
@@ -24,9 +24,9 @@
     "pg": "8.21.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router-dom": "^6.0.0",
-    "strapi-plugin-meilisearch": "0.9.2",
-    "styled-components": "^6.0.0"
+    "react-router-dom": "6.30.4",
+    "strapi-plugin-meilisearch": "0.16.5",
+    "styled-components": "6.4.3"
   },
   "engines": {
     "node": ">=20.19.x",
