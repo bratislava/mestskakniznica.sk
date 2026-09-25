@@ -1,4 +1,4 @@
-import { Core } from '@strapi/strapi'
+import { Core, UID } from '@strapi/strapi'
 import { NavikronosPluginConfig } from '../../../shared/types'
 import { navikronosConfigSchema } from '../../../shared/zod'
 
@@ -24,7 +24,7 @@ export const validateConfig = (strapi: Core.Strapi, config: NavikronosPluginConf
   })
 
   config.entryRoutes?.forEach(({ contentTypeUid, titleAttribute, pathAttribute }) => {
-    const contentType = strapi.contentTypes[contentTypeUid]
+    const contentType = strapi.contentTypes[contentTypeUid as UID.ContentType]
     if (!contentType) {
       throw new Error(
         `Navikronos plugin config error: "${contentTypeUid}" content type doesn't exist.`

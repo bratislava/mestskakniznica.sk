@@ -1,5 +1,5 @@
 import { getConfig } from './config'
-import { Core } from '@strapi/strapi'
+import { Core, UID } from '@strapi/strapi'
 
 export type FetchedEntry = {
   id: number
@@ -26,7 +26,8 @@ export const getEntries = async (
     return [] as FetchedEntry[]
   }
 
-  const items = await strapi.query<StrapiContentType<any>>(contentTypeUid).findMany({
+  // The uid comes from the plugin config at runtime, so it can't be narrowed to a known UID here.
+  const items = await strapi.query(contentTypeUid as UID.ContentType).findMany({
     select: ['id', entryRouteConfig.titleAttribute, entryRouteConfig.pathAttribute],
     where: {
       ...(ids

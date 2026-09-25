@@ -1,4 +1,4 @@
-export default  {
+export default {
   /**
    * An asynchronous register function that runs before
    * your application is initialized.
@@ -19,12 +19,9 @@ export default  {
     // ADDING REVALIDATE WEBHOOK
     //------------------------------------
 
-// create Revalidate webhook according to this suggestion https://github.com/strapi/strapi/pull/20487#issuecomment-2482527848
-    const webhook = await strapi.db?.query('webhook').findOne({
-      where: {
-        name: 'Bootstrapped Revalidate',
-      },
-    })
+    // create Revalidate webhook according to this suggestion https://github.com/strapi/strapi/pull/20487#issuecomment-2482527848
+    const webhooks = await strapi.get('webhookStore').findWebhooks()
+    const webhook = webhooks.find((w) => w.name === 'Bootstrapped Revalidate')
 
     if (!webhook) {
       await strapi.webhookStore?.createWebhook({
@@ -33,7 +30,7 @@ export default  {
         url: `${process.env.REVALIDATE_NEXT_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET_TOKEN}`,
         events: ['entry.create', 'entry.update', 'entry.publish'],
         headers: {},
-        isEnabled: true
+        isEnabled: true,
       })
       console.log('Revalidate webhook created')
     } else {
@@ -62,4 +59,4 @@ export default  {
     //   locales: await strapi.db.query("plugin::i18n.locale").findMany(),
     // });
   },
-};
+}

@@ -1,31 +1,35 @@
 import { AdminGetConfigResponse, NavikronosRoute } from "../../../shared/types";
 import pick from "lodash/pick";
 
-export const getMetadatas = (label: string) => ({
-  intlLabel: {
-    id: "fakeId",
-    defaultMessage: label,
-  },
-});
+export type SelectOption = {
+  value: string | number;
+  label: string;
+};
 
-export const typeOptions = [
+export const fieldLabels: Record<string, string> = {
+  type: "Type",
+  id: "Static route id",
+  contentTypeUid: "Content type",
+  entryId: "Entry",
+  overrideTitle: "Override title",
+  overridePath: "Override path",
+  title: "Title",
+  path: "Path",
+};
+
+export const typeOptions: SelectOption[] = [
   ["entry", "Entry"],
   ["contentType", "Content type"],
   ["listing", "Listing"],
   ["empty", "Empty"],
   ["static", "Static"],
-].map(([value, label]) => ({
-  key: value,
-  metadatas: getMetadatas(label),
-  value,
-  label,
-}));
+].map(([value, label]) => ({ value, label }));
 
-export const prepareContentTypesOptions = (config: AdminGetConfigResponse) => {
+export const prepareContentTypesOptions = (
+  config: AdminGetConfigResponse,
+): SelectOption[] => {
   return Object.entries(config.contentTypeInfos).map(
     ([uid, { displayName }]) => ({
-      key: uid,
-      metadatas: getMetadatas(displayName),
       value: uid,
       label: displayName,
     }),
@@ -34,10 +38,8 @@ export const prepareContentTypesOptions = (config: AdminGetConfigResponse) => {
 
 export const prepareStaticRouteIdsOptions = (
   config: AdminGetConfigResponse,
-) => {
+): SelectOption[] => {
   return config.staticRouteIds.map((id) => ({
-    key: id,
-    metadatas: getMetadatas(id),
     value: id,
     label: id,
   }));
@@ -46,12 +48,15 @@ export const prepareStaticRouteIdsOptions = (
 export const prepareEntryRouteContentTypesOptions = (
   config: AdminGetConfigResponse,
   locale: string,
-) => {
-  return Object.entries(config.entryRouteEntries[locale]).map(([uid]) => {
-    const { displayName } = config.contentTypeInfos[uid];
+): SelectOption[] => {
+  const localeEntries = config.entryRouteEntries[locale];
+  if (!localeEntries) {
+    return [];
+  }
+
+  return Object.keys(localeEntries).map((uid) => {
+    const displayName = config.contentTypeInfos[uid]?.displayName ?? uid;
     return {
-      key: uid,
-      metadatas: getMetadatas(displayName),
       value: uid,
       label: displayName,
     };
@@ -62,24 +67,20 @@ export const prepareEntryRouteEntriesOptions = (
   config: AdminGetConfigResponse,
   values: NavikronosRoute,
   locale: string,
-) => {
+): SelectOption[] => {
   if (values.type !== "entry" || !values.contentTypeUid) {
-    return undefined;
+    return [];
   }
   const localeEntries = config.entryRouteEntries[locale];
   if (!localeEntries) {
-    return undefined;
+    return [];
   }
   const entries = localeEntries[values.contentTypeUid];
 
-  return entries?.map(({ id, title }) => {
-    return {
-      key: id,
-      metadatas: getMetadatas(title),
-      value: id,
-      label: title,
-    };
-  });
+  return (entries ?? []).map(({ id, title }) => ({
+    value: id,
+    label: title,
+  }));
 };
 
 // https://stackoverflow.com/a/67730037

@@ -1,5 +1,5 @@
 import { I18NStatus } from "../server/services/helpers/getI18nStatus";
-import { StrapiContentTypeInfo } from "strapi-typed";
+import { Struct } from "@strapi/strapi";
 import { FetchedEntry } from "../server/services/helpers/getEntries";
 
 // Admin navigation
@@ -128,7 +128,7 @@ export type AdminConfig = {
   contentTypeRoutes: { contentTypeUid: string }[];
   entryRouteEntries: Record<string, Record<string, FetchedEntry[]>>;
   staticRouteIds: string[];
-  contentTypeInfos: Record<string, StrapiContentTypeInfo>;
+  contentTypeInfos: Record<string, Struct.ContentTypeSchemaInfo>;
 };
 
 // API

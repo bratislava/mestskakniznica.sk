@@ -1,4 +1,4 @@
-import { IStrapi, StrapiContentTypeInfo } from "strapi-typed";
+import { Core, Struct, UID } from "@strapi/strapi";
 import { getI18nStatus } from "./helpers/getI18nStatus";
 import {
   AdminGetConfigResponse,
@@ -6,17 +6,16 @@ import {
   AdminPutNavigationInput,
   AdminPutNavigationResponse,
   AdminService,
-  NavikronosLocaleNavigations,
 } from "../../shared/types";
 import { navikronosLocaleNavigationsSchema } from "../../shared/zod";
 import { getNavigation } from "./helpers/getNavigation";
 import { getConfig } from "./helpers/config";
 import { getEntryRouteEntries } from "./helpers/getEntryRouteEntries";
-import utils from "@strapi/utils";
+import { errors } from "@strapi/utils";
 
-const { ApplicationError } = utils.errors;
+const { ApplicationError } = errors;
 
-export default ({ strapi }: { strapi: IStrapi }): AdminService => {
+export default ({ strapi }: { strapi: Core.Strapi }): AdminService => {
   return {
     /**
      * Returns a config for admin UI.
@@ -39,10 +38,10 @@ export default ({ strapi }: { strapi: IStrapi }): AdminService => {
           ({ contentTypeUid }) => contentTypeUid,
         ),
       ];
-      const contentTypeInfos = Object.fromEntries<StrapiContentTypeInfo>(
+      const contentTypeInfos = Object.fromEntries<Struct.ContentTypeSchemaInfo>(
         allContentTypesUids.map(
           (contentTypeUid) =>
-            [contentTypeUid, strapi.contentTypes[contentTypeUid].info] as const,
+            [contentTypeUid, strapi.contentTypes[contentTypeUid as UID.ContentType].info] as const,
         ),
       );
 
@@ -73,18 +72,15 @@ export default ({ strapi }: { strapi: IStrapi }): AdminService => {
       // There's not a way in Strapi API to update already existing single type entry, it must be
       // queried and created or updated. Beware, if we create a new entry if a one already exists
       // it breaks the Strapi UI although database allows it.
-      const queriedNavigation = await strapi
-        .query<{ id: number }>("plugin::navikronos.navikronos-storage")
-        .findOne({});
+      const queriedNavigation = (await strapi
+        .query("plugin::navikronos.navikronos-storage")
+        .findOne({})) as { id: number } | null;
 
       const id = queriedNavigation ? queriedNavigation.id : null;
 
       if (id) {
         await strapi
-          .query<{
-            id: string;
-            data: NavikronosLocaleNavigations;
-          }>("plugin::navikronos.navikronos-storage")
+          .query("plugin::navikronos.navikronos-storage")
           .update({ where: { id }, data: { data: navigation } });
       } else {
         await strapi

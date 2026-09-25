@@ -1,4 +1,4 @@
-import { IStrapi } from "strapi-typed";
+import { Core } from '@strapi/strapi'
 import { NavikronosPluginConfig } from "../../../shared/types";
 import { getEntries } from "./getEntries";
 import { I18NStatus } from "./getI18nStatus";
@@ -23,7 +23,7 @@ import { I18NStatus } from "./getI18nStatus";
  * }
  */
 export const getEntryRouteEntries = async (
-  strapi: IStrapi,
+  strapi: Core.Strapi,
   entryRoutes: NavikronosPluginConfig["entryRoutes"],
   i18n: I18NStatus,
 ) => {

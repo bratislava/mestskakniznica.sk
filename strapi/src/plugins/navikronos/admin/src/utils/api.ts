@@ -1,4 +1,4 @@
-import { request } from "@strapi/helper-plugin";
+import { getFetchClient } from "@strapi/strapi/admin";
 import pluginId from "../pluginId";
 import {
   AdminGetConfigResponse,
@@ -6,18 +6,28 @@ import {
   AdminPutNavigationInput,
 } from "../../../shared/types";
 
-export const fetchConfig = () =>
-  request(`/${pluginId}/config`, {
-    method: "GET",
-  }) as Promise<AdminGetConfigResponse>;
+export const fetchConfig = async () => {
+  const { get } = getFetchClient();
+  const { data } = await get<AdminGetConfigResponse>(`/${pluginId}/config`);
 
-export const fetchNavigation = () =>
-  request(`/${pluginId}/navigation`, {
-    method: "GET",
-  }) as Promise<AdminGetNavigationResponse>;
+  return data;
+};
 
-export const putNavigation = ({ navigation }: AdminPutNavigationInput) =>
-  request(`/${pluginId}/navigation`, {
-    method: "PUT",
-    body: { navigation },
-  }) as Promise<AdminGetNavigationResponse>;
+export const fetchNavigation = async () => {
+  const { get } = getFetchClient();
+  const { data } = await get<AdminGetNavigationResponse>(
+    `/${pluginId}/navigation`,
+  );
+
+  return data;
+};
+
+export const putNavigation = async ({ navigation }: AdminPutNavigationInput) => {
+  const { put } = getFetchClient();
+  const { data } = await put<AdminGetNavigationResponse>(
+    `/${pluginId}/navigation`,
+    { navigation },
+  );
+
+  return data;
+};
