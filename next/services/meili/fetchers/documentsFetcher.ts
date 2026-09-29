@@ -58,7 +58,7 @@ export const documentsFetcher = (filters: DocumentsFilters) => {
           if (isDocument) {
             return {
               ...hit.document,
-              category: hit.document.documentCategory.label,
+              category: hit.document.documentCategory?.label,
               type,
             }
           }
