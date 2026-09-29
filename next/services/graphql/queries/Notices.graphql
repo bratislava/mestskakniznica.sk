@@ -57,14 +57,16 @@ query NoticesStaticPaths($locale: I18NLocaleCode!) {
 }
 
 query Notices($locale: I18NLocaleCode!, $limit: Int, $start: Int) {
-  notices(locale: $locale, pagination: { limit: $limit, start: $start }, sort: "publishedAt:desc") {
-    data {
+  notices_connection(
+    locale: $locale
+    pagination: { limit: $limit, start: $start }
+    sort: "publishedAt:desc"
+  ) {
+    nodes {
       ...NoticeListingEntity
     }
-    meta {
-      pagination {
-        total
-      }
+    pageInfo {
+      total
     }
   }
 }

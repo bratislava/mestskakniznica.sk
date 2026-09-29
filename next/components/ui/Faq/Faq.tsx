@@ -3,7 +3,7 @@
 import Accordion from '@/modules/common/Accordion'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import RichText from '@/modules/formatting/RichText'
-import { ComponentSectionsFaq, Page } from '@/services/graphql'
+import { ComponentSectionsFaq, PageWithBaseFieldsEntityFragment } from '@/services/graphql'
 import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
@@ -13,7 +13,7 @@ export interface FaqProps {
   title?: string
   questions?: ComponentSectionsFaq['questions']
   ctaButton?: string
-  redirectTo?: Page | null
+  redirectTo?: PageWithBaseFieldsEntityFragment | null
 }
 
 export const Faq = ({ className, title, questions, ctaButton, redirectTo }: FaqProps) => {

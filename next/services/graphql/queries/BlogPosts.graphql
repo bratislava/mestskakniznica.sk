@@ -80,14 +80,16 @@ query BlogPosts(
   $start: Int
   $sort: String = "publishedAt:desc"
 ) {
-  blogPosts(locale: $locale, pagination: { limit: $limit, start: $start }, sort: [$sort]) {
-    data {
+  blogPosts_connection(
+    locale: $locale
+    pagination: { limit: $limit, start: $start }
+    sort: [$sort]
+  ) {
+    nodes {
       ...BlogPostEntity
     }
-    meta {
-      pagination {
-        total
-      }
+    pageInfo {
+      total
     }
   }
 }
