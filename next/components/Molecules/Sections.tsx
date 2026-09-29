@@ -233,6 +233,9 @@ const Sections = ({
           case 'ComponentSectionsDocumentsListing':
             return <DocumentsListingSection />
 
+          // case 'ComponentSectionsAssetsListing':
+          //   return <AssetsListingSection />
+
           case 'ComponentSectionsNewsListing':
             return <NoticesListingSection />
 

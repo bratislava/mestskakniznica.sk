@@ -333,7 +333,7 @@ export interface ApiAssetAsset extends Schema.CollectionType {
   collectionName: 'assets'
   info: {
     description: ''
-    displayName: 'Assety'
+    displayName: 'Dokumenty (v príprave)'
     pluralName: 'assets'
     singularName: 'asset'
   }
@@ -397,7 +397,7 @@ export interface ApiBasicDocumentBasicDocument extends Schema.CollectionType {
         'metadata.zmluvy',
         'metadata.obchodna-verejna-sutaz',
         'metadata.objednavky',
-        'metadata.verejne-obstaravanie'
+        'metadata.verejne-obstaravanie',
       ]
     >
     publishedAt: Attribute.DateTime
@@ -453,7 +453,7 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
         'sections.video',
         'sections.flat-text',
         'sections.gallery',
-        'sections.site-usefullness'
+        'sections.site-usefullness',
       ]
     > &
       Attribute.SetPluginOptions<{
@@ -671,7 +671,7 @@ export interface ApiDisclosureDisclosure extends Schema.CollectionType {
         'Verejn\u00E9 obstar\u00E1vanie',
         'Obchodn\u00E1 verejn\u00E1 s\u00FA\u0165a\u017E',
         'Granty',
-        'Ostatn\u00E9'
+        'Ostatn\u00E9',
       ]
     > &
       Attribute.Required
@@ -1328,7 +1328,7 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.documents-listing',
         'sections.events-listing',
         'sections.new-books-listing',
-        'sections.cherrypick-section'
+        'sections.cherrypick-section',
       ]
     > &
       Attribute.SetPluginOptions<{
