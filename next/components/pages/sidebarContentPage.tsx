@@ -27,18 +27,18 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
           <div className="col-span-12 row-start-2 mt-6 border-b border-border-dark" />
           {/* Title */}
           <h1 className="col-span-12 row-start-1 mt-16 text-h1 md:col-span-7 md:col-start-6">
-            {page?.attributes?.title}
+            {page?.title}
           </h1>
           <div className="col-span-12 mt-8 md:col-span-7">
             {/* Perex */}
-            {page?.attributes?.perex && (
-              <div className="mb-6 w-full text-h3">{page.attributes.perex}</div>
+            {page?.perex && (
+              <div className="mb-6 w-full text-h3">{page.perex}</div>
             )}
             {/* Cover image, empty alt on purpose */}
-            {page?.attributes?.listingImage?.data?.attributes?.url && (
+            {page?.listingImage?.url && (
               <div className="relative mb-8 aspect-video">
                 <Image
-                  src={page.attributes.listingImage.data.attributes.url}
+                  src={page.listingImage.url}
                   alt=""
                   fill
                   className="object-cover"
@@ -48,7 +48,7 @@ const SidebarContentPage = ({ page }: SidebarContentProps) => {
             )}
 
             {/* Sections */}
-            <Sections sections={page?.attributes?.sections?.filter(isDefined) ?? []} />
+            <Sections sections={page?.sections?.filter(isDefined) ?? []} />
           </div>
         </div>
 

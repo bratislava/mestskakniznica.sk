@@ -2,6 +2,7 @@ import { Assets, PageTitle, SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import RichText from '@/modules/formatting/RichText'
 import { NoticeEntityFragment } from '@/services/graphql'
+import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 
 export interface NoticePageProps {
@@ -17,17 +18,17 @@ const NoticePage = ({ notice }: NoticePageProps) => {
         <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={notice?.attributes?.title ?? ''} />
+        <PageTitle title={notice?.title ?? ''} />
         <div className="my-6">
-          <RichText content={notice?.attributes?.body ?? ''} />
+          <RichText content={notice?.body ?? ''} />
         </div>
       </SectionContainer>
       <SectionContainer>
         <Assets
           assets={[
-            ...(notice.attributes?.assets?.assets?.data ?? []),
-            ...(notice.attributes?.assets?.disclosures?.data ?? []),
-          ]}
+            ...(notice?.assets?.assets ?? []),
+            ...(notice?.assets?.disclosures ?? []),
+          ].filter(isDefined)}
         />
       </SectionContainer>
     </>

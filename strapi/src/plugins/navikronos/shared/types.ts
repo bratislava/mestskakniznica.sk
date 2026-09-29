@@ -1,5 +1,5 @@
 import { I18NStatus } from "../server/services/helpers/getI18nStatus";
-import { StrapiContentTypeInfo } from "strapi-typed";
+import { Struct } from "@strapi/strapi";
 import { FetchedEntry } from "../server/services/helpers/getEntries";
 
 // Admin navigation
@@ -28,7 +28,8 @@ export type NavikronosEmptyRoute = {
 export type NavikronosEntryRoute = {
   type: "entry";
   contentTypeUid: string;
-  entryId: number;
+  /** Strapi 5 `documentId` of the referenced entry. */
+  entryId: string;
   overrideTitle?: string;
   overridePath?: string;
 } & NavikronosRouteWithChildren;
@@ -87,7 +88,8 @@ export type NavikronosClientEmptyRoute = {
 export type NavikronosClientEntryRoute = {
   type: "entry";
   contentTypeUid: string;
-  entryId: number;
+  /** Strapi 5 `documentId` of the referenced entry. */
+  entryId: string;
 } & NavikronosClientRouteWithTitlePath &
   NavikronosClientRouteWithChildren;
 
@@ -128,7 +130,7 @@ export type AdminConfig = {
   contentTypeRoutes: { contentTypeUid: string }[];
   entryRouteEntries: Record<string, Record<string, FetchedEntry[]>>;
   staticRouteIds: string[];
-  contentTypeInfos: Record<string, StrapiContentTypeInfo>;
+  contentTypeInfos: Record<string, Struct.ContentTypeSchemaInfo>;
 };
 
 // API

@@ -151,7 +151,7 @@ const Sections = ({
                   section.type,
                   section.type,
                   getPathForStrapiEntity(
-                    general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
+                    general?.privacyTermsAndConditionsPage,
                   ) ?? undefined,
                 )
               : null
@@ -170,11 +170,11 @@ const Sections = ({
 
           case 'ComponentSectionsVideo':
             return (
-              (section.youtube_url || section.media?.data?.attributes?.url) && (
+              (section.youtube_url || section.media?.url) && (
                 <div className="flex w-full justify-center">
                   <Video
                     id={section.id}
-                    mediaUrl={section.media?.data?.attributes?.url ?? ''}
+                    mediaUrl={section.media?.url ?? ''}
                     youTubeUrl={section.youtube_url ?? ''}
                   />
                 </div>
@@ -186,8 +186,8 @@ const Sections = ({
               <Assets
                 title={section.title}
                 assets={[
-                  ...((section.assets?.data as AssetEntityFragment[]) ?? []),
-                  ...((section.disclosures?.data as DisclosureEntityFragment[]) ?? []),
+                  ...((section.assets as AssetEntityFragment[]) ?? []),
+                  ...((section.disclosures as DisclosureEntityFragment[]) ?? []),
                 ]}
               />
             )
@@ -202,7 +202,7 @@ const Sections = ({
                 title={section.title}
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
                 branches={
-                  section.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []
+                  section.branches?.map((branch) => branch?.branch).filter(isDefined) ?? []
                 }
               />
             )

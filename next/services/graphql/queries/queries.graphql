@@ -1,9 +1,7 @@
-fragment BookTagEntity on BookTagEntity {
-  id
-  attributes {
-    displayName
-    slug
-  }
+fragment BookTagEntity on BookTag {
+  documentId
+  displayName
+  slug
 }
 
 fragment OpeningHoursDays on ComponentBlocksOpeningHours {

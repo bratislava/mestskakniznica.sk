@@ -1,46 +1,34 @@
-fragment NoticeEntity on NoticeEntity {
+fragment NoticeEntity on Notice {
   __typename
-  id
-  attributes {
-    publishedAt
+  documentId
+  publishedAt
+  slug
+  title
+  body
+  listingImage {
+    ...UploadImageEntity
+  }
+  promoted
+  assets {
+    ...AssetsSection
+  }
+  seo {
+    ...Seo
+  }
+  localizations {
     slug
-    title
-    body
-    listingImage {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    promoted
-    assets {
-      ...AssetsSection
-    }
-    seo {
-      ...Seo
-    }
-    localizations {
-      data {
-        attributes {
-          slug
-          locale
-        }
-      }
-    }
+    locale
   }
 }
 
-fragment NoticeListingEntity on NoticeEntity {
+fragment NoticeListingEntity on Notice {
   __typename
-  id
-  attributes {
-    slug
-    title
-    publishedAt
-    listingImage {
-      data {
-        ...UploadImageEntity
-      }
-    }
+  documentId
+  slug
+  title
+  publishedAt
+  listingImage {
+    ...UploadImageEntity
   }
 }
 
@@ -50,9 +38,7 @@ fragment LatestNoticesQuery on Query {
     pagination: { limit: 4, start: 0 }
     sort: "publishedAt:desc"
   ) {
-    data {
-      ...NoticeListingEntity
-    }
+    ...NoticeListingEntity
   }
 }
 
@@ -64,34 +50,30 @@ query LatestNotices($locale: I18NLocaleCode!) {
 
 query NoticesStaticPaths($locale: I18NLocaleCode!) {
   notices(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      id
-      attributes {
-        slug
-        locale
-      }
-    }
+    documentId
+    slug
+    locale
   }
 }
 
 query Notices($locale: I18NLocaleCode!, $limit: Int, $start: Int) {
-  notices(locale: $locale, pagination: { limit: $limit, start: $start }, sort: "publishedAt:desc") {
-    data {
+  notices_connection(
+    locale: $locale
+    pagination: { limit: $limit, start: $start }
+    sort: "publishedAt:desc"
+  ) {
+    nodes {
       ...NoticeListingEntity
     }
-    meta {
-      pagination {
-        total
-      }
+    pageInfo {
+      total
     }
   }
 }
 
 query NoticeBySlug($slug: String!, $locale: I18NLocaleCode!) {
   notices(locale: $locale, filters: { slug: { eq: $slug } }) {
-    data {
-      ...NoticeEntity
-    }
+    ...NoticeEntity
   }
 }
 
@@ -102,14 +84,10 @@ query OpeningHoursChangeNotices($locale: I18NLocaleCode!) {
     pagination: { limit: -1 }
     locale: $locale
   ) {
-    data {
-      __typename
-      id
-      attributes {
-        slug
-        locale
-        title
-      }
-    }
+    __typename
+    documentId
+    slug
+    locale
+    title
   }
 }

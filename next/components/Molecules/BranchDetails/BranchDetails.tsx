@@ -9,6 +9,7 @@ import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
 import MLink from '@/modules/common/MLink'
 import RichText from '@/modules/formatting/RichText'
 import { BranchEntityFragment } from '@/services/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 export interface PageProps {
   branch: BranchEntityFragment
@@ -23,16 +24,19 @@ const BranchDetails = ({ branch }: PageProps) => {
     </MLink>
   )
 
-  if (!branch?.attributes) {
+  if (!branch) {
     return null
   }
 
-  const { title, body, servicePages, subBranches, medias } = branch.attributes
+  const { title, body, servicePages, medias } = branch
+  // Strapi 5 relations come back as `(T | null)[]`.
+  const subBranches = branch.subBranches.filter(isDefined)
+  const branchMedias = medias.filter(isDefined)
 
   return (
     <>
       <div className="py-8">
-        {medias?.data && <ImageGallery images={medias.data} variant="aside" />}
+        {branchMedias.length > 0 && <ImageGallery images={branchMedias} variant="aside" />}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0px,1fr)_380px] lg:gap-30">
         <div>
@@ -44,10 +48,10 @@ const BranchDetails = ({ branch }: PageProps) => {
                 <div className="-mx-4 -mb-2 overflow-x-auto pb-2">
                   <div className="flex gap-x-6 px-4 pt-9 text-sm uppercase">
                     {AnchorLink('#description', t('branchDetails.description'))}
-                    {servicePages?.data.length
+                    {servicePages.length
                       ? AnchorLink('#services', t('branchDetails.services'))
                       : null}
-                    {subBranches?.data.length
+                    {subBranches.length
                       ? AnchorLink('#sections', t('branchDetails.sections'))
                       : null}
                     {AnchorLink('#where', t('branchDetails.localityWhereToFind'))}
@@ -61,12 +65,11 @@ const BranchDetails = ({ branch }: PageProps) => {
                 <h2 className="text-h3">{t('branchDetails.description')}</h2>
                 <div className="flex flex-col gap-4 pt-5 text-[16px] text-foreground-body">
                   <RichText content={body} />
-                  {subBranches?.data.map((subBranch) => {
-                    const { body: subBranchBody, title: subBranchTitle } =
-                      subBranch.attributes ?? {}
+                  {subBranches.map((subBranch) => {
+                    const { body: subBranchBody, title: subBranchTitle } = subBranch
 
                     return subBranchBody?.trim() ? (
-                      <Fragment key={subBranch.id}>
+                      <Fragment key={subBranch.documentId}>
                         <h3 className="text-h3 not-first:mt-6">{subBranchTitle}</h3>
                         <RichText content={subBranchBody} />
                       </Fragment>
@@ -85,17 +88,17 @@ const BranchDetails = ({ branch }: PageProps) => {
           {/*    <div className="text-h3">{t('branchDetails.events')}</div> */}
           {/*    <div className="grid grid-cols-1 md:grid-cols-2"> */}
           {/*      {events?.map((event) => { */}
-          {/*        const eventBranch = getBranchInfo(event.attributes?.branch?.data) */}
+          {/*        const eventBranch = getBranchInfo(event?.branch?.data) */}
 
           {/*        return ( */}
           {/*          <div className="h-23 w-full cursor-pointer" key={event.id}> */}
           {/*            <div className="h-10 pt-4 text-foreground-body"> */}
-          {/*              <Link href={event.attributes?.slug || ''} passHref> */}
-          {/*                <a href={event.attributes?.slug || ''} className="flex"> */}
+          {/*              <Link href={event?.slug || ''} passHref> */}
+          {/*                <a href={event?.slug || ''} className="flex"> */}
           {/*                  <div className="flex h-16 w-16 bg-promo-yellow"> */}
           {/*                    <EventDetailsDateBox */}
-          {/*                      dateFrom={event.attributes?.dateFrom || ''} */}
-          {/*                      dateTo={event.attributes?.dateTo || ''} */}
+          {/*                      dateFrom={event?.dateFrom || ''} */}
+          {/*                      dateTo={event?.dateTo || ''} */}
           {/*                      textClassname="text-[18px]" */}
           {/*                      wrapperClassname="w-16" */}
           {/*                    /> */}
@@ -103,12 +106,12 @@ const BranchDetails = ({ branch }: PageProps) => {
 
           {/*                  <div className="overflow-hidden pl-5"> */}
           {/*                    <div className="overflow-hidden text-ellipsis whitespace-pre text-foreground-heading hover:underline md:w-52"> */}
-          {/*                      {event.attributes?.title} */}
+          {/*                      {event?.title} */}
           {/*                    </div> */}
           {/*                    <div className="pt-[5px] text-sm text-foreground-body"> */}
           {/*                      <FormatEventDateRange */}
-          {/*                        dateFrom={event?.attributes?.dateFrom} */}
-          {/*                        dateTo={event?.attributes?.dateTo} */}
+          {/*                        dateFrom={event?.dateFrom} */}
+          {/*                        dateTo={event?.dateTo} */}
           {/*                      /> */}
           {/*                    </div> */}
           {/*                    {eventBranch?.title && ( */}
@@ -135,7 +138,7 @@ const BranchDetails = ({ branch }: PageProps) => {
           {/* )} */}
 
           {(subBranches || branch) && (
-            <ContactsAndOpeningHours branch={branch} branches={subBranches?.data} />
+            <ContactsAndOpeningHours branch={branch} branches={subBranches} />
           )}
           <BranchDetailsWhere branch={branch} />
         </div>

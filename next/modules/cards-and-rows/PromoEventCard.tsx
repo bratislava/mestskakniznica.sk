@@ -6,11 +6,11 @@ import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@/services/graphql'
-import { isDefined, WithAttributes } from '@/utils/isDefined'
+import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 
 type PromoEventCardProps = {
-  event: WithAttributes<EventCardEntityFragment> | null | undefined
+  event?: EventCardEntityFragment | null
 }
 
 const PromoEventCard = ({ event }: PromoEventCardProps) => {
@@ -21,18 +21,16 @@ const PromoEventCard = ({ event }: PromoEventCardProps) => {
   }
 
   const { title, eventTags, eventCategory, dateFrom, dateTo, branch, listingImage, coverImage } =
-    event.attributes
+    event
 
-  const eventBranch = branch?.data?.attributes
+  const eventBranch = branch
 
   return (
     <CardWrapper className="relative m-auto flex size-full flex-col justify-between bg-promo-yellow">
       <div className="flex flex-col gap-y-3 px-4 py-3 md:gap-y-4 md:px-5 md:py-4">
         <TagsDisplay
-          tags={eventTags?.data
-            .map((eventTagEntity) => eventTagEntity.attributes)
-            .filter(isDefined)}
-          category={eventCategory?.data?.attributes?.title || ''}
+          tags={eventTags?.filter(isDefined)}
+          category={eventCategory?.title || ''}
           tagsCount={3}
         />
 
@@ -65,26 +63,25 @@ const PromoEventCard = ({ event }: PromoEventCardProps) => {
           </div>
         </div>
 
-        {listingImage && listingImage.data?.attributes ? (
+        {listingImage ? (
           <div className="flex w-full">
             <Image
               width={600}
               height={360}
               className="object-cover"
-              src={listingImage?.data?.attributes?.url || ''}
+              src={listingImage.url || ''}
               // Decorative image - no alt text
               alt=""
             />
           </div>
         ) : (
-          coverImage &&
-          coverImage.data?.attributes && (
+          coverImage && (
             <div className="flex w-full">
               <Image
                 width={600}
                 height={360}
                 className="object-cover"
-                src={coverImage?.data?.attributes?.url || ''}
+                src={coverImage.url || ''}
                 // Decorative image - empty alt on purpose
                 alt=""
               />

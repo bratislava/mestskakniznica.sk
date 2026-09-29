@@ -21,9 +21,9 @@ const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
 
   return (
     <CardWrapper className="group/showMore relative flex w-full flex-col">
-      {image?.attributes ? (
+      {image ? (
         <div className="relative h-40.5 w-full shrink-0">
-          <StrapiImage image={image.attributes} fill className="object-cover" />
+          <StrapiImage image={image} fill className="object-cover" />
         </div>
       ) : null}
 

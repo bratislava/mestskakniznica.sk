@@ -100,10 +100,14 @@ export const eventsFetcher = (filters: EventsFilters, sharedFilters: EventsFilte
         sharedFilters.dateTo
           ? `event.dateFromTimestamp < ${fixDateTo(sharedFilters.dateTo)}`
           : null,
-        sharedFilters.eventBranchId ? `event.branch.id = ${sharedFilters.eventBranchId}` : null,
-        sharedFilters.eventTypeId ? `event.eventTagsIds = ${sharedFilters.eventTypeId}` : null,
+        sharedFilters.eventBranchId
+          ? `event.branch.documentId = "${sharedFilters.eventBranchId}"`
+          : null,
+        sharedFilters.eventTypeId
+          ? `event.eventTagsIds = "${sharedFilters.eventTypeId}"`
+          : null,
         sharedFilters.eventCategoryId
-          ? `event.eventCategory.id = ${sharedFilters.eventCategoryId}`
+          ? `event.eventCategory.documentId = "${sharedFilters.eventCategoryId}"`
           : null,
       ].filter(isDefined),
       sort: [

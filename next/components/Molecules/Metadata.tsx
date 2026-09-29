@@ -8,7 +8,7 @@ const buildMetadata = (data: (string | number | undefined | null)[]) =>
 const metadataContent = (meta: MetadataFragment) => {
   switch (meta.__typename) {
     case 'ComponentMetadataFaktury':
-      return <div>{buildMetadata([meta.name, meta?.attachment?.data?.attributes?.name])}</div>
+      return <div>{buildMetadata([meta.name, meta?.attachment?.name])}</div>
 
     case 'ComponentMetadataZmluvy':
       return <div>{buildMetadata([meta.subject, meta.supplier, meta.number, meta.amount])}</div>
@@ -21,7 +21,7 @@ const metadataContent = (meta: MetadataFragment) => {
     case 'ComponentMetadataObjednavky':
       return (
         <div>
-          {buildMetadata([meta.title, meta.date_period, meta?.attachment?.data?.attributes?.name])}
+          {buildMetadata([meta.title, meta.date_period, meta?.attachment?.name])}
         </div>
       )
 
@@ -33,7 +33,7 @@ const metadataContent = (meta: MetadataFragment) => {
             meta.subject,
             meta.number,
             meta.amount,
-            meta?.attachment?.data?.attributes?.name,
+            meta?.attachment?.name,
           ])}
         </div>
       )

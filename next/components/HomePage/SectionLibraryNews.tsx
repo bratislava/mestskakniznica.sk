@@ -25,7 +25,7 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
           itemClassName="w-10/12 max-w-[268px] md:max-w-[271px]"
           items={notices.map((notice) => ({
             element: <NoticeCard notice={notice} />,
-            key: notice.id ?? undefined,
+            key: notice.documentId ?? undefined,
           }))}
           visibleItemsCount={4}
           shiftIndex={4}
@@ -33,7 +33,7 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
         />
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
           {newsSection?.redirectTo && (
-            <ShowMoreLink href={getPathForStrapiEntity(newsSection?.redirectTo?.data) ?? '#'}>
+            <ShowMoreLink href={getPathForStrapiEntity(newsSection?.redirectTo) ?? '#'}>
               {t('sectionLibraryNews.libraryNewsAll')}
             </ShowMoreLink>
           )}

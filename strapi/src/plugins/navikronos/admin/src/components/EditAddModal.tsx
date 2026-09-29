@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalHeader, ModalLayout, Typography } from "@strapi/design-system";
+import { Modal } from "@strapi/design-system";
 import { useEditAdd } from "../utils/EditAddModalProvider";
 import EditAddForm from "./EditAddForm";
 import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
@@ -25,24 +25,27 @@ const EditAddModal = () => {
   };
 
   return (
-    <ModalLayout onClose={closeModal} labelledBy="modal-title">
-      <ModalHeader>
-        <Typography
-          variant="omega"
-          fontWeight="bold"
-          textColor="neutral800"
-          as="h2"
-          id="modal-title"
-        >
-          {modalData.type === "edit" && "Edit route"}
-          {modalData.type === "add" && "Add route"}
-        </Typography>
-      </ModalHeader>
-      <EditAddForm
-        initialValues={modalData.defaultValues}
-        onSubmit={handleSubmit}
-      />
-    </ModalLayout>
+    <Modal.Root
+      open={modalData.open}
+      onOpenChange={(open) => {
+        if (!open) {
+          closeModal();
+        }
+      }}
+    >
+      <Modal.Content>
+        <Modal.Header>
+          <Modal.Title>
+            {modalData.type === "edit" && "Edit route"}
+            {modalData.type === "add" && "Add route"}
+          </Modal.Title>
+        </Modal.Header>
+        <EditAddForm
+          initialValues={modalData.defaultValues}
+          onSubmit={handleSubmit}
+        />
+      </Modal.Content>
+    </Modal.Root>
   );
 };
 

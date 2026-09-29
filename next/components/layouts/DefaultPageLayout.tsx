@@ -60,7 +60,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
         <footer>
           <SectionContainer>
             <Footer
-              footerColumns={footer?.data?.attributes?.footerColumns || []}
+              footerColumns={footer?.footerColumns || []}
               // siteMap={{
               //   title: t('footer.siteMap'),
               //   href: footer?.siteMapLink?.slug ?? '#',
@@ -69,7 +69,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
                 title: t('footer.privacy'),
                 href:
                   getPathForStrapiEntity(
-                    general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
+                    general?.privacyTermsAndConditionsPage,
                   ) ?? '#',
               }}
               VOP={{

@@ -1,24 +1,24 @@
-import type { Attribute, Schema } from '@strapi/strapi'
+import type { Schema, Struct } from '@strapi/strapi'
 
-export interface AccordionItemsFlatText extends Schema.Component {
+export interface AccordionItemsFlatText extends Struct.ComponentSchema {
   collectionName: 'components_accordion_items_flat_texts'
   info: {
     displayName: 'flatText'
   }
   attributes: {
-    category: Attribute.String
-    content: Attribute.RichText
+    category: Schema.Attribute.String
+    content: Schema.Attribute.RichText
   }
 }
 
-export interface AccordionItemsForm extends Schema.Component {
+export interface AccordionItemsForm extends Struct.ComponentSchema {
   collectionName: 'components_accordion_items_forms'
   info: {
     displayName: 'form'
   }
   attributes: {
-    category: Attribute.String
-    type: Attribute.Enumeration<
+    category: Schema.Attribute.String
+    type: Schema.Attribute.Enumeration<
       [
         'napiste_nam',
         'ako_sa_prihlasit_do_kniznice',
@@ -36,94 +36,94 @@ export interface AccordionItemsForm extends Schema.Component {
         'prenajmite_si_priestor',
         'kniharska_dielna',
         'bibliografia_a_resers',
-        'aka_kniha_vam_v_kniznici_chyba'
+        'aka_kniha_vam_v_kniznici_chyba',
       ]
     >
   }
 }
 
-export interface AccordionItemsTableRow extends Schema.Component {
+export interface AccordionItemsTableRow extends Struct.ComponentSchema {
   collectionName: 'components_accordion_items_table_rows'
   info: {
     displayName: 'tableRow'
   }
   attributes: {
-    accordionCategory: Attribute.String
-    label: Attribute.String
-    tableCategory: Attribute.String
-    value: Attribute.String
-    valueAlign: Attribute.Enumeration<['start', 'center']>
+    accordionCategory: Schema.Attribute.String
+    label: Schema.Attribute.String
+    tableCategory: Schema.Attribute.String
+    value: Schema.Attribute.String
+    valueAlign: Schema.Attribute.Enumeration<['start', 'center']>
   }
 }
 
-export interface AddressAddress extends Schema.Component {
+export interface AddressAddress extends Struct.ComponentSchema {
   collectionName: 'components_address_addresses'
   info: {
     displayName: 'address'
   }
   attributes: {
-    navigateTo: Attribute.String
-    title: Attribute.String
+    navigateTo: Schema.Attribute.String
+    title: Schema.Attribute.String
   }
 }
 
-export interface BlocksAccordionItem extends Schema.Component {
+export interface BlocksAccordionItem extends Struct.ComponentSchema {
   collectionName: 'components_blocks_accordion_items'
   info: {
     displayName: 'accordionItem'
   }
   attributes: {
-    content: Attribute.RichText
-    label: Attribute.String
+    content: Schema.Attribute.RichText
+    label: Schema.Attribute.String
   }
 }
 
-export interface BlocksBranchItem extends Schema.Component {
+export interface BlocksBranchItem extends Struct.ComponentSchema {
   collectionName: 'components_blocks_branch_items'
   info: {
     displayName: 'branch item'
     icon: 'map-marker'
   }
   attributes: {
-    branch: Attribute.Relation<'blocks.branch-item', 'oneToOne', 'api::branch.branch'>
+    branch: Schema.Attribute.Relation<'oneToOne', 'api::branch.branch'>
   }
 }
 
-export interface BlocksBranchItemWithPage extends Schema.Component {
+export interface BlocksBranchItemWithPage extends Struct.ComponentSchema {
   collectionName: 'components_blocks_branch_item_with_pages'
   info: {
     displayName: 'branch item with page'
   }
   attributes: {
-    branch: Attribute.Relation<'blocks.branch-item-with-page', 'oneToOne', 'api::branch.branch'>
-    page: Attribute.Relation<'blocks.branch-item-with-page', 'oneToOne', 'api::page.page'>
+    branch: Schema.Attribute.Relation<'oneToOne', 'api::branch.branch'>
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
   }
 }
 
-export interface BlocksFileItem extends Schema.Component {
+export interface BlocksFileItem extends Struct.ComponentSchema {
   collectionName: 'components_blocks_file_items'
   info: {
     displayName: 'file item'
   }
   attributes: {
-    attachment: Attribute.Media<'images' | 'files'> & Attribute.Required
-    name: Attribute.String
+    attachment: Schema.Attribute.Media<'images' | 'files'> & Schema.Attribute.Required
+    name: Schema.Attribute.String
   }
 }
 
-export interface BlocksNoticeFiles extends Schema.Component {
+export interface BlocksNoticeFiles extends Struct.ComponentSchema {
   collectionName: 'components_blocks_notice_files'
   info: {
     description: ''
     displayName: 'notice files'
   }
   attributes: {
-    files: Attribute.Component<'blocks.file-item', true>
-    title: Attribute.String
+    files: Schema.Attribute.Component<'blocks.file-item', true>
+    title: Schema.Attribute.String
   }
 }
 
-export interface BlocksOpeningHours extends Schema.Component {
+export interface BlocksOpeningHours extends Struct.ComponentSchema {
   collectionName: 'components_blocks_opening_hours'
   info: {
     description: ''
@@ -131,9 +131,9 @@ export interface BlocksOpeningHours extends Schema.Component {
     icon: 'clock'
   }
   attributes: {
-    days: Attribute.Component<'blocks.opening-hours-item', true> &
-      Attribute.Required &
-      Attribute.SetMinMax<
+    days: Schema.Attribute.Component<'blocks.opening-hours-item', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
         {
           min: 1
         },
@@ -142,7 +142,7 @@ export interface BlocksOpeningHours extends Schema.Component {
   }
 }
 
-export interface BlocksOpeningHoursItem extends Schema.Component {
+export interface BlocksOpeningHoursItem extends Struct.ComponentSchema {
   collectionName: 'components_blocks_opening_hours_items'
   info: {
     description: ''
@@ -150,259 +150,261 @@ export interface BlocksOpeningHoursItem extends Schema.Component {
     icon: 'clock'
   }
   attributes: {
-    label: Attribute.String & Attribute.DefaultTo<'Pondelok a\u017E piatok'>
-    time: Attribute.String & Attribute.Required & Attribute.DefaultTo<'8:00 - 19:00'>
+    label: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Pondelok a\u017E piatok'>
+    time: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'8:00 - 19:00'>
   }
 }
 
-export interface BlocksPageLink extends Schema.Component {
+export interface BlocksPageLink extends Struct.ComponentSchema {
   collectionName: 'components_blocks_page_links'
   info: {
     description: ''
     displayName: 'pageLink'
   }
   attributes: {
-    page: Attribute.Relation<'blocks.page-link', 'oneToOne', 'api::page.page'>
-    title: Attribute.String
-    url: Attribute.Text
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    title: Schema.Attribute.String
+    url: Schema.Attribute.Text
   }
 }
 
-export interface BlocksSubpage extends Schema.Component {
+export interface BlocksSubpage extends Struct.ComponentSchema {
   collectionName: 'components_blocks_subpages'
   info: {
     description: ''
     displayName: 'subpage'
   }
   attributes: {
-    description: Attribute.RichText
-    page: Attribute.Relation<'blocks.subpage', 'oneToOne', 'api::page.page'>
-    title: Attribute.String
-    url: Attribute.String
+    description: Schema.Attribute.RichText
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    title: Schema.Attribute.String
+    url: Schema.Attribute.String
   }
 }
 
-export interface BlocksTableRow extends Schema.Component {
+export interface BlocksTableRow extends Struct.ComponentSchema {
   collectionName: 'components_blocks_table_rows'
   info: {
     displayName: 'tableRow'
   }
   attributes: {
-    label: Attribute.String
-    value: Attribute.String
-    valueAlign: Attribute.Enumeration<['start', 'center']>
+    label: Schema.Attribute.String
+    value: Schema.Attribute.String
+    valueAlign: Schema.Attribute.Enumeration<['start', 'center']>
   }
 }
 
-export interface CommonSeo extends Schema.Component {
+export interface CommonSeo extends Struct.ComponentSchema {
   collectionName: 'components_common_seos'
   info: {
     displayName: 'seo'
   }
   attributes: {
-    keywords: Attribute.String
-    metaDescription: Attribute.Text
-    metaTitle: Attribute.String
+    keywords: Schema.Attribute.String
+    metaDescription: Schema.Attribute.Text
+    metaTitle: Schema.Attribute.String
   }
 }
 
-export interface FooterFooterColumn extends Schema.Component {
+export interface FooterFooterColumn extends Struct.ComponentSchema {
   collectionName: 'components_footer_footer_columns'
   info: {
     displayName: 'footerColumn'
   }
   attributes: {
-    footerLink: Attribute.Component<'footer.footer-link', true>
-    title: Attribute.String
+    footerLink: Schema.Attribute.Component<'footer.footer-link', true>
+    title: Schema.Attribute.String
   }
 }
 
-export interface FooterFooterLink extends Schema.Component {
+export interface FooterFooterLink extends Struct.ComponentSchema {
   collectionName: 'components_footer_footer_links'
   info: {
     description: ''
     displayName: 'footerLink'
   }
   attributes: {
-    otherSite: Attribute.String
-    redirectTo: Attribute.Relation<'footer.footer-link', 'oneToOne', 'api::page.page'>
-    title: Attribute.String
+    otherSite: Schema.Attribute.String
+    redirectTo: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    title: Schema.Attribute.String
   }
 }
 
-export interface GuestsGuest extends Schema.Component {
+export interface GuestsGuest extends Struct.ComponentSchema {
   collectionName: 'components_guests_guests'
   info: {
     displayName: 'guest'
   }
   attributes: {
-    avatar: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
-    name: Attribute.String
-    surname: Attribute.String
+    avatar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
+    name: Schema.Attribute.String
+    surname: Schema.Attribute.String
   }
 }
 
-export interface HomepageBenefits extends Schema.Component {
+export interface HomepageBenefits extends Struct.ComponentSchema {
   collectionName: 'components_homepage_benefits'
   info: {
     displayName: 'benefits'
   }
   attributes: {
-    benefit: Attribute.String
+    benefit: Schema.Attribute.String
   }
 }
 
-export interface HomepageCta extends Schema.Component {
+export interface HomepageCta extends Struct.ComponentSchema {
   collectionName: 'components_homepage_ctas'
   info: {
     description: ''
     displayName: 'cta'
   }
   attributes: {
-    ctaRedirectTo: Attribute.Relation<'homepage.cta', 'oneToOne', 'api::page.page'>
-    title: Attribute.String
+    ctaRedirectTo: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    title: Schema.Attribute.String
   }
 }
 
-export interface HomepageFaqSection extends Schema.Component {
+export interface HomepageFaqSection extends Struct.ComponentSchema {
   collectionName: 'components_homepage_faq_sections'
   info: {
     description: ''
     displayName: 'faqSection'
   }
   attributes: {
-    ctas: Attribute.Component<'homepage.cta', true>
-    faqs: Attribute.Component<'homepage.faqs', true>
-    redirectTo: Attribute.Relation<'homepage.faq-section', 'oneToOne', 'api::page.page'>
-    title: Attribute.String
+    ctas: Schema.Attribute.Component<'homepage.cta', true>
+    faqs: Schema.Attribute.Component<'homepage.faqs', true>
+    redirectTo: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    title: Schema.Attribute.String
   }
 }
 
-export interface HomepageFaqs extends Schema.Component {
+export interface HomepageFaqs extends Struct.ComponentSchema {
   collectionName: 'components_homepage_faqs'
   info: {
     displayName: 'faqs'
   }
   attributes: {
-    answer: Attribute.RichText
-    question: Attribute.String
+    answer: Schema.Attribute.RichText
+    question: Schema.Attribute.String
   }
 }
 
-export interface HomepageNewsSection extends Schema.Component {
+export interface HomepageNewsSection extends Struct.ComponentSchema {
   collectionName: 'components_homepage_news_sections'
   info: {
     description: ''
     displayName: 'newsSection'
   }
   attributes: {
-    redirectTo: Attribute.Relation<'homepage.news-section', 'oneToOne', 'api::page.page'>
-    title: Attribute.String
+    redirectTo: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    title: Schema.Attribute.String
   }
 }
 
-export interface HomepagePromotedContent extends Schema.Component {
+export interface HomepagePromotedContent extends Struct.ComponentSchema {
   collectionName: 'components_homepage_promoted_content_sections'
   info: {
     description: ''
     displayName: 'promotedContent'
   }
   attributes: {
-    events: Attribute.Relation<'homepage.promoted-content', 'oneToMany', 'api::event.event'>
-    notices: Attribute.Relation<'homepage.promoted-content', 'oneToMany', 'api::notice.notice'>
+    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>
+    notices: Schema.Attribute.Relation<'oneToMany', 'api::notice.notice'>
   }
 }
 
-export interface HomepageRegistrationInfo extends Schema.Component {
+export interface HomepageRegistrationInfo extends Struct.ComponentSchema {
   collectionName: 'components_homepage_registration_infos'
   info: {
     description: ''
     displayName: 'registrationInfo'
   }
   attributes: {
-    description: Attribute.String
-    redirectTo: Attribute.Relation<'homepage.registration-info', 'oneToOne', 'api::page.page'>
-    registrationBenefits: Attribute.Component<'homepage.benefits', true>
-    title: Attribute.String
+    description: Schema.Attribute.String
+    redirectTo: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    registrationBenefits: Schema.Attribute.Component<'homepage.benefits', true>
+    title: Schema.Attribute.String
   }
 }
 
-export interface LocalityPartsGalleryParts extends Schema.Component {
+export interface LocalityPartsGalleryParts extends Struct.ComponentSchema {
   collectionName: 'components_locality_parts_gallery_parts'
   info: {
     displayName: 'gallery-parts'
   }
   attributes: {
-    Description: Attribute.Text
-    Photo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
+    Description: Schema.Attribute.Text
+    Photo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
   }
 }
 
-export interface MenuSectionLinks extends Schema.Component {
+export interface MenuSectionLinks extends Struct.ComponentSchema {
   collectionName: 'components_menu_items_section_links'
   info: {
     description: ''
     displayName: 'sectionLinks'
   }
   attributes: {
-    sectionLinkBranch: Attribute.Relation<'menu.section-links', 'oneToOne', 'api::branch.branch'>
-    sectionLinkPage: Attribute.Relation<'menu.section-links', 'oneToOne', 'api::page.page'>
-    sectionLinkTitle: Attribute.String
+    sectionLinkBranch: Schema.Attribute.Relation<'oneToOne', 'api::branch.branch'>
+    sectionLinkPage: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    sectionLinkTitle: Schema.Attribute.String
   }
 }
 
-export interface MenuSections extends Schema.Component {
+export interface MenuSections extends Struct.ComponentSchema {
   collectionName: 'components_menu_items_sections'
   info: {
     description: ''
     displayName: 'sections'
   }
   attributes: {
-    sectionColumnSpan: Attribute.Integer
-    sectionLinks: Attribute.Component<'menu.section-links', true>
-    sectionPage: Attribute.Relation<'menu.sections', 'oneToOne', 'api::page.page'>
-    sectionTitle: Attribute.String
+    sectionColumnSpan: Schema.Attribute.Integer
+    sectionLinks: Schema.Attribute.Component<'menu.section-links', true>
+    sectionPage: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    sectionTitle: Schema.Attribute.String
   }
 }
 
-export interface MenuSubsection extends Schema.Component {
+export interface MenuSubsection extends Struct.ComponentSchema {
   collectionName: 'components_menu_items_subsections'
   info: {
     description: ''
     displayName: 'subsection'
   }
   attributes: {
-    columnSpan: Attribute.Integer
-    subsectionLinks: Attribute.Component<'menu.subsection-links', true>
-    subsectionTitle: Attribute.String
+    columnSpan: Schema.Attribute.Integer
+    subsectionLinks: Schema.Attribute.Component<'menu.subsection-links', true>
+    subsectionTitle: Schema.Attribute.String
   }
 }
 
-export interface MenuSubsectionLinks extends Schema.Component {
+export interface MenuSubsectionLinks extends Struct.ComponentSchema {
   collectionName: 'components_menu_items_subsection_links'
   info: {
     description: ''
     displayName: 'subsectionLinks'
   }
   attributes: {
-    page: Attribute.Relation<'menu.subsection-links', 'oneToOne', 'api::page.page'>
-    subsectionLinkTitle: Attribute.String
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    subsectionLinkTitle: Schema.Attribute.String
   }
 }
 
-export interface MetadataFaktury extends Schema.Component {
+export interface MetadataFaktury extends Struct.ComponentSchema {
   collectionName: 'components_metadata_fakturies'
   info: {
     displayName: 'Fakt\u00FAry'
   }
   attributes: {
-    attachment: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
-    date: Attribute.Date
-    name: Attribute.String
+    attachment: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
+    date: Schema.Attribute.Date
+    name: Schema.Attribute.String
   }
 }
 
-export interface MetadataMetadata extends Schema.Component {
+export interface MetadataMetadata extends Struct.ComponentSchema {
   collectionName: 'components_metadata_granty'
   info: {
     description: ''
@@ -411,104 +413,100 @@ export interface MetadataMetadata extends Schema.Component {
     name: 'Granty'
   }
   attributes: {
-    amount: Attribute.String
-    description: Attribute.Text
-    grant_name: Attribute.String
-    grant_number: Attribute.String
-    provider: Attribute.String
-    year: Attribute.Integer
+    amount: Schema.Attribute.String
+    description: Schema.Attribute.Text
+    grant_name: Schema.Attribute.String
+    grant_number: Schema.Attribute.String
+    provider: Schema.Attribute.String
+    year: Schema.Attribute.Integer
   }
 }
 
-export interface MetadataObchodnaVerejnaSutaz extends Schema.Component {
+export interface MetadataObchodnaVerejnaSutaz extends Struct.ComponentSchema {
   collectionName: 'components_metadata_obchodna_verejna_sutaz'
   info: {
     displayName: 'Obchodn\u00E1 Verejn\u00E1 S\u00FA\u0165a\u017E'
   }
   attributes: {
-    amount: Attribute.String
-    attachment: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
-    date_added: Attribute.Date
-    description: Attribute.Text
-    number: Attribute.String
-    subject: Attribute.String
+    amount: Schema.Attribute.String
+    attachment: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
+    date_added: Schema.Attribute.Date
+    description: Schema.Attribute.Text
+    number: Schema.Attribute.String
+    subject: Schema.Attribute.String
   }
 }
 
-export interface MetadataObjednavky extends Schema.Component {
+export interface MetadataObjednavky extends Struct.ComponentSchema {
   collectionName: 'components_metadata_objednavky'
   info: {
     displayName: 'Objedn\u00E1vky'
   }
   attributes: {
-    attachment: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
-    date_added: Attribute.Date
-    date_period: Attribute.Date
-    title: Attribute.String
+    attachment: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
+    date_added: Schema.Attribute.Date
+    date_period: Schema.Attribute.Date
+    title: Schema.Attribute.String
   }
 }
 
-export interface MetadataVerejneObstaravanie extends Schema.Component {
+export interface MetadataVerejneObstaravanie extends Struct.ComponentSchema {
   collectionName: 'components_metadata_verejne_obstaravanies'
   info: {
     displayName: 'Verejn\u00E9 Obstar\u00E1vanie'
   }
   attributes: {
-    amount: Attribute.String
-    attachment: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
-    date_added: Attribute.Date
-    description: Attribute.Text
-    number: Attribute.String
-    subject: Attribute.String
+    amount: Schema.Attribute.String
+    attachment: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
+    date_added: Schema.Attribute.Date
+    description: Schema.Attribute.Text
+    number: Schema.Attribute.String
+    subject: Schema.Attribute.String
   }
 }
 
-export interface MetadataZmluvy extends Schema.Component {
+export interface MetadataZmluvy extends Struct.ComponentSchema {
   collectionName: 'components_metadata_zmluvy'
   info: {
     displayName: 'Zmluvy'
   }
   attributes: {
-    amount: Attribute.String
-    date: Attribute.Date
-    number: Attribute.String
-    subject: Attribute.String
-    supplier: Attribute.String
-    type: Attribute.String
+    amount: Schema.Attribute.String
+    date: Schema.Attribute.Date
+    number: Schema.Attribute.String
+    subject: Schema.Attribute.String
+    supplier: Schema.Attribute.String
+    type: Schema.Attribute.String
   }
 }
 
-export interface SectionsAccordion extends Schema.Component {
+export interface SectionsAccordion extends Struct.ComponentSchema {
   collectionName: 'components_sections_accordions'
   info: {
     displayName: 'Akorde\u00F3n'
   }
   attributes: {
-    flatText: Attribute.Component<'accordion-items.flat-text', true>
-    forms: Attribute.Component<'accordion-items.form', true>
-    tableRows: Attribute.Component<'accordion-items.table-row', true>
-    title: Attribute.String
+    flatText: Schema.Attribute.Component<'accordion-items.flat-text', true>
+    forms: Schema.Attribute.Component<'accordion-items.form', true>
+    tableRows: Schema.Attribute.Component<'accordion-items.table-row', true>
+    title: Schema.Attribute.String
   }
 }
 
-export interface SectionsAssets extends Schema.Component {
+export interface SectionsAssets extends Struct.ComponentSchema {
   collectionName: 'components_sections_assets'
   info: {
     displayName: 'Assety'
   }
   attributes: {
-    assets: Attribute.Relation<'sections.assets', 'oneToMany', 'api::asset.asset'>
-    basicDocuments: Attribute.Relation<
-      'sections.assets',
-      'oneToMany',
-      'api::basic-document.basic-document'
-    >
-    disclosures: Attribute.Relation<'sections.assets', 'oneToMany', 'api::disclosure.disclosure'>
-    title: Attribute.String
+    assets: Schema.Attribute.Relation<'oneToMany', 'api::asset.asset'>
+    basicDocuments: Schema.Attribute.Relation<'oneToMany', 'api::basic-document.basic-document'>
+    disclosures: Schema.Attribute.Relation<'oneToMany', 'api::disclosure.disclosure'>
+    title: Schema.Attribute.String
   }
 }
 
-export interface SectionsAssetsListing extends Schema.Component {
+export interface SectionsAssetsListing extends Struct.ComponentSchema {
   collectionName: 'components_sections_assets_listing'
   info: {
     displayName: 'Listing: Assety a Zverej\u0148ovanie'
@@ -516,7 +514,7 @@ export interface SectionsAssetsListing extends Schema.Component {
   attributes: {}
 }
 
-export interface SectionsBlogPostsListing extends Schema.Component {
+export interface SectionsBlogPostsListing extends Struct.ComponentSchema {
   collectionName: 'components_sections_blog_posts_listing'
   info: {
     displayName: 'Listing: \u010Cl\u00E1nky'
@@ -524,42 +522,42 @@ export interface SectionsBlogPostsListing extends Schema.Component {
   attributes: {}
 }
 
-export interface SectionsCherrypickSection extends Schema.Component {
+export interface SectionsCherrypickSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_cherrypick_sections'
   info: {
     description: ''
     displayName: 'V\u00FDber podstr\u00E1nok'
   }
   attributes: {
-    pages: Attribute.Relation<'sections.cherrypick-section', 'oneToMany', 'api::page.page'>
-    title: Attribute.String
+    pages: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>
+    title: Schema.Attribute.String
   }
 }
 
-export interface SectionsChildrenListing extends Schema.Component {
+export interface SectionsChildrenListing extends Struct.ComponentSchema {
   collectionName: 'components_sections_children_listings'
   info: {
     displayName: 'Zoznam podstr\u00E1nok'
   }
   attributes: {
-    depth: Attribute.Enumeration<['depth-1', 'depth-2']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'depth-1'>
+    depth: Schema.Attribute.Enumeration<['depth-1', 'depth-2']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'depth-1'>
   }
 }
 
-export interface SectionsCta extends Schema.Component {
+export interface SectionsCta extends Struct.ComponentSchema {
   collectionName: 'components_sections_ctas'
   info: {
     displayName: 'CTA'
   }
   attributes: {
-    title: Attribute.String
-    url: Attribute.String
+    title: Schema.Attribute.String
+    url: Schema.Attribute.String
   }
 }
 
-export interface SectionsDivider extends Schema.Component {
+export interface SectionsDivider extends Struct.ComponentSchema {
   collectionName: 'components_blocks_dividers'
   info: {
     description: ''
@@ -568,7 +566,7 @@ export interface SectionsDivider extends Schema.Component {
   attributes: {}
 }
 
-export interface SectionsEventsListing extends Schema.Component {
+export interface SectionsEventsListing extends Struct.ComponentSchema {
   collectionName: 'components_sections_events_listing'
   info: {
     displayName: 'Listing: Podujatia'
@@ -576,37 +574,37 @@ export interface SectionsEventsListing extends Schema.Component {
   attributes: {}
 }
 
-export interface SectionsFaq extends Schema.Component {
+export interface SectionsFaq extends Struct.ComponentSchema {
   collectionName: 'components_sections_faqs'
   info: {
     displayName: 'FAQ'
   }
   attributes: {
-    ctaButton: Attribute.String
-    questions: Attribute.Component<'blocks.accordion-item', true>
-    redirectTo: Attribute.Relation<'sections.faq', 'oneToOne', 'api::page.page'>
-    title: Attribute.String
+    ctaButton: Schema.Attribute.String
+    questions: Schema.Attribute.Component<'blocks.accordion-item', true>
+    redirectTo: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    title: Schema.Attribute.String
   }
 }
 
-export interface SectionsFlatText extends Schema.Component {
+export interface SectionsFlatText extends Struct.ComponentSchema {
   collectionName: 'components_sections_flat_texts'
   info: {
     description: ''
     displayName: 'Richtext'
   }
   attributes: {
-    content: Attribute.RichText
+    content: Schema.Attribute.RichText
   }
 }
 
-export interface SectionsForm extends Schema.Component {
+export interface SectionsForm extends Struct.ComponentSchema {
   collectionName: 'components_sections_forms'
   info: {
     displayName: 'Formul\u00E1r'
   }
   attributes: {
-    type: Attribute.Enumeration<
+    type: Schema.Attribute.Enumeration<
       [
         'napiste_nam',
         'ako_sa_prihlasit_do_kniznice',
@@ -624,34 +622,34 @@ export interface SectionsForm extends Schema.Component {
         'prenajmite_si_priestor',
         'kniharska_dielna',
         'bibliografia_a_resers',
-        'aka_kniha_vam_v_kniznici_chyba'
+        'aka_kniha_vam_v_kniznici_chyba',
       ]
     >
   }
 }
 
-export interface SectionsGallery extends Schema.Component {
+export interface SectionsGallery extends Struct.ComponentSchema {
   collectionName: 'components_sections_galleries'
   info: {
     displayName: 'Gal\u00E9ria obr\u00E1zkov'
   }
   attributes: {
-    Gallery: Attribute.Component<'locality-parts.gallery-parts', true>
+    Gallery: Schema.Attribute.Component<'locality-parts.gallery-parts', true>
   }
 }
 
-export interface SectionsMap extends Schema.Component {
+export interface SectionsMap extends Struct.ComponentSchema {
   collectionName: 'components_sections_maps'
   info: {
     displayName: 'Mapa pobo\u010Diek'
   }
   attributes: {
-    branches: Attribute.Component<'blocks.branch-item', true>
-    title: Attribute.String
+    branches: Schema.Attribute.Component<'blocks.branch-item', true>
+    title: Schema.Attribute.String
   }
 }
 
-export interface SectionsNewBooksListing extends Schema.Component {
+export interface SectionsNewBooksListing extends Struct.ComponentSchema {
   collectionName: 'components_sections_new_books_listing'
   info: {
     displayName: 'Listing: Kni\u017En\u00E9 novinky'
@@ -659,7 +657,7 @@ export interface SectionsNewBooksListing extends Schema.Component {
   attributes: {}
 }
 
-export interface SectionsNewsListing extends Schema.Component {
+export interface SectionsNewsListing extends Struct.ComponentSchema {
   collectionName: 'components_sections_news_listing'
   info: {
     displayName: 'Listing: Aktuality'
@@ -667,22 +665,18 @@ export interface SectionsNewsListing extends Schema.Component {
   attributes: {}
 }
 
-export interface SectionsOpeningHoursSection extends Schema.Component {
+export interface SectionsOpeningHoursSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_opening_hours_sections'
   info: {
     displayName: 'Otv\u00E1racie hodiny'
   }
   attributes: {
-    branchList: Attribute.Relation<
-      'sections.opening-hours-section',
-      'oneToMany',
-      'api::branch.branch'
-    >
-    title: Attribute.String
+    branchList: Schema.Attribute.Relation<'oneToMany', 'api::branch.branch'>
+    title: Schema.Attribute.String
   }
 }
 
-export interface SectionsPartners extends Schema.Component {
+export interface SectionsPartners extends Struct.ComponentSchema {
   collectionName: 'components_sections_partners'
   info: {
     displayName: 'Partneri'
@@ -690,67 +684,67 @@ export interface SectionsPartners extends Schema.Component {
   attributes: {}
 }
 
-export interface SectionsRental extends Schema.Component {
+export interface SectionsRental extends Struct.ComponentSchema {
   collectionName: 'components_sections_rentals'
   info: {
     description: ''
     displayName: 'Pren\u00E1jom priestorov'
   }
   attributes: {
-    branches: Attribute.Component<'blocks.branch-item-with-page', true>
-    text: Attribute.RichText
-    title: Attribute.String
+    branches: Schema.Attribute.Component<'blocks.branch-item-with-page', true>
+    text: Schema.Attribute.RichText
+    title: Schema.Attribute.String
   }
 }
 
-export interface SectionsSiteUsefullness extends Schema.Component {
+export interface SectionsSiteUsefullness extends Struct.ComponentSchema {
   collectionName: 'components_sections_site_usefullnesses'
   info: {
     displayName: 'U\u017Eito\u010Dnos\u0165 str\u00E1nky'
   }
   attributes: {
-    thankYouMessage: Attribute.String
-    title: Attribute.String
+    thankYouMessage: Schema.Attribute.String
+    title: Schema.Attribute.String
   }
 }
 
-export interface SectionsSubpages extends Schema.Component {
+export interface SectionsSubpages extends Struct.ComponentSchema {
   collectionName: 'components_sections_subpages'
   info: {
     displayName: 'Extern\u00E9 str\u00E1nky'
   }
   attributes: {
-    subpages: Attribute.Component<'blocks.subpage', true>
-    title: Attribute.String
+    subpages: Schema.Attribute.Component<'blocks.subpage', true>
+    title: Schema.Attribute.String
   }
 }
 
-export interface SectionsTable extends Schema.Component {
+export interface SectionsTable extends Struct.ComponentSchema {
   collectionName: 'components_blocks_tables'
   info: {
     displayName: 'Tabu\u013Eka'
   }
   attributes: {
-    primaryTitle: Attribute.String
-    rows: Attribute.Component<'accordion-items.table-row', true>
-    secondaryTitle: Attribute.String
+    primaryTitle: Schema.Attribute.String
+    rows: Schema.Attribute.Component<'accordion-items.table-row', true>
+    secondaryTitle: Schema.Attribute.String
   }
 }
 
-export interface SectionsVideo extends Schema.Component {
+export interface SectionsVideo extends Struct.ComponentSchema {
   collectionName: 'components_sections_videos'
   info: {
     displayName: 'Video'
   }
   attributes: {
-    media: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
-    youtube_url: Attribute.String
+    media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>
+    youtube_url: Schema.Attribute.String
   }
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface Components {
+declare module '@strapi/strapi' {
+  export module Public {
+    export interface ComponentSchemas {
       'accordion-items.flat-text': AccordionItemsFlatText
       'accordion-items.form': AccordionItemsForm
       'accordion-items.table-row': AccordionItemsTableRow

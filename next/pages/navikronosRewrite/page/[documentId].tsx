@@ -15,7 +15,7 @@ import { Enum_Page_Layout, GeneralQuery, PageEntityFragment } from '@/services/g
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
 import { NOT_FOUND } from '@/utils/consts'
-import { extractLocalizationsWithId } from '@/utils/extractLocalizations'
+import { extractLocalizationsWithDocumentId } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
@@ -32,7 +32,7 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
   let pageComponentByLayout: ReactNode = null
 
   // TODO replace PageEntity by PageEntityFragment
-  switch (page?.attributes?.layout) {
+  switch (page?.layout) {
     case Enum_Page_Layout.FullContent:
       pageComponentByLayout = <FullContentPage page={page} />
       break
@@ -46,9 +46,9 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
     <HydrationBoundary state={dehydratedState}>
       <GeneralContextProvider general={general}>
         <DefaultPageLayout
-          title={page.attributes?.title}
-          seo={page.attributes?.seo}
-          defaultMetaDescription={page.attributes?.perex}
+          title={page?.title}
+          seo={page?.seo}
+          defaultMetaDescription={page?.perex}
         >
           {pageComponentByLayout}
         </DefaultPageLayout>
@@ -58,7 +58,7 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
 }
 
 interface StaticParams extends ParsedUrlQuery {
-  id: string
+  documentId: string
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) => {
@@ -68,14 +68,13 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
     (locales ?? []).map((locale) => client.PagesStaticPaths({ locale })),
   )
 
-  const entities = pathArraysForLocales.flatMap(({ pages }) => pages?.data || []).filter(isDefined)
+  const entities = pathArraysForLocales.flatMap(({ pages }) => pages ?? []).filter(isDefined)
 
   if (entities.length > 0) {
     paths = entities.map((page) => ({
       params: {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        id: page.id!,
-        locale: page?.attributes?.locale || '',
+        documentId: page.documentId,
+        locale: page.locale || '',
       },
     }))
   }
@@ -88,26 +87,25 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
 
 export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ctx) => {
   const { params, locale } = ctx
-  const id = params?.id
+  const documentId = params?.documentId
 
-  if (!id || !locale) {
+  if (!documentId || !locale) {
     return NOT_FOUND
   }
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} page ${id}`)
+  console.log(`Revalidating ${locale} page ${documentId}`)
 
-  const { pages } = await client.PageById({
-    id,
+  const { page } = await client.PageByDocumentId({
+    documentId,
     locale,
   })
 
-  const page = pages?.data[0] ?? null
   if (!page) {
     return NOT_FOUND
   }
 
-  const localizations = extractLocalizationsWithId('page', page)
+  const localizations = extractLocalizationsWithDocumentId('page', page)
 
   const [general, translations, navikronosStaticProps] = await Promise.all([
     generalFetcher(locale),
@@ -117,7 +115,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
       ctx,
       currentEntity: {
         type: 'page',
-        id,
+        id: documentId,
       },
       currentEntityLocalizations: localizations,
     }),

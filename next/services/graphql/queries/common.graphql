@@ -4,21 +4,17 @@ fragment Seo on ComponentCommonSeo {
   keywords
 }
 
-fragment UploadFileEntity on UploadFileEntity {
-  id
-  attributes {
-    url
-    name
-    size
-    ext
-  }
+fragment UploadFileEntity on UploadFile {
+  documentId
+  url
+  name
+  size
+  ext
 }
 
-fragment UploadImageEntity on UploadFileEntity {
-  id
-  attributes {
-    ...UploadImage
-  }
+fragment UploadImageEntity on UploadFile {
+  documentId
+  ...UploadImage
 }
 
 fragment UploadImage on UploadFile {

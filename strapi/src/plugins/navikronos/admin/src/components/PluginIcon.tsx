@@ -1,6 +1,7 @@
 import React from "react";
-import { Layer } from "@strapi/icons";
+// `Layer` was removed from @strapi/icons v2; `Stack` is its closest equivalent.
+import { Stack } from "@strapi/icons";
 
-const PluginIcon = () => <Layer />;
+const PluginIcon = () => <Stack />;
 
 export default PluginIcon;
