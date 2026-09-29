@@ -58,7 +58,7 @@ export const assetsFetcher = (filters: AssetsFilters) => {
           if (isAsset) {
             return {
               ...hit.asset,
-              category: hit.asset.assetCategory.label,
+              category: hit.asset.assetCategory?.label,
               type,
             }
           }

@@ -17,7 +17,7 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
   const parsedAssets = assets
     .filter(hasAttributes)
     .map((asset) => {
-      const { title: docTitle, file } = asset.attributes
+      const { title: assetTitle, file } = asset.attributes
 
       const badgeExt =
         file?.data.length > 1 ? (
@@ -34,7 +34,7 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
           linkHref: getPathForStrapiEntity(asset),
           content: {
             category: type,
-            title: docTitle,
+            title: assetTitle,
             metadata: contractor ? contractor : undefined,
             fileExt: badgeExt,
           },
@@ -49,7 +49,7 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
           linkHref: getPathForStrapiEntity(asset),
           content: {
             category: assetCategory?.data?.attributes?.label,
-            title: docTitle,
+            title: assetTitle,
             fileExt: badgeExt,
           },
         }
@@ -64,15 +64,15 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
       {title && <h3 className="text-h3">{title}</h3>}
 
       <div className={cn('flex flex-col', { 'mt-6': !!title })}>
-        {parsedAssets?.map((doc, index) => (
+        {parsedAssets?.map((asset, index) => (
           <AssetRow
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            title={doc.content.title}
-            fileExt={doc.content.fileExt}
-            linkHref={doc.linkHref}
-            category={doc.content.category}
-            metadata={doc.content.metadata}
+            title={asset.content.title}
+            fileExt={asset.content.fileExt}
+            linkHref={asset.linkHref}
+            category={asset.content.category}
+            metadata={asset.content.metadata}
           />
         ))}
       </div>
