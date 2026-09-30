@@ -36,7 +36,7 @@ export interface AccordionItemsForm extends Schema.Component {
         'prenajmite_si_priestor',
         'kniharska_dielna',
         'bibliografia_a_resers',
-        'aka_kniha_vam_v_kniznici_chyba',
+        'aka_kniha_vam_v_kniznici_chyba'
       ]
     >
   }
@@ -494,7 +494,7 @@ export interface SectionsAccordion extends Schema.Component {
 export interface SectionsAssets extends Schema.Component {
   collectionName: 'components_sections_assets'
   info: {
-    displayName: 'Dokumenty (v príprave)'
+    displayName: 'Dokumenty (v pr\u00EDprave)'
   }
   attributes: {
     assets: Attribute.Relation<'sections.assets', 'oneToMany', 'api::asset.asset'>
@@ -511,7 +511,7 @@ export interface SectionsAssets extends Schema.Component {
 export interface SectionsAssetsListing extends Schema.Component {
   collectionName: 'components_sections_assets_listing'
   info: {
-    displayName: '(V príprave) Listing: Dokumenty a Zverej\u0148ovanie'
+    displayName: '(V pr\u00EDprave) Listing: Dokumenty a Zverej\u0148ovanie'
   }
   attributes: {}
 }
@@ -624,7 +624,7 @@ export interface SectionsForm extends Schema.Component {
         'prenajmite_si_priestor',
         'kniharska_dielna',
         'bibliografia_a_resers',
-        'aka_kniha_vam_v_kniznici_chyba',
+        'aka_kniha_vam_v_kniznici_chyba'
       ]
     >
   }
