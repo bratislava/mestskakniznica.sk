@@ -226,7 +226,7 @@ type BlogPostRelationResponseCollection {
   data: [BlogPostEntity!]!
 }
 
-union BlogPostSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsGallery | ComponentSectionsSiteUsefullness | ComponentSectionsTable | ComponentSectionsVideo | Error
+union BlogPostSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsGallery | ComponentSectionsSiteUsefullness | ComponentSectionsTable | ComponentSectionsVideo | Error
 
 scalar BlogPostSectionsDynamicZoneInput
 

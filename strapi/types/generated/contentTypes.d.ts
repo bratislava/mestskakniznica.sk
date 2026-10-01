@@ -450,6 +450,7 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
         'sections.divider',
         'sections.cta',
         'sections.documents',
+        'sections.assets',
         'sections.video',
         'sections.flat-text',
         'sections.gallery',
