@@ -24,12 +24,8 @@ const BranchDetails = ({ branch }: PageProps) => {
     </MLink>
   )
 
-  if (!branch) {
-    return null
-  }
-
   const { title, body, servicePages, medias } = branch
-  // Strapi 5 relations come back as `(T | null)[]`.
+
   const subBranches = branch.subBranches.filter(isDefined)
   const branchMedias = medias.filter(isDefined)
 
@@ -48,7 +44,7 @@ const BranchDetails = ({ branch }: PageProps) => {
                 <div className="-mx-4 -mb-2 overflow-x-auto pb-2">
                   <div className="flex gap-x-6 px-4 pt-9 text-sm uppercase">
                     {AnchorLink('#description', t('branchDetails.description'))}
-                    {servicePages.length
+                    {servicePages.length > 0
                       ? AnchorLink('#services', t('branchDetails.services'))
                       : null}
                     {subBranches.length

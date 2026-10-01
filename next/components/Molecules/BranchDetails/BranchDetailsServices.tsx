@@ -13,7 +13,7 @@ const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
   const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavikronos()
 
-  if (!branch?.servicePages.length) {
+  if (!branch.servicePages.filter(isDefined).length) {
     return null
   }
 
