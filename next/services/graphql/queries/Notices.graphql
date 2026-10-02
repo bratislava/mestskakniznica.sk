@@ -12,8 +12,8 @@ fragment NoticeEntity on NoticeEntity {
       }
     }
     promoted
-    documents {
-      ...DocumentsSection
+    assets {
+      ...AssetsSection
     }
     assets {
       ...AssetsSection

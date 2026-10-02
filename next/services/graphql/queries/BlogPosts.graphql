@@ -26,10 +26,6 @@ fragment BlogPostSections on BlogPostSectionsDynamicZone {
     ...VideoSection
   }
 
-  ... on ComponentSectionsDocuments {
-    ...DocumentsSection
-  }
-
   ... on ComponentSectionsAssets {
     ...AssetsSection
   }
