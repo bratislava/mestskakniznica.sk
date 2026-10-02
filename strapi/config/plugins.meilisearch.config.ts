@@ -61,6 +61,8 @@ const searchIndexSettings = {
     'locale',
     // Basic document
     'basic-document.file_category.id',
+    // Asset
+    'asset.assetCategory.id',
     // Disclosure
     'disclosure.type',
     // Event
