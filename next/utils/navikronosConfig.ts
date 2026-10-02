@@ -35,12 +35,6 @@ export const navikronosConfig = {
       pathAttribute: 'slug' as const,
       rewrite: (slug) => `/asset/${slug}`,
     },
-    'api::asset.asset': {
-      alias: 'asset' as const,
-      strapiTypename: 'AssetEntity' as const,
-      pathAttribute: 'slug' as const,
-      rewrite: (slug) => `/asset/${slug}`,
-    },
     'api::disclosure.disclosure': {
       alias: 'disclosure' as const,
       strapiTypename: 'DisclosureEntity' as const,

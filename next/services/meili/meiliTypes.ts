@@ -26,12 +26,6 @@ export type AssetMeili = Omit<Asset, '__typename' | 'assetCategory' | 'file'> & 
   file: Omit<UploadFile, '__typename'> | Omit<UploadFile, '__typename'>[]
 }
 
-export type AssetMeili = Omit<Asset, '__typename' | 'assetCategory' | 'file'> & {
-  id: string
-  assetCategory: Omit<AssetCategory, '__typename' | 'assets'>
-  file: Omit<UploadFile, '__typename'> | Omit<UploadFile, '__typename'>[]
-}
-
 export type DisclosureMeili = Omit<Disclosure, '__typename' | 'file'> & {
   id: string
   file: Omit<UploadFile, '__typename'> | Omit<UploadFile, '__typename'>[]

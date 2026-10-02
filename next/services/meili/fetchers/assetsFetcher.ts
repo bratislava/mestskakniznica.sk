@@ -57,13 +57,8 @@ export const assetsFetcher = (filters: AssetsFilters) => {
 
           if (isAsset) {
             return {
-<<<<<<<< HEAD:next/services/meili/fetchers/assetsFetcher.ts
               ...hit.asset,
               category: hit.asset.assetCategory?.label,
-========
-              ...hit.document,
-              category: hit.document.documentCategory?.label,
->>>>>>>> master:next/services/meili/fetchers/documentsFetcher.ts
               type,
             }
           }
