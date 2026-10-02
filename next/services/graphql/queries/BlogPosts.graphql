@@ -30,10 +30,6 @@ fragment BlogPostSections on BlogPostSectionsDynamicZone {
     ...AssetsSection
   }
 
-  ... on ComponentSectionsAssets {
-    ...AssetsSection
-  }
-
   ... on ComponentSectionsGallery {
     ...GallerySection
   }

@@ -122,16 +122,6 @@
       },
       "component": "sections.assets"
     },
-    "assets": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "sections.assets"
-    },
     "gallery": {
       "type": "media",
       "multiple": true,

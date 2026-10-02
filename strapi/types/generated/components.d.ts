@@ -568,32 +568,6 @@ export interface SectionsDivider extends Schema.Component {
   attributes: {}
 }
 
-export interface SectionsDocuments extends Schema.Component {
-  collectionName: 'components_sections_documents'
-  info: {
-    description: ''
-    displayName: 'Dokumenty'
-  }
-  attributes: {
-    basicDocuments: Attribute.Relation<
-      'sections.documents',
-      'oneToMany',
-      'api::basic-document.basic-document'
-    >
-    disclosures: Attribute.Relation<'sections.documents', 'oneToMany', 'api::disclosure.disclosure'>
-    documents: Attribute.Relation<'sections.documents', 'oneToMany', 'api::document.document'>
-    title: Attribute.String
-  }
-}
-
-export interface SectionsDocumentsListing extends Schema.Component {
-  collectionName: 'components_sections_documents_listing'
-  info: {
-    displayName: 'Listing: Dokumenty a Zverej\u0148ovanie'
-  }
-  attributes: {}
-}
-
 export interface SectionsEventsListing extends Schema.Component {
   collectionName: 'components_sections_events_listing'
   info: {
@@ -814,13 +788,13 @@ declare module '@strapi/types' {
       'metadata.verejne-obstaravanie': MetadataVerejneObstaravanie
       'metadata.zmluvy': MetadataZmluvy
       'sections.accordion': SectionsAccordion
+      'sections.assets': SectionsAssets
+      'sections.assets-listing': SectionsAssetsListing
       'sections.blog-posts-listing': SectionsBlogPostsListing
       'sections.cherrypick-section': SectionsCherrypickSection
       'sections.children-listing': SectionsChildrenListing
       'sections.cta': SectionsCta
       'sections.divider': SectionsDivider
-      'sections.documents': SectionsDocuments
-      'sections.documents-listing': SectionsDocumentsListing
       'sections.events-listing': SectionsEventsListing
       'sections.faq': SectionsFaq
       'sections.flat-text': SectionsFlatText
