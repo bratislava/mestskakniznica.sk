@@ -1,7 +1,0 @@
-{
-  "host": "mestskakniznica.sk",
-  "envs": {
-    "NEXT_CPU_REQUESTS": "50m",
-    "NEXT_MEMORY_REQUESTS": "128Mi"
-  }
-}
