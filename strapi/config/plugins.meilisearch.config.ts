@@ -34,9 +34,6 @@ const searchIndexSettings = {
     // Blog post
     'blog-post.title',
     'blog-post.seo.keywords',
-    // Document
-    'document.title',
-    'document.description',
     // Assets
     'asset.title',
     'asset.description',
@@ -64,8 +61,6 @@ const searchIndexSettings = {
     'locale',
     // Basic document
     'basic-document.file_category.id',
-    // Document
-    'document.documentCategory.id',
     // Disclosure
     'disclosure.type',
     // Event
@@ -81,7 +76,7 @@ const searchIndexSettings = {
     'basic-document.date_added',
     // Event
     'event.dateFromTimestamp',
-    // Document, Disclosure, Asset
+    // Disclosure, Asset
     'commonAttributes.addedAtTimestamp',
   ],
   pagination: {
