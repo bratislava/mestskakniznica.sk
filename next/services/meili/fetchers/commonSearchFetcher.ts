@@ -9,7 +9,6 @@ export const allSearchTypes = [
   'page' as const,
   'blog-post' as const,
   'document' as const,
-  // 'asset' as const,
   'disclosure' as const,
   'event' as const,
   'notice' as const,

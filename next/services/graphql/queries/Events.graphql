@@ -64,6 +64,9 @@ fragment EventEntity on EventEntity {
     assets {
       ...AssetsSection
     }
+    assets {
+      ...AssetsSection
+    }
     gallery {
       data {
         ...UploadImageEntity

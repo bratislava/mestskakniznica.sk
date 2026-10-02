@@ -38,6 +38,11 @@ fragment PageSections on PageSectionsDynamicZone {
     ...AssetsSection
   }
 
+  ... on ComponentSectionsAssets {
+    id
+    ...AssetsSection
+  }
+
   ... on ComponentSectionsMap {
     ...MapSection
   }

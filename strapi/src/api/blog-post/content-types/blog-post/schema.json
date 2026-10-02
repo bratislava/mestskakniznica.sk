@@ -59,6 +59,7 @@
         "sections.accordion",
         "sections.divider",
         "sections.cta",
+        "sections.assets",
         "sections.video",
         "sections.flat-text",
         "sections.gallery",

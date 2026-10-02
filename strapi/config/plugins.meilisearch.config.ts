@@ -34,7 +34,7 @@ const searchIndexSettings = {
     // Blog post
     'blog-post.title',
     'blog-post.seo.keywords',
-    // Documents
+    // Document
     'document.title',
     'document.description',
     // Assets
@@ -66,8 +66,6 @@ const searchIndexSettings = {
     'basic-document.file_category.id',
     // Document
     'document.documentCategory.id',
-    // Asset
-    'asset.assetCategory.id',
     // Disclosure
     'disclosure.type',
     // Event
