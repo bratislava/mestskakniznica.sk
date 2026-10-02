@@ -32,6 +32,7 @@ const SearchPage = () => {
     page: t('search.searchTags.page'),
     'blog-post': t('search.searchTags.blog-post'),
     document: t('search.searchTags.document'),
+    asset: t('search.searchTags.asset'),
     disclosure: t('search.searchTags.disclosure'),
     event: t('search.searchTags.event'),
     notice: t('search.searchTags.notice'),

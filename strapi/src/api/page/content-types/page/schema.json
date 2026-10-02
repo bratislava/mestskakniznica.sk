@@ -50,12 +50,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "listing",
-        "sublisting",
-        "full_content",
-        "content_with_sidebar"
-      ]
+      "enum": ["listing", "sublisting", "full_content", "content_with_sidebar"]
     },
     "perex": {
       "pluginOptions": {
@@ -69,12 +64,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
+      "allowedTypes": ["images", "files", "videos", "audios"],
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -99,6 +89,7 @@
         "sections.divider",
         "sections.cta",
         "sections.documents",
+        "sections.assets",
         "sections.video",
         "sections.gallery",
         "sections.map",
@@ -106,11 +97,12 @@
         "sections.opening-hours-section",
         "sections.partners",
         "sections.children-listing",
+        "sections.news-listing",
         "sections.blog-posts-listing",
         "sections.documents-listing",
+        "sections.assets-listing",
         "sections.events-listing",
         "sections.new-books-listing",
-        "sections.news-listing",
         "sections.cherrypick-section"
       ]
     },

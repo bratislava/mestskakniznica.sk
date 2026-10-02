@@ -1,0 +1,48 @@
+### Fragments
+
+fragment AssetCategoryEntity on AssetCategoryEntity {
+  id
+  attributes {
+    label
+    slug
+  }
+}
+
+fragment AssetEntity on AssetEntity {
+  id
+  __typename
+  attributes {
+    title
+    slug
+    description
+    publishedAt
+    assetCategory {
+      data {
+        ...AssetCategoryEntity
+      }
+    }
+    file {
+      data {
+        ...UploadFileEntity
+      }
+    }
+  }
+}
+
+### Queries
+
+query AssetCategories {
+  assetCategories {
+    data {
+      ...AssetCategoryEntity
+    }
+  }
+}
+
+query AssetBySlug($slug: String!) {
+  assets(filters: { slug: { eq: $slug } }) {
+    data {
+      ...AssetEntity
+    }
+  }
+}
