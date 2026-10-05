@@ -15,9 +15,6 @@ fragment NoticeEntity on NoticeEntity {
     assets {
       ...AssetsSection
     }
-    assets {
-      ...AssetsSection
-    }
     seo {
       ...Seo
     }

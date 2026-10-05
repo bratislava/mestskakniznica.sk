@@ -11628,9 +11628,6 @@ export const EventEntityFragmentDoc = gql`
       assets {
         ...AssetsSection
       }
-      assets {
-        ...AssetsSection
-      }
       gallery {
         data {
           ...UploadImageEntity
@@ -11909,9 +11906,6 @@ export const NoticeEntityFragmentDoc = gql`
         }
       }
       promoted
-      assets {
-        ...AssetsSection
-      }
       assets {
         ...AssetsSection
       }
