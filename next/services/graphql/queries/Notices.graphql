@@ -17,7 +17,32 @@ fragment NoticeEntity on Notice {
   }
   localizations {
     slug
+<<<<<<< HEAD
     locale
+=======
+    title
+    body
+    listingImage {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    promoted
+    assets {
+      ...AssetsSection
+    }
+    seo {
+      ...Seo
+    }
+    localizations {
+      data {
+        attributes {
+          slug
+          locale
+        }
+      }
+    }
+>>>>>>> 531-v2-migrating-documents-to-assets
   }
 }
 

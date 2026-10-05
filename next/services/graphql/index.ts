@@ -10328,6 +10328,7 @@ export const EventCardEntityFragmentDoc = gql`
 export const EventEntityFragmentDoc = gql`
   fragment EventEntity on Event {
     ...EventCardEntity
+<<<<<<< HEAD
     promoted
     showForm
     guests {
@@ -10336,6 +10337,39 @@ export const EventEntityFragmentDoc = gql`
       surname
       avatar {
         ...UploadImageEntity
+=======
+    attributes {
+      promoted
+      showForm
+      guests {
+        id
+        name
+        surname
+        avatar {
+          data {
+            ...UploadImageEntity
+          }
+        }
+      }
+      assets {
+        ...AssetsSection
+      }
+      gallery {
+        data {
+          ...UploadImageEntity
+        }
+      }
+      localizations {
+        data {
+          attributes {
+            slug
+            locale
+          }
+        }
+      }
+      seo {
+        ...Seo
+>>>>>>> 531-v2-migrating-documents-to-assets
       }
     }
     assets {
@@ -10567,7 +10601,32 @@ export const NoticeEntityFragmentDoc = gql`
     }
     localizations {
       slug
+<<<<<<< HEAD
       locale
+=======
+      title
+      body
+      listingImage {
+        data {
+          ...UploadImageEntity
+        }
+      }
+      promoted
+      assets {
+        ...AssetsSection
+      }
+      seo {
+        ...Seo
+      }
+      localizations {
+        data {
+          attributes {
+            slug
+            locale
+          }
+        }
+      }
+>>>>>>> 531-v2-migrating-documents-to-assets
     }
   }
   ${UploadImageEntityFragmentDoc}
