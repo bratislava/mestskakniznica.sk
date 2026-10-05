@@ -395,7 +395,7 @@ export interface ApiAssetCategoryAssetCategory extends Struct.CollectionTypeSche
   collectionName: 'asset_categories'
   info: {
     description: ''
-    displayName: 'Dokumenty (v pr\u00EDprave): Kateg\u00F3rie'
+    displayName: 'Dokumenty: Kateg\u00F3rie'
     pluralName: 'asset-categories'
     singularName: 'asset-category'
   }
@@ -421,7 +421,7 @@ export interface ApiAssetAsset extends Struct.CollectionTypeSchema {
   collectionName: 'assets'
   info: {
     description: ''
-    displayName: 'Dokumenty (v pr\u00EDprave)'
+    displayName: 'Dokumenty'
     pluralName: 'assets'
     singularName: 'asset'
   }
