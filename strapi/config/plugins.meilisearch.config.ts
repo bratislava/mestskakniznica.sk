@@ -79,7 +79,7 @@ const searchIndexSettings = {
     'basic-document.date_added',
     // Event
     'event.dateFromTimestamp',
-    // Document, Disclosure, Asset
+    // Disclosure, Asset
     'commonAttributes.addedAtTimestamp',
   ],
   pagination: {

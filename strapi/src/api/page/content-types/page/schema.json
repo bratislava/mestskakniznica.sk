@@ -79,7 +79,6 @@
       },
       "type": "dynamiczone",
       "components": [
-        "sections.assets",
         "sections.faq",
         "sections.flat-text",
         "sections.site-usefullness",
@@ -89,6 +88,7 @@
         "sections.accordion",
         "sections.divider",
         "sections.cta",
+        "sections.assets",
         "sections.video",
         "sections.gallery",
         "sections.map",
@@ -97,8 +97,8 @@
         "sections.partners",
         "sections.children-listing",
         "sections.news-listing",
-        "sections.assets-listing",
         "sections.blog-posts-listing",
+        "sections.assets-listing",
         "sections.events-listing",
         "sections.new-books-listing",
         "sections.cherrypick-section"

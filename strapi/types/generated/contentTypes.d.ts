@@ -395,7 +395,7 @@ export interface ApiAssetCategoryAssetCategory extends Struct.CollectionTypeSche
   collectionName: 'asset_categories'
   info: {
     description: ''
-    displayName: 'assetCategory'
+    displayName: 'Dokumenty (v pr\u00EDprave): Kateg\u00F3rie'
     pluralName: 'asset-categories'
     singularName: 'asset-category'
   }
@@ -421,7 +421,7 @@ export interface ApiAssetAsset extends Struct.CollectionTypeSchema {
   collectionName: 'assets'
   info: {
     description: ''
-    displayName: 'Assety'
+    displayName: 'Dokumenty (v pr\u00EDprave)'
     pluralName: 'assets'
     singularName: 'asset'
   }
@@ -482,7 +482,7 @@ export interface ApiBasicDocumentBasicDocument extends Struct.CollectionTypeSche
         'metadata.zmluvy',
         'metadata.obchodna-verejna-sutaz',
         'metadata.objednavky',
-        'metadata.verejne-obstaravanie',
+        'metadata.verejne-obstaravanie'
       ]
     >
     publishedAt: Schema.Attribute.DateTime
@@ -528,11 +528,11 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
         'sections.accordion',
         'sections.divider',
         'sections.cta',
+        'sections.assets',
         'sections.video',
         'sections.flat-text',
         'sections.gallery',
-        'sections.site-usefullness',
-        'sections.assets',
+        'sections.site-usefullness'
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -754,7 +754,7 @@ export interface ApiDisclosureDisclosure extends Struct.CollectionTypeSchema {
         'Verejn\u00E9 obstar\u00E1vanie',
         'Obchodn\u00E1 verejn\u00E1 s\u00FA\u0165a\u017E',
         'Granty',
-        'Ostatn\u00E9',
+        'Ostatn\u00E9'
       ]
     > &
       Schema.Attribute.Required
@@ -1276,7 +1276,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime
     sections: Schema.Attribute.DynamicZone<
       [
-        'sections.assets',
         'sections.faq',
         'sections.flat-text',
         'sections.site-usefullness',
@@ -1286,6 +1285,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.accordion',
         'sections.divider',
         'sections.cta',
+        'sections.assets',
         'sections.video',
         'sections.gallery',
         'sections.map',
@@ -1294,11 +1294,11 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.partners',
         'sections.children-listing',
         'sections.news-listing',
-        'sections.assets-listing',
         'sections.blog-posts-listing',
+        'sections.assets-listing',
         'sections.events-listing',
         'sections.new-books-listing',
-        'sections.cherrypick-section',
+        'sections.cherrypick-section'
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

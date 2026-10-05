@@ -17,14 +17,10 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
   const parsedAssets = assets
     .filter(isDefined)
     .map((asset) => {
-      const { title: docTitle, file } = asset
+      const { title: assetTitle, file } = asset
 
       const badgeExt =
-        file.length > 1 ? (
-          <FolderIcon />
-        ) : (
-          (file[0]?.ext?.toUpperCase().replace('.', '') ?? '')
-        )
+        file.length > 1 ? <FolderIcon /> : (file[0]?.ext?.toUpperCase().replace('.', '') ?? '')
 
       if (asset.__typename === 'Disclosure') {
         const { type, contractor } = asset
@@ -34,7 +30,7 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
           linkHref: getPathForStrapiEntity(asset),
           content: {
             category: type,
-            title: docTitle,
+            title: assetTitle,
             metadata: contractor ? contractor : undefined,
             fileExt: badgeExt,
           },
@@ -49,7 +45,7 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
           linkHref: getPathForStrapiEntity(asset),
           content: {
             category: assetCategory?.label,
-            title: docTitle,
+            title: assetTitle,
             fileExt: badgeExt,
           },
         }
@@ -64,15 +60,15 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
       {title && <h3 className="text-h3">{title}</h3>}
 
       <div className={cn('flex flex-col', { 'mt-6': !!title })}>
-        {parsedAssets?.map((doc, index) => (
+        {parsedAssets?.map((asset, index) => (
           <AssetRow
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            title={doc.content.title}
-            fileExt={doc.content.fileExt}
-            linkHref={doc.linkHref}
-            category={doc.content.category}
-            metadata={doc.content.metadata}
+            title={asset.content.title}
+            fileExt={asset.content.fileExt}
+            linkHref={asset.linkHref}
+            category={asset.content.category}
+            metadata={asset.content.metadata}
           />
         ))}
       </div>
