@@ -494,7 +494,7 @@ export interface SectionsAccordion extends Schema.Component {
 export interface SectionsAssets extends Schema.Component {
   collectionName: 'components_sections_assets'
   info: {
-    displayName: 'Dokumenty (v pr\u00EDprave)'
+    displayName: 'Dokumenty'
   }
   attributes: {
     assets: Attribute.Relation<'sections.assets', 'oneToMany', 'api::asset.asset'>
@@ -511,7 +511,7 @@ export interface SectionsAssets extends Schema.Component {
 export interface SectionsAssetsListing extends Schema.Component {
   collectionName: 'components_sections_assets_listing'
   info: {
-    displayName: '(V pr\u00EDprave) Listing: Dokumenty a Zverej\u0148ovanie'
+    displayName: 'Listing: Dokumenty a Zverej\u0148ovanie'
   }
   attributes: {}
 }
