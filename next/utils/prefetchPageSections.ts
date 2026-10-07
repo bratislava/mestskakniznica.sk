@@ -2,14 +2,14 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 
 import { PageEntityFragment } from '@/services/graphql'
 import {
+  assetCategoriesFetcher,
+  assetCategoriesQueryKey,
+} from '@/services/graphql/fetchers/asset-categories.fetcher'
+import {
   blogPostsDefaultFilters,
   blogPostsFetcher,
   getBlogPostsQueryKey,
 } from '@/services/graphql/fetchers/blog-posts.fetcher'
-import {
-  documentCategoriesFetcher,
-  documentCategoriesQueryKey,
-} from '@/services/graphql/fetchers/document-categories.fetcher'
 import {
   eventPropertiesFetcher,
   getEventPropertiesQueryKey,
@@ -25,10 +25,10 @@ import {
 } from '@/services/graphql/fetchers/notices.fetcher'
 import { getPartnersQueryKey, partnersFetcher } from '@/services/graphql/fetchers/partners.fetcher'
 import {
-  documentsDefaultFilters,
-  documentsFetcher,
-  getDocumentsQueryKey,
-} from '@/services/meili/fetchers/documentsFetcher'
+  assetsDefaultFilters,
+  assetsFetcher,
+  getAssetsQueryKey,
+} from '@/services/meili/fetchers/assetsFetcher'
 import {
   eventsArchivedDefaultFilters,
   eventsFetcher,
@@ -65,14 +65,14 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
       queryFn: () => blogPostsFetcher(locale, blogPostsDefaultFilters),
     })
   }
-  if (sectionTypes.includes('ComponentSectionsDocumentsListing')) {
+  if (sectionTypes.includes('ComponentSectionsAssetsListing')) {
     await queryClient.prefetchQuery({
-      queryKey: getDocumentsQueryKey(documentsDefaultFilters),
-      queryFn: () => documentsFetcher(documentsDefaultFilters),
+      queryKey: getAssetsQueryKey(assetsDefaultFilters),
+      queryFn: () => assetsFetcher(assetsDefaultFilters),
     })
     await queryClient.prefetchQuery({
-      queryKey: documentCategoriesQueryKey,
-      queryFn: () => documentCategoriesFetcher(),
+      queryKey: assetCategoriesQueryKey,
+      queryFn: () => assetCategoriesFetcher(),
     })
   }
   if (sectionTypes.includes('ComponentSectionsNewsListing')) {

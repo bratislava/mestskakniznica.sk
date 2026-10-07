@@ -1,6 +1,4 @@
-import * as React from 'react'
-
-import { Documents, PageTitle, SectionContainer } from '@/components/ui'
+import { Assets, PageTitle, SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import RichText from '@/modules/formatting/RichText'
 import { NoticeEntityFragment } from '@/services/graphql'
@@ -25,10 +23,10 @@ const NoticePage = ({ notice }: NoticePageProps) => {
         </div>
       </SectionContainer>
       <SectionContainer>
-        <Documents
-          documents={[
-            ...(notice.attributes?.documents?.documents?.data ?? []),
-            ...(notice.attributes?.documents?.disclosures?.data ?? []),
+        <Assets
+          assets={[
+            ...(notice.attributes?.assets?.assets?.data ?? []),
+            ...(notice.attributes?.assets?.disclosures?.data ?? []),
           ]}
         />
       </SectionContainer>
