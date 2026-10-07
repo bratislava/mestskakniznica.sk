@@ -28,10 +28,7 @@ const EventDetails = ({ event }: PageProps) => {
   return (
     <>
       <StrapiImage
-        image={
-          event?.coverImage ||
-          getImagePlaceholder(EventDetailPlaceholder)
-        }
+        image={event?.coverImage || getImagePlaceholder(EventDetailPlaceholder)}
         alt="" // Empty alt on purpose
         className="w-full object-cover md:h-75 lg:h-[400px]"
         // By providing unique key to cover image, we prevent displaying other event's image while loading the currently displayed event's image
@@ -56,10 +53,7 @@ const EventDetails = ({ event }: PageProps) => {
           </div>
           <h1 className="py-3 text-h1 lg:text-h2">{event?.title}</h1>
           <div className="text-sm text-foreground-body">
-            <FormatEventDateRange
-              dateFrom={event?.dateFrom}
-              dateTo={event?.dateTo}
-            />
+            <FormatEventDateRange dateFrom={event?.dateFrom} dateTo={event?.dateTo} />
           </div>
         </div>
         {/* TODO validate this - what is event reservation and is it used ? */}
@@ -159,10 +153,7 @@ const EventDetails = ({ event }: PageProps) => {
                     classWrapper="flex"
                     svgIcon={<CalendarIcon />}
                     text={
-                      <FormatEventDateRange
-                        dateFrom={event?.dateFrom}
-                        dateTo={event?.dateTo}
-                      />
+                      <FormatEventDateRange dateFrom={event?.dateFrom} dateTo={event?.dateTo} />
                     }
                   />
                 </div>

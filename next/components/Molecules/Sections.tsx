@@ -150,9 +150,7 @@ const Sections = ({
               ? getForm(
                   section.type,
                   section.type,
-                  getPathForStrapiEntity(
-                    general?.privacyTermsAndConditionsPage,
-                  ) ?? undefined,
+                  getPathForStrapiEntity(general?.privacyTermsAndConditionsPage) ?? undefined,
                 )
               : null
 
@@ -201,9 +199,7 @@ const Sections = ({
                 altDesign
                 title={section.title}
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
-                branches={
-                  section.branches?.map((branch) => branch?.branch).filter(isDefined) ?? []
-                }
+                branches={section.branches?.map((branch) => branch?.branch).filter(isDefined) ?? []}
               />
             )
 

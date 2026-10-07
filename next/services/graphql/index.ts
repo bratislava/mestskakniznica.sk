@@ -334,6 +334,7 @@ export type BlogPostRelationResponseCollection = {
 export type BlogPostSectionsDynamicZone =
   | ComponentSectionsAccordion
   | ComponentSectionsAssets
+  | ComponentSectionsAssets
   | ComponentSectionsCta
   | ComponentSectionsDivider
   | ComponentSectionsFaq
@@ -5647,6 +5648,8 @@ type BlogPostSections_ComponentSectionsAccordion_Fragment = {
 
 type BlogPostSections_ComponentSectionsAssets_Fragment = {
   __typename: 'ComponentSectionsAssets'
+type BlogPostSections_ComponentSectionsAssets_Fragment = {
+  __typename: 'ComponentSectionsAssets'
   id: string
   title?: string | null
   assets: Array<{
@@ -5695,6 +5698,18 @@ type BlogPostSections_ComponentSectionsAssets_Fragment = {
       ext?: string | null
     } | null>
   } | null>
+}
+
+type BlogPostSections_ComponentSectionsCta_Fragment = {
+  __typename: 'ComponentSectionsCta'
+  id: string
+  title?: string | null
+  url?: string | null
+}
+
+type BlogPostSections_ComponentSectionsDivider_Fragment = {
+  __typename: 'ComponentSectionsDivider'
+  id: string
 }
 
 type BlogPostSections_ComponentSectionsCta_Fragment = {
@@ -5790,6 +5805,7 @@ type BlogPostSections_Error_Fragment = { __typename: 'Error' }
 
 export type BlogPostSectionsFragment =
   | BlogPostSections_ComponentSectionsAccordion_Fragment
+  | BlogPostSections_ComponentSectionsAssets_Fragment
   | BlogPostSections_ComponentSectionsAssets_Fragment
   | BlogPostSections_ComponentSectionsCta_Fragment
   | BlogPostSections_ComponentSectionsDivider_Fragment
@@ -10057,6 +10073,8 @@ export const DisclosureEntityFragmentDoc = gql`
 `
 export const AssetsSectionFragmentDoc = gql`
   fragment AssetsSection on ComponentSectionsAssets {
+export const AssetsSectionFragmentDoc = gql`
+  fragment AssetsSection on ComponentSectionsAssets {
     id
     title
     assets {
@@ -10129,6 +10147,8 @@ export const BlogPostSectionsFragmentDoc = gql`
     }
     ... on ComponentSectionsAssets {
       ...AssetsSection
+    ... on ComponentSectionsAssets {
+      ...AssetsSection
     }
     ... on ComponentSectionsGallery {
       ...GallerySection
@@ -10141,6 +10161,7 @@ export const BlogPostSectionsFragmentDoc = gql`
   ${AccordionSectionFragmentDoc}
   ${CtaSectionFragmentDoc}
   ${VideoSectionFragmentDoc}
+  ${AssetsSectionFragmentDoc}
   ${AssetsSectionFragmentDoc}
   ${GallerySectionFragmentDoc}
 `
