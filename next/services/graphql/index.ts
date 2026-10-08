@@ -334,7 +334,6 @@ export type BlogPostRelationResponseCollection = {
 export type BlogPostSectionsDynamicZone =
   | ComponentSectionsAccordion
   | ComponentSectionsAssets
-  | ComponentSectionsAssets
   | ComponentSectionsCta
   | ComponentSectionsDivider
   | ComponentSectionsFaq
@@ -5206,6 +5205,7 @@ export type AssetEntityFragment = {
   title: string
   slug: string
   description?: string | null
+  createdAt?: any | null
   publishedAt?: any | null
   assetCategory?: {
     __typename?: 'AssetCategory'
@@ -5247,6 +5247,7 @@ export type AssetBySlugQuery = {
     title: string
     slug: string
     description?: string | null
+    createdAt?: any | null
     publishedAt?: any | null
     assetCategory?: {
       __typename?: 'AssetCategory'
@@ -5656,6 +5657,7 @@ type BlogPostSections_ComponentSectionsAssets_Fragment = {
     title: string
     slug: string
     description?: string | null
+    createdAt?: any | null
     publishedAt?: any | null
     assetCategory?: {
       __typename?: 'AssetCategory'
@@ -5792,7 +5794,6 @@ type BlogPostSections_Error_Fragment = { __typename: 'Error' }
 export type BlogPostSectionsFragment =
   | BlogPostSections_ComponentSectionsAccordion_Fragment
   | BlogPostSections_ComponentSectionsAssets_Fragment
-  | BlogPostSections_ComponentSectionsAssets_Fragment
   | BlogPostSections_ComponentSectionsCta_Fragment
   | BlogPostSections_ComponentSectionsDivider_Fragment
   | BlogPostSections_ComponentSectionsFaq_Fragment
@@ -5808,6 +5809,7 @@ export type BlogPostEntityFragment = {
   documentId: string
   slug: string
   title: string
+  createdAt?: any | null
   publishedAt?: any | null
   coverMedia?: {
     __typename?: 'UploadFile'
@@ -5852,6 +5854,7 @@ export type BlogPostEntityFragment = {
           title: string
           slug: string
           description?: string | null
+          createdAt?: any | null
           publishedAt?: any | null
           assetCategory?: {
             __typename?: 'AssetCategory'
@@ -6000,6 +6003,7 @@ export type BlogPostBySlugQuery = {
     documentId: string
     slug: string
     title: string
+    createdAt?: any | null
     publishedAt?: any | null
     coverMedia?: {
       __typename?: 'UploadFile'
@@ -6044,6 +6048,7 @@ export type BlogPostBySlugQuery = {
             title: string
             slug: string
             description?: string | null
+            createdAt?: any | null
             publishedAt?: any | null
             assetCategory?: {
               __typename?: 'AssetCategory'
@@ -6188,6 +6193,7 @@ export type BlogPostsQuery = {
       documentId: string
       slug: string
       title: string
+      createdAt?: any | null
       publishedAt?: any | null
       coverMedia?: {
         __typename?: 'UploadFile'
@@ -6232,6 +6238,7 @@ export type BlogPostsQuery = {
               title: string
               slug: string
               description?: string | null
+              createdAt?: any | null
               publishedAt?: any | null
               assetCategory?: {
                 __typename?: 'AssetCategory'
@@ -6756,6 +6763,7 @@ export type EventEntityFragment = {
       title: string
       slug: string
       description?: string | null
+      createdAt?: any | null
       publishedAt?: any | null
       assetCategory?: {
         __typename?: 'AssetCategory'
@@ -6951,6 +6959,7 @@ export type EventBySlugQuery = {
         title: string
         slug: string
         description?: string | null
+        createdAt?: any | null
         publishedAt?: any | null
         assetCategory?: {
           __typename?: 'AssetCategory'
@@ -7553,6 +7562,7 @@ export type HomepagePromotedContentSectionFragment = {
     documentId: string
     slug: string
     title: string
+    createdAt?: any | null
     publishedAt?: any | null
     listingImage?: {
       __typename?: 'UploadFile'
@@ -7755,6 +7765,7 @@ export type HomePageQuery = {
         documentId: string
         slug: string
         title: string
+        createdAt?: any | null
         publishedAt?: any | null
         listingImage?: {
           __typename?: 'UploadFile'
@@ -7782,6 +7793,7 @@ export type HomePageQuery = {
     documentId: string
     slug: string
     title: string
+    createdAt?: any | null
     publishedAt?: any | null
     listingImage?: {
       __typename?: 'UploadFile'
@@ -7864,6 +7876,7 @@ export type HomePageQuery = {
     documentId: string
     slug: string
     title: string
+    createdAt?: any | null
     publishedAt?: any | null
     listingImage?: {
       __typename?: 'UploadFile'
@@ -7908,6 +7921,7 @@ export type NoticeEntityFragment = {
       title: string
       slug: string
       description?: string | null
+      createdAt?: any | null
       publishedAt?: any | null
       assetCategory?: {
         __typename?: 'AssetCategory'
@@ -7963,6 +7977,7 @@ export type NoticeListingEntityFragment = {
   documentId: string
   slug: string
   title: string
+  createdAt?: any | null
   publishedAt?: any | null
   listingImage?: {
     __typename?: 'UploadFile'
@@ -7984,6 +7999,7 @@ export type LatestNoticesQueryFragment = {
     documentId: string
     slug: string
     title: string
+    createdAt?: any | null
     publishedAt?: any | null
     listingImage?: {
       __typename?: 'UploadFile'
@@ -8010,6 +8026,7 @@ export type LatestNoticesQuery = {
     documentId: string
     slug: string
     title: string
+    createdAt?: any | null
     publishedAt?: any | null
     listingImage?: {
       __typename?: 'UploadFile'
@@ -8054,6 +8071,7 @@ export type NoticesQuery = {
       documentId: string
       slug: string
       title: string
+      createdAt?: any | null
       publishedAt?: any | null
       listingImage?: {
         __typename?: 'UploadFile'
@@ -8107,6 +8125,7 @@ export type NoticeBySlugQuery = {
         title: string
         slug: string
         description?: string | null
+        createdAt?: any | null
         publishedAt?: any | null
         assetCategory?: {
           __typename?: 'AssetCategory'
@@ -8208,6 +8227,7 @@ type PageSections_ComponentSectionsAssets_Fragment = {
     title: string
     slug: string
     description?: string | null
+    createdAt?: any | null
     publishedAt?: any | null
     assetCategory?: {
       __typename?: 'AssetCategory'
@@ -8611,6 +8631,7 @@ export type PageEntityFragment = {
           title: string
           slug: string
           description?: string | null
+          createdAt?: any | null
           publishedAt?: any | null
           assetCategory?: {
             __typename?: 'AssetCategory'
@@ -8992,6 +9013,7 @@ export type PageByDocumentIdQuery = {
             title: string
             slug: string
             description?: string | null
+            createdAt?: any | null
             publishedAt?: any | null
             assetCategory?: {
               __typename?: 'AssetCategory'
@@ -9477,6 +9499,7 @@ export type AssetsSectionFragment = {
     title: string
     slug: string
     description?: string | null
+    createdAt?: any | null
     publishedAt?: any | null
     assetCategory?: {
       __typename?: 'AssetCategory'
@@ -10024,6 +10047,7 @@ export const AssetEntityFragmentDoc = gql`
     title
     slug
     description
+    createdAt
     publishedAt
     assetCategory {
       ...AssetCategoryEntity
@@ -10131,8 +10155,6 @@ export const BlogPostSectionsFragmentDoc = gql`
     }
     ... on ComponentSectionsAssets {
       ...AssetsSection
-    ... on ComponentSectionsAssets {
-      ...AssetsSection
     }
     ... on ComponentSectionsGallery {
       ...GallerySection
@@ -10145,7 +10167,6 @@ export const BlogPostSectionsFragmentDoc = gql`
   ${AccordionSectionFragmentDoc}
   ${CtaSectionFragmentDoc}
   ${VideoSectionFragmentDoc}
-  ${AssetsSectionFragmentDoc}
   ${AssetsSectionFragmentDoc}
   ${GallerySectionFragmentDoc}
 `
@@ -10162,6 +10183,7 @@ export const BlogPostEntityFragmentDoc = gql`
     documentId
     slug
     title
+    createdAt
     publishedAt
     coverMedia {
       url
@@ -10532,6 +10554,7 @@ export const NoticeListingEntityFragmentDoc = gql`
     documentId
     slug
     title
+    createdAt
     publishedAt
     listingImage {
       ...UploadImageEntity

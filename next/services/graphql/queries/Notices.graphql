@@ -26,6 +26,7 @@ fragment NoticeListingEntity on Notice {
   documentId
   slug
   title
+  createdAt
   publishedAt
   listingImage {
     ...UploadImageEntity

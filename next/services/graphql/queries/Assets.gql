@@ -12,6 +12,7 @@ fragment AssetEntity on Asset {
   title
   slug
   description
+  createdAt
   publishedAt
   assetCategory {
     ...AssetCategoryEntity

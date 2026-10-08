@@ -21,7 +21,7 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
     return {
       image: notice?.listingImage,
       link: getPathForStrapiEntity(notice),
-      date: notice?.publishedAt,
+      date: notice.createdAt,
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notice, t])

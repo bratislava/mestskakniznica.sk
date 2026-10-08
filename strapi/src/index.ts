@@ -24,7 +24,7 @@ export default {
     const webhook = webhooks.find((w) => w.name === 'Bootstrapped Revalidate')
 
     if (!webhook) {
-      await strapi.webhookStore?.createWebhook({
+      await strapi.get('webhookStore').createWebhook({
         id: 'Bootstrapped Revalidate',
         name: 'Bootstrapped Revalidate',
         url: `${process.env.REVALIDATE_NEXT_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET_TOKEN}`,

@@ -29,8 +29,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
       <SectionContainer>
         <PageTitle title={blogPost?.title ?? ''} hasDivider={false} />
         <div className="mt-2 text-base text-foreground-body lg:mt-4">
-          {t('common.added')}{' '}
-          <FormatDate valueType="ISO" value={blogPost?.publishedAt} />
+          {t('common.added')} <FormatDate valueType="ISO" value={blogPost.createdAt} />
         </div>
 
         {/* Cover Media */}

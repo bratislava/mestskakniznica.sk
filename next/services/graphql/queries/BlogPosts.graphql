@@ -40,6 +40,7 @@ fragment BlogPostEntity on BlogPost {
   documentId
   slug
   title
+  createdAt
   publishedAt
   coverMedia {
     url

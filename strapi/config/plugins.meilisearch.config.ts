@@ -95,7 +95,7 @@ const config = {
   page: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('page', entry),
@@ -145,7 +145,7 @@ const config = {
   event: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) =>
@@ -164,7 +164,7 @@ const config = {
   notice: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('notice', entry),
@@ -173,7 +173,7 @@ const config = {
   branch: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('branch', entry),

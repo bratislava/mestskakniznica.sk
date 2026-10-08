@@ -56,7 +56,7 @@ const AssetPage = ({ entity }: IProps) => {
         },
         {
           label: t('assetMetadata.addedAt'),
-          value: <FormatDate value={entity.publishedAt} valueType="ISO" />,
+          value: <FormatDate value={entity.createdAt} valueType="ISO" />,
         },
       ]
 
