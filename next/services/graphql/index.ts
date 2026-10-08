@@ -5648,8 +5648,6 @@ type BlogPostSections_ComponentSectionsAccordion_Fragment = {
 
 type BlogPostSections_ComponentSectionsAssets_Fragment = {
   __typename: 'ComponentSectionsAssets'
-type BlogPostSections_ComponentSectionsAssets_Fragment = {
-  __typename: 'ComponentSectionsAssets'
   id: string
   title?: string | null
   assets: Array<{
@@ -5698,18 +5696,6 @@ type BlogPostSections_ComponentSectionsAssets_Fragment = {
       ext?: string | null
     } | null>
   } | null>
-}
-
-type BlogPostSections_ComponentSectionsCta_Fragment = {
-  __typename: 'ComponentSectionsCta'
-  id: string
-  title?: string | null
-  url?: string | null
-}
-
-type BlogPostSections_ComponentSectionsDivider_Fragment = {
-  __typename: 'ComponentSectionsDivider'
-  id: string
 }
 
 type BlogPostSections_ComponentSectionsCta_Fragment = {
@@ -10073,8 +10059,6 @@ export const DisclosureEntityFragmentDoc = gql`
 `
 export const AssetsSectionFragmentDoc = gql`
   fragment AssetsSection on ComponentSectionsAssets {
-export const AssetsSectionFragmentDoc = gql`
-  fragment AssetsSection on ComponentSectionsAssets {
     id
     title
     assets {
@@ -10588,32 +10572,7 @@ export const NoticeEntityFragmentDoc = gql`
     }
     localizations {
       slug
-<<<<<<< HEAD
       locale
-=======
-      title
-      body
-      listingImage {
-        data {
-          ...UploadImageEntity
-        }
-      }
-      promoted
-      assets {
-        ...AssetsSection
-      }
-      seo {
-        ...Seo
-      }
-      localizations {
-        data {
-          attributes {
-            slug
-            locale
-          }
-        }
-      }
->>>>>>> 531-v2-migrating-documents-to-assets
     }
   }
   ${UploadImageEntityFragmentDoc}
