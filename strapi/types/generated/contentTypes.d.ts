@@ -482,7 +482,7 @@ export interface ApiBasicDocumentBasicDocument extends Struct.CollectionTypeSche
         'metadata.zmluvy',
         'metadata.obchodna-verejna-sutaz',
         'metadata.objednavky',
-        'metadata.verejne-obstaravanie'
+        'metadata.verejne-obstaravanie',
       ]
     >
     publishedAt: Schema.Attribute.DateTime
@@ -532,7 +532,7 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
         'sections.video',
         'sections.flat-text',
         'sections.gallery',
-        'sections.site-usefullness'
+        'sections.site-usefullness',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -754,7 +754,7 @@ export interface ApiDisclosureDisclosure extends Struct.CollectionTypeSchema {
         'Verejn\u00E9 obstar\u00E1vanie',
         'Obchodn\u00E1 verejn\u00E1 s\u00FA\u0165a\u017E',
         'Granty',
-        'Ostatn\u00E9'
+        'Ostatn\u00E9',
       ]
     > &
       Schema.Attribute.Required
@@ -1298,7 +1298,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.assets-listing',
         'sections.events-listing',
         'sections.new-books-listing',
-        'sections.cherrypick-section'
+        'sections.cherrypick-section',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

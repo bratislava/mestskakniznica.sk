@@ -36,7 +36,7 @@ export interface AccordionItemsForm extends Struct.ComponentSchema {
         'prenajmite_si_priestor',
         'kniharska_dielna',
         'bibliografia_a_resers',
-        'aka_kniha_vam_v_kniznici_chyba'
+        'aka_kniha_vam_v_kniznici_chyba',
       ]
     >
   }
@@ -622,7 +622,7 @@ export interface SectionsForm extends Struct.ComponentSchema {
         'prenajmite_si_priestor',
         'kniharska_dielna',
         'bibliografia_a_resers',
-        'aka_kniha_vam_v_kniznici_chyba'
+        'aka_kniha_vam_v_kniznici_chyba',
       ]
     >
   }
