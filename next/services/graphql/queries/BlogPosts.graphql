@@ -35,59 +35,43 @@ fragment BlogPostSections on BlogPostSectionsDynamicZone {
   }
 }
 
-fragment BlogPostEntity on BlogPostEntity {
+fragment BlogPostEntity on BlogPost {
   __typename
-  id
-  attributes {
-    __typename
+  documentId
+  slug
+  title
+  createdAt
+  publishedAt
+  coverMedia {
+    url
+    mime
+    alternativeText
+    width
+    height
+  }
+  sections {
+    ...BlogPostSections
+  }
+  localizations {
     slug
-    title
-    publishedAt
-    coverMedia {
-      data {
-        attributes {
-          url
-          mime
-          alternativeText
-          width
-          height
-        }
-      }
-    }
-    sections {
-      ...BlogPostSections
-    }
-    localizations {
-      data {
-        attributes {
-          slug
-          locale
-        }
-      }
-    }
-    seo {
-      ...Seo
-    }
+    locale
+  }
+  seo {
+    ...Seo
   }
 }
 
 query BlogPostStaticPaths($locale: I18NLocaleCode!) {
   blogPosts(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      id
-      attributes {
-        slug
-        locale
-      }
-    }
+    documentId
+    slug
+    locale
   }
 }
 
 query BlogPostBySlug($slug: String!, $locale: I18NLocaleCode!) {
   blogPosts(locale: $locale, filters: { slug: { eq: $slug } }) {
-    data {
-      ...BlogPostEntity
-    }
+    ...BlogPostEntity
   }
 }
 
@@ -97,14 +81,16 @@ query BlogPosts(
   $start: Int
   $sort: String = "publishedAt:desc"
 ) {
-  blogPosts(locale: $locale, pagination: { limit: $limit, start: $start }, sort: [$sort]) {
-    data {
+  blogPosts_connection(
+    locale: $locale
+    pagination: { limit: $limit, start: $start }
+    sort: [$sort]
+  ) {
+    nodes {
       ...BlogPostEntity
     }
-    meta {
-      pagination {
-        total
-      }
+    pageInfo {
+      total
     }
   }
 }

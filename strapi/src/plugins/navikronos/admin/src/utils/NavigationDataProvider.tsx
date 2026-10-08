@@ -19,7 +19,7 @@ import {
 import produce from "immer";
 import { last } from "lodash";
 import { useConfig } from "./useConfig";
-import { useNotification } from "@strapi/helper-plugin";
+import { useNotification } from "@strapi/strapi/admin";
 
 const NavigationDataContext = createContext<{
   navigationData?: NavikronosLocaleNavigations | null;
@@ -246,7 +246,7 @@ export const useNavigationDataDefined = () => {
   const { navigationData, locale, setLocale } = useContext(
     NavigationDataContext,
   )!;
-  const toggleNotification = useNotification();
+  const { toggleNotification } = useNotification();
   const dispatch = useContext(NavigationDataDispatchContext);
   const { mutate, isPending: isSaving } = useMutation({
     mutationFn: (newNavigationData: NavikronosLocaleNavigations) =>

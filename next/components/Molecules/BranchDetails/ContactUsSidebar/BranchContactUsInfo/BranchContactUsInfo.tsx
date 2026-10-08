@@ -9,31 +9,31 @@ type BranchContactUsInfoProps = {
 }
 
 const BranchContactUsInfo = ({ branch }: BranchContactUsInfoProps) => {
-  return branch.attributes?.email || branch.attributes?.phone ? (
-    <div className="flex flex-col border-t border-border-light py-6 last:pb-0" key={branch.id}>
-      <div className="pb-4">{branch.attributes?.title}</div>
+  return branch?.email || branch?.phone ? (
+    <div className="flex flex-col border-t border-border-light py-6 last:pb-0" key={branch.documentId}>
+      <div className="pb-4">{branch?.title}</div>
       <div className="flex flex-col gap-3">
-        {branch.attributes?.phone && (
+        {branch?.phone && (
           <Button
             variant="unstyled"
             className="mb-2 flex gap-3 hover:underline"
             // remove all whitespaces from phone number
 
-            href={`tel:${branch.attributes?.phone.replaceAll(/\s/g, '')}`}
+            href={`tel:${branch?.phone.replaceAll(/\s/g, '')}`}
             startIcon={<PhoneIcon className="shrink-0" />}
           >
-            {branch.attributes?.phone}
+            {branch?.phone}
           </Button>
         )}
 
-        {branch.attributes?.email && (
+        {branch?.email && (
           <Button
             variant="unstyled"
             className="mb-2 flex gap-3 hover:underline"
-            href={`mailto:${branch.attributes?.email}`}
+            href={`mailto:${branch?.email}`}
             startIcon={<MailIcon className="shrink-0" />}
           >
-            {branch.attributes?.email}
+            {branch?.email}
           </Button>
         )}
       </div>

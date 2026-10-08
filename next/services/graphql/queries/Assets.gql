@@ -1,31 +1,24 @@
 ### Fragments
 
-fragment AssetCategoryEntity on AssetCategoryEntity {
-  id
-  attributes {
-    label
-    slug
-  }
+fragment AssetCategoryEntity on AssetCategory {
+  documentId
+  label
+  slug
 }
 
-fragment AssetEntity on AssetEntity {
-  id
+fragment AssetEntity on Asset {
+  documentId
   __typename
-  attributes {
-    title
-    slug
-    description
-    publishedAt
-    assetCategory {
-      data {
-        ...AssetCategoryEntity
-      }
-    }
-    file {
-      data {
-        ...UploadFileEntity
-      }
-    }
+  title
+  slug
+  description
+  createdAt
+  publishedAt
+  assetCategory {
+    ...AssetCategoryEntity
+  }
+  file {
+    ...UploadFileEntity
   }
 }
 
@@ -33,16 +26,12 @@ fragment AssetEntity on AssetEntity {
 
 query AssetCategories {
   assetCategories {
-    data {
-      ...AssetCategoryEntity
-    }
+    ...AssetCategoryEntity
   }
 }
 
 query AssetBySlug($slug: String!) {
   assets(filters: { slug: { eq: $slug } }) {
-    data {
-      ...AssetEntity
-    }
+    ...AssetEntity
   }
 }

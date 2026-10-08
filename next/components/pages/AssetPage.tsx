@@ -9,6 +9,7 @@ import Button from '@/modules/common/Button'
 import FileExtBadge from '@/modules/common/FileExtBadge'
 import FormatDate from '@/modules/formatting/FormatDate'
 import { AssetEntityFragment, DisclosureEntityFragment } from '@/services/graphql'
+import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 import { useDisclosureMetadata } from '@/utils/useDisclosureMetadata'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
@@ -24,38 +25,38 @@ const AssetPage = ({ entity }: IProps) => {
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
   const { getDisclosureMetadata } = useDisclosureMetadata()
 
-  if (!entity.attributes) {
+  if (!entity) {
     return null
   }
 
-  const { title, file, description } = entity.attributes
+  const { title, file, description } = entity
 
-  const firstItem = file?.data[0]
+  const firstItem = file[0]
 
-  if (!firstItem?.attributes) {
+  if (!firstItem) {
     return null
   }
 
-  const numOfFiles = file?.data.length ?? 0
+  const numOfFiles = file.length ?? 0
   const isMultipleFiles = numOfFiles > 1
   const badgeExt = isMultipleFiles ? (
     <FolderIcon />
   ) : (
-    (firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? '')
+    (firstItem?.ext?.toUpperCase().replace('.', '') ?? '')
   )
 
-  const isDisclosure = entity.__typename === 'DisclosureEntity'
+  const isDisclosure = entity.__typename === 'Disclosure'
 
   const dlData = isDisclosure
     ? getDisclosureMetadata(entity)
     : [
         {
           label: t('assetMetadata.category'),
-          value: entity.attributes.assetCategory?.data?.attributes?.label,
+          value: entity.assetCategory?.label,
         },
         {
           label: t('assetMetadata.addedAt'),
-          value: <FormatDate value={entity.attributes.publishedAt} valueType="ISO" />,
+          value: <FormatDate value={entity.createdAt} valueType="ISO" />,
         },
       ]
 
@@ -80,14 +81,14 @@ const AssetPage = ({ entity }: IProps) => {
               {!isMultipleFiles && firstItem && (
                 <div className="flex w-full flex-col items-center text-center lg:items-start lg:text-left">
                   <div className="mt-2 flex items-center gap-x-3">
-                    <span>{getFileSize(firstItem?.attributes?.size, i18n.language)}</span>
+                    <span>{getFileSize(firstItem?.size, i18n.language)}</span>
                     <span>&bull;</span>
-                    <span>{firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}</span>
+                    <span>{firstItem?.ext?.toUpperCase().replace('.', '') ?? ''}</span>
                   </div>
 
                   <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-x-4 lg:gap-y-0">
                     <Button
-                      href={firstItem?.attributes?.url || ''}
+                      href={firstItem?.url || ''}
                       target="_blank"
                       rel="noreferrer"
                       mobileFullWidth
@@ -105,7 +106,7 @@ const AssetPage = ({ entity }: IProps) => {
                     {/*  mobileFullWidth */}
                     {/*  href={url} */}
                     {/*  // TODO add download title */}
-                    {/*  // download={file?.attributes?.attachment?.data?.attributes?.name} */}
+                    {/*  // download={file?.attachment?.data?.name} */}
                     {/*  aria-label={getDownloadAriaLabel(file.data, title)} */}
                     {/*  startIcon={<DownloadIcon />} */}
                     {/* > */}
@@ -131,27 +132,27 @@ const AssetPage = ({ entity }: IProps) => {
               <div className="pt-6 lg:pt-10">
                 <h2 className="text-h3">{t('assetPage.files')}</h2>
                 <div className="text-sm text-foreground-body lg:mt-6 lg:text-base">
-                  {file?.data.map((fileInner) => (
+                  {file.filter(isDefined).map((fileInner) => (
                     <div
-                      key={fileInner.id}
+                      key={fileInner.documentId}
                       className="flex flex-col items-center gap-x-6 border-b border-border-dark pt-6 text-center lg:flex-row lg:pt-0 lg:text-left"
                     >
                       {/* File extension badge */}
                       <FileExtBadge
                         className="my-4 hidden size-14 self-center lg:flex lg:self-auto"
-                        fileExt={fileInner?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}
+                        fileExt={fileInner?.ext?.toUpperCase().replace('.', '') ?? ''}
                       />
 
                       <div className="w-full gap-y-2">
                         {/* File name */}
-                        <div>{fileInner?.attributes?.name}</div>
+                        <div>{fileInner?.name}</div>
 
                         {/* File properties */}
                         <div className="mt-2 flex items-center justify-center gap-x-3 lg:justify-start">
-                          <span>{getFileSize(fileInner?.attributes?.size, i18n.language)}</span>
+                          <span>{getFileSize(fileInner?.size, i18n.language)}</span>
                           <span className="lg:hidden">&bull;</span>
                           <span className="lg:hidden">
-                            {firstItem?.attributes?.ext?.toUpperCase().replace('.', '') ?? ''}
+                            {firstItem?.ext?.toUpperCase().replace('.', '') ?? ''}
                           </span>
                         </div>
                       </div>
@@ -159,7 +160,7 @@ const AssetPage = ({ entity }: IProps) => {
                       {/* Download button */}
                       <div className="my-6 flex w-full flex-col items-center lg:w-auto">
                         <Button
-                          href={fileInner?.attributes?.url || ''}
+                          href={fileInner?.url || ''}
                           target="_blank"
                           rel="noreferrer"
                           mobileFullWidth

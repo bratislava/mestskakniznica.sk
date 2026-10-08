@@ -30,7 +30,7 @@ const Page = ({ blogPost, general }: PageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      <DefaultPageLayout title={blogPost.attributes?.title} seo={blogPost.attributes?.seo}>
+      <DefaultPageLayout title={blogPost?.title} seo={blogPost?.seo}>
         <BlogPostPage blogPost={blogPost} />
       </DefaultPageLayout>
     </GeneralContextProvider>
@@ -49,18 +49,18 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   )
 
   const entities = pathArraysForLocales
-    .flatMap(({ blogPosts }) => blogPosts?.data || [])
+    .flatMap(({ blogPosts }) => blogPosts || [])
     .filter(isDefined)
 
   if (entities) {
     paths = entities
       .filter(isDefined)
-      .filter((entity) => entity?.attributes?.slug)
+      .filter((entity) => entity?.slug)
       .map((entity) => ({
         params: {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          slug: entity.attributes!.slug,
-          locale: entity.attributes?.locale || '',
+          slug: entity.slug,
+          locale: entity?.locale || '',
         },
       }))
   }
@@ -82,7 +82,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   console.log(`Revalidating ${locale} blog posts ${slug}`)
 
   const { blogPosts } = await client.BlogPostBySlug({ slug, locale })
-  const blogPost = blogPosts?.data[0] ?? null
+  const blogPost = blogPosts[0] ?? null
   if (!blogPost) {
     return NOT_FOUND
   }
@@ -100,7 +100,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
         slug,
       },
       currentEntityLocalizations: localizations,
-      breadcrumbsTitle: blogPost.attributes?.title,
+      breadcrumbsTitle: blogPost?.title,
     }),
   ])
 

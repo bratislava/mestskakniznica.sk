@@ -31,9 +31,9 @@ const Page = ({ notice, general }: NoticePageProps) => {
   return (
     <GeneralContextProvider general={general}>
       <DefaultPageLayout
-        title={notice.attributes?.title}
-        seo={notice.attributes?.seo}
-        defaultMetaDescription={notice.attributes?.body}
+        title={notice?.title}
+        seo={notice?.seo}
+        defaultMetaDescription={notice?.body}
       >
         <NoticePage notice={notice} />
       </DefaultPageLayout>
@@ -54,18 +54,18 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   )
 
   const entities = pathArraysForLocales
-    .flatMap(({ notices }) => notices?.data || [])
+    .flatMap(({ notices }) => notices || [])
     .filter(isDefined)
 
   if (entities) {
     paths = entities
       .filter(isDefined)
-      .filter((entity) => entity?.attributes?.slug)
+      .filter((entity) => entity?.slug)
       .map((entity) => ({
         params: {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          slug: entity.attributes!.slug,
-          locale: entity.attributes?.locale || '',
+          slug: entity.slug,
+          locale: entity?.locale || '',
         },
       }))
   }
@@ -87,7 +87,7 @@ export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = asy
   console.log(`Revalidating ${locale} notice ${slug}`)
 
   const { notices } = await client.NoticeBySlug({ slug, locale })
-  const notice = notices?.data[0] ?? null
+  const notice = notices[0] ?? null
   if (!notice) {
     return NOT_FOUND
   }
@@ -105,7 +105,7 @@ export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = asy
         slug,
       },
       currentEntityLocalizations: localizations,
-      breadcrumbsTitle: notice.attributes?.title,
+      breadcrumbsTitle: notice?.title,
     }),
   ])
 

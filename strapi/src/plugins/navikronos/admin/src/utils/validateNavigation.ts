@@ -25,7 +25,7 @@ export type NavigationTreeError =
   | {
       type: "nonexistentEntryRouteEntry";
       uid: string;
-      id: number;
+      id: string;
     }
   | {
       type: "duplicateContentTypeRoute";
@@ -38,7 +38,7 @@ export type NavigationTreeError =
   | {
       type: "duplicateEntryRoute";
       uid: string;
-      id: number;
+      id: string;
     };
 
 /**
@@ -60,25 +60,25 @@ export const validateNavigation = (
     ...errors,
     ...duplicates.static.map(
       (id) =>
-        ({
+        (({
           type: "duplicateStaticRoute",
-          id,
-        }) as NavigationTreeError,
+          id
+        }) as NavigationTreeError),
     ),
     ...duplicates.entry.map(
       ([uid, id]) =>
-        ({
+        (({
           type: "duplicateEntryRoute",
           uid,
-          id,
-        }) as NavigationTreeError,
+          id
+        }) as NavigationTreeError),
     ),
     ...duplicates.contentType.map(
       (uid) =>
-        ({
+        (({
           type: "duplicateContentTypeRoute",
-          uid,
-        }) as NavigationTreeError,
+          uid
+        }) as NavigationTreeError),
     ),
   ];
 };
@@ -158,11 +158,11 @@ const checkForErrorsInner = (
 const checkForDuplicatesInner = (
   navigation: NavikronosNavigation | undefined,
   locale: string,
-  entrySet: [string, number][] = [],
+  entrySet: [string, string][] = [],
   staticSet = new Set<string>(),
   contentTypeSet = new Set<string>(),
   duplicates: {
-    entry: [string, number][];
+    entry: [string, string][];
     contentType: string[];
     static: string[];
   } = {
@@ -177,10 +177,7 @@ const checkForDuplicatesInner = (
 
   navigation.forEach((route) => {
     if (route.type === "entry") {
-      const setValue = [route.contentTypeUid, route.entryId] as [
-        string,
-        number,
-      ];
+      const setValue = [route.contentTypeUid, route.entryId] as [string, string];
       if (entrySet.find((entry) => isEqual(setValue, entry))) {
         duplicates.entry.push(setValue);
       } else {

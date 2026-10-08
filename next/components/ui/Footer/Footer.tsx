@@ -34,7 +34,7 @@ const FooterLinks = ({
       {footerLink?.filter(isDefined).map((link) => (
         <MLink
           key={link.id}
-          href={link.otherSite || getPathForStrapiEntity(link.redirectTo?.data) || '#'}
+          href={link.otherSite || getPathForStrapiEntity(link.redirectTo) || '#'}
           variant="basic"
           className="text-base text-foreground-body"
         >

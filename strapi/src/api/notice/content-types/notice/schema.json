@@ -70,16 +70,6 @@
       },
       "type": "boolean"
     },
-    "documents": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "sections.documents"
-    },
     "seo": {
       "type": "component",
       "repeatable": false,
