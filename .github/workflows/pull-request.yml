@@ -1,0 +1,48 @@
+name: Pull Request
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Fast gate on public runners, ahead of the self-hosted image builds below.
+  checks:
+    name: Lint Next
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: next
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24.16.0
+          cache: npm
+          cache-dependency-path: next/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+
+  # Both images are built with the real production target and never pushed, so
+  # a PR fails on anything that would break the deploy build - including type
+  # errors, which `next build` reports.
+  build-next:
+    name: Build Next
+    needs: checks
+    uses: ./.github/workflows/build-next.yml
+    secrets: inherit
+    with:
+      directory: next/
+      image: harbor.bratislava.sk/standalone/city-library-next
+
+  build-strapi:
+    name: Build Strapi
+    needs: checks
+    uses: ./.github/workflows/build-single-image.yml
+    secrets: inherit
+    with:
+      directory: strapi/
+      image: harbor.bratislava.sk/standalone/city-library-strapi
