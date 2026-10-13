@@ -4,7 +4,7 @@ import { GetServerSideProps } from 'next'
 import { SSRConfig } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
-import DocumentPage from '@/components/pages/DocumentPage'
+import AssetPage from '@/components/pages/AssetPage'
 import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
 import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { DisclosureEntityFragment, GeneralQuery } from '@/services/graphql'
@@ -23,7 +23,7 @@ type PageProps = {
 const Page = ({ disclosure, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
-      <DocumentPage entity={disclosure} />
+      <AssetPage entity={disclosure} />
     </GeneralContextProvider>
   )
 }

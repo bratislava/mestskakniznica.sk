@@ -29,12 +29,6 @@ export const navikronosConfig = {
       pathAttribute: 'slug' as const,
       rewrite: (slug) => `/branch/${slug}`,
     },
-    'api::document.document': {
-      alias: 'document' as const,
-      strapiTypename: 'DocumentEntity' as const,
-      pathAttribute: 'slug' as const,
-      rewrite: (slug) => `/document/${slug}`,
-    },
     'api::asset.asset': {
       alias: 'asset' as const,
       strapiTypename: 'AssetEntity' as const,

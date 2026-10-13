@@ -61,9 +61,6 @@ fragment EventEntity on EventEntity {
         }
       }
     }
-    documents {
-      ...DocumentsSection
-    }
     assets {
       ...AssetsSection
     }

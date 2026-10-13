@@ -5,7 +5,7 @@ import EventDetailPlaceholder from '@/assets/images/event-detail-placeholder.jpg
 import EventDetailsDateBox from '@/components/Atoms/EventDetailsDateBox'
 import DetailsRow from '@/components/Atoms/EventDetailsRow'
 import TagsDisplay from '@/components/Atoms/TagsDisplay'
-import { Documents } from '@/components/ui'
+import { Assets } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import ImageGallery from '@/modules/common/ImageGallery/ImageGallery'
 import ShareBlock from '@/modules/common/ShareBlock/ShareBlock'
@@ -92,13 +92,13 @@ const EventDetails = ({ event }: PageProps) => {
               </div>
             ) : null}
           </div>
-          {event?.attributes?.documents && (
-            <Documents
+          {event?.attributes?.assets && (
+            <Assets
               className="mt-8"
-              title={event.attributes.documents.title}
-              documents={[
-                ...(event.attributes.documents.documents?.data.filter(isDefined) ?? []),
-                ...(event.attributes.documents.disclosures?.data.filter(isDefined) ?? []),
+              title={event.attributes.assets.title}
+              assets={[
+                ...(event.attributes.assets.assets?.data.filter(isDefined) ?? []),
+                ...(event.attributes.assets.disclosures?.data.filter(isDefined) ?? []),
               ]}
             />
           )}

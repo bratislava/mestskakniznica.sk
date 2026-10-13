@@ -494,7 +494,7 @@ export interface SectionsAccordion extends Schema.Component {
 export interface SectionsAssets extends Schema.Component {
   collectionName: 'components_sections_assets'
   info: {
-    displayName: 'Dokumenty (v pr\u00EDprave)'
+    displayName: 'Dokumenty'
   }
   attributes: {
     assets: Attribute.Relation<'sections.assets', 'oneToMany', 'api::asset.asset'>
@@ -511,7 +511,7 @@ export interface SectionsAssets extends Schema.Component {
 export interface SectionsAssetsListing extends Schema.Component {
   collectionName: 'components_sections_assets_listing'
   info: {
-    displayName: '(V pr\u00EDprave) Listing: Dokumenty a Zverej\u0148ovanie'
+    displayName: 'Listing: Dokumenty a Zverej\u0148ovanie'
   }
   attributes: {}
 }
@@ -572,7 +572,7 @@ export interface SectionsDocuments extends Schema.Component {
   collectionName: 'components_sections_documents'
   info: {
     description: ''
-    displayName: 'Dokumenty'
+    displayName: 'Dokumenty (star\u00E9 - nepou\u017E\u00EDva\u0165)'
   }
   attributes: {
     basicDocuments: Attribute.Relation<
@@ -589,7 +589,7 @@ export interface SectionsDocuments extends Schema.Component {
 export interface SectionsDocumentsListing extends Schema.Component {
   collectionName: 'components_sections_documents_listing'
   info: {
-    displayName: 'Listing: Dokumenty a Zverej\u0148ovanie'
+    displayName: 'Listing: Dokumenty a Zverej\u0148ovanie (star\u00E9 - nepou\u017E\u00EDva\u0165)'
   }
   attributes: {}
 }

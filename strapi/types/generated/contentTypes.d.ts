@@ -305,7 +305,7 @@ export interface ApiAssetCategoryAssetCategory extends Schema.CollectionType {
   collectionName: 'asset_categories'
   info: {
     description: ''
-    displayName: 'Dokumenty (v pr\u00EDprave): Kateg\u00F3rie'
+    displayName: 'Dokumenty: Kateg\u00F3rie'
     pluralName: 'asset-categories'
     singularName: 'asset-category'
   }
@@ -333,7 +333,7 @@ export interface ApiAssetAsset extends Schema.CollectionType {
   collectionName: 'assets'
   info: {
     description: ''
-    displayName: 'Dokumenty (v pr\u00EDprave)'
+    displayName: 'Dokumenty'
     pluralName: 'assets'
     singularName: 'asset'
   }
@@ -686,7 +686,7 @@ export interface ApiDocumentCategoryDocumentCategory extends Schema.CollectionTy
   collectionName: 'document_categories'
   info: {
     description: ''
-    displayName: 'Dokumenty: Kateg\u00F3rie'
+    displayName: 'Dokumenty: Kateg\u00F3rie (star\u00E9 - nepou\u017E\u00EDva\u0165)'
     pluralName: 'document-categories'
     singularName: 'document-category'
   }
@@ -722,7 +722,7 @@ export interface ApiDocumentDocument extends Schema.CollectionType {
   collectionName: 'documents'
   info: {
     description: ''
-    displayName: 'Dokumenty'
+    displayName: 'Dokumenty (star\u00E9 - nepou\u017E\u00EDva\u0165)'
     pluralName: 'documents'
     singularName: 'document'
   }
