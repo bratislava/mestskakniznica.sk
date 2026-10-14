@@ -13,7 +13,7 @@ const GalleryBannerSection = ({ section }: GalleryBannerSectionProps) => {
     <>
       {section && (
         <ImageGallery
-          images={section.Gallery?.map((item) => item?.Photo?.data).filter(isDefined) ?? []}
+          images={section.Gallery?.map((item) => item?.Photo).filter(isDefined) ?? []}
           variant="below"
         />
       )}

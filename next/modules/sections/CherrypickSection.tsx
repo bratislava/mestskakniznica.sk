@@ -11,15 +11,15 @@ const CherrypickSection = ({ section }: CherrypickSectionProps) => {
   const { getPathForStrapiEntity } = useNavikronos()
 
   const listingChildren =
-    section.pages?.data
+    section.pages
       ?.map((page) => {
         const path = getPathForStrapiEntity(page)
-        if (!page.attributes || !path) {
+        if (!page || !path) {
           return null
         }
 
         return {
-          title: page.attributes.title,
+          title: page.title,
           path,
         }
       })

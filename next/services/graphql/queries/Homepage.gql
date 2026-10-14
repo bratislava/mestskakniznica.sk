@@ -2,9 +2,7 @@ fragment HomepageFaqSection on ComponentHomepageFaqSection {
   id
   title
   redirectTo {
-    data {
-      ...PageWithBaseFieldsEntity
-    }
+    ...PageWithBaseFieldsEntity
   }
   faqs(pagination: { limit: -1 }) {
     id
@@ -15,9 +13,7 @@ fragment HomepageFaqSection on ComponentHomepageFaqSection {
     id
     title
     ctaRedirectTo {
-      data {
-        ...PageWithBaseFieldsEntity
-      }
+      ...PageWithBaseFieldsEntity
     }
   }
 }
@@ -27,9 +23,7 @@ fragment HomepageMapSection on ComponentSectionsMap {
   title
   branches {
     branch {
-      data {
-        ...BranchCardEntity
-      }
+      ...BranchCardEntity
     }
   }
 }
@@ -39,9 +33,7 @@ fragment HomepageRegistrationInfo on ComponentHomepageRegistrationInfo {
   title
   description
   redirectTo {
-    data {
-      ...PageWithBaseFieldsEntity
-    }
+    ...PageWithBaseFieldsEntity
   }
   registrationBenefits {
     id
@@ -53,56 +45,42 @@ fragment HomepageNewsSection on ComponentHomepageNewsSection {
   id
   title
   redirectTo {
-    data {
-      ...PageWithBaseFieldsEntity
-    }
+    ...PageWithBaseFieldsEntity
   }
 }
 
 fragment HomepagePromotedContentSection on ComponentHomepagePromotedContent {
   id
   events {
-    data {
-      ...EventCardEntity
-    }
+    ...EventCardEntity
   }
   notices {
-    data {
-      ...NoticeListingEntity
-    }
+    ...NoticeListingEntity
   }
 }
 
 query HomePage($locale: I18NLocaleCode!) {
   homePage(locale: $locale) {
-    data {
-      attributes {
-        faqSection {
-          ...HomepageFaqSection
-        }
-        registrationInfoSection {
-          ...HomepageRegistrationInfo
-        }
-        newsSection {
-          ...HomepageNewsSection
-        }
-        mapSection {
-          ...HomepageMapSection
-        }
-        promotedContent {
-          ...HomepagePromotedContentSection
-        }
-        localizations {
-          data {
-            attributes {
-              locale
-            }
-          }
-        }
-        seo {
-          ...Seo
-        }
-      }
+    faqSection {
+      ...HomepageFaqSection
+    }
+    registrationInfoSection {
+      ...HomepageRegistrationInfo
+    }
+    newsSection {
+      ...HomepageNewsSection
+    }
+    mapSection {
+      ...HomepageMapSection
+    }
+    promotedContent {
+      ...HomepagePromotedContentSection
+    }
+    localizations {
+      locale
+    }
+    seo {
+      ...Seo
     }
   }
   promotedNews: notices(
@@ -110,23 +88,17 @@ query HomePage($locale: I18NLocaleCode!) {
     sort: "publishedAt:desc"
     filters: { promoted: { eq: true } }
   ) {
-    data {
-      ...NoticeListingEntity
-    }
+    ...NoticeListingEntity
   }
   promotedEvents: events(
     locale: $locale
     sort: "dateFrom:asc"
     filters: { promoted: { eq: true } }
   ) {
-    data {
-      ...EventCardEntity
-    }
+    ...EventCardEntity
   }
   ...LatestNoticesQuery
   bookTags(pagination: { limit: -1 }) {
-    data {
-      ...BookTagEntity
-    }
+    ...BookTagEntity
   }
 }

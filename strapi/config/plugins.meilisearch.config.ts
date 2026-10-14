@@ -10,7 +10,8 @@ const wrapSearchIndexEntry = (type, data, commonAttributes?) => {
 
   return {
     type,
-    id: data.id, // must be present to work correctly
+    id: data.id, // must be present to work correctly (Meilisearch primary key)
+    documentId: data.documentId, // Strapi 5 public identifier, used to build links
     locale: data.locale,
     // [type] is used instead of "data", to avoid  naming clashes of filterable / sortable / searchable attributes
     [type]: newData,
@@ -34,9 +35,6 @@ const searchIndexSettings = {
     // Blog post
     'blog-post.title',
     'blog-post.seo.keywords',
-    // Documents
-    'document.title',
-    'document.description',
     // Assets
     'asset.title',
     'asset.description',
@@ -63,19 +61,17 @@ const searchIndexSettings = {
     // Page + Event`
     'locale',
     // Basic document
-    'basic-document.file_category.id',
-    // Document
-    'document.documentCategory.id',
+    'basic-document.file_category.documentId',
     // Asset
-    'asset.assetCategory.id',
+    'asset.assetCategory.documentId',
     // Disclosure
     'disclosure.type',
     // Event
     'event.dateFromTimestamp',
     'event.dateToTimestamp',
     'event.eventTagsIds',
-    'event.eventCategory.id',
-    'event.branch.id',
+    'event.eventCategory.documentId',
+    'event.branch.documentId',
     'event.locale',
   ],
   sortableAttributes: [
@@ -83,7 +79,7 @@ const searchIndexSettings = {
     'basic-document.date_added',
     // Event
     'event.dateFromTimestamp',
-    // Document, Disclosure, Asset
+    // Disclosure, Asset
     'commonAttributes.addedAtTimestamp',
   ],
   pagination: {
@@ -99,7 +95,7 @@ const config = {
   page: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('page', entry),
@@ -109,24 +105,6 @@ const config = {
     indexName: 'search_index',
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('blog-post', entry),
-  },
-
-  document: {
-    indexName: 'search_index',
-    settings: searchIndexSettings,
-    transformEntry: ({ entry }) =>
-      wrapSearchIndexEntry(
-        'document',
-        {
-          ...entry,
-        },
-        {
-          // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
-          // use (number) filters.
-          // Transforming publishedAt to addedAtTimestamp to be able to use the same sort as for Disclosures.
-          addedAtTimestamp: entry.publishedAt ? new Date(entry.publishedAt).getTime() : undefined,
-        }
-      ),
   },
 
   asset: {
@@ -167,7 +145,7 @@ const config = {
   event: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) =>
@@ -179,14 +157,14 @@ const config = {
         dateToTimestamp: entry.dateTo ? new Date(entry.dateTo).getTime() : undefined,
         // It is not possible to filter nested object in arrays in Meilisearch, so we map it to a basic array with
         // string values.
-        eventTagsIds: (entry.eventTags ?? []).map(({ id }) => id),
+        eventTagsIds: (entry.eventTags ?? []).map(({ documentId }) => documentId),
       }),
   },
 
   notice: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('notice', entry),
@@ -195,7 +173,7 @@ const config = {
   branch: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('branch', entry),

@@ -22,48 +22,38 @@ export interface PageProps {
 const EventDetails = ({ event }: PageProps) => {
   const { t } = useTranslation()
 
-  const eventBranch = event?.attributes?.branch?.data?.attributes
-  const filteredImages = event?.attributes?.gallery?.data?.filter(isDefined) ?? []
+  const eventBranch = event?.branch
+  const filteredImages = event?.gallery?.filter(isDefined) ?? []
 
   return (
     <>
       <StrapiImage
-        image={
-          event?.attributes?.coverImage?.data?.attributes ||
-          getImagePlaceholder(EventDetailPlaceholder)
-        }
+        image={event?.coverImage || getImagePlaceholder(EventDetailPlaceholder)}
         alt="" // Empty alt on purpose
         className="w-full object-cover md:h-75 lg:h-[400px]"
         // By providing unique key to cover image, we prevent displaying other event's image while loading the currently displayed event's image
-        key={event?.attributes?.slug}
+        key={event?.slug}
       />
 
       <div className="block grid-cols-9 gap-x-16 pt-10 lg:grid">
         <div className="col-span-1 hidden size-27 bg-promo-yellow text-center lg:flex">
           <EventDetailsDateBox
-            dateFrom={event?.attributes?.dateFrom}
-            dateTo={event?.attributes?.dateTo}
+            dateFrom={event?.dateFrom}
+            dateTo={event?.dateTo}
             textClassname="text-h3"
           />
         </div>
         <div className="col-span-5">
           <div className="text-sm">
             <TagsDisplay
-              tags={
-                event?.attributes?.eventTags?.data
-                  .map((eventTagEntity) => eventTagEntity.attributes)
-                  .filter(isDefined) || []
-              }
-              category={event?.attributes?.eventCategory?.data?.attributes?.title || ''}
+              tags={event?.eventTags.filter(isDefined) ?? []}
+              category={event?.eventCategory?.title || ''}
               tagsCount={5}
             />
           </div>
-          <h1 className="py-3 text-h1 lg:text-h2">{event?.attributes?.title}</h1>
+          <h1 className="py-3 text-h1 lg:text-h2">{event?.title}</h1>
           <div className="text-sm text-foreground-body">
-            <FormatEventDateRange
-              dateFrom={event?.attributes?.dateFrom}
-              dateTo={event?.attributes?.dateTo}
-            />
+            <FormatEventDateRange dateFrom={event?.dateFrom} dateTo={event?.dateTo} />
           </div>
         </div>
         {/* TODO validate this - what is event reservation and is it used ? */}
@@ -84,7 +74,7 @@ const EventDetails = ({ event }: PageProps) => {
           <div className="mt-8 border-b border-border-dark pb-10 lg:mt-0">
             <div className="text-[24px]">{t('eventDetails.description')}</div>
             <div className="pt-5">
-              <RichText content={event?.attributes?.description ?? ''} />
+              <RichText content={event?.description ?? ''} />
             </div>
             {filteredImages.length > 0 ? (
               <div className="pt-5">
@@ -92,22 +82,22 @@ const EventDetails = ({ event }: PageProps) => {
               </div>
             ) : null}
           </div>
-          {event?.attributes?.assets && (
+          {event?.assets && (
             <Assets
               className="mt-8"
-              title={event.attributes.assets.title}
+              title={event.assets.title}
               assets={[
-                ...(event.attributes.assets.assets?.data.filter(isDefined) ?? []),
-                ...(event.attributes.assets.disclosures?.data.filter(isDefined) ?? []),
+                ...(event.assets.assets.filter(isDefined) ?? []),
+                ...(event.assets.disclosures.filter(isDefined) ?? []),
               ]}
             />
           )}
-          {(event?.attributes?.guests?.length || 0) > 0 && (
+          {(event?.guests?.length || 0) > 0 && (
             <div className="border-b border-border-dark py-10">
               <div className="text-[24px]">{t('eventDetails.eventGuests')}</div>
               <div className="grid grid-cols-3 pt-5">
-                {event?.attributes?.guests?.map((guest) => {
-                  const avatar = guest?.avatar?.data?.attributes
+                {event?.guests?.map((guest) => {
+                  const avatar = guest?.avatar
 
                   return (
                     <div key={guest?.id} className="flex pr-[24px]">
@@ -163,10 +153,7 @@ const EventDetails = ({ event }: PageProps) => {
                     classWrapper="flex"
                     svgIcon={<CalendarIcon />}
                     text={
-                      <FormatEventDateRange
-                        dateFrom={event?.attributes?.dateFrom}
-                        dateTo={event?.attributes?.dateTo}
-                      />
+                      <FormatEventDateRange dateFrom={event?.dateFrom} dateTo={event?.dateTo} />
                     }
                   />
                 </div>
@@ -195,9 +182,9 @@ const EventDetails = ({ event }: PageProps) => {
                   classWrapper="flex pt-5"
                   svgIcon={<EuroIcon />}
                   text={
-                    !event?.attributes?.price || event?.attributes?.price === 0
+                    !event?.price || event?.price === 0
                       ? t('eventDetails.noCharge').toString()
-                      : event?.attributes?.price?.toString() || ''
+                      : event?.price?.toString() || ''
                   }
                 />
               </div>

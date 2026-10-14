@@ -32,7 +32,7 @@ import { client } from '@/services/graphql/gql'
 import { newBooksHomePageServerSideFetcher } from '@/services/opac/fetchers/new-books-server-side.fetcher'
 import { NOT_FOUND } from '@/utils/consts'
 import { GeneralContextProvider } from '@/utils/generalContext'
-import { hasAttributes, isDefined } from '@/utils/isDefined'
+import { isDefined } from '@/utils/isDefined'
 import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 
 type HomeProps = {
@@ -69,10 +69,10 @@ export const Index = ({
   const { t } = useTranslation()
 
   const mergedPromotedContent = [
-    ...(promotedContent?.notices?.data ?? []),
-    ...(promotedContent?.events?.data ?? []),
+    ...(promotedContent?.notices ?? []),
+    ...(promotedContent?.events ?? []),
     ...promos,
-  ]
+  ].filter(isDefined)
 
   return (
     <GeneralContextProvider general={general}>
@@ -103,7 +103,7 @@ export const Index = ({
             <MapSection
               mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_KEY || ''}
               branches={
-                mapSection.branches?.map((branch) => branch?.branch?.data).filter(isDefined) ?? []
+                mapSection.branches?.map((branch) => branch?.branch).filter(isDefined) ?? []
               }
             />
           </SectionContainer>
@@ -141,17 +141,17 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   return {
     props: {
-      localizations: homePage?.data?.attributes?.localizations?.data ?? null,
-      promos: [...(promotedNews?.data ?? []), ...(promotedEvents?.data ?? [])],
-      latestNotices: latestNotices?.data?.filter(hasAttributes) ?? [],
+      localizations: homePage?.localizations ?? null,
+      promos: [...(promotedNews ?? []), ...(promotedEvents ?? [])].filter(isDefined),
+      latestNotices: latestNotices?.filter(isDefined) ?? [],
       newBooks,
-      faqSection: homePage?.data?.attributes?.faqSection ?? null,
-      newsSection: homePage?.data?.attributes?.newsSection ?? null,
-      registrationInfoSection: homePage?.data?.attributes?.registrationInfoSection ?? null,
-      bookTags: bookTags?.data?.filter(hasAttributes) ?? [],
-      mapSection: homePage?.data?.attributes?.mapSection ?? null,
-      seo: homePage?.data?.attributes?.seo ?? null,
-      promotedContent: homePage?.data?.attributes?.promotedContent ?? null,
+      faqSection: homePage?.faqSection ?? null,
+      newsSection: homePage?.newsSection ?? null,
+      registrationInfoSection: homePage?.registrationInfoSection ?? null,
+      bookTags: bookTags?.filter(isDefined) ?? [],
+      mapSection: homePage?.mapSection ?? null,
+      seo: homePage?.seo ?? null,
+      promotedContent: homePage?.promotedContent ?? null,
       general,
       navikronosStaticProps,
       ...translations,

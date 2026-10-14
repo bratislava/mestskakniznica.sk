@@ -1,7 +1,7 @@
-import { IStrapi } from "strapi-typed";
+import { Core } from '@strapi/strapi'
 import { AdminService } from "../../shared/types";
 
-export default ({ strapi }: { strapi: IStrapi }) => {
+export default ({ strapi }: { strapi: Core.Strapi }) => {
   const getService = () =>
     strapi.plugin("navikronos").service("admin") as AdminService;
 

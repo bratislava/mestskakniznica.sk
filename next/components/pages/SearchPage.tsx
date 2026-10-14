@@ -170,9 +170,9 @@ const SearchPage = () => {
               </motion.div>
             ) : (
               <ul ref={resultsRef} className="-mb-3 flex flex-col pb-3">
-                {data?.hits.map(({ title, type, id, slug }, index) => {
+                {data?.hits.map(({ title, type, documentId, slug }, index) => {
                   const link = getPathForEntity(
-                    type === 'page' ? { type, id: String(id) } : { type, slug },
+                    type === 'page' ? { type, id: documentId } : { type, slug },
                   )
 
                   return (

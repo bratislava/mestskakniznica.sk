@@ -5,9 +5,7 @@ query SortedPartners($locale: I18NLocaleCode!) {
     filters: { featured: { eq: true } }
     sort: "priority:asc"
   ) {
-    data {
-      ...PartnerEntity
-    }
+    ...PartnerEntity
   }
   notFeaturedPartners: partners(
     locale: $locale
@@ -15,27 +13,19 @@ query SortedPartners($locale: I18NLocaleCode!) {
     filters: { featured: { eq: false } }
     sort: "priority:asc"
   ) {
-    data {
-      ...PartnerEntity
-    }
+    ...PartnerEntity
   }
 }
 
-fragment PartnerEntity on PartnerEntity {
-  id
-  attributes {
-    title
+fragment PartnerEntity on Partner {
+  documentId
+  title
+  url
+  logo {
+    documentId
     url
-    logo {
-      data {
-        id
-        attributes {
-          url
-          alternativeText
-        }
-      }
-    }
-    priority
-    featured
+    alternativeText
   }
+  priority
+  featured
 }

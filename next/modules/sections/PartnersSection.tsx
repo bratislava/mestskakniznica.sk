@@ -16,16 +16,16 @@ const PartnersSection = () => {
 
   return (
     <>
-      {data?.featuredPartners && data.featuredPartners.data.length > 0 && (
+      {data?.featuredPartners && data.featuredPartners.length > 0 && (
         <ul className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {data.featuredPartners.data.map((partner, index) => (
+          {data.featuredPartners.map((partner, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <li key={index}>
               <PartnerCardRow
                 id={`featured-partner-${index}`}
-                title={partner?.attributes?.title ?? ''}
-                logo={partner?.attributes?.logo?.data?.attributes?.url ?? ''}
-                linkHref={partner?.attributes?.url ?? '#'}
+                title={partner?.title ?? ''}
+                logo={partner?.logo?.url ?? ''}
+                linkHref={partner?.url ?? '#'}
                 featured
               />
             </li>
@@ -33,15 +33,15 @@ const PartnersSection = () => {
         </ul>
       )}
 
-      {data?.notFeaturedPartners && data.notFeaturedPartners.data.length > 0 && (
+      {data?.notFeaturedPartners && data.notFeaturedPartners.length > 0 && (
         <ul className="mt-12 flex flex-col lg:space-y-3">
-          {data.notFeaturedPartners.data.map((partner, index) => (
+          {data.notFeaturedPartners.map((partner, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <li key={index}>
               <PartnerCardRow
                 id={`non-featured-partner-${index}`}
-                title={partner?.attributes?.title || ''}
-                linkHref={partner?.attributes?.url || ''}
+                title={partner?.title || ''}
+                linkHref={partner?.url || ''}
               />
             </li>
           ))}

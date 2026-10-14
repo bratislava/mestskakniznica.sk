@@ -16,7 +16,7 @@ export interface BlogPostPageProps {
 const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
   const { t } = useTranslation()
 
-  const coverMedia = blogPost?.attributes?.coverMedia?.data?.attributes
+  const coverMedia = blogPost?.coverMedia
   const mediaType = coverMedia?.mime?.split('/')[0] ?? ''
 
   const { breadcrumbs } = useNavikronos()
@@ -27,10 +27,9 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
         <Breadcrumbs crumbs={breadcrumbs} />
       </SectionContainer>
       <SectionContainer>
-        <PageTitle title={blogPost?.attributes?.title ?? ''} hasDivider={false} />
+        <PageTitle title={blogPost?.title ?? ''} hasDivider={false} />
         <div className="mt-2 text-base text-foreground-body lg:mt-4">
-          {t('common.added')}{' '}
-          <FormatDate valueType="ISO" value={blogPost?.attributes?.publishedAt} />
+          {t('common.added')} <FormatDate valueType="ISO" value={blogPost.createdAt} />
         </div>
 
         {/* Cover Media */}
@@ -49,7 +48,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
         {/* Sections */}
         <div className="flex">
           <div className="mt-10 w-full lg:mx-auto lg:w-8/12">
-            <Sections sections={blogPost?.attributes?.sections?.filter(isDefined) ?? []} />
+            <Sections sections={blogPost?.sections?.filter(isDefined) ?? []} />
           </div>
         </div>
       </SectionContainer>

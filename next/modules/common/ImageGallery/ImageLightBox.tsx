@@ -8,6 +8,7 @@ import Slider from '@/modules/common/ImageGallery/Slider'
 import { ModalProps } from '@/modules/common/Modal_deprecated'
 import StrapiImage from '@/modules/common/StrapiImage'
 import { UploadImageEntityFragment } from '@/services/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 export type ImageLightBoxProps = {
   images: UploadImageEntityFragment[]
@@ -42,26 +43,22 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
         description={t('imageGallery.imageLightBoxDescription')}
         allowKeyboardNavigation={images.length > 1}
         initialPage={initialImageIndex}
-        pages={images
-          .filter((image) => image.attributes)
-          .map(({ id, attributes }) =>
-            attributes ? (
-              <div
-                key={id}
-                className="pointer-events-none container m-auto flex size-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
-              >
-                <StrapiImage
-                  image={attributes}
-                  sizes="100vw"
-                  draggable="false"
-                  className="pointer-events-auto h-auto max-h-[86vh] w-full object-contain select-none"
-                />
-                {attributes.caption !== attributes.name && attributes.caption && (
-                  <div className="mt-4 bg-white px-2.5 py-0.5">{attributes.caption}</div>
-                )}
-              </div>
-            ) : null,
-          )}
+        pages={images.filter(isDefined).map((image) => (
+          <div
+            key={image.documentId}
+            className="pointer-events-none container m-auto flex size-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
+          >
+            <StrapiImage
+              image={image}
+              sizes="100vw"
+              draggable="false"
+              className="pointer-events-auto h-auto max-h-[86vh] w-full object-contain select-none"
+            />
+            {image.caption !== image.name && image.caption && (
+              <div className="mt-4 bg-white px-2.5 py-0.5">{image.caption}</div>
+            )}
+          </div>
+        ))}
         pagination={({ goToPrevious, goToNext }) => (
           <div className="pointer-events-none absolute bottom-0 z-20 container flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
             {images.length > 1 && (

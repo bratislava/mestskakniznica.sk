@@ -158,30 +158,34 @@ const NavigationTreeChild = ({
                 }}
                 label="Move up"
                 disabled={isFirst}
-                icon={<ArrowUp />}
-              />
+              >
+                <ArrowUp />
+              </IconButton>
               <IconButton
                 onClick={() => {
                   moveRouteDown(locationIndexes);
                 }}
                 label="Move down"
                 disabled={isLast}
-                icon={<ArrowDown />}
-              />
+              >
+                <ArrowDown />
+              </IconButton>
               <IconButton
                 onClick={() => {
                   openEditModal(locationIndexes);
                 }}
                 label="Edit"
-                icon={<Pencil />}
-              />
+              >
+                <Pencil />
+              </IconButton>
               <IconButton
                 onClick={() => {
                   removeRoute(locationIndexes);
                 }}
                 label="Remove"
-                icon={<Trash />}
-              />
+              >
+                <Trash />
+              </IconButton>
             </Flex>
           </Flex>
         </CardBody>

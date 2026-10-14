@@ -33,7 +33,8 @@ export type NavikronosClientEmptyRoute = {
 export type NavikronosClientEntryRoute = {
   type: 'entry'
   contentTypeUid: string
-  entryId: number
+  /** Strapi 5 `documentId` of the referenced entry. */
+  entryId: string
 } & NavikronosClientRouteWithTitlePath &
   NavikronosClientRouteWithChildren
 

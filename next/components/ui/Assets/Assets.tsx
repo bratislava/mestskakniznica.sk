@@ -2,7 +2,7 @@ import { FolderIcon } from '@/assets/icons'
 import AssetRow from '@/modules/cards-and-rows/AssetRow'
 import { AssetEntityFragment, DisclosureEntityFragment } from '@/services/graphql'
 import cn from '@/utils/cn'
-import { hasAttributes, isDefined } from '@/utils/isDefined'
+import { isDefined } from '@/utils/isDefined'
 import { useNavikronos } from '@/utils/navikronos'
 
 export interface AssetsProps {
@@ -15,22 +15,18 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
   const { getPathForStrapiEntity } = useNavikronos()
 
   const parsedAssets = assets
-    .filter(hasAttributes)
+    .filter(isDefined)
     .map((asset) => {
-      const { title: assetTitle, file } = asset.attributes
+      const { title: assetTitle, file } = asset
 
       const badgeExt =
-        file?.data.length > 1 ? (
-          <FolderIcon />
-        ) : (
-          (file?.data[0]?.attributes?.ext?.toUpperCase().replace('.', '') ?? '')
-        )
+        file.length > 1 ? <FolderIcon /> : (file[0]?.ext?.toUpperCase().replace('.', '') ?? '')
 
-      if (asset.__typename === 'DisclosureEntity') {
-        const { type, contractor } = asset.attributes
+      if (asset.__typename === 'Disclosure') {
+        const { type, contractor } = asset
 
         return {
-          id: asset.id,
+          id: asset.documentId,
           linkHref: getPathForStrapiEntity(asset),
           content: {
             category: type,
@@ -41,14 +37,14 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
         }
       }
 
-      if (asset.__typename === 'AssetEntity') {
-        const { assetCategory } = asset.attributes
+      if (asset.__typename === 'Asset') {
+        const { assetCategory } = asset
 
         return {
-          id: asset.id,
+          id: asset.documentId,
           linkHref: getPathForStrapiEntity(asset),
           content: {
-            category: assetCategory?.data?.attributes?.label,
+            category: assetCategory?.label,
             title: assetTitle,
             fileExt: badgeExt,
           },

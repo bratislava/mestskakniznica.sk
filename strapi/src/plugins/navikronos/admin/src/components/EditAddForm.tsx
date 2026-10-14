@@ -1,12 +1,14 @@
 import React, { useCallback, useMemo } from "react";
 import {
   Button,
-  Grid,
-  GridItem,
-  ModalBody,
-  ModalFooter,
+  Checkbox,
+  Field,
+  Flex,
+  Modal,
+  SingleSelect,
+  SingleSelectOption,
+  TextInput,
 } from "@strapi/design-system";
-import { GenericInput } from "@strapi/helper-plugin";
 import { useFormik } from "formik";
 import { isEmpty } from "lodash";
 import {
@@ -20,12 +22,13 @@ import {
 import { useConfigDefined } from "../utils/useConfig";
 import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
 import {
+  fieldLabels,
   fixBeforeSubmit,
-  getMetadatas,
   prepareContentTypesOptions,
   prepareEntryRouteContentTypesOptions,
   prepareEntryRouteEntriesOptions,
   prepareStaticRouteIdsOptions,
+  SelectOption,
   typeOptions,
 } from "../utils/editAddFormHelpers";
 
@@ -33,6 +36,59 @@ type EditAddFormProps = {
   initialValues: Partial<NavikronosRoute>;
   onSubmit: (values: Partial<NavikronosRoute>) => void;
 };
+
+type FieldName =
+  | keyof NavikronosContentTypeRoute
+  | keyof NavikronosEmptyRoute
+  | keyof NavikronosEntryRoute
+  | keyof NavikronosStaticRoute
+  | keyof NavikronosListingRoute;
+
+type SelectFieldProps = {
+  name: string;
+  label: string;
+  value?: string | number;
+  error?: string;
+  options?: SelectOption[];
+  onChange: (value: string | number) => void;
+};
+
+const SelectField = ({
+  name,
+  label,
+  value,
+  error,
+  options,
+  onChange,
+}: SelectFieldProps) => (
+  <Field.Root name={name} error={error}>
+    <Field.Label>{label}</Field.Label>
+    <SingleSelect value={value ?? ""} onChange={onChange}>
+      {(options ?? []).map((option) => (
+        <SingleSelectOption key={option.value} value={option.value}>
+          {option.label}
+        </SingleSelectOption>
+      ))}
+    </SingleSelect>
+    <Field.Error />
+  </Field.Root>
+);
+
+type TextFieldProps = {
+  name: string;
+  label: string;
+  value?: string;
+  error?: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+};
+
+const TextField = ({ name, label, value, error, onChange }: TextFieldProps) => (
+  <Field.Root name={name} error={error}>
+    <Field.Label>{label}</Field.Label>
+    <TextInput name={name} value={value ?? ""} onChange={onChange} />
+    <Field.Error />
+  </Field.Root>
+);
 
 const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
   const fixAndSubmit = (values: Partial<NavikronosRoute>) => {
@@ -77,127 +133,114 @@ const EditAddForm = ({ initialValues, onSubmit }: EditAddFormProps) => {
         values as NavikronosRoute,
         locale,
       ),
-    [config, values],
+    [config, values, locale],
   );
 
-  const defaultProps = useCallback(
-    (
-      fieldName:
-        | keyof NavikronosContentTypeRoute
-        | keyof NavikronosEmptyRoute
-        | keyof NavikronosEntryRoute
-        | keyof NavikronosStaticRoute
-        | keyof NavikronosListingRoute,
-    ) => ({
-      intlLabel: getMetadatas(fieldName),
-      onChange: handleChange,
+  // `values` / `errors` are a union over the route types, so a field name valid for one member
+  // isn't indexable on the union itself.
+  const valueOf = (fieldName: FieldName) =>
+    (values as Record<string, unknown>)[fieldName];
+  const errorOf = (fieldName: FieldName) =>
+    (errors as Record<string, string | undefined>)[fieldName];
+
+  const selectProps = useCallback(
+    (fieldName: FieldName) => ({
       name: fieldName,
-      value: values[fieldName],
-      error: errors[fieldName],
+      label: fieldLabels[fieldName] ?? fieldName,
+      value: valueOf(fieldName) as string | number | undefined,
+      error: errorOf(fieldName),
+      onChange: (value: string | number) => setFieldValue(fieldName, value),
+    }),
+    [values, errors, setFieldValue],
+  );
+
+  const textProps = useCallback(
+    (fieldName: FieldName) => ({
+      name: fieldName,
+      label: fieldLabels[fieldName] ?? fieldName,
+      value: valueOf(fieldName) as string | undefined,
+      error: errorOf(fieldName),
+      onChange: handleChange,
     }),
     [values, errors, handleChange],
   );
 
   return (
-    <form>
-      <ModalBody>
-        <Grid gap={5}>
-          <GridItem key="type" col={12}>
-            <GenericInput
-              {...defaultProps("type")}
-              options={typeOptions}
-              type="select"
+    <form onSubmit={handleSubmit}>
+      <Modal.Body>
+        <Flex direction="column" alignItems="stretch" gap={4}>
+          <SelectField {...selectProps("type")} options={typeOptions} />
+
+          {values.type === "static" && (
+            <SelectField
+              {...selectProps("id")}
+              options={staticRouteIdsOptions}
             />
+          )}
 
-            {values.type === "static" && (
-              <GenericInput
-                {...defaultProps("id")}
-                options={staticRouteIdsOptions}
-                type="select"
+          {values.type === "contentType" && (
+            <SelectField
+              {...selectProps("contentTypeUid")}
+              options={contentTypeOptions}
+            />
+          )}
+
+          {values.type === "entry" && (
+            <>
+              <SelectField
+                {...selectProps("contentTypeUid")}
+                options={entryContentTypesOptions}
+                onChange={(value) => {
+                  setFieldValue("contentTypeUid", value);
+                  setFieldValue("entryId", null);
+                }}
               />
-            )}
-
-            {values.type === "contentType" && (
-              <GenericInput
-                {...defaultProps("contentTypeUid")}
-                options={contentTypeOptions}
-                type="select"
+              <SelectField
+                {...selectProps("entryId")}
+                options={entryRouteEntriesOptions}
               />
-            )}
+              <Checkbox
+                name="overrideTitleCheckbox"
+                checked={values.overrideTitle != null}
+                onCheckedChange={(checked) => {
+                  setFieldValue("overrideTitle", checked ? "" : undefined);
+                }}
+              >
+                {fieldLabels.overrideTitle}
+              </Checkbox>
+              {values.overrideTitle != null && (
+                <TextField {...textProps("overrideTitle")} />
+              )}
+              <Checkbox
+                name="overridePathCheckbox"
+                checked={values.overridePath != null}
+                onCheckedChange={(checked) => {
+                  setFieldValue("overridePath", checked ? "" : undefined);
+                }}
+              >
+                {fieldLabels.overridePath}
+              </Checkbox>
+              {values.overridePath != null && (
+                <TextField {...textProps("overridePath")} />
+              )}
+            </>
+          )}
 
-            {values.type === "entry" && (
-              <>
-                <GenericInput
-                  {...defaultProps("contentTypeUid")}
-                  options={entryContentTypesOptions}
-                  type="select"
-                  onChange={(e) => {
-                    setFieldValue("contentTypeUid", e.target.value);
-                    setFieldValue("entryId", null);
-                  }}
-                />
-                <GenericInput
-                  {...defaultProps("entryId")}
-                  options={entryRouteEntriesOptions}
-                  type="select"
-                />
-                <GenericInput
-                  type="checkbox"
-                  value={values.overrideTitle != null}
-                  name="overrideTitleCheckbox"
-                  intlLabel={getMetadatas("Override title")}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "overrideTitle",
-                      e.target.value ? "" : undefined,
-                    );
-                  }}
-                />
-                {values.overrideTitle != null && (
-                  <GenericInput
-                    {...defaultProps("overrideTitle")}
-                    type="text"
-                  />
-                )}
-                <GenericInput
-                  type="checkbox"
-                  value={values.overridePath != null}
-                  name="overridePathCheckbox"
-                  intlLabel={getMetadatas("Override path")}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "overridePath",
-                      e.target.value ? "" : undefined,
-                    );
-                  }}
-                />
-                {values.overridePath != null && (
-                  <GenericInput {...defaultProps("overridePath")} type="text" />
-                )}
-              </>
-            )}
-
-            {(values.type === "empty" ||
-              values.type === "static" ||
-              values.type === "listing") && (
-              <>
-                <GenericInput {...defaultProps("title")} type="text" />
-                <GenericInput {...defaultProps("path")} type="text" />
-              </>
-            )}
-          </GridItem>
-        </Grid>
-      </ModalBody>
-      <ModalFooter
-        endActions={
-          <Button
-            onClick={handleSubmit}
-            disabled={!isEmpty(errors) || isSubmitting}
-          >
-            Save
-          </Button>
-        }
-      />
+          {(values.type === "empty" ||
+            values.type === "static" ||
+            values.type === "listing") && (
+            <>
+              <TextField {...textProps("title")} />
+              <TextField {...textProps("path")} />
+            </>
+          )}
+        </Flex>
+      </Modal.Body>
+      <Modal.Footer justifyContent="flex-end">
+        <Button type="submit" disabled={!isEmpty(errors) || isSubmitting}>
+          Save
+        </Button>
+      </Modal.Footer>
     </form>
   );
 };

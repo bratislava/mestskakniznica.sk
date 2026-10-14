@@ -17,14 +17,14 @@ const RentalSection = ({ section }: RentalSectionProps) => {
       {section.branches?.length ? (
         <div className="grid gap-x-5 gap-y-8 py-9 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {section.branches?.filter(isDefined).map(({ branch, page }) => {
-            const { title, address, slug, listingImage } = branch?.data?.attributes ?? {}
+            const { title, address, slug, listingImage } = branch ?? {}
 
             return (
               <BranchCard
                 address={address || ''}
-                image={listingImage?.data}
+                image={listingImage}
                 title={title || ''}
-                pageId={page?.data?.id}
+                pageId={page?.documentId}
                 key={slug}
               />
             )

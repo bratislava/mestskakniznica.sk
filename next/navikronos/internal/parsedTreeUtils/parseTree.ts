@@ -24,7 +24,7 @@ export type ParsedTreeMaps = {
   staticRoutesPathMap: Map<string, ParsedTreeNode>
   staticRoutesIdMap: Map<string, ParsedTreeNode>
   entryRoutesPathMap: Map<string, ParsedTreeNode>
-  entryRoutesAliasIdMap: ManyKeysMap<[string, number], ParsedTreeNode>
+  entryRoutesAliasIdMap: ManyKeysMap<[string, string], ParsedTreeNode>
   contentTypeRoutesPathMap: Map<string, ParsedTreeNode>
   contentTypeRoutesAliasMap: Map<string, ParsedTreeNode>
 }

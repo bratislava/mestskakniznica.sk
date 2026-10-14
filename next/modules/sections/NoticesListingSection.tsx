@@ -31,22 +31,22 @@ const NoticesListingSection = () => {
 
   return (
     <>
-      {data.notices?.data?.length ? (
+      {data.notices_connection?.nodes?.length ? (
         <div className="m-auto grid items-stretch gap-4 gap-y-10 pt-6 pb-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
-          {data.notices.data?.map((notice) => (
-            <NoticeCard notice={notice} key={notice?.id} />
+          {data.notices_connection.nodes.map((notice) => (
+            <NoticeCard notice={notice} key={notice?.documentId} />
           ))}
         </div>
       ) : null}
-      {data.notices?.meta?.pagination?.total && (
+      {data.notices_connection?.pageInfo?.total ? (
         <div className="m-auto flex w-fit md:mr-0">
           <Pagination
-            max={Math.ceil(data.notices?.meta.pagination.total / filters.pageSize)}
+            max={Math.ceil(data.notices_connection.pageInfo.total / filters.pageSize)}
             value={filters.page}
             onChangeNumber={handlePageChange}
           />
         </div>
-      )}
+      ) : null}
     </>
   )
 }

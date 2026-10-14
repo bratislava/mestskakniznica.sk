@@ -17,7 +17,7 @@ type StaticRoutesConfigKeys<Config extends NavikronosConfig> = keyof StaticRoute
 
 export type StrapiEntryRouteEntity<Config extends NavikronosConfig> =
   EntryRoutesConfigValues<Config> extends { strapiTypename: infer T extends string }
-    ? { __typename: T; id?: string | null | undefined }
+    ? { __typename: T; documentId?: string | null | undefined }
     : never
 
 export type StrapiContentTypeRouteEntity<Config extends NavikronosConfig> =
@@ -25,7 +25,7 @@ export type StrapiContentTypeRouteEntity<Config extends NavikronosConfig> =
     strapiTypename: infer T extends string
     pathAttribute: infer K extends string
   }
-    ? { __typename: T; attributes?: { [_ in K]?: string | null } | null }
+    ? { __typename: T } & { [_ in K]?: string | null }
     : never
 
 export type StrapiEntity<Config extends NavikronosConfig> =
@@ -47,8 +47,7 @@ export type EntryRouteEntity<Config extends NavikronosConfig, NullUndefinedId = 
     ? {
         type: T
         /**
-         * Strapi works with `number` id, but GraphQL returns `string` ids, for easier usage Navikronos accepts the `string`
-         * variation.
+         * Strapi 5 `documentId` of the entry.
          */
         id: NullUndefinedId extends true ? string | null | undefined : string
       }

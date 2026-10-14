@@ -1,135 +1,92 @@
-fragment EventCardEntity on EventEntity {
-  id
+fragment EventCardEntity on Event {
+  documentId
   __typename
-  attributes {
-    slug
-    title
-    description
-    createdAt
-    updatedAt
-    publishedAt
-    locale
-    dateFrom
-    dateTo
-    price
-    eventCategory {
-      data {
-        id
-        attributes {
-          ...EventCategory
-        }
-      }
-    }
-    branch {
-      data {
-        ...EventBranchPlaceEntity
-      }
-    }
-    eventTags {
-      data {
-        id
-        attributes {
-          ...EventTags
-        }
-      }
-    }
-    listingImage {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    coverImage {
-      data {
-        ...UploadImageEntity
-      }
-    }
+  slug
+  title
+  description
+  createdAt
+  updatedAt
+  publishedAt
+  locale
+  dateFrom
+  dateTo
+  price
+  eventCategory {
+    documentId
+    ...EventCategory
+  }
+  branch {
+    ...EventBranchPlaceEntity
+  }
+  eventTags {
+    documentId
+    ...EventTags
+  }
+  listingImage {
+    ...UploadImageEntity
+  }
+  coverImage {
+    ...UploadImageEntity
   }
 }
 
-fragment EventEntity on EventEntity {
+fragment EventEntity on Event {
   ...EventCardEntity
-  attributes {
-    promoted
-    showForm
-    guests {
-      id
-      name
-      surname
-      avatar {
-        data {
-          ...UploadImageEntity
-        }
-      }
+  promoted
+  showForm
+  guests {
+    id
+    name
+    surname
+    avatar {
+      ...UploadImageEntity
     }
-    assets {
-      ...AssetsSection
-    }
-    gallery {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    localizations {
-      data {
-        attributes {
-          slug
-          locale
-        }
-      }
-    }
-    seo {
-      ...Seo
-    }
+  }
+  assets {
+    ...AssetsSection
+  }
+  gallery {
+    ...UploadImageEntity
+  }
+  localizations {
+    slug
+    locale
+  }
+  seo {
+    ...Seo
   }
 }
 
 query EventProperties($locale: I18NLocaleCode!) {
   eventCategories(locale: $locale) {
-    data {
-      id
-      attributes {
-        title
-        createdAt
-        updatedAt
-      }
-    }
+    documentId
+    title
+    createdAt
+    updatedAt
   }
   branches(locale: $locale) {
-    data {
-      id
-      ...BranchPlaceEntity
-    }
+    ...BranchPlaceEntity
   }
   eventTags(locale: $locale) {
-    data {
-      id
-      attributes {
-        title
-        slug
-        createdAt
-        publishedAt
-        updatedAt
-      }
-    }
+    documentId
+    title
+    slug
+    createdAt
+    publishedAt
+    updatedAt
   }
 }
 
 query EventBySlug($slug: String!, $locale: I18NLocaleCode!) {
   events(locale: $locale, filters: { slug: { eq: $slug } }) {
-    data {
-      ...EventEntity
-    }
+    ...EventEntity
   }
 }
 
 # Generating pages for all events takes to long during build time and it is not necessary for old events
 query EventStaticPaths($locale: I18NLocaleCode!) {
   events(locale: $locale, pagination: { limit: 32 }, sort: "dateFrom:desc") {
-    data {
-      attributes {
-        slug
-        locale
-      }
-    }
+    slug
+    locale
   }
 }

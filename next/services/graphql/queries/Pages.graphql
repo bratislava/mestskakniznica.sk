@@ -63,88 +63,70 @@ fragment PageSections on PageSectionsDynamicZone {
   }
 }
 
-fragment PageEntity on PageEntity {
+fragment PageEntity on Page {
   __typename
-  id
-  attributes {
-    slug
-    title
+  documentId
+  slug
+  title
+  createdAt
+  updatedAt
+  publishedAt
+  listingImage {
+    name
+    width
+    height
+    url
     createdAt
+    hash
+    mime
+    provider
+    size
+    alternativeText
     updatedAt
-    publishedAt
-    listingImage {
-      data {
-        attributes {
-          name
-          width
-          height
-          url
-          createdAt
-          hash
-          mime
-          provider
-          size
-          alternativeText
-          updatedAt
-        }
-      }
-    }
-    layout
-    perex
-    sections {
-      ...PageSections
-    }
+  }
+  layout
+  perex
+  sections {
+    ...PageSections
+  }
 
-    locale
-    localizations {
-      data {
-        ...PageLocalizationEntity
-      }
-    }
-    seo {
-      ...Seo
-    }
+  locale
+  localizations {
+    ...PageLocalizationEntity
+  }
+  seo {
+    ...Seo
   }
 }
 
-fragment PageWithBaseFieldsEntity on PageEntity {
+fragment PageWithBaseFieldsEntity on Page {
   __typename
-  id
-  attributes {
-    title
-    slug
-    newSlug
-    createdAt
-    updatedAt
-  }
+  documentId
+  title
+  slug
+  newSlug
+  createdAt
+  updatedAt
 }
 
-fragment PageLocalizationEntity on PageEntity {
+fragment PageLocalizationEntity on Page {
   __typename
-  id
-  attributes {
-    slug
-    locale
-  }
+  documentId
+  slug
+  locale
 }
 
 # strapi returns just the default locale if no locale is provided
 # easiest way to get all static paths is to ask for all locales sequentially
 query PagesStaticPaths($locale: I18NLocaleCode) {
   pages(locale: $locale) {
-    data {
-      id
-      attributes {
-        locale
-      }
-    }
+    documentId
+    locale
   }
 }
 
-query PageById($id: ID!, $locale: I18NLocaleCode!) {
-  pages(filters: { id: { eq: $id } }, locale: $locale) {
-    data {
-      ...PageEntity
-    }
+query PageByDocumentId($documentId: ID!, $locale: I18NLocaleCode!) {
+  page(documentId: $documentId, locale: $locale) {
+    ...PageEntity
   }
 }

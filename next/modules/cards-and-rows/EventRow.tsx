@@ -18,13 +18,13 @@ type EventRowProps = { event: EventCardEntityFragment }
 const EventRow = ({ event }: EventRowProps) => {
   const { getPathForEntity } = useNavikronos()
 
-  if (!event.attributes) {
+  if (!event) {
     return null
   }
 
-  const { branch, dateFrom, dateTo, slug, title } = event.attributes
+  const { branch, dateFrom, dateTo, slug, title } = event
 
-  const eventBranchTitle = branch?.data?.attributes?.title
+  const eventBranchTitle = branch?.title
 
   return (
     <CardWrapper className="relative flex items-center gap-x-5 py-[14px]">

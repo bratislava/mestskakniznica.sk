@@ -29,7 +29,7 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
       url:
         getPathForEntity({
           type: 'page',
-          id: general?.data?.attributes?.openingHoursPage?.data?.id,
+          id: general?.openingHoursPage?.documentId,
         }) ?? '',
     },
     {

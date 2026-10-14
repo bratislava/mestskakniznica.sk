@@ -31,23 +31,23 @@ const BlogPostsListingSection = () => {
   // TODO: Advanced data fetching
   return (
     <>
-      {data.blogPosts?.data?.length ? (
+      {data.blogPosts_connection?.nodes?.length ? (
         <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-5 md:grid-cols-3 md:gap-y-10 lg:grid-cols-4">
-          {data.blogPosts.data.map((blogPost) => (
-            <BlogPostCard key={blogPost.attributes?.slug} blogPost={blogPost} />
+          {data.blogPosts_connection.nodes.map((blogPost) => (
+            <BlogPostCard key={blogPost?.slug} blogPost={blogPost} />
           ))}
         </div>
       ) : null}
 
-      {data.blogPosts?.meta?.pagination?.total && (
+      {data.blogPosts_connection?.pageInfo?.total ? (
         <div className="mt-4 flex justify-end">
           <Pagination
-            max={Math.ceil(data.blogPosts?.meta.pagination.total / filters.pageSize)}
+            max={Math.ceil(data.blogPosts_connection.pageInfo.total / filters.pageSize)}
             value={filters.page}
             onChangeNumber={handlePageChange}
           />
         </div>
-      )}
+      ) : null}
     </>
   )
 }

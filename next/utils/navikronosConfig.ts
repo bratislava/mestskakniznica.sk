@@ -12,44 +12,44 @@ export const navikronosConfig = {
   entryRoutes: {
     'api::page.page': {
       alias: 'page' as const,
-      strapiTypename: 'PageEntity' as const,
-      rewrite: (id) => `/page/${id}`,
+      strapiTypename: 'Page' as const,
+      rewrite: (documentId) => `/page/${documentId}`,
     },
   },
   contentTypeRoutes: {
     'api::notice.notice': {
       alias: 'notice' as const,
-      strapiTypename: 'NoticeEntity' as const,
+      strapiTypename: 'Notice' as const,
       pathAttribute: 'slug' as const,
       rewrite: (slug) => `/notice/${slug}`,
     },
     'api::branch.branch': {
       alias: 'branch' as const,
-      strapiTypename: 'BranchEntity' as const,
+      strapiTypename: 'Branch' as const,
       pathAttribute: 'slug' as const,
       rewrite: (slug) => `/branch/${slug}`,
     },
     'api::asset.asset': {
       alias: 'asset' as const,
-      strapiTypename: 'AssetEntity' as const,
+      strapiTypename: 'Asset' as const,
       pathAttribute: 'slug' as const,
       rewrite: (slug) => `/asset/${slug}`,
     },
     'api::disclosure.disclosure': {
       alias: 'disclosure' as const,
-      strapiTypename: 'DisclosureEntity' as const,
+      strapiTypename: 'Disclosure' as const,
       pathAttribute: 'slug' as const,
       rewrite: (slug) => `/disclosure/${slug}`,
     },
     'api::event.event': {
       alias: 'event' as const,
-      strapiTypename: 'EventEntity' as const,
+      strapiTypename: 'Event' as const,
       pathAttribute: 'slug' as const,
       rewrite: (slug) => `/event/${slug}`,
     },
     'api::blog-post.blog-post': {
       alias: 'blog-post' as const,
-      strapiTypename: 'BlogPostEntity' as const,
+      strapiTypename: 'BlogPost' as const,
       pathAttribute: 'slug' as const,
       rewrite: (slug) => `/blog-post/${slug}`,
     },

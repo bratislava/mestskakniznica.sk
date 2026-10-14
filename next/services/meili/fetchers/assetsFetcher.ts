@@ -38,7 +38,7 @@ export const assetsFetcher = (filters: AssetsFilters) => {
       filter: [
         'type = "asset" OR type = "disclosure"',
         isDefined(filters.assetCategoryId)
-          ? `asset.assetCategory.id = ${filters.assetCategoryId}`
+          ? `asset.assetCategory.documentId = "${filters.assetCategoryId}"`
           : null,
         // Using quotes because disclosureType can contain spaces
         isDefined(filters.disclosureType) ? `disclosure.type = "${filters.disclosureType}"` : null,

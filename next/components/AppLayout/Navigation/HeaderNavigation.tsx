@@ -15,7 +15,7 @@ const HeaderNavigation = () => {
   return (
     <div className="flex flex-wrap text-sm">
       <MLink
-        href={getPathForStrapiEntity(general?.data?.attributes?.openingHoursPage?.data) ?? '#'}
+        href={getPathForStrapiEntity(general?.openingHoursPage) ?? '#'}
         variant="basic"
         // Using `ring-inset` because offset doesn't look appealing in this context
         className="relative grid place-content-center border-l border-border-dark px-3 ring-offset-0 ring-inset"

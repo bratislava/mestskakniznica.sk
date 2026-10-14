@@ -10,12 +10,7 @@ type BranchDetailsWhereProps = {
 const BranchDetailsWhere = ({ branch }: BranchDetailsWhereProps) => {
   const { t } = useTranslation()
 
-  if (!branch?.attributes) {
-    return null
-  }
-
-  const { title, latitude, longitude, address, publicTransportInfo, barrierFreeInfo } =
-    branch.attributes
+  const { title, latitude, longitude, address, publicTransportInfo, barrierFreeInfo } = branch
 
   return (
     <div id="where" className="py-10">

@@ -1,64 +1,46 @@
-import React from "react";
-
-import {
-  Box,
-  Button,
-  Grid,
-  GridItem,
-  Option,
-  Select,
-  Stack,
-} from "@strapi/design-system";
-import { useConfigDefined } from "../utils/useConfig";
-import { useNavigationDataDefined } from "../utils/NavigationDataProvider";
+import { Box, Button, Flex, Grid, SingleSelect, SingleSelectOption } from '@strapi/design-system'
+import { useConfigDefined } from '../utils/useConfig'
+import { useNavigationDataDefined } from '../utils/NavigationDataProvider'
 
 const HomepageActions = () => {
-  const { config } = useConfigDefined();
-  const { saveNavigation, isSaving, locale, setLocale } =
-    useNavigationDataDefined();
+  const { config } = useConfigDefined()
+  const { saveNavigation, isSaving, locale, setLocale } = useNavigationDataDefined()
 
-  const hasLocalizations = config.i18n.enabled;
+  const hasLocalizations = config.i18n.enabled
 
-  const handleLocalizationSelection = (locale: string) => {
-    setLocale(locale);
-  };
+  const handleLocalizationSelection = (locale: string | number) => {
+    setLocale(String(locale))
+  }
 
   return (
-    <Stack horizontal size={2}>
+    <Flex direction="row" gap={2}>
       <Box width="27vw" marginRight="8px">
-        <Grid gap={4}>
+        <Grid.Root gap={4}>
           {hasLocalizations ? (
-            <GridItem col={6}>
-              <Select
-                type="select"
+            <Grid.Item col={6}>
+              <SingleSelect
                 name="navigationLocalizationSelect"
                 onChange={handleLocalizationSelection}
                 value={locale}
                 size="S"
               >
                 {config.i18n?.locales?.map(({ code, name }) => (
-                  <Option key={code} value={code}>
+                  <SingleSelectOption key={code} value={code}>
                     {name}
-                  </Option>
+                  </SingleSelectOption>
                 ))}
-              </Select>
-            </GridItem>
+              </SingleSelect>
+            </Grid.Item>
           ) : null}
-          <GridItem col={3}>
-            <Button
-              onClick={saveNavigation}
-              disabled={isSaving}
-              type="submit"
-              fullWidth
-              size="S"
-            >
+          <Grid.Item col={3}>
+            <Button onClick={saveNavigation} disabled={isSaving} type="submit" fullWidth size="S">
               Save
             </Button>
-          </GridItem>
-        </Grid>
+          </Grid.Item>
+        </Grid.Root>
       </Box>
-    </Stack>
-  );
-};
+    </Flex>
+  )
+}
 
-export default HomepageActions;
+export default HomepageActions

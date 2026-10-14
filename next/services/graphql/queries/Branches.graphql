@@ -1,101 +1,73 @@
-fragment EventBranchPlaceEntity on BranchEntity {
-  id
-  attributes {
-    ...EventBranch
-  }
+fragment EventBranchPlaceEntity on Branch {
+  documentId
+  ...EventBranch
 }
 
-fragment BranchPlaceEntity on BranchEntity {
-  id
-  attributes {
-    ...Branch
-  }
+fragment BranchPlaceEntity on Branch {
+  documentId
+  ...Branch
 }
 
-fragment BranchCardEntity on BranchEntity {
+fragment BranchCardEntity on Branch {
   __typename
-  id
-  attributes {
-    title
-    address
-    slug
-    latitude
-    longitude
-    listingImage {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    subBranches {
-      data {
-        ...BranchPlaceEntity
-      }
-    }
+  documentId
+  title
+  address
+  slug
+  latitude
+  longitude
+  listingImage {
+    ...UploadImageEntity
+  }
+  subBranches {
+    ...BranchPlaceEntity
   }
 }
 
-fragment BranchEntity on BranchEntity {
+fragment BranchEntity on Branch {
   __typename
   ...BranchCardEntity
-  attributes {
-    medias {
-      data {
-        ...UploadImageEntity
-      }
+  medias {
+    ...UploadImageEntity
+  }
+  body
+  publicTransportInfo
+  barrierFreeInfo
+  barrierFreeState
+  phone
+  email
+  openingHours {
+    days {
+      label
+      time
     }
-    body
-    publicTransportInfo
-    barrierFreeInfo
-    barrierFreeState
-    phone
-    email
-    openingHours {
-      days {
-        label
-        time
-      }
-    }
-    servicePages {
-      data {
-        __typename
-        id
-        attributes {
-          title
-        }
-      }
-    }
+  }
+  servicePages {
+    __typename
+    documentId
+    title
+  }
+  locale
+  localizations {
+    documentId
+    title
+    slug
     locale
-    localizations {
-      data {
-        id
-        attributes {
-          title
-          slug
-          locale
-        }
-      }
-    }
-    seo {
-      ...Seo
-    }
+  }
+  seo {
+    ...Seo
   }
 }
 
 query BranchStaticPaths($locale: I18NLocaleCode!) {
   branches(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      attributes {
-        slug
-        locale
-      }
-    }
+    slug
+    locale
   }
 }
 
 query BranchBySlug($slug: String!, $locale: I18NLocaleCode!) {
   branches(locale: $locale, filters: { slug: { eq: $slug } }) {
-    data {
-      ...BranchEntity
-    }
+    ...BranchEntity
   }
 }
