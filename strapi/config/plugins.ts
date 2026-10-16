@@ -32,7 +32,6 @@ export default ({ env }) => ({
         { contentTypeUid: 'api::notice.notice' },
         { contentTypeUid: 'api::branch.branch' },
         { contentTypeUid: 'api::asset.asset' },
-        { contentTypeUid: 'api::document.document' },
         { contentTypeUid: 'api::disclosure.disclosure' },
         { contentTypeUid: 'api::event.event' },
         { contentTypeUid: 'api::blog-post.blog-post' },
