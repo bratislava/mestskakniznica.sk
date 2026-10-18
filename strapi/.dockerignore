@@ -6,6 +6,12 @@ node_modules
 .env
 .env.example
 .env.test
+.env.local
+.env.development
+.env.production
+.env.deployment
+.env.deployment.local
+.env.development.local
 misc
 .idea
 .nvmrc

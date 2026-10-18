@@ -6,16 +6,19 @@ This readme should get you up & running.
 
 You need `node` and `npm` installed locally.
 
-To install dependencies run:
+Install dependencies and create `.env.local` file which is .gitignored and used for local dev:
 
 ```
 npm install
+cp .env.example .env.local
 ```
 
 ## Run project locally
 
 You need a CMS instance to run the web app against. For CMS setup see `strapi` directory.
-By default, Strapi runs on `STRAPI_URL=http://localhost:1337`. Change `STRAPI_URL` if needed and run:
+`.env.example` points to a local Strapi on `NEXT_PUBLIC_STRAPI_URL=http://localhost:1337` - you can also run the
+project against the deployed Strapi by uncommenting the alternative `NEXT_PUBLIC_STRAPI_URL` and
+`NEXT_PUBLIC_MEILISEARCH_*` values in your `.env.local`. Then run:
 
 ```
 npm run dev

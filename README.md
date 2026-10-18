@@ -24,6 +24,13 @@ found [here](https://bratislava.github.io/).
 🐳 `docker-compose.yml` - if you need to quickly setup postgres or meilisearch instance, run `docker compose up` in this
 directory.
 
+## Local installation
+
+Follow the user guide in folders `/strapi` and `/next`. In both of them the local dev setup is `cp .env.example .env.local`.
+
+`REVALIDATE_SECRET_TOKEN` can be any string, it just has to be the same in `strapi/.env.local` and `next/.env.local` -
+Strapi uses it to authorize its revalidation requests to Next.
+
 ### Meilisearch
 
 After initial `docker-compose up` you have to set keys for meilisearch for both the strapi and nextjs. To get them run
