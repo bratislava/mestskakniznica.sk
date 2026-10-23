@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { fetchNavigationFromApi } from '@/src/services/navigation/fetchNavigation'
-import { NavigationConfig } from '@/src/services/navigation/typesNavigation'
+import { fetchNavigationFromApi } from '@/services/navigation/fetchNavigation'
+import { NavigationConfig } from '@/services/navigation/typesNavigation'
 
 // Inspired by City Library - Navikronos custom plugin
 // https://github.com/bratislava/mestskakniznica.sk/blob/dfef31c799e1a903af4fa30aa1be5c3f27ae5418/next/navikronos/getNavikronosMiddleware.ts

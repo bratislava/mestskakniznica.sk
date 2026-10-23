@@ -1,5 +1,5 @@
-import { NavigationQuery } from '@/src/services/graphql/api'
-import { PagePathsMap } from '@/src/services/navigation/parseTopLevelPages'
+import { NavigationQuery } from '@/services/graphql/api'
+import { PagePathsMap } from '@/services/navigation/parseTopLevelPages'
 
 export type ContentTypePathPrefixesMap = ReturnType<
   typeof parseContentTypePathPrefixes

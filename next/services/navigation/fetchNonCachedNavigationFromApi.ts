@@ -1,4 +1,4 @@
-import { NavigationConfig } from '@/src/services/navigation/typesNavigation'
+import { NavigationConfig } from '@/services/navigation/typesNavigation'
 
 export const fetchNonCachedNavigationFromApi = async <Config extends NavigationConfig>(
   config: Config,
