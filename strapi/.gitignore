@@ -119,4 +119,4 @@ build
 # Navigation migration script output (contains data from the database)
 ############################
 
-scripts/navigation-migration/out/
+scripts/navigation-migration/
