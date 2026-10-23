@@ -1161,6 +1161,65 @@ export interface ApiMenuMenu extends Schema.CollectionType {
   }
 }
 
+export interface ApiNavigationNavigation extends Schema.SingleType {
+  collectionName: 'navigations'
+  info: {
+    description: 'Parent pages of content types that have detail pages, used in breadcrumbs'
+    displayName: 'Navigation'
+    pluralName: 'navigations'
+    singularName: 'navigation'
+  }
+  options: {
+    draftAndPublish: false
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    assetsParentPage: Attribute.Relation<'api::navigation.navigation', 'oneToOne', 'api::page.page'>
+    blogPostsParentPage: Attribute.Relation<
+      'api::navigation.navigation',
+      'oneToOne',
+      'api::page.page'
+    >
+    branchesParentPage: Attribute.Relation<
+      'api::navigation.navigation',
+      'oneToOne',
+      'api::page.page'
+    >
+    createdAt: Attribute.DateTime
+    createdBy: Attribute.Relation<'api::navigation.navigation', 'oneToOne', 'admin::user'> &
+      Attribute.Private
+    disclosuresParentPage: Attribute.Relation<
+      'api::navigation.navigation',
+      'oneToOne',
+      'api::page.page'
+    >
+    documentsParentPage: Attribute.Relation<
+      'api::navigation.navigation',
+      'oneToOne',
+      'api::page.page'
+    >
+    eventsParentPage: Attribute.Relation<'api::navigation.navigation', 'oneToOne', 'api::page.page'>
+    locale: Attribute.String
+    localizations: Attribute.Relation<
+      'api::navigation.navigation',
+      'oneToMany',
+      'api::navigation.navigation'
+    >
+    noticesParentPage: Attribute.Relation<
+      'api::navigation.navigation',
+      'oneToOne',
+      'api::page.page'
+    >
+    updatedAt: Attribute.DateTime
+    updatedBy: Attribute.Relation<'api::navigation.navigation', 'oneToOne', 'admin::user'> &
+      Attribute.Private
+  }
+}
+
 export interface ApiNoticeNotice extends Schema.CollectionType {
   collectionName: 'notices'
   info: {
@@ -1271,6 +1330,7 @@ export interface ApiPagePage extends Schema.CollectionType {
   }
   attributes: {
     branchesServicesTo: Attribute.Relation<'api::page.page', 'manyToMany', 'api::branch.branch'>
+    childPages: Attribute.Relation<'api::page.page', 'oneToMany', 'api::page.page'>
     createdAt: Attribute.DateTime
     createdBy: Attribute.Relation<'api::page.page', 'oneToOne', 'admin::user'> & Attribute.Private
     layout: Attribute.Enumeration<
@@ -1296,6 +1356,7 @@ export interface ApiPagePage extends Schema.CollectionType {
           localized: true
         }
       }>
+    parentPage: Attribute.Relation<'api::page.page', 'manyToOne', 'api::page.page'>
     perex: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1833,6 +1894,7 @@ declare module '@strapi/types' {
       'api::general.general': ApiGeneralGeneral
       'api::home-page.home-page': ApiHomePageHomePage
       'api::menu.menu': ApiMenuMenu
+      'api::navigation.navigation': ApiNavigationNavigation
       'api::notice.notice': ApiNoticeNotice
       'api::page.page': ApiPagePage
       'api::partner.partner': ApiPartnerPartner
