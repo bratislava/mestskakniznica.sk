@@ -128,6 +128,64 @@ fragment PageLocalizationEntity on PageEntity {
   }
 }
 
+fragment ChildPage on Page {
+  title
+  slug
+}
+
+fragment PageSlugEntity on PageEntity {
+  __typename
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
+fragment PageEntityChildPages on PageEntity {
+  __typename
+  id
+  attributes {
+    ...ChildPage
+    childPages {
+      data {
+        __typename
+        id
+        attributes {
+          ...ChildPage
+          childPages {
+            data {
+              __typename
+              id
+              attributes {
+                ...ChildPage
+                childPages {
+                  data {
+                    __typename
+                    id
+                    attributes {
+                      ...ChildPage
+                      childPages {
+                        data {
+                          __typename
+                          id
+                          attributes {
+                            ...ChildPage
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 # strapi returns just the default locale if no locale is provided
 # easiest way to get all static paths is to ask for all locales sequentially
 query PagesStaticPaths($locale: I18NLocaleCode) {

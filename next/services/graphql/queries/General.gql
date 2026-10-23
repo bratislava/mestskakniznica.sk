@@ -121,7 +121,60 @@ fragment GeneralEntity on GeneralEntity {
   }
 }
 
+fragment NavigationEntity on NavigationEntity {
+  attributes {
+    blogPostsParentPage {
+      data {
+        ...PageSlugEntity
+      }
+    }
+    documentsParentPage {
+      data {
+        ...PageSlugEntity
+      }
+    }
+    assetsParentPage {
+      data {
+        ...PageSlugEntity
+      }
+    }
+    eventsParentPage {
+      data {
+        ...PageSlugEntity
+      }
+    }
+    noticesParentPage {
+      data {
+        ...PageSlugEntity
+      }
+    }
+    branchesParentPage {
+      data {
+        ...PageSlugEntity
+      }
+    }
+    disclosuresParentPage {
+      data {
+        ...PageSlugEntity
+      }
+    }
+  }
+}
+
 ### Queries
+
+query Navigation($locale: I18NLocaleCode!) {
+  navigation(locale: $locale) {
+    data {
+      ...NavigationEntity
+    }
+  }
+  topLevelPages: pages(filters: { parentPage: { id: { eq: null } } }, locale: $locale) {
+    data {
+      ...PageEntityChildPages
+    }
+  }
+}
 
 query General($eventsFrom: DateTime!, $locale: I18NLocaleCode!) {
   menus(locale: $locale, sort: ["order:asc"]) {

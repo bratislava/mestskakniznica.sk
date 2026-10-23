@@ -1,4 +1,4 @@
-import { client } from '@/services/graphql'
+import { client } from '@/services/graphql/gql'
 import { parseContentTypePathPrefixes } from '@/services/navigation/parseContentTypePathPrefixes'
 import { parseTopLevelPages } from '@/services/navigation/parseTopLevelPages'
 
