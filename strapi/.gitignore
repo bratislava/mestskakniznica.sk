@@ -68,7 +68,6 @@ $RECYCLE.BIN/
 .tmp
 *.log
 *.sql
-!database/manual-migrations/*.sql
 *.sqlite
 *.sqlite3
 
@@ -114,9 +113,3 @@ exports
 .strapi
 build
 .strapi-updater.json
-
-############################
-# Navigation migration script output (contains data from the database)
-############################
-
-scripts/navigation-migration/

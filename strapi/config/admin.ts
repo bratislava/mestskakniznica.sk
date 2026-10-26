@@ -5,5 +5,5 @@ export default ({ env }) => ({
   apiToken: {
     salt: env('API_TOKEN_SALT'),
   },
-  watchIgnoreFiles: ['../schema.graphql', '**/config/sync/**', '**/scripts/**'],
+  watchIgnoreFiles: ['../schema.graphql', '**/config/sync/**'],
 })
