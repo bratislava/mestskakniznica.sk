@@ -2368,7 +2368,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Asset | AssetCategory | BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepagePromotedContent | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Asset | AssetCategory | BasicDocument | BlogPost | BookTag | Branch | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepagePromotedContent | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsAssets | ComponentSectionsAssetsListing | ComponentSectionsBlogPostsListing | ComponentSectionsCherrypickSection | ComponentSectionsChildrenListing | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | Navigation | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2660,6 +2660,7 @@ type Mutation {
   createHomePageLocalization(data: HomePageInput, id: ID, locale: I18NLocaleCode): HomePageEntityResponse
   createMenu(data: MenuInput!, locale: I18NLocaleCode): MenuEntityResponse
   createMenuLocalization(data: MenuInput, id: ID, locale: I18NLocaleCode): MenuEntityResponse
+  createNavigationLocalization(data: NavigationInput, id: ID, locale: I18NLocaleCode): NavigationEntityResponse
   createNotice(data: NoticeInput!, locale: I18NLocaleCode): NoticeEntityResponse
   createNoticeLocalization(data: NoticeInput, id: ID, locale: I18NLocaleCode): NoticeEntityResponse
   createPage(data: PageInput!, locale: I18NLocaleCode): PageEntityResponse
@@ -2691,6 +2692,7 @@ type Mutation {
   deleteGeneral(locale: I18NLocaleCode): GeneralEntityResponse
   deleteHomePage(locale: I18NLocaleCode): HomePageEntityResponse
   deleteMenu(id: ID!, locale: I18NLocaleCode): MenuEntityResponse
+  deleteNavigation(locale: I18NLocaleCode): NavigationEntityResponse
   deleteNavikronosNavikronosStorage: NavikronosNavikronosStorageEntityResponse
   deleteNotice(id: ID!, locale: I18NLocaleCode): NoticeEntityResponse
   deletePage(id: ID!, locale: I18NLocaleCode): PageEntityResponse
@@ -2738,6 +2740,7 @@ type Mutation {
   updateGeneral(data: GeneralInput!, locale: I18NLocaleCode): GeneralEntityResponse
   updateHomePage(data: HomePageInput!, locale: I18NLocaleCode): HomePageEntityResponse
   updateMenu(data: MenuInput!, id: ID!, locale: I18NLocaleCode): MenuEntityResponse
+  updateNavigation(data: NavigationInput!, locale: I18NLocaleCode): NavigationEntityResponse
   updateNavikronosNavikronosStorage(data: NavikronosNavikronosStorageInput!): NavikronosNavikronosStorageEntityResponse
   updateNotice(data: NoticeInput!, id: ID!, locale: I18NLocaleCode): NoticeEntityResponse
   updatePage(data: PageInput!, id: ID!, locale: I18NLocaleCode): PageEntityResponse
@@ -2751,6 +2754,65 @@ type Mutation {
   """Update an existing user"""
   updateUsersPermissionsUser(data: UsersPermissionsUserInput!, id: ID!): UsersPermissionsUserEntityResponse!
   upload(field: String, file: Upload!, info: FileInfoInput, ref: String, refId: ID): UploadFileEntityResponse!
+}
+
+type Navigation {
+  assetsParentPage: PageEntityResponse
+  blogPostsParentPage: PageEntityResponse
+  branchesParentPage: PageEntityResponse
+  createdAt: DateTime
+  disclosuresParentPage: PageEntityResponse
+  documentsParentPage: PageEntityResponse
+  eventsParentPage: PageEntityResponse
+  locale: String
+  localizations: NavigationRelationResponseCollection
+  noticesParentPage: PageEntityResponse
+  updatedAt: DateTime
+}
+
+type NavigationEntity {
+  attributes: Navigation
+  id: ID
+}
+
+type NavigationEntityResponse {
+  data: NavigationEntity
+}
+
+type NavigationEntityResponseCollection {
+  data: [NavigationEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input NavigationFiltersInput {
+  and: [NavigationFiltersInput]
+  assetsParentPage: PageFiltersInput
+  blogPostsParentPage: PageFiltersInput
+  branchesParentPage: PageFiltersInput
+  createdAt: DateTimeFilterInput
+  disclosuresParentPage: PageFiltersInput
+  documentsParentPage: PageFiltersInput
+  eventsParentPage: PageFiltersInput
+  locale: StringFilterInput
+  localizations: NavigationFiltersInput
+  not: NavigationFiltersInput
+  noticesParentPage: PageFiltersInput
+  or: [NavigationFiltersInput]
+  updatedAt: DateTimeFilterInput
+}
+
+input NavigationInput {
+  assetsParentPage: ID
+  blogPostsParentPage: ID
+  branchesParentPage: ID
+  disclosuresParentPage: ID
+  documentsParentPage: ID
+  eventsParentPage: ID
+  noticesParentPage: ID
+}
+
+type NavigationRelationResponseCollection {
+  data: [NavigationEntity!]!
 }
 
 type NavikronosNavikronosStorage {
@@ -2863,12 +2925,14 @@ type NoticeRelationResponseCollection {
 
 type Page {
   branchesServicesTo(filters: BranchFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): BranchRelationResponseCollection
+  childPages(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
   createdAt: DateTime
   layout: ENUM_PAGE_LAYOUT
   listingImage: UploadFileEntityResponse
   locale: String
   localizations(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
   newSlug: String!
+  parentPage: PageEntityResponse
   perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZone]
@@ -2895,6 +2959,7 @@ type PageEntityResponseCollection {
 input PageFiltersInput {
   and: [PageFiltersInput]
   branchesServicesTo: BranchFiltersInput
+  childPages: PageFiltersInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
   layout: StringFilterInput
@@ -2903,6 +2968,7 @@ input PageFiltersInput {
   newSlug: StringFilterInput
   not: PageFiltersInput
   or: [PageFiltersInput]
+  parentPage: PageFiltersInput
   perex: StringFilterInput
   publishedAt: DateTimeFilterInput
   seo: ComponentCommonSeoFiltersInput
@@ -2913,9 +2979,11 @@ input PageFiltersInput {
 
 input PageInput {
   branchesServicesTo: [ID]
+  childPages: [ID]
   layout: ENUM_PAGE_LAYOUT
   listingImage: ID
   newSlug: String
+  parentPage: ID
   perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZoneInput!]
@@ -3042,6 +3110,7 @@ type Query {
   me: UsersPermissionsMe
   menu(id: ID, locale: I18NLocaleCode): MenuEntityResponse
   menus(filters: MenuFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): MenuEntityResponseCollection
+  navigation(locale: I18NLocaleCode): NavigationEntityResponse
   navikronosNavikronosStorage: NavikronosNavikronosStorageEntityResponse
   notice(id: ID, locale: I18NLocaleCode): NoticeEntityResponse
   notices(filters: NoticeFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeEntityResponseCollection
