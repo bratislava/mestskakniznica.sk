@@ -24,7 +24,7 @@ const RentalSection = ({ section }: RentalSectionProps) => {
                 address={address || ''}
                 image={listingImage?.data}
                 title={title || ''}
-                pageId={page?.data?.id}
+                pageSlug={page?.data?.attributes?.newSlug}
                 key={slug}
               />
             )

@@ -5,33 +5,32 @@ import { SSRConfig } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
-import BlogPostPage from '@/components/pages/blogPostPage'
-import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
-import { BlogPostEntityFragment, GeneralQuery } from '@/services/graphql'
+import EventPage from '@/components/pages/eventPage'
+import { EventEntityFragment, GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { NOT_FOUND } from '@/utils/consts'
 import { extractLocalizationsWithSlug } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 
 type PageProps = {
-  blogPost: BlogPostEntityFragment
+  event: EventEntityFragment
   general: GeneralQuery
 } & SSRConfig &
-  CLNavikronosPageProps
+  NavigationPageProps
 
-const Page = ({ blogPost, general }: PageProps) => {
-  if (!blogPost) {
-    return null
-  }
-
+const EventSlugPage = ({ event, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
-      <DefaultPageLayout title={blogPost.attributes?.title} seo={blogPost.attributes?.seo}>
-        <BlogPostPage blogPost={blogPost} />
+      <DefaultPageLayout
+        title={event.attributes?.title}
+        seo={event.attributes?.seo}
+        defaultMetaDescription={event.attributes?.description}
+      >
+        <EventPage event={event} />
       </DefaultPageLayout>
     </GeneralContextProvider>
   )
@@ -41,31 +40,31 @@ interface StaticParams extends ParsedUrlQuery {
   slug: string
 }
 
-export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) => {
   let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.BlogPostStaticPaths({ locale })),
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    locales!.map((locale) => client.EventStaticPaths({ locale })),
   )
-
   const entities = pathArraysForLocales
-    .flatMap(({ blogPosts }) => blogPosts?.data || [])
+    .flatMap(({ events }) => events?.data || [])
     .filter(isDefined)
 
-  if (entities) {
+  if (entities.length > 0) {
     paths = entities
-      .filter(isDefined)
-      .filter((entity) => entity?.attributes?.slug)
+      .filter((entity) => entity.attributes?.slug)
       .map((entity) => ({
         params: {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          slug: entity.attributes!.slug,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain,@typescript-eslint/no-non-null-assertion
+          slug: entity.attributes?.slug!,
           locale: entity.attributes?.locale || '',
         },
       }))
   }
+
   // eslint-disable-next-line no-console
-  console.log(`BlogPosts: Generated static paths for ${paths.length} slugs.`)
+  console.log(`Events: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
 }
@@ -79,40 +78,43 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
   }
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} blog posts ${slug}`)
+  console.log(`Revalidating ${locale} event ${slug} on ${slug}`)
 
-  const { blogPosts } = await client.BlogPostBySlug({ slug, locale })
-  const blogPost = blogPosts?.data[0] ?? null
-  if (!blogPost) {
+  const { events } = await client.EventBySlug({
+    slug,
+    locale,
+  })
+  const event = events?.data[0] ?? null
+  if (!event) {
     return NOT_FOUND
   }
 
-  const localizations = extractLocalizationsWithSlug('blog-post', blogPost)
+  const localizations = extractLocalizationsWithSlug('event', event)
 
-  const [general, translations, navikronosStaticProps] = await Promise.all([
+  const [general, translations, navigationStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale),
-    navikronosGetStaticProps({
-      navikronosConfig,
-      ctx,
+    getNavigationStaticProps({
+      locale,
       currentEntity: {
-        type: 'blog-post',
+        type: 'event',
         slug,
       },
       currentEntityLocalizations: localizations,
-      breadcrumbsTitle: blogPost.attributes?.title,
+      breadcrumbsTitle: event.attributes?.title,
     }),
   ])
 
   return {
     props: {
-      blogPost,
+      slug,
+      event,
       general,
-      navikronosStaticProps,
+      navigationStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default wrapNavikronosProvider(Page)
+export default EventSlugPage

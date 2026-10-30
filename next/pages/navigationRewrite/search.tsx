@@ -5,12 +5,11 @@ import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import ErrorDisplay, { getError, IDisplayError } from '@/components/Molecules/ErrorDisplay'
 import ErrorPage from '@/components/pages/ErrorPage'
 import SearchPage from '@/components/pages/SearchPage'
-import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { GeneralContextProvider } from '@/utils/generalContext'
-import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 
 export const Search = ({ error, general }: PageProps) => {
   if (error) {
@@ -33,17 +32,16 @@ export const Search = ({ error, general }: PageProps) => {
 type PageProps = {
   error?: IDisplayError
   general: GeneralQuery
-} & CLNavikronosPageProps
+} & NavigationPageProps
 
 export async function getServerSideProps(ctx: GetStaticPropsContext) {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,@typescript-eslint/no-non-null-asserted-optional-chain
   const locale = ctx?.locale!
   const translations = await serverSideTranslations(locale)
 
-  const navikronosStaticProps = await navikronosGetStaticProps({
-    navikronosConfig,
-    ctx,
-    currentEntity: { type: 'static', id: 'search' },
+  const navigationStaticProps = await getNavigationStaticProps({
+    locale,
+    currentEntity: { type: 'search' },
   })
 
   try {
@@ -52,7 +50,7 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
     return {
       props: {
         general,
-        navikronosStaticProps,
+        navigationStaticProps,
         ...translations,
       },
     }
@@ -69,4 +67,4 @@ export async function getServerSideProps(ctx: GetStaticPropsContext) {
   }
 }
 
-export default wrapNavikronosProvider(Search)
+export default Search

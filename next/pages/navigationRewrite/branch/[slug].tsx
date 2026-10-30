@@ -6,22 +6,21 @@ import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslation
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import BranchPage from '@/components/pages/BranchPage'
-import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { BranchEntityFragment, GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { NOT_FOUND } from '@/utils/consts'
 import { extractLocalizationsWithSlug } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 
 type PageProps = {
   branch: BranchEntityFragment
   general: GeneralQuery
 } & SSRConfig &
-  CLNavikronosPageProps
+  NavigationPageProps
 
 const Page = ({ branch, general }: PageProps) => {
   return (
@@ -92,12 +91,11 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
 
   const localizations = extractLocalizationsWithSlug('branch', branch)
 
-  const [general, translations, navikronosStaticProps] = await Promise.all([
+  const [general, translations, navigationStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale),
-    navikronosGetStaticProps({
-      navikronosConfig,
-      ctx,
+    getNavigationStaticProps({
+      locale,
       currentEntity: {
         type: 'branch',
         slug,
@@ -112,11 +110,11 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
       slug,
       branch,
       general,
-      navikronosStaticProps,
+      navigationStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default wrapNavikronosProvider(Page)
+export default Page

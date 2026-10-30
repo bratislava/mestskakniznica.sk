@@ -1,50 +1,35 @@
-import { NavigationQuery } from '@/services/graphql/api'
-import { PagePathsMap } from '@/services/navigation/parseTopLevelPages'
+import { NavigationQuery } from '@/services/graphql'
+import { ContentTypePathPrefixesMap, PagePathsMap } from '@/services/navigation/typesNavigation'
 
-export type ContentTypePathPrefixesMap = ReturnType<
-  typeof parseContentTypePathPrefixes
->['contentTypePathPrefixesMap']
+type ParentPage = { data?: { attributes?: { newSlug?: string | null } | null } | null } | null
 
 export const parseContentTypePathPrefixes = (
   navigation: NavigationQuery['navigation'],
   pagePathsMap: PagePathsMap,
 ) => {
   const {
-    articlesParentPage,
-    documentsParentPage,
+    blogPostsParentPage,
+    eventsParentPage,
+    noticesParentPage,
+    branchesParentPage,
     assetsParentPage,
-    faqCategoriesParentPage,
-    servicesParentPage,
-    workshopsParentPage,
+    disclosuresParentPage,
   } = navigation?.data?.attributes ?? {}
 
-  const articlesParentPageSlug = articlesParentPage?.data?.attributes?.slug
-  const documentsParentPageSlug = documentsParentPage?.data?.attributes?.slug
-  const assetsParentPageSlug = assetsParentPage?.data?.attributes?.slug
-  const faqCategoriesParentPageSlug = faqCategoriesParentPage?.data?.attributes?.slug
-  const servicesParentPageSlug = servicesParentPage?.data?.attributes?.slug
-  const workshopsParentPageSlug = workshopsParentPage?.data?.attributes?.slug
+  const getPath = (parentPage: ParentPage | undefined) => {
+    const slug = parentPage?.data?.attributes?.newSlug
 
-  // Using null to make the object serializable
-  const contentTypePathPrefixesMap = {
-    article: articlesParentPageSlug
-      ? pagePathsMap[articlesParentPageSlug]?.path
-      : (articlesParentPageSlug ?? null),
-    document: documentsParentPageSlug
-      ? pagePathsMap[documentsParentPageSlug]?.path
-      : (documentsParentPageSlug ?? null),
-    asset: assetsParentPageSlug
-      ? pagePathsMap[assetsParentPageSlug]?.path
-      : (assetsParentPageSlug ?? null),
-    faqCategory: faqCategoriesParentPageSlug
-      ? pagePathsMap[faqCategoriesParentPageSlug]?.path
-      : (faqCategoriesParentPageSlug ?? null),
-    service: servicesParentPageSlug
-      ? pagePathsMap[servicesParentPageSlug]?.path
-      : (servicesParentPageSlug ?? null),
-    workshop: workshopsParentPageSlug
-      ? pagePathsMap[workshopsParentPageSlug]?.path
-      : (workshopsParentPageSlug ?? null),
+    // Using null to make the object serializable
+    return (slug && pagePathsMap[slug]?.path) || null
+  }
+
+  const contentTypePathPrefixesMap: ContentTypePathPrefixesMap = {
+    'blog-post': getPath(blogPostsParentPage),
+    event: getPath(eventsParentPage),
+    notice: getPath(noticesParentPage),
+    branch: getPath(branchesParentPage),
+    asset: getPath(assetsParentPage),
+    disclosure: getPath(disclosuresParentPage),
   }
 
   return { contentTypePathPrefixesMap }

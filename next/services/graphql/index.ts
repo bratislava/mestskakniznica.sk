@@ -6645,7 +6645,7 @@ export type BranchEntityFragment = {
       data: Array<{
         __typename: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; title: string } | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
       }>
     } | null
     localizations?: {
@@ -6781,7 +6781,7 @@ export type BranchBySlugQuery = {
           data: Array<{
             __typename: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; title: string } | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
           }>
         } | null
         localizations?: {
@@ -7546,7 +7546,7 @@ export type EventStaticPathsQuery = {
 export type SectionLinkPageEntityFragment = {
   __typename?: 'PageEntity'
   id?: string | null
-  attributes?: { __typename?: 'Page'; title: string } | null
+  attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
 }
 
 export type SectionLinkBranchEntityFragment = {
@@ -7584,7 +7584,7 @@ export type MenuSectionFragment = {
       data?: {
         __typename?: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; title: string } | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
       } | null
     } | null
     sectionLinkBranch?: {
@@ -7637,7 +7637,7 @@ export type MenuEntityFragment = {
           data?: {
             __typename?: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; title: string } | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
           } | null
         } | null
         sectionLinkBranch?: {
@@ -7750,23 +7750,43 @@ export type GeneralEntityFragment = {
     __typename?: 'General'
     eventsPage?: {
       __typename?: 'PageEntityResponse'
-      data?: { __typename: 'PageEntity'; id?: string | null } | null
+      data?: {
+        __typename: 'PageEntity'
+        id?: string | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
+      } | null
     } | null
     newBooksPage?: {
       __typename?: 'PageEntityResponse'
-      data?: { __typename: 'PageEntity'; id?: string | null } | null
+      data?: {
+        __typename: 'PageEntity'
+        id?: string | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
+      } | null
     } | null
     privacyTermsAndConditionsPage?: {
       __typename?: 'PageEntityResponse'
-      data?: { __typename: 'PageEntity'; id?: string | null } | null
+      data?: {
+        __typename: 'PageEntity'
+        id?: string | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
+      } | null
     } | null
     openingHoursPage?: {
       __typename?: 'PageEntityResponse'
-      data?: { __typename: 'PageEntity'; id?: string | null } | null
+      data?: {
+        __typename: 'PageEntity'
+        id?: string | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
+      } | null
     } | null
     noticesPage?: {
       __typename?: 'PageEntityResponse'
-      data?: { __typename: 'PageEntity'; id?: string | null } | null
+      data?: {
+        __typename: 'PageEntity'
+        id?: string | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
+      } | null
     } | null
   } | null
 }
@@ -7780,7 +7800,7 @@ export type NavigationEntityFragment = {
       data?: {
         __typename: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
       } | null
     } | null
     documentsParentPage?: {
@@ -7788,7 +7808,7 @@ export type NavigationEntityFragment = {
       data?: {
         __typename: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
       } | null
     } | null
     assetsParentPage?: {
@@ -7796,7 +7816,7 @@ export type NavigationEntityFragment = {
       data?: {
         __typename: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
       } | null
     } | null
     eventsParentPage?: {
@@ -7804,7 +7824,7 @@ export type NavigationEntityFragment = {
       data?: {
         __typename: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
       } | null
     } | null
     noticesParentPage?: {
@@ -7812,7 +7832,7 @@ export type NavigationEntityFragment = {
       data?: {
         __typename: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
       } | null
     } | null
     branchesParentPage?: {
@@ -7820,7 +7840,7 @@ export type NavigationEntityFragment = {
       data?: {
         __typename: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
       } | null
     } | null
     disclosuresParentPage?: {
@@ -7828,7 +7848,7 @@ export type NavigationEntityFragment = {
       data?: {
         __typename: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
       } | null
     } | null
   } | null
@@ -7851,7 +7871,7 @@ export type NavigationQuery = {
           data?: {
             __typename: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
           } | null
         } | null
         documentsParentPage?: {
@@ -7859,7 +7879,7 @@ export type NavigationQuery = {
           data?: {
             __typename: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
           } | null
         } | null
         assetsParentPage?: {
@@ -7867,7 +7887,7 @@ export type NavigationQuery = {
           data?: {
             __typename: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
           } | null
         } | null
         eventsParentPage?: {
@@ -7875,7 +7895,7 @@ export type NavigationQuery = {
           data?: {
             __typename: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
           } | null
         } | null
         noticesParentPage?: {
@@ -7883,7 +7903,7 @@ export type NavigationQuery = {
           data?: {
             __typename: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
           } | null
         } | null
         branchesParentPage?: {
@@ -7891,7 +7911,7 @@ export type NavigationQuery = {
           data?: {
             __typename: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
           } | null
         } | null
         disclosuresParentPage?: {
@@ -7899,7 +7919,7 @@ export type NavigationQuery = {
           data?: {
             __typename: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
           } | null
         } | null
       } | null
@@ -7913,7 +7933,7 @@ export type NavigationQuery = {
       attributes?: {
         __typename?: 'Page'
         title: string
-        slug: string
+        newSlug: string
         childPages?: {
           __typename?: 'PageRelationResponseCollection'
           data: Array<{
@@ -7922,7 +7942,7 @@ export type NavigationQuery = {
             attributes?: {
               __typename?: 'Page'
               title: string
-              slug: string
+              newSlug: string
               childPages?: {
                 __typename?: 'PageRelationResponseCollection'
                 data: Array<{
@@ -7931,7 +7951,7 @@ export type NavigationQuery = {
                   attributes?: {
                     __typename?: 'Page'
                     title: string
-                    slug: string
+                    newSlug: string
                     childPages?: {
                       __typename?: 'PageRelationResponseCollection'
                       data: Array<{
@@ -7940,7 +7960,7 @@ export type NavigationQuery = {
                         attributes?: {
                           __typename?: 'Page'
                           title: string
-                          slug: string
+                          newSlug: string
                           childPages?: {
                             __typename?: 'PageRelationResponseCollection'
                             data: Array<{
@@ -7949,7 +7969,7 @@ export type NavigationQuery = {
                               attributes?: {
                                 __typename?: 'Page'
                                 title: string
-                                slug: string
+                                newSlug: string
                               } | null
                             }>
                           } | null
@@ -8015,7 +8035,7 @@ export type GeneralQuery = {
               data?: {
                 __typename?: 'PageEntity'
                 id?: string | null
-                attributes?: { __typename?: 'Page'; title: string } | null
+                attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
               } | null
             } | null
             sectionLinkBranch?: {
@@ -8195,23 +8215,43 @@ export type GeneralQuery = {
         __typename?: 'General'
         eventsPage?: {
           __typename?: 'PageEntityResponse'
-          data?: { __typename: 'PageEntity'; id?: string | null } | null
+          data?: {
+            __typename: 'PageEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
+          } | null
         } | null
         newBooksPage?: {
           __typename?: 'PageEntityResponse'
-          data?: { __typename: 'PageEntity'; id?: string | null } | null
+          data?: {
+            __typename: 'PageEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
+          } | null
         } | null
         privacyTermsAndConditionsPage?: {
           __typename?: 'PageEntityResponse'
-          data?: { __typename: 'PageEntity'; id?: string | null } | null
+          data?: {
+            __typename: 'PageEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
+          } | null
         } | null
         openingHoursPage?: {
           __typename?: 'PageEntityResponse'
-          data?: { __typename: 'PageEntity'; id?: string | null } | null
+          data?: {
+            __typename: 'PageEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
+          } | null
         } | null
         noticesPage?: {
           __typename?: 'PageEntityResponse'
-          data?: { __typename: 'PageEntity'; id?: string | null } | null
+          data?: {
+            __typename: 'PageEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
+          } | null
         } | null
       } | null
     } | null
@@ -9806,7 +9846,7 @@ type PageSections_ComponentSectionsRental_Fragment = {
       data?: {
         __typename?: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; slug: string } | null
+        attributes?: { __typename?: 'Page'; newSlug: string } | null
       } | null
     } | null
   } | null> | null
@@ -10296,7 +10336,7 @@ export type PageEntityFragment = {
               data?: {
                 __typename?: 'PageEntity'
                 id?: string | null
-                attributes?: { __typename?: 'Page'; slug: string } | null
+                attributes?: { __typename?: 'Page'; newSlug: string } | null
               } | null
             } | null
           } | null> | null
@@ -10367,7 +10407,12 @@ export type PageEntityFragment = {
       data: Array<{
         __typename: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; slug: string; locale?: string | null } | null
+        attributes?: {
+          __typename?: 'Page'
+          slug: string
+          newSlug: string
+          locale?: string | null
+        } | null
       }>
     } | null
     seo?: {
@@ -10395,15 +10440,15 @@ export type PageWithBaseFieldsEntityFragment = {
 export type PageLocalizationEntityFragment = {
   __typename: 'PageEntity'
   id?: string | null
-  attributes?: { __typename?: 'Page'; slug: string; locale?: string | null } | null
+  attributes?: { __typename?: 'Page'; slug: string; newSlug: string; locale?: string | null } | null
 }
 
-export type ChildPageFragment = { __typename?: 'Page'; title: string; slug: string }
+export type ChildPageFragment = { __typename?: 'Page'; title: string; newSlug: string }
 
 export type PageSlugEntityFragment = {
   __typename: 'PageEntity'
   id?: string | null
-  attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+  attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
 }
 
 export type PageEntityChildPagesFragment = {
@@ -10412,7 +10457,7 @@ export type PageEntityChildPagesFragment = {
   attributes?: {
     __typename?: 'Page'
     title: string
-    slug: string
+    newSlug: string
     childPages?: {
       __typename?: 'PageRelationResponseCollection'
       data: Array<{
@@ -10421,7 +10466,7 @@ export type PageEntityChildPagesFragment = {
         attributes?: {
           __typename?: 'Page'
           title: string
-          slug: string
+          newSlug: string
           childPages?: {
             __typename?: 'PageRelationResponseCollection'
             data: Array<{
@@ -10430,7 +10475,7 @@ export type PageEntityChildPagesFragment = {
               attributes?: {
                 __typename?: 'Page'
                 title: string
-                slug: string
+                newSlug: string
                 childPages?: {
                   __typename?: 'PageRelationResponseCollection'
                   data: Array<{
@@ -10439,13 +10484,17 @@ export type PageEntityChildPagesFragment = {
                     attributes?: {
                       __typename?: 'Page'
                       title: string
-                      slug: string
+                      newSlug: string
                       childPages?: {
                         __typename?: 'PageRelationResponseCollection'
                         data: Array<{
                           __typename: 'PageEntity'
                           id?: string | null
-                          attributes?: { __typename?: 'Page'; title: string; slug: string } | null
+                          attributes?: {
+                            __typename?: 'Page'
+                            title: string
+                            newSlug: string
+                          } | null
                         }>
                       } | null
                     } | null
@@ -10460,28 +10509,12 @@ export type PageEntityChildPagesFragment = {
   } | null
 }
 
-export type PagesStaticPathsQueryVariables = Exact<{
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>
-}>
-
-export type PagesStaticPathsQuery = {
-  __typename?: 'Query'
-  pages?: {
-    __typename?: 'PageEntityResponseCollection'
-    data: Array<{
-      __typename?: 'PageEntity'
-      id?: string | null
-      attributes?: { __typename?: 'Page'; locale?: string | null } | null
-    }>
-  } | null
-}
-
-export type PageByIdQueryVariables = Exact<{
-  id: Scalars['ID']['input']
+export type PageBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input']
   locale: Scalars['I18NLocaleCode']['input']
 }>
 
-export type PageByIdQuery = {
+export type PageBySlugQuery = {
   __typename?: 'Query'
   pages?: {
     __typename?: 'PageEntityResponseCollection'
@@ -10877,7 +10910,7 @@ export type PageByIdQuery = {
                   data?: {
                     __typename?: 'PageEntity'
                     id?: string | null
-                    attributes?: { __typename?: 'Page'; slug: string } | null
+                    attributes?: { __typename?: 'Page'; newSlug: string } | null
                   } | null
                 } | null
               } | null> | null
@@ -10948,7 +10981,12 @@ export type PageByIdQuery = {
           data: Array<{
             __typename: 'PageEntity'
             id?: string | null
-            attributes?: { __typename?: 'Page'; slug: string; locale?: string | null } | null
+            attributes?: {
+              __typename?: 'Page'
+              slug: string
+              newSlug: string
+              locale?: string | null
+            } | null
           }>
         } | null
         seo?: {
@@ -11353,7 +11391,7 @@ export type RentalSectionFragment = {
       data?: {
         __typename?: 'PageEntity'
         id?: string | null
-        attributes?: { __typename?: 'Page'; slug: string } | null
+        attributes?: { __typename?: 'Page'; newSlug: string } | null
       } | null
     } | null
   } | null> | null
@@ -12138,6 +12176,7 @@ export const BranchEntityFragmentDoc = gql`
           id
           attributes {
             title
+            newSlug
           }
         }
       }
@@ -12292,6 +12331,7 @@ export const SectionLinkPageEntityFragmentDoc = gql`
     id
     attributes {
       title
+      newSlug
     }
   }
 `
@@ -12388,51 +12428,47 @@ export const FooterEntityFragmentDoc = gql`
   ${ComponentFooterFooterColumnFragmentDoc}
   ${PageWithBaseFieldsEntityFragmentDoc}
 `
-export const GeneralEntityFragmentDoc = gql`
-  fragment GeneralEntity on GeneralEntity {
-    attributes {
-      eventsPage {
-        data {
-          __typename
-          id
-        }
-      }
-      newBooksPage {
-        data {
-          __typename
-          id
-        }
-      }
-      privacyTermsAndConditionsPage {
-        data {
-          __typename
-          id
-        }
-      }
-      openingHoursPage {
-        data {
-          __typename
-          id
-        }
-      }
-      noticesPage {
-        data {
-          __typename
-          id
-        }
-      }
-    }
-  }
-`
 export const PageSlugEntityFragmentDoc = gql`
   fragment PageSlugEntity on PageEntity {
     __typename
     id
     attributes {
       title
-      slug
+      newSlug
     }
   }
+`
+export const GeneralEntityFragmentDoc = gql`
+  fragment GeneralEntity on GeneralEntity {
+    attributes {
+      eventsPage {
+        data {
+          ...PageSlugEntity
+        }
+      }
+      newBooksPage {
+        data {
+          ...PageSlugEntity
+        }
+      }
+      privacyTermsAndConditionsPage {
+        data {
+          ...PageSlugEntity
+        }
+      }
+      openingHoursPage {
+        data {
+          ...PageSlugEntity
+        }
+      }
+      noticesPage {
+        data {
+          ...PageSlugEntity
+        }
+      }
+    }
+  }
+  ${PageSlugEntityFragmentDoc}
 `
 export const NavigationEntityFragmentDoc = gql`
   fragment NavigationEntity on NavigationEntity {
@@ -12681,7 +12717,7 @@ export const RentalSectionFragmentDoc = gql`
         data {
           id
           attributes {
-            slug
+            newSlug
           }
         }
       }
@@ -12813,6 +12849,7 @@ export const PageLocalizationEntityFragmentDoc = gql`
     id
     attributes {
       slug
+      newSlug
       locale
     }
   }
@@ -12867,7 +12904,7 @@ export const PageEntityFragmentDoc = gql`
 export const ChildPageFragmentDoc = gql`
   fragment ChildPage on Page {
     title
-    slug
+    newSlug
   }
 `
 export const PageEntityChildPagesFragmentDoc = gql`
@@ -13318,21 +13355,9 @@ export const OpeningHoursChangeNoticesDocument = gql`
     }
   }
 `
-export const PagesStaticPathsDocument = gql`
-  query PagesStaticPaths($locale: I18NLocaleCode) {
-    pages(locale: $locale) {
-      data {
-        id
-        attributes {
-          locale
-        }
-      }
-    }
-  }
-`
-export const PageByIdDocument = gql`
-  query PageById($id: ID!, $locale: I18NLocaleCode!) {
-    pages(filters: { id: { eq: $id } }, locale: $locale) {
+export const PageBySlugDocument = gql`
+  query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
+    pages(filters: { newSlug: { eq: $slug } }, locale: $locale) {
       data {
         ...PageEntity
       }
@@ -13694,32 +13719,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         variables,
       )
     },
-    PagesStaticPaths(
-      variables?: PagesStaticPathsQueryVariables,
+    PageBySlug(
+      variables: PageBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<PagesStaticPathsQuery> {
+    ): Promise<PageBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<PagesStaticPathsQuery>(PagesStaticPathsDocument, variables, {
+          client.request<PageBySlugQuery>(PageBySlugDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'PagesStaticPaths',
-        'query',
-        variables,
-      )
-    },
-    PageById(
-      variables: PageByIdQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<PageByIdQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<PageByIdQuery>(PageByIdDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'PageById',
+        'PageBySlug',
         'query',
         variables,
       )

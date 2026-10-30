@@ -1,9 +1,9 @@
 import { FolderIcon } from '@/assets/icons'
 import AssetRow from '@/modules/cards-and-rows/AssetRow'
 import { AssetEntityFragment, DisclosureEntityFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 import { hasAttributes, isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 export interface AssetsProps {
   className?: string
@@ -12,7 +12,7 @@ export interface AssetsProps {
 }
 
 export const Assets = ({ className, title, assets }: AssetsProps) => {
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getFullPath } = useNavigation()
 
   const parsedAssets = assets
     .filter(hasAttributes)
@@ -31,7 +31,7 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
 
         return {
           id: asset.id,
-          linkHref: getPathForStrapiEntity(asset),
+          linkHref: getFullPath(asset),
           content: {
             category: type,
             title: assetTitle,
@@ -46,7 +46,7 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
 
         return {
           id: asset.id,
-          linkHref: getPathForStrapiEntity(asset),
+          linkHref: getFullPath(asset),
           content: {
             category: assetCategory?.data?.attributes?.label,
             title: assetTitle,

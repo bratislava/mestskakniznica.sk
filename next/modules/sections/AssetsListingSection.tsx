@@ -15,13 +15,13 @@ import {
   AssetsFilters,
   getAssetsQueryKey,
 } from '@/services/meili/fetchers/assetsFetcher'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { Enum_Disclosure_Type_Fixed } from '@/utils/types'
 import { useRoutePreservedState } from '@/utils/useRoutePreservedState'
 
 const AssetsListingSection = () => {
   const { t } = useTranslation()
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity } = useNavigation()
 
   // TODO add scroll to results
 

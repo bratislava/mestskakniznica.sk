@@ -10,13 +10,14 @@ export const Subpages = ({ title, subpages }: SubpagesProps) => {
     <div className="space-y-6">
       <h3 className="text-h3"> {title}</h3>
       <div className="mt-6 grid grid-cols-1 gap-8">
-        {subpages?.map((subpage) => (
+        {subpages?.map((subpage, index) => (
           <SubpageItem
-            key={subpage.id}
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
             title={subpage.title}
             description={subpage.description}
             url={subpage.url}
-            id={subpage.id}
+            pageSlug={subpage.pageSlug}
           />
         ))}
       </div>

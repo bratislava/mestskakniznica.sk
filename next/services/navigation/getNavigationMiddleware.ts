@@ -1,85 +1,77 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { fetchNavigationFromApi } from '@/services/navigation/fetchNavigation'
-import { NavigationConfig } from '@/services/navigation/typesNavigation'
+import { fetchNavigation } from '@/services/navigation/fetchNavigation'
+import {
+  contentTypes,
+  LocaleNavigation,
+  NavigationConfig,
+} from '@/services/navigation/typesNavigation'
 
 // Inspired by City Library - Navikronos custom plugin
 // https://github.com/bratislava/mestskakniznica.sk/blob/dfef31c799e1a903af4fa30aa1be5c3f27ae5418/next/navikronos/getNavikronosMiddleware.ts
 
+// From https://nextjs.org/docs/advanced-features/i18n-routing#prefixing-the-default-locale
+const PUBLIC_FILE = /\.(.*)$/
+
 /**
- * This middleware rewrites path based on given path and data from Strapi "Navigation" content type.
+ * Returns the internal route for the search page and detail pages, `null` for everything else. Pages are served by
+ * `pages/[...path].tsx` without a rewrite.
+ */
+const getRewriteDestination = (
+  config: NavigationConfig,
+  { pagePathsMap, contentTypePathPrefixesMap }: LocaleNavigation,
+  locale: string,
+  pathname: string,
+) => {
+  if (pathname === config.searchPaths[locale]) {
+    return '/search'
+  }
+
+  const slug = pathname.split('/').at(-1)
+  // A page takes precedence over a detail page with the same path.
+  if (!slug || pagePathsMap[slug]?.path === pathname) {
+    return null
+  }
+
+  const parentPath = pathname.slice(0, pathname.lastIndexOf('/'))
+  const contentType = contentTypes.find((type) => contentTypePathPrefixesMap[type] === parentPath)
+
+  return contentType ? `/${contentType}/${slug}` : null
+}
+
+/**
+ * This proxy rewrites the search page and detail pages to their internal routes, based on the page tree and the
+ * Strapi "Navigation" single type.
  *
  * @param config
  */
-
 export const getNavigationMiddleware = (config: NavigationConfig) => {
-  // eslint-disable-next-line sonarjs/cognitive-complexity
   return async (request: NextRequest) => {
-    const { contentTypePathPrefixesMap } = await fetchNavigationFromApi(config)
+    const { locale, pathname } = request.nextUrl
 
-    const pathnameString = request.nextUrl.pathname
-    const pathname = pathnameString.split('/')
+    // From https://nextjs.org/docs/advanced-features/i18n-routing#prefixing-the-default-locale
+    if (pathname.startsWith('/_next') || pathname.includes('/api/') || PUBLIC_FILE.test(pathname)) {
+      return NextResponse.next()
+    }
 
-    /**
-     * Important note:
-     * - `pathnameString` and `articlesPath` contains leading slash
-     * - `articlesPath` contains also trailing slash
-     * - `pathnameString` does not contain trailing slash
-     *
-     * Therefore, when we do `pathnameString.startsWith(articlesPath)` it does not match articles' parent page, but matches only paths that contains also article's slug.
-     */
-    const articlesPath = contentTypePathPrefixesMap.article
-      ? `${contentTypePathPrefixesMap.article}/`
-      : null
-    const documentsPath = contentTypePathPrefixesMap.document
-      ? `${contentTypePathPrefixesMap.document}/`
-      : null
-    // TODO assets migration: uncomment when documents are migrated to assets
-    // const assetsPath = contentTypePathPrefixesMap.asset
-    //   ? `${contentTypePathPrefixesMap.asset}/`
-    //   : null
-    const faqCategoriesPath = contentTypePathPrefixesMap.faqCategory
-      ? `${contentTypePathPrefixesMap.faqCategory}/`
-      : null
-    const servicesPath = contentTypePathPrefixesMap.service
-      ? `${contentTypePathPrefixesMap.service}/`
-      : null
-    const workshopsPath = contentTypePathPrefixesMap.workshop
-      ? `${contentTypePathPrefixesMap.workshop}/`
+    if (pathname.startsWith(`/${config.rewritePrefix}`)) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/404'
+
+      return NextResponse.rewrite(url)
+    }
+
+    const localeNavigation = (await fetchNavigation(config))[locale]
+    const destination = localeNavigation
+      ? getRewriteDestination(config, localeNavigation, locale, pathname)
       : null
 
-    let destination: string | null = null
-
-    // Note that "forms" path does not need to be rewritten
-
-    if (articlesPath && pathnameString.startsWith(articlesPath)) {
-      destination = `/articles/${pathname.at(-1)}`
-    }
-    if (documentsPath && pathnameString.startsWith(documentsPath)) {
-      destination = `/documents/${pathname.at(-1)}`
-    }
-    // TODO assets migration: uncomment when documents are migrated to assets
-    // if (assetsPath && pathnameString.startsWith(assetsPath)) {
-    //   destination = `/assets/${pathname.at(-1)}`
-    // }
-    if (faqCategoriesPath && pathnameString.startsWith(faqCategoriesPath)) {
-      destination = `/faq-categories/${pathname.at(-1)}`
-    }
-    if (servicesPath && pathnameString.startsWith(servicesPath)) {
-      destination = `/services/${pathname.at(-1)}`
-    }
-    if (workshopsPath && pathnameString.startsWith(workshopsPath)) {
-      destination = `/workshops/${pathname.at(-1)}`
+    if (!destination) {
+      return NextResponse.next()
     }
 
-    if (typeof destination === 'string' && destination.length > 0) {
-      const newUrl = new URL(destination, request.nextUrl.origin)
-      // eslint-disable-next-line no-console
-      console.log('Middleware: newUrl', newUrl.toString())
-
-      return NextResponse.rewrite(newUrl)
-    }
-
-    return NextResponse.next()
+    return NextResponse.rewrite(
+      new URL(`/${locale}/${config.rewritePrefix}${destination}`, request.url),
+    )
   }
 }

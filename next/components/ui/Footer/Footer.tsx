@@ -6,9 +6,9 @@ import YtLogo from '@/assets/images/yt-logo.svg'
 import Accordion from '@/modules/common/Accordion'
 import MLink from '@/modules/common/MLink'
 import { ComponentFooterFooterColumnFragment, Maybe } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 export interface FooterProps {
   className?: string
@@ -27,14 +27,14 @@ const FooterLinks = ({
 }: {
   footerLink: ComponentFooterFooterColumnFragment['footerLink']
 }) => {
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getFullPath } = useNavigation()
 
   return (
     <>
       {footerLink?.filter(isDefined).map((link) => (
         <MLink
           key={link.id}
-          href={link.otherSite || getPathForStrapiEntity(link.redirectTo?.data) || '#'}
+          href={link.otherSite || getFullPath(link.redirectTo?.data) || '#'}
           variant="basic"
           className="text-base text-foreground-body"
         >

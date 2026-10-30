@@ -4,15 +4,15 @@ import { Fragment, useId } from 'react'
 
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { client } from '@/services/graphql/gql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 const OpeningHoursChangeAlert = () => {
   const { t, i18n } = useTranslation()
   const locale = i18n.language
   const alertBannerId = useId()
 
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getFullPath } = useNavigation()
 
   const { data: noticesData } = useQuery({
     queryFn: () => client.OpeningHoursChangeNotices({ locale }),
@@ -32,7 +32,7 @@ const OpeningHoursChangeAlert = () => {
             if (!notice.attributes) return null
 
             const { title } = notice.attributes
-            const link = getPathForStrapiEntity(notice)
+            const link = getFullPath(notice)
             const id = `${alertBannerId}-${index}`
 
             return (

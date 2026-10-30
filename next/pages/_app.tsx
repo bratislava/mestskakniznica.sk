@@ -12,9 +12,8 @@ import ErrorPage from '@/components/pages/ErrorPage'
 import { NavMenuContextProvider } from '@/modules/navigation/navMenuContext'
 import MI18nProvider from '@/modules/providers/MI18nProvider'
 import MQueryClientProvider from '@/modules/providers/MQueryClientProvider'
-import { NavikronosConfigProvider } from '@/navikronos/NavikronosConfigProvider'
+import { NavigationProvider } from '@/services/navigation/NavigationProvider'
 import { beausiteFont } from '@/utils/beausiteFont'
-import { navikronosConfig } from '@/utils/navikronos'
 import { isProductionDeployment } from '@/utils/utils'
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
@@ -35,7 +34,7 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
         trackFileDownloads
         enabled={isProductionDeployment()}
       />
-      <NavikronosConfigProvider config={navikronosConfig}>
+      <NavigationProvider staticProps={pageProps.navigationStaticProps}>
         <MQueryClientProvider>
           <MI18nProvider>
             <OverlayProvider>
@@ -47,7 +46,7 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
             </OverlayProvider>
           </MI18nProvider>
         </MQueryClientProvider>
-      </NavikronosConfigProvider>
+      </NavigationProvider>
     </div>
   )
 }

@@ -2,6 +2,7 @@ fragment SectionLinkPageEntity on PageEntity {
   id
   attributes {
     title
+    newSlug
   }
 }
 
@@ -90,32 +91,27 @@ fragment GeneralEntity on GeneralEntity {
   attributes {
     eventsPage {
       data {
-        __typename
-        id
+        ...PageSlugEntity
       }
     }
     newBooksPage {
       data {
-        __typename
-        id
+        ...PageSlugEntity
       }
     }
     privacyTermsAndConditionsPage {
       data {
-        __typename
-        id
+        ...PageSlugEntity
       }
     }
     openingHoursPage {
       data {
-        __typename
-        id
+        ...PageSlugEntity
       }
     }
     noticesPage {
       data {
-        __typename
-        id
+        ...PageSlugEntity
       }
     }
   }

@@ -1,10 +1,10 @@
 ﻿import { useTranslation } from 'next-i18next/pages'
 
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 export const useGetOtherLocale = () => {
   const { i18n } = useTranslation()
-  const { localizations, getPathForEntity } = useNavikronos()
+  const { localizations, getPathForEntity } = useNavigation()
 
   if (localizations?.[0]) {
     return {

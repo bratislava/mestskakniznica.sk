@@ -39,9 +39,9 @@ import {
   DisclosureEntityFragment,
   PageSectionsFragment,
 } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 import { parseSubpages } from '@/utils/page'
 
 type FormsProps =
@@ -92,7 +92,7 @@ const Sections = ({
   const { t } = useTranslation()
 
   const { general } = useGeneralContext()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getFullPath } = useNavigation()
 
   return (
     <div className="flex flex-col space-y-8">
@@ -150,7 +150,7 @@ const Sections = ({
               ? getForm(
                   section.type,
                   section.type,
-                  getPathForStrapiEntity(
+                  getFullPath(
                     general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
                   ) ?? undefined,
                 )

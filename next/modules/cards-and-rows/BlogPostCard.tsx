@@ -6,7 +6,7 @@ import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import StrapiImage, { getImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatDate from '@/modules/formatting/FormatDate'
 import { BlogPostEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 type BlogPostProps = {
   blogPost: BlogPostEntityFragment
@@ -14,10 +14,10 @@ type BlogPostProps = {
 
 const BlogPostCard = ({ blogPost }: BlogPostProps) => {
   const { t } = useTranslation()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getFullPath } = useNavigation()
 
   const { coverMedia, publishedAt, title } = blogPost.attributes ?? {}
-  const link = getPathForStrapiEntity(blogPost)
+  const link = getFullPath(blogPost)
 
   return (
     <CardWrapper className="group/showMore relative flex size-full shrink-0 flex-col justify-between">

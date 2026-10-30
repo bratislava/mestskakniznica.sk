@@ -7,7 +7,7 @@ import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import StrapiImage, { getImagePlaceholder } from '@/modules/common/StrapiImage'
 import FormatDate from '@/modules/formatting/FormatDate'
 import { NoticeListingEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 type NoticeCardProps = {
   notice: NoticeListingEntityFragment
@@ -15,12 +15,12 @@ type NoticeCardProps = {
 
 const NoticeCard = ({ notice }: NoticeCardProps) => {
   const { t } = useTranslation()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getFullPath } = useNavigation()
 
   const { image, link, date } = useMemo(() => {
     return {
       image: notice.attributes?.listingImage?.data,
-      link: getPathForStrapiEntity(notice),
+      link: getFullPath(notice),
       date: notice.attributes?.publishedAt,
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

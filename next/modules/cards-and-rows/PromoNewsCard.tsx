@@ -4,7 +4,7 @@ import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { NoticeListingEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 type PromoNewsCardProps = {
   notice: NoticeListingEntityFragment
@@ -12,9 +12,9 @@ type PromoNewsCardProps = {
 
 const PromoNewsCard = ({ notice }: PromoNewsCardProps) => {
   const { t } = useTranslation()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getFullPath } = useNavigation()
 
-  const link = getPathForStrapiEntity(notice) ?? '#'
+  const link = getFullPath(notice) ?? '#'
 
   return (
     <CardWrapper className="group/showMore relative flex size-full flex-col justify-between bg-promo-peach py-3 pr-5 pl-4 lg:pt-[18px] lg:pr-[25px] lg:pb-[15px] lg:pl-5">

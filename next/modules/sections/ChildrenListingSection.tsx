@@ -11,9 +11,9 @@ import {
   getLatestNewsQueryKey,
   latestNewsFetcher,
 } from '@/services/graphql/fetchers/latestNews.fetcher'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 type ChildrenListingSectionProps = {
   section: ComponentSectionsChildrenListing
@@ -21,7 +21,7 @@ type ChildrenListingSectionProps = {
 
 const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
   const { i18n } = useTranslation()
-  const { children, getPathForStrapiEntity } = useNavikronos()
+  const { children, getFullPath } = useNavigation()
   const { general, upcomingEvents } = useGeneralContext()
 
   const { data: latestNewsData } = useQuery({
@@ -34,18 +34,18 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
     () =>
       upcomingEvents?.data?.map((event) => ({
         title: event.attributes?.title ?? '',
-        path: getPathForStrapiEntity(event),
+        path: getFullPath(event),
       })) ?? [],
-    [getPathForStrapiEntity, upcomingEvents],
+    [getFullPath, upcomingEvents],
   )
 
   const mappedLatestNews = useMemo(
     () =>
       latestNewsData?.latestNotices?.data.map((notice) => ({
         title: notice.attributes?.title ?? '',
-        path: getPathForStrapiEntity(notice),
+        path: getFullPath(notice),
       })) ?? [],
-    [getPathForStrapiEntity, latestNewsData],
+    [getFullPath, latestNewsData],
   )
 
   if (section.depth === Enum_Componentsectionschildrenlisting_Depth.Depth_1) {
@@ -57,14 +57,10 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
       <>
         {children?.map((child, index) => {
           const isEventsPage =
-            child.entity &&
-            child.entity.type === 'page' &&
-            child.entity.id === general?.data?.attributes?.eventsPage?.data?.id
+            child.slug === general?.data?.attributes?.eventsPage?.data?.attributes?.newSlug
 
           const isNoticesPage =
-            child.entity &&
-            child.entity.type === 'page' &&
-            child.entity.id === general?.data?.attributes?.noticesPage?.data?.id
+            child.slug === general?.data?.attributes?.noticesPage?.data?.attributes?.newSlug
 
           const listingChildren = (() => {
             if (isEventsPage) {
