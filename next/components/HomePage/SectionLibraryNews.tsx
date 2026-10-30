@@ -5,7 +5,7 @@ import NoticeCard from '@/modules/cards-and-rows/NoticeCard'
 import Carousel from '@/modules/common/Carousel/Carousel'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { HomepageNewsSectionFragment, NoticeListingEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 interface LibraryNewsProps {
   notices: NoticeListingEntityFragment[]
@@ -14,7 +14,7 @@ interface LibraryNewsProps {
 
 const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
   const { t } = useTranslation()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getFullPath } = useNavigation()
 
   return (
     <SectionContainer hasBorder>
@@ -33,7 +33,7 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
         />
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
           {newsSection?.redirectTo && (
-            <ShowMoreLink href={getPathForStrapiEntity(newsSection?.redirectTo?.data) ?? '#'}>
+            <ShowMoreLink href={getFullPath(newsSection?.redirectTo?.data) ?? '#'}>
               {t('sectionLibraryNews.libraryNewsAll')}
             </ShowMoreLink>
           )}

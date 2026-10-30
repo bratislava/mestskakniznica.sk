@@ -6,9 +6,9 @@ import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import EventCard from '@/modules/cards-and-rows/EventCard'
 import MLink from '@/modules/common/MLink'
 import { EventEntityFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 export interface PageProps {
   event: EventEntityFragment
@@ -18,7 +18,7 @@ const EventPage = ({ event }: PageProps) => {
   const { t } = useTranslation()
 
   const { upcomingEvents } = useGeneralContext()
-  const { breadcrumbs, getPathForStrapiEntity } = useNavikronos()
+  const { breadcrumbs, getFullPath } = useNavigation()
   const { general } = useGeneralContext()
 
   return (
@@ -35,7 +35,7 @@ const EventPage = ({ event }: PageProps) => {
         <div className="inline-flex w-full pt-10">
           <h2 className="text-h3">{t('eventPage.otherEvents')}</h2>
           <MLink
-            href={getPathForStrapiEntity(general?.data?.attributes?.eventsPage?.data) ?? '#'}
+            href={getFullPath(general?.data?.attributes?.eventsPage?.data) ?? '#'}
             title={t('eventPage.eventsAll')}
             className="ml-auto"
             hasIcon

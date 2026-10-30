@@ -9,7 +9,7 @@ import Button from '@/modules/common/Button'
 import FileExtBadge from '@/modules/common/FileExtBadge'
 import FormatDate from '@/modules/formatting/FormatDate'
 import { AssetEntityFragment, DisclosureEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useDisclosureMetadata } from '@/utils/useDisclosureMetadata'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 import { getFileSize } from '@/utils/utils'
@@ -20,7 +20,7 @@ interface IProps {
 
 const AssetPage = ({ entity }: IProps) => {
   const { t, i18n } = useTranslation()
-  const { breadcrumbs } = useNavikronos()
+  const { breadcrumbs } = useNavigation()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
   const { getDisclosureMetadata } = useDisclosureMetadata()
 

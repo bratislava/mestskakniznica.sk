@@ -10,9 +10,9 @@ import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { BranchCardEntityFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 type MapSectionProps = {
   branches: BranchCardEntityFragment[]
@@ -35,7 +35,7 @@ const getBoundsForLocalities = (branches: BranchCardEntityFragment[]) => {
 
 const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: MapSectionProps) => {
   const { t } = useTranslation()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getFullPath } = useNavigation()
 
   const isClient = useIsClient()
 
@@ -133,7 +133,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
         >
           {branches.map((branch, index) => {
             const { title: branchTitle, subBranches } = branch.attributes ?? {}
-            const linkHref = getPathForStrapiEntity(branch) ?? '#'
+            const linkHref = getFullPath(branch) ?? '#'
 
             return (
               <CardWrapper

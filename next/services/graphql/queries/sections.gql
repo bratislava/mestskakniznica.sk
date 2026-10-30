@@ -40,7 +40,7 @@ fragment RentalSection on ComponentSectionsRental {
       data {
         id
         attributes {
-          slug
+          newSlug
         }
       }
     }

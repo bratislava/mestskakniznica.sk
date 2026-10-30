@@ -6,8 +6,8 @@ import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import StrapiImage from '@/modules/common/StrapiImage'
 import FormatDate from '@/modules/formatting/FormatDate'
 import { BlogPostEntityFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 export interface BlogPostPageProps {
   blogPost: BlogPostEntityFragment
@@ -19,7 +19,7 @@ const BlogPostPage = ({ blogPost }: BlogPostPageProps) => {
   const coverMedia = blogPost?.attributes?.coverMedia?.data?.attributes
   const mediaType = coverMedia?.mime?.split('/')[0] ?? ''
 
-  const { breadcrumbs } = useNavikronos()
+  const { breadcrumbs } = useNavigation()
 
   return (
     <>

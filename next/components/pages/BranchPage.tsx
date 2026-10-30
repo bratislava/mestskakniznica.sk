@@ -2,14 +2,14 @@ import BranchDetails from '@/components/Molecules/BranchDetails/BranchDetails'
 import { SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import { BranchEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 export interface PageProps {
   branch: BranchEntityFragment
 }
 
 const BranchPage = ({ branch }: PageProps) => {
-  const { breadcrumbs } = useNavikronos()
+  const { breadcrumbs } = useNavigation()
 
   return (
     <>

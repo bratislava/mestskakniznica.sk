@@ -1,0 +1,120 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
+import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
+import { SSRConfig } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
+
+import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
+import BranchPage from '@/components/pages/BranchPage'
+import { BranchEntityFragment, GeneralQuery } from '@/services/graphql'
+import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
+import { client } from '@/services/graphql/gql'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
+import { NOT_FOUND } from '@/utils/consts'
+import { extractLocalizationsWithSlug } from '@/utils/extractLocalizations'
+import { GeneralContextProvider } from '@/utils/generalContext'
+import { isDefined } from '@/utils/isDefined'
+
+type PageProps = {
+  branch: BranchEntityFragment
+  general: GeneralQuery
+} & SSRConfig &
+  NavigationPageProps
+
+const Page = ({ branch, general }: PageProps) => {
+  return (
+    <GeneralContextProvider general={general}>
+      <DefaultPageLayout
+        title={branch.attributes?.title}
+        seo={branch.attributes?.seo}
+        defaultMetaDescription={branch.attributes?.body}
+      >
+        <BranchPage branch={branch} />
+      </DefaultPageLayout>
+    </GeneralContextProvider>
+  )
+}
+
+// TODO use common functions to prevent duplicate code
+interface StaticParams extends ParsedUrlQuery {
+  slug: string
+}
+
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
+  let paths: GetStaticPathsResult<StaticParams>['paths'] = []
+
+  const pathArraysForLocales = await Promise.all(
+    locales.map((locale) => client.BranchStaticPaths({ locale })),
+  )
+  const entities = pathArraysForLocales
+    .flatMap(({ branches }) => branches?.data || [])
+    .filter(isDefined)
+
+  if (entities.length > 0) {
+    paths = entities
+      .filter((entity) => entity.attributes?.slug)
+      .map((entity) => ({
+        params: {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          slug: entity.attributes!.slug,
+          locale: entity.attributes?.locale || '',
+        },
+      }))
+  }
+
+  // eslint-disable-next-line no-console
+  console.log(`Branches: Generated static paths for ${paths.length} slugs.`)
+
+  return { paths, fallback: 'blocking' }
+}
+
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ctx) => {
+  const { locale, params } = ctx
+  const slug = params?.slug
+
+  if (!slug || !locale) {
+    return NOT_FOUND
+  }
+
+  // eslint-disable-next-line no-console
+  console.log(`Revalidating ${locale} branch ${slug}`)
+
+  const { branches } = await client.BranchBySlug({
+    slug,
+    locale,
+  })
+  const branch = branches?.data[0] ?? null
+  if (!branch) {
+    return NOT_FOUND
+  }
+
+  const localizations = extractLocalizationsWithSlug('branch', branch)
+
+  const [general, translations, navigationStaticProps] = await Promise.all([
+    generalFetcher(locale),
+    serverSideTranslations(locale),
+    getNavigationStaticProps({
+      locale,
+      currentEntity: {
+        type: 'branch',
+        slug,
+      },
+      currentEntityLocalizations: localizations,
+      breadcrumbsTitle: branch.attributes?.title,
+    }),
+  ])
+
+  return {
+    props: {
+      slug,
+      branch,
+      general,
+      navigationStaticProps,
+      ...translations,
+    },
+    revalidate: 10,
+  }
+}
+
+export default Page

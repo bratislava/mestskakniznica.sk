@@ -6,9 +6,9 @@ import MLink from '@/modules/common/MLink'
 import Modal_deprecated from '@/modules/common/Modal_deprecated'
 import MobileNavigationItem from '@/modules/navigation/MobileNavigationItem'
 import { MenuItem } from '@/modules/navigation/NavMenu'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { opacBaseUrl } from '@/utils/consts'
 import { useGeneralContext } from '@/utils/generalContext'
-import { useNavikronos } from '@/utils/navikronos'
 import { useGetOtherLocale } from '@/utils/useGetOtherLocale'
 
 interface MobileNavigationProps {
@@ -19,18 +19,14 @@ interface MobileNavigationProps {
 
 export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationProps) => {
   const { t } = useTranslation()
-  const { getPathForEntity } = useNavikronos()
+  const { getFullPath } = useNavigation()
   const { general } = useGeneralContext()
   const otherLocale = useGetOtherLocale()
 
   const moreLinks = [
     {
       label: t('navigation.openingHours'),
-      url:
-        getPathForEntity({
-          type: 'page',
-          id: general?.data?.attributes?.openingHoursPage?.data?.id,
-        }) ?? '',
+      url: getFullPath(general?.data?.attributes?.openingHoursPage?.data) ?? '',
     },
     {
       label: t('navigation.onlineCatalog'),

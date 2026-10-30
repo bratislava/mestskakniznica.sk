@@ -21,11 +21,11 @@ import {
   CommonSearchType,
   getCommonSearchQueryKey,
 } from '@/services/meili/fetchers/commonSearchFetcher'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 const SearchPage = () => {
   const { t, i18n } = useTranslation()
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity } = useNavigation()
   const plausible = usePlausible()
 
   const translationsMap = {
@@ -106,7 +106,7 @@ const SearchPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedInputForPlausible])
 
-  const { breadcrumbs } = useNavikronos()
+  const { breadcrumbs } = useNavigation()
 
   return (
     <>
@@ -170,10 +170,8 @@ const SearchPage = () => {
               </motion.div>
             ) : (
               <ul ref={resultsRef} className="-mb-3 flex flex-col pb-3">
-                {data?.hits.map(({ title, type, id, slug }, index) => {
-                  const link = getPathForEntity(
-                    type === 'page' ? { type, id: String(id) } : { type, slug },
-                  )
+                {data?.hits.map(({ title, type, slug }, index) => {
+                  const link = getPathForEntity({ type, slug })
 
                   return (
                     // eslint-disable-next-line react/no-array-index-key

@@ -1,5 +1,4 @@
-import { navikronosConfig } from '@/utils/navikronosConfig'
+import { getNavigationMiddleware } from '@/services/navigation/getNavigationMiddleware'
+import { navigationConfig } from '@/services/navigation/navigationConfig'
 
-import { getNavikronosMiddleware } from './navikronos/getNavikronosMiddleware'
-
-export const proxy = getNavikronosMiddleware(navikronosConfig)
+export const proxy = getNavigationMiddleware(navigationConfig)

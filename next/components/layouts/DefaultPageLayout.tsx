@@ -9,9 +9,9 @@ import ScrollToTopButton from '@/modules/common/ScrollToTopButton'
 import HeaderWrapper from '@/modules/navigation/HeaderWrapper'
 import { useNavMenuContext } from '@/modules/navigation/navMenuContext'
 import { SeoFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 import { useGeneralContext } from '@/utils/generalContext'
-import { useNavikronos } from '@/utils/navikronos'
 
 interface IProps {
   children?: ReactNode
@@ -22,7 +22,7 @@ interface IProps {
 
 const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IProps) => {
   const { footer, general } = useGeneralContext()
-  const { getPathForStrapiEntity, localizations, getPathForEntity } = useNavikronos()
+  const { getFullPath, localizations, getPathForEntity } = useNavigation()
 
   const { t } = useTranslation()
   const { menuValue } = useNavMenuContext()
@@ -68,7 +68,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
               gdpr={{
                 title: t('footer.privacy'),
                 href:
-                  getPathForStrapiEntity(
+                  getFullPath(
                     general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
                   ) ?? '#',
               }}
