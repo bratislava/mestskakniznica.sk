@@ -46,8 +46,6 @@ interface StaticParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
-  let paths: GetStaticPathsResult<StaticParams>['paths'] = []
-
   const pathArraysForLocales = await Promise.all(
     locales.map((locale) => client.NoticesStaticPaths({ locale })),
   )
@@ -56,18 +54,16 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
     .flatMap(({ notices }) => notices?.data || [])
     .filter(isDefined)
 
-  if (entities) {
-    paths = entities
-      .filter(isDefined)
-      .filter((entity) => entity?.attributes?.slug)
-      .map((entity) => ({
-        params: {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          slug: entity.attributes!.slug,
-          locale: entity.attributes?.locale || '',
-        },
-      }))
-  }
+  const paths: GetStaticPathsResult<StaticParams>['paths'] = entities
+    .filter((entity) => entity.attributes?.slug)
+    .map((entity) => ({
+      params: {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        slug: entity.attributes!.slug,
+      },
+      locale: entity.attributes?.locale || '',
+    }))
+
   // eslint-disable-next-line no-console
   console.log(`Notices: Generated static paths for ${paths.length} slugs.`)
 
