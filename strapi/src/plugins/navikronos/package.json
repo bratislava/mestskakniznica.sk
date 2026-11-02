@@ -16,16 +16,16 @@
     "develop": "tsc -p tsconfig.server.json -w"
   },
   "dependencies": {
-    "@strapi/helper-plugin": "4.26.0",
+    "@strapi/helper-plugin": "4.26.2",
     "@tanstack/react-query": "5.66.0",
     "immer": "9.0.18",
     "lodash": "4.17.21",
     "strapi-typed": "1.0.20",
-    "styled-components": "5.2.1",
+    "styled-components": "^5.2.1",
     "zod": "3.24.1"
   },
   "devDependencies": {
-    "@strapi/typescript-utils": "4.26.0",
+    "@strapi/typescript-utils": "4.26.2",
     "@types/react": "18.3.31",
     "@types/react-dom": "18.3.7",
     "@types/react-router-dom": "5.3.3",
