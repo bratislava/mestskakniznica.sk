@@ -42,6 +42,11 @@
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.2.1"
   },
+  "overrides": {
+    "@casl/ability": "6.7.5",
+    "axios": "1.20.0",
+    "tar": "7.5.22"
+  },
   "engines": {
     "node": ">=22.23.x",
     "npm": ">=10.9.9"
