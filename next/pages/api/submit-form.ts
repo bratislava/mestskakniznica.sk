@@ -1,5 +1,5 @@
 import reduce from 'lodash/reduce'
-import Mailgun from 'mailgun-js'
+import Mailgun from 'mailgun.js'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 // TODO get domain and set based on that
@@ -16,11 +16,13 @@ if (
 }
 const EMAIL_FROM = process.env.MAILGUN_EMAIL || ''
 
-const messenger = new Mailgun({
-  apiKey: process.env.MAILGUN_API_KEY || '',
-  domain: process.env.MAILGUN_DOMAIN || '',
-  host: process.env.MAILGUN_HOST || '',
-})
+// Created per request: mailgun.js throws on an empty key, and the env may be missing at build time
+const getMessenger = () =>
+  new Mailgun(FormData).client({
+    username: 'api',
+    key: process.env.MAILGUN_API_KEY || '',
+    url: `https://${process.env.MAILGUN_HOST || 'api.mailgun.net'}`,
+  })
 
 const available_emails = new Set([
   'info@mestskakniznica.sk',
@@ -119,7 +121,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return
     }
 
-    await messenger.messages().send(dataToSend)
+    await getMessenger().messages.create(process.env.MAILGUN_DOMAIN || '', dataToSend)
 
     res.status(200).json({}); 
   } catch (error) {
