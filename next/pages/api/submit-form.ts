@@ -16,13 +16,10 @@ if (
 }
 const EMAIL_FROM = process.env.MAILGUN_EMAIL || ''
 
-// Created per request: mailgun.js throws on an empty key, and the env may be missing at build time
-const getMessenger = () =>
-  new Mailgun(FormData).client({
-    username: 'api',
-    key: process.env.MAILGUN_API_KEY || '',
-    url: `https://${process.env.MAILGUN_HOST || 'api.mailgun.net'}`,
-  })
+let messenger: ReturnType<typeof createMessenger> | undefined
+const getMessenger = () => {
+  
+}
 
 const available_emails = new Set([
   'info@mestskakniznica.sk',
