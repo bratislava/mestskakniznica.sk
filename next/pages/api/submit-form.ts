@@ -16,6 +16,21 @@ if (
 }
 const EMAIL_FROM = process.env.MAILGUN_EMAIL || ''
 
+const getMailgunUrl = () => {
+  const host = process.env.MAILGUN_HOST
+  if (!host) return undefined
+
+  // MAILGUN_HOST is a bare hostname, but mailgun.js expects a full URL
+  return /^https?:\/\//.test(host) ? host : `https://${host}`
+}
+
+const createMessenger = () =>
+  new Mailgun(FormData).client({
+    username: 'api',
+    key: process.env.MAILGUN_API_KEY || '',
+    url: getMailgunUrl(),
+  })
+
 let messenger: ReturnType<typeof createMessenger> | undefined
 const getMessenger = () => {
   if (!messenger) {
