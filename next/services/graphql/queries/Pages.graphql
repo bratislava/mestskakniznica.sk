@@ -143,6 +143,7 @@ fragment PageSlugEntity on PageEntity {
   }
 }
 
+# Fetches 5 levels of the page tree, keep in sync with MAX_LEVELS in strapi/src/api/page/content-types/page/lifecycles.ts.
 fragment PageEntityChildPages on PageEntity {
   __typename
   id

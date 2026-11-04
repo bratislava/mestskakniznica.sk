@@ -5,7 +5,8 @@ const { ApplicationError } = errors
 /**
  * Keeps the page tree (parentPage + newSlug) valid, because page URLs are built from it:
  * - newSlug is lowercase-kebab-case and unique within a locale (a `uid` field would be unique across all locales),
- * - a page's parent is in the same locale and is not the page itself or one of its descendants.
+ * - a page's parent is in the same locale and is not the page itself or one of its descendants,
+ * - the tree has at most MAX_LEVELS levels.
  *
  * Every rule is checked only when the field changes, so existing pages with legacy values can still be edited.
  * Messages are in Slovak, they are shown to editors in the admin.
@@ -13,6 +14,9 @@ const { ApplicationError } = errors
 
 const PAGE_UID = 'api::page.page'
 const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+// Number of levels `PageEntityChildPages` in next/services/graphql/queries/Pages.graphql fetches, keep them in sync.
+// Deeper pages are missing from the navigation and their URLs return 404.
+const MAX_LEVELS = 5
 // Far deeper than the real tree, only guards against an endless loop on already broken data.
 const MAX_DEPTH = 50
 
@@ -76,6 +80,24 @@ const validateSlug = async (newSlug: unknown, locale: string, pageId?: Id) => {
   }
 }
 
+/** Levels of a page's subtree, the page included. Drafts count too, they would be too deep once published. */
+const getSubtreeLevels = async (pageId: Id) => {
+  let levels = 1
+  let ids = [pageId]
+  while (levels < MAX_DEPTH) {
+    const children = (await strapi.db.query(PAGE_UID).findMany({
+      select: ['id'],
+      where: { parentPage: { id: { $in: ids } } },
+    })) as Pick<PageRow, 'id'>[]
+    if (children.length === 0) break
+
+    levels += 1
+    ids = children.map(({ id }) => id)
+  }
+
+  return levels
+}
+
 /** `child.id` is undefined for a page that is just being created, it has no descendants yet. */
 const validateParent = async (child: { id?: Id; locale: string }, parentId: Id) => {
   const parent = await findPage(parentId)
@@ -85,15 +107,27 @@ const validateParent = async (child: { id?: Id; locale: string }, parentId: Id) 
     throw new ApplicationError(`Nadradená stránka "${parent.title}" musí byť v rovnakom jazyku ako podstránka.`)
   }
 
-  // Walk up from the new parent: reaching the child means it would become its own ancestor.
+  // Walk up from the new parent: reaching the child means it would become its own ancestor. Counts the parent's level
+  // on the way, a top-level page is on level 1.
   let current: PageRow | null = parent
-  for (let depth = 0; current && depth < MAX_DEPTH; depth += 1) {
+  let parentLevel = 0
+  while (current && parentLevel < MAX_DEPTH) {
     if (current.id === child.id) {
       throw new ApplicationError(
         `Stránka "${parent.title}" nemôže byť nadradenou stránkou, pretože je to táto stránka alebo jej podstránka.`
       )
     }
+    parentLevel += 1
     current = current.parentPage ? await findPage(current.parentPage.id) : null
+  }
+
+  // The child's whole subtree moves with it.
+  const subtreeLevels = child.id === undefined ? 1 : await getSubtreeLevels(child.id)
+  const deepestLevel = parentLevel + subtreeLevels
+  if (deepestLevel > MAX_LEVELS) {
+    throw new ApplicationError(
+      `Stránka "${parent.title}" nemôže byť nadradenou stránkou, pretože stránky môžu byť vnorené najviac do ${MAX_LEVELS}. úrovne a ${subtreeLevels > 1 ? 'najhlbšia podstránka' : 'podstránka'} by bola na ${deepestLevel}. úrovni.`
+    )
   }
 }
 
