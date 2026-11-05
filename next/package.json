@@ -27,6 +27,7 @@
   "dependencies": {
     "@hookform/resolvers": "5.4.0",
     "@internationalized/date": "3.12.2",
+    "@mrjasonroy/cache-components-cache-handler": "16.4.5",
     "@radix-ui/react-navigation-menu": "1.2.15",
     "@react-aria/utils": "3.34.1",
     "@react-stately/utils": "3.12.1",
@@ -41,6 +42,7 @@
     "graphql-request": "7.4.0",
     "graphql-tag": "2.12.6",
     "i18next": "26.3.1",
+    "ioredis": "5.11.1",
     "lodash": "4.18.1",
     "mailgun.js": "14.1.0",
     "many-keys-map": "3.0.3",
