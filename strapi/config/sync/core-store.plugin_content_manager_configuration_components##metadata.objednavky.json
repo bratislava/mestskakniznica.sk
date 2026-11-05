@@ -1,0 +1,117 @@
+{
+  "key": "plugin_content_manager_configuration_components::metadata.objednavky",
+  "value": {
+    "uid": "metadata.objednavky",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "title",
+      "defaultSortBy": "title",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "title": {
+        "edit": {
+          "label": "title",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "title",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "date_period": {
+        "edit": {
+          "label": "date_period",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "date_period",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "date_added": {
+        "edit": {
+          "label": "date_added",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "date_added",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "attachment": {
+        "edit": {
+          "label": "attachment",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "attachment",
+          "searchable": false,
+          "sortable": false
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "title",
+        "date_period",
+        "date_added"
+      ],
+      "edit": [
+        [
+          {
+            "name": "title",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "attachment",
+            "size": 6
+          },
+          {
+            "name": "date_period",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "date_added",
+            "size": 4
+          }
+        ]
+      ]
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

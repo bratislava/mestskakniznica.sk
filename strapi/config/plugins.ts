@@ -22,11 +22,11 @@ export default ({ env }) => ({
         defaultFrom: env('MAILGUN_EMAIL'),
         defaultReplyTo: env('MAILGUN_EMAIL'),
       },
-      'config-sync': {
-        enabled: true,
-        config: configSyncConfig,
-      },
     },
+  },
+  'config-sync': {
+    enabled: true,
+    config: configSyncConfig,
   },
   navikronos: {
     enabled: true,

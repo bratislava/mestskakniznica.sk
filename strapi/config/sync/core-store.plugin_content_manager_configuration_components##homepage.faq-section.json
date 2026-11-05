@@ -1,0 +1,117 @@
+{
+  "key": "plugin_content_manager_configuration_components::homepage.faq-section",
+  "value": {
+    "uid": "homepage.faq-section",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "title",
+      "defaultSortBy": "title",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "ctas": {
+        "edit": {
+          "label": "CTA",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "ctas",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "faqs": {
+        "edit": {
+          "label": "Často kladené otázky",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "faqs",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "title": {
+        "edit": {
+          "label": "Nadpis",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "title",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "redirectTo": {
+        "edit": {
+          "label": "Nasmerovať na link",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "redirectTo",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "title",
+        "redirectTo"
+      ],
+      "edit": [
+        [
+          {
+            "name": "ctas",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "faqs",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "title",
+            "size": 6
+          },
+          {
+            "name": "redirectTo",
+            "size": 6
+          }
+        ]
+      ]
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

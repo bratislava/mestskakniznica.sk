@@ -1,0 +1,118 @@
+{
+  "key": "plugin_content_manager_configuration_components::menu.sections",
+  "value": {
+    "uid": "menu.sections",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "sectionTitle",
+      "defaultSortBy": "sectionTitle",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "sectionTitle": {
+        "edit": {
+          "label": "Nadpis sekcie",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "sectionTitle",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "sectionColumnSpan": {
+        "edit": {
+          "label": "Počet stĺpcov pre sekciu",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "sectionColumnSpan",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "sectionLinks": {
+        "edit": {
+          "label": "Link na stránku",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "sectionLinks",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "sectionPage": {
+        "edit": {
+          "label": "Stránka",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "sectionPage",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "sectionTitle",
+        "sectionColumnSpan",
+        "sectionPage"
+      ],
+      "edit": [
+        [
+          {
+            "name": "sectionTitle",
+            "size": 6
+          },
+          {
+            "name": "sectionColumnSpan",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "sectionLinks",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "sectionPage",
+            "size": 6
+          }
+        ]
+      ]
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}
