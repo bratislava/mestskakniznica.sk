@@ -1,0 +1,136 @@
+{
+  "name": "Public",
+  "description": "Default role given to unauthenticated user.",
+  "type": "public",
+  "permissions": [
+    {
+      "action": "api::asset-category.asset-category.find"
+    },
+    {
+      "action": "api::asset-category.asset-category.findOne"
+    },
+    {
+      "action": "api::asset.asset.find"
+    },
+    {
+      "action": "api::asset.asset.findOne"
+    },
+    {
+      "action": "api::basic-document.basic-document.find"
+    },
+    {
+      "action": "api::basic-document.basic-document.findOne"
+    },
+    {
+      "action": "api::blog-post.blog-post.find"
+    },
+    {
+      "action": "api::blog-post.blog-post.findOne"
+    },
+    {
+      "action": "api::book-tag.book-tag.find"
+    },
+    {
+      "action": "api::book-tag.book-tag.findOne"
+    },
+    {
+      "action": "api::branch.branch.find"
+    },
+    {
+      "action": "api::branch.branch.findOne"
+    },
+    {
+      "action": "api::disclosure.disclosure.find"
+    },
+    {
+      "action": "api::disclosure.disclosure.findOne"
+    },
+    {
+      "action": "api::document-category.document-category.find"
+    },
+    {
+      "action": "api::document-category.document-category.findOne"
+    },
+    {
+      "action": "api::document.document.find"
+    },
+    {
+      "action": "api::document.document.findOne"
+    },
+    {
+      "action": "api::event-category.event-category.find"
+    },
+    {
+      "action": "api::event-category.event-category.findOne"
+    },
+    {
+      "action": "api::event-tag.event-tag.find"
+    },
+    {
+      "action": "api::event-tag.event-tag.findOne"
+    },
+    {
+      "action": "api::event.event.find"
+    },
+    {
+      "action": "api::event.event.findOne"
+    },
+    {
+      "action": "api::file-category.file-category.find"
+    },
+    {
+      "action": "api::file-category.file-category.findOne"
+    },
+    {
+      "action": "api::footer.footer.find"
+    },
+    {
+      "action": "api::footer.footer.update"
+    },
+    {
+      "action": "api::general.general.find"
+    },
+    {
+      "action": "api::home-page.home-page.find"
+    },
+    {
+      "action": "api::menu.menu.find"
+    },
+    {
+      "action": "api::menu.menu.findOne"
+    },
+    {
+      "action": "api::navigation.navigation.find"
+    },
+    {
+      "action": "api::notice.notice.find"
+    },
+    {
+      "action": "api::notice.notice.findOne"
+    },
+    {
+      "action": "api::page.page.find"
+    },
+    {
+      "action": "api::page.page.findOne"
+    },
+    {
+      "action": "api::partner.partner.find"
+    },
+    {
+      "action": "api::partner.partner.findOne"
+    },
+    {
+      "action": "plugin::i18n.locales.listLocales"
+    },
+    {
+      "action": "plugin::upload.content-api.find"
+    },
+    {
+      "action": "plugin::upload.content-api.findOne"
+    },
+    {
+      "action": "plugin::upload.content-api.upload"
+    }
+  ]
+}

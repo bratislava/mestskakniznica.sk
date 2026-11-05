@@ -1,0 +1,1620 @@
+{
+  "name": "Admin",
+  "code": "strapi-author",
+  "description": "Admins can manage content.",
+  "permissions": [
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::asset-category.asset-category",
+      "properties": {
+        "fields": [
+          "label",
+          "slug",
+          "assets"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::asset-category.asset-category",
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::asset-category.asset-category",
+      "properties": {
+        "fields": [
+          "label",
+          "slug",
+          "assets"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::asset-category.asset-category",
+      "properties": {
+        "fields": [
+          "label",
+          "slug",
+          "assets"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::asset.asset",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "originalTitle",
+          "originalSlug",
+          "file",
+          "description",
+          "assetCategory"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::asset.asset",
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::asset.asset",
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::asset.asset",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "originalTitle",
+          "originalSlug",
+          "file",
+          "description",
+          "assetCategory"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::asset.asset",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "originalTitle",
+          "originalSlug",
+          "file",
+          "description",
+          "assetCategory"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::blog-post.blog-post",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "coverMedia",
+          "sections",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::blog-post.blog-post",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::blog-post.blog-post",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::blog-post.blog-post",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "coverMedia",
+          "sections",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::blog-post.blog-post",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "coverMedia",
+          "sections",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::book-tag.book-tag",
+      "properties": {
+        "fields": [
+          "displayName",
+          "slug"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::book-tag.book-tag",
+      "properties": {},
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::book-tag.book-tag",
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::book-tag.book-tag",
+      "properties": {
+        "fields": [
+          "displayName",
+          "slug"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::book-tag.book-tag",
+      "properties": {
+        "fields": [
+          "displayName",
+          "slug"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::branch.branch",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "medias",
+          "listingImage",
+          "body",
+          "latitude",
+          "longitude",
+          "address",
+          "publicTransportInfo",
+          "barrierFreeInfo",
+          "barrierFreeState",
+          "phone",
+          "email",
+          "openingHours.days.label",
+          "openingHours.days.time",
+          "subBranches",
+          "events",
+          "servicePages",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::branch.branch",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::branch.branch",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "medias",
+          "listingImage",
+          "body",
+          "latitude",
+          "longitude",
+          "address",
+          "publicTransportInfo",
+          "barrierFreeInfo",
+          "barrierFreeState",
+          "phone",
+          "email",
+          "openingHours.days.label",
+          "openingHours.days.time",
+          "subBranches",
+          "events",
+          "servicePages",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::branch.branch",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "medias",
+          "listingImage",
+          "body",
+          "latitude",
+          "longitude",
+          "address",
+          "publicTransportInfo",
+          "barrierFreeInfo",
+          "barrierFreeState",
+          "phone",
+          "email",
+          "openingHours.days.label",
+          "openingHours.days.time",
+          "subBranches",
+          "events",
+          "servicePages",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::disclosure.disclosure",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "originalTitle",
+          "originalSlug",
+          "type",
+          "addedAt",
+          "file",
+          "dateFrom",
+          "dateTo",
+          "idNumber",
+          "amount",
+          "description",
+          "contractor",
+          "grantProvider",
+          "grantYear"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::disclosure.disclosure",
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::disclosure.disclosure",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "originalTitle",
+          "originalSlug",
+          "type",
+          "addedAt",
+          "file",
+          "dateFrom",
+          "dateTo",
+          "idNumber",
+          "amount",
+          "description",
+          "contractor",
+          "grantProvider",
+          "grantYear"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::disclosure.disclosure",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "originalTitle",
+          "originalSlug",
+          "type",
+          "addedAt",
+          "file",
+          "dateFrom",
+          "dateTo",
+          "idNumber",
+          "amount",
+          "description",
+          "contractor",
+          "grantProvider",
+          "grantYear"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::document-category.document-category",
+      "properties": {
+        "fields": [
+          "label",
+          "slug",
+          "documents"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::document.document",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "originalTitle",
+          "originalSlug",
+          "file",
+          "description",
+          "documentCategory"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::event-category.event-category",
+      "properties": {
+        "fields": [
+          "title"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::event-category.event-category",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::event-category.event-category",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::event-category.event-category",
+      "properties": {
+        "fields": [
+          "title"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::event-category.event-category",
+      "properties": {
+        "fields": [
+          "title"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::event-tag.event-tag",
+      "properties": {
+        "fields": [
+          "title",
+          "slug"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::event-tag.event-tag",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::event-tag.event-tag",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::event-tag.event-tag",
+      "properties": {
+        "fields": [
+          "title",
+          "slug"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::event-tag.event-tag",
+      "properties": {
+        "fields": [
+          "title",
+          "slug"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::event.event",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "description",
+          "promoted",
+          "dateFrom",
+          "dateTo",
+          "price",
+          "showForm",
+          "guests.name",
+          "guests.surname",
+          "guests.avatar",
+          "coverImage",
+          "listingImage",
+          "eventTags",
+          "eventCategory",
+          "branch",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "documents.title",
+          "documents.basicDocuments",
+          "documents.documents",
+          "documents.disclosures",
+          "assets.title",
+          "assets.basicDocuments",
+          "assets.assets",
+          "assets.disclosures",
+          "gallery"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::event.event",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::event.event",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::event.event",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "description",
+          "promoted",
+          "dateFrom",
+          "dateTo",
+          "price",
+          "showForm",
+          "guests.name",
+          "guests.surname",
+          "guests.avatar",
+          "coverImage",
+          "listingImage",
+          "eventTags",
+          "eventCategory",
+          "branch",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "documents.title",
+          "documents.basicDocuments",
+          "documents.documents",
+          "documents.disclosures",
+          "assets.title",
+          "assets.basicDocuments",
+          "assets.assets",
+          "assets.disclosures",
+          "gallery"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::event.event",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "description",
+          "promoted",
+          "dateFrom",
+          "dateTo",
+          "price",
+          "showForm",
+          "guests.name",
+          "guests.surname",
+          "guests.avatar",
+          "coverImage",
+          "listingImage",
+          "eventTags",
+          "eventCategory",
+          "branch",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "documents.title",
+          "documents.basicDocuments",
+          "documents.documents",
+          "documents.disclosures",
+          "assets.title",
+          "assets.basicDocuments",
+          "assets.assets",
+          "assets.disclosures",
+          "gallery"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::footer.footer",
+      "properties": {
+        "fields": [
+          "copyrightText",
+          "siteMapLink",
+          "privacyLink",
+          "footerColumns.title",
+          "footerColumns.footerLink.title",
+          "footerColumns.footerLink.otherSite",
+          "footerColumns.footerLink.redirectTo"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::footer.footer",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::footer.footer",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::footer.footer",
+      "properties": {
+        "fields": [
+          "copyrightText",
+          "siteMapLink",
+          "privacyLink",
+          "footerColumns.title",
+          "footerColumns.footerLink.title",
+          "footerColumns.footerLink.otherSite",
+          "footerColumns.footerLink.redirectTo"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::footer.footer",
+      "properties": {
+        "fields": [
+          "copyrightText",
+          "siteMapLink",
+          "privacyLink",
+          "footerColumns.title",
+          "footerColumns.footerLink.title",
+          "footerColumns.footerLink.otherSite",
+          "footerColumns.footerLink.redirectTo"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::general.general",
+      "properties": {
+        "fields": [
+          "eventsPage",
+          "newBooksPage",
+          "privacyTermsAndConditionsPage",
+          "openingHoursPage",
+          "noticesPage"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::general.general",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::general.general",
+      "properties": {
+        "fields": [
+          "eventsPage",
+          "newBooksPage",
+          "privacyTermsAndConditionsPage",
+          "openingHoursPage",
+          "noticesPage"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::general.general",
+      "properties": {
+        "fields": [
+          "eventsPage",
+          "newBooksPage",
+          "privacyTermsAndConditionsPage",
+          "openingHoursPage",
+          "noticesPage"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::home-page.home-page",
+      "properties": {
+        "fields": [
+          "faqSection.ctas.title",
+          "faqSection.ctas.ctaRedirectTo",
+          "faqSection.faqs.question",
+          "faqSection.faqs.answer",
+          "faqSection.title",
+          "faqSection.redirectTo",
+          "registrationInfoSection.title",
+          "registrationInfoSection.description",
+          "registrationInfoSection.registrationBenefits.benefit",
+          "registrationInfoSection.redirectTo",
+          "newsSection.title",
+          "newsSection.redirectTo",
+          "mapSection.title",
+          "mapSection.branches.branch",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "promotedContent.events",
+          "promotedContent.notices"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::home-page.home-page",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::home-page.home-page",
+      "properties": {
+        "fields": [
+          "faqSection.ctas.title",
+          "faqSection.ctas.ctaRedirectTo",
+          "faqSection.faqs.question",
+          "faqSection.faqs.answer",
+          "faqSection.title",
+          "faqSection.redirectTo",
+          "registrationInfoSection.title",
+          "registrationInfoSection.description",
+          "registrationInfoSection.registrationBenefits.benefit",
+          "registrationInfoSection.redirectTo",
+          "newsSection.title",
+          "newsSection.redirectTo",
+          "mapSection.title",
+          "mapSection.branches.branch",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "promotedContent.events",
+          "promotedContent.notices"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::home-page.home-page",
+      "properties": {
+        "fields": [
+          "faqSection.ctas.title",
+          "faqSection.ctas.ctaRedirectTo",
+          "faqSection.faqs.question",
+          "faqSection.faqs.answer",
+          "faqSection.title",
+          "faqSection.redirectTo",
+          "registrationInfoSection.title",
+          "registrationInfoSection.description",
+          "registrationInfoSection.registrationBenefits.benefit",
+          "registrationInfoSection.redirectTo",
+          "newsSection.title",
+          "newsSection.redirectTo",
+          "mapSection.title",
+          "mapSection.branches.branch",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "promotedContent.events",
+          "promotedContent.notices"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::menu.menu",
+      "properties": {
+        "fields": [
+          "menuTitle",
+          "menuTotalColumns",
+          "order",
+          "menuSections.sectionTitle",
+          "menuSections.sectionColumnSpan",
+          "menuSections.sectionLinks.sectionLinkTitle",
+          "menuSections.sectionLinks.sectionLinkPage",
+          "menuSections.sectionLinks.sectionLinkBranch",
+          "menuSections.sectionPage"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::menu.menu",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::menu.menu",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::menu.menu",
+      "properties": {
+        "fields": [
+          "menuTitle",
+          "menuTotalColumns",
+          "order",
+          "menuSections.sectionTitle",
+          "menuSections.sectionColumnSpan",
+          "menuSections.sectionLinks.sectionLinkTitle",
+          "menuSections.sectionLinks.sectionLinkPage",
+          "menuSections.sectionLinks.sectionLinkBranch",
+          "menuSections.sectionPage"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::menu.menu",
+      "properties": {
+        "fields": [
+          "menuTitle",
+          "menuTotalColumns",
+          "order",
+          "menuSections.sectionTitle",
+          "menuSections.sectionColumnSpan",
+          "menuSections.sectionLinks.sectionLinkTitle",
+          "menuSections.sectionLinks.sectionLinkPage",
+          "menuSections.sectionLinks.sectionLinkBranch",
+          "menuSections.sectionPage"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::navigation.navigation",
+      "properties": {
+        "fields": [
+          "blogPostsParentPage",
+          "eventsParentPage",
+          "noticesParentPage",
+          "branchesParentPage",
+          "assetsParentPage",
+          "documentsParentPage",
+          "disclosuresParentPage"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::notice.notice",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "body",
+          "listingImage",
+          "dateAdded",
+          "promoted",
+          "documents.title",
+          "documents.basicDocuments",
+          "documents.documents",
+          "documents.disclosures",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "isCurrentChangeInOpeningHours",
+          "assets.title",
+          "assets.basicDocuments",
+          "assets.assets",
+          "assets.disclosures"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::notice.notice",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::notice.notice",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::notice.notice",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "body",
+          "listingImage",
+          "dateAdded",
+          "promoted",
+          "documents.title",
+          "documents.basicDocuments",
+          "documents.documents",
+          "documents.disclosures",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "isCurrentChangeInOpeningHours",
+          "assets.title",
+          "assets.basicDocuments",
+          "assets.assets",
+          "assets.disclosures"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::notice.notice",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "body",
+          "listingImage",
+          "dateAdded",
+          "promoted",
+          "documents.title",
+          "documents.basicDocuments",
+          "documents.documents",
+          "documents.disclosures",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "isCurrentChangeInOpeningHours",
+          "assets.title",
+          "assets.basicDocuments",
+          "assets.assets",
+          "assets.disclosures"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::page.page",
+      "properties": {
+        "fields": [
+          "slug",
+          "newSlug",
+          "title",
+          "layout",
+          "perex",
+          "listingImage",
+          "sections",
+          "branchesServicesTo",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "parentPage",
+          "childPages"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::page.page",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::page.page",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::page.page",
+      "properties": {
+        "fields": [
+          "slug",
+          "newSlug",
+          "title",
+          "layout",
+          "perex",
+          "listingImage",
+          "sections",
+          "branchesServicesTo",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "parentPage",
+          "childPages"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::page.page",
+      "properties": {
+        "fields": [
+          "slug",
+          "newSlug",
+          "title",
+          "layout",
+          "perex",
+          "listingImage",
+          "sections",
+          "branchesServicesTo",
+          "seo.metaTitle",
+          "seo.metaDescription",
+          "seo.keywords",
+          "parentPage",
+          "childPages"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::partner.partner",
+      "properties": {
+        "fields": [
+          "title",
+          "url",
+          "logo",
+          "featured",
+          "priority"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::partner.partner",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::partner.partner",
+      "properties": {
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::partner.partner",
+      "properties": {
+        "fields": [
+          "title",
+          "url",
+          "logo",
+          "featured",
+          "priority"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::partner.partner",
+      "properties": {
+        "fields": [
+          "title",
+          "url",
+          "logo",
+          "featured",
+          "priority"
+        ],
+        "locales": [
+          "en",
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "plugin::navikronos.navikronos-storage",
+      "properties": {
+        "fields": [
+          "data"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "plugin::navikronos.navikronos-storage",
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "plugin::navikronos.navikronos-storage",
+      "properties": {
+        "fields": [
+          "data"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "plugin::navikronos.navikronos-storage",
+      "properties": {
+        "fields": [
+          "data"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "plugin::users-permissions.user",
+      "properties": {
+        "fields": [
+          "username",
+          "email",
+          "provider",
+          "password",
+          "resetPasswordToken",
+          "confirmationToken",
+          "confirmed",
+          "blocked",
+          "role"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "plugin::users-permissions.user",
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "plugin::users-permissions.user",
+      "properties": {
+        "fields": [
+          "username",
+          "email",
+          "provider",
+          "password",
+          "resetPasswordToken",
+          "confirmationToken",
+          "confirmed",
+          "blocked",
+          "role"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "plugin::users-permissions.user",
+      "properties": {
+        "fields": [
+          "username",
+          "email",
+          "provider",
+          "password",
+          "resetPasswordToken",
+          "confirmationToken",
+          "confirmed",
+          "blocked",
+          "role"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::i18n.locale.read",
+      "subject": null,
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::upload.assets.copy-link",
+      "subject": null,
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::upload.assets.create",
+      "subject": null,
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::upload.assets.download",
+      "subject": null,
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::upload.assets.update",
+      "subject": null,
+      "properties": {},
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::upload.read",
+      "subject": null,
+      "properties": {},
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": {}
+    }
+  ]
+}

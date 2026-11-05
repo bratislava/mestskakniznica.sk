@@ -1,0 +1,452 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::event.event",
+  "value": {
+    "uid": "api::event.event",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "title",
+      "defaultSortBy": "createdAt",
+      "defaultSortOrder": "DESC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "title": {
+        "edit": {
+          "label": "Názov podujatia",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "title",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "slug": {
+        "edit": {
+          "label": "Slug",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "slug",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "Popis",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "promoted": {
+        "edit": {
+          "label": "Promovať",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "promoted",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "dateFrom": {
+        "edit": {
+          "label": "Dátum od",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "step": 5
+        },
+        "list": {
+          "label": "dateFrom",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "dateTo": {
+        "edit": {
+          "label": "Dátum do",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "step": 5
+        },
+        "list": {
+          "label": "dateTo",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "price": {
+        "edit": {
+          "label": "Cena",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "price",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "showForm": {
+        "edit": {
+          "label": "Zobraziť registračný formulár",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "showForm",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "guests": {
+        "edit": {
+          "label": "Hostia",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "guests",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "coverImage": {
+        "edit": {
+          "label": "Ilustračný obrázok - hlavný",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "coverImage",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "listingImage": {
+        "edit": {
+          "label": "Ilustračný obrázok - v listingu",
+          "description": "Ak nie je zadaný, použije sa hlavný ilustračný obrázok.",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "listingImage",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "eventTags": {
+        "edit": {
+          "label": "Tagy",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "eventTags",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "eventCategory": {
+        "edit": {
+          "label": "Kategória podujatia",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "eventCategory",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "branch": {
+        "edit": {
+          "label": "Miesto konania",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "branch",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "seo": {
+        "edit": {
+          "label": "Seo",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "seo",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "documents": {
+        "edit": {
+          "label": "Dokumenty",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "documents",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "assets": {
+        "edit": {
+          "label": "assets",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "assets",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "gallery": {
+        "edit": {
+          "label": "Galéria obrázkov",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "gallery",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "title",
+        "promoted",
+        "slug",
+        "updatedAt"
+      ],
+      "edit": [
+        [
+          {
+            "name": "title",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "slug",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "dateFrom",
+            "size": 6
+          },
+          {
+            "name": "dateTo",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "promoted",
+            "size": 4
+          },
+          {
+            "name": "showForm",
+            "size": 4
+          },
+          {
+            "name": "price",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "coverImage",
+            "size": 6
+          },
+          {
+            "name": "listingImage",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "eventCategory",
+            "size": 6
+          },
+          {
+            "name": "eventTags",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "branch",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "description",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "guests",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "documents",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "gallery",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "seo",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "assets",
+            "size": 12
+          }
+        ]
+      ]
+    }
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

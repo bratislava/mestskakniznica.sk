@@ -1,0 +1,99 @@
+{
+  "key": "plugin_content_manager_configuration_components::menu.section-links",
+  "value": {
+    "uid": "menu.section-links",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "sectionLinkTitle",
+      "defaultSortBy": "sectionLinkTitle",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "sectionLinkTitle": {
+        "edit": {
+          "label": "Názov",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "sectionLinkTitle",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "sectionLinkPage": {
+        "edit": {
+          "label": "Link na stránku",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "sectionLinkPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "sectionLinkBranch": {
+        "edit": {
+          "label": "sectionLinkBranch",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "sectionLinkBranch",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "sectionLinkTitle",
+        "sectionLinkPage",
+        "sectionLinkBranch"
+      ],
+      "edit": [
+        [
+          {
+            "name": "sectionLinkTitle",
+            "size": 6
+          },
+          {
+            "name": "sectionLinkPage",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "sectionLinkBranch",
+            "size": 6
+          }
+        ]
+      ]
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

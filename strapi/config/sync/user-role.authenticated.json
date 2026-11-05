@@ -1,0 +1,76 @@
+{
+  "name": "Authenticated",
+  "description": "Default role given to authenticated user.",
+  "type": "authenticated",
+  "permissions": [
+    {
+      "action": "api::basic-document.basic-document.find"
+    },
+    {
+      "action": "api::basic-document.basic-document.findOne"
+    },
+    {
+      "action": "api::blog-post.blog-post.find"
+    },
+    {
+      "action": "api::blog-post.blog-post.findOne"
+    },
+    {
+      "action": "api::file-category.file-category.find"
+    },
+    {
+      "action": "api::file-category.file-category.findOne"
+    },
+    {
+      "action": "api::footer.footer.createLocalization"
+    },
+    {
+      "action": "api::footer.footer.delete"
+    },
+    {
+      "action": "api::footer.footer.find"
+    },
+    {
+      "action": "api::footer.footer.update"
+    },
+    {
+      "action": "api::menu.menu.find"
+    },
+    {
+      "action": "api::menu.menu.findOne"
+    },
+    {
+      "action": "api::page.page.find"
+    },
+    {
+      "action": "api::page.page.findOne"
+    },
+    {
+      "action": "api::partner.partner.find"
+    },
+    {
+      "action": "api::partner.partner.findOne"
+    },
+    {
+      "action": "plugin::users-permissions.auth.callback"
+    },
+    {
+      "action": "plugin::users-permissions.auth.connect"
+    },
+    {
+      "action": "plugin::users-permissions.auth.emailConfirmation"
+    },
+    {
+      "action": "plugin::users-permissions.user.count"
+    },
+    {
+      "action": "plugin::users-permissions.user.find"
+    },
+    {
+      "action": "plugin::users-permissions.user.findOne"
+    },
+    {
+      "action": "plugin::users-permissions.user.me"
+    }
+  ]
+}
