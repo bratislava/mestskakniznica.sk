@@ -1,0 +1,78 @@
+{
+  "key": "plugin_content_manager_configuration_components::homepage.promoted-content",
+  "value": {
+    "uid": "homepage.promoted-content",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "id",
+      "defaultSortBy": "id",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "events": {
+        "edit": {
+          "label": "events",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "events",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "notices": {
+        "edit": {
+          "label": "notices",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "notices",
+          "searchable": false,
+          "sortable": false
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "events",
+        "notices"
+      ],
+      "edit": [
+        [
+          {
+            "name": "events",
+            "size": 6
+          },
+          {
+            "name": "notices",
+            "size": 6
+          }
+        ]
+      ]
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

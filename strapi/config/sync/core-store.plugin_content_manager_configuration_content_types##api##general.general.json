@@ -1,0 +1,197 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::general.general",
+  "value": {
+    "uid": "api::general.general",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "id",
+      "defaultSortBy": "id",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "eventsPage": {
+        "edit": {
+          "label": "eventsPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "eventsPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "newBooksPage": {
+        "edit": {
+          "label": "newBooksPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "newBooksPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "privacyTermsAndConditionsPage": {
+        "edit": {
+          "label": "privacyTermsAndConditionsPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "privacyTermsAndConditionsPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "openingHoursPage": {
+        "edit": {
+          "label": "openingHoursPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "openingHoursPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "noticesPage": {
+        "edit": {
+          "label": "noticesPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "noticesPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "eventsPage",
+        "newBooksPage",
+        "privacyTermsAndConditionsPage"
+      ],
+      "edit": [
+        [
+          {
+            "name": "eventsPage",
+            "size": 6
+          },
+          {
+            "name": "newBooksPage",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "privacyTermsAndConditionsPage",
+            "size": 6
+          },
+          {
+            "name": "openingHoursPage",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "noticesPage",
+            "size": 6
+          }
+        ]
+      ]
+    }
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}
