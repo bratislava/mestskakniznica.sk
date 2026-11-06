@@ -2,7 +2,14 @@
  * Content types that have detail pages. The names are used in the rewritten routes
  * (`pages/navigationRewrite/<type>/[slug].tsx`) and match the types in the search index.
  */
-export const contentTypes = ['blog-post', 'event', 'notice', 'branch', 'asset', 'disclosure'] as const
+export const contentTypes = [
+  'blog-post',
+  'event',
+  'notice',
+  'branch',
+  'asset',
+  'disclosure',
+] as const
 
 export type ContentType = (typeof contentTypes)[number]
 
@@ -55,7 +62,5 @@ export type NavigationPageProps = {
 
 export type NavigationConfig = {
   cacheTtl: number
-  /** Internal routes the proxy rewrites to, they can't be opened directly. */
-  rewritePrefix: string
   searchPaths: Record<string, string>
 }
