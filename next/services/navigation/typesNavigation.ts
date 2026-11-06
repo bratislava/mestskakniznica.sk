@@ -27,8 +27,8 @@ export type PagePathsMap = {
     | undefined
 }
 
-/** Path of the parent page of each content type's detail pages, `null` when it's not set in Navigation. */
-export type ContentTypePathPrefixesMap = Record<ContentType, string | null>
+/** Path of the parent page of each content type's detail pages. */
+export type ContentTypePathPrefixesMap = Record<ContentType, string>
 
 export type LocaleNavigation = {
   pagePathsMap: PagePathsMap

@@ -1,45 +1,19 @@
 import i18nextConfig from './next-i18next.config'
 import type { NextConfig } from 'next'
 
+import { getContentTypePathPrefixesMap } from './services/navigation/getContentTypePathPrefixesMap'
+
 /**
- * Hardcoded copy of the URLs the navigation proxy reads from Strapi: the parent page of each content type in the
- * Navigation single type, at its full path in the page tree. Update them whenever one of these pages is moved or its
- * slug changes, otherwise its detail pages return 404.
+ * Detail pages are served under the path of their parent page (e.g. `/zazite/podujatia/:slug`) and rewritten to their
+ * internal route `pages/<type>/[slug].tsx`. The links are built from the same prefixes (see `getPathForEntity`).
  */
-const detailPageRewrites = [
-  { locale: 'sk', type: 'blog-post', parentPath: '/sluzby/vzdelavanie/clanky' },
-  { locale: 'sk', type: 'event', parentPath: '/zazite/podujatia' },
-  { locale: 'sk', type: 'notice', parentPath: '/zazite/aktuality' },
-  { locale: 'sk', type: 'branch', parentPath: '/navstivte/nase-lokality' },
-  {
-    locale: 'sk',
-    type: 'asset',
-    parentPath: '/o-nas/dokumenty-a-zverejnovanie-informacii/dokumenty',
-  },
-  {
-    locale: 'sk',
-    type: 'disclosure',
-    parentPath: '/o-nas/dokumenty-a-zverejnovanie-informacii/zverejnovanie',
-  },
-  { locale: 'en', type: 'blog-post', parentPath: '/services/education/articles' },
-  { locale: 'en', type: 'event', parentPath: '/experience/events' },
-  { locale: 'en', type: 'notice', parentPath: '/experience/news' },
-  { locale: 'en', type: 'branch', parentPath: '/visit/our-locations' },
-  {
-    locale: 'en',
-    type: 'asset',
-    parentPath: '/about-us/documents-and-public-disclosure-of-information/documents',
-  },
-  {
-    locale: 'en',
-    type: 'disclosure',
-    parentPath: '/about-us/documents-and-public-disclosure-of-information/disclosure',
-  },
-].map(({ locale, type, parentPath }) => ({
-  source: `/${locale}${parentPath}/:slug`,
-  destination: `/${locale}/${type}/:slug`,
-  locale: false as const,
-}))
+const detailPageRewrites = i18nextConfig.i18n.locales.flatMap((locale: string) =>
+  Object.entries(getContentTypePathPrefixesMap(locale)).map(([type, parentPath]) => ({
+    source: `/${locale}${parentPath}/:slug`,
+    destination: `/${locale}/${type}/:slug`,
+    locale: false as const,
+  })),
+)
 
 const nextConfig: NextConfig = {
   i18n: i18nextConfig.i18n,

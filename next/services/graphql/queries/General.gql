@@ -117,46 +117,6 @@ fragment GeneralEntity on GeneralEntity {
   }
 }
 
-fragment NavigationEntity on NavigationEntity {
-  attributes {
-    blogPostsParentPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-    documentsParentPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-    assetsParentPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-    eventsParentPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-    noticesParentPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-    branchesParentPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-    disclosuresParentPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-  }
-}
-
 ### Queries
 
 query Navigation($locale: I18NLocaleCode!) {
