@@ -131,7 +131,7 @@ const nextConfig: NextConfig = {
         // Internal routes of the rewrites below, they can't be opened directly. beforeFiles only see the requested
         // URL, not the destinations of the afterFiles rewrites, so the rewritten pages still work.
         {
-          source: '/:type(blog-post|event|notice|branch|asset|disclosure)/:slug',
+          source: '/(blog-post|event|notice|branch|asset|disclosure)/:slug',
           destination: '/404',
         },
         // `/en/search` is both the public URL and the internal route, so only the Slovak one is blocked.
