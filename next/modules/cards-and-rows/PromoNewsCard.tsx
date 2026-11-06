@@ -4,7 +4,7 @@ import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { NoticeListingEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 type PromoNewsCardProps = {
   notice: NoticeListingEntityFragment
@@ -12,7 +12,7 @@ type PromoNewsCardProps = {
 
 const PromoNewsCard = ({ notice }: PromoNewsCardProps) => {
   const { t } = useTranslation()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const link = getPathForStrapiEntity(notice) ?? '#'
 

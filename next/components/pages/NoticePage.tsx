@@ -2,14 +2,14 @@ import { Assets, PageTitle, SectionContainer } from '@/components/ui'
 import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import RichText from '@/modules/formatting/RichText'
 import { NoticeEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 export interface NoticePageProps {
   notice: NoticeEntityFragment
 }
 
 const NoticePage = ({ notice }: NoticePageProps) => {
-  const { breadcrumbs } = useNavikronos()
+  const { breadcrumbs } = useNavigation()
 
   return (
     <>

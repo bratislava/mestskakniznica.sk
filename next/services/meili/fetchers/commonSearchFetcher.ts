@@ -16,7 +16,7 @@ export const allSearchTypes = [
 ]
 
 type CommonSearchResults =
-  | SearchIndexWrapped<'page', { slug: string; title: string | null | undefined }> // TODO: Specify type if needed.
+  | SearchIndexWrapped<'page', { slug: string; newSlug: string; title: string | null | undefined }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'blog-post', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'asset', AssetMeili>
   | SearchIndexWrapped<'disclosure', DisclosureMeili>
@@ -74,7 +74,8 @@ export const commonSearchFetcher = (filters: CommonSearchFilters, locale: string
           type,
           title: dataInner.title,
           id: dataInner.id,
-          slug: dataInner.slug,
+          // Pages are identified by `newSlug`, their `slug` is the legacy full path.
+          slug: type === 'page' ? dataInner.newSlug : dataInner.slug,
         } as CommonSearchResult
       })
 

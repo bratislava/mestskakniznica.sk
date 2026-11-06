@@ -6,15 +6,15 @@ import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined, WithAttributes } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 type PromoEventCardProps = {
   event: WithAttributes<EventCardEntityFragment> | null | undefined
 }
 
 const PromoEventCard = ({ event }: PromoEventCardProps) => {
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
 
   if (!event) {
     return null

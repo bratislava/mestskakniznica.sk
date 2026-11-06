@@ -3,15 +3,15 @@
 import { SectionContainer } from '@/components/ui'
 import BookCard, { Book } from '@/modules/cards-and-rows/BookCard'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useGeneralContext } from '@/utils/generalContext'
-import { useNavikronos } from '@/utils/navikronos'
 
 type SectionHomepageNewBooksProps = { books: Book[] }
 
 const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
   const { t } = useTranslation()
   const { general } = useGeneralContext()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <SectionContainer hasBorder>

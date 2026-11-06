@@ -1,6 +1,20 @@
 import i18nextConfig from './next-i18next.config'
 import type { NextConfig } from 'next'
 
+import { getContentTypePathPrefixesMap } from './services/navigation/getContentTypePathPrefixesMap'
+
+/**
+ * Detail pages are served under the path of their parent page (e.g. `/zazite/podujatia/:slug`) and rewritten to their
+ * internal route `pages/<type>/[slug].tsx`. The links are built from the same prefixes (see `getPathForEntity`).
+ */
+const detailPageRewrites = i18nextConfig.i18n.locales.flatMap((locale: string) =>
+  Object.entries(getContentTypePathPrefixesMap(locale)).map(([type, parentPath]) => ({
+    source: `/${locale}${parentPath}/:slug`,
+    destination: `/${locale}/${type}/:slug`,
+    locale: false as const,
+  })),
+)
+
 const nextConfig: NextConfig = {
   i18n: i18nextConfig.i18n,
   reactStrictMode: true,
@@ -88,6 +102,19 @@ const nextConfig: NextConfig = {
           source: '/uploads/:file',
           destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/uploads/:file`,
         },
+        // Internal routes of the rewrites below, they can't be opened directly. beforeFiles only see the requested
+        // URL, not the destinations of the afterFiles rewrites, so the rewritten pages still work.
+        {
+          source: '/(blog-post|event|notice|branch|asset|disclosure)/:slug',
+          destination: '/404',
+        },
+        // `/en/search` is both the public URL and the internal route, so only the Slovak one is blocked.
+        { source: '/sk/search', destination: '/404', locale: false },
+      ],
+      afterFiles: [
+        { source: '/sk/vyhladavanie', destination: '/sk/search', locale: false },
+        { source: '/en/search', destination: '/en/search', locale: false },
+        ...detailPageRewrites,
       ],
     }
   },

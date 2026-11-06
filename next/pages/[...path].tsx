@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
 import { DehydratedState, HydrationBoundary } from '@tanstack/react-query'
-import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import { ReactNode } from 'react'
@@ -9,16 +9,17 @@ import { ReactNode } from 'react'
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import FullContentPage from '@/components/pages/fullContentPage'
 import SidebarContentPage from '@/components/pages/sidebarContentPage'
-import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { Enum_Page_Layout, GeneralQuery, PageEntityFragment } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { fetchNavigation } from '@/services/navigation/fetchNavigation'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { navigationConfig } from '@/services/navigation/navigationConfig'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { NOT_FOUND } from '@/utils/consts'
-import { extractLocalizationsWithId } from '@/utils/extractLocalizations'
+import { extractPageLocalizations } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 import { prefetchPageSections } from '@/utils/prefetchPageSections'
 
 type PageProps = {
@@ -26,12 +27,11 @@ type PageProps = {
   general: GeneralQuery
   dehydratedState: DehydratedState
 } & SSRConfig &
-  CLNavikronosPageProps
+  NavigationPageProps
 
 const Page = ({ page, general, dehydratedState }: PageProps) => {
   let pageComponentByLayout: ReactNode = null
 
-  // TODO replace PageEntity by PageEntityFragment
   switch (page?.attributes?.layout) {
     case Enum_Page_Layout.FullContent:
       pageComponentByLayout = <FullContentPage page={page} />
@@ -58,83 +58,74 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
 }
 
 interface StaticParams extends ParsedUrlQuery {
-  id: string
+  path: string[]
 }
 
-export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) => {
-  let paths: GetStaticPathsResult<StaticParams>['paths'] = []
+export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
+  const navigation = await fetchNavigation(navigationConfig)
 
-  const pathArraysForLocales = await Promise.all(
-    (locales ?? []).map((locale) => client.PagesStaticPaths({ locale })),
+  const paths = Object.entries(navigation).flatMap(([locale, localeNavigation]) =>
+    Object.values(localeNavigation?.pagePathsMap ?? {})
+      .filter(isDefined)
+      .map(({ path }) => ({ params: { path: path.split('/').slice(1) }, locale })),
   )
 
-  const entities = pathArraysForLocales.flatMap(({ pages }) => pages?.data || []).filter(isDefined)
-
-  if (entities.length > 0) {
-    paths = entities.map((page) => ({
-      params: {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        id: page.id!,
-        locale: page?.attributes?.locale || '',
-      },
-    }))
-  }
-
   // eslint-disable-next-line no-console
-  console.log(`Pages: Generated static paths for ${paths.length} slugs.`)
+  console.log(`Pages: Generated static paths for ${paths.length} pages.`)
 
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ctx) => {
-  const { params, locale } = ctx
-  const id = params?.id
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
+  params,
+  locale,
+}) => {
+  const path = params?.path
+  const slug = path?.at(-1)
 
-  if (!id || !locale) {
+  if (!path || !slug || !locale) {
     return NOT_FOUND
   }
 
-  // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} page ${id}`)
+  const pathJoined = `/${path.join('/')}`
 
-  const { pages } = await client.PageById({
-    id,
-    locale,
-  })
+  // eslint-disable-next-line no-console
+  console.log(`Revalidating ${locale} page ${pathJoined}`)
+
+  /** Ensure to be able to open the page only on its own full path. Otherwise, whatever path that ends with the slug would work. */
+  const navigation = await fetchNavigation(navigationConfig)
+  if (navigation[locale]?.pagePathsMap[slug]?.path !== pathJoined) {
+    return NOT_FOUND
+  }
+
+  const { pages } = await client.PageBySlug({ slug, locale })
 
   const page = pages?.data[0] ?? null
   if (!page) {
     return NOT_FOUND
   }
 
-  const localizations = extractLocalizationsWithId('page', page)
-
-  const [general, translations, navikronosStaticProps] = await Promise.all([
+  const [general, translations, navigationStaticProps, dehydratedState] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale),
-    navikronosGetStaticProps({
-      navikronosConfig,
-      ctx,
-      currentEntity: {
-        type: 'page',
-        id,
-      },
-      currentEntityLocalizations: localizations,
+    getNavigationStaticProps({
+      locale,
+      currentEntity: { type: 'page', slug },
+      currentEntityLocalizations: extractPageLocalizations(page),
     }),
+    prefetchPageSections(page, locale),
   ])
-
-  const dehydratedState = await prefetchPageSections(page, locale)
 
   return {
     props: {
       page,
       dehydratedState,
       general,
-      navikronosStaticProps,
+      navigationStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default wrapNavikronosProvider(Page)
+export default Page

@@ -61,6 +61,7 @@ fragment BranchEntity on BranchEntity {
         id
         attributes {
           title
+          newSlug
         }
       }
     }

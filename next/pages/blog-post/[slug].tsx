@@ -5,43 +5,37 @@ import { SSRConfig } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
-import NoticePage from '@/components/pages/NoticePage'
-import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
-import { GeneralQuery, NoticeEntityFragment } from '@/services/graphql'
+import BlogPostPage from '@/components/pages/blogPostPage'
+import { BlogPostEntityFragment, GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { NOT_FOUND } from '@/utils/consts'
 import { extractLocalizationsWithSlug } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 
-type NoticePageProps = {
-  notice: NoticeEntityFragment
+type PageProps = {
+  blogPost: BlogPostEntityFragment
   general: GeneralQuery
 } & SSRConfig &
-  CLNavikronosPageProps
+  NavigationPageProps
 
-const Page = ({ notice, general }: NoticePageProps) => {
-  if (!notice) {
+const Page = ({ blogPost, general }: PageProps) => {
+  if (!blogPost) {
     return null
   }
 
   return (
     <GeneralContextProvider general={general}>
-      <DefaultPageLayout
-        title={notice.attributes?.title}
-        seo={notice.attributes?.seo}
-        defaultMetaDescription={notice.attributes?.body}
-      >
-        <NoticePage notice={notice} />
+      <DefaultPageLayout title={blogPost.attributes?.title} seo={blogPost.attributes?.seo}>
+        <BlogPostPage blogPost={blogPost} />
       </DefaultPageLayout>
     </GeneralContextProvider>
   )
 }
 
-// TODO use common functions to prevent duplicate code
 interface StaticParams extends ParsedUrlQuery {
   slug: string
 }
@@ -50,11 +44,11 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   let paths: GetStaticPathsResult<StaticParams>['paths'] = []
 
   const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.NoticesStaticPaths({ locale })),
+    locales.map((locale) => client.BlogPostStaticPaths({ locale })),
   )
 
   const entities = pathArraysForLocales
-    .flatMap(({ notices }) => notices?.data || [])
+    .flatMap(({ blogPosts }) => blogPosts?.data || [])
     .filter(isDefined)
 
   if (entities) {
@@ -65,17 +59,17 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
         params: {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           slug: entity.attributes!.slug,
-          locale: entity.attributes?.locale || '',
         },
+        locale: entity.attributes?.locale || '',
       }))
   }
   // eslint-disable-next-line no-console
-  console.log(`Notices: Generated static paths for ${paths.length} slugs.`)
+  console.log(`BlogPosts: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = async (ctx) => {
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ctx) => {
   const { locale, params } = ctx
   const slug = params?.slug
 
@@ -84,40 +78,39 @@ export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = asy
   }
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} notice ${slug}`)
+  console.log(`Revalidating ${locale} blog posts ${slug}`)
 
-  const { notices } = await client.NoticeBySlug({ slug, locale })
-  const notice = notices?.data[0] ?? null
-  if (!notice) {
+  const { blogPosts } = await client.BlogPostBySlug({ slug, locale })
+  const blogPost = blogPosts?.data[0] ?? null
+  if (!blogPost) {
     return NOT_FOUND
   }
 
-  const localizations = extractLocalizationsWithSlug('notice', notice)
+  const localizations = extractLocalizationsWithSlug('blog-post', blogPost)
 
-  const [general, translations, navikronosStaticProps] = await Promise.all([
+  const [general, translations, navigationStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale),
-    navikronosGetStaticProps({
-      navikronosConfig,
-      ctx,
+    getNavigationStaticProps({
+      locale,
       currentEntity: {
-        type: 'notice',
+        type: 'blog-post',
         slug,
       },
       currentEntityLocalizations: localizations,
-      breadcrumbsTitle: notice.attributes?.title,
+      breadcrumbsTitle: blogPost.attributes?.title,
     }),
   ])
 
   return {
     props: {
-      notice,
+      blogPost,
       general,
-      navikronosStaticProps,
+      navigationStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default wrapNavikronosProvider(Page)
+export default Page

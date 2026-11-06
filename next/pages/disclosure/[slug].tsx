@@ -5,25 +5,24 @@ import { SSRConfig } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 import AssetPage from '@/components/pages/AssetPage'
-import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
-import { AssetEntityFragment, GeneralQuery } from '@/services/graphql'
+import { DisclosureEntityFragment, GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { NOT_FOUND } from '@/utils/consts'
 import { GeneralContextProvider } from '@/utils/generalContext'
-import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 
 type PageProps = {
-  asset: AssetEntityFragment
+  disclosure: DisclosureEntityFragment
   general: GeneralQuery
 } & SSRConfig &
-  CLNavikronosPageProps
+  NavigationPageProps
 
-const Page = ({ asset, general }: PageProps) => {
+const Page = ({ disclosure, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
-      <AssetPage entity={asset} />
+      <AssetPage entity={disclosure} />
     </GeneralContextProvider>
   )
 }
@@ -41,45 +40,44 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
   }
 
   // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} asset ${slug}`)
+  console.log(`Revalidating ${locale} disclosure ${slug}`)
 
-  const { assets } = await client.AssetBySlug({ slug })
-  const asset = assets?.data[0] ?? null
-  if (!asset) {
+  const { disclosures } = await client.DisclosureBySlug({ slug })
+  const disclosure = disclosures?.data[0] ?? null
+  if (!disclosure) {
     return NOT_FOUND
   }
 
-  const [general, translations, navikronosStaticProps] = await Promise.all([
+  const [general, translations, navigationStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale),
-    navikronosGetStaticProps({
-      navikronosConfig,
-      ctx,
+    getNavigationStaticProps({
+      locale,
       currentEntity: {
-        type: 'asset',
+        type: 'disclosure',
         slug,
       },
       // TODO: Improve for unlocalized entities.
       currentEntityLocalizations: locales
         ?.filter((innerLocale) => innerLocale !== locale)
         .map((innerLocale) => ({
-          type: 'asset' as const,
+          type: 'disclosure' as const,
           slug,
           locale: innerLocale,
         })),
-      breadcrumbsTitle: asset.attributes?.title,
+      breadcrumbsTitle: disclosure.attributes?.title,
     }),
   ])
 
   return {
     props: {
       slug,
-      asset,
+      disclosure,
       general,
-      navikronosStaticProps,
+      navigationStaticProps,
       ...translations,
     },
   }
 }
 
-export default wrapNavikronosProvider(Page)
+export default Page

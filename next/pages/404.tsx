@@ -8,16 +8,15 @@ import { useEffect } from 'react'
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import ErrorPage from '@/components/pages/ErrorPage'
 import Button from '@/modules/common/Button'
-import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { GeneralContextProvider } from '@/utils/generalContext'
-import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 
 type Error404PageProps = {
   general: GeneralQuery
-} & CLNavikronosPageProps
+} & NavigationPageProps
 
 const Custom404 = ({ general }: Error404PageProps) => {
   const { t, i18n } = useTranslation()
@@ -56,22 +55,21 @@ const Custom404 = ({ general }: Error404PageProps) => {
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const locale = ctx.locale ?? 'sk'
 
-  const [general, translations, navikronosStaticProps] = await Promise.all([
+  const [general, translations, navigationStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale),
-    navikronosGetStaticProps({
-      navikronosConfig,
-      ctx,
+    getNavigationStaticProps({
+      locale,
     }),
   ])
 
   return {
     props: {
       general,
-      navikronosStaticProps,
+      navigationStaticProps,
       ...translations,
     },
   }
 }
 
-export default wrapNavikronosProvider(Custom404)
+export default Custom404

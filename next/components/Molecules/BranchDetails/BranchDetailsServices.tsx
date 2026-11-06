@@ -2,8 +2,8 @@
 
 import PageCard from '@/modules/cards-and-rows/PageCard'
 import { BranchEntityFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 type BranchDetailsServicesProps = {
   branch: BranchEntityFragment
@@ -11,7 +11,7 @@ type BranchDetailsServicesProps = {
 
 const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
   const { t } = useTranslation()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
 
   if (!branch.attributes?.servicePages?.data.length) {
     return null
