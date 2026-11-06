@@ -22,7 +22,7 @@ interface IProps {
 
 const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IProps) => {
   const { footer, general } = useGeneralContext()
-  const { getPathForStrapiEntity: getFullPath, localizations, getPathForEntity } = useNavigation()
+  const { getPathForStrapiEntity, localizations, getPathForEntity } = useNavigation()
 
   const { t } = useTranslation()
   const { menuValue } = useNavMenuContext()

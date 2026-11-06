@@ -36,7 +36,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
         title: event.attributes?.title ?? '',
         path: getPathForStrapiEntity(event),
       })) ?? [],
-    [getFullPath, upcomingEvents],
+    [getPathForStrapiEntity, upcomingEvents],
   )
 
   const mappedLatestNews = useMemo(
@@ -45,7 +45,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
         title: notice.attributes?.title ?? '',
         path: getPathForStrapiEntity(notice),
       })) ?? [],
-    [getFullPath, latestNewsData],
+    [getPathForStrapiEntity, latestNewsData],
   )
 
   if (section.depth === Enum_Componentsectionschildrenlisting_Depth.Depth_1) {
