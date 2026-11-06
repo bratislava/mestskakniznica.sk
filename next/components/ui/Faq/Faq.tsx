@@ -17,7 +17,7 @@ export interface FaqProps {
 }
 
 export const Faq = ({ className, title, questions, ctaButton, redirectTo }: FaqProps) => {
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
   const { t } = useTranslation()
 
   return (
@@ -32,7 +32,7 @@ export const Faq = ({ className, title, questions, ctaButton, redirectTo }: FaqP
       </div>
       {redirectTo?.data && (
         <div className="pt-6 text-sm">
-          <ShowMoreLink href={getFullPath(redirectTo?.data) ?? '#'}>
+          <ShowMoreLink href={getPathForStrapiEntity(redirectTo?.data) ?? '#'}>
             {ctaButton || t('common.showMore')}
           </ShowMoreLink>
         </div>

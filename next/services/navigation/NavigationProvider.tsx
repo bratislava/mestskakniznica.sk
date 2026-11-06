@@ -48,7 +48,7 @@ const getNavigationObject = (
   const getPath = (entity: RouteEntity & { locale?: string }) =>
     getPathForEntity(navigation, { ...entity, locale: entity.locale ?? locale })
 
-  const getFullPath = (strapiEntity: StrapiEntity | null | undefined) => {
+  const getPathForStrapiEntity = (strapiEntity: StrapiEntity | null | undefined) => {
     const entity = getEntityForStrapiEntity(strapiEntity)
 
     return entity ? getPath(entity) : null
@@ -140,7 +140,7 @@ const getNavigationObject = (
   return {
     currentPath,
     getPathForEntity: getPath,
-    getFullPath,
+    getPathForStrapiEntity,
     localizations,
     children,
     siblings,

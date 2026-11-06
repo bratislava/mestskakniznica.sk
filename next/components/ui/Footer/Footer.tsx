@@ -27,14 +27,14 @@ const FooterLinks = ({
 }: {
   footerLink: ComponentFooterFooterColumnFragment['footerLink']
 }) => {
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <>
       {footerLink?.filter(isDefined).map((link) => (
         <MLink
           key={link.id}
-          href={link.otherSite || getFullPath(link.redirectTo?.data) || '#'}
+          href={link.otherSite || getPathForStrapiEntity(link.redirectTo?.data) || '#'}
           variant="basic"
           className="text-base text-foreground-body"
         >

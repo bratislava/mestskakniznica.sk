@@ -14,10 +14,10 @@ type BlogPostProps = {
 
 const BlogPostCard = ({ blogPost }: BlogPostProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const { coverMedia, publishedAt, title } = blogPost.attributes ?? {}
-  const link = getFullPath(blogPost)
+  const link = getPathForStrapiEntity(blogPost)
 
   return (
     <CardWrapper className="group/showMore relative flex size-full shrink-0 flex-col justify-between">

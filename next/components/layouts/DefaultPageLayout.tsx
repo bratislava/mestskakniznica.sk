@@ -22,7 +22,7 @@ interface IProps {
 
 const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IProps) => {
   const { footer, general } = useGeneralContext()
-  const { getFullPath, localizations, getPathForEntity } = useNavigation()
+  const { getPathForStrapiEntity: getFullPath, localizations, getPathForEntity } = useNavigation()
 
   const { t } = useTranslation()
   const { menuValue } = useNavMenuContext()
@@ -68,7 +68,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
               gdpr={{
                 title: t('footer.privacy'),
                 href:
-                  getFullPath(
+                  getPathForStrapiEntity(
                     general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
                   ) ?? '#',
               }}

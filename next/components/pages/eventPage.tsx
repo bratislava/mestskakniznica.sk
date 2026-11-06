@@ -18,7 +18,7 @@ const EventPage = ({ event }: PageProps) => {
   const { t } = useTranslation()
 
   const { upcomingEvents } = useGeneralContext()
-  const { breadcrumbs, getFullPath } = useNavigation()
+  const { breadcrumbs, getPathForStrapiEntity } = useNavigation()
   const { general } = useGeneralContext()
 
   return (
@@ -35,7 +35,7 @@ const EventPage = ({ event }: PageProps) => {
         <div className="inline-flex w-full pt-10">
           <h2 className="text-h3">{t('eventPage.otherEvents')}</h2>
           <MLink
-            href={getFullPath(general?.data?.attributes?.eventsPage?.data) ?? '#'}
+            href={getPathForStrapiEntity(general?.data?.attributes?.eventsPage?.data) ?? '#'}
             title={t('eventPage.eventsAll')}
             className="ml-auto"
             hasIcon

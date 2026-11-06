@@ -12,7 +12,7 @@ export interface AssetsProps {
 }
 
 export const Assets = ({ className, title, assets }: AssetsProps) => {
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const parsedAssets = assets
     .filter(hasAttributes)
@@ -31,7 +31,7 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
 
         return {
           id: asset.id,
-          linkHref: getFullPath(asset),
+          linkHref: getPathForStrapiEntity(asset),
           content: {
             category: type,
             title: assetTitle,
@@ -46,7 +46,7 @@ export const Assets = ({ className, title, assets }: AssetsProps) => {
 
         return {
           id: asset.id,
-          linkHref: getFullPath(asset),
+          linkHref: getPathForStrapiEntity(asset),
           content: {
             category: assetCategory?.data?.attributes?.label,
             title: assetTitle,

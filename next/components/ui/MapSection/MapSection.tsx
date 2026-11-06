@@ -35,7 +35,7 @@ const getBoundsForLocalities = (branches: BranchCardEntityFragment[]) => {
 
 const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: MapSectionProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const isClient = useIsClient()
 
@@ -133,7 +133,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
         >
           {branches.map((branch, index) => {
             const { title: branchTitle, subBranches } = branch.attributes ?? {}
-            const linkHref = getFullPath(branch) ?? '#'
+            const linkHref = getPathForStrapiEntity(branch) ?? '#'
 
             return (
               <CardWrapper

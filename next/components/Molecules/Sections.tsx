@@ -92,7 +92,7 @@ const Sections = ({
   const { t } = useTranslation()
 
   const { general } = useGeneralContext()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <div className="flex flex-col space-y-8">
@@ -150,7 +150,7 @@ const Sections = ({
               ? getForm(
                   section.type,
                   section.type,
-                  getFullPath(
+                  getPathForStrapiEntity(
                     general?.data?.attributes?.privacyTermsAndConditionsPage?.data,
                   ) ?? undefined,
                 )

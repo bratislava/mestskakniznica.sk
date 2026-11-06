@@ -19,14 +19,14 @@ interface MobileNavigationProps {
 
 export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
   const { general } = useGeneralContext()
   const otherLocale = useGetOtherLocale()
 
   const moreLinks = [
     {
       label: t('navigation.openingHours'),
-      url: getFullPath(general?.data?.attributes?.openingHoursPage?.data) ?? '',
+      url: getPathForStrapiEntity(general?.data?.attributes?.openingHoursPage?.data) ?? '',
     },
     {
       label: t('navigation.onlineCatalog'),

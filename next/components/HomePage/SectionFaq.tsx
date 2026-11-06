@@ -14,7 +14,7 @@ interface SectionFaqProps {
 
 const SectionFaq = ({ faqSection }: SectionFaqProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <SectionContainer hasBorder>
@@ -24,7 +24,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
             <div key={cta?.title}>
               <PageCard
                 title={cta?.title || ''}
-                href={getFullPath(cta?.ctaRedirectTo?.data) ?? '#'}
+                href={getPathForStrapiEntity(cta?.ctaRedirectTo?.data) ?? '#'}
                 className="h-[222px] w-full p-4 text-h3 hover:underline"
               />
             </div>
@@ -40,7 +40,7 @@ const SectionFaq = ({ faqSection }: SectionFaqProps) => {
           ))}
           <div className="pt-6 text-sm">
             {faqSection?.redirectTo && (
-              <ShowMoreLink href={getFullPath(faqSection?.redirectTo.data) ?? '#'}>
+              <ShowMoreLink href={getPathForStrapiEntity(faqSection?.redirectTo.data) ?? '#'}>
                 {t('common.showMore')}
               </ShowMoreLink>
             )}

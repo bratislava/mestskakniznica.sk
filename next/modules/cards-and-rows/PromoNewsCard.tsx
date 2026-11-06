@@ -12,9 +12,9 @@ type PromoNewsCardProps = {
 
 const PromoNewsCard = ({ notice }: PromoNewsCardProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
-  const link = getFullPath(notice) ?? '#'
+  const link = getPathForStrapiEntity(notice) ?? '#'
 
   return (
     <CardWrapper className="group/showMore relative flex size-full flex-col justify-between bg-promo-peach py-3 pr-5 pl-4 lg:pt-[18px] lg:pr-[25px] lg:pb-[15px] lg:pl-5">

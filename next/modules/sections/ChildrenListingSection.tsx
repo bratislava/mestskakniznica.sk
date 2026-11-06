@@ -21,7 +21,7 @@ type ChildrenListingSectionProps = {
 
 const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
   const { i18n } = useTranslation()
-  const { children, getFullPath } = useNavigation()
+  const { children, getPathForStrapiEntity } = useNavigation()
   const { general, upcomingEvents } = useGeneralContext()
 
   const { data: latestNewsData } = useQuery({
@@ -34,7 +34,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
     () =>
       upcomingEvents?.data?.map((event) => ({
         title: event.attributes?.title ?? '',
-        path: getFullPath(event),
+        path: getPathForStrapiEntity(event),
       })) ?? [],
     [getFullPath, upcomingEvents],
   )
@@ -43,7 +43,7 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
     () =>
       latestNewsData?.latestNotices?.data.map((notice) => ({
         title: notice.attributes?.title ?? '',
-        path: getFullPath(notice),
+        path: getPathForStrapiEntity(notice),
       })) ?? [],
     [getFullPath, latestNewsData],
   )

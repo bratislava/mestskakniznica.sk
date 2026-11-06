@@ -12,7 +12,7 @@ const OpeningHoursChangeAlert = () => {
   const locale = i18n.language
   const alertBannerId = useId()
 
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const { data: noticesData } = useQuery({
     queryFn: () => client.OpeningHoursChangeNotices({ locale }),
@@ -32,7 +32,7 @@ const OpeningHoursChangeAlert = () => {
             if (!notice.attributes) return null
 
             const { title } = notice.attributes
-            const link = getFullPath(notice)
+            const link = getPathForStrapiEntity(notice)
             const id = `${alertBannerId}-${index}`
 
             return (

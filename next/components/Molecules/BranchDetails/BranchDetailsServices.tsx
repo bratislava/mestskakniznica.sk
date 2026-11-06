@@ -11,7 +11,7 @@ type BranchDetailsServicesProps = {
 
 const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   if (!branch.attributes?.servicePages?.data.length) {
     return null
@@ -30,7 +30,7 @@ const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
             <PageCard
               key={service.id}
               title={service.attributes.title}
-              href={getFullPath(service) ?? '#'}
+              href={getPathForStrapiEntity(service) ?? '#'}
               showMoreText={t('common.more')}
               className="h-[134px] pr-[24px]"
             />

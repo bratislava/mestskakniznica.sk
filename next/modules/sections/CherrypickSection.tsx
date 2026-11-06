@@ -8,12 +8,12 @@ type CherrypickSectionProps = {
 }
 
 const CherrypickSection = ({ section }: CherrypickSectionProps) => {
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const listingChildren =
     section.pages?.data
       ?.map((page) => {
-        const path = getFullPath(page)
+        const path = getPathForStrapiEntity(page)
         if (!page.attributes || !path) {
           return null
         }

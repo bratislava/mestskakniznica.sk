@@ -9,13 +9,13 @@ import { useGetOtherLocale } from '@/utils/useGetOtherLocale'
 const HeaderNavigation = () => {
   const { t } = useTranslation()
   const { general } = useGeneralContext()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
   const otherLocale = useGetOtherLocale()
 
   return (
     <div className="flex flex-wrap text-sm">
       <MLink
-        href={getFullPath(general?.data?.attributes?.openingHoursPage?.data) ?? '#'}
+        href={getPathForStrapiEntity(general?.data?.attributes?.openingHoursPage?.data) ?? '#'}
         variant="basic"
         // Using `ring-inset` because offset doesn't look appealing in this context
         className="relative grid place-content-center border-l border-border-dark px-3 ring-offset-0 ring-inset"

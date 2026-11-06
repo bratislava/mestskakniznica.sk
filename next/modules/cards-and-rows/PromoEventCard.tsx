@@ -14,7 +14,7 @@ type PromoEventCardProps = {
 }
 
 const PromoEventCard = ({ event }: PromoEventCardProps) => {
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   if (!event) {
     return null
@@ -38,7 +38,7 @@ const PromoEventCard = ({ event }: PromoEventCardProps) => {
 
         <h3 className="text-h2">
           <MLink
-            href={getFullPath(event) ?? '#'}
+            href={getPathForStrapiEntity(event) ?? '#'}
             variant="basic"
             stretched
             className="line-clamp-3 after:z-1"

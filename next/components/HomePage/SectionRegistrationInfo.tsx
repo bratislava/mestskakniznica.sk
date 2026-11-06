@@ -14,7 +14,7 @@ interface RegistrationInfoProps {
 
 const SectionRegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <SectionContainer hasBorder>
@@ -40,7 +40,7 @@ const SectionRegistrationInfo = ({ registrationInfoSection }: RegistrationInfoPr
             <div className="pt-8">
               {registrationInfoSection?.redirectTo?.data && (
                 <Button
-                  href={getFullPath(registrationInfoSection?.redirectTo?.data) ?? '#'}
+                  href={getPathForStrapiEntity(registrationInfoSection?.redirectTo?.data) ?? '#'}
                 >
                   {t('registerToLibraryButton')}
                 </Button>

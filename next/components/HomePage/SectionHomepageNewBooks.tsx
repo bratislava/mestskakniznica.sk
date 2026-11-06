@@ -11,7 +11,7 @@ type SectionHomepageNewBooksProps = { books: Book[] }
 const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
   const { t } = useTranslation()
   const { general } = useGeneralContext()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <SectionContainer hasBorder>
@@ -31,7 +31,7 @@ const SectionHomepageNewBooks = ({ books }: SectionHomepageNewBooksProps) => {
         </div>
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
           <ShowMoreLink
-            href={getFullPath(general?.data?.attributes?.newBooksPage?.data) ?? '#'}
+            href={getPathForStrapiEntity(general?.data?.attributes?.newBooksPage?.data) ?? '#'}
           >
             {t('sectionHomepageNewBooks.newBooksAll')}
           </ShowMoreLink>

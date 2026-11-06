@@ -14,7 +14,7 @@ interface LibraryNewsProps {
 
 const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <SectionContainer hasBorder>
@@ -33,7 +33,7 @@ const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
         />
         <div className="top-12 right-0 flex justify-center pt-1 md:absolute md:w-fit">
           {newsSection?.redirectTo && (
-            <ShowMoreLink href={getFullPath(newsSection?.redirectTo?.data) ?? '#'}>
+            <ShowMoreLink href={getPathForStrapiEntity(newsSection?.redirectTo?.data) ?? '#'}>
               {t('sectionLibraryNews.libraryNewsAll')}
             </ShowMoreLink>
           )}

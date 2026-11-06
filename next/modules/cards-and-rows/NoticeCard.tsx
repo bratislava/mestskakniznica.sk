@@ -15,12 +15,12 @@ type NoticeCardProps = {
 
 const NoticeCard = ({ notice }: NoticeCardProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useNavigation()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const { image, link, date } = useMemo(() => {
     return {
       image: notice.attributes?.listingImage?.data,
-      link: getFullPath(notice),
+      link: getPathForStrapiEntity(notice),
       date: notice.attributes?.publishedAt,
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
