@@ -1783,6 +1783,20 @@
       "actionParameters": {}
     },
     {
+      "action": "plugin::config-sync.menu-link",
+      "subject": null,
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::config-sync.settings.read",
+      "subject": null,
+      "properties": {},
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
       "action": "plugin::content-manager.collection-types.configure-view",
       "subject": null,
       "properties": {},

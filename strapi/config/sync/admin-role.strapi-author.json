@@ -1,5 +1,5 @@
 {
-  "name": "Admin",
+  "name": "Author",
   "code": "strapi-author",
   "description": "Admins can manage content.",
   "permissions": [
