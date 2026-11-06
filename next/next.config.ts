@@ -37,7 +37,7 @@ const detailPageRewrites = [
   },
 ].map(({ locale, type, parentPath }) => ({
   source: `/${locale}${parentPath}/:slug`,
-  destination: `/${locale}/navigationRewrite/${type}/:slug`,
+  destination: `/${locale}/${type}/:slug`,
   locale: false as const,
 }))
 
@@ -130,11 +130,11 @@ const nextConfig: NextConfig = {
         },
         // Internal routes of the rewrites below, they can't be opened directly. beforeFiles only see the requested
         // URL, not the destinations of the afterFiles rewrites, so the rewritten pages still work.
-        { source: '/navigationRewrite/:path*', destination: '/404' },
+        { source: '/:path*', destination: '/404' },
       ],
       afterFiles: [
-        { source: '/sk/vyhladavanie', destination: '/sk/navigationRewrite/search', locale: false },
-        { source: '/en/search', destination: '/en/navigationRewrite/search', locale: false },
+        { source: '/sk/vyhladavanie', destination: '/sk/search', locale: false },
+        { source: '/en/search', destination: '/en/search', locale: false },
         ...detailPageRewrites,
       ],
     }

@@ -1,6 +1,6 @@
 /**
  * Content types that have detail pages. The names are used in the rewritten routes
- * (`pages/navigationRewrite/<type>/[slug].tsx`) and match the types in the search index.
+ * (`pages/<type>/[slug].tsx`) and match the types in the search index.
  */
 export const contentTypes = [
   'blog-post',

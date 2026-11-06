@@ -59,8 +59,8 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
         params: {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           slug: entity.attributes!.slug,
-          locale: entity.attributes?.locale || '',
         },
+        locale: entity.attributes?.locale || '',
       }))
   }
   // eslint-disable-next-line no-console
