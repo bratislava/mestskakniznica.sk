@@ -1,6 +1,46 @@
 import i18nextConfig from './next-i18next.config'
 import type { NextConfig } from 'next'
 
+/**
+ * Hardcoded copy of the URLs the navigation proxy reads from Strapi: the parent page of each content type in the
+ * Navigation single type, at its full path in the page tree. Update them whenever one of these pages is moved or its
+ * slug changes, otherwise its detail pages return 404.
+ */
+const detailPageRewrites = [
+  { locale: 'sk', type: 'blog-post', parentPath: '/sluzby/vzdelavanie/clanky' },
+  { locale: 'sk', type: 'event', parentPath: '/zazite/podujatia' },
+  { locale: 'sk', type: 'notice', parentPath: '/zazite/aktuality' },
+  { locale: 'sk', type: 'branch', parentPath: '/navstivte/nase-lokality' },
+  {
+    locale: 'sk',
+    type: 'asset',
+    parentPath: '/o-nas/dokumenty-a-zverejnovanie-informacii/dokumenty',
+  },
+  {
+    locale: 'sk',
+    type: 'disclosure',
+    parentPath: '/o-nas/dokumenty-a-zverejnovanie-informacii/zverejnovanie',
+  },
+  { locale: 'en', type: 'blog-post', parentPath: '/services/education/articles' },
+  { locale: 'en', type: 'event', parentPath: '/experience/events' },
+  { locale: 'en', type: 'notice', parentPath: '/experience/news' },
+  { locale: 'en', type: 'branch', parentPath: '/visit/our-locations' },
+  {
+    locale: 'en',
+    type: 'asset',
+    parentPath: '/about-us/documents-and-public-disclosure-of-information/documents',
+  },
+  {
+    locale: 'en',
+    type: 'disclosure',
+    parentPath: '/about-us/documents-and-public-disclosure-of-information/disclosure',
+  },
+].map(({ locale, type, parentPath }) => ({
+  source: `/${locale}${parentPath}/:slug`,
+  destination: `/${locale}/navigationRewrite/${type}/:slug`,
+  locale: false as const,
+}))
+
 const nextConfig: NextConfig = {
   i18n: i18nextConfig.i18n,
   reactStrictMode: true,
@@ -88,6 +128,14 @@ const nextConfig: NextConfig = {
           source: '/uploads/:file',
           destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/uploads/:file`,
         },
+        // Internal routes of the rewrites below, they can't be opened directly. beforeFiles only see the requested
+        // URL, not the destinations of the afterFiles rewrites, so the rewritten pages still work.
+        { source: '/navigationRewrite/:path*', destination: '/404' },
+      ],
+      afterFiles: [
+        { source: '/sk/vyhladavanie', destination: '/sk/navigationRewrite/search', locale: false },
+        { source: '/en/search', destination: '/en/navigationRewrite/search', locale: false },
+        ...detailPageRewrites,
       ],
     }
   },
