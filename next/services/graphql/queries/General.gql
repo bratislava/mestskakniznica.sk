@@ -160,11 +160,6 @@ fragment NavigationEntity on NavigationEntity {
 ### Queries
 
 query Navigation($locale: I18NLocaleCode!) {
-  navigation(locale: $locale) {
-    data {
-      ...NavigationEntity
-    }
-  }
   topLevelPages: pages(filters: { parentPage: { id: { eq: null } } }, locale: $locale) {
     data {
       ...PageEntityChildPages

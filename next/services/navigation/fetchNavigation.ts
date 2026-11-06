@@ -1,6 +1,6 @@
 import i18nextConfig from '@/next-i18next.config'
 import { client } from '@/services/graphql/gql'
-import { parseContentTypePathPrefixes } from '@/services/navigation/parseContentTypePathPrefixes'
+import { getContentTypePathPrefixesMap } from '@/services/navigation/getContentTypePathPrefixesMap'
 import { parseTopLevelPages } from '@/services/navigation/parseTopLevelPages'
 import { NavigationConfig, NavigationObject } from '@/services/navigation/typesNavigation'
 
@@ -18,10 +18,10 @@ const { locales } = (i18nextConfig as { i18n: { locales: string[] } }).i18n
 const fetchNonCachedNavigation = async (): Promise<NavigationObject> => {
   const localeNavigations = await Promise.all(
     locales.map(async (locale) => {
-      const { navigation, topLevelPages } = await client.Navigation({ locale })
+      const { topLevelPages } = await client.Navigation({ locale })
 
       const { pagePathsMap } = parseTopLevelPages(topLevelPages?.data ?? [])
-      const { contentTypePathPrefixesMap } = parseContentTypePathPrefixes(navigation, pagePathsMap)
+      const contentTypePathPrefixesMap = getContentTypePathPrefixesMap(locale)
 
       return [locale, { pagePathsMap, contentTypePathPrefixesMap }] as const
     }),
