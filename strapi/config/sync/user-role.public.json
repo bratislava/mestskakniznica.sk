@@ -128,9 +128,6 @@
     },
     {
       "action": "plugin::upload.content-api.findOne"
-    },
-    {
-      "action": "plugin::upload.content-api.upload"
     }
   ]
 }

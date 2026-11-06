@@ -1,4 +1,5 @@
 import reduce from 'lodash/reduce'
+import Mailgun from 'mailgun.js'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 // TODO get domain and set based on that
