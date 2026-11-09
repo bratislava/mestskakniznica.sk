@@ -5,7 +5,7 @@ import CardWrapper from '@/modules/cards-and-rows/CardWrapper'
 import MLink from '@/modules/common/MLink'
 import FormatEventDateRange from '@/modules/formatting/FormatEventDateRange'
 import { EventCardEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 type EventRowProps = { event: EventCardEntityFragment }
 
@@ -16,7 +16,7 @@ type EventRowProps = { event: EventCardEntityFragment }
  * Events navigation Figma: https://www.figma.com/file/CY6Mh2f0SXJhBMY74HdS03/MKB?node-id=1309%3A24039&t=HeHnRSNxyY2Meuli-0
  */
 const EventRow = ({ event }: EventRowProps) => {
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity } = useNavigation()
 
   if (!event.attributes) {
     return null

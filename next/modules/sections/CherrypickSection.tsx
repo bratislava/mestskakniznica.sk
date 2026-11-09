@@ -1,14 +1,14 @@
 import Listing from '@/components/ui/Listing/Listing'
 import { CherrypickSectionFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 type CherrypickSectionProps = {
   section: CherrypickSectionFragment
 }
 
 const CherrypickSection = ({ section }: CherrypickSectionProps) => {
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const listingChildren =
     section.pages?.data

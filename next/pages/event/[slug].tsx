@@ -6,22 +6,21 @@ import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslation
 
 import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import EventPage from '@/components/pages/eventPage'
-import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import { EventEntityFragment, GeneralQuery } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { NOT_FOUND } from '@/utils/consts'
 import { extractLocalizationsWithSlug } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 
 type PageProps = {
   event: EventEntityFragment
   general: GeneralQuery
 } & SSRConfig &
-  CLNavikronosPageProps
+  NavigationPageProps
 
 const EventSlugPage = ({ event, general }: PageProps) => {
   return (
@@ -42,8 +41,6 @@ interface StaticParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) => {
-  let paths: GetStaticPathsResult<StaticParams>['paths'] = []
-
   const pathArraysForLocales = await Promise.all(
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     locales!.map((locale) => client.EventStaticPaths({ locale })),
@@ -52,17 +49,15 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
     .flatMap(({ events }) => events?.data || [])
     .filter(isDefined)
 
-  if (entities.length > 0) {
-    paths = entities
-      .filter((entity) => entity.attributes?.slug)
-      .map((entity) => ({
-        params: {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain,@typescript-eslint/no-non-null-assertion
-          slug: entity.attributes?.slug!,
-          locale: entity.attributes?.locale || '',
-        },
-      }))
-  }
+  const paths: GetStaticPathsResult<StaticParams>['paths'] = entities
+    .filter((entity) => entity.attributes?.slug)
+    .map((entity) => ({
+      params: {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain,@typescript-eslint/no-non-null-assertion
+        slug: entity.attributes?.slug!,
+      },
+      locale: entity.attributes?.locale || '',
+    }))
 
   // eslint-disable-next-line no-console
   console.log(`Events: Generated static paths for ${paths.length} slugs.`)
@@ -92,12 +87,11 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
 
   const localizations = extractLocalizationsWithSlug('event', event)
 
-  const [general, translations, navikronosStaticProps] = await Promise.all([
+  const [general, translations, navigationStaticProps] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale),
-    navikronosGetStaticProps({
-      navikronosConfig,
-      ctx,
+    getNavigationStaticProps({
+      locale,
       currentEntity: {
         type: 'event',
         slug,
@@ -112,11 +106,11 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
       slug,
       event,
       general,
-      navikronosStaticProps,
+      navigationStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default wrapNavikronosProvider(EventSlugPage)
+export default EventSlugPage

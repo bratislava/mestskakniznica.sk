@@ -12,8 +12,6 @@ import DefaultPageLayout from '@/components/layouts/DefaultPageLayout'
 import { SectionContainer } from '@/components/ui'
 import MapSection from '@/components/ui/MapSection/MapSection'
 import type { Book } from '@/modules/cards-and-rows/BookCard'
-import { navikronosGetStaticProps } from '@/navikronos/navikronosGetStaticProps'
-import { wrapNavikronosProvider } from '@/navikronos/wrapNavikronosProvider'
 import {
   BookTagEntityFragment,
   ComponentCommonSeo,
@@ -29,11 +27,12 @@ import {
 } from '@/services/graphql'
 import { generalFetcher } from '@/services/graphql/fetchers/general.fetcher'
 import { client } from '@/services/graphql/gql'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { newBooksHomePageServerSideFetcher } from '@/services/opac/fetchers/new-books-server-side.fetcher'
 import { NOT_FOUND } from '@/utils/consts'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { hasAttributes, isDefined } from '@/utils/isDefined'
-import { CLNavikronosPageProps, navikronosConfig } from '@/utils/navikronos'
 
 type HomeProps = {
   localizations?: PageLocalizationEntityFragment[]
@@ -49,7 +48,7 @@ type HomeProps = {
   general: GeneralQuery
   promotedContent: HomepagePromotedContentSectionFragment | null
 } & SSRConfig &
-  CLNavikronosPageProps
+  NavigationPageProps
 
 export const Index = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -127,12 +126,12 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     newBooks,
     { homePage, promotedNews, promotedEvents, latestNotices, bookTags },
     general,
-    navikronosStaticProps,
+    navigationStaticProps,
   ] = await Promise.all([
     newBooksHomePageServerSideFetcher(),
     client.HomePage({ locale }),
     generalFetcher(locale),
-    navikronosGetStaticProps({ navikronosConfig, ctx }),
+    getNavigationStaticProps({ locale }),
   ])
 
   if (!homePage) {
@@ -153,11 +152,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       seo: homePage?.data?.attributes?.seo ?? null,
       promotedContent: homePage?.data?.attributes?.promotedContent ?? null,
       general,
-      navikronosStaticProps,
+      navigationStaticProps,
       ...translations,
     },
     revalidate: 10,
   }
 }
 
-export default wrapNavikronosProvider(Index)
+export default Index

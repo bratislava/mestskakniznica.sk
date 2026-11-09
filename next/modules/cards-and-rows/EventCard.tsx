@@ -9,8 +9,8 @@ import {
   EventTagsFragment,
   UploadImageFragment,
 } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 type EventCardProps = {
   title?: string
@@ -35,7 +35,7 @@ const EventCard = ({
   eventCategory,
   branch,
 }: EventCardProps) => {
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity } = useNavigation()
 
   return (
     <CardWrapper className="relative">

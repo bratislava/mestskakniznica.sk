@@ -3,13 +3,13 @@ import React, { useMemo } from 'react'
 import Header from '@/components/AppLayout/Header'
 import MobileHeader from '@/components/AppLayout/MobileNavigation/MobileHeader'
 import { MenuItem } from '@/modules/navigation/NavMenu'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 const HeaderWrapper = () => {
   const { menus } = useGeneralContext()
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity } = useNavigation()
 
   // TODO move parsing into context and return parsed menu from context
   // TODO simplify parsing
@@ -47,7 +47,7 @@ const HeaderWrapper = () => {
                         }
                       }
 
-                      if (link?.sectionLinkPage?.data?.id) {
+                      if (link?.sectionLinkPage?.data?.attributes?.newSlug) {
                         return {
                           label:
                             link.sectionLinkTitle ??
@@ -56,7 +56,7 @@ const HeaderWrapper = () => {
                           url:
                             getPathForEntity({
                               type: 'page',
-                              id: link?.sectionLinkPage.data?.id,
+                              slug: link?.sectionLinkPage.data?.attributes?.newSlug,
                             }) ?? '#',
                         }
                       }

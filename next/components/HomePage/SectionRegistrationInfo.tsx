@@ -5,8 +5,8 @@ import RegisterToLibrary from '@/assets/images/register-to-library.svg'
 import { SectionContainer } from '@/components/ui'
 import Button from '@/modules/common/Button'
 import { HomepageRegistrationInfoFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 interface RegistrationInfoProps {
   registrationInfoSection: HomepageRegistrationInfoFragment
@@ -14,7 +14,7 @@ interface RegistrationInfoProps {
 
 const SectionRegistrationInfo = ({ registrationInfoSection }: RegistrationInfoProps) => {
   const { t } = useTranslation()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <SectionContainer hasBorder>

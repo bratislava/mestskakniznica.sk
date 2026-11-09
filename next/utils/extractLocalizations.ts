@@ -30,15 +30,14 @@ export const extractLocalizationsWithSlug = <T extends string>(
   )
 }
 
-export const extractLocalizationsWithId = <T extends string>(
-  type: T,
-  entity: DeepMaybePartial<{
+export const extractPageLocalizations = (
+  page: DeepMaybePartial<{
     attributes: {
       localizations: {
         data: {
-          id: string
           attributes: {
             locale: string
+            newSlug: string
           }
         }[]
       }
@@ -46,13 +45,13 @@ export const extractLocalizationsWithId = <T extends string>(
   }>,
 ) => {
   return (
-    entity?.attributes?.localizations?.data
+    page?.attributes?.localizations?.data
       ?.filter(hasAttributes)
-      .filter((localePage) => localePage.attributes.locale && localePage.id)
+      .filter((localePage) => localePage.attributes.locale && localePage.attributes.newSlug)
       .map((localePage) => ({
-        type,
+        type: 'page' as const,
         locale: localePage.attributes.locale!,
-        id: localePage.id!,
+        slug: localePage.attributes.newSlug!,
       })) ?? []
   )
 }
