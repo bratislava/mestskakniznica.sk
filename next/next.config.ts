@@ -7,13 +7,15 @@ import { getContentTypePathPrefixesMap } from './services/navigation/getContentT
  * Detail pages are served under the path of their parent page (e.g. `/zazite/podujatia/:slug`) and rewritten to their
  * internal route `pages/<type>/[slug].tsx`. The links are built from the same prefixes (see `getPathForEntity`).
  */
-const detailPageRewrites = i18nextConfig.i18n.locales.flatMap((locale: string) =>
-  Object.entries(getContentTypePathPrefixesMap(locale)).map(([type, parentPath]) => ({
+const detailPageRewrites = i18nextConfig.i18n.locales.flatMap((locale: string) => {
+  const { contentTypePathPrefixesMap } = getContentTypePathPrefixesMap(locale)
+
+  Object.entries(contentTypePathPrefixesMap).map(([type, parentPath]) => ({
     source: `/${locale}${parentPath}/:slug`,
     destination: `/${locale}/${type}/:slug`,
     locale: false as const,
-  })),
-)
+  }))
+})
 
 const nextConfig: NextConfig = {
   i18n: i18nextConfig.i18n,

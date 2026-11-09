@@ -7791,69 +7791,6 @@ export type GeneralEntityFragment = {
   } | null
 }
 
-export type NavigationEntityFragment = {
-  __typename?: 'NavigationEntity'
-  attributes?: {
-    __typename?: 'Navigation'
-    blogPostsParentPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename: 'PageEntity'
-        id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
-      } | null
-    } | null
-    documentsParentPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename: 'PageEntity'
-        id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
-      } | null
-    } | null
-    assetsParentPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename: 'PageEntity'
-        id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
-      } | null
-    } | null
-    eventsParentPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename: 'PageEntity'
-        id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
-      } | null
-    } | null
-    noticesParentPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename: 'PageEntity'
-        id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
-      } | null
-    } | null
-    branchesParentPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename: 'PageEntity'
-        id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
-      } | null
-    } | null
-    disclosuresParentPage?: {
-      __typename?: 'PageEntityResponse'
-      data?: {
-        __typename: 'PageEntity'
-        id?: string | null
-        attributes?: { __typename?: 'Page'; title: string; newSlug: string } | null
-      } | null
-    } | null
-  } | null
-}
-
 export type NavigationQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input']
 }>
@@ -12397,48 +12334,6 @@ export const GeneralEntityFragmentDoc = gql`
         }
       }
       noticesPage {
-        data {
-          ...PageSlugEntity
-        }
-      }
-    }
-  }
-  ${PageSlugEntityFragmentDoc}
-`
-export const NavigationEntityFragmentDoc = gql`
-  fragment NavigationEntity on NavigationEntity {
-    attributes {
-      blogPostsParentPage {
-        data {
-          ...PageSlugEntity
-        }
-      }
-      documentsParentPage {
-        data {
-          ...PageSlugEntity
-        }
-      }
-      assetsParentPage {
-        data {
-          ...PageSlugEntity
-        }
-      }
-      eventsParentPage {
-        data {
-          ...PageSlugEntity
-        }
-      }
-      noticesParentPage {
-        data {
-          ...PageSlugEntity
-        }
-      }
-      branchesParentPage {
-        data {
-          ...PageSlugEntity
-        }
-      }
-      disclosuresParentPage {
         data {
           ...PageSlugEntity
         }
