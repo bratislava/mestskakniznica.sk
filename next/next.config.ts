@@ -10,7 +10,7 @@ import { getContentTypePathPrefixesMap } from './services/navigation/getContentT
 const detailPageRewrites = i18nextConfig.i18n.locales.flatMap((locale: string) => {
   const { contentTypePathPrefixesMap } = getContentTypePathPrefixesMap(locale)
 
-  Object.entries(contentTypePathPrefixesMap).map(([type, parentPath]) => ({
+  return Object.entries(contentTypePathPrefixesMap).map(([type, parentPath]) => ({
     source: `/${locale}${parentPath}/:slug`,
     destination: `/${locale}/${type}/:slug`,
     locale: false as const,
