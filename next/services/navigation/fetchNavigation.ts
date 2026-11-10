@@ -32,8 +32,7 @@ const fetchNonCachedNavigation = async (): Promise<NavigationObject> => {
 
 /**
  * Fetches and caches navigation data of all locales directly from the Strapi client.
- * Use this function in getStaticProps, getServerSideProps and in the proxy - proxy always runs on the Node.js runtime,
- * so it can use the GraphQL client too.
+ * Use this function in getStaticProps and in getServerSideProps
  *
  * @param config
  */
