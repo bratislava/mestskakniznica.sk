@@ -16,7 +16,6 @@ COPY ./package.json ./package-lock.json ./
 # copy any installation files for Strapi plugins you want to build. For example:
 # COPY src/plugins/<package-name>/package.json src/plugins/<package-name>/package-lock.json ./src/plugins/<package-name>/
 # Or leave empty (do not add anything) if you don't have any custom plugins (most likely ./plugins directory)
-COPY src/plugins/navikronos/package.json src/plugins/navikronos/package-lock.json ./src/plugins/navikronos/
 
 ENV NPM_CONFIG_CACHE=/build/.cache/npm
 RUN --mount=type=cache,target=/build/.cache/npm \
@@ -63,10 +62,4 @@ COPY --chown=node:node --from=build /build/dist ./dist
 # - plugins/<name>/dist/
 # - plugins/<name>/*.js
 # Or leave empty (do not add anything) if you don't have any custom plugins (most likely ./plugins directory)
-# Plugin navikronos
-COPY --chown=node:node --from=install /build/src/plugins/navikronos/package.json /build/src/plugins/navikronos/package-lock.json ./src/plugins/navikronos/
-# COPY dynamically link dependency for navikronos plugin
-COPY --chown=node:node --from=build /build/src/plugins/navikronos/node_modules/zod /build/src/plugins/navikronos/package-lock.json ./src/plugins/navikronos/node_modules/zod/
-COPY --chown=node:node --from=build /build/src/plugins/navikronos/dist ./src/plugins/navikronos/dist
-COPY --chown=node:node --from=build /build/src/plugins/navikronos/*.js ./src/plugins/navikronos/
 CMD [ "strapi", "start" ]

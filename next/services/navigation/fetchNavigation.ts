@@ -4,9 +4,6 @@ import { getContentTypePathPrefixesMap } from '@/services/navigation/getContentT
 import { parseTopLevelPages } from '@/services/navigation/parseTopLevelPages'
 import { NavigationConfig, NavigationObject } from '@/services/navigation/typesNavigation'
 
-// Inspired by City Library - Navikronos custom plugin
-// https://github.com/bratislava/mestskakniznica.sk/blob/dfef31c799e1a903af4fa30aa1be5c3f27ae5418/next/navikronos/internal/fetch.ts
-
 let cache: {
   timestamp: number
   value: NavigationObject

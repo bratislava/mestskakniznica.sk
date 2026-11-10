@@ -28,27 +28,4 @@ export default ({ env }) => ({
     enabled: true,
     config: configSyncConfig,
   },
-  navikronos: {
-    enabled: true,
-    resolve: './src/plugins/navikronos',
-    config: {
-      staticRouteIds: ['search'],
-      contentTypeRoutes: [
-        { contentTypeUid: 'api::notice.notice' },
-        { contentTypeUid: 'api::branch.branch' },
-        { contentTypeUid: 'api::asset.asset' },
-        { contentTypeUid: 'api::document.document' },
-        { contentTypeUid: 'api::disclosure.disclosure' },
-        { contentTypeUid: 'api::event.event' },
-        { contentTypeUid: 'api::blog-post.blog-post' },
-      ],
-      entryRoutes: [
-        {
-          contentTypeUid: 'api::page.page',
-          titleAttribute: 'title',
-          pathAttribute: 'newSlug',
-        },
-      ],
-    },
-  },
 })

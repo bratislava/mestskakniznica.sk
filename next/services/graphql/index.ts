@@ -2917,7 +2917,6 @@ export type GenericMorph =
   | I18NLocale
   | Menu
   | Navigation
-  | NavikronosNavikronosStorage
   | Notice
   | Page
   | Partner
@@ -3264,7 +3263,6 @@ export type Mutation = {
   deleteHomePage?: Maybe<HomePageEntityResponse>
   deleteMenu?: Maybe<MenuEntityResponse>
   deleteNavigation?: Maybe<NavigationEntityResponse>
-  deleteNavikronosNavikronosStorage?: Maybe<NavikronosNavikronosStorageEntityResponse>
   deleteNotice?: Maybe<NoticeEntityResponse>
   deletePage?: Maybe<PageEntityResponse>
   deletePartner?: Maybe<PartnerEntityResponse>
@@ -3304,7 +3302,6 @@ export type Mutation = {
   updateHomePage?: Maybe<HomePageEntityResponse>
   updateMenu?: Maybe<MenuEntityResponse>
   updateNavigation?: Maybe<NavigationEntityResponse>
-  updateNavikronosNavikronosStorage?: Maybe<NavikronosNavikronosStorageEntityResponse>
   updateNotice?: Maybe<NoticeEntityResponse>
   updatePage?: Maybe<PageEntityResponse>
   updatePartner?: Maybe<PartnerEntityResponse>
@@ -3737,10 +3734,6 @@ export type MutationUpdateNavigationArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>
 }
 
-export type MutationUpdateNavikronosNavikronosStorageArgs = {
-  data: NavikronosNavikronosStorageInput
-}
-
 export type MutationUpdateNoticeArgs = {
   data: NoticeInput
   id: Scalars['ID']['input']
@@ -3849,48 +3842,6 @@ export type NavigationInput = {
 export type NavigationRelationResponseCollection = {
   __typename?: 'NavigationRelationResponseCollection'
   data: Array<NavigationEntity>
-}
-
-export type NavikronosNavikronosStorage = {
-  __typename?: 'NavikronosNavikronosStorage'
-  createdAt?: Maybe<Scalars['DateTime']['output']>
-  data?: Maybe<Scalars['JSON']['output']>
-  updatedAt?: Maybe<Scalars['DateTime']['output']>
-}
-
-export type NavikronosNavikronosStorageEntity = {
-  __typename?: 'NavikronosNavikronosStorageEntity'
-  attributes?: Maybe<NavikronosNavikronosStorage>
-  id?: Maybe<Scalars['ID']['output']>
-}
-
-export type NavikronosNavikronosStorageEntityResponse = {
-  __typename?: 'NavikronosNavikronosStorageEntityResponse'
-  data?: Maybe<NavikronosNavikronosStorageEntity>
-}
-
-export type NavikronosNavikronosStorageEntityResponseCollection = {
-  __typename?: 'NavikronosNavikronosStorageEntityResponseCollection'
-  data: Array<NavikronosNavikronosStorageEntity>
-  meta: ResponseCollectionMeta
-}
-
-export type NavikronosNavikronosStorageFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<NavikronosNavikronosStorageFiltersInput>>>
-  createdAt?: InputMaybe<DateTimeFilterInput>
-  data?: InputMaybe<JsonFilterInput>
-  not?: InputMaybe<NavikronosNavikronosStorageFiltersInput>
-  or?: InputMaybe<Array<InputMaybe<NavikronosNavikronosStorageFiltersInput>>>
-  updatedAt?: InputMaybe<DateTimeFilterInput>
-}
-
-export type NavikronosNavikronosStorageInput = {
-  data?: InputMaybe<Scalars['JSON']['input']>
-}
-
-export type NavikronosNavikronosStorageRelationResponseCollection = {
-  __typename?: 'NavikronosNavikronosStorageRelationResponseCollection'
-  data: Array<NavikronosNavikronosStorageEntity>
 }
 
 export type Notice = {
@@ -4227,7 +4178,6 @@ export type Query = {
   menu?: Maybe<MenuEntityResponse>
   menus?: Maybe<MenuEntityResponseCollection>
   navigation?: Maybe<NavigationEntityResponse>
-  navikronosNavikronosStorage?: Maybe<NavikronosNavikronosStorageEntityResponse>
   notice?: Maybe<NoticeEntityResponse>
   notices?: Maybe<NoticeEntityResponseCollection>
   page?: Maybe<PageEntityResponse>

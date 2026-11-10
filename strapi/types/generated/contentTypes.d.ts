@@ -1606,36 +1606,6 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   }
 }
 
-export interface PluginNavikronosNavikronosStorage extends Schema.SingleType {
-  collectionName: 'navikronos-storage'
-  info: {
-    displayName: 'Navikronos Storage'
-    pluralName: 'navikronos-storages'
-    singularName: 'navikronos-storage'
-  }
-  options: {
-    comment: ''
-    draftAndPublish: false
-  }
-  attributes: {
-    createdAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'plugin::navikronos.navikronos-storage',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    data: Attribute.JSON
-    updatedAt: Attribute.DateTime
-    updatedBy: Attribute.Relation<
-      'plugin::navikronos.navikronos-storage',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-  }
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files'
   info: {
@@ -1901,7 +1871,6 @@ declare module '@strapi/types' {
       'plugin::content-releases.release': PluginContentReleasesRelease
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction
       'plugin::i18n.locale': PluginI18NLocale
-      'plugin::navikronos.navikronos-storage': PluginNavikronosNavikronosStorage
       'plugin::upload.file': PluginUploadFile
       'plugin::upload.folder': PluginUploadFolder
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission

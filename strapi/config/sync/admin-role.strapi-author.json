@@ -1468,46 +1468,6 @@
     },
     {
       "action": "plugin::content-manager.explorer.create",
-      "subject": "plugin::navikronos.navikronos-storage",
-      "properties": {
-        "fields": [
-          "data"
-        ]
-      },
-      "conditions": [],
-      "actionParameters": {}
-    },
-    {
-      "action": "plugin::content-manager.explorer.delete",
-      "subject": "plugin::navikronos.navikronos-storage",
-      "properties": {},
-      "conditions": [],
-      "actionParameters": {}
-    },
-    {
-      "action": "plugin::content-manager.explorer.read",
-      "subject": "plugin::navikronos.navikronos-storage",
-      "properties": {
-        "fields": [
-          "data"
-        ]
-      },
-      "conditions": [],
-      "actionParameters": {}
-    },
-    {
-      "action": "plugin::content-manager.explorer.update",
-      "subject": "plugin::navikronos.navikronos-storage",
-      "properties": {
-        "fields": [
-          "data"
-        ]
-      },
-      "conditions": [],
-      "actionParameters": {}
-    },
-    {
-      "action": "plugin::content-manager.explorer.create",
       "subject": "plugin::users-permissions.user",
       "properties": {
         "fields": [
