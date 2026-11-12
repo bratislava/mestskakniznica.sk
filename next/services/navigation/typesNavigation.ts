@@ -14,7 +14,7 @@ export const contentTypes = [
 export type ContentType = (typeof contentTypes)[number]
 
 /**
- * Pages are keyed by their `newSlug`, which is unique within a locale. Paths don't contain the locale prefix.
+ * Pages are keyed by their `slug`, which is unique within a locale. Paths don't contain the locale prefix.
  */
 export type PagePathsMap = {
   [slug: string]:
@@ -37,9 +37,6 @@ export type LocaleNavigation = {
 
 export type NavigationObject = Record<string, LocaleNavigation | undefined>
 
-/**
- * Pages are identified by their `newSlug`, detail pages by their `slug`.
- */
 export type RouteEntity =
   | { type: 'page' | ContentType; slug: string | null | undefined }
   | { type: 'search' }

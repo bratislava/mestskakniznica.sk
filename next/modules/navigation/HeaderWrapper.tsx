@@ -47,7 +47,7 @@ const HeaderWrapper = () => {
                         }
                       }
 
-                      if (link?.sectionLinkPage?.data?.attributes?.newSlug) {
+                      if (link?.sectionLinkPage?.data?.attributes?.slug) {
                         return {
                           label:
                             link.sectionLinkTitle ??
@@ -56,7 +56,7 @@ const HeaderWrapper = () => {
                           url:
                             getPathForEntity({
                               type: 'page',
-                              slug: link?.sectionLinkPage.data?.attributes?.newSlug,
+                              slug: link?.sectionLinkPage.data?.attributes?.slug,
                             }) ?? '#',
                         }
                       }

@@ -46,7 +46,7 @@ export default ({ env }) => ({
         {
           contentTypeUid: 'api::page.page',
           titleAttribute: 'title',
-          pathAttribute: 'newSlug',
+          pathAttribute: 'slug',
         },
       ],
     },

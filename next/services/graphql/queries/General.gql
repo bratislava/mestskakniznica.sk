@@ -2,7 +2,7 @@ fragment SectionLinkPageEntity on PageEntity {
   id
   attributes {
     title
-    newSlug
+    slug
   }
 }
 

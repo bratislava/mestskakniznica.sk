@@ -29,29 +29,3 @@ export const extractLocalizationsWithSlug = <T extends string>(
       })) ?? []
   )
 }
-
-export const extractPageLocalizations = (
-  page: DeepMaybePartial<{
-    attributes: {
-      localizations: {
-        data: {
-          attributes: {
-            locale: string
-            newSlug: string
-          }
-        }[]
-      }
-    }
-  }>,
-) => {
-  return (
-    page?.attributes?.localizations?.data
-      ?.filter(hasAttributes)
-      .filter((localePage) => localePage.attributes.locale && localePage.attributes.newSlug)
-      .map((localePage) => ({
-        type: 'page' as const,
-        locale: localePage.attributes.locale!,
-        slug: localePage.attributes.newSlug!,
-      })) ?? []
-  )
-}

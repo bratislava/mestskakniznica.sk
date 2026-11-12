@@ -25,15 +25,6 @@
       "type": "string",
       "required": true
     },
-    "newSlug": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string",
-      "required": true
-    },
     "title": {
       "pluginOptions": {
         "i18n": {

@@ -3,8 +3,8 @@ import { errors } from '@strapi/utils'
 const { ApplicationError } = errors
 
 /**
- * Keeps the page tree (parentPage + newSlug) valid, because page URLs are built from it:
- * - newSlug is lowercase-kebab-case and unique within a locale (a `uid` field would be unique across all locales),
+ * Keeps the page tree (parentPage + slug) valid, because page URLs are built from it:
+ * - slug is lowercase-kebab-case and unique within a locale (a `uid` field would be unique across all locales),
  * - a page's parent is in the same locale and is not the page itself or one of its descendants,
  * - the tree has at most MAX_LEVELS levels.
  *
@@ -21,7 +21,7 @@ const MAX_LEVELS = 5
 const MAX_DEPTH = 50
 
 type Id = number
-type PageRow = { id: Id; title: string; locale: string; newSlug: string | null; parentPage?: { id: Id } | null }
+type PageRow = { id: Id; title: string; locale: string; slug: string | null; parentPage?: { id: Id } | null }
 type LifecycleEvent = { params: { data: Record<string, unknown>; where?: { id?: unknown } } }
 
 const toId = (value: unknown): Id | null => {
@@ -57,25 +57,25 @@ const getConnectedIds = (value: unknown): Id[] | undefined => {
 
 const findPage = (id: Id) =>
   strapi.db.query(PAGE_UID).findOne({
-    select: ['id', 'title', 'locale', 'newSlug'],
+    select: ['id', 'title', 'locale', 'slug'],
     where: { id },
     populate: { parentPage: { select: ['id'] } },
   }) as Promise<PageRow | null>
 
-const validateSlug = async (newSlug: unknown, locale: string, pageId?: Id) => {
-  if (typeof newSlug !== 'string' || !SLUG_REGEX.test(newSlug)) {
+const validateSlug = async (slug: unknown, locale: string, pageId?: Id) => {
+  if (typeof slug !== 'string' || !SLUG_REGEX.test(slug)) {
     throw new ApplicationError(
-      `Slug ${JSON.stringify(newSlug)} môže obsahovať iba malé písmená bez diakritiky, číslice a pomlčky, napr. "kniharska-dielna".`
+      `Slug ${JSON.stringify(slug)} môže obsahovať iba malé písmená bez diakritiky, číslice a pomlčky, napr. "kniharska-dielna".`
     )
   }
 
   const duplicate = (await strapi.db.query(PAGE_UID).findOne({
     select: ['id', 'title'],
-    where: { newSlug, locale, ...(pageId === undefined ? {} : { id: { $ne: pageId } }) },
+    where: { slug, locale, ...(pageId === undefined ? {} : { id: { $ne: pageId } }) },
   })) as Pick<PageRow, 'id' | 'title'> | null
   if (duplicate) {
     throw new ApplicationError(
-      `Slug "${newSlug}" už v tomto jazyku používa stránka "${duplicate.title}" (id ${duplicate.id}).`
+      `Slug "${slug}" už v tomto jazyku používa stránka "${duplicate.title}" (id ${duplicate.id}).`
     )
   }
 }
@@ -147,7 +147,7 @@ export default {
         ? data.locale
         : ((await strapi.plugin('i18n').service('locales').getDefaultLocale()) as string)
 
-    await validateSlug(data.newSlug, locale)
+    await validateSlug(data.slug, locale)
 
     const [parentId] = getConnectedIds(data.parentPage) ?? []
     if (parentId !== undefined) {
@@ -161,8 +161,8 @@ export default {
     const page = pageId === null ? null : await findPage(pageId)
     if (!page) return
 
-    if (data.newSlug !== undefined && data.newSlug !== page.newSlug) {
-      await validateSlug(data.newSlug, page.locale, page.id)
+    if (data.slug !== undefined && data.slug !== page.slug) {
+      await validateSlug(data.slug, page.locale, page.id)
     }
 
     const [parentId] = getConnectedIds(data.parentPage) ?? []

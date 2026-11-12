@@ -113,7 +113,6 @@ fragment PageWithBaseFieldsEntity on PageEntity {
   attributes {
     title
     slug
-    newSlug
     createdAt
     updatedAt
   }
@@ -124,14 +123,13 @@ fragment PageLocalizationEntity on PageEntity {
   id
   attributes {
     slug
-    newSlug
     locale
   }
 }
 
 fragment ChildPage on Page {
   title
-  newSlug
+  slug
 }
 
 fragment PageSlugEntity on PageEntity {
@@ -139,7 +137,7 @@ fragment PageSlugEntity on PageEntity {
   id
   attributes {
     title
-    newSlug
+    slug
   }
 }
 
@@ -189,7 +187,7 @@ fragment PageEntityChildPages on PageEntity {
 }
 
 query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
-  pages(filters: { newSlug: { eq: $slug } }, locale: $locale) {
+  pages(filters: { slug: { eq: $slug } }, locale: $locale) {
     data {
       ...PageEntity
     }
