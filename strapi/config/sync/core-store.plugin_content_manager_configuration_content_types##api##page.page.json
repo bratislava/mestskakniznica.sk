@@ -135,8 +135,8 @@
       },
       "parentPage": {
         "edit": {
-          "label": "Otcovská stránka (v príprave)",
-          "description": "Nepoužívať",
+          "label": "Otcovská stránka",
+          "description": "Výsledná URL stránky je spojenie slugov z reťaze otcovských stránok. (napr. mestskakniznica.sk/otcovska-stranka-slug/moj-slug)",
           "placeholder": "",
           "visible": true,
           "editable": true,
@@ -150,8 +150,8 @@
       },
       "childPages": {
         "edit": {
-          "label": "Potomkovia (v príprave)",
-          "description": "Nepoužívať",
+          "label": "Potomkovia",
+          "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true,
