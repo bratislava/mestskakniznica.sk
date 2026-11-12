@@ -83,47 +83,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
-    if (payload?.model === 'page') {
-      const urlToRevalidate = `/${payload?.entry?.slug}`
-      const isEn = payload?.entry?.locale === 'en'
-      const layout = payload?.entry?.layout as string
-
-      console.log(`api/revalidate: Revalidating ${urlToRevalidate}`)
-      await res.revalidate(urlToRevalidate)
-
-      if (layout === 'news') {
-        if (isEn) {
-          console.log(
-            `api/revalidate: Revalidating /en/experience/news, /en/experience due to change in ${urlToRevalidate}`,
-          )
-          await res.revalidate('/en/experience/news')
-          await res.revalidate('/en/experience')
-        } else {
-          console.log(
-            `api/revalidate: Revalidating /zazite/aktuality, /zazite due to change in ${urlToRevalidate}`,
-          )
-          await res.revalidate('/zazite/aktuality')
-          await res.revalidate('/zazite')
-        }
-      }
-
-      if (layout === 'locality') {
-        if (isEn) {
-          console.log(
-            `api/revalidate: Revalidating /en/visit/our-locations, /en/visit due to change in ${urlToRevalidate}`,
-          )
-          await res.revalidate('/en/visit/our-locations')
-          await res.revalidate('/en/visit')
-        } else {
-          console.log(
-            `api/revalidate: Revalidating /navstivte/nase-lokality, /navstivte due to change in ${urlToRevalidate}`,
-          )
-          await res.revalidate('/navstivte/nase-lokality')
-          await res.revalidate('/navstivte')
-        }
-      }
-    }
-
     res.json({ revalidated: true })
   } catch (error) {
     console.log('api/revalidate: Error while revalidating ==>', error)

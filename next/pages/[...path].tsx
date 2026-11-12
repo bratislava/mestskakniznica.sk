@@ -17,7 +17,7 @@ import { getNavigationStaticProps } from '@/services/navigation/getNavigationSta
 import { navigationConfig } from '@/services/navigation/navigationConfig'
 import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { NOT_FOUND } from '@/utils/consts'
-import { extractPageLocalizations } from '@/utils/extractLocalizations'
+import { extractLocalizationsWithSlug } from '@/utils/extractLocalizations'
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
 import { prefetchPageSections } from '@/utils/prefetchPageSections'
@@ -111,7 +111,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     getNavigationStaticProps({
       locale,
       currentEntity: { type: 'page', slug },
-      currentEntityLocalizations: extractPageLocalizations(page),
+      currentEntityLocalizations: extractLocalizationsWithSlug('page', page),
     }),
     prefetchPageSections(page, locale),
   ])

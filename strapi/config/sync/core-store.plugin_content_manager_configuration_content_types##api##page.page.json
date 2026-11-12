@@ -34,20 +34,6 @@
           "sortable": true
         }
       },
-      "newSlug": {
-        "edit": {
-          "label": "newSlug",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "newSlug",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "title": {
         "edit": {
           "label": "Nadpis",
@@ -241,12 +227,6 @@
         [
           {
             "name": "title",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "newSlug",
             "size": 12
           }
         ],

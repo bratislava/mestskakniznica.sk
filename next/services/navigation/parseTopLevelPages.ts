@@ -7,7 +7,7 @@ import { PagePathsMap } from '@/services/navigation/typesNavigation'
 type PageWithChildPages = {
   attributes?: {
     title: string
-    newSlug?: string | null
+    slug?: string | null
     childPages?: { data: PageWithChildPages[] } | null
   } | null
 }
@@ -23,7 +23,7 @@ export const parseTopLevelPages = (pages: PageWithChildPages[]) => {
     parent: { slug: string; path: string } | null,
   ): string[] =>
     childPages.flatMap((page) => {
-      const { title, newSlug: slug, childPages: grandChildPages } = page.attributes ?? {}
+      const { title, slug, childPages: grandChildPages } = page.attributes ?? {}
 
       if (!slug || !title) {
         return []
