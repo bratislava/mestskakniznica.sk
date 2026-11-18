@@ -135,8 +135,8 @@
       },
       "parentPage": {
         "edit": {
-          "label": "Otcovská stránka",
-          "description": "Výsledná URL stránky je spojenie slugov z reťaze otcovských stránok. (napr. mestskakniznica.sk/otcovska-stranka-slug/moj-slug)",
+          "label": "Rodičovská stránka",
+          "description": "Výsledná URL stránky je spojenie slugov z reťaze rodičovských stránok. (napr. mestskakniznica.sk/rodicovska-stranka-slug/moj-slug)",
           "placeholder": "",
           "visible": true,
           "editable": true,
@@ -275,12 +275,7 @@
           }
         ]
       ],
-      "list": [
-        "id",
-        "slug",
-        "title",
-        "layout"
-      ]
+      "list": ["id", "slug", "title", "layout"]
     }
   },
   "type": "object",
