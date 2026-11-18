@@ -1,6 +1,17 @@
 /* eslint-disable no-console */
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import { fetchNavigation } from '@/services/navigation/fetchNavigation'
+import { getContentTypePathPrefixesMap } from '@/services/navigation/getContentTypePathPrefixesMap'
+import { navigationConfig } from '@/services/navigation/navigationConfig'
+import { ContentType, contentTypes } from '@/services/navigation/typesNavigation'
+
+const isContentType = (model: unknown): model is ContentType =>
+  contentTypes.some((contentType) => contentType === model)
+
+/** Assets and disclosures are not localized in Strapi, their detail pages are served in every locale. */
+const nonLocalizedContentTypes: ContentType[] = ['asset', 'disclosure']
+
 // TODO cleanup
 // eslint-disable-next-line sonarjs/cognitive-complexity
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -35,51 +46,49 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Check model
-    if (payload?.model === 'blog-post') {
-      const urlToRevalidate = `/blog/${payload?.entry?.slug}`
-      const isEn = payload?.entry?.locale === 'en'
+    const model: unknown = payload?.model
+    if (isContentType(model) && payload?.entry?.slug) {
+      const locales: string[] = nonLocalizedContentTypes.includes(model)
+        ? ['sk', 'en']
+        : [payload?.entry?.locale]
 
-      console.log(`api/revalidate: Revalidating ${urlToRevalidate}`)
-      await res.revalidate(urlToRevalidate)
+      await Promise.all(
+        locales.map(async (locale) => {
+          // Detail pages are served under the path of their parent page (e.g. `/zazite/podujatia/:slug`) and rewritten
+          // to `pages/<type>/[slug].tsx`.
+          const localePrefix = locale === 'en' ? '/en' : ''
+          const urlToRevalidate = `${localePrefix}/${model}/${payload?.entry?.slug}`
 
-      if (isEn) {
-        console.log(
-          `api/revalidate: Revalidating /en/services/education/articles due to change in ${urlToRevalidate}`,
-        )
-        await res.revalidate('/en/services/education/articles')
-      } else {
-        console.log(
-          `api/revalidate: Revalidating /sluzby/vzdelavanie/clanky due to change in ${urlToRevalidate}`,
-        )
-        await res.revalidate('/sluzby/vzdelavanie/clanky')
-      }
+          console.log(`api/revalidate: Revalidating ${urlToRevalidate}`)
+          await res.revalidate(urlToRevalidate)
+
+          const { contentTypePathPrefixesMap } = getContentTypePathPrefixesMap(locale)
+          const parentPagePath = `${localePrefix}${contentTypePathPrefixesMap[model]}`
+          const grandparentPagePath = parentPagePath.slice(0, parentPagePath.lastIndexOf('/'))
+
+          console.log(
+            `api/revalidate: Revalidating ${parentPagePath}, ${grandparentPagePath} due to change in ${urlToRevalidate}`,
+          )
+          await res.revalidate(parentPagePath)
+          if (grandparentPagePath) {
+            await res.revalidate(grandparentPagePath)
+          }
+        }),
+      )
     }
 
-    if (payload?.model === 'basic-document') {
-      const urlToRevalidate = `/documents/${payload?.entry?.slug}`
-      console.log(`api/revalidate: Revalidating ${urlToRevalidate}`)
-      await res.revalidate(urlToRevalidate)
-    }
-
-    if (payload?.model === 'event') {
-      const urlToRevalidate = `/${payload?.entry?.slug}`
+    if (payload?.model === 'page') {
+      // Pages are nested, so their path comes from the page tree. It is fetched fresh, because the slug or the parent
+      // page could have just changed. Drafts, unpublished pages and pages outside the tree have no path.
+      const navigation = await fetchNavigation(navigationConfig, { force: true })
+      const pagePath = navigation[payload?.entry?.locale]?.pagePathsMap[payload?.entry?.slug]?.path
       const isEn = payload?.entry?.locale === 'en'
 
-      console.log(`api/revalidate: Revalidating ${urlToRevalidate}`)
-      await res.revalidate(urlToRevalidate)
+      if (pagePath) {
+        const urlToRevalidate = isEn ? `/en${pagePath}` : pagePath
 
-      if (isEn) {
-        console.log(
-          `api/revalidate: Revalidating /en/experience/events, /en/experience due to change in ${urlToRevalidate}`,
-        )
-        await res.revalidate('/en/experience/events')
-        await res.revalidate('/en/experience')
-      } else {
-        console.log(
-          `api/revalidate: Revalidating /zazite/podujatia, /zazite due to change in ${urlToRevalidate}`,
-        )
-        await res.revalidate('/zazite/podujatia')
-        await res.revalidate('/zazite')
+        console.log(`api/revalidate: Revalidating ${urlToRevalidate}`)
+        await res.revalidate(urlToRevalidate)
       }
     }
 
