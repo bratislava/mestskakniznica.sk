@@ -36,7 +36,7 @@ jobs:
     secrets: inherit
     with:
       directory: next/
-      image: harbor.bratislava.sk/standalone/city-library-next
+      image: harbor.bratislava.sk/mestskakniznica.sk/city-library-next
 
   build-strapi:
     name: Build Strapi
@@ -45,4 +45,4 @@ jobs:
     secrets: inherit
     with:
       directory: strapi/
-      image: harbor.bratislava.sk/standalone/city-library-strapi
+      image: harbor.bratislava.sk/mestskakniznica.sk/city-library-strapi
