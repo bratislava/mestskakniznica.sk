@@ -3,13 +3,13 @@ import React, { useMemo } from 'react'
 import Header from '@/components/AppLayout/Header'
 import MobileHeader from '@/components/AppLayout/MobileNavigation/MobileHeader'
 import { MenuItem } from '@/modules/navigation/NavMenu'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 const HeaderWrapper = () => {
   const { menus } = useGeneralContext()
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
 
   // TODO move parsing into context and return parsed menu from context
   // TODO simplify parsing
@@ -35,28 +35,22 @@ const HeaderWrapper = () => {
                       // If sectionLinkBranch is set, it takes precedence and sectionLinkPage is ignored.
                       if (link?.sectionLinkBranch?.slug) {
                         return {
-                          label:
-                            link.sectionLinkTitle ??
-                            link?.sectionLinkBranch?.title ??
-                            '',
+                          label: link.sectionLinkTitle ?? link?.sectionLinkBranch?.title ?? '',
                           url:
-                            getPathForEntity({
+                            getPathForStrapiEntity({
                               type: 'branch',
                               slug: link?.sectionLinkBranch?.slug,
                             }) ?? '#',
                         }
                       }
 
-                      if (link?.sectionLinkPage?.documentId) {
+                      if (link?.sectionLinkPage?.slug) {
                         return {
-                          label:
-                            link.sectionLinkTitle ??
-                            link?.sectionLinkPage?.title ??
-                            '',
+                          label: link.sectionLinkTitle ?? link?.sectionLinkPage?.title ?? '',
                           url:
-                            getPathForEntity({
+                            getPathForStrapiEntity({
                               type: 'page',
-                              id: link?.sectionLinkPage?.documentId,
+                              slug: link?.sectionLinkPage?.slug,
                             }) ?? '#',
                         }
                       }
@@ -77,7 +71,7 @@ const HeaderWrapper = () => {
         })
         .filter(isDefined) ?? []
     )
-  }, [menus, getPathForEntity])
+  }, [menus, getPathForStrapiEntity])
 
   return (
     <>

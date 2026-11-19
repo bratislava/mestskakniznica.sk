@@ -6,7 +6,7 @@ import Accordion from '@/modules/common/Accordion'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import RichText from '@/modules/formatting/RichText'
 import { HomepageFaqSectionFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 interface SectionFaqProps {
   faqSection: HomepageFaqSectionFragment
@@ -14,7 +14,7 @@ interface SectionFaqProps {
 
 const SectionFaq = ({ faqSection }: SectionFaqProps) => {
   const { t } = useTranslation()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <SectionContainer hasBorder>

@@ -1,15 +1,15 @@
 ﻿import { useTranslation } from 'next-i18next/pages'
 
 import MLink from '@/modules/common/MLink'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { opacBaseUrl } from '@/utils/consts'
 import { useGeneralContext } from '@/utils/generalContext'
-import { useNavikronos } from '@/utils/navikronos'
 import { useGetOtherLocale } from '@/utils/useGetOtherLocale'
 
 const HeaderNavigation = () => {
   const { t } = useTranslation()
   const { general } = useGeneralContext()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
   const otherLocale = useGetOtherLocale()
 
   return (

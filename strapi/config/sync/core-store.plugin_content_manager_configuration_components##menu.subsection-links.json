@@ -1,0 +1,77 @@
+{
+  "key": "plugin_content_manager_configuration_components::menu.subsection-links",
+  "value": {
+    "uid": "menu.subsection-links",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "subsectionLinkTitle",
+      "defaultSortBy": "subsectionLinkTitle",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "subsectionLinkTitle": {
+        "edit": {
+          "label": "subsectionLinkTitle",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "subsectionLinkTitle",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "page": {
+        "edit": {
+          "label": "page",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "page",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "page",
+        "subsectionLinkTitle"
+      ],
+      "edit": [
+        [
+          {
+            "name": "page",
+            "size": 6
+          },
+          {
+            "name": "subsectionLinkTitle",
+            "size": 6
+          }
+        ]
+      ]
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

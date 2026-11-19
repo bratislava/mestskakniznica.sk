@@ -336,6 +336,7 @@ export type BlogPostSectionsDynamicZone =
   | ComponentSectionsAssets
   | ComponentSectionsCta
   | ComponentSectionsDivider
+  | ComponentSectionsDocuments
   | ComponentSectionsFaq
   | ComponentSectionsFlatText
   | ComponentSectionsGallery
@@ -1738,6 +1739,68 @@ export type ComponentSectionsDividerInput = {
   id?: InputMaybe<Scalars['ID']['input']>
 }
 
+export type ComponentSectionsDocuments = {
+  __typename?: 'ComponentSectionsDocuments'
+  basicDocuments?: Maybe<BasicDocumentRelationResponseCollection>
+  disclosures?: Maybe<DisclosureRelationResponseCollection>
+  documents?: Maybe<DocumentRelationResponseCollection>
+  id: Scalars['ID']['output']
+  title?: Maybe<Scalars['String']['output']>
+}
+
+export type ComponentSectionsDocumentsBasicDocumentsArgs = {
+  filters?: InputMaybe<BasicDocumentFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type ComponentSectionsDocumentsDisclosuresArgs = {
+  filters?: InputMaybe<DisclosureFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type ComponentSectionsDocumentsDocumentsArgs = {
+  filters?: InputMaybe<DocumentFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type ComponentSectionsDocumentsFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>
+  basicDocuments?: InputMaybe<BasicDocumentFiltersInput>
+  disclosures?: InputMaybe<DisclosureFiltersInput>
+  documents?: InputMaybe<DocumentFiltersInput>
+  not?: InputMaybe<ComponentSectionsDocumentsFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>
+  title?: InputMaybe<StringFilterInput>
+}
+
+export type ComponentSectionsDocumentsInput = {
+  basicDocuments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  disclosures?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  documents?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  title?: InputMaybe<Scalars['String']['input']>
+}
+
+export type ComponentSectionsDocumentsListing = {
+  __typename?: 'ComponentSectionsDocumentsListing'
+  id: Scalars['ID']['output']
+}
+
+export type ComponentSectionsDocumentsListingFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsListingFiltersInput>>>
+  not?: InputMaybe<ComponentSectionsDocumentsListingFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsListingFiltersInput>>>
+}
+
+export type ComponentSectionsDocumentsListingInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
+}
+
 export type ComponentSectionsEventsListing = {
   __typename?: 'ComponentSectionsEventsListing'
   id: Scalars['ID']['output']
@@ -2506,6 +2569,7 @@ export type EventInput = {
   dateFrom?: InputMaybe<Scalars['DateTime']['input']>
   dateTo?: InputMaybe<Scalars['DateTime']['input']>
   description?: InputMaybe<Scalars['String']['input']>
+  documents?: InputMaybe<ComponentSectionsDocumentsInput>
   eventCategory?: InputMaybe<Scalars['ID']['input']>
   eventTags?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   gallery?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
@@ -2856,6 +2920,8 @@ export type GenericMorph =
   | ComponentSectionsChildrenListing
   | ComponentSectionsCta
   | ComponentSectionsDivider
+  | ComponentSectionsDocuments
+  | ComponentSectionsDocumentsListing
   | ComponentSectionsEventsListing
   | ComponentSectionsFaq
   | ComponentSectionsFlatText
@@ -2872,6 +2938,8 @@ export type GenericMorph =
   | ComponentSectionsTable
   | ComponentSectionsVideo
   | Disclosure
+  | Document
+  | DocumentCategory
   | Event
   | EventCategory
   | EventTag
@@ -2881,6 +2949,7 @@ export type GenericMorph =
   | HomePage
   | I18NLocale
   | Menu
+  | Navigation
   | NavikronosNavikronosStorage
   | Notice
   | Page
@@ -3774,6 +3843,7 @@ export type NoticeInput = {
   assets?: InputMaybe<ComponentSectionsAssetsInput>
   body?: InputMaybe<Scalars['String']['input']>
   dateAdded?: InputMaybe<Scalars['Date']['input']>
+  documents?: InputMaybe<ComponentSectionsDocumentsInput>
   isCurrentChangeInOpeningHours?: InputMaybe<Scalars['Boolean']['input']>
   listingImage?: InputMaybe<Scalars['ID']['input']>
   promoted?: InputMaybe<Scalars['Boolean']['input']>
@@ -3853,14 +3923,15 @@ export type PageEntityResponseCollection = {
 export type PageFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>
   branchesServicesTo?: InputMaybe<BranchFiltersInput>
+  childPages?: InputMaybe<PageFiltersInput>
   createdAt?: InputMaybe<DateTimeFilterInput>
   documentId?: InputMaybe<IdFilterInput>
   layout?: InputMaybe<StringFilterInput>
   locale?: InputMaybe<StringFilterInput>
   localizations?: InputMaybe<PageFiltersInput>
-  newSlug?: InputMaybe<StringFilterInput>
   not?: InputMaybe<PageFiltersInput>
   or?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>
+  parentPage?: InputMaybe<PageFiltersInput>
   perex?: InputMaybe<StringFilterInput>
   publishedAt?: InputMaybe<DateTimeFilterInput>
   seo?: InputMaybe<ComponentCommonSeoFiltersInput>
@@ -3871,9 +3942,10 @@ export type PageFiltersInput = {
 
 export type PageInput = {
   branchesServicesTo?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  childPages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   layout?: InputMaybe<Enum_Page_Layout>
   listingImage?: InputMaybe<Scalars['ID']['input']>
-  newSlug?: InputMaybe<Scalars['String']['input']>
+  parentPage?: InputMaybe<Scalars['ID']['input']>
   perex?: InputMaybe<Scalars['String']['input']>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
   sections?: InputMaybe<Array<Scalars['PageSectionsDynamicZoneInput']['input']>>
@@ -3896,6 +3968,8 @@ export type PageSectionsDynamicZone =
   | ComponentSectionsChildrenListing
   | ComponentSectionsCta
   | ComponentSectionsDivider
+  | ComponentSectionsDocuments
+  | ComponentSectionsDocumentsListing
   | ComponentSectionsEventsListing
   | ComponentSectionsFaq
   | ComponentSectionsFlatText
@@ -5712,6 +5786,10 @@ type BlogPostSections_ComponentSectionsDivider_Fragment = {
   id: string
 }
 
+type BlogPostSections_ComponentSectionsDocuments_Fragment = {
+  __typename: 'ComponentSectionsDocuments'
+}
+
 type BlogPostSections_ComponentSectionsFaq_Fragment = {
   __typename: 'ComponentSectionsFaq'
   id: string
@@ -5796,6 +5874,7 @@ export type BlogPostSectionsFragment =
   | BlogPostSections_ComponentSectionsAssets_Fragment
   | BlogPostSections_ComponentSectionsCta_Fragment
   | BlogPostSections_ComponentSectionsDivider_Fragment
+  | BlogPostSections_ComponentSectionsDocuments_Fragment
   | BlogPostSections_ComponentSectionsFaq_Fragment
   | BlogPostSections_ComponentSectionsFlatText_Fragment
   | BlogPostSections_ComponentSectionsGallery_Fragment
@@ -7226,6 +7305,74 @@ export type GeneralEntityFragment = {
   noticesPage?: { __typename: 'Page'; documentId: string } | null
 }
 
+export type NavigationQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input']
+}>
+
+export type NavigationQuery = {
+  __typename?: 'Query'
+  topLevelPages?: {
+    __typename?: 'PageEntityResponseCollection'
+    data: Array<{
+      __typename: 'PageEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Page'
+        title: string
+        slug: string
+        childPages?: {
+          __typename?: 'PageRelationResponseCollection'
+          data: Array<{
+            __typename: 'PageEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'Page'
+              title: string
+              slug: string
+              childPages?: {
+                __typename?: 'PageRelationResponseCollection'
+                data: Array<{
+                  __typename: 'PageEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Page'
+                    title: string
+                    slug: string
+                    childPages?: {
+                      __typename?: 'PageRelationResponseCollection'
+                      data: Array<{
+                        __typename: 'PageEntity'
+                        id?: string | null
+                        attributes?: {
+                          __typename?: 'Page'
+                          title: string
+                          slug: string
+                          childPages?: {
+                            __typename?: 'PageRelationResponseCollection'
+                            data: Array<{
+                              __typename: 'PageEntity'
+                              id?: string | null
+                              attributes?: {
+                                __typename?: 'Page'
+                                title: string
+                                slug: string
+                              } | null
+                            }>
+                          } | null
+                        } | null
+                      }>
+                    } | null
+                  } | null
+                }>
+              } | null
+            } | null
+          }>
+        } | null
+      } | null
+    }>
+  } | null
+}
+
 export type GeneralQueryVariables = Exact<{
   eventsFrom: Scalars['DateTime']['input']
   locale: Scalars['I18NLocaleCode']['input']
@@ -8311,6 +8458,12 @@ type PageSections_ComponentSectionsDivider_Fragment = {
   id: string
 }
 
+type PageSections_ComponentSectionsDocuments_Fragment = { __typename: 'ComponentSectionsDocuments' }
+
+type PageSections_ComponentSectionsDocumentsListing_Fragment = {
+  __typename: 'ComponentSectionsDocumentsListing'
+}
+
 type PageSections_ComponentSectionsEventsListing_Fragment = {
   __typename: 'ComponentSectionsEventsListing'
 }
@@ -8554,6 +8707,8 @@ export type PageSectionsFragment =
   | PageSections_ComponentSectionsChildrenListing_Fragment
   | PageSections_ComponentSectionsCta_Fragment
   | PageSections_ComponentSectionsDivider_Fragment
+  | PageSections_ComponentSectionsDocuments_Fragment
+  | PageSections_ComponentSectionsDocumentsListing_Fragment
   | PageSections_ComponentSectionsEventsListing_Fragment
   | PageSections_ComponentSectionsFaq_Fragment
   | PageSections_ComponentSectionsFlatText_Fragment
@@ -10465,6 +10620,16 @@ export const FooterEntityFragmentDoc = gql`
   ${ComponentFooterFooterColumnFragmentDoc}
   ${PageWithBaseFieldsEntityFragmentDoc}
 `
+export const PageSlugEntityFragmentDoc = gql`
+  fragment PageSlugEntity on PageEntity {
+    __typename
+    id
+    attributes {
+      title
+      slug
+    }
+  }
+`
 export const GeneralEntityFragmentDoc = gql`
   fragment GeneralEntity on General {
     eventsPage {
@@ -10488,6 +10653,7 @@ export const GeneralEntityFragmentDoc = gql`
       documentId
     }
   }
+  ${PageSlugEntityFragmentDoc}
 `
 export const HomepageFaqSectionFragmentDoc = gql`
   fragment HomepageFaqSection on ComponentHomepageFaqSection {
@@ -10994,6 +11160,7 @@ export const EventStaticPathsDocument = gql`
       locale
     }
   }
+  ${PageEntityChildPagesFragmentDoc}
 `
 export const GeneralDocument = gql`
   query General($eventsFrom: DateTime!, $locale: I18NLocaleCode!) {
@@ -11376,6 +11543,21 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         variables,
       )
     },
+    Navigation(
+      variables: NavigationQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<NavigationQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<NavigationQuery>(NavigationDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'Navigation',
+        'query',
+        variables,
+      )
+    },
     General(
       variables: GeneralQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
@@ -11482,13 +11664,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         variables,
       )
     },
-    PagesStaticPaths(
-      variables?: PagesStaticPathsQueryVariables,
+    PageBySlug(
+      variables: PageBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<PagesStaticPathsQuery> {
+    ): Promise<PageBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<PagesStaticPathsQuery>(PagesStaticPathsDocument, variables, {
+          client.request<PageBySlugQuery>(PageBySlugDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),

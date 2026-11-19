@@ -52,6 +52,7 @@ export const navikronosRoutesSchema = z.array(navikronosRouteSchema);
 const navikronosNavigationSchema = navikronosRoutesSchema;
 
 export const navikronosLocaleNavigationsSchema = z.record(
+  z.string(),
   z.array(navikronosRouteSchema),
 );
 

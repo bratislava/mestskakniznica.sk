@@ -6,9 +6,9 @@ import Breadcrumbs from '@/modules/breadcrumbs/Breadcrumbs'
 import EventCard from '@/modules/cards-and-rows/EventCard'
 import MLink from '@/modules/common/MLink'
 import { EventEntityFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 export interface PageProps {
   event: EventEntityFragment
@@ -18,7 +18,7 @@ const EventPage = ({ event }: PageProps) => {
   const { t } = useTranslation()
 
   const { upcomingEvents } = useGeneralContext()
-  const { breadcrumbs, getPathForStrapiEntity } = useNavikronos()
+  const { breadcrumbs, getPathForStrapiEntity } = useNavigation()
   const { general } = useGeneralContext()
 
   return (

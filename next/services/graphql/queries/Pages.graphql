@@ -104,7 +104,6 @@ fragment PageWithBaseFieldsEntity on Page {
   documentId
   title
   slug
-  newSlug
   createdAt
   updatedAt
 }
@@ -116,17 +115,69 @@ fragment PageLocalizationEntity on Page {
   locale
 }
 
-# strapi returns just the default locale if no locale is provided
-# easiest way to get all static paths is to ask for all locales sequentially
-query PagesStaticPaths($locale: I18NLocaleCode) {
-  pages(locale: $locale) {
-    documentId
-    locale
+fragment ChildPage on Page {
+  title
+  slug
+}
+
+fragment PageSlugEntity on PageEntity {
+  __typename
+  id
+  attributes {
+    title
+    slug
   }
 }
 
-query PageByDocumentId($documentId: ID!, $locale: I18NLocaleCode!) {
-  page(documentId: $documentId, locale: $locale) {
-    ...PageEntity
+# Fetches 5 levels of the page tree, keep in sync with MAX_LEVELS in strapi/src/api/page/content-types/page/lifecycles.ts.
+fragment PageEntityChildPages on PageEntity {
+  __typename
+  id
+  attributes {
+    ...ChildPage
+    childPages {
+      data {
+        __typename
+        id
+        attributes {
+          ...ChildPage
+          childPages {
+            data {
+              __typename
+              id
+              attributes {
+                ...ChildPage
+                childPages {
+                  data {
+                    __typename
+                    id
+                    attributes {
+                      ...ChildPage
+                      childPages {
+                        data {
+                          __typename
+                          id
+                          attributes {
+                            ...ChildPage
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  pages(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      ...PageEntity
+    }
   }
 }

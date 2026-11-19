@@ -5,7 +5,7 @@ import NoticeCard from '@/modules/cards-and-rows/NoticeCard'
 import Carousel from '@/modules/common/Carousel/Carousel'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import { HomepageNewsSectionFragment, NoticeListingEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 interface LibraryNewsProps {
   notices: NoticeListingEntityFragment[]
@@ -14,7 +14,7 @@ interface LibraryNewsProps {
 
 const SectionLibraryNews = ({ notices, newsSection }: LibraryNewsProps) => {
   const { t } = useTranslation()
-  const { getPathForStrapiEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <SectionContainer hasBorder>

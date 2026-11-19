@@ -8,9 +8,9 @@ import { CloseCircleIcon, SearchIcon } from '@/assets/icons'
 import SearchBar from '@/components/AppLayout/Navigation/SearchBar'
 import SelectField, { SelectItem } from '@/components/Atoms/SelectField'
 import Button from '@/modules/common/Button'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 import { opacBaseUrl } from '@/utils/consts'
-import { useNavikronos } from '@/utils/navikronos'
 
 type HeaderSearchBoxProps = {
   isOpen: boolean
@@ -19,7 +19,7 @@ type HeaderSearchBoxProps = {
 const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
   const router = useRouter()
   const { t } = useTranslation()
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForEntity } = useNavigation()
   const searchFieldId = useId()
 
   type SearchOption = 'on_page' | 'in_catalogue'
@@ -49,7 +49,7 @@ const HeaderSearchBox = ({ isOpen, setOpen }: HeaderSearchBoxProps) => {
     if (searchOptions === 'on_page') {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       router.push({
-        pathname: getPathForEntity({ type: 'static', id: 'search' }),
+        pathname: getPathForEntity({ type: 'search' }),
         query: { query: input },
       })
     }

@@ -1,0 +1,237 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::navigation.navigation",
+  "value": {
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "id",
+      "defaultSortBy": "id",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "blogPostsParentPage": {
+        "edit": {
+          "label": "blogPostsParentPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "blogPostsParentPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "eventsParentPage": {
+        "edit": {
+          "label": "eventsParentPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "eventsParentPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "noticesParentPage": {
+        "edit": {
+          "label": "noticesParentPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "noticesParentPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "branchesParentPage": {
+        "edit": {
+          "label": "branchesParentPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "branchesParentPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "assetsParentPage": {
+        "edit": {
+          "label": "assetsParentPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "assetsParentPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "documentsParentPage": {
+        "edit": {
+          "label": "documentsParentPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "documentsParentPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "disclosuresParentPage": {
+        "edit": {
+          "label": "disclosuresParentPage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "disclosuresParentPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "blogPostsParentPage",
+        "eventsParentPage",
+        "noticesParentPage"
+      ],
+      "edit": [
+        [
+          {
+            "name": "blogPostsParentPage",
+            "size": 6
+          },
+          {
+            "name": "eventsParentPage",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "noticesParentPage",
+            "size": 6
+          },
+          {
+            "name": "branchesParentPage",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "assetsParentPage",
+            "size": 6
+          },
+          {
+            "name": "documentsParentPage",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "disclosuresParentPage",
+            "size": 6
+          }
+        ]
+      ]
+    },
+    "uid": "api::navigation.navigation"
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

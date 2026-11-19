@@ -1,0 +1,176 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::footer.footer",
+  "value": {
+    "uid": "api::footer.footer",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "copyrightText",
+      "defaultSortBy": "copyrightText",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "copyrightText": {
+        "edit": {
+          "label": "Certifikát",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "copyrightText",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "siteMapLink": {
+        "edit": {
+          "label": "Vyhlásenie o prístupnosti",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "siteMapLink",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "privacyLink": {
+        "edit": {
+          "label": "Ochrana osobných údajov",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "privacyLink",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "footerColumns": {
+        "edit": {
+          "label": "Pätička stĺpce",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "footerColumns",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "siteMapLink",
+        "privacyLink",
+        "copyrightText"
+      ],
+      "edit": [
+        [
+          {
+            "name": "footerColumns",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "copyrightText",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "privacyLink",
+            "size": 6
+          },
+          {
+            "name": "siteMapLink",
+            "size": 6
+          }
+        ]
+      ]
+    }
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

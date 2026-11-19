@@ -2,15 +2,15 @@ import { ArrowLeftIcon } from '@/assets/icons'
 import ChevronRight from '@/assets/images/chevron-right.svg'
 import Button from '@/modules/common/Button'
 import MLink from '@/modules/common/MLink'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
-import { useNavikronos } from '@/utils/navikronos'
 
 export interface SidebarProps {
   className?: string
 }
 
 export const Sidebar = ({ className }: SidebarProps) => {
-  const { siblings, currentPath, parent } = useNavikronos()
+  const { siblings, currentPath, parent } = useNavigation()
 
   return (
     <div className={className}>

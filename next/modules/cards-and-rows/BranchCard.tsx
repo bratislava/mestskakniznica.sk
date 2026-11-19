@@ -5,19 +5,19 @@ import MLink from '@/modules/common/MLink'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import StrapiImage from '@/modules/common/StrapiImage'
 import { UploadImageEntityFragment } from '@/services/graphql'
-import { useNavikronos } from '@/utils/navikronos'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 type BranchCardProps = {
   title: string
   address: string
-  pageId: string | null | undefined
+  pageSlug: string | null | undefined
   image: UploadImageEntityFragment | undefined | null
 }
 
-const BranchCard = ({ title, address, pageId, image }: BranchCardProps) => {
+const BranchCard = ({ title, address, pageSlug, image }: BranchCardProps) => {
   const { t } = useTranslation()
-  const { getPathForEntity } = useNavikronos()
-  const href = (pageId ? getPathForEntity({ type: 'page', id: pageId }) : null) ?? '#'
+  const { getPathForEntity } = useNavigation()
+  const href = getPathForEntity({ type: 'page', slug: pageSlug }) ?? '#'
 
   return (
     <CardWrapper className="group/showMore relative flex w-full flex-col">

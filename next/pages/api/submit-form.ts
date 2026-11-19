@@ -1,5 +1,5 @@
 import reduce from 'lodash/reduce'
-import Mailgun from 'mailgun-js'
+import Mailgun from 'mailgun.js'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 // TODO get domain and set based on that
@@ -16,11 +16,29 @@ if (
 }
 const EMAIL_FROM = process.env.MAILGUN_EMAIL || ''
 
-const messenger = new Mailgun({
-  apiKey: process.env.MAILGUN_API_KEY || '',
-  domain: process.env.MAILGUN_DOMAIN || '',
-  host: process.env.MAILGUN_HOST || '',
-})
+const getMailgunUrl = () => {
+  const host = process.env.MAILGUN_HOST
+  if (!host) return undefined
+
+  // MAILGUN_HOST is a bare hostname, but mailgun.js expects a full URL
+  return /^https?:\/\//.test(host) ? host : `https://${host}`
+}
+
+const createMessenger = () =>
+  new Mailgun(FormData).client({
+    username: 'api',
+    key: process.env.MAILGUN_API_KEY || '',
+    url: getMailgunUrl(),
+  })
+
+let messenger: ReturnType<typeof createMessenger> | undefined
+const getMessenger = () => {
+  if (!messenger) {
+    messenger = createMessenger()
+  }
+
+  return messenger
+}
 
 const available_emails = new Set([
   'info@mestskakniznica.sk',
@@ -42,8 +60,8 @@ const available_emails = new Set([
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== 'POST' /* || typeof req.body !== 'object' */) {
-      res.status(400).json({});
-      
+      res.status(400).json({})
+
       return
     }
 
@@ -65,7 +83,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     ) {
       console.log('Captcha variables not defined')
 
-      res.status(500).json({ error: 'Captcha variables not defined' });
+      res.status(500).json({ error: 'Captcha variables not defined' })
 
       return
     }
@@ -73,7 +91,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!cfTurnstile) {
       console.log('Captcha token not provided')
 
-      res.status(500).json({ error: 'Captcha token not provided' });
+      res.status(500).json({ error: 'Captcha token not provided' })
 
       return
     }
@@ -81,7 +99,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!available_emails.has(mg_email_to)) {
       console.log('email is not in whitelist')
 
-      res.status(500).json({ error: 'generic error' });
+      res.status(500).json({ error: 'generic error' })
 
       return
     }
@@ -114,18 +132,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (cfResponse.success !== true) {
       console.log('Captcha validation failed')
 
-      res.status(500).json({ error: 'Captcha validation failed' });
+      res.status(500).json({ error: 'Captcha validation failed' })
 
       return
     }
 
-    await messenger.messages().send(dataToSend)
+    await getMessenger().messages.create(process.env.MAILGUN_DOMAIN || '', dataToSend)
 
-    res.status(200).json({}); 
+    res.status(200).json({})
   } catch (error) {
     console.error(error)
 
-    res.status(500).json({ error: 'generic error' }); 
+    res.status(500).json({ error: 'generic error' })
   }
 }
 

@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "npm run --prefix ./src/plugins/navikronos/ build && strapi build",
+    "cs": "cross-env ENV_PATH='./.env.local' config-sync",
     "dev": "npm run develop",
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
     "postinstall": "cd ./src/plugins/navikronos/ && npm install --omit=peer && cd ../../..",
@@ -25,16 +26,24 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.30.4",
+    "strapi-plugin-config-sync": "1.2.6",
     "strapi-plugin-meilisearch": "0.16.5",
     "styled-components": "6.5.3"
   },
   "engines": {
-    "node": ">=20.19.x",
-    "npm": ">=10.8.x"
+    "node": ">=22.23.x",
+    "npm": ">=10.9.9"
   },
   "volta": {
-    "node": "20.19.0",
-    "npm": "10.8.2"
+    "node": "22.23.4",
+    "npm": "10.9.9"
+  },
+  "overrides": {
+    "@casl/ability": "6.7.5",
+    "axios": "1.20.0",
+    "fast-xml-parser": "4.5.7",
+    "form-data": "4.0.6",
+    "tar": "7.5.22"
   },
   "strapi": {
     "uuid": "0edac017-73ff-4836-bdbc-243328bdd8c0"

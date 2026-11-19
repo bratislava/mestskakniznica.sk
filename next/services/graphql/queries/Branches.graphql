@@ -46,6 +46,7 @@ fragment BranchEntity on Branch {
     __typename
     documentId
     title
+    slug
   }
   locale
   localizations {

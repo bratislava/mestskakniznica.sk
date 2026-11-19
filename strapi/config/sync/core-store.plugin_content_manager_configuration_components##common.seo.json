@@ -1,0 +1,99 @@
+{
+  "key": "plugin_content_manager_configuration_components::common.seo",
+  "value": {
+    "uid": "common.seo",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "metaTitle",
+      "defaultSortBy": "metaTitle",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "metaTitle": {
+        "edit": {
+          "label": "Meta nadpis",
+          "description": "Vyplniť iba ak má byť iný ako Nadpis. Ak je pole prázdne, použije sa Nadpis.",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "metaTitle",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "metaDescription": {
+        "edit": {
+          "label": "Meta popis",
+          "description": "Nové riadky (entery) budú v seo nahradené medzerou.",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "metaDescription",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "keywords": {
+        "edit": {
+          "label": "Kľúčové slová",
+          "description": "Kľúčové slová oddeľovať čiarkou a medzerou, napr: \"prihlaska, registracia, preukaz\"",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "keywords",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "metaTitle",
+        "metaDescription",
+        "keywords"
+      ],
+      "edit": [
+        [
+          {
+            "name": "metaDescription",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "keywords",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "metaTitle",
+            "size": 12
+          }
+        ]
+      ]
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

@@ -11,9 +11,9 @@ import {
   getLatestNewsQueryKey,
   latestNewsFetcher,
 } from '@/services/graphql/fetchers/latestNews.fetcher'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useGeneralContext } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 type ChildrenListingSectionProps = {
   section: ComponentSectionsChildrenListing
@@ -21,7 +21,7 @@ type ChildrenListingSectionProps = {
 
 const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
   const { i18n } = useTranslation()
-  const { children, getPathForStrapiEntity } = useNavikronos()
+  const { children, getPathForStrapiEntity } = useNavigation()
   const { general, upcomingEvents } = useGeneralContext()
 
   const { data: latestNewsData } = useQuery({
@@ -56,15 +56,9 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
     return (
       <>
         {children?.map((child, index) => {
-          const isEventsPage =
-            child.entity &&
-            child.entity.type === 'page' &&
-            child.entity.id === general?.eventsPage?.documentId
+          const isEventsPage = child.slug === general?.eventsPage?.slug
 
-          const isNoticesPage =
-            child.entity &&
-            child.entity.type === 'page' &&
-            child.entity.id === general?.noticesPage?.documentId
+          const isNoticesPage = child.slug === general?.noticesPage?.slug
 
           const listingChildren = (() => {
             if (isEventsPage) {

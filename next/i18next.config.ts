@@ -3,7 +3,7 @@ import { defineConfig } from 'i18next-cli'
 export default defineConfig({
   locales: ['sk', 'en'],
   extract: {
-    input: '{assets,components,hooks,modules,navikronos,pages,services,styles,utils}/**/*.{tsx,ts}',
+    input: '{assets,components,hooks,modules,pages,services,styles,utils}/**/*.{tsx,ts}',
     output: './public/locales/{{language}}/{{namespace}}.json',
     defaultNS: 'translation',
     keySeparator: false,

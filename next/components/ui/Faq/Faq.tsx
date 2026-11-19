@@ -4,9 +4,9 @@ import Accordion from '@/modules/common/Accordion'
 import ShowMoreLink from '@/modules/common/ShowMoreLink'
 import RichText from '@/modules/formatting/RichText'
 import { ComponentSectionsFaq, PageWithBaseFieldsEntityFragment } from '@/services/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
-import { useNavikronos } from '@/utils/navikronos'
 
 export interface FaqProps {
   className?: string
@@ -17,7 +17,7 @@ export interface FaqProps {
 }
 
 export const Faq = ({ className, title, questions, ctaButton, redirectTo }: FaqProps) => {
-  const { getPathForEntity } = useNavikronos()
+  const { getPathForStrapiEntity } = useNavigation()
   const { t } = useTranslation()
 
   return (
@@ -32,7 +32,7 @@ export const Faq = ({ className, title, questions, ctaButton, redirectTo }: FaqP
       </div>
       {redirectTo && (
         <div className="pt-6 text-sm">
-          <ShowMoreLink href={getPathForEntity({ type: 'page', id: redirectTo.documentId }) ?? '#'}>
+          <ShowMoreLink href={getPathForStrapiEntity(redirectTo) ?? '#'}>
             {ctaButton || t('common.showMore')}
           </ShowMoreLink>
         </div>
