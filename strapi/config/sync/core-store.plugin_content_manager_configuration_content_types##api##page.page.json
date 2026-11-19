@@ -34,20 +34,6 @@
           "sortable": true
         }
       },
-      "newSlug": {
-        "edit": {
-          "label": "newSlug",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "newSlug",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "title": {
         "edit": {
           "label": "Nadpis",
@@ -149,8 +135,8 @@
       },
       "parentPage": {
         "edit": {
-          "label": "Otcovská stránka (v príprave)",
-          "description": "Nepoužívať",
+          "label": "Rodičovská stránka",
+          "description": "Výsledná URL stránky je spojenie slugov z reťaze rodičovských stránok. (napr. mestskakniznica.sk/rodicovska-stranka-slug/moj-slug)",
           "placeholder": "",
           "visible": true,
           "editable": true,
@@ -164,8 +150,8 @@
       },
       "childPages": {
         "edit": {
-          "label": "Potomkovia (v príprave)",
-          "description": "Nepoužívať",
+          "label": "Dcérske stránky",
+          "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true,
@@ -246,12 +232,6 @@
         ],
         [
           {
-            "name": "newSlug",
-            "size": 12
-          }
-        ],
-        [
-          {
             "name": "slug",
             "size": 12
           }
@@ -295,12 +275,7 @@
           }
         ]
       ],
-      "list": [
-        "id",
-        "slug",
-        "title",
-        "layout"
-      ]
+      "list": ["id", "slug", "title", "layout"]
     }
   },
   "type": "object",

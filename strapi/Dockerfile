@@ -57,6 +57,8 @@ COPY --chown=node:node --from=build /build/node_modules ./node_modules
 COPY --chown=node:node --from=build /build/config ./config
 COPY --chown=node:node --from=build /build/public ./public
 COPY --chown=node:node --from=build /build/dist ./dist
+# Strapi reads migrations from <app root>/database/migrations, not from dist
+COPY --chown=node:node --from=build /build/database/migrations ./database/migrations
 # COPY to final image any built Strapi plugins. In this stage you will *ONLY* need
 # - plugins/<name>/package-lock.json
 # - plugins/<name>/package.json

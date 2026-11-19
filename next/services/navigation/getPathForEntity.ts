@@ -7,35 +7,25 @@ import {
 } from '@/services/navigation/typesNavigation'
 
 const typenameContentTypeMap = {
+  PageEntity: 'page',
   BlogPostEntity: 'blog-post',
   EventEntity: 'event',
   NoticeEntity: 'notice',
   BranchEntity: 'branch',
   AssetEntity: 'asset',
   DisclosureEntity: 'disclosure',
-} as const satisfies Record<string, ContentType>
+} as const satisfies Record<string, 'page' | ContentType>
 
-export type StrapiEntity =
-  | { __typename?: 'PageEntity'; attributes?: { newSlug?: string | null } | null }
-  | {
-      __typename?: keyof typeof typenameContentTypeMap
-      attributes?: { slug?: string | null } | null
-    }
-
-const isPageEntity = (
-  strapiEntity: StrapiEntity,
-): strapiEntity is Extract<StrapiEntity, { __typename?: 'PageEntity' }> =>
-  strapiEntity.__typename === 'PageEntity'
+export type StrapiEntity = {
+  __typename?: keyof typeof typenameContentTypeMap
+  attributes?: { slug?: string | null } | null
+}
 
 export const getEntityForStrapiEntity = (
   strapiEntity: StrapiEntity | null | undefined,
 ): RouteEntity | null => {
   if (!strapiEntity?.__typename) {
     return null
-  }
-
-  if (isPageEntity(strapiEntity)) {
-    return { type: 'page', slug: strapiEntity.attributes?.newSlug }
   }
 
   return {

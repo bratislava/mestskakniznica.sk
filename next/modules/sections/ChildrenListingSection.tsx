@@ -57,10 +57,10 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
       <>
         {children?.map((child, index) => {
           const isEventsPage =
-            child.slug === general?.data?.attributes?.eventsPage?.data?.attributes?.newSlug
+            child.slug === general?.data?.attributes?.eventsPage?.data?.attributes?.slug
 
           const isNoticesPage =
-            child.slug === general?.data?.attributes?.noticesPage?.data?.attributes?.newSlug
+            child.slug === general?.data?.attributes?.noticesPage?.data?.attributes?.slug
 
           const listingChildren = (() => {
             if (isEventsPage) {

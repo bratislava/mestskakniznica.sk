@@ -30,11 +30,23 @@ export const loadNavikronos = async (client) => {
   return storage?.data ?? {}
 }
 
-/** All page rows (every locale, drafts included) by id. */
+/**
+ * All page rows (every locale, drafts included) by id. The scripts keep the pre-rename names: `slug` is the legacy full
+ * path and `newSlug` the last path segment. database/migrations/2026.11.12T00.00.00.replace-page-slug-with-new-slug.js
+ * dropped the legacy `slug` and renamed `new_slug` to `slug`, both column layouts are supported.
+ */
 export const loadPages = async (client) => {
+  const [{ renamed }] = await query(
+    client,
+    `SELECT NOT EXISTS (
+       SELECT 1 FROM information_schema.columns
+       WHERE table_schema = current_schema() AND table_name = 'pages' AND column_name = 'new_slug'
+     ) AS renamed`
+  )
+  const slugColumns = renamed ? 'slug AS "newSlug"' : 'slug, new_slug AS "newSlug"'
   const pages = await query(
     client,
-    `SELECT id, locale, published_at IS NOT NULL AS published, slug, new_slug AS "newSlug", title,
+    `SELECT id, locale, published_at IS NOT NULL AS published, ${slugColumns}, title,
             updated_at AS "updatedAt"
      FROM pages
      ORDER BY id`
