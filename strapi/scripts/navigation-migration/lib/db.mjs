@@ -32,8 +32,8 @@ export const loadNavikronos = async (client) => {
 
 /**
  * All page rows (every locale, drafts included) by id. The scripts keep the pre-rename names: `slug` is the legacy full
- * path and `newSlug` the last path segment. database/migrations/2026.11.12T00.00.00.replace-page-slug-with-new-slug.js
- * dropped the legacy `slug` and renamed `new_slug` to `slug`, both column layouts are supported.
+ * path and `newSlug` the last path segment. Once the legacy `slug` is dropped and `new_slug` renamed to `slug`, the script
+ * reads the new layout, both column layouts are supported.
  */
 export const loadPages = async (client) => {
   const [{ renamed }] = await query(
