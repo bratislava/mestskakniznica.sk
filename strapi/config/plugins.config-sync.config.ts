@@ -1,5 +1,5 @@
 const configSyncConfig = {
-  // Docs: https://github.com/pluginpal/strapi-plugin-config-sync/tree/v1.2.6?tab=readme-ov-file#-settings
+  // Docs: https://github.com/pluginpal/strapi-plugin-config-sync/tree/v3.2.0?tab=readme-ov-file#-settings
   excludedConfig: [
     // Defaults
     'core-store.plugin_users-permissions_grant',
