@@ -86,7 +86,7 @@
     "@types/react-map-gl": "6.1.8",
     "autoprefixer": "10.5.0",
     "eslint": "9.39.2",
-    "i18next-cli": "1.61.0",
+    "i18next-cli": "1.91.3",
     "postcss": "8.5.23",
     "prettier": "3.8.3",
     "prettier-plugin-tailwindcss": "0.8.0",
