@@ -17,11 +17,7 @@ import { getNavigationStaticProps } from '@/services/navigation/getNavigationSta
 import { navigationConfig } from '@/services/navigation/navigationConfig'
 import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { NOT_FOUND } from '@/utils/consts'
-<<<<<<<< HEAD:next/pages/[documentId].tsx
-import { extractLocalizationsWithDocumentId } from '@/utils/extractLocalizations'
-========
 import { extractLocalizationsWithSlug } from '@/utils/extractLocalizations'
->>>>>>>> master:next/pages/[...path].tsx
 import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
 import { prefetchPageSections } from '@/utils/prefetchPageSections'
@@ -36,12 +32,7 @@ type PageProps = {
 const Page = ({ page, general, dehydratedState }: PageProps) => {
   let pageComponentByLayout: ReactNode = null
 
-<<<<<<<< HEAD:next/pages/[documentId].tsx
-  // TODO replace PageEntity by PageEntityFragment
-  switch (page?.layout) {
-========
-  switch (page?.attributes?.layout) {
->>>>>>>> master:next/pages/[...path].tsx
+  switch (page.layout) {
     case Enum_Page_Layout.FullContent:
       pageComponentByLayout = <FullContentPage page={page} />
       break
@@ -55,9 +46,9 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
     <HydrationBoundary state={dehydratedState}>
       <GeneralContextProvider general={general}>
         <DefaultPageLayout
-          title={page?.title}
-          seo={page?.seo}
-          defaultMetaDescription={page?.perex}
+          title={page.title}
+          seo={page.seo}
+          defaultMetaDescription={page.perex}
         >
           {pageComponentByLayout}
         </DefaultPageLayout>
@@ -67,11 +58,7 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
 }
 
 interface StaticParams extends ParsedUrlQuery {
-<<<<<<<< HEAD:next/pages/[documentId].tsx
-  documentId: string
-========
   path: string[]
->>>>>>>> master:next/pages/[...path].tsx
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
@@ -83,43 +70,12 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
       .map(({ path }) => ({ params: { path: path.split('/').slice(1) }, locale })),
   )
 
-<<<<<<<< HEAD:next/pages/[documentId].tsx
-  const entities = pathArraysForLocales.flatMap(({ pages }) => pages ?? []).filter(isDefined)
-
-  if (entities.length > 0) {
-    paths = entities.map((page) => ({
-      params: {
-        documentId: page.documentId,
-        locale: page.locale || '',
-      },
-    }))
-  }
-
-========
->>>>>>>> master:next/pages/[...path].tsx
   // eslint-disable-next-line no-console
   console.log(`Pages: Generated static paths for ${paths.length} pages.`)
 
   return { paths, fallback: 'blocking' }
 }
 
-<<<<<<<< HEAD:next/pages/[documentId].tsx
-export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ctx) => {
-  const { params, locale } = ctx
-  const documentId = params?.documentId
-
-  if (!documentId || !locale) {
-    return NOT_FOUND
-  }
-
-  // eslint-disable-next-line no-console
-  console.log(`Revalidating ${locale} page ${documentId}`)
-
-  const { page } = await client.PageByDocumentId({
-    documentId,
-    locale,
-  })
-========
 export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   params,
   locale,
@@ -143,27 +99,12 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   }
 
   const { pages } = await client.PageBySlug({ slug, locale })
->>>>>>>> master:next/pages/[...path].tsx
 
+  const page = pages[0] ?? null
   if (!page) {
     return NOT_FOUND
   }
 
-<<<<<<<< HEAD:next/pages/[documentId].tsx
-  const localizations = extractLocalizationsWithDocumentId('page', page)
-
-  const [general, translations, navikronosStaticProps] = await Promise.all([
-    generalFetcher(locale),
-    serverSideTranslations(locale),
-    navikronosGetStaticProps({
-      navikronosConfig,
-      ctx,
-      currentEntity: {
-        type: 'page',
-        id: documentId,
-      },
-      currentEntityLocalizations: localizations,
-========
   const [general, translations, navigationStaticProps, dehydratedState] = await Promise.all([
     generalFetcher(locale),
     serverSideTranslations(locale),
@@ -171,7 +112,6 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
       locale,
       currentEntity: { type: 'page', slug },
       currentEntityLocalizations: extractLocalizationsWithSlug('page', page),
->>>>>>>> master:next/pages/[...path].tsx
     }),
     prefetchPageSections(page, locale),
   ])
