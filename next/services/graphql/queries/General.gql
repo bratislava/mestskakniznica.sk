@@ -68,32 +68,28 @@ fragment FooterEntity on Footer {
 }
 
 fragment GeneralEntity on General {
-  attributes {
-    eventsPage {
-      ...PageSlugEntity
-    }
-    newBooksPage {
-      ...PageSlugEntity
-    }
-    privacyTermsAndConditionsPage {
-      ...PageSlugEntity
-    }
-    openingHoursPage {
-      ...PageSlugEntity
-    }
-    noticesPage {
-      ...PageSlugEntity
-    }
+  eventsPage {
+    ...PageSlugEntity
+  }
+  newBooksPage {
+    ...PageSlugEntity
+  }
+  privacyTermsAndConditionsPage {
+    ...PageSlugEntity
+  }
+  openingHoursPage {
+    ...PageSlugEntity
+  }
+  noticesPage {
+    ...PageSlugEntity
   }
 }
 
 ### Queries
 
 query Navigation($locale: I18NLocaleCode!) {
-  topLevelPages: pages(filters: { parentPage: { id: { eq: null } } }, locale: $locale) {
-    data {
-      ...PageEntityChildPages
-    }
+  topLevelPages: pages(filters: { parentPage: { documentId: { eq: null } } }, locale: $locale) {
+    ...PageEntityChildPages
   }
 }
 
