@@ -48,13 +48,13 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   const entities = pathArraysForLocales.flatMap(({ branches }) => branches || []).filter(isDefined)
 
   const paths: GetStaticPathsResult<StaticParams>['paths'] = entities
-    .filter((entity) => entity.attributes?.slug)
+    .filter((entity) => entity.slug)
     .map((entity) => ({
       params: {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        slug: entity.attributes!.slug,
+        slug: entity.slug,
       },
-      locale: entity.attributes?.locale || '',
+      locale: entity.locale || '',
     }))
 
   // eslint-disable-next-line no-console
