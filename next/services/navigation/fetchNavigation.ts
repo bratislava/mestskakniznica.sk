@@ -4,9 +4,6 @@ import { getContentTypePathPrefixesMap } from '@/services/navigation/getContentT
 import { parseTopLevelPages } from '@/services/navigation/parseTopLevelPages'
 import { NavigationConfig, NavigationObject } from '@/services/navigation/typesNavigation'
 
-// Inspired by City Library - Navikronos custom plugin
-// https://github.com/bratislava/mestskakniznica.sk/blob/dfef31c799e1a903af4fa30aa1be5c3f27ae5418/next/navikronos/internal/fetch.ts
-
 let cache: {
   timestamp: number
   value: NavigationObject
@@ -32,8 +29,7 @@ const fetchNonCachedNavigation = async (): Promise<NavigationObject> => {
 
 /**
  * Fetches and caches navigation data of all locales directly from the Strapi client.
- * Use this function in getStaticProps, getServerSideProps and in the proxy - proxy always runs on the Node.js runtime,
- * so it can use the GraphQL client too.
+ * Use this function in getStaticProps and in getServerSideProps
  *
  * @param config
  * @param options.force Skips the cache and refreshes it, e.g. when revalidating right after a change in Strapi.

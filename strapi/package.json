@@ -8,11 +8,10 @@
     "name": "A Strapi developer"
   },
   "scripts": {
-    "build": "npm run --prefix ./src/plugins/navikronos/ build && strapi build",
+    "build": "strapi build",
     "cs": "cross-env ENV_PATH='./.env.local' config-sync",
     "dev": "npm run develop",
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
-    "postinstall": "cd ./src/plugins/navikronos/ && npm install && cd ../../..",
     "start": "strapi start",
     "strapi": "strapi"
   },
