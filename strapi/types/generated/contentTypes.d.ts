@@ -482,7 +482,7 @@ export interface ApiBasicDocumentBasicDocument extends Struct.CollectionTypeSche
         'metadata.zmluvy',
         'metadata.obchodna-verejna-sutaz',
         'metadata.objednavky',
-        'metadata.verejne-obstaravanie'
+        'metadata.verejne-obstaravanie',
       ]
     >
     publishedAt: Schema.Attribute.DateTime
@@ -532,7 +532,7 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
         'sections.video',
         'sections.flat-text',
         'sections.gallery',
-        'sections.site-usefullness'
+        'sections.site-usefullness',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -754,7 +754,7 @@ export interface ApiDisclosureDisclosure extends Struct.CollectionTypeSchema {
         'Verejn\u00E9 obstar\u00E1vanie',
         'Obchodn\u00E1 verejn\u00E1 s\u00FA\u0165a\u017E',
         'Granty',
-        'Ostatn\u00E9'
+        'Ostatn\u00E9',
       ]
     > &
       Schema.Attribute.Required
@@ -1140,6 +1140,40 @@ export interface ApiMenuMenu extends Struct.CollectionTypeSchema {
   }
 }
 
+export interface ApiNavigationNavigation extends Struct.SingleTypeSchema {
+  collectionName: 'navigations'
+  info: {
+    description: 'Parent pages of content types that have detail pages, used in breadcrumbs'
+    displayName: 'Navigation'
+    pluralName: 'navigations'
+    singularName: 'navigation'
+  }
+  options: {
+    draftAndPublish: false
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    assetsParentPage: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    blogPostsParentPage: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    branchesParentPage: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private
+    disclosuresParentPage: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    documentsParentPage: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    eventsParentPage: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    locale: Schema.Attribute.String
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::navigation.navigation'>
+    noticesParentPage: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>
+    publishedAt: Schema.Attribute.DateTime
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private
+  }
+}
+
 export interface ApiNoticeNotice extends Struct.CollectionTypeSchema {
   collectionName: 'notices'
   info: {
@@ -1242,6 +1276,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
   }
   attributes: {
     branchesServicesTo: Schema.Attribute.Relation<'manyToMany', 'api::branch.branch'>
+    childPages: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>
     createdAt: Schema.Attribute.DateTime
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private
     layout: Schema.Attribute.Enumeration<
@@ -1260,13 +1295,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
       }>
     locale: Schema.Attribute.String
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>
-    newSlug: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
+    parentPage: Schema.Attribute.Relation<'manyToOne', 'api::page.page'>
     perex: Schema.Attribute.Text &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1298,7 +1327,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.assets-listing',
         'sections.events-listing',
         'sections.new-books-listing',
-        'sections.cherrypick-section'
+        'sections.cherrypick-section',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
