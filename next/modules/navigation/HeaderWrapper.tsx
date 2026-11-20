@@ -9,7 +9,7 @@ import { isDefined } from '@/utils/isDefined'
 
 const HeaderWrapper = () => {
   const { menus } = useGeneralContext()
-  const { getPathForStrapiEntity } = useNavigation()
+  const { getPathForEntity } = useNavigation()
 
   // TODO move parsing into context and return parsed menu from context
   // TODO simplify parsing
@@ -37,7 +37,7 @@ const HeaderWrapper = () => {
                         return {
                           label: link.sectionLinkTitle ?? link?.sectionLinkBranch?.title ?? '',
                           url:
-                            getPathForStrapiEntity({
+                            getPathForEntity({
                               type: 'branch',
                               slug: link?.sectionLinkBranch?.slug,
                             }) ?? '#',
@@ -48,7 +48,7 @@ const HeaderWrapper = () => {
                         return {
                           label: link.sectionLinkTitle ?? link?.sectionLinkPage?.title ?? '',
                           url:
-                            getPathForStrapiEntity({
+                            getPathForEntity({
                               type: 'page',
                               slug: link?.sectionLinkPage?.slug,
                             }) ?? '#',
@@ -71,7 +71,7 @@ const HeaderWrapper = () => {
         })
         .filter(isDefined) ?? []
     )
-  }, [menus, getPathForStrapiEntity])
+  }, [menus, getPathForEntity])
 
   return (
     <>
