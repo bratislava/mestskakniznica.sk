@@ -2950,7 +2950,6 @@ export type GenericMorph =
   | I18NLocale
   | Menu
   | Navigation
-  | NavikronosNavikronosStorage
   | Notice
   | Page
   | Partner
