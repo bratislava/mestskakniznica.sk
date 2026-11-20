@@ -1349,13 +1349,6 @@ export interface ApiPagePage extends Schema.CollectionType {
       }>
     locale: Attribute.String
     localizations: Attribute.Relation<'api::page.page', 'oneToMany', 'api::page.page'>
-    newSlug: Attribute.String &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
     parentPage: Attribute.Relation<'api::page.page', 'manyToOne', 'api::page.page'>
     perex: Attribute.Text &
       Attribute.SetPluginOptions<{

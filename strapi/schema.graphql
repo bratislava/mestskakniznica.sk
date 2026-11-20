@@ -2892,7 +2892,6 @@ type Page {
   listingImage: UploadFileEntityResponse
   locale: String
   localizations(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
-  newSlug: String!
   parentPage: PageEntityResponse
   perex: String
   publishedAt: DateTime
@@ -2926,7 +2925,6 @@ input PageFiltersInput {
   layout: StringFilterInput
   locale: StringFilterInput
   localizations: PageFiltersInput
-  newSlug: StringFilterInput
   not: PageFiltersInput
   or: [PageFiltersInput]
   parentPage: PageFiltersInput
@@ -2943,7 +2941,6 @@ input PageInput {
   childPages: [ID]
   layout: ENUM_PAGE_LAYOUT
   listingImage: ID
-  newSlug: String
   parentPage: ID
   perex: String
   publishedAt: DateTime

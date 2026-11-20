@@ -1286,7 +1286,6 @@
       "properties": {
         "fields": [
           "slug",
-          "newSlug",
           "title",
           "layout",
           "perex",
@@ -1337,7 +1336,6 @@
       "properties": {
         "fields": [
           "slug",
-          "newSlug",
           "title",
           "layout",
           "perex",
@@ -1364,7 +1362,6 @@
       "properties": {
         "fields": [
           "slug",
-          "newSlug",
           "title",
           "layout",
           "perex",

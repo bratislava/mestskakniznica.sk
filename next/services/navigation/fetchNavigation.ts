@@ -32,9 +32,13 @@ const fetchNonCachedNavigation = async (): Promise<NavigationObject> => {
  * Use this function in getStaticProps and in getServerSideProps
  *
  * @param config
+ * @param options.force Skips the cache and refreshes it, e.g. when revalidating right after a change in Strapi.
  */
-export const fetchNavigation = async (config: NavigationConfig) => {
-  if (cache?.timestamp && cache.timestamp + config.cacheTtl > Date.now()) {
+export const fetchNavigation = async (
+  config: NavigationConfig,
+  { force = false }: { force?: boolean } = {},
+) => {
+  if (!force && cache?.timestamp && cache.timestamp + config.cacheTtl > Date.now()) {
     return cache.value
   }
 
