@@ -13,7 +13,7 @@ type AssetRowProps = {
   linkHref: string | null
   category?: string
   metadata?: ReactNode
-  addedAt?: string
+  addedAt?: string | null
 }
 
 const AssetRow = ({ title, fileExt, linkHref, category, addedAt, metadata }: AssetRowProps) => {

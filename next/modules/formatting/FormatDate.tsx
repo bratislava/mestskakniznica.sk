@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { DateFormatterOptions, useDateFormatter } from 'react-aria'
 
 import { bratislavaTimezone } from '@/utils/consts'
+import { isDefined } from '@/utils/isDefined'
 
 /**
  * It's hard to make up a name, name the format by the first usage. Then at the end we can change the naming.
@@ -17,24 +18,29 @@ type FormatDateProps = {
 } & (
   | {
       valueType?: 'date' // default value
-      value: Date
+      value?: Date | null
     }
-  | { valueType: 'ISO'; value: string }
-  | { valueType: 'timestamp'; value: number }
+  | { valueType: 'ISO'; value?: string | null }
+  | { valueType: 'timestamp'; value?: number | null }
 )
 
 const FormatDate = ({ value, format = 'default', valueType }: FormatDateProps) => {
   const date = useMemo(() => {
+    if (!isDefined(value)) {
+      return null
+    }
     if (valueType === 'ISO' || valueType === 'timestamp') {
       return new Date(value)
     }
     // valueType === 'date' || valueType === undefined
+
     return value
   }, [value, valueType])
 
   const formatter = useDateFormatter({ ...formats[format], timeZone: bratislavaTimezone })
 
-  return <>{formatter.format(date)}</>
+  // A missing value renders nothing instead of "Invalid Date".
+  return date ? <>{formatter.format(date)}</> : null
 }
 
 export default FormatDate

@@ -49,8 +49,8 @@ const PromoEventCard = ({ event }: PromoEventCardProps) => {
         <div className="flex items-center gap-x-4 overflow-hidden px-4 pb-1 md:px-5 md:pb-5">
           <div className="hidden h-[62px] w-[60px] min-w-[60px] bg-white text-center md:flex">
             <EventDetailsDateBox
-              dateFrom={dateFrom || ''}
-              dateTo={dateTo || ''}
+              dateFrom={dateFrom}
+              dateTo={dateTo}
               textClassname="text-[18px]"
             />
           </div>
