@@ -1,13 +1,16 @@
-/** Internal type. DO NOT USE DIRECTLY. */
-type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
-/** Internal type. DO NOT USE DIRECTLY. */
-export type Incremental<T> =
-  | T
-  | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never }
-import { GraphQLClient, type RequestOptions } from 'graphql-request'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import gql from 'graphql-tag'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = {
+  [_ in K]?: never
+}
+export type Incremental<T> =
+  | T
+  | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never }
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -16,21 +19,21 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean }
   Int: { input: number; output: number }
   Float: { input: number; output: number }
-  BasicDocumentMetadataDynamicZoneInput: { input: unknown; output: unknown }
-  BlogPostSectionsDynamicZoneInput: { input: unknown; output: unknown }
+  BasicDocumentMetadataDynamicZoneInput: { input: any; output: any }
+  BlogPostSectionsDynamicZoneInput: { input: any; output: any }
   /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
-  Date: { input: unknown; output: unknown }
+  Date: { input: string; output: string }
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
-  DateTime: { input: unknown; output: unknown }
+  DateTime: { input: string; output: string }
   /** A string used to identify an i18n locale */
-  I18NLocaleCode: { input: unknown; output: unknown }
+  I18NLocaleCode: { input: any; output: any }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { input: unknown; output: unknown }
+  JSON: { input: any; output: any }
   /** The `BigInt` scalar type represents non-fractional signed whole numeric values. */
-  Long: { input: unknown; output: unknown }
-  PageSectionsDynamicZoneInput: { input: unknown; output: unknown }
+  Long: { input: any; output: any }
+  PageSectionsDynamicZoneInput: { input: any; output: any }
   /** A time string with format HH:mm:ss.SSS */
-  Time: { input: unknown; output: unknown }
+  Time: { input: string; output: string }
 }
 
 export type Asset = {
@@ -5234,419 +5237,423 @@ export type UsersPermissionsUserRelationResponseCollection = {
   nodes: Array<UsersPermissionsUser>
 }
 
-export type Enum_Branch_Barrierfreestate = 'ciastocne_pristupny' | 'nepristupny' | 'pristupny'
-
-export type Enum_Componentaccordionitemsform_Type =
-  | 'aka_kniha_vam_v_kniznici_chyba'
-  | 'ako_sa_prihlasit_do_kniznice'
-  | 'bibliografia_a_resers'
-  | 'cyklodonaska'
-  | 'darcekova_poukazka'
-  | 'detail_podujatia'
-  | 'divadelna_technika'
-  | 'hra_na_hudobne_nastroje'
-  | 'kniharska_dielna'
-  | 'medzikniznicna_vypozicna_sluzba_citatel'
-  | 'medzikniznicna_vypozicna_sluzba_kniznica'
-  | 'napiste_nam'
-  | 'pracujte_v_priestoroch_kniznice'
-  | 'pre_skoly'
-  | 'prenajmite_si_priestor'
-  | 'tablety'
-  | 'tablety_a_citacky'
-
-export type Enum_Componentaccordionitemstablerow_Valuealign = 'center' | 'start'
-
-export type Enum_Componentsectionschildrenlisting_Depth = 'depth_1' | 'depth_2'
-
-export type Enum_Componentsectionsform_Type =
-  | 'aka_kniha_vam_v_kniznici_chyba'
-  | 'ako_sa_prihlasit_do_kniznice'
-  | 'bibliografia_a_resers'
-  | 'cyklodonaska'
-  | 'darcekova_poukazka'
-  | 'detail_podujatia'
-  | 'divadelna_technika'
-  | 'hra_na_hudobne_nastroje'
-  | 'kniharska_dielna'
-  | 'medzikniznicna_vypozicna_sluzba_citatel'
-  | 'medzikniznicna_vypozicna_sluzba_kniznica'
-  | 'napiste_nam'
-  | 'pracujte_v_priestoroch_kniznice'
-  | 'pre_skoly'
-  | 'prenajmite_si_priestor'
-  | 'tablety'
-  | 'tablety_a_citacky'
-
-export type Enum_Disclosure_Type =
-  | 'Faktury'
-  | 'Granty'
-  | 'Obchodna_verejna_sutaz'
-  | 'Objednavky'
-  | 'Ostatne'
-  | 'Verejne_obstaravanie'
-  | 'Zmluvy'
-
-export type Enum_Page_Layout = 'content_with_sidebar' | 'full_content' | 'listing' | 'sublisting'
-
-export type AssetCategoryEntityFragment = { documentId: string; label: string; slug: string }
+export type AssetCategoryEntityFragment = {
+  __typename?: 'AssetCategory'
+  documentId: string
+  label: string
+  slug: string
+}
 
 export type AssetEntityFragment = {
   __typename: 'Asset'
   documentId: string
   title: string
   slug: string
-  description: string | null
-  createdAt: unknown
-  publishedAt: unknown
-  assetCategory: { documentId: string; label: string; slug: string } | null
+  description?: string | null
+  createdAt?: string | null
+  publishedAt?: string | null
+  assetCategory?: {
+    __typename?: 'AssetCategory'
+    documentId: string
+    label: string
+    slug: string
+  } | null
   file: Array<{
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
     size: number
-    ext: string | null
+    ext?: string | null
   } | null>
 }
 
 export type AssetCategoriesQueryVariables = Exact<{ [key: string]: never }>
 
 export type AssetCategoriesQuery = {
-  assetCategories: Array<{ documentId: string; label: string; slug: string } | null>
+  __typename?: 'Query'
+  assetCategories: Array<{
+    __typename?: 'AssetCategory'
+    documentId: string
+    label: string
+    slug: string
+  } | null>
 }
 
 export type AssetBySlugQueryVariables = Exact<{
-  slug: string
+  slug: Scalars['String']['input']
 }>
 
 export type AssetBySlugQuery = {
+  __typename?: 'Query'
   assets: Array<{
     __typename: 'Asset'
     documentId: string
     title: string
     slug: string
-    description: string | null
-    createdAt: unknown
-    publishedAt: unknown
-    assetCategory: { documentId: string; label: string; slug: string } | null
+    description?: string | null
+    createdAt?: string | null
+    publishedAt?: string | null
+    assetCategory?: {
+      __typename?: 'AssetCategory'
+      documentId: string
+      label: string
+      slug: string
+    } | null
     file: Array<{
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
       size: number
-      ext: string | null
+      ext?: string | null
     } | null>
   } | null>
 }
 
 export type BasicDocumentBySlugQueryVariables = Exact<{
-  slug: string
+  slug: Scalars['String']['input']
 }>
 
 export type BasicDocumentBySlugQuery = {
+  __typename?: 'Query'
   basicDocuments: Array<{
+    __typename?: 'BasicDocument'
     documentId: string
     slug: string
     title: string
-    description: string | null
-    date_added: unknown
-    author: string | null
-    link: string | null
-    file_category: { documentId: string; name: string | null; slug: string | null } | null
-    metadata: Array<
+    description?: string | null
+    date_added?: string | null
+    author?: string | null
+    link?: string | null
+    file_category?: {
+      __typename?: 'FileCategory'
+      documentId: string
+      name?: string | null
+      slug?: string | null
+    } | null
+    metadata?: Array<
       | {
           __typename: 'ComponentMetadataFaktury'
           id: string
-          name: string | null
-          date: unknown
-          attachment: {
+          name?: string | null
+          date?: string | null
+          attachment?: {
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
             size: number
-            ext: string | null
+            ext?: string | null
           } | null
         }
       | {
           __typename: 'ComponentMetadataMetadata'
           id: string
-          provider: string | null
-          year: number | null
-          grant_name: string | null
-          grant_number: string | null
-          amount: string | null
-          description: string | null
+          provider?: string | null
+          year?: number | null
+          grant_name?: string | null
+          grant_number?: string | null
+          amount?: string | null
+          description?: string | null
         }
       | {
           __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
           id: string
-          subject: string | null
-          description: string | null
-          number: string | null
-          date_added: unknown
-          amount: string | null
-          attachment: {
+          subject?: string | null
+          description?: string | null
+          number?: string | null
+          date_added?: string | null
+          amount?: string | null
+          attachment?: {
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
             size: number
-            ext: string | null
+            ext?: string | null
           } | null
         }
       | {
           __typename: 'ComponentMetadataObjednavky'
           id: string
-          title: string | null
-          date_period: unknown
-          date_added: unknown
-          attachment: {
+          title?: string | null
+          date_period?: string | null
+          date_added?: string | null
+          attachment?: {
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
             size: number
-            ext: string | null
+            ext?: string | null
           } | null
         }
       | {
           __typename: 'ComponentMetadataVerejneObstaravanie'
           id: string
-          subject: string | null
-          description: string | null
-          number: string | null
-          date_added: unknown
-          amount: string | null
-          attachment: {
+          subject?: string | null
+          description?: string | null
+          number?: string | null
+          date_added?: string | null
+          amount?: string | null
+          attachment?: {
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
             size: number
-            ext: string | null
+            ext?: string | null
           } | null
         }
       | {
           __typename: 'ComponentMetadataZmluvy'
           id: string
-          date: unknown
-          number: string | null
-          amount: string | null
-          supplier: string | null
-          subject: string | null
+          date?: string | null
+          number?: string | null
+          amount?: string | null
+          supplier?: string | null
+          subject?: string | null
         }
       | { __typename: 'Error' }
       | null
     > | null
-    attachment: {
+    attachment?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
       size: number
-      ext: string | null
+      ext?: string | null
     } | null
   } | null>
 }
 
 export type FileCategoryEntityFragment = {
+  __typename?: 'FileCategory'
   documentId: string
-  name: string | null
-  slug: string | null
+  name?: string | null
+  slug?: string | null
 }
 
 export type FileCategoriesQueryVariables = Exact<{ [key: string]: never }>
 
 export type FileCategoriesQuery = {
-  fileCategories: Array<{ documentId: string; name: string | null; slug: string | null } | null>
+  __typename?: 'Query'
+  fileCategories: Array<{
+    __typename?: 'FileCategory'
+    documentId: string
+    name?: string | null
+    slug?: string | null
+  } | null>
 }
 
 export type BasicDocumentFileFragment = {
+  __typename?: 'UploadFile'
   documentId: string
   url: string
   name: string
-  ext: string | null
+  ext?: string | null
   size: number
 }
 
 export type BasicDocumentEntityFragment = {
+  __typename?: 'BasicDocument'
   documentId: string
   slug: string
   title: string
-  description: string | null
-  date_added: unknown
-  author: string | null
-  link: string | null
-  file_category: { documentId: string; name: string | null; slug: string | null } | null
-  metadata: Array<
+  description?: string | null
+  date_added?: string | null
+  author?: string | null
+  link?: string | null
+  file_category?: {
+    __typename?: 'FileCategory'
+    documentId: string
+    name?: string | null
+    slug?: string | null
+  } | null
+  metadata?: Array<
     | {
         __typename: 'ComponentMetadataFaktury'
         id: string
-        name: string | null
-        date: unknown
-        attachment: {
+        name?: string | null
+        date?: string | null
+        attachment?: {
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
           size: number
-          ext: string | null
+          ext?: string | null
         } | null
       }
     | {
         __typename: 'ComponentMetadataMetadata'
         id: string
-        provider: string | null
-        year: number | null
-        grant_name: string | null
-        grant_number: string | null
-        amount: string | null
-        description: string | null
+        provider?: string | null
+        year?: number | null
+        grant_name?: string | null
+        grant_number?: string | null
+        amount?: string | null
+        description?: string | null
       }
     | {
         __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
         id: string
-        subject: string | null
-        description: string | null
-        number: string | null
-        date_added: unknown
-        amount: string | null
-        attachment: {
+        subject?: string | null
+        description?: string | null
+        number?: string | null
+        date_added?: string | null
+        amount?: string | null
+        attachment?: {
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
           size: number
-          ext: string | null
+          ext?: string | null
         } | null
       }
     | {
         __typename: 'ComponentMetadataObjednavky'
         id: string
-        title: string | null
-        date_period: unknown
-        date_added: unknown
-        attachment: {
+        title?: string | null
+        date_period?: string | null
+        date_added?: string | null
+        attachment?: {
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
           size: number
-          ext: string | null
+          ext?: string | null
         } | null
       }
     | {
         __typename: 'ComponentMetadataVerejneObstaravanie'
         id: string
-        subject: string | null
-        description: string | null
-        number: string | null
-        date_added: unknown
-        amount: string | null
-        attachment: {
+        subject?: string | null
+        description?: string | null
+        number?: string | null
+        date_added?: string | null
+        amount?: string | null
+        attachment?: {
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
           size: number
-          ext: string | null
+          ext?: string | null
         } | null
       }
     | {
         __typename: 'ComponentMetadataZmluvy'
         id: string
-        date: unknown
-        number: string | null
-        amount: string | null
-        supplier: string | null
-        subject: string | null
+        date?: string | null
+        number?: string | null
+        amount?: string | null
+        supplier?: string | null
+        subject?: string | null
       }
     | { __typename: 'Error' }
     | null
   > | null
-  attachment: {
+  attachment?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
     size: number
-    ext: string | null
+    ext?: string | null
   } | null
 }
 
 type Metadata_ComponentMetadataFaktury_Fragment = {
   __typename: 'ComponentMetadataFaktury'
   id: string
-  name: string | null
-  date: unknown
-  attachment: {
+  name?: string | null
+  date?: string | null
+  attachment?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
     size: number
-    ext: string | null
+    ext?: string | null
   } | null
 }
 
 type Metadata_ComponentMetadataMetadata_Fragment = {
   __typename: 'ComponentMetadataMetadata'
   id: string
-  provider: string | null
-  year: number | null
-  grant_name: string | null
-  grant_number: string | null
-  amount: string | null
-  description: string | null
+  provider?: string | null
+  year?: number | null
+  grant_name?: string | null
+  grant_number?: string | null
+  amount?: string | null
+  description?: string | null
 }
 
 type Metadata_ComponentMetadataObchodnaVerejnaSutaz_Fragment = {
   __typename: 'ComponentMetadataObchodnaVerejnaSutaz'
   id: string
-  subject: string | null
-  description: string | null
-  number: string | null
-  date_added: unknown
-  amount: string | null
-  attachment: {
+  subject?: string | null
+  description?: string | null
+  number?: string | null
+  date_added?: string | null
+  amount?: string | null
+  attachment?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
     size: number
-    ext: string | null
+    ext?: string | null
   } | null
 }
 
 type Metadata_ComponentMetadataObjednavky_Fragment = {
   __typename: 'ComponentMetadataObjednavky'
   id: string
-  title: string | null
-  date_period: unknown
-  date_added: unknown
-  attachment: {
+  title?: string | null
+  date_period?: string | null
+  date_added?: string | null
+  attachment?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
     size: number
-    ext: string | null
+    ext?: string | null
   } | null
 }
 
 type Metadata_ComponentMetadataVerejneObstaravanie_Fragment = {
   __typename: 'ComponentMetadataVerejneObstaravanie'
   id: string
-  subject: string | null
-  description: string | null
-  number: string | null
-  date_added: unknown
-  amount: string | null
-  attachment: {
+  subject?: string | null
+  description?: string | null
+  number?: string | null
+  date_added?: string | null
+  amount?: string | null
+  attachment?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
     size: number
-    ext: string | null
+    ext?: string | null
   } | null
 }
 
 type Metadata_ComponentMetadataZmluvy_Fragment = {
   __typename: 'ComponentMetadataZmluvy'
   id: string
-  date: unknown
-  number: string | null
-  amount: string | null
-  supplier: string | null
-  subject: string | null
+  date?: string | null
+  number?: string | null
+  amount?: string | null
+  supplier?: string | null
+  subject?: string | null
 }
 
 type Metadata_Error_Fragment = { __typename: 'Error' }
@@ -5663,41 +5670,53 @@ export type MetadataFragment =
 type BlogPostSections_ComponentSectionsAccordion_Fragment = {
   __typename: 'ComponentSectionsAccordion'
   id: string
-  title: string | null
-  flatText: Array<{ category: string | null; content: string | null } | null> | null
-  tableRows: Array<{
-    id: string
-    accordionCategory: string | null
-    tableCategory: string | null
-    label: string | null
-    value: string | null
-    valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+  title?: string | null
+  flatText?: Array<{
+    __typename?: 'ComponentAccordionItemsFlatText'
+    category?: string | null
+    content?: string | null
   } | null> | null
-  forms: Array<{
-    category: string | null
-    type: Enum_Componentaccordionitemsform_Type | null
+  tableRows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
+    id: string
+    accordionCategory?: string | null
+    tableCategory?: string | null
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+  } | null> | null
+  forms?: Array<{
+    __typename?: 'ComponentAccordionItemsForm'
+    category?: string | null
+    type?: Enum_Componentaccordionitemsform_Type | null
   } | null> | null
 }
 
 type BlogPostSections_ComponentSectionsAssets_Fragment = {
   __typename: 'ComponentSectionsAssets'
   id: string
-  title: string | null
+  title?: string | null
   assets: Array<{
     __typename: 'Asset'
     documentId: string
     title: string
     slug: string
-    description: string | null
-    createdAt: unknown
-    publishedAt: unknown
-    assetCategory: { documentId: string; label: string; slug: string } | null
+    description?: string | null
+    createdAt?: string | null
+    publishedAt?: string | null
+    assetCategory?: {
+      __typename?: 'AssetCategory'
+      documentId: string
+      label: string
+      slug: string
+    } | null
     file: Array<{
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
       size: number
-      ext: string | null
+      ext?: string | null
     } | null>
   } | null>
   disclosures: Array<{
@@ -5705,22 +5724,23 @@ type BlogPostSections_ComponentSectionsAssets_Fragment = {
     documentId: string
     slug: string
     title: string
-    description: string | null
-    addedAt: unknown
+    description?: string | null
+    addedAt: string
     type: Enum_Disclosure_Type
-    dateFrom: unknown
-    dateTo: unknown
-    idNumber: string | null
-    amount: number | null
-    contractor: string | null
-    grantProvider: string | null
-    grantYear: string | null
+    dateFrom?: string | null
+    dateTo?: string | null
+    idNumber?: string | null
+    amount?: number | null
+    contractor?: string | null
+    grantProvider?: string | null
+    grantYear?: string | null
     file: Array<{
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
       size: number
-      ext: string | null
+      ext?: string | null
     } | null>
   } | null>
 }
@@ -5728,8 +5748,8 @@ type BlogPostSections_ComponentSectionsAssets_Fragment = {
 type BlogPostSections_ComponentSectionsCta_Fragment = {
   __typename: 'ComponentSectionsCta'
   id: string
-  title: string | null
-  url: string | null
+  title?: string | null
+  url?: string | null
 }
 
 type BlogPostSections_ComponentSectionsDivider_Fragment = {
@@ -5740,40 +5760,47 @@ type BlogPostSections_ComponentSectionsDivider_Fragment = {
 type BlogPostSections_ComponentSectionsFaq_Fragment = {
   __typename: 'ComponentSectionsFaq'
   id: string
-  title: string | null
-  ctaButton: string | null
-  questions: Array<{ id: string; label: string | null; content: string | null } | null> | null
-  redirectTo: {
+  title?: string | null
+  ctaButton?: string | null
+  questions?: Array<{
+    __typename?: 'ComponentBlocksAccordionItem'
+    id: string
+    label?: string | null
+    content?: string | null
+  } | null> | null
+  redirectTo?: {
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null
 }
 
 type BlogPostSections_ComponentSectionsFlatText_Fragment = {
   __typename: 'ComponentSectionsFlatText'
   id: string
-  content: string | null
+  content?: string | null
 }
 
 type BlogPostSections_ComponentSectionsGallery_Fragment = {
   __typename: 'ComponentSectionsGallery'
   id: string
-  Gallery: Array<{
+  Gallery?: Array<{
+    __typename?: 'ComponentLocalityPartsGalleryParts'
     id: string
-    Description: string | null
-    Photo: {
+    Description?: string | null
+    Photo?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null> | null
 }
@@ -5781,28 +5808,29 @@ type BlogPostSections_ComponentSectionsGallery_Fragment = {
 type BlogPostSections_ComponentSectionsSiteUsefullness_Fragment = {
   __typename: 'ComponentSectionsSiteUsefullness'
   id: string
-  title: string | null
-  thankYouMessage: string | null
+  title?: string | null
+  thankYouMessage?: string | null
 }
 
 type BlogPostSections_ComponentSectionsTable_Fragment = {
   __typename: 'ComponentSectionsTable'
   id: string
-  primaryTitle: string | null
-  secondaryTitle: string | null
-  rows: Array<{
+  primaryTitle?: string | null
+  secondaryTitle?: string | null
+  rows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
     id: string
-    label: string | null
-    value: string | null
-    valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
   } | null> | null
 }
 
 type BlogPostSections_ComponentSectionsVideo_Fragment = {
   __typename: 'ComponentSectionsVideo'
   id: string
-  youtube_url: string | null
-  media: { url: string } | null
+  youtube_url?: string | null
+  media?: { __typename?: 'UploadFile'; url: string } | null
 }
 
 type BlogPostSections_Error_Fragment = { __typename: 'Error' }
@@ -5825,53 +5853,66 @@ export type BlogPostEntityFragment = {
   documentId: string
   slug: string
   title: string
-  createdAt: unknown
-  publishedAt: unknown
-  coverMedia: {
+  createdAt?: string | null
+  publishedAt?: string | null
+  coverMedia?: {
+    __typename?: 'UploadFile'
     url: string
     mime: string
-    alternativeText: string | null
-    width: number | null
-    height: number | null
+    alternativeText?: string | null
+    width?: number | null
+    height?: number | null
   } | null
-  sections: Array<
+  sections?: Array<
     | {
         __typename: 'ComponentSectionsAccordion'
         id: string
-        title: string | null
-        flatText: Array<{ category: string | null; content: string | null } | null> | null
-        tableRows: Array<{
-          id: string
-          accordionCategory: string | null
-          tableCategory: string | null
-          label: string | null
-          value: string | null
-          valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+        title?: string | null
+        flatText?: Array<{
+          __typename?: 'ComponentAccordionItemsFlatText'
+          category?: string | null
+          content?: string | null
         } | null> | null
-        forms: Array<{
-          category: string | null
-          type: Enum_Componentaccordionitemsform_Type | null
+        tableRows?: Array<{
+          __typename?: 'ComponentAccordionItemsTableRow'
+          id: string
+          accordionCategory?: string | null
+          tableCategory?: string | null
+          label?: string | null
+          value?: string | null
+          valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+        } | null> | null
+        forms?: Array<{
+          __typename?: 'ComponentAccordionItemsForm'
+          category?: string | null
+          type?: Enum_Componentaccordionitemsform_Type | null
         } | null> | null
       }
     | {
         __typename: 'ComponentSectionsAssets'
         id: string
-        title: string | null
+        title?: string | null
         assets: Array<{
           __typename: 'Asset'
           documentId: string
           title: string
           slug: string
-          description: string | null
-          createdAt: unknown
-          publishedAt: unknown
-          assetCategory: { documentId: string; label: string; slug: string } | null
+          description?: string | null
+          createdAt?: string | null
+          publishedAt?: string | null
+          assetCategory?: {
+            __typename?: 'AssetCategory'
+            documentId: string
+            label: string
+            slug: string
+          } | null
           file: Array<{
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
             size: number
-            ext: string | null
+            ext?: string | null
           } | null>
         } | null>
         disclosures: Array<{
@@ -5879,158 +5920,192 @@ export type BlogPostEntityFragment = {
           documentId: string
           slug: string
           title: string
-          description: string | null
-          addedAt: unknown
+          description?: string | null
+          addedAt: string
           type: Enum_Disclosure_Type
-          dateFrom: unknown
-          dateTo: unknown
-          idNumber: string | null
-          amount: number | null
-          contractor: string | null
-          grantProvider: string | null
-          grantYear: string | null
+          dateFrom?: string | null
+          dateTo?: string | null
+          idNumber?: string | null
+          amount?: number | null
+          contractor?: string | null
+          grantProvider?: string | null
+          grantYear?: string | null
           file: Array<{
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
             size: number
-            ext: string | null
+            ext?: string | null
           } | null>
         } | null>
       }
-    | { __typename: 'ComponentSectionsCta'; id: string; title: string | null; url: string | null }
+    | { __typename: 'ComponentSectionsCta'; id: string; title?: string | null; url?: string | null }
     | { __typename: 'ComponentSectionsDivider'; id: string }
     | {
         __typename: 'ComponentSectionsFaq'
         id: string
-        title: string | null
-        ctaButton: string | null
-        questions: Array<{ id: string; label: string | null; content: string | null } | null> | null
-        redirectTo: {
+        title?: string | null
+        ctaButton?: string | null
+        questions?: Array<{
+          __typename?: 'ComponentBlocksAccordionItem'
+          id: string
+          label?: string | null
+          content?: string | null
+        } | null> | null
+        redirectTo?: {
           __typename: 'Page'
           documentId: string
           title: string
           slug: string
-          createdAt: unknown
-          updatedAt: unknown
+          createdAt?: string | null
+          updatedAt?: string | null
         } | null
       }
-    | { __typename: 'ComponentSectionsFlatText'; id: string; content: string | null }
+    | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
     | {
         __typename: 'ComponentSectionsGallery'
         id: string
-        Gallery: Array<{
+        Gallery?: Array<{
+          __typename?: 'ComponentLocalityPartsGalleryParts'
           id: string
-          Description: string | null
-          Photo: {
+          Description?: string | null
+          Photo?: {
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
-            alternativeText: string | null
-            caption: string | null
+            alternativeText?: string | null
+            caption?: string | null
             size: number
-            width: number | null
-            height: number | null
+            width?: number | null
+            height?: number | null
           } | null
         } | null> | null
       }
     | {
         __typename: 'ComponentSectionsSiteUsefullness'
         id: string
-        title: string | null
-        thankYouMessage: string | null
+        title?: string | null
+        thankYouMessage?: string | null
       }
     | {
         __typename: 'ComponentSectionsTable'
         id: string
-        primaryTitle: string | null
-        secondaryTitle: string | null
-        rows: Array<{
+        primaryTitle?: string | null
+        secondaryTitle?: string | null
+        rows?: Array<{
+          __typename?: 'ComponentAccordionItemsTableRow'
           id: string
-          label: string | null
-          value: string | null
-          valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+          label?: string | null
+          value?: string | null
+          valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
         } | null> | null
       }
     | {
         __typename: 'ComponentSectionsVideo'
         id: string
-        youtube_url: string | null
-        media: { url: string } | null
+        youtube_url?: string | null
+        media?: { __typename?: 'UploadFile'; url: string } | null
       }
     | { __typename: 'Error' }
     | null
   > | null
-  localizations: Array<{ slug: string; locale: string | null } | null>
-  seo: { metaTitle: string | null; metaDescription: string | null; keywords: string | null } | null
+  localizations: Array<{ __typename?: 'BlogPost'; slug: string; locale?: string | null } | null>
+  seo?: {
+    __typename?: 'ComponentCommonSeo'
+    metaTitle?: string | null
+    metaDescription?: string | null
+    keywords?: string | null
+  } | null
 }
 
 export type BlogPostStaticPathsQueryVariables = Exact<{
-  locale: unknown
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type BlogPostStaticPathsQuery = {
-  blogPosts: Array<{ documentId: string; slug: string; locale: string | null } | null>
+  __typename?: 'Query'
+  blogPosts: Array<{
+    __typename?: 'BlogPost'
+    documentId: string
+    slug: string
+    locale?: string | null
+  } | null>
 }
 
 export type BlogPostBySlugQueryVariables = Exact<{
-  slug: string
-  locale: unknown
+  slug: Scalars['String']['input']
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type BlogPostBySlugQuery = {
+  __typename?: 'Query'
   blogPosts: Array<{
     __typename: 'BlogPost'
     documentId: string
     slug: string
     title: string
-    createdAt: unknown
-    publishedAt: unknown
-    coverMedia: {
+    createdAt?: string | null
+    publishedAt?: string | null
+    coverMedia?: {
+      __typename?: 'UploadFile'
       url: string
       mime: string
-      alternativeText: string | null
-      width: number | null
-      height: number | null
+      alternativeText?: string | null
+      width?: number | null
+      height?: number | null
     } | null
-    sections: Array<
+    sections?: Array<
       | {
           __typename: 'ComponentSectionsAccordion'
           id: string
-          title: string | null
-          flatText: Array<{ category: string | null; content: string | null } | null> | null
-          tableRows: Array<{
-            id: string
-            accordionCategory: string | null
-            tableCategory: string | null
-            label: string | null
-            value: string | null
-            valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+          title?: string | null
+          flatText?: Array<{
+            __typename?: 'ComponentAccordionItemsFlatText'
+            category?: string | null
+            content?: string | null
           } | null> | null
-          forms: Array<{
-            category: string | null
-            type: Enum_Componentaccordionitemsform_Type | null
+          tableRows?: Array<{
+            __typename?: 'ComponentAccordionItemsTableRow'
+            id: string
+            accordionCategory?: string | null
+            tableCategory?: string | null
+            label?: string | null
+            value?: string | null
+            valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+          } | null> | null
+          forms?: Array<{
+            __typename?: 'ComponentAccordionItemsForm'
+            category?: string | null
+            type?: Enum_Componentaccordionitemsform_Type | null
           } | null> | null
         }
       | {
           __typename: 'ComponentSectionsAssets'
           id: string
-          title: string | null
+          title?: string | null
           assets: Array<{
             __typename: 'Asset'
             documentId: string
             title: string
             slug: string
-            description: string | null
-            createdAt: unknown
-            publishedAt: unknown
-            assetCategory: { documentId: string; label: string; slug: string } | null
+            description?: string | null
+            createdAt?: string | null
+            publishedAt?: string | null
+            assetCategory?: {
+              __typename?: 'AssetCategory'
+              documentId: string
+              label: string
+              slug: string
+            } | null
             file: Array<{
+              __typename?: 'UploadFile'
               documentId: string
               url: string
               name: string
               size: number
-              ext: string | null
+              ext?: string | null
             } | null>
           } | null>
           disclosures: Array<{
@@ -6038,162 +6113,188 @@ export type BlogPostBySlugQuery = {
             documentId: string
             slug: string
             title: string
-            description: string | null
-            addedAt: unknown
+            description?: string | null
+            addedAt: string
             type: Enum_Disclosure_Type
-            dateFrom: unknown
-            dateTo: unknown
-            idNumber: string | null
-            amount: number | null
-            contractor: string | null
-            grantProvider: string | null
-            grantYear: string | null
+            dateFrom?: string | null
+            dateTo?: string | null
+            idNumber?: string | null
+            amount?: number | null
+            contractor?: string | null
+            grantProvider?: string | null
+            grantYear?: string | null
             file: Array<{
+              __typename?: 'UploadFile'
               documentId: string
               url: string
               name: string
               size: number
-              ext: string | null
+              ext?: string | null
             } | null>
           } | null>
         }
-      | { __typename: 'ComponentSectionsCta'; id: string; title: string | null; url: string | null }
+      | {
+          __typename: 'ComponentSectionsCta'
+          id: string
+          title?: string | null
+          url?: string | null
+        }
       | { __typename: 'ComponentSectionsDivider'; id: string }
       | {
           __typename: 'ComponentSectionsFaq'
           id: string
-          title: string | null
-          ctaButton: string | null
-          questions: Array<{
+          title?: string | null
+          ctaButton?: string | null
+          questions?: Array<{
+            __typename?: 'ComponentBlocksAccordionItem'
             id: string
-            label: string | null
-            content: string | null
+            label?: string | null
+            content?: string | null
           } | null> | null
-          redirectTo: {
+          redirectTo?: {
             __typename: 'Page'
             documentId: string
             title: string
             slug: string
-            createdAt: unknown
-            updatedAt: unknown
+            createdAt?: string | null
+            updatedAt?: string | null
           } | null
         }
-      | { __typename: 'ComponentSectionsFlatText'; id: string; content: string | null }
+      | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
       | {
           __typename: 'ComponentSectionsGallery'
           id: string
-          Gallery: Array<{
+          Gallery?: Array<{
+            __typename?: 'ComponentLocalityPartsGalleryParts'
             id: string
-            Description: string | null
-            Photo: {
+            Description?: string | null
+            Photo?: {
+              __typename?: 'UploadFile'
               documentId: string
               url: string
               name: string
-              alternativeText: string | null
-              caption: string | null
+              alternativeText?: string | null
+              caption?: string | null
               size: number
-              width: number | null
-              height: number | null
+              width?: number | null
+              height?: number | null
             } | null
           } | null> | null
         }
       | {
           __typename: 'ComponentSectionsSiteUsefullness'
           id: string
-          title: string | null
-          thankYouMessage: string | null
+          title?: string | null
+          thankYouMessage?: string | null
         }
       | {
           __typename: 'ComponentSectionsTable'
           id: string
-          primaryTitle: string | null
-          secondaryTitle: string | null
-          rows: Array<{
+          primaryTitle?: string | null
+          secondaryTitle?: string | null
+          rows?: Array<{
+            __typename?: 'ComponentAccordionItemsTableRow'
             id: string
-            label: string | null
-            value: string | null
-            valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+            label?: string | null
+            value?: string | null
+            valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
           } | null> | null
         }
       | {
           __typename: 'ComponentSectionsVideo'
           id: string
-          youtube_url: string | null
-          media: { url: string } | null
+          youtube_url?: string | null
+          media?: { __typename?: 'UploadFile'; url: string } | null
         }
       | { __typename: 'Error' }
       | null
     > | null
-    localizations: Array<{ slug: string; locale: string | null } | null>
-    seo: {
-      metaTitle: string | null
-      metaDescription: string | null
-      keywords: string | null
+    localizations: Array<{ __typename?: 'BlogPost'; slug: string; locale?: string | null } | null>
+    seo?: {
+      __typename?: 'ComponentCommonSeo'
+      metaTitle?: string | null
+      metaDescription?: string | null
+      keywords?: string | null
     } | null
   } | null>
 }
 
 export type BlogPostsQueryVariables = Exact<{
-  locale: unknown
-  limit?: number | null | undefined
-  start?: number | null | undefined
-  sort?: string | null | undefined
+  locale: Scalars['I18NLocaleCode']['input']
+  limit?: InputMaybe<Scalars['Int']['input']>
+  start?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Scalars['String']['input']>
 }>
 
 export type BlogPostsQuery = {
-  blogPosts_connection: {
+  __typename?: 'Query'
+  blogPosts_connection?: {
+    __typename?: 'BlogPostEntityResponseCollection'
     nodes: Array<{
       __typename: 'BlogPost'
       documentId: string
       slug: string
       title: string
-      createdAt: unknown
-      publishedAt: unknown
-      coverMedia: {
+      createdAt?: string | null
+      publishedAt?: string | null
+      coverMedia?: {
+        __typename?: 'UploadFile'
         url: string
         mime: string
-        alternativeText: string | null
-        width: number | null
-        height: number | null
+        alternativeText?: string | null
+        width?: number | null
+        height?: number | null
       } | null
-      sections: Array<
+      sections?: Array<
         | {
             __typename: 'ComponentSectionsAccordion'
             id: string
-            title: string | null
-            flatText: Array<{ category: string | null; content: string | null } | null> | null
-            tableRows: Array<{
-              id: string
-              accordionCategory: string | null
-              tableCategory: string | null
-              label: string | null
-              value: string | null
-              valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+            title?: string | null
+            flatText?: Array<{
+              __typename?: 'ComponentAccordionItemsFlatText'
+              category?: string | null
+              content?: string | null
             } | null> | null
-            forms: Array<{
-              category: string | null
-              type: Enum_Componentaccordionitemsform_Type | null
+            tableRows?: Array<{
+              __typename?: 'ComponentAccordionItemsTableRow'
+              id: string
+              accordionCategory?: string | null
+              tableCategory?: string | null
+              label?: string | null
+              value?: string | null
+              valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+            } | null> | null
+            forms?: Array<{
+              __typename?: 'ComponentAccordionItemsForm'
+              category?: string | null
+              type?: Enum_Componentaccordionitemsform_Type | null
             } | null> | null
           }
         | {
             __typename: 'ComponentSectionsAssets'
             id: string
-            title: string | null
+            title?: string | null
             assets: Array<{
               __typename: 'Asset'
               documentId: string
               title: string
               slug: string
-              description: string | null
-              createdAt: unknown
-              publishedAt: unknown
-              assetCategory: { documentId: string; label: string; slug: string } | null
+              description?: string | null
+              createdAt?: string | null
+              publishedAt?: string | null
+              assetCategory?: {
+                __typename?: 'AssetCategory'
+                documentId: string
+                label: string
+                slug: string
+              } | null
               file: Array<{
+                __typename?: 'UploadFile'
                 documentId: string
                 url: string
                 name: string
                 size: number
-                ext: string | null
+                ext?: string | null
               } | null>
             } | null>
             disclosures: Array<{
@@ -6201,179 +6302,211 @@ export type BlogPostsQuery = {
               documentId: string
               slug: string
               title: string
-              description: string | null
-              addedAt: unknown
+              description?: string | null
+              addedAt: string
               type: Enum_Disclosure_Type
-              dateFrom: unknown
-              dateTo: unknown
-              idNumber: string | null
-              amount: number | null
-              contractor: string | null
-              grantProvider: string | null
-              grantYear: string | null
+              dateFrom?: string | null
+              dateTo?: string | null
+              idNumber?: string | null
+              amount?: number | null
+              contractor?: string | null
+              grantProvider?: string | null
+              grantYear?: string | null
               file: Array<{
+                __typename?: 'UploadFile'
                 documentId: string
                 url: string
                 name: string
                 size: number
-                ext: string | null
+                ext?: string | null
               } | null>
             } | null>
           }
         | {
             __typename: 'ComponentSectionsCta'
             id: string
-            title: string | null
-            url: string | null
+            title?: string | null
+            url?: string | null
           }
         | { __typename: 'ComponentSectionsDivider'; id: string }
         | {
             __typename: 'ComponentSectionsFaq'
             id: string
-            title: string | null
-            ctaButton: string | null
-            questions: Array<{
+            title?: string | null
+            ctaButton?: string | null
+            questions?: Array<{
+              __typename?: 'ComponentBlocksAccordionItem'
               id: string
-              label: string | null
-              content: string | null
+              label?: string | null
+              content?: string | null
             } | null> | null
-            redirectTo: {
+            redirectTo?: {
               __typename: 'Page'
               documentId: string
               title: string
               slug: string
-              createdAt: unknown
-              updatedAt: unknown
+              createdAt?: string | null
+              updatedAt?: string | null
             } | null
           }
-        | { __typename: 'ComponentSectionsFlatText'; id: string; content: string | null }
+        | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
         | {
             __typename: 'ComponentSectionsGallery'
             id: string
-            Gallery: Array<{
+            Gallery?: Array<{
+              __typename?: 'ComponentLocalityPartsGalleryParts'
               id: string
-              Description: string | null
-              Photo: {
+              Description?: string | null
+              Photo?: {
+                __typename?: 'UploadFile'
                 documentId: string
                 url: string
                 name: string
-                alternativeText: string | null
-                caption: string | null
+                alternativeText?: string | null
+                caption?: string | null
                 size: number
-                width: number | null
-                height: number | null
+                width?: number | null
+                height?: number | null
               } | null
             } | null> | null
           }
         | {
             __typename: 'ComponentSectionsSiteUsefullness'
             id: string
-            title: string | null
-            thankYouMessage: string | null
+            title?: string | null
+            thankYouMessage?: string | null
           }
         | {
             __typename: 'ComponentSectionsTable'
             id: string
-            primaryTitle: string | null
-            secondaryTitle: string | null
-            rows: Array<{
+            primaryTitle?: string | null
+            secondaryTitle?: string | null
+            rows?: Array<{
+              __typename?: 'ComponentAccordionItemsTableRow'
               id: string
-              label: string | null
-              value: string | null
-              valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+              label?: string | null
+              value?: string | null
+              valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
             } | null> | null
           }
         | {
             __typename: 'ComponentSectionsVideo'
             id: string
-            youtube_url: string | null
-            media: { url: string } | null
+            youtube_url?: string | null
+            media?: { __typename?: 'UploadFile'; url: string } | null
           }
         | { __typename: 'Error' }
         | null
       > | null
-      localizations: Array<{ slug: string; locale: string | null } | null>
-      seo: {
-        metaTitle: string | null
-        metaDescription: string | null
-        keywords: string | null
+      localizations: Array<{ __typename?: 'BlogPost'; slug: string; locale?: string | null } | null>
+      seo?: {
+        __typename?: 'ComponentCommonSeo'
+        metaTitle?: string | null
+        metaDescription?: string | null
+        keywords?: string | null
       } | null
     }>
-    pageInfo: { total: number }
+    pageInfo: { __typename?: 'Pagination'; total: number }
   } | null
 }
 
 export type EventBranchPlaceEntityFragment = {
+  __typename?: 'Branch'
   documentId: string
   title: string
-  address: string | null
+  address?: string | null
 }
 
 export type BranchPlaceEntityFragment = {
+  __typename?: 'Branch'
   documentId: string
-  body: string | null
+  body?: string | null
   title: string
-  address: string | null
-  phone: string | null
-  email: string | null
-  openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+  address?: string | null
+  phone?: string | null
+  email?: string | null
+  openingHours?: {
+    __typename?: 'ComponentBlocksOpeningHours'
+    days: Array<{
+      __typename?: 'ComponentBlocksOpeningHoursItem'
+      label?: string | null
+      time: string
+    } | null>
+  } | null
 }
 
 export type BranchCardEntityFragment = {
   __typename: 'Branch'
   documentId: string
   title: string
-  address: string | null
+  address?: string | null
   slug: string
-  latitude: number | null
-  longitude: number | null
-  listingImage: {
+  latitude?: number | null
+  longitude?: number | null
+  listingImage?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
-    alternativeText: string | null
-    caption: string | null
+    alternativeText?: string | null
+    caption?: string | null
     size: number
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
   } | null
   subBranches: Array<{
+    __typename?: 'Branch'
     documentId: string
-    body: string | null
+    body?: string | null
     title: string
-    address: string | null
-    phone: string | null
-    email: string | null
-    openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    openingHours?: {
+      __typename?: 'ComponentBlocksOpeningHours'
+      days: Array<{
+        __typename?: 'ComponentBlocksOpeningHoursItem'
+        label?: string | null
+        time: string
+      } | null>
+    } | null
   } | null>
 }
 
 export type BranchEntityFragment = {
   __typename: 'Branch'
-  body: string | null
-  publicTransportInfo: string | null
-  barrierFreeInfo: string | null
-  barrierFreeState: Enum_Branch_Barrierfreestate | null
-  phone: string | null
-  email: string | null
-  locale: string | null
+  body?: string | null
+  publicTransportInfo?: string | null
+  barrierFreeInfo?: string | null
+  barrierFreeState?: Enum_Branch_Barrierfreestate | null
+  phone?: string | null
+  email?: string | null
+  locale?: string | null
   documentId: string
   title: string
-  address: string | null
+  address?: string | null
   slug: string
-  latitude: number | null
-  longitude: number | null
+  latitude?: number | null
+  longitude?: number | null
   medias: Array<{
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
-    alternativeText: string | null
-    caption: string | null
+    alternativeText?: string | null
+    caption?: string | null
     size: number
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
   } | null>
-  openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+  openingHours?: {
+    __typename?: 'ComponentBlocksOpeningHours'
+    days: Array<{
+      __typename?: 'ComponentBlocksOpeningHoursItem'
+      label?: string | null
+      time: string
+    } | null>
+  } | null
   servicePages: Array<{
     __typename: 'Page'
     documentId: string
@@ -6381,73 +6514,98 @@ export type BranchEntityFragment = {
     slug: string
   } | null>
   localizations: Array<{
+    __typename?: 'Branch'
     documentId: string
     title: string
     slug: string
-    locale: string | null
+    locale?: string | null
   } | null>
-  seo: { metaTitle: string | null; metaDescription: string | null; keywords: string | null } | null
-  listingImage: {
+  seo?: {
+    __typename?: 'ComponentCommonSeo'
+    metaTitle?: string | null
+    metaDescription?: string | null
+    keywords?: string | null
+  } | null
+  listingImage?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
-    alternativeText: string | null
-    caption: string | null
+    alternativeText?: string | null
+    caption?: string | null
     size: number
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
   } | null
   subBranches: Array<{
+    __typename?: 'Branch'
     documentId: string
-    body: string | null
+    body?: string | null
     title: string
-    address: string | null
-    phone: string | null
-    email: string | null
-    openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    openingHours?: {
+      __typename?: 'ComponentBlocksOpeningHours'
+      days: Array<{
+        __typename?: 'ComponentBlocksOpeningHoursItem'
+        label?: string | null
+        time: string
+      } | null>
+    } | null
   } | null>
 }
 
 export type BranchStaticPathsQueryVariables = Exact<{
-  locale: unknown
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type BranchStaticPathsQuery = {
-  branches: Array<{ slug: string; locale: string | null } | null>
+  __typename?: 'Query'
+  branches: Array<{ __typename?: 'Branch'; slug: string; locale?: string | null } | null>
 }
 
 export type BranchBySlugQueryVariables = Exact<{
-  slug: string
-  locale: unknown
+  slug: Scalars['String']['input']
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type BranchBySlugQuery = {
+  __typename?: 'Query'
   branches: Array<{
     __typename: 'Branch'
-    body: string | null
-    publicTransportInfo: string | null
-    barrierFreeInfo: string | null
-    barrierFreeState: Enum_Branch_Barrierfreestate | null
-    phone: string | null
-    email: string | null
-    locale: string | null
+    body?: string | null
+    publicTransportInfo?: string | null
+    barrierFreeInfo?: string | null
+    barrierFreeState?: Enum_Branch_Barrierfreestate | null
+    phone?: string | null
+    email?: string | null
+    locale?: string | null
     documentId: string
     title: string
-    address: string | null
+    address?: string | null
     slug: string
-    latitude: number | null
-    longitude: number | null
+    latitude?: number | null
+    longitude?: number | null
     medias: Array<{
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null>
-    openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+    openingHours?: {
+      __typename?: 'ComponentBlocksOpeningHours'
+      days: Array<{
+        __typename?: 'ComponentBlocksOpeningHoursItem'
+        label?: string | null
+        time: string
+      } | null>
+    } | null
     servicePages: Array<{
       __typename: 'Page'
       documentId: string
@@ -6455,34 +6613,45 @@ export type BranchBySlugQuery = {
       slug: string
     } | null>
     localizations: Array<{
+      __typename?: 'Branch'
       documentId: string
       title: string
       slug: string
-      locale: string | null
+      locale?: string | null
     } | null>
-    seo: {
-      metaTitle: string | null
-      metaDescription: string | null
-      keywords: string | null
+    seo?: {
+      __typename?: 'ComponentCommonSeo'
+      metaTitle?: string | null
+      metaDescription?: string | null
+      keywords?: string | null
     } | null
-    listingImage: {
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
     subBranches: Array<{
+      __typename?: 'Branch'
       documentId: string
-      body: string | null
+      body?: string | null
       title: string
-      address: string | null
-      phone: string | null
-      email: string | null
-      openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+      address?: string | null
+      phone?: string | null
+      email?: string | null
+      openingHours?: {
+        __typename?: 'ComponentBlocksOpeningHours'
+        days: Array<{
+          __typename?: 'ComponentBlocksOpeningHoursItem'
+          label?: string | null
+          time: string
+        } | null>
+      } | null
     } | null>
   } | null>
 }
@@ -6492,51 +6661,54 @@ export type DisclosureEntityFragment = {
   documentId: string
   slug: string
   title: string
-  description: string | null
-  addedAt: unknown
+  description?: string | null
+  addedAt: string
   type: Enum_Disclosure_Type
-  dateFrom: unknown
-  dateTo: unknown
-  idNumber: string | null
-  amount: number | null
-  contractor: string | null
-  grantProvider: string | null
-  grantYear: string | null
+  dateFrom?: string | null
+  dateTo?: string | null
+  idNumber?: string | null
+  amount?: number | null
+  contractor?: string | null
+  grantProvider?: string | null
+  grantYear?: string | null
   file: Array<{
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
     size: number
-    ext: string | null
+    ext?: string | null
   } | null>
 }
 
 export type DisclosureBySlugQueryVariables = Exact<{
-  slug: string
+  slug: Scalars['String']['input']
 }>
 
 export type DisclosureBySlugQuery = {
+  __typename?: 'Query'
   disclosures: Array<{
     __typename: 'Disclosure'
     documentId: string
     slug: string
     title: string
-    description: string | null
-    addedAt: unknown
+    description?: string | null
+    addedAt: string
     type: Enum_Disclosure_Type
-    dateFrom: unknown
-    dateTo: unknown
-    idNumber: string | null
-    amount: number | null
-    contractor: string | null
-    grantProvider: string | null
-    grantYear: string | null
+    dateFrom?: string | null
+    dateTo?: string | null
+    idNumber?: string | null
+    amount?: number | null
+    contractor?: string | null
+    grantProvider?: string | null
+    grantYear?: string | null
     file: Array<{
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
       size: number
-      ext: string | null
+      ext?: string | null
     } | null>
   } | null>
 }
@@ -6546,99 +6718,117 @@ export type EventCardEntityFragment = {
   documentId: string
   slug: string
   title: string
-  description: string | null
-  createdAt: unknown
-  updatedAt: unknown
-  publishedAt: unknown
-  locale: string | null
-  dateFrom: unknown
-  dateTo: unknown
-  price: number | null
-  eventCategory: {
+  description?: string | null
+  createdAt?: string | null
+  updatedAt?: string | null
+  publishedAt?: string | null
+  locale?: string | null
+  dateFrom?: string | null
+  dateTo?: string | null
+  price?: number | null
+  eventCategory?: {
+    __typename?: 'EventCategory'
     documentId: string
-    title: string | null
-    createdAt: unknown
-    updatedAt: unknown
+    title?: string | null
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null
-  branch: { documentId: string; title: string; address: string | null } | null
+  branch?: {
+    __typename?: 'Branch'
+    documentId: string
+    title: string
+    address?: string | null
+  } | null
   eventTags: Array<{
+    __typename?: 'EventTag'
     documentId: string
-    title: string | null
-    slug: string | null
-    createdAt: unknown
-    publishedAt: unknown
-    updatedAt: unknown
+    title?: string | null
+    slug?: string | null
+    createdAt?: string | null
+    publishedAt?: string | null
+    updatedAt?: string | null
   } | null>
-  listingImage: {
+  listingImage?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
-    alternativeText: string | null
-    caption: string | null
+    alternativeText?: string | null
+    caption?: string | null
     size: number
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
   } | null
-  coverImage: {
+  coverImage?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
-    alternativeText: string | null
-    caption: string | null
+    alternativeText?: string | null
+    caption?: string | null
     size: number
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
   } | null
 }
 
 export type EventEntityFragment = {
   __typename: 'Event'
-  promoted: boolean | null
-  showForm: boolean | null
+  promoted?: boolean | null
+  showForm?: boolean | null
   documentId: string
   slug: string
   title: string
-  description: string | null
-  createdAt: unknown
-  updatedAt: unknown
-  publishedAt: unknown
-  locale: string | null
-  dateFrom: unknown
-  dateTo: unknown
-  price: number | null
-  guests: Array<{
+  description?: string | null
+  createdAt?: string | null
+  updatedAt?: string | null
+  publishedAt?: string | null
+  locale?: string | null
+  dateFrom?: string | null
+  dateTo?: string | null
+  price?: number | null
+  guests?: Array<{
+    __typename?: 'ComponentGuestsGuest'
     id: string
-    name: string | null
-    surname: string | null
-    avatar: {
+    name?: string | null
+    surname?: string | null
+    avatar?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null> | null
-  assets: {
+  assets?: {
+    __typename?: 'ComponentSectionsAssets'
     id: string
-    title: string | null
+    title?: string | null
     assets: Array<{
       __typename: 'Asset'
       documentId: string
       title: string
       slug: string
-      description: string | null
-      createdAt: unknown
-      publishedAt: unknown
-      assetCategory: { documentId: string; label: string; slug: string } | null
+      description?: string | null
+      createdAt?: string | null
+      publishedAt?: string | null
+      assetCategory?: {
+        __typename?: 'AssetCategory'
+        documentId: string
+        label: string
+        slug: string
+      } | null
       file: Array<{
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
         size: number
-        ext: string | null
+        ext?: string | null
       } | null>
     } | null>
     disclosures: Array<{
@@ -6646,158 +6836,195 @@ export type EventEntityFragment = {
       documentId: string
       slug: string
       title: string
-      description: string | null
-      addedAt: unknown
+      description?: string | null
+      addedAt: string
       type: Enum_Disclosure_Type
-      dateFrom: unknown
-      dateTo: unknown
-      idNumber: string | null
-      amount: number | null
-      contractor: string | null
-      grantProvider: string | null
-      grantYear: string | null
+      dateFrom?: string | null
+      dateTo?: string | null
+      idNumber?: string | null
+      amount?: number | null
+      contractor?: string | null
+      grantProvider?: string | null
+      grantYear?: string | null
       file: Array<{
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
         size: number
-        ext: string | null
+        ext?: string | null
       } | null>
     } | null>
   } | null
   gallery: Array<{
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
-    alternativeText: string | null
-    caption: string | null
+    alternativeText?: string | null
+    caption?: string | null
     size: number
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
   } | null>
-  localizations: Array<{ slug: string; locale: string | null } | null>
-  seo: { metaTitle: string | null; metaDescription: string | null; keywords: string | null } | null
-  eventCategory: {
-    documentId: string
-    title: string | null
-    createdAt: unknown
-    updatedAt: unknown
+  localizations: Array<{ __typename?: 'Event'; slug: string; locale?: string | null } | null>
+  seo?: {
+    __typename?: 'ComponentCommonSeo'
+    metaTitle?: string | null
+    metaDescription?: string | null
+    keywords?: string | null
   } | null
-  branch: { documentId: string; title: string; address: string | null } | null
+  eventCategory?: {
+    __typename?: 'EventCategory'
+    documentId: string
+    title?: string | null
+    createdAt?: string | null
+    updatedAt?: string | null
+  } | null
+  branch?: {
+    __typename?: 'Branch'
+    documentId: string
+    title: string
+    address?: string | null
+  } | null
   eventTags: Array<{
+    __typename?: 'EventTag'
     documentId: string
-    title: string | null
-    slug: string | null
-    createdAt: unknown
-    publishedAt: unknown
-    updatedAt: unknown
+    title?: string | null
+    slug?: string | null
+    createdAt?: string | null
+    publishedAt?: string | null
+    updatedAt?: string | null
   } | null>
-  listingImage: {
+  listingImage?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
-    alternativeText: string | null
-    caption: string | null
+    alternativeText?: string | null
+    caption?: string | null
     size: number
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
   } | null
-  coverImage: {
+  coverImage?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
-    alternativeText: string | null
-    caption: string | null
+    alternativeText?: string | null
+    caption?: string | null
     size: number
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
   } | null
 }
 
 export type EventPropertiesQueryVariables = Exact<{
-  locale: unknown
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type EventPropertiesQuery = {
+  __typename?: 'Query'
   eventCategories: Array<{
+    __typename?: 'EventCategory'
     documentId: string
-    title: string | null
-    createdAt: unknown
-    updatedAt: unknown
+    title?: string | null
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null>
   branches: Array<{
+    __typename?: 'Branch'
     documentId: string
-    body: string | null
+    body?: string | null
     title: string
-    address: string | null
-    phone: string | null
-    email: string | null
-    openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    openingHours?: {
+      __typename?: 'ComponentBlocksOpeningHours'
+      days: Array<{
+        __typename?: 'ComponentBlocksOpeningHoursItem'
+        label?: string | null
+        time: string
+      } | null>
+    } | null
   } | null>
   eventTags: Array<{
+    __typename?: 'EventTag'
     documentId: string
-    title: string | null
-    slug: string | null
-    createdAt: unknown
-    publishedAt: unknown
-    updatedAt: unknown
+    title?: string | null
+    slug?: string | null
+    createdAt?: string | null
+    publishedAt?: string | null
+    updatedAt?: string | null
   } | null>
 }
 
 export type EventBySlugQueryVariables = Exact<{
-  slug: string
-  locale: unknown
+  slug: Scalars['String']['input']
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type EventBySlugQuery = {
+  __typename?: 'Query'
   events: Array<{
     __typename: 'Event'
-    promoted: boolean | null
-    showForm: boolean | null
+    promoted?: boolean | null
+    showForm?: boolean | null
     documentId: string
     slug: string
     title: string
-    description: string | null
-    createdAt: unknown
-    updatedAt: unknown
-    publishedAt: unknown
-    locale: string | null
-    dateFrom: unknown
-    dateTo: unknown
-    price: number | null
-    guests: Array<{
+    description?: string | null
+    createdAt?: string | null
+    updatedAt?: string | null
+    publishedAt?: string | null
+    locale?: string | null
+    dateFrom?: string | null
+    dateTo?: string | null
+    price?: number | null
+    guests?: Array<{
+      __typename?: 'ComponentGuestsGuest'
       id: string
-      name: string | null
-      surname: string | null
-      avatar: {
+      name?: string | null
+      surname?: string | null
+      avatar?: {
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
-        alternativeText: string | null
-        caption: string | null
+        alternativeText?: string | null
+        caption?: string | null
         size: number
-        width: number | null
-        height: number | null
+        width?: number | null
+        height?: number | null
       } | null
     } | null> | null
-    assets: {
+    assets?: {
+      __typename?: 'ComponentSectionsAssets'
       id: string
-      title: string | null
+      title?: string | null
       assets: Array<{
         __typename: 'Asset'
         documentId: string
         title: string
         slug: string
-        description: string | null
-        createdAt: unknown
-        publishedAt: unknown
-        assetCategory: { documentId: string; label: string; slug: string } | null
+        description?: string | null
+        createdAt?: string | null
+        publishedAt?: string | null
+        assetCategory?: {
+          __typename?: 'AssetCategory'
+          documentId: string
+          label: string
+          slug: string
+        } | null
         file: Array<{
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
           size: number
-          ext: string | null
+          ext?: string | null
         } | null>
       } | null>
       disclosures: Array<{
@@ -6805,212 +7032,267 @@ export type EventBySlugQuery = {
         documentId: string
         slug: string
         title: string
-        description: string | null
-        addedAt: unknown
+        description?: string | null
+        addedAt: string
         type: Enum_Disclosure_Type
-        dateFrom: unknown
-        dateTo: unknown
-        idNumber: string | null
-        amount: number | null
-        contractor: string | null
-        grantProvider: string | null
-        grantYear: string | null
+        dateFrom?: string | null
+        dateTo?: string | null
+        idNumber?: string | null
+        amount?: number | null
+        contractor?: string | null
+        grantProvider?: string | null
+        grantYear?: string | null
         file: Array<{
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
           size: number
-          ext: string | null
+          ext?: string | null
         } | null>
       } | null>
     } | null
     gallery: Array<{
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null>
-    localizations: Array<{ slug: string; locale: string | null } | null>
-    seo: {
-      metaTitle: string | null
-      metaDescription: string | null
-      keywords: string | null
+    localizations: Array<{ __typename?: 'Event'; slug: string; locale?: string | null } | null>
+    seo?: {
+      __typename?: 'ComponentCommonSeo'
+      metaTitle?: string | null
+      metaDescription?: string | null
+      keywords?: string | null
     } | null
-    eventCategory: {
+    eventCategory?: {
+      __typename?: 'EventCategory'
       documentId: string
-      title: string | null
-      createdAt: unknown
-      updatedAt: unknown
+      title?: string | null
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
-    branch: { documentId: string; title: string; address: string | null } | null
+    branch?: {
+      __typename?: 'Branch'
+      documentId: string
+      title: string
+      address?: string | null
+    } | null
     eventTags: Array<{
+      __typename?: 'EventTag'
       documentId: string
-      title: string | null
-      slug: string | null
-      createdAt: unknown
-      publishedAt: unknown
-      updatedAt: unknown
+      title?: string | null
+      slug?: string | null
+      createdAt?: string | null
+      publishedAt?: string | null
+      updatedAt?: string | null
     } | null>
-    listingImage: {
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
-    coverImage: {
+    coverImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null>
 }
 
 export type EventStaticPathsQueryVariables = Exact<{
-  locale: unknown
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type EventStaticPathsQuery = {
-  events: Array<{ slug: string; locale: string | null } | null>
+  __typename?: 'Query'
+  events: Array<{ __typename?: 'Event'; slug: string; locale?: string | null } | null>
 }
 
-export type SectionLinkPageEntityFragment = { documentId: string; slug: string; title: string }
+export type SectionLinkPageEntityFragment = {
+  __typename?: 'Page'
+  documentId: string
+  slug: string
+  title: string
+}
 
-export type SectionLinkBranchEntityFragment = { documentId: string; slug: string; title: string }
+export type SectionLinkBranchEntityFragment = {
+  __typename?: 'Branch'
+  documentId: string
+  slug: string
+  title: string
+}
 
 export type MenuSectionFragment = {
+  __typename?: 'ComponentMenuSections'
   id: string
-  sectionTitle: string | null
-  sectionColumnSpan: number | null
-  sectionPage: {
+  sectionTitle?: string | null
+  sectionColumnSpan?: number | null
+  sectionPage?: {
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null
-  sectionLinks: Array<{
+  sectionLinks?: Array<{
+    __typename?: 'ComponentMenuSectionLinks'
     id: string
-    sectionLinkTitle: string | null
-    sectionLinkPage: { documentId: string; slug: string; title: string } | null
-    sectionLinkBranch: { documentId: string; slug: string; title: string } | null
+    sectionLinkTitle?: string | null
+    sectionLinkPage?: {
+      __typename?: 'Page'
+      documentId: string
+      slug: string
+      title: string
+    } | null
+    sectionLinkBranch?: {
+      __typename?: 'Branch'
+      documentId: string
+      slug: string
+      title: string
+    } | null
   } | null> | null
 }
 
 export type MenuEntityFragment = {
+  __typename?: 'Menu'
   documentId: string
-  menuTitle: string | null
-  menuTotalColumns: number | null
-  order: number | null
-  createdAt: unknown
-  updatedAt: unknown
-  menuSections: Array<{
+  menuTitle?: string | null
+  menuTotalColumns?: number | null
+  order?: number | null
+  createdAt?: string | null
+  updatedAt?: string | null
+  menuSections?: Array<{
+    __typename?: 'ComponentMenuSections'
     id: string
-    sectionTitle: string | null
-    sectionColumnSpan: number | null
-    sectionPage: {
+    sectionTitle?: string | null
+    sectionColumnSpan?: number | null
+    sectionPage?: {
       __typename: 'Page'
       documentId: string
       title: string
       slug: string
-      createdAt: unknown
-      updatedAt: unknown
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
-    sectionLinks: Array<{
+    sectionLinks?: Array<{
+      __typename?: 'ComponentMenuSectionLinks'
       id: string
-      sectionLinkTitle: string | null
-      sectionLinkPage: { documentId: string; slug: string; title: string } | null
-      sectionLinkBranch: { documentId: string; slug: string; title: string } | null
+      sectionLinkTitle?: string | null
+      sectionLinkPage?: {
+        __typename?: 'Page'
+        documentId: string
+        slug: string
+        title: string
+      } | null
+      sectionLinkBranch?: {
+        __typename?: 'Branch'
+        documentId: string
+        slug: string
+        title: string
+      } | null
     } | null> | null
   } | null> | null
 }
 
 export type ComponentFooterFooterColumnFragment = {
+  __typename?: 'ComponentFooterFooterColumn'
   id: string
-  title: string | null
-  footerLink: Array<{
+  title?: string | null
+  footerLink?: Array<{
+    __typename?: 'ComponentFooterFooterLink'
     id: string
-    title: string | null
-    otherSite: string | null
-    redirectTo: {
+    title?: string | null
+    otherSite?: string | null
+    redirectTo?: {
       __typename: 'Page'
       documentId: string
       title: string
       slug: string
-      createdAt: unknown
-      updatedAt: unknown
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
   } | null> | null
 }
 
 export type FooterEntityFragment = {
+  __typename?: 'Footer'
   documentId: string
-  footerColumns: Array<{
+  footerColumns?: Array<{
+    __typename?: 'ComponentFooterFooterColumn'
     id: string
-    title: string | null
-    footerLink: Array<{
+    title?: string | null
+    footerLink?: Array<{
+      __typename?: 'ComponentFooterFooterLink'
       id: string
-      title: string | null
-      otherSite: string | null
-      redirectTo: {
+      title?: string | null
+      otherSite?: string | null
+      redirectTo?: {
         __typename: 'Page'
         documentId: string
         title: string
         slug: string
-        createdAt: unknown
-        updatedAt: unknown
+        createdAt?: string | null
+        updatedAt?: string | null
       } | null
     } | null> | null
   } | null> | null
-  siteMapLink: {
+  siteMapLink?: {
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null
-  privacyLink: {
+  privacyLink?: {
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null
 }
 
 export type GeneralEntityFragment = {
-  eventsPage: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
-  newBooksPage: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
-  privacyTermsAndConditionsPage: {
+  __typename?: 'General'
+  eventsPage?: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
+  newBooksPage?: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
+  privacyTermsAndConditionsPage?: {
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
   } | null
-  openingHoursPage: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
-  noticesPage: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
+  openingHoursPage?: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
+  noticesPage?: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
 }
 
 export type NavigationQueryVariables = Exact<{
-  locale: unknown
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type NavigationQuery = {
+  __typename?: 'Query'
   topLevelPages: Array<{
     __typename: 'Page'
     documentId: string
@@ -7044,35 +7326,49 @@ export type NavigationQuery = {
 }
 
 export type GeneralQueryVariables = Exact<{
-  eventsFrom: unknown
-  locale: unknown
+  eventsFrom: Scalars['DateTime']['input']
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type GeneralQuery = {
+  __typename?: 'Query'
   menus: Array<{
+    __typename?: 'Menu'
     documentId: string
-    menuTitle: string | null
-    menuTotalColumns: number | null
-    order: number | null
-    createdAt: unknown
-    updatedAt: unknown
-    menuSections: Array<{
+    menuTitle?: string | null
+    menuTotalColumns?: number | null
+    order?: number | null
+    createdAt?: string | null
+    updatedAt?: string | null
+    menuSections?: Array<{
+      __typename?: 'ComponentMenuSections'
       id: string
-      sectionTitle: string | null
-      sectionColumnSpan: number | null
-      sectionPage: {
+      sectionTitle?: string | null
+      sectionColumnSpan?: number | null
+      sectionPage?: {
         __typename: 'Page'
         documentId: string
         title: string
         slug: string
-        createdAt: unknown
-        updatedAt: unknown
+        createdAt?: string | null
+        updatedAt?: string | null
       } | null
-      sectionLinks: Array<{
+      sectionLinks?: Array<{
+        __typename?: 'ComponentMenuSectionLinks'
         id: string
-        sectionLinkTitle: string | null
-        sectionLinkPage: { documentId: string; slug: string; title: string } | null
-        sectionLinkBranch: { documentId: string; slug: string; title: string } | null
+        sectionLinkTitle?: string | null
+        sectionLinkPage?: {
+          __typename?: 'Page'
+          documentId: string
+          slug: string
+          title: string
+        } | null
+        sectionLinkBranch?: {
+          __typename?: 'Branch'
+          documentId: string
+          slug: string
+          title: string
+        } | null
       } | null> | null
     } | null> | null
   } | null>
@@ -7081,238 +7377,290 @@ export type GeneralQuery = {
     documentId: string
     slug: string
     title: string
-    description: string | null
-    createdAt: unknown
-    updatedAt: unknown
-    publishedAt: unknown
-    locale: string | null
-    dateFrom: unknown
-    dateTo: unknown
-    price: number | null
-    eventCategory: {
+    description?: string | null
+    createdAt?: string | null
+    updatedAt?: string | null
+    publishedAt?: string | null
+    locale?: string | null
+    dateFrom?: string | null
+    dateTo?: string | null
+    price?: number | null
+    eventCategory?: {
+      __typename?: 'EventCategory'
       documentId: string
-      title: string | null
-      createdAt: unknown
-      updatedAt: unknown
+      title?: string | null
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
-    branch: { documentId: string; title: string; address: string | null } | null
+    branch?: {
+      __typename?: 'Branch'
+      documentId: string
+      title: string
+      address?: string | null
+    } | null
     eventTags: Array<{
+      __typename?: 'EventTag'
       documentId: string
-      title: string | null
-      slug: string | null
-      createdAt: unknown
-      publishedAt: unknown
-      updatedAt: unknown
+      title?: string | null
+      slug?: string | null
+      createdAt?: string | null
+      publishedAt?: string | null
+      updatedAt?: string | null
     } | null>
-    listingImage: {
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
-    coverImage: {
+    coverImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null>
-  footer: {
+  footer?: {
+    __typename?: 'Footer'
     documentId: string
-    footerColumns: Array<{
+    footerColumns?: Array<{
+      __typename?: 'ComponentFooterFooterColumn'
       id: string
-      title: string | null
-      footerLink: Array<{
+      title?: string | null
+      footerLink?: Array<{
+        __typename?: 'ComponentFooterFooterLink'
         id: string
-        title: string | null
-        otherSite: string | null
-        redirectTo: {
+        title?: string | null
+        otherSite?: string | null
+        redirectTo?: {
           __typename: 'Page'
           documentId: string
           title: string
           slug: string
-          createdAt: unknown
-          updatedAt: unknown
+          createdAt?: string | null
+          updatedAt?: string | null
         } | null
       } | null> | null
     } | null> | null
-    siteMapLink: {
+    siteMapLink?: {
       __typename: 'Page'
       documentId: string
       title: string
       slug: string
-      createdAt: unknown
-      updatedAt: unknown
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
-    privacyLink: {
+    privacyLink?: {
       __typename: 'Page'
       documentId: string
       title: string
       slug: string
-      createdAt: unknown
-      updatedAt: unknown
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
   } | null
-  general: {
-    eventsPage: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
-    newBooksPage: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
-    privacyTermsAndConditionsPage: {
+  general?: {
+    __typename?: 'General'
+    eventsPage?: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
+    newBooksPage?: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
+    privacyTermsAndConditionsPage?: {
       __typename: 'Page'
       documentId: string
       title: string
       slug: string
     } | null
-    openingHoursPage: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
-    noticesPage: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
+    openingHoursPage?: {
+      __typename: 'Page'
+      documentId: string
+      title: string
+      slug: string
+    } | null
+    noticesPage?: { __typename: 'Page'; documentId: string; title: string; slug: string } | null
   } | null
 }
 
 export type HomepageFaqSectionFragment = {
+  __typename?: 'ComponentHomepageFaqSection'
   id: string
-  title: string | null
-  redirectTo: {
+  title?: string | null
+  redirectTo?: {
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null
-  faqs: Array<{ id: string; question: string | null; answer: string | null } | null> | null
-  ctas: Array<{
+  faqs?: Array<{
+    __typename?: 'ComponentHomepageFaqs'
     id: string
-    title: string | null
-    ctaRedirectTo: {
+    question?: string | null
+    answer?: string | null
+  } | null> | null
+  ctas?: Array<{
+    __typename?: 'ComponentHomepageCta'
+    id: string
+    title?: string | null
+    ctaRedirectTo?: {
       __typename: 'Page'
       documentId: string
       title: string
       slug: string
-      createdAt: unknown
-      updatedAt: unknown
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
   } | null> | null
 }
 
 export type HomepageMapSectionFragment = {
+  __typename?: 'ComponentSectionsMap'
   id: string
-  title: string | null
-  branches: Array<{
-    branch: {
+  title?: string | null
+  branches?: Array<{
+    __typename?: 'ComponentBlocksBranchItem'
+    branch?: {
       __typename: 'Branch'
       documentId: string
       title: string
-      address: string | null
+      address?: string | null
       slug: string
-      latitude: number | null
-      longitude: number | null
-      listingImage: {
+      latitude?: number | null
+      longitude?: number | null
+      listingImage?: {
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
-        alternativeText: string | null
-        caption: string | null
+        alternativeText?: string | null
+        caption?: string | null
         size: number
-        width: number | null
-        height: number | null
+        width?: number | null
+        height?: number | null
       } | null
       subBranches: Array<{
+        __typename?: 'Branch'
         documentId: string
-        body: string | null
+        body?: string | null
         title: string
-        address: string | null
-        phone: string | null
-        email: string | null
-        openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+        address?: string | null
+        phone?: string | null
+        email?: string | null
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
+        } | null
       } | null>
     } | null
   } | null> | null
 }
 
 export type HomepageRegistrationInfoFragment = {
+  __typename?: 'ComponentHomepageRegistrationInfo'
   id: string
-  title: string | null
-  description: string | null
-  redirectTo: {
+  title?: string | null
+  description?: string | null
+  redirectTo?: {
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null
-  registrationBenefits: Array<{ id: string; benefit: string | null } | null> | null
+  registrationBenefits?: Array<{
+    __typename?: 'ComponentHomepageBenefits'
+    id: string
+    benefit?: string | null
+  } | null> | null
 }
 
 export type HomepageNewsSectionFragment = {
+  __typename?: 'ComponentHomepageNewsSection'
   id: string
-  title: string | null
-  redirectTo: {
+  title?: string | null
+  redirectTo?: {
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null
 }
 
 export type HomepagePromotedContentSectionFragment = {
+  __typename?: 'ComponentHomepagePromotedContent'
   id: string
   events: Array<{
     __typename: 'Event'
     documentId: string
     slug: string
     title: string
-    description: string | null
-    createdAt: unknown
-    updatedAt: unknown
-    publishedAt: unknown
-    locale: string | null
-    dateFrom: unknown
-    dateTo: unknown
-    price: number | null
-    eventCategory: {
+    description?: string | null
+    createdAt?: string | null
+    updatedAt?: string | null
+    publishedAt?: string | null
+    locale?: string | null
+    dateFrom?: string | null
+    dateTo?: string | null
+    price?: number | null
+    eventCategory?: {
+      __typename?: 'EventCategory'
       documentId: string
-      title: string | null
-      createdAt: unknown
-      updatedAt: unknown
+      title?: string | null
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
-    branch: { documentId: string; title: string; address: string | null } | null
+    branch?: {
+      __typename?: 'Branch'
+      documentId: string
+      title: string
+      address?: string | null
+    } | null
     eventTags: Array<{
+      __typename?: 'EventTag'
       documentId: string
-      title: string | null
-      slug: string | null
-      createdAt: unknown
-      publishedAt: unknown
-      updatedAt: unknown
+      title?: string | null
+      slug?: string | null
+      createdAt?: string | null
+      publishedAt?: string | null
+      updatedAt?: string | null
     } | null>
-    listingImage: {
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
-    coverImage: {
+    coverImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null>
   notices: Array<{
@@ -7320,161 +7668,198 @@ export type HomepagePromotedContentSectionFragment = {
     documentId: string
     slug: string
     title: string
-    createdAt: unknown
-    publishedAt: unknown
-    listingImage: {
+    createdAt?: string | null
+    publishedAt?: string | null
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null>
 }
 
 export type HomePageQueryVariables = Exact<{
-  locale: unknown
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type HomePageQuery = {
-  homePage: {
-    faqSection: {
+  __typename?: 'Query'
+  homePage?: {
+    __typename?: 'HomePage'
+    faqSection?: {
+      __typename?: 'ComponentHomepageFaqSection'
       id: string
-      title: string | null
-      redirectTo: {
+      title?: string | null
+      redirectTo?: {
         __typename: 'Page'
         documentId: string
         title: string
         slug: string
-        createdAt: unknown
-        updatedAt: unknown
+        createdAt?: string | null
+        updatedAt?: string | null
       } | null
-      faqs: Array<{ id: string; question: string | null; answer: string | null } | null> | null
-      ctas: Array<{
+      faqs?: Array<{
+        __typename?: 'ComponentHomepageFaqs'
         id: string
-        title: string | null
-        ctaRedirectTo: {
+        question?: string | null
+        answer?: string | null
+      } | null> | null
+      ctas?: Array<{
+        __typename?: 'ComponentHomepageCta'
+        id: string
+        title?: string | null
+        ctaRedirectTo?: {
           __typename: 'Page'
           documentId: string
           title: string
           slug: string
-          createdAt: unknown
-          updatedAt: unknown
+          createdAt?: string | null
+          updatedAt?: string | null
         } | null
       } | null> | null
     } | null
-    registrationInfoSection: {
+    registrationInfoSection?: {
+      __typename?: 'ComponentHomepageRegistrationInfo'
       id: string
-      title: string | null
-      description: string | null
-      redirectTo: {
+      title?: string | null
+      description?: string | null
+      redirectTo?: {
         __typename: 'Page'
         documentId: string
         title: string
         slug: string
-        createdAt: unknown
-        updatedAt: unknown
+        createdAt?: string | null
+        updatedAt?: string | null
       } | null
-      registrationBenefits: Array<{ id: string; benefit: string | null } | null> | null
+      registrationBenefits?: Array<{
+        __typename?: 'ComponentHomepageBenefits'
+        id: string
+        benefit?: string | null
+      } | null> | null
     } | null
-    newsSection: {
+    newsSection?: {
+      __typename?: 'ComponentHomepageNewsSection'
       id: string
-      title: string | null
-      redirectTo: {
+      title?: string | null
+      redirectTo?: {
         __typename: 'Page'
         documentId: string
         title: string
         slug: string
-        createdAt: unknown
-        updatedAt: unknown
+        createdAt?: string | null
+        updatedAt?: string | null
       } | null
     } | null
-    mapSection: {
+    mapSection?: {
+      __typename?: 'ComponentSectionsMap'
       id: string
-      title: string | null
-      branches: Array<{
-        branch: {
+      title?: string | null
+      branches?: Array<{
+        __typename?: 'ComponentBlocksBranchItem'
+        branch?: {
           __typename: 'Branch'
           documentId: string
           title: string
-          address: string | null
+          address?: string | null
           slug: string
-          latitude: number | null
-          longitude: number | null
-          listingImage: {
+          latitude?: number | null
+          longitude?: number | null
+          listingImage?: {
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
-            alternativeText: string | null
-            caption: string | null
+            alternativeText?: string | null
+            caption?: string | null
             size: number
-            width: number | null
-            height: number | null
+            width?: number | null
+            height?: number | null
           } | null
           subBranches: Array<{
+            __typename?: 'Branch'
             documentId: string
-            body: string | null
+            body?: string | null
             title: string
-            address: string | null
-            phone: string | null
-            email: string | null
-            openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+            address?: string | null
+            phone?: string | null
+            email?: string | null
+            openingHours?: {
+              __typename?: 'ComponentBlocksOpeningHours'
+              days: Array<{
+                __typename?: 'ComponentBlocksOpeningHoursItem'
+                label?: string | null
+                time: string
+              } | null>
+            } | null
           } | null>
         } | null
       } | null> | null
     } | null
-    promotedContent: {
+    promotedContent?: {
+      __typename?: 'ComponentHomepagePromotedContent'
       id: string
       events: Array<{
         __typename: 'Event'
         documentId: string
         slug: string
         title: string
-        description: string | null
-        createdAt: unknown
-        updatedAt: unknown
-        publishedAt: unknown
-        locale: string | null
-        dateFrom: unknown
-        dateTo: unknown
-        price: number | null
-        eventCategory: {
+        description?: string | null
+        createdAt?: string | null
+        updatedAt?: string | null
+        publishedAt?: string | null
+        locale?: string | null
+        dateFrom?: string | null
+        dateTo?: string | null
+        price?: number | null
+        eventCategory?: {
+          __typename?: 'EventCategory'
           documentId: string
-          title: string | null
-          createdAt: unknown
-          updatedAt: unknown
+          title?: string | null
+          createdAt?: string | null
+          updatedAt?: string | null
         } | null
-        branch: { documentId: string; title: string; address: string | null } | null
+        branch?: {
+          __typename?: 'Branch'
+          documentId: string
+          title: string
+          address?: string | null
+        } | null
         eventTags: Array<{
+          __typename?: 'EventTag'
           documentId: string
-          title: string | null
-          slug: string | null
-          createdAt: unknown
-          publishedAt: unknown
-          updatedAt: unknown
+          title?: string | null
+          slug?: string | null
+          createdAt?: string | null
+          publishedAt?: string | null
+          updatedAt?: string | null
         } | null>
-        listingImage: {
+        listingImage?: {
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
-          alternativeText: string | null
-          caption: string | null
+          alternativeText?: string | null
+          caption?: string | null
           size: number
-          width: number | null
-          height: number | null
+          width?: number | null
+          height?: number | null
         } | null
-        coverImage: {
+        coverImage?: {
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
-          alternativeText: string | null
-          caption: string | null
+          alternativeText?: string | null
+          caption?: string | null
           size: number
-          width: number | null
-          height: number | null
+          width?: number | null
+          height?: number | null
         } | null
       } | null>
       notices: Array<{
@@ -7482,25 +7867,27 @@ export type HomePageQuery = {
         documentId: string
         slug: string
         title: string
-        createdAt: unknown
-        publishedAt: unknown
-        listingImage: {
+        createdAt?: string | null
+        publishedAt?: string | null
+        listingImage?: {
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
-          alternativeText: string | null
-          caption: string | null
+          alternativeText?: string | null
+          caption?: string | null
           size: number
-          width: number | null
-          height: number | null
+          width?: number | null
+          height?: number | null
         } | null
       } | null>
     } | null
-    localizations: Array<{ locale: string | null } | null>
-    seo: {
-      metaTitle: string | null
-      metaDescription: string | null
-      keywords: string | null
+    localizations: Array<{ __typename?: 'HomePage'; locale?: string | null } | null>
+    seo?: {
+      __typename?: 'ComponentCommonSeo'
+      metaTitle?: string | null
+      metaDescription?: string | null
+      keywords?: string | null
     } | null
   } | null
   promotedNews: Array<{
@@ -7508,17 +7895,18 @@ export type HomePageQuery = {
     documentId: string
     slug: string
     title: string
-    createdAt: unknown
-    publishedAt: unknown
-    listingImage: {
+    createdAt?: string | null
+    publishedAt?: string | null
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null>
   promotedEvents: Array<{
@@ -7526,67 +7914,82 @@ export type HomePageQuery = {
     documentId: string
     slug: string
     title: string
-    description: string | null
-    createdAt: unknown
-    updatedAt: unknown
-    publishedAt: unknown
-    locale: string | null
-    dateFrom: unknown
-    dateTo: unknown
-    price: number | null
-    eventCategory: {
+    description?: string | null
+    createdAt?: string | null
+    updatedAt?: string | null
+    publishedAt?: string | null
+    locale?: string | null
+    dateFrom?: string | null
+    dateTo?: string | null
+    price?: number | null
+    eventCategory?: {
+      __typename?: 'EventCategory'
       documentId: string
-      title: string | null
-      createdAt: unknown
-      updatedAt: unknown
+      title?: string | null
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
-    branch: { documentId: string; title: string; address: string | null } | null
+    branch?: {
+      __typename?: 'Branch'
+      documentId: string
+      title: string
+      address?: string | null
+    } | null
     eventTags: Array<{
+      __typename?: 'EventTag'
       documentId: string
-      title: string | null
-      slug: string | null
-      createdAt: unknown
-      publishedAt: unknown
-      updatedAt: unknown
+      title?: string | null
+      slug?: string | null
+      createdAt?: string | null
+      publishedAt?: string | null
+      updatedAt?: string | null
     } | null>
-    listingImage: {
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
-    coverImage: {
+    coverImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null>
-  bookTags: Array<{ documentId: string; displayName: string | null; slug: string | null } | null>
+  bookTags: Array<{
+    __typename?: 'BookTag'
+    documentId: string
+    displayName?: string | null
+    slug?: string | null
+  } | null>
   latestNotices: Array<{
     __typename: 'Notice'
     documentId: string
     slug: string
     title: string
-    createdAt: unknown
-    publishedAt: unknown
-    listingImage: {
+    createdAt?: string | null
+    publishedAt?: string | null
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null>
 }
@@ -7594,39 +7997,47 @@ export type HomePageQuery = {
 export type NoticeEntityFragment = {
   __typename: 'Notice'
   documentId: string
-  publishedAt: unknown
+  publishedAt?: string | null
   slug: string
   title: string
-  body: string | null
-  promoted: boolean | null
-  listingImage: {
+  body?: string | null
+  promoted?: boolean | null
+  listingImage?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
-    alternativeText: string | null
-    caption: string | null
+    alternativeText?: string | null
+    caption?: string | null
     size: number
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
   } | null
-  assets: {
+  assets?: {
+    __typename?: 'ComponentSectionsAssets'
     id: string
-    title: string | null
+    title?: string | null
     assets: Array<{
       __typename: 'Asset'
       documentId: string
       title: string
       slug: string
-      description: string | null
-      createdAt: unknown
-      publishedAt: unknown
-      assetCategory: { documentId: string; label: string; slug: string } | null
+      description?: string | null
+      createdAt?: string | null
+      publishedAt?: string | null
+      assetCategory?: {
+        __typename?: 'AssetCategory'
+        documentId: string
+        label: string
+        slug: string
+      } | null
       file: Array<{
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
         size: number
-        ext: string | null
+        ext?: string | null
       } | null>
     } | null>
     disclosures: Array<{
@@ -7634,27 +8045,33 @@ export type NoticeEntityFragment = {
       documentId: string
       slug: string
       title: string
-      description: string | null
-      addedAt: unknown
+      description?: string | null
+      addedAt: string
       type: Enum_Disclosure_Type
-      dateFrom: unknown
-      dateTo: unknown
-      idNumber: string | null
-      amount: number | null
-      contractor: string | null
-      grantProvider: string | null
-      grantYear: string | null
+      dateFrom?: string | null
+      dateTo?: string | null
+      idNumber?: string | null
+      amount?: number | null
+      contractor?: string | null
+      grantProvider?: string | null
+      grantYear?: string | null
       file: Array<{
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
         size: number
-        ext: string | null
+        ext?: string | null
       } | null>
     } | null>
   } | null
-  seo: { metaTitle: string | null; metaDescription: string | null; keywords: string | null } | null
-  localizations: Array<{ slug: string; locale: string | null } | null>
+  seo?: {
+    __typename?: 'ComponentCommonSeo'
+    metaTitle?: string | null
+    metaDescription?: string | null
+    keywords?: string | null
+  } | null
+  localizations: Array<{ __typename?: 'Notice'; slug: string; locale?: string | null } | null>
 }
 
 export type NoticeListingEntityFragment = {
@@ -7662,146 +8079,169 @@ export type NoticeListingEntityFragment = {
   documentId: string
   slug: string
   title: string
-  createdAt: unknown
-  publishedAt: unknown
-  listingImage: {
+  createdAt?: string | null
+  publishedAt?: string | null
+  listingImage?: {
+    __typename?: 'UploadFile'
     documentId: string
     url: string
     name: string
-    alternativeText: string | null
-    caption: string | null
+    alternativeText?: string | null
+    caption?: string | null
     size: number
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
   } | null
 }
 
 export type LatestNoticesQueryFragment = {
+  __typename?: 'Query'
   latestNotices: Array<{
     __typename: 'Notice'
     documentId: string
     slug: string
     title: string
-    createdAt: unknown
-    publishedAt: unknown
-    listingImage: {
+    createdAt?: string | null
+    publishedAt?: string | null
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null>
 }
 
 export type LatestNoticesQueryVariables = Exact<{
-  locale: unknown
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type LatestNoticesQuery = {
+  __typename?: 'Query'
   latestNotices: Array<{
     __typename: 'Notice'
     documentId: string
     slug: string
     title: string
-    createdAt: unknown
-    publishedAt: unknown
-    listingImage: {
+    createdAt?: string | null
+    publishedAt?: string | null
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null>
 }
 
 export type NoticesStaticPathsQueryVariables = Exact<{
-  locale: unknown
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type NoticesStaticPathsQuery = {
-  notices: Array<{ documentId: string; slug: string; locale: string | null } | null>
+  __typename?: 'Query'
+  notices: Array<{
+    __typename?: 'Notice'
+    documentId: string
+    slug: string
+    locale?: string | null
+  } | null>
 }
 
 export type NoticesQueryVariables = Exact<{
-  locale: unknown
-  limit?: number | null | undefined
-  start?: number | null | undefined
+  locale: Scalars['I18NLocaleCode']['input']
+  limit?: InputMaybe<Scalars['Int']['input']>
+  start?: InputMaybe<Scalars['Int']['input']>
 }>
 
 export type NoticesQuery = {
-  notices_connection: {
+  __typename?: 'Query'
+  notices_connection?: {
+    __typename?: 'NoticeEntityResponseCollection'
     nodes: Array<{
       __typename: 'Notice'
       documentId: string
       slug: string
       title: string
-      createdAt: unknown
-      publishedAt: unknown
-      listingImage: {
+      createdAt?: string | null
+      publishedAt?: string | null
+      listingImage?: {
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
-        alternativeText: string | null
-        caption: string | null
+        alternativeText?: string | null
+        caption?: string | null
         size: number
-        width: number | null
-        height: number | null
+        width?: number | null
+        height?: number | null
       } | null
     }>
-    pageInfo: { total: number }
+    pageInfo: { __typename?: 'Pagination'; total: number }
   } | null
 }
 
 export type NoticeBySlugQueryVariables = Exact<{
-  slug: string
-  locale: unknown
+  slug: Scalars['String']['input']
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type NoticeBySlugQuery = {
+  __typename?: 'Query'
   notices: Array<{
     __typename: 'Notice'
     documentId: string
-    publishedAt: unknown
+    publishedAt?: string | null
     slug: string
     title: string
-    body: string | null
-    promoted: boolean | null
-    listingImage: {
+    body?: string | null
+    promoted?: boolean | null
+    listingImage?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
-    assets: {
+    assets?: {
+      __typename?: 'ComponentSectionsAssets'
       id: string
-      title: string | null
+      title?: string | null
       assets: Array<{
         __typename: 'Asset'
         documentId: string
         title: string
         slug: string
-        description: string | null
-        createdAt: unknown
-        publishedAt: unknown
-        assetCategory: { documentId: string; label: string; slug: string } | null
+        description?: string | null
+        createdAt?: string | null
+        publishedAt?: string | null
+        assetCategory?: {
+          __typename?: 'AssetCategory'
+          documentId: string
+          label: string
+          slug: string
+        } | null
         file: Array<{
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
           size: number
-          ext: string | null
+          ext?: string | null
         } | null>
       } | null>
       disclosures: Array<{
@@ -7809,44 +8249,47 @@ export type NoticeBySlugQuery = {
         documentId: string
         slug: string
         title: string
-        description: string | null
-        addedAt: unknown
+        description?: string | null
+        addedAt: string
         type: Enum_Disclosure_Type
-        dateFrom: unknown
-        dateTo: unknown
-        idNumber: string | null
-        amount: number | null
-        contractor: string | null
-        grantProvider: string | null
-        grantYear: string | null
+        dateFrom?: string | null
+        dateTo?: string | null
+        idNumber?: string | null
+        amount?: number | null
+        contractor?: string | null
+        grantProvider?: string | null
+        grantYear?: string | null
         file: Array<{
+          __typename?: 'UploadFile'
           documentId: string
           url: string
           name: string
           size: number
-          ext: string | null
+          ext?: string | null
         } | null>
       } | null>
     } | null
-    seo: {
-      metaTitle: string | null
-      metaDescription: string | null
-      keywords: string | null
+    seo?: {
+      __typename?: 'ComponentCommonSeo'
+      metaTitle?: string | null
+      metaDescription?: string | null
+      keywords?: string | null
     } | null
-    localizations: Array<{ slug: string; locale: string | null } | null>
+    localizations: Array<{ __typename?: 'Notice'; slug: string; locale?: string | null } | null>
   } | null>
 }
 
 export type OpeningHoursChangeNoticesQueryVariables = Exact<{
-  locale: unknown
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type OpeningHoursChangeNoticesQuery = {
+  __typename?: 'Query'
   notices: Array<{
     __typename: 'Notice'
     documentId: string
     slug: string
-    locale: string | null
+    locale?: string | null
     title: string
   } | null>
 }
@@ -7854,41 +8297,53 @@ export type OpeningHoursChangeNoticesQuery = {
 type PageSections_ComponentSectionsAccordion_Fragment = {
   __typename: 'ComponentSectionsAccordion'
   id: string
-  title: string | null
-  flatText: Array<{ category: string | null; content: string | null } | null> | null
-  tableRows: Array<{
-    id: string
-    accordionCategory: string | null
-    tableCategory: string | null
-    label: string | null
-    value: string | null
-    valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+  title?: string | null
+  flatText?: Array<{
+    __typename?: 'ComponentAccordionItemsFlatText'
+    category?: string | null
+    content?: string | null
   } | null> | null
-  forms: Array<{
-    category: string | null
-    type: Enum_Componentaccordionitemsform_Type | null
+  tableRows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
+    id: string
+    accordionCategory?: string | null
+    tableCategory?: string | null
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+  } | null> | null
+  forms?: Array<{
+    __typename?: 'ComponentAccordionItemsForm'
+    category?: string | null
+    type?: Enum_Componentaccordionitemsform_Type | null
   } | null> | null
 }
 
 type PageSections_ComponentSectionsAssets_Fragment = {
   __typename: 'ComponentSectionsAssets'
   id: string
-  title: string | null
+  title?: string | null
   assets: Array<{
     __typename: 'Asset'
     documentId: string
     title: string
     slug: string
-    description: string | null
-    createdAt: unknown
-    publishedAt: unknown
-    assetCategory: { documentId: string; label: string; slug: string } | null
+    description?: string | null
+    createdAt?: string | null
+    publishedAt?: string | null
+    assetCategory?: {
+      __typename?: 'AssetCategory'
+      documentId: string
+      label: string
+      slug: string
+    } | null
     file: Array<{
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
       size: number
-      ext: string | null
+      ext?: string | null
     } | null>
   } | null>
   disclosures: Array<{
@@ -7896,22 +8351,23 @@ type PageSections_ComponentSectionsAssets_Fragment = {
     documentId: string
     slug: string
     title: string
-    description: string | null
-    addedAt: unknown
+    description?: string | null
+    addedAt: string
     type: Enum_Disclosure_Type
-    dateFrom: unknown
-    dateTo: unknown
-    idNumber: string | null
-    amount: number | null
-    contractor: string | null
-    grantProvider: string | null
-    grantYear: string | null
+    dateFrom?: string | null
+    dateTo?: string | null
+    idNumber?: string | null
+    amount?: number | null
+    contractor?: string | null
+    grantProvider?: string | null
+    grantYear?: string | null
     file: Array<{
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
       size: number
-      ext: string | null
+      ext?: string | null
     } | null>
   } | null>
 }
@@ -7927,14 +8383,14 @@ type PageSections_ComponentSectionsBlogPostsListing_Fragment = {
 type PageSections_ComponentSectionsCherrypickSection_Fragment = {
   __typename: 'ComponentSectionsCherrypickSection'
   id: string
-  title: string | null
+  title?: string | null
   pages: Array<{
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null>
 }
 
@@ -7947,8 +8403,8 @@ type PageSections_ComponentSectionsChildrenListing_Fragment = {
 type PageSections_ComponentSectionsCta_Fragment = {
   __typename: 'ComponentSectionsCta'
   id: string
-  title: string | null
-  url: string | null
+  title?: string | null
+  url?: string | null
 }
 
 type PageSections_ComponentSectionsDivider_Fragment = {
@@ -7963,46 +8419,53 @@ type PageSections_ComponentSectionsEventsListing_Fragment = {
 type PageSections_ComponentSectionsFaq_Fragment = {
   __typename: 'ComponentSectionsFaq'
   id: string
-  title: string | null
-  ctaButton: string | null
-  questions: Array<{ id: string; label: string | null; content: string | null } | null> | null
-  redirectTo: {
+  title?: string | null
+  ctaButton?: string | null
+  questions?: Array<{
+    __typename?: 'ComponentBlocksAccordionItem'
+    id: string
+    label?: string | null
+    content?: string | null
+  } | null> | null
+  redirectTo?: {
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null
 }
 
 type PageSections_ComponentSectionsFlatText_Fragment = {
   __typename: 'ComponentSectionsFlatText'
   id: string
-  content: string | null
+  content?: string | null
 }
 
 type PageSections_ComponentSectionsForm_Fragment = {
   __typename: 'ComponentSectionsForm'
   id: string
-  type: Enum_Componentsectionsform_Type | null
+  type?: Enum_Componentsectionsform_Type | null
 }
 
 type PageSections_ComponentSectionsGallery_Fragment = {
   __typename: 'ComponentSectionsGallery'
   id: string
-  Gallery: Array<{
+  Gallery?: Array<{
+    __typename?: 'ComponentLocalityPartsGalleryParts'
     id: string
-    Description: string | null
-    Photo: {
+    Description?: string | null
+    Photo?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null> | null
 }
@@ -8010,34 +8473,44 @@ type PageSections_ComponentSectionsGallery_Fragment = {
 type PageSections_ComponentSectionsMap_Fragment = {
   __typename: 'ComponentSectionsMap'
   id: string
-  title: string | null
-  branches: Array<{
-    branch: {
+  title?: string | null
+  branches?: Array<{
+    __typename?: 'ComponentBlocksBranchItem'
+    branch?: {
       __typename: 'Branch'
       documentId: string
       title: string
-      address: string | null
+      address?: string | null
       slug: string
-      latitude: number | null
-      longitude: number | null
-      listingImage: {
+      latitude?: number | null
+      longitude?: number | null
+      listingImage?: {
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
-        alternativeText: string | null
-        caption: string | null
+        alternativeText?: string | null
+        caption?: string | null
         size: number
-        width: number | null
-        height: number | null
+        width?: number | null
+        height?: number | null
       } | null
       subBranches: Array<{
+        __typename?: 'Branch'
         documentId: string
-        body: string | null
+        body?: string | null
         title: string
-        address: string | null
-        phone: string | null
-        email: string | null
-        openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+        address?: string | null
+        phone?: string | null
+        email?: string | null
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
+        } | null
       } | null>
     } | null
   } | null> | null
@@ -8054,11 +8527,19 @@ type PageSections_ComponentSectionsNewsListing_Fragment = {
 type PageSections_ComponentSectionsOpeningHoursSection_Fragment = {
   __typename: 'ComponentSectionsOpeningHoursSection'
   id: string
-  title: string | null
+  title?: string | null
   branchList: Array<{
+    __typename?: 'Branch'
     documentId: string
     title: string
-    openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+    openingHours?: {
+      __typename?: 'ComponentBlocksOpeningHours'
+      days: Array<{
+        __typename?: 'ComponentBlocksOpeningHoursItem'
+        label?: string | null
+        time: string
+      } | null>
+    } | null
   } | null>
 }
 
@@ -8067,64 +8548,75 @@ type PageSections_ComponentSectionsPartners_Fragment = { __typename: 'ComponentS
 type PageSections_ComponentSectionsRental_Fragment = {
   __typename: 'ComponentSectionsRental'
   id: string
-  title: string | null
-  text: string | null
-  branches: Array<{
-    branch: {
+  title?: string | null
+  text?: string | null
+  branches?: Array<{
+    __typename?: 'ComponentBlocksBranchItemWithPage'
+    branch?: {
       __typename: 'Branch'
       documentId: string
       title: string
-      address: string | null
+      address?: string | null
       slug: string
-      latitude: number | null
-      longitude: number | null
-      listingImage: {
+      latitude?: number | null
+      longitude?: number | null
+      listingImage?: {
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
-        alternativeText: string | null
-        caption: string | null
+        alternativeText?: string | null
+        caption?: string | null
         size: number
-        width: number | null
-        height: number | null
+        width?: number | null
+        height?: number | null
       } | null
       subBranches: Array<{
+        __typename?: 'Branch'
         documentId: string
-        body: string | null
+        body?: string | null
         title: string
-        address: string | null
-        phone: string | null
-        email: string | null
-        openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+        address?: string | null
+        phone?: string | null
+        email?: string | null
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
+        } | null
       } | null>
     } | null
-    page: { documentId: string; slug: string } | null
+    page?: { __typename?: 'Page'; documentId: string; slug: string } | null
   } | null> | null
 }
 
 type PageSections_ComponentSectionsSiteUsefullness_Fragment = {
   __typename: 'ComponentSectionsSiteUsefullness'
   id: string
-  title: string | null
-  thankYouMessage: string | null
+  title?: string | null
+  thankYouMessage?: string | null
 }
 
 type PageSections_ComponentSectionsSubpages_Fragment = {
   __typename: 'ComponentSectionsSubpages'
   id: string
-  title: string | null
-  subpages: Array<{
+  title?: string | null
+  subpages?: Array<{
+    __typename?: 'ComponentBlocksSubpage'
     id: string
-    title: string | null
-    description: string | null
-    url: string | null
-    page: {
+    title?: string | null
+    description?: string | null
+    url?: string | null
+    page?: {
       __typename: 'Page'
       documentId: string
       title: string
       slug: string
-      createdAt: unknown
-      updatedAt: unknown
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
   } | null> | null
 }
@@ -8132,21 +8624,22 @@ type PageSections_ComponentSectionsSubpages_Fragment = {
 type PageSections_ComponentSectionsTable_Fragment = {
   __typename: 'ComponentSectionsTable'
   id: string
-  primaryTitle: string | null
-  secondaryTitle: string | null
-  rows: Array<{
+  primaryTitle?: string | null
+  secondaryTitle?: string | null
+  rows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
     id: string
-    label: string | null
-    value: string | null
-    valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
   } | null> | null
 }
 
 type PageSections_ComponentSectionsVideo_Fragment = {
   __typename: 'ComponentSectionsVideo'
   id: string
-  youtube_url: string | null
-  media: { url: string } | null
+  youtube_url?: string | null
+  media?: { __typename?: 'UploadFile'; url: string } | null
 }
 
 type PageSections_Error_Fragment = { __typename: 'Error' }
@@ -8182,63 +8675,76 @@ export type PageEntityFragment = {
   documentId: string
   slug: string
   title: string
-  createdAt: unknown
-  updatedAt: unknown
-  publishedAt: unknown
-  layout: Enum_Page_Layout | null
-  perex: string | null
-  locale: string | null
-  listingImage: {
+  createdAt?: string | null
+  updatedAt?: string | null
+  publishedAt?: string | null
+  layout?: Enum_Page_Layout | null
+  perex?: string | null
+  locale?: string | null
+  listingImage?: {
+    __typename?: 'UploadFile'
     name: string
-    width: number | null
-    height: number | null
+    width?: number | null
+    height?: number | null
     url: string
-    createdAt: unknown
+    createdAt?: string | null
     hash: string
     mime: string
     provider: string
     size: number
-    alternativeText: string | null
-    updatedAt: unknown
+    alternativeText?: string | null
+    updatedAt?: string | null
   } | null
-  sections: Array<
+  sections?: Array<
     | {
         __typename: 'ComponentSectionsAccordion'
         id: string
-        title: string | null
-        flatText: Array<{ category: string | null; content: string | null } | null> | null
-        tableRows: Array<{
-          id: string
-          accordionCategory: string | null
-          tableCategory: string | null
-          label: string | null
-          value: string | null
-          valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+        title?: string | null
+        flatText?: Array<{
+          __typename?: 'ComponentAccordionItemsFlatText'
+          category?: string | null
+          content?: string | null
         } | null> | null
-        forms: Array<{
-          category: string | null
-          type: Enum_Componentaccordionitemsform_Type | null
+        tableRows?: Array<{
+          __typename?: 'ComponentAccordionItemsTableRow'
+          id: string
+          accordionCategory?: string | null
+          tableCategory?: string | null
+          label?: string | null
+          value?: string | null
+          valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+        } | null> | null
+        forms?: Array<{
+          __typename?: 'ComponentAccordionItemsForm'
+          category?: string | null
+          type?: Enum_Componentaccordionitemsform_Type | null
         } | null> | null
       }
     | {
         __typename: 'ComponentSectionsAssets'
         id: string
-        title: string | null
+        title?: string | null
         assets: Array<{
           __typename: 'Asset'
           documentId: string
           title: string
           slug: string
-          description: string | null
-          createdAt: unknown
-          publishedAt: unknown
-          assetCategory: { documentId: string; label: string; slug: string } | null
+          description?: string | null
+          createdAt?: string | null
+          publishedAt?: string | null
+          assetCategory?: {
+            __typename?: 'AssetCategory'
+            documentId: string
+            label: string
+            slug: string
+          } | null
           file: Array<{
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
             size: number
-            ext: string | null
+            ext?: string | null
           } | null>
         } | null>
         disclosures: Array<{
@@ -8246,22 +8752,23 @@ export type PageEntityFragment = {
           documentId: string
           slug: string
           title: string
-          description: string | null
-          addedAt: unknown
+          description?: string | null
+          addedAt: string
           type: Enum_Disclosure_Type
-          dateFrom: unknown
-          dateTo: unknown
-          idNumber: string | null
-          amount: number | null
-          contractor: string | null
-          grantProvider: string | null
-          grantYear: string | null
+          dateFrom?: string | null
+          dateTo?: string | null
+          idNumber?: string | null
+          amount?: number | null
+          contractor?: string | null
+          grantProvider?: string | null
+          grantYear?: string | null
           file: Array<{
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
             size: number
-            ext: string | null
+            ext?: string | null
           } | null>
         } | null>
       }
@@ -8270,14 +8777,14 @@ export type PageEntityFragment = {
     | {
         __typename: 'ComponentSectionsCherrypickSection'
         id: string
-        title: string | null
+        title?: string | null
         pages: Array<{
           __typename: 'Page'
           documentId: string
           title: string
           slug: string
-          createdAt: unknown
-          updatedAt: unknown
+          createdAt?: string | null
+          updatedAt?: string | null
         } | null>
       }
     | {
@@ -8285,79 +8792,96 @@ export type PageEntityFragment = {
         id: string
         depth: Enum_Componentsectionschildrenlisting_Depth
       }
-    | { __typename: 'ComponentSectionsCta'; id: string; title: string | null; url: string | null }
+    | { __typename: 'ComponentSectionsCta'; id: string; title?: string | null; url?: string | null }
     | { __typename: 'ComponentSectionsDivider'; id: string }
     | { __typename: 'ComponentSectionsEventsListing' }
     | {
         __typename: 'ComponentSectionsFaq'
         id: string
-        title: string | null
-        ctaButton: string | null
-        questions: Array<{ id: string; label: string | null; content: string | null } | null> | null
-        redirectTo: {
+        title?: string | null
+        ctaButton?: string | null
+        questions?: Array<{
+          __typename?: 'ComponentBlocksAccordionItem'
+          id: string
+          label?: string | null
+          content?: string | null
+        } | null> | null
+        redirectTo?: {
           __typename: 'Page'
           documentId: string
           title: string
           slug: string
-          createdAt: unknown
-          updatedAt: unknown
+          createdAt?: string | null
+          updatedAt?: string | null
         } | null
       }
-    | { __typename: 'ComponentSectionsFlatText'; id: string; content: string | null }
+    | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
     | {
         __typename: 'ComponentSectionsForm'
         id: string
-        type: Enum_Componentsectionsform_Type | null
+        type?: Enum_Componentsectionsform_Type | null
       }
     | {
         __typename: 'ComponentSectionsGallery'
         id: string
-        Gallery: Array<{
+        Gallery?: Array<{
+          __typename?: 'ComponentLocalityPartsGalleryParts'
           id: string
-          Description: string | null
-          Photo: {
+          Description?: string | null
+          Photo?: {
+            __typename?: 'UploadFile'
             documentId: string
             url: string
             name: string
-            alternativeText: string | null
-            caption: string | null
+            alternativeText?: string | null
+            caption?: string | null
             size: number
-            width: number | null
-            height: number | null
+            width?: number | null
+            height?: number | null
           } | null
         } | null> | null
       }
     | {
         __typename: 'ComponentSectionsMap'
         id: string
-        title: string | null
-        branches: Array<{
-          branch: {
+        title?: string | null
+        branches?: Array<{
+          __typename?: 'ComponentBlocksBranchItem'
+          branch?: {
             __typename: 'Branch'
             documentId: string
             title: string
-            address: string | null
+            address?: string | null
             slug: string
-            latitude: number | null
-            longitude: number | null
-            listingImage: {
+            latitude?: number | null
+            longitude?: number | null
+            listingImage?: {
+              __typename?: 'UploadFile'
               documentId: string
               url: string
               name: string
-              alternativeText: string | null
-              caption: string | null
+              alternativeText?: string | null
+              caption?: string | null
               size: number
-              width: number | null
-              height: number | null
+              width?: number | null
+              height?: number | null
             } | null
             subBranches: Array<{
+              __typename?: 'Branch'
               documentId: string
-              body: string | null
+              body?: string | null
               title: string
-              address: string | null
-              phone: string | null
-              email: string | null
-              openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+              address?: string | null
+              phone?: string | null
+              email?: string | null
+              openingHours?: {
+                __typename?: 'ComponentBlocksOpeningHours'
+                days: Array<{
+                  __typename?: 'ComponentBlocksOpeningHoursItem'
+                  label?: string | null
+                  time: string
+                } | null>
+              } | null
             } | null>
           } | null
         } | null> | null
@@ -8367,93 +8891,113 @@ export type PageEntityFragment = {
     | {
         __typename: 'ComponentSectionsOpeningHoursSection'
         id: string
-        title: string | null
+        title?: string | null
         branchList: Array<{
+          __typename?: 'Branch'
           documentId: string
           title: string
-          openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+          openingHours?: {
+            __typename?: 'ComponentBlocksOpeningHours'
+            days: Array<{
+              __typename?: 'ComponentBlocksOpeningHoursItem'
+              label?: string | null
+              time: string
+            } | null>
+          } | null
         } | null>
       }
     | { __typename: 'ComponentSectionsPartners' }
     | {
         __typename: 'ComponentSectionsRental'
         id: string
-        title: string | null
-        text: string | null
-        branches: Array<{
-          branch: {
+        title?: string | null
+        text?: string | null
+        branches?: Array<{
+          __typename?: 'ComponentBlocksBranchItemWithPage'
+          branch?: {
             __typename: 'Branch'
             documentId: string
             title: string
-            address: string | null
+            address?: string | null
             slug: string
-            latitude: number | null
-            longitude: number | null
-            listingImage: {
+            latitude?: number | null
+            longitude?: number | null
+            listingImage?: {
+              __typename?: 'UploadFile'
               documentId: string
               url: string
               name: string
-              alternativeText: string | null
-              caption: string | null
+              alternativeText?: string | null
+              caption?: string | null
               size: number
-              width: number | null
-              height: number | null
+              width?: number | null
+              height?: number | null
             } | null
             subBranches: Array<{
+              __typename?: 'Branch'
               documentId: string
-              body: string | null
+              body?: string | null
               title: string
-              address: string | null
-              phone: string | null
-              email: string | null
-              openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+              address?: string | null
+              phone?: string | null
+              email?: string | null
+              openingHours?: {
+                __typename?: 'ComponentBlocksOpeningHours'
+                days: Array<{
+                  __typename?: 'ComponentBlocksOpeningHoursItem'
+                  label?: string | null
+                  time: string
+                } | null>
+              } | null
             } | null>
           } | null
-          page: { documentId: string; slug: string } | null
+          page?: { __typename?: 'Page'; documentId: string; slug: string } | null
         } | null> | null
       }
     | {
         __typename: 'ComponentSectionsSiteUsefullness'
         id: string
-        title: string | null
-        thankYouMessage: string | null
+        title?: string | null
+        thankYouMessage?: string | null
       }
     | {
         __typename: 'ComponentSectionsSubpages'
         id: string
-        title: string | null
-        subpages: Array<{
+        title?: string | null
+        subpages?: Array<{
+          __typename?: 'ComponentBlocksSubpage'
           id: string
-          title: string | null
-          description: string | null
-          url: string | null
-          page: {
+          title?: string | null
+          description?: string | null
+          url?: string | null
+          page?: {
             __typename: 'Page'
             documentId: string
             title: string
             slug: string
-            createdAt: unknown
-            updatedAt: unknown
+            createdAt?: string | null
+            updatedAt?: string | null
           } | null
         } | null> | null
       }
     | {
         __typename: 'ComponentSectionsTable'
         id: string
-        primaryTitle: string | null
-        secondaryTitle: string | null
-        rows: Array<{
+        primaryTitle?: string | null
+        secondaryTitle?: string | null
+        rows?: Array<{
+          __typename?: 'ComponentAccordionItemsTableRow'
           id: string
-          label: string | null
-          value: string | null
-          valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+          label?: string | null
+          value?: string | null
+          valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
         } | null> | null
       }
     | {
         __typename: 'ComponentSectionsVideo'
         id: string
-        youtube_url: string | null
-        media: { url: string } | null
+        youtube_url?: string | null
+        media?: { __typename?: 'UploadFile'; url: string } | null
       }
     | { __typename: 'Error' }
     | null
@@ -8462,9 +9006,14 @@ export type PageEntityFragment = {
     __typename: 'Page'
     documentId: string
     slug: string
-    locale: string | null
+    locale?: string | null
   } | null>
-  seo: { metaTitle: string | null; metaDescription: string | null; keywords: string | null } | null
+  seo?: {
+    __typename?: 'ComponentCommonSeo'
+    metaTitle?: string | null
+    metaDescription?: string | null
+    keywords?: string | null
+  } | null
 }
 
 export type PageWithBaseFieldsEntityFragment = {
@@ -8472,18 +9021,18 @@ export type PageWithBaseFieldsEntityFragment = {
   documentId: string
   title: string
   slug: string
-  createdAt: unknown
-  updatedAt: unknown
+  createdAt?: string | null
+  updatedAt?: string | null
 }
 
 export type PageLocalizationEntityFragment = {
   __typename: 'Page'
   documentId: string
   slug: string
-  locale: string | null
+  locale?: string | null
 }
 
-export type ChildPageFragment = { title: string; slug: string }
+export type ChildPageFragment = { __typename?: 'Page'; title: string; slug: string }
 
 export type PageSlugEntityFragment = {
   __typename: 'Page'
@@ -8524,73 +9073,87 @@ export type PageEntityChildPagesFragment = {
 }
 
 export type PageBySlugQueryVariables = Exact<{
-  slug: string
-  locale: unknown
+  slug: Scalars['String']['input']
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type PageBySlugQuery = {
+  __typename?: 'Query'
   pages: Array<{
     __typename: 'Page'
     documentId: string
     slug: string
     title: string
-    createdAt: unknown
-    updatedAt: unknown
-    publishedAt: unknown
-    layout: Enum_Page_Layout | null
-    perex: string | null
-    locale: string | null
-    listingImage: {
+    createdAt?: string | null
+    updatedAt?: string | null
+    publishedAt?: string | null
+    layout?: Enum_Page_Layout | null
+    perex?: string | null
+    locale?: string | null
+    listingImage?: {
+      __typename?: 'UploadFile'
       name: string
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
       url: string
-      createdAt: unknown
+      createdAt?: string | null
       hash: string
       mime: string
       provider: string
       size: number
-      alternativeText: string | null
-      updatedAt: unknown
+      alternativeText?: string | null
+      updatedAt?: string | null
     } | null
-    sections: Array<
+    sections?: Array<
       | {
           __typename: 'ComponentSectionsAccordion'
           id: string
-          title: string | null
-          flatText: Array<{ category: string | null; content: string | null } | null> | null
-          tableRows: Array<{
-            id: string
-            accordionCategory: string | null
-            tableCategory: string | null
-            label: string | null
-            value: string | null
-            valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+          title?: string | null
+          flatText?: Array<{
+            __typename?: 'ComponentAccordionItemsFlatText'
+            category?: string | null
+            content?: string | null
           } | null> | null
-          forms: Array<{
-            category: string | null
-            type: Enum_Componentaccordionitemsform_Type | null
+          tableRows?: Array<{
+            __typename?: 'ComponentAccordionItemsTableRow'
+            id: string
+            accordionCategory?: string | null
+            tableCategory?: string | null
+            label?: string | null
+            value?: string | null
+            valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+          } | null> | null
+          forms?: Array<{
+            __typename?: 'ComponentAccordionItemsForm'
+            category?: string | null
+            type?: Enum_Componentaccordionitemsform_Type | null
           } | null> | null
         }
       | {
           __typename: 'ComponentSectionsAssets'
           id: string
-          title: string | null
+          title?: string | null
           assets: Array<{
             __typename: 'Asset'
             documentId: string
             title: string
             slug: string
-            description: string | null
-            createdAt: unknown
-            publishedAt: unknown
-            assetCategory: { documentId: string; label: string; slug: string } | null
+            description?: string | null
+            createdAt?: string | null
+            publishedAt?: string | null
+            assetCategory?: {
+              __typename?: 'AssetCategory'
+              documentId: string
+              label: string
+              slug: string
+            } | null
             file: Array<{
+              __typename?: 'UploadFile'
               documentId: string
               url: string
               name: string
               size: number
-              ext: string | null
+              ext?: string | null
             } | null>
           } | null>
           disclosures: Array<{
@@ -8598,22 +9161,23 @@ export type PageBySlugQuery = {
             documentId: string
             slug: string
             title: string
-            description: string | null
-            addedAt: unknown
+            description?: string | null
+            addedAt: string
             type: Enum_Disclosure_Type
-            dateFrom: unknown
-            dateTo: unknown
-            idNumber: string | null
-            amount: number | null
-            contractor: string | null
-            grantProvider: string | null
-            grantYear: string | null
+            dateFrom?: string | null
+            dateTo?: string | null
+            idNumber?: string | null
+            amount?: number | null
+            contractor?: string | null
+            grantProvider?: string | null
+            grantYear?: string | null
             file: Array<{
+              __typename?: 'UploadFile'
               documentId: string
               url: string
               name: string
               size: number
-              ext: string | null
+              ext?: string | null
             } | null>
           } | null>
         }
@@ -8622,14 +9186,14 @@ export type PageBySlugQuery = {
       | {
           __typename: 'ComponentSectionsCherrypickSection'
           id: string
-          title: string | null
+          title?: string | null
           pages: Array<{
             __typename: 'Page'
             documentId: string
             title: string
             slug: string
-            createdAt: unknown
-            updatedAt: unknown
+            createdAt?: string | null
+            updatedAt?: string | null
           } | null>
         }
       | {
@@ -8637,83 +9201,101 @@ export type PageBySlugQuery = {
           id: string
           depth: Enum_Componentsectionschildrenlisting_Depth
         }
-      | { __typename: 'ComponentSectionsCta'; id: string; title: string | null; url: string | null }
+      | {
+          __typename: 'ComponentSectionsCta'
+          id: string
+          title?: string | null
+          url?: string | null
+        }
       | { __typename: 'ComponentSectionsDivider'; id: string }
       | { __typename: 'ComponentSectionsEventsListing' }
       | {
           __typename: 'ComponentSectionsFaq'
           id: string
-          title: string | null
-          ctaButton: string | null
-          questions: Array<{
+          title?: string | null
+          ctaButton?: string | null
+          questions?: Array<{
+            __typename?: 'ComponentBlocksAccordionItem'
             id: string
-            label: string | null
-            content: string | null
+            label?: string | null
+            content?: string | null
           } | null> | null
-          redirectTo: {
+          redirectTo?: {
             __typename: 'Page'
             documentId: string
             title: string
             slug: string
-            createdAt: unknown
-            updatedAt: unknown
+            createdAt?: string | null
+            updatedAt?: string | null
           } | null
         }
-      | { __typename: 'ComponentSectionsFlatText'; id: string; content: string | null }
+      | { __typename: 'ComponentSectionsFlatText'; id: string; content?: string | null }
       | {
           __typename: 'ComponentSectionsForm'
           id: string
-          type: Enum_Componentsectionsform_Type | null
+          type?: Enum_Componentsectionsform_Type | null
         }
       | {
           __typename: 'ComponentSectionsGallery'
           id: string
-          Gallery: Array<{
+          Gallery?: Array<{
+            __typename?: 'ComponentLocalityPartsGalleryParts'
             id: string
-            Description: string | null
-            Photo: {
+            Description?: string | null
+            Photo?: {
+              __typename?: 'UploadFile'
               documentId: string
               url: string
               name: string
-              alternativeText: string | null
-              caption: string | null
+              alternativeText?: string | null
+              caption?: string | null
               size: number
-              width: number | null
-              height: number | null
+              width?: number | null
+              height?: number | null
             } | null
           } | null> | null
         }
       | {
           __typename: 'ComponentSectionsMap'
           id: string
-          title: string | null
-          branches: Array<{
-            branch: {
+          title?: string | null
+          branches?: Array<{
+            __typename?: 'ComponentBlocksBranchItem'
+            branch?: {
               __typename: 'Branch'
               documentId: string
               title: string
-              address: string | null
+              address?: string | null
               slug: string
-              latitude: number | null
-              longitude: number | null
-              listingImage: {
+              latitude?: number | null
+              longitude?: number | null
+              listingImage?: {
+                __typename?: 'UploadFile'
                 documentId: string
                 url: string
                 name: string
-                alternativeText: string | null
-                caption: string | null
+                alternativeText?: string | null
+                caption?: string | null
                 size: number
-                width: number | null
-                height: number | null
+                width?: number | null
+                height?: number | null
               } | null
               subBranches: Array<{
+                __typename?: 'Branch'
                 documentId: string
-                body: string | null
+                body?: string | null
                 title: string
-                address: string | null
-                phone: string | null
-                email: string | null
-                openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+                address?: string | null
+                phone?: string | null
+                email?: string | null
+                openingHours?: {
+                  __typename?: 'ComponentBlocksOpeningHours'
+                  days: Array<{
+                    __typename?: 'ComponentBlocksOpeningHoursItem'
+                    label?: string | null
+                    time: string
+                  } | null>
+                } | null
               } | null>
             } | null
           } | null> | null
@@ -8723,93 +9305,113 @@ export type PageBySlugQuery = {
       | {
           __typename: 'ComponentSectionsOpeningHoursSection'
           id: string
-          title: string | null
+          title?: string | null
           branchList: Array<{
+            __typename?: 'Branch'
             documentId: string
             title: string
-            openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+            openingHours?: {
+              __typename?: 'ComponentBlocksOpeningHours'
+              days: Array<{
+                __typename?: 'ComponentBlocksOpeningHoursItem'
+                label?: string | null
+                time: string
+              } | null>
+            } | null
           } | null>
         }
       | { __typename: 'ComponentSectionsPartners' }
       | {
           __typename: 'ComponentSectionsRental'
           id: string
-          title: string | null
-          text: string | null
-          branches: Array<{
-            branch: {
+          title?: string | null
+          text?: string | null
+          branches?: Array<{
+            __typename?: 'ComponentBlocksBranchItemWithPage'
+            branch?: {
               __typename: 'Branch'
               documentId: string
               title: string
-              address: string | null
+              address?: string | null
               slug: string
-              latitude: number | null
-              longitude: number | null
-              listingImage: {
+              latitude?: number | null
+              longitude?: number | null
+              listingImage?: {
+                __typename?: 'UploadFile'
                 documentId: string
                 url: string
                 name: string
-                alternativeText: string | null
-                caption: string | null
+                alternativeText?: string | null
+                caption?: string | null
                 size: number
-                width: number | null
-                height: number | null
+                width?: number | null
+                height?: number | null
               } | null
               subBranches: Array<{
+                __typename?: 'Branch'
                 documentId: string
-                body: string | null
+                body?: string | null
                 title: string
-                address: string | null
-                phone: string | null
-                email: string | null
-                openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+                address?: string | null
+                phone?: string | null
+                email?: string | null
+                openingHours?: {
+                  __typename?: 'ComponentBlocksOpeningHours'
+                  days: Array<{
+                    __typename?: 'ComponentBlocksOpeningHoursItem'
+                    label?: string | null
+                    time: string
+                  } | null>
+                } | null
               } | null>
             } | null
-            page: { documentId: string; slug: string } | null
+            page?: { __typename?: 'Page'; documentId: string; slug: string } | null
           } | null> | null
         }
       | {
           __typename: 'ComponentSectionsSiteUsefullness'
           id: string
-          title: string | null
-          thankYouMessage: string | null
+          title?: string | null
+          thankYouMessage?: string | null
         }
       | {
           __typename: 'ComponentSectionsSubpages'
           id: string
-          title: string | null
-          subpages: Array<{
+          title?: string | null
+          subpages?: Array<{
+            __typename?: 'ComponentBlocksSubpage'
             id: string
-            title: string | null
-            description: string | null
-            url: string | null
-            page: {
+            title?: string | null
+            description?: string | null
+            url?: string | null
+            page?: {
               __typename: 'Page'
               documentId: string
               title: string
               slug: string
-              createdAt: unknown
-              updatedAt: unknown
+              createdAt?: string | null
+              updatedAt?: string | null
             } | null
           } | null> | null
         }
       | {
           __typename: 'ComponentSectionsTable'
           id: string
-          primaryTitle: string | null
-          secondaryTitle: string | null
-          rows: Array<{
+          primaryTitle?: string | null
+          secondaryTitle?: string | null
+          rows?: Array<{
+            __typename?: 'ComponentAccordionItemsTableRow'
             id: string
-            label: string | null
-            value: string | null
-            valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+            label?: string | null
+            value?: string | null
+            valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
           } | null> | null
         }
       | {
           __typename: 'ComponentSectionsVideo'
           id: string
-          youtube_url: string | null
-          media: { url: string } | null
+          youtube_url?: string | null
+          media?: { __typename?: 'UploadFile'; url: string } | null
         }
       | { __typename: 'Error' }
       | null
@@ -8818,136 +9420,192 @@ export type PageBySlugQuery = {
       __typename: 'Page'
       documentId: string
       slug: string
-      locale: string | null
+      locale?: string | null
     } | null>
-    seo: {
-      metaTitle: string | null
-      metaDescription: string | null
-      keywords: string | null
+    seo?: {
+      __typename?: 'ComponentCommonSeo'
+      metaTitle?: string | null
+      metaDescription?: string | null
+      keywords?: string | null
     } | null
   } | null>
 }
 
 export type SortedPartnersQueryVariables = Exact<{
-  locale: unknown
+  locale: Scalars['I18NLocaleCode']['input']
 }>
 
 export type SortedPartnersQuery = {
+  __typename?: 'Query'
   featuredPartners: Array<{
+    __typename?: 'Partner'
     documentId: string
-    title: string | null
-    url: string | null
-    priority: number | null
-    featured: boolean | null
-    logo: { documentId: string; url: string; alternativeText: string | null } | null
+    title?: string | null
+    url?: string | null
+    priority?: number | null
+    featured?: boolean | null
+    logo?: {
+      __typename?: 'UploadFile'
+      documentId: string
+      url: string
+      alternativeText?: string | null
+    } | null
   } | null>
   notFeaturedPartners: Array<{
+    __typename?: 'Partner'
     documentId: string
-    title: string | null
-    url: string | null
-    priority: number | null
-    featured: boolean | null
-    logo: { documentId: string; url: string; alternativeText: string | null } | null
+    title?: string | null
+    url?: string | null
+    priority?: number | null
+    featured?: boolean | null
+    logo?: {
+      __typename?: 'UploadFile'
+      documentId: string
+      url: string
+      alternativeText?: string | null
+    } | null
   } | null>
 }
 
 export type PartnerEntityFragment = {
+  __typename?: 'Partner'
   documentId: string
-  title: string | null
-  url: string | null
-  priority: number | null
-  featured: boolean | null
-  logo: { documentId: string; url: string; alternativeText: string | null } | null
+  title?: string | null
+  url?: string | null
+  priority?: number | null
+  featured?: boolean | null
+  logo?: {
+    __typename?: 'UploadFile'
+    documentId: string
+    url: string
+    alternativeText?: string | null
+  } | null
 }
 
 export type SeoFragment = {
-  metaTitle: string | null
-  metaDescription: string | null
-  keywords: string | null
+  __typename?: 'ComponentCommonSeo'
+  metaTitle?: string | null
+  metaDescription?: string | null
+  keywords?: string | null
 }
 
 export type UploadFileEntityFragment = {
+  __typename?: 'UploadFile'
   documentId: string
   url: string
   name: string
   size: number
-  ext: string | null
+  ext?: string | null
 }
 
 export type UploadImageEntityFragment = {
+  __typename?: 'UploadFile'
   documentId: string
   url: string
   name: string
-  alternativeText: string | null
-  caption: string | null
+  alternativeText?: string | null
+  caption?: string | null
   size: number
-  width: number | null
-  height: number | null
+  width?: number | null
+  height?: number | null
 }
 
 export type UploadImageFragment = {
+  __typename?: 'UploadFile'
   url: string
   name: string
-  alternativeText: string | null
-  caption: string | null
+  alternativeText?: string | null
+  caption?: string | null
   size: number
-  width: number | null
-  height: number | null
+  width?: number | null
+  height?: number | null
 }
 
 export type EventTagsFragment = {
-  title: string | null
-  slug: string | null
-  createdAt: unknown
-  publishedAt: unknown
-  updatedAt: unknown
+  __typename?: 'EventTag'
+  title?: string | null
+  slug?: string | null
+  createdAt?: string | null
+  publishedAt?: string | null
+  updatedAt?: string | null
 }
 
-export type EventCategoryFragment = { title: string | null; createdAt: unknown; updatedAt: unknown }
+export type EventCategoryFragment = {
+  __typename?: 'EventCategory'
+  title?: string | null
+  createdAt?: string | null
+  updatedAt?: string | null
+}
 
-export type EventBranchFragment = { title: string; address: string | null }
+export type EventBranchFragment = { __typename?: 'Branch'; title: string; address?: string | null }
 
 export type BranchFragment = {
-  body: string | null
+  __typename?: 'Branch'
+  body?: string | null
   title: string
-  address: string | null
-  phone: string | null
-  email: string | null
-  openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+  address?: string | null
+  phone?: string | null
+  email?: string | null
+  openingHours?: {
+    __typename?: 'ComponentBlocksOpeningHours'
+    days: Array<{
+      __typename?: 'ComponentBlocksOpeningHoursItem'
+      label?: string | null
+      time: string
+    } | null>
+  } | null
 }
 
 export type BookTagEntityFragment = {
+  __typename?: 'BookTag'
   documentId: string
-  displayName: string | null
-  slug: string | null
+  displayName?: string | null
+  slug?: string | null
 }
 
 export type OpeningHoursDaysFragment = {
-  days: Array<{ label: string | null; time: string } | null>
+  __typename?: 'ComponentBlocksOpeningHours'
+  days: Array<{
+    __typename?: 'ComponentBlocksOpeningHoursItem'
+    label?: string | null
+    time: string
+  } | null>
 }
 
-export type FlatTextFragment = { category: string | null; content: string | null }
+export type FlatTextFragment = {
+  __typename?: 'ComponentAccordionItemsFlatText'
+  category?: string | null
+  content?: string | null
+}
 
 export type TableRowFragment = {
-  accordionCategory: string | null
-  tableCategory: string | null
-  label: string | null
-  value: string | null
-  valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+  __typename?: 'ComponentAccordionItemsTableRow'
+  accordionCategory?: string | null
+  tableCategory?: string | null
+  label?: string | null
+  value?: string | null
+  valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
 }
 
 export type TableRowWithIdFragment = {
+  __typename?: 'ComponentAccordionItemsTableRow'
   id: string
-  accordionCategory: string | null
-  tableCategory: string | null
-  label: string | null
-  value: string | null
-  valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+  accordionCategory?: string | null
+  tableCategory?: string | null
+  label?: string | null
+  value?: string | null
+  valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
 }
 
-export type AccordionItemFragment = { id: string; label: string | null; content: string | null }
+export type AccordionItemFragment = {
+  __typename?: 'ComponentBlocksAccordionItem'
+  id: string
+  label?: string | null
+  content?: string | null
+}
 
 export type PaginationFragment = {
+  __typename?: 'Pagination'
   total: number
   page: number
   pageSize: number
@@ -8955,23 +9613,30 @@ export type PaginationFragment = {
 }
 
 export type AssetsSectionFragment = {
+  __typename?: 'ComponentSectionsAssets'
   id: string
-  title: string | null
+  title?: string | null
   assets: Array<{
     __typename: 'Asset'
     documentId: string
     title: string
     slug: string
-    description: string | null
-    createdAt: unknown
-    publishedAt: unknown
-    assetCategory: { documentId: string; label: string; slug: string } | null
+    description?: string | null
+    createdAt?: string | null
+    publishedAt?: string | null
+    assetCategory?: {
+      __typename?: 'AssetCategory'
+      documentId: string
+      label: string
+      slug: string
+    } | null
     file: Array<{
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
       size: number
-      ext: string | null
+      ext?: string | null
     } | null>
   } | null>
   disclosures: Array<{
@@ -8979,223 +9644,292 @@ export type AssetsSectionFragment = {
     documentId: string
     slug: string
     title: string
-    description: string | null
-    addedAt: unknown
+    description?: string | null
+    addedAt: string
     type: Enum_Disclosure_Type
-    dateFrom: unknown
-    dateTo: unknown
-    idNumber: string | null
-    amount: number | null
-    contractor: string | null
-    grantProvider: string | null
-    grantYear: string | null
+    dateFrom?: string | null
+    dateTo?: string | null
+    idNumber?: string | null
+    amount?: number | null
+    contractor?: string | null
+    grantProvider?: string | null
+    grantYear?: string | null
     file: Array<{
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
       size: number
-      ext: string | null
+      ext?: string | null
     } | null>
   } | null>
 }
 
 export type GallerySectionFragment = {
+  __typename?: 'ComponentSectionsGallery'
   id: string
-  Gallery: Array<{
+  Gallery?: Array<{
+    __typename?: 'ComponentLocalityPartsGalleryParts'
     id: string
-    Description: string | null
-    Photo: {
+    Description?: string | null
+    Photo?: {
+      __typename?: 'UploadFile'
       documentId: string
       url: string
       name: string
-      alternativeText: string | null
-      caption: string | null
+      alternativeText?: string | null
+      caption?: string | null
       size: number
-      width: number | null
-      height: number | null
+      width?: number | null
+      height?: number | null
     } | null
   } | null> | null
 }
 
 export type RentalSectionFragment = {
+  __typename?: 'ComponentSectionsRental'
   id: string
-  title: string | null
-  text: string | null
-  branches: Array<{
-    branch: {
+  title?: string | null
+  text?: string | null
+  branches?: Array<{
+    __typename?: 'ComponentBlocksBranchItemWithPage'
+    branch?: {
       __typename: 'Branch'
       documentId: string
       title: string
-      address: string | null
+      address?: string | null
       slug: string
-      latitude: number | null
-      longitude: number | null
-      listingImage: {
+      latitude?: number | null
+      longitude?: number | null
+      listingImage?: {
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
-        alternativeText: string | null
-        caption: string | null
+        alternativeText?: string | null
+        caption?: string | null
         size: number
-        width: number | null
-        height: number | null
+        width?: number | null
+        height?: number | null
       } | null
       subBranches: Array<{
+        __typename?: 'Branch'
         documentId: string
-        body: string | null
+        body?: string | null
         title: string
-        address: string | null
-        phone: string | null
-        email: string | null
-        openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+        address?: string | null
+        phone?: string | null
+        email?: string | null
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
+        } | null
       } | null>
     } | null
-    page: { documentId: string; slug: string } | null
+    page?: { __typename?: 'Page'; documentId: string; slug: string } | null
   } | null> | null
 }
 
 export type MapSectionFragment = {
+  __typename?: 'ComponentSectionsMap'
   id: string
-  title: string | null
-  branches: Array<{
-    branch: {
+  title?: string | null
+  branches?: Array<{
+    __typename?: 'ComponentBlocksBranchItem'
+    branch?: {
       __typename: 'Branch'
       documentId: string
       title: string
-      address: string | null
+      address?: string | null
       slug: string
-      latitude: number | null
-      longitude: number | null
-      listingImage: {
+      latitude?: number | null
+      longitude?: number | null
+      listingImage?: {
+        __typename?: 'UploadFile'
         documentId: string
         url: string
         name: string
-        alternativeText: string | null
-        caption: string | null
+        alternativeText?: string | null
+        caption?: string | null
         size: number
-        width: number | null
-        height: number | null
+        width?: number | null
+        height?: number | null
       } | null
       subBranches: Array<{
+        __typename?: 'Branch'
         documentId: string
-        body: string | null
+        body?: string | null
         title: string
-        address: string | null
-        phone: string | null
-        email: string | null
-        openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+        address?: string | null
+        phone?: string | null
+        email?: string | null
+        openingHours?: {
+          __typename?: 'ComponentBlocksOpeningHours'
+          days: Array<{
+            __typename?: 'ComponentBlocksOpeningHoursItem'
+            label?: string | null
+            time: string
+          } | null>
+        } | null
       } | null>
     } | null
   } | null> | null
 }
 
 export type VideoSectionFragment = {
+  __typename?: 'ComponentSectionsVideo'
   id: string
-  youtube_url: string | null
-  media: { url: string } | null
+  youtube_url?: string | null
+  media?: { __typename?: 'UploadFile'; url: string } | null
 }
 
-export type CtaSectionFragment = { id: string; title: string | null; url: string | null }
+export type CtaSectionFragment = {
+  __typename?: 'ComponentSectionsCta'
+  id: string
+  title?: string | null
+  url?: string | null
+}
 
 export type AccordionSectionFragment = {
+  __typename?: 'ComponentSectionsAccordion'
   id: string
-  title: string | null
-  flatText: Array<{ category: string | null; content: string | null } | null> | null
-  tableRows: Array<{
-    id: string
-    accordionCategory: string | null
-    tableCategory: string | null
-    label: string | null
-    value: string | null
-    valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+  title?: string | null
+  flatText?: Array<{
+    __typename?: 'ComponentAccordionItemsFlatText'
+    category?: string | null
+    content?: string | null
   } | null> | null
-  forms: Array<{
-    category: string | null
-    type: Enum_Componentaccordionitemsform_Type | null
+  tableRows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
+    id: string
+    accordionCategory?: string | null
+    tableCategory?: string | null
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
+  } | null> | null
+  forms?: Array<{
+    __typename?: 'ComponentAccordionItemsForm'
+    category?: string | null
+    type?: Enum_Componentaccordionitemsform_Type | null
   } | null> | null
 }
 
 export type TableSectionFragment = {
+  __typename?: 'ComponentSectionsTable'
   id: string
-  primaryTitle: string | null
-  secondaryTitle: string | null
-  rows: Array<{
+  primaryTitle?: string | null
+  secondaryTitle?: string | null
+  rows?: Array<{
+    __typename?: 'ComponentAccordionItemsTableRow'
     id: string
-    label: string | null
-    value: string | null
-    valueAlign: Enum_Componentaccordionitemstablerow_Valuealign | null
+    label?: string | null
+    value?: string | null
+    valueAlign?: Enum_Componentaccordionitemstablerow_Valuealign | null
   } | null> | null
 }
 
 export type SubpagesSectionFragment = {
+  __typename?: 'ComponentSectionsSubpages'
   id: string
-  title: string | null
-  subpages: Array<{
+  title?: string | null
+  subpages?: Array<{
+    __typename?: 'ComponentBlocksSubpage'
     id: string
-    title: string | null
-    description: string | null
-    url: string | null
-    page: {
+    title?: string | null
+    description?: string | null
+    url?: string | null
+    page?: {
       __typename: 'Page'
       documentId: string
       title: string
       slug: string
-      createdAt: unknown
-      updatedAt: unknown
+      createdAt?: string | null
+      updatedAt?: string | null
     } | null
   } | null> | null
 }
 
-export type FormSectionFragment = { id: string; type: Enum_Componentsectionsform_Type | null }
-
-export type SiteUsefulnessSectionFragment = {
+export type FormSectionFragment = {
+  __typename?: 'ComponentSectionsForm'
   id: string
-  title: string | null
-  thankYouMessage: string | null
+  type?: Enum_Componentsectionsform_Type | null
 }
 
-export type FlatTextSectionFragment = { id: string; content: string | null }
+export type SiteUsefulnessSectionFragment = {
+  __typename?: 'ComponentSectionsSiteUsefullness'
+  id: string
+  title?: string | null
+  thankYouMessage?: string | null
+}
+
+export type FlatTextSectionFragment = {
+  __typename?: 'ComponentSectionsFlatText'
+  id: string
+  content?: string | null
+}
 
 export type FaqSectionFragment = {
+  __typename?: 'ComponentSectionsFaq'
   id: string
-  title: string | null
-  ctaButton: string | null
-  questions: Array<{ id: string; label: string | null; content: string | null } | null> | null
-  redirectTo: {
+  title?: string | null
+  ctaButton?: string | null
+  questions?: Array<{
+    __typename?: 'ComponentBlocksAccordionItem'
+    id: string
+    label?: string | null
+    content?: string | null
+  } | null> | null
+  redirectTo?: {
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null
 }
 
 export type OpeningHoursSectionFragment = {
+  __typename?: 'ComponentSectionsOpeningHoursSection'
   id: string
-  title: string | null
+  title?: string | null
   branchList: Array<{
+    __typename?: 'Branch'
     documentId: string
     title: string
-    openingHours: { days: Array<{ label: string | null; time: string } | null> } | null
+    openingHours?: {
+      __typename?: 'ComponentBlocksOpeningHours'
+      days: Array<{
+        __typename?: 'ComponentBlocksOpeningHoursItem'
+        label?: string | null
+        time: string
+      } | null>
+    } | null
   } | null>
 }
 
 export type ChildrenListingSectionFragment = {
+  __typename?: 'ComponentSectionsChildrenListing'
   id: string
   depth: Enum_Componentsectionschildrenlisting_Depth
 }
 
 export type CherrypickSectionFragment = {
+  __typename?: 'ComponentSectionsCherrypickSection'
   id: string
-  title: string | null
+  title?: string | null
   pages: Array<{
     __typename: 'Page'
     documentId: string
     title: string
     slug: string
-    createdAt: unknown
-    updatedAt: unknown
+    createdAt?: string | null
+    updatedAt?: string | null
   } | null>
 }
 
@@ -10609,15 +11343,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     AssetCategories(
       variables?: AssetCategoriesQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<AssetCategoriesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<AssetCategoriesQuery>({
-            document: AssetCategoriesDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<AssetCategoriesQuery>(AssetCategoriesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'AssetCategories',
         'query',
@@ -10627,15 +11358,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     AssetBySlug(
       variables: AssetBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<AssetBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<AssetBySlugQuery>({
-            document: AssetBySlugDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<AssetBySlugQuery>(AssetBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'AssetBySlug',
         'query',
@@ -10645,15 +11373,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     BasicDocumentBySlug(
       variables: BasicDocumentBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<BasicDocumentBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<BasicDocumentBySlugQuery>({
-            document: BasicDocumentBySlugDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<BasicDocumentBySlugQuery>(BasicDocumentBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'BasicDocumentBySlug',
         'query',
@@ -10663,15 +11388,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     FileCategories(
       variables?: FileCategoriesQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<FileCategoriesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<FileCategoriesQuery>({
-            document: FileCategoriesDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<FileCategoriesQuery>(FileCategoriesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'FileCategories',
         'query',
@@ -10681,15 +11403,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     BlogPostStaticPaths(
       variables: BlogPostStaticPathsQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<BlogPostStaticPathsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<BlogPostStaticPathsQuery>({
-            document: BlogPostStaticPathsDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<BlogPostStaticPathsQuery>(BlogPostStaticPathsDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'BlogPostStaticPaths',
         'query',
@@ -10699,15 +11418,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     BlogPostBySlug(
       variables: BlogPostBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<BlogPostBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<BlogPostBySlugQuery>({
-            document: BlogPostBySlugDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<BlogPostBySlugQuery>(BlogPostBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'BlogPostBySlug',
         'query',
@@ -10717,15 +11433,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     BlogPosts(
       variables: BlogPostsQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<BlogPostsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<BlogPostsQuery>({
-            document: BlogPostsDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<BlogPostsQuery>(BlogPostsDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'BlogPosts',
         'query',
@@ -10735,15 +11448,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     BranchStaticPaths(
       variables: BranchStaticPathsQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<BranchStaticPathsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<BranchStaticPathsQuery>({
-            document: BranchStaticPathsDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<BranchStaticPathsQuery>(BranchStaticPathsDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'BranchStaticPaths',
         'query',
@@ -10753,15 +11463,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     BranchBySlug(
       variables: BranchBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<BranchBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<BranchBySlugQuery>({
-            document: BranchBySlugDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<BranchBySlugQuery>(BranchBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'BranchBySlug',
         'query',
@@ -10771,15 +11478,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     DisclosureBySlug(
       variables: DisclosureBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<DisclosureBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DisclosureBySlugQuery>({
-            document: DisclosureBySlugDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<DisclosureBySlugQuery>(DisclosureBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'DisclosureBySlug',
         'query',
@@ -10789,15 +11493,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     EventProperties(
       variables: EventPropertiesQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<EventPropertiesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<EventPropertiesQuery>({
-            document: EventPropertiesDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<EventPropertiesQuery>(EventPropertiesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'EventProperties',
         'query',
@@ -10807,15 +11508,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     EventBySlug(
       variables: EventBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<EventBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<EventBySlugQuery>({
-            document: EventBySlugDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<EventBySlugQuery>(EventBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'EventBySlug',
         'query',
@@ -10825,15 +11523,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     EventStaticPaths(
       variables: EventStaticPathsQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<EventStaticPathsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<EventStaticPathsQuery>({
-            document: EventStaticPathsDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<EventStaticPathsQuery>(EventStaticPathsDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'EventStaticPaths',
         'query',
@@ -10843,15 +11538,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     Navigation(
       variables: NavigationQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<NavigationQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<NavigationQuery>({
-            document: NavigationDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<NavigationQuery>(NavigationDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'Navigation',
         'query',
@@ -10861,15 +11553,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     General(
       variables: GeneralQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<GeneralQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GeneralQuery>({
-            document: GeneralDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<GeneralQuery>(GeneralDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'General',
         'query',
@@ -10879,15 +11568,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     HomePage(
       variables: HomePageQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<HomePageQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<HomePageQuery>({
-            document: HomePageDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<HomePageQuery>(HomePageDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'HomePage',
         'query',
@@ -10897,15 +11583,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     LatestNotices(
       variables: LatestNoticesQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<LatestNoticesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<LatestNoticesQuery>({
-            document: LatestNoticesDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<LatestNoticesQuery>(LatestNoticesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'LatestNotices',
         'query',
@@ -10915,15 +11598,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     NoticesStaticPaths(
       variables: NoticesStaticPathsQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<NoticesStaticPathsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<NoticesStaticPathsQuery>({
-            document: NoticesStaticPathsDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<NoticesStaticPathsQuery>(NoticesStaticPathsDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'NoticesStaticPaths',
         'query',
@@ -10933,15 +11613,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     Notices(
       variables: NoticesQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<NoticesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<NoticesQuery>({
-            document: NoticesDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<NoticesQuery>(NoticesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'Notices',
         'query',
@@ -10951,15 +11628,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     NoticeBySlug(
       variables: NoticeBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<NoticeBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<NoticeBySlugQuery>({
-            document: NoticeBySlugDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<NoticeBySlugQuery>(NoticeBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'NoticeBySlug',
         'query',
@@ -10969,16 +11643,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     OpeningHoursChangeNotices(
       variables: OpeningHoursChangeNoticesQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<OpeningHoursChangeNoticesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<OpeningHoursChangeNoticesQuery>({
-            document: OpeningHoursChangeNoticesDocument,
+          client.request<OpeningHoursChangeNoticesQuery>(
+            OpeningHoursChangeNoticesDocument,
             variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
-          }),
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'OpeningHoursChangeNotices',
         'query',
         variables,
@@ -10987,15 +11659,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     PageBySlug(
       variables: PageBySlugQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<PageBySlugQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<PageBySlugQuery>({
-            document: PageBySlugDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<PageBySlugQuery>(PageBySlugDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'PageBySlug',
         'query',
@@ -11005,15 +11674,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     SortedPartners(
       variables: SortedPartnersQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-      signal?: RequestInit['signal'],
     ): Promise<SortedPartnersQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<SortedPartnersQuery>({
-            document: SortedPartnersDocument,
-            variables,
-            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
-            signal,
+          client.request<SortedPartnersQuery>(SortedPartnersDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
           }),
         'SortedPartners',
         'query',
