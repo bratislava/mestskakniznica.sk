@@ -19,9 +19,9 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
 
   const { image, link, date } = useMemo(() => {
     return {
-      image: notice.attributes?.listingImage?.data,
+      image: notice?.listingImage,
       link: getPathForStrapiEntity(notice),
-      date: notice.attributes?.publishedAt,
+      date: notice.createdAt,
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notice, t])
@@ -31,7 +31,7 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
       <div className="flex h-full flex-col">
         <div className="relative mb-4 h-40.5 w-full shrink-0">
           <StrapiImage
-            image={image?.attributes ?? getImagePlaceholder()}
+            image={image ?? getImagePlaceholder()}
             alt="" // Empty alt on purpose
             fill
             className="object-cover"
@@ -43,7 +43,7 @@ const NoticeCard = ({ notice }: NoticeCardProps) => {
         </div>
         <h3 className="mb-6 text-h5">
           <MLink href={link ?? '#'} variant="basic" stretched className="line-clamp-3">
-            {notice.attributes?.title}
+            {notice?.title}
           </MLink>
         </h3>
       </div>

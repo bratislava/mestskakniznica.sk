@@ -30,9 +30,9 @@ const Page = ({ notice, general }: NoticePageProps) => {
   return (
     <GeneralContextProvider general={general}>
       <DefaultPageLayout
-        title={notice.attributes?.title}
-        seo={notice.attributes?.seo}
-        defaultMetaDescription={notice.attributes?.body}
+        title={notice?.title}
+        seo={notice?.seo}
+        defaultMetaDescription={notice?.body}
       >
         <NoticePage notice={notice} />
       </DefaultPageLayout>
@@ -50,18 +50,16 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
     locales.map((locale) => client.NoticesStaticPaths({ locale })),
   )
 
-  const entities = pathArraysForLocales
-    .flatMap(({ notices }) => notices?.data || [])
-    .filter(isDefined)
+  const entities = pathArraysForLocales.flatMap(({ notices }) => notices || []).filter(isDefined)
 
   const paths: GetStaticPathsResult<StaticParams>['paths'] = entities
-    .filter((entity) => entity.attributes?.slug)
+    .filter((entity) => entity.slug)
     .map((entity) => ({
       params: {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        slug: entity.attributes!.slug,
+        slug: entity.slug,
       },
-      locale: entity.attributes?.locale || '',
+      locale: entity.locale || '',
     }))
 
   // eslint-disable-next-line no-console
@@ -82,7 +80,7 @@ export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = asy
   console.log(`Revalidating ${locale} notice ${slug}`)
 
   const { notices } = await client.NoticeBySlug({ slug, locale })
-  const notice = notices?.data[0] ?? null
+  const notice = notices[0] ?? null
   if (!notice) {
     return NOT_FOUND
   }
@@ -99,7 +97,7 @@ export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = asy
         slug,
       },
       currentEntityLocalizations: localizations,
-      breadcrumbsTitle: notice.attributes?.title,
+      breadcrumbsTitle: notice?.title,
     }),
   ])
 

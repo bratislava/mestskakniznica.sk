@@ -13,11 +13,10 @@ type BranchContactUsOpeningHoursInfoProps = {
 }
 
 const BranchContactUsOpeningHoursInfo = ({ branch }: BranchContactUsOpeningHoursInfoProps) => {
-  const { id } = branch ?? {}
-  const { title, phone, email, openingHours } = branch.attributes ?? {}
+  const { documentId, title, phone, email, openingHours } = branch ?? {}
 
   return phone || email || openingHours ? (
-    <Accordion key={id} title={title} type="subbranch" iconLeft={<BusinessSvg />}>
+    <Accordion key={documentId} title={title} type="subbranch" iconLeft={<BusinessSvg />}>
       <div className="mb-3 p-1">
         {phone && (
           <Button

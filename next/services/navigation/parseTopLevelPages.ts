@@ -5,25 +5,23 @@ import { PagePathsMap } from '@/services/navigation/typesNavigation'
 
 /** Structural type, so that every nesting level of `PageEntityChildPagesFragment` fits. */
 type PageWithChildPages = {
-  attributes?: {
-    title: string
-    slug?: string | null
-    childPages?: { data: PageWithChildPages[] } | null
-  } | null
+  title: string
+  slug?: string | null
+  childPages?: (PageWithChildPages | null)[] | null
 }
 
 /**
  * Strapi returns only published child pages, so unpublished pages drop out together with their subtree.
  */
-export const parseTopLevelPages = (pages: PageWithChildPages[]) => {
+export const parseTopLevelPages = (pages: (PageWithChildPages | null)[]) => {
   const pagePathsMap: PagePathsMap = {}
 
   const parsePages = (
-    childPages: PageWithChildPages[],
+    childPages: (PageWithChildPages | null)[],
     parent: { slug: string; path: string } | null,
   ): string[] =>
     childPages.flatMap((page) => {
-      const { title, slug, childPages: grandChildPages } = page.attributes ?? {}
+      const { title, slug, childPages: grandChildPages } = page ?? {}
 
       if (!slug || !title) {
         return []
@@ -34,7 +32,7 @@ export const parseTopLevelPages = (pages: PageWithChildPages[]) => {
         title,
         path,
         parentSlug: parent?.slug ?? null,
-        childSlugs: parsePages(grandChildPages?.data ?? [], { slug, path }),
+        childSlugs: parsePages(grandChildPages ?? [], { slug, path }),
       }
 
       return [slug]

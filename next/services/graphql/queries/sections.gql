@@ -2,14 +2,10 @@ fragment AssetsSection on ComponentSectionsAssets {
   id
   title
   assets {
-    data {
-      ...AssetEntity
-    }
+    ...AssetEntity
   }
   disclosures {
-    data {
-      ...DisclosureEntity
-    }
+    ...DisclosureEntity
   }
 }
 
@@ -19,9 +15,7 @@ fragment GallerySection on ComponentSectionsGallery {
     id
     Description
     Photo {
-      data {
-        ...UploadImageEntity
-      }
+      ...UploadImageEntity
     }
   }
 }
@@ -32,17 +26,11 @@ fragment RentalSection on ComponentSectionsRental {
   text
   branches {
     branch {
-      data {
-        ...BranchCardEntity
-      }
+      ...BranchCardEntity
     }
     page {
-      data {
-        id
-        attributes {
-          slug
-        }
-      }
+      documentId
+      slug
     }
   }
 }
@@ -52,9 +40,7 @@ fragment MapSection on ComponentSectionsMap {
   title
   branches {
     branch {
-      data {
-        ...BranchCardEntity
-      }
+      ...BranchCardEntity
     }
   }
 }
@@ -63,11 +49,7 @@ fragment VideoSection on ComponentSectionsVideo {
   id
   youtube_url
   media {
-    data {
-      attributes {
-        url
-      }
-    }
+    url
   }
 }
 
@@ -113,9 +95,7 @@ fragment SubpagesSection on ComponentSectionsSubpages {
     description
     url
     page {
-      data {
-        ...PageWithBaseFieldsEntity
-      }
+      ...PageWithBaseFieldsEntity
     }
   }
 }
@@ -144,9 +124,7 @@ fragment FaqSection on ComponentSectionsFaq {
   }
   ctaButton
   redirectTo {
-    data {
-      ...PageWithBaseFieldsEntity
-    }
+    ...PageWithBaseFieldsEntity
   }
 }
 
@@ -154,14 +132,10 @@ fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
   id
   title
   branchList {
-    data {
-      id
-      attributes {
-        title
-        openingHours {
-          ...OpeningHoursDays
-        }
-      }
+    documentId
+    title
+    openingHours {
+      ...OpeningHoursDays
     }
   }
 }
@@ -175,8 +149,6 @@ fragment CherrypickSection on ComponentSectionsCherrypickSection {
   id
   title
   pages {
-    data {
-      ...PageWithBaseFieldsEntity
-    }
+    ...PageWithBaseFieldsEntity
   }
 }

@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
   console.log(`Revalidating ${locale} disclosure ${slug}`)
 
   const { disclosures } = await client.DisclosureBySlug({ slug })
-  const disclosure = disclosures?.data[0] ?? null
+  const disclosure = disclosures[0] ?? null
   if (!disclosure) {
     return NOT_FOUND
   }
@@ -65,7 +65,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
           slug,
           locale: innerLocale,
         })),
-      breadcrumbsTitle: disclosure.attributes?.title,
+      breadcrumbsTitle: disclosure?.title,
     }),
   ])
 

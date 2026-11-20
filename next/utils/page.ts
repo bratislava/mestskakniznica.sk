@@ -34,7 +34,7 @@ export const parseSubpages = (subpages: SubpagesSectionFragment): SubpageItemPro
   subpages?.subpages?.filter(isPresent).map((subpage) => ({
     title: subpage?.title ?? '',
     description: subpage?.description ?? '',
-    pageSlug: subpage?.page?.data?.attributes?.slug,
+    pageSlug: subpage?.page?.slug,
   })) ?? []
 
 // Group by for accordion

@@ -1,31 +1,25 @@
 import { Maybe } from '@/services/graphql'
-import { hasAttributes } from '@/utils/isDefined'
+import { isDefined } from '@/utils/isDefined'
 
 type DeepMaybePartial<T> = Partial<{ [K in keyof T]: DeepMaybePartial<Maybe<T[K]>> }>
 
 export const extractLocalizationsWithSlug = <T extends string>(
   type: T,
   entity: DeepMaybePartial<{
-    attributes: {
-      localizations: {
-        data: {
-          attributes: {
-            locale: string
-            slug: string
-          }
-        }[]
-      }
-    }
+    localizations: {
+      locale: string
+      slug: string
+    }[]
   }>,
 ) => {
   return (
-    entity?.attributes?.localizations?.data
-      ?.filter(hasAttributes)
-      .filter((localePage) => localePage.attributes.locale && localePage.attributes.slug)
+    entity?.localizations
+      ?.filter(isDefined)
+      .filter((localePage) => localePage.locale && localePage.slug)
       .map((localePage) => ({
         type,
-        locale: localePage.attributes.locale!,
-        slug: localePage.attributes.slug!,
+        locale: localePage.locale!,
+        slug: localePage.slug!,
       })) ?? []
   )
 }

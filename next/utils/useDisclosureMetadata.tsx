@@ -10,7 +10,7 @@ export const useDisclosureMetadata = () => {
   const { t } = useTranslation()
 
   const getDisclosureMetadata = (disclosure: DisclosureEntityFragment) => {
-    if (!disclosure.attributes) {
+    if (!disclosure) {
       return []
     }
 
@@ -25,7 +25,7 @@ export const useDisclosureMetadata = () => {
       contractor,
       grantProvider,
       grantYear,
-    } = disclosure.attributes
+    } = disclosure
 
     const period =
       dateFrom && dateTo ? <FormatEventDateRange dateFrom={dateFrom} dateTo={dateTo} /> : null

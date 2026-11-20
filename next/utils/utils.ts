@@ -61,7 +61,7 @@ export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = f
 }
 
 // method for determining if event already happened
-export const isEventPast = (dateTo: Date | string | null): boolean => {
+export const isEventPast = (dateTo: Date | string | null | undefined): boolean => {
   if (!dateTo) return false
 
   const today = new Date()

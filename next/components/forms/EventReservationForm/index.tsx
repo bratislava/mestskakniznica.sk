@@ -21,8 +21,8 @@ export type EventReservationFormProps = CommonFormProps & {
 }
 
 const EventReservationForm = ({ eventDetail, privacyPolicyHref }: EventReservationFormProps) => {
-  const { dateFrom, dateTo, title, branch } = eventDetail?.attributes ?? {}
-  const eventBranch = branch?.data?.attributes
+  const { dateFrom, dateTo, title, branch } = eventDetail ?? {}
+  const eventBranch = branch
 
   const [isSubmitted, setIsSubmitted] = React.useState(SubmitStatus.NONE)
   const [isEventInThePast, setIsEventInThePast] = React.useState(false)

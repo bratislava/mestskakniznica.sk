@@ -1,63 +1,47 @@
 query BasicDocumentBySlug($slug: String!) {
   basicDocuments(filters: { slug: { eq: $slug } }) {
-    data {
-      ...BasicDocumentEntity
-    }
+    ...BasicDocumentEntity
   }
 }
 
-fragment FileCategoryEntity on FileCategoryEntity {
-  id
-  attributes {
-    name
-    slug
-  }
+fragment FileCategoryEntity on FileCategory {
+  documentId
+  name
+  slug
 }
 
 query FileCategories {
   fileCategories {
-    data {
-      ...FileCategoryEntity
-    }
+    ...FileCategoryEntity
   }
 }
 
-fragment BasicDocumentFile on UploadFileEntity {
-  id
-  attributes {
-    url
+fragment BasicDocumentFile on UploadFile {
+  documentId
+  url
+  name
+  ext
+  size
+}
+
+fragment BasicDocumentEntity on BasicDocument {
+  documentId
+  slug
+  title
+  description
+  date_added
+  author
+  link
+  file_category {
+    documentId
     name
-    ext
-    size
-  }
-}
-
-fragment BasicDocumentEntity on BasicDocumentEntity {
-  id
-  attributes {
     slug
-    title
-    description
-    date_added
-    author
-    link
-    file_category {
-      data {
-        id
-        attributes {
-          name
-          slug
-        }
-      }
-    }
-    metadata {
-      ...Metadata
-    }
-    attachment {
-      data {
-        ...UploadFileEntity
-      }
-    }
+  }
+  metadata {
+    ...Metadata
+  }
+  attachment {
+    ...UploadFileEntity
   }
 }
 
@@ -69,9 +53,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     name
     date
     attachment {
-      data {
-        ...UploadFileEntity
-      }
+      ...UploadFileEntity
     }
   }
   ... on ComponentMetadataMetadata {
@@ -99,9 +81,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     date_added
     amount
     attachment {
-      data {
-        ...UploadFileEntity
-      }
+      ...UploadFileEntity
     }
   }
   ... on ComponentMetadataObjednavky {
@@ -110,9 +90,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     date_period
     date_added
     attachment {
-      data {
-        ...UploadFileEntity
-      }
+      ...UploadFileEntity
     }
   }
   ... on ComponentMetadataVerejneObstaravanie {
@@ -123,9 +101,7 @@ fragment Metadata on BasicDocumentMetadataDynamicZone {
     date_added
     amount
     attachment {
-      data {
-        ...UploadFileEntity
-      }
+      ...UploadFileEntity
     }
   }
 }

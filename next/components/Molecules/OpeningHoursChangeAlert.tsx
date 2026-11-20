@@ -19,7 +19,7 @@ const OpeningHoursChangeAlert = () => {
     queryKey: ['OpeningHoursChangeNotices', locale],
   })
 
-  const filteredNotices = noticesData?.notices?.data.filter(isDefined) ?? []
+  const filteredNotices = noticesData?.notices.filter(isDefined) ?? []
 
   if (filteredNotices.length === 0) return null
 
@@ -29,9 +29,9 @@ const OpeningHoursChangeAlert = () => {
       <div className="flex flex-col gap-6">
         {filteredNotices
           ?.map((notice, index) => {
-            if (!notice.attributes) return null
+            if (!notice) return null
 
-            const { title } = notice.attributes
+            const { title } = notice
             const link = getPathForStrapiEntity(notice)
             const id = `${alertBannerId}-${index}`
 

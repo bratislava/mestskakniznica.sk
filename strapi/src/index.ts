@@ -1,11 +1,15 @@
-export default  {
+import { registerPageTreeValidation } from './api/page/page-tree-validation'
+
+export default {
   /**
    * An asynchronous register function that runs before
    * your application is initialized.
    *
    * This gives you an opportunity to extend code.
    */
-  register(/*{ strapi }*/) {},
+  register({ strapi }) {
+    registerPageTreeValidation(strapi)
+  },
 
   /**
    * An asynchronous bootstrap function that runs before
@@ -19,21 +23,18 @@ export default  {
     // ADDING REVALIDATE WEBHOOK
     //------------------------------------
 
-// create Revalidate webhook according to this suggestion https://github.com/strapi/strapi/pull/20487#issuecomment-2482527848
-    const webhook = await strapi.db?.query('webhook').findOne({
-      where: {
-        name: 'Bootstrapped Revalidate',
-      },
-    })
+    // create Revalidate webhook according to this suggestion https://github.com/strapi/strapi/pull/20487#issuecomment-2482527848
+    const webhooks = await strapi.get('webhookStore').findWebhooks()
+    const webhook = webhooks.find((w) => w.name === 'Bootstrapped Revalidate')
 
     if (!webhook) {
-      await strapi.webhookStore?.createWebhook({
+      await strapi.get('webhookStore').createWebhook({
         id: 'Bootstrapped Revalidate',
         name: 'Bootstrapped Revalidate',
         url: `${process.env.REVALIDATE_NEXT_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET_TOKEN}`,
         events: ['entry.create', 'entry.update', 'entry.publish'],
         headers: {},
-        isEnabled: true
+        isEnabled: true,
       })
       console.log('Revalidate webhook created')
     } else {
@@ -62,4 +63,4 @@ export default  {
     //   locales: await strapi.db.query("plugin::i18n.locale").findMany(),
     // });
   },
-};
+}

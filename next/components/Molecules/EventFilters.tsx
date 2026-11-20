@@ -15,6 +15,7 @@ import {
   getEventPropertiesQueryKey,
 } from '@/services/graphql/fetchers/event-properties.fetcher'
 import { EventsFiltersShared } from '@/services/meili/fetchers/eventsFetcher'
+import { isDefined } from '@/utils/isDefined'
 
 type EventFiltersProps = {
   filters: EventsFiltersShared
@@ -44,35 +45,35 @@ const Inner = ({ filters: filtersInput, onFiltersChange, onModalClose }: EventFi
   })
 
   const tags = useMemo(() => {
-    const eventTags = eventPropertiesData?.eventTags?.data ?? []
-    const parsedTypes = eventTags.map(({ attributes, id }) => ({
-      key: id ?? '',
-      title: attributes?.title ?? '',
-      slug: attributes?.slug ?? '',
+    const eventTags = eventPropertiesData?.eventTags ?? []
+    const parsedTypes = eventTags.filter(isDefined).map((eventTag) => ({
+      key: eventTag.documentId,
+      title: eventTag.title ?? '',
+      slug: eventTag.slug ?? '',
     }))
 
     return [{ key: '', title: t('eventFilters.eventType'), slug: '' }, ...parsedTypes]
-  }, [eventPropertiesData?.eventTags?.data, t])
+  }, [eventPropertiesData?.eventTags, t])
 
   const categories = useMemo(() => {
-    const eventCategories = eventPropertiesData?.eventCategories?.data ?? []
-    const parsedCategories = eventCategories.map(({ attributes, id }) => ({
-      key: id ?? '',
-      title: attributes?.title ?? '',
+    const eventCategories = eventPropertiesData?.eventCategories ?? []
+    const parsedCategories = eventCategories.filter(isDefined).map((eventCategory) => ({
+      key: eventCategory.documentId,
+      title: eventCategory.title ?? '',
     }))
 
     return [{ key: '', title: t('eventFilters.eventCategory') }, ...parsedCategories]
-  }, [eventPropertiesData?.eventCategories?.data, t])
+  }, [eventPropertiesData?.eventCategories, t])
 
   const localities = useMemo(() => {
-    const eventBranches = eventPropertiesData?.branches?.data ?? []
-    const parsedLocalities = eventBranches.map(({ attributes, id }) => ({
-      key: id ?? '',
-      title: attributes?.title ?? '',
+    const eventBranches = eventPropertiesData?.branches ?? []
+    const parsedLocalities = eventBranches.filter(isDefined).map((branch) => ({
+      key: branch.documentId,
+      title: branch.title ?? '',
     }))
 
     return [{ key: '', title: t('eventFilters.eventLocality') }, ...parsedLocalities]
-  }, [eventPropertiesData?.branches?.data, t])
+  }, [eventPropertiesData?.branches, t])
 
   // TODO rewrite so we can enable exhaustive-deps rule
   useEffect(() => {
