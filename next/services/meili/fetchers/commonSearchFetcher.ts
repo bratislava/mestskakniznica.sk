@@ -66,9 +66,10 @@ export const commonSearchFetcher = (filters: CommonSearchFilters, locale: string
       const newHits = response.hits.map((hit) => {
         const { type } = hit
 
-        // TODO: Fix types, but not worth it.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
-        const dataInner = (hit as any)[type]
+        // Each hit stores its data under the key equal to its type, e.g. { type: 'page', page: {...} }
+        const dataInner = (hit as unknown as Record<CommonSearchType, Partial<CommonSearchResult>>)[
+          type
+        ]
 
         return {
           type,

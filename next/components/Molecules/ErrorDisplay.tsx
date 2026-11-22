@@ -3,15 +3,21 @@ import * as React from 'react'
 
 import Button from '@/modules/common/Button'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getError = (iError: any) => {
-  let errorMessage = iError.response?.errors?.[0]?.message
-  if (!errorMessage) errorMessage = iError.message
+type ErrorLike = {
+  response?: { errors?: { message?: string }[] }
+  message?: string
+}
+
+export const getError = (iError: unknown) => {
+  const errorLike: ErrorLike = typeof iError === 'object' && iError !== null ? iError : {}
+
+  let errorMessage = errorLike.response?.errors?.[0]?.message
+  if (!errorMessage) errorMessage = errorLike.message
   if (!errorMessage) errorMessage = 'Could not load data from APi'
 
-  let error = iError.response?.errors?.[0]
-  if (!error) error = iError.response
-  if (!error) error = iError.message
+  let error: unknown = errorLike.response?.errors?.[0]
+  if (!error) error = errorLike.response
+  if (!error) error = errorLike.message
   if (!error) error = iError
 
   return {
