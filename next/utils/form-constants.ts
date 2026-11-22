@@ -24,8 +24,7 @@ interface IFormLabelOption {
   label: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const convertValue = (value: any) => {
+const convertValue = (value: unknown) => {
   if (isBoolean(value)) {
     return value ? 'Áno' : 'Nie'
   }
@@ -108,16 +107,13 @@ const getMailTranslationKey = (key: string): string => {
 
 const key = (k: string, t: TFunction<string>): string => t(getMailTranslationKey(k), { lng: 'sk' })
 
-// TODO fix eslint
-/* eslint-disable @typescript-eslint/no-explicit-any */
 function flattenObject(
-  o: any,
+  o: unknown,
   t: TFunction<string>,
   prefix = '',
-  result: { [key: string]: any } = {},
+  result: Record<string, string> = {},
   keepNull = true,
 ) {
-  /* eslint-enable @typescript-eslint/no-explicit-any */
   if (isString(o) || isNumber(o) || isBoolean(o) || isDate(o) || (keepNull && isNull(o))) {
     result[key(prefix, t)] = convertValue(o)
 
@@ -125,8 +121,9 @@ function flattenObject(
   }
 
   if (isArray(o) || isPlainObject(o)) {
+    const container = o as Record<string, unknown>
     // eslint-disable-next-line guard-for-in
-    for (const i in o) {
+    for (const i in container) {
       let pref = key(prefix, t)
       if (isArray(o)) {
         pref = `${pref} (${Number(i) + 1})`
@@ -135,7 +132,7 @@ function flattenObject(
       } else {
         pref = `${key(prefix, t)}. ${key(i, t)}`
       }
-      flattenObject(o[i], t, pref, result, keepNull)
+      flattenObject(container[i], t, pref, result, keepNull)
     }
 
     return result

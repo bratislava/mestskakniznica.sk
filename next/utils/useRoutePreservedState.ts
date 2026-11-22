@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const historyStateKeyStateMap = new Map<string, any>()
+const historyStateKeyStateMap = new Map<string, unknown>()
 
 /**
  * Synchronizes state with current history state key. If user goes back, the state is retrieved from
