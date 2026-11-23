@@ -100,7 +100,7 @@ const EventDetails = ({ event }: PageProps) => {
                   const avatar = guest?.avatar
 
                   return (
-                    <div key={guest?.id} className="flex pr-[24px]">
+                    <div key={guest?.id} className="flex pr-6">
                       {avatar ? (
                         <StrapiImage
                           image={avatar}
@@ -182,8 +182,8 @@ const EventDetails = ({ event }: PageProps) => {
                   classWrapper="flex pt-5"
                   svgIcon={<EuroIcon />}
                   text={
-                    !event?.price || event?.price === 0
-                      ? t('eventDetails.noCharge').toString()
+                    !event?.price || event.price === 0
+                      ? t('eventDetails.noCharge')
                       : event?.price?.toString() || ''
                   }
                 />

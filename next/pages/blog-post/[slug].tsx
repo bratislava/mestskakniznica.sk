@@ -29,7 +29,7 @@ const Page = ({ blogPost, general }: PageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      <DefaultPageLayout title={blogPost?.title} seo={blogPost?.seo}>
+      <DefaultPageLayout title={blogPost.title} seo={blogPost.seo}>
         <BlogPostPage blogPost={blogPost} />
       </DefaultPageLayout>
     </GeneralContextProvider>
@@ -53,8 +53,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
 
   if (entities) {
     paths = entities
-      .filter(isDefined)
-      .filter((entity) => entity?.slug)
+      .filter((entity) => entity.slug)
       .map((entity) => ({
         params: {
           slug: entity.slug,
@@ -97,7 +96,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
         slug,
       },
       currentEntityLocalizations: localizations,
-      breadcrumbsTitle: blogPost?.title,
+      breadcrumbsTitle: blogPost.title,
     }),
   ])
 

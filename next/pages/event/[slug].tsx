@@ -94,7 +94,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
         slug,
       },
       currentEntityLocalizations: localizations,
-      breadcrumbsTitle: event?.title,
+      breadcrumbsTitle: event.title,
     }),
   ])
 

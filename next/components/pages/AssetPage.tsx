@@ -42,7 +42,7 @@ const AssetPage = ({ entity }: IProps) => {
   const badgeExt = isMultipleFiles ? (
     <FolderIcon />
   ) : (
-    (firstItem?.ext?.toUpperCase().replace('.', '') ?? '')
+    (firstItem.ext?.toUpperCase().replace('.', '') ?? '')
   )
 
   const isDisclosure = entity.__typename === 'Disclosure'
@@ -78,17 +78,17 @@ const AssetPage = ({ entity }: IProps) => {
                   <span>{t('assetPage.inflectFiles', { count: numOfFiles })}</span>
                 </div>
               )}
-              {!isMultipleFiles && firstItem && (
+              {!isMultipleFiles && (
                 <div className="flex w-full flex-col items-center text-center lg:items-start lg:text-left">
                   <div className="mt-2 flex items-center gap-x-3">
-                    <span>{getFileSize(firstItem?.size, i18n.language)}</span>
+                    <span>{getFileSize(firstItem.size, i18n.language)}</span>
                     <span>&bull;</span>
-                    <span>{firstItem?.ext?.toUpperCase().replace('.', '') ?? ''}</span>
+                    <span>{firstItem.ext?.toUpperCase().replace('.', '') ?? ''}</span>
                   </div>
 
                   <div className="my-6 flex w-full flex-col items-center gap-y-3 lg:mb-10 lg:flex-row lg:gap-x-4 lg:gap-y-0">
                     <Button
-                      href={firstItem?.url || ''}
+                      href={firstItem.url || ''}
                       target="_blank"
                       rel="noreferrer"
                       mobileFullWidth
@@ -140,19 +140,19 @@ const AssetPage = ({ entity }: IProps) => {
                       {/* File extension badge */}
                       <FileExtBadge
                         className="my-4 hidden size-14 self-center lg:flex lg:self-auto"
-                        fileExt={fileInner?.ext?.toUpperCase().replace('.', '') ?? ''}
+                        fileExt={fileInner.ext?.toUpperCase().replace('.', '') ?? ''}
                       />
 
                       <div className="w-full gap-y-2">
                         {/* File name */}
-                        <div>{fileInner?.name}</div>
+                        <div>{fileInner.name}</div>
 
                         {/* File properties */}
                         <div className="mt-2 flex items-center justify-center gap-x-3 lg:justify-start">
-                          <span>{getFileSize(fileInner?.size, i18n.language)}</span>
+                          <span>{getFileSize(fileInner.size, i18n.language)}</span>
                           <span className="lg:hidden">&bull;</span>
                           <span className="lg:hidden">
-                            {firstItem?.ext?.toUpperCase().replace('.', '') ?? ''}
+                            {firstItem.ext?.toUpperCase().replace('.', '') ?? ''}
                           </span>
                         </div>
                       </div>
@@ -160,7 +160,7 @@ const AssetPage = ({ entity }: IProps) => {
                       {/* Download button */}
                       <div className="my-6 flex w-full flex-col items-center lg:w-auto">
                         <Button
-                          href={fileInner?.url || ''}
+                          href={fileInner.url || ''}
                           target="_blank"
                           rel="noreferrer"
                           mobileFullWidth

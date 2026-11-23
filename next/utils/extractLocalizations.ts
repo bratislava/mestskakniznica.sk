@@ -18,8 +18,8 @@ export const extractLocalizationsWithSlug = <T extends string>(
       .filter((localePage) => localePage.locale && localePage.slug)
       .map((localePage) => ({
         type,
-        locale: localePage.locale!,
-        slug: localePage.slug!,
+        locale: localePage.locale,
+        slug: localePage.slug,
       })) ?? []
   )
 }

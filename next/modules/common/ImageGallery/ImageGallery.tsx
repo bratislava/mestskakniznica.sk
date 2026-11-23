@@ -9,6 +9,7 @@ import { useOverlayTriggerState } from 'react-stately'
 import StrapiImage from '@/modules/common/StrapiImage'
 import { UploadImageEntityFragment } from '@/services/graphql'
 import cn from '@/utils/cn'
+import { isDefined } from '@/utils/isDefined'
 import { onEnterOrSpaceKeyDown } from '@/utils/onEnterOrSpaceKeyDown'
 
 import ImageLightBox from './ImageLightBox'
@@ -119,21 +120,19 @@ const ImageGallery = ({ images, variant = 'below' }: ImageGalleryProps) => {
               className="mt-2 grid gap-2"
               style={{ gridTemplateColumns: `repeat(${thumbnailCount + 1}, 1fr)` }}
             >
-              {smallImages
-                .filter((image) => image)
-                .map((image, index) =>
-                  image ? (
-                    <div
-                      key={image.documentId}
-                      onClick={() => openAtImageIndex(index + 1)}
-                      className="relative size-full cursor-pointer pt-[100%]"
-                    >
-                      <div className="absolute top-0 size-full shrink-0">
-                        <StrapiImage image={image} fill className="object-cover" />
-                      </div>
+              {smallImages.filter(isDefined).map((image, index) =>
+                image ? (
+                  <div
+                    key={image.documentId}
+                    onClick={() => openAtImageIndex(index + 1)}
+                    className="relative size-full cursor-pointer pt-[100%]"
+                  >
+                    <div className="absolute top-0 size-full shrink-0">
+                      <StrapiImage image={image} fill className="object-cover" />
                     </div>
-                  ) : null,
-                )}
+                  </div>
+                ) : null,
+              )}
 
               {/* more images button */}
               {moreImagesCount > 0 && (
@@ -158,21 +157,17 @@ const ImageGallery = ({ images, variant = 'below' }: ImageGalleryProps) => {
                 hidden: images.length === 1,
               })}
             >
-              {smallImages
-                .filter((image) => image)
-                .map((image, index) =>
-                  image ? (
-                    <div
-                      key={image.documentId}
-                      onClick={() => openAtImageIndex(index + 1)}
-                      className="relative w-[168px] cursor-pointer pt-[168px]"
-                    >
-                      <div className="absolute top-0 size-full shrink-0">
-                        <StrapiImage image={image} fill className="object-cover" />
-                      </div>
-                    </div>
-                  ) : null,
-                )}
+              {smallImages.map((image, index) => (
+                <div
+                  key={image.documentId}
+                  onClick={() => openAtImageIndex(index + 1)}
+                  className="relative w-[168px] cursor-pointer pt-[168px]"
+                >
+                  <div className="absolute top-0 size-full shrink-0">
+                    <StrapiImage image={image} fill className="object-cover" />
+                  </div>
+                </div>
+              ))}
 
               {/* more images button */}
               {moreImagesCount > 0 && (

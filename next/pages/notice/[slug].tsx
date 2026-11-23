@@ -29,11 +29,7 @@ const Page = ({ notice, general }: NoticePageProps) => {
 
   return (
     <GeneralContextProvider general={general}>
-      <DefaultPageLayout
-        title={notice?.title}
-        seo={notice?.seo}
-        defaultMetaDescription={notice?.body}
-      >
+      <DefaultPageLayout title={notice.title} seo={notice.seo} defaultMetaDescription={notice.body}>
         <NoticePage notice={notice} />
       </DefaultPageLayout>
     </GeneralContextProvider>
@@ -56,7 +52,6 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
     .filter((entity) => entity.slug)
     .map((entity) => ({
       params: {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         slug: entity.slug,
       },
       locale: entity.locale || '',
@@ -97,7 +92,7 @@ export const getStaticProps: GetStaticProps<NoticePageProps, StaticParams> = asy
         slug,
       },
       currentEntityLocalizations: localizations,
-      breadcrumbsTitle: notice?.title,
+      breadcrumbsTitle: notice.title,
     }),
   ])
 

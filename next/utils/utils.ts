@@ -2,10 +2,6 @@ import prettyBytes from 'pretty-bytes'
 
 import { isDefined } from './isDefined'
 
-export const isPresent = <U>(value: U | null | undefined): value is U => {
-  return value !== null && value !== undefined
-}
-
 export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = false) => {
   const today = new Date()
   const dFrom = new Date(dateFrom)

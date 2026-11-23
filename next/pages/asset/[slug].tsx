@@ -65,7 +65,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, StaticParams> = a
           slug,
           locale: innerLocale,
         })),
-      breadcrumbsTitle: asset?.title,
+      breadcrumbsTitle: asset.title,
     }),
   ])
 
