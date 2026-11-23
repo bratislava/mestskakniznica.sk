@@ -40,7 +40,15 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {localizations?.map((entity) => (
-          <link key={entity.locale} rel="alternate" href={getPathForEntity(entity) ?? '#'} />
+          <link
+            key={entity.locale}
+            rel="alternate"
+            href={
+              entity.locale === 'sk'
+                ? (getPathForEntity(entity) ?? '#')
+                : `/${entity.locale}${getPathForEntity(entity)}`
+            }
+          />
         ))}
       </Head>
       <div
@@ -67,10 +75,7 @@ const DefaultPageLayout = ({ children, title, seo, defaultMetaDescription }: IPr
               // }}
               gdpr={{
                 title: t('footer.privacy'),
-                href:
-                  getPathForStrapiEntity(
-                    general?.privacyTermsAndConditionsPage,
-                  ) ?? '#',
+                href: getPathForStrapiEntity(general?.privacyTermsAndConditionsPage) ?? '#',
               }}
               VOP={{
                 title: t('footer.VOP'),
