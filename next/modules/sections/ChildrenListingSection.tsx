@@ -32,8 +32,8 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
 
   const mappedEvents = useMemo(
     () =>
-      upcomingEvents?.data?.map((event) => ({
-        title: event.attributes?.title ?? '',
+      upcomingEvents?.map((event) => ({
+        title: event?.title ?? '',
         path: getPathForStrapiEntity(event),
       })) ?? [],
     [getPathForStrapiEntity, upcomingEvents],
@@ -41,8 +41,8 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
 
   const mappedLatestNews = useMemo(
     () =>
-      latestNewsData?.latestNotices?.data.map((notice) => ({
-        title: notice.attributes?.title ?? '',
+      latestNewsData?.latestNotices.map((notice) => ({
+        title: notice?.title ?? '',
         path: getPathForStrapiEntity(notice),
       })) ?? [],
     [getPathForStrapiEntity, latestNewsData],
@@ -56,11 +56,9 @@ const ChildrenListingSection = ({ section }: ChildrenListingSectionProps) => {
     return (
       <>
         {children?.map((child, index) => {
-          const isEventsPage =
-            child.slug === general?.data?.attributes?.eventsPage?.data?.attributes?.slug
+          const isEventsPage = child.slug === general?.eventsPage?.slug
 
-          const isNoticesPage =
-            child.slug === general?.data?.attributes?.noticesPage?.data?.attributes?.slug
+          const isNoticesPage = child.slug === general?.noticesPage?.slug
 
           const listingChildren = (() => {
             if (isEventsPage) {

@@ -6,6 +6,10 @@ const codegenConfig: CodegenConfig = {
   generates: {
     './services/graphql/index.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-graphql-request'],
+      config: {
+        // Strapi sends these scalars as ISO strings, without a mapping codegen types them as `unknown`.
+        scalars: { Date: 'string', DateTime: 'string', Time: 'string' },
+      },
     },
   },
 }

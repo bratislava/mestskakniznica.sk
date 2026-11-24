@@ -32,7 +32,7 @@ type PageProps = {
 const Page = ({ page, general, dehydratedState }: PageProps) => {
   let pageComponentByLayout: ReactNode = null
 
-  switch (page?.attributes?.layout) {
+  switch (page.layout) {
     case Enum_Page_Layout.FullContent:
       pageComponentByLayout = <FullContentPage page={page} />
       break
@@ -46,9 +46,9 @@ const Page = ({ page, general, dehydratedState }: PageProps) => {
     <HydrationBoundary state={dehydratedState}>
       <GeneralContextProvider general={general}>
         <DefaultPageLayout
-          title={page.attributes?.title}
-          seo={page.attributes?.seo}
-          defaultMetaDescription={page.attributes?.perex}
+          title={page.title}
+          seo={page.seo}
+          defaultMetaDescription={page.perex}
         >
           {pageComponentByLayout}
         </DefaultPageLayout>
@@ -100,7 +100,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
 
   const { pages } = await client.PageBySlug({ slug, locale })
 
-  const page = pages?.data[0] ?? null
+  const page = pages[0] ?? null
   if (!page) {
     return NOT_FOUND
   }

@@ -43,6 +43,8 @@ export type CommonSearchResult = {
   type: CommonSearchType
   title: string
   id: number
+  /** Strapi 5 `documentId`, used to link to entry routes. */
+  documentId: string
   slug: string
 }
 
@@ -74,6 +76,7 @@ export const commonSearchFetcher = (filters: CommonSearchFilters, locale: string
           type,
           title: dataInner.title,
           id: dataInner.id,
+          documentId: dataInner.documentId,
           slug: dataInner.slug,
         } as CommonSearchResult
       })

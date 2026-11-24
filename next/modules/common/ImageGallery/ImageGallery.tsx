@@ -9,6 +9,7 @@ import { useOverlayTriggerState } from 'react-stately'
 import StrapiImage from '@/modules/common/StrapiImage'
 import { UploadImageEntityFragment } from '@/services/graphql'
 import cn from '@/utils/cn'
+import { isDefined } from '@/utils/isDefined'
 import { onEnterOrSpaceKeyDown } from '@/utils/onEnterOrSpaceKeyDown'
 
 import ImageLightBox from './ImageLightBox'
@@ -100,10 +101,10 @@ const ImageGallery = ({ images, variant = 'below' }: ImageGalleryProps) => {
                 'pt-[54%]': thumbnailCount === 0 && variant === 'aside',
               })}
             >
-              {firstImage.attributes ? (
+              {firstImage ? (
                 <div>
                   <div className="absolute top-0 size-full shrink-0">
-                    <StrapiImage image={firstImage.attributes} fill className="object-cover" />
+                    <StrapiImage image={firstImage} fill className="object-cover" />
                   </div>
                   <div className="absolute right-2 bottom-2 rounded-sm bg-button-dark px-2 py-1 text-white md:hidden">
                     {`1/${images.length}`}
@@ -119,21 +120,19 @@ const ImageGallery = ({ images, variant = 'below' }: ImageGalleryProps) => {
               className="mt-2 grid gap-2"
               style={{ gridTemplateColumns: `repeat(${thumbnailCount + 1}, 1fr)` }}
             >
-              {smallImages
-                .filter((image) => image.attributes)
-                .map((image, index) =>
-                  image?.attributes ? (
-                    <div
-                      key={image.id}
-                      onClick={() => openAtImageIndex(index + 1)}
-                      className="relative size-full cursor-pointer pt-[100%]"
-                    >
-                      <div className="absolute top-0 size-full shrink-0">
-                        <StrapiImage image={image.attributes} fill className="object-cover" />
-                      </div>
+              {smallImages.filter(isDefined).map((image, index) =>
+                image ? (
+                  <div
+                    key={image.documentId}
+                    onClick={() => openAtImageIndex(index + 1)}
+                    className="relative size-full cursor-pointer pt-[100%]"
+                  >
+                    <div className="absolute top-0 size-full shrink-0">
+                      <StrapiImage image={image} fill className="object-cover" />
                     </div>
-                  ) : null,
-                )}
+                  </div>
+                ) : null,
+              )}
 
               {/* more images button */}
               {moreImagesCount > 0 && (
@@ -158,21 +157,17 @@ const ImageGallery = ({ images, variant = 'below' }: ImageGalleryProps) => {
                 hidden: images.length === 1,
               })}
             >
-              {smallImages
-                .filter((image) => image.attributes)
-                .map((image, index) =>
-                  image?.attributes ? (
-                    <div
-                      key={image.id}
-                      onClick={() => openAtImageIndex(index + 1)}
-                      className="relative w-[168px] cursor-pointer pt-[168px]"
-                    >
-                      <div className="absolute top-0 size-full shrink-0">
-                        <StrapiImage image={image.attributes} fill className="object-cover" />
-                      </div>
-                    </div>
-                  ) : null,
-                )}
+              {smallImages.map((image, index) => (
+                <div
+                  key={image.documentId}
+                  onClick={() => openAtImageIndex(index + 1)}
+                  className="relative w-[168px] cursor-pointer pt-[168px]"
+                >
+                  <div className="absolute top-0 size-full shrink-0">
+                    <StrapiImage image={image} fill className="object-cover" />
+                  </div>
+                </div>
+              ))}
 
               {/* more images button */}
               {moreImagesCount > 0 && (

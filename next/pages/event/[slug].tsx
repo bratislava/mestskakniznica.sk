@@ -26,9 +26,9 @@ const EventSlugPage = ({ event, general }: PageProps) => {
   return (
     <GeneralContextProvider general={general}>
       <DefaultPageLayout
-        title={event.attributes?.title}
-        seo={event.attributes?.seo}
-        defaultMetaDescription={event.attributes?.description}
+        title={event?.title}
+        seo={event?.seo}
+        defaultMetaDescription={event?.description}
       >
         <EventPage event={event} />
       </DefaultPageLayout>
@@ -45,18 +45,15 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales }) 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     locales!.map((locale) => client.EventStaticPaths({ locale })),
   )
-  const entities = pathArraysForLocales
-    .flatMap(({ events }) => events?.data || [])
-    .filter(isDefined)
+  const entities = pathArraysForLocales.flatMap(({ events }) => events || []).filter(isDefined)
 
   const paths: GetStaticPathsResult<StaticParams>['paths'] = entities
-    .filter((entity) => entity.attributes?.slug)
+    .filter((entity) => entity.slug)
     .map((entity) => ({
       params: {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain,@typescript-eslint/no-non-null-assertion
-        slug: entity.attributes?.slug!,
+        slug: entity.slug,
       },
-      locale: entity.attributes?.locale || '',
+      locale: entity.locale || '',
     }))
 
   // eslint-disable-next-line no-console
@@ -80,7 +77,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
     slug,
     locale,
   })
-  const event = events?.data[0] ?? null
+  const event = events[0] ?? null
   if (!event) {
     return NOT_FOUND
   }
@@ -97,7 +94,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async (ct
         slug,
       },
       currentEntityLocalizations: localizations,
-      breadcrumbsTitle: event.attributes?.title,
+      breadcrumbsTitle: event.title,
     }),
   ])
 

@@ -45,7 +45,7 @@ import { newBookServerSideFetcher } from '@/services/opac/fetchers/new-books-ser
 export const prefetchPageSections = async (page: PageEntityFragment, locale: string) => {
   const queryClient = new QueryClient()
 
-  const sectionTypes = page?.attributes?.sections?.map((section) => section?.__typename) ?? []
+  const sectionTypes = page?.sections?.map((section) => section?.__typename) ?? []
 
   if (sectionTypes.includes('ComponentSectionsPartners')) {
     await queryClient.prefetchQuery({

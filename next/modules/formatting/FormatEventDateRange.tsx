@@ -98,7 +98,7 @@ const TimePart = ({
   )
 }
 
-type FormatEventDateRangeProps = { dateFrom?: string; dateTo?: string }
+type FormatEventDateRangeProps = { dateFrom?: string | null; dateTo?: string | null }
 
 /**
  * Formats date range to easily readable short-form.

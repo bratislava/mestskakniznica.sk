@@ -2,132 +2,218 @@
   "name": "Public",
   "description": "Default role given to unauthenticated user.",
   "type": "public",
+  "documentId": "lw042s3jaz8frtwzqaxiso8d",
+  "locale": null,
   "permissions": [
     {
-      "action": "api::asset-category.asset-category.find"
+      "action": "api::asset-category.asset-category.find",
+      "documentId": "twecoj9978u1bqon9w7pd351",
+      "locale": null
     },
     {
-      "action": "api::asset-category.asset-category.findOne"
+      "action": "api::asset-category.asset-category.findOne",
+      "documentId": "v7o07aftq806xg07abo5j6yi",
+      "locale": null
     },
     {
-      "action": "api::asset.asset.find"
+      "action": "api::asset.asset.find",
+      "documentId": "f3e29ut1o71shcvw1dqo8gqt",
+      "locale": null
     },
     {
-      "action": "api::asset.asset.findOne"
+      "action": "api::asset.asset.findOne",
+      "documentId": "ff0aqlb8diuiyn5a9pkqqu7p",
+      "locale": null
     },
     {
-      "action": "api::basic-document.basic-document.find"
+      "action": "api::basic-document.basic-document.find",
+      "documentId": "aye28w8mkdjq6umglvtl2stz",
+      "locale": null
     },
     {
-      "action": "api::basic-document.basic-document.findOne"
+      "action": "api::basic-document.basic-document.findOne",
+      "documentId": "vgg72p8gbwfq2ulws1f8lovl",
+      "locale": null
     },
     {
-      "action": "api::blog-post.blog-post.find"
+      "action": "api::blog-post.blog-post.find",
+      "documentId": "ssqy2rhrx54x7wjw3kl5043n",
+      "locale": null
     },
     {
-      "action": "api::blog-post.blog-post.findOne"
+      "action": "api::blog-post.blog-post.findOne",
+      "documentId": "ivcpbgicjttjpy92hc0b42i3",
+      "locale": null
     },
     {
-      "action": "api::book-tag.book-tag.find"
+      "action": "api::book-tag.book-tag.find",
+      "documentId": "oxkgrtvkpm67z4ze2z6qy4ow",
+      "locale": null
     },
     {
-      "action": "api::book-tag.book-tag.findOne"
+      "action": "api::book-tag.book-tag.findOne",
+      "documentId": "nl38jse8hh4w53zquoa7b8vd",
+      "locale": null
     },
     {
-      "action": "api::branch.branch.find"
+      "action": "api::branch.branch.find",
+      "documentId": "hn2nppcph8ggrgh50j7a8ivn",
+      "locale": null
     },
     {
-      "action": "api::branch.branch.findOne"
+      "action": "api::branch.branch.findOne",
+      "documentId": "we1vnucw2dswvtos8km8a0s2",
+      "locale": null
     },
     {
-      "action": "api::disclosure.disclosure.find"
+      "action": "api::disclosure.disclosure.find",
+      "documentId": "ugswb9isal114ga2wgqfckd7",
+      "locale": null
     },
     {
-      "action": "api::disclosure.disclosure.findOne"
+      "action": "api::disclosure.disclosure.findOne",
+      "documentId": "vjzixorpfgfrrn9855n9rug3",
+      "locale": null
     },
     {
-      "action": "api::document-category.document-category.find"
+      "action": "api::document-category.document-category.find",
+      "documentId": "i5yg195th2up7jz2qu0z5bx1",
+      "locale": null
     },
     {
-      "action": "api::document-category.document-category.findOne"
+      "action": "api::document-category.document-category.findOne",
+      "documentId": "i70wb91d8c2xok2r13o0ktcv",
+      "locale": null
     },
     {
-      "action": "api::document.document.find"
+      "action": "api::document.document.find",
+      "documentId": "jbpauth3btwc1lx0rjmkt6wb",
+      "locale": null
     },
     {
-      "action": "api::document.document.findOne"
+      "action": "api::document.document.findOne",
+      "documentId": "fl2apviescbmh89bjm5y8obs",
+      "locale": null
     },
     {
-      "action": "api::event-category.event-category.find"
+      "action": "api::event-category.event-category.find",
+      "documentId": "dbscsenxaga3et75dsfmbrr1",
+      "locale": null
     },
     {
-      "action": "api::event-category.event-category.findOne"
+      "action": "api::event-category.event-category.findOne",
+      "documentId": "enpjrctb2eh6r89zjuhd4gtk",
+      "locale": null
     },
     {
-      "action": "api::event-tag.event-tag.find"
+      "action": "api::event-tag.event-tag.find",
+      "documentId": "avmyylktvnq21zq5uy3t0301",
+      "locale": null
     },
     {
-      "action": "api::event-tag.event-tag.findOne"
+      "action": "api::event-tag.event-tag.findOne",
+      "documentId": "q8lmqv8gfiy0d57sln73c78c",
+      "locale": null
     },
     {
-      "action": "api::event.event.find"
+      "action": "api::event.event.find",
+      "documentId": "xut1y5fufg56uq8d1bfupgms",
+      "locale": null
     },
     {
-      "action": "api::event.event.findOne"
+      "action": "api::event.event.findOne",
+      "documentId": "ue1wfodor062doyjkycnqi1f",
+      "locale": null
     },
     {
-      "action": "api::file-category.file-category.find"
+      "action": "api::file-category.file-category.find",
+      "documentId": "o14dhb24uaj1wyo5e8zllbgd",
+      "locale": null
     },
     {
-      "action": "api::file-category.file-category.findOne"
+      "action": "api::file-category.file-category.findOne",
+      "documentId": "fkxjglq29mhnh4bvmemnvbj6",
+      "locale": null
     },
     {
-      "action": "api::footer.footer.find"
+      "action": "api::footer.footer.find",
+      "documentId": "nd2y7psg2w72v5xkcnixzhgr",
+      "locale": null
     },
     {
-      "action": "api::footer.footer.update"
+      "action": "api::footer.footer.update",
+      "documentId": "yyo7pdo9b0fnzoe6wbzap64v",
+      "locale": null
     },
     {
-      "action": "api::general.general.find"
+      "action": "api::general.general.find",
+      "documentId": "ygw5adafw5qdhd1zyqf16j7o",
+      "locale": null
     },
     {
-      "action": "api::home-page.home-page.find"
+      "action": "api::home-page.home-page.find",
+      "documentId": "k0yf703pwgzxrgv628sgkrsj",
+      "locale": null
     },
     {
-      "action": "api::menu.menu.find"
+      "action": "api::menu.menu.find",
+      "documentId": "qpqicdzjx8xkd3qdhi8paiqz",
+      "locale": null
     },
     {
-      "action": "api::menu.menu.findOne"
+      "action": "api::menu.menu.findOne",
+      "documentId": "ysj5syr3hohueeikpptzdi95",
+      "locale": null
     },
     {
-      "action": "api::navigation.navigation.find"
+      "action": "api::navigation.navigation.find",
+      "documentId": "xwrx7tns24gffk1xd5xgz8i0",
+      "locale": null
     },
     {
-      "action": "api::notice.notice.find"
+      "action": "api::notice.notice.find",
+      "documentId": "rbyoqu7crydbhu850ja4s9l0",
+      "locale": null
     },
     {
-      "action": "api::notice.notice.findOne"
+      "action": "api::notice.notice.findOne",
+      "documentId": "kinhi69i0ff7npwexakrpthg",
+      "locale": null
     },
     {
-      "action": "api::page.page.find"
+      "action": "api::page.page.find",
+      "documentId": "mio3mmrv0zekua3gt12r7y13",
+      "locale": null
     },
     {
-      "action": "api::page.page.findOne"
+      "action": "api::page.page.findOne",
+      "documentId": "a4j23w77s6094b9cgr0eu82e",
+      "locale": null
     },
     {
-      "action": "api::partner.partner.find"
+      "action": "api::partner.partner.find",
+      "documentId": "cj432c64szlxjtw1018c4jj3",
+      "locale": null
     },
     {
-      "action": "api::partner.partner.findOne"
+      "action": "api::partner.partner.findOne",
+      "documentId": "ynjcwulrjlsl3vrx8qthqokh",
+      "locale": null
     },
     {
-      "action": "plugin::i18n.locales.listLocales"
+      "action": "plugin::i18n.locales.listLocales",
+      "documentId": "mr94zx2dc6ggseob187ytcgq",
+      "locale": null
     },
     {
-      "action": "plugin::upload.content-api.find"
+      "action": "plugin::upload.content-api.find",
+      "documentId": "xee1sii7hv7d0hiu9ry44jgj",
+      "locale": null
     },
     {
-      "action": "plugin::upload.content-api.findOne"
+      "action": "plugin::upload.content-api.findOne",
+      "documentId": "zb4drfo0r2cgls0g4fd005cx",
+      "locale": null
     }
   ]
 }

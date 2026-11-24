@@ -38,9 +38,9 @@ const SectionRegistrationInfo = ({ registrationInfoSection }: RegistrationInfoPr
             </ul>
 
             <div className="pt-8">
-              {registrationInfoSection?.redirectTo?.data && (
+              {registrationInfoSection?.redirectTo && (
                 <Button
-                  href={getPathForStrapiEntity(registrationInfoSection?.redirectTo?.data) ?? '#'}
+                  href={getPathForStrapiEntity(registrationInfoSection?.redirectTo) ?? '#'}
                 >
                   {t('registerToLibraryButton')}
                 </Button>

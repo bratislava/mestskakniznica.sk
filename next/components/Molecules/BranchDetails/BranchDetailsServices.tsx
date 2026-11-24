@@ -13,7 +13,9 @@ const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
   const { t } = useTranslation()
   const { getPathForStrapiEntity } = useNavigation()
 
-  if (!branch.attributes?.servicePages?.data.length) {
+  const filteredServices = branch?.servicePages?.filter(isDefined) ?? []
+
+  if (!filteredServices.length) {
     return null
   }
 
@@ -21,21 +23,15 @@ const BranchDetailsServices = ({ branch }: BranchDetailsServicesProps) => {
     <div className="border-b border-border-dark py-10" id="services">
       <div className="text-[24px]">{t('branchDetails.services')}</div>
       <div className="grid flex-wrap gap-4 pt-5 sm:grid-cols-2">
-        {branch.attributes.servicePages.data.filter(isDefined).map((service) => {
-          if (!service.attributes) {
-            return null
-          }
-
-          return (
-            <PageCard
-              key={service.id}
-              title={service.attributes.title}
-              href={getPathForStrapiEntity(service) ?? '#'}
-              showMoreText={t('common.more')}
-              className="h-[134px] pr-[24px]"
-            />
-          )
-        })}
+        {filteredServices.map((service) => (
+          <PageCard
+            key={service.documentId}
+            title={service.title}
+            href={getPathForStrapiEntity(service) ?? '#'}
+            showMoreText={t('common.more')}
+            className="h-[134px] pr-[24px]"
+          />
+        ))}
       </div>
     </div>
   )

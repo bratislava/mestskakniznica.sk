@@ -2,10 +2,6 @@ import prettyBytes from 'pretty-bytes'
 
 import { isDefined } from './isDefined'
 
-export const isPresent = <U>(value: U | null | undefined): value is U => {
-  return value !== null && value !== undefined
-}
-
 export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = false) => {
   const today = new Date()
   const dFrom = new Date(dateFrom)
@@ -61,7 +57,7 @@ export const dayForDifferentDateTo = (dateFrom: Date, dateTo: Date, twoDigit = f
 }
 
 // method for determining if event already happened
-export const isEventPast = (dateTo: Date | string | null): boolean => {
+export const isEventPast = (dateTo: Date | string | null | undefined): boolean => {
   if (!dateTo) return false
 
   const today = new Date()

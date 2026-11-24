@@ -26,7 +26,7 @@ export const MobileNavigation = ({ isOpen, onClose, menus }: MobileNavigationPro
   const moreLinks = [
     {
       label: t('navigation.openingHours'),
-      url: getPathForStrapiEntity(general?.data?.attributes?.openingHoursPage?.data) ?? '',
+      url: getPathForStrapiEntity(general?.openingHoursPage) ?? '',
     },
     {
       label: t('navigation.onlineCatalog'),

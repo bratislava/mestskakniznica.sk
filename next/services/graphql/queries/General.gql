@@ -1,17 +1,13 @@
-fragment SectionLinkPageEntity on PageEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+fragment SectionLinkPageEntity on Page {
+  documentId
+  slug
+  title
 }
 
-fragment SectionLinkBranchEntity on BranchEntity {
-  id
-  attributes {
-    slug
-    title
-  }
+fragment SectionLinkBranchEntity on Branch {
+  documentId
+  slug
+  title
 }
 
 fragment MenuSection on ComponentMenuSections {
@@ -19,38 +15,30 @@ fragment MenuSection on ComponentMenuSections {
   sectionTitle
   sectionColumnSpan
   sectionPage {
-    data {
-      ...PageWithBaseFieldsEntity
-    }
+    ...PageWithBaseFieldsEntity
   }
   sectionLinks(pagination: { limit: -1 }) {
     id
     sectionLinkTitle
     sectionLinkPage {
-      data {
-        ...SectionLinkPageEntity
-      }
+      ...SectionLinkPageEntity
     }
     sectionLinkBranch {
-      data {
-        ...SectionLinkBranchEntity
-      }
+      ...SectionLinkBranchEntity
     }
   }
 }
 
-fragment MenuEntity on MenuEntity {
-  id
-  attributes {
-    menuTitle
-    menuTotalColumns
-    order
-    menuSections {
-      ...MenuSection
-    }
-    createdAt
-    updatedAt
+fragment MenuEntity on Menu {
+  documentId
+  menuTitle
+  menuTotalColumns
+  order
+  menuSections {
+    ...MenuSection
   }
+  createdAt
+  updatedAt
 }
 
 fragment ComponentFooterFooterColumn on ComponentFooterFooterColumn {
@@ -59,79 +47,55 @@ fragment ComponentFooterFooterColumn on ComponentFooterFooterColumn {
   footerLink {
     id
     redirectTo {
-      data {
-        ...PageWithBaseFieldsEntity
-      }
+      ...PageWithBaseFieldsEntity
     }
     title
     otherSite
   }
 }
 
-fragment FooterEntity on FooterEntity {
-  id
-  attributes {
-    footerColumns {
-      ...ComponentFooterFooterColumn
-    }
-    siteMapLink {
-      data {
-        ...PageWithBaseFieldsEntity
-      }
-    }
-    privacyLink {
-      data {
-        ...PageWithBaseFieldsEntity
-      }
-    }
+fragment FooterEntity on Footer {
+  documentId
+  footerColumns {
+    ...ComponentFooterFooterColumn
+  }
+  siteMapLink {
+    ...PageWithBaseFieldsEntity
+  }
+  privacyLink {
+    ...PageWithBaseFieldsEntity
   }
 }
 
-fragment GeneralEntity on GeneralEntity {
-  attributes {
-    eventsPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-    newBooksPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-    privacyTermsAndConditionsPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-    openingHoursPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
-    noticesPage {
-      data {
-        ...PageSlugEntity
-      }
-    }
+fragment GeneralEntity on General {
+  eventsPage {
+    ...PageSlugEntity
+  }
+  newBooksPage {
+    ...PageSlugEntity
+  }
+  privacyTermsAndConditionsPage {
+    ...PageSlugEntity
+  }
+  openingHoursPage {
+    ...PageSlugEntity
+  }
+  noticesPage {
+    ...PageSlugEntity
   }
 }
 
 ### Queries
 
 query Navigation($locale: I18NLocaleCode!) {
-  topLevelPages: pages(filters: { parentPage: { id: { eq: null } } }, locale: $locale) {
-    data {
-      ...PageEntityChildPages
-    }
+  topLevelPages: pages(filters: { parentPage: { documentId: { eq: null } } }, locale: $locale) {
+    ...PageEntityChildPages
   }
 }
 
 query General($eventsFrom: DateTime!, $locale: I18NLocaleCode!) {
   menus(locale: $locale, sort: ["order:asc"]) {
-    data {
-      ...MenuEntity
-    }
+    ...MenuEntity
   }
   upcomingEvents: events(
     locale: $locale
@@ -139,18 +103,12 @@ query General($eventsFrom: DateTime!, $locale: I18NLocaleCode!) {
     pagination: { start: 0, limit: 4 }
     filters: { dateTo: { gte: $eventsFrom } }
   ) {
-    data {
-      ...EventCardEntity
-    }
+    ...EventCardEntity
   }
   footer(locale: $locale) {
-    data {
-      ...FooterEntity
-    }
+    ...FooterEntity
   }
   general(locale: $locale) {
-    data {
-      ...GeneralEntity
-    }
+    ...GeneralEntity
   }
 }

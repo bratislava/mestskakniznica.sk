@@ -6,7 +6,7 @@ import { OpeningHoursSectionFragment } from '@/services/graphql'
 import { isDefined } from '@/utils/isDefined'
 
 const OpeningHoursSection = ({ title, branchList }: Omit<OpeningHoursSectionFragment, 'id'>) => {
-  const filteredBranches = branchList?.data.filter(isDefined) ?? []
+  const filteredBranches = branchList.filter(isDefined) ?? []
 
   return (
     <div className="flex flex-col gap-8">
@@ -19,8 +19,8 @@ const OpeningHoursSection = ({ title, branchList }: Omit<OpeningHoursSectionFrag
               <>
                 {index > 0 && <div className="border-t border-border-dark" aria-hidden />}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-h4">{branch.attributes?.title}</h3>
-                  <BranchOpeningHours days={branch.attributes?.openingHours?.days ?? []} />
+                  <h3 className="text-h4">{branch?.title}</h3>
+                  <BranchOpeningHours days={branch?.openingHours?.days ?? []} />
                 </div>
               </>
             )

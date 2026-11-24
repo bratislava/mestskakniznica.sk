@@ -6,7 +6,7 @@ import {
   SubpagesSectionFragment,
   TableRowWithIdFragment,
 } from '@/services/graphql'
-import { isPresent } from '@/utils/utils'
+import { isDefined } from '@/utils/isDefined'
 
 export const groupByTableCategory = (
   tableRows: (TableRowWithIdFragment | undefined | null)[],
@@ -31,10 +31,10 @@ export const groupByTableCategory = (
 
 // Subpages
 export const parseSubpages = (subpages: SubpagesSectionFragment): SubpageItemProps[] =>
-  subpages?.subpages?.filter(isPresent).map((subpage) => ({
-    title: subpage?.title ?? '',
-    description: subpage?.description ?? '',
-    pageSlug: subpage?.page?.data?.attributes?.slug,
+  subpages?.subpages?.filter(isDefined).map((subpage) => ({
+    title: subpage.title ?? '',
+    description: subpage.description ?? '',
+    pageSlug: subpage.page?.slug,
   })) ?? []
 
 // Group by for accordion

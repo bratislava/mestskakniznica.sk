@@ -8,13 +8,13 @@ import { isDefined } from '@/utils/isDefined'
 const NavMenuLatestEvents = () => {
   const { upcomingEvents } = useGeneralContext()
 
-  if (!upcomingEvents?.data.length) {
+  if (!upcomingEvents.length) {
     return null
   }
 
   return (
     <ul className="mt-2 grid grid-flow-col grid-rows-2 gap-x-5 gap-y-3">
-      {upcomingEvents.data.filter(isDefined).map((event, index) => {
+      {upcomingEvents.filter(isDefined).map((event, index) => {
         return (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>

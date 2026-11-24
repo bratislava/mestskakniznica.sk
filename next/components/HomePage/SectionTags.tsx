@@ -19,15 +19,15 @@ const BooksTags = ({ bookTags }: BookTagsProps) => {
       <div className="flex grow-0 flex-col items-center py-8 text-center">
         <div className="mx-0 my-2 flex grow-0 flex-row flex-wrap justify-center gap-4">
           {bookTags?.map((tag) =>
-            tag.attributes?.slug ? (
+            tag?.slug ? (
               <MLink
-                href={`${opacBaseUrl}?fn=searchform&extSrchTitle=${tag.attributes.slug}`}
+                href={`${opacBaseUrl}?fn=searchform&extSrchTitle=${tag.slug}`}
                 target="_blank"
                 className="h-9 rounded-full border border-border-light px-4 py-2 text-sm/[1.1rem] whitespace-nowrap hover:border-border-dark"
                 rel="noreferrer"
-                key={tag.attributes.slug}
+                key={tag.slug}
               >
-                {tag.attributes.displayName}
+                {tag.displayName}
               </MLink>
             ) : null,
           )}

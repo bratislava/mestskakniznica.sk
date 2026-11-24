@@ -24,8 +24,8 @@ type MapSectionProps = {
 // Copied from https://github.com/bratislava/marianum/blob/master/next/components/sections/MapSection.tsx
 // calculate bounding box for localities
 const getBoundsForLocalities = (branches: BranchCardEntityFragment[]) => {
-  const longitudes = branches.map((branch) => branch.attributes?.longitude).filter(isDefined)
-  const latitudes = branches.map((branch) => branch.attributes?.latitude).filter(isDefined)
+  const longitudes = branches.map((branch) => branch?.longitude).filter(isDefined)
+  const latitudes = branches.map((branch) => branch?.latitude).filter(isDefined)
 
   return [
     [Math.min(...longitudes), Math.min(...latitudes)],
@@ -97,7 +97,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
             >
               {branches
                 .map((branch) => {
-                  const { longitude, latitude, title: branchTitle } = branch.attributes ?? {}
+                  const { longitude, latitude, title: branchTitle } = branch ?? {}
 
                   if (!longitude || !latitude) {
                     return null
@@ -105,7 +105,7 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
 
                   return (
                     <Marker
-                      key={branch.id}
+                      key={branch.documentId}
                       anchor="bottom"
                       longitude={longitude}
                       latitude={latitude}
@@ -132,12 +132,12 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
           })}
         >
           {branches.map((branch, index) => {
-            const { title: branchTitle, subBranches } = branch.attributes ?? {}
+            const { title: branchTitle, subBranches } = branch ?? {}
             const linkHref = getPathForStrapiEntity(branch) ?? '#'
 
             return (
               <CardWrapper
-                key={branch.id}
+                key={branch.documentId}
                 className={cn('relative ring-inset', {
                   'lg:border-l-0': index === 0 && !altDesign,
                   'w-70 shrink-0 border border-border-dark lg:mb-6 lg:w-auto lg:flex-1 lg:border-t-0 lg:border-r-0 lg:border-b-0 lg:focus-within:border-transparent':
@@ -153,9 +153,9 @@ const MapSection = ({ branches, mapboxAccessToken, title, altDesign = false }: M
                       </MLink>
                     </div>
                     <div className="mt-6 text-base">
-                      {subBranches?.data.map((subBranch) => (
-                        <div key={subBranch.id} className="text-foreground-body not-first:pt-1">
-                          {subBranch.attributes?.title}
+                      {subBranches?.filter(isDefined).map((subBranch) => (
+                        <div key={subBranch.documentId} className="text-foreground-body not-first:pt-1">
+                          {subBranch.title}
                         </div>
                       ))}
                     </div>

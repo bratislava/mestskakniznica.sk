@@ -113,7 +113,7 @@ const AssetsListingSection = () => {
               linkHref={getPathForEntity({ type, slug }) ?? '#'}
               fileExt={badgeExt}
               category={category}
-              addedAt={type === 'disclosure' ? asset.addedAt : asset.publishedAt}
+              addedAt={type === 'disclosure' ? asset.addedAt : asset.createdAt}
               metadata={metadata}
             />
           )

@@ -7,18 +7,18 @@ import {
 } from '@/services/navigation/typesNavigation'
 
 const typenameContentTypeMap = {
-  PageEntity: 'page',
-  BlogPostEntity: 'blog-post',
-  EventEntity: 'event',
-  NoticeEntity: 'notice',
-  BranchEntity: 'branch',
-  AssetEntity: 'asset',
-  DisclosureEntity: 'disclosure',
+  Page: 'page',
+  BlogPost: 'blog-post',
+  Event: 'event',
+  Notice: 'notice',
+  Branch: 'branch',
+  Asset: 'asset',
+  Disclosure: 'disclosure',
 } as const satisfies Record<string, 'page' | ContentType>
 
 export type StrapiEntity = {
   __typename?: keyof typeof typenameContentTypeMap
-  attributes?: { slug?: string | null } | null
+  slug?: string | null
 }
 
 export const getEntityForStrapiEntity = (
@@ -30,7 +30,7 @@ export const getEntityForStrapiEntity = (
 
   return {
     type: typenameContentTypeMap[strapiEntity.__typename],
-    slug: strapiEntity.attributes?.slug,
+    slug: strapiEntity.slug,
   }
 }
 

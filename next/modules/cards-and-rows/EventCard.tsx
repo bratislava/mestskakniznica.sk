@@ -14,8 +14,8 @@ import { isDefined } from '@/utils/isDefined'
 
 type EventCardProps = {
   title?: string
-  dateFrom?: string
-  dateTo?: string
+  dateFrom?: string | null
+  dateTo?: string | null
   slug?: string
   listingImage?: UploadImageFragment | null
   coverImage?: UploadImageFragment | null

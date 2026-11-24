@@ -6,8 +6,8 @@ import cn from '@/utils/cn'
 import { bratislavaTimezone } from '@/utils/consts'
 
 interface DateCardProps {
-  dateFrom: string
-  dateTo: string
+  dateFrom?: string | null
+  dateTo?: string | null
   textClassname: string
   wrapperClassname?: string
 }

@@ -17,13 +17,13 @@ const HeaderWrapper = () => {
 
   const menusParsed: MenuItem[] = useMemo(() => {
     return (
-      menus?.data
+      menus
         .map((menu) => {
-          if (!menu.attributes?.menuTitle) return null
+          if (!menu?.menuTitle) return null
 
-          const label = menu.attributes?.menuTitle
+          const label = menu?.menuTitle
           const items =
-            menu.attributes?.menuSections
+            menu?.menuSections
               ?.map((section) => {
                 if (!section) return null
 
@@ -33,30 +33,24 @@ const HeaderWrapper = () => {
                     // eslint-disable-next-line sonarjs/no-nested-functions
                     ?.map((link) => {
                       // If sectionLinkBranch is set, it takes precedence and sectionLinkPage is ignored.
-                      if (link?.sectionLinkBranch?.data?.attributes?.slug) {
+                      if (link?.sectionLinkBranch?.slug) {
                         return {
-                          label:
-                            link.sectionLinkTitle ??
-                            link?.sectionLinkBranch.data?.attributes?.title ??
-                            '',
+                          label: link.sectionLinkTitle ?? link?.sectionLinkBranch?.title ?? '',
                           url:
                             getPathForEntity({
                               type: 'branch',
-                              slug: link?.sectionLinkBranch.data?.attributes?.slug,
+                              slug: link?.sectionLinkBranch?.slug,
                             }) ?? '#',
                         }
                       }
 
-                      if (link?.sectionLinkPage?.data?.attributes?.slug) {
+                      if (link?.sectionLinkPage?.slug) {
                         return {
-                          label:
-                            link.sectionLinkTitle ??
-                            link?.sectionLinkPage.data?.attributes?.title ??
-                            '',
+                          label: link.sectionLinkTitle ?? link?.sectionLinkPage?.title ?? '',
                           url:
                             getPathForEntity({
                               type: 'page',
-                              slug: link?.sectionLinkPage.data?.attributes?.slug,
+                              slug: link?.sectionLinkPage?.slug,
                             }) ?? '#',
                         }
                       }
@@ -73,7 +67,7 @@ const HeaderWrapper = () => {
               })
               .filter(isDefined) ?? []
 
-          return { label, items, colCount: menu.attributes.menuTotalColumns ?? 4 }
+          return { label, items, colCount: menu.menuTotalColumns ?? 4 }
         })
         .filter(isDefined) ?? []
     )
