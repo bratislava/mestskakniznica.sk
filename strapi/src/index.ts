@@ -1,5 +1,3 @@
-import { registerPageTreeValidation } from './api/page/page-tree-validation'
-
 export default {
   /**
    * An asynchronous register function that runs before
@@ -7,9 +5,7 @@ export default {
    *
    * This gives you an opportunity to extend code.
    */
-  register({ strapi }) {
-    registerPageTreeValidation(strapi)
-  },
+  register(/*{ strapi }*/) {},
 
   /**
    * An asynchronous bootstrap function that runs before

@@ -127,7 +127,7 @@ fragment PageSlugEntity on Page {
   slug
 }
 
-# Fetches 5 levels of the page tree, keep in sync with MAX_LEVELS in strapi/src/api/page/content-types/page/lifecycles.ts.
+# Fetches 5 levels of the page tree. Deeper pages are missing from the navigation and their URLs return 404.
 fragment PageEntityChildPages on Page {
   __typename
   documentId
